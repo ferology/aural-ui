@@ -1,0 +1,39 @@
+{
+  "name": "aural-ui",
+  "version": "1.0.0",
+  "description": "Token-driven, white-label design system for modern web applications",
+  "private": true,
+  "main": "dist/aural-ui.js",
+  "style": "dist/aural-ui.css",
+  "scripts": {
+    "dev": "npm run watch",
+    "watch": "npm-run-all --parallel watch:*",
+    "watch:css": "postcss src/aural-ui.css -o dist/aural-ui.css --watch",
+    "build": "npm-run-all build:*",
+    "build:css": "postcss src/aural-ui.css -o dist/aural-ui.css",
+    "build:css:min": "postcss src/aural-ui.css -o dist/aural-ui.min.css --env production",
+    "build:js": "esbuild javascript/index.js --bundle --outfile=dist/aural-ui.js",
+    "build:js:min": "esbuild javascript/index.js --bundle --minify --outfile=dist/aural-ui.min.js",
+    "serve": "serve docs -p 3001"
+  },
+  "keywords": [
+    "design-system",
+    "css",
+    "ui-components",
+    "white-label",
+    "tokens"
+  ],
+  "author": "Workshop BAI Team",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.2",
+    "esbuild": "^0.19.11",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.0.0",
+    "postcss-nesting": "^12.0.2",
+    "serve": "^14.2.1"
+  }
+}
