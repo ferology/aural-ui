@@ -1,0 +1,432 @@
+/**
+ * AURAL UI - Select Component
+ *
+ * Dropdown selection with both native and custom variants
+ *
+ * Usage (Native):
+ *   <div class="select">
+ *     <select>
+ *       <option>Option 1</option>
+ *       <option>Option 2</option>
+ *     </select>
+ *   </div>
+ *
+ * Usage (Custom):
+ *   <div class="select-custom" id="my-select">
+ *     <button class="select-trigger" aria-haspopup="listbox" aria-expanded="false">
+ *       <span>Select option...</span>
+ *       <svg class="select-icon">...</svg>
+ *     </button>
+ *     <div class="select-dropdown" role="listbox" hidden>
+ *       <div class="select-option" role="option" data-value="1">Option 1</div>
+ *       <div class="select-option" role="option" data-value="2">Option 2</div>
+ *     </div>
+ *   </div>
+ */
+
+/* ========================================
+   NATIVE SELECT
+   ======================================== */
+
+.select {
+    /* Layout */
+    display: inline-flex;
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+
+    & > select {
+        /* Layout */
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        /* Spacing */
+        padding: var(--space-3) var(--space-10) var(--space-3) var(--space-4);
+
+        /* Typography */
+        font-family: var(--font-sans);
+        font-size: var(--text-base);
+        color: var(--color-select-text);
+        line-height: var(--leading-normal);
+
+        /* Appearance */
+        background: var(--color-select-bg);
+        border: 1px solid var(--color-select-border);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+
+        /* Transitions */
+        transition: var(--transition-all-fast);
+
+        /* Accessibility */
+        min-height: 44px;
+        outline: none;
+
+        /* Custom dropdown arrow */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba(255,255,255,0.5)'%3E%3Cpath d='M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right var(--space-3) center;
+        background-size: 20px;
+
+        &:hover:not(:disabled) {
+            border-color: var(--color-select-border-hover);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        &:focus {
+            border-color: var(--color-select-border-focus);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Option styling */
+        & > option {
+            background: var(--color-select-dropdown-bg);
+            color: var(--color-select-text);
+            padding: var(--space-2);
+        }
+
+        & > optgroup {
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+        }
+    }
+}
+
+/* ========================================
+   NATIVE SELECT SIZES
+   ======================================== */
+
+.select-sm {
+    max-width: 240px;
+
+    & > select {
+        padding: var(--space-2) var(--space-8) var(--space-2) var(--space-3);
+        font-size: var(--text-sm);
+        min-height: 36px;
+        background-size: 16px;
+        background-position: right var(--space-2) center;
+    }
+}
+
+.select-lg {
+    max-width: 400px;
+
+    & > select {
+        padding: var(--space-4) var(--space-12) var(--space-4) var(--space-5);
+        font-size: var(--text-lg);
+        min-height: 52px;
+        background-size: 24px;
+        background-position: right var(--space-4) center;
+    }
+}
+
+/* Full width */
+.select-full {
+    max-width: none;
+}
+
+/* ========================================
+   CUSTOM SELECT
+   ======================================== */
+
+.select-custom {
+    /* Layout */
+    display: inline-flex;
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+}
+
+/* Trigger button */
+.select-trigger {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    width: 100%;
+
+    /* Spacing */
+    padding: var(--space-3) var(--space-4);
+
+    /* Typography */
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-select-text);
+    line-height: var(--leading-normal);
+    text-align: left;
+
+    /* Appearance */
+    background: var(--color-select-bg);
+    border: 1px solid var(--color-select-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+
+    /* Transitions */
+    transition: var(--transition-all-fast);
+
+    /* Accessibility */
+    min-height: 44px;
+    outline: none;
+
+    & > span {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &:hover:not(:disabled) {
+        border-color: var(--color-select-border-hover);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    &[aria-expanded="true"] {
+        border-color: var(--color-select-border-focus);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+/* Dropdown icon */
+.select-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    transition: transform 0.2s ease;
+}
+
+.select-trigger[aria-expanded="true"] .select-icon {
+    transform: rotate(180deg);
+}
+
+/* Dropdown panel */
+.select-dropdown {
+    /* Layout */
+    position: absolute;
+    top: calc(100% + var(--space-1));
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    overflow: auto;
+    max-height: 300px;
+
+    /* Appearance */
+    background: var(--color-select-dropdown-bg);
+    border: 1px solid var(--color-select-dropdown-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+
+    /* Animation */
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+
+    &:not([hidden]) {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-medium) transparent;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-border-medium);
+        border-radius: var(--radius-full);
+    }
+}
+
+/* Select options */
+.select-option {
+    /* Spacing */
+    padding: var(--space-3) var(--space-4);
+
+    /* Typography */
+    font-size: var(--text-base);
+    color: var(--color-dropdown-item-text);
+    line-height: var(--leading-normal);
+
+    /* Interaction */
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+
+    /* Accessibility */
+    outline: none;
+    user-select: none;
+
+    &:hover,
+    &:focus {
+        background: var(--color-select-option-hover);
+    }
+
+    &[aria-selected="true"] {
+        background: var(--color-select-option-selected);
+        color: var(--color-select-option-selected-text);
+        font-weight: var(--font-medium);
+    }
+
+    &[data-disabled="true"] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+/* Option group */
+.select-optgroup {
+    & > .select-optgroup-label {
+        padding: var(--space-2) var(--space-4);
+        font-size: var(--text-xs);
+        font-weight: var(--font-semibold);
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    & > .select-option {
+        padding-left: var(--space-6);
+    }
+
+    &:not(:first-child) {
+        border-top: 1px solid var(--color-dropdown-divider);
+        margin-top: var(--space-1);
+        padding-top: var(--space-1);
+    }
+}
+
+/* ========================================
+   CUSTOM SELECT SIZES
+   ======================================== */
+
+.select-custom.select-sm {
+    max-width: 240px;
+
+    & .select-trigger {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-sm);
+        min-height: 36px;
+    }
+
+    & .select-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    & .select-option {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-sm);
+    }
+}
+
+.select-custom.select-lg {
+    max-width: 400px;
+
+    & .select-trigger {
+        padding: var(--space-4) var(--space-5);
+        font-size: var(--text-lg);
+        min-height: 52px;
+    }
+
+    & .select-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    & .select-option {
+        padding: var(--space-4) var(--space-5);
+        font-size: var(--text-lg);
+    }
+}
+
+/* Full width */
+.select-custom.select-full {
+    max-width: none;
+}
+
+/* ========================================
+   SELECT WITH LABEL
+   ======================================== */
+
+.select-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+
+    & > .select-label {
+        color: var(--color-text-primary);
+        font-size: var(--text-sm);
+        font-weight: var(--font-semibold);
+    }
+
+    & > .select-description {
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+        margin-top: calc(-1 * var(--space-1));
+    }
+
+    & > .select-error {
+        color: var(--color-error);
+        font-size: var(--text-sm);
+        margin-top: calc(-1 * var(--space-1));
+    }
+}
+
+/* Error state */
+.select-wrapper.has-error {
+    & .select > select,
+    & .select-trigger {
+        border-color: var(--color-error);
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .select > select,
+    .select-trigger,
+    .select-dropdown,
+    .select-option,
+    .select-icon {
+        transition: none;
+    }
+
+    .select-trigger[aria-expanded="true"] .select-icon {
+        transform: none;
+    }
+}

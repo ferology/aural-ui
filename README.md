@@ -2,7 +2,7 @@
 
 **Token-driven, white-label design system for modern web applications**
 
-[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](package.json)
 
 ---
@@ -151,30 +151,38 @@ npm run serve
 
 ## 🧩 Components
 
-### Layout
-- Card
-- Container
-- Grid
+### Form Controls
+- **Button** - Primary, secondary, danger, ghost variants
+- **Input** - Text, email, password, number with validation states
+- **Checkbox** - Custom styled with indeterminate state
+- **Radio** - Custom styled with button variant
+- **Toggle** - Animated on/off switch
+- **Select** - Native styled + custom dropdown variant
 
-### Forms
-- Button
-- Input
-- Select
-- Textarea
-- Checkbox
-- Radio
-
-### Feedback
-- Toast
-- Modal
-- Spinner
-- Skeleton
+### Navigation
+- **Tabs** - Underline, pills, and boxed styles
+- **Breadcrumb** - Location hierarchy with multiple separators
+- **Pagination** - Page navigation with various layouts
 
 ### Data Display
-- Badge
-- Table
-- Tabs
-- Empty State
+- **Table** - Sortable, striped, bordered, sticky headers
+- **Avatar** - Images, initials, status badges, groups
+- **Progress** - Determinate/indeterminate with color variants
+- **Badge** - Status indicators and labels
+- **Card** - Content containers
+- **Divider** - Horizontal/vertical separators
+- **Empty State** - No data placeholders
+
+### Interactive
+- **Tooltip** - Contextual information on hover/focus
+- **Dropdown** - Action menus with keyboard navigation
+- **Accordion** - Collapsible content sections
+- **Popover** - Rich content overlays
+- **Modal** - Dialog overlays
+
+### Feedback
+- **Toast** - Notification messages
+- **Skeleton** - Loading placeholders
 
 ---
 
@@ -226,7 +234,7 @@ npm run serve
 
 ## 📄 License
 
-**Proprietary** - For internal use only. All rights reserved.
+**MIT License** - See [LICENSE](LICENSE) for details.
 
 ---
 

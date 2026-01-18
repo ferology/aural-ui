@@ -1,0 +1,400 @@
+/**
+ * AURAL UI - Tabs Component
+ *
+ * Tabbed navigation for organizing content
+ *
+ * Usage:
+ *   <div class="tabs" role="tablist" aria-label="Content tabs">
+ *     <button class="tab tab-active" role="tab" aria-selected="true" aria-controls="panel-1">
+ *       Tab 1
+ *     </button>
+ *     <button class="tab" role="tab" aria-selected="false" aria-controls="panel-2">
+ *       Tab 2
+ *     </button>
+ *   </div>
+ *   <div id="panel-1" role="tabpanel" tabindex="0">Content 1</div>
+ *   <div id="panel-2" role="tabpanel" tabindex="0" hidden>Content 2</div>
+ */
+
+.tabs {
+    /* Layout */
+    display: flex;
+    position: relative;
+
+    /* Appearance */
+    border-bottom: 1px solid var(--color-tabs-border);
+
+    /* Accessibility */
+    outline: none;
+}
+
+/* ========================================
+   TAB ITEMS (Default: Underline Style)
+   ======================================== */
+
+.tab {
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    position: relative;
+
+    /* Spacing */
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: -1px;
+
+    /* Typography */
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-tabs-text);
+    line-height: var(--leading-normal);
+    white-space: nowrap;
+    text-decoration: none;
+
+    /* Appearance */
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+
+    /* Transitions */
+    transition: var(--transition-all-fast);
+
+    /* Accessibility */
+    min-height: 44px;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+
+    & > svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    &:hover:not(.tab-active):not(:disabled) {
+        color: var(--color-tabs-text-hover);
+        background: var(--color-tabs-hover-bg);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+/* Active tab */
+.tab-active,
+.tab[aria-selected="true"] {
+    color: var(--color-tabs-active-text);
+    border-bottom-color: var(--color-tabs-active-border);
+    background: var(--color-tabs-active-bg);
+}
+
+/* ========================================
+   SIZES
+   ======================================== */
+
+.tabs-sm .tab {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    min-height: 36px;
+
+    & > svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.tabs-lg .tab {
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-lg);
+    min-height: 52px;
+
+    & > svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ========================================
+   PILL VARIANT
+   ======================================== */
+
+.tabs-pills {
+    border-bottom: none;
+    gap: var(--space-2);
+
+    & .tab {
+        border: none;
+        border-radius: var(--radius-md);
+        margin-bottom: 0;
+        background: var(--color-tabs-pill-bg);
+
+        &:hover:not(.tab-active):not(:disabled) {
+            background: var(--color-tabs-hover-bg);
+        }
+    }
+
+    & .tab-active,
+    & .tab[aria-selected="true"] {
+        background: var(--color-tabs-pill-active-bg);
+        color: white;
+    }
+}
+
+/* ========================================
+   BOXED VARIANT
+   ======================================== */
+
+.tabs-boxed {
+    border: 1px solid var(--color-tabs-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-1);
+    background: rgba(255, 255, 255, 0.03);
+
+    & .tab {
+        border: none;
+        border-radius: var(--radius-sm);
+        margin-bottom: 0;
+
+        &:hover:not(.tab-active):not(:disabled) {
+            background: var(--color-tabs-hover-bg);
+        }
+    }
+
+    & .tab-active,
+    & .tab[aria-selected="true"] {
+        background: var(--color-primary);
+        color: white;
+        box-shadow: var(--shadow-sm);
+    }
+}
+
+/* ========================================
+   VERTICAL VARIANT
+   ======================================== */
+
+.tabs-vertical {
+    flex-direction: column;
+    border-bottom: none;
+    border-right: 1px solid var(--color-tabs-border);
+
+    & .tab {
+        justify-content: flex-start;
+        width: 100%;
+        border-bottom: none;
+        border-right: 2px solid transparent;
+        margin-bottom: 0;
+        margin-right: -1px;
+    }
+
+    & .tab-active,
+    & .tab[aria-selected="true"] {
+        border-right-color: var(--color-tabs-active-border);
+        border-bottom-color: transparent;
+    }
+}
+
+/* Vertical pills */
+.tabs-vertical.tabs-pills {
+    border-right: none;
+
+    & .tab {
+        border: none;
+        margin-right: 0;
+    }
+}
+
+/* Vertical boxed */
+.tabs-vertical.tabs-boxed {
+    border: 1px solid var(--color-tabs-border);
+}
+
+/* ========================================
+   CENTERED VARIANT
+   ======================================== */
+
+.tabs-center {
+    justify-content: center;
+}
+
+/* ========================================
+   FULL WIDTH VARIANT
+   ======================================== */
+
+.tabs-full {
+    & .tab {
+        flex: 1;
+    }
+}
+
+/* ========================================
+   WITH BADGE/COUNT
+   ======================================== */
+
+.tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-full);
+    margin-left: var(--space-1);
+}
+
+.tab-active .tab-badge,
+.tab[aria-selected="true"] .tab-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: currentColor;
+}
+
+.tabs-pills .tab-active .tab-badge,
+.tabs-boxed .tab-active .tab-badge {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+}
+
+/* ========================================
+   TAB PANELS
+   ======================================== */
+
+.tab-panel {
+    /* Spacing */
+    padding: var(--space-6);
+
+    /* Animation */
+    animation: tab-panel-fade-in 0.2s ease;
+
+    /* Accessibility */
+    outline: none;
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+@keyframes tab-panel-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   TAB PANELS CONTAINER
+   ======================================== */
+
+.tab-panels {
+    & > .tab-panel {
+        border: 1px solid var(--color-tabs-border);
+        border-top: none;
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+    }
+
+    & > .tab-panel:first-child {
+        border-top-left-radius: 0;
+    }
+}
+
+/* For pills and boxed variants */
+.tabs-pills + .tab-panels > .tab-panel,
+.tabs-boxed + .tab-panels > .tab-panel {
+    border: 1px solid var(--color-tabs-border);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-4);
+}
+
+/* ========================================
+   SCROLLABLE TABS
+   ======================================== */
+
+.tabs-scrollable {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-medium) transparent;
+
+    &::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-border-medium);
+        border-radius: var(--radius-full);
+    }
+}
+
+/* ========================================
+   TAB CLOSE BUTTON
+   ======================================== */
+
+.tab-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-left: var(--space-2);
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+
+    & > svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--color-text-primary);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 1px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .tab {
+        transition: none;
+    }
+
+    .tab-panel {
+        animation: none;
+    }
+}

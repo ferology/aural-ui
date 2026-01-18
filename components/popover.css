@@ -1,0 +1,475 @@
+/**
+ * AURAL UI - Popover Component
+ *
+ * Rich content overlays with positioning
+ *
+ * Usage:
+ *   <div class="popover-wrapper">
+ *     <button id="trigger" class="btn">Show Popover</button>
+ *     <div class="popover popover-top" role="dialog" aria-labelledby="popover-title" hidden>
+ *       <div class="popover-header">
+ *         <h3 id="popover-title">Popover Title</h3>
+ *         <button class="popover-close" aria-label="Close">×</button>
+ *       </div>
+ *       <div class="popover-body">
+ *         Popover content goes here
+ *       </div>
+ *     </div>
+ *   </div>
+ */
+
+.popover {
+    /* Layout */
+    position: absolute;
+    z-index: 9999;
+    max-width: 400px;
+
+    /* Appearance */
+    background: var(--color-popover-bg);
+    border: 1px solid var(--color-popover-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+
+    /* Animation */
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+
+    /* Backdrop blur */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    /* Typography */
+    font-family: var(--font-sans);
+
+    /* Accessibility */
+    outline: none;
+}
+
+/* Show state */
+.popover.popover-show,
+.popover:not([hidden]) {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+/* ========================================
+   POPOVER HEADER
+   ======================================== */
+
+.popover-header {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+
+    /* Spacing */
+    padding: var(--space-4) var(--space-5);
+
+    /* Appearance */
+    background: var(--color-popover-header-bg);
+    border-bottom: 1px solid var(--color-popover-border);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+
+    & > h3,
+    & > h4,
+    & > h5 {
+        margin: 0;
+        font-size: var(--text-base);
+        font-weight: var(--font-semibold);
+        color: var(--color-popover-header-text);
+        line-height: var(--leading-normal);
+    }
+}
+
+/* ========================================
+   POPOVER BODY
+   ======================================== */
+
+.popover-body {
+    /* Spacing */
+    padding: var(--space-4) var(--space-5);
+
+    /* Typography */
+    font-size: var(--text-sm);
+    color: var(--color-popover-body-text);
+    line-height: var(--leading-relaxed);
+
+    /* Handle overflow */
+    overflow-y: auto;
+    max-height: 400px;
+
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-medium) transparent;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-border-medium);
+        border-radius: var(--radius-full);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: -2px;
+    }
+}
+
+/* ========================================
+   POPOVER FOOTER
+   ======================================== */
+
+.popover-footer {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-2);
+
+    /* Spacing */
+    padding: var(--space-4) var(--space-5);
+
+    /* Appearance */
+    border-top: 1px solid var(--color-popover-border);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* ========================================
+   POPOVER CLOSE BUTTON
+   ======================================== */
+
+.popover-close {
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    /* Size */
+    width: 32px;
+    height: 32px;
+
+    /* Typography */
+    font-size: var(--text-xl);
+    color: var(--color-text-muted);
+    line-height: 1;
+
+    /* Appearance */
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+
+    /* Transitions */
+    transition: var(--transition-all-fast);
+
+    /* Interaction */
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--color-text-primary);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    & > svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ========================================
+   POSITIONS
+   ======================================== */
+
+/* Top */
+.popover-top {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px) scale(0.95);
+    margin-bottom: 12px;
+
+    &.popover-show,
+    &:not([hidden]) {
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+/* Bottom */
+.popover-bottom {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px) scale(0.95);
+    margin-top: 12px;
+
+    &.popover-show,
+    &:not([hidden]) {
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+/* Left */
+.popover-left {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-8px) scale(0.95);
+    margin-right: 12px;
+
+    &.popover-show,
+    &:not([hidden]) {
+        transform: translateY(-50%) translateX(0) scale(1);
+    }
+}
+
+/* Right */
+.popover-right {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%) translateX(8px) scale(0.95);
+    margin-left: 12px;
+
+    &.popover-show,
+    &:not([hidden]) {
+        transform: translateY(-50%) translateX(0) scale(1);
+    }
+}
+
+/* ========================================
+   ARROW
+   ======================================== */
+
+.popover-with-arrow::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+}
+
+.popover-with-arrow::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+}
+
+/* Top arrow */
+.popover-top.popover-with-arrow::before {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--color-popover-border);
+}
+
+.popover-top.popover-with-arrow::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--color-popover-bg);
+    margin-top: -1px;
+}
+
+/* Bottom arrow */
+.popover-bottom.popover-with-arrow::before {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--color-popover-border);
+}
+
+.popover-bottom.popover-with-arrow::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--color-popover-header-bg);
+    margin-bottom: -1px;
+}
+
+/* Left arrow */
+.popover-left.popover-with-arrow::before {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--color-popover-border);
+}
+
+.popover-left.popover-with-arrow::after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--color-popover-bg);
+    margin-left: -1px;
+}
+
+/* Right arrow */
+.popover-right.popover-with-arrow::before {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--color-popover-border);
+}
+
+.popover-right.popover-with-arrow::after {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--color-popover-bg);
+    margin-right: -1px;
+}
+
+/* ========================================
+   SIZES
+   ======================================== */
+
+.popover-sm {
+    max-width: 250px;
+
+    & .popover-header,
+    & .popover-body,
+    & .popover-footer {
+        padding: var(--space-3) var(--space-4);
+    }
+
+    & .popover-header > h3,
+    & .popover-header > h4,
+    & .popover-header > h5 {
+        font-size: var(--text-sm);
+    }
+
+    & .popover-body {
+        font-size: var(--text-xs);
+    }
+}
+
+.popover-lg {
+    max-width: 600px;
+
+    & .popover-header,
+    & .popover-body,
+    & .popover-footer {
+        padding: var(--space-5) var(--space-6);
+    }
+
+    & .popover-header > h3,
+    & .popover-header > h4,
+    & .popover-header > h5 {
+        font-size: var(--text-lg);
+    }
+
+    & .popover-body {
+        font-size: var(--text-base);
+    }
+}
+
+.popover-xl {
+    max-width: 800px;
+
+    & .popover-header,
+    & .popover-body,
+    & .popover-footer {
+        padding: var(--space-6) var(--space-8);
+    }
+
+    & .popover-header > h3,
+    & .popover-header > h4,
+    & .popover-header > h5 {
+        font-size: var(--text-xl);
+    }
+
+    & .popover-body {
+        font-size: var(--text-lg);
+    }
+}
+
+/* ========================================
+   WRAPPER FOR POSITIONING
+   ======================================== */
+
+.popover-wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+/* ========================================
+   VARIANTS
+   ======================================== */
+
+/* No header */
+.popover-no-header .popover-body {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+/* No footer */
+.popover-no-footer .popover-body {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* Simple (no header or footer) */
+.popover-simple .popover-body {
+    border-radius: var(--radius-md);
+}
+
+/* ========================================
+   BACKDROP
+   ======================================== */
+
+.popover-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9998;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+
+    &.popover-backdrop-show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Ensure popover is keyboard accessible */
+.popover:focus {
+    outline: none;
+}
+
+/* Focus trap indicator */
+.popover-focus-trap {
+    position: relative;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .popover,
+    .popover-backdrop,
+    .popover-close {
+        transition: none;
+    }
+
+    .popover.popover-show,
+    .popover:not([hidden]) {
+        transform: none !important;
+    }
+}

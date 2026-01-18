@@ -1,0 +1,393 @@
+/**
+ * AURAL UI - Accordion Component
+ *
+ * Collapsible sections for organizing content
+ *
+ * Usage:
+ *   <div class="accordion">
+ *     <div class="accordion-item">
+ *       <button class="accordion-header" aria-expanded="false" aria-controls="panel-1">
+ *         <span>Section 1</span>
+ *         <svg class="accordion-icon">...</svg>
+ *       </button>
+ *       <div id="panel-1" class="accordion-panel" role="region" hidden>
+ *         <div class="accordion-content">
+ *           Content for section 1
+ *         </div>
+ *       </div>
+ *     </div>
+ *   </div>
+ */
+
+.accordion {
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+
+    /* Appearance */
+    border: 1px solid var(--color-accordion-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+
+    /* Typography */
+    font-family: var(--font-sans);
+}
+
+/* ========================================
+   ACCORDION ITEM
+   ======================================== */
+
+.accordion-item {
+    /* Appearance */
+    background: var(--color-accordion-bg);
+    border-bottom: 1px solid var(--color-accordion-border);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+/* ========================================
+   ACCORDION HEADER
+   ======================================== */
+
+.accordion-header {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    width: 100%;
+
+    /* Spacing */
+    padding: var(--space-4) var(--space-5);
+
+    /* Typography */
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--color-accordion-header-text);
+    text-align: left;
+    line-height: var(--leading-normal);
+
+    /* Appearance */
+    background: var(--color-accordion-header-bg);
+    border: none;
+
+    /* Transitions */
+    transition: var(--transition-all-fast);
+
+    /* Interaction */
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+
+    /* Accessibility */
+    min-height: 44px;
+
+    & > span {
+        flex: 1;
+    }
+
+    &:hover {
+        background: var(--color-accordion-header-hover);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: -2px;
+    }
+
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+/* ========================================
+   ACCORDION ICON
+   ======================================== */
+
+.accordion-icon {
+    /* Size */
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+
+    /* Appearance */
+    color: var(--color-accordion-icon);
+
+    /* Transitions */
+    transition: transform 0.2s ease;
+}
+
+/* Rotate icon when expanded */
+.accordion-header[aria-expanded="true"] .accordion-icon {
+    transform: rotate(180deg);
+}
+
+/* ========================================
+   ACCORDION PANEL
+   ======================================== */
+
+.accordion-panel {
+    /* Animation */
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+
+    /* Appearance */
+    background: var(--color-accordion-panel-bg);
+
+    &:not([hidden]) {
+        max-height: 2000px; /* Large enough for most content */
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   ACCORDION CONTENT
+   ======================================== */
+
+.accordion-content {
+    /* Spacing */
+    padding: var(--space-4) var(--space-5);
+
+    /* Typography */
+    font-size: var(--text-base);
+    color: var(--color-accordion-panel-text);
+    line-height: var(--leading-relaxed);
+
+    /* Accessibility */
+    outline: none;
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: -2px;
+    }
+}
+
+/* ========================================
+   SIZES
+   ======================================== */
+
+.accordion-sm {
+    & .accordion-header {
+        padding: var(--space-3) var(--space-4);
+        font-size: var(--text-sm);
+    }
+
+    & .accordion-content {
+        padding: var(--space-3) var(--space-4);
+        font-size: var(--text-sm);
+    }
+
+    & .accordion-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.accordion-lg {
+    & .accordion-header {
+        padding: var(--space-5) var(--space-6);
+        font-size: var(--text-lg);
+    }
+
+    & .accordion-content {
+        padding: var(--space-5) var(--space-6);
+        font-size: var(--text-lg);
+    }
+
+    & .accordion-icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* ========================================
+   VARIANTS
+   ======================================== */
+
+/* Flush variant (no borders) */
+.accordion-flush {
+    border: none;
+    border-radius: 0;
+
+    & .accordion-item {
+        border-bottom: 1px solid var(--color-accordion-border);
+
+        &:first-child {
+            border-top: 1px solid var(--color-accordion-border);
+        }
+    }
+}
+
+/* Separated variant */
+.accordion-separated {
+    border: none;
+    gap: var(--space-2);
+
+    & .accordion-item {
+        border: 1px solid var(--color-accordion-border);
+        border-radius: var(--radius-md);
+    }
+}
+
+/* Filled variant */
+.accordion-filled {
+    & .accordion-header {
+        background: rgba(255, 255, 255, 0.03);
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+    }
+
+    & .accordion-header[aria-expanded="true"] {
+        background: rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* ========================================
+   ACCORDION WITH ICON
+   ======================================== */
+
+.accordion-header-with-icon {
+    & > .accordion-header-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-right: var(--space-2);
+        color: var(--color-text-muted);
+    }
+}
+
+/* ========================================
+   ACCORDION WITH DESCRIPTION
+   ======================================== */
+
+.accordion-header-with-description {
+    & > span {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+    }
+
+    & .accordion-header-title {
+        font-weight: var(--font-semibold);
+        color: var(--color-accordion-header-text);
+    }
+
+    & .accordion-header-description {
+        font-size: var(--text-sm);
+        font-weight: var(--font-normal);
+        color: var(--color-text-secondary);
+    }
+}
+
+/* ========================================
+   ACCORDION WITH BADGE
+   ======================================== */
+
+.accordion-header-with-badge {
+    & .accordion-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 var(--space-1);
+        font-size: var(--text-xs);
+        font-weight: var(--font-semibold);
+        background: var(--color-bg-tertiary);
+        color: var(--color-text-secondary);
+        border-radius: var(--radius-full);
+        margin-right: var(--space-2);
+    }
+}
+
+/* ========================================
+   ALWAYS OPEN VARIANT
+   ======================================== */
+
+.accordion-always-open {
+    /* No special styles needed - handled by JS */
+}
+
+/* ========================================
+   NESTED ACCORDIONS
+   ======================================== */
+
+.accordion-nested {
+    margin-top: var(--space-2);
+
+    & .accordion-item {
+        border-left: 2px solid var(--color-accordion-border);
+        padding-left: var(--space-4);
+    }
+}
+
+/* ========================================
+   LOADING STATE
+   ======================================== */
+
+.accordion-loading {
+    & .accordion-header {
+        position: relative;
+        pointer-events: none;
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: var(--space-5);
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--color-border-medium);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+    }
+
+    & .accordion-icon {
+        display: none;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Ensure proper focus management */
+.accordion-panel:focus {
+    outline: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .accordion-header,
+    .accordion-icon,
+    .accordion-panel {
+        transition: none;
+    }
+
+    .accordion-header[aria-expanded="true"] .accordion-icon {
+        transform: none;
+    }
+
+    .accordion-panel:not([hidden]) {
+        max-height: none;
+    }
+
+    .accordion-loading .accordion-header::after {
+        animation: none;
+    }
+}

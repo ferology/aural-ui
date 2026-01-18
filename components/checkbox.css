@@ -1,0 +1,224 @@
+/**
+ * AURAL UI - Checkbox Component
+ *
+ * Custom styled checkboxes with indeterminate state support
+ *
+ * Usage:
+ *   <label class="checkbox">
+ *     <input type="checkbox">
+ *     <span>Label Text</span>
+ *   </label>
+ *   <label class="checkbox checkbox-lg">
+ *     <input type="checkbox" checked>
+ *     <span>Large Checkbox</span>
+ *   </label>
+ */
+
+.checkbox {
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    position: relative;
+
+    /* Typography */
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    line-height: var(--leading-normal);
+
+    /* Interaction */
+    cursor: pointer;
+    user-select: none;
+
+    /* Accessibility */
+    min-height: 44px;
+
+    & > input[type="checkbox"] {
+        /* Hide native checkbox */
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    & > input[type="checkbox"] + span::before {
+        content: '';
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        /* Size (default: medium) */
+        width: 20px;
+        height: 20px;
+        margin-right: var(--space-3);
+
+        /* Appearance */
+        background: var(--color-checkbox-bg);
+        border: 2px solid var(--color-checkbox-border);
+        border-radius: var(--radius-sm);
+
+        /* Transitions */
+        transition: var(--transition-all-fast);
+    }
+
+    /* Hover state */
+    &:hover > input[type="checkbox"]:not(:disabled) + span::before {
+        border-color: var(--color-checkbox-border-hover);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Checked state */
+    & > input[type="checkbox"]:checked + span::before {
+        background: var(--color-checkbox-checked-bg);
+        border-color: var(--color-checkbox-checked-border);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 75%;
+    }
+
+    /* Indeterminate state */
+    & > input[type="checkbox"]:indeterminate + span::before {
+        background: var(--color-checkbox-indeterminate-bg);
+        border-color: var(--color-checkbox-checked-border);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4 8a.75.75 0 01.75-.75h6.5a.75.75 0 010 1.5h-6.5A.75.75 0 014 8z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 75%;
+    }
+
+    /* Focus state */
+    & > input[type="checkbox"]:focus-visible + span::before {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    /* Disabled state */
+    & > input[type="checkbox"]:disabled + span {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &:has(input[type="checkbox"]:disabled) {
+        cursor: not-allowed;
+    }
+}
+
+/* ========================================
+   SIZES
+   ======================================== */
+
+.checkbox-sm {
+    font-size: var(--text-sm);
+    min-height: 36px;
+
+    & > input[type="checkbox"] + span::before {
+        width: 16px;
+        height: 16px;
+        margin-right: var(--space-2);
+    }
+}
+
+.checkbox-lg {
+    font-size: var(--text-lg);
+    min-height: 52px;
+
+    & > input[type="checkbox"] + span::before {
+        width: 24px;
+        height: 24px;
+        margin-right: var(--space-4);
+    }
+}
+
+/* ========================================
+   VARIANTS
+   ======================================== */
+
+/* Checkbox without label */
+.checkbox-only {
+    min-height: auto;
+
+    & > input[type="checkbox"] + span::before {
+        margin-right: 0;
+    }
+
+    & > span:not(::before) {
+        display: none;
+    }
+}
+
+/* Checkbox with description */
+.checkbox-with-description {
+    align-items: flex-start;
+
+    & > span {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+    }
+
+    & > span > .checkbox-description {
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+        font-weight: var(--font-normal);
+    }
+}
+
+/* ========================================
+   CHECKBOX GROUP
+   ======================================== */
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+
+    & > .checkbox-group-label {
+        color: var(--color-text-primary);
+        font-size: var(--text-sm);
+        font-weight: var(--font-semibold);
+        margin-bottom: var(--space-1);
+    }
+
+    & > .checkbox-group-description {
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+        margin-top: calc(-1 * var(--space-2));
+        margin-bottom: var(--space-2);
+    }
+}
+
+/* Horizontal layout */
+.checkbox-group-horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+
+    & > .checkbox-group-label {
+        flex-basis: 100%;
+    }
+
+    & > .checkbox-group-description {
+        flex-basis: 100%;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .checkbox > input[type="checkbox"] + span::before {
+        border-width: 3px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .checkbox > input[type="checkbox"] + span::before {
+        transition: none;
+    }
+}
