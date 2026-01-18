@@ -2049,19 +2049,19 @@
 .radio > input[type="radio"]:checked + span::after {
         content: '';
         position: absolute;
-        left: 0;
+        left: 6px;
+        top: 50%;
 
         /* Size - inner dot is 50% of outer circle */
         width: 8px;
         height: 8px;
-        margin-left: 6px;
 
         /* Appearance */
         background: var(--color-radio-dot);
         border-radius: 50%;
 
         /* Animation */
-        transform: scale(0);
+        transform: translateY(-50%) scale(0);
         animation: radio-pop 0.2s ease forwards;
     }
 
@@ -2085,13 +2085,13 @@
 
 @keyframes radio-pop {
     0% {
-        transform: scale(0);
+        transform: translateY(-50%) scale(0);
     }
     50% {
-        transform: scale(1.2);
+        transform: translateY(-50%) scale(1.2);
     }
     100% {
-        transform: scale(1);
+        transform: translateY(-50%) scale(1);
     }
 }
 
@@ -2113,7 +2113,7 @@
 .radio-sm > input[type="radio"]:checked + span::after {
         width: 6px;
         height: 6px;
-        margin-left: 5px;
+        left: 5px;
     }
 
 .radio-lg {
@@ -2130,7 +2130,7 @@
 .radio-lg > input[type="radio"]:checked + span::after {
         width: 10px;
         height: 10px;
-        margin-left: 7px;
+        left: 7px;
     }
 
 /* ========================================
@@ -2386,14 +2386,13 @@
 .toggle > input[type="checkbox"][role="switch"] + span::after {
         content: '';
         position: absolute;
-        left: 0;
+        left: 2px;
+        top: 50%;
+        transform: translateY(-50%);
 
         /* Size - thumb is slightly smaller than track height */
         width: 20px;
         height: 20px;
-        margin-left: 2px;
-        margin-top: -10px;
-        top: 50%;
 
         /* Appearance */
         background: var(--color-toggle-thumb);
@@ -2420,7 +2419,7 @@
 /* Checked state - thumb position */
 
 .toggle > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-left: 22px;
+        left: 22px;
     }
 
 /* Focus state */
@@ -2459,11 +2458,10 @@
 .toggle-sm > input[type="checkbox"][role="switch"] + span::after {
         width: 16px;
         height: 16px;
-        margin-top: -8px;
     }
 
 .toggle-sm > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-left: 18px;
+        left: 18px;
     }
 
 .toggle-lg {
@@ -2480,11 +2478,10 @@
 .toggle-lg > input[type="checkbox"][role="switch"] + span::after {
         width: 28px;
         height: 28px;
-        margin-top: -14px;
     }
 
 .toggle-lg > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-left: 26px;
+        left: 26px;
     }
 
 /* ========================================

@@ -68,14 +68,13 @@
     & > input[type="checkbox"][role="switch"] + span::after {
         content: '';
         position: absolute;
-        left: 0;
+        left: 2px;
+        top: 50%;
+        transform: translateY(-50%);
 
         /* Size - thumb is slightly smaller than track height */
         width: 20px;
         height: 20px;
-        margin-left: 2px;
-        margin-top: -10px;
-        top: 50%;
 
         /* Appearance */
         background: var(--color-toggle-thumb);
@@ -99,7 +98,7 @@
 
     /* Checked state - thumb position */
     & > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-left: 22px;
+        left: 22px;
     }
 
     /* Focus state */
@@ -136,11 +135,10 @@
     & > input[type="checkbox"][role="switch"] + span::after {
         width: 16px;
         height: 16px;
-        margin-top: -8px;
     }
 
     & > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-left: 18px;
+        left: 18px;
     }
 }
 
@@ -157,11 +155,10 @@
     & > input[type="checkbox"][role="switch"] + span::after {
         width: 28px;
         height: 28px;
-        margin-top: -14px;
     }
 
     & > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-left: 26px;
+        left: 26px;
     }
 }
 
