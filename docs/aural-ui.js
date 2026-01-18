@@ -121,13 +121,574 @@
               this.closeModal(e.target.id);
             }
           });
+        },
+        // ========================================
+        // TABS
+        // ========================================
+        /**
+         * Initialize tabs with keyboard navigation
+         */
+        initTabs() {
+          document.addEventListener("DOMContentLoaded", () => {
+            const tabLists = document.querySelectorAll('[role="tablist"]');
+            tabLists.forEach((tabList) => {
+              const tabs = tabList.querySelectorAll('[role="tab"]');
+              tabs.forEach((tab) => {
+                tab.addEventListener("click", (e) => {
+                  const panelId = tab.getAttribute("aria-controls");
+                  this.switchTab(tab.id, panelId);
+                });
+                tab.addEventListener("keydown", (e) => {
+                  const tabArray = Array.from(tabs);
+                  const currentIndex = tabArray.indexOf(tab);
+                  let nextTab = null;
+                  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                    nextTab = tabArray[currentIndex + 1] || tabArray[0];
+                    e.preventDefault();
+                  } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                    nextTab = tabArray[currentIndex - 1] || tabArray[tabArray.length - 1];
+                    e.preventDefault();
+                  } else if (e.key === "Home") {
+                    nextTab = tabArray[0];
+                    e.preventDefault();
+                  } else if (e.key === "End") {
+                    nextTab = tabArray[tabArray.length - 1];
+                    e.preventDefault();
+                  }
+                  if (nextTab) {
+                    nextTab.focus();
+                    const panelId = nextTab.getAttribute("aria-controls");
+                    this.switchTab(nextTab.id, panelId);
+                  }
+                });
+              });
+            });
+          });
+        },
+        /**
+         * Switch to a specific tab
+         * @param {string} tabId - The ID of the tab element
+         * @param {string} panelId - The ID of the panel to show
+         */
+        switchTab(tabId, panelId) {
+          const tab = document.getElementById(tabId);
+          if (!tab)
+            return;
+          const tabList = tab.closest('[role="tablist"]');
+          const allTabs = tabList.querySelectorAll('[role="tab"]');
+          const allPanels = document.querySelectorAll('[role="tabpanel"]');
+          allTabs.forEach((t) => {
+            t.setAttribute("aria-selected", "false");
+            t.classList.remove("tab-active");
+            t.setAttribute("tabindex", "-1");
+          });
+          allPanels.forEach((p) => {
+            p.hidden = true;
+          });
+          tab.setAttribute("aria-selected", "true");
+          tab.classList.add("tab-active");
+          tab.setAttribute("tabindex", "0");
+          const panel = document.getElementById(panelId);
+          if (panel) {
+            panel.hidden = false;
+          }
+        },
+        // ========================================
+        // TOOLTIP
+        // ========================================
+        /**
+         * Initialize tooltips
+         */
+        initTooltips() {
+          document.addEventListener("DOMContentLoaded", () => {
+            const tooltipWrappers = document.querySelectorAll(".tooltip-wrapper");
+            tooltipWrappers.forEach((wrapper) => {
+              const trigger = wrapper.querySelector("[data-tooltip-trigger]");
+              const tooltip = wrapper.querySelector(".tooltip");
+              if (trigger && tooltip) {
+                trigger.addEventListener("mouseenter", () => {
+                  tooltip.classList.add("tooltip-show");
+                });
+                trigger.addEventListener("mouseleave", () => {
+                  tooltip.classList.remove("tooltip-show");
+                });
+                trigger.addEventListener("focus", () => {
+                  tooltip.classList.add("tooltip-show");
+                });
+                trigger.addEventListener("blur", () => {
+                  tooltip.classList.remove("tooltip-show");
+                });
+              }
+            });
+          });
+        },
+        /**
+         * Show a tooltip
+         * @param {string} triggerId - The ID of the trigger element
+         */
+        showTooltip(triggerId) {
+          const trigger = document.getElementById(triggerId);
+          if (!trigger)
+            return;
+          const wrapper = trigger.closest(".tooltip-wrapper");
+          const tooltip = wrapper?.querySelector(".tooltip");
+          if (tooltip) {
+            tooltip.classList.add("tooltip-show");
+          }
+        },
+        /**
+         * Hide a tooltip
+         * @param {string} triggerId - The ID of the trigger element
+         */
+        hideTooltip(triggerId) {
+          const trigger = document.getElementById(triggerId);
+          if (!trigger)
+            return;
+          const wrapper = trigger.closest(".tooltip-wrapper");
+          const tooltip = wrapper?.querySelector(".tooltip");
+          if (tooltip) {
+            tooltip.classList.remove("tooltip-show");
+          }
+        },
+        // ========================================
+        // DROPDOWN
+        // ========================================
+        /**
+         * Initialize dropdowns
+         */
+        initDropdowns() {
+          document.addEventListener("DOMContentLoaded", () => {
+            const dropdowns = document.querySelectorAll(".dropdown");
+            dropdowns.forEach((dropdown) => {
+              const trigger = dropdown.querySelector(".dropdown-trigger");
+              const menu = dropdown.querySelector(".dropdown-menu");
+              if (trigger && menu) {
+                trigger.addEventListener("click", (e) => {
+                  e.stopPropagation();
+                  this.toggleDropdown(dropdown.id);
+                });
+                trigger.addEventListener("keydown", (e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    this.toggleDropdown(dropdown.id);
+                  } else if (e.key === "Escape") {
+                    this.closeDropdown(dropdown.id);
+                  }
+                });
+                menu.addEventListener("keydown", (e) => {
+                  const items = menu.querySelectorAll(".dropdown-item:not([disabled])");
+                  const currentIndex = Array.from(items).indexOf(document.activeElement);
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    const next = items[currentIndex + 1] || items[0];
+                    next.focus();
+                  } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    const prev = items[currentIndex - 1] || items[items.length - 1];
+                    prev.focus();
+                  } else if (e.key === "Escape") {
+                    this.closeDropdown(dropdown.id);
+                    trigger.focus();
+                  }
+                });
+              }
+            });
+            document.addEventListener("click", (e) => {
+              if (!e.target.closest(".dropdown")) {
+                document.querySelectorAll(".dropdown.dropdown-open").forEach((dd) => {
+                  this.closeDropdown(dd.id);
+                });
+              }
+            });
+          });
+        },
+        /**
+         * Open a dropdown
+         * @param {string} dropdownId - The ID of the dropdown element
+         */
+        openDropdown(dropdownId) {
+          const dropdown = document.getElementById(dropdownId);
+          if (!dropdown)
+            return;
+          const trigger = dropdown.querySelector(".dropdown-trigger");
+          const menu = dropdown.querySelector(".dropdown-menu");
+          dropdown.classList.add("dropdown-open");
+          trigger?.setAttribute("aria-expanded", "true");
+          menu?.removeAttribute("hidden");
+          const firstItem = menu?.querySelector(".dropdown-item:not([disabled])");
+          firstItem?.focus();
+        },
+        /**
+         * Close a dropdown
+         * @param {string} dropdownId - The ID of the dropdown element
+         */
+        closeDropdown(dropdownId) {
+          const dropdown = document.getElementById(dropdownId);
+          if (!dropdown)
+            return;
+          const trigger = dropdown.querySelector(".dropdown-trigger");
+          const menu = dropdown.querySelector(".dropdown-menu");
+          dropdown.classList.remove("dropdown-open");
+          trigger?.setAttribute("aria-expanded", "false");
+          menu?.setAttribute("hidden", "");
+        },
+        /**
+         * Toggle a dropdown
+         * @param {string} dropdownId - The ID of the dropdown element
+         */
+        toggleDropdown(dropdownId) {
+          const dropdown = document.getElementById(dropdownId);
+          if (!dropdown)
+            return;
+          if (dropdown.classList.contains("dropdown-open")) {
+            this.closeDropdown(dropdownId);
+          } else {
+            this.openDropdown(dropdownId);
+          }
+        },
+        // ========================================
+        // ACCORDION
+        // ========================================
+        /**
+         * Initialize accordions
+         */
+        initAccordions() {
+          document.addEventListener("DOMContentLoaded", () => {
+            const accordions = document.querySelectorAll(".accordion");
+            accordions.forEach((accordion) => {
+              const items = accordion.querySelectorAll(".accordion-item");
+              const allowMultiple = accordion.classList.contains("accordion-always-open");
+              items.forEach((item) => {
+                const header = item.querySelector(".accordion-header");
+                const panel = item.querySelector(".accordion-panel");
+                if (header && panel) {
+                  header.addEventListener("click", () => {
+                    const isExpanded = header.getAttribute("aria-expanded") === "true";
+                    if (!allowMultiple) {
+                      items.forEach((otherItem) => {
+                        if (otherItem !== item) {
+                          const otherHeader = otherItem.querySelector(".accordion-header");
+                          const otherPanel = otherItem.querySelector(".accordion-panel");
+                          otherHeader?.setAttribute("aria-expanded", "false");
+                          otherPanel?.setAttribute("hidden", "");
+                        }
+                      });
+                    }
+                    if (isExpanded) {
+                      this.closeAccordion(item.id);
+                    } else {
+                      this.openAccordion(item.id);
+                    }
+                  });
+                }
+              });
+            });
+          });
+        },
+        /**
+         * Open an accordion item
+         * @param {string} itemId - The ID of the accordion item
+         */
+        openAccordion(itemId) {
+          const item = document.getElementById(itemId);
+          if (!item)
+            return;
+          const header = item.querySelector(".accordion-header");
+          const panel = item.querySelector(".accordion-panel");
+          header?.setAttribute("aria-expanded", "true");
+          panel?.removeAttribute("hidden");
+        },
+        /**
+         * Close an accordion item
+         * @param {string} itemId - The ID of the accordion item
+         */
+        closeAccordion(itemId) {
+          const item = document.getElementById(itemId);
+          if (!item)
+            return;
+          const header = item.querySelector(".accordion-header");
+          const panel = item.querySelector(".accordion-panel");
+          header?.setAttribute("aria-expanded", "false");
+          panel?.setAttribute("hidden", "");
+        },
+        /**
+         * Toggle an accordion item
+         * @param {string} itemId - The ID of the accordion item
+         */
+        toggleAccordion(itemId) {
+          const item = document.getElementById(itemId);
+          if (!item)
+            return;
+          const header = item.querySelector(".accordion-header");
+          const isExpanded = header?.getAttribute("aria-expanded") === "true";
+          if (isExpanded) {
+            this.closeAccordion(itemId);
+          } else {
+            this.openAccordion(itemId);
+          }
+        },
+        // ========================================
+        // POPOVER
+        // ========================================
+        /**
+         * Initialize popovers
+         */
+        initPopovers() {
+          document.addEventListener("DOMContentLoaded", () => {
+            const popoverWrappers = document.querySelectorAll(".popover-wrapper");
+            popoverWrappers.forEach((wrapper) => {
+              const trigger = wrapper.querySelector("[data-popover-trigger]");
+              const popover = wrapper.querySelector(".popover");
+              const closeBtn = popover?.querySelector(".popover-close");
+              if (trigger && popover) {
+                trigger.addEventListener("click", () => {
+                  this.togglePopover(trigger.id);
+                });
+                closeBtn?.addEventListener("click", () => {
+                  this.hidePopover(trigger.id);
+                });
+                document.addEventListener("keydown", (e) => {
+                  if (e.key === "Escape" && !popover.hidden) {
+                    this.hidePopover(trigger.id);
+                  }
+                });
+              }
+            });
+            document.addEventListener("click", (e) => {
+              if (!e.target.closest(".popover-wrapper")) {
+                document.querySelectorAll(".popover.popover-show").forEach((p) => {
+                  p.classList.remove("popover-show");
+                  p.hidden = true;
+                });
+              }
+            });
+          });
+        },
+        /**
+         * Show a popover
+         * @param {string} triggerId - The ID of the trigger element
+         */
+        showPopover(triggerId) {
+          const trigger = document.getElementById(triggerId);
+          if (!trigger)
+            return;
+          const wrapper = trigger.closest(".popover-wrapper");
+          const popover = wrapper?.querySelector(".popover");
+          if (popover) {
+            popover.classList.add("popover-show");
+            popover.hidden = false;
+            const focusable = popover.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            focusable?.focus();
+          }
+        },
+        /**
+         * Hide a popover
+         * @param {string} triggerId - The ID of the trigger element
+         */
+        hidePopover(triggerId) {
+          const trigger = document.getElementById(triggerId);
+          if (!trigger)
+            return;
+          const wrapper = trigger.closest(".popover-wrapper");
+          const popover = wrapper?.querySelector(".popover");
+          if (popover) {
+            popover.classList.remove("popover-show");
+            popover.hidden = true;
+          }
+        },
+        /**
+         * Toggle a popover
+         * @param {string} triggerId - The ID of the trigger element
+         */
+        togglePopover(triggerId) {
+          const trigger = document.getElementById(triggerId);
+          if (!trigger)
+            return;
+          const wrapper = trigger.closest(".popover-wrapper");
+          const popover = wrapper?.querySelector(".popover");
+          if (popover?.classList.contains("popover-show")) {
+            this.hidePopover(triggerId);
+          } else {
+            this.showPopover(triggerId);
+          }
+        },
+        // ========================================
+        // SELECT (Custom)
+        // ========================================
+        /**
+         * Initialize custom select components
+         */
+        initSelects() {
+          document.addEventListener("DOMContentLoaded", () => {
+            const selects = document.querySelectorAll(".select-custom");
+            selects.forEach((select) => {
+              const trigger = select.querySelector(".select-trigger");
+              const dropdown = select.querySelector(".select-dropdown");
+              const options = select.querySelectorAll(".select-option");
+              if (trigger && dropdown) {
+                trigger.addEventListener("click", () => {
+                  this.toggleSelect(select.id);
+                });
+                options.forEach((option) => {
+                  option.addEventListener("click", () => {
+                    const value = option.getAttribute("data-value");
+                    this.selectOption(select.id, value);
+                  });
+                  option.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      const value = option.getAttribute("data-value");
+                      this.selectOption(select.id, value);
+                    }
+                  });
+                });
+                dropdown.addEventListener("keydown", (e) => {
+                  const items = Array.from(options).filter((o) => !o.hasAttribute("data-disabled"));
+                  const currentIndex = items.indexOf(document.activeElement);
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    const next = items[currentIndex + 1] || items[0];
+                    next?.focus();
+                  } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    const prev = items[currentIndex - 1] || items[items.length - 1];
+                    prev?.focus();
+                  } else if (e.key === "Escape") {
+                    this.closeSelect(select.id);
+                    trigger.focus();
+                  }
+                });
+              }
+            });
+            document.addEventListener("click", (e) => {
+              if (!e.target.closest(".select-custom")) {
+                document.querySelectorAll(".select-custom").forEach((s) => {
+                  this.closeSelect(s.id);
+                });
+              }
+            });
+          });
+        },
+        /**
+         * Open a custom select
+         * @param {string} selectId - The ID of the select element
+         */
+        openSelect(selectId) {
+          const select = document.getElementById(selectId);
+          if (!select)
+            return;
+          const trigger = select.querySelector(".select-trigger");
+          const dropdown = select.querySelector(".select-dropdown");
+          trigger?.setAttribute("aria-expanded", "true");
+          dropdown?.removeAttribute("hidden");
+          const selected = dropdown?.querySelector('.select-option[aria-selected="true"]');
+          selected?.focus();
+        },
+        /**
+         * Close a custom select
+         * @param {string} selectId - The ID of the select element
+         */
+        closeSelect(selectId) {
+          const select = document.getElementById(selectId);
+          if (!select)
+            return;
+          const trigger = select.querySelector(".select-trigger");
+          const dropdown = select.querySelector(".select-dropdown");
+          trigger?.setAttribute("aria-expanded", "false");
+          dropdown?.setAttribute("hidden", "");
+        },
+        /**
+         * Toggle a custom select
+         * @param {string} selectId - The ID of the select element
+         */
+        toggleSelect(selectId) {
+          const select = document.getElementById(selectId);
+          if (!select)
+            return;
+          const trigger = select.querySelector(".select-trigger");
+          const isOpen = trigger?.getAttribute("aria-expanded") === "true";
+          if (isOpen) {
+            this.closeSelect(selectId);
+          } else {
+            this.openSelect(selectId);
+          }
+        },
+        /**
+         * Select an option in a custom select
+         * @param {string} selectId - The ID of the select element
+         * @param {string} value - The value to select
+         */
+        selectOption(selectId, value) {
+          const select = document.getElementById(selectId);
+          if (!select)
+            return;
+          const trigger = select.querySelector(".select-trigger");
+          const options = select.querySelectorAll(".select-option");
+          options.forEach((option) => {
+            option.setAttribute("aria-selected", "false");
+          });
+          const selectedOption = Array.from(options).find((o) => o.getAttribute("data-value") === value);
+          if (selectedOption) {
+            selectedOption.setAttribute("aria-selected", "true");
+            const label = trigger?.querySelector("span");
+            if (label) {
+              label.textContent = selectedOption.textContent;
+            }
+          }
+          this.closeSelect(selectId);
+        },
+        // ========================================
+        // PROGRESS
+        // ========================================
+        /**
+         * Set progress value
+         * @param {string} progressId - The ID of the progress element
+         * @param {number} value - Progress value (0-100)
+         */
+        setProgress(progressId, value) {
+          const progress = document.getElementById(progressId);
+          if (!progress)
+            return;
+          const bar = progress.querySelector(".progress-bar");
+          if (bar) {
+            bar.style.width = `${value}%`;
+            progress.setAttribute("aria-valuenow", value.toString());
+          }
+        },
+        // ========================================
+        // CHECKBOX
+        // ========================================
+        /**
+         * Set indeterminate state on checkbox
+         * @param {string} checkboxId - The ID of the checkbox input element
+         * @param {boolean} indeterminate - Whether to set indeterminate state
+         */
+        setIndeterminate(checkboxId, indeterminate = true) {
+          const checkbox = document.getElementById(checkboxId);
+          if (checkbox && checkbox.type === "checkbox") {
+            checkbox.indeterminate = indeterminate;
+          }
         }
       };
       if (typeof document !== "undefined") {
         if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", () => Aural.initModals());
+          document.addEventListener("DOMContentLoaded", () => {
+            Aural.initModals();
+            Aural.initTabs();
+            Aural.initTooltips();
+            Aural.initDropdowns();
+            Aural.initAccordions();
+            Aural.initPopovers();
+            Aural.initSelects();
+          });
         } else {
           Aural.initModals();
+          Aural.initTabs();
+          Aural.initTooltips();
+          Aural.initDropdowns();
+          Aural.initAccordions();
+          Aural.initPopovers();
+          Aural.initSelects();
         }
       }
       if (typeof module !== "undefined" && module.exports) {
