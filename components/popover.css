@@ -23,6 +23,7 @@
     position: absolute;
     z-index: 9999;
     max-width: 400px;
+    display: block;
 
     /* Appearance */
     background: var(--color-popover-bg);
@@ -45,6 +46,11 @@
 
     /* Accessibility */
     outline: none;
+}
+
+/* Override browser default hidden behavior */
+.popover[hidden] {
+    display: block;
 }
 
 /* Show state */
