@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aural UI - Component Showcase</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css">
+
+    <!-- Choose theme -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+
+    <style>
+        body {
+            padding: var(--space-8);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .showcase-section {
+            margin-bottom: var(--space-12);
+            padding-bottom: var(--space-12);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .showcase-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-2);
+            background: linear-gradient(135deg, var(--color-text-primary), var(--color-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .showcase-subtitle {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-8);
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .example {
+            margin-bottom: var(--space-6);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-2);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-4);
+            right: var(--space-4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="btn btn-ghost theme-toggle" onclick="toggleTheme()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        Toggle Theme
+    </button>
+
+    <h1 class="showcase-title">Aural UI</h1>
+    <p class="showcase-subtitle">Token-driven, white-label design system</p>
+
+    <!-- Buttons -->
+    <section class="showcase-section">
+        <h2>Buttons</h2>
+        <div class="example">
+            <div class="example-label">Variants</div>
+            <div class="flex gap-3">
+                <button class="btn btn-primary">Primary</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-danger">Danger</button>
+                <button class="btn btn-ghost">Ghost</button>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Sizes</div>
+            <div class="flex items-center gap-3">
+                <button class="btn btn-primary btn-sm">Small</button>
+                <button class="btn btn-primary">Default</button>
+                <button class="btn btn-primary btn-lg">Large</button>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">States</div>
+            <div class="flex gap-3">
+                <button class="btn btn-primary" disabled>Disabled</button>
+                <button class="btn btn-primary btn-loading">Loading</button>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">With Icons</div>
+            <div class="flex gap-3">
+                <button class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    Add Item
+                </button>
+                <button class="btn btn-danger">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inputs -->
+    <section class="showcase-section">
+        <h2>Inputs</h2>
+        <div class="component-grid">
+            <div class="example">
+                <div class="example-label">Normal State</div>
+                <input type="text" class="input" placeholder="Enter text">
+            </div>
+
+            <div class="example">
+                <div class="example-label">Error State</div>
+                <input type="email" class="input error" placeholder="invalid-email">
+                <p class="form-error">Please enter a valid email address</p>
+            </div>
+
+            <div class="example">
+                <div class="example-label">Success State</div>
+                <input type="text" class="input success" value="Valid input">
+                <p class="form-success">Looks good!</p>
+            </div>
+
+            <div class="example">
+                <div class="example-label">With Label & Helper</div>
+                <div class="form-group">
+                    <label class="label">Email Address</label>
+                    <input type="email" class="input" placeholder="you@example.com">
+                    <p class="form-helper">We'll never share your email</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards -->
+    <section class="showcase-section">
+        <h2>Cards</h2>
+        <div class="component-grid">
+            <div class="card">
+                <h3>Basic Card</h3>
+                <p class="text-secondary">This is a basic card with standard padding.</p>
+            </div>
+
+            <div class="card card-hover">
+                <h3>Hoverable Card</h3>
+                <p class="text-secondary">Hover me to see the lift effect!</p>
+            </div>
+
+            <div class="card card-bordered card-primary">
+                <h3>Bordered Card</h3>
+                <p class="text-secondary">Cards with left accent border.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Badges -->
+    <section class="showcase-section">
+        <h2>Badges</h2>
+        <div class="example">
+            <div class="example-label">Variants</div>
+            <div class="flex gap-2">
+                <span class="badge badge-primary">Primary</span>
+                <span class="badge badge-success">Success</span>
+                <span class="badge badge-warning">Warning</span>
+                <span class="badge badge-error">Error</span>
+                <span class="badge badge-info">Info</span>
+                <span class="badge badge-neutral">Neutral</span>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Sizes</div>
+            <div class="flex items-center gap-2">
+                <span class="badge badge-primary badge-sm">Small</span>
+                <span class="badge badge-primary">Default</span>
+                <span class="badge badge-primary badge-lg">Large</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skeletons -->
+    <section class="showcase-section">
+        <h2>Loading Skeletons</h2>
+        <div class="card">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text" style="width: 70%;"></div>
+            <div class="flex gap-4 mt-4">
+                <div class="skeleton skeleton-circle" style="width: 40px; height: 40px;"></div>
+                <div class="flex-1">
+                    <div class="skeleton skeleton-text-sm"></div>
+                    <div class="skeleton skeleton-text-sm" style="width: 60%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Empty States -->
+    <section class="showcase-section">
+        <h2>Empty State</h2>
+        <div class="card">
+            <div class="empty-state">
+                <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                    <rect x="9" y="3" width="6" height="4" rx="1"/>
+                </svg>
+                <h3 class="empty-state-title">No items yet</h3>
+                <p class="empty-state-description">Get started by creating your first item. It only takes a few seconds!</p>
+                <button class="btn btn-primary">Create Item</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Examples -->
+    <section class="showcase-section">
+        <h2>Interactive Components</h2>
+
+        <div class="example">
+            <div class="example-label">Toast Notifications</div>
+            <div class="flex gap-3">
+                <button class="btn btn-primary" onclick="Aural.showToast('Operation successful!', 'success')">Success Toast</button>
+                <button class="btn btn-danger" onclick="Aural.showToast('Something went wrong', 'error')">Error Toast</button>
+                <button class="btn btn-secondary" onclick="Aural.showToast('Please review this', 'warning')">Warning Toast</button>
+                <button class="btn btn-ghost" onclick="Aural.showToast('Here\\'s some info', 'info')">Info Toast</button>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Modal Dialog</div>
+            <button class="btn btn-primary" onclick="Aural.openModal('demo-modal')">Open Modal</button>
+        </div>
+    </section>
+
+    <!-- Modal Example -->
+    <div class="modal-overlay" id="demo-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="modal-title">Modal Title</h2>
+                    <p class="modal-subtitle">This is a modal dialog example</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="label">Name</label>
+                    <input type="text" class="input" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label class="label">Email</label>
+                    <input type="email" class="input" placeholder="you@example.com">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Aural.closeModal('demo-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="Aural.closeModal('demo-modal'); Aural.showToast('Saved!', 'success')">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="./aural-ui.js"></script>
+
+    <script>
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? './dark.css' : './light.css';
+        }
+    </script>
+</body>
+</html>

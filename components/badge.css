@@ -1,0 +1,92 @@
+/**
+ * AURAL UI - Badge Component
+ *
+ * Small status indicators and labels
+ *
+ * Usage:
+ *   <span class="badge badge-primary">New</span>
+ *   <span class="badge badge-success">Active</span>
+ */
+
+.badge {
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+
+    /* Spacing */
+    padding: 0.25rem var(--space-2);
+
+    /* Typography */
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    line-height: var(--leading-none);
+
+    /* Appearance */
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+/* ========================================
+   VARIANTS
+   ======================================== */
+
+.badge-primary {
+    background: var(--color-badge-primary-bg);
+    color: var(--color-badge-primary-text);
+}
+
+.badge-success {
+    background: var(--color-badge-success-bg);
+    color: var(--color-badge-success-text);
+}
+
+.badge-warning {
+    background: var(--color-badge-warning-bg);
+    color: var(--color-badge-warning-text);
+}
+
+.badge-error {
+    background: var(--color-badge-error-bg);
+    color: var(--color-badge-error-text);
+}
+
+.badge-info {
+    background: var(--color-badge-info-bg);
+    color: var(--color-badge-info-text);
+}
+
+/* Neutral badge */
+.badge-neutral {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   SIZES
+   ======================================== */
+
+.badge-sm {
+    padding: 0.125rem var(--space-1);
+    font-size: 0.625rem; /* 10px */
+}
+
+.badge-lg {
+    padding: 0.375rem var(--space-3);
+    font-size: var(--text-sm);
+}
+
+/* ========================================
+   DOT VARIANT (with indicator)
+   ======================================== */
+
+.badge-dot {
+    & .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+}

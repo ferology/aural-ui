@@ -1,0 +1,137 @@
+/**
+ * AURAL UI - Toast Component
+ *
+ * Non-intrusive notifications
+ *
+ * Usage (via JavaScript):
+ *   Aural.showToast('Success message', 'success');
+ *   Aural.showToast('Error occurred', 'error');
+ */
+
+.toast-container {
+    position: fixed;
+    top: var(--space-6);
+    right: var(--space-6);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    pointer-events: none;
+    max-width: 420px;
+}
+
+.toast {
+    /* Layout */
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+
+    /* Spacing */
+    padding: var(--space-4) var(--space-6);
+    min-width: 320px;
+
+    /* Appearance */
+    background: var(--color-toast-bg);
+    border: 1px solid var(--color-toast-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(20px);
+
+    /* Interactions */
+    pointer-events: auto;
+
+    /* Animation */
+    animation: slideInRight var(--duration-normal) var(--ease-out);
+}
+
+/* ========================================
+   VARIANTS (Left border accent)
+   ======================================== */
+
+.toast-success { border-left: 3px solid var(--color-toast-success-border); }
+.toast-error { border-left: 3px solid var(--color-toast-error-border); }
+.toast-warning { border-left: 3px solid var(--color-toast-warning-border); }
+.toast-info { border-left: 3px solid var(--color-toast-info-border); }
+
+/* ========================================
+   TOAST PARTS
+   ======================================== */
+
+.toast-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.toast-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.toast-title {
+    font-weight: var(--font-semibold);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.toast-message {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.toast-close {
+    /* Reset button styles */
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    /* Layout */
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Appearance */
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-all-fast);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--color-text-primary);
+    }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.toast-exit {
+    animation: slideOutRight var(--duration-fast) var(--ease-in) forwards;
+}

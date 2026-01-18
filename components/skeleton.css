@@ -1,0 +1,74 @@
+/**
+ * AURAL UI - Skeleton Component
+ *
+ * Loading placeholders
+ *
+ * Usage:
+ *   <div class="skeleton skeleton-text"></div>
+ *   <div class="skeleton skeleton-circle" style="width: 40px; height: 40px;"></div>
+ */
+
+.skeleton {
+    /* Appearance */
+    background: linear-gradient(
+        90deg,
+        var(--color-skeleton-from) 0%,
+        var(--color-skeleton-via) 50%,
+        var(--color-skeleton-to) 100%
+    );
+    background-size: 200% 100%;
+    border-radius: var(--radius-md);
+
+    /* Animation */
+    animation: shimmer var(--duration-slower) infinite;
+}
+
+/* ========================================
+   VARIANTS
+   ======================================== */
+
+.skeleton-text {
+    height: 16px;
+    margin-bottom: var(--space-2);
+}
+
+.skeleton-text-sm {
+    height: 12px;
+}
+
+.skeleton-text-lg {
+    height: 20px;
+}
+
+.skeleton-title {
+    height: 24px;
+    width: 60%;
+    margin-bottom: var(--space-4);
+}
+
+.skeleton-circle {
+    border-radius: 50%;
+}
+
+.skeleton-button {
+    height: 44px;
+    width: 120px;
+}
+
+.skeleton-card {
+    height: 200px;
+    width: 100%;
+}
+
+/* ========================================
+   ANIMATION
+   ======================================== */
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

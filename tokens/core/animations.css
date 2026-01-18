@@ -1,0 +1,41 @@
+/**
+ * AURAL UI - Core Animation Tokens
+ *
+ * Durations, easing functions, and transitions
+ */
+
+:root {
+    /* ========================================
+       Durations
+       ======================================== */
+    --duration-instant: 0ms;
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
+    --duration-slower: 750ms;
+    --duration-slowest: 1000ms;
+
+    /* ========================================
+       Easing Functions
+       ======================================== */
+    --ease-linear: linear;
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* ========================================
+       Common Transitions
+       ======================================== */
+    --transition-fast: var(--duration-fast) var(--ease-in-out);
+    --transition-normal: var(--duration-normal) var(--ease-in-out);
+    --transition-slow: var(--duration-slow) var(--ease-in-out);
+    --transition-all-fast: all var(--duration-fast) var(--ease-in-out);
+    --transition-all-normal: all var(--duration-normal) var(--ease-in-out);
+    --transition-colors: color var(--duration-fast) var(--ease-in-out),
+                         background-color var(--duration-fast) var(--ease-in-out),
+                         border-color var(--duration-fast) var(--ease-in-out);
+    --transition-transform: transform var(--duration-fast) var(--ease-in-out);
+    --transition-opacity: opacity var(--duration-normal) var(--ease-in-out);
+}

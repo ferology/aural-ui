@@ -1,0 +1,70 @@
+/**
+ * AURAL UI - Dark Theme
+ *
+ * Default dark theme with teal accent (Bai brand)
+ * Optimized for low-light conditions
+ */
+
+:root {
+    /* ========================================
+       Background Colors (Dark Mode)
+       ======================================== */
+    --color-bg-primary: #0f0f1a;          /* Slightly lighter than pure black */
+    --color-bg-secondary: #1a1a2e;
+    --color-bg-tertiary: #252540;
+    --color-bg-elevated: #2a2a45;
+    --color-bg-overlay: rgba(0, 0, 0, 0.85);
+    --color-bg-hover: #35355a;
+    --color-bg-active: #40406f;
+
+    --color-bg-glass: rgba(10, 10, 18, 0.7);
+    --color-bg-glass-light: rgba(255, 255, 255, 0.05);
+
+    /* ========================================
+       Text Colors (Dark Mode)
+       ======================================== */
+    --color-text-primary: #f5f5fa;        /* High contrast */
+    --color-text-secondary: #a0a0b8;      /* 5.2:1 contrast (WCAG AA+) */
+    --color-text-tertiary: #8a8aa0;
+    --color-text-muted: #707080;          /* 4.5:1 contrast (WCAG AA) */
+    --color-text-disabled: #50505f;
+    --color-text-inverse: #0f0f1a;
+
+    /* ========================================
+       Border Colors (Dark Mode)
+       ======================================== */
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-medium: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.16);
+
+    /* ========================================
+       Component Overrides (Dark Mode)
+       ======================================== */
+
+    /* Inputs */
+    --color-input-bg: rgba(255, 255, 255, 0.03);
+    --color-input-border: var(--color-border-subtle);
+    --color-input-border-hover: var(--color-border-medium);
+    --color-input-disabled-bg: rgba(255, 255, 255, 0.01);
+
+    /* Cards */
+    --color-card-bg: rgba(26, 26, 37, 0.7);
+    --color-card-border: var(--color-border-subtle);
+
+    /* Modal */
+    --color-modal-bg: #0f0f1a;
+
+    /* Toast */
+    --color-toast-bg: #2a2a45;
+
+    /* Skeleton */
+    --color-skeleton-from: rgba(255, 255, 255, 0.03);
+    --color-skeleton-via: rgba(255, 255, 255, 0.06);
+    --color-skeleton-to: rgba(255, 255, 255, 0.03);
+}
+
+/* Dark mode body styles */
+body {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+}

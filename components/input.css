@@ -1,0 +1,171 @@
+/**
+ * AURAL UI - Input Component
+ *
+ * Text inputs with validation states and form helpers
+ *
+ * Usage:
+ *   <input type="text" class="input" placeholder="Enter text">
+ *   <input type="email" class="input error" placeholder="Invalid email">
+ *   <div class="form-group">
+ *     <label class="label">Email</label>
+ *     <input type="email" class="input">
+ *     <p class="form-helper">We'll never share your email</p>
+ *   </div>
+ */
+
+/* ========================================
+   INPUT FIELD
+   ======================================== */
+
+.input {
+    /* Layout */
+    width: 100%;
+    display: block;
+
+    /* Spacing */
+    padding: var(--space-3) var(--space-4);
+
+    /* Typography */
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-input-text);
+
+    /* Appearance */
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
+
+    /* Transitions */
+    transition: var(--transition-all-fast);
+
+    /* Accessibility */
+    min-height: 44px;
+    outline: none;
+
+    &::placeholder {
+        color: var(--color-input-placeholder);
+    }
+
+    /* Hover state */
+    &:hover:not(:disabled) {
+        border-color: var(--color-input-border-hover);
+    }
+
+    /* Focus state */
+    &:focus {
+        border-color: var(--color-input-border-focus);
+        background: rgba(16, 185, 129, 0.05);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    /* Disabled state */
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: var(--color-input-disabled-bg);
+    }
+
+    /* Read-only state */
+    &:read-only {
+        background: var(--color-input-disabled-bg);
+        cursor: default;
+    }
+}
+
+/* ========================================
+   VALIDATION STATES
+   ======================================== */
+
+/* Error state */
+.input.error {
+    border-color: var(--color-border-error);
+
+    &:focus {
+        border-color: var(--color-border-error);
+        background: rgba(239, 68, 68, 0.05);
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+}
+
+/* Success state */
+.input.success {
+    border-color: var(--color-border-success);
+
+    &:focus {
+        border-color: var(--color-border-success);
+        background: rgba(34, 197, 94, 0.05);
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+    }
+}
+
+/* Warning state */
+.input.warning {
+    border-color: var(--color-border-warning);
+
+    &:focus {
+        border-color: var(--color-border-warning);
+        background: rgba(245, 158, 11, 0.05);
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+}
+
+/* ========================================
+   FORM GROUP (Label + Input + Helper)
+   ======================================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+}
+
+.form-helper {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+}
+
+.form-error {
+    font-size: var(--text-xs);
+    color: var(--color-error);
+    margin-top: 0.25rem;
+}
+
+.form-success {
+    font-size: var(--text-xs);
+    color: var(--color-success);
+    margin-top: 0.25rem;
+}
+
+/* ========================================
+   TEXTAREA
+   ======================================== */
+
+.textarea {
+    composes: input;
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ========================================
+   INPUT SIZES
+   ======================================== */
+
+.input-sm {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    min-height: 36px;
+}
+
+.input-lg {
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-lg);
+    min-height: 52px;
+}

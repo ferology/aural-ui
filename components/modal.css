@@ -1,0 +1,185 @@
+/**
+ * AURAL UI - Modal Component
+ *
+ * Dialog overlays
+ *
+ * Usage:
+ *   <div class="modal-overlay open">
+ *     <div class="modal">
+ *       <div class="modal-header">...</div>
+ *       <div class="modal-body">...</div>
+ *       <div class="modal-footer">...</div>
+ *     </div>
+ *   </div>
+ */
+
+.modal-overlay {
+    /* Layout */
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    /* Appearance */
+    background: var(--color-modal-overlay);
+    backdrop-filter: blur(8px);
+
+    /* Center content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* State */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    /* Transitions */
+    transition: all var(--duration-normal) var(--ease-in-out);
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}
+
+.modal {
+    /* Layout */
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    /* Spacing */
+    padding: var(--space-8);
+    margin: var(--space-4);
+
+    /* Appearance */
+    background: var(--color-modal-bg);
+    border: 1px solid var(--color-modal-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-2xl);
+
+    /* Animation */
+    transform: translateY(20px) scale(0.95);
+    transition: all var(--duration-normal) var(--ease-out);
+
+    .modal-overlay.open & {
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+   MODAL PARTS
+   ======================================== */
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+}
+
+.modal-icon {
+    /* Layout */
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+
+    /* Appearance */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+    color: var(--color-primary);
+
+    & svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.modal-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    background: linear-gradient(135deg, var(--color-text-primary), var(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.25rem;
+}
+
+.modal-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.modal-footer {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+
+    & .btn {
+        flex: 1;
+    }
+}
+
+.modal-close {
+    /* Position in top-right */
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+
+    /* Reset button styles */
+    background: transparent;
+    border: none;
+    padding: var(--space-2);
+    cursor: pointer;
+
+    /* Appearance */
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-all-fast);
+
+    & svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--color-text-primary);
+    }
+}
+
+/* ========================================
+   MODAL SIZES
+   ======================================== */
+
+.modal-sm {
+    max-width: 360px;
+}
+
+.modal-md {
+    max-width: 480px;
+}
+
+.modal-lg {
+    max-width: 640px;
+}
+
+.modal-xl {
+    max-width: 800px;
+}
+
+.modal-full {
+    max-width: 95vw;
+    max-height: 95vh;
+}

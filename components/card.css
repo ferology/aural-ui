@@ -1,0 +1,59 @@
+/**
+ * AURAL UI - Card Component
+ *
+ * Container component with consistent padding and styling
+ *
+ * Usage:
+ *   <div class="card">
+ *     <h3>Card Title</h3>
+ *     <p>Card content</p>
+ *   </div>
+ */
+
+.card {
+    /* Appearance */
+    background: var(--color-card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--color-card-border);
+    border-radius: var(--radius-lg);
+
+    /* Spacing */
+    padding: var(--space-6);
+
+    /* Transitions */
+    transition: var(--transition-all-fast);
+}
+
+/* Compact variant */
+.card-compact {
+    padding: var(--space-4);
+}
+
+/* Hover variant */
+.card-hover {
+    cursor: pointer;
+
+    &:hover {
+        border-color: var(--color-card-hover-border);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+}
+
+/* Active state */
+.card-active {
+    border-color: var(--color-primary);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+/* Bordered variant (left accent) */
+.card-bordered {
+    border-left-width: 3px;
+}
+
+/* Color variants for bordered cards */
+.card-primary { border-left-color: var(--color-primary); }
+.card-success { border-left-color: var(--color-success); }
+.card-warning { border-left-color: var(--color-warning); }
+.card-error { border-left-color: var(--color-error); }
+.card-info { border-left-color: var(--color-info); }

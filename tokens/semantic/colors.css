@@ -1,0 +1,155 @@
+/**
+ * AURAL UI - Semantic Color Tokens
+ *
+ * These map to core tokens and define the system's color behavior.
+ * Themes override these tokens to change the entire color scheme.
+ *
+ * IMPORTANT: Never use core tokens directly in components.
+ * Always use these semantic tokens.
+ */
+
+:root {
+    /* ========================================
+       Brand Colors (Interactive Elements)
+       ======================================== */
+    --color-primary: var(--primary-500);
+    --color-primary-hover: var(--primary-600);
+    --color-primary-active: var(--primary-700);
+    --color-primary-muted: var(--primary-100);
+
+    --color-secondary: var(--secondary-500);
+    --color-secondary-hover: var(--secondary-600);
+    --color-secondary-active: var(--secondary-700);
+    --color-secondary-muted: var(--secondary-100);
+
+    /* ========================================
+       State Colors (Feedback)
+       ======================================== */
+    --color-success: var(--success-500);
+    --color-success-hover: var(--success-600);
+    --color-success-muted: var(--success-100);
+
+    --color-warning: var(--warning-500);
+    --color-warning-hover: var(--warning-600);
+    --color-warning-muted: var(--warning-100);
+
+    --color-error: var(--error-500);
+    --color-error-hover: var(--error-600);
+    --color-error-muted: var(--error-100);
+
+    --color-info: var(--info-500);
+    --color-info-hover: var(--info-600);
+    --color-info-muted: var(--info-100);
+
+    /* ========================================
+       Background Colors
+       ======================================== */
+    --color-bg-primary: var(--neutral-950);
+    --color-bg-secondary: var(--neutral-900);
+    --color-bg-tertiary: var(--neutral-800);
+    --color-bg-elevated: var(--neutral-800);
+    --color-bg-overlay: rgba(0, 0, 0, 0.85);
+    --color-bg-hover: var(--neutral-700);
+    --color-bg-active: var(--neutral-600);
+
+    /* Glass/frosted backgrounds */
+    --color-bg-glass: rgba(10, 10, 18, 0.7);
+    --color-bg-glass-light: rgba(255, 255, 255, 0.05);
+
+    /* ========================================
+       Text Colors
+       ======================================== */
+    --color-text-primary: var(--neutral-50);
+    --color-text-secondary: var(--neutral-400);
+    --color-text-tertiary: var(--neutral-500);
+    --color-text-muted: var(--neutral-600);
+    --color-text-disabled: var(--neutral-700);
+    --color-text-inverse: var(--neutral-950);
+
+    /* On colored backgrounds */
+    --color-text-on-primary: white;
+    --color-text-on-success: white;
+    --color-text-on-warning: var(--neutral-950);
+    --color-text-on-error: white;
+    --color-text-on-info: white;
+
+    /* ========================================
+       Border Colors
+       ======================================== */
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-medium: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.16);
+    --color-border-inverse: var(--neutral-700);
+
+    /* State borders */
+    --color-border-focus: var(--color-primary);
+    --color-border-success: var(--color-success);
+    --color-border-warning: var(--color-warning);
+    --color-border-error: var(--color-error);
+
+    /* ========================================
+       Component-Specific Colors
+       ======================================== */
+
+    /* Buttons */
+    --color-button-primary-bg: var(--color-primary);
+    --color-button-primary-hover: var(--color-primary-hover);
+    --color-button-primary-text: white;
+
+    --color-button-secondary-bg: rgba(255, 255, 255, 0.05);
+    --color-button-secondary-hover: rgba(255, 255, 255, 0.08);
+    --color-button-secondary-text: var(--color-text-primary);
+    --color-button-secondary-border: var(--color-border-subtle);
+
+    --color-button-danger-bg: var(--color-error);
+    --color-button-danger-hover: var(--color-error-hover);
+    --color-button-danger-text: white;
+
+    --color-button-ghost-bg: transparent;
+    --color-button-ghost-hover: rgba(255, 255, 255, 0.05);
+    --color-button-ghost-text: var(--color-text-secondary);
+
+    /* Inputs */
+    --color-input-bg: rgba(255, 255, 255, 0.03);
+    --color-input-border: var(--color-border-subtle);
+    --color-input-border-hover: var(--color-border-medium);
+    --color-input-border-focus: var(--color-primary);
+    --color-input-text: var(--color-text-primary);
+    --color-input-placeholder: var(--color-text-muted);
+    --color-input-disabled-bg: rgba(255, 255, 255, 0.01);
+
+    /* Cards */
+    --color-card-bg: var(--color-bg-secondary);
+    --color-card-border: var(--color-border-subtle);
+    --color-card-hover-border: var(--color-border-medium);
+
+    /* Badges */
+    --color-badge-primary-bg: rgba(16, 185, 129, 0.15);
+    --color-badge-primary-text: var(--primary-400);
+    --color-badge-success-bg: rgba(34, 197, 94, 0.15);
+    --color-badge-success-text: var(--success-400);
+    --color-badge-warning-bg: rgba(245, 158, 11, 0.15);
+    --color-badge-warning-text: var(--warning-400);
+    --color-badge-error-bg: rgba(239, 68, 68, 0.15);
+    --color-badge-error-text: var(--error-400);
+    --color-badge-info-bg: rgba(59, 130, 246, 0.15);
+    --color-badge-info-text: var(--info-400);
+
+    /* Toast */
+    --color-toast-bg: var(--color-bg-elevated);
+    --color-toast-border: var(--color-border-medium);
+    --color-toast-success-border: var(--color-success);
+    --color-toast-warning-border: var(--color-warning);
+    --color-toast-error-border: var(--color-error);
+    --color-toast-info-border: var(--color-info);
+
+    /* Modal */
+    --color-modal-bg: var(--color-bg-primary);
+    --color-modal-overlay: var(--color-bg-overlay);
+    --color-modal-border: var(--color-border-subtle);
+
+    /* Skeleton */
+    --color-skeleton-from: rgba(255, 255, 255, 0.03);
+    --color-skeleton-via: rgba(255, 255, 255, 0.06);
+    --color-skeleton-to: rgba(255, 255, 255, 0.03);
+}
