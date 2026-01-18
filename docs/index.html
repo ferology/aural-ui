@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aural UI - Token-Driven Design System</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css">
+    <link rel="stylesheet" href="./dark.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--space-16) var(--space-8);
+            text-align: center;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .hero-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-4);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-info));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: var(--text-xl);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-8);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Features Section */
+        .features {
+            padding: var(--space-16) var(--space-8);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-8);
+        }
+
+        .feature-card {
+            padding: var(--space-6);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            transition: var(--transition-all-fast);
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-border-medium);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: var(--space-4);
+            color: var(--color-primary);
+        }
+
+        .feature-card h3 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-2);
+        }
+
+        .feature-card p {
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* Demo Section */
+        .demo {
+            padding: var(--space-16) var(--space-8);
+            background: var(--color-bg-secondary);
+            border-top: 1px solid var(--color-border-subtle);
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            text-align: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .demo-description {
+            text-align: center;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-8);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .demo-preview {
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            margin-bottom: var(--space-6);
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .demo-control {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .demo-control label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+        }
+
+        .demo-control input[type="range"] {
+            width: 100%;
+        }
+
+        .demo-value {
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        .demo-components {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            padding: var(--space-8);
+            text-align: center;
+            border-top: 1px solid var(--color-border-subtle);
+            color: var(--color-text-secondary);
+            font-size: var(--text-sm);
+        }
+
+        .footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title">Aural UI</h1>
+        <p class="hero-subtitle">
+            A token-driven, accessibility-first design system. Customize everything with CSS custom properties.
+        </p>
+        <div class="hero-buttons">
+            <a href="./showcase.html" class="btn btn-primary btn-lg">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                View Full Showcase
+            </a>
+            <a href="https://github.com/ferology/aural-ui" class="btn btn-secondary btn-lg" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="features-title">Why Aural UI?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+                </svg>
+                <h3>Token-Driven</h3>
+                <p>Built entirely on CSS custom properties. Change colors, spacing, typography, and border radius with simple token adjustments.</p>
+            </div>
+
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <h3>Accessibility First</h3>
+                <p>WCAG AA compliant with keyboard navigation, focus management, ARIA attributes, and screen reader support built in.</p>
+            </div>
+
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                </svg>
+                <h3>Minimal JavaScript</h3>
+                <p>Most components work with CSS alone. JavaScript is only used for interactive components with a simple, intuitive API.</p>
+            </div>
+
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <path d="M3 9h18M9 21V9"/>
+                </svg>
+                <h3>15+ Components</h3>
+                <p>Buttons, forms, navigation, modals, tooltips, accordions, and more. All with multiple variants and sizes.</p>
+            </div>
+
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+                <h3>White-Label Ready</h3>
+                <p>No opinionated design decisions. Customize everything to match your brand identity perfectly.</p>
+            </div>
+
+            <div class="feature-card">
+                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
+                </svg>
+                <h3>Developer Friendly</h3>
+                <p>Clean, semantic HTML. No build step required. Copy CSS and JS files and start building.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section class="demo">
+        <div class="demo-container">
+            <h2 class="demo-title">Try It Yourself</h2>
+            <p class="demo-description">
+                Adjust the sliders below to see how the token system works. All components update instantly.
+            </p>
+
+            <div class="demo-controls">
+                <div class="demo-control">
+                    <label>
+                        Primary Color
+                        <span class="demo-value" id="primaryValue">#10b981</span>
+                    </label>
+                    <input type="color" id="primaryColor" value="#10b981" onchange="updatePrimary(this.value)">
+                </div>
+
+                <div class="demo-control">
+                    <label>
+                        Border Radius
+                        <span class="demo-value" id="radiusValue">8px</span>
+                    </label>
+                    <input type="range" id="radiusSlider" min="0" max="24" value="8" oninput="updateRadius(this.value)">
+                </div>
+
+                <div class="demo-control">
+                    <label>
+                        Spacing Scale
+                        <span class="demo-value" id="spacingValue">1.0x</span>
+                    </label>
+                    <input type="range" id="spacingSlider" min="0.5" max="2" step="0.1" value="1" oninput="updateSpacing(this.value)">
+                </div>
+            </div>
+
+            <div class="demo-preview">
+                <div class="demo-components">
+                    <button class="btn btn-primary">Primary Button</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-danger">Danger</button>
+
+                    <label class="toggle">
+                        <input type="checkbox" role="switch" checked>
+                        <span>Toggle</span>
+                    </label>
+
+                    <label class="radio">
+                        <input type="radio" name="demo-radio" checked>
+                        <span>Radio</span>
+                    </label>
+
+                    <label class="checkbox">
+                        <input type="checkbox" checked>
+                        <span>Checkbox</span>
+                    </label>
+
+                    <div class="badge badge-primary">Badge</div>
+                    <div class="badge badge-success">Success</div>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="./showcase.html" class="btn btn-primary">
+                    Explore Full Interactive Playground →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            Built with accessibility and flexibility in mind.
+            <a href="https://github.com/ferology/aural-ui">View on GitHub</a> ·
+            <a href="./showcase.html">Component Showcase</a>
+        </p>
+        <p style="margin-top: var(--space-2);">
+            Licensed under <a href="https://opensource.org/licenses/MIT">MIT License</a>
+        </p>
+    </footer>
+
+    <!-- Aural UI JavaScript -->
+    <script src="./aural-ui.js"></script>
+
+    <script>
+        function updatePrimary(value) {
+            document.documentElement.style.setProperty('--color-primary', value);
+            document.getElementById('primaryValue').textContent = value;
+        }
+
+        function updateRadius(value) {
+            document.documentElement.style.setProperty('--radius-md', value + 'px');
+            document.getElementById('radiusValue').textContent = value + 'px';
+        }
+
+        function updateSpacing(value) {
+            const baseSpacing = [4, 8, 12, 16, 24, 32, 48, 64];
+            const tokens = ['--space-1', '--space-2', '--space-3', '--space-4', '--space-6', '--space-8', '--space-12', '--space-16'];
+
+            tokens.forEach((token, i) => {
+                document.documentElement.style.setProperty(token, Math.round(baseSpacing[i] * value) + 'px');
+            });
+
+            document.getElementById('spacingValue').textContent = parseFloat(value).toFixed(1) + 'x';
+        }
+    </script>
+</body>
+</html>
