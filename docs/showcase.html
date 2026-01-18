@@ -6,7 +6,7 @@
     <title>Aural UI - Component Showcase</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="./aural-ui.css?v=3">
+    <link rel="stylesheet" href="./aural-ui.css?v=4">
 
     <!-- Choose theme -->
     <link rel="stylesheet" href="./dark.css" id="theme-link">
@@ -63,9 +63,105 @@
             top: var(--space-4);
             right: var(--space-4);
         }
+
+        /* Token Controller */
+        .token-controller-toggle {
+            position: fixed;
+            top: var(--space-4);
+            left: var(--space-4);
+            z-index: 1000;
+        }
+
+        .token-controller {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100vh;
+            background: var(--color-bg-elevated);
+            border-right: 1px solid var(--color-border-medium);
+            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3);
+            padding: var(--space-6);
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            z-index: 999;
+        }
+
+        .token-controller.open {
+            left: 0;
+        }
+
+        .token-controller-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .token-controller-header h3 {
+            margin: 0;
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+        }
+
+        .token-control-group {
+            margin-bottom: var(--space-6);
+        }
+
+        .token-control-label {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .token-control-input {
+            width: 100%;
+            padding: var(--space-2) var(--space-3);
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-size: var(--text-sm);
+        }
+
+        .token-control-input[type="range"] {
+            padding: 0;
+        }
+
+        .token-control-input[type="color"] {
+            height: 44px;
+            cursor: pointer;
+        }
+
+        .token-control-value {
+            display: inline-block;
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            margin-left: var(--space-2);
+            font-family: var(--font-mono);
+        }
+
+        .token-control-buttons {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-6);
+        }
     </style>
 </head>
 <body>
+    <!-- Token Controller Toggle -->
+    <button class="btn btn-primary token-controller-toggle" onclick="toggleController()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+        </svg>
+        Customize
+    </button>
+
     <!-- Theme Toggle -->
     <button class="btn btn-ghost theme-toggle" onclick="toggleTheme()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
@@ -81,6 +177,92 @@
         </svg>
         Toggle Theme
     </button>
+
+    <!-- Token Controller Panel -->
+    <div class="token-controller" id="tokenController">
+        <div class="token-controller-header">
+            <h3>Customize Tokens</h3>
+            <button class="btn btn-ghost btn-sm" onclick="toggleController()">×</button>
+        </div>
+
+        <!-- Primary Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Primary Color
+                <span class="token-control-value" id="primaryColorValue">#10b981</span>
+            </label>
+            <input type="color" class="token-control-input" id="primaryColor" value="#10b981" onchange="updateToken('--color-primary', this.value, 'primaryColorValue')">
+        </div>
+
+        <!-- Border Radius -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Border Radius Scale
+                <span class="token-control-value" id="radiusScaleValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="radiusScale" min="0" max="2" step="0.1" value="1" oninput="updateRadiusScale(this.value)">
+        </div>
+
+        <!-- Spacing Scale -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Spacing Scale
+                <span class="token-control-value" id="spacingScaleValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="spacingScale" min="0.5" max="2" step="0.1" value="1" oninput="updateSpacingScale(this.value)">
+        </div>
+
+        <!-- Font Size Scale -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Font Size Scale
+                <span class="token-control-value" id="fontScaleValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="fontScale" min="0.75" max="1.5" step="0.05" value="1" oninput="updateFontScale(this.value)">
+        </div>
+
+        <!-- Success Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Success Color
+                <span class="token-control-value" id="successColorValue">#10b981</span>
+            </label>
+            <input type="color" class="token-control-input" id="successColor" value="#10b981" onchange="updateToken('--color-success', this.value, 'successColorValue')">
+        </div>
+
+        <!-- Warning Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Warning Color
+                <span class="token-control-value" id="warningColorValue">#f59e0b</span>
+            </label>
+            <input type="color" class="token-control-input" id="warningColor" value="#f59e0b" onchange="updateToken('--color-warning', this.value, 'warningColorValue')">
+        </div>
+
+        <!-- Error Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Error Color
+                <span class="token-control-value" id="errorColorValue">#ef4444</span>
+            </label>
+            <input type="color" class="token-control-input" id="errorColor" value="#ef4444" onchange="updateToken('--color-error', this.value, 'errorColorValue')">
+        </div>
+
+        <!-- Info Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Info Color
+                <span class="token-control-value" id="infoColorValue">#3b82f6</span>
+            </label>
+            <input type="color" class="token-control-input" id="infoColor" value="#3b82f6" onchange="updateToken('--color-info', this.value, 'infoColorValue')">
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="token-control-buttons">
+            <button class="btn btn-secondary btn-sm" onclick="resetTokens()">Reset to Default</button>
+            <button class="btn btn-primary btn-sm" onclick="saveTokens()">Save Preferences</button>
+        </div>
+    </div>
 
     <h1 class="showcase-title">Aural UI</h1>
     <p class="showcase-subtitle">Token-driven, white-label design system</p>
@@ -1056,6 +1238,172 @@ Aural.setProgress('my-progress', 75);
             isDark = !isDark;
             themeLink.href = isDark ? './dark.css' : './light.css';
         }
+
+        // Token Controller
+        const DEFAULT_TOKENS = {
+            primaryColor: '#10b981',
+            successColor: '#10b981',
+            warningColor: '#f59e0b',
+            errorColor: '#ef4444',
+            infoColor: '#3b82f6',
+            radiusScale: 1,
+            spacingScale: 1,
+            fontScale: 1
+        };
+
+        const RADIUS_TOKENS = ['--radius-sm', '--radius-md', '--radius-lg', '--radius-xl', '--radius-2xl'];
+        const RADIUS_VALUES = [4, 8, 12, 16, 24]; // base values in px
+
+        const SPACING_TOKENS = ['--space-1', '--space-2', '--space-3', '--space-4', '--space-6', '--space-8', '--space-12', '--space-16'];
+        const SPACING_VALUES = [4, 8, 12, 16, 24, 32, 48, 64]; // base values in px
+
+        const FONT_TOKENS = ['--text-xs', '--text-sm', '--text-base', '--text-lg', '--text-xl', '--text-2xl', '--text-3xl'];
+        const FONT_VALUES = [12, 14, 16, 18, 20, 24, 30]; // base values in px
+
+        // Toggle controller panel
+        function toggleController() {
+            const controller = document.getElementById('tokenController');
+            controller.classList.toggle('open');
+        }
+
+        // Update a single token
+        function updateToken(tokenName, value, displayId) {
+            document.documentElement.style.setProperty(tokenName, value);
+            if (displayId) {
+                document.getElementById(displayId).textContent = value;
+            }
+        }
+
+        // Update radius scale
+        function updateRadiusScale(scale) {
+            scale = parseFloat(scale);
+            document.getElementById('radiusScaleValue').textContent = scale.toFixed(1) + 'x';
+
+            RADIUS_TOKENS.forEach((token, index) => {
+                const value = Math.round(RADIUS_VALUES[index] * scale);
+                document.documentElement.style.setProperty(token, value + 'px');
+            });
+        }
+
+        // Update spacing scale
+        function updateSpacingScale(scale) {
+            scale = parseFloat(scale);
+            document.getElementById('spacingScaleValue').textContent = scale.toFixed(1) + 'x';
+
+            SPACING_TOKENS.forEach((token, index) => {
+                const value = Math.round(SPACING_VALUES[index] * scale);
+                document.documentElement.style.setProperty(token, value + 'px');
+            });
+        }
+
+        // Update font scale
+        function updateFontScale(scale) {
+            scale = parseFloat(scale);
+            document.getElementById('fontScaleValue').textContent = scale.toFixed(2) + 'x';
+
+            FONT_TOKENS.forEach((token, index) => {
+                const value = Math.round(FONT_VALUES[index] * scale);
+                document.documentElement.style.setProperty(token, value + 'px');
+            });
+        }
+
+        // Save tokens to localStorage
+        function saveTokens() {
+            const tokens = {
+                primaryColor: document.getElementById('primaryColor').value,
+                successColor: document.getElementById('successColor').value,
+                warningColor: document.getElementById('warningColor').value,
+                errorColor: document.getElementById('errorColor').value,
+                infoColor: document.getElementById('infoColor').value,
+                radiusScale: parseFloat(document.getElementById('radiusScale').value),
+                spacingScale: parseFloat(document.getElementById('spacingScale').value),
+                fontScale: parseFloat(document.getElementById('fontScale').value)
+            };
+
+            localStorage.setItem('auralTokens', JSON.stringify(tokens));
+            Aural.showToast('Token preferences saved!', 'success');
+        }
+
+        // Reset tokens to default
+        function resetTokens() {
+            // Reset color inputs
+            document.getElementById('primaryColor').value = DEFAULT_TOKENS.primaryColor;
+            document.getElementById('successColor').value = DEFAULT_TOKENS.successColor;
+            document.getElementById('warningColor').value = DEFAULT_TOKENS.warningColor;
+            document.getElementById('errorColor').value = DEFAULT_TOKENS.errorColor;
+            document.getElementById('infoColor').value = DEFAULT_TOKENS.infoColor;
+
+            // Reset scale inputs
+            document.getElementById('radiusScale').value = DEFAULT_TOKENS.radiusScale;
+            document.getElementById('spacingScale').value = DEFAULT_TOKENS.spacingScale;
+            document.getElementById('fontScale').value = DEFAULT_TOKENS.fontScale;
+
+            // Apply defaults
+            updateToken('--color-primary', DEFAULT_TOKENS.primaryColor, 'primaryColorValue');
+            updateToken('--color-success', DEFAULT_TOKENS.successColor, 'successColorValue');
+            updateToken('--color-warning', DEFAULT_TOKENS.warningColor, 'warningColorValue');
+            updateToken('--color-error', DEFAULT_TOKENS.errorColor, 'errorColorValue');
+            updateToken('--color-info', DEFAULT_TOKENS.infoColor, 'infoColorValue');
+
+            updateRadiusScale(DEFAULT_TOKENS.radiusScale);
+            updateSpacingScale(DEFAULT_TOKENS.spacingScale);
+            updateFontScale(DEFAULT_TOKENS.fontScale);
+
+            // Clear localStorage
+            localStorage.removeItem('auralTokens');
+            Aural.showToast('Tokens reset to default', 'info');
+        }
+
+        // Load saved tokens on page load
+        function loadSavedTokens() {
+            const saved = localStorage.getItem('auralTokens');
+            if (!saved) return;
+
+            try {
+                const tokens = JSON.parse(saved);
+
+                // Apply saved colors
+                if (tokens.primaryColor) {
+                    document.getElementById('primaryColor').value = tokens.primaryColor;
+                    updateToken('--color-primary', tokens.primaryColor, 'primaryColorValue');
+                }
+                if (tokens.successColor) {
+                    document.getElementById('successColor').value = tokens.successColor;
+                    updateToken('--color-success', tokens.successColor, 'successColorValue');
+                }
+                if (tokens.warningColor) {
+                    document.getElementById('warningColor').value = tokens.warningColor;
+                    updateToken('--color-warning', tokens.warningColor, 'warningColorValue');
+                }
+                if (tokens.errorColor) {
+                    document.getElementById('errorColor').value = tokens.errorColor;
+                    updateToken('--color-error', tokens.errorColor, 'errorColorValue');
+                }
+                if (tokens.infoColor) {
+                    document.getElementById('infoColor').value = tokens.infoColor;
+                    updateToken('--color-info', tokens.infoColor, 'infoColorValue');
+                }
+
+                // Apply saved scales
+                if (tokens.radiusScale) {
+                    document.getElementById('radiusScale').value = tokens.radiusScale;
+                    updateRadiusScale(tokens.radiusScale);
+                }
+                if (tokens.spacingScale) {
+                    document.getElementById('spacingScale').value = tokens.spacingScale;
+                    updateSpacingScale(tokens.spacingScale);
+                }
+                if (tokens.fontScale) {
+                    document.getElementById('fontScale').value = tokens.fontScale;
+                    updateFontScale(tokens.fontScale);
+                }
+            } catch (e) {
+                console.error('Failed to load saved tokens:', e);
+            }
+        }
+
+        // Load saved tokens when page loads
+        window.addEventListener('DOMContentLoaded', loadSavedTokens);
     </script>
 </body>
 </html>
