@@ -2009,6 +2009,10 @@
         height: 0;
     }
 
+.radio > input[type="radio"] + span {
+        position: relative;
+    }
+
 .radio > input[type="radio"] + span::before {
         content: '';
         display: inline-flex;
@@ -2358,6 +2362,10 @@
         height: 0;
     }
 
+.toggle > input[type="checkbox"][role="switch"] + span {
+        position: relative;
+    }
+
 /* Toggle track */
 
 .toggle > input[type="checkbox"][role="switch"] + span::before {
@@ -2365,7 +2373,6 @@
         display: inline-flex;
         align-items: center;
         flex-shrink: 0;
-        position: relative;
 
         /* Size (default: medium) */
         width: 44px;

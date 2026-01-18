@@ -42,13 +42,16 @@
         height: 0;
     }
 
+    & > input[type="checkbox"][role="switch"] + span {
+        position: relative;
+    }
+
     /* Toggle track */
     & > input[type="checkbox"][role="switch"] + span::before {
         content: '';
         display: inline-flex;
         align-items: center;
         flex-shrink: 0;
-        position: relative;
 
         /* Size (default: medium) */
         width: 44px;
