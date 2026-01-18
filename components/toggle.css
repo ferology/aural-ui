@@ -44,19 +44,20 @@
 
     & > input[type="checkbox"][role="switch"] + span {
         position: relative;
+        padding-left: calc(44px + var(--space-3));
     }
 
     /* Toggle track */
     & > input[type="checkbox"][role="switch"] + span::before {
         content: '';
-        display: inline-flex;
-        align-items: center;
-        flex-shrink: 0;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
 
         /* Size (default: medium) */
         width: 44px;
         height: 24px;
-        margin-right: var(--space-3);
 
         /* Appearance */
         background: var(--color-toggle-track-off);
@@ -129,10 +130,13 @@
     font-size: var(--text-sm);
     min-height: 36px;
 
+    & > input[type="checkbox"][role="switch"] + span {
+        padding-left: calc(36px + var(--space-2));
+    }
+
     & > input[type="checkbox"][role="switch"] + span::before {
         width: 36px;
         height: 20px;
-        margin-right: var(--space-2);
     }
 
     & > input[type="checkbox"][role="switch"] + span::after {
@@ -149,10 +153,13 @@
     font-size: var(--text-lg);
     min-height: 52px;
 
+    & > input[type="checkbox"][role="switch"] + span {
+        padding-left: calc(56px + var(--space-4));
+    }
+
     & > input[type="checkbox"][role="switch"] + span::before {
         width: 56px;
         height: 32px;
-        margin-right: var(--space-4);
     }
 
     & > input[type="checkbox"][role="switch"] + span::after {
@@ -173,8 +180,8 @@
 .toggle-only {
     min-height: auto;
 
-    & > input[type="checkbox"][role="switch"] + span::before {
-        margin-right: 0;
+    & > input[type="checkbox"][role="switch"] + span {
+        padding-left: 0;
     }
 
     & > span:not(::before):not(::after) {
@@ -232,49 +239,43 @@
 .toggle-label-left {
     flex-direction: row-reverse;
 
+    & > input[type="checkbox"][role="switch"] + span {
+        padding-left: 0;
+        padding-right: calc(44px + var(--space-3));
+    }
+
     & > input[type="checkbox"][role="switch"] + span::before {
-        margin-right: 0;
-        margin-left: var(--space-3);
+        left: auto;
+        right: 0;
     }
 
     & > input[type="checkbox"][role="switch"] + span::after {
-        right: 0;
         left: auto;
-        margin-left: 0;
-        margin-right: 22px;
+        right: 2px;
     }
 
     & > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-left: 0;
-        margin-right: 2px;
+        right: 22px;
     }
 }
 
 .toggle-label-left.toggle-sm {
-    & > input[type="checkbox"][role="switch"] + span::before {
-        margin-left: var(--space-2);
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::after {
-        margin-right: 18px;
+    & > input[type="checkbox"][role="switch"] + span {
+        padding-right: calc(36px + var(--space-2));
     }
 
     & > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-right: 2px;
+        right: 18px;
     }
 }
 
 .toggle-label-left.toggle-lg {
-    & > input[type="checkbox"][role="switch"] + span::before {
-        margin-left: var(--space-4);
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::after {
-        margin-right: 26px;
+    & > input[type="checkbox"][role="switch"] + span {
+        padding-right: calc(56px + var(--space-4));
     }
 
     & > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-right: 2px;
+        right: 26px;
     }
 }
 

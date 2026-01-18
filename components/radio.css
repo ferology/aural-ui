@@ -44,19 +44,19 @@
 
     & > input[type="radio"] + span {
         position: relative;
+        padding-left: calc(20px + var(--space-3));
     }
 
     & > input[type="radio"] + span::before {
         content: '';
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
 
         /* Size (default: medium) */
         width: 20px;
         height: 20px;
-        margin-right: var(--space-3);
 
         /* Appearance */
         background: var(--color-radio-bg);
@@ -136,10 +136,13 @@
     font-size: var(--text-sm);
     min-height: 36px;
 
+    & > input[type="radio"] + span {
+        padding-left: calc(16px + var(--space-2));
+    }
+
     & > input[type="radio"] + span::before {
         width: 16px;
         height: 16px;
-        margin-right: var(--space-2);
     }
 
     & > input[type="radio"]:checked + span::after {
@@ -153,10 +156,13 @@
     font-size: var(--text-lg);
     min-height: 52px;
 
+    & > input[type="radio"] + span {
+        padding-left: calc(24px + var(--space-4));
+    }
+
     & > input[type="radio"] + span::before {
         width: 24px;
         height: 24px;
-        margin-right: var(--space-4);
     }
 
     & > input[type="radio"]:checked + span::after {
@@ -174,8 +180,8 @@
 .radio-only {
     min-height: auto;
 
-    & > input[type="radio"] + span::before {
-        margin-right: 0;
+    & > input[type="radio"] + span {
+        padding-left: 0;
     }
 
     & > span:not(::before):not(::after) {

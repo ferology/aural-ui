@@ -2011,19 +2011,19 @@
 
 .radio > input[type="radio"] + span {
         position: relative;
+        padding-left: calc(20px + var(--space-3));
     }
 
 .radio > input[type="radio"] + span::before {
         content: '';
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
 
         /* Size (default: medium) */
         width: 20px;
         height: 20px;
-        margin-right: var(--space-3);
 
         /* Appearance */
         background: var(--color-radio-bg);
@@ -2108,10 +2108,13 @@
     min-height: 36px;
 }
 
+.radio-sm > input[type="radio"] + span {
+        padding-left: calc(16px + var(--space-2));
+    }
+
 .radio-sm > input[type="radio"] + span::before {
         width: 16px;
         height: 16px;
-        margin-right: var(--space-2);
     }
 
 .radio-sm > input[type="radio"]:checked + span::after {
@@ -2125,10 +2128,13 @@
     min-height: 52px;
 }
 
+.radio-lg > input[type="radio"] + span {
+        padding-left: calc(24px + var(--space-4));
+    }
+
 .radio-lg > input[type="radio"] + span::before {
         width: 24px;
         height: 24px;
-        margin-right: var(--space-4);
     }
 
 .radio-lg > input[type="radio"]:checked + span::after {
@@ -2147,8 +2153,8 @@
     min-height: auto;
 }
 
-.radio-only > input[type="radio"] + span::before {
-        margin-right: 0;
+.radio-only > input[type="radio"] + span {
+        padding-left: 0;
     }
 
 .radio-only > span:not(::before):not(::after) {
@@ -2364,20 +2370,21 @@
 
 .toggle > input[type="checkbox"][role="switch"] + span {
         position: relative;
+        padding-left: calc(44px + var(--space-3));
     }
 
 /* Toggle track */
 
 .toggle > input[type="checkbox"][role="switch"] + span::before {
         content: '';
-        display: inline-flex;
-        align-items: center;
-        flex-shrink: 0;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
 
         /* Size (default: medium) */
         width: 44px;
         height: 24px;
-        margin-right: var(--space-3);
 
         /* Appearance */
         background: var(--color-toggle-track-off);
@@ -2456,10 +2463,13 @@
     min-height: 36px;
 }
 
+.toggle-sm > input[type="checkbox"][role="switch"] + span {
+        padding-left: calc(36px + var(--space-2));
+    }
+
 .toggle-sm > input[type="checkbox"][role="switch"] + span::before {
         width: 36px;
         height: 20px;
-        margin-right: var(--space-2);
     }
 
 .toggle-sm > input[type="checkbox"][role="switch"] + span::after {
@@ -2476,10 +2486,13 @@
     min-height: 52px;
 }
 
+.toggle-lg > input[type="checkbox"][role="switch"] + span {
+        padding-left: calc(56px + var(--space-4));
+    }
+
 .toggle-lg > input[type="checkbox"][role="switch"] + span::before {
         width: 56px;
         height: 32px;
-        margin-right: var(--space-4);
     }
 
 .toggle-lg > input[type="checkbox"][role="switch"] + span::after {
@@ -2501,8 +2514,8 @@
     min-height: auto;
 }
 
-.toggle-only > input[type="checkbox"][role="switch"] + span::before {
-        margin-right: 0;
+.toggle-only > input[type="checkbox"][role="switch"] + span {
+        padding-left: 0;
     }
 
 .toggle-only > span:not(::before):not(::after) {
@@ -2561,45 +2574,39 @@
     flex-direction: row-reverse;
 }
 
+.toggle-label-left > input[type="checkbox"][role="switch"] + span {
+        padding-left: 0;
+        padding-right: calc(44px + var(--space-3));
+    }
+
 .toggle-label-left > input[type="checkbox"][role="switch"] + span::before {
-        margin-right: 0;
-        margin-left: var(--space-3);
+        left: auto;
+        right: 0;
     }
 
 .toggle-label-left > input[type="checkbox"][role="switch"] + span::after {
-        right: 0;
         left: auto;
-        margin-left: 0;
-        margin-right: 22px;
+        right: 2px;
     }
 
 .toggle-label-left > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-left: 0;
-        margin-right: 2px;
+        right: 22px;
     }
 
-.toggle-label-left.toggle-sm > input[type="checkbox"][role="switch"] + span::before {
-        margin-left: var(--space-2);
-    }
-
-.toggle-label-left.toggle-sm > input[type="checkbox"][role="switch"] + span::after {
-        margin-right: 18px;
+.toggle-label-left.toggle-sm > input[type="checkbox"][role="switch"] + span {
+        padding-right: calc(36px + var(--space-2));
     }
 
 .toggle-label-left.toggle-sm > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-right: 2px;
+        right: 18px;
     }
 
-.toggle-label-left.toggle-lg > input[type="checkbox"][role="switch"] + span::before {
-        margin-left: var(--space-4);
-    }
-
-.toggle-label-left.toggle-lg > input[type="checkbox"][role="switch"] + span::after {
-        margin-right: 26px;
+.toggle-label-left.toggle-lg > input[type="checkbox"][role="switch"] + span {
+        padding-right: calc(56px + var(--space-4));
     }
 
 .toggle-label-left.toggle-lg > input[type="checkbox"][role="switch"]:checked + span::after {
-        margin-right: 2px;
+        right: 26px;
     }
 
 /* ========================================
