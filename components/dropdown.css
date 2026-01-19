@@ -61,6 +61,7 @@
     margin-top: var(--space-1);
     overflow: auto;
     max-height: 400px;
+    display: block;
 
     /* Appearance */
     background: var(--color-dropdown-bg);
@@ -83,14 +84,15 @@
 
     /* Accessibility */
     outline: none;
+}
 
-    &:not([hidden]) {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-    }
+/* Override browser default hidden behavior */
+.dropdown-menu[hidden] {
+    display: block;
+}
 
-    /* Custom scrollbar */
+/* Custom scrollbar */
+.dropdown-menu {
     scrollbar-width: thin;
     scrollbar-color: var(--color-border-medium) transparent;
 
