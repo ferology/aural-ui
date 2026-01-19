@@ -307,58 +307,56 @@ const Aural = {
      * Initialize dropdowns
      */
     initDropdowns() {
-        document.addEventListener('DOMContentLoaded', () => {
-            const dropdowns = document.querySelectorAll('.dropdown');
+        const dropdowns = document.querySelectorAll('.dropdown');
 
-            dropdowns.forEach(dropdown => {
-                const trigger = dropdown.querySelector('.dropdown-trigger');
-                const menu = dropdown.querySelector('.dropdown-menu');
+        dropdowns.forEach(dropdown => {
+            const trigger = dropdown.querySelector('.dropdown-trigger');
+            const menu = dropdown.querySelector('.dropdown-menu');
 
-                if (trigger && menu) {
-                    trigger.addEventListener('click', (e) => {
-                        e.stopPropagation();
+            if (trigger && menu) {
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleDropdown(dropdown.id);
+                });
+
+                // Keyboard support
+                trigger.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
                         this.toggleDropdown(dropdown.id);
-                    });
+                    } else if (e.key === 'Escape') {
+                        this.closeDropdown(dropdown.id);
+                    }
+                });
 
-                    // Keyboard support
-                    trigger.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            this.toggleDropdown(dropdown.id);
-                        } else if (e.key === 'Escape') {
-                            this.closeDropdown(dropdown.id);
-                        }
-                    });
+                // Arrow key navigation in menu
+                menu.addEventListener('keydown', (e) => {
+                    const items = menu.querySelectorAll('.dropdown-item:not([disabled])');
+                    const currentIndex = Array.from(items).indexOf(document.activeElement);
 
-                    // Arrow key navigation in menu
-                    menu.addEventListener('keydown', (e) => {
-                        const items = menu.querySelectorAll('.dropdown-item:not([disabled])');
-                        const currentIndex = Array.from(items).indexOf(document.activeElement);
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const next = items[currentIndex + 1] || items[0];
+                        next.focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prev = items[currentIndex - 1] || items[items.length - 1];
+                        prev.focus();
+                    } else if (e.key === 'Escape') {
+                        this.closeDropdown(dropdown.id);
+                        trigger.focus();
+                    }
+                });
+            }
+        });
 
-                        if (e.key === 'ArrowDown') {
-                            e.preventDefault();
-                            const next = items[currentIndex + 1] || items[0];
-                            next.focus();
-                        } else if (e.key === 'ArrowUp') {
-                            e.preventDefault();
-                            const prev = items[currentIndex - 1] || items[items.length - 1];
-                            prev.focus();
-                        } else if (e.key === 'Escape') {
-                            this.closeDropdown(dropdown.id);
-                            trigger.focus();
-                        }
-                    });
-                }
-            });
-
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.dropdown')) {
-                    document.querySelectorAll('.dropdown.dropdown-open').forEach(dd => {
-                        this.closeDropdown(dd.id);
-                    });
-                }
-            });
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown.dropdown-open').forEach(dd => {
+                    this.closeDropdown(dd.id);
+                });
+            }
         });
     },
 
@@ -517,41 +515,39 @@ const Aural = {
      * Initialize popovers
      */
     initPopovers() {
-        document.addEventListener('DOMContentLoaded', () => {
-            const popoverWrappers = document.querySelectorAll('.popover-wrapper');
+        const popoverWrappers = document.querySelectorAll('.popover-wrapper');
 
-            popoverWrappers.forEach(wrapper => {
-                const trigger = wrapper.querySelector('[data-popover-trigger]');
-                const popover = wrapper.querySelector('.popover');
-                const closeBtn = popover?.querySelector('.popover-close');
+        popoverWrappers.forEach(wrapper => {
+            const trigger = wrapper.querySelector('[data-popover-trigger]');
+            const popover = wrapper.querySelector('.popover');
+            const closeBtn = popover?.querySelector('.popover-close');
 
-                if (trigger && popover) {
-                    trigger.addEventListener('click', () => {
-                        this.togglePopover(trigger.id);
-                    });
+            if (trigger && popover) {
+                trigger.addEventListener('click', () => {
+                    this.togglePopover(trigger.id);
+                });
 
-                    closeBtn?.addEventListener('click', () => {
+                closeBtn?.addEventListener('click', () => {
+                    this.hidePopover(trigger.id);
+                });
+
+                // Close on ESC
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !popover.hidden) {
                         this.hidePopover(trigger.id);
-                    });
+                    }
+                });
+            }
+        });
 
-                    // Close on ESC
-                    document.addEventListener('keydown', (e) => {
-                        if (e.key === 'Escape' && !popover.hidden) {
-                            this.hidePopover(trigger.id);
-                        }
-                    });
-                }
-            });
-
-            // Close popovers when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.popover-wrapper')) {
-                    document.querySelectorAll('.popover.popover-show').forEach(p => {
-                        p.classList.remove('popover-show');
-                        p.hidden = true;
-                    });
-                }
-            });
+        // Close popovers when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.popover-wrapper')) {
+                document.querySelectorAll('.popover.popover-show').forEach(p => {
+                    p.classList.remove('popover-show');
+                    p.hidden = true;
+                });
+            }
         });
     },
 
