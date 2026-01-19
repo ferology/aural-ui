@@ -287,6 +287,24 @@
             <input type="color" class="token-control-input" id="infoColor" value="#3b82f6" onchange="updateToken('--color-info', this.value, 'infoColorValue')">
         </div>
 
+        <!-- Shadow Intensity -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Shadow Intensity
+                <span class="token-control-value" id="shadowIntensityValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="shadowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateShadowIntensity(this.value)">
+        </div>
+
+        <!-- Glow Intensity -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Glow Intensity
+                <span class="token-control-value" id="glowIntensityValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="glowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateGlowIntensity(this.value)">
+        </div>
+
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="resetTokens()">Reset to Default</button>
@@ -2666,14 +2684,16 @@ console.log(message);</code></pre>
 
         // Token Controller
         const DEFAULT_TOKENS = {
-            primaryColor: '#10b981',
-            successColor: '#10b981',
+            primaryColor: '#f00054',
+            successColor: '#22c55e',
             warningColor: '#f59e0b',
             errorColor: '#ef4444',
             infoColor: '#3b82f6',
             radiusScale: 1,
             spacingScale: 1,
-            fontScale: 1
+            fontScale: 1,
+            shadowIntensity: 1,
+            glowIntensity: 1
         };
 
         const RADIUS_TOKENS = ['--radius-sm', '--radius-md', '--radius-lg', '--radius-xl', '--radius-2xl'];
@@ -2684,6 +2704,16 @@ console.log(message);</code></pre>
 
         const FONT_TOKENS = ['--text-xs', '--text-sm', '--text-base', '--text-lg', '--text-xl', '--text-2xl', '--text-3xl'];
         const FONT_VALUES = [12, 14, 16, 18, 20, 24, 30]; // base values in px
+
+        // Shadow base values (blur radius in px)
+        const SHADOW_SIZES = {
+            xs: 2, sm: 3, md: 6, lg: 10, xl: 25, '2xl': 50
+        };
+
+        // Glow base values (blur radius in px)
+        const GLOW_SIZES = {
+            sm: 4, md: 8, lg: 16, xl: 24, '2xl': 32
+        };
 
         // Update a single token
         function updateToken(tokenName, value, displayId) {
@@ -2726,6 +2756,56 @@ console.log(message);</code></pre>
             });
         }
 
+        // Update shadow intensity
+        function updateShadowIntensity(intensity) {
+            intensity = parseFloat(intensity);
+            document.getElementById('shadowIntensityValue').textContent = intensity.toFixed(1) + 'x';
+
+            // Update shadow sizes
+            Object.entries(SHADOW_SIZES).forEach(([size, baseBlur]) => {
+                const blur = Math.round(baseBlur * intensity);
+                const spread = size === 'xs' ? 0 : Math.round((baseBlur / 4) * intensity);
+                const offsetY = size === 'xs' ? 1 : Math.round((baseBlur / 3) * intensity);
+                const opacity = 0.1 * intensity;
+
+                document.documentElement.style.setProperty(
+                    `--shadow-${size}`,
+                    `0 ${offsetY}px ${blur}px ${spread}px rgba(0, 0, 0, ${Math.min(opacity, 0.25)})`
+                );
+            });
+        }
+
+        // Update glow intensity
+        function updateGlowIntensity(intensity) {
+            intensity = parseFloat(intensity);
+            document.getElementById('glowIntensityValue').textContent = intensity.toFixed(1) + 'x';
+
+            // Update glow sizes
+            Object.entries(GLOW_SIZES).forEach(([size, baseBlur]) => {
+                const blur = Math.round(baseBlur * intensity);
+                const opacity = (size === 'sm' ? 0.5 : size === 'md' ? 0.6 : size === 'lg' ? 0.7 : size === 'xl' ? 0.8 : 0.9) * intensity;
+
+                document.documentElement.style.setProperty(
+                    `--glow-${size}`,
+                    `0 0 ${blur}px rgba(255, 255, 255, ${Math.min(opacity, 1)})`
+                );
+            });
+
+            // Update primary colored glows
+            ['primary', 'secondary', 'success', 'error', 'warning', 'info'].forEach(color => {
+                Object.entries(GLOW_SIZES).forEach(([size, baseBlur]) => {
+                    const blur = Math.round(baseBlur * intensity);
+                    const opacity = (size === 'sm' ? 0.5 : size === 'md' ? 0.6 : size === 'lg' ? 0.7 : 0.8) * intensity;
+
+                    const colorVar = `var(--color-${color})`;
+                    document.documentElement.style.setProperty(
+                        `--glow-${color}-${size}`,
+                        `0 0 ${blur}px color-mix(in srgb, ${colorVar} ${Math.round(opacity * 100)}%, transparent)`
+                    );
+                });
+            });
+        }
+
         // Save tokens to localStorage
         function saveTokens() {
             const tokens = {
@@ -2736,7 +2816,9 @@ console.log(message);</code></pre>
                 infoColor: document.getElementById('infoColor').value,
                 radiusScale: parseFloat(document.getElementById('radiusScale').value),
                 spacingScale: parseFloat(document.getElementById('spacingScale').value),
-                fontScale: parseFloat(document.getElementById('fontScale').value)
+                fontScale: parseFloat(document.getElementById('fontScale').value),
+                shadowIntensity: parseFloat(document.getElementById('shadowIntensity').value),
+                glowIntensity: parseFloat(document.getElementById('glowIntensity').value)
             };
 
             localStorage.setItem('auralTokens', JSON.stringify(tokens));
@@ -2756,6 +2838,8 @@ console.log(message);</code></pre>
             document.getElementById('radiusScale').value = DEFAULT_TOKENS.radiusScale;
             document.getElementById('spacingScale').value = DEFAULT_TOKENS.spacingScale;
             document.getElementById('fontScale').value = DEFAULT_TOKENS.fontScale;
+            document.getElementById('shadowIntensity').value = DEFAULT_TOKENS.shadowIntensity;
+            document.getElementById('glowIntensity').value = DEFAULT_TOKENS.glowIntensity;
 
             // Apply defaults
             updateToken('--color-primary', DEFAULT_TOKENS.primaryColor, 'primaryColorValue');
@@ -2767,6 +2851,8 @@ console.log(message);</code></pre>
             updateRadiusScale(DEFAULT_TOKENS.radiusScale);
             updateSpacingScale(DEFAULT_TOKENS.spacingScale);
             updateFontScale(DEFAULT_TOKENS.fontScale);
+            updateShadowIntensity(DEFAULT_TOKENS.shadowIntensity);
+            updateGlowIntensity(DEFAULT_TOKENS.glowIntensity);
 
             // Clear localStorage
             localStorage.removeItem('auralTokens');
@@ -2815,6 +2901,14 @@ console.log(message);</code></pre>
                 if (tokens.fontScale) {
                     document.getElementById('fontScale').value = tokens.fontScale;
                     updateFontScale(tokens.fontScale);
+                }
+                if (tokens.shadowIntensity) {
+                    document.getElementById('shadowIntensity').value = tokens.shadowIntensity;
+                    updateShadowIntensity(tokens.shadowIntensity);
+                }
+                if (tokens.glowIntensity) {
+                    document.getElementById('glowIntensity').value = tokens.glowIntensity;
+                    updateGlowIntensity(tokens.glowIntensity);
                 }
             } catch (e) {
                 console.error('Failed to load saved tokens:', e);
