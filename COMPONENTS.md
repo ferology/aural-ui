@@ -11,20 +11,29 @@ Complete reference for all components in the Aural UI design system.
   - [Radio](#radio)
   - [Toggle](#toggle)
   - [Select](#select)
+  - [Slider](#slider)
+  - [Chips/Tags](#chipstags)
 - [Navigation](#navigation)
   - [Tabs](#tabs)
   - [Breadcrumb](#breadcrumb)
   - [Pagination](#pagination)
+  - [Command Palette](#command-palette)
 - [Data Display](#data-display)
   - [Table](#table)
   - [Avatar](#avatar)
   - [Progress](#progress)
   - [Divider](#divider)
+  - [Code Block](#code-block)
 - [Interactive](#interactive)
   - [Tooltip](#tooltip)
   - [Dropdown](#dropdown)
   - [Accordion](#accordion)
   - [Popover](#popover)
+  - [Dialog](#dialog)
+  - [File Upload](#file-upload)
+- [Utilities](#utilities)
+  - [Shadows](#shadows)
+  - [Glows](#glows)
 
 ---
 
@@ -832,6 +841,678 @@ Aural.togglePopover('trigger-id');
 
 ---
 
+### Slider
+
+Custom-styled range inputs with real-time value display and glow effects.
+
+**Basic Usage:**
+
+```html
+<div class="aural-slider" id="my-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">Volume</label>
+    <span class="aural-slider__value">50</span>
+  </div>
+  <div class="aural-slider__track">
+    <input type="range" class="aural-slider__input" min="0" max="100" value="50">
+  </div>
+</div>
+```
+
+**Size Variants:**
+
+```html
+<div class="aural-slider aural-slider--sm">...</div>
+<div class="aural-slider aural-slider--lg">...</div>
+```
+
+**Color Variants:**
+
+```html
+<div class="aural-slider aural-slider--success">...</div>
+<div class="aural-slider aural-slider--warning">...</div>
+<div class="aural-slider aural-slider--error">...</div>
+```
+
+**With Min/Max Labels:**
+
+```html
+<div class="aural-slider">
+  ...
+  <div class="aural-slider__minmax">
+    <span class="aural-slider__min">0</span>
+    <span class="aural-slider__max">100</span>
+  </div>
+</div>
+```
+
+**Stepped Slider:**
+
+```html
+<div class="aural-slider aural-slider--stepped">
+  ...
+  <div class="aural-slider__ticks">
+    <div class="aural-slider__tick"></div>
+    <div class="aural-slider__tick"></div>
+    <div class="aural-slider__tick"></div>
+  </div>
+</div>
+```
+
+**JavaScript API:**
+
+```javascript
+// Initialize slider
+Aural.initSlider('my-slider');
+
+// Set value programmatically
+Aural.setSliderValue('my-slider', 75);
+```
+
+**Features:**
+- Real-time value display
+- Glow effects on hover/focus
+- ARIA attributes for screen readers
+- Keyboard accessible (arrow keys)
+- 44px minimum touch target
+
+---
+
+### Chips/Tags
+
+Tag input component with add/remove functionality and multiple variants.
+
+**Basic Usage:**
+
+```html
+<div class="aural-chips" id="my-chips">
+  <div class="aural-chips__container">
+    <div class="aural-chip">
+      <span class="aural-chip__text">JavaScript</span>
+      <button class="aural-chip__remove" aria-label="Remove JavaScript"></button>
+    </div>
+    <input type="text" class="aural-chips__input" placeholder="Add tag...">
+  </div>
+</div>
+```
+
+**Color Variants:**
+
+```html
+<div class="aural-chip aural-chip--primary">...</div>
+<div class="aural-chip aural-chip--success">...</div>
+<div class="aural-chip aural-chip--error">...</div>
+<div class="aural-chip aural-chip--warning">...</div>
+<div class="aural-chip aural-chip--info">...</div>
+```
+
+**Size Variants:**
+
+```html
+<div class="aural-chip aural-chip--sm">...</div>
+<div class="aural-chip aural-chip--lg">...</div>
+```
+
+**With Avatar:**
+
+```html
+<div class="aural-chip aural-chip--with-avatar">
+  <img class="aural-chip__avatar" src="user.jpg" alt="User">
+  <span class="aural-chip__text">John Doe</span>
+  <button class="aural-chip__remove"></button>
+</div>
+```
+
+**Standalone Chips:**
+
+```html
+<div class="aural-chips-list">
+  <div class="aural-chip aural-chip--standalone aural-chip--clickable">
+    <span class="aural-chip__text">Clickable</span>
+  </div>
+</div>
+```
+
+**JavaScript API:**
+
+```javascript
+// Initialize chips with options
+const chips = Aural.initChips('my-chips', {
+  maxTags: 10,
+  allowDuplicates: false,
+  onAdd: (tag) => console.log('Added:', tag),
+  onRemove: (tag) => console.log('Removed:', tag)
+});
+
+// Get all tags
+const tags = chips.getTags(); // Returns array
+
+// Add tag programmatically
+chips.addTag('New Tag');
+
+// Clear all tags
+chips.clearTags();
+```
+
+**Features:**
+- Add tags on Enter or comma key
+- Remove on click or Backspace
+- Screen reader announcements
+- Duplicate prevention
+- Max tags limit
+
+---
+
+## Navigation
+
+### Command Palette
+
+Keyboard-driven search interface with CMD/CTRL+K shortcut.
+
+**Basic Usage:**
+
+```html
+<div class="aural-command-palette-backdrop" id="my-palette">
+  <div class="aural-command-palette">
+    <div class="aural-command-palette__search">
+      <span class="aural-command-palette__search-icon"></span>
+      <input type="text" class="aural-command-palette__input"
+             placeholder="Search commands...">
+    </div>
+    <div class="aural-command-palette__results"></div>
+    <div class="aural-command-palette__footer">
+      <div class="aural-command-palette__hint">
+        <div class="aural-command-palette__hint-keys">
+          <span class="aural-command-palette__key">↑</span>
+          <span class="aural-command-palette__key">↓</span>
+        </div>
+        to navigate
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**JavaScript API:**
+
+```javascript
+// Define commands
+const commands = [
+  {
+    id: 'new-file',
+    title: 'Create New File',
+    description: 'Create a new file',
+    icon: '📄',
+    group: 'File',
+    shortcut: 'Ctrl+N',
+    action: () => console.log('New file')
+  },
+  {
+    id: 'save',
+    title: 'Save',
+    description: 'Save current file',
+    icon: '💾',
+    group: 'File',
+    shortcut: 'Ctrl+S',
+    action: () => console.log('Save')
+  }
+];
+
+// Initialize palette
+Aural.initCommandPalette('my-palette', commands);
+
+// Open/close programmatically
+Aural.openCommandPalette('my-palette');
+Aural.closeCommandPalette('my-palette');
+
+// Render specific commands
+Aural.renderCommandResults('my-palette', filteredCommands);
+```
+
+**Features:**
+- CMD/CTRL+K global shortcut
+- Search filtering
+- Grouped results
+- Keyboard navigation (arrows, Enter, ESC)
+- Shortcuts display
+- Empty state
+- ARIA combobox pattern
+
+---
+
+## Data Display
+
+### Code Block
+
+Syntax-highlighted code blocks with copy to clipboard functionality.
+
+**Basic Usage:**
+
+```html
+<div class="aural-code-block" id="my-code">
+  <div class="aural-code-block__header">
+    <span class="aural-code-block__language">JavaScript</span>
+    <button class="aural-code-block__copy">
+      <span class="aural-code-block__copy-icon"></span>
+      Copy
+    </button>
+  </div>
+  <div class="aural-code-block__content">
+    <pre class="aural-code-block__pre"><code class="aural-code-block__code">function greet(name) {
+  return `Hello, ${name}!`;
+}</code></pre>
+  </div>
+</div>
+```
+
+**With Line Numbers:**
+
+```html
+<div class="aural-code-block aural-code-block--with-line-numbers">
+  <div class="aural-code-block__content">
+    <div class="aural-code-block__line-numbers">
+      <span class="aural-code-block__line-number">1</span>
+      <span class="aural-code-block__line-number">2</span>
+    </div>
+    <pre class="aural-code-block__pre">...</pre>
+  </div>
+</div>
+```
+
+**Highlighted Lines:**
+
+```html
+<code class="aural-code-block__code">
+  <span class="aural-code-block__line">Normal line</span>
+  <span class="aural-code-block__line aural-code-block__line--highlight">Highlighted</span>
+  <span class="aural-code-block__line aural-code-block__line--success">Success</span>
+  <span class="aural-code-block__line aural-code-block__line--error">Error</span>
+</code>
+```
+
+**Terminal Variant:**
+
+```html
+<div class="aural-code-block aural-code-block--terminal">...</div>
+```
+
+**Size Variants:**
+
+```html
+<div class="aural-code-block aural-code-block--sm">...</div>
+<div class="aural-code-block aural-code-block--lg">...</div>
+```
+
+**Inline Code:**
+
+```html
+Use the <code class="aural-code-inline">console.log()</code> function.
+```
+
+**JavaScript API:**
+
+```javascript
+// Initialize specific code block
+Aural.initCodeBlock('my-code');
+
+// Initialize all code blocks on page (auto-called on load)
+Aural.initAllCodeBlocks();
+
+// Apply syntax highlighting (basic)
+Aural.highlightCodeBlock('my-code', 'javascript');
+```
+
+**Features:**
+- Copy to clipboard with feedback
+- Line numbers support
+- Syntax highlighting tokens
+- Highlighted lines (success/error)
+- Terminal variant
+- Custom scrollbar
+- Screen reader accessible
+
+---
+
+## Interactive
+
+### Dialog
+
+Lightweight confirmation dialogs with multiple variants.
+
+**Basic Usage:**
+
+```html
+<div class="aural-dialog-backdrop" id="my-dialog">
+  <div class="aural-dialog aural-dialog--alert">
+    <div class="aural-dialog__header">
+      <div class="aural-dialog__icon"></div>
+      <div class="aural-dialog__title-group">
+        <h3 class="aural-dialog__title">Confirm Action</h3>
+      </div>
+    </div>
+    <div class="aural-dialog__body">
+      <p class="aural-dialog__message">Are you sure you want to continue?</p>
+    </div>
+    <div class="aural-dialog__footer">
+      <button class="btn btn-secondary" onclick="Aural.closeDialog('my-dialog')">
+        Cancel
+      </button>
+      <button class="btn btn-primary">Confirm</button>
+    </div>
+  </div>
+</div>
+```
+
+**Variants:**
+
+```html
+<!-- Alert/Info -->
+<div class="aural-dialog aural-dialog--alert">...</div>
+
+<!-- Success -->
+<div class="aural-dialog aural-dialog--success">...</div>
+
+<!-- Warning -->
+<div class="aural-dialog aural-dialog--warning">...</div>
+
+<!-- Destructive/Error -->
+<div class="aural-dialog aural-dialog--destructive">...</div>
+```
+
+**Without Icon:**
+
+```html
+<div class="aural-dialog aural-dialog--no-icon">...</div>
+```
+
+**With Close Button:**
+
+```html
+<div class="aural-dialog">
+  <button class="aural-dialog__close" onclick="Aural.closeDialog('my-dialog')">
+  </button>
+  ...
+</div>
+```
+
+**JavaScript API:**
+
+```javascript
+// Open dialog
+Aural.openDialog('my-dialog');
+
+// Close dialog
+Aural.closeDialog('my-dialog');
+
+// Show dynamic confirmation dialog
+Aural.showConfirm(
+  'Delete Item?',
+  'This action cannot be undone.',
+  () => console.log('Confirmed'),
+  () => console.log('Cancelled')
+);
+```
+
+**Features:**
+- Multiple visual variants
+- ESC key to close
+- Focus trap
+- Body scroll lock
+- ARIA dialog pattern
+- Backdrop blur
+- Smooth animations
+
+---
+
+### File Upload
+
+Drag-and-drop file upload with validation and progress tracking.
+
+**Basic Usage:**
+
+```html
+<div class="aural-file-upload" id="my-upload">
+  <div class="aural-file-upload__dropzone">
+    <div class="aural-file-upload__icon"></div>
+    <div class="aural-file-upload__text">
+      <div class="aural-file-upload__primary-text">
+        <span class="aural-file-upload__browse">Click to browse</span>
+        or drag and drop
+      </div>
+      <div class="aural-file-upload__secondary-text">
+        PNG, JPG, GIF up to 10MB
+      </div>
+    </div>
+    <input type="file" class="aural-file-upload__input" accept="image/*" multiple>
+  </div>
+  <div class="aural-file-upload__files"></div>
+</div>
+```
+
+**Compact Variant:**
+
+```html
+<div class="aural-file-upload aural-file-upload--compact">...</div>
+```
+
+**File Item Structure:**
+
+```html
+<div class="aural-file-upload__file aural-file-upload__file--uploading">
+  <div class="aural-file-upload__preview aural-file-upload__preview--image">
+    <img src="preview.jpg" alt="File">
+  </div>
+  <div class="aural-file-upload__info">
+    <div class="aural-file-upload__filename">document.pdf</div>
+    <div class="aural-file-upload__filesize">2.4 MB</div>
+    <div class="aural-file-upload__progress">
+      <div class="aural-file-upload__progress-bar">
+        <div class="aural-file-upload__progress-fill" style="width: 60%"></div>
+      </div>
+    </div>
+  </div>
+  <div class="aural-file-upload__actions">
+    <button class="aural-file-upload__remove"></button>
+  </div>
+</div>
+```
+
+**File States:**
+
+```html
+<div class="aural-file-upload__file aural-file-upload__file--uploading">...</div>
+<div class="aural-file-upload__file aural-file-upload__file--success">...</div>
+<div class="aural-file-upload__file aural-file-upload__file--error">...</div>
+```
+
+**JavaScript API:**
+
+```javascript
+// Initialize file upload
+Aural.initFileUpload('my-upload', {
+  maxSize: 10 * 1024 * 1024, // 10MB
+  allowedTypes: ['image/png', 'image/jpeg', 'image/gif'],
+  multiple: true,
+  onUpload: (file) => {
+    console.log('Uploaded:', file.name);
+  }
+});
+```
+
+**Features:**
+- Drag-and-drop support
+- Click to browse
+- File type validation
+- File size validation
+- Multiple files support
+- Upload progress bars
+- File previews/thumbnails
+- Remove files functionality
+- Error states
+- Keyboard accessible
+
+---
+
+## Utilities
+
+### Shadows
+
+Elevation and depth utilities with shadow classes.
+
+**Shadow Sizes:**
+
+```html
+<div class="shadow-xs">Extra small shadow</div>
+<div class="shadow-sm">Small shadow</div>
+<div class="shadow">Default shadow</div>
+<div class="shadow-md">Medium shadow</div>
+<div class="shadow-lg">Large shadow</div>
+<div class="shadow-xl">Extra large shadow</div>
+<div class="shadow-2xl">2X large shadow</div>
+```
+
+**Colored Shadows:**
+
+```html
+<div class="shadow-primary">Primary colored shadow</div>
+<div class="shadow-primary-lg">Large primary shadow</div>
+<div class="shadow-secondary">Secondary shadow</div>
+<div class="shadow-success">Success shadow</div>
+<div class="shadow-warning">Warning shadow</div>
+<div class="shadow-error">Error shadow</div>
+```
+
+**Directional Shadows:**
+
+```html
+<div class="shadow-top">Shadow from top</div>
+<div class="shadow-bottom">Shadow from bottom</div>
+<div class="shadow-left">Shadow from left</div>
+<div class="shadow-right">Shadow from right</div>
+```
+
+**Inner Shadow:**
+
+```html
+<div class="shadow-inner">Inner shadow effect</div>
+```
+
+**Hover Variants:**
+
+```html
+<div class="hover:shadow-lg">Shadow on hover</div>
+<div class="hover:shadow-primary">Primary shadow on hover</div>
+```
+
+**Responsive Variants:**
+
+```html
+<div class="shadow-sm md:shadow-lg xl:shadow-2xl">Responsive shadows</div>
+```
+
+**Transition Helper:**
+
+```html
+<div class="shadow-sm shadow-transition hover:shadow-lg">Smooth transition</div>
+```
+
+---
+
+### Glows
+
+Luminous effects with glow utility classes and animations.
+
+**Glow Sizes:**
+
+```html
+<div class="glow-sm">Small glow</div>
+<div class="glow-md">Medium glow</div>
+<div class="glow-lg">Large glow</div>
+<div class="glow-xl">Extra large glow</div>
+<div class="glow-2xl">2X large glow</div>
+```
+
+**Colored Glows:**
+
+```html
+<!-- Primary -->
+<div class="glow-primary-sm">Small primary glow</div>
+<div class="glow-primary-md">Medium primary glow</div>
+<div class="glow-primary-lg">Large primary glow</div>
+<div class="glow-primary-xl">XL primary glow</div>
+
+<!-- Other colors -->
+<div class="glow-secondary-md">Secondary glow</div>
+<div class="glow-success-md">Success glow</div>
+<div class="glow-error-md">Error glow</div>
+<div class="glow-warning-md">Warning glow</div>
+<div class="glow-info-md">Info glow</div>
+```
+
+**Inner Glows:**
+
+```html
+<div class="glow-inner-sm">Small inner glow</div>
+<div class="glow-inner-md">Medium inner glow</div>
+<div class="glow-inner-lg">Large inner glow</div>
+```
+
+**Neon Glows (Multi-layer):**
+
+```html
+<div class="glow-neon-primary">Neon primary effect</div>
+<div class="glow-neon-secondary">Neon secondary effect</div>
+<div class="glow-neon-error">Neon error effect</div>
+```
+
+**Depth Glows (3D Effect):**
+
+```html
+<div class="glow-depth-sm">Small depth glow</div>
+<div class="glow-depth-md">Medium depth glow</div>
+<div class="glow-depth-lg">Large depth glow</div>
+```
+
+**Animated Glows:**
+
+```html
+<!-- Pulse animation (2s) -->
+<div class="glow-pulse">Pulsing glow</div>
+
+<!-- Breathing animation (3s) -->
+<div class="glow-breathing">Breathing effect</div>
+<div class="glow-primary-breathing">Primary breathing</div>
+<div class="glow-secondary-breathing">Secondary breathing</div>
+
+<!-- Flicker animation (0.15s) -->
+<div class="glow-flicker">Flickering neon</div>
+```
+
+**Hover Variants:**
+
+```html
+<div class="hover:glow-md">Glow on hover</div>
+<div class="hover:glow-primary-md">Primary glow on hover</div>
+```
+
+**Responsive Variants:**
+
+```html
+<div class="glow-sm md:glow-md lg:glow-xl">Responsive glows</div>
+```
+
+**Transition Helper:**
+
+```html
+<div class="glow-sm glow-transition hover:glow-lg">Smooth transition</div>
+```
+
+**Accessibility:**
+- All animations respect `prefers-reduced-motion`
+- No animation when user prefers reduced motion
+
+---
+
 ## Accessibility Features
 
 All components include:
@@ -852,15 +1533,17 @@ All interactive components auto-initialize on page load:
 
 ```javascript
 // These are called automatically on DOMContentLoaded:
+Aural.initModals();
 Aural.initTabs();
 Aural.initTooltips();
 Aural.initDropdowns();
 Aural.initAccordions();
 Aural.initPopovers();
 Aural.initSelects();
+Aural.initAllCodeBlocks();
 ```
 
-You can also call them manually if needed.
+You can also call them manually if needed. For components that require configuration (Slider, Chips, File Upload, Command Palette), you need to initialize them explicitly with their IDs and options.
 
 ---
 

@@ -14,14 +14,16 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 **Key Features:**
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
 - 🌓 **Dark & Light Themes** - Both themes included, seamlessly switchable
-- ♿ **Accessibility First** - WCAG AA compliant with keyboard navigation and ARIA support
-- 📦 **20+ Components** - Everything you need to build modern interfaces
+- ♿ **Accessibility First** - ~95% WCAG 2.1 AA compliant with comprehensive ARIA support
+- 📦 **26+ Components** - Everything from buttons to command palettes
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
+- 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
 - 🎭 **Icon Integration** - Works seamlessly with Lucide Icons (MIT licensed)
 - 🚀 **Lightweight** - Zero dependencies, vanilla JavaScript, optimized CSS
 - 🔧 **Framework-Agnostic** - Works with React, Vue, Svelte, or vanilla JS
 - 💡 **Developer Friendly** - Simple, semantic HTML with intuitive class names
+- ⌨️ **Keyboard Navigation** - Full keyboard support across all components
 
 ---
 
