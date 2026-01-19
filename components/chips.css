@@ -1,0 +1,365 @@
+/**
+ * AURAL UI - Chips/Tags Component
+ *
+ * Tag input with add/remove functionality and variants
+ */
+
+/* ========================================
+   Chips Input Container
+   ======================================== */
+
+.aural-chips {
+    position: relative;
+    width: 100%;
+}
+
+.aural-chips__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    min-height: 2.75rem;
+    transition: all 0.2s ease;
+}
+
+.aural-chips__container:hover {
+    border-color: var(--color-border-hover);
+}
+
+.aural-chips__container:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: var(--glow-primary-sm);
+    outline: none;
+}
+
+/* ========================================
+   Individual Chip/Tag
+   ======================================== */
+
+.aural-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    transition: all 0.2s ease;
+    max-width: 100%;
+}
+
+.aural-chip__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.aural-chip__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-full);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.aural-chip__remove:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--color-text-primary);
+}
+
+.aural-chip__remove:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.aural-chip__remove::before {
+    content: '×';
+    font-size: 1.125rem;
+    line-height: 1;
+}
+
+/* ========================================
+   Chip Input Field
+   ======================================== */
+
+.aural-chips__input {
+    flex: 1;
+    min-width: 8rem;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+}
+
+.aural-chips__input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* ========================================
+   Color Variants
+   ======================================== */
+
+/* Primary */
+.aural-chip--primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.aural-chip--primary .aural-chip__remove {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aural-chip--primary .aural-chip__remove:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Success */
+.aural-chip--success {
+    background: var(--color-success);
+    color: white;
+}
+
+.aural-chip--success .aural-chip__remove {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aural-chip--success .aural-chip__remove:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Error */
+.aural-chip--error {
+    background: var(--color-error);
+    color: white;
+}
+
+.aural-chip--error .aural-chip__remove {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aural-chip--error .aural-chip__remove:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Warning */
+.aural-chip--warning {
+    background: var(--color-warning);
+    color: white;
+}
+
+.aural-chip--warning .aural-chip__remove {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aural-chip--warning .aural-chip__remove:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Info */
+.aural-chip--info {
+    background: var(--color-info);
+    color: white;
+}
+
+.aural-chip--info .aural-chip__remove {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aural-chip--info .aural-chip__remove:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+/* Small */
+.aural-chip--sm {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+    gap: var(--space-1);
+}
+
+.aural-chip--sm .aural-chip__remove {
+    width: 0.875rem;
+    height: 0.875rem;
+}
+
+.aural-chip--sm .aural-chip__remove::before {
+    font-size: 1rem;
+}
+
+/* Large */
+.aural-chip--lg {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-base);
+    gap: var(--space-3);
+}
+
+.aural-chip--lg .aural-chip__remove {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.aural-chip--lg .aural-chip__remove::before {
+    font-size: 1.375rem;
+}
+
+/* ========================================
+   Chip with Avatar/Icon
+   ======================================== */
+
+.aural-chip--with-avatar {
+    padding-left: var(--space-1);
+}
+
+.aural-chip__avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.aural-chip__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   Standalone Chip (not in input)
+   ======================================== */
+
+.aural-chip--standalone {
+    display: inline-flex;
+}
+
+.aural-chip--clickable {
+    cursor: pointer;
+}
+
+.aural-chip--clickable:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.aural-chip--clickable:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   Chip List (for displaying chips only)
+   ======================================== */
+
+.aural-chips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* ========================================
+   Disabled State
+   ======================================== */
+
+.aural-chips__container--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--color-bg-secondary);
+}
+
+.aural-chips__container--disabled .aural-chip__remove {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.aural-chips__container--disabled .aural-chips__input {
+    cursor: not-allowed;
+}
+
+/* ========================================
+   Error State
+   ======================================== */
+
+.aural-chips__container--error {
+    border-color: var(--color-error);
+}
+
+.aural-chips__container--error:focus-within {
+    border-color: var(--color-error);
+    box-shadow: var(--glow-error-sm);
+}
+
+.aural-chips__error-message {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-error);
+}
+
+/* ========================================
+   Chip Limit Indicator
+   ======================================== */
+
+.aural-chips__limit {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-align: right;
+}
+
+.aural-chips__limit--warning {
+    color: var(--color-warning);
+}
+
+.aural-chips__limit--max {
+    color: var(--color-error);
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-chip,
+    .aural-chip__remove,
+    .aural-chips__container,
+    .aural-chip--clickable {
+        transition: none;
+    }
+}
+
+/* Screen reader only text */
+.aural-chip__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

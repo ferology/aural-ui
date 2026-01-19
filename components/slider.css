@@ -1,0 +1,338 @@
+/**
+ * AURAL UI - Slider Component
+ *
+ * Custom-styled range input with variants and animations
+ */
+
+/* ========================================
+   Base Slider Container
+   ======================================== */
+
+.aural-slider {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.aural-slider__label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aural-slider__label {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-medium);
+}
+
+.aural-slider__value {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+    min-width: 2.5rem;
+    text-align: right;
+}
+
+/* ========================================
+   Slider Input Track
+   ======================================== */
+
+.aural-slider__track {
+    position: relative;
+    width: 100%;
+}
+
+.aural-slider__input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Track - Webkit/Blink */
+.aural-slider__input::-webkit-slider-track {
+    width: 100%;
+    height: 0.5rem;
+    background: transparent;
+    border-radius: var(--radius-full);
+}
+
+/* Track - Firefox */
+.aural-slider__input::-moz-range-track {
+    width: 100%;
+    height: 0.5rem;
+    background: transparent;
+    border-radius: var(--radius-full);
+}
+
+/* ========================================
+   Slider Thumb
+   ======================================== */
+
+/* Thumb - Webkit/Blink */
+.aural-slider__input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--color-primary);
+    border: 3px solid var(--color-bg-primary);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Thumb - Firefox */
+.aural-slider__input::-moz-range-thumb {
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--color-primary);
+    border: 3px solid var(--color-bg-primary);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   Hover & Focus States
+   ======================================== */
+
+.aural-slider__input:hover {
+    background: var(--color-bg-secondary);
+}
+
+.aural-slider__input:hover::-webkit-slider-thumb {
+    box-shadow: var(--glow-primary-sm), var(--shadow-md);
+    transform: scale(1.1);
+}
+
+.aural-slider__input:hover::-moz-range-thumb {
+    box-shadow: var(--glow-primary-sm), var(--shadow-md);
+    transform: scale(1.1);
+}
+
+.aural-slider__input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-slider__input:focus-visible::-webkit-slider-thumb {
+    box-shadow: var(--glow-primary-md), var(--shadow-lg);
+}
+
+.aural-slider__input:focus-visible::-moz-range-thumb {
+    box-shadow: var(--glow-primary-md), var(--shadow-lg);
+}
+
+/* ========================================
+   Active State
+   ======================================== */
+
+.aural-slider__input:active::-webkit-slider-thumb {
+    transform: scale(0.95);
+}
+
+.aural-slider__input:active::-moz-range-thumb {
+    transform: scale(0.95);
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+/* Small */
+.aural-slider--sm .aural-slider__input {
+    height: 0.375rem;
+}
+
+.aural-slider--sm .aural-slider__input::-webkit-slider-track {
+    height: 0.375rem;
+}
+
+.aural-slider--sm .aural-slider__input::-moz-range-track {
+    height: 0.375rem;
+}
+
+.aural-slider--sm .aural-slider__input::-webkit-slider-thumb {
+    width: 1rem;
+    height: 1rem;
+}
+
+.aural-slider--sm .aural-slider__input::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Large */
+.aural-slider--lg .aural-slider__input {
+    height: 0.625rem;
+}
+
+.aural-slider--lg .aural-slider__input::-webkit-slider-track {
+    height: 0.625rem;
+}
+
+.aural-slider--lg .aural-slider__input::-moz-range-track {
+    height: 0.625rem;
+}
+
+.aural-slider--lg .aural-slider__input::-webkit-slider-thumb {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.aural-slider--lg .aural-slider__input::-moz-range-thumb {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ========================================
+   Color Variants
+   ======================================== */
+
+/* Success */
+.aural-slider--success .aural-slider__input::-webkit-slider-thumb {
+    background: var(--color-success);
+}
+
+.aural-slider--success .aural-slider__input::-moz-range-thumb {
+    background: var(--color-success);
+}
+
+.aural-slider--success .aural-slider__value {
+    color: var(--color-success);
+}
+
+.aural-slider--success .aural-slider__input:hover::-webkit-slider-thumb,
+.aural-slider--success .aural-slider__input:focus-visible::-webkit-slider-thumb {
+    box-shadow: var(--glow-success-md), var(--shadow-md);
+}
+
+.aural-slider--success .aural-slider__input:hover::-moz-range-thumb,
+.aural-slider--success .aural-slider__input:focus-visible::-moz-range-thumb {
+    box-shadow: var(--glow-success-md), var(--shadow-md);
+}
+
+/* Warning */
+.aural-slider--warning .aural-slider__input::-webkit-slider-thumb {
+    background: var(--color-warning);
+}
+
+.aural-slider--warning .aural-slider__input::-moz-range-thumb {
+    background: var(--color-warning);
+}
+
+.aural-slider--warning .aural-slider__value {
+    color: var(--color-warning);
+}
+
+.aural-slider--warning .aural-slider__input:hover::-webkit-slider-thumb,
+.aural-slider--warning .aural-slider__input:focus-visible::-webkit-slider-thumb {
+    box-shadow: var(--glow-warning-md), var(--shadow-md);
+}
+
+.aural-slider--warning .aural-slider__input:hover::-moz-range-thumb,
+.aural-slider--warning .aural-slider__input:focus-visible::-moz-range-thumb {
+    box-shadow: var(--glow-warning-md), var(--shadow-md);
+}
+
+/* Error */
+.aural-slider--error .aural-slider__input::-webkit-slider-thumb {
+    background: var(--color-error);
+}
+
+.aural-slider--error .aural-slider__input::-moz-range-thumb {
+    background: var(--color-error);
+}
+
+.aural-slider--error .aural-slider__value {
+    color: var(--color-error);
+}
+
+.aural-slider--error .aural-slider__input:hover::-webkit-slider-thumb,
+.aural-slider--error .aural-slider__input:focus-visible::-webkit-slider-thumb {
+    box-shadow: var(--glow-error-md), var(--shadow-md);
+}
+
+.aural-slider--error .aural-slider__input:hover::-moz-range-thumb,
+.aural-slider--error .aural-slider__input:focus-visible::-moz-range-thumb {
+    box-shadow: var(--glow-error-md), var(--shadow-md);
+}
+
+/* ========================================
+   Stepped Slider with Tick Marks
+   ======================================== */
+
+.aural-slider--stepped .aural-slider__ticks {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.625rem;
+    margin-top: var(--space-1);
+}
+
+.aural-slider__tick {
+    width: 2px;
+    height: 0.5rem;
+    background: var(--color-border);
+    border-radius: var(--radius-sm);
+}
+
+/* ========================================
+   Min/Max Labels
+   ======================================== */
+
+.aural-slider__minmax {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-1);
+}
+
+.aural-slider__min,
+.aural-slider__max {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+/* ========================================
+   Disabled State
+   ======================================== */
+
+.aural-slider__input:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.aural-slider__input:disabled::-webkit-slider-thumb {
+    cursor: not-allowed;
+}
+
+.aural-slider__input:disabled::-moz-range-thumb {
+    cursor: not-allowed;
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-slider__input,
+    .aural-slider__input::-webkit-slider-thumb,
+    .aural-slider__input::-moz-range-thumb {
+        transition: none;
+    }
+}
+
+/* Ensure minimum touch target size */
+.aural-slider__input {
+    min-height: 44px;
+}

@@ -1,0 +1,462 @@
+/**
+ * AURAL UI - Glow Utilities
+ *
+ * Comprehensive glow effect utility classes with animations
+ */
+
+/* ========================================
+   Base Glow Utilities
+   ======================================== */
+
+.glow-sm {
+    box-shadow: var(--glow-sm);
+}
+
+.glow-md {
+    box-shadow: var(--glow-md);
+}
+
+.glow-lg {
+    box-shadow: var(--glow-lg);
+}
+
+.glow-xl {
+    box-shadow: var(--glow-xl);
+}
+
+.glow-2xl {
+    box-shadow: var(--glow-2xl);
+}
+
+/* ========================================
+   Colored Glow Utilities - Primary
+   ======================================== */
+
+.glow-primary-sm {
+    box-shadow: var(--glow-primary-sm);
+}
+
+.glow-primary-md {
+    box-shadow: var(--glow-primary-md);
+}
+
+.glow-primary-lg {
+    box-shadow: var(--glow-primary-lg);
+}
+
+.glow-primary-xl {
+    box-shadow: var(--glow-primary-xl);
+}
+
+/* ========================================
+   Colored Glow Utilities - Secondary
+   ======================================== */
+
+.glow-secondary-sm {
+    box-shadow: var(--glow-secondary-sm);
+}
+
+.glow-secondary-md {
+    box-shadow: var(--glow-secondary-md);
+}
+
+.glow-secondary-lg {
+    box-shadow: var(--glow-secondary-lg);
+}
+
+.glow-secondary-xl {
+    box-shadow: var(--glow-secondary-xl);
+}
+
+/* ========================================
+   Colored Glow Utilities - Success
+   ======================================== */
+
+.glow-success-sm {
+    box-shadow: var(--glow-success-sm);
+}
+
+.glow-success-md {
+    box-shadow: var(--glow-success-md);
+}
+
+.glow-success-lg {
+    box-shadow: var(--glow-success-lg);
+}
+
+.glow-success-xl {
+    box-shadow: var(--glow-success-xl);
+}
+
+/* ========================================
+   Colored Glow Utilities - Error
+   ======================================== */
+
+.glow-error-sm {
+    box-shadow: var(--glow-error-sm);
+}
+
+.glow-error-md {
+    box-shadow: var(--glow-error-md);
+}
+
+.glow-error-lg {
+    box-shadow: var(--glow-error-lg);
+}
+
+.glow-error-xl {
+    box-shadow: var(--glow-error-xl);
+}
+
+/* ========================================
+   Colored Glow Utilities - Warning
+   ======================================== */
+
+.glow-warning-sm {
+    box-shadow: var(--glow-warning-sm);
+}
+
+.glow-warning-md {
+    box-shadow: var(--glow-warning-md);
+}
+
+.glow-warning-lg {
+    box-shadow: var(--glow-warning-lg);
+}
+
+.glow-warning-xl {
+    box-shadow: var(--glow-warning-xl);
+}
+
+/* ========================================
+   Colored Glow Utilities - Info
+   ======================================== */
+
+.glow-info-sm {
+    box-shadow: var(--glow-info-sm);
+}
+
+.glow-info-md {
+    box-shadow: var(--glow-info-md);
+}
+
+.glow-info-lg {
+    box-shadow: var(--glow-info-lg);
+}
+
+.glow-info-xl {
+    box-shadow: var(--glow-info-xl);
+}
+
+/* ========================================
+   Inner Glow Utilities
+   ======================================== */
+
+.glow-inner-sm {
+    box-shadow: var(--glow-inner-sm);
+}
+
+.glow-inner-md {
+    box-shadow: var(--glow-inner-md);
+}
+
+.glow-inner-lg {
+    box-shadow: var(--glow-inner-lg);
+}
+
+/* ========================================
+   Neon Glow Effects
+   ======================================== */
+
+.glow-neon-primary {
+    box-shadow: var(--glow-neon-primary);
+}
+
+.glow-neon-secondary {
+    box-shadow: var(--glow-neon-secondary);
+}
+
+.glow-neon-error {
+    box-shadow: var(--glow-neon-error);
+}
+
+/* ========================================
+   Depth Glow Effects
+   ======================================== */
+
+.glow-depth-sm {
+    box-shadow: var(--glow-depth-sm);
+}
+
+.glow-depth-md {
+    box-shadow: var(--glow-depth-md);
+}
+
+.glow-depth-lg {
+    box-shadow: var(--glow-depth-lg);
+}
+
+/* ========================================
+   Glow Animations
+   ======================================== */
+
+@keyframes glow-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes glow-breathing {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.3);
+    }
+}
+
+@keyframes glow-flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.9;
+    }
+}
+
+/* Animated Glow Classes */
+.glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.glow-breathing {
+    animation: glow-breathing 3s ease-in-out infinite;
+}
+
+.glow-primary-breathing {
+    box-shadow: var(--glow-primary-lg);
+    animation: glow-breathing 3s ease-in-out infinite;
+}
+
+.glow-secondary-breathing {
+    box-shadow: var(--glow-secondary-lg);
+    animation: glow-breathing 3s ease-in-out infinite;
+}
+
+.glow-success-breathing {
+    box-shadow: var(--glow-success-lg);
+    animation: glow-breathing 3s ease-in-out infinite;
+}
+
+.glow-error-breathing {
+    box-shadow: var(--glow-error-lg);
+    animation: glow-breathing 3s ease-in-out infinite;
+}
+
+.glow-flicker {
+    animation: glow-flicker 0.15s ease-in-out infinite;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .glow-pulse,
+    .glow-breathing,
+    .glow-primary-breathing,
+    .glow-secondary-breathing,
+    .glow-success-breathing,
+    .glow-error-breathing,
+    .glow-flicker {
+        animation: none;
+    }
+}
+
+/* ========================================
+   Hover Variants
+   ======================================== */
+
+.hover\:glow-sm:hover {
+    box-shadow: var(--glow-sm);
+}
+
+.hover\:glow-md:hover {
+    box-shadow: var(--glow-md);
+}
+
+.hover\:glow-lg:hover {
+    box-shadow: var(--glow-lg);
+}
+
+.hover\:glow-xl:hover {
+    box-shadow: var(--glow-xl);
+}
+
+.hover\:glow-2xl:hover {
+    box-shadow: var(--glow-2xl);
+}
+
+.hover\:glow-primary-md:hover {
+    box-shadow: var(--glow-primary-md);
+}
+
+.hover\:glow-secondary-md:hover {
+    box-shadow: var(--glow-secondary-md);
+}
+
+.hover\:glow-success-md:hover {
+    box-shadow: var(--glow-success-md);
+}
+
+.hover\:glow-error-md:hover {
+    box-shadow: var(--glow-error-md);
+}
+
+.hover\:glow-neon-primary:hover {
+    box-shadow: var(--glow-neon-primary);
+}
+
+/* ========================================
+   Responsive Variants - Small (sm)
+   ======================================== */
+
+@media (min-width: 640px) {
+    .sm\:glow-sm {
+        box-shadow: var(--glow-sm);
+    }
+
+    .sm\:glow-md {
+        box-shadow: var(--glow-md);
+    }
+
+    .sm\:glow-lg {
+        box-shadow: var(--glow-lg);
+    }
+
+    .sm\:glow-xl {
+        box-shadow: var(--glow-xl);
+    }
+
+    .sm\:glow-2xl {
+        box-shadow: var(--glow-2xl);
+    }
+
+    .sm\:glow-primary-md {
+        box-shadow: var(--glow-primary-md);
+    }
+
+    .sm\:glow-neon-primary {
+        box-shadow: var(--glow-neon-primary);
+    }
+}
+
+/* ========================================
+   Responsive Variants - Medium (md)
+   ======================================== */
+
+@media (min-width: 768px) {
+    .md\:glow-sm {
+        box-shadow: var(--glow-sm);
+    }
+
+    .md\:glow-md {
+        box-shadow: var(--glow-md);
+    }
+
+    .md\:glow-lg {
+        box-shadow: var(--glow-lg);
+    }
+
+    .md\:glow-xl {
+        box-shadow: var(--glow-xl);
+    }
+
+    .md\:glow-2xl {
+        box-shadow: var(--glow-2xl);
+    }
+
+    .md\:glow-primary-md {
+        box-shadow: var(--glow-primary-md);
+    }
+
+    .md\:glow-neon-primary {
+        box-shadow: var(--glow-neon-primary);
+    }
+}
+
+/* ========================================
+   Responsive Variants - Large (lg)
+   ======================================== */
+
+@media (min-width: 1024px) {
+    .lg\:glow-sm {
+        box-shadow: var(--glow-sm);
+    }
+
+    .lg\:glow-md {
+        box-shadow: var(--glow-md);
+    }
+
+    .lg\:glow-lg {
+        box-shadow: var(--glow-lg);
+    }
+
+    .lg\:glow-xl {
+        box-shadow: var(--glow-xl);
+    }
+
+    .lg\:glow-2xl {
+        box-shadow: var(--glow-2xl);
+    }
+
+    .lg\:glow-primary-md {
+        box-shadow: var(--glow-primary-md);
+    }
+
+    .lg\:glow-neon-primary {
+        box-shadow: var(--glow-neon-primary);
+    }
+}
+
+/* ========================================
+   Responsive Variants - Extra Large (xl)
+   ======================================== */
+
+@media (min-width: 1280px) {
+    .xl\:glow-sm {
+        box-shadow: var(--glow-sm);
+    }
+
+    .xl\:glow-md {
+        box-shadow: var(--glow-md);
+    }
+
+    .xl\:glow-lg {
+        box-shadow: var(--glow-lg);
+    }
+
+    .xl\:glow-xl {
+        box-shadow: var(--glow-xl);
+    }
+
+    .xl\:glow-2xl {
+        box-shadow: var(--glow-2xl);
+    }
+
+    .xl\:glow-primary-md {
+        box-shadow: var(--glow-primary-md);
+    }
+
+    .xl\:glow-neon-primary {
+        box-shadow: var(--glow-neon-primary);
+    }
+}
+
+/* ========================================
+   Transition for smooth glow changes
+   ======================================== */
+
+.glow-transition {
+    transition: box-shadow 0.3s ease-in-out;
+}

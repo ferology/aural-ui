@@ -1,0 +1,393 @@
+/**
+ * AURAL UI - File Upload Component
+ *
+ * Drag-and-drop file upload with progress and validation
+ */
+
+/* ========================================
+   File Upload Container
+   ======================================== */
+
+.aural-file-upload {
+    width: 100%;
+}
+
+/* ========================================
+   Drop Zone
+   ======================================== */
+
+.aural-file-upload__dropzone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-8);
+    background: var(--color-bg-primary);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 12rem;
+}
+
+.aural-file-upload__dropzone:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-secondary);
+}
+
+.aural-file-upload__dropzone:focus-within {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-file-upload__dropzone--active {
+    border-color: var(--color-primary);
+    background: rgba(16, 185, 129, 0.05);
+    box-shadow: var(--glow-primary-sm);
+}
+
+.aural-file-upload__dropzone--error {
+    border-color: var(--color-error);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+/* ========================================
+   Drop Zone Content
+   ======================================== */
+
+.aural-file-upload__icon {
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
+.aural-file-upload__icon::before {
+    content: '📁';
+}
+
+.aural-file-upload__dropzone--active .aural-file-upload__icon::before {
+    content: '📂';
+}
+
+.aural-file-upload__text {
+    text-align: center;
+}
+
+.aural-file-upload__primary-text {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.aural-file-upload__secondary-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.aural-file-upload__browse {
+    color: var(--color-primary);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.aural-file-upload__browse:hover {
+    color: var(--color-primary-hover);
+}
+
+.aural-file-upload__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   File Constraints
+   ======================================== */
+
+.aural-file-upload__constraints {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+/* ========================================
+   File List
+   ======================================== */
+
+.aural-file-upload__files {
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+/* ========================================
+   File Item
+   ======================================== */
+
+.aural-file-upload__file {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.aural-file-upload__file:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   File Preview/Thumbnail
+   ======================================== */
+
+.aural-file-upload__preview {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius);
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--color-bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.aural-file-upload__preview--image {
+    overflow: hidden;
+}
+
+.aural-file-upload__preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.aural-file-upload__preview--document::before {
+    content: '📄';
+}
+
+.aural-file-upload__preview--video::before {
+    content: '🎥';
+}
+
+.aural-file-upload__preview--audio::before {
+    content: '🎵';
+}
+
+.aural-file-upload__preview--archive::before {
+    content: '📦';
+}
+
+/* ========================================
+   File Info
+   ======================================== */
+
+.aural-file-upload__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.aural-file-upload__filename {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.aural-file-upload__filesize {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+}
+
+/* ========================================
+   Upload Progress
+   ======================================== */
+
+.aural-file-upload__progress {
+    margin-top: var(--space-2);
+}
+
+.aural-file-upload__progress-bar {
+    height: 0.25rem;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.aural-file-upload__progress-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
+    box-shadow: var(--glow-primary-sm);
+}
+
+.aural-file-upload__progress-text {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+}
+
+/* ========================================
+   File States
+   ======================================== */
+
+/* Uploading */
+.aural-file-upload__file--uploading {
+    border-color: var(--color-primary);
+}
+
+.aural-file-upload__file--uploading .aural-file-upload__status::before {
+    content: '⏳';
+    margin-right: var(--space-2);
+}
+
+/* Success */
+.aural-file-upload__file--success {
+    border-color: var(--color-success);
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.aural-file-upload__file--success .aural-file-upload__status {
+    color: var(--color-success);
+}
+
+.aural-file-upload__file--success .aural-file-upload__status::before {
+    content: '✓';
+    margin-right: var(--space-2);
+}
+
+.aural-file-upload__file--success .aural-file-upload__progress-fill {
+    background: var(--color-success);
+    box-shadow: var(--glow-success-sm);
+}
+
+/* Error */
+.aural-file-upload__file--error {
+    border-color: var(--color-error);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.aural-file-upload__file--error .aural-file-upload__status {
+    color: var(--color-error);
+}
+
+.aural-file-upload__file--error .aural-file-upload__status::before {
+    content: '✗';
+    margin-right: var(--space-2);
+}
+
+.aural-file-upload__error-message {
+    font-size: var(--text-xs);
+    color: var(--color-error);
+    margin-top: var(--space-1);
+}
+
+/* ========================================
+   File Actions
+   ======================================== */
+
+.aural-file-upload__actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-shrink: 0;
+}
+
+.aural-file-upload__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.aural-file-upload__remove:hover {
+    background: var(--color-error);
+    border-color: var(--color-error);
+    color: white;
+}
+
+.aural-file-upload__remove:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-file-upload__remove::before {
+    content: '×';
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+/* ========================================
+   Disabled State
+   ======================================== */
+
+.aural-file-upload--disabled .aural-file-upload__dropzone {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background: var(--color-bg-secondary);
+}
+
+.aural-file-upload--disabled .aural-file-upload__browse {
+    pointer-events: none;
+}
+
+/* ========================================
+   Compact Variant
+   ======================================== */
+
+.aural-file-upload--compact .aural-file-upload__dropzone {
+    padding: var(--space-4);
+    min-height: 6rem;
+}
+
+.aural-file-upload--compact .aural-file-upload__icon {
+    font-size: 2rem;
+}
+
+.aural-file-upload--compact .aural-file-upload__primary-text {
+    font-size: var(--text-sm);
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-file-upload__dropzone,
+    .aural-file-upload__file,
+    .aural-file-upload__progress-fill,
+    .aural-file-upload__remove {
+        transition: none;
+    }
+}
+
+/* Focus visible for keyboard navigation */
+.aural-file-upload__input:focus-visible + .aural-file-upload__dropzone {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

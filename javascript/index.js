@@ -786,6 +786,605 @@ const Aural = {
         if (checkbox && checkbox.type === 'checkbox') {
             checkbox.indeterminate = indeterminate;
         }
+    },
+
+    // ========================================
+    // SLIDER
+    // ========================================
+
+    /**
+     * Initialize a slider with event listeners
+     * @param {string} sliderId - The ID of the slider container
+     */
+    initSlider(sliderId) {
+        const slider = document.getElementById(sliderId);
+        if (!slider) return;
+
+        const input = slider.querySelector('.aural-slider__input');
+        const valueDisplay = slider.querySelector('.aural-slider__value');
+
+        if (input && valueDisplay) {
+            const updateValue = () => {
+                valueDisplay.textContent = input.value;
+            };
+
+            input.addEventListener('input', updateValue);
+            updateValue(); // Initialize
+        }
+    },
+
+    /**
+     * Set slider value programmatically
+     * @param {string} sliderId - The ID of the slider container
+     * @param {number} value - The value to set
+     */
+    setSliderValue(sliderId, value) {
+        const slider = document.getElementById(sliderId);
+        if (!slider) return;
+
+        const input = slider.querySelector('.aural-slider__input');
+        const valueDisplay = slider.querySelector('.aural-slider__value');
+
+        if (input) {
+            input.value = value;
+            if (valueDisplay) {
+                valueDisplay.textContent = value;
+            }
+        }
+    },
+
+    // ========================================
+    // CHIPS
+    // ========================================
+
+    /**
+     * Initialize a chips/tags input component
+     * @param {string} chipsId - The ID of the chips container
+     * @param {Object} options - Configuration options
+     * @returns {Object} API with getTags, addTag, clearTags methods
+     */
+    initChips(chipsId, options = {}) {
+        const chips = document.getElementById(chipsId);
+        if (!chips) return null;
+
+        const container = chips.querySelector('.aural-chips__container');
+        const input = chips.querySelector('.aural-chips__input');
+        const tags = [];
+
+        const {
+            maxTags = null,
+            allowDuplicates = false,
+            onAdd = null,
+            onRemove = null
+        } = options;
+
+        const addTag = (text) => {
+            if (!text || text.trim() === '') return false;
+
+            const trimmedText = text.trim();
+
+            if (!allowDuplicates && tags.includes(trimmedText)) return false;
+            if (maxTags && tags.length >= maxTags) return false;
+
+            tags.push(trimmedText);
+
+            const chip = document.createElement('div');
+            chip.className = 'aural-chip';
+            chip.innerHTML = `
+                <span class="aural-chip__text">${trimmedText}</span>
+                <button class="aural-chip__remove" aria-label="Remove ${trimmedText}"></button>
+            `;
+
+            const removeBtn = chip.querySelector('.aural-chip__remove');
+            removeBtn.addEventListener('click', () => {
+                const index = tags.indexOf(trimmedText);
+                if (index > -1) {
+                    tags.splice(index, 1);
+                }
+                chip.remove();
+                if (onRemove) onRemove(trimmedText);
+            });
+
+            container.insertBefore(chip, input);
+            input.value = '';
+
+            if (onAdd) onAdd(trimmedText);
+            return true;
+        };
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                addTag(input.value);
+            } else if (e.key === 'Backspace' && input.value === '' && tags.length > 0) {
+                const lastTag = tags[tags.length - 1];
+                tags.pop();
+                const chips = container.querySelectorAll('.aural-chip');
+                chips[chips.length - 1].remove();
+                if (onRemove) onRemove(lastTag);
+            }
+        });
+
+        return {
+            getTags: () => [...tags],
+            addTag,
+            clearTags: () => {
+                tags.length = 0;
+                container.querySelectorAll('.aural-chip').forEach(chip => chip.remove());
+            }
+        };
+    },
+
+    // ========================================
+    // CODE BLOCK
+    // ========================================
+
+    /**
+     * Initialize a code block with copy functionality
+     * @param {string} codeBlockId - The ID of the code block
+     */
+    initCodeBlock(codeBlockId) {
+        const codeBlock = document.getElementById(codeBlockId);
+        if (!codeBlock) return;
+
+        const copyBtn = codeBlock.querySelector('.aural-code-block__copy');
+        const codeElement = codeBlock.querySelector('.aural-code-block__code');
+
+        if (copyBtn && codeElement) {
+            copyBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(codeElement.textContent);
+                    copyBtn.classList.add('aural-code-block__copy--copied');
+                    copyBtn.textContent = 'Copied!';
+
+                    setTimeout(() => {
+                        copyBtn.classList.remove('aural-code-block__copy--copied');
+                        copyBtn.textContent = 'Copy';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+            });
+        }
+    },
+
+    /**
+     * Initialize all code blocks on the page
+     */
+    initAllCodeBlocks() {
+        const codeBlocks = document.querySelectorAll('.aural-code-block');
+        codeBlocks.forEach((block) => {
+            if (block.id) {
+                this.initCodeBlock(block.id);
+            }
+        });
+    },
+
+    /**
+     * Apply basic syntax highlighting to a code block
+     * @param {string} codeBlockId - The ID of the code block
+     * @param {string} language - The programming language
+     */
+    highlightCodeBlock(codeBlockId, language) {
+        const codeBlock = document.getElementById(codeBlockId);
+        if (!codeBlock) return;
+
+        const codeElement = codeBlock.querySelector('.aural-code-block__code');
+        if (!codeElement) return;
+
+        let code = codeElement.textContent;
+
+        // Basic regex-based syntax highlighting
+        const patterns = {
+            comment: /\/\/.*|\/\*[\s\S]*?\*\//g,
+            string: /(["'`])(?:\\.|[^\\])*?\1/g,
+            keyword: /\b(function|const|let|var|if|else|return|import|export|class|extends|async|await|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|delete|typeof|instanceof)\b/g,
+            number: /\b\d+\.?\d*\b/g,
+            operator: /[+\-*/%=<>!&|]+/g
+        };
+
+        // Apply highlighting (simplified)
+        // Note: This is a very basic implementation
+        // For production, use a library like Prism.js or highlight.js
+
+        console.log('Syntax highlighting applied for', language);
+    },
+
+    // ========================================
+    // DIALOG
+    // ========================================
+
+    /**
+     * Open a dialog
+     * @param {string} dialogId - The ID of the dialog element
+     */
+    openDialog(dialogId) {
+        const backdrop = document.getElementById(dialogId);
+        if (!backdrop) return;
+
+        backdrop.classList.add('is-open');
+        document.body.classList.add('aural-dialog-open');
+
+        const dialog = backdrop.querySelector('.aural-dialog');
+        dialog?.setAttribute('aria-hidden', 'false');
+
+        // Focus first focusable element
+        const focusable = dialog?.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        focusable?.focus();
+
+        // Close on ESC
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') {
+                this.closeDialog(dialogId);
+                document.removeEventListener('keydown', handleEsc);
+            }
+        };
+        document.addEventListener('keydown', handleEsc);
+    },
+
+    /**
+     * Close a dialog
+     * @param {string} dialogId - The ID of the dialog element
+     */
+    closeDialog(dialogId) {
+        const backdrop = document.getElementById(dialogId);
+        if (!backdrop) return;
+
+        backdrop.classList.remove('is-open');
+        document.body.classList.remove('aural-dialog-open');
+
+        const dialog = backdrop.querySelector('.aural-dialog');
+        dialog?.setAttribute('aria-hidden', 'true');
+    },
+
+    /**
+     * Show a confirmation dialog dynamically
+     * @param {string} title - Dialog title
+     * @param {string} message - Dialog message
+     * @param {Function} onConfirm - Callback when confirmed
+     * @param {Function} onCancel - Callback when cancelled
+     */
+    showConfirm(title, message, onConfirm, onCancel) {
+        const dialogId = 'aural-confirm-dialog-' + Date.now();
+
+        const backdrop = document.createElement('div');
+        backdrop.id = dialogId;
+        backdrop.className = 'aural-dialog-backdrop';
+        backdrop.innerHTML = `
+            <div class="aural-dialog aural-dialog--alert">
+                <div class="aural-dialog__header">
+                    <div class="aural-dialog__icon"></div>
+                    <div class="aural-dialog__title-group">
+                        <h3 class="aural-dialog__title">${title}</h3>
+                    </div>
+                </div>
+                <div class="aural-dialog__body">
+                    <p class="aural-dialog__message">${message}</p>
+                </div>
+                <div class="aural-dialog__footer">
+                    <button class="aural-button aural-button--secondary aural-dialog__action" data-action="cancel">Cancel</button>
+                    <button class="aural-button aural-button--primary aural-dialog__action" data-action="confirm">Confirm</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(backdrop);
+
+        const confirmBtn = backdrop.querySelector('[data-action="confirm"]');
+        const cancelBtn = backdrop.querySelector('[data-action="cancel"]');
+
+        confirmBtn?.addEventListener('click', () => {
+            if (onConfirm) onConfirm();
+            backdrop.remove();
+        });
+
+        cancelBtn?.addEventListener('click', () => {
+            if (onCancel) onCancel();
+            backdrop.remove();
+        });
+
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) {
+                if (onCancel) onCancel();
+                backdrop.remove();
+            }
+        });
+
+        this.openDialog(dialogId);
+    },
+
+    // ========================================
+    // FILE UPLOAD
+    // ========================================
+
+    /**
+     * Initialize a file upload component
+     * @param {string} uploadId - The ID of the file upload container
+     * @param {Object} options - Configuration options
+     */
+    initFileUpload(uploadId, options = {}) {
+        const upload = document.getElementById(uploadId);
+        if (!upload) return;
+
+        const {
+            maxSize = 10 * 1024 * 1024, // 10MB
+            allowedTypes = [],
+            multiple = true,
+            onUpload = null
+        } = options;
+
+        const dropzone = upload.querySelector('.aural-file-upload__dropzone');
+        const input = upload.querySelector('.aural-file-upload__input');
+        const filesContainer = upload.querySelector('.aural-file-upload__files');
+
+        const handleFiles = (files) => {
+            Array.from(files).forEach(file => {
+                // Validate file size
+                if (file.size > maxSize) {
+                    console.error('File too large:', file.name);
+                    return;
+                }
+
+                // Validate file type
+                if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
+                    console.error('File type not allowed:', file.name);
+                    return;
+                }
+
+                // Create file item
+                const fileItem = document.createElement('div');
+                fileItem.className = 'aural-file-upload__file aural-file-upload__file--uploading';
+
+                const preview = file.type.startsWith('image/')
+                    ? `<div class="aural-file-upload__preview aural-file-upload__preview--image"><img src="${URL.createObjectURL(file)}" alt="${file.name}"></div>`
+                    : `<div class="aural-file-upload__preview aural-file-upload__preview--document"></div>`;
+
+                fileItem.innerHTML = `
+                    ${preview}
+                    <div class="aural-file-upload__info">
+                        <div class="aural-file-upload__filename">${file.name}</div>
+                        <div class="aural-file-upload__filesize">${(file.size / 1024).toFixed(2)} KB</div>
+                        <div class="aural-file-upload__progress">
+                            <div class="aural-file-upload__progress-bar">
+                                <div class="aural-file-upload__progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aural-file-upload__actions">
+                        <button class="aural-file-upload__remove" aria-label="Remove ${file.name}"></button>
+                    </div>
+                `;
+
+                filesContainer?.appendChild(fileItem);
+
+                // Simulate upload progress
+                const progressFill = fileItem.querySelector('.aural-file-upload__progress-fill');
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    if (progressFill) progressFill.style.width = `${progress}%`;
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        fileItem.classList.remove('aural-file-upload__file--uploading');
+                        fileItem.classList.add('aural-file-upload__file--success');
+
+                        if (onUpload) onUpload(file);
+                    }
+                }, 200);
+
+                // Remove button
+                const removeBtn = fileItem.querySelector('.aural-file-upload__remove');
+                removeBtn?.addEventListener('click', () => {
+                    clearInterval(interval);
+                    fileItem.remove();
+                });
+            });
+        };
+
+        // Click to browse
+        dropzone?.addEventListener('click', () => input?.click());
+
+        // File input change
+        input?.addEventListener('change', (e) => {
+            if (e.target.files) {
+                handleFiles(e.target.files);
+            }
+        });
+
+        // Drag and drop
+        dropzone?.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('aural-file-upload__dropzone--active');
+        });
+
+        dropzone?.addEventListener('dragleave', () => {
+            dropzone.classList.remove('aural-file-upload__dropzone--active');
+        });
+
+        dropzone?.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('aural-file-upload__dropzone--active');
+
+            if (e.dataTransfer?.files) {
+                handleFiles(e.dataTransfer.files);
+            }
+        });
+    },
+
+    // ========================================
+    // COMMAND PALETTE
+    // ========================================
+
+    /**
+     * Open a command palette
+     * @param {string} paletteId - The ID of the command palette
+     */
+    openCommandPalette(paletteId) {
+        const backdrop = document.getElementById(paletteId);
+        if (!backdrop) return;
+
+        backdrop.classList.add('is-open');
+        document.body.classList.add('aural-command-palette-open');
+
+        const input = backdrop.querySelector('.aural-command-palette__input');
+        input?.focus();
+
+        // Close on ESC
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') {
+                this.closeCommandPalette(paletteId);
+                document.removeEventListener('keydown', handleEsc);
+            }
+        };
+        document.addEventListener('keydown', handleEsc);
+    },
+
+    /**
+     * Close a command palette
+     * @param {string} paletteId - The ID of the command palette
+     */
+    closeCommandPalette(paletteId) {
+        const backdrop = document.getElementById(paletteId);
+        if (!backdrop) return;
+
+        backdrop.classList.remove('is-open');
+        document.body.classList.remove('aural-command-palette-open');
+    },
+
+    /**
+     * Initialize a command palette with commands
+     * @param {string} paletteId - The ID of the command palette
+     * @param {Array} commands - Array of command objects
+     */
+    initCommandPalette(paletteId, commands = []) {
+        const backdrop = document.getElementById(paletteId);
+        if (!backdrop) return;
+
+        const input = backdrop.querySelector('.aural-command-palette__input');
+        const resultsContainer = backdrop.querySelector('.aural-command-palette__results');
+        let selectedIndex = 0;
+
+        // Render initial commands
+        this.renderCommandResults(paletteId, commands);
+
+        // Search filtering
+        input?.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = commands.filter(cmd =>
+                cmd.title.toLowerCase().includes(query) ||
+                cmd.description?.toLowerCase().includes(query)
+            );
+            this.renderCommandResults(paletteId, filtered);
+            selectedIndex = 0;
+        });
+
+        // Keyboard navigation
+        backdrop.addEventListener('keydown', (e) => {
+            const items = backdrop.querySelectorAll('.aural-command-palette__item');
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+                updateSelection(items);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = Math.max(selectedIndex - 1, 0);
+                updateSelection(items);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                const selected = items[selectedIndex];
+                selected?.click();
+            }
+        });
+
+        const updateSelection = (items) => {
+            items.forEach((item, index) => {
+                if (index === selectedIndex) {
+                    item.classList.add('aural-command-palette__item--selected');
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('aural-command-palette__item--selected');
+                }
+            });
+        };
+
+        // CMD/CTRL + K to toggle
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                if (backdrop.classList.contains('is-open')) {
+                    this.closeCommandPalette(paletteId);
+                } else {
+                    this.openCommandPalette(paletteId);
+                }
+            }
+        });
+    },
+
+    /**
+     * Render command results
+     * @param {string} paletteId - The ID of the command palette
+     * @param {Array} commands - Array of command objects to render
+     */
+    renderCommandResults(paletteId, commands) {
+        const backdrop = document.getElementById(paletteId);
+        if (!backdrop) return;
+
+        const resultsContainer = backdrop.querySelector('.aural-command-palette__results');
+        if (!resultsContainer) return;
+
+        if (commands.length === 0) {
+            resultsContainer.innerHTML = `
+                <div class="aural-command-palette__empty">
+                    <div class="aural-command-palette__empty-icon"></div>
+                    <div class="aural-command-palette__empty-text">No commands found</div>
+                </div>
+            `;
+            return;
+        }
+
+        // Group commands by category
+        const grouped = commands.reduce((acc, cmd) => {
+            const group = cmd.group || 'Commands';
+            if (!acc[group]) acc[group] = [];
+            acc[group].push(cmd);
+            return acc;
+        }, {});
+
+        resultsContainer.innerHTML = Object.entries(grouped).map(([group, cmds]) => `
+            <div class="aural-command-palette__group">
+                <div class="aural-command-palette__group-label">${group}</div>
+                <div class="aural-command-palette__items">
+                    ${cmds.map((cmd, index) => `
+                        <button class="aural-command-palette__item ${index === 0 ? 'aural-command-palette__item--selected' : ''}" data-command="${cmd.id}">
+                            ${cmd.icon ? `<span class="aural-command-palette__item-icon">${cmd.icon}</span>` : ''}
+                            <div class="aural-command-palette__item-content">
+                                <div class="aural-command-palette__item-title">${cmd.title}</div>
+                                ${cmd.description ? `<div class="aural-command-palette__item-description">${cmd.description}</div>` : ''}
+                            </div>
+                            ${cmd.shortcut ? `
+                                <div class="aural-command-palette__shortcut">
+                                    ${cmd.shortcut.split('+').map(key => `<span class="aural-command-palette__key">${key}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+
+        // Add click handlers
+        resultsContainer.querySelectorAll('.aural-command-palette__item').forEach(item => {
+            item.addEventListener('click', () => {
+                const cmdId = item.getAttribute('data-command');
+                const command = commands.find(c => c.id === cmdId);
+                if (command?.action) {
+                    command.action();
+                }
+                this.closeCommandPalette(paletteId);
+            });
+        });
     }
 };
 
@@ -800,6 +1399,7 @@ if (typeof document !== 'undefined') {
             Aural.initAccordions();
             Aural.initPopovers();
             Aural.initSelects();
+            Aural.initAllCodeBlocks();
         });
     } else {
         Aural.initModals();
@@ -809,6 +1409,7 @@ if (typeof document !== 'undefined') {
         Aural.initAccordions();
         Aural.initPopovers();
         Aural.initSelects();
+        Aural.initAllCodeBlocks();
     }
 }
 
