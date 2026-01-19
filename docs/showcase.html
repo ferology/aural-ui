@@ -135,10 +135,10 @@
 
         /* Token Controller */
         .token-controller-toggle {
-            position: fixed;
-            top: var(--space-4);
-            left: 300px;
-            z-index: 1000;
+            display: block;
+            width: 100%;
+            margin-bottom: var(--space-6);
+            justify-content: center;
         }
 
         .token-controller {
@@ -222,15 +222,6 @@
     </style>
 </head>
 <body>
-    <!-- Token Controller Toggle -->
-    <button class="btn btn-primary token-controller-toggle" onclick="toggleController()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
-        </svg>
-        Customize
-    </button>
-
     <!-- Theme Toggle -->
     <button class="btn btn-ghost theme-toggle" onclick="toggleTheme()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
@@ -336,6 +327,15 @@
     <!-- Sidebar Navigation -->
     <nav class="sidebar">
         <div class="sidebar-title">Aural UI</div>
+
+        <!-- Token Controller Toggle -->
+        <button class="btn btn-primary token-controller-toggle" onclick="toggleController()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+            </svg>
+            Customize
+        </button>
 
         <div class="nav-section">
             <div class="nav-section-title">Getting Started</div>
