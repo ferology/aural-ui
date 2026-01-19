@@ -174,15 +174,16 @@
     /* ========================================
        Primary Color Opacity Variants
        (For hover states, backgrounds, etc.)
+       These reference --color-primary for dynamic updates
        ======================================== */
-    --primary-alpha-5: color-mix(in srgb, var(--primary-500) 5%, transparent);
-    --primary-alpha-8: color-mix(in srgb, var(--primary-500) 8%, transparent);
-    --primary-alpha-10: color-mix(in srgb, var(--primary-500) 10%, transparent);
-    --primary-alpha-12: color-mix(in srgb, var(--primary-500) 12%, transparent);
-    --primary-alpha-15: color-mix(in srgb, var(--primary-500) 15%, transparent);
-    --primary-alpha-20: color-mix(in srgb, var(--primary-500) 20%, transparent);
-    --primary-alpha-30: color-mix(in srgb, var(--primary-500) 30%, transparent);
-    --primary-alpha-40: color-mix(in srgb, var(--primary-500) 40%, transparent);
+    --primary-alpha-5: color-mix(in srgb, var(--color-primary, var(--primary-500)) 5%, transparent);
+    --primary-alpha-8: color-mix(in srgb, var(--color-primary, var(--primary-500)) 8%, transparent);
+    --primary-alpha-10: color-mix(in srgb, var(--color-primary, var(--primary-500)) 10%, transparent);
+    --primary-alpha-12: color-mix(in srgb, var(--color-primary, var(--primary-500)) 12%, transparent);
+    --primary-alpha-15: color-mix(in srgb, var(--color-primary, var(--primary-500)) 15%, transparent);
+    --primary-alpha-20: color-mix(in srgb, var(--color-primary, var(--primary-500)) 20%, transparent);
+    --primary-alpha-30: color-mix(in srgb, var(--color-primary, var(--primary-500)) 30%, transparent);
+    --primary-alpha-40: color-mix(in srgb, var(--color-primary, var(--primary-500)) 40%, transparent);
 }
 
 /**
@@ -510,8 +511,8 @@
        Brand Colors (Interactive Elements)
        ======================================== */
     --color-primary: var(--primary-500);
-    --color-primary-hover: var(--primary-600);
-    --color-primary-active: var(--primary-700);
+    --color-primary-hover: color-mix(in srgb, var(--color-primary) 85%, black);
+    --color-primary-active: color-mix(in srgb, var(--color-primary) 70%, black);
     --color-primary-muted: var(--primary-100);
 
     --color-secondary: var(--secondary-500);
