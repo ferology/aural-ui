@@ -351,35 +351,33 @@
          * Initialize accordions
          */
         initAccordions() {
-          document.addEventListener("DOMContentLoaded", () => {
-            const accordions = document.querySelectorAll(".accordion");
-            accordions.forEach((accordion) => {
-              const items = accordion.querySelectorAll(".accordion-item");
-              const allowMultiple = accordion.classList.contains("accordion-always-open");
-              items.forEach((item) => {
-                const header = item.querySelector(".accordion-header");
-                const panel = item.querySelector(".accordion-panel");
-                if (header && panel) {
-                  header.addEventListener("click", () => {
-                    const isExpanded = header.getAttribute("aria-expanded") === "true";
-                    if (!allowMultiple) {
-                      items.forEach((otherItem) => {
-                        if (otherItem !== item) {
-                          const otherHeader = otherItem.querySelector(".accordion-header");
-                          const otherPanel = otherItem.querySelector(".accordion-panel");
-                          otherHeader?.setAttribute("aria-expanded", "false");
-                          otherPanel?.setAttribute("hidden", "");
-                        }
-                      });
-                    }
-                    if (isExpanded) {
-                      this.closeAccordion(item.id);
-                    } else {
-                      this.openAccordion(item.id);
-                    }
-                  });
-                }
-              });
+          const accordions = document.querySelectorAll(".accordion");
+          accordions.forEach((accordion) => {
+            const items = accordion.querySelectorAll(".accordion-item");
+            const allowMultiple = accordion.classList.contains("accordion-always-open");
+            items.forEach((item) => {
+              const header = item.querySelector(".accordion-header");
+              const panel = item.querySelector(".accordion-panel");
+              if (header && panel) {
+                header.addEventListener("click", () => {
+                  const isExpanded = header.getAttribute("aria-expanded") === "true";
+                  if (!allowMultiple) {
+                    items.forEach((otherItem) => {
+                      if (otherItem !== item) {
+                        const otherHeader = otherItem.querySelector(".accordion-header");
+                        const otherPanel = otherItem.querySelector(".accordion-panel");
+                        otherHeader?.setAttribute("aria-expanded", "false");
+                        otherPanel?.setAttribute("hidden", "");
+                      }
+                    });
+                  }
+                  if (isExpanded) {
+                    this.closeAccordion(item.id);
+                  } else {
+                    this.openAccordion(item.id);
+                  }
+                });
+              }
             });
           });
         },
