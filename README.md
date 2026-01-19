@@ -1,6 +1,6 @@
 # Aural UI
 
-**Token-driven, white-label design system for modern web applications**
+**A modern, accessible design system built for flexibility and customization**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](package.json)
@@ -9,15 +9,19 @@
 
 ## 🎯 Overview
 
-Aural UI is a professional design system built with scalability and customization in mind. Change a few tokens to completely rebrand your application.
+Aural UI is a comprehensive component library that combines beautiful design with practical functionality. Built on a foundation of design tokens and CSS custom properties, it offers unparalleled customization while maintaining consistency across your entire application.
 
 **Key Features:**
-- 🎨 **Token-based theming** - Change entire brand with a few variables
-- 🌓 **Dark & Light modes** - Both themes included
-- ♿ **Accessible by default** - WCAG AA compliant
-- 📦 **Framework-agnostic** - Works with React, Vue, Svelte, vanilla JS
-- 🎯 **Production-ready** - Battle-tested components
-- 🔧 **Highly customizable** - Override any token or component style
+- 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
+- 🌓 **Dark & Light Themes** - Both themes included, seamlessly switchable
+- ♿ **Accessibility First** - WCAG AA compliant with keyboard navigation and ARIA support
+- 📦 **20+ Components** - Everything you need to build modern interfaces
+- 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
+- ✨ **Typography System** - Comprehensive font utilities for all use cases
+- 🎭 **Icon Integration** - Works seamlessly with Lucide Icons (MIT licensed)
+- 🚀 **Lightweight** - Zero dependencies, vanilla JavaScript, optimized CSS
+- 🔧 **Framework-Agnostic** - Works with React, Vue, Svelte, or vanilla JS
+- 💡 **Developer Friendly** - Simple, semantic HTML with intuitive class names
 
 ---
 
@@ -67,10 +71,16 @@ npm run dev
 ## 🚀 Quick Start
 
 ```html
-<!-- Button examples -->
+<!-- Buttons -->
 <button class="btn btn-primary">Primary</button>
 <button class="btn btn-secondary">Secondary</button>
 <button class="btn btn-danger">Danger</button>
+
+<!-- Buttons with Icons (Lucide) -->
+<button class="btn btn-primary">
+  <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+  Add Item
+</button>
 
 <!-- Input with label -->
 <div class="form-group">
@@ -79,13 +89,34 @@ npm run dev
     <p class="form-helper">We'll never share your email</p>
 </div>
 
-<!-- Card -->
-<div class="card">
-    <h3>Card Title</h3>
-    <p>Card content goes here</p>
+<!-- Responsive Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="card">
+        <h3 class="text-lg font-semibold">Card 1</h3>
+        <p class="text-secondary">Card content</p>
+    </div>
+    <div class="card">
+        <h3 class="text-lg font-semibold">Card 2</h3>
+        <p class="text-secondary">Card content</p>
+    </div>
+    <div class="card">
+        <h3 class="text-lg font-semibold">Card 3</h3>
+        <p class="text-secondary">Card content</p>
+    </div>
 </div>
 
-<!-- Toast notification -->
+<!-- Typography Utilities -->
+<h1 class="text-4xl font-bold">Large Heading</h1>
+<p class="text-base leading-relaxed">Body text with comfortable line height</p>
+<small class="text-sm text-secondary">Small secondary text</small>
+
+<!-- Modal -->
+<script>
+Aural.openModal('my-modal');
+Aural.closeModal('my-modal');
+</script>
+
+<!-- Toast Notification -->
 <script>
 Aural.showToast('Operation successful!', 'success');
 </script>
@@ -149,40 +180,123 @@ npm run serve
 
 ---
 
-## 🧩 Components
+## 🧩 Components & Utilities
 
 ### Form Controls
-- **Button** - Primary, secondary, danger, ghost variants
+- **Button** - Primary, secondary, danger, ghost variants with loading states
 - **Input** - Text, email, password, number with validation states
-- **Checkbox** - Custom styled with indeterminate state
-- **Radio** - Custom styled with button variant
-- **Toggle** - Animated on/off switch
+- **Checkbox** - Custom styled with indeterminate state and sizes
+- **Radio** - Custom styled with button variant and grouping
+- **Toggle/Switch** - Animated on/off switch with labels
 - **Select** - Native styled + custom dropdown variant
 
 ### Navigation
-- **Tabs** - Underline, pills, and boxed styles
-- **Breadcrumb** - Location hierarchy with multiple separators
-- **Pagination** - Page navigation with various layouts
+- **Tabs** - Underline, pills, and boxed styles with keyboard navigation
+- **Breadcrumb** - Location hierarchy with customizable separators
+- **Pagination** - Page navigation with numbered and simple variants
 
 ### Data Display
-- **Table** - Sortable, striped, bordered, sticky headers
-- **Avatar** - Images, initials, status badges, groups
-- **Progress** - Determinate/indeterminate with color variants
-- **Badge** - Status indicators and labels
-- **Card** - Content containers
-- **Divider** - Horizontal/vertical separators
-- **Empty State** - No data placeholders
+- **Table** - Striped, bordered, compact, with sticky headers
+- **Avatar** - Images, initials, icons, status badges, stacked groups
+- **Progress Bar** - Determinate/indeterminate with 5 color variants
+- **Badge** - Status indicators, labels, and counts
+- **Card** - Content containers with optional headers/footers
+- **Divider** - Horizontal/vertical separators with optional labels
+- **Empty State** - No data placeholders with icons
 
 ### Interactive
-- **Tooltip** - Contextual information on hover/focus
-- **Dropdown** - Action menus with keyboard navigation
-- **Accordion** - Collapsible content sections
-- **Popover** - Rich content overlays
-- **Modal** - Dialog overlays
+- **Tooltip** - Contextual information on hover/focus (4 positions)
+- **Dropdown** - Action menus with keyboard navigation and submenus
+- **Accordion** - Collapsible content sections (single/multiple modes)
+- **Popover** - Rich content overlays with auto-positioning
+- **Modal** - Dialog overlays with focus trapping
 
 ### Feedback
-- **Toast** - Notification messages
-- **Skeleton** - Loading placeholders
+- **Toast** - Notification messages (success, error, warning, info)
+- **Skeleton** - Loading placeholders for content
+
+### Layout Utilities
+
+#### Responsive Grid System
+Mobile-first grid system with breakpoints at 640px, 768px, 1024px, and 1280px.
+
+```html
+<!-- Container with max-width -->
+<div class="container">...</div>
+
+<!-- Basic grid (1 col mobile, 3 cols desktop) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">...</div>
+
+<!-- 12-column grid with custom spans -->
+<div class="grid grid-cols-12 gap-4">
+  <div class="col-span-12 md:col-span-8">Main</div>
+  <div class="col-span-12 md:col-span-4">Sidebar</div>
+</div>
+
+<!-- Auto-responsive card grid -->
+<div class="grid-cards">...</div>
+
+<!-- Common patterns -->
+<div class="grid-2-col">...</div> <!-- 2 columns on tablet+ -->
+<div class="grid-3-col">...</div> <!-- 3 columns on desktop -->
+<div class="grid-4-col">...</div> <!-- 2 on tablet, 4 on desktop -->
+```
+
+**Available Classes:**
+- Containers: `.container`, `.container-fluid`
+- Grid columns: `.grid-cols-1` through `.grid-cols-12`
+- Column spans: `.col-span-1` through `.col-span-12`, `.col-span-full`
+- Row spans: `.row-span-1` through `.row-span-6`
+- Gap utilities: `.gap-0`, `.gap-1`, `.gap-2`, `.gap-3`, `.gap-4`, `.gap-6`, `.gap-8`, `.gap-12`
+- Responsive modifiers: `sm:`, `md:`, `lg:`, `xl:`
+
+#### Typography Utilities
+Comprehensive typography system for all text needs.
+
+```html
+<!-- Font Families -->
+<p class="font-sans">Sans-serif text</p>
+<p class="font-serif">Serif text</p>
+<p class="font-mono">Monospace text</p>
+
+<!-- Font Sizes (xs, sm, base, lg, xl, 2xl-9xl) -->
+<h1 class="text-4xl font-bold">Large Heading</h1>
+<p class="text-base">Body text</p>
+<small class="text-sm">Small text</small>
+
+<!-- Font Weights (thin, extralight, light, normal, medium, semibold, bold, extrabold, black) -->
+<p class="font-semibold">Semi-bold text</p>
+
+<!-- Line Heights -->
+<p class="leading-relaxed">Relaxed line height</p>
+
+<!-- Letter Spacing -->
+<p class="tracking-wide uppercase">Tracked text</p>
+
+<!-- Text Utilities -->
+<p class="truncate">Truncated text...</p>
+<p class="line-clamp-2">Clamped to 2 lines...</p>
+```
+
+### Icon Integration
+
+Aural UI works seamlessly with **Lucide Icons** (MIT licensed).
+
+```html
+<!-- Include Lucide -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Use icons -->
+<i data-lucide="heart" style="width: 20px; height: 20px;"></i>
+<i data-lucide="star" style="width: 24px; height: 24px; color: var(--color-warning);"></i>
+
+<!-- Initialize -->
+<script>
+  lucide.createIcons();
+</script>
+```
+
+Browse 1000+ icons at [lucide.dev/icons](https://lucide.dev/icons)
 
 ---
 
@@ -191,17 +305,46 @@ npm run serve
 ```
 aural-ui/
 ├── tokens/
-│   ├── core/           # Primitive tokens (colors, spacing, etc.)
-│   └── semantic/       # Semantic tokens (map to core)
+│   ├── core/              # Primitive tokens (colors, spacing, typography, etc.)
+│   └── semantic/          # Semantic tokens (component-specific mappings)
 ├── themes/
-│   ├── dark.css        # Dark theme
-│   ├── light.css       # Light theme
+│   ├── dark.css           # Dark theme
+│   ├── light.css          # Light theme
 │   └── custom-template.css
-├── components/         # Component styles
-├── javascript/         # Interactive components
-├── dist/              # Built files
-└── docs/              # Documentation
+├── components/            # Component styles (20+ components)
+│   ├── button.css
+│   ├── input.css
+│   ├── modal.css
+│   └── ...
+├── utilities/             # Utility classes
+│   ├── typography.css     # Font utilities
+│   └── grid.css          # Responsive grid system
+├── javascript/
+│   └── index.js          # Interactive component logic
+├── src/
+│   └── aural-ui.css      # Main entry point (imports all)
+├── dist/                 # Built/compiled files
+│   ├── aural-ui.css
+│   ├── aural-ui.min.css
+│   ├── aural-ui.js
+│   └── aural-ui.min.js
+└── docs/                 # Documentation and showcase
+    └── showcase.html     # Live component showcase
 ```
+
+### Token Architecture
+
+```
+Core Tokens (Primitives)
+    ↓
+Semantic Tokens (Behavior)
+    ↓
+Component Styles
+```
+
+**Core tokens** define raw values (colors, spacing scales, font sizes).
+**Semantic tokens** map core tokens to intent (e.g., `--color-btn-primary-bg`).
+**Components** use only semantic tokens for easy theming.
 
 ---
 
@@ -223,12 +366,36 @@ npm run serve
 
 ---
 
+## ♿ Accessibility
+
+All components follow WCAG AA accessibility guidelines and include:
+
+- ✅ **Keyboard Navigation** - Full support for Tab, Arrow keys, Enter, Escape
+- ✅ **Focus Indicators** - Visible focus outlines with proper contrast (2px solid)
+- ✅ **ARIA Attributes** - Proper roles, states, and relationships
+- ✅ **Screen Reader Support** - Meaningful labels and state announcements
+- ✅ **Touch Targets** - Minimum 44px for all interactive elements
+- ✅ **Reduced Motion** - Respects `prefers-reduced-motion` preference
+- ✅ **Color Contrast** - WCAG AA compliant (4.5:1 for text, 3:1 for UI)
+- ✅ **Semantic HTML** - Proper use of headings, lists, and landmarks
+
+### Testing Recommendations
+
+- Test with keyboard only (no mouse)
+- Use screen reader (VoiceOver on macOS, NVDA on Windows)
+- Run browser accessibility checker (Chrome DevTools)
+- Verify color contrast ratios
+- Test with reduced motion enabled
+
+---
+
 ## 📊 Browser Support
 
-- Chrome/Edge (last 2 versions)
-- Firefox (last 2 versions)
-- Safari 12+
-- iOS Safari 12+
+- **Chrome/Edge** - Last 2 versions
+- **Firefox** - Last 2 versions
+- **Safari** - 12+
+- **iOS Safari** - 12+
+- **Modern Browsers** - Supporting CSS Custom Properties and ES6+
 
 ---
 
