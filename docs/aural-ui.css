@@ -2188,7 +2188,13 @@
     border-radius: var(--radius-md);
     background: rgba(255, 255, 255, 0.03);
     transition: var(--transition-all-fast);
+    justify-content: center;
+    text-align: center;
 }
+
+.radio-button > input[type="radio"] + span {
+        padding-left: 0;
+    }
 
 .radio-button > input[type="radio"] + span::before,
     .radio-button > input[type="radio"]:checked + span::after {
@@ -2264,8 +2270,6 @@
 
 .radio-group-buttons > .radio-button {
         flex: 1;
-        justify-content: center;
-        text-align: center;
     }
 
 /* Attached button group */
