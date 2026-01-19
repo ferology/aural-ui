@@ -63,8 +63,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1rem;
-    height: 1rem;
+    min-width: 44px;
+    min-height: 44px;
     padding: 0;
     background: transparent;
     border: none;
@@ -73,6 +73,8 @@
     cursor: pointer;
     transition: all 0.2s ease;
     flex-shrink: 0;
+    /* Visual icon size remains small */
+    font-size: 1rem;
 }
 
 .aural-chip__remove:hover {
@@ -201,8 +203,10 @@
 }
 
 .aural-chip--sm .aural-chip__remove {
-    width: 0.875rem;
-    height: 0.875rem;
+    /* Maintain minimum 44×44px touch target */
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 0.875rem;
 }
 
 .aural-chip--sm .aural-chip__remove::before {

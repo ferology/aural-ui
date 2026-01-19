@@ -19,12 +19,15 @@ const Aural = {
             container = document.createElement('div');
             container.id = 'aural-toast-container';
             container.className = 'toast-container';
+            container.setAttribute('aria-live', 'polite');
+            container.setAttribute('aria-atomic', 'false');
             document.body.appendChild(container);
         }
 
         // Create toast element
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
+        toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
 
         // Icons for each type
         const icons = {
@@ -802,10 +805,27 @@ const Aural = {
 
         const input = slider.querySelector('.aural-slider__input');
         const valueDisplay = slider.querySelector('.aural-slider__value');
+        const label = slider.querySelector('.aural-slider__label');
 
-        if (input && valueDisplay) {
+        if (input) {
+            // Add ARIA attributes
+            input.setAttribute('aria-valuemin', input.min || '0');
+            input.setAttribute('aria-valuemax', input.max || '100');
+            input.setAttribute('aria-valuenow', input.value);
+
+            if (label) {
+                input.setAttribute('aria-label', label.textContent);
+            }
+
+            // Make value display live region
+            if (valueDisplay) {
+                valueDisplay.setAttribute('aria-live', 'polite');
+                valueDisplay.setAttribute('aria-atomic', 'true');
+            }
+
             const updateValue = () => {
                 valueDisplay.textContent = input.value;
+                input.setAttribute('aria-valuenow', input.value);
             };
 
             input.addEventListener('input', updateValue);
@@ -851,6 +871,10 @@ const Aural = {
         const input = chips.querySelector('.aural-chips__input');
         const tags = [];
 
+        // Add ARIA attributes to container
+        container.setAttribute('role', 'list');
+        container.setAttribute('aria-label', 'Tags');
+
         const {
             maxTags = null,
             allowDuplicates = false,
@@ -870,9 +894,10 @@ const Aural = {
 
             const chip = document.createElement('div');
             chip.className = 'aural-chip';
+            chip.setAttribute('role', 'listitem');
             chip.innerHTML = `
                 <span class="aural-chip__text">${trimmedText}</span>
-                <button class="aural-chip__remove" aria-label="Remove ${trimmedText}"></button>
+                <button class="aural-chip__remove" aria-label="Remove tag ${trimmedText}" type="button"></button>
             `;
 
             const removeBtn = chip.querySelector('.aural-chip__remove');
@@ -882,11 +907,30 @@ const Aural = {
                     tags.splice(index, 1);
                 }
                 chip.remove();
+
+                // Announce removal to screen readers
+                const announcement = document.createElement('div');
+                announcement.setAttribute('role', 'status');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.className = 'visually-hidden';
+                announcement.textContent = `Removed tag ${trimmedText}`;
+                document.body.appendChild(announcement);
+                setTimeout(() => announcement.remove(), 1000);
+
                 if (onRemove) onRemove(trimmedText);
             });
 
             container.insertBefore(chip, input);
             input.value = '';
+
+            // Announce addition to screen readers
+            const announcement = document.createElement('div');
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.className = 'visually-hidden';
+            announcement.textContent = `Added tag ${trimmedText}`;
+            document.body.appendChild(announcement);
+            setTimeout(() => announcement.remove(), 1000);
 
             if (onAdd) onAdd(trimmedText);
             return true;
@@ -931,15 +975,29 @@ const Aural = {
         const codeElement = codeBlock.querySelector('.aural-code-block__code');
 
         if (copyBtn && codeElement) {
+            // Add ARIA label
+            copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+
             copyBtn.addEventListener('click', async () => {
                 try {
                     await navigator.clipboard.writeText(codeElement.textContent);
                     copyBtn.classList.add('aural-code-block__copy--copied');
                     copyBtn.textContent = 'Copied!';
+                    copyBtn.setAttribute('aria-label', 'Code copied to clipboard');
+
+                    // Announce to screen readers
+                    const announcement = document.createElement('div');
+                    announcement.setAttribute('role', 'status');
+                    announcement.setAttribute('aria-live', 'polite');
+                    announcement.className = 'visually-hidden';
+                    announcement.textContent = 'Code copied to clipboard';
+                    document.body.appendChild(announcement);
 
                     setTimeout(() => {
                         copyBtn.classList.remove('aural-code-block__copy--copied');
                         copyBtn.textContent = 'Copy';
+                        copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+                        announcement.remove();
                     }, 2000);
                 } catch (err) {
                     console.error('Failed to copy:', err);
@@ -1006,7 +1064,25 @@ const Aural = {
         document.body.classList.add('aural-dialog-open');
 
         const dialog = backdrop.querySelector('.aural-dialog');
-        dialog?.setAttribute('aria-hidden', 'false');
+        if (dialog) {
+            dialog.setAttribute('role', 'dialog');
+            dialog.setAttribute('aria-modal', 'true');
+            dialog.setAttribute('aria-hidden', 'false');
+
+            // Set aria-labelledby if title exists
+            const title = dialog.querySelector('.aural-dialog__title');
+            if (title) {
+                if (!title.id) title.id = `dialog-title-${Date.now()}`;
+                dialog.setAttribute('aria-labelledby', title.id);
+            }
+
+            // Set aria-describedby if message exists
+            const message = dialog.querySelector('.aural-dialog__message');
+            if (message) {
+                if (!message.id) message.id = `dialog-desc-${Date.now()}`;
+                dialog.setAttribute('aria-describedby', message.id);
+            }
+        }
 
         // Focus first focusable element
         const focusable = dialog?.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
@@ -1116,6 +1192,18 @@ const Aural = {
         const dropzone = upload.querySelector('.aural-file-upload__dropzone');
         const input = upload.querySelector('.aural-file-upload__input');
         const filesContainer = upload.querySelector('.aural-file-upload__files');
+
+        // Add ARIA attributes
+        if (dropzone) {
+            dropzone.setAttribute('role', 'button');
+            dropzone.setAttribute('aria-label', 'Upload files by clicking or dragging and dropping');
+            dropzone.setAttribute('tabindex', '0');
+        }
+
+        if (filesContainer) {
+            filesContainer.setAttribute('aria-live', 'polite');
+            filesContainer.setAttribute('aria-label', 'Uploaded files');
+        }
 
         const handleFiles = (files) => {
             Array.from(files).forEach(file => {
@@ -1227,7 +1315,29 @@ const Aural = {
         backdrop.classList.add('is-open');
         document.body.classList.add('aural-command-palette-open');
 
+        const palette = backdrop.querySelector('.aural-command-palette');
         const input = backdrop.querySelector('.aural-command-palette__input');
+        const results = backdrop.querySelector('.aural-command-palette__results');
+
+        // Add ARIA attributes
+        if (palette) {
+            palette.setAttribute('role', 'dialog');
+            palette.setAttribute('aria-modal', 'true');
+            palette.setAttribute('aria-label', 'Command palette');
+        }
+
+        if (input) {
+            input.setAttribute('role', 'combobox');
+            input.setAttribute('aria-autocomplete', 'list');
+            input.setAttribute('aria-expanded', 'true');
+            input.setAttribute('aria-controls', 'command-results');
+        }
+
+        if (results) {
+            results.id = 'command-results';
+            results.setAttribute('role', 'listbox');
+        }
+
         input?.focus();
 
         // Close on ESC
@@ -1302,9 +1412,17 @@ const Aural = {
             items.forEach((item, index) => {
                 if (index === selectedIndex) {
                     item.classList.add('aural-command-palette__item--selected');
+                    item.setAttribute('aria-selected', 'true');
                     item.scrollIntoView({ block: 'nearest' });
+
+                    // Update aria-activedescendant
+                    const input = backdrop.querySelector('.aural-command-palette__input');
+                    if (input && item.id) {
+                        input.setAttribute('aria-activedescendant', item.id);
+                    }
                 } else {
                     item.classList.remove('aural-command-palette__item--selected');
+                    item.setAttribute('aria-selected', 'false');
                 }
             });
         };
@@ -1353,18 +1471,21 @@ const Aural = {
         }, {});
 
         resultsContainer.innerHTML = Object.entries(grouped).map(([group, cmds]) => `
-            <div class="aural-command-palette__group">
-                <div class="aural-command-palette__group-label">${group}</div>
+            <div class="aural-command-palette__group" role="group" aria-labelledby="group-${group.replace(/\s+/g, '-')}">
+                <div class="aural-command-palette__group-label" id="group-${group.replace(/\s+/g, '-')}">${group}</div>
                 <div class="aural-command-palette__items">
                     ${cmds.map((cmd, index) => `
-                        <button class="aural-command-palette__item ${index === 0 ? 'aural-command-palette__item--selected' : ''}" data-command="${cmd.id}">
-                            ${cmd.icon ? `<span class="aural-command-palette__item-icon">${cmd.icon}</span>` : ''}
+                        <button class="aural-command-palette__item ${index === 0 ? 'aural-command-palette__item--selected' : ''}"
+                                data-command="${cmd.id}"
+                                role="option"
+                                aria-selected="${index === 0 ? 'true' : 'false'}">
+                            ${cmd.icon ? `<span class="aural-command-palette__item-icon" aria-hidden="true">${cmd.icon}</span>` : ''}
                             <div class="aural-command-palette__item-content">
                                 <div class="aural-command-palette__item-title">${cmd.title}</div>
                                 ${cmd.description ? `<div class="aural-command-palette__item-description">${cmd.description}</div>` : ''}
                             </div>
                             ${cmd.shortcut ? `
-                                <div class="aural-command-palette__shortcut">
+                                <div class="aural-command-palette__shortcut" aria-label="Keyboard shortcut ${cmd.shortcut}">
                                     ${cmd.shortcut.split('+').map(key => `<span class="aural-command-palette__key">${key}</span>`).join('')}
                                 </div>
                             ` : ''}
