@@ -317,6 +317,16 @@
         </button>
 
         <div class="nav-section">
+            <div class="nav-section-title">Foundations</div>
+            <ul class="nav-links">
+                <li><a href="#colors" class="nav-link">Colors</a></li>
+                <li><a href="#typography" class="nav-link">Typography</a></li>
+                <li><a href="#grid" class="nav-link">Grid System</a></li>
+                <li><a href="#icons" class="nav-link">Icons</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
             <div class="nav-section-title">Components</div>
             <ul class="nav-links">
                 <li><a href="#buttons" class="nav-link">Buttons</a></li>
@@ -698,6 +708,287 @@
                     <li style="margin-bottom: var(--space-2);">Minimum 44px touch targets for interactive elements</li>
                     <li>Respect for user's reduced motion preferences</li>
                 </ul>
+            </div>
+        </section>
+
+        <!-- FOUNDATIONS -->
+
+        <!-- Colors -->
+        <section class="showcase-section" id="colors">
+            <h2 class="showcase-title">Colors</h2>
+            <p class="showcase-subtitle">Design tokens for colors, including primary, state colors, and neutral scales</p>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Brand Colors</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 80px; background: var(--color-primary); border-radius: var(--radius-md); margin-bottom: var(--space-3); box-shadow: var(--glow-primary-md);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1);">Primary</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-primary</code>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 80px; background: var(--color-secondary); border-radius: var(--radius-md); margin-bottom: var(--space-3);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1);">Secondary</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-secondary</code>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">State Colors</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-4);">
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 60px; background: var(--color-success); border-radius: var(--radius-md); margin-bottom: var(--space-3);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1); font-size: var(--text-sm);">Success</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-success</code>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 60px; background: var(--color-warning); border-radius: var(--radius-md); margin-bottom: var(--space-3);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1); font-size: var(--text-sm);">Warning</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-warning</code>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 60px; background: var(--color-error); border-radius: var(--radius-md); margin-bottom: var(--space-3);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1); font-size: var(--text-sm);">Error</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-error</code>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 60px; background: var(--color-info); border-radius: var(--radius-md); margin-bottom: var(--space-3);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1); font-size: var(--text-sm);">Info</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-info</code>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Background Colors</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-4);">
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 60px; background: var(--color-bg-primary); border-radius: var(--radius-md); margin-bottom: var(--space-3); border: 1px solid var(--color-border-subtle);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1); font-size: var(--text-sm);">Primary BG</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-bg-primary</code>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 60px; background: var(--color-bg-secondary); border-radius: var(--radius-md); margin-bottom: var(--space-3); border: 1px solid var(--color-border-subtle);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1); font-size: var(--text-sm);">Secondary BG</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-bg-secondary</code>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 60px; background: var(--color-bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-3);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1); font-size: var(--text-sm);">Tertiary BG</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-bg-tertiary</code>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 100%; height: 60px; background: var(--color-bg-hover); border-radius: var(--radius-md); margin-bottom: var(--space-3);"></div>
+                        <div style="font-weight: var(--font-semibold); margin-bottom: var(--space-1); font-size: var(--text-sm);">Hover BG</div>
+                        <code style="font-size: var(--text-xs); color: var(--color-text-secondary);">--color-bg-hover</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section class="showcase-section" id="typography">
+            <h2 class="showcase-title">Typography</h2>
+            <p class="showcase-subtitle">Font utilities for size, weight, line height, and more</p>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Font Sizes</h3>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                    <div style="margin-bottom: var(--space-4);"><span class="text-xs">Extra Small (.text-xs)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">0.75rem</code></div>
+                    <div style="margin-bottom: var(--space-4);"><span class="text-sm">Small (.text-sm)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">0.875rem</code></div>
+                    <div style="margin-bottom: var(--space-4);"><span class="text-base">Base (.text-base)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">1rem</code></div>
+                    <div style="margin-bottom: var(--space-4);"><span class="text-lg">Large (.text-lg)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">1.125rem</code></div>
+                    <div style="margin-bottom: var(--space-4);"><span class="text-xl">Extra Large (.text-xl)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">1.25rem</code></div>
+                    <div style="margin-bottom: var(--space-4);"><span class="text-2xl">2X Large (.text-2xl)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">1.5rem</code></div>
+                    <div style="margin-bottom: var(--space-4);"><span class="text-3xl">3X Large (.text-3xl)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">1.875rem</code></div>
+                    <div style="margin-bottom: var(--space-4);"><span class="text-4xl">4X Large (.text-4xl)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">2.25rem</code></div>
+                    <div><span class="text-5xl">5X Large (.text-5xl)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">3rem</code></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Font Weights</h3>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                    <div style="margin-bottom: var(--space-3);"><span class="font-light">Light (.font-light)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">300</code></div>
+                    <div style="margin-bottom: var(--space-3);"><span class="font-normal">Normal (.font-normal)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">400</code></div>
+                    <div style="margin-bottom: var(--space-3);"><span class="font-medium">Medium (.font-medium)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">500</code></div>
+                    <div style="margin-bottom: var(--space-3);"><span class="font-semibold">Semibold (.font-semibold)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">600</code></div>
+                    <div style="margin-bottom: var(--space-3);"><span class="font-bold">Bold (.font-bold)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">700</code></div>
+                    <div><span class="font-extrabold">Extra Bold (.font-extrabold)</span> <code style="margin-left: var(--space-2); font-size: var(--text-xs); color: var(--color-text-secondary);">800</code></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Font Families</h3>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                    <div style="margin-bottom: var(--space-3);"><span class="font-sans">Sans-serif (.font-sans)</span></div>
+                    <div style="margin-bottom: var(--space-3);"><span class="font-serif">Serif (.font-serif)</span></div>
+                    <div><span class="font-mono">Monospace (.font-mono)</span></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Text Utilities</h3>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-6); border-radius: var(--radius-lg); border: 1px solid var(--color-border-subtle);">
+                    <div style="margin-bottom: var(--space-3);"><span class="uppercase">Uppercase (.uppercase)</span></div>
+                    <div style="margin-bottom: var(--space-3);"><span class="lowercase">Lowercase (.lowercase)</span></div>
+                    <div style="margin-bottom: var(--space-3);"><span class="capitalize">Capitalize (.capitalize)</span></div>
+                    <div style="margin-bottom: var(--space-3); width: 200px;"><span class="truncate">Truncated text that is very long (.truncate)</span></div>
+                    <div style="width: 300px;"><p class="line-clamp-2" style="margin: 0;">Line clamped to 2 lines. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. (.line-clamp-2)</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid System -->
+        <section class="showcase-section" id="grid">
+            <h2 class="showcase-title">Grid System</h2>
+            <p class="showcase-subtitle">Responsive, mobile-first grid system with breakpoints at 640px, 768px, 1024px, 1280px</p>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Basic Grid</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div style="background: var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md); text-align: center;">Column 1</div>
+                    <div style="background: var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md); text-align: center;">Column 2</div>
+                    <div style="background: var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md); text-align: center;">Column 3</div>
+                </div>
+                <pre style="margin-top: var(--space-4); background: var(--color-bg-tertiary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-4"&gt;
+  &lt;div&gt;Column 1&lt;/div&gt;
+  &lt;div&gt;Column 2&lt;/div&gt;
+  &lt;div&gt;Column 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">12-Column Grid</h3>
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-12 md:col-span-8" style="background: var(--color-primary); padding: var(--space-4); border-radius: var(--radius-md);">Main (8 cols)</div>
+                    <div class="col-span-12 md:col-span-4" style="background: var(--color-secondary); padding: var(--space-4); border-radius: var(--radius-md);">Sidebar (4 cols)</div>
+                </div>
+                <pre style="margin-top: var(--space-4); background: var(--color-bg-tertiary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="grid grid-cols-12 gap-4"&gt;
+  &lt;div class="col-span-12 md:col-span-8"&gt;Main&lt;/div&gt;
+  &lt;div class="col-span-12 md:col-span-4"&gt;Sidebar&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Gap Utilities</h3>
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <div>
+                        <div class="example-label">Gap 2 (.gap-2)</div>
+                        <div class="grid grid-cols-4 gap-2">
+                            <div style="background: var(--color-primary); padding: var(--space-2); border-radius: var(--radius-sm);"></div>
+                            <div style="background: var(--color-primary); padding: var(--space-2); border-radius: var(--radius-sm);"></div>
+                            <div style="background: var(--color-primary); padding: var(--space-2); border-radius: var(--radius-sm);"></div>
+                            <div style="background: var(--color-primary); padding: var(--space-2); border-radius: var(--radius-sm);"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="example-label">Gap 6 (.gap-6)</div>
+                        <div class="grid grid-cols-4 gap-6">
+                            <div style="background: var(--color-primary); padding: var(--space-2); border-radius: var(--radius-sm);"></div>
+                            <div style="background: var(--color-primary); padding: var(--space-2); border-radius: var(--radius-sm);"></div>
+                            <div style="background: var(--color-primary); padding: var(--space-2); border-radius: var(--radius-sm);"></div>
+                            <div style="background: var(--color-primary); padding: var(--space-2); border-radius: var(--radius-sm);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Icons -->
+        <section class="showcase-section" id="icons">
+            <h2 class="showcase-title">Icons</h2>
+            <p class="showcase-subtitle">Lucide Icons integration (MIT licensed) - 1000+ icons available</p>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Popular Icons</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--space-4);">
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="heart" style="width: 32px; height: 32px; color: var(--color-primary); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">heart</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="star" style="width: 32px; height: 32px; color: var(--color-warning); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">star</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="check-circle" style="width: 32px; height: 32px; color: var(--color-success); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">check-circle</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="x-circle" style="width: 32px; height: 32px; color: var(--color-error); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">x-circle</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="info" style="width: 32px; height: 32px; color: var(--color-info); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">info</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="alert-triangle" style="width: 32px; height: 32px; color: var(--color-warning); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">alert-triangle</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="user" style="width: 32px; height: 32px; color: var(--color-text-primary); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">user</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="settings" style="width: 32px; height: 32px; color: var(--color-text-primary); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">settings</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="search" style="width: 32px; height: 32px; color: var(--color-text-primary); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">search</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="mail" style="width: 32px; height: 32px; color: var(--color-text-primary); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">mail</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="home" style="width: 32px; height: 32px; color: var(--color-text-primary); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">home</div>
+                    </div>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--color-border-subtle);">
+                        <i data-lucide="download" style="width: 32px; height: 32px; color: var(--color-text-primary); margin-bottom: var(--space-2);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">download</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Usage</h3>
+                <pre style="background: var(--color-bg-tertiary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;!-- Include Lucide --&gt;
+&lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;
+
+&lt;!-- Use icons --&gt;
+&lt;i data-lucide="heart" style="width: 24px; height: 24px;"&gt;&lt;/i&gt;
+&lt;i data-lucide="star" style="width: 24px; height: 24px; color: var(--color-warning);"&gt;&lt;/i&gt;
+
+&lt;!-- Initialize after DOM loads --&gt;
+&lt;script&gt;
+  lucide.createIcons();
+&lt;/script&gt;</code></pre>
+                <p style="margin-top: var(--space-4); color: var(--color-text-secondary);">
+                    Browse all 1000+ icons at <a href="https://lucide.dev/icons" target="_blank" style="color: var(--color-primary);">lucide.dev/icons</a>
+                </p>
+            </div>
+
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">Icons in Buttons</h3>
+                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                    <button class="btn btn-primary">
+                        <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+                        Add Item
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i data-lucide="download" style="width: 18px; height: 18px;"></i>
+                        Download
+                    </button>
+                    <button class="btn btn-danger">
+                        <i data-lucide="trash-2" style="width: 18px; height: 18px;"></i>
+                        Delete
+                    </button>
+                </div>
             </div>
         </section>
 
