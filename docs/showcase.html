@@ -341,6 +341,20 @@
                 <li><a href="#accordions" class="nav-link">Accordions</a></li>
                 <li><a href="#popovers" class="nav-link">Popovers</a></li>
                 <li><a href="#modals" class="nav-link">Modals</a></li>
+                <li><a href="#slider" class="nav-link">Slider</a></li>
+                <li><a href="#chips" class="nav-link">Chips/Tags</a></li>
+                <li><a href="#code-block" class="nav-link">Code Block</a></li>
+                <li><a href="#dialog" class="nav-link">Dialog</a></li>
+                <li><a href="#file-upload" class="nav-link">File Upload</a></li>
+                <li><a href="#command-palette" class="nav-link">Command Palette</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Utilities</div>
+            <ul class="nav-links">
+                <li><a href="#shadows" class="nav-link">Shadows</a></li>
+                <li><a href="#glows" class="nav-link">Glows</a></li>
             </ul>
         </div>
     </nav>
@@ -1749,6 +1763,602 @@ Aural.setProgress('my-progress', 75);
         </div>
     </div>
 
+    <!-- Slider -->
+    <section class="showcase-section" id="slider">
+        <h2>Slider</h2>
+        <p class="showcase-subtitle">Custom-styled range inputs with variants and real-time value display</p>
+
+        <div class="example">
+            <div class="example-label">Basic Slider</div>
+            <div class="aural-slider" id="demo-slider-1">
+                <div class="aural-slider__label-row">
+                    <label class="aural-slider__label">Volume</label>
+                    <span class="aural-slider__value">50</span>
+                </div>
+                <div class="aural-slider__track">
+                    <input type="range" class="aural-slider__input" min="0" max="100" value="50">
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Slider with Color Variants</div>
+            <div class="component-grid">
+                <div class="aural-slider aural-slider--success" id="demo-slider-success">
+                    <div class="aural-slider__label-row">
+                        <label class="aural-slider__label">Success</label>
+                        <span class="aural-slider__value">75</span>
+                    </div>
+                    <input type="range" class="aural-slider__input" min="0" max="100" value="75">
+                </div>
+                <div class="aural-slider aural-slider--warning" id="demo-slider-warning">
+                    <div class="aural-slider__label-row">
+                        <label class="aural-slider__label">Warning</label>
+                        <span class="aural-slider__value">60</span>
+                    </div>
+                    <input type="range" class="aural-slider__input" min="0" max="100" value="60">
+                </div>
+                <div class="aural-slider aural-slider--error" id="demo-slider-error">
+                    <div class="aural-slider__label-row">
+                        <label class="aural-slider__label">Error</label>
+                        <span class="aural-slider__value">40</span>
+                    </div>
+                    <input type="range" class="aural-slider__input" min="0" max="100" value="40">
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-slider" id="my-slider"&gt;
+  &lt;div class="aural-slider__label-row"&gt;
+    &lt;label class="aural-slider__label"&gt;Volume&lt;/label&gt;
+    &lt;span class="aural-slider__value"&gt;50&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-slider__track"&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="50"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  Aural.initSlider('my-slider');
+  Aural.setSliderValue('my-slider', 75);
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Chips/Tags -->
+    <section class="showcase-section" id="chips">
+        <h2>Chips / Tags</h2>
+        <p class="showcase-subtitle">Tag input with add/remove functionality and multiple variants</p>
+
+        <div class="example">
+            <div class="example-label">Basic Chips Input</div>
+            <div class="aural-chips" id="demo-chips-1">
+                <div class="aural-chips__container">
+                    <div class="aural-chip">
+                        <span class="aural-chip__text">JavaScript</span>
+                        <button class="aural-chip__remove" aria-label="Remove JavaScript"></button>
+                    </div>
+                    <div class="aural-chip">
+                        <span class="aural-chip__text">TypeScript</span>
+                        <button class="aural-chip__remove" aria-label="Remove TypeScript"></button>
+                    </div>
+                    <input type="text" class="aural-chips__input" placeholder="Add tag...">
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Colored Chips</div>
+            <div class="aural-chips-list">
+                <div class="aural-chip aural-chip--primary aural-chip--standalone">
+                    <span class="aural-chip__text">Primary</span>
+                    <button class="aural-chip__remove"></button>
+                </div>
+                <div class="aural-chip aural-chip--success aural-chip--standalone">
+                    <span class="aural-chip__text">Success</span>
+                    <button class="aural-chip__remove"></button>
+                </div>
+                <div class="aural-chip aural-chip--warning aural-chip--standalone">
+                    <span class="aural-chip__text">Warning</span>
+                    <button class="aural-chip__remove"></button>
+                </div>
+                <div class="aural-chip aural-chip--error aural-chip--standalone">
+                    <span class="aural-chip__text">Error</span>
+                    <button class="aural-chip__remove"></button>
+                </div>
+                <div class="aural-chip aural-chip--info aural-chip--standalone">
+                    <span class="aural-chip__text">Info</span>
+                    <button class="aural-chip__remove"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-chips" id="my-chips"&gt;
+  &lt;div class="aural-chips__container"&gt;
+    &lt;input type="text" class="aural-chips__input" placeholder="Add tag..."&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const chips = Aural.initChips('my-chips', {
+    maxTags: 5,
+    allowDuplicates: false,
+    onAdd: (tag) => console.log('Added:', tag),
+    onRemove: (tag) => console.log('Removed:', tag)
+  });
+
+  chips.addTag('JavaScript');
+  console.log(chips.getTags()); // ['JavaScript']
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Code Block -->
+    <section class="showcase-section" id="code-block">
+        <h2>Code Block</h2>
+        <p class="showcase-subtitle">Syntax-highlighted code blocks with copy functionality</p>
+
+        <div class="example">
+            <div class="example-label">Basic Code Block</div>
+            <div class="aural-code-block" id="demo-code-1">
+                <div class="aural-code-block__header">
+                    <span class="aural-code-block__language">JavaScript</span>
+                    <button class="aural-code-block__copy">
+                        <span class="aural-code-block__copy-icon"></span>
+                        Copy
+                    </button>
+                </div>
+                <div class="aural-code-block__content">
+                    <pre class="aural-code-block__pre"><code class="aural-code-block__code">function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+const message = greet('World');
+console.log(message);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Inline Code</div>
+            <p>Use the <code class="aural-code-inline">console.log()</code> function to output messages to the console.</p>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-code-block" id="my-code"&gt;
+  &lt;div class="aural-code-block__header"&gt;
+    &lt;span class="aural-code-block__language"&gt;JavaScript&lt;/span&gt;
+    &lt;button class="aural-code-block__copy"&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre class="aural-code-block__pre"&gt;&lt;code class="aural-code-block__code"&gt;
+// Your code here
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript initializes automatically --&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Dialog -->
+    <section class="showcase-section" id="dialog">
+        <h2>Dialog</h2>
+        <p class="showcase-subtitle">Lightweight confirmation dialogs with multiple variants</p>
+
+        <div class="example">
+            <div class="example-label">Dialog Variants</div>
+            <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="Aural.showConfirm('Confirm Action', 'Are you sure you want to continue?', () => Aural.showToast('Confirmed!', 'success'), () => Aural.showToast('Cancelled', 'info'))">Show Confirm</button>
+                <button class="btn btn-success" onclick="Aural.openDialog('demo-dialog-success')">Success Dialog</button>
+                <button class="btn btn-error" onclick="Aural.openDialog('demo-dialog-error')">Error Dialog</button>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;!-- Trigger --&gt;
+&lt;button onclick="Aural.openDialog('my-dialog')"&gt;Open&lt;/button&gt;
+
+&lt;!-- Dialog Structure --&gt;
+&lt;div class="aural-dialog-backdrop" id="my-dialog"&gt;
+  &lt;div class="aural-dialog aural-dialog--alert"&gt;
+    &lt;div class="aural-dialog__header"&gt;
+      &lt;div class="aural-dialog__icon"&gt;&lt;/div&gt;
+      &lt;h3 class="aural-dialog__title"&gt;Title&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-dialog__body"&gt;
+      &lt;p class="aural-dialog__message"&gt;Message&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-dialog__footer"&gt;
+      &lt;button class="btn" onclick="Aural.closeDialog('my-dialog')"&gt;Cancel&lt;/button&gt;
+      &lt;button class="btn btn-primary"&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Or use JavaScript helper --&gt;
+&lt;script&gt;
+  Aural.showConfirm('Title', 'Message',
+    () => console.log('Confirmed'),
+    () => console.log('Cancelled')
+  );
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- File Upload -->
+    <section class="showcase-section" id="file-upload">
+        <h2>File Upload</h2>
+        <p class="showcase-subtitle">Drag-and-drop file upload with validation and progress tracking</p>
+
+        <div class="example">
+            <div class="example-label">Basic File Upload</div>
+            <div class="aural-file-upload" id="demo-upload-1">
+                <div class="aural-file-upload__dropzone">
+                    <div class="aural-file-upload__icon"></div>
+                    <div class="aural-file-upload__text">
+                        <div class="aural-file-upload__primary-text">
+                            <span class="aural-file-upload__browse">Click to browse</span> or drag and drop
+                        </div>
+                        <div class="aural-file-upload__secondary-text">
+                            PNG, JPG, GIF up to 10MB
+                        </div>
+                    </div>
+                    <input type="file" class="aural-file-upload__input" accept="image/*" multiple>
+                </div>
+                <div class="aural-file-upload__files"></div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-file-upload" id="my-upload"&gt;
+  &lt;div class="aural-file-upload__dropzone"&gt;
+    &lt;div class="aural-file-upload__icon"&gt;&lt;/div&gt;
+    &lt;div class="aural-file-upload__text"&gt;
+      &lt;div class="aural-file-upload__primary-text"&gt;
+        Click to browse or drag and drop
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;input type="file" class="aural-file-upload__input" multiple&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-file-upload__files"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  Aural.initFileUpload('my-upload', {
+    maxSize: 10 * 1024 * 1024, // 10MB
+    allowedTypes: ['image/png', 'image/jpeg'],
+    multiple: true,
+    onUpload: (file) => console.log('Uploaded:', file)
+  });
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Command Palette -->
+    <section class="showcase-section" id="command-palette">
+        <h2>Command Palette</h2>
+        <p class="showcase-subtitle">Keyboard-driven search interface with CMD/CTRL+K shortcut</p>
+
+        <div class="example">
+            <div class="example-label">Try It Out</div>
+            <button class="btn btn-primary" onclick="Aural.openCommandPalette('demo-palette')">
+                Open Command Palette
+                <kbd style="margin-left: var(--space-2); padding: var(--space-1) var(--space-2); background: rgba(255,255,255,0.1); border-radius: var(--radius-sm); font-size: var(--text-xs);">⌘K</kbd>
+            </button>
+            <p style="margin-top: var(--space-3); color: var(--color-text-secondary); font-size: var(--text-sm);">
+                Press <kbd>CMD/CTRL + K</kbd> anywhere on this page to open the command palette
+            </p>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-command-palette-backdrop" id="my-palette"&gt;
+  &lt;div class="aural-command-palette"&gt;
+    &lt;div class="aural-command-palette__search"&gt;
+      &lt;span class="aural-command-palette__search-icon"&gt;&lt;/span&gt;
+      &lt;input type="text" class="aural-command-palette__input"
+             placeholder="Search commands..."&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-command-palette__results"&gt;&lt;/div&gt;
+    &lt;div class="aural-command-palette__footer"&gt;
+      &lt;div class="aural-command-palette__hint"&gt;
+        Press Enter to select
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const commands = [
+    {
+      id: 'new-file',
+      title: 'Create New File',
+      description: 'Create a new file',
+      icon: '📄',
+      group: 'File',
+      shortcut: 'Ctrl+N',
+      action: () => console.log('New file')
+    }
+  ];
+
+  Aural.initCommandPalette('my-palette', commands);
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Shadow Utilities -->
+    <section class="showcase-section" id="shadows">
+        <h2>Shadow Utilities</h2>
+        <p class="showcase-subtitle">Elevation and depth with shadow utility classes</p>
+
+        <div class="example">
+            <div class="example-label">Shadow Sizes</div>
+            <div class="component-grid">
+                <div class="card shadow-xs">
+                    <code>.shadow-xs</code>
+                </div>
+                <div class="card shadow-sm">
+                    <code>.shadow-sm</code>
+                </div>
+                <div class="card shadow">
+                    <code>.shadow</code>
+                </div>
+                <div class="card shadow-md">
+                    <code>.shadow-md</code>
+                </div>
+                <div class="card shadow-lg">
+                    <code>.shadow-lg</code>
+                </div>
+                <div class="card shadow-xl">
+                    <code>.shadow-xl</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Colored Shadows</div>
+            <div class="component-grid">
+                <div class="card shadow-primary">
+                    <code>.shadow-primary</code>
+                </div>
+                <div class="card shadow-secondary">
+                    <code>.shadow-secondary</code>
+                </div>
+                <div class="card shadow-success">
+                    <code>.shadow-success</code>
+                </div>
+                <div class="card shadow-error">
+                    <code>.shadow-error</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Directional Shadows</div>
+            <div class="component-grid">
+                <div class="card shadow-top" style="padding: var(--space-6);">
+                    <code>.shadow-top</code>
+                </div>
+                <div class="card shadow-bottom" style="padding: var(--space-6);">
+                    <code>.shadow-bottom</code>
+                </div>
+                <div class="card shadow-left" style="padding: var(--space-6);">
+                    <code>.shadow-left</code>
+                </div>
+                <div class="card shadow-right" style="padding: var(--space-6);">
+                    <code>.shadow-right</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Glow Utilities -->
+    <section class="showcase-section" id="glows">
+        <h2>Glow Utilities</h2>
+        <p class="showcase-subtitle">Luminous effects with glow utility classes and animations</p>
+
+        <div class="example">
+            <div class="example-label">Glow Sizes</div>
+            <div class="component-grid">
+                <div class="card glow-sm" style="padding: var(--space-6);">
+                    <code>.glow-sm</code>
+                </div>
+                <div class="card glow-md" style="padding: var(--space-6);">
+                    <code>.glow-md</code>
+                </div>
+                <div class="card glow-lg" style="padding: var(--space-6);">
+                    <code>.glow-lg</code>
+                </div>
+                <div class="card glow-xl" style="padding: var(--space-6);">
+                    <code>.glow-xl</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Colored Glows</div>
+            <div class="component-grid">
+                <div class="card glow-primary-md" style="padding: var(--space-6);">
+                    <code>.glow-primary-md</code>
+                </div>
+                <div class="card glow-success-md" style="padding: var(--space-6);">
+                    <code>.glow-success-md</code>
+                </div>
+                <div class="card glow-error-md" style="padding: var(--space-6);">
+                    <code>.glow-error-md</code>
+                </div>
+                <div class="card glow-warning-md" style="padding: var(--space-6);">
+                    <code>.glow-warning-md</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Neon Glows</div>
+            <div class="component-grid">
+                <div class="card glow-neon-primary" style="padding: var(--space-6);">
+                    <code>.glow-neon-primary</code>
+                </div>
+                <div class="card glow-neon-secondary" style="padding: var(--space-6);">
+                    <code>.glow-neon-secondary</code>
+                </div>
+                <div class="card glow-neon-error" style="padding: var(--space-6);">
+                    <code>.glow-neon-error</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Animated Glows</div>
+            <div class="component-grid">
+                <div class="card glow-primary-md glow-pulse" style="padding: var(--space-6);">
+                    <code>.glow-pulse</code>
+                </div>
+                <div class="card glow-primary-breathing" style="padding: var(--space-6);">
+                    <code>.glow-primary-breathing</code>
+                </div>
+                <div class="card glow-neon-primary glow-flicker" style="padding: var(--space-6);">
+                    <code>.glow-flicker</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Depth Glows (3D Effect)</div>
+            <div class="component-grid">
+                <div class="card glow-depth-sm" style="padding: var(--space-6);">
+                    <code>.glow-depth-sm</code>
+                </div>
+                <div class="card glow-depth-md" style="padding: var(--space-6);">
+                    <code>.glow-depth-md</code>
+                </div>
+                <div class="card glow-depth-lg" style="padding: var(--space-6);">
+                    <code>.glow-depth-lg</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hidden Dialogs -->
+    <div class="aural-dialog-backdrop" id="demo-dialog-success">
+        <div class="aural-dialog aural-dialog--success">
+            <div class="aural-dialog__header">
+                <div class="aural-dialog__icon"></div>
+                <div class="aural-dialog__title-group">
+                    <h3 class="aural-dialog__title">Success!</h3>
+                </div>
+            </div>
+            <div class="aural-dialog__body">
+                <p class="aural-dialog__message">Your changes have been saved successfully.</p>
+            </div>
+            <div class="aural-dialog__footer">
+                <button class="btn btn-primary" onclick="Aural.closeDialog('demo-dialog-success')">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="aural-dialog-backdrop" id="demo-dialog-error">
+        <div class="aural-dialog aural-dialog--destructive">
+            <div class="aural-dialog__header">
+                <div class="aural-dialog__icon"></div>
+                <div class="aural-dialog__title-group">
+                    <h3 class="aural-dialog__title">Delete Item?</h3>
+                </div>
+            </div>
+            <div class="aural-dialog__body">
+                <p class="aural-dialog__message">This action cannot be undone. Are you sure?</p>
+            </div>
+            <div class="aural-dialog__footer">
+                <button class="btn btn-secondary" onclick="Aural.closeDialog('demo-dialog-error')">Cancel</button>
+                <button class="btn btn-error" onclick="Aural.closeDialog('demo-dialog-error'); Aural.showToast('Deleted', 'error')">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Command Palette -->
+    <div class="aural-command-palette-backdrop" id="demo-palette">
+        <div class="aural-command-palette">
+            <div class="aural-command-palette__search">
+                <span class="aural-command-palette__search-icon"></span>
+                <input type="text" class="aural-command-palette__input" placeholder="Search commands...">
+            </div>
+            <div class="aural-command-palette__results">
+                <div class="aural-command-palette__group">
+                    <div class="aural-command-palette__group-label">Navigation</div>
+                    <div class="aural-command-palette__items">
+                        <button class="aural-command-palette__item aural-command-palette__item--selected">
+                            <span class="aural-command-palette__item-icon">🏠</span>
+                            <div class="aural-command-palette__item-content">
+                                <div class="aural-command-palette__item-title">Go to Home</div>
+                                <div class="aural-command-palette__item-description">Navigate to homepage</div>
+                            </div>
+                            <div class="aural-command-palette__shortcut">
+                                <span class="aural-command-palette__key">⌘</span>
+                                <span class="aural-command-palette__key">H</span>
+                            </div>
+                        </button>
+                        <button class="aural-command-palette__item">
+                            <span class="aural-command-palette__item-icon">📄</span>
+                            <div class="aural-command-palette__item-content">
+                                <div class="aural-command-palette__item-title">Documentation</div>
+                                <div class="aural-command-palette__item-description">View documentation</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="aural-command-palette__group">
+                    <div class="aural-command-palette__group-label">Actions</div>
+                    <div class="aural-command-palette__items">
+                        <button class="aural-command-palette__item">
+                            <span class="aural-command-palette__item-icon">➕</span>
+                            <div class="aural-command-palette__item-content">
+                                <div class="aural-command-palette__item-title">Create New</div>
+                                <div class="aural-command-palette__item-description">Create a new item</div>
+                            </div>
+                            <div class="aural-command-palette__shortcut">
+                                <span class="aural-command-palette__key">⌘</span>
+                                <span class="aural-command-palette__key">N</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="aural-command-palette__footer">
+                <div class="aural-command-palette__hint">
+                    <div class="aural-command-palette__hint-keys">
+                        <span class="aural-command-palette__key">↑</span>
+                        <span class="aural-command-palette__key">↓</span>
+                    </div>
+                    to navigate
+                </div>
+                <div class="aural-command-palette__hint">
+                    <div class="aural-command-palette__hint-keys">
+                        <span class="aural-command-palette__key">↵</span>
+                    </div>
+                    to select
+                </div>
+                <div class="aural-command-palette__hint">
+                    <div class="aural-command-palette__hint-keys">
+                        <span class="aural-command-palette__key">esc</span>
+                    </div>
+                    to close
+                </div>
+            </div>
+        </div>
+    </div>
+
     </div> <!-- End .main-content -->
 
     <!-- Aural UI JavaScript -->
@@ -1965,6 +2575,70 @@ Aural.setProgress('my-progress', 75);
 
             window.addEventListener('scroll', updateActiveNav);
             updateActiveNav(); // Initial call
+
+            // Initialize new components
+            // Sliders
+            Aural.initSlider('demo-slider-1');
+            Aural.initSlider('demo-slider-success');
+            Aural.initSlider('demo-slider-warning');
+            Aural.initSlider('demo-slider-error');
+
+            // Chips
+            Aural.initChips('demo-chips-1', {
+                maxTags: 10,
+                allowDuplicates: false
+            });
+
+            // File Upload
+            Aural.initFileUpload('demo-upload-1', {
+                maxSize: 10 * 1024 * 1024,
+                allowedTypes: ['image/png', 'image/jpeg', 'image/gif'],
+                multiple: true,
+                onUpload: (file) => {
+                    Aural.showToast(`Uploaded ${file.name}`, 'success');
+                }
+            });
+
+            // Command Palette
+            const commands = [
+                {
+                    id: 'home',
+                    title: 'Go to Home',
+                    description: 'Navigate to homepage',
+                    icon: '🏠',
+                    group: 'Navigation',
+                    shortcut: '⌘+H',
+                    action: () => window.location.href = '#introduction'
+                },
+                {
+                    id: 'docs',
+                    title: 'Documentation',
+                    description: 'View documentation',
+                    icon: '📄',
+                    group: 'Navigation',
+                    action: () => window.location.href = '#how-to-use'
+                },
+                {
+                    id: 'new',
+                    title: 'Create New',
+                    description: 'Create a new item',
+                    icon: '➕',
+                    group: 'Actions',
+                    shortcut: '⌘+N',
+                    action: () => Aural.showToast('Create new clicked', 'info')
+                },
+                {
+                    id: 'theme',
+                    title: 'Toggle Theme',
+                    description: 'Switch between light and dark mode',
+                    icon: '🌓',
+                    group: 'Settings',
+                    shortcut: '⌘+T',
+                    action: () => toggleTheme()
+                }
+            ];
+
+            Aural.initCommandPalette('demo-palette', commands);
         });
     </script>
 
