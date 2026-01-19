@@ -6,10 +6,13 @@
     <title>Aural UI - Component Showcase</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="./aural-ui.css?v=8">
+    <link rel="stylesheet" href="./aural-ui.css?v=9">
 
     <!-- Choose theme -->
     <link rel="stylesheet" href="./dark.css" id="theme-link">
+
+    <!-- Lucide Icons (MIT License) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         body {
@@ -346,27 +349,279 @@
     <div class="main-content">
         <section class="showcase-section" id="introduction">
             <h1 class="showcase-title">Aural UI</h1>
-            <p class="showcase-subtitle">Token-driven, white-label design system</p>
+            <p class="showcase-subtitle">A modern, accessible design system built for flexibility and customization</p>
+
+            <div style="margin-top: var(--space-8); margin-bottom: var(--space-6);">
+                <p style="color: var(--color-text-primary); font-size: var(--text-lg); line-height: var(--leading-relaxed); margin-bottom: var(--space-6);">
+                    Aural UI is a comprehensive component library that combines beautiful design with practical functionality.
+                    Built on a foundation of design tokens and CSS custom properties, it offers unparalleled customization
+                    while maintaining consistency across your entire application.
+                </p>
+
+                <div class="component-grid" style="margin-top: var(--space-8);">
+                    <div class="card">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="palette" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="margin: 0; font-size: var(--text-lg);">Token-Driven</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            Customize every aspect of the design system with CSS custom properties.
+                            Change colors, spacing, typography, and more without touching component code.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="accessibility" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="margin: 0; font-size: var(--text-lg);">Accessibility First</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            Built with WCAG AA compliance, keyboard navigation, proper ARIA attributes,
+                            and screen reader support out of the box.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="zap" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="margin: 0; font-size: var(--text-lg);">Lightweight</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            Zero dependencies, vanilla JavaScript for interactive components,
+                            and optimized CSS for fast load times and smooth performance.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="package" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="margin: 0; font-size: var(--text-lg);">20+ Components</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            From basic buttons and inputs to advanced components like modals,
+                            dropdowns, and accordions - everything you need to build modern interfaces.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="moon" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="margin: 0; font-size: var(--text-lg);">Dark Mode Ready</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            Switch between light and dark themes seamlessly. All components are
+                            designed to look great in both themes.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="code-2" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="margin: 0; font-size: var(--text-lg);">Developer Friendly</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            Simple, semantic HTML with intuitive class names.
+                            Copy-paste ready code snippets with clear documentation.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="showcase-section" id="how-to-use">
-            <h2>How to Use</h2>
-            <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                Aural UI is a lightweight, accessible design system built with CSS custom properties.
-                Get started by including the CSS and JavaScript files in your project.
-            </p>
-            <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
-                <pre style="margin: 0;"><code>&lt;!-- Include CSS --&gt;
-&lt;link rel="stylesheet" href="path/to/aural-ui.css"&gt;
-&lt;link rel="stylesheet" href="path/to/dark.css"&gt;
+            <h2 style="font-size: var(--text-2xl); font-weight: var(--font-bold); margin-bottom: var(--space-6);">How to Use</h2>
 
-&lt;!-- Include JavaScript (for interactive components) --&gt;
+            <!-- Installation -->
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">
+                    <i data-lucide="download" style="width: 20px; height: 20px;"></i>
+                    Installation
+                </h3>
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                    Include the CSS and JavaScript files in your HTML. Choose a theme (dark or light) based on your preference.
+                </p>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+                    <pre style="margin: 0; color: var(--color-text-primary);"><code>&lt;!-- Include Aural UI CSS --&gt;
+&lt;link rel="stylesheet" href="path/to/aural-ui.css"&gt;
+
+&lt;!-- Choose your theme (dark or light) --&gt;
+&lt;link rel="stylesheet" href="path/to/dark.css"&gt;
+&lt;!-- OR --&gt;
+&lt;link rel="stylesheet" href="path/to/light.css"&gt;
+
+&lt;!-- Include JavaScript for interactive components --&gt;
 &lt;script src="path/to/aural-ui.js"&gt;&lt;/script&gt;</code></pre>
+                </div>
             </div>
-            <p style="color: var(--color-text-secondary);">
-                All components use semantic HTML and follow WCAG AA accessibility guidelines.
-                Customize the design by adjusting CSS custom properties or use the token controller (click "Customize" button) to see live changes.
-            </p>
+
+            <!-- Using Components -->
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">
+                    <i data-lucide="code" style="width: 20px; height: 20px;"></i>
+                    Using Components
+                </h3>
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                    All components use simple, semantic HTML with intuitive class names. Here's an example button:
+                </p>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+                    <pre style="margin: 0; color: var(--color-text-primary);"><code>&lt;button class="btn btn-primary"&gt;
+    Click me
+&lt;/button&gt;</code></pre>
+                </div>
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                    Each component section below includes copy-paste ready code snippets with various variants and states.
+                </p>
+            </div>
+
+            <!-- Typography Utilities -->
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">
+                    <i data-lucide="type" style="width: 20px; height: 20px;"></i>
+                    Typography System
+                </h3>
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                    Aural UI includes a comprehensive typography system with utilities for font families, sizes, weights, and more.
+                </p>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+                    <pre style="margin: 0; color: var(--color-text-primary);"><code>&lt;!-- Font Families --&gt;
+&lt;p class="font-sans"&gt;Sans-serif text&lt;/p&gt;
+&lt;p class="font-serif"&gt;Serif text&lt;/p&gt;
+&lt;p class="font-mono"&gt;Monospace text&lt;/p&gt;
+
+&lt;!-- Font Sizes (xs, sm, base, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl, 7xl, 8xl, 9xl) --&gt;
+&lt;h1 class="text-4xl font-bold"&gt;Large Heading&lt;/h1&gt;
+&lt;p class="text-base"&gt;Body text&lt;/p&gt;
+&lt;small class="text-sm text-secondary"&gt;Small text&lt;/small&gt;
+
+&lt;!-- Font Weights (thin, extralight, light, normal, medium, semibold, bold, extrabold, black) --&gt;
+&lt;p class="font-semibold"&gt;Semi-bold text&lt;/p&gt;
+
+&lt;!-- Line Heights --&gt;
+&lt;p class="leading-relaxed"&gt;Text with relaxed line height&lt;/p&gt;
+
+&lt;!-- Letter Spacing --&gt;
+&lt;p class="tracking-wide uppercase"&gt;Tracked text&lt;/p&gt;
+
+&lt;!-- Text Utilities --&gt;
+&lt;p class="truncate"&gt;This text will be truncated...&lt;/p&gt;
+&lt;p class="line-clamp-2"&gt;This text will be clamped to 2 lines...&lt;/p&gt;</code></pre>
+                </div>
+            </div>
+
+            <!-- Icons -->
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">
+                    <i data-lucide="smile" style="width: 20px; height: 20px;"></i>
+                    Using Icons
+                </h3>
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                    Aural UI is designed to work seamlessly with <strong>Lucide Icons</strong>, a free and open-source icon library (MIT License).
+                    Simply include the Lucide script and use the <code>data-lucide</code> attribute.
+                </p>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4);">
+                    <pre style="margin: 0; color: var(--color-text-primary);"><code>&lt;!-- Include Lucide Icons --&gt;
+&lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;
+
+&lt;!-- Initialize icons when DOM is loaded --&gt;
+&lt;script&gt;
+  document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+  });
+&lt;/script&gt;
+
+&lt;!-- Use icons in your HTML --&gt;
+&lt;i data-lucide="heart" style="width: 20px; height: 20px;"&gt;&lt;/i&gt;
+&lt;i data-lucide="star" style="width: 24px; height: 24px; color: var(--color-warning);"&gt;&lt;/i&gt;
+
+&lt;!-- Icons in buttons --&gt;
+&lt;button class="btn btn-primary"&gt;
+  &lt;i data-lucide="download" style="width: 18px; height: 18px;"&gt;&lt;/i&gt;
+  Download
+&lt;/button&gt;</code></pre>
+                </div>
+                <div style="margin-top: var(--space-4);">
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3);">
+                        <strong>Common icons:</strong>
+                    </p>
+                    <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="check" style="width: 20px; height: 20px; color: var(--color-success);"></i>
+                            <code style="font-size: var(--text-sm);">check</code>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="x" style="width: 20px; height: 20px; color: var(--color-error);"></i>
+                            <code style="font-size: var(--text-sm);">x</code>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="alert-circle" style="width: 20px; height: 20px; color: var(--color-warning);"></i>
+                            <code style="font-size: var(--text-sm);">alert-circle</code>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="info" style="width: 20px; height: 20px; color: var(--color-info);"></i>
+                            <code style="font-size: var(--text-sm);">info</code>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="heart" style="width: 20px; height: 20px; color: var(--color-primary);"></i>
+                            <code style="font-size: var(--text-sm);">heart</code>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="star" style="width: 20px; height: 20px; color: var(--color-primary);"></i>
+                            <code style="font-size: var(--text-sm);">star</code>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="search" style="width: 20px; height: 20px;"></i>
+                            <code style="font-size: var(--text-sm);">search</code>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="settings" style="width: 20px; height: 20px;"></i>
+                            <code style="font-size: var(--text-sm);">settings</code>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-muted); margin-top: var(--space-3); font-size: var(--text-sm);">
+                        Browse all icons at <a href="https://lucide.dev/icons" target="_blank" style="color: var(--color-primary);">lucide.dev/icons</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Customization -->
+            <div style="margin-bottom: var(--space-8);">
+                <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">
+                    <i data-lucide="palette" style="width: 20px; height: 20px;"></i>
+                    Customization with Tokens
+                </h3>
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                    All components are built with CSS custom properties (design tokens), making customization simple and powerful.
+                    Override tokens in your own CSS or use the live token customizer in the sidebar.
+                </p>
+                <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                    <pre style="margin: 0; color: var(--color-text-primary);"><code>:root {
+  /* Override any token */
+  --color-primary: #your-brand-color;
+  --radius-md: 12px;
+  --space-4: 20px;
+  --font-sans: 'Your Font', sans-serif;
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Accessibility -->
+            <div>
+                <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4);">
+                    <i data-lucide="accessibility" style="width: 20px; height: 20px;"></i>
+                    Accessibility
+                </h3>
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3);">
+                    All components follow WCAG AA accessibility guidelines and include:
+                </p>
+                <ul style="color: var(--color-text-secondary); margin-left: var(--space-6); margin-bottom: 0;">
+                    <li style="margin-bottom: var(--space-2);">Keyboard navigation support (Tab, Arrow keys, Enter, Escape)</li>
+                    <li style="margin-bottom: var(--space-2);">Visible focus indicators with proper contrast</li>
+                    <li style="margin-bottom: var(--space-2);">Proper ARIA attributes and roles</li>
+                    <li style="margin-bottom: var(--space-2);">Screen reader friendly labels and announcements</li>
+                    <li style="margin-bottom: var(--space-2);">Minimum 44px touch targets for interactive elements</li>
+                    <li>Respect for user's reduced motion preferences</li>
+                </ul>
+            </div>
         </section>
 
         <!-- Buttons -->
@@ -1577,6 +1832,13 @@ Aural.setProgress('my-progress', 75);
 
             window.addEventListener('scroll', updateActiveNav);
             updateActiveNav(); // Initial call
+        });
+    </script>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
         });
     </script>
 </body>
