@@ -1,0 +1,527 @@
+/**
+ * AURAL UI - Snackbar
+ *
+ * Brief notification messages at screen edge (alternative to toast).
+ * Features: Auto-dismiss, action buttons, position variants, stacking.
+ */
+
+/* ========================================
+   Snackbar Container
+   ======================================== */
+
+.aural-snackbar-container {
+    position: fixed;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    pointer-events: none;
+}
+
+/* ========================================
+   Position Variants
+   ======================================== */
+
+.aural-snackbar-container--bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.aural-snackbar-container--bottom-center {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.aural-snackbar-container--bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+.aural-snackbar-container--top-left {
+    top: 0;
+    left: 0;
+}
+
+.aural-snackbar-container--top-center {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.aural-snackbar-container--top-right {
+    top: 0;
+    right: 0;
+}
+
+/* ========================================
+   Snackbar
+   ======================================== */
+
+.aural-snackbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 48px;
+    min-width: 320px;
+    max-width: 560px;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-bg-inverse);
+    color: var(--color-text-inverse);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: auto;
+}
+
+.aural-snackbar--show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.aural-snackbar--hide {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+/* Top position animations */
+.aural-snackbar-container--top-left .aural-snackbar,
+.aural-snackbar-container--top-center .aural-snackbar,
+.aural-snackbar-container--top-right .aural-snackbar {
+    transform: translateY(-100%);
+}
+
+.aural-snackbar-container--top-left .aural-snackbar--show,
+.aural-snackbar-container--top-center .aural-snackbar--show,
+.aural-snackbar-container--top-right .aural-snackbar--show {
+    transform: translateY(0);
+}
+
+.aural-snackbar-container--top-left .aural-snackbar--hide,
+.aural-snackbar-container--top-center .aural-snackbar--hide,
+.aural-snackbar-container--top-right .aural-snackbar--hide {
+    transform: translateY(-100%);
+}
+
+/* ========================================
+   Icon
+   ======================================== */
+
+.aural-snackbar__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+}
+
+/* ========================================
+   Content
+   ======================================== */
+
+.aural-snackbar__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.aural-snackbar__message {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    line-height: 1.5;
+    color: inherit;
+}
+
+.aural-snackbar__description {
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   Actions
+   ======================================== */
+
+.aural-snackbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+}
+
+.aural-snackbar__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: var(--space-1) var(--space-3);
+    background: transparent;
+    color: var(--color-primary-light);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-snackbar__action:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.aural-snackbar__action:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Close Button
+   ======================================== */
+
+.aural-snackbar__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    min-height: 32px;
+    padding: var(--space-1);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+    flex-shrink: 0;
+}
+
+.aural-snackbar__close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.aural-snackbar__close:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+.aural-snackbar__close svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ========================================
+   Progress Bar
+   ======================================== */
+
+.aural-snackbar__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    overflow: hidden;
+}
+
+.aural-snackbar__progress-bar {
+    height: 100%;
+    background: var(--color-primary-light);
+    width: 100%;
+    transform-origin: left;
+    animation: aural-snackbar-progress linear;
+}
+
+@keyframes aural-snackbar-progress {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/* ========================================
+   Color Variants
+   ======================================== */
+
+.aural-snackbar--success {
+    background: var(--color-success);
+    color: white;
+}
+
+.aural-snackbar--success .aural-snackbar__action {
+    color: white;
+}
+
+.aural-snackbar--success .aural-snackbar__progress-bar {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.aural-snackbar--error {
+    background: var(--color-error);
+    color: white;
+}
+
+.aural-snackbar--error .aural-snackbar__action {
+    color: white;
+}
+
+.aural-snackbar--error .aural-snackbar__progress-bar {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.aural-snackbar--warning {
+    background: var(--color-warning);
+    color: var(--color-bg-primary);
+}
+
+.aural-snackbar--warning .aural-snackbar__action {
+    color: var(--color-bg-primary);
+}
+
+.aural-snackbar--warning .aural-snackbar__close {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.aural-snackbar--warning .aural-snackbar__close:hover {
+    color: black;
+}
+
+.aural-snackbar--warning .aural-snackbar__progress-bar {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.aural-snackbar--info {
+    background: var(--color-info);
+    color: white;
+}
+
+.aural-snackbar--info .aural-snackbar__action {
+    color: white;
+}
+
+.aural-snackbar--info .aural-snackbar__progress-bar {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-snackbar--sm {
+    min-height: 40px;
+    min-width: 280px;
+    padding: var(--space-2) var(--space-3);
+}
+
+.aural-snackbar--sm .aural-snackbar__message {
+    font-size: var(--text-xs);
+}
+
+.aural-snackbar--sm .aural-snackbar__icon {
+    width: 16px;
+    height: 16px;
+}
+
+.aural-snackbar--lg {
+    min-height: 56px;
+    min-width: 400px;
+    padding: var(--space-4) var(--space-6);
+}
+
+.aural-snackbar--lg .aural-snackbar__message {
+    font-size: var(--text-base);
+}
+
+.aural-snackbar--lg .aural-snackbar__icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* ========================================
+   Full Width Variant
+   ======================================== */
+
+.aural-snackbar--full-width {
+    width: 100vw;
+    max-width: none;
+    border-radius: 0;
+}
+
+.aural-snackbar-container--bottom-center .aural-snackbar--full-width,
+.aural-snackbar-container--top-center .aural-snackbar--full-width {
+    transform: translateX(-50%);
+}
+
+.aural-snackbar-container--bottom-left .aural-snackbar--full-width,
+.aural-snackbar-container--bottom-right .aural-snackbar--full-width,
+.aural-snackbar-container--top-left .aural-snackbar--full-width,
+.aural-snackbar-container--top-right .aural-snackbar--full-width {
+    transform: translateX(0);
+}
+
+/* ========================================
+   Elevated Variant (with border)
+   ======================================== */
+
+.aural-snackbar--elevated {
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-medium);
+}
+
+.aural-snackbar--elevated .aural-snackbar__description {
+    color: var(--color-text-tertiary);
+}
+
+.aural-snackbar--elevated .aural-snackbar__action {
+    color: var(--color-primary);
+}
+
+.aural-snackbar--elevated .aural-snackbar__close {
+    color: var(--color-text-secondary);
+}
+
+.aural-snackbar--elevated .aural-snackbar__close:hover {
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   With Avatar/Image
+   ======================================== */
+
+.aural-snackbar__avatar {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.aural-snackbar__image {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+}
+
+/* ========================================
+   Loading State
+   ======================================== */
+
+.aural-snackbar--loading .aural-snackbar__icon {
+    animation: aural-snackbar-spin 1s linear infinite;
+}
+
+@keyframes aural-snackbar-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   Compact Mode (Icon only)
+   ======================================== */
+
+.aural-snackbar--compact {
+    min-width: auto;
+    padding: var(--space-2);
+}
+
+.aural-snackbar--compact .aural-snackbar__content {
+    display: none;
+}
+
+.aural-snackbar--compact .aural-snackbar__actions {
+    display: none;
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-snackbar,
+    .aural-snackbar__progress-bar,
+    .aural-snackbar__icon {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* Screen reader announcements */
+.aural-snackbar[role="alert"],
+.aural-snackbar[role="status"] {
+    /* Automatically announced by screen readers */
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 640px) {
+    .aural-snackbar-container {
+        padding: var(--space-2);
+    }
+
+    .aural-snackbar {
+        min-width: auto;
+        max-width: calc(100vw - var(--space-4));
+    }
+
+    .aural-snackbar--sm {
+        min-width: auto;
+    }
+
+    .aural-snackbar--lg {
+        min-width: auto;
+        padding: var(--space-3) var(--space-4);
+    }
+
+    /* Stack actions vertically on mobile */
+    .aural-snackbar--mobile-stack .aural-snackbar__actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .aural-snackbar--mobile-stack .aural-snackbar__action {
+        width: 100%;
+    }
+
+    /* Full width on mobile by default */
+    .aural-snackbar-container--bottom-center,
+    .aural-snackbar-container--bottom-left,
+    .aural-snackbar-container--bottom-right {
+        left: 0;
+        right: 0;
+        transform: none;
+        padding: 0;
+    }
+
+    .aural-snackbar-container--bottom-center .aural-snackbar,
+    .aural-snackbar-container--bottom-left .aural-snackbar,
+    .aural-snackbar-container--bottom-right .aural-snackbar {
+        width: 100%;
+        max-width: none;
+        border-radius: 0;
+        border-bottom: none;
+    }
+}
+
+/* iOS safe area support */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .aural-snackbar-container--bottom-left,
+    .aural-snackbar-container--bottom-center,
+    .aural-snackbar-container--bottom-right {
+        padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+    }
+}

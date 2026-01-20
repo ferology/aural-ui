@@ -394,6 +394,10 @@
                 <li><a href="#range-slider" class="nav-link">Range Slider</a></li>
                 <li><a href="#multi-select" class="nav-link">Multi-Select</a></li>
                 <li><a href="#navbar" class="nav-link">Navigation Bar</a></li>
+                <li><a href="#time-picker" class="nav-link">Time Picker</a></li>
+                <li><a href="#combobox" class="nav-link">Combobox</a></li>
+                <li><a href="#switch" class="nav-link">Switch</a></li>
+                <li><a href="#snackbar" class="nav-link">Snackbar</a></li>
             </ul>
         </div>
 
@@ -4666,6 +4670,321 @@ console.log(message);</code></pre>
         </div>
     </section>
 
+    <!-- Time Picker -->
+    <section class="showcase-section" id="time-picker">
+        <h2 class="showcase-heading">Time Picker</h2>
+        <p class="showcase-description">Time selection component with 12/24 hour format support.</p>
+
+        <div class="component-demo">
+            <div style="display: flex; gap: var(--space-6); flex-wrap: wrap;">
+                <div class="aural-time-picker" id="demo-time-picker-1">
+                    <label class="aural-time-picker__label">Select Time (12h)</label>
+                    <div class="aural-time-picker__input-wrapper">
+                        <input type="text" class="aural-time-picker__input" placeholder="12:00 AM" readonly>
+                        <button class="aural-time-picker__toggle" aria-label="Open time picker">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="aural-time-picker__dropdown">
+                        <div class="aural-time-picker__selectors">
+                            <div class="aural-time-picker__selector">
+                                <div class="aural-time-picker__selector-label">Hour</div>
+                                <div class="aural-time-picker__list aural-time-picker__list--hours"></div>
+                            </div>
+                            <div class="aural-time-picker__selector">
+                                <div class="aural-time-picker__selector-label">Minute</div>
+                                <div class="aural-time-picker__list aural-time-picker__list--minutes"></div>
+                            </div>
+                            <div class="aural-time-picker__selector">
+                                <div class="aural-time-picker__selector-label">Period</div>
+                                <div class="aural-time-picker__period">
+                                    <button class="aural-time-picker__period-btn">AM</button>
+                                    <button class="aural-time-picker__period-btn">PM</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aural-time-picker__now">
+                            <button class="aural-time-picker__now-btn">Now</button>
+                        </div>
+                        <div class="aural-time-picker__actions">
+                            <button class="aural-time-picker__action-btn">Clear</button>
+                            <button class="aural-time-picker__action-btn aural-time-picker__action-btn--primary">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Features</h4>
+            <ul class="feature-list">
+                <li>✓ 12 and 24 hour format support</li>
+                <li>✓ Scrollable hour/minute lists</li>
+                <li>✓ AM/PM selector</li>
+                <li>✓ "Now" button for current time</li>
+                <li>✓ Keyboard navigation</li>
+                <li>✓ Size variants (sm, lg)</li>
+                <li>✓ Inline variant</li>
+                <li>✓ Error and success states</li>
+            </ul>
+        </div>
+
+        <div class="code-example">
+            <h4>Usage</h4>
+            <pre><code>&lt;div class="aural-time-picker" id="my-time-picker"&gt;
+  &lt;label class="aural-time-picker__label"&gt;Select Time&lt;/label&gt;
+  &lt;div class="aural-time-picker__input-wrapper"&gt;
+    &lt;input type="text" class="aural-time-picker__input" placeholder="12:00 AM" readonly&gt;
+    &lt;button class="aural-time-picker__toggle"&gt;...&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;!-- Dropdown content --&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  const picker = Aural.initTimePicker('my-time-picker', {
+    format: '12h',
+    defaultTime: '02:30 PM',
+    onChange: (timeStr, hour, minute, period) => {
+      console.log('Time changed:', timeStr);
+    }
+  });
+
+  picker.setTime(14, 30, 'PM'); // Set time programmatically
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Combobox -->
+    <section class="showcase-section" id="combobox">
+        <h2 class="showcase-heading">Combobox</h2>
+        <p class="showcase-description">Input with autocomplete dropdown for search and selection.</p>
+
+        <div class="component-demo">
+            <div style="max-width: 400px;">
+                <div class="aural-combobox" id="demo-combobox-1">
+                    <label class="aural-combobox__label">Select Framework</label>
+                    <div class="aural-combobox__wrapper">
+                        <input type="text" class="aural-combobox__input" placeholder="Search frameworks...">
+                        <div class="aural-combobox__icons">
+                            <button class="aural-combobox__clear" aria-label="Clear">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                            <div class="aural-combobox__arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aural-combobox__dropdown">
+                        <div class="aural-combobox__options"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Features</h4>
+            <ul class="feature-list">
+                <li>✓ Type-ahead filtering</li>
+                <li>✓ Keyboard navigation (arrows, enter, esc)</li>
+                <li>✓ Async loading support</li>
+                <li>✓ Creatable options</li>
+                <li>✓ Option groups</li>
+                <li>✓ Custom option rendering</li>
+                <li>✓ Empty state</li>
+                <li>✓ Clear button</li>
+            </ul>
+        </div>
+
+        <div class="code-example">
+            <h4>Usage</h4>
+            <pre><code>&lt;div class="aural-combobox" id="my-combobox"&gt;
+  &lt;label class="aural-combobox__label"&gt;Select Option&lt;/label&gt;
+  &lt;div class="aural-combobox__wrapper"&gt;
+    &lt;input type="text" class="aural-combobox__input" placeholder="Search..."&gt;
+    &lt;!-- Icons --&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-combobox__dropdown"&gt;
+    &lt;div class="aural-combobox__options"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  const combobox = Aural.initCombobox('my-combobox', {
+    options: [
+      { value: 'react', label: 'React', description: 'A JavaScript library' },
+      { value: 'vue', label: 'Vue', description: 'The Progressive Framework' },
+      { value: 'svelte', label: 'Svelte', description: 'Cybernetically enhanced' }
+    ],
+    searchable: true,
+    creatable: true,
+    onChange: (selected) => {
+      console.log('Selected:', selected);
+    }
+  });
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Switch -->
+    <section class="showcase-section" id="switch">
+        <h2 class="showcase-heading">Switch</h2>
+        <p class="showcase-description">Visual toggle switch component (iOS-style alternative to toggle).</p>
+
+        <div class="component-demo">
+            <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                <label class="aural-switch" id="demo-switch-1">
+                    <input type="checkbox" class="aural-switch__input">
+                    <div class="aural-switch__track">
+                        <div class="aural-switch__thumb"></div>
+                    </div>
+                    <span class="aural-switch__label">Enable notifications</span>
+                </label>
+
+                <label class="aural-switch aural-switch--success" id="demo-switch-2">
+                    <input type="checkbox" class="aural-switch__input" checked>
+                    <div class="aural-switch__track">
+                        <div class="aural-switch__thumb"></div>
+                    </div>
+                    <span class="aural-switch__label">Auto-save enabled</span>
+                </label>
+
+                <label class="aural-switch aural-switch--lg" id="demo-switch-3">
+                    <input type="checkbox" class="aural-switch__input">
+                    <div class="aural-switch__track">
+                        <div class="aural-switch__thumb"></div>
+                    </div>
+                    <div>
+                        <span class="aural-switch__label">Large switch</span>
+                        <div class="aural-switch__description">With description text</div>
+                    </div>
+                </label>
+
+                <label class="aural-switch aural-switch--disabled">
+                    <input type="checkbox" class="aural-switch__input" disabled>
+                    <div class="aural-switch__track">
+                        <div class="aural-switch__thumb"></div>
+                    </div>
+                    <span class="aural-switch__label">Disabled switch</span>
+                </label>
+            </div>
+
+            <h4 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Features</h4>
+            <ul class="feature-list">
+                <li>✓ iOS-style visual design</li>
+                <li>✓ Size variants (sm, lg)</li>
+                <li>✓ Color variants (success, warning, error, info)</li>
+                <li>✓ Label positioning (left, top, bottom)</li>
+                <li>✓ Icons in thumb/track</li>
+                <li>✓ Pill variant with text</li>
+                <li>✓ Loading state</li>
+                <li>✓ Glow effect option</li>
+            </ul>
+        </div>
+
+        <div class="code-example">
+            <h4>Usage</h4>
+            <pre><code>&lt;label class="aural-switch"&gt;
+  &lt;input type="checkbox" class="aural-switch__input"&gt;
+  &lt;div class="aural-switch__track"&gt;
+    &lt;div class="aural-switch__thumb"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="aural-switch__label"&gt;Enable feature&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;script&gt;
+  const switch1 = Aural.initSwitch('my-switch', {
+    defaultChecked: false,
+    onChange: (checked) => {
+      console.log('Switch toggled:', checked);
+    }
+  });
+
+  switch1.toggle();         // Toggle state
+  switch1.setChecked(true); // Set checked
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Snackbar -->
+    <section class="showcase-section" id="snackbar">
+        <h2 class="showcase-heading">Snackbar</h2>
+        <p class="showcase-description">Brief notification messages at screen edge (Material Design style).</p>
+
+        <div class="component-demo">
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                <button class="btn btn-primary" onclick="Aural.showSnackbar('This is a default snackbar message')">
+                    Show Default
+                </button>
+                <button class="btn btn-success" onclick="Aural.showSnackbar('Operation completed successfully!', { type: 'success' })">
+                    Show Success
+                </button>
+                <button class="btn btn-danger" onclick="Aural.showSnackbar('An error occurred!', { type: 'error', duration: 5000 })">
+                    Show Error
+                </button>
+                <button class="btn btn-warning" onclick="Aural.showSnackbar('Warning: Check your settings', { type: 'warning' })">
+                    Show Warning
+                </button>
+                <button class="btn" onclick="Aural.showSnackbar('New message received', {
+                    description: 'From John Doe',
+                    type: 'info',
+                    action: { label: 'View', onClick: () => alert('Viewing message') }
+                })">
+                    With Action
+                </button>
+                <button class="btn" onclick="Aural.showSnackbar('File uploaded successfully', {
+                    type: 'success',
+                    position: 'top-center',
+                    duration: 3000
+                })">
+                    Top Position
+                </button>
+            </div>
+
+            <h4 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Features</h4>
+            <ul class="feature-list">
+                <li>✓ Auto-dismiss with timer</li>
+                <li>✓ Action buttons</li>
+                <li>✓ Position variants (6 positions)</li>
+                <li>✓ Type variants (success, error, warning, info)</li>
+                <li>✓ Progress bar</li>
+                <li>✓ Dismissible with close button</li>
+                <li>✓ Full width variant</li>
+                <li>✓ Stacking support</li>
+                <li>✓ Mobile responsive</li>
+            </ul>
+        </div>
+
+        <div class="code-example">
+            <h4>Usage</h4>
+            <pre><code>// Simple snackbar
+Aural.showSnackbar('Operation successful!');
+
+// With options
+Aural.showSnackbar('File uploaded', {
+  description: 'document.pdf (2.4 MB)',
+  type: 'success',
+  duration: 4000,
+  position: 'bottom-right',
+  showProgress: true,
+  action: {
+    label: 'Undo',
+    onClick: () => {
+      console.log('Undo clicked');
+    }
+  },
+  onDismiss: () => {
+    console.log('Snackbar dismissed');
+  }
+});
+
+// Programmatic dismiss
+const snackbar = Aural.showSnackbar('Processing...', { duration: 0 });
+setTimeout(() => snackbar.dismiss(), 3000);</code></pre>
+        </div>
+    </section>
+
     <!-- Hidden Dialogs -->
     <div class="aural-dialog-backdrop" id="demo-dialog-success">
         <div class="aural-dialog aural-dialog--success">
@@ -5235,6 +5554,42 @@ console.log(message);</code></pre>
                 onItemClick: (item) => {
                     console.log('Bottom nav item clicked:', item);
                 }
+            });
+
+            // Time Picker
+            Aural.initTimePicker('demo-time-picker-1', {
+                format: '12h',
+                onChange: (timeStr) => {
+                    console.log('Time changed:', timeStr);
+                }
+            });
+
+            // Combobox
+            Aural.initCombobox('demo-combobox-1', {
+                options: [
+                    { value: 'react', label: 'React', description: 'A JavaScript library for building UIs' },
+                    { value: 'vue', label: 'Vue', description: 'The Progressive JavaScript Framework' },
+                    { value: 'svelte', label: 'Svelte', description: 'Cybernetically enhanced web apps' },
+                    { value: 'angular', label: 'Angular', description: 'Platform for building mobile and desktop' },
+                    { value: 'next', label: 'Next.js', description: 'The React Framework for Production' },
+                    { value: 'nuxt', label: 'Nuxt', description: 'The Intuitive Vue Framework' }
+                ],
+                searchable: true,
+                creatable: false,
+                onChange: (selected) => {
+                    console.log('Combobox selected:', selected);
+                }
+            });
+
+            // Switches
+            Aural.initSwitch('demo-switch-1', {
+                onChange: (checked) => console.log('Switch 1:', checked)
+            });
+            Aural.initSwitch('demo-switch-2', {
+                onChange: (checked) => console.log('Switch 2:', checked)
+            });
+            Aural.initSwitch('demo-switch-3', {
+                onChange: (checked) => console.log('Switch 3:', checked)
             });
         });
     </script>

@@ -3568,6 +3568,558 @@ const Aural = {
                 navbar.classList.toggle('aural-navbar--menu-open');
             }
         };
+    },
+
+    // ========================================
+    // Time Picker
+    // ========================================
+    initTimePicker(pickerId, options = {}) {
+        const picker = document.getElementById(pickerId);
+        if (!picker) return null;
+
+        const {
+            format = '12h', // '12h' or '24h'
+            defaultTime = null,
+            onChange = null,
+            onOpen = null,
+            onClose = null
+        } = options;
+
+        const input = picker.querySelector('.aural-time-picker__input');
+        const toggle = picker.querySelector('.aural-time-picker__toggle');
+        const dropdown = picker.querySelector('.aural-time-picker__dropdown');
+        const hoursList = picker.querySelector('.aural-time-picker__list--hours');
+        const minutesList = picker.querySelector('.aural-time-picker__list--minutes');
+        const periodBtns = picker.querySelectorAll('.aural-time-picker__period-btn');
+        const nowBtn = picker.querySelector('.aural-time-picker__now-btn');
+        const clearBtn = picker.querySelector('.aural-time-picker__action-btn:first-child');
+        const doneBtn = picker.querySelector('.aural-time-picker__action-btn:last-child');
+
+        let currentHour = 12;
+        let currentMinute = 0;
+        let currentPeriod = 'AM';
+
+        // Populate lists
+        if (hoursList) {
+            const hours = format === '12h' ? 12 : 24;
+            for (let i = format === '12h' ? 1 : 0; i <= hours; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'aural-time-picker__item';
+                btn.textContent = String(i).padStart(2, '0');
+                btn.dataset.value = i;
+                hoursList.appendChild(btn);
+            }
+        }
+
+        if (minutesList) {
+            for (let i = 0; i < 60; i += 5) {
+                const btn = document.createElement('button');
+                btn.className = 'aural-time-picker__item';
+                btn.textContent = String(i).padStart(2, '0');
+                btn.dataset.value = i;
+                minutesList.appendChild(btn);
+            }
+        }
+
+        // Update display
+        const updateDisplay = () => {
+            let timeStr = '';
+            if (format === '12h') {
+                timeStr = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')} ${currentPeriod}`;
+            } else {
+                timeStr = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
+            }
+            input.value = timeStr;
+
+            // Update selected items
+            hoursList?.querySelectorAll('.aural-time-picker__item').forEach(item => {
+                item.classList.toggle('aural-time-picker__item--selected', parseInt(item.dataset.value) === currentHour);
+            });
+            minutesList?.querySelectorAll('.aural-time-picker__item').forEach(item => {
+                item.classList.toggle('aural-time-picker__item--selected', parseInt(item.dataset.value) === currentMinute);
+            });
+            periodBtns?.forEach(btn => {
+                btn.classList.toggle('aural-time-picker__period-btn--selected', btn.textContent === currentPeriod);
+            });
+
+            if (onChange) onChange(timeStr, currentHour, currentMinute, currentPeriod);
+        };
+
+        // Toggle dropdown
+        const open = () => {
+            picker.classList.add('aural-time-picker--open');
+            if (onOpen) onOpen();
+        };
+
+        const close = () => {
+            picker.classList.remove('aural-time-picker--open');
+            if (onClose) onClose();
+        };
+
+        toggle?.addEventListener('click', () => {
+            if (picker.classList.contains('aural-time-picker--open')) {
+                close();
+            } else {
+                open();
+            }
+        });
+
+        // Hour selection
+        hoursList?.addEventListener('click', (e) => {
+            if (e.target.classList.contains('aural-time-picker__item')) {
+                currentHour = parseInt(e.target.dataset.value);
+                updateDisplay();
+            }
+        });
+
+        // Minute selection
+        minutesList?.addEventListener('click', (e) => {
+            if (e.target.classList.contains('aural-time-picker__item')) {
+                currentMinute = parseInt(e.target.dataset.value);
+                updateDisplay();
+            }
+        });
+
+        // Period selection
+        periodBtns?.forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentPeriod = btn.textContent;
+                updateDisplay();
+            });
+        });
+
+        // Now button
+        nowBtn?.addEventListener('click', () => {
+            const now = new Date();
+            let hour = now.getHours();
+            const minute = Math.floor(now.getMinutes() / 5) * 5;
+
+            if (format === '12h') {
+                currentPeriod = hour >= 12 ? 'PM' : 'AM';
+                currentHour = hour % 12 || 12;
+            } else {
+                currentHour = hour;
+            }
+            currentMinute = minute;
+            updateDisplay();
+        });
+
+        // Clear button
+        clearBtn?.addEventListener('click', () => {
+            input.value = '';
+            close();
+        });
+
+        // Done button
+        doneBtn?.addEventListener('click', () => {
+            close();
+        });
+
+        // Click outside to close
+        document.addEventListener('click', (e) => {
+            if (!picker.contains(e.target)) {
+                close();
+            }
+        });
+
+        // Set default time
+        if (defaultTime) {
+            const match = defaultTime.match(/(\d+):(\d+)\s*(AM|PM)?/i);
+            if (match) {
+                currentHour = parseInt(match[1]);
+                currentMinute = parseInt(match[2]);
+                if (match[3]) currentPeriod = match[3].toUpperCase();
+                updateDisplay();
+            }
+        }
+
+        return {
+            getTime: () => input.value,
+            setTime: (hour, minute, period) => {
+                currentHour = hour;
+                currentMinute = minute;
+                if (period) currentPeriod = period;
+                updateDisplay();
+            },
+            open,
+            close
+        };
+    },
+
+    // ========================================
+    // Combobox
+    // ========================================
+    initCombobox(comboboxId, options = {}) {
+        const combobox = document.getElementById(comboboxId);
+        if (!combobox) return null;
+
+        const {
+            options: comboOptions = [],
+            searchable = true,
+            creatable = false,
+            placeholder = 'Search...',
+            onChange = null,
+            onSearch = null,
+            onCreate = null
+        } = options;
+
+        const input = combobox.querySelector('.aural-combobox__input');
+        const dropdown = combobox.querySelector('.aural-combobox__dropdown');
+        const optionsList = combobox.querySelector('.aural-combobox__options');
+        const clearBtn = combobox.querySelector('.aural-combobox__clear');
+
+        let selectedValue = null;
+        let highlightedIndex = -1;
+        let filteredOptions = [...comboOptions];
+
+        // Render options
+        const renderOptions = (opts = filteredOptions) => {
+            optionsList.innerHTML = '';
+
+            if (opts.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'aural-combobox__empty';
+                empty.innerHTML = '<div class="aural-combobox__empty-text">No results found</div>';
+                optionsList.appendChild(empty);
+                return;
+            }
+
+            opts.forEach((opt, index) => {
+                const button = document.createElement('button');
+                button.className = 'aural-combobox__option';
+                button.dataset.value = opt.value;
+                button.dataset.index = index;
+
+                if (opt.value === selectedValue) {
+                    button.classList.add('aural-combobox__option--selected');
+                }
+
+                const content = document.createElement('div');
+                content.className = 'aural-combobox__option-content';
+
+                const label = document.createElement('div');
+                label.className = 'aural-combobox__option-label';
+                label.textContent = opt.label;
+                content.appendChild(label);
+
+                if (opt.description) {
+                    const desc = document.createElement('div');
+                    desc.className = 'aural-combobox__option-description';
+                    desc.textContent = opt.description;
+                    content.appendChild(desc);
+                }
+
+                button.appendChild(content);
+                optionsList.appendChild(button);
+            });
+
+            if (creatable && input.value && !opts.find(o => o.label.toLowerCase() === input.value.toLowerCase())) {
+                const createBtn = document.createElement('button');
+                createBtn.className = 'aural-combobox__create';
+                createBtn.innerHTML = `<span>Create:</span> <span class="aural-combobox__create-value">"${input.value}"</span>`;
+                createBtn.addEventListener('click', () => {
+                    if (onCreate) onCreate(input.value);
+                    close();
+                });
+                optionsList.appendChild(createBtn);
+            }
+        };
+
+        // Filter options
+        const filterOptions = (query) => {
+            if (!query) {
+                filteredOptions = [...comboOptions];
+            } else {
+                filteredOptions = comboOptions.filter(opt =>
+                    opt.label.toLowerCase().includes(query.toLowerCase())
+                );
+            }
+            renderOptions();
+            if (onSearch) onSearch(query, filteredOptions);
+        };
+
+        // Open/close
+        const open = () => {
+            combobox.classList.add('aural-combobox--open');
+            renderOptions();
+        };
+
+        const close = () => {
+            combobox.classList.remove('aural-combobox--open');
+            highlightedIndex = -1;
+        };
+
+        // Input handlers
+        input.addEventListener('focus', open);
+        input.addEventListener('input', (e) => {
+            if (searchable) {
+                filterOptions(e.target.value);
+                combobox.classList.toggle('aural-combobox--has-value', e.target.value.length > 0);
+            }
+        });
+
+        // Option selection
+        optionsList.addEventListener('click', (e) => {
+            const option = e.target.closest('.aural-combobox__option');
+            if (option) {
+                selectedValue = option.dataset.value;
+                const selected = comboOptions.find(o => o.value === selectedValue);
+                if (selected) {
+                    input.value = selected.label;
+                    combobox.classList.add('aural-combobox--has-value');
+                    if (onChange) onChange(selected);
+                }
+                close();
+            }
+        });
+
+        // Clear button
+        clearBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            input.value = '';
+            selectedValue = null;
+            combobox.classList.remove('aural-combobox--has-value');
+            filterOptions('');
+            if (onChange) onChange(null);
+        });
+
+        // Click outside to close
+        document.addEventListener('click', (e) => {
+            if (!combobox.contains(e.target)) {
+                close();
+            }
+        });
+
+        // Keyboard navigation
+        input.addEventListener('keydown', (e) => {
+            const options = optionsList.querySelectorAll('.aural-combobox__option');
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                highlightedIndex = Math.min(highlightedIndex + 1, options.length - 1);
+                options[highlightedIndex]?.focus();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                highlightedIndex = Math.max(highlightedIndex - 1, 0);
+                options[highlightedIndex]?.focus();
+            } else if (e.key === 'Enter' && highlightedIndex >= 0) {
+                e.preventDefault();
+                options[highlightedIndex]?.click();
+            } else if (e.key === 'Escape') {
+                close();
+            }
+        });
+
+        renderOptions();
+
+        return {
+            getValue: () => selectedValue,
+            setValue: (value) => {
+                selectedValue = value;
+                const selected = comboOptions.find(o => o.value === value);
+                if (selected) {
+                    input.value = selected.label;
+                    combobox.classList.add('aural-combobox--has-value');
+                }
+                renderOptions();
+            },
+            clear: () => {
+                input.value = '';
+                selectedValue = null;
+                combobox.classList.remove('aural-combobox--has-value');
+                renderOptions();
+            },
+            open,
+            close
+        };
+    },
+
+    // ========================================
+    // Switch
+    // ========================================
+    initSwitch(switchId, options = {}) {
+        const switchEl = document.getElementById(switchId);
+        if (!switchEl) return null;
+
+        const {
+            defaultChecked = false,
+            onChange = null,
+            disabled = false
+        } = options;
+
+        const input = switchEl.querySelector('.aural-switch__input');
+        if (!input) return null;
+
+        // Set initial state
+        if (defaultChecked) {
+            input.checked = true;
+        }
+
+        if (disabled) {
+            input.disabled = true;
+            switchEl.classList.add('aural-switch--disabled');
+        }
+
+        // Change handler
+        input.addEventListener('change', (e) => {
+            if (onChange) {
+                onChange(e.target.checked);
+            }
+        });
+
+        return {
+            isChecked: () => input.checked,
+            setChecked: (checked) => {
+                input.checked = checked;
+                if (onChange) onChange(checked);
+            },
+            toggle: () => {
+                input.checked = !input.checked;
+                if (onChange) onChange(input.checked);
+            },
+            enable: () => {
+                input.disabled = false;
+                switchEl.classList.remove('aural-switch--disabled');
+            },
+            disable: () => {
+                input.disabled = true;
+                switchEl.classList.add('aural-switch--disabled');
+            }
+        };
+    },
+
+    // ========================================
+    // Snackbar
+    // ========================================
+    showSnackbar(message, options = {}) {
+        const {
+            description = null,
+            type = 'default', // 'success', 'error', 'warning', 'info'
+            duration = 4000,
+            position = 'bottom-center', // 'bottom-left', 'bottom-center', 'bottom-right', 'top-left', 'top-center', 'top-right'
+            action = null, // { label: 'Undo', onClick: () => {} }
+            dismissible = true,
+            showProgress = true,
+            onDismiss = null
+        } = options;
+
+        // Create or get container
+        const containerClass = `aural-snackbar-container--${position}`;
+        let container = document.querySelector(`.${containerClass}`);
+
+        if (!container) {
+            container = document.createElement('div');
+            container.className = `aural-snackbar-container ${containerClass}`;
+            document.body.appendChild(container);
+        }
+
+        // Create snackbar
+        const snackbar = document.createElement('div');
+        snackbar.className = 'aural-snackbar';
+        if (type !== 'default') {
+            snackbar.classList.add(`aural-snackbar--${type}`);
+        }
+        snackbar.setAttribute('role', type === 'error' ? 'alert' : 'status');
+
+        // Build content
+        let html = '';
+
+        // Icon
+        if (type !== 'default') {
+            html += '<div class="aural-snackbar__icon">';
+            if (type === 'success') html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+            else if (type === 'error') html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+            else if (type === 'warning') html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+            else if (type === 'info') html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+            html += '</div>';
+        }
+
+        // Content
+        html += '<div class="aural-snackbar__content">';
+        html += `<div class="aural-snackbar__message">${message}</div>`;
+        if (description) {
+            html += `<div class="aural-snackbar__description">${description}</div>`;
+        }
+        html += '</div>';
+
+        // Actions
+        if (action || dismissible) {
+            html += '<div class="aural-snackbar__actions">';
+            if (action) {
+                html += `<button class="aural-snackbar__action">${action.label}</button>`;
+            }
+            html += '</div>';
+        }
+
+        // Close button
+        if (dismissible) {
+            html += '<button class="aural-snackbar__close" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+        }
+
+        // Progress bar
+        if (showProgress && duration > 0) {
+            html += '<div class="aural-snackbar__progress"><div class="aural-snackbar__progress-bar"></div></div>';
+        }
+
+        snackbar.innerHTML = html;
+        container.appendChild(snackbar);
+
+        // Show with animation
+        setTimeout(() => {
+            snackbar.classList.add('aural-snackbar--show');
+        }, 10);
+
+        // Progress animation
+        if (showProgress && duration > 0) {
+            const progressBar = snackbar.querySelector('.aural-snackbar__progress-bar');
+            if (progressBar) {
+                progressBar.style.animationDuration = `${duration}ms`;
+            }
+        }
+
+        // Dismiss function
+        const dismiss = () => {
+            snackbar.classList.remove('aural-snackbar--show');
+            snackbar.classList.add('aural-snackbar--hide');
+            setTimeout(() => {
+                snackbar.remove();
+                if (container.children.length === 0) {
+                    container.remove();
+                }
+                if (onDismiss) onDismiss();
+            }, 300);
+        };
+
+        // Auto-dismiss
+        let dismissTimeout;
+        if (duration > 0) {
+            dismissTimeout = setTimeout(dismiss, duration);
+        }
+
+        // Close button
+        const closeBtn = snackbar.querySelector('.aural-snackbar__close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                clearTimeout(dismissTimeout);
+                dismiss();
+            });
+        }
+
+        // Action button
+        if (action) {
+            const actionBtn = snackbar.querySelector('.aural-snackbar__action');
+            if (actionBtn) {
+                actionBtn.addEventListener('click', () => {
+                    if (action.onClick) action.onClick();
+                    clearTimeout(dismissTimeout);
+                    dismiss();
+                });
+            }
+        }
+
+        return {
+            dismiss
+        };
     }
 };
 
