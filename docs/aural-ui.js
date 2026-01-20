@@ -970,17 +970,20 @@
           confirmBtn?.addEventListener("click", () => {
             if (onConfirm)
               onConfirm();
+            this.closeDialog(dialogId);
             backdrop.remove();
           });
           cancelBtn?.addEventListener("click", () => {
             if (onCancel)
               onCancel();
+            this.closeDialog(dialogId);
             backdrop.remove();
           });
           backdrop.addEventListener("click", (e) => {
             if (e.target === backdrop) {
               if (onCancel)
                 onCancel();
+              this.closeDialog(dialogId);
               backdrop.remove();
             }
           });
