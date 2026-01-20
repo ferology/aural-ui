@@ -28,7 +28,7 @@ This document outlines potential additions and improvements for Aural UI.
 - [x] **Drawer** - Sliding side panel ✅
 - [ ] **Navigation Bar** - Horizontal top navigation
 - [ ] **Mega Menu** - Large dropdown menu with categories
-- [ ] **Context Menu** - Right-click menu
+- [x] **Context Menu** - Right-click menu ✅
 - [ ] **Bottom Navigation** - Mobile bottom nav bar
 
 **Feedback & Alerts**
@@ -41,8 +41,8 @@ This document outlines potential additions and improvements for Aural UI.
 - [x] **Timeline** - Vertical/horizontal event timeline ✅
 - [ ] **Tree View** - Hierarchical tree structure
 - [ ] **Data Grid** - Advanced table with sorting, filtering, pagination
-- [ ] **Stats Cards** - Metric display cards with trends
-- [ ] **Carousel** - Image/content slider with dots/arrows
+- [x] **Stats Cards** - Metric display cards with trends ✅
+- [x] **Carousel** - Image/content slider with dots/arrows ✅
 - [ ] **Image Gallery** - Grid of images with lightbox
 - [ ] **Kanban Board** - Drag-and-drop columns and cards
 

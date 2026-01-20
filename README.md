@@ -15,7 +15,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
 - 🌓 **Dark & Light Themes** - Both themes included, seamlessly switchable
 - ♿ **Accessibility First** - ~95% WCAG 2.1 AA compliant with comprehensive ARIA support
-- 📦 **35+ Components** - Everything from buttons to notification centers
+- 📦 **38+ Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
 - 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
@@ -205,6 +205,7 @@ npm run serve
 - **Stepper** - Step indicator for multi-step processes (horizontal/vertical)
 - **Drawer** - Sliding side panel with left/right/top/bottom positions
 - **Command Palette** - CMD/CTRL+K searchable command menu
+- **Context Menu** - Right-click menu with nested submenus and keyboard navigation
 
 ### Data Display
 - **Table** - Striped, bordered, compact, with sticky headers
@@ -216,6 +217,8 @@ npm run serve
 - **Empty State** - No data placeholders with icons
 - **Timeline** - Vertical/horizontal event timeline with states
 - **Code Block** - Syntax highlighting with copy functionality
+- **Stats Card** - Metric display cards with trend indicators and progress bars
+- **Carousel** - Image/content slider with navigation, autoplay, and touch support
 
 ### Interactive
 - **Tooltip** - Contextual information on hover/focus (4 positions)
