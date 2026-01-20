@@ -1344,18 +1344,65 @@
             <div class="example">
                 <div class="example-label">Normal State</div>
                 <input type="text" class="input" placeholder="Enter text">
+
+                <!-- Code snippet accordion -->
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="Aural.toggleAccordion('input-normal-code')">
+                            <span>View Code</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="accordion-panel" id="input-normal-code" hidden>
+                            <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                                <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;input type="text" class="input" placeholder="Enter text"&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="example">
                 <div class="example-label">Error State</div>
                 <input type="email" class="input error" placeholder="invalid-email">
                 <p class="form-error">Please enter a valid email address</p>
+
+                <!-- Code snippet accordion -->
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="Aural.toggleAccordion('input-error-code')">
+                            <span>View Code</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="accordion-panel" id="input-error-code" hidden>
+                            <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                                <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;input type="email" class="input error" placeholder="invalid-email"&gt;
+&lt;p class="form-error"&gt;Please enter a valid email address&lt;/p&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="example">
                 <div class="example-label">Success State</div>
                 <input type="text" class="input success" value="Valid input">
                 <p class="form-success">Looks good!</p>
+
+                <!-- Code snippet accordion -->
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="Aural.toggleAccordion('input-success-code')">
+                            <span>View Code</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="accordion-panel" id="input-success-code" hidden>
+                            <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                                <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;input type="text" class="input success" value="Valid input"&gt;
+&lt;p class="form-success"&gt;Looks good!&lt;/p&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="example">
@@ -1365,6 +1412,25 @@
                     <input type="email" class="input" placeholder="you@example.com">
                     <p class="form-helper">We'll never share your email</p>
                 </div>
+
+                <!-- Code snippet accordion -->
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="Aural.toggleAccordion('input-label-code')">
+                            <span>View Code</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="accordion-panel" id="input-label-code" hidden>
+                            <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                                <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="form-group"&gt;
+  &lt;label class="label"&gt;Email Address&lt;/label&gt;
+  &lt;input type="email" class="input" placeholder="you@example.com"&gt;
+  &lt;p class="form-helper"&gt;We'll never share your email&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1373,19 +1439,79 @@
     <section class="showcase-section" id="cards">
         <h2>Cards</h2>
         <div class="component-grid">
-            <div class="card">
-                <h3>Basic Card</h3>
-                <p class="text-secondary">This is a basic card with standard padding.</p>
+            <div class="example">
+                <div class="card">
+                    <h3>Basic Card</h3>
+                    <p class="text-secondary">This is a basic card with standard padding.</p>
+                </div>
+
+                <!-- Code snippet accordion -->
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="Aural.toggleAccordion('card-basic-code')">
+                            <span>View Code</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="accordion-panel" id="card-basic-code" hidden>
+                            <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                                <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="card"&gt;
+  &lt;h3&gt;Basic Card&lt;/h3&gt;
+  &lt;p class="text-secondary"&gt;This is a basic card with standard padding.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="card card-hover">
-                <h3>Hoverable Card</h3>
-                <p class="text-secondary">Hover me to see the lift effect!</p>
+            <div class="example">
+                <div class="card card-hover">
+                    <h3>Hoverable Card</h3>
+                    <p class="text-secondary">Hover me to see the lift effect!</p>
+                </div>
+
+                <!-- Code snippet accordion -->
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="Aural.toggleAccordion('card-hover-code')">
+                            <span>View Code</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="accordion-panel" id="card-hover-code" hidden>
+                            <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                                <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="card card-hover"&gt;
+  &lt;h3&gt;Hoverable Card&lt;/h3&gt;
+  &lt;p class="text-secondary"&gt;Hover me to see the lift effect!&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="card card-bordered card-primary">
-                <h3>Bordered Card</h3>
-                <p class="text-secondary">Cards with left accent border.</p>
+            <div class="example">
+                <div class="card card-bordered card-primary">
+                    <h3>Bordered Card</h3>
+                    <p class="text-secondary">Cards with left accent border.</p>
+                </div>
+
+                <!-- Code snippet accordion -->
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="Aural.toggleAccordion('card-bordered-code')">
+                            <span>View Code</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="accordion-panel" id="card-bordered-code" hidden>
+                            <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                                <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="card card-bordered card-primary"&gt;
+  &lt;h3&gt;Bordered Card&lt;/h3&gt;
+  &lt;p class="text-secondary"&gt;Cards with left accent border.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1403,6 +1529,26 @@
                 <span class="badge badge-info">Info</span>
                 <span class="badge badge-neutral">Neutral</span>
             </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('badge-variants-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="badge-variants-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;span class="badge badge-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="badge badge-success"&gt;Success&lt;/span&gt;
+&lt;span class="badge badge-warning"&gt;Warning&lt;/span&gt;
+&lt;span class="badge badge-error"&gt;Error&lt;/span&gt;
+&lt;span class="badge badge-info"&gt;Info&lt;/span&gt;
+&lt;span class="badge badge-neutral"&gt;Neutral&lt;/span&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1411,6 +1557,23 @@
                 <span class="badge badge-primary badge-sm">Small</span>
                 <span class="badge badge-primary">Default</span>
                 <span class="badge badge-primary badge-lg">Large</span>
+            </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('badge-sizes-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="badge-sizes-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;span class="badge badge-primary badge-sm"&gt;Small&lt;/span&gt;
+&lt;span class="badge badge-primary"&gt;Default&lt;/span&gt;
+&lt;span class="badge badge-primary badge-lg"&gt;Large&lt;/span&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1431,6 +1594,31 @@
                 </div>
             </div>
         </div>
+
+        <!-- Code snippet accordion -->
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="Aural.toggleAccordion('skeleton-code')">
+                    <span>View Code</span>
+                    <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                </button>
+                <div class="accordion-panel" id="skeleton-code" hidden>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                        <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="skeleton skeleton-title"&gt;&lt;/div&gt;
+&lt;div class="skeleton skeleton-text"&gt;&lt;/div&gt;
+&lt;div class="skeleton skeleton-text"&gt;&lt;/div&gt;
+&lt;div class="skeleton skeleton-text" style="width: 70%;"&gt;&lt;/div&gt;
+&lt;div class="flex gap-4 mt-4"&gt;
+  &lt;div class="skeleton skeleton-circle" style="width: 40px; height: 40px;"&gt;&lt;/div&gt;
+  &lt;div class="flex-1"&gt;
+    &lt;div class="skeleton skeleton-text-sm"&gt;&lt;/div&gt;
+    &lt;div class="skeleton skeleton-text-sm" style="width: 60%;"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Empty States -->
@@ -1445,6 +1633,29 @@
                 <h3 class="empty-state-title">No items yet</h3>
                 <p class="empty-state-description">Get started by creating your first item. It only takes a few seconds!</p>
                 <button class="btn btn-primary">Create Item</button>
+            </div>
+        </div>
+
+        <!-- Code snippet accordion -->
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="Aural.toggleAccordion('empty-state-code')">
+                    <span>View Code</span>
+                    <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                </button>
+                <div class="accordion-panel" id="empty-state-code" hidden>
+                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                        <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="empty-state"&gt;
+  &lt;svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+    &lt;path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/&gt;
+    &lt;rect x="9" y="3" width="6" height="4" rx="1"/&gt;
+  &lt;/svg&gt;
+  &lt;h3 class="empty-state-title"&gt;No items yet&lt;/h3&gt;
+  &lt;p class="empty-state-description"&gt;Get started by creating your first item. It only takes a few seconds!&lt;/p&gt;
+  &lt;button class="btn btn-primary"&gt;Create Item&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1468,6 +1679,32 @@
                 <input type="checkbox" disabled>
                 <span>Disabled option</span>
             </label>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('checkbox-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="checkbox-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox"&gt;
+  &lt;span&gt;I agree to the terms and conditions&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox" checked&gt;
+  &lt;span&gt;Subscribe to newsletter&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox" disabled&gt;
+  &lt;span&gt;Disabled option&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1526,6 +1763,34 @@
                     <input type="radio" name="plan">
                     <span>Enterprise Plan</span>
                 </label>
+            </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('radio-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="radio-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="radio-group"&gt;
+  &lt;label class="radio"&gt;
+    &lt;input type="radio" name="plan" checked&gt;
+    &lt;span&gt;Free Plan&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;label class="radio"&gt;
+    &lt;input type="radio" name="plan"&gt;
+    &lt;span&gt;Pro Plan&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;label class="radio"&gt;
+    &lt;input type="radio" name="plan"&gt;
+    &lt;span&gt;Enterprise Plan&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1591,6 +1856,32 @@
                 <input type="checkbox" role="switch" disabled>
                 <span>Disabled</span>
             </label>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('toggle-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="toggle-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;label class="toggle"&gt;
+  &lt;input type="checkbox" role="switch"&gt;
+  &lt;span&gt;Enable dark mode&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class="toggle"&gt;
+  &lt;input type="checkbox" role="switch" checked&gt;
+  &lt;span&gt;Auto-save&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class="toggle"&gt;
+  &lt;input type="checkbox" role="switch" disabled&gt;
+  &lt;span&gt;Disabled&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1651,6 +1942,28 @@
                     <option>Option 3</option>
                 </select>
             </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('select-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="select-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="select"&gt;
+  &lt;select&gt;
+    &lt;option&gt;Choose an option&lt;/option&gt;
+    &lt;option&gt;Option 1&lt;/option&gt;
+    &lt;option&gt;Option 2&lt;/option&gt;
+    &lt;option&gt;Option 3&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1695,6 +2008,28 @@
             <div id="panel1" class="tab-panel" role="tabpanel">Profile content here</div>
             <div id="panel2" class="tab-panel" role="tabpanel" hidden>Settings content here</div>
             <div id="panel3" class="tab-panel" role="tabpanel" hidden>Messages content here</div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('tabs-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="tabs-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="tabs" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" id="tab1" aria-selected="true" aria-controls="panel1"&gt;Profile&lt;/button&gt;
+  &lt;button class="tab" role="tab" id="tab2" aria-selected="false" aria-controls="panel2"&gt;Settings&lt;/button&gt;
+  &lt;button class="tab" role="tab" id="tab3" aria-selected="false" aria-controls="panel3"&gt;Messages&lt;/button&gt;
+&lt;/div&gt;
+&lt;div id="panel1" class="tab-panel" role="tabpanel"&gt;Profile content here&lt;/div&gt;
+&lt;div id="panel2" class="tab-panel" role="tabpanel" hidden&gt;Settings content here&lt;/div&gt;
+&lt;div id="panel3" class="tab-panel" role="tabpanel" hidden&gt;Messages content here&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1737,6 +2072,28 @@
                     <li aria-current="page">Laptop</li>
                 </ol>
             </nav>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('breadcrumb-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="breadcrumb-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;nav class="breadcrumb" aria-label="Breadcrumb"&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Products&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Electronics&lt;/a&gt;&lt;/li&gt;
+    &lt;li aria-current="page"&gt;Laptop&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1775,6 +2132,29 @@
                 <a href="#" class="pagination-item">10</a>
                 <a href="#" class="pagination-next">Next</a>
             </nav>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('pagination-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="pagination-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;nav class="pagination" aria-label="Pagination"&gt;
+  &lt;a href="#" class="pagination-prev"&gt;Previous&lt;/a&gt;
+  &lt;a href="#" class="pagination-item"&gt;1&lt;/a&gt;
+  &lt;a href="#" class="pagination-item pagination-active" aria-current="page"&gt;2&lt;/a&gt;
+  &lt;a href="#" class="pagination-item"&gt;3&lt;/a&gt;
+  &lt;span class="pagination-ellipsis"&gt;...&lt;/span&gt;
+  &lt;a href="#" class="pagination-item"&gt;10&lt;/a&gt;
+  &lt;a href="#" class="pagination-next"&gt;Next&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1835,6 +2215,40 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('table-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="table-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="table-wrapper"&gt;
+  &lt;table class="table"&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Email&lt;/th&gt;
+        &lt;th&gt;Role&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;John Doe&lt;/td&gt;
+        &lt;td&gt;john@example.com&lt;/td&gt;
+        &lt;td&gt;Admin&lt;/td&gt;
+        &lt;td&gt;&lt;span class="badge badge-success"&gt;Active&lt;/span&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1892,6 +2306,23 @@
                 <div class="avatar"><span>AB</span></div>
                 <div class="avatar"><span>CD</span></div>
             </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('avatar-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="avatar-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="avatar"&gt;&lt;span&gt;JD&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar"&gt;&lt;span&gt;AB&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar"&gt;&lt;span&gt;CD&lt;/span&gt;&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -1943,6 +2374,23 @@
             <div class="example-label">Basic</div>
             <div class="progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                 <div class="progress-bar" style="width: 60%"></div>
+            </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('progress-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="progress-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"&gt;
+  &lt;div class="progress-bar" style="width: 60%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -2007,6 +2455,21 @@ Aural.setProgress('my-progress', 75);
             <p>Content above</p>
             <hr class="divider">
             <p>Content below</p>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('divider-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="divider-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;hr class="divider"&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -2054,6 +2517,24 @@ Aural.setProgress('my-progress', 75);
                 <button class="btn btn-secondary" data-tooltip="Left tooltip" data-tooltip-position="left">Left</button>
                 <button class="btn btn-secondary" data-tooltip="Right tooltip" data-tooltip-position="right">Right</button>
             </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('tooltip-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="tooltip-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;button class="btn btn-secondary" data-tooltip="Top tooltip" data-tooltip-position="top"&gt;Top&lt;/button&gt;
+&lt;button class="btn btn-secondary" data-tooltip="Bottom tooltip" data-tooltip-position="bottom"&gt;Bottom&lt;/button&gt;
+&lt;button class="btn btn-secondary" data-tooltip="Left tooltip" data-tooltip-position="left"&gt;Left&lt;/button&gt;
+&lt;button class="btn btn-secondary" data-tooltip="Right tooltip" data-tooltip-position="right"&gt;Right&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -2087,6 +2568,36 @@ Aural.setProgress('my-progress', 75);
                     <a href="#" class="dropdown-item" role="menuitem">Archive</a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">Delete</a>
+                </div>
+            </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('dropdown-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="dropdown-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="dropdown" id="demo-dropdown"&gt;
+  &lt;button class="dropdown-trigger btn btn-secondary" aria-haspopup="true" aria-expanded="false"&gt;
+    Actions
+    &lt;svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"&gt;
+      &lt;path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu" role="menu" hidden&gt;
+    &lt;div class="dropdown-header"&gt;Actions&lt;/div&gt;
+    &lt;a href="#" class="dropdown-item" role="menuitem"&gt;Edit&lt;/a&gt;
+    &lt;a href="#" class="dropdown-item" role="menuitem"&gt;Duplicate&lt;/a&gt;
+    &lt;a href="#" class="dropdown-item" role="menuitem"&gt;Archive&lt;/a&gt;
+    &lt;div class="dropdown-divider"&gt;&lt;/div&gt;
+    &lt;a href="#" class="dropdown-item dropdown-item-danger" role="menuitem"&gt;Delete&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2199,6 +2710,21 @@ Aural.setProgress('my-progress', 75);
         <div class="example">
             <div class="example-label">Basic Modal</div>
             <button class="btn btn-primary" onclick="Aural.openModal('demo-modal')">Open Modal</button>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('modal-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="modal-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;button class="btn btn-primary" onclick="Aural.openModal('demo-modal')"&gt;Open Modal&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -2281,6 +2807,29 @@ Aural.setProgress('my-progress', 75);
                     <input type="range" class="aural-slider__input" min="0" max="100" value="50">
                 </div>
             </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('slider-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="slider-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="aural-slider" id="demo-slider-1"&gt;
+  &lt;div class="aural-slider__label-row"&gt;
+    &lt;label class="aural-slider__label"&gt;Volume&lt;/label&gt;
+    &lt;span class="aural-slider__value"&gt;50&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-slider__track"&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="50"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -2348,6 +2897,29 @@ Aural.setProgress('my-progress', 75);
                         <button class="aural-chip__remove" aria-label="Remove TypeScript"></button>
                     </div>
                     <input type="text" class="aural-chips__input" placeholder="Add tag...">
+                </div>
+            </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('chips-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="chips-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="aural-chips" id="demo-chips-1"&gt;
+  &lt;div class="aural-chips__container"&gt;
+    &lt;div class="aural-chip"&gt;
+      &lt;span class="aural-chip__text"&gt;JavaScript&lt;/span&gt;
+      &lt;button class="aural-chip__remove" aria-label="Remove JavaScript"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-chips__input" placeholder="Add tag..."&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2425,6 +2997,31 @@ const message = greet('World');
 console.log(message);</code></pre>
                 </div>
             </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('code-block-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="code-block-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="aural-code-block" id="demo-code-1"&gt;
+  &lt;div class="aural-code-block__header"&gt;
+    &lt;span class="aural-code-block__language"&gt;JavaScript&lt;/span&gt;
+    &lt;button class="aural-code-block__copy"&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre class="aural-code-block__pre"&gt;&lt;code class="aural-code-block__code"&gt;
+// Your code here
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="example">
@@ -2461,6 +3058,23 @@ console.log(message);</code></pre>
                 <button class="btn btn-primary" onclick="Aural.showConfirm('Confirm Action', 'Are you sure you want to continue?', () => Aural.showToast('Confirmed!', 'success'), () => Aural.showToast('Cancelled', 'info'))">Show Confirm</button>
                 <button class="btn btn-success" onclick="Aural.openDialog('demo-dialog-success')">Success Dialog</button>
                 <button class="btn btn-error" onclick="Aural.openDialog('demo-dialog-error')">Error Dialog</button>
+            </div>
+
+            <!-- Code snippet accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="Aural.toggleAccordion('dialog-basic-code')">
+                        <span>View Code</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <div class="accordion-panel" id="dialog-basic-code" hidden>
+                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
+                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;button class="btn btn-primary" onclick="Aural.showConfirm('Confirm Action', 'Are you sure?', onConfirm, onCancel)"&gt;
+  Show Confirm
+&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

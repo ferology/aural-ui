@@ -5,6 +5,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](package.json)
 
+## 🚀 [Live Demo](https://ferology.github.io/aural-ui/)
+
+**[View the complete component showcase →](https://ferology.github.io/aural-ui/)**
+
 ---
 
 ## 🎯 Overview
