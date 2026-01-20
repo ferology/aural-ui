@@ -3409,6 +3409,7 @@ const Aural = {
         const tagsContainer = select.querySelector('.aural-multi-select__tags');
         const searchInput = select.querySelector('.aural-multi-select__search-input');
         const options_list = select.querySelectorAll('.aural-multi-select__option');
+        const clearBtn = select.querySelector('.aural-multi-select__clear');
 
         const updateTags = () => {
             if (!tagsContainer) return;
@@ -3462,8 +3463,24 @@ const Aural = {
         };
 
         if (trigger) {
-            trigger.addEventListener('click', () => {
+            trigger.addEventListener('click', (e) => {
+                // Don't toggle if clicking on clear button
+                if (e.target.closest('.aural-multi-select__clear')) {
+                    return;
+                }
                 select.classList.toggle('aural-multi-select--open');
+            });
+        }
+
+        // Clear button
+        if (clearBtn) {
+            clearBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectedValues.clear();
+                options_list.forEach(opt => {
+                    opt.classList.remove('aural-multi-select__option--selected');
+                });
+                updateTags();
             });
         }
 
@@ -3767,6 +3784,7 @@ const Aural = {
         const dropdown = combobox.querySelector('.aural-combobox__dropdown');
         const optionsList = combobox.querySelector('.aural-combobox__options');
         const clearBtn = combobox.querySelector('.aural-combobox__clear');
+        const arrow = combobox.querySelector('.aural-combobox__arrow');
 
         let selectedValue = null;
         let highlightedIndex = -1;
@@ -3881,6 +3899,17 @@ const Aural = {
             combobox.classList.remove('aural-combobox--has-value');
             filterOptions('');
             if (onChange) onChange(null);
+        });
+
+        // Arrow toggle
+        arrow?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (combobox.classList.contains('aural-combobox--open')) {
+                close();
+            } else {
+                open();
+                input.focus();
+            }
         });
 
         // Click outside to close

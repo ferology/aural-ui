@@ -4504,21 +4504,21 @@ console.log(message);</code></pre>
         <div class="example">
             <div class="example-label">Basic Multi-Select</div>
             <div class="aural-multi-select" id="demo-multi-select-1" style="max-width: 400px;">
-                <button class="aural-multi-select__trigger">
+                <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
                     <div class="aural-multi-select__tags"></div>
                     <span class="aural-multi-select__placeholder">Select technologies...</span>
-                    <button class="aural-multi-select__clear" aria-label="Clear all">
+                    <span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="18" y1="6" x2="6" y2="18"/>
                             <line x1="6" y1="6" x2="18" y2="18"/>
                         </svg>
-                    </button>
+                    </span>
                     <span class="aural-multi-select__arrow">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="6 9 12 15 18 9"/>
                         </svg>
                     </span>
-                </button>
+                </div>
                 <div class="aural-multi-select__dropdown">
                     <div class="aural-multi-select__search">
                         <input type="text" class="aural-multi-select__search-input" placeholder="Search...">
@@ -5590,6 +5590,21 @@ setTimeout(() => snackbar.dismiss(), 3000);</code></pre>
             });
             Aural.initSwitch('demo-switch-3', {
                 onChange: (checked) => console.log('Switch 3:', checked)
+            });
+
+            // Multi-Select
+            Aural.initMultiSelect('demo-multi-select-1', {
+                searchable: true,
+                onChange: (values) => {
+                    console.log('Multi-select changed:', values);
+                }
+            });
+
+            // Navigation Bar
+            Aural.initNavbar('demo-navbar-1', {
+                onToggle: (isOpen) => {
+                    console.log('Navbar menu toggled:', isOpen);
+                }
             });
         });
     </script>
