@@ -10,17 +10,17 @@ This document outlines potential additions and improvements for Aural UI.
 
 **Date & Time**
 - [x] **Date Picker** - Calendar component with date selection ✅
-- [ ] **Time Picker** - Time selection with AM/PM
+- [x] **Time Picker** - Time selection with AM/PM ✅
 - [ ] **Date Range Picker** - Select start and end dates
 - [ ] **Calendar** - Full month view calendar
 
 **Form Components**
 - [x] **Multi-Select Dropdown** - Select multiple options with chips ✅
-- [ ] **Combobox** - Combined input and dropdown with search
+- [x] **Combobox** - Combined input and dropdown with search ✅
 - [x] **Color Picker** - Visual color selection tool ✅
 - [x] **Rating** - Star rating or custom icon rating ✅
 - [x] **Range Slider** - Dual-handle slider for min/max selection ✅
-- [ ] **Switch** - Visual toggle switch (alternative to current toggle)
+- [x] **Switch** - Visual toggle switch (alternative to current toggle) ✅
 - [x] **Search Bar** - Search input with autocomplete suggestions ✅
 
 **Navigation**
@@ -35,7 +35,7 @@ This document outlines potential additions and improvements for Aural UI.
 - [x] **Alert Banner** - Prominent page-level notifications ✅
 - [x] **Notification Center** - Bell icon with notification list ✅
 - [x] **Loading Spinner** - Circular loading indicators ✅
-- [ ] **Snackbar** - Brief messages at screen edge (alternative to toast)
+- [x] **Snackbar** - Brief messages at screen edge (alternative to toast) ✅
 
 **Data Display**
 - [x] **Timeline** - Vertical/horizontal event timeline ✅

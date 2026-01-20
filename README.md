@@ -15,7 +15,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
 - 🌓 **Dark & Light Themes** - Both themes included, seamlessly switchable
 - ♿ **Accessibility First** - ~95% WCAG 2.1 AA compliant with comprehensive ARIA support
-- 📦 **45+ Components** - Everything from buttons to notification centers
+- 📦 **49+ Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
 - 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
@@ -191,15 +191,18 @@ npm run serve
 - **Checkbox** - Custom styled with indeterminate state and sizes
 - **Radio** - Custom styled with button variant and grouping
 - **Toggle/Switch** - Animated on/off switch with labels
+- **Switch** - iOS-style visual toggle switch with multiple variants
 - **Select** - Native styled + custom dropdown variant
 - **Rating** - Star rating with interactive and read-only modes, half-stars
 - **Slider** - Range input with custom styling and value display
 - **Color Picker** - Visual HSL color selection with multiple input modes
 - **Range Slider** - Dual-handle slider for min/max range selection
 - **Multi-Select** - Multi-select dropdown with chips/tags display
+- **Combobox** - Input with autocomplete dropdown for search and selection
 - **Chips/Tags** - Input tags with add/remove functionality
 - **File Upload** - Drag-and-drop with validation and progress tracking
 - **Date Picker** - Calendar component with date selection
+- **Time Picker** - Time selection with 12/24 hour format support
 
 ### Navigation
 - **Navigation Bar** - Horizontal top navigation with logo, links, dropdowns, and mobile menu
@@ -237,6 +240,7 @@ npm run serve
 
 ### Feedback
 - **Toast** - Notification messages (success, error, warning, info)
+- **Snackbar** - Brief messages at screen edge (Material Design style)
 - **Skeleton** - Loading placeholders for content
 - **Alert Banner** - Prominent page-level notifications with actions
 - **Loading Spinner** - Multiple variants (dots, pulse, bars, dual)
