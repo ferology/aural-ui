@@ -390,6 +390,10 @@
                 <li><a href="#tree-view" class="nav-link">Tree View</a></li>
                 <li><a href="#image-gallery" class="nav-link">Image Gallery</a></li>
                 <li><a href="#bottom-navigation" class="nav-link">Bottom Navigation</a></li>
+                <li><a href="#color-picker" class="nav-link">Color Picker</a></li>
+                <li><a href="#range-slider" class="nav-link">Range Slider</a></li>
+                <li><a href="#multi-select" class="nav-link">Multi-Select</a></li>
+                <li><a href="#navbar" class="nav-link">Navigation Bar</a></li>
             </ul>
         </div>
 
@@ -4315,6 +4319,349 @@ console.log(message);</code></pre>
   bottomNav.show();         // Show navigation
   bottomNav.hide();         // Hide navigation
   bottomNav.setActive(0);   // Set first item as active
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Color Picker -->
+    <section class="showcase-section" id="color-picker">
+        <h2>Color Picker</h2>
+        <p class="showcase-subtitle">Visual color selection with HSL/RGB/HEX modes and alpha control</p>
+
+        <div class="example">
+            <div class="example-label">Full Color Picker</div>
+            <div class="aural-color-picker" id="demo-color-picker-1">
+                <div class="aural-color-picker__preview">
+                    <div class="aural-color-picker__swatch">
+                        <div class="aural-color-picker__swatch-color" style="--color-value: #f00054;"></div>
+                    </div>
+                    <input type="text" class="aural-color-picker__value" value="#F00054" readonly>
+                </div>
+                <div class="aural-color-picker__canvas">
+                    <div class="aural-color-picker__saturation"></div>
+                    <div class="aural-color-picker__lightness"></div>
+                    <div class="aural-color-picker__cursor" style="left: 100%; top: 50%;"></div>
+                </div>
+                <div class="aural-color-picker__hue">
+                    <div class="aural-color-picker__hue-handle" style="left: 340%;"></div>
+                </div>
+                <div class="aural-color-picker__modes">
+                    <button class="aural-color-picker__mode aural-color-picker__mode--active">HEX</button>
+                    <button class="aural-color-picker__mode">RGB</button>
+                    <button class="aural-color-picker__mode">HSL</button>
+                </div>
+                <div class="aural-color-picker__presets">
+                    <div class="aural-color-picker__preset-label">Presets</div>
+                    <div class="aural-color-picker__preset-grid">
+                        <button class="aural-color-picker__preset" style="background: #f00054;"></button>
+                        <button class="aural-color-picker__preset" style="background: #22c55e;"></button>
+                        <button class="aural-color-picker__preset" style="background: #3b82f6;"></button>
+                        <button class="aural-color-picker__preset" style="background: #f59e0b;"></button>
+                        <button class="aural-color-picker__preset" style="background: #ef4444;"></button>
+                        <button class="aural-color-picker__preset" style="background: #8b5cf6;"></button>
+                        <button class="aural-color-picker__preset" style="background: #ec4899;"></button>
+                        <button class="aural-color-picker__preset" style="background: #14b8a6;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-color-picker" id="my-picker"&gt;
+  &lt;div class="aural-color-picker__preview"&gt;
+    &lt;div class="aural-color-picker__swatch"&gt;
+      &lt;div class="aural-color-picker__swatch-color"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-color-picker__value"&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__canvas"&gt;
+    &lt;div class="aural-color-picker__saturation"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__lightness"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__cursor"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__hue"&gt;
+    &lt;div class="aural-color-picker__hue-handle"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const picker = Aural.initColorPicker('my-picker', {
+    initialColor: '#f00054',
+    mode: 'hex',
+    showAlpha: true,
+    onChange: (color) => console.log('Color:', color)
+  });
+
+  picker.getColor();      // Get current color
+  picker.setColor('#fff'); // Set new color
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Range Slider -->
+    <section class="showcase-section" id="range-slider">
+        <h2>Range Slider</h2>
+        <p class="showcase-subtitle">Dual-handle slider for selecting min/max range values</p>
+
+        <div class="example">
+            <div class="example-label">Price Range Example</div>
+            <div class="aural-range-slider aural-range-slider--show-labels" id="demo-range-slider-1">
+                <div class="aural-range-slider__wrapper">
+                    <div class="aural-range-slider__track">
+                        <div class="aural-range-slider__track-fill" style="left: 25%; width: 50%;"></div>
+                    </div>
+                    <div class="aural-range-slider__handle aural-range-slider__handle--min" style="left: 25%;" tabindex="0">
+                        <div class="aural-range-slider__label">$25</div>
+                    </div>
+                    <div class="aural-range-slider__handle aural-range-slider__handle--max" style="left: 75%;" tabindex="0">
+                        <div class="aural-range-slider__label">$75</div>
+                    </div>
+                </div>
+                <div class="aural-range-slider__values">
+                    <div class="aural-range-slider__value">
+                        <span class="aural-range-slider__value-label">Min:</span>
+                        <span class="aural-range-slider__value-number">$25</span>
+                    </div>
+                    <div class="aural-range-slider__value">
+                        <span class="aural-range-slider__value-label">Max:</span>
+                        <span class="aural-range-slider__value-number">$75</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Color Variants</div>
+            <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                <div class="aural-range-slider aural-range-slider--success">
+                    <div class="aural-range-slider__wrapper">
+                        <div class="aural-range-slider__track">
+                            <div class="aural-range-slider__track-fill" style="left: 20%; width: 60%;"></div>
+                        </div>
+                        <div class="aural-range-slider__handle aural-range-slider__handle--min" style="left: 20%;"></div>
+                        <div class="aural-range-slider__handle aural-range-slider__handle--max" style="left: 80%;"></div>
+                    </div>
+                </div>
+                <div class="aural-range-slider aural-range-slider--warning">
+                    <div class="aural-range-slider__wrapper">
+                        <div class="aural-range-slider__track">
+                            <div class="aural-range-slider__track-fill" style="left: 30%; width: 40%;"></div>
+                        </div>
+                        <div class="aural-range-slider__handle aural-range-slider__handle--min" style="left: 30%;"></div>
+                        <div class="aural-range-slider__handle aural-range-slider__handle--max" style="left: 70%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-range-slider" id="my-slider"&gt;
+  &lt;div class="aural-range-slider__wrapper"&gt;
+    &lt;div class="aural-range-slider__track"&gt;
+      &lt;div class="aural-range-slider__track-fill"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-range-slider__handle aural-range-slider__handle--min"&gt;
+      &lt;div class="aural-range-slider__label"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-range-slider__handle aural-range-slider__handle--max"&gt;
+      &lt;div class="aural-range-slider__label"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-range-slider__values"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const slider = Aural.initRangeSlider('my-slider', {
+    min: 0,
+    max: 100,
+    initialMin: 25,
+    initialMax: 75,
+    step: 1,
+    onChange: (min, max) => console.log(min, max)
+  });
+
+  slider.getMin();     // Get minimum value
+  slider.getMax();     // Get maximum value
+  slider.setMin(30);   // Set minimum value
+  slider.setMax(80);   // Set maximum value
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Multi-Select -->
+    <section class="showcase-section" id="multi-select">
+        <h2>Multi-Select Dropdown</h2>
+        <p class="showcase-subtitle">Select multiple options with chips/tags display and search</p>
+
+        <div class="example">
+            <div class="example-label">Basic Multi-Select</div>
+            <div class="aural-multi-select" id="demo-multi-select-1" style="max-width: 400px;">
+                <button class="aural-multi-select__trigger">
+                    <div class="aural-multi-select__tags"></div>
+                    <span class="aural-multi-select__placeholder">Select technologies...</span>
+                    <button class="aural-multi-select__clear" aria-label="Clear all">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                    <span class="aural-multi-select__arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="aural-multi-select__dropdown">
+                    <div class="aural-multi-select__search">
+                        <input type="text" class="aural-multi-select__search-input" placeholder="Search...">
+                    </div>
+                    <div class="aural-multi-select__options">
+                        <button class="aural-multi-select__option" data-value="react">
+                            <span class="aural-multi-select__checkbox">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__option-label">React</span>
+                        </button>
+                        <button class="aural-multi-select__option" data-value="vue">
+                            <span class="aural-multi-select__checkbox">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__option-label">Vue</span>
+                        </button>
+                        <button class="aural-multi-select__option" data-value="angular">
+                            <span class="aural-multi-select__checkbox">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__option-label">Angular</span>
+                        </button>
+                        <button class="aural-multi-select__option" data-value="svelte">
+                            <span class="aural-multi-select__checkbox">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__option-label">Svelte</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-multi-select" id="my-select"&gt;
+  &lt;button class="aural-multi-select__trigger"&gt;
+    &lt;div class="aural-multi-select__tags"&gt;&lt;/div&gt;
+    &lt;span class="aural-multi-select__placeholder"&gt;Select...&lt;/span&gt;
+    &lt;span class="aural-multi-select__arrow"&gt;▼&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="aural-multi-select__dropdown"&gt;
+    &lt;div class="aural-multi-select__options"&gt;
+      &lt;button class="aural-multi-select__option" data-value="1"&gt;
+        &lt;span class="aural-multi-select__checkbox"&gt;✓&lt;/span&gt;
+        &lt;span class="aural-multi-select__option-label"&gt;Option 1&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const select = Aural.initMultiSelect('my-select', {
+    searchable: true,
+    maxSelections: 5,
+    onChange: (values) => console.log('Selected:', values)
+  });
+
+  select.getSelected();    // Get selected values
+  select.select('value');  // Select a value
+  select.deselect('value');// Deselect a value
+  select.clear();          // Clear all selections
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Navigation Bar -->
+    <section class="showcase-section" id="navbar">
+        <h2>Navigation Bar</h2>
+        <p class="showcase-subtitle">Horizontal top navigation with logo, links, and mobile menu</p>
+
+        <div class="example">
+            <div class="example-label">Example Navbar</div>
+            <nav class="aural-navbar" id="demo-navbar-1">
+                <div class="aural-navbar__inner">
+                    <a href="#" class="aural-navbar__brand">
+                        <span>Aural UI</span>
+                    </a>
+                    <div class="aural-navbar__nav">
+                        <a href="#" class="aural-navbar__link aural-navbar__link--active">Home</a>
+                        <a href="#" class="aural-navbar__link">Components</a>
+                        <a href="#" class="aural-navbar__link">Documentation</a>
+                        <a href="#" class="aural-navbar__link">About</a>
+                    </div>
+                    <div class="aural-navbar__actions">
+                        <div class="aural-navbar__search">
+                            <svg class="aural-navbar__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M21 21l-4.35-4.35"/>
+                            </svg>
+                            <input type="text" class="aural-navbar__search-input" placeholder="Search...">
+                        </div>
+                        <button class="aural-navbar__action">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                            </svg>
+                            <span class="aural-navbar__badge aural-navbar__badge--pulse">3</span>
+                        </button>
+                    </div>
+                    <button class="aural-navbar__toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;nav class="aural-navbar" id="my-navbar"&gt;
+  &lt;div class="aural-navbar__inner"&gt;
+    &lt;a href="#" class="aural-navbar__brand"&gt;Brand&lt;/a&gt;
+    &lt;div class="aural-navbar__nav"&gt;
+      &lt;a href="#" class="aural-navbar__link aural-navbar__link--active"&gt;Home&lt;/a&gt;
+      &lt;a href="#" class="aural-navbar__link"&gt;About&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-navbar__actions"&gt;
+      &lt;button class="aural-navbar__action"&gt;🔔&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;button class="aural-navbar__toggle"&gt;☰&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const navbar = Aural.initNavbar('my-navbar', {
+    mobileBreakpoint: 768,
+    onToggle: (isOpen) => console.log('Menu:', isOpen)
+  });
+
+  navbar.openMenu();   // Open mobile menu
+  navbar.closeMenu();  // Close mobile menu
+  navbar.toggleMenu(); // Toggle mobile menu
 &lt;/script&gt;</code></pre>
         </div>
     </section>

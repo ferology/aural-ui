@@ -1,0 +1,530 @@
+/**
+ * AURAL UI - Navigation Bar
+ *
+ * Horizontal top navigation with logo, links, dropdowns, and mobile menu.
+ * Supports sticky positioning, transparent/blur backgrounds, and search.
+ */
+
+/* ========================================
+   Navbar Container
+   ======================================== */
+
+.aural-navbar {
+    position: relative;
+    width: 100%;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border-medium);
+    z-index: 100;
+}
+
+.aural-navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--space-3) var(--space-4);
+}
+
+/* ========================================
+   Sticky Navbar
+   ======================================== */
+
+.aural-navbar--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* ========================================
+   Fixed Navbar
+   ======================================== */
+
+.aural-navbar--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* Add padding to body when fixed navbar is used */
+body.has-navbar-fixed {
+    padding-top: 64px;
+}
+
+/* ========================================
+   Navbar Brand/Logo
+   ======================================== */
+
+.aural-navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    font-weight: var(--font-bold);
+    font-size: var(--text-lg);
+    transition: var(--transition-all-fast);
+}
+
+.aural-navbar__brand:hover {
+    color: var(--color-primary);
+}
+
+.aural-navbar__brand:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+.aural-navbar__logo {
+    height: 32px;
+    width: auto;
+}
+
+/* ========================================
+   Navigation Links
+   ======================================== */
+
+.aural-navbar__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex: 1;
+    justify-content: center;
+}
+
+.aural-navbar__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    border-radius: var(--radius-md);
+    transition: var(--transition-all-fast);
+    white-space: nowrap;
+}
+
+.aural-navbar__link:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-text-primary);
+}
+
+.aural-navbar__link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-navbar__link--active {
+    background: var(--primary-alpha-10);
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+}
+
+.aural-navbar__link-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* ========================================
+   Navbar Actions
+   ======================================== */
+
+.aural-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.aural-navbar__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    padding: var(--space-2);
+    background: transparent;
+    color: var(--color-text-secondary);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+    position: relative;
+}
+
+.aural-navbar__action:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-text-primary);
+}
+
+.aural-navbar__action:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-navbar__action svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ========================================
+   Action Badge (notification count)
+   ======================================== */
+
+.aural-navbar__badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-error);
+    color: white;
+    border: 2px solid var(--color-bg-primary);
+    border-radius: var(--radius-full);
+    font-size: 0.65rem;
+    font-weight: var(--font-bold);
+    line-height: 1;
+}
+
+.aural-navbar__badge--pulse {
+    animation: aural-navbar-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes aural-navbar-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* ========================================
+   Search Bar
+   ======================================== */
+
+.aural-navbar__search {
+    position: relative;
+    width: 240px;
+}
+
+.aural-navbar__search-input {
+    width: 100%;
+    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-9);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    transition: var(--transition-all-fast);
+}
+
+.aural-navbar__search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: var(--color-bg-primary);
+}
+
+.aural-navbar__search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.aural-navbar__search-icon {
+    position: absolute;
+    left: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--color-text-tertiary);
+    pointer-events: none;
+}
+
+/* ========================================
+   Mobile Menu Toggle
+   ======================================== */
+
+.aural-navbar__toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: var(--space-2);
+    background: transparent;
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-navbar__toggle:hover {
+    background: var(--color-bg-hover);
+}
+
+.aural-navbar__toggle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-navbar__toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ========================================
+   Dropdown Menu
+   ======================================== */
+
+.aural-navbar__dropdown {
+    position: relative;
+}
+
+.aural-navbar__dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.aural-navbar__dropdown-arrow {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.2s ease;
+}
+
+.aural-navbar__dropdown--open .aural-navbar__dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.aural-navbar__dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 200px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-2) 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 1000;
+}
+
+.aural-navbar__dropdown--open .aural-navbar__dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.aural-navbar__dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: var(--transition-all-fast);
+}
+
+.aural-navbar__dropdown-item:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-primary);
+}
+
+.aural-navbar__dropdown-divider {
+    height: 1px;
+    background: var(--color-border-subtle);
+    margin: var(--space-2) 0;
+}
+
+/* ========================================
+   Transparent/Blur Variants
+   ======================================== */
+
+.aural-navbar--transparent {
+    background: transparent;
+    border-bottom-color: transparent;
+}
+
+.aural-navbar--blur {
+    background: rgba(var(--color-bg-primary-rgb), 0.8);
+    backdrop-filter: blur(12px);
+}
+
+.aural-navbar--dark {
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.aural-navbar--dark .aural-navbar__link {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.aural-navbar--dark .aural-navbar__link:hover,
+.aural-navbar--dark .aural-navbar__link--active {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-navbar--sm .aural-navbar__inner {
+    padding: var(--space-2) var(--space-4);
+}
+
+.aural-navbar--sm .aural-navbar__link {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+}
+
+.aural-navbar--lg .aural-navbar__inner {
+    padding: var(--space-4) var(--space-6);
+}
+
+.aural-navbar--lg .aural-navbar__link {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+}
+
+/* ========================================
+   Centered Layout
+   ======================================== */
+
+.aural-navbar--centered .aural-navbar__nav {
+    order: 0;
+}
+
+.aural-navbar--centered .aural-navbar__brand {
+    order: -1;
+}
+
+.aural-navbar--centered .aural-navbar__actions {
+    order: 1;
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-navbar__link,
+    .aural-navbar__action,
+    .aural-navbar__dropdown-menu,
+    .aural-navbar__dropdown-arrow {
+        transition: none;
+    }
+
+    .aural-navbar__badge--pulse {
+        animation: none;
+    }
+}
+
+/* ========================================
+   Responsive (Mobile)
+   ======================================== */
+
+@media (max-width: 768px) {
+    .aural-navbar__toggle {
+        display: flex;
+    }
+
+    .aural-navbar__nav {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--color-bg-primary);
+        border-top: 1px solid var(--color-border-medium);
+        padding: var(--space-4);
+        gap: var(--space-2);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: var(--shadow-xl);
+    }
+
+    .aural-navbar--menu-open .aural-navbar__nav {
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+    }
+
+    .aural-navbar__link {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .aural-navbar__search {
+        width: 100%;
+        order: -1;
+    }
+
+    .aural-navbar__dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        background: var(--color-bg-tertiary);
+        margin-left: var(--space-4);
+        margin-top: var(--space-2);
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .aural-navbar__dropdown--open .aural-navbar__dropdown-menu {
+        max-height: 500px;
+    }
+
+    .aural-navbar__actions {
+        display: none;
+    }
+
+    .aural-navbar--menu-open .aural-navbar__actions {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .aural-navbar__action {
+        width: 100%;
+        justify-content: flex-start;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .aural-navbar__inner {
+        padding: var(--space-2) var(--space-3);
+    }
+
+    .aural-navbar__brand {
+        font-size: var(--text-base);
+    }
+
+    .aural-navbar__logo {
+        height: 28px;
+    }
+}

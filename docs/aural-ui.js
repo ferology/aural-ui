@@ -2669,6 +2669,347 @@
               });
             }
           };
+        },
+        // Color Picker
+        initColorPicker(pickerId, options = {}) {
+          const picker = document.getElementById(pickerId);
+          if (!picker)
+            return null;
+          const {
+            initialColor = "#000000",
+            mode = "hex",
+            showAlpha = true,
+            onChange = null
+          } = options;
+          let currentColor = initialColor;
+          let hue = 0;
+          let saturation = 100;
+          let lightness = 50;
+          let alpha = 1;
+          const canvas = picker.querySelector(".aural-color-picker__canvas");
+          const hueSlider = picker.querySelector(".aural-color-picker__hue");
+          const alphaSlider = picker.querySelector(".aural-color-picker__alpha");
+          const valueInput = picker.querySelector(".aural-color-picker__value");
+          const updateColor = () => {
+            currentColor = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+            if (canvas) {
+              canvas.style.background = `hsl(${hue}, 100%, 50%)`;
+            }
+            if (valueInput) {
+              if (mode === "hex") {
+                valueInput.value = hslToHex(hue, saturation, lightness);
+              } else {
+                valueInput.value = currentColor;
+              }
+            }
+            const swatch = picker.querySelector(".aural-color-picker__swatch-color");
+            if (swatch) {
+              swatch.style.background = currentColor;
+            }
+            if (onChange) {
+              onChange(currentColor);
+            }
+          };
+          if (hueSlider) {
+            hueSlider.addEventListener("click", (e) => {
+              const rect = hueSlider.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              hue = x / rect.width * 360;
+              updateColor();
+            });
+          }
+          if (alphaSlider && showAlpha) {
+            alphaSlider.addEventListener("click", (e) => {
+              const rect = alphaSlider.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              alpha = x / rect.width;
+              updateColor();
+            });
+          }
+          updateColor();
+          return {
+            getColor: () => currentColor,
+            setColor: (color) => {
+              currentColor = color;
+              updateColor();
+            }
+          };
+        },
+        hslToHex(h, s, l) {
+          l /= 100;
+          const a = s * Math.min(l, 1 - l) / 100;
+          const f = (n) => {
+            const k = (n + h / 30) % 12;
+            const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+            return Math.round(255 * color).toString(16).padStart(2, "0");
+          };
+          return `#${f(0)}${f(8)}${f(4)}`;
+        },
+        // Range Slider
+        initRangeSlider(sliderId, options = {}) {
+          const slider = document.getElementById(sliderId);
+          if (!slider)
+            return null;
+          const {
+            min = 0,
+            max = 100,
+            initialMin = 25,
+            initialMax = 75,
+            step = 1,
+            onChange = null
+          } = options;
+          let minValue = initialMin;
+          let maxValue = initialMax;
+          let activeHandle = null;
+          const track = slider.querySelector(".aural-range-slider__track");
+          const trackFill = slider.querySelector(".aural-range-slider__track-fill");
+          const minHandle = slider.querySelector(".aural-range-slider__handle--min");
+          const maxHandle = slider.querySelector(".aural-range-slider__handle--max");
+          const updateSlider = () => {
+            const minPercent = (minValue - min) / (max - min) * 100;
+            const maxPercent = (maxValue - min) / (max - min) * 100;
+            if (trackFill) {
+              trackFill.style.left = `${minPercent}%`;
+              trackFill.style.width = `${maxPercent - minPercent}%`;
+            }
+            if (minHandle) {
+              minHandle.style.left = `${minPercent}%`;
+              const label = minHandle.querySelector(".aural-range-slider__label");
+              if (label)
+                label.textContent = minValue;
+            }
+            if (maxHandle) {
+              maxHandle.style.left = `${maxPercent}%`;
+              const label = maxHandle.querySelector(".aural-range-slider__label");
+              if (label)
+                label.textContent = maxValue;
+            }
+            const values = slider.querySelectorAll(".aural-range-slider__value-number");
+            if (values[0])
+              values[0].textContent = minValue;
+            if (values[1])
+              values[1].textContent = maxValue;
+            if (onChange) {
+              onChange(minValue, maxValue);
+            }
+          };
+          const handleDrag = (e, handle) => {
+            const rect = track.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const percent = Math.max(0, Math.min(1, x / rect.width));
+            let value = min + (max - min) * percent;
+            value = Math.round(value / step) * step;
+            if (handle === minHandle) {
+              minValue = Math.min(value, maxValue - step);
+            } else {
+              maxValue = Math.max(value, minValue + step);
+            }
+            updateSlider();
+          };
+          const onMouseMove = (e) => {
+            if (activeHandle) {
+              handleDrag(e, activeHandle);
+            }
+          };
+          const onMouseUp = () => {
+            activeHandle = null;
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
+          };
+          if (minHandle) {
+            minHandle.addEventListener("mousedown", (e) => {
+              e.preventDefault();
+              activeHandle = minHandle;
+              minHandle.classList.add("aural-range-slider__handle--active");
+              document.addEventListener("mousemove", onMouseMove);
+              document.addEventListener("mouseup", () => {
+                minHandle.classList.remove("aural-range-slider__handle--active");
+                onMouseUp();
+              });
+            });
+          }
+          if (maxHandle) {
+            maxHandle.addEventListener("mousedown", (e) => {
+              e.preventDefault();
+              activeHandle = maxHandle;
+              maxHandle.classList.add("aural-range-slider__handle--active");
+              document.addEventListener("mousemove", onMouseMove);
+              document.addEventListener("mouseup", () => {
+                maxHandle.classList.remove("aural-range-slider__handle--active");
+                onMouseUp();
+              });
+            });
+          }
+          updateSlider();
+          return {
+            getMin: () => minValue,
+            getMax: () => maxValue,
+            setMin: (value) => {
+              minValue = Math.max(min, Math.min(value, maxValue - step));
+              updateSlider();
+            },
+            setMax: (value) => {
+              maxValue = Math.max(minValue + step, Math.min(value, max));
+              updateSlider();
+            }
+          };
+        },
+        // Multi-Select Dropdown
+        initMultiSelect(selectId, options = {}) {
+          const select = document.getElementById(selectId);
+          if (!select)
+            return null;
+          const {
+            searchable = true,
+            selectAll = false,
+            maxSelections = null,
+            onChange = null
+          } = options;
+          const selectedValues = /* @__PURE__ */ new Set();
+          const trigger = select.querySelector(".aural-multi-select__trigger");
+          const dropdown = select.querySelector(".aural-multi-select__dropdown");
+          const tagsContainer = select.querySelector(".aural-multi-select__tags");
+          const searchInput = select.querySelector(".aural-multi-select__search-input");
+          const options_list = select.querySelectorAll(".aural-multi-select__option");
+          const updateTags = () => {
+            if (!tagsContainer)
+              return;
+            tagsContainer.innerHTML = "";
+            selectedValues.forEach((value) => {
+              const option = Array.from(options_list).find((opt) => opt.dataset.value === value);
+              if (!option)
+                return;
+              const tag = document.createElement("div");
+              tag.className = "aural-multi-select__tag";
+              tag.innerHTML = `
+                    ${option.querySelector(".aural-multi-select__option-label").textContent}
+                    <button class="aural-multi-select__tag-remove" data-value="${value}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                `;
+              const removeBtn = tag.querySelector(".aural-multi-select__tag-remove");
+              removeBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                toggleOption(value);
+              });
+              tagsContainer.appendChild(tag);
+            });
+            if (onChange) {
+              onChange(Array.from(selectedValues));
+            }
+          };
+          const toggleOption = (value) => {
+            if (selectedValues.has(value)) {
+              selectedValues.delete(value);
+            } else {
+              if (maxSelections && selectedValues.size >= maxSelections)
+                return;
+              selectedValues.add(value);
+            }
+            options_list.forEach((opt) => {
+              if (opt.dataset.value === value) {
+                opt.classList.toggle("aural-multi-select__option--selected", selectedValues.has(value));
+              }
+            });
+            updateTags();
+          };
+          if (trigger) {
+            trigger.addEventListener("click", () => {
+              select.classList.toggle("aural-multi-select--open");
+            });
+          }
+          options_list.forEach((option) => {
+            option.addEventListener("click", () => {
+              toggleOption(option.dataset.value);
+            });
+          });
+          document.addEventListener("click", (e) => {
+            if (!select.contains(e.target)) {
+              select.classList.remove("aural-multi-select--open");
+            }
+          });
+          if (searchInput && searchable) {
+            searchInput.addEventListener("input", (e) => {
+              const query = e.target.value.toLowerCase();
+              options_list.forEach((option) => {
+                const text = option.querySelector(".aural-multi-select__option-label").textContent.toLowerCase();
+                option.style.display = text.includes(query) ? "" : "none";
+              });
+            });
+          }
+          return {
+            getSelected: () => Array.from(selectedValues),
+            clear: () => {
+              selectedValues.clear();
+              options_list.forEach((opt) => {
+                opt.classList.remove("aural-multi-select__option--selected");
+              });
+              updateTags();
+            },
+            select: (value) => {
+              if (!selectedValues.has(value)) {
+                toggleOption(value);
+              }
+            },
+            deselect: (value) => {
+              if (selectedValues.has(value)) {
+                toggleOption(value);
+              }
+            }
+          };
+        },
+        // Navigation Bar
+        initNavbar(navId, options = {}) {
+          const navbar = document.getElementById(navId);
+          if (!navbar)
+            return null;
+          const {
+            mobileBreakpoint = 768,
+            onToggle = null
+          } = options;
+          const toggle = navbar.querySelector(".aural-navbar__toggle");
+          const dropdowns = navbar.querySelectorAll(".aural-navbar__dropdown");
+          if (toggle) {
+            toggle.addEventListener("click", () => {
+              navbar.classList.toggle("aural-navbar--menu-open");
+              if (onToggle) {
+                onToggle(navbar.classList.contains("aural-navbar--menu-open"));
+              }
+            });
+          }
+          dropdowns.forEach((dropdown) => {
+            const toggle2 = dropdown.querySelector(".aural-navbar__link");
+            if (toggle2) {
+              toggle2.addEventListener("click", (e) => {
+                e.preventDefault();
+                dropdown.classList.toggle("aural-navbar__dropdown--open");
+              });
+            }
+          });
+          document.addEventListener("click", (e) => {
+            if (!navbar.contains(e.target)) {
+              dropdowns.forEach((dropdown) => {
+                dropdown.classList.remove("aural-navbar__dropdown--open");
+              });
+              if (window.innerWidth > mobileBreakpoint) {
+                navbar.classList.remove("aural-navbar--menu-open");
+              }
+            }
+          });
+          return {
+            openMenu: () => {
+              navbar.classList.add("aural-navbar--menu-open");
+            },
+            closeMenu: () => {
+              navbar.classList.remove("aural-navbar--menu-open");
+            },
+            toggleMenu: () => {
+              navbar.classList.toggle("aural-navbar--menu-open");
+            }
+          };
         }
       };
       if (typeof document !== "undefined") {

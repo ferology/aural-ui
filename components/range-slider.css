@@ -1,0 +1,498 @@
+/**
+ * AURAL UI - Range Slider
+ *
+ * Dual-handle slider for selecting min/max range values.
+ * Supports vertical/horizontal orientation, steps, and value labels.
+ */
+
+/* ========================================
+   Range Slider Container
+   ======================================== */
+
+.aural-range-slider {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+}
+
+/* ========================================
+   Range Slider Track
+   ======================================== */
+
+.aural-range-slider__wrapper {
+    position: relative;
+    width: 100%;
+    padding: var(--space-3) 0;
+}
+
+.aural-range-slider__track {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+}
+
+.aural-range-slider__track-fill {
+    position: absolute;
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+    transition: background-color 0.2s ease;
+}
+
+/* ========================================
+   Range Handles
+   ======================================== */
+
+.aural-range-slider__handle {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    cursor: grab;
+    transform: translate(-50%, -50%);
+    transition: var(--transition-all-fast);
+    z-index: 2;
+}
+
+.aural-range-slider__handle:hover {
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: var(--shadow-lg);
+}
+
+.aural-range-slider__handle:active {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.aural-range-slider__handle:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-range-slider__handle--min {
+    z-index: 3;
+}
+
+.aural-range-slider__handle--max {
+    z-index: 3;
+}
+
+/* Active handle has higher z-index */
+.aural-range-slider__handle--active {
+    z-index: 4;
+}
+
+/* ========================================
+   Value Labels
+   ======================================== */
+
+.aural-range-slider__label {
+    position: absolute;
+    top: -32px;
+    transform: translateX(-50%);
+    padding: 2px 8px;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.aural-range-slider__handle:hover .aural-range-slider__label,
+.aural-range-slider__handle:active .aural-range-slider__label,
+.aural-range-slider__handle:focus-visible .aural-range-slider__label {
+    opacity: 1;
+}
+
+.aural-range-slider--show-labels .aural-range-slider__label {
+    opacity: 1;
+}
+
+/* Arrow pointer */
+.aural-range-slider__label::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid var(--color-border-medium);
+}
+
+/* ========================================
+   Value Display
+   ======================================== */
+
+.aural-range-slider__values {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.aural-range-slider__value {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.aural-range-slider__value-label {
+    font-weight: var(--font-medium);
+    color: var(--color-text-tertiary);
+}
+
+.aural-range-slider__value-number {
+    font-family: var(--font-mono);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   Step Markers
+   ======================================== */
+
+.aural-range-slider__steps {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+}
+
+.aural-range-slider__step {
+    width: 2px;
+    height: 8px;
+    background: var(--color-border-medium);
+    border-radius: 1px;
+}
+
+.aural-range-slider__step--in-range {
+    background: var(--primary-alpha-50);
+}
+
+/* ========================================
+   Min/Max Labels
+   ======================================== */
+
+.aural-range-slider__limits {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    margin-top: var(--space-1);
+}
+
+/* ========================================
+   Vertical Orientation
+   ======================================== */
+
+.aural-range-slider--vertical {
+    height: 200px;
+}
+
+.aural-range-slider--vertical .aural-range-slider__wrapper {
+    height: 100%;
+    width: auto;
+    padding: 0 var(--space-3);
+}
+
+.aural-range-slider--vertical .aural-range-slider__track {
+    width: 6px;
+    height: 100%;
+}
+
+.aural-range-slider--vertical .aural-range-slider__track-fill {
+    width: 100%;
+    height: auto;
+}
+
+.aural-range-slider--vertical .aural-range-slider__handle {
+    left: 50%;
+    top: auto;
+    transform: translate(-50%, 50%);
+}
+
+.aural-range-slider--vertical .aural-range-slider__handle:hover {
+    transform: translate(-50%, 50%) scale(1.15);
+}
+
+.aural-range-slider--vertical .aural-range-slider__handle:active {
+    transform: translate(-50%, 50%) scale(1.1);
+}
+
+.aural-range-slider--vertical .aural-range-slider__label {
+    top: 50%;
+    left: 36px;
+    transform: translateY(-50%);
+}
+
+.aural-range-slider--vertical .aural-range-slider__label::after {
+    bottom: auto;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 4px solid var(--color-border-medium);
+    border-left: none;
+}
+
+.aural-range-slider--vertical .aural-range-slider__values {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.aural-range-slider--vertical .aural-range-slider__limits {
+    flex-direction: column-reverse;
+    margin-top: 0;
+    margin-left: var(--space-1);
+}
+
+.aural-range-slider--vertical .aural-range-slider__steps {
+    flex-direction: column;
+}
+
+.aural-range-slider--vertical .aural-range-slider__step {
+    width: 8px;
+    height: 2px;
+}
+
+/* ========================================
+   Color Variants
+   ======================================== */
+
+.aural-range-slider--success .aural-range-slider__track-fill {
+    background: var(--color-success);
+}
+
+.aural-range-slider--success .aural-range-slider__handle {
+    border-color: var(--color-success);
+}
+
+.aural-range-slider--warning .aural-range-slider__track-fill {
+    background: var(--color-warning);
+}
+
+.aural-range-slider--warning .aural-range-slider__handle {
+    border-color: var(--color-warning);
+}
+
+.aural-range-slider--error .aural-range-slider__track-fill {
+    background: var(--color-error);
+}
+
+.aural-range-slider--error .aural-range-slider__handle {
+    border-color: var(--color-error);
+}
+
+.aural-range-slider--info .aural-range-slider__track-fill {
+    background: var(--color-info);
+}
+
+.aural-range-slider--info .aural-range-slider__handle {
+    border-color: var(--color-info);
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-range-slider--sm .aural-range-slider__track {
+    height: 4px;
+}
+
+.aural-range-slider--sm .aural-range-slider__handle {
+    width: 16px;
+    height: 16px;
+}
+
+.aural-range-slider--sm.aural-range-slider--vertical .aural-range-slider__track {
+    width: 4px;
+}
+
+.aural-range-slider--lg .aural-range-slider__track {
+    height: 8px;
+}
+
+.aural-range-slider--lg .aural-range-slider__handle {
+    width: 24px;
+    height: 24px;
+}
+
+.aural-range-slider--lg.aural-range-slider--vertical .aural-range-slider__track {
+    width: 8px;
+}
+
+/* ========================================
+   Disabled State
+   ======================================== */
+
+.aural-range-slider--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.aural-range-slider--disabled .aural-range-slider__handle {
+    cursor: not-allowed;
+}
+
+/* ========================================
+   With Input Fields
+   ======================================== */
+
+.aural-range-slider__inputs {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.aural-range-slider__input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.aural-range-slider__input-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-semibold);
+}
+
+.aural-range-slider__input {
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    color: var(--color-text-primary);
+}
+
+.aural-range-slider__input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+/* ========================================
+   Histogram Background
+   ======================================== */
+
+.aural-range-slider--with-histogram .aural-range-slider__track {
+    overflow: visible;
+}
+
+.aural-range-slider__histogram {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 1px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.aural-range-slider__histogram-bar {
+    flex: 1;
+    background: var(--color-primary);
+    border-radius: 1px 1px 0 0;
+}
+
+/* ========================================
+   Tooltip Variant
+   ======================================== */
+
+.aural-range-slider--tooltip .aural-range-slider__label {
+    background: var(--color-bg-primary);
+    box-shadow: var(--shadow-md);
+    padding: 4px 8px;
+    font-size: var(--text-xs);
+}
+
+/* ========================================
+   Connected Handles
+   ======================================== */
+
+.aural-range-slider--connected .aural-range-slider__track-fill {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-range-slider__handle,
+    .aural-range-slider__label,
+    .aural-range-slider__track-fill {
+        transition: none;
+    }
+}
+
+/* Screen reader only */
+.aural-range-slider__sr-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 640px) {
+    .aural-range-slider__handle {
+        width: 24px;
+        height: 24px;
+    }
+
+    .aural-range-slider--sm .aural-range-slider__handle {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ========================================
+   Touch Optimizations
+   ======================================== */
+
+@media (pointer: coarse) {
+    .aural-range-slider__handle {
+        width: 28px;
+        height: 28px;
+    }
+
+    .aural-range-slider__track {
+        height: 8px;
+    }
+
+    .aural-range-slider--vertical .aural-range-slider__track {
+        width: 8px;
+    }
+}
