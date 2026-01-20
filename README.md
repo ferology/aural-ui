@@ -401,6 +401,18 @@ All components follow WCAG AA accessibility guidelines and include:
 
 ---
 
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
+
+- Setting up the development environment
+- Code standards and conventions
+- Creating new components
+- Submitting pull requests
+- Reporting issues
+
+---
+
 ## 📄 License
 
 **MIT License** - See [LICENSE](LICENSE) for details.
