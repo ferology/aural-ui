@@ -191,7 +191,7 @@
     min-height: 32px;
     padding: var(--space-1);
     background: transparent;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-text-inverse);
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
@@ -200,8 +200,8 @@
 }
 
 .aural-snackbar__close:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--color-bg-primary);
 }
 
 .aural-snackbar__close:focus-visible {
@@ -259,6 +259,15 @@
     color: white;
 }
 
+.aural-snackbar--success .aural-snackbar__close {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aural-snackbar--success .aural-snackbar__close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
 .aural-snackbar--success .aural-snackbar__progress-bar {
     background: rgba(255, 255, 255, 0.9);
 }
@@ -269,6 +278,15 @@
 }
 
 .aural-snackbar--error .aural-snackbar__action {
+    color: white;
+}
+
+.aural-snackbar--error .aural-snackbar__close {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aural-snackbar--error .aural-snackbar__close:hover {
+    background: rgba(255, 255, 255, 0.1);
     color: white;
 }
 
@@ -303,6 +321,15 @@
 }
 
 .aural-snackbar--info .aural-snackbar__action {
+    color: white;
+}
+
+.aural-snackbar--info .aural-snackbar__close {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.aural-snackbar--info .aural-snackbar__close:hover {
+    background: rgba(255, 255, 255, 0.1);
     color: white;
 }
 
