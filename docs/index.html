@@ -87,12 +87,28 @@
             flex: 1;
             padding: var(--space-8);
             max-width: calc(1200px + 280px);
+            height: 100vh;
+            overflow-y: auto;
         }
 
         .showcase-section {
-            margin-bottom: var(--space-12);
-            padding-bottom: var(--space-12);
-            border-bottom: 1px solid var(--color-border-subtle);
+            display: none;
+        }
+
+        .showcase-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .showcase-title {
@@ -5725,6 +5741,56 @@ setTimeout(() => snackbar.dismiss(), 3000);</code></pre>
             <span class="aural-bottom-nav__label">Utilities</span>
         </a>
     </nav>
+
+    <!-- Component Navigation -->
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.showcase-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Update nav active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Scroll to top of main content
+            document.querySelector('.main-content').scrollTop = 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle nav link clicks
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = link.getAttribute('href').substring(1);
+                    showSection(sectionId);
+                    window.location.hash = sectionId;
+                });
+            });
+
+            // Show section based on URL hash or default to introduction
+            const hash = window.location.hash.substring(1) || 'introduction';
+            showSection(hash);
+
+            // Handle browser back/forward
+            window.addEventListener('hashchange', () => {
+                const hash = window.location.hash.substring(1) || 'introduction';
+                showSection(hash);
+            });
+        });
+    </script>
 
     <!-- Initialize Lucide Icons -->
     <script>
