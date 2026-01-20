@@ -421,7 +421,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 🤝 Credits
 
-Built by the Workshop BAI team for Bai and future applications.
+Built for Bai and future applications.
 
 **Inspired by:**
 - Shadcn UI
