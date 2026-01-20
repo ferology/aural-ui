@@ -15,7 +15,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
 - 🌓 **Dark & Light Themes** - Both themes included, seamlessly switchable
 - ♿ **Accessibility First** - ~95% WCAG 2.1 AA compliant with comprehensive ARIA support
-- 📦 **26+ Components** - Everything from buttons to command palettes
+- 📦 **35+ Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
 - 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
@@ -187,15 +187,24 @@ npm run serve
 ### Form Controls
 - **Button** - Primary, secondary, danger, ghost variants with loading states
 - **Input** - Text, email, password, number with validation states
+- **Search Bar** - Autocomplete search with keyboard navigation and suggestions
 - **Checkbox** - Custom styled with indeterminate state and sizes
 - **Radio** - Custom styled with button variant and grouping
 - **Toggle/Switch** - Animated on/off switch with labels
 - **Select** - Native styled + custom dropdown variant
+- **Rating** - Star rating with interactive and read-only modes, half-stars
+- **Slider** - Range input with custom styling and value display
+- **Chips/Tags** - Input tags with add/remove functionality
+- **File Upload** - Drag-and-drop with validation and progress tracking
+- **Date Picker** - Calendar component with date selection
 
 ### Navigation
 - **Tabs** - Underline, pills, and boxed styles with keyboard navigation
 - **Breadcrumb** - Location hierarchy with customizable separators
 - **Pagination** - Page navigation with numbered and simple variants
+- **Stepper** - Step indicator for multi-step processes (horizontal/vertical)
+- **Drawer** - Sliding side panel with left/right/top/bottom positions
+- **Command Palette** - CMD/CTRL+K searchable command menu
 
 ### Data Display
 - **Table** - Striped, bordered, compact, with sticky headers
@@ -205,6 +214,8 @@ npm run serve
 - **Card** - Content containers with optional headers/footers
 - **Divider** - Horizontal/vertical separators with optional labels
 - **Empty State** - No data placeholders with icons
+- **Timeline** - Vertical/horizontal event timeline with states
+- **Code Block** - Syntax highlighting with copy functionality
 
 ### Interactive
 - **Tooltip** - Contextual information on hover/focus (4 positions)
@@ -212,10 +223,14 @@ npm run serve
 - **Accordion** - Collapsible content sections (single/multiple modes)
 - **Popover** - Rich content overlays with auto-positioning
 - **Modal** - Dialog overlays with focus trapping
+- **Dialog** - Lightweight confirmation dialogs with variants
 
 ### Feedback
 - **Toast** - Notification messages (success, error, warning, info)
 - **Skeleton** - Loading placeholders for content
+- **Alert Banner** - Prominent page-level notifications with actions
+- **Loading Spinner** - Multiple variants (dots, pulse, bars, dual)
+- **Notification Center** - Bell icon with dropdown notification list
 
 ### Layout Utilities
 
