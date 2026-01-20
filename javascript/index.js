@@ -2837,6 +2837,347 @@ const Aural = {
             show: (x, y) => this.showContextMenu(menuId, x, y),
             hide: () => this.hideContextMenu(menuId)
         };
+    },
+
+    // Tree View
+    initTreeView(treeId, options = {}) {
+        const tree = document.getElementById(treeId);
+        if (!tree) return null;
+
+        const {
+            multiSelect = false,
+            checkable = false,
+            onSelect = null,
+            onExpand = null,
+            onCheck = null
+        } = options;
+
+        const toggleItem = (item) => {
+            const isExpanded = item.classList.contains('aural-tree__item--expanded');
+            item.classList.toggle('aural-tree__item--expanded');
+
+            if (onExpand) {
+                onExpand(item, !isExpanded);
+            }
+        };
+
+        const selectItem = (item) => {
+            if (!multiSelect) {
+                tree.querySelectorAll('.aural-tree__item--selected').forEach(selected => {
+                    selected.classList.remove('aural-tree__item--selected');
+                });
+            }
+            item.classList.toggle('aural-tree__item--selected');
+
+            if (onSelect) {
+                onSelect(item, item.classList.contains('aural-tree__item--selected'));
+            }
+        };
+
+        const checkItem = (item, checked) => {
+            if (checked) {
+                item.classList.add('aural-tree__item--checked');
+                item.classList.remove('aural-tree__item--indeterminate');
+            } else {
+                item.classList.remove('aural-tree__item--checked');
+                item.classList.remove('aural-tree__item--indeterminate');
+            }
+
+            const parent = item.parentElement.closest('.aural-tree__item');
+            if (parent) {
+                updateParentCheckState(parent);
+            }
+
+            if (onCheck) {
+                onCheck(item, checked);
+            }
+        };
+
+        const updateParentCheckState = (parent) => {
+            const children = parent.querySelectorAll(':scope > .aural-tree__children > .aural-tree__item');
+            const checkedChildren = Array.from(children).filter(child =>
+                child.classList.contains('aural-tree__item--checked')
+            );
+            const indeterminateChildren = Array.from(children).filter(child =>
+                child.classList.contains('aural-tree__item--indeterminate')
+            );
+
+            if (checkedChildren.length === children.length) {
+                parent.classList.add('aural-tree__item--checked');
+                parent.classList.remove('aural-tree__item--indeterminate');
+            } else if (checkedChildren.length > 0 || indeterminateChildren.length > 0) {
+                parent.classList.remove('aural-tree__item--checked');
+                parent.classList.add('aural-tree__item--indeterminate');
+            } else {
+                parent.classList.remove('aural-tree__item--checked');
+                parent.classList.remove('aural-tree__item--indeterminate');
+            }
+        };
+
+        tree.querySelectorAll('.aural-tree__content').forEach(content => {
+            content.addEventListener('click', (e) => {
+                const item = content.closest('.aural-tree__item');
+                const toggle = e.target.closest('.aural-tree__toggle');
+                const checkbox = e.target.closest('.aural-tree__checkbox');
+
+                if (checkbox && checkable) {
+                    const isChecked = !item.classList.contains('aural-tree__item--checked');
+                    checkItem(item, isChecked);
+
+                    const children = item.querySelectorAll('.aural-tree__item');
+                    children.forEach(child => {
+                        if (isChecked) {
+                            child.classList.add('aural-tree__item--checked');
+                            child.classList.remove('aural-tree__item--indeterminate');
+                        } else {
+                            child.classList.remove('aural-tree__item--checked');
+                            child.classList.remove('aural-tree__item--indeterminate');
+                        }
+                    });
+                } else if (toggle) {
+                    toggleItem(item);
+                } else {
+                    selectItem(item);
+                }
+            });
+        });
+
+        return {
+            expandAll: () => {
+                tree.querySelectorAll('.aural-tree__item').forEach(item => {
+                    item.classList.add('aural-tree__item--expanded');
+                });
+            },
+            collapseAll: () => {
+                tree.querySelectorAll('.aural-tree__item').forEach(item => {
+                    item.classList.remove('aural-tree__item--expanded');
+                });
+            }
+        };
+    },
+
+    // Image Gallery
+    initImageGallery(galleryId, options = {}) {
+        const gallery = document.getElementById(galleryId);
+        if (!gallery) return null;
+
+        const {
+            lightboxId = galleryId + '-lightbox',
+            onOpen = null,
+            onClose = null
+        } = options;
+
+        let currentIndex = 0;
+        const items = Array.from(gallery.querySelectorAll('.aural-gallery__item'));
+
+        let lightbox = document.getElementById(lightboxId);
+        if (!lightbox) {
+            lightbox = this.createLightbox(lightboxId);
+            document.body.appendChild(lightbox);
+        }
+
+        const openLightbox = (index) => {
+            currentIndex = index;
+            const item = items[index];
+            const img = item.querySelector('.aural-gallery__image');
+            const title = item.querySelector('.aural-gallery__title')?.textContent || '';
+            const description = item.querySelector('.aural-gallery__description')?.textContent || '';
+
+            const lightboxImg = lightbox.querySelector('.aural-lightbox__image');
+            const lightboxTitle = lightbox.querySelector('.aural-lightbox__caption-title');
+            const lightboxDesc = lightbox.querySelector('.aural-lightbox__caption-description');
+            const counter = lightbox.querySelector('.aural-lightbox__counter');
+
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt || '';
+            if (lightboxTitle) lightboxTitle.textContent = title;
+            if (lightboxDesc) lightboxDesc.textContent = description;
+            if (counter) counter.textContent = `${index + 1} / ${items.length}`;
+
+            lightbox.classList.add('aural-lightbox--open');
+            document.body.style.overflow = 'hidden';
+
+            if (onOpen) onOpen(index, item);
+        };
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('aural-lightbox--open');
+            document.body.style.overflow = '';
+
+            if (onClose) onClose(currentIndex);
+        };
+
+        const navigate = (direction) => {
+            const newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < items.length) {
+                openLightbox(newIndex);
+            }
+        };
+
+        items.forEach((item, index) => {
+            item.addEventListener('click', () => openLightbox(index));
+        });
+
+        const closeBtn = lightbox.querySelector('.aural-lightbox__close');
+        const prevBtn = lightbox.querySelector('.aural-lightbox__nav--prev');
+        const nextBtn = lightbox.querySelector('.aural-lightbox__nav--next');
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeLightbox);
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => navigate(-1));
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => navigate(1));
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('aural-lightbox--open')) return;
+
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                navigate(-1);
+            } else if (e.key === 'ArrowRight') {
+                navigate(1);
+            }
+        });
+
+        return {
+            open: (index) => openLightbox(index),
+            close: closeLightbox,
+            next: () => navigate(1),
+            prev: () => navigate(-1)
+        };
+    },
+
+    createLightbox(id) {
+        const lightbox = document.createElement('div');
+        lightbox.id = id;
+        lightbox.className = 'aural-lightbox';
+        lightbox.innerHTML = `
+            <div class="aural-lightbox__content">
+                <button class="aural-lightbox__close" aria-label="Close lightbox">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+                <button class="aural-lightbox__nav aural-lightbox__nav--prev" aria-label="Previous image">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <button class="aural-lightbox__nav aural-lightbox__nav--next" aria-label="Next image">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </button>
+                <div class="aural-lightbox__image-wrapper">
+                    <img class="aural-lightbox__image" src="" alt="">
+                </div>
+                <div class="aural-lightbox__caption">
+                    <div class="aural-lightbox__caption-title"></div>
+                    <div class="aural-lightbox__caption-description"></div>
+                </div>
+                <div class="aural-lightbox__counter"></div>
+            </div>
+        `;
+        return lightbox;
+    },
+
+    // Bottom Navigation
+    initBottomNav(navId, options = {}) {
+        const nav = document.getElementById(navId);
+        if (!nav) return null;
+
+        const {
+            hideOnScroll = false,
+            scrollThreshold = 50,
+            onItemClick = null
+        } = options;
+
+        let lastScrollY = window.scrollY;
+        let isHidden = false;
+
+        document.body.classList.add('has-bottom-nav');
+
+        nav.querySelectorAll('.aural-bottom-nav__item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                nav.querySelectorAll('.aural-bottom-nav__item').forEach(navItem => {
+                    navItem.classList.remove('aural-bottom-nav__item--active');
+                });
+
+                item.classList.add('aural-bottom-nav__item--active');
+
+                if (onItemClick) {
+                    onItemClick(item, e);
+                }
+            });
+        });
+
+        if (hideOnScroll) {
+            let ticking = false;
+
+            const handleScroll = () => {
+                const currentScrollY = window.scrollY;
+
+                if (Math.abs(currentScrollY - lastScrollY) < scrollThreshold) {
+                    ticking = false;
+                    return;
+                }
+
+                if (currentScrollY > lastScrollY && !isHidden) {
+                    nav.classList.add('aural-bottom-nav--slide-out');
+                    nav.classList.remove('aural-bottom-nav--slide-in');
+                    isHidden = true;
+                } else if (currentScrollY < lastScrollY && isHidden) {
+                    nav.classList.remove('aural-bottom-nav--slide-out');
+                    nav.classList.add('aural-bottom-nav--slide-in');
+                    isHidden = false;
+                }
+
+                lastScrollY = currentScrollY;
+                ticking = false;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(handleScroll);
+                    ticking = true;
+                }
+            });
+        }
+
+        return {
+            show: () => {
+                nav.classList.remove('aural-bottom-nav--slide-out');
+                nav.classList.add('aural-bottom-nav--slide-in');
+                isHidden = false;
+            },
+            hide: () => {
+                nav.classList.add('aural-bottom-nav--slide-out');
+                nav.classList.remove('aural-bottom-nav--slide-in');
+                isHidden = true;
+            },
+            setActive: (index) => {
+                const items = nav.querySelectorAll('.aural-bottom-nav__item');
+                items.forEach((item, i) => {
+                    if (i === index) {
+                        item.classList.add('aural-bottom-nav__item--active');
+                    } else {
+                        item.classList.remove('aural-bottom-nav__item--active');
+                    }
+                });
+            }
+        };
     }
 };
 

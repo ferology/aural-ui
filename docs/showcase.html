@@ -387,6 +387,9 @@
                 <li><a href="#stats-cards" class="nav-link">Stats Cards</a></li>
                 <li><a href="#carousel" class="nav-link">Carousel</a></li>
                 <li><a href="#context-menu" class="nav-link">Context Menu</a></li>
+                <li><a href="#tree-view" class="nav-link">Tree View</a></li>
+                <li><a href="#image-gallery" class="nav-link">Image Gallery</a></li>
+                <li><a href="#bottom-navigation" class="nav-link">Bottom Navigation</a></li>
             </ul>
         </div>
 
@@ -3962,6 +3965,360 @@ console.log(message);</code></pre>
         </div>
     </section>
 
+    <!-- Tree View -->
+    <section class="showcase-section" id="tree-view">
+        <h2>Tree View</h2>
+        <p class="showcase-subtitle">Hierarchical tree structure for files, folders, and nested navigation</p>
+
+        <div class="example">
+            <div class="example-label">File Browser Example</div>
+            <ul class="aural-tree" id="demo-tree-1" style="max-width: 400px;">
+                <li class="aural-tree__item aural-tree__item--expanded">
+                    <button class="aural-tree__content">
+                        <span class="aural-tree__toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"/>
+                            </svg>
+                        </span>
+                        <span class="aural-tree__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </span>
+                        <span class="aural-tree__label">Documents</span>
+                        <span class="aural-tree__badge">12</span>
+                    </button>
+                    <ul class="aural-tree__children">
+                        <li class="aural-tree__item aural-tree__item--expanded">
+                            <button class="aural-tree__content">
+                                <span class="aural-tree__toggle">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="9 18 15 12 9 6"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-tree__icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-tree__label">Projects</span>
+                                <span class="aural-tree__badge">8</span>
+                            </button>
+                            <ul class="aural-tree__children">
+                                <li class="aural-tree__item aural-tree__item--leaf">
+                                    <button class="aural-tree__content">
+                                        <span class="aural-tree__toggle"></span>
+                                        <span class="aural-tree__icon aural-tree__icon--primary">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                                <polyline points="14 2 14 8 20 8"/>
+                                            </svg>
+                                        </span>
+                                        <span class="aural-tree__label">project-plan.pdf</span>
+                                    </button>
+                                </li>
+                                <li class="aural-tree__item aural-tree__item--leaf">
+                                    <button class="aural-tree__content">
+                                        <span class="aural-tree__toggle"></span>
+                                        <span class="aural-tree__icon aural-tree__icon--success">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                                <polyline points="14 2 14 8 20 8"/>
+                                            </svg>
+                                        </span>
+                                        <span class="aural-tree__label">budget.xlsx</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="aural-tree__item aural-tree__item--leaf">
+                            <button class="aural-tree__content">
+                                <span class="aural-tree__toggle"></span>
+                                <span class="aural-tree__icon aural-tree__icon--warning">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-tree__label">report-draft.doc</span>
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                <li class="aural-tree__item">
+                    <button class="aural-tree__content">
+                        <span class="aural-tree__toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"/>
+                            </svg>
+                        </span>
+                        <span class="aural-tree__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </span>
+                        <span class="aural-tree__label">Images</span>
+                        <span class="aural-tree__badge">45</span>
+                    </button>
+                    <ul class="aural-tree__children">
+                        <li class="aural-tree__item aural-tree__item--leaf">
+                            <button class="aural-tree__content">
+                                <span class="aural-tree__toggle"></span>
+                                <span class="aural-tree__icon aural-tree__icon--info">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                                        <polyline points="21 15 16 10 5 21"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-tree__label">screenshot.png</span>
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;ul class="aural-tree" id="my-tree"&gt;
+  &lt;li class="aural-tree__item"&gt;
+    &lt;button class="aural-tree__content"&gt;
+      &lt;span class="aural-tree__toggle"&gt;▶&lt;/span&gt;
+      &lt;span class="aural-tree__icon"&gt;📁&lt;/span&gt;
+      &lt;span class="aural-tree__label"&gt;Folder Name&lt;/span&gt;
+      &lt;span class="aural-tree__badge"&gt;3&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;ul class="aural-tree__children"&gt;
+      &lt;li class="aural-tree__item aural-tree__item--leaf"&gt;
+        &lt;button class="aural-tree__content"&gt;
+          &lt;span class="aural-tree__icon"&gt;📄&lt;/span&gt;
+          &lt;span class="aural-tree__label"&gt;file.txt&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const tree = Aural.initTreeView('my-tree', {
+    multiSelect: false,
+    checkable: true,
+    onSelect: (item, selected) => console.log('Selected:', item),
+    onExpand: (item, expanded) => console.log('Expanded:', item),
+    onCheck: (item, checked) => console.log('Checked:', item)
+  });
+
+  tree.expandAll();   // Expand all nodes
+  tree.collapseAll(); // Collapse all nodes
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Image Gallery -->
+    <section class="showcase-section" id="image-gallery">
+        <h2>Image Gallery</h2>
+        <p class="showcase-subtitle">Responsive grid gallery with lightbox modal for full-size viewing</p>
+
+        <div class="example">
+            <div class="example-label">3-Column Gallery</div>
+            <div class="aural-gallery aural-gallery--cols-3" id="demo-gallery-1">
+                <div class="aural-gallery__item" tabindex="0">
+                    <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop" alt="Mountain landscape">
+                    <div class="aural-gallery__overlay">
+                        <div class="aural-gallery__title">Mountain Vista</div>
+                        <div class="aural-gallery__description">Breathtaking mountain landscape</div>
+                    </div>
+                </div>
+                <div class="aural-gallery__item" tabindex="0">
+                    <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=400&fit=crop" alt="Ocean sunset">
+                    <div class="aural-gallery__overlay">
+                        <div class="aural-gallery__title">Ocean Sunset</div>
+                        <div class="aural-gallery__description">Golden hour at the beach</div>
+                    </div>
+                </div>
+                <div class="aural-gallery__item" tabindex="0">
+                    <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=400&h=400&fit=crop" alt="Forest trail">
+                    <div class="aural-gallery__overlay">
+                        <div class="aural-gallery__title">Forest Path</div>
+                        <div class="aural-gallery__description">Peaceful woodland trail</div>
+                    </div>
+                </div>
+                <div class="aural-gallery__item" tabindex="0">
+                    <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=400&fit=crop" alt="Northern lights">
+                    <div class="aural-gallery__overlay">
+                        <div class="aural-gallery__title">Aurora Borealis</div>
+                        <div class="aural-gallery__description">Northern lights display</div>
+                    </div>
+                </div>
+                <div class="aural-gallery__item" tabindex="0">
+                    <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=400&fit=crop" alt="Desert dunes">
+                    <div class="aural-gallery__overlay">
+                        <div class="aural-gallery__title">Desert Dunes</div>
+                        <div class="aural-gallery__description">Sand formations at sunrise</div>
+                    </div>
+                </div>
+                <div class="aural-gallery__item" tabindex="0">
+                    <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=400&h=400&fit=crop" alt="Mountain lake">
+                    <div class="aural-gallery__overlay">
+                        <div class="aural-gallery__title">Alpine Lake</div>
+                        <div class="aural-gallery__description">Crystal clear mountain water</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Features</div>
+            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3);">
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Lightbox modal</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Keyboard navigation</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Responsive grid</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Image captions</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-gallery aural-gallery--cols-3" id="my-gallery"&gt;
+  &lt;div class="aural-gallery__item"&gt;
+    &lt;img class="aural-gallery__image" src="image1.jpg" alt="Description"&gt;
+    &lt;div class="aural-gallery__overlay"&gt;
+      &lt;div class="aural-gallery__title"&gt;Image Title&lt;/div&gt;
+      &lt;div class="aural-gallery__description"&gt;Description&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;!-- More items... --&gt;
+&lt;/div&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const gallery = Aural.initImageGallery('my-gallery', {
+    onOpen: (index) => console.log('Opened image:', index),
+    onClose: () => console.log('Closed lightbox')
+  });
+
+  gallery.open(0);  // Open first image
+  gallery.next();   // Navigate to next
+  gallery.prev();   // Navigate to previous
+  gallery.close();  // Close lightbox
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <section class="showcase-section" id="bottom-navigation">
+        <h2>Bottom Navigation</h2>
+        <p class="showcase-subtitle">Mobile-first bottom navigation bar with icons and labels</p>
+
+        <div class="example">
+            <div class="example-label">Try It Out</div>
+            <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">Scroll down to see the bottom navigation in action. Click the button below to toggle it.</p>
+            <button class="btn btn-primary" onclick="document.getElementById('demo-bottom-nav').classList.toggle('aural-bottom-nav--slide-out'); document.getElementById('demo-bottom-nav').classList.toggle('aural-bottom-nav--slide-in');">
+                Toggle Bottom Nav
+            </button>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Features</div>
+            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3);">
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Fixed bottom positioning</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Notification badges</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Active state highlighting</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Hide on scroll option</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Safe area support (iOS)</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: var(--space-2);">
+                    <svg style="width: 16px; height: 16px; color: var(--color-success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>FAB variant</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;nav class="aural-bottom-nav" id="my-bottom-nav"&gt;
+  &lt;a href="#home" class="aural-bottom-nav__item aural-bottom-nav__item--active"&gt;
+    &lt;span class="aural-bottom-nav__icon"&gt;🏠&lt;/span&gt;
+    &lt;span class="aural-bottom-nav__label"&gt;Home&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a href="#search" class="aural-bottom-nav__item"&gt;
+    &lt;span class="aural-bottom-nav__icon"&gt;🔍&lt;/span&gt;
+    &lt;span class="aural-bottom-nav__label"&gt;Search&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a href="#notifications" class="aural-bottom-nav__item"&gt;
+    &lt;span class="aural-bottom-nav__icon"&gt;🔔&lt;/span&gt;
+    &lt;span class="aural-bottom-nav__label"&gt;Notifications&lt;/span&gt;
+    &lt;span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse"&gt;3&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a href="#profile" class="aural-bottom-nav__item"&gt;
+    &lt;span class="aural-bottom-nav__icon"&gt;👤&lt;/span&gt;
+    &lt;span class="aural-bottom-nav__label"&gt;Profile&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;!-- JavaScript API --&gt;
+&lt;script&gt;
+  const bottomNav = Aural.initBottomNav('my-bottom-nav', {
+    hideOnScroll: true,
+    scrollThreshold: 50,
+    onItemClick: (item) => console.log('Clicked:', item)
+  });
+
+  bottomNav.show();         // Show navigation
+  bottomNav.hide();         // Hide navigation
+  bottomNav.setActive(0);   // Set first item as active
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
     <!-- Hidden Dialogs -->
     <div class="aural-dialog-backdrop" id="demo-dialog-success">
         <div class="aural-dialog aural-dialog--success">
@@ -4510,8 +4867,71 @@ console.log(message);</code></pre>
 
             // Context Menu
             Aural.initContextMenu('context-menu-trigger', 'demo-context-menu');
+
+            // Tree View
+            Aural.initTreeView('demo-tree-1', {
+                multiSelect: false,
+                onSelect: (item, selected) => {
+                    console.log('Tree item selected:', item, selected);
+                }
+            });
+
+            // Image Gallery
+            Aural.initImageGallery('demo-gallery-1', {
+                onOpen: (index) => console.log('Gallery opened at:', index),
+                onClose: () => console.log('Gallery closed')
+            });
+
+            // Bottom Navigation
+            Aural.initBottomNav('demo-bottom-nav', {
+                hideOnScroll: false,
+                onItemClick: (item) => {
+                    console.log('Bottom nav item clicked:', item);
+                }
+            });
         });
     </script>
+
+    <!-- Bottom Navigation Demo -->
+    <nav class="aural-bottom-nav aural-bottom-nav--slide-in" id="demo-bottom-nav">
+        <a href="#introduction" class="aural-bottom-nav__item aural-bottom-nav__item--active">
+            <span class="aural-bottom-nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+            </span>
+            <span class="aural-bottom-nav__label">Home</span>
+        </a>
+        <a href="#buttons" class="aural-bottom-nav__item">
+            <span class="aural-bottom-nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+            </span>
+            <span class="aural-bottom-nav__label">Components</span>
+        </a>
+        <a href="#notification-center" class="aural-bottom-nav__item">
+            <span class="aural-bottom-nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                </svg>
+            </span>
+            <span class="aural-bottom-nav__label">Notifications</span>
+            <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse">3</span>
+        </a>
+        <a href="#shadows" class="aural-bottom-nav__item">
+            <span class="aural-bottom-nav__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+            </span>
+            <span class="aural-bottom-nav__label">Utilities</span>
+        </a>
+    </nav>
 
     <!-- Initialize Lucide Icons -->
     <script>
