@@ -959,8 +959,8 @@
                     <p class="aural-dialog__message">${message}</p>
                 </div>
                 <div class="aural-dialog__footer">
-                    <button class="aural-button aural-button--secondary aural-dialog__action" data-action="cancel">Cancel</button>
-                    <button class="aural-button aural-button--primary aural-dialog__action" data-action="confirm">Confirm</button>
+                    <button class="btn btn-secondary aural-dialog__action" data-action="cancel">Cancel</button>
+                    <button class="btn btn-primary aural-dialog__action" data-action="confirm">Confirm</button>
                 </div>
             </div>
         `;
