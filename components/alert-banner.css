@@ -1,0 +1,432 @@
+/**
+ * AURAL UI - Alert Banner
+ *
+ * Prominent page-level notifications and alerts.
+ * Supports multiple variants, icons, and dismissible functionality.
+ */
+
+/* ========================================
+   Alert Banner Container
+   ======================================== */
+
+.aural-alert-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-medium);
+    border-left-width: 4px;
+    border-radius: var(--radius-md);
+    position: relative;
+    animation: aural-alert-banner-slide-in 0.3s ease-out;
+}
+
+@keyframes aural-alert-banner-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   Alert Icon
+   ======================================== */
+
+.aural-alert-banner__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+}
+
+/* ========================================
+   Alert Content
+   ======================================== */
+
+.aural-alert-banner__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.aural-alert-banner__title {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    line-height: var(--leading-tight);
+}
+
+.aural-alert-banner__message {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+.aural-alert-banner__actions {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.aural-alert-banner__action {
+    padding: var(--space-2) var(--space-4);
+    min-height: 44px;
+    background: transparent;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-alert-banner__action:hover {
+    background: var(--color-bg-hover);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.aural-alert-banner__action:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-alert-banner__action--primary {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.aural-alert-banner__action--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: white;
+}
+
+/* ========================================
+   Close Button
+   ======================================== */
+
+.aural-alert-banner__close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: var(--space-2);
+    background: transparent;
+    color: var(--color-text-secondary);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-alert-banner__close:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-text-primary);
+}
+
+.aural-alert-banner__close:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.aural-alert-banner__close-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* ========================================
+   Variant: Info (Default)
+   ======================================== */
+
+.aural-alert-banner--info {
+    background: var(--color-info-bg);
+    border-left-color: var(--color-info);
+    border-color: var(--color-info-border);
+}
+
+.aural-alert-banner--info .aural-alert-banner__icon {
+    color: var(--color-info);
+}
+
+.aural-alert-banner--info .aural-alert-banner__title {
+    color: var(--color-info);
+}
+
+/* ========================================
+   Variant: Success
+   ======================================== */
+
+.aural-alert-banner--success {
+    background: var(--color-success-bg);
+    border-left-color: var(--color-success);
+    border-color: var(--color-success-border);
+}
+
+.aural-alert-banner--success .aural-alert-banner__icon {
+    color: var(--color-success);
+}
+
+.aural-alert-banner--success .aural-alert-banner__title {
+    color: var(--color-success);
+}
+
+/* ========================================
+   Variant: Warning
+   ======================================== */
+
+.aural-alert-banner--warning {
+    background: var(--color-warning-bg);
+    border-left-color: var(--color-warning);
+    border-color: var(--color-warning-border);
+}
+
+.aural-alert-banner--warning .aural-alert-banner__icon {
+    color: var(--color-warning);
+}
+
+.aural-alert-banner--warning .aural-alert-banner__title {
+    color: var(--color-warning);
+}
+
+/* ========================================
+   Variant: Error
+   ======================================== */
+
+.aural-alert-banner--error {
+    background: var(--color-error-bg);
+    border-left-color: var(--color-error);
+    border-color: var(--color-error-border);
+}
+
+.aural-alert-banner--error .aural-alert-banner__icon {
+    color: var(--color-error);
+}
+
+.aural-alert-banner--error .aural-alert-banner__title {
+    color: var(--color-error);
+}
+
+/* ========================================
+   Variant: Solid
+   ======================================== */
+
+.aural-alert-banner--solid {
+    border: none;
+}
+
+.aural-alert-banner--solid.aural-alert-banner--info {
+    background: var(--color-info);
+    color: white;
+}
+
+.aural-alert-banner--solid.aural-alert-banner--info .aural-alert-banner__title,
+.aural-alert-banner--solid.aural-alert-banner--info .aural-alert-banner__message,
+.aural-alert-banner--solid.aural-alert-banner--info .aural-alert-banner__icon,
+.aural-alert-banner--solid.aural-alert-banner--info .aural-alert-banner__close {
+    color: white;
+}
+
+.aural-alert-banner--solid.aural-alert-banner--success {
+    background: var(--color-success);
+    color: white;
+}
+
+.aural-alert-banner--solid.aural-alert-banner--success .aural-alert-banner__title,
+.aural-alert-banner--solid.aural-alert-banner--success .aural-alert-banner__message,
+.aural-alert-banner--solid.aural-alert-banner--success .aural-alert-banner__icon,
+.aural-alert-banner--solid.aural-alert-banner--success .aural-alert-banner__close {
+    color: white;
+}
+
+.aural-alert-banner--solid.aural-alert-banner--warning {
+    background: var(--color-warning);
+    color: white;
+}
+
+.aural-alert-banner--solid.aural-alert-banner--warning .aural-alert-banner__title,
+.aural-alert-banner--solid.aural-alert-banner--warning .aural-alert-banner__message,
+.aural-alert-banner--solid.aural-alert-banner--warning .aural-alert-banner__icon,
+.aural-alert-banner--solid.aural-alert-banner--warning .aural-alert-banner__close {
+    color: white;
+}
+
+.aural-alert-banner--solid.aural-alert-banner--error {
+    background: var(--color-error);
+    color: white;
+}
+
+.aural-alert-banner--solid.aural-alert-banner--error .aural-alert-banner__title,
+.aural-alert-banner--solid.aural-alert-banner--error .aural-alert-banner__message,
+.aural-alert-banner--solid.aural-alert-banner--error .aural-alert-banner__icon,
+.aural-alert-banner--solid.aural-alert-banner--error .aural-alert-banner__close {
+    color: white;
+}
+
+.aural-alert-banner--solid .aural-alert-banner__close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.aural-alert-banner--solid .aural-alert-banner__action {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.aural-alert-banner--solid .aural-alert-banner__action:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-alert-banner--sm {
+    padding: var(--space-3);
+    gap: var(--space-2);
+}
+
+.aural-alert-banner--sm .aural-alert-banner__icon {
+    width: 20px;
+    height: 20px;
+}
+
+.aural-alert-banner--sm .aural-alert-banner__title {
+    font-size: var(--text-sm);
+}
+
+.aural-alert-banner--sm .aural-alert-banner__message {
+    font-size: var(--text-xs);
+}
+
+.aural-alert-banner--lg {
+    padding: var(--space-6);
+    gap: var(--space-4);
+}
+
+.aural-alert-banner--lg .aural-alert-banner__icon {
+    width: 28px;
+    height: 28px;
+}
+
+.aural-alert-banner--lg .aural-alert-banner__title {
+    font-size: var(--text-lg);
+}
+
+.aural-alert-banner--lg .aural-alert-banner__message {
+    font-size: var(--text-base);
+}
+
+/* ========================================
+   Position Variants (Fixed positioning)
+   ======================================== */
+
+.aural-alert-banner--fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    border-radius: 0;
+    animation: aural-alert-banner-slide-down 0.3s ease-out;
+}
+
+@keyframes aural-alert-banner-slide-down {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.aural-alert-banner--fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    border-radius: 0;
+    animation: aural-alert-banner-slide-up 0.3s ease-out;
+}
+
+@keyframes aural-alert-banner-slide-up {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   Dismissing Animation
+   ======================================== */
+
+.aural-alert-banner--dismissing {
+    animation: aural-alert-banner-fade-out 0.3s ease-out forwards;
+}
+
+@keyframes aural-alert-banner-fade-out {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-alert-banner {
+        animation: none;
+    }
+
+    .aural-alert-banner--fixed-top,
+    .aural-alert-banner--fixed-bottom,
+    .aural-alert-banner--dismissing {
+        animation: none;
+    }
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 640px) {
+    .aural-alert-banner {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .aural-alert-banner__close {
+        position: absolute;
+        top: var(--space-2);
+        right: var(--space-2);
+    }
+
+    .aural-alert-banner__actions {
+        flex-direction: column;
+    }
+
+    .aural-alert-banner__action {
+        width: 100%;
+    }
+}

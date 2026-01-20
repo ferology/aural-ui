@@ -1,0 +1,353 @@
+/**
+ * AURAL UI - Stepper
+ *
+ * Step indicator for multi-step processes like forms, checkouts,
+ * and onboarding flows. Supports horizontal and vertical layouts.
+ */
+
+/* ========================================
+   Stepper Container
+   ======================================== */
+
+.aural-stepper {
+    display: flex;
+    width: 100%;
+}
+
+.aural-stepper--horizontal {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.aural-stepper--vertical {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* ========================================
+   Step Item
+   ======================================== */
+
+.aural-step {
+    display: flex;
+    flex: 1;
+    position: relative;
+}
+
+.aural-stepper--horizontal .aural-step {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.aural-stepper--vertical .aural-step {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-bottom: var(--space-6);
+}
+
+.aural-stepper--vertical .aural-step:last-child {
+    padding-bottom: 0;
+}
+
+/* ========================================
+   Step Indicator (Circle)
+   ======================================== */
+
+.aural-step__indicator {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+    border: 2px solid var(--color-border-medium);
+    border-radius: 50%;
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    transition: var(--transition-all-fast);
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+/* Step States */
+.aural-step--active .aural-step__indicator {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px var(--primary-alpha-20);
+}
+
+.aural-step--completed .aural-step__indicator {
+    background: var(--color-success);
+    color: white;
+    border-color: var(--color-success);
+}
+
+.aural-step--error .aural-step__indicator {
+    background: var(--color-error);
+    color: white;
+    border-color: var(--color-error);
+}
+
+.aural-step--disabled .aural-step__indicator {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-disabled);
+    border-color: var(--color-border-subtle);
+    opacity: 0.5;
+}
+
+/* Clickable Steps */
+.aural-step--clickable .aural-step__indicator {
+    cursor: pointer;
+}
+
+.aural-step--clickable .aural-step__indicator:hover:not(.aural-step--disabled .aural-step__indicator) {
+    border-color: var(--color-primary);
+    transform: scale(1.05);
+}
+
+.aural-step--clickable .aural-step__indicator:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Step Connector Line
+   ======================================== */
+
+.aural-step__connector {
+    position: absolute;
+    background: var(--color-border-medium);
+    transition: var(--transition-all-fast);
+    z-index: 1;
+}
+
+/* Horizontal Connector */
+.aural-stepper--horizontal .aural-step__connector {
+    top: 22px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    width: 100%;
+}
+
+.aural-stepper--horizontal .aural-step:last-child .aural-step__connector {
+    display: none;
+}
+
+/* Vertical Connector */
+.aural-stepper--vertical .aural-step__connector {
+    top: 44px;
+    left: 22px;
+    bottom: 0;
+    width: 2px;
+    height: calc(100% - 44px);
+}
+
+.aural-stepper--vertical .aural-step:last-child .aural-step__connector {
+    display: none;
+}
+
+/* Connector States */
+.aural-step--completed .aural-step__connector {
+    background: var(--color-success);
+}
+
+.aural-step--active .aural-step__connector {
+    background: linear-gradient(
+        to right,
+        var(--color-primary) 0%,
+        var(--color-border-medium) 100%
+    );
+}
+
+.aural-stepper--vertical .aural-step--active .aural-step__connector {
+    background: linear-gradient(
+        to bottom,
+        var(--color-primary) 0%,
+        var(--color-border-medium) 100%
+    );
+}
+
+/* ========================================
+   Step Content
+   ======================================== */
+
+.aural-step__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.aural-stepper--horizontal .aural-step__content {
+    margin-top: var(--space-3);
+    align-items: center;
+}
+
+.aural-stepper--vertical .aural-step__content {
+    margin-left: var(--space-4);
+    flex: 1;
+}
+
+.aural-step__title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-secondary);
+    transition: var(--transition-all-fast);
+}
+
+.aural-step--active .aural-step__title {
+    color: var(--color-primary);
+    font-weight: var(--font-bold);
+}
+
+.aural-step--completed .aural-step__title {
+    color: var(--color-text-primary);
+}
+
+.aural-step--disabled .aural-step__title {
+    color: var(--color-text-disabled);
+    opacity: 0.5;
+}
+
+.aural-step__description {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    line-height: var(--leading-relaxed);
+}
+
+.aural-step--active .aural-step__description {
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Step Icon Support
+   ======================================== */
+
+.aural-step__indicator-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Hide number when icon is present */
+.aural-step__indicator:has(.aural-step__indicator-icon) .aural-step__number {
+    display: none;
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-stepper--sm .aural-step__indicator {
+    min-width: 36px;
+    min-height: 36px;
+    width: 36px;
+    height: 36px;
+    font-size: var(--text-sm);
+}
+
+.aural-stepper--sm.aural-stepper--horizontal .aural-step__connector {
+    top: 18px;
+}
+
+.aural-stepper--sm.aural-stepper--vertical .aural-step__connector {
+    left: 18px;
+    top: 36px;
+    height: calc(100% - 36px);
+}
+
+.aural-stepper--sm .aural-step__title {
+    font-size: var(--text-xs);
+}
+
+.aural-stepper--sm .aural-step__description {
+    font-size: 0.7rem;
+}
+
+.aural-stepper--lg .aural-step__indicator {
+    min-width: 56px;
+    min-height: 56px;
+    width: 56px;
+    height: 56px;
+    font-size: var(--text-lg);
+}
+
+.aural-stepper--lg.aural-stepper--horizontal .aural-step__connector {
+    top: 28px;
+}
+
+.aural-stepper--lg.aural-stepper--vertical .aural-step__connector {
+    left: 28px;
+    top: 56px;
+    height: calc(100% - 56px);
+}
+
+.aural-stepper--lg .aural-step__title {
+    font-size: var(--text-base);
+}
+
+.aural-stepper--lg .aural-step__description {
+    font-size: var(--text-sm);
+}
+
+/* ========================================
+   Numbered Variant
+   ======================================== */
+
+.aural-stepper--numbered .aural-step__indicator::before {
+    content: attr(data-step);
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-step__indicator,
+    .aural-step__connector,
+    .aural-step__title {
+        transition: none;
+    }
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 640px) {
+    /* Stack horizontally on mobile if too many steps */
+    .aural-stepper--horizontal.aural-stepper--responsive {
+        flex-direction: column;
+    }
+
+    .aural-stepper--horizontal.aural-stepper--responsive .aural-step {
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        padding-bottom: var(--space-6);
+    }
+
+    .aural-stepper--horizontal.aural-stepper--responsive .aural-step__content {
+        margin-top: 0;
+        margin-left: var(--space-4);
+        align-items: flex-start;
+    }
+
+    .aural-stepper--horizontal.aural-stepper--responsive .aural-step__connector {
+        top: 44px;
+        left: 22px;
+        right: auto;
+        bottom: 0;
+        width: 2px;
+        height: calc(100% - 44px);
+    }
+
+    .aural-stepper--horizontal.aural-stepper--responsive .aural-step:last-child {
+        padding-bottom: 0;
+    }
+}

@@ -1509,6 +1509,650 @@ const Aural = {
                 this.closeCommandPalette(paletteId);
             });
         });
+    },
+
+    // ========================================
+    // DATE PICKER
+    // ========================================
+
+    /**
+     * Initialize a date picker
+     * @param {string} pickerId - The ID of the date picker element
+     * @param {Object} options - Configuration options
+     */
+    initDatePicker(pickerId, options = {}) {
+        const picker = document.getElementById(pickerId);
+        if (!picker) return;
+
+        const input = picker.querySelector('.aural-date-picker__input');
+        const calendar = picker.querySelector('.aural-date-picker__calendar');
+
+        const config = {
+            format: options.format || 'YYYY-MM-DD',
+            minDate: options.minDate || null,
+            maxDate: options.maxDate || null,
+            disabledDates: options.disabledDates || [],
+            onChange: options.onChange || null,
+            ...options
+        };
+
+        let selectedDate = null;
+        let currentMonth = new Date();
+
+        // Toggle calendar on input click
+        input?.addEventListener('click', () => {
+            calendar?.classList.toggle('aural-date-picker__calendar--open');
+            if (calendar?.classList.contains('aural-date-picker__calendar--open')) {
+                this.renderCalendar(picker, currentMonth, selectedDate, config);
+            }
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!picker.contains(e.target)) {
+                calendar?.classList.remove('aural-date-picker__calendar--open');
+            }
+        });
+
+        // ESC to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && calendar?.classList.contains('aural-date-picker__calendar--open')) {
+                calendar.classList.remove('aural-date-picker__calendar--open');
+            }
+        });
+
+        return {
+            getDate: () => selectedDate,
+            setDate: (date) => {
+                selectedDate = new Date(date);
+                input.value = this.formatDate(selectedDate, config.format);
+                this.renderCalendar(picker, currentMonth, selectedDate, config);
+            },
+            clear: () => {
+                selectedDate = null;
+                input.value = '';
+                this.renderCalendar(picker, currentMonth, selectedDate, config);
+            }
+        };
+    },
+
+    /**
+     * Render the calendar grid
+     */
+    renderCalendar(picker, currentMonth, selectedDate, config) {
+        const calendar = picker.querySelector('.aural-date-picker__calendar');
+        const daysContainer = calendar.querySelector('.aural-date-picker__days');
+        const currentMonthDisplay = calendar.querySelector('.aural-date-picker__current-month');
+
+        // Update month display
+        currentMonthDisplay.textContent = currentMonth.toLocaleDateString('en-US', {
+            month: 'long',
+            year: 'numeric'
+        });
+
+        // Generate calendar days
+        const year = currentMonth.getFullYear();
+        const month = currentMonth.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+        let daysHTML = '';
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Previous month days
+        for (let i = firstDay - 1; i >= 0; i--) {
+            const day = daysInPrevMonth - i;
+            daysHTML += `<button class="aural-date-picker__day aural-date-picker__day--other-month" type="button">${day}</button>`;
+        }
+
+        // Current month days
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(year, month, day);
+            date.setHours(0, 0, 0, 0);
+
+            const isToday = date.getTime() === today.getTime();
+            const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+            const isDisabled = this.isDateDisabled(date, config);
+
+            let classes = 'aural-date-picker__day';
+            if (isToday) classes += ' aural-date-picker__day--today';
+            if (isSelected) classes += ' aural-date-picker__day--selected';
+            if (isDisabled) classes += ' aural-date-picker__day--disabled';
+
+            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? 'disabled' : ''}>${day}</button>`;
+        }
+
+        // Next month days
+        const totalCells = firstDay + daysInMonth;
+        const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+        for (let day = 1; day <= remainingCells; day++) {
+            daysHTML += `<button class="aural-date-picker__day aural-date-picker__day--other-month" type="button">${day}</button>`;
+        }
+
+        daysContainer.innerHTML = daysHTML;
+
+        // Add click handlers
+        daysContainer.querySelectorAll('.aural-date-picker__day:not(.aural-date-picker__day--disabled):not(.aural-date-picker__day--other-month)').forEach(dayBtn => {
+            dayBtn.addEventListener('click', () => {
+                const dateStr = dayBtn.getAttribute('data-date');
+                const date = new Date(dateStr);
+                const input = picker.querySelector('.aural-date-picker__input');
+
+                input.value = this.formatDate(date, config.format);
+                calendar.classList.remove('aural-date-picker__calendar--open');
+
+                if (config.onChange) {
+                    config.onChange(date);
+                }
+            });
+        });
+
+        // Navigation buttons
+        const prevBtn = calendar.querySelector('.aural-date-picker__nav-button[data-action="prev"]');
+        const nextBtn = calendar.querySelector('.aural-date-picker__nav-button[data-action="next"]');
+
+        if (prevBtn) {
+            prevBtn.onclick = () => {
+                currentMonth.setMonth(currentMonth.getMonth() - 1);
+                this.renderCalendar(picker, currentMonth, selectedDate, config);
+            };
+        }
+
+        if (nextBtn) {
+            nextBtn.onclick = () => {
+                currentMonth.setMonth(currentMonth.getMonth() + 1);
+                this.renderCalendar(picker, currentMonth, selectedDate, config);
+            };
+        }
+    },
+
+    /**
+     * Check if a date is disabled
+     */
+    isDateDisabled(date, config) {
+        if (config.minDate && date < new Date(config.minDate)) return true;
+        if (config.maxDate && date > new Date(config.maxDate)) return true;
+        if (config.disabledDates && config.disabledDates.some(d =>
+            new Date(d).toDateString() === date.toDateString()
+        )) return true;
+        return false;
+    },
+
+    /**
+     * Format date to string
+     */
+    formatDate(date, format) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        return format
+            .replace('YYYY', year)
+            .replace('MM', month)
+            .replace('DD', day);
+    },
+
+    // ========================================
+    // STEPPER
+    // ========================================
+
+    /**
+     * Initialize a stepper
+     * @param {string} stepperId - The ID of the stepper element
+     * @param {Object} options - Configuration options
+     */
+    initStepper(stepperId, options = {}) {
+        const stepper = document.getElementById(stepperId);
+        if (!stepper) return;
+
+        const steps = stepper.querySelectorAll('.aural-step');
+        let currentStep = options.initialStep || 0;
+
+        const config = {
+            clickable: options.clickable !== false,
+            onChange: options.onChange || null,
+            ...options
+        };
+
+        // Make steps clickable if enabled
+        if (config.clickable) {
+            steps.forEach((step, index) => {
+                const indicator = step.querySelector('.aural-step__indicator');
+                if (indicator && !step.classList.contains('aural-step--disabled')) {
+                    step.classList.add('aural-step--clickable');
+                    indicator.tabIndex = 0;
+                    indicator.setAttribute('role', 'button');
+
+                    indicator.addEventListener('click', () => {
+                        this.goToStep(stepperId, index);
+                    });
+
+                    indicator.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.goToStep(stepperId, index);
+                        }
+                    });
+                }
+            });
+        }
+
+        return {
+            next: () => this.nextStep(stepperId),
+            prev: () => this.prevStep(stepperId),
+            goTo: (index) => this.goToStep(stepperId, index),
+            getCurrentStep: () => currentStep,
+            complete: (index) => this.completeStep(stepperId, index),
+            error: (index) => this.errorStep(stepperId, index)
+        };
+    },
+
+    /**
+     * Go to a specific step
+     */
+    goToStep(stepperId, stepIndex) {
+        const stepper = document.getElementById(stepperId);
+        if (!stepper) return;
+
+        const steps = stepper.querySelectorAll('.aural-step');
+        if (stepIndex < 0 || stepIndex >= steps.length) return;
+
+        steps.forEach((step, index) => {
+            step.classList.remove('aural-step--active');
+            if (index === stepIndex) {
+                step.classList.add('aural-step--active');
+            }
+        });
+    },
+
+    /**
+     * Go to next step
+     */
+    nextStep(stepperId) {
+        const stepper = document.getElementById(stepperId);
+        if (!stepper) return;
+
+        const steps = stepper.querySelectorAll('.aural-step');
+        const currentStep = Array.from(steps).findIndex(s => s.classList.contains('aural-step--active'));
+
+        if (currentStep < steps.length - 1) {
+            this.goToStep(stepperId, currentStep + 1);
+        }
+    },
+
+    /**
+     * Go to previous step
+     */
+    prevStep(stepperId) {
+        const stepper = document.getElementById(stepperId);
+        if (!stepper) return;
+
+        const steps = stepper.querySelectorAll('.aural-step');
+        const currentStep = Array.from(steps).findIndex(s => s.classList.contains('aural-step--active'));
+
+        if (currentStep > 0) {
+            this.goToStep(stepperId, currentStep - 1);
+        }
+    },
+
+    /**
+     * Mark a step as completed
+     */
+    completeStep(stepperId, stepIndex) {
+        const stepper = document.getElementById(stepperId);
+        if (!stepper) return;
+
+        const steps = stepper.querySelectorAll('.aural-step');
+        if (stepIndex >= 0 && stepIndex < steps.length) {
+            steps[stepIndex].classList.add('aural-step--completed');
+            steps[stepIndex].classList.remove('aural-step--error');
+        }
+    },
+
+    /**
+     * Mark a step as error
+     */
+    errorStep(stepperId, stepIndex) {
+        const stepper = document.getElementById(stepperId);
+        if (!stepper) return;
+
+        const steps = stepper.querySelectorAll('.aural-step');
+        if (stepIndex >= 0 && stepIndex < steps.length) {
+            steps[stepIndex].classList.add('aural-step--error');
+            steps[stepIndex].classList.remove('aural-step--completed');
+        }
+    },
+
+    // ========================================
+    // SEARCH BAR
+    // ========================================
+
+    /**
+     * Initialize a search bar with autocomplete
+     * @param {string} searchId - The ID of the search bar element
+     * @param {Object} options - Configuration options
+     */
+    initSearchBar(searchId, options = {}) {
+        const searchBar = document.getElementById(searchId);
+        if (!searchBar) return;
+
+        const input = searchBar.querySelector('.aural-search-bar__input');
+        const suggestions = searchBar.querySelector('.aural-search-bar__suggestions');
+        const clearBtn = searchBar.querySelector('.aural-search-bar__clear');
+
+        const config = {
+            suggestions: options.suggestions || [],
+            onSearch: options.onSearch || null,
+            onSelect: options.onSelect || null,
+            minChars: options.minChars || 1,
+            debounce: options.debounce || 300,
+            ...options
+        };
+
+        let debounceTimer = null;
+        let selectedIndex = -1;
+
+        // Input handler
+        input?.addEventListener('input', (e) => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const query = e.target.value.trim();
+
+                if (query.length >= config.minChars) {
+                    this.showSearchSuggestions(searchId, query, config);
+                } else {
+                    suggestions?.classList.remove('aural-search-bar__suggestions--open');
+                }
+
+                if (config.onSearch) {
+                    config.onSearch(query);
+                }
+            }, config.debounce);
+        });
+
+        // Clear button
+        clearBtn?.addEventListener('click', () => {
+            input.value = '';
+            suggestions?.classList.remove('aural-search-bar__suggestions--open');
+            input.focus();
+        });
+
+        // Keyboard navigation
+        input?.addEventListener('keydown', (e) => {
+            const items = suggestions?.querySelectorAll('.aural-search-bar__item') || [];
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+                this.updateSearchSelection(items, selectedIndex);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = Math.max(selectedIndex - 1, -1);
+                this.updateSearchSelection(items, selectedIndex);
+            } else if (e.key === 'Enter' && selectedIndex >= 0 && items[selectedIndex]) {
+                e.preventDefault();
+                items[selectedIndex].click();
+            } else if (e.key === 'Escape') {
+                suggestions?.classList.remove('aural-search-bar__suggestions--open');
+            }
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!searchBar.contains(e.target)) {
+                suggestions?.classList.remove('aural-search-bar__suggestions--open');
+            }
+        });
+
+        return {
+            clear: () => {
+                input.value = '';
+                suggestions?.classList.remove('aural-search-bar__suggestions--open');
+            },
+            focus: () => input?.focus()
+        };
+    },
+
+    /**
+     * Show search suggestions
+     */
+    showSearchSuggestions(searchId, query, config) {
+        const searchBar = document.getElementById(searchId);
+        const suggestions = searchBar?.querySelector('.aural-search-bar__suggestions');
+        if (!suggestions) return;
+
+        const filtered = config.suggestions.filter(item =>
+            item.title.toLowerCase().includes(query.toLowerCase()) ||
+            (item.description && item.description.toLowerCase().includes(query.toLowerCase()))
+        );
+
+        if (filtered.length === 0) {
+            suggestions.innerHTML = `
+                <div class="aural-search-bar__empty">
+                    <div class="aural-search-bar__empty-text">No results found</div>
+                </div>
+            `;
+        } else {
+            suggestions.innerHTML = filtered.map((item, index) => `
+                <button class="aural-search-bar__item" data-index="${index}">
+                    ${item.icon ? `<div class="aural-search-bar__item-icon">${item.icon}</div>` : ''}
+                    <div class="aural-search-bar__item-content">
+                        <div class="aural-search-bar__item-title">${item.title}</div>
+                        ${item.description ? `<div class="aural-search-bar__item-description">${item.description}</div>` : ''}
+                    </div>
+                </button>
+            `).join('');
+
+            // Add click handlers
+            suggestions.querySelectorAll('.aural-search-bar__item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const index = parseInt(item.getAttribute('data-index'));
+                    const selected = filtered[index];
+
+                    if (config.onSelect) {
+                        config.onSelect(selected);
+                    }
+
+                    const input = searchBar.querySelector('.aural-search-bar__input');
+                    input.value = selected.title;
+                    suggestions.classList.remove('aural-search-bar__suggestions--open');
+                });
+            });
+        }
+
+        suggestions.classList.add('aural-search-bar__suggestions--open');
+    },
+
+    /**
+     * Update search selection highlight
+     */
+    updateSearchSelection(items, selectedIndex) {
+        items.forEach((item, index) => {
+            if (index === selectedIndex) {
+                item.classList.add('aural-search-bar__item--active');
+                item.scrollIntoView({ block: 'nearest' });
+            } else {
+                item.classList.remove('aural-search-bar__item--active');
+            }
+        });
+    },
+
+    // ========================================
+    // ALERT BANNER
+    // ========================================
+
+    /**
+     * Show an alert banner
+     * @param {string} message - The message to display
+     * @param {string} type - Type: 'info', 'success', 'warning', 'error'
+     * @param {Object} options - Additional options
+     */
+    showAlertBanner(message, type = 'info', options = {}) {
+        const config = {
+            title: options.title || null,
+            dismissible: options.dismissible !== false,
+            fixed: options.fixed || null, // 'top' or 'bottom'
+            duration: options.duration || 0, // 0 = permanent
+            actions: options.actions || [],
+            ...options
+        };
+
+        const banner = document.createElement('div');
+        banner.className = `aural-alert-banner aural-alert-banner--${type}`;
+        if (config.fixed) {
+            banner.classList.add(`aural-alert-banner--fixed-${config.fixed}`);
+        }
+        banner.setAttribute('role', type === 'error' ? 'alert' : 'status');
+
+        const icons = {
+            info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+            success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+            warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+            error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+        };
+
+        let actionsHTML = '';
+        if (config.actions.length > 0) {
+            actionsHTML = `
+                <div class="aural-alert-banner__actions">
+                    ${config.actions.map((action, index) => `
+                        <button class="aural-alert-banner__action ${action.primary ? 'aural-alert-banner__action--primary' : ''}" data-action="${index}">
+                            ${action.label}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        banner.innerHTML = `
+            <div class="aural-alert-banner__icon">${icons[type]}</div>
+            <div class="aural-alert-banner__content">
+                ${config.title ? `<div class="aural-alert-banner__title">${config.title}</div>` : ''}
+                <div class="aural-alert-banner__message">${message}</div>
+                ${actionsHTML}
+            </div>
+            ${config.dismissible ? `
+                <button class="aural-alert-banner__close" aria-label="Close">
+                    <svg class="aural-alert-banner__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            ` : ''}
+        `;
+
+        document.body.appendChild(banner);
+
+        // Dismiss handler
+        if (config.dismissible) {
+            const closeBtn = banner.querySelector('.aural-alert-banner__close');
+            closeBtn?.addEventListener('click', () => {
+                this.dismissAlertBanner(banner);
+            });
+        }
+
+        // Action handlers
+        banner.querySelectorAll('.aural-alert-banner__action').forEach(actionBtn => {
+            actionBtn.addEventListener('click', () => {
+                const index = parseInt(actionBtn.getAttribute('data-action'));
+                const action = config.actions[index];
+                if (action?.onClick) {
+                    action.onClick();
+                }
+                if (action?.dismiss !== false) {
+                    this.dismissAlertBanner(banner);
+                }
+            });
+        });
+
+        // Auto-dismiss
+        if (config.duration > 0) {
+            setTimeout(() => {
+                this.dismissAlertBanner(banner);
+            }, config.duration);
+        }
+
+        return banner;
+    },
+
+    /**
+     * Dismiss an alert banner
+     */
+    dismissAlertBanner(banner) {
+        banner.classList.add('aural-alert-banner--dismissing');
+        setTimeout(() => banner.remove(), 300);
+    },
+
+    // ========================================
+    // SPINNER
+    // ========================================
+
+    /**
+     * Show a loading spinner overlay
+     * @param {string} text - Optional loading text
+     * @param {Object} options - Configuration options
+     */
+    showSpinner(text = 'Loading...', options = {}) {
+        const config = {
+            variant: options.variant || 'default', // 'default', 'dual', 'dots', 'pulse', 'grow', 'bars'
+            color: options.color || 'primary',
+            size: options.size || 'lg',
+            ...options
+        };
+
+        let spinnerHTML = '';
+        if (config.variant === 'dots' || config.variant === 'grow') {
+            spinnerHTML = `
+                <div class="aural-spinner aural-spinner--${config.variant} aural-spinner--${config.color} aural-spinner--${config.size}">
+                    <div class="aural-spinner__dot"></div>
+                    <div class="aural-spinner__dot"></div>
+                    <div class="aural-spinner__dot"></div>
+                </div>
+            `;
+        } else if (config.variant === 'bars') {
+            spinnerHTML = `
+                <div class="aural-spinner aural-spinner--bars aural-spinner--${config.color} aural-spinner--${config.size}">
+                    <div class="aural-spinner__bar"></div>
+                    <div class="aural-spinner__bar"></div>
+                    <div class="aural-spinner__bar"></div>
+                    <div class="aural-spinner__bar"></div>
+                </div>
+            `;
+        } else {
+            spinnerHTML = `
+                <div class="aural-spinner aural-spinner--${config.variant} aural-spinner--${config.color} aural-spinner--${config.size}">
+                    <div class="aural-spinner__circle"></div>
+                </div>
+            `;
+        }
+
+        const overlay = document.createElement('div');
+        overlay.className = 'aural-spinner-overlay';
+        overlay.id = 'aural-spinner-overlay';
+        overlay.innerHTML = `
+            <div class="aural-spinner--with-text">
+                ${spinnerHTML}
+                ${text ? `<div class="aural-spinner__text">${text}</div>` : ''}
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
+
+        return overlay;
+    },
+
+    /**
+     * Hide the loading spinner overlay
+     */
+    hideSpinner() {
+        const overlay = document.getElementById('aural-spinner-overlay');
+        if (overlay) {
+            overlay.remove();
+            document.body.style.overflow = '';
+        }
     }
 };
 

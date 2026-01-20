@@ -1,0 +1,445 @@
+/**
+ * AURAL UI - Loading Spinner
+ *
+ * Circular loading indicators with multiple variants and sizes.
+ * Supports different colors and animation speeds.
+ */
+
+/* ========================================
+   Spinner Container
+   ======================================== */
+
+.aural-spinner {
+    display: inline-block;
+    position: relative;
+}
+
+/* ========================================
+   Spinner Circle
+   ======================================== */
+
+.aural-spinner__circle {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border-subtle);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: aural-spinner-rotate 0.8s linear infinite;
+}
+
+@keyframes aural-spinner-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   Dual Ring Variant
+   ======================================== */
+
+.aural-spinner--dual .aural-spinner__circle {
+    border-width: 3px;
+    border-style: solid;
+    border-color: var(--color-primary) transparent var(--color-primary) transparent;
+    animation: aural-spinner-dual 1.2s linear infinite;
+}
+
+@keyframes aural-spinner-dual {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   Dots Variant
+   ======================================== */
+
+.aural-spinner--dots {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.aural-spinner--dots .aural-spinner__dot {
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    animation: aural-spinner-bounce 1.4s ease-in-out infinite both;
+}
+
+.aural-spinner--dots .aural-spinner__dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.aural-spinner--dots .aural-spinner__dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes aural-spinner-bounce {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   Pulse Variant
+   ======================================== */
+
+.aural-spinner--pulse .aural-spinner__circle {
+    border: none;
+    background: var(--color-primary);
+    animation: aural-spinner-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes aural-spinner-pulse {
+    0%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   Grow Variant
+   ======================================== */
+
+.aural-spinner--grow {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.aural-spinner--grow .aural-spinner__circle {
+    width: 16px;
+    height: 16px;
+    background: var(--color-primary);
+    border: none;
+    animation: aural-spinner-grow 1.4s ease-in-out infinite both;
+}
+
+.aural-spinner--grow .aural-spinner__circle:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.aural-spinner--grow .aural-spinner__circle:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes aural-spinner-grow {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   Bars Variant
+   ======================================== */
+
+.aural-spinner--bars {
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+}
+
+.aural-spinner--bars .aural-spinner__bar {
+    width: 4px;
+    height: 32px;
+    background: var(--color-primary);
+    border-radius: var(--radius-sm);
+    animation: aural-spinner-bars 1.2s ease-in-out infinite;
+}
+
+.aural-spinner--bars .aural-spinner__bar:nth-child(1) {
+    animation-delay: -0.4s;
+}
+
+.aural-spinner--bars .aural-spinner__bar:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.aural-spinner--bars .aural-spinner__bar:nth-child(3) {
+    animation-delay: -0.2s;
+}
+
+.aural-spinner--bars .aural-spinner__bar:nth-child(4) {
+    animation-delay: -0.1s;
+}
+
+@keyframes aural-spinner-bars {
+    0%, 40%, 100% {
+        transform: scaleY(0.4);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   Color Variants
+   ======================================== */
+
+.aural-spinner--primary .aural-spinner__circle,
+.aural-spinner--primary .aural-spinner__dot,
+.aural-spinner--primary .aural-spinner__bar {
+    border-top-color: var(--color-primary);
+    background: var(--color-primary);
+}
+
+.aural-spinner--primary.aural-spinner--dual .aural-spinner__circle {
+    border-color: var(--color-primary) transparent var(--color-primary) transparent;
+}
+
+.aural-spinner--secondary .aural-spinner__circle,
+.aural-spinner--secondary .aural-spinner__dot,
+.aural-spinner--secondary .aural-spinner__bar {
+    border-top-color: var(--color-text-secondary);
+    background: var(--color-text-secondary);
+}
+
+.aural-spinner--secondary.aural-spinner--dual .aural-spinner__circle {
+    border-color: var(--color-text-secondary) transparent var(--color-text-secondary) transparent;
+}
+
+.aural-spinner--success .aural-spinner__circle,
+.aural-spinner--success .aural-spinner__dot,
+.aural-spinner--success .aural-spinner__bar {
+    border-top-color: var(--color-success);
+    background: var(--color-success);
+}
+
+.aural-spinner--success.aural-spinner--dual .aural-spinner__circle {
+    border-color: var(--color-success) transparent var(--color-success) transparent;
+}
+
+.aural-spinner--warning .aural-spinner__circle,
+.aural-spinner--warning .aural-spinner__dot,
+.aural-spinner--warning .aural-spinner__bar {
+    border-top-color: var(--color-warning);
+    background: var(--color-warning);
+}
+
+.aural-spinner--warning.aural-spinner--dual .aural-spinner__circle {
+    border-color: var(--color-warning) transparent var(--color-warning) transparent;
+}
+
+.aural-spinner--error .aural-spinner__circle,
+.aural-spinner--error .aural-spinner__dot,
+.aural-spinner--error .aural-spinner__bar {
+    border-top-color: var(--color-error);
+    background: var(--color-error);
+}
+
+.aural-spinner--error.aural-spinner--dual .aural-spinner__circle {
+    border-color: var(--color-error) transparent var(--color-error) transparent;
+}
+
+.aural-spinner--white .aural-spinner__circle,
+.aural-spinner--white .aural-spinner__dot,
+.aural-spinner--white .aural-spinner__bar {
+    border-top-color: white;
+    background: white;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.aural-spinner--white.aural-spinner--dual .aural-spinner__circle {
+    border-color: white transparent white transparent;
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+/* Extra Small */
+.aural-spinner--xs .aural-spinner__circle {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+}
+
+.aural-spinner--xs.aural-spinner--dots .aural-spinner__dot {
+    width: 6px;
+    height: 6px;
+}
+
+.aural-spinner--xs.aural-spinner--grow .aural-spinner__circle {
+    width: 8px;
+    height: 8px;
+}
+
+.aural-spinner--xs.aural-spinner--bars .aural-spinner__bar {
+    width: 3px;
+    height: 16px;
+}
+
+/* Small */
+.aural-spinner--sm .aural-spinner__circle {
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
+}
+
+.aural-spinner--sm.aural-spinner--dots .aural-spinner__dot {
+    width: 8px;
+    height: 8px;
+}
+
+.aural-spinner--sm.aural-spinner--grow .aural-spinner__circle {
+    width: 10px;
+    height: 10px;
+}
+
+.aural-spinner--sm.aural-spinner--bars .aural-spinner__bar {
+    width: 3px;
+    height: 20px;
+}
+
+/* Medium (default) is already defined */
+
+/* Large */
+.aural-spinner--lg .aural-spinner__circle {
+    width: 56px;
+    height: 56px;
+    border-width: 4px;
+}
+
+.aural-spinner--lg.aural-spinner--dots .aural-spinner__dot {
+    width: 16px;
+    height: 16px;
+}
+
+.aural-spinner--lg.aural-spinner--grow .aural-spinner__circle {
+    width: 20px;
+    height: 20px;
+}
+
+.aural-spinner--lg.aural-spinner--bars .aural-spinner__bar {
+    width: 6px;
+    height: 48px;
+}
+
+/* Extra Large */
+.aural-spinner--xl .aural-spinner__circle {
+    width: 72px;
+    height: 72px;
+    border-width: 5px;
+}
+
+.aural-spinner--xl.aural-spinner--dots .aural-spinner__dot {
+    width: 20px;
+    height: 20px;
+}
+
+.aural-spinner--xl.aural-spinner--grow .aural-spinner__circle {
+    width: 24px;
+    height: 24px;
+}
+
+.aural-spinner--xl.aural-spinner--bars .aural-spinner__bar {
+    width: 8px;
+    height: 64px;
+}
+
+/* ========================================
+   Speed Variants
+   ======================================== */
+
+.aural-spinner--slow .aural-spinner__circle {
+    animation-duration: 1.5s;
+}
+
+.aural-spinner--fast .aural-spinner__circle {
+    animation-duration: 0.5s;
+}
+
+/* ========================================
+   With Text
+   ======================================== */
+
+.aural-spinner--with-text {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.aural-spinner__text {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-medium);
+}
+
+/* ========================================
+   Overlay Variant
+   ======================================== */
+
+.aural-spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+}
+
+.aural-spinner-overlay .aural-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-spinner__circle,
+    .aural-spinner__dot,
+    .aural-spinner__bar {
+        animation-duration: 2s;
+    }
+}
+
+/* Screen reader only text */
+.aural-spinner[aria-label]::after {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+    content: attr(aria-label);
+}
