@@ -2143,6 +2143,232 @@
               }
             }
           }
+        },
+        // ========================================
+        // CAROUSEL
+        // ========================================
+        /**
+         * Initialize a carousel
+         * @param {string} carouselId - The ID of the carousel element
+         * @param {Object} options - Configuration options
+         */
+        initCarousel(carouselId, options = {}) {
+          const carousel = document.getElementById(carouselId);
+          if (!carousel)
+            return;
+          const track = carousel.querySelector(".aural-carousel__track");
+          const slides = carousel.querySelectorAll(".aural-carousel__slide");
+          const dots = carousel.querySelectorAll(".aural-carousel__dot");
+          const prevBtn = carousel.querySelector(".aural-carousel__arrow--prev");
+          const nextBtn = carousel.querySelector(".aural-carousel__arrow--next");
+          const counter = carousel.querySelector(".aural-carousel__counter");
+          const config = {
+            autoplay: options.autoplay || false,
+            autoplayDelay: options.autoplayDelay || 5e3,
+            loop: options.loop !== false,
+            perView: options.perView || 1,
+            fade: carousel.classList.contains("aural-carousel--fade"),
+            onChange: options.onChange || null,
+            ...options
+          };
+          let currentIndex = 0;
+          let autoplayInterval = null;
+          const updateCarousel = () => {
+            if (config.fade) {
+              slides.forEach((slide, index) => {
+                slide.classList.toggle("aural-carousel__slide--active", index === currentIndex);
+              });
+            } else {
+              const offset = -currentIndex * (100 / config.perView);
+              track.style.transform = `translateX(${offset}%)`;
+            }
+            dots.forEach((dot, index) => {
+              dot.classList.toggle("aural-carousel__dot--active", index === currentIndex);
+            });
+            if (counter) {
+              counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            }
+            if (!config.loop) {
+              if (prevBtn)
+                prevBtn.disabled = currentIndex === 0;
+              if (nextBtn)
+                nextBtn.disabled = currentIndex === slides.length - 1;
+            }
+            if (config.onChange) {
+              config.onChange(currentIndex);
+            }
+          };
+          const goToSlide = (index) => {
+            if (index < 0) {
+              currentIndex = config.loop ? slides.length - 1 : 0;
+            } else if (index >= slides.length) {
+              currentIndex = config.loop ? 0 : slides.length - 1;
+            } else {
+              currentIndex = index;
+            }
+            updateCarousel();
+          };
+          const nextSlide = () => {
+            goToSlide(currentIndex + 1);
+          };
+          const prevSlide = () => {
+            goToSlide(currentIndex - 1);
+          };
+          prevBtn?.addEventListener("click", prevSlide);
+          nextBtn?.addEventListener("click", nextSlide);
+          dots.forEach((dot, index) => {
+            dot.addEventListener("click", () => goToSlide(index));
+          });
+          carousel.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              prevSlide();
+            } else if (e.key === "ArrowRight") {
+              e.preventDefault();
+              nextSlide();
+            }
+          });
+          let touchStartX = 0;
+          let touchEndX = 0;
+          carousel.addEventListener("touchstart", (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+          });
+          carousel.addEventListener("touchend", (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+              if (diff > 0) {
+                nextSlide();
+              } else {
+                prevSlide();
+              }
+            }
+          });
+          const startAutoplay = () => {
+            if (config.autoplay) {
+              autoplayInterval = setInterval(nextSlide, config.autoplayDelay);
+            }
+          };
+          const stopAutoplay = () => {
+            if (autoplayInterval) {
+              clearInterval(autoplayInterval);
+              autoplayInterval = null;
+            }
+          };
+          carousel.addEventListener("mouseenter", stopAutoplay);
+          carousel.addEventListener("mouseleave", startAutoplay);
+          updateCarousel();
+          startAutoplay();
+          return {
+            next: nextSlide,
+            prev: prevSlide,
+            goTo: goToSlide,
+            getCurrent: () => currentIndex,
+            play: startAutoplay,
+            pause: stopAutoplay
+          };
+        },
+        // ========================================
+        // CONTEXT MENU
+        // ========================================
+        /**
+         * Show context menu at position
+         * @param {string} menuId - The ID of the context menu element
+         * @param {number} x - X position
+         * @param {number} y - Y position
+         */
+        showContextMenu(menuId, x, y) {
+          const menu = document.getElementById(menuId);
+          if (!menu)
+            return;
+          document.querySelectorAll(".aural-context-menu--open").forEach((m) => {
+            m.classList.remove("aural-context-menu--open");
+          });
+          menu.style.left = `${x}px`;
+          menu.style.top = `${y}px`;
+          menu.classList.add("aural-context-menu--open");
+          const rect = menu.getBoundingClientRect();
+          if (rect.right > window.innerWidth) {
+            menu.style.left = `${window.innerWidth - rect.width - 10}px`;
+          }
+          if (rect.bottom > window.innerHeight) {
+            menu.style.top = `${window.innerHeight - rect.height - 10}px`;
+          }
+          const firstItem = menu.querySelector(".aural-context-menu__item:not(.aural-context-menu__item--disabled)");
+          if (firstItem) {
+            firstItem.focus();
+          }
+        },
+        /**
+         * Hide context menu
+         * @param {string} menuId - The ID of the context menu element
+         */
+        hideContextMenu(menuId) {
+          const menu = document.getElementById(menuId);
+          if (menu) {
+            menu.classList.remove("aural-context-menu--open");
+          }
+        },
+        /**
+         * Initialize context menu on an element
+         * @param {string} triggerId - The ID of the trigger element
+         * @param {string} menuId - The ID of the context menu element
+         * @param {Object} options - Configuration options
+         */
+        initContextMenu(triggerId, menuId, options = {}) {
+          const trigger = document.getElementById(triggerId);
+          const menu = document.getElementById(menuId);
+          if (!trigger || !menu)
+            return;
+          const config = {
+            preventDefault: options.preventDefault !== false,
+            ...options
+          };
+          trigger.addEventListener("contextmenu", (e) => {
+            if (config.preventDefault) {
+              e.preventDefault();
+            }
+            this.showContextMenu(menuId, e.clientX, e.clientY);
+          });
+          document.addEventListener("click", (e) => {
+            if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+              this.hideContextMenu(menuId);
+            }
+          });
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && menu.classList.contains("aural-context-menu--open")) {
+              this.hideContextMenu(menuId);
+            }
+          });
+          menu.addEventListener("keydown", (e) => {
+            const items = Array.from(menu.querySelectorAll(".aural-context-menu__item:not(.aural-context-menu__item--disabled)"));
+            const currentIndex = items.indexOf(document.activeElement);
+            if (e.key === "ArrowDown") {
+              e.preventDefault();
+              const nextIndex = (currentIndex + 1) % items.length;
+              items[nextIndex].focus();
+            } else if (e.key === "ArrowUp") {
+              e.preventDefault();
+              const prevIndex = (currentIndex - 1 + items.length) % items.length;
+              items[prevIndex].focus();
+            } else if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              if (document.activeElement) {
+                document.activeElement.click();
+              }
+            }
+          });
+          menu.querySelectorAll(".aural-context-menu__item").forEach((item) => {
+            item.addEventListener("click", () => {
+              if (!item.classList.contains("aural-context-menu__item--disabled")) {
+                this.hideContextMenu(menuId);
+              }
+            });
+          });
+          return {
+            show: (x, y) => this.showContextMenu(menuId, x, y),
+            hide: () => this.hideContextMenu(menuId)
+          };
         }
       };
       if (typeof document !== "undefined") {

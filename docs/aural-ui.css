@@ -6781,6 +6781,402 @@ body.aural-drawer-open {
     }
 }
 
+/**
+ * AURAL UI - Context Menu
+ *
+ * Right-click menu with keyboard navigation and nested submenus.
+ * Supports icons, shortcuts, separators, and disabled items.
+ */
+
+/* ========================================
+   Context Menu Container
+   ======================================== */
+
+.aural-context-menu {
+    position: fixed;
+    z-index: 9999;
+    min-width: 200px;
+    max-width: 320px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-2) 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    transform-origin: top left;
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+
+.aural-context-menu--open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* ========================================
+   Menu Items
+   ======================================== */
+
+.aural-context-menu__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    min-height: 36px;
+    background: transparent;
+    color: var(--color-text-primary);
+    border: none;
+    text-align: left;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+    width: 100%;
+    position: relative;
+}
+
+.aural-context-menu__item:hover:not(.aural-context-menu__item--disabled) {
+    background: var(--color-bg-hover);
+    color: var(--color-primary);
+}
+
+.aural-context-menu__item:focus-visible {
+    outline: none;
+    background: var(--color-bg-hover);
+    color: var(--color-primary);
+}
+
+/* Item Icon */
+
+.aural-context-menu__item-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--color-text-secondary);
+}
+
+.aural-context-menu__item:hover .aural-context-menu__item-icon,
+.aural-context-menu__item:focus-visible .aural-context-menu__item-icon {
+    color: var(--color-primary);
+}
+
+/* Item Label */
+
+.aural-context-menu__item-label {
+    flex: 1;
+}
+
+/* Item Shortcut */
+
+.aural-context-menu__item-shortcut {
+    flex-shrink: 0;
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    font-family: var(--font-mono);
+}
+
+/* Submenu Arrow */
+
+.aural-context-menu__item-arrow {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    color: var(--color-text-tertiary);
+    margin-left: auto;
+}
+
+/* ========================================
+   Item States
+   ======================================== */
+
+.aural-context-menu__item--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.aural-context-menu__item--danger {
+    color: var(--color-error);
+}
+
+.aural-context-menu__item--danger:hover {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.aural-context-menu__item--active {
+    background: var(--primary-alpha-10);
+    color: var(--color-primary);
+}
+
+/* ========================================
+   Checkable Items
+   ======================================== */
+
+.aural-context-menu__item--checkable {
+    padding-left: var(--space-8);
+    position: relative;
+}
+
+.aural-context-menu__item-check {
+    position: absolute;
+    left: var(--space-4);
+    width: 16px;
+    height: 16px;
+    color: var(--color-primary);
+    opacity: 0;
+    transition: var(--transition-all-fast);
+}
+
+.aural-context-menu__item--checked .aural-context-menu__item-check {
+    opacity: 1;
+}
+
+/* ========================================
+   Separator
+   ======================================== */
+
+.aural-context-menu__separator {
+    height: 1px;
+    background: var(--color-border-subtle);
+    margin: var(--space-2) var(--space-4);
+}
+
+/* ========================================
+   Group Header
+   ======================================== */
+
+.aural-context-menu__header {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ========================================
+   Submenu
+   ======================================== */
+
+.aural-context-menu__submenu {
+    position: absolute;
+    left: 100%;
+    top: -var(--space-2);
+    margin-left: 4px;
+    z-index: 10000;
+}
+
+.aural-context-menu__item:hover > .aural-context-menu__submenu,
+.aural-context-menu__item:focus-visible > .aural-context-menu__submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* Submenu positioning when near edge */
+
+.aural-context-menu__submenu--left {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: 4px;
+}
+
+/* ========================================
+   Compact Variant
+   ======================================== */
+
+.aural-context-menu--compact .aural-context-menu__item {
+    padding: var(--space-1) var(--space-3);
+    min-height: 28px;
+    font-size: var(--text-xs);
+}
+
+.aural-context-menu--compact .aural-context-menu__item-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* ========================================
+   With Icons Only
+   ======================================== */
+
+.aural-context-menu--icons-only {
+    min-width: auto;
+}
+
+.aural-context-menu--icons-only .aural-context-menu__item {
+    justify-content: center;
+    padding: var(--space-2);
+}
+
+.aural-context-menu--icons-only .aural-context-menu__item-label,
+.aural-context-menu--icons-only .aural-context-menu__item-shortcut {
+    display: none;
+}
+
+/* ========================================
+   Dark Variant
+   ======================================== */
+
+.aural-context-menu--dark {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+}
+
+.aural-context-menu--dark .aural-context-menu__item {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.aural-context-menu--dark .aural-context-menu__item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.aural-context-menu--dark .aural-context-menu__separator {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   Trigger Context (for element-specific menus)
+   ======================================== */
+
+.aural-context-menu-trigger {
+    position: relative;
+}
+
+/* ========================================
+   Loading State
+   ======================================== */
+
+.aural-context-menu__item--loading {
+    pointer-events: none;
+}
+
+.aural-context-menu__item--loading::after {
+    content: '';
+    position: absolute;
+    right: var(--space-4);
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--color-border-subtle);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: aural-context-menu-spin 0.8s linear infinite;
+}
+
+@keyframes aural-context-menu-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   Nested Menu Indicator
+   ======================================== */
+
+.aural-context-menu__item--has-submenu {
+    position: relative;
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-context-menu {
+        transition: none;
+    }
+
+    .aural-context-menu__item {
+        transition: none;
+    }
+
+    .aural-context-menu__item--loading::after {
+        animation: none;
+        border-top-color: var(--color-border-subtle);
+    }
+}
+
+/* Screen reader only text */
+
+.aural-context-menu__sr-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   Mobile Adaptations
+   ======================================== */
+
+@media (max-width: 640px) {
+    .aural-context-menu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        max-width: 100%;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        transform-origin: bottom center;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .aural-context-menu--open {
+        transform: translateY(0);
+    }
+
+    .aural-context-menu:not(.aural-context-menu--open) {
+        transform: translateY(100%);
+    }
+
+    /* Mobile submenu behavior - stack instead of fly out */
+    .aural-context-menu__submenu {
+        position: static;
+        margin: 0;
+        padding-left: var(--space-4);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .aural-context-menu__item:hover > .aural-context-menu__submenu,
+    .aural-context-menu__item:focus-visible > .aural-context-menu__submenu {
+        max-height: 500px;
+    }
+
+    .aural-context-menu__item-arrow {
+        transform: rotate(90deg);
+    }
+
+    .aural-context-menu__item:hover .aural-context-menu__item-arrow,
+    .aural-context-menu__item:focus-visible .aural-context-menu__item-arrow {
+        transform: rotate(90deg) rotate(180deg);
+    }
+}
+
+/* ========================================
+   Touch Optimizations
+   ======================================== */
+
+@media (pointer: coarse) {
+    .aural-context-menu__item {
+        min-height: 44px;
+        padding: var(--space-3) var(--space-4);
+    }
+}
+
 /* Data Display */
 
 /**
@@ -8388,6 +8784,968 @@ body.aural-drawer-open {
         margin-right: 0;
         margin-left: var(--space-4);
         text-align: left;
+    }
+}
+
+/**
+ * AURAL UI - Stats Card
+ *
+ * Metric display cards with trends, comparisons, and visual indicators.
+ * Perfect for dashboards and analytics displays.
+ */
+
+/* ========================================
+   Stats Card Container
+   ======================================== */
+
+.aural-stats-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-all-fast);
+}
+
+.aural-stats-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   Stats Card Header
+   ======================================== */
+
+.aural-stats-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+.aural-stats-card__label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-tight);
+}
+
+.aural-stats-card__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-md);
+}
+
+.aural-stats-card__icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Icon color variants */
+
+.aural-stats-card--primary .aural-stats-card__icon {
+    background: var(--primary-alpha-10);
+    color: var(--color-primary);
+}
+
+.aural-stats-card--success .aural-stats-card__icon {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.aural-stats-card--warning .aural-stats-card__icon {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+.aural-stats-card--error .aural-stats-card__icon {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.aural-stats-card--info .aural-stats-card__icon {
+    background: var(--color-info-bg);
+    color: var(--color-info);
+}
+
+/* ========================================
+   Stats Value
+   ======================================== */
+
+.aural-stats-card__value {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.aural-stats-card__value--large {
+    font-size: var(--text-4xl);
+}
+
+.aural-stats-card__value--small {
+    font-size: var(--text-2xl);
+}
+
+/* ========================================
+   Trend Indicator
+   ======================================== */
+
+.aural-stats-card__trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    line-height: 1;
+}
+
+.aural-stats-card__trend-icon {
+    width: 12px;
+    height: 12px;
+}
+
+/* Trend variants */
+
+.aural-stats-card__trend--up {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.aural-stats-card__trend--down {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.aural-stats-card__trend--neutral {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Stats Footer
+   ======================================== */
+
+.aural-stats-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+}
+
+.aural-stats-card__description {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    line-height: var(--leading-relaxed);
+}
+
+.aural-stats-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: var(--transition-all-fast);
+}
+
+.aural-stats-card__link:hover {
+    color: var(--color-primary-hover);
+    gap: 6px;
+}
+
+.aural-stats-card__link svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* ========================================
+   Progress Bar Variant
+   ======================================== */
+
+.aural-stats-card__progress {
+    width: 100%;
+    height: 6px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-top: var(--space-2);
+}
+
+.aural-stats-card__progress-bar {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+    transition: width 0.5s ease;
+}
+
+.aural-stats-card--success .aural-stats-card__progress-bar {
+    background: var(--color-success);
+}
+
+.aural-stats-card--warning .aural-stats-card__progress-bar {
+    background: var(--color-warning);
+}
+
+.aural-stats-card--error .aural-stats-card__progress-bar {
+    background: var(--color-error);
+}
+
+/* ========================================
+   Comparison Variant
+   ======================================== */
+
+.aural-stats-card__comparison {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+.aural-stats-card__comparison-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+}
+
+.aural-stats-card__comparison-value {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Sparkline Variant
+   ======================================== */
+
+.aural-stats-card__sparkline {
+    width: 100%;
+    height: 40px;
+    margin-top: var(--space-2);
+}
+
+.aural-stats-card__sparkline svg {
+    width: 100%;
+    height: 100%;
+}
+
+.aural-stats-card__sparkline-path {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.aural-stats-card__sparkline-area {
+    fill: var(--primary-alpha-10);
+}
+
+.aural-stats-card--success .aural-stats-card__sparkline-path {
+    stroke: var(--color-success);
+}
+
+.aural-stats-card--success .aural-stats-card__sparkline-area {
+    fill: var(--color-success-bg);
+}
+
+.aural-stats-card--error .aural-stats-card__sparkline-path {
+    stroke: var(--color-error);
+}
+
+.aural-stats-card--error .aural-stats-card__sparkline-area {
+    fill: var(--color-error-bg);
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-stats-card--sm {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-2);
+}
+
+.aural-stats-card--sm .aural-stats-card__value {
+    font-size: var(--text-2xl);
+}
+
+.aural-stats-card--sm .aural-stats-card__icon {
+    width: 32px;
+    height: 32px;
+}
+
+.aural-stats-card--sm .aural-stats-card__icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.aural-stats-card--lg {
+    padding: var(--space-6) var(--space-8);
+    gap: var(--space-4);
+}
+
+.aural-stats-card--lg .aural-stats-card__value {
+    font-size: var(--text-5xl);
+}
+
+.aural-stats-card--lg .aural-stats-card__icon {
+    width: 56px;
+    height: 56px;
+}
+
+.aural-stats-card--lg .aural-stats-card__icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* ========================================
+   Horizontal Layout
+   ======================================== */
+
+.aural-stats-card--horizontal {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.aural-stats-card--horizontal .aural-stats-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.aural-stats-card--horizontal .aural-stats-card__footer {
+    border-top: none;
+    padding-top: 0;
+    border-left: 1px solid var(--color-border-subtle);
+    padding-left: var(--space-4);
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* ========================================
+   Clickable Variant
+   ======================================== */
+
+.aural-stats-card--clickable {
+    cursor: pointer;
+}
+
+.aural-stats-card--clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.aural-stats-card--clickable:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   Loading State
+   ======================================== */
+
+.aural-stats-card--loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.aural-stats-card--loading .aural-stats-card__value,
+.aural-stats-card--loading .aural-stats-card__label {
+    background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-hover) 50%, var(--color-bg-tertiary) 75%);
+    background-size: 200% 100%;
+    animation: aural-stats-card-loading 1.5s ease-in-out infinite;
+    color: transparent;
+    border-radius: var(--radius-sm);
+}
+
+@keyframes aural-stats-card-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+.aural-stats-card--clickable:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-stats-card,
+    .aural-stats-card__progress-bar,
+    .aural-stats-card--clickable {
+        transition: none;
+    }
+
+    .aural-stats-card--loading .aural-stats-card__value,
+    .aural-stats-card--loading .aural-stats-card__label {
+        animation: none;
+    }
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 640px) {
+    .aural-stats-card--horizontal {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .aural-stats-card--horizontal .aural-stats-card__footer {
+        border-left: none;
+        border-top: 1px solid var(--color-border-subtle);
+        padding-left: 0;
+        padding-top: var(--space-3);
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+/**
+ * AURAL UI - Carousel
+ *
+ * Image/content slider with navigation dots, arrows, and auto-play.
+ * Supports touch gestures and keyboard navigation.
+ */
+
+/* ========================================
+   Carousel Container
+   ======================================== */
+
+.aural-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+/* ========================================
+   Carousel Track
+   ======================================== */
+
+.aural-carousel__track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.aural-carousel__track--no-transition {
+    transition: none;
+}
+
+/* ========================================
+   Carousel Slide
+   ======================================== */
+
+.aural-carousel__slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-secondary);
+}
+
+.aural-carousel__slide img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+
+.aural-carousel__slide-content {
+    padding: var(--space-6);
+    text-align: center;
+}
+
+/* ========================================
+   Navigation Arrows
+   ======================================== */
+
+.aural-carousel__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: var(--space-3);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+    opacity: 0;
+}
+
+.aural-carousel:hover .aural-carousel__arrow {
+    opacity: 1;
+}
+
+.aural-carousel__arrow:hover {
+    background: rgba(0, 0, 0, 0.7);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.aural-carousel__arrow:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+    opacity: 1;
+}
+
+.aural-carousel__arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.aural-carousel__arrow:disabled:hover {
+    transform: translateY(-50%);
+}
+
+.aural-carousel__arrow--prev {
+    left: var(--space-4);
+}
+
+.aural-carousel__arrow--next {
+    right: var(--space-4);
+}
+
+.aural-carousel__arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ========================================
+   Pagination Dots
+   ======================================== */
+
+.aural-carousel__pagination {
+    position: absolute;
+    bottom: var(--space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-full);
+}
+
+.aural-carousel__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-carousel__dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.aural-carousel__dot--active {
+    background: white;
+    width: 24px;
+    border-radius: var(--radius-full);
+}
+
+.aural-carousel__dot:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Slide Counter
+   ======================================== */
+
+.aural-carousel__counter {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    z-index: 10;
+    padding: var(--space-2) var(--space-3);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: white;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+}
+
+/* ========================================
+   Thumbnails Variant
+   ======================================== */
+
+.aural-carousel__thumbnails {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+}
+
+.aural-carousel__thumbnails::-webkit-scrollbar {
+    height: 4px;
+}
+
+.aural-carousel__thumbnails::-webkit-scrollbar-track {
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.aural-carousel__thumbnails::-webkit-scrollbar-thumb {
+    background: var(--color-border-medium);
+    border-radius: var(--radius-sm);
+}
+
+.aural-carousel__thumbnail {
+    min-width: 80px;
+    height: 60px;
+    padding: 0;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-carousel__thumbnail:hover {
+    border-color: var(--color-primary);
+}
+
+.aural-carousel__thumbnail--active {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--primary-alpha-20);
+}
+
+.aural-carousel__thumbnail img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+
+/* ========================================
+   Caption
+   ======================================== */
+
+.aural-carousel__caption {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
+    z-index: 10;
+    padding: var(--space-4);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    color: white;
+    border-radius: var(--radius-md);
+}
+
+.aural-carousel__caption-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-1);
+    line-height: var(--leading-tight);
+}
+
+.aural-carousel__caption-description {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    opacity: 0.9;
+}
+
+/* ========================================
+   Fade Variant
+   ======================================== */
+
+.aural-carousel--fade .aural-carousel__track {
+    position: relative;
+}
+
+.aural-carousel--fade .aural-carousel__slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.aural-carousel--fade .aural-carousel__slide--active {
+    position: relative;
+    opacity: 1;
+}
+
+/* ========================================
+   Auto Height
+   ======================================== */
+
+.aural-carousel--auto-height {
+    height: auto;
+}
+
+.aural-carousel--auto-height .aural-carousel__track {
+    height: auto;
+}
+
+.aural-carousel--auto-height .aural-carousel__slide {
+    height: auto;
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-carousel--sm {
+    max-height: 300px;
+}
+
+.aural-carousel--sm .aural-carousel__slide {
+    max-height: 300px;
+}
+
+.aural-carousel--md {
+    max-height: 500px;
+}
+
+.aural-carousel--md .aural-carousel__slide {
+    max-height: 500px;
+}
+
+.aural-carousel--lg {
+    max-height: 700px;
+}
+
+.aural-carousel--lg .aural-carousel__slide {
+    max-height: 700px;
+}
+
+.aural-carousel--full {
+    height: 100vh;
+}
+
+.aural-carousel--full .aural-carousel__slide {
+    height: 100vh;
+}
+
+/* ========================================
+   Aspect Ratios
+   ======================================== */
+
+.aural-carousel--16x9 {
+    aspect-ratio: 16 / 9;
+}
+
+.aural-carousel--4x3 {
+    aspect-ratio: 4 / 3;
+}
+
+.aural-carousel--1x1 {
+    aspect-ratio: 1 / 1;
+}
+
+.aural-carousel--21x9 {
+    aspect-ratio: 21 / 9;
+}
+
+/* ========================================
+   Multiple Slides Per View
+   ======================================== */
+
+.aural-carousel--2-per-view .aural-carousel__slide {
+    min-width: 50%;
+}
+
+.aural-carousel--3-per-view .aural-carousel__slide {
+    min-width: 33.333%;
+}
+
+.aural-carousel--4-per-view .aural-carousel__slide {
+    min-width: 25%;
+}
+
+/* ========================================
+   Centered Slides
+   ======================================== */
+
+.aural-carousel--centered .aural-carousel__slide {
+    padding: 0 var(--space-6);
+}
+
+/* ========================================
+   Loop Effect
+   ======================================== */
+
+.aural-carousel--loop .aural-carousel__track {
+    transition: transform 0.5s ease;
+}
+
+/* ========================================
+   Autoplay Indicator
+   ======================================== */
+
+.aural-carousel__autoplay-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 11;
+}
+
+.aural-carousel__autoplay-bar {
+    height: 100%;
+    background: var(--color-primary);
+    width: 0;
+    transition: width linear;
+}
+
+/* ========================================
+   Pause/Play Button
+   ======================================== */
+
+.aural-carousel__play-button {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: var(--space-2);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-carousel__play-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.aural-carousel__play-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-carousel__track,
+    .aural-carousel__slide,
+    .aural-carousel__arrow,
+    .aural-carousel__dot {
+        transition: none;
+    }
+}
+
+/* Screen reader announcements */
+
+.aural-carousel__sr-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+    .aural-carousel--3-per-view .aural-carousel__slide,
+    .aural-carousel--4-per-view .aural-carousel__slide {
+        min-width: 50%;
+    }
+
+    .aural-carousel__arrow {
+        opacity: 1;
+    }
+
+    .aural-carousel__caption {
+        padding: var(--space-3);
+    }
+
+    .aural-carousel__caption-title {
+        font-size: var(--text-base);
+    }
+
+    .aural-carousel__caption-description {
+        font-size: var(--text-xs);
+    }
+}
+
+@media (max-width: 640px) {
+    .aural-carousel--2-per-view .aural-carousel__slide,
+    .aural-carousel--3-per-view .aural-carousel__slide,
+    .aural-carousel--4-per-view .aural-carousel__slide {
+        min-width: 100%;
+    }
+
+    .aural-carousel__arrow {
+        min-width: 36px;
+        min-height: 36px;
+        padding: var(--space-2);
+    }
+
+    .aural-carousel__arrow svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .aural-carousel__arrow--prev {
+        left: var(--space-2);
+    }
+
+    .aural-carousel__arrow--next {
+        right: var(--space-2);
     }
 }
 

@@ -1,0 +1,522 @@
+/**
+ * AURAL UI - Carousel
+ *
+ * Image/content slider with navigation dots, arrows, and auto-play.
+ * Supports touch gestures and keyboard navigation.
+ */
+
+/* ========================================
+   Carousel Container
+   ======================================== */
+
+.aural-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+/* ========================================
+   Carousel Track
+   ======================================== */
+
+.aural-carousel__track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.aural-carousel__track--no-transition {
+    transition: none;
+}
+
+/* ========================================
+   Carousel Slide
+   ======================================== */
+
+.aural-carousel__slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-secondary);
+}
+
+.aural-carousel__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.aural-carousel__slide-content {
+    padding: var(--space-6);
+    text-align: center;
+}
+
+/* ========================================
+   Navigation Arrows
+   ======================================== */
+
+.aural-carousel__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: var(--space-3);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+    opacity: 0;
+}
+
+.aural-carousel:hover .aural-carousel__arrow {
+    opacity: 1;
+}
+
+.aural-carousel__arrow:hover {
+    background: rgba(0, 0, 0, 0.7);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.aural-carousel__arrow:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+    opacity: 1;
+}
+
+.aural-carousel__arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.aural-carousel__arrow:disabled:hover {
+    transform: translateY(-50%);
+}
+
+.aural-carousel__arrow--prev {
+    left: var(--space-4);
+}
+
+.aural-carousel__arrow--next {
+    right: var(--space-4);
+}
+
+.aural-carousel__arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ========================================
+   Pagination Dots
+   ======================================== */
+
+.aural-carousel__pagination {
+    position: absolute;
+    bottom: var(--space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-full);
+}
+
+.aural-carousel__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-carousel__dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.aural-carousel__dot--active {
+    background: white;
+    width: 24px;
+    border-radius: var(--radius-full);
+}
+
+.aural-carousel__dot:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Slide Counter
+   ======================================== */
+
+.aural-carousel__counter {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    z-index: 10;
+    padding: var(--space-2) var(--space-3);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: white;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+}
+
+/* ========================================
+   Thumbnails Variant
+   ======================================== */
+
+.aural-carousel__thumbnails {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+}
+
+.aural-carousel__thumbnails::-webkit-scrollbar {
+    height: 4px;
+}
+
+.aural-carousel__thumbnails::-webkit-scrollbar-track {
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.aural-carousel__thumbnails::-webkit-scrollbar-thumb {
+    background: var(--color-border-medium);
+    border-radius: var(--radius-sm);
+}
+
+.aural-carousel__thumbnail {
+    min-width: 80px;
+    height: 60px;
+    padding: 0;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-carousel__thumbnail:hover {
+    border-color: var(--color-primary);
+}
+
+.aural-carousel__thumbnail--active {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--primary-alpha-20);
+}
+
+.aural-carousel__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========================================
+   Caption
+   ======================================== */
+
+.aural-carousel__caption {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
+    z-index: 10;
+    padding: var(--space-4);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    color: white;
+    border-radius: var(--radius-md);
+}
+
+.aural-carousel__caption-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-1);
+    line-height: var(--leading-tight);
+}
+
+.aural-carousel__caption-description {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    opacity: 0.9;
+}
+
+/* ========================================
+   Fade Variant
+   ======================================== */
+
+.aural-carousel--fade .aural-carousel__track {
+    position: relative;
+}
+
+.aural-carousel--fade .aural-carousel__slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.aural-carousel--fade .aural-carousel__slide--active {
+    position: relative;
+    opacity: 1;
+}
+
+/* ========================================
+   Auto Height
+   ======================================== */
+
+.aural-carousel--auto-height {
+    height: auto;
+}
+
+.aural-carousel--auto-height .aural-carousel__track {
+    height: auto;
+}
+
+.aural-carousel--auto-height .aural-carousel__slide {
+    height: auto;
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-carousel--sm {
+    max-height: 300px;
+}
+
+.aural-carousel--sm .aural-carousel__slide {
+    max-height: 300px;
+}
+
+.aural-carousel--md {
+    max-height: 500px;
+}
+
+.aural-carousel--md .aural-carousel__slide {
+    max-height: 500px;
+}
+
+.aural-carousel--lg {
+    max-height: 700px;
+}
+
+.aural-carousel--lg .aural-carousel__slide {
+    max-height: 700px;
+}
+
+.aural-carousel--full {
+    height: 100vh;
+}
+
+.aural-carousel--full .aural-carousel__slide {
+    height: 100vh;
+}
+
+/* ========================================
+   Aspect Ratios
+   ======================================== */
+
+.aural-carousel--16x9 {
+    aspect-ratio: 16 / 9;
+}
+
+.aural-carousel--4x3 {
+    aspect-ratio: 4 / 3;
+}
+
+.aural-carousel--1x1 {
+    aspect-ratio: 1 / 1;
+}
+
+.aural-carousel--21x9 {
+    aspect-ratio: 21 / 9;
+}
+
+/* ========================================
+   Multiple Slides Per View
+   ======================================== */
+
+.aural-carousel--2-per-view .aural-carousel__slide {
+    min-width: 50%;
+}
+
+.aural-carousel--3-per-view .aural-carousel__slide {
+    min-width: 33.333%;
+}
+
+.aural-carousel--4-per-view .aural-carousel__slide {
+    min-width: 25%;
+}
+
+/* ========================================
+   Centered Slides
+   ======================================== */
+
+.aural-carousel--centered .aural-carousel__slide {
+    padding: 0 var(--space-6);
+}
+
+/* ========================================
+   Loop Effect
+   ======================================== */
+
+.aural-carousel--loop .aural-carousel__track {
+    transition: transform 0.5s ease;
+}
+
+/* ========================================
+   Autoplay Indicator
+   ======================================== */
+
+.aural-carousel__autoplay-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 11;
+}
+
+.aural-carousel__autoplay-bar {
+    height: 100%;
+    background: var(--color-primary);
+    width: 0;
+    transition: width linear;
+}
+
+/* ========================================
+   Pause/Play Button
+   ======================================== */
+
+.aural-carousel__play-button {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: var(--space-2);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+}
+
+.aural-carousel__play-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.aural-carousel__play-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-carousel__track,
+    .aural-carousel__slide,
+    .aural-carousel__arrow,
+    .aural-carousel__dot {
+        transition: none;
+    }
+}
+
+/* Screen reader announcements */
+.aural-carousel__sr-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+    .aural-carousel--3-per-view .aural-carousel__slide,
+    .aural-carousel--4-per-view .aural-carousel__slide {
+        min-width: 50%;
+    }
+
+    .aural-carousel__arrow {
+        opacity: 1;
+    }
+
+    .aural-carousel__caption {
+        padding: var(--space-3);
+    }
+
+    .aural-carousel__caption-title {
+        font-size: var(--text-base);
+    }
+
+    .aural-carousel__caption-description {
+        font-size: var(--text-xs);
+    }
+}
+
+@media (max-width: 640px) {
+    .aural-carousel--2-per-view .aural-carousel__slide,
+    .aural-carousel--3-per-view .aural-carousel__slide,
+    .aural-carousel--4-per-view .aural-carousel__slide {
+        min-width: 100%;
+    }
+
+    .aural-carousel__arrow {
+        min-width: 36px;
+        min-height: 36px;
+        padding: var(--space-2);
+    }
+
+    .aural-carousel__arrow svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .aural-carousel__arrow--prev {
+        left: var(--space-2);
+    }
+
+    .aural-carousel__arrow--next {
+        right: var(--space-2);
+    }
+}

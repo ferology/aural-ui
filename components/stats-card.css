@@ -1,0 +1,433 @@
+/**
+ * AURAL UI - Stats Card
+ *
+ * Metric display cards with trends, comparisons, and visual indicators.
+ * Perfect for dashboards and analytics displays.
+ */
+
+/* ========================================
+   Stats Card Container
+   ======================================== */
+
+.aural-stats-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-all-fast);
+}
+
+.aural-stats-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   Stats Card Header
+   ======================================== */
+
+.aural-stats-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+.aural-stats-card__label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-tight);
+}
+
+.aural-stats-card__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-md);
+}
+
+.aural-stats-card__icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Icon color variants */
+.aural-stats-card--primary .aural-stats-card__icon {
+    background: var(--primary-alpha-10);
+    color: var(--color-primary);
+}
+
+.aural-stats-card--success .aural-stats-card__icon {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.aural-stats-card--warning .aural-stats-card__icon {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+.aural-stats-card--error .aural-stats-card__icon {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.aural-stats-card--info .aural-stats-card__icon {
+    background: var(--color-info-bg);
+    color: var(--color-info);
+}
+
+/* ========================================
+   Stats Value
+   ======================================== */
+
+.aural-stats-card__value {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.aural-stats-card__value--large {
+    font-size: var(--text-4xl);
+}
+
+.aural-stats-card__value--small {
+    font-size: var(--text-2xl);
+}
+
+/* ========================================
+   Trend Indicator
+   ======================================== */
+
+.aural-stats-card__trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    line-height: 1;
+}
+
+.aural-stats-card__trend-icon {
+    width: 12px;
+    height: 12px;
+}
+
+/* Trend variants */
+.aural-stats-card__trend--up {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.aural-stats-card__trend--down {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.aural-stats-card__trend--neutral {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Stats Footer
+   ======================================== */
+
+.aural-stats-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+}
+
+.aural-stats-card__description {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    line-height: var(--leading-relaxed);
+}
+
+.aural-stats-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: var(--transition-all-fast);
+}
+
+.aural-stats-card__link:hover {
+    color: var(--color-primary-hover);
+    gap: 6px;
+}
+
+.aural-stats-card__link svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* ========================================
+   Progress Bar Variant
+   ======================================== */
+
+.aural-stats-card__progress {
+    width: 100%;
+    height: 6px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-top: var(--space-2);
+}
+
+.aural-stats-card__progress-bar {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+    transition: width 0.5s ease;
+}
+
+.aural-stats-card--success .aural-stats-card__progress-bar {
+    background: var(--color-success);
+}
+
+.aural-stats-card--warning .aural-stats-card__progress-bar {
+    background: var(--color-warning);
+}
+
+.aural-stats-card--error .aural-stats-card__progress-bar {
+    background: var(--color-error);
+}
+
+/* ========================================
+   Comparison Variant
+   ======================================== */
+
+.aural-stats-card__comparison {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+.aural-stats-card__comparison-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+}
+
+.aural-stats-card__comparison-value {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-secondary);
+}
+
+/* ========================================
+   Sparkline Variant
+   ======================================== */
+
+.aural-stats-card__sparkline {
+    width: 100%;
+    height: 40px;
+    margin-top: var(--space-2);
+}
+
+.aural-stats-card__sparkline svg {
+    width: 100%;
+    height: 100%;
+}
+
+.aural-stats-card__sparkline-path {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.aural-stats-card__sparkline-area {
+    fill: var(--primary-alpha-10);
+}
+
+.aural-stats-card--success .aural-stats-card__sparkline-path {
+    stroke: var(--color-success);
+}
+
+.aural-stats-card--success .aural-stats-card__sparkline-area {
+    fill: var(--color-success-bg);
+}
+
+.aural-stats-card--error .aural-stats-card__sparkline-path {
+    stroke: var(--color-error);
+}
+
+.aural-stats-card--error .aural-stats-card__sparkline-area {
+    fill: var(--color-error-bg);
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+.aural-stats-card--sm {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-2);
+}
+
+.aural-stats-card--sm .aural-stats-card__value {
+    font-size: var(--text-2xl);
+}
+
+.aural-stats-card--sm .aural-stats-card__icon {
+    width: 32px;
+    height: 32px;
+}
+
+.aural-stats-card--sm .aural-stats-card__icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.aural-stats-card--lg {
+    padding: var(--space-6) var(--space-8);
+    gap: var(--space-4);
+}
+
+.aural-stats-card--lg .aural-stats-card__value {
+    font-size: var(--text-5xl);
+}
+
+.aural-stats-card--lg .aural-stats-card__icon {
+    width: 56px;
+    height: 56px;
+}
+
+.aural-stats-card--lg .aural-stats-card__icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* ========================================
+   Horizontal Layout
+   ======================================== */
+
+.aural-stats-card--horizontal {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.aural-stats-card--horizontal .aural-stats-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.aural-stats-card--horizontal .aural-stats-card__footer {
+    border-top: none;
+    padding-top: 0;
+    border-left: 1px solid var(--color-border-subtle);
+    padding-left: var(--space-4);
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* ========================================
+   Clickable Variant
+   ======================================== */
+
+.aural-stats-card--clickable {
+    cursor: pointer;
+}
+
+.aural-stats-card--clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.aural-stats-card--clickable:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   Loading State
+   ======================================== */
+
+.aural-stats-card--loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.aural-stats-card--loading .aural-stats-card__value,
+.aural-stats-card--loading .aural-stats-card__label {
+    background: linear-gradient(90deg, var(--color-bg-tertiary) 25%, var(--color-bg-hover) 50%, var(--color-bg-tertiary) 75%);
+    background-size: 200% 100%;
+    animation: aural-stats-card-loading 1.5s ease-in-out infinite;
+    color: transparent;
+    border-radius: var(--radius-sm);
+}
+
+@keyframes aural-stats-card-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+.aural-stats-card--clickable:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-stats-card,
+    .aural-stats-card__progress-bar,
+    .aural-stats-card--clickable {
+        transition: none;
+    }
+
+    .aural-stats-card--loading .aural-stats-card__value,
+    .aural-stats-card--loading .aural-stats-card__label {
+        animation: none;
+    }
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 640px) {
+    .aural-stats-card--horizontal {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .aural-stats-card--horizontal .aural-stats-card__footer {
+        border-left: none;
+        border-top: 1px solid var(--color-border-subtle);
+        padding-left: 0;
+        padding-top: var(--space-3);
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
