@@ -21,6 +21,7 @@
 .aural-multi-select__trigger {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: var(--space-2);
     min-height: 44px;
@@ -55,7 +56,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .aural-multi-select__tag {
@@ -100,8 +102,9 @@
 .aural-multi-select__placeholder {
     color: var(--color-text-muted);
     font-size: var(--text-sm);
-    flex: 1;
+    flex: 1 1 auto;
     text-align: left;
+    min-width: 0;
 }
 
 .aural-multi-select__tags:not(:empty) + .aural-multi-select__placeholder {
