@@ -18,14 +18,14 @@ This document outlines potential additions and improvements for Aural UI.
 - [ ] **Multi-Select Dropdown** - Select multiple options with chips
 - [ ] **Combobox** - Combined input and dropdown with search
 - [ ] **Color Picker** - Visual color selection tool
-- [ ] **Rating** - Star rating or custom icon rating
+- [x] **Rating** - Star rating or custom icon rating ✅
 - [ ] **Range Slider** - Dual-handle slider for min/max selection
 - [ ] **Switch** - Visual toggle switch (alternative to current toggle)
 - [x] **Search Bar** - Search input with autocomplete suggestions ✅
 
 **Navigation**
 - [x] **Stepper** - Step indicator for multi-step processes ✅
-- [ ] **Drawer** - Sliding side panel
+- [x] **Drawer** - Sliding side panel ✅
 - [ ] **Navigation Bar** - Horizontal top navigation
 - [ ] **Mega Menu** - Large dropdown menu with categories
 - [ ] **Context Menu** - Right-click menu
@@ -33,12 +33,12 @@ This document outlines potential additions and improvements for Aural UI.
 
 **Feedback & Alerts**
 - [x] **Alert Banner** - Prominent page-level notifications ✅
-- [ ] **Notification Center** - Bell icon with notification list
+- [x] **Notification Center** - Bell icon with notification list ✅
 - [x] **Loading Spinner** - Circular loading indicators ✅
 - [ ] **Snackbar** - Brief messages at screen edge (alternative to toast)
 
 **Data Display**
-- [ ] **Timeline** - Vertical/horizontal event timeline
+- [x] **Timeline** - Vertical/horizontal event timeline ✅
 - [ ] **Tree View** - Hierarchical tree structure
 - [ ] **Data Grid** - Advanced table with sorting, filtering, pagination
 - [ ] **Stats Cards** - Metric display cards with trends
@@ -347,11 +347,11 @@ This document outlines potential additions and improvements for Aural UI.
 
 **🟡 Medium Priority** (Next 3-6 months)
 1. Calendar
-2. Rating component
-3. Drawer
-4. Timeline
+2. ~~Rating component~~ ✅
+3. ~~Drawer~~ ✅
+4. ~~Timeline~~ ✅
 5. Stats cards
-6. Notification center
+6. ~~Notification center~~ ✅
 7. Settings page template
 8. Animation utilities
 9. React/Vue wrappers
