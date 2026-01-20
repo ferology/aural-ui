@@ -1,0 +1,357 @@
+/**
+ * AURAL UI - Rating
+ *
+ * Star rating component with interactive and read-only modes.
+ * Supports half-star ratings and custom icons.
+ */
+
+/* ========================================
+   Rating Container
+   ======================================== */
+
+.aural-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+/* ========================================
+   Rating Stars
+   ======================================== */
+
+.aural-rating__stars {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.aural-rating__star {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: var(--space-2);
+    background: transparent;
+    color: var(--color-border-medium);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+    position: relative;
+}
+
+.aural-rating__star:hover {
+    color: var(--color-warning);
+    transform: scale(1.1);
+}
+
+.aural-rating__star:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+.aural-rating__star-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/* Star States */
+.aural-rating__star--filled {
+    color: var(--color-warning);
+}
+
+.aural-rating__star--half {
+    color: var(--color-warning);
+}
+
+.aural-rating__star--empty {
+    color: var(--color-border-medium);
+}
+
+/* Half Star Implementation */
+.aural-rating__star--half .aural-rating__star-icon {
+    position: relative;
+}
+
+.aural-rating__star--half .aural-rating__star-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--color-warning);
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+/* ========================================
+   Rating Value Display
+   ======================================== */
+
+.aural-rating__value {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin-left: var(--space-2);
+}
+
+.aural-rating__count {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin-left: var(--space-1);
+}
+
+/* ========================================
+   Read-Only Mode
+   ======================================== */
+
+.aural-rating--readonly .aural-rating__star {
+    cursor: default;
+    pointer-events: none;
+}
+
+.aural-rating--readonly .aural-rating__star:hover {
+    transform: none;
+}
+
+/* ========================================
+   Disabled State
+   ======================================== */
+
+.aural-rating--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.aural-rating--disabled .aural-rating__star {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+/* Extra Small */
+.aural-rating--xs .aural-rating__star {
+    min-width: 24px;
+    min-height: 24px;
+    padding: var(--space-1);
+}
+
+.aural-rating--xs .aural-rating__star-icon {
+    width: 12px;
+    height: 12px;
+}
+
+.aural-rating--xs .aural-rating__value,
+.aural-rating--xs .aural-rating__count {
+    font-size: var(--text-xs);
+}
+
+/* Small */
+.aural-rating--sm .aural-rating__star {
+    min-width: 32px;
+    min-height: 32px;
+    padding: var(--space-1);
+}
+
+.aural-rating--sm .aural-rating__star-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.aural-rating--sm .aural-rating__value,
+.aural-rating--sm .aural-rating__count {
+    font-size: var(--text-xs);
+}
+
+/* Medium (default is already 24px) */
+
+/* Large */
+.aural-rating--lg .aural-rating__star {
+    min-width: 56px;
+    min-height: 56px;
+    padding: var(--space-3);
+}
+
+.aural-rating--lg .aural-rating__star-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.aural-rating--lg .aural-rating__value,
+.aural-rating--lg .aural-rating__count {
+    font-size: var(--text-base);
+}
+
+/* Extra Large */
+.aural-rating--xl .aural-rating__star {
+    min-width: 64px;
+    min-height: 64px;
+    padding: var(--space-4);
+}
+
+.aural-rating--xl .aural-rating__star-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.aural-rating--xl .aural-rating__value,
+.aural-rating--xl .aural-rating__count {
+    font-size: var(--text-lg);
+}
+
+/* ========================================
+   Color Variants
+   ======================================== */
+
+.aural-rating--primary .aural-rating__star--filled,
+.aural-rating--primary .aural-rating__star--half,
+.aural-rating--primary .aural-rating__star:hover {
+    color: var(--color-primary);
+}
+
+.aural-rating--success .aural-rating__star--filled,
+.aural-rating--success .aural-rating__star--half,
+.aural-rating--success .aural-rating__star:hover {
+    color: var(--color-success);
+}
+
+.aural-rating--error .aural-rating__star--filled,
+.aural-rating--error .aural-rating__star--half,
+.aural-rating--error .aural-rating__star:hover {
+    color: var(--color-error);
+}
+
+.aural-rating--info .aural-rating__star--filled,
+.aural-rating--info .aural-rating__star--half,
+.aural-rating--info .aural-rating__star:hover {
+    color: var(--color-info);
+}
+
+/* ========================================
+   Heart Icon Variant
+   ======================================== */
+
+.aural-rating--heart .aural-rating__star--filled,
+.aural-rating--heart .aural-rating__star:hover {
+    color: var(--color-error);
+}
+
+/* ========================================
+   With Labels
+   ======================================== */
+
+.aural-rating__label {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin-left: var(--space-2);
+    font-weight: var(--font-medium);
+}
+
+.aural-rating:hover .aural-rating__label {
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   Compact Variant
+   ======================================== */
+
+.aural-rating--compact {
+    gap: 0;
+}
+
+.aural-rating--compact .aural-rating__stars {
+    gap: 0;
+}
+
+.aural-rating--compact .aural-rating__star {
+    min-width: 32px;
+    min-height: 32px;
+    padding: var(--space-1);
+}
+
+.aural-rating--compact .aural-rating__star-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========================================
+   Hover Effects
+   ======================================== */
+
+.aural-rating:not(.aural-rating--readonly):not(.aural-rating--disabled) .aural-rating__star:hover ~ .aural-rating__star {
+    color: var(--color-border-medium);
+}
+
+/* Glow Effect on Hover */
+.aural-rating--glow .aural-rating__star:hover,
+.aural-rating--glow .aural-rating__star--filled {
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* ========================================
+   Fractional Display (CSS-based half stars)
+   ======================================== */
+
+.aural-rating__star--fractional {
+    position: relative;
+    overflow: hidden;
+}
+
+.aural-rating__star--fractional::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--color-warning);
+    z-index: 1;
+}
+
+.aural-rating__star--fractional[data-fill="0.1"]::after { width: 10%; }
+.aural-rating__star--fractional[data-fill="0.2"]::after { width: 20%; }
+.aural-rating__star--fractional[data-fill="0.3"]::after { width: 30%; }
+.aural-rating__star--fractional[data-fill="0.4"]::after { width: 40%; }
+.aural-rating__star--fractional[data-fill="0.5"]::after { width: 50%; }
+.aural-rating__star--fractional[data-fill="0.6"]::after { width: 60%; }
+.aural-rating__star--fractional[data-fill="0.7"]::after { width: 70%; }
+.aural-rating__star--fractional[data-fill="0.8"]::after { width: 80%; }
+.aural-rating__star--fractional[data-fill="0.9"]::after { width: 90%; }
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .aural-rating__star {
+        transition: none;
+    }
+
+    .aural-rating__star:hover {
+        transform: none;
+    }
+
+    .aural-rating--glow .aural-rating__star:hover,
+    .aural-rating--glow .aural-rating__star--filled {
+        filter: none;
+    }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+    .aural-rating__star {
+        color: #000;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .aural-rating__star--filled {
+        color: #FFB800;
+    }
+}

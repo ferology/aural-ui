@@ -380,6 +380,10 @@
                 <li><a href="#spinner" class="nav-link">Loading Spinner</a></li>
                 <li><a href="#alert-banner" class="nav-link">Alert Banner</a></li>
                 <li><a href="#search-bar" class="nav-link">Search Bar</a></li>
+                <li><a href="#drawer" class="nav-link">Drawer</a></li>
+                <li><a href="#rating" class="nav-link">Rating</a></li>
+                <li><a href="#timeline" class="nav-link">Timeline</a></li>
+                <li><a href="#notification-center" class="nav-link">Notification Center</a></li>
             </ul>
         </div>
 
@@ -3054,6 +3058,393 @@ console.log(message);</code></pre>
     ],
     onSearch: (query) => console.log('Search:', query),
     onSelect: (item) => console.log('Selected:', item)
+  });
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Drawer -->
+    <section class="showcase-section" id="drawer">
+        <h2>Drawer</h2>
+        <p class="showcase-subtitle">Sliding side panel for navigation and content</p>
+
+        <div class="example">
+            <div class="example-label">Drawer Positions</div>
+            <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="Aural.openDrawer('demo-drawer-left')">Open Left Drawer</button>
+                <button class="btn btn-secondary" onclick="Aural.openDrawer('demo-drawer-right')">Open Right Drawer</button>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;!-- Backdrop --&gt;
+&lt;div class="aural-drawer-backdrop" id="drawer-backdrop"&gt;&lt;/div&gt;
+
+&lt;!-- Drawer --&gt;
+&lt;div class="aural-drawer aural-drawer--left" id="my-drawer"&gt;
+  &lt;div class="aural-drawer__header"&gt;
+    &lt;h3 class="aural-drawer__title"&gt;Navigation&lt;/h3&gt;
+    &lt;button class="aural-drawer__close"&gt;×&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-drawer__body"&gt;
+    &lt;nav class="aural-drawer__nav"&gt;
+      &lt;a href="#" class="aural-drawer__nav-item aural-drawer__nav-item--active"&gt;
+        Dashboard
+      &lt;/a&gt;
+      &lt;a href="#" class="aural-drawer__nav-item"&gt;Settings&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  Aural.openDrawer('my-drawer');
+  Aural.closeDrawer('my-drawer');
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Drawer HTML (hidden initially) -->
+    <div class="aural-drawer-backdrop" id="drawer-backdrop-left"></div>
+    <div class="aural-drawer aural-drawer--left" id="demo-drawer-left">
+        <div class="aural-drawer__header">
+            <h3 class="aural-drawer__title">Navigation</h3>
+            <button class="aural-drawer__close" onclick="Aural.closeDrawer('demo-drawer-left')">
+                <svg class="aural-drawer__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="aural-drawer__body">
+            <nav class="aural-drawer__nav">
+                <a href="#" class="aural-drawer__nav-item aural-drawer__nav-item--active">Dashboard</a>
+                <a href="#" class="aural-drawer__nav-item">Projects</a>
+                <a href="#" class="aural-drawer__nav-item">Team</a>
+                <a href="#" class="aural-drawer__nav-item">Settings</a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="aural-drawer-backdrop" id="drawer-backdrop-right"></div>
+    <div class="aural-drawer aural-drawer--right" id="demo-drawer-right">
+        <div class="aural-drawer__header">
+            <h3 class="aural-drawer__title">Filters</h3>
+            <button class="aural-drawer__close" onclick="Aural.closeDrawer('demo-drawer-right')">
+                <svg class="aural-drawer__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="aural-drawer__body">
+            <p>Drawer content goes here...</p>
+        </div>
+    </div>
+
+    <!-- Rating -->
+    <section class="showcase-section" id="rating">
+        <h2>Rating</h2>
+        <p class="showcase-subtitle">Star rating component for reviews and feedback</p>
+
+        <div class="example">
+            <div class="example-label">Interactive Rating</div>
+            <div class="aural-rating" id="demo-rating-1">
+                <div class="aural-rating__stars">
+                    <button class="aural-rating__star aural-rating__star--empty" type="button">
+                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </button>
+                    <button class="aural-rating__star aural-rating__star--empty" type="button">
+                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </button>
+                    <button class="aural-rating__star aural-rating__star--empty" type="button">
+                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </button>
+                    <button class="aural-rating__star aural-rating__star--empty" type="button">
+                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </button>
+                    <button class="aural-rating__star aural-rating__star--empty" type="button">
+                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </button>
+                </div>
+                <span class="aural-rating__value">0</span>
+            </div>
+
+            <script>
+                Aural.initRating('demo-rating-1', {
+                    initialRating: 0,
+                    onChange: (rating) => console.log('Rating:', rating)
+                });
+            </script>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Sizes</div>
+            <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                <div class="aural-rating aural-rating--sm aural-rating--readonly">
+                    <div class="aural-rating__stars">
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                        <span class="aural-rating__star aural-rating__star--empty">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <span class="aural-rating__value">4.0</span>
+                    <span class="aural-rating__count">(128)</span>
+                </div>
+
+                <div class="aural-rating aural-rating--lg aural-rating--readonly">
+                    <div class="aural-rating__stars">
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                        <span class="aural-rating__star aural-rating__star--filled">
+                            <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <span class="aural-rating__value">5.0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-rating" id="my-rating"&gt;
+  &lt;div class="aural-rating__stars"&gt;
+    &lt;button class="aural-rating__star"&gt;★&lt;/button&gt;
+    &lt;!-- 5 stars total --&gt;
+  &lt;/div&gt;
+  &lt;span class="aural-rating__value"&gt;0&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  const rating = Aural.initRating('my-rating', {
+    initialRating: 4,
+    onChange: (value) => console.log('Rating:', value)
+  });
+&lt;/script&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="showcase-section" id="timeline">
+        <h2>Timeline</h2>
+        <p class="showcase-subtitle">Chronological display of events and activity</p>
+
+        <div class="example">
+            <div class="example-label">Vertical Timeline</div>
+            <div class="aural-timeline aural-timeline--vertical" style="max-width: 600px;">
+                <div class="aural-timeline__item aural-timeline__item--completed">
+                    <div class="aural-timeline__marker">
+                        <svg class="aural-timeline__marker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <div class="aural-timeline__connector"></div>
+                    <div class="aural-timeline__content">
+                        <div class="aural-timeline__time">2 hours ago</div>
+                        <div class="aural-timeline__title">Project Created</div>
+                        <div class="aural-timeline__description">Successfully created new project "Aural UI"</div>
+                    </div>
+                </div>
+                <div class="aural-timeline__item aural-timeline__item--completed">
+                    <div class="aural-timeline__marker">
+                        <svg class="aural-timeline__marker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <div class="aural-timeline__connector"></div>
+                    <div class="aural-timeline__content">
+                        <div class="aural-timeline__time">1 hour ago</div>
+                        <div class="aural-timeline__title">Components Added</div>
+                        <div class="aural-timeline__description">Added 5 new components to the library</div>
+                    </div>
+                </div>
+                <div class="aural-timeline__item aural-timeline__item--active">
+                    <div class="aural-timeline__marker"></div>
+                    <div class="aural-timeline__connector"></div>
+                    <div class="aural-timeline__content">
+                        <div class="aural-timeline__time">Now</div>
+                        <div class="aural-timeline__title">Building Documentation</div>
+                        <div class="aural-timeline__description">Creating comprehensive docs and examples</div>
+                    </div>
+                </div>
+                <div class="aural-timeline__item">
+                    <div class="aural-timeline__marker"></div>
+                    <div class="aural-timeline__content">
+                        <div class="aural-timeline__time">Upcoming</div>
+                        <div class="aural-timeline__title">Release v1.0</div>
+                        <div class="aural-timeline__description">Publish to npm and announce release</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-timeline aural-timeline--vertical"&gt;
+  &lt;div class="aural-timeline__item aural-timeline__item--completed"&gt;
+    &lt;div class="aural-timeline__marker"&gt;
+      &lt;svg class="aural-timeline__marker-icon"&gt;...&lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-timeline__connector"&gt;&lt;/div&gt;
+    &lt;div class="aural-timeline__content"&gt;
+      &lt;div class="aural-timeline__time"&gt;2 hours ago&lt;/div&gt;
+      &lt;div class="aural-timeline__title"&gt;Event Title&lt;/div&gt;
+      &lt;div class="aural-timeline__description"&gt;Description&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+    </section>
+
+    <!-- Notification Center -->
+    <section class="showcase-section" id="notification-center">
+        <h2>Notification Center</h2>
+        <p class="showcase-subtitle">Bell icon with dropdown notification list</p>
+
+        <div class="example">
+            <div class="example-label">Notification Center</div>
+            <div class="aural-notification-center" id="demo-notification-center">
+                <button class="aural-notification-center__trigger">
+                    <svg class="aural-notification-center__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                    </svg>
+                    <span class="aural-notification-center__badge aural-notification-center__badge--pulse">3</span>
+                </button>
+                <div class="aural-notification-center__dropdown">
+                    <div class="aural-notification-center__header">
+                        <h3 class="aural-notification-center__title">Notifications</h3>
+                        <div class="aural-notification-center__actions">
+                            <button class="aural-notification-center__action" data-action="mark-all-read">Mark all read</button>
+                        </div>
+                    </div>
+                    <div class="aural-notification-center__list">
+                        <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--success">
+                            <div class="aural-notification-center__item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div class="aural-notification-center__item-content">
+                                <div class="aural-notification-center__item-title">Build Successful</div>
+                                <div class="aural-notification-center__item-message">Your project built successfully with no errors</div>
+                                <div class="aural-notification-center__item-time">5 minutes ago</div>
+                            </div>
+                            <div class="aural-notification-center__item-dot"></div>
+                        </button>
+                        <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--info">
+                            <div class="aural-notification-center__item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="16" x2="12" y2="12"/>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                </svg>
+                            </div>
+                            <div class="aural-notification-center__item-content">
+                                <div class="aural-notification-center__item-title">New Update Available</div>
+                                <div class="aural-notification-center__item-message">Version 2.0 is ready to install</div>
+                                <div class="aural-notification-center__item-time">1 hour ago</div>
+                            </div>
+                            <div class="aural-notification-center__item-dot"></div>
+                        </button>
+                        <button class="aural-notification-center__item">
+                            <div class="aural-notification-center__item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="16" x2="12" y2="12"/>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                </svg>
+                            </div>
+                            <div class="aural-notification-center__item-content">
+                                <div class="aural-notification-center__item-title">Welcome to Aural UI</div>
+                                <div class="aural-notification-center__item-message">Get started with our comprehensive component library</div>
+                                <div class="aural-notification-center__item-time">2 days ago</div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="aural-notification-center__footer">
+                        <a href="#" class="aural-notification-center__footer-link">View all notifications</a>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                Aural.initNotificationCenter('demo-notification-center');
+            </script>
+        </div>
+
+        <div class="example">
+            <div class="example-label">Code Example</div>
+            <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="aural-notification-center" id="my-notifications"&gt;
+  &lt;button class="aural-notification-center__trigger"&gt;
+    &lt;svg class="aural-notification-center__icon"&gt;...&lt;/svg&gt;
+    &lt;span class="aural-notification-center__badge"&gt;3&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="aural-notification-center__dropdown"&gt;
+    &lt;!-- Header, List, Footer --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  const notifCenter = Aural.initNotificationCenter('my-notifications');
+  notifCenter.addNotification({
+    id: 1,
+    title: 'New Message',
+    message: 'You have a new message',
+    time: 'Just now',
+    unread: true,
+    type: 'info'
   });
 &lt;/script&gt;</code></pre>
         </div>

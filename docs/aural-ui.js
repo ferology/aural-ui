@@ -1818,6 +1818,331 @@
             overlay.remove();
             document.body.style.overflow = "";
           }
+        },
+        // ========================================
+        // DRAWER
+        // ========================================
+        /**
+         * Open a drawer
+         * @param {string} drawerId - The ID of the drawer element
+         */
+        openDrawer(drawerId) {
+          const drawer = document.getElementById(drawerId);
+          if (!drawer)
+            return;
+          const backdrop = drawer.previousElementSibling;
+          drawer.classList.add("aural-drawer--open");
+          if (backdrop && backdrop.classList.contains("aural-drawer-backdrop")) {
+            backdrop.classList.add("aural-drawer-backdrop--open");
+          }
+          document.body.classList.add("aural-drawer-open");
+          const focusableElements = drawer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          if (focusableElements.length > 0) {
+            focusableElements[0].focus();
+          }
+        },
+        /**
+         * Close a drawer
+         * @param {string} drawerId - The ID of the drawer element
+         */
+        closeDrawer(drawerId) {
+          const drawer = document.getElementById(drawerId);
+          if (!drawer)
+            return;
+          const backdrop = drawer.previousElementSibling;
+          drawer.classList.remove("aural-drawer--open");
+          if (backdrop && backdrop.classList.contains("aural-drawer-backdrop")) {
+            backdrop.classList.remove("aural-drawer-backdrop--open");
+          }
+          document.body.classList.remove("aural-drawer-open");
+        },
+        /**
+         * Toggle drawer open/close
+         * @param {string} drawerId - The ID of the drawer element
+         */
+        toggleDrawer(drawerId) {
+          const drawer = document.getElementById(drawerId);
+          if (!drawer)
+            return;
+          if (drawer.classList.contains("aural-drawer--open")) {
+            this.closeDrawer(drawerId);
+          } else {
+            this.openDrawer(drawerId);
+          }
+        },
+        /**
+         * Initialize all drawers (ESC key and backdrop click)
+         */
+        initDrawers() {
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+              const openDrawers = document.querySelectorAll(".aural-drawer--open");
+              openDrawers.forEach((drawer) => {
+                this.closeDrawer(drawer.id);
+              });
+            }
+          });
+          document.addEventListener("click", (e) => {
+            if (e.target.classList.contains("aural-drawer-backdrop")) {
+              const drawer = e.target.nextElementSibling;
+              if (drawer && drawer.classList.contains("aural-drawer")) {
+                this.closeDrawer(drawer.id);
+              }
+            }
+          });
+          document.querySelectorAll(".aural-drawer__close").forEach((closeBtn) => {
+            closeBtn.addEventListener("click", () => {
+              const drawer = closeBtn.closest(".aural-drawer");
+              if (drawer) {
+                this.closeDrawer(drawer.id);
+              }
+            });
+          });
+        },
+        // ========================================
+        // RATING
+        // ========================================
+        /**
+         * Initialize a rating component
+         * @param {string} ratingId - The ID of the rating element
+         * @param {Object} options - Configuration options
+         */
+        initRating(ratingId, options = {}) {
+          const rating = document.getElementById(ratingId);
+          if (!rating)
+            return;
+          const stars = rating.querySelectorAll(".aural-rating__star");
+          const valueDisplay = rating.querySelector(".aural-rating__value");
+          const config = {
+            maxRating: options.maxRating || 5,
+            initialRating: options.initialRating || 0,
+            readonly: options.readonly || rating.classList.contains("aural-rating--readonly"),
+            allowHalf: options.allowHalf || false,
+            onChange: options.onChange || null,
+            ...options
+          };
+          let currentRating = config.initialRating;
+          this.updateRatingDisplay(rating, currentRating, config.maxRating);
+          if (!config.readonly) {
+            stars.forEach((star, index) => {
+              star.addEventListener("click", () => {
+                currentRating = index + 1;
+                this.updateRatingDisplay(rating, currentRating, config.maxRating);
+                if (valueDisplay) {
+                  valueDisplay.textContent = currentRating;
+                }
+                if (config.onChange) {
+                  config.onChange(currentRating);
+                }
+              });
+              star.addEventListener("mouseenter", () => {
+                this.updateRatingDisplay(rating, index + 1, config.maxRating);
+              });
+            });
+            rating.addEventListener("mouseleave", () => {
+              this.updateRatingDisplay(rating, currentRating, config.maxRating);
+            });
+            stars.forEach((star, index) => {
+              star.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  star.click();
+                } else if (e.key === "ArrowRight" && index < stars.length - 1) {
+                  e.preventDefault();
+                  stars[index + 1].focus();
+                } else if (e.key === "ArrowLeft" && index > 0) {
+                  e.preventDefault();
+                  stars[index - 1].focus();
+                }
+              });
+            });
+          }
+          return {
+            getRating: () => currentRating,
+            setRating: (value) => {
+              currentRating = value;
+              this.updateRatingDisplay(rating, currentRating, config.maxRating);
+              if (valueDisplay) {
+                valueDisplay.textContent = currentRating;
+              }
+            },
+            reset: () => {
+              currentRating = 0;
+              this.updateRatingDisplay(rating, 0, config.maxRating);
+              if (valueDisplay) {
+                valueDisplay.textContent = "0";
+              }
+            }
+          };
+        },
+        /**
+         * Update rating star display
+         */
+        updateRatingDisplay(rating, value, maxRating) {
+          const stars = rating.querySelectorAll(".aural-rating__star");
+          stars.forEach((star, index) => {
+            star.classList.remove("aural-rating__star--filled", "aural-rating__star--half", "aural-rating__star--empty");
+            if (index < Math.floor(value)) {
+              star.classList.add("aural-rating__star--filled");
+            } else if (index < value && value % 1 !== 0) {
+              star.classList.add("aural-rating__star--half");
+            } else {
+              star.classList.add("aural-rating__star--empty");
+            }
+          });
+        },
+        // ========================================
+        // NOTIFICATION CENTER
+        // ========================================
+        /**
+         * Initialize a notification center
+         * @param {string} centerId - The ID of the notification center element
+         * @param {Object} options - Configuration options
+         */
+        initNotificationCenter(centerId, options = {}) {
+          const center = document.getElementById(centerId);
+          if (!center)
+            return;
+          const trigger = center.querySelector(".aural-notification-center__trigger");
+          const dropdown = center.querySelector(".aural-notification-center__dropdown");
+          const badge = center.querySelector(".aural-notification-center__badge");
+          const config = {
+            notifications: options.notifications || [],
+            onNotificationClick: options.onNotificationClick || null,
+            onMarkAllRead: options.onMarkAllRead || null,
+            ...options
+          };
+          let unreadCount = config.notifications.filter((n) => n.unread).length;
+          if (badge) {
+            badge.textContent = unreadCount > 0 ? unreadCount : "";
+          }
+          trigger?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dropdown?.classList.toggle("aural-notification-center__dropdown--open");
+            trigger.classList.toggle("aural-notification-center__trigger--active");
+          });
+          document.addEventListener("click", (e) => {
+            if (!center.contains(e.target)) {
+              dropdown?.classList.remove("aural-notification-center__dropdown--open");
+              trigger?.classList.remove("aural-notification-center__trigger--active");
+            }
+          });
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && dropdown?.classList.contains("aural-notification-center__dropdown--open")) {
+              dropdown.classList.remove("aural-notification-center__dropdown--open");
+              trigger?.classList.remove("aural-notification-center__trigger--active");
+            }
+          });
+          const markAllReadBtn = center.querySelector('[data-action="mark-all-read"]');
+          markAllReadBtn?.addEventListener("click", () => {
+            this.markAllNotificationsRead(centerId);
+            if (config.onMarkAllRead) {
+              config.onMarkAllRead();
+            }
+          });
+          return {
+            addNotification: (notification) => this.addNotification(centerId, notification),
+            removeNotification: (notificationId) => this.removeNotification(centerId, notificationId),
+            markAsRead: (notificationId) => this.markNotificationRead(centerId, notificationId),
+            markAllAsRead: () => this.markAllNotificationsRead(centerId),
+            getUnreadCount: () => unreadCount
+          };
+        },
+        /**
+         * Add a notification to the center
+         */
+        addNotification(centerId, notification) {
+          const center = document.getElementById(centerId);
+          if (!center)
+            return;
+          const list = center.querySelector(".aural-notification-center__list");
+          const badge = center.querySelector(".aural-notification-center__badge");
+          if (!list)
+            return;
+          const item = document.createElement("button");
+          item.className = `aural-notification-center__item ${notification.unread ? "aural-notification-center__item--unread" : ""} ${notification.type ? `aural-notification-center__item--${notification.type}` : ""}`;
+          item.setAttribute("data-notification-id", notification.id);
+          item.innerHTML = `
+            ${notification.icon ? `<div class="aural-notification-center__item-icon">${notification.icon}</div>` : ""}
+            <div class="aural-notification-center__item-content">
+                <div class="aural-notification-center__item-title">${notification.title}</div>
+                <div class="aural-notification-center__item-message">${notification.message}</div>
+                <div class="aural-notification-center__item-time">${notification.time}</div>
+            </div>
+            ${notification.unread ? '<div class="aural-notification-center__item-dot"></div>' : ""}
+        `;
+          item.addEventListener("click", () => {
+            if (notification.onClick) {
+              notification.onClick();
+            }
+            this.markNotificationRead(centerId, notification.id);
+          });
+          list.prepend(item);
+          if (notification.unread && badge) {
+            const currentCount = parseInt(badge.textContent) || 0;
+            badge.textContent = currentCount + 1;
+          }
+        },
+        /**
+         * Mark a notification as read
+         */
+        markNotificationRead(centerId, notificationId) {
+          const center = document.getElementById(centerId);
+          if (!center)
+            return;
+          const notification = center.querySelector(`[data-notification-id="${notificationId}"]`);
+          const badge = center.querySelector(".aural-notification-center__badge");
+          if (notification && notification.classList.contains("aural-notification-center__item--unread")) {
+            notification.classList.remove("aural-notification-center__item--unread");
+            const dot = notification.querySelector(".aural-notification-center__item-dot");
+            if (dot)
+              dot.remove();
+            if (badge) {
+              const currentCount = parseInt(badge.textContent) || 0;
+              const newCount = Math.max(0, currentCount - 1);
+              badge.textContent = newCount > 0 ? newCount : "";
+            }
+          }
+        },
+        /**
+         * Mark all notifications as read
+         */
+        markAllNotificationsRead(centerId) {
+          const center = document.getElementById(centerId);
+          if (!center)
+            return;
+          const unreadItems = center.querySelectorAll(".aural-notification-center__item--unread");
+          const badge = center.querySelector(".aural-notification-center__badge");
+          unreadItems.forEach((item) => {
+            item.classList.remove("aural-notification-center__item--unread");
+            const dot = item.querySelector(".aural-notification-center__item-dot");
+            if (dot)
+              dot.remove();
+          });
+          if (badge) {
+            badge.textContent = "";
+          }
+        },
+        /**
+         * Remove a notification
+         */
+        removeNotification(centerId, notificationId) {
+          const center = document.getElementById(centerId);
+          if (!center)
+            return;
+          const notification = center.querySelector(`[data-notification-id="${notificationId}"]`);
+          if (notification) {
+            const wasUnread = notification.classList.contains("aural-notification-center__item--unread");
+            notification.remove();
+            if (wasUnread) {
+              const badge = center.querySelector(".aural-notification-center__badge");
+              if (badge) {
+                const currentCount = parseInt(badge.textContent) || 0;
+                const newCount = Math.max(0, currentCount - 1);
+                badge.textContent = newCount > 0 ? newCount : "";
+              }
+            }
+          }
         }
       };
       if (typeof document !== "undefined") {
@@ -1831,6 +2156,7 @@
             Aural.initPopovers();
             Aural.initSelects();
             Aural.initAllCodeBlocks();
+            Aural.initDrawers();
           });
         } else {
           Aural.initModals();
@@ -1841,6 +2167,7 @@
           Aural.initPopovers();
           Aural.initSelects();
           Aural.initAllCodeBlocks();
+          Aural.initDrawers();
         }
       }
       if (typeof module !== "undefined" && module.exports) {
