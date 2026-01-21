@@ -19,7 +19,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
 - 🌓 **Dark & Light Themes** - Both themes included, seamlessly switchable
 - ♿ **Accessibility First** - ~95% WCAG 2.1 AA compliant with comprehensive ARIA support
-- 📦 **49+ Components** - Everything from buttons to notification centers
+- 📦 **59 Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
 - 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
@@ -28,6 +28,30 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - 🔧 **Framework-Agnostic** - Works with React, Vue, Svelte, or vanilla JS
 - 💡 **Developer Friendly** - Simple, semantic HTML with intuitive class names
 - ⌨️ **Keyboard Navigation** - Full keyboard support across all components
+
+---
+
+## 📚 Documentation
+
+### Quick Start
+- **[Navigation Hub](docs/nav.html)** - Central navigation for all documentation
+- **[Project Structure](docs/project-tree.html)** - Complete component hierarchy (59 components organized by category)
+- **[Getting Started Tutorial](docs/tutorial.html)** - 5-step interactive tutorial
+- **[Component Showcase](docs/index.html)** - All 59 components with live demos
+
+### Complete Documentation
+- **[API Reference](docs/api.html)** - 25+ JavaScript methods with interactive playgrounds
+- **[Design Tokens](docs/tokens.html)** - Visual reference for colors, spacing, typography
+- **[Themes Guide](docs/themes.html)** - Pre-built themes and custom theme creation
+- **[Examples](docs/examples.html)** - Production-ready templates
+
+### Project Organization
+For a detailed overview of the project structure, see **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** which includes:
+- Complete file hierarchy
+- Component categorization (Form Controls, Navigation, Data Display, Interactive, Feedback)
+- Utility class reference (350+ utility classes)
+- JavaScript API method listing
+- Quick navigation links
 
 ---
 
@@ -173,9 +197,16 @@ Then include after Aural UI:
 
 ## 📚 Documentation
 
-- **Component Showcase**: `docs/showcase.html`
-- **Token Reference**: `docs/tokens.html`
-- **Theme Guide**: `docs/themes.html`
+Comprehensive documentation is available with interactive examples:
+
+- **[Component Showcase](https://ferology.github.io/aural-ui/)** - Browse all 49+ components with live demos
+- **[API Reference](https://ferology.github.io/aural-ui/docs/api.html)** - Complete JavaScript API documentation
+- **[Getting Started Tutorial](https://ferology.github.io/aural-ui/docs/tutorial.html)** - 5-step interactive tutorial
+- **[Design Tokens](https://ferology.github.io/aural-ui/docs/tokens.html)** - Visual token reference with copy functionality
+- **[Theme Guide](https://ferology.github.io/aural-ui/docs/themes.html)** - Pre-built themes and customization guide
+- **[Real-World Examples](https://ferology.github.io/aural-ui/docs/examples.html)** - Production-ready templates
+- **[Accessibility Tests](./ACCESSIBILITY_TESTS.md)** - Comprehensive WCAG 2.1 AA testing checklist
+- **[TypeScript Support](./types/index.d.ts)** - Full TypeScript definitions included
 
 ### Serve Documentation Locally
 
@@ -311,6 +342,96 @@ Comprehensive typography system for all text needs.
 <!-- Text Utilities -->
 <p class="truncate">Truncated text...</p>
 <p class="line-clamp-2">Clamped to 2 lines...</p>
+```
+
+#### Spacing Utilities (NEW)
+Tailwind-like spacing utilities for margin and padding.
+
+```html
+<!-- Margin -->
+<div class="m-4">Margin on all sides</div>
+<div class="mt-6 mb-4">Margin top and bottom</div>
+<div class="mx-auto">Center horizontally</div>
+
+<!-- Padding -->
+<div class="p-6">Padding on all sides</div>
+<div class="px-4 py-2">Padding horizontal and vertical</div>
+
+<!-- Responsive -->
+<div class="p-4 md:p-6 lg:p-8">Responsive padding</div>
+```
+
+#### Display & Flexbox Utilities (NEW)
+Comprehensive layout utilities for modern CSS.
+
+```html
+<!-- Display -->
+<div class="flex items-center justify-between">...</div>
+<div class="grid grid-cols-3 gap-4">...</div>
+<div class="hidden md:block">Show on desktop</div>
+
+<!-- Flexbox -->
+<div class="flex flex-col md:flex-row gap-4">...</div>
+<div class="flex-1">Grow to fill space</div>
+
+<!-- Position -->
+<div class="relative">
+  <div class="absolute top-0 right-0">...</div>
+</div>
+```
+
+#### Color Utilities (NEW)
+Quick color application for text, backgrounds, and borders.
+
+```html
+<!-- Text Colors -->
+<p class="text-primary">Primary color text</p>
+<p class="text-success">Success message</p>
+<p class="text-error">Error message</p>
+
+<!-- Background Colors -->
+<div class="bg-primary text-white">Primary background</div>
+<div class="bg-success-alpha">Translucent success</div>
+
+<!-- Border Colors -->
+<div class="border border-primary">Primary border</div>
+```
+
+#### Border Utilities (NEW)
+Border width, radius, and style utilities.
+
+```html
+<!-- Border Width -->
+<div class="border">1px border</div>
+<div class="border-2">2px border</div>
+<div class="border-t-4">4px top border</div>
+
+<!-- Border Radius -->
+<div class="rounded">Default radius</div>
+<div class="rounded-lg">Large radius</div>
+<div class="rounded-full">Fully rounded</div>
+
+<!-- Border Style -->
+<div class="border border-dashed">Dashed border</div>
+```
+
+#### Animation Utilities (NEW)
+Pre-built animations with accessibility support.
+
+```html
+<!-- Entrance Animations -->
+<div class="animate-fade-in">Fade in</div>
+<div class="animate-slide-in-up">Slide up</div>
+
+<!-- Attention Seekers -->
+<div class="animate-pulse">Pulsing</div>
+<div class="animate-bounce">Bouncing</div>
+
+<!-- Modifiers -->
+<div class="animate-fade-in animate-slow">Slow fade</div>
+<div class="animate-pulse animate-delay-1">Delayed pulse</div>
+
+<!-- Respects prefers-reduced-motion automatically -->
 ```
 
 ### Icon Integration

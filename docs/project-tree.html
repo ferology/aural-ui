@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aural UI - Project Structure</title>
+    <link rel="stylesheet" href="./aural-ui.css?v=9">
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            padding: var(--space-8);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tree-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .tree-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-4);
+        }
+
+        .tree-subtitle {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+        }
+
+        .tree-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .tree-section {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+        }
+
+        .tree-section-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .tree-section-title i {
+            color: var(--color-primary);
+        }
+
+        .tree {
+            font-family: var(--font-mono, 'Courier New', monospace);
+            font-size: var(--text-sm);
+            line-height: 1.8;
+        }
+
+        .tree-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-2);
+            padding: var(--space-1) 0;
+        }
+
+        .tree-item:hover {
+            background: var(--color-bg-tertiary);
+            border-radius: var(--radius);
+        }
+
+        .tree-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .tree-icon.folder {
+            color: var(--color-warning);
+        }
+
+        .tree-icon.file {
+            color: var(--color-text-secondary);
+        }
+
+        .tree-icon.component {
+            color: var(--color-primary);
+        }
+
+        .tree-icon.doc {
+            color: var(--color-info);
+        }
+
+        .tree-link {
+            color: var(--color-text-primary);
+            text-decoration: none;
+            flex: 1;
+        }
+
+        .tree-link:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        .tree-indent {
+            padding-left: var(--space-6);
+        }
+
+        .tree-count {
+            display: inline-block;
+            background: var(--color-primary-alpha);
+            color: var(--color-primary);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            margin-left: var(--space-2);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: var(--space-4);
+            left: var(--space-4);
+        }
+
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+        }
+
+        .component-badge {
+            display: inline-block;
+            background: var(--color-success-alpha);
+            color: var(--color-success);
+            padding: 2px 6px;
+            border-radius: var(--radius);
+            font-size: 10px;
+            font-weight: var(--font-medium);
+            margin-left: var(--space-2);
+        }
+    </style>
+</head>
+<body>
+    <a href="./nav.html" class="btn btn-secondary back-btn">
+        <i data-lucide="arrow-left"></i> Back to Navigation
+    </a>
+
+    <div class="tree-header">
+        <h1 class="tree-title">Aural UI Project Structure</h1>
+        <p class="tree-subtitle">Complete component hierarchy and file organization</p>
+    </div>
+
+    <div class="tree-container">
+        <!-- Documentation Files -->
+        <div class="tree-section">
+            <h2 class="tree-section-title">
+                <i data-lucide="book-open"></i>
+                Documentation <span class="tree-count">6 pages</span>
+            </h2>
+            <div class="tree">
+                <div class="tree-item">
+                    <i data-lucide="folder" class="tree-icon folder"></i>
+                    <span class="tree-link">docs/</span>
+                </div>
+                <div class="tree-indent">
+                    <div class="tree-item">
+                        <i data-lucide="file-text" class="tree-icon doc"></i>
+                        <a href="./index.html" class="tree-link">index.html <span class="component-badge">59 components</span></a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file-text" class="tree-icon doc"></i>
+                        <a href="./api.html" class="tree-link">api.html <span class="component-badge">25+ methods</span></a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file-text" class="tree-icon doc"></i>
+                        <a href="./tutorial.html" class="tree-link">tutorial.html <span class="component-badge">5 steps</span></a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file-text" class="tree-icon doc"></i>
+                        <a href="./tokens.html" class="tree-link">tokens.html</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file-text" class="tree-icon doc"></i>
+                        <a href="./themes.html" class="tree-link">themes.html</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file-text" class="tree-icon doc"></i>
+                        <a href="./examples.html" class="tree-link">examples.html</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file-text" class="tree-icon doc"></i>
+                        <a href="./nav.html" class="tree-link">nav.html</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file-text" class="tree-icon doc"></i>
+                        <a href="./project-tree.html" class="tree-link">project-tree.html <span class="component-badge">current</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Controls -->
+        <div class="tree-section">
+            <h2 class="tree-section-title">
+                <i data-lucide="square-check"></i>
+                Form Controls <span class="tree-count">17 components</span>
+            </h2>
+            <div class="tree">
+                <div class="tree-item">
+                    <i data-lucide="folder" class="tree-icon folder"></i>
+                    <span class="tree-link">components/</span>
+                </div>
+                <div class="tree-indent">
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#buttons" class="tree-link">button.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#inputs" class="tree-link">input.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#search-bar" class="tree-link">search-bar.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#checkboxes" class="tree-link">checkbox.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#radios" class="tree-link">radio.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#toggles" class="tree-link">toggle.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#switches" class="tree-link">switch.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#selects" class="tree-link">select.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#multi-selects" class="tree-link">multi-select.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#combobox" class="tree-link">combobox.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#rating" class="tree-link">rating.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#color-picker" class="tree-link">color-picker.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#range-slider" class="tree-link">range-slider.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#slider" class="tree-link">slider.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#time-picker" class="tree-link">time-picker.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#date-picker" class="tree-link">date-picker.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#file-upload" class="tree-link">file-upload.css</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Components -->
+        <div class="tree-section">
+            <h2 class="tree-section-title">
+                <i data-lucide="navigation"></i>
+                Navigation <span class="tree-count">8 components</span>
+            </h2>
+            <div class="tree">
+                <div class="tree-item">
+                    <i data-lucide="folder" class="tree-icon folder"></i>
+                    <span class="tree-link">components/</span>
+                </div>
+                <div class="tree-indent">
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#navbar" class="tree-link">navbar.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#tabs" class="tree-link">tabs.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#breadcrumbs" class="tree-link">breadcrumb.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#pagination" class="tree-link">pagination.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#stepper" class="tree-link">stepper.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#drawer" class="tree-link">drawer.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#context-menu" class="tree-link">context-menu.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#bottom-nav" class="tree-link">bottom-nav.css</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Display Components -->
+        <div class="tree-section">
+            <h2 class="tree-section-title">
+                <i data-lucide="layout-grid"></i>
+                Data Display <span class="tree-count">13 components</span>
+            </h2>
+            <div class="tree">
+                <div class="tree-item">
+                    <i data-lucide="folder" class="tree-icon folder"></i>
+                    <span class="tree-link">components/</span>
+                </div>
+                <div class="tree-indent">
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#cards" class="tree-link">card.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#tables" class="tree-link">table.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#avatars" class="tree-link">avatar.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#badges" class="tree-link">badge.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#chips" class="tree-link">chips.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#progress" class="tree-link">progress.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#dividers" class="tree-link">divider.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#timeline" class="tree-link">timeline.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#stats-card" class="tree-link">stats-card.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#carousel" class="tree-link">carousel.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#tree-view" class="tree-link">tree-view.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#image-gallery" class="tree-link">image-gallery.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#code-block" class="tree-link">code-block.css</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Components -->
+        <div class="tree-section">
+            <h2 class="tree-section-title">
+                <i data-lucide="mouse-pointer-click"></i>
+                Interactive <span class="tree-count">7 components</span>
+            </h2>
+            <div class="tree">
+                <div class="tree-item">
+                    <i data-lucide="folder" class="tree-icon folder"></i>
+                    <span class="tree-link">components/</span>
+                </div>
+                <div class="tree-indent">
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#tooltips" class="tree-link">tooltip.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#dropdowns" class="tree-link">dropdown.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#accordions" class="tree-link">accordion.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#popovers" class="tree-link">popover.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#modals" class="tree-link">modal.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#dialogs" class="tree-link">dialog.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#command-palette" class="tree-link">command-palette.css</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Components -->
+        <div class="tree-section">
+            <h2 class="tree-section-title">
+                <i data-lucide="bell"></i>
+                Feedback <span class="tree-count">7 components</span>
+            </h2>
+            <div class="tree">
+                <div class="tree-item">
+                    <i data-lucide="folder" class="tree-icon folder"></i>
+                    <span class="tree-link">components/</span>
+                </div>
+                <div class="tree-indent">
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#alert-banner" class="tree-link">alert-banner.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#toast" class="tree-link">toast.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#snackbar" class="tree-link">snackbar.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#skeleton" class="tree-link">skeleton.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#spinner" class="tree-link">spinner.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#empty-state" class="tree-link">empty-state.css</a>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="component" class="tree-icon component"></i>
+                        <a href="./index.html#notification-center" class="tree-link">notification-center.css</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Utilities -->
+        <div class="tree-section">
+            <h2 class="tree-section-title">
+                <i data-lucide="wrench"></i>
+                Utilities <span class="tree-count">9 utilities</span>
+            </h2>
+            <div class="tree">
+                <div class="tree-item">
+                    <i data-lucide="folder" class="tree-icon folder"></i>
+                    <span class="tree-link">utilities/</span>
+                </div>
+                <div class="tree-indent">
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">typography.css</span>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">spacing.css <span class="component-badge">150+ classes</span></span>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">display.css <span class="component-badge">200+ classes</span></span>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">colors.css</span>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">borders.css</span>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">grid.css</span>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">shadows.css</span>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">glows.css</span>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="file" class="tree-icon file"></i>
+                        <span class="tree-link">animations.css <span class="component-badge">20+ animations</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Tokens -->
+        <div class="tree-section">
+            <h2 class="tree-section-title">
+                <i data-lucide="palette"></i>
+                Design Tokens <span class="tree-count">7 token files</span>
+            </h2>
+            <div class="tree">
+                <div class="tree-item">
+                    <i data-lucide="folder" class="tree-icon folder"></i>
+                    <span class="tree-link">tokens/</span>
+                </div>
+                <div class="tree-indent">
+                    <div class="tree-item">
+                        <i data-lucide="folder" class="tree-icon folder"></i>
+                        <span class="tree-link">core/</span>
+                    </div>
+                    <div class="tree-indent">
+                        <div class="tree-item">
+                            <i data-lucide="file" class="tree-icon file"></i>
+                            <span class="tree-link">colors.css</span>
+                        </div>
+                        <div class="tree-item">
+                            <i data-lucide="file" class="tree-icon file"></i>
+                            <span class="tree-link">spacing.css</span>
+                        </div>
+                        <div class="tree-item">
+                            <i data-lucide="file" class="tree-icon file"></i>
+                            <span class="tree-link">typography.css</span>
+                        </div>
+                        <div class="tree-item">
+                            <i data-lucide="file" class="tree-icon file"></i>
+                            <span class="tree-link">shadows.css</span>
+                        </div>
+                        <div class="tree-item">
+                            <i data-lucide="file" class="tree-icon file"></i>
+                            <span class="tree-link">radius.css</span>
+                        </div>
+                        <div class="tree-item">
+                            <i data-lucide="file" class="tree-icon file"></i>
+                            <span class="tree-link">animations.css</span>
+                        </div>
+                    </div>
+                    <div class="tree-item">
+                        <i data-lucide="folder" class="tree-icon folder"></i>
+                        <span class="tree-link">semantic/</span>
+                    </div>
+                    <div class="tree-indent">
+                        <div class="tree-item">
+                            <i data-lucide="file" class="tree-icon file"></i>
+                            <span class="tree-link">colors.css</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <h3 style="margin-bottom: var(--space-4);">Project Statistics</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+            <div>
+                <div style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-primary);">59</div>
+                <div style="color: var(--color-text-secondary);">Components</div>
+            </div>
+            <div>
+                <div style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-success);">9</div>
+                <div style="color: var(--color-text-secondary);">Utility Groups</div>
+            </div>
+            <div>
+                <div style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-warning);">6</div>
+                <div style="color: var(--color-text-secondary);">Doc Pages</div>
+            </div>
+            <div>
+                <div style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-info);">25+</div>
+                <div style="color: var(--color-text-secondary);">API Methods</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-secondary theme-toggle-btn" onclick="toggleTheme()">
+        <i data-lucide="moon"></i> Toggle Theme
+    </button>
+
+    <script src="./aural-ui.js?v=9"></script>
+    <script>
+        lucide.createIcons();
+
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            const currentTheme = themeLink.getAttribute('href');
+
+            if (currentTheme.includes('dark')) {
+                themeLink.setAttribute('href', './light.css');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeLink.setAttribute('href', './dark.css');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.getElementById('theme-link').setAttribute('href', `./${savedTheme}.css`);
+        }
+    </script>
+</body>
+</html>

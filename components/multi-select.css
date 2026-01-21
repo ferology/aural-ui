@@ -43,7 +43,10 @@
 }
 
 .aural-multi-select--open .aural-multi-select__trigger {
-    border-color: var(--color-primary);
+    border-top-color: var(--color-primary);
+    border-left-color: var(--color-primary);
+    border-right-color: var(--color-primary);
+    border-bottom-color: var(--color-border-medium);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -102,12 +105,20 @@
 .aural-multi-select__placeholder {
     color: var(--color-text-muted);
     font-size: var(--text-sm);
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     text-align: left;
-    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin-right: auto;
 }
 
 .aural-multi-select__tags:not(:empty) + .aural-multi-select__placeholder {
+    display: none;
+}
+
+.aural-multi-select__tags:empty {
     display: none;
 }
 

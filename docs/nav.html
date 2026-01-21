@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aural UI - Documentation Navigation</title>
+    <link rel="stylesheet" href="./aural-ui.css?v=9">
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8);
+        }
+
+        .nav-container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .nav-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+
+        .nav-logo {
+            font-size: var(--text-5xl);
+            font-weight: var(--font-bold);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-4);
+        }
+
+        .nav-subtitle {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+        }
+
+        .nav-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            text-decoration: none;
+            transition: var(--transition-all-fast);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .nav-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-primary);
+        }
+
+        .nav-card-icon {
+            width: 48px;
+            height: 48px;
+            color: var(--color-primary);
+        }
+
+        .nav-card-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+        }
+
+        .nav-card-description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <div class="nav-header">
+            <h1 class="nav-logo">Aural UI</h1>
+            <p class="nav-subtitle">Modern, Accessible Design System</p>
+        </div>
+
+        <div class="nav-grid">
+            <a href="./project-tree.html" class="nav-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, var(--color-primary-alpha), var(--color-secondary-alpha)); border: 2px solid var(--color-primary);">
+                <i data-lucide="folder-tree" class="nav-card-icon" style="color: var(--color-primary);"></i>
+                <h2 class="nav-card-title" style="color: var(--color-primary);">Project Structure</h2>
+                <p class="nav-card-description">Complete component hierarchy with 59 components organized by category</p>
+            </a>
+
+            <a href="./index.html" class="nav-card">
+                <i data-lucide="layout-grid" class="nav-card-icon"></i>
+                <h2 class="nav-card-title">Component Showcase</h2>
+                <p class="nav-card-description">Browse 59 interactive components with live demos and code examples</p>
+            </a>
+
+            <a href="./api.html" class="nav-card">
+                <i data-lucide="code-2" class="nav-card-icon"></i>
+                <h2 class="nav-card-title">API Reference</h2>
+                <p class="nav-card-description">Complete JavaScript API documentation with interactive playgrounds</p>
+            </a>
+
+            <a href="./tutorial.html" class="nav-card">
+                <i data-lucide="graduation-cap" class="nav-card-icon"></i>
+                <h2 class="nav-card-title">Getting Started</h2>
+                <p class="nav-card-description">5-step interactive tutorial from installation to theming</p>
+            </a>
+
+            <a href="./tokens.html" class="nav-card">
+                <i data-lucide="palette" class="nav-card-icon"></i>
+                <h2 class="nav-card-title">Design Tokens</h2>
+                <p class="nav-card-description">Visual reference for colors, spacing, typography, and more</p>
+            </a>
+
+            <a href="./themes.html" class="nav-card">
+                <i data-lucide="paintbrush" class="nav-card-icon"></i>
+                <h2 class="nav-card-title">Themes</h2>
+                <p class="nav-card-description">Pre-built themes and custom theme creation guide</p>
+            </a>
+
+            <a href="./examples.html" class="nav-card">
+                <i data-lucide="file-code" class="nav-card-icon"></i>
+                <h2 class="nav-card-title">Examples</h2>
+                <p class="nav-card-description">Production-ready templates and real-world patterns</p>
+            </a>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <h3 style="margin-bottom: var(--space-4);">Quick Links</h3>
+            <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
+                <a href="https://github.com/ferology/aural-ui" class="btn btn-secondary" target="_blank">
+                    <i data-lucide="github"></i> GitHub
+                </a>
+                <a href="https://github.com/ferology/aural-ui/issues" class="btn btn-secondary" target="_blank">
+                    <i data-lucide="bug"></i> Report Issue
+                </a>
+                <a href="../README.md" class="btn btn-secondary">
+                    <i data-lucide="book-open"></i> README
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-secondary theme-toggle-btn" onclick="toggleTheme()">
+        <i data-lucide="moon"></i> Toggle Theme
+    </button>
+
+    <script src="./aural-ui.js?v=9"></script>
+    <script>
+        lucide.createIcons();
+
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            const currentTheme = themeLink.getAttribute('href');
+
+            if (currentTheme.includes('dark')) {
+                themeLink.setAttribute('href', './light.css');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeLink.setAttribute('href', './dark.css');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.getElementById('theme-link').setAttribute('href', `./${savedTheme}.css`);
+        }
+    </script>
+</body>
+</html>

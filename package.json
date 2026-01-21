@@ -1,10 +1,19 @@
 {
   "name": "aural-ui",
   "version": "1.0.0",
-  "description": "Token-driven, white-label design system for modern web applications",
-  "private": true,
+  "description": "A modern, accessible design system with comprehensive components, utilities, and themes",
   "main": "dist/aural-ui.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
   "style": "dist/aural-ui.css",
+  "files": [
+    "dist/",
+    "themes/",
+    "types/",
+    "utilities/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "npm run watch",
     "watch": "npm-run-all --parallel watch:*",
@@ -14,17 +23,38 @@
     "build:css:min": "postcss src/aural-ui.css -o dist/aural-ui.min.css --env production",
     "build:js": "esbuild javascript/index.js --bundle --outfile=dist/aural-ui.js",
     "build:js:min": "esbuild javascript/index.js --bundle --minify --outfile=dist/aural-ui.min.js",
-    "serve": "serve docs -p 3001"
+    "serve": "serve docs -p 3001",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
+    "ui",
     "design-system",
+    "components",
     "css",
+    "javascript",
+    "accessibility",
+    "wcag",
+    "a11y",
     "ui-components",
     "white-label",
-    "tokens"
+    "tokens",
+    "design-tokens",
+    "theme",
+    "dark-mode",
+    "responsive",
+    "utilities",
+    "tailwind-like"
   ],
   "author": "Workshop BAI Team",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ferology/aural-ui.git"
+  },
+  "homepage": "https://ferology.github.io/aural-ui/",
+  "bugs": {
+    "url": "https://github.com/ferology/aural-ui/issues"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.2",
