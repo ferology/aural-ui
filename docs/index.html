@@ -30,16 +30,15 @@
 
         /* Sidebar Navigation */
         .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
             width: 280px;
+            min-width: 280px;
             height: 100vh;
             background: var(--color-bg-secondary);
             border-right: 1px solid var(--color-border-subtle);
             overflow-y: auto;
             padding: var(--space-6);
-            z-index: 100;
+            position: sticky;
+            top: 0;
         }
 
         .sidebar-title {
@@ -180,10 +179,9 @@
 
         /* Main Content */
         .main-content {
-            margin-left: 280px;
             flex: 1;
             padding: var(--space-8);
-            max-width: calc(1400px + 280px);
+            max-width: 1400px;
         }
 
         .showcase-section {
@@ -404,6 +402,9 @@
         /* Mobile Responsive Styles */
         @media (max-width: 768px) {
             .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
                 z-index: 1000;
@@ -414,7 +415,6 @@
             }
 
             .main-content {
-                margin-left: 0;
                 width: 100%;
                 padding: var(--space-4);
                 padding-top: calc(var(--space-16) + var(--space-4));
