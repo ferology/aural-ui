@@ -24,6 +24,10 @@
             padding: 0;
         }
 
+        body {
+            display: flex;
+        }
+
         /* Sidebar Navigation */
         .sidebar {
             position: fixed;
@@ -176,12 +180,10 @@
 
         /* Main Content */
         .main-content {
-            position: absolute;
-            left: 280px;
-            right: 0;
-            top: 0;
-            padding: 2rem;
-            min-height: 100vh;
+            margin-left: 280px;
+            flex: 1;
+            padding: var(--space-8);
+            max-width: calc(1400px + 280px);
         }
 
         .showcase-section {
