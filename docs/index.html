@@ -464,140 +464,6 @@
     </style>
 </head>
 <body>
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-    </button>
-
-    <!-- Mobile Overlay -->
-    <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
-
-    <!-- Theme Toggle -->
-    <button class="btn btn-ghost theme-toggle" onclick="toggleTheme()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        Toggle Theme
-    </button>
-
-    <!-- Token Controller Modal -->
-    <div class="modal-overlay" id="token-controller-modal">
-        <div class="modal modal-lg">
-            <div class="modal-header">
-                <h3>Customize Tokens</h3>
-                <button class="modal-close" onclick="Aural.closeModal('token-controller-modal')">×</button>
-            </div>
-            <div class="modal-body">
-                <!-- Primary Color -->
-                <div class="token-control-group">
-            <label class="token-control-label">
-                Primary Color
-                <span class="token-control-value" id="primaryColorValue">#5ebd8f</span>
-            </label>
-            <input type="color" class="token-control-input" id="primaryColor" value="#5ebd8f" onchange="updateToken('--color-primary', this.value, 'primaryColorValue')">
-        </div>
-
-        <!-- Border Radius -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Border Radius Scale
-                <span class="token-control-value" id="radiusScaleValue">1.0x</span>
-            </label>
-            <input type="range" class="token-control-input" id="radiusScale" min="0" max="2" step="0.1" value="1" oninput="updateRadiusScale(this.value)">
-        </div>
-
-        <!-- Spacing Scale -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Spacing Scale
-                <span class="token-control-value" id="spacingScaleValue">1.0x</span>
-            </label>
-            <input type="range" class="token-control-input" id="spacingScale" min="0.5" max="2" step="0.1" value="1" oninput="updateSpacingScale(this.value)">
-        </div>
-
-        <!-- Font Size Scale -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Font Size Scale
-                <span class="token-control-value" id="fontScaleValue">1.0x</span>
-            </label>
-            <input type="range" class="token-control-input" id="fontScale" min="0.75" max="1.5" step="0.05" value="1" oninput="updateFontScale(this.value)">
-        </div>
-
-        <!-- Success Color -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Success Color
-                <span class="token-control-value" id="successColorValue">#22c55e</span>
-            </label>
-            <input type="color" class="token-control-input" id="successColor" value="#22c55e" onchange="updateToken('--color-success', this.value, 'successColorValue')">
-        </div>
-
-        <!-- Warning Color -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Warning Color
-                <span class="token-control-value" id="warningColorValue">#f59e0b</span>
-            </label>
-            <input type="color" class="token-control-input" id="warningColor" value="#f59e0b" onchange="updateToken('--color-warning', this.value, 'warningColorValue')">
-        </div>
-
-        <!-- Error Color -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Error Color
-                <span class="token-control-value" id="errorColorValue">#ef4444</span>
-            </label>
-            <input type="color" class="token-control-input" id="errorColor" value="#ef4444" onchange="updateToken('--color-error', this.value, 'errorColorValue')">
-        </div>
-
-        <!-- Info Color -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Info Color
-                <span class="token-control-value" id="infoColorValue">#3b82f6</span>
-            </label>
-            <input type="color" class="token-control-input" id="infoColor" value="#3b82f6" onchange="updateToken('--color-info', this.value, 'infoColorValue')">
-        </div>
-
-        <!-- Shadow Intensity -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Shadow Intensity
-                <span class="token-control-value" id="shadowIntensityValue">1.0x</span>
-            </label>
-            <input type="range" class="token-control-input" id="shadowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateShadowIntensity(this.value)">
-        </div>
-
-        <!-- Glow Intensity -->
-        <div class="token-control-group">
-            <label class="token-control-label">
-                Glow Intensity
-                <span class="token-control-value" id="glowIntensityValue">1.0x</span>
-            </label>
-            <input type="range" class="token-control-input" id="glowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateGlowIntensity(this.value)">
-        </div>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="resetTokens()">Reset to Default</button>
-                <button class="btn btn-primary" onclick="saveTokens(); Aural.closeModal('token-controller-modal')">Save & Close</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Sidebar Navigation -->
     <nav class="sidebar">
         <div class="sidebar-title">
@@ -6697,6 +6563,140 @@ console.log(message);</code></pre>
     </div>
 
     </div> <!-- End .main-content -->
+
+
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+    </button>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
+
+    <!-- Theme Toggle -->
+    <button class="btn btn-ghost theme-toggle" onclick="toggleTheme()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        Toggle Theme
+    </button>
+
+    <!-- Token Controller Modal -->
+    <div class="modal-overlay" id="token-controller-modal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3>Customize Tokens</h3>
+                <button class="modal-close" onclick="Aural.closeModal('token-controller-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Primary Color -->
+                <div class="token-control-group">
+            <label class="token-control-label">
+                Primary Color
+                <span class="token-control-value" id="primaryColorValue">#5ebd8f</span>
+            </label>
+            <input type="color" class="token-control-input" id="primaryColor" value="#5ebd8f" onchange="updateToken('--color-primary', this.value, 'primaryColorValue')">
+        </div>
+
+        <!-- Border Radius -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Border Radius Scale
+                <span class="token-control-value" id="radiusScaleValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="radiusScale" min="0" max="2" step="0.1" value="1" oninput="updateRadiusScale(this.value)">
+        </div>
+
+        <!-- Spacing Scale -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Spacing Scale
+                <span class="token-control-value" id="spacingScaleValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="spacingScale" min="0.5" max="2" step="0.1" value="1" oninput="updateSpacingScale(this.value)">
+        </div>
+
+        <!-- Font Size Scale -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Font Size Scale
+                <span class="token-control-value" id="fontScaleValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="fontScale" min="0.75" max="1.5" step="0.05" value="1" oninput="updateFontScale(this.value)">
+        </div>
+
+        <!-- Success Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Success Color
+                <span class="token-control-value" id="successColorValue">#22c55e</span>
+            </label>
+            <input type="color" class="token-control-input" id="successColor" value="#22c55e" onchange="updateToken('--color-success', this.value, 'successColorValue')">
+        </div>
+
+        <!-- Warning Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Warning Color
+                <span class="token-control-value" id="warningColorValue">#f59e0b</span>
+            </label>
+            <input type="color" class="token-control-input" id="warningColor" value="#f59e0b" onchange="updateToken('--color-warning', this.value, 'warningColorValue')">
+        </div>
+
+        <!-- Error Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Error Color
+                <span class="token-control-value" id="errorColorValue">#ef4444</span>
+            </label>
+            <input type="color" class="token-control-input" id="errorColor" value="#ef4444" onchange="updateToken('--color-error', this.value, 'errorColorValue')">
+        </div>
+
+        <!-- Info Color -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Info Color
+                <span class="token-control-value" id="infoColorValue">#3b82f6</span>
+            </label>
+            <input type="color" class="token-control-input" id="infoColor" value="#3b82f6" onchange="updateToken('--color-info', this.value, 'infoColorValue')">
+        </div>
+
+        <!-- Shadow Intensity -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Shadow Intensity
+                <span class="token-control-value" id="shadowIntensityValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="shadowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateShadowIntensity(this.value)">
+        </div>
+
+        <!-- Glow Intensity -->
+        <div class="token-control-group">
+            <label class="token-control-label">
+                Glow Intensity
+                <span class="token-control-value" id="glowIntensityValue">1.0x</span>
+            </label>
+            <input type="range" class="token-control-input" id="glowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateGlowIntensity(this.value)">
+        </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="resetTokens()">Reset to Default</button>
+                <button class="btn btn-primary" onclick="saveTokens(); Aural.closeModal('token-controller-modal')">Save & Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Aural UI JavaScript -->
     <script src="./aural-ui.js"></script>
