@@ -418,12 +418,13 @@
         <div class="nav-section">
             <div class="nav-section-title">Documentation</div>
             <ul class="nav-links">
+                <li><a href="./tutorial.html" class="nav-link active">Getting Started</a></li>
                 <li><a href="./index.html" class="nav-link">Component Showcase</a></li>
                 <li><a href="./api.html" class="nav-link">API Reference</a></li>
-                <li><a href="./tutorial.html" class="nav-link active">Getting Started</a></li>
                 <li><a href="./tokens.html" class="nav-link">Design Tokens</a></li>
                 <li><a href="./themes.html" class="nav-link">Themes</a></li>
                 <li><a href="./examples.html" class="nav-link">Examples</a></li>
+                <li><a href="./index.html#contributing" class="nav-link">Contributing</a></li>
             </ul>
         </div>
     </nav>
@@ -987,18 +988,19 @@ npm install aural-ui
 
             if (currentTheme.includes('dark')) {
                 themeLink.setAttribute('href', './light.css');
-                localStorage.setItem('theme', 'light');
+                localStorage.setItem('aural-theme', 'light');
             } else {
                 themeLink.setAttribute('href', './dark.css');
-                localStorage.setItem('theme', 'dark');
+                localStorage.setItem('aural-theme', 'dark');
             }
         }
 
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.getElementById('theme-link').setAttribute('href', `./${savedTheme}.css`);
-        }
+        // Load saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('aural-theme') || 'dark';
+            const themeLink = document.getElementById('theme-link');
+            themeLink.setAttribute('href', `./${savedTheme}.css`);
+        });
     </script>
 </body>
 </html>

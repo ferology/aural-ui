@@ -54,10 +54,42 @@
             margin-bottom: var(--space-3);
         }
 
+        .nav-section-title.collapsible {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-2) var(--space-1);
+            border-radius: var(--radius-sm);
+            transition: var(--transition-all-fast);
+        }
+
+        .nav-section-title.collapsible:hover {
+            background: var(--color-bg-hover);
+            color: var(--color-text-primary);
+        }
+
+        .nav-section-title .collapse-icon {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-section-title.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+
         .nav-links {
             list-style: none;
             padding: 0;
             margin: 0;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .nav-links.collapsed {
+            max-height: 0;
         }
 
         .nav-link {
@@ -221,25 +253,123 @@
     <nav class="sidebar">
         <div class="sidebar-title">Aural UI</div>
 
+        <!-- Intro Section -->
+        <div class="nav-section">
+            <div class="nav-section-title">Intro</div>
+            <ul class="nav-links">
+                <li><a href="./what-it-is.html" class="nav-link">What it is</a></li>
+                <li><a href="./accessibility.html" class="nav-link">Accessibility</a></li>
+                <li><a href="./getting-started.html" class="nav-link">Getting started</a></li>
+                <li><a href="./contributing.html" class="nav-link">Contributing</a></li>
+            </ul>
+        </div>
+
+        <!-- Documentation Section -->
         <div class="nav-section">
             <div class="nav-section-title">Documentation</div>
             <ul class="nav-links">
-                <li><a href="./index.html" class="nav-link">Component Showcase</a></li>
                 <li><a href="./api.html" class="nav-link">API Reference</a></li>
-                <li><a href="./tutorial.html" class="nav-link">Getting Started</a></li>
                 <li><a href="./tokens.html" class="nav-link">Design Tokens</a></li>
                 <li><a href="./themes.html" class="nav-link active">Themes</a></li>
                 <li><a href="./examples.html" class="nav-link">Examples</a></li>
             </ul>
         </div>
 
+        <!-- Component List -->
         <div class="nav-section">
-            <div class="nav-section-title">Sections</div>
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Forms & Inputs
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
             <ul class="nav-links">
-                <li><a href="#prebuilt" class="nav-link">Pre-built Themes</a></li>
-                <li><a href="#custom" class="nav-link">Custom Themes</a></li>
-                <li><a href="#brand" class="nav-link">Brand Theming</a></li>
-                <li><a href="#dynamic" class="nav-link">Dynamic Switching</a></li>
+                <li><a href="./components/buttons.html" class="nav-link">Buttons</a></li>
+                <li><a href="./components/inputs.html" class="nav-link">Inputs</a></li>
+                <li><a href="./components/checkboxes.html" class="nav-link">Checkboxes</a></li>
+                <li><a href="./components/radio-buttons.html" class="nav-link">Radio Buttons</a></li>
+                <li><a href="./components/toggles.html" class="nav-link">Toggles</a></li>
+                <li><a href="./components/switch.html" class="nav-link">Switch</a></li>
+                <li><a href="./components/select.html" class="nav-link">Select</a></li>
+                <li><a href="./components/multi-select.html" class="nav-link">Multi-Select</a></li>
+                <li><a href="./components/combobox.html" class="nav-link">Combobox</a></li>
+                <li><a href="./components/search-bar.html" class="nav-link">Search Bar</a></li>
+                <li><a href="./components/slider.html" class="nav-link">Slider</a></li>
+                <li><a href="./components/range-slider.html" class="nav-link">Range Slider</a></li>
+                <li><a href="./components/rating.html" class="nav-link">Rating</a></li>
+                <li><a href="./components/color-picker.html" class="nav-link">Color Picker</a></li>
+                <li><a href="./components/date-picker.html" class="nav-link">Date Picker</a></li>
+                <li><a href="./components/time-picker.html" class="nav-link">Time Picker</a></li>
+                <li><a href="./components/file-upload.html" class="nav-link">File Upload</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Data Display
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/cards.html" class="nav-link">Cards</a></li>
+                <li><a href="./components/badges.html" class="nav-link">Badges</a></li>
+                <li><a href="./components/chips.html" class="nav-link">Chips</a></li>
+                <li><a href="./components/avatars.html" class="nav-link">Avatars</a></li>
+                <li><a href="./components/tables.html" class="nav-link">Tables</a></li>
+                <li><a href="./components/progress.html" class="nav-link">Progress</a></li>
+                <li><a href="./components/dividers.html" class="nav-link">Dividers</a></li>
+                <li><a href="./components/timeline.html" class="nav-link">Timeline</a></li>
+                <li><a href="./components/stats-cards.html" class="nav-link">Stats Cards</a></li>
+                <li><a href="./components/code-block.html" class="nav-link">Code Block</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Navigation
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/tabs.html" class="nav-link">Tabs</a></li>
+                <li><a href="./components/breadcrumbs.html" class="nav-link">Breadcrumbs</a></li>
+                <li><a href="./components/pagination.html" class="nav-link">Pagination</a></li>
+                <li><a href="./components/stepper.html" class="nav-link">Stepper</a></li>
+                <li><a href="./components/navbar.html" class="nav-link">Navbar</a></li>
+                <li><a href="./components/drawer.html" class="nav-link">Drawer</a></li>
+                <li><a href="./components/context-menu.html" class="nav-link">Context Menu</a></li>
+                <li><a href="./components/command-palette.html" class="nav-link">Command Palette</a></li>
+                <li><a href="./components/bottom-navigation.html" class="nav-link">Bottom Navigation</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Overlays & Feedback
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/tooltips.html" class="nav-link">Tooltips</a></li>
+                <li><a href="./components/dropdowns.html" class="nav-link">Dropdowns</a></li>
+                <li><a href="./components/accordions.html" class="nav-link">Accordions</a></li>
+                <li><a href="./components/popovers.html" class="nav-link">Popovers</a></li>
+                <li><a href="./components/modals.html" class="nav-link">Modals</a></li>
+                <li><a href="./components/dialog.html" class="nav-link">Dialog</a></li>
+                <li><a href="./components/alert-banner.html" class="nav-link">Alert Banner</a></li>
+                <li><a href="./components/toast.html" class="nav-link">Toast</a></li>
+                <li><a href="./components/snackbar.html" class="nav-link">Snackbar</a></li>
+                <li><a href="./components/spinner.html" class="nav-link">Spinner</a></li>
+                <li><a href="./components/skeleton.html" class="nav-link">Skeleton</a></li>
+                <li><a href="./components/empty-state.html" class="nav-link">Empty State</a></li>
+                <li><a href="./components/notification-center.html" class="nav-link">Notification Center</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Layout & Media
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/carousel.html" class="nav-link">Carousel</a></li>
+                <li><a href="./components/tree-view.html" class="nav-link">Tree View</a></li>
+                <li><a href="./components/image-gallery.html" class="nav-link">Image Gallery</a></li>
             </ul>
         </div>
     </nav>
@@ -251,6 +381,17 @@
                 Aural UI provides flexible theming through CSS custom properties. Choose from pre-built themes or create your own to match your brand identity.
             </p>
         </div>
+
+        <!-- In-Page Navigation -->
+        <nav class="card" style="margin-bottom: var(--space-8); padding: var(--space-4);">
+            <div style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-3);">On This Page</div>
+            <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                <a href="#prebuilt" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Pre-built Themes</a>
+                <a href="#custom" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Custom Themes</a>
+                <a href="#brand" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Brand Theming</a>
+                <a href="#dynamic" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Dynamic Switching</a>
+            </div>
+        </nav>
 
         <!-- Pre-built Themes -->
         <section class="section" id="prebuilt">
@@ -502,24 +643,31 @@
             });
         }
 
+        function toggleNavSection(element) {
+            const navLinks = element.nextElementSibling;
+            element.classList.toggle('collapsed');
+            navLinks.classList.toggle('collapsed');
+        }
+
         function toggleTheme() {
             const themeLink = document.getElementById('theme-link');
             const currentTheme = themeLink.getAttribute('href');
 
             if (currentTheme.includes('dark')) {
                 themeLink.setAttribute('href', './light.css');
-                localStorage.setItem('theme', 'light');
+                localStorage.setItem('aural-theme', 'light');
             } else {
                 themeLink.setAttribute('href', './dark.css');
-                localStorage.setItem('theme', 'dark');
+                localStorage.setItem('aural-theme', 'dark');
             }
         }
 
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.getElementById('theme-link').setAttribute('href', `./${savedTheme}.css`);
-        }
+        // Load saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('aural-theme') || 'dark';
+            const themeLink = document.getElementById('theme-link');
+            themeLink.setAttribute('href', `./${savedTheme}.css`);
+        });
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

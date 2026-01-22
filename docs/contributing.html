@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aural UI - A Modern Design System</title>
+    <title>Contributing - Aural UI</title>
 
     <!-- Aural UI CSS -->
     <link rel="stylesheet" href="./aural-ui.css?v=9">
@@ -121,37 +121,6 @@
             max-width: calc(1400px + 280px);
         }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: var(--space-16) 0;
-            margin-bottom: var(--space-12);
-        }
-
-        .hero-title {
-            font-size: var(--text-5xl);
-            font-weight: var(--font-bold);
-            color: var(--color-text-primary);
-            margin-bottom: var(--space-4);
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: var(--text-xl);
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-8);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: var(--space-4);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
         /* Section Styles */
         .section {
             margin-bottom: var(--space-16);
@@ -182,80 +151,6 @@
             margin-bottom: var(--space-8);
         }
 
-        .feature-card {
-            padding: var(--space-6);
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-lg);
-            transition: var(--transition-all-fast);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--color-primary);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--color-primary-alpha);
-            color: var(--color-primary);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: var(--space-4);
-        }
-
-        .feature-title {
-            font-size: var(--text-xl);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-primary);
-            margin-bottom: var(--space-3);
-        }
-
-        .feature-description {
-            font-size: var(--text-base);
-            color: var(--color-text-secondary);
-            line-height: var(--leading-relaxed);
-        }
-
-        /* Component Categories */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--space-4);
-        }
-
-        .category-card {
-            padding: var(--space-4);
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-md);
-            transition: var(--transition-all-fast);
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-        }
-
-        .category-card:hover {
-            border-color: var(--color-primary);
-            transform: translateY(-2px);
-        }
-
-        .category-name {
-            font-size: var(--text-lg);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-primary);
-            margin-bottom: var(--space-2);
-        }
-
-        .category-count {
-            font-size: var(--text-sm);
-            color: var(--color-text-tertiary);
-        }
-
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -273,14 +168,6 @@
             .sidebar {
                 display: none;
             }
-
-            .hero-title {
-                font-size: var(--text-3xl);
-            }
-
-            .hero-subtitle {
-                font-size: var(--text-lg);
-            }
         }
     </style>
 </head>
@@ -296,7 +183,7 @@
                 <li><a href="./what-it-is.html" class="nav-link">What it is</a></li>
                 <li><a href="./accessibility.html" class="nav-link">Accessibility</a></li>
                 <li><a href="./getting-started.html" class="nav-link">Getting started</a></li>
-                <li><a href="./contributing.html" class="nav-link">Contributing</a></li>
+                <li><a href="./contributing.html" class="nav-link active">Contributing</a></li>
             </ul>
         </div>
 
@@ -412,165 +299,6 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1 class="hero-title">Aural UI</h1>
-            <p class="hero-subtitle">
-                A modern, accessible design system with 50+ components.
-                Built for developers who care about design.
-            </p>
-            <div class="hero-actions">
-                <a href="./getting-started.html" class="btn btn-primary btn-lg">Get Started</a>
-                <a href="./components/buttons.html" class="btn btn-secondary btn-lg">Browse Components</a>
-            </div>
-        </section>
-
-        <!-- What it is -->
-        <section class="section" id="what-it-is">
-            <h2 class="section-title">What it is</h2>
-            <p class="section-description">
-                Aural UI is a comprehensive design system that provides a complete set of UI components,
-                design tokens, and patterns for building modern web applications. It's built with accessibility,
-                customization, and developer experience at its core.
-            </p>
-
-            <div class="cards-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="layout" style="width: 24px; height: 24px;"></i>
-                    </div>
-                    <h3 class="feature-title">50+ Components</h3>
-                    <p class="feature-description">
-                        A complete library of production-ready components from buttons to complex data tables.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="accessibility" style="width: 24px; height: 24px;"></i>
-                    </div>
-                    <h3 class="feature-title">Accessibility First</h3>
-                    <p class="feature-description">
-                        Built with WCAG 2.1 AA standards, keyboard navigation, and screen reader support.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
-                    </div>
-                    <h3 class="feature-title">Fully Themeable</h3>
-                    <p class="feature-description">
-                        Customize every aspect with CSS custom properties and design tokens.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Accessibility -->
-        <section class="section" id="accessibility">
-            <h2 class="section-title">Accessibility</h2>
-            <p class="section-description">
-                Accessibility is not an afterthought. Every component in Aural UI is built from the ground up
-                with accessibility in mind, ensuring your applications are usable by everyone.
-            </p>
-
-            <div class="card" style="padding: var(--space-6); margin-bottom: var(--space-6);">
-                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--color-text-primary);">
-                    Our Accessibility Commitments
-                </h3>
-                <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: start; gap: var(--space-3);">
-                        <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
-                        <div>
-                            <strong style="color: var(--color-text-primary);">WCAG 2.1 AA Compliant</strong>
-                            <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
-                                All components meet or exceed WCAG 2.1 Level AA standards
-                            </p>
-                        </div>
-                    </li>
-                    <li style="padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: start; gap: var(--space-3);">
-                        <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
-                        <div>
-                            <strong style="color: var(--color-text-primary);">Keyboard Navigation</strong>
-                            <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
-                                Full keyboard support with logical tab order and focus management
-                            </p>
-                        </div>
-                    </li>
-                    <li style="padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: start; gap: var(--space-3);">
-                        <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
-                        <div>
-                            <strong style="color: var(--color-text-primary);">Screen Reader Support</strong>
-                            <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
-                                Proper ARIA labels, roles, and live regions for assistive technologies
-                            </p>
-                        </div>
-                    </li>
-                    <li style="padding: var(--space-3) 0; display: flex; align-items: start; gap: var(--space-3);">
-                        <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
-                        <div>
-                            <strong style="color: var(--color-text-primary);">Color Contrast</strong>
-                            <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
-                                Minimum 4.5:1 contrast ratio for all text and interactive elements
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Getting Started -->
-        <section class="section" id="getting-started">
-            <h2 class="section-title">Getting Started</h2>
-            <p class="section-description">
-                Get up and running with Aural UI in minutes. Choose your preferred installation method
-                and start building beautiful, accessible interfaces.
-            </p>
-
-            <div class="cards-grid">
-                <div class="card" style="padding: var(--space-6);">
-                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
-                        <span class="badge badge-success">Fastest</span>
-                        <h3 style="margin: 0; font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary);">CDN</h3>
-                    </div>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        Perfect for quick prototyping and demos
-                    </p>
-                    <div class="code-block" style="background: var(--color-bg-code); padding: var(--space-3); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: var(--text-sm); overflow-x: auto;">
-&lt;link rel="stylesheet" href="./aural-ui.css"&gt;
-&lt;link rel="stylesheet" href="./dark.css"&gt;
-                    </div>
-                </div>
-
-                <div class="card" style="padding: var(--space-6);">
-                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
-                        <span class="badge badge-primary">Recommended</span>
-                        <h3 style="margin: 0; font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary);">NPM</h3>
-                    </div>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        Best for production applications
-                    </p>
-                    <div class="code-block" style="background: var(--color-bg-code); padding: var(--space-3); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: var(--text-sm); overflow-x: auto;">
-npm install aural-ui
-                    </div>
-                </div>
-
-                <div class="card" style="padding: var(--space-6);">
-                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
-                        <h3 style="margin: 0; font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary);">Download</h3>
-                    </div>
-                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                        Self-host the files on your server
-                    </p>
-                    <a href="https://github.com/ferology/aural-ui/releases" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center;">
-                        <i data-lucide="download" style="width: 16px; height: 16px;"></i>
-                        Download Latest
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <!-- Contributing -->
         <section class="section" id="contributing">
             <h2 class="section-title">Contributing</h2>
@@ -634,91 +362,6 @@ npm install aural-ui
                 </div>
             </div>
         </section>
-
-        <!-- Documentation -->
-        <section class="section" id="documentation">
-            <h2 class="section-title">Documentation</h2>
-            <p class="section-description">
-                Explore our comprehensive documentation to learn everything about Aural UI.
-            </p>
-
-            <div class="cards-grid">
-                <a href="./api.html" class="feature-card" style="text-decoration: none;">
-                    <div class="feature-icon">
-                        <i data-lucide="code-2" style="width: 24px; height: 24px;"></i>
-                    </div>
-                    <h3 class="feature-title">API Reference</h3>
-                    <p class="feature-description">
-                        Complete API documentation for all components and utilities.
-                    </p>
-                </a>
-
-                <a href="./tokens.html" class="feature-card" style="text-decoration: none;">
-                    <div class="feature-icon">
-                        <i data-lucide="sliders" style="width: 24px; height: 24px;"></i>
-                    </div>
-                    <h3 class="feature-title">Design Tokens</h3>
-                    <p class="feature-description">
-                        Colors, spacing, typography, and other design variables.
-                    </p>
-                </a>
-
-                <a href="./themes.html" class="feature-card" style="text-decoration: none;">
-                    <div class="feature-icon">
-                        <i data-lucide="paint-bucket" style="width: 24px; height: 24px;"></i>
-                    </div>
-                    <h3 class="feature-title">Themes</h3>
-                    <p class="feature-description">
-                        Learn how to create custom themes for your brand.
-                    </p>
-                </a>
-
-                <a href="./examples.html" class="feature-card" style="text-decoration: none;">
-                    <div class="feature-icon">
-                        <i data-lucide="file-code" style="width: 24px; height: 24px;"></i>
-                    </div>
-                    <h3 class="feature-title">Examples</h3>
-                    <p class="feature-description">
-                        Real-world examples and templates for common patterns.
-                    </p>
-                </a>
-            </div>
-        </section>
-
-        <!-- Component List -->
-        <section class="section" id="components">
-            <h2 class="section-title">Component Library</h2>
-            <p class="section-description">
-                Browse our complete collection of 52 production-ready components.
-            </p>
-
-            <div class="category-grid">
-                <a href="./components/buttons.html" class="category-card">
-                    <div class="category-name">Forms & Inputs</div>
-                    <div class="category-count">17 components</div>
-                </a>
-
-                <a href="./components/cards.html" class="category-card">
-                    <div class="category-name">Data Display</div>
-                    <div class="category-count">10 components</div>
-                </a>
-
-                <a href="./components/tabs.html" class="category-card">
-                    <div class="category-name">Navigation</div>
-                    <div class="category-count">9 components</div>
-                </a>
-
-                <a href="./components/tooltips.html" class="category-card">
-                    <div class="category-name">Overlays & Feedback</div>
-                    <div class="category-count">13 components</div>
-                </a>
-
-                <a href="./components/carousel.html" class="category-card">
-                    <div class="category-name">Layout & Media</div>
-                    <div class="category-count">3 components</div>
-                </a>
-            </div>
-        </section>
     </main>
 
     <!-- Theme Toggle -->
@@ -765,23 +408,6 @@ npm install aural-ui
             const savedTheme = localStorage.getItem('aural-theme') || 'dark';
             const themeLink = document.getElementById('theme-link');
             themeLink.setAttribute('href', `./${savedTheme}.css`);
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
-            });
         });
     </script>
 </body>
