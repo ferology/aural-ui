@@ -22,6 +22,13 @@
         html, body {
             margin: 0;
             padding: 0;
+            height: 100%;
+        }
+
+        .page-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
         }
 
         /* Sidebar Navigation */
@@ -176,6 +183,7 @@
 
         /* Main Content */
         .main-content {
+            flex: 1;
             margin-left: 280px;
             padding: var(--space-8);
             min-height: 100vh;
@@ -593,8 +601,10 @@
         </div>
     </div>
 
-    <!-- Sidebar Navigation -->
-    <nav class="sidebar">
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
         <div class="sidebar-title">
             <div class="logo-icon">
                 <div class="soundwave-container">
@@ -6692,6 +6702,7 @@ console.log(message);</code></pre>
     </div>
 
     </div> <!-- End .main-content -->
+    </div> <!-- End .page-container -->
 
     <!-- Aural UI JavaScript -->
     <script src="./aural-ui.js"></script>
