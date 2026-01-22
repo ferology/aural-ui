@@ -15,9 +15,15 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body {
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         /* Sidebar Navigation */
@@ -174,6 +180,8 @@
         .main-content {
             margin-left: 280px;
             padding: var(--space-8);
+            width: calc(100% - 280px);
+            max-width: 1400px;
         }
 
         .showcase-section {
@@ -405,6 +413,7 @@
 
             .main-content {
                 margin-left: 0;
+                width: 100%;
                 padding: var(--space-4);
                 padding-top: calc(var(--space-16) + var(--space-4));
             }
