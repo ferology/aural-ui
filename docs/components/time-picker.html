@@ -697,10 +697,10 @@
                     }
                 });
             });
-        });
 
-        // Initialize Lucide Icons
-        lucide.createIcons();
+            // Initialize Lucide Icons
+            lucide.createIcons();
+        });
     </script>
 
     <!-- Time Picker Component JavaScript -->
@@ -748,6 +748,11 @@
                         this.selectPeriod(btn.textContent);
                     });
                 });
+
+                // Set initial AM button as active
+                if (this.periodBtns.length > 0) {
+                    this.periodBtns[0].classList.add('aural-time-picker__period-btn--active');
+                }
 
                 // Now button
                 this.nowBtn.addEventListener('click', () => {
@@ -955,20 +960,16 @@
             }
         }
 
-        // Initialize time picker - use a function that checks if DOM is ready
-        function initTimePicker() {
+        // Initialize time picker when everything is loaded
+        window.addEventListener('load', () => {
+            console.log('Initializing time picker...');
             if (document.getElementById('demo-time-picker-1')) {
                 new TimePicker('demo-time-picker-1', { is24Hour: false });
+                console.log('Time picker initialized!');
+            } else {
+                console.error('Time picker element not found!');
             }
-        }
-
-        // Check if DOM is already loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initTimePicker);
-        } else {
-            // DOM is already ready
-            initTimePicker();
-        }
+        });
     </script>
 
     <script>
