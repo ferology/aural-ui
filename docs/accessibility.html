@@ -142,21 +142,39 @@
             line-height: var(--leading-relaxed);
             margin-bottom: var(--space-6);
         }
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
+        /* Mobile Header */
+        .mobile-header {
             display: none;
             position: fixed;
-            top: var(--space-4);
-            left: var(--space-4);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: var(--color-bg-secondary);
+            border-bottom: 1px solid var(--color-border-subtle);
             z-index: 1002;
+            align-items: center;
+            padding: 0 var(--space-4);
+            gap: var(--space-4);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
             width: 48px;
             height: 48px;
-            background: var(--color-bg-secondary);
+            background: transparent;
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             cursor: pointer;
+            display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .mobile-header-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
         }
 
 
@@ -181,8 +199,13 @@
         }
 
                 @media (max-width: 768px) {
+            .mobile-header {
+                display: flex;
+            }
+
             .main-content {
                 margin-left: 0;
+                margin-top: 64px;
                 padding: var(--space-4);
             }
 
@@ -190,19 +213,25 @@
                 z-index: 1000;
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
+                top: 64px;
+                height: calc(100vh - 64px);
             }
 
             .sidebar.open {
                 transform: translateX(0);
             }
 
+            .sidebar-overlay {
+                top: 64px;
+            }
+
             .sidebar-overlay.active {
                 display: block;
             }
 
-            /* Hide sidebar title on mobile - will use hamburger menu */
+            /* Hide sidebar title on mobile - will use mobile header */
             .sidebar-title {
-                display: block; /* Keep it for when sidebar is open */
+                display: none;
             }
 
             /* Theme toggle button - icon only on mobile */
@@ -229,37 +258,38 @@
                 font-size: var(--text-base);
             }
 
-            .mobile-menu-toggle {
-                display: flex;
-            }
             .page-header {
-                margin-top: var(--space-12);
+                margin-top: var(--space-8);
             }
 
             .page-title {
-                margin-top: var(--space-8);
+                margin-top: var(--space-4);
                 font-size: var(--text-3xl);
             }
 
             .hero {
-                margin-top: var(--space-12);
-                padding-top: var(--space-8);
+                margin-top: var(--space-8);
+                padding-top: var(--space-4);
             }
 
             /* Component page titles */
             .main-content > h1:first-child,
             .main-content > section:first-child h1,
             .main-content > section:first-child h2 {
-                margin-top: var(--space-8);
+                margin-top: var(--space-4);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-        <i data-lucide="menu"></i>
-    </button>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+            <i data-lucide="menu"></i>
+        </button>
+        <div class="mobile-header-title">Aural UI</div>
+    </div>
+
     <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
 

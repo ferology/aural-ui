@@ -279,21 +279,39 @@
             border-bottom: 2px solid var(--color-border-subtle);
             scroll-margin-top: var(--space-8);
         }
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
+        /* Mobile Header */
+        .mobile-header {
             display: none;
             position: fixed;
-            top: var(--space-4);
-            left: var(--space-4);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: var(--color-bg-secondary);
+            border-bottom: 1px solid var(--color-border-subtle);
             z-index: 1002;
+            align-items: center;
+            padding: 0 var(--space-4);
+            gap: var(--space-4);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
             width: 48px;
             height: 48px;
-            background: var(--color-bg-secondary);
+            background: transparent;
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             cursor: pointer;
+            display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .mobile-header-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
         }
 
 
@@ -379,10 +397,14 @@
     </style>
 </head>
 <body>
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-        <i data-lucide="menu"></i>
-    </button>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+            <i data-lucide="menu"></i>
+        </button>
+        <div class="mobile-header-title">Aural UI</div>
+    </div>
+
     <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
 
