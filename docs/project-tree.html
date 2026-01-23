@@ -82,7 +82,7 @@
 
         .tree-icon {
             width: 16px;
-            height: 16px;
+            height: 10px;
             flex-shrink: 0;
             margin-top: 2px;
         }
@@ -656,6 +656,21 @@
         if (savedTheme) {
             document.getElementById('theme-link').setAttribute('href', `./${savedTheme}.css`);
         }
+    </script>
+
+    <script>
+
+        // Auto-scroll active nav item into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeLink = document.querySelector('.nav-link.active');
+            if (activeLink) {
+                // Scroll the active item into view with some offset
+                setTimeout(() => {
+                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        });
+
     </script>
 </body>
 </html>

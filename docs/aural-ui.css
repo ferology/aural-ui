@@ -2881,12 +2881,18 @@
 .aural-alert-banner--fixed-top {
     position: fixed;
     top: 0;
-    left: 0;
+    left: 280px; /* Account for sidebar width */
     right: 0;
     z-index: 9999;
     max-width: none;
     border-radius: 0;
     animation: aural-alert-banner-slide-down 0.3s ease-out;
+}
+
+@media (max-width: 768px) {
+    .aural-alert-banner--fixed-top {
+        left: 0; /* Full width on mobile */
+    }
 }
 
 @keyframes aural-alert-banner-slide-down {
@@ -2901,12 +2907,18 @@
 .aural-alert-banner--fixed-bottom {
     position: fixed;
     bottom: 0;
-    left: 0;
+    left: 280px; /* Account for sidebar width */
     right: 0;
     z-index: 9999;
     max-width: none;
     border-radius: 0;
     animation: aural-alert-banner-slide-up 0.3s ease-out;
+}
+
+@media (max-width: 768px) {
+    .aural-alert-banner--fixed-bottom {
+        left: 0; /* Full width on mobile */
+    }
 }
 
 @keyframes aural-alert-banner-slide-up {
