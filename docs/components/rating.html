@@ -180,7 +180,42 @@
             z-index: 1000;
         }
 
-        /* Mobile Styles */
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: var(--color-bg-secondary);
+            border-bottom: 1px solid var(--color-border-subtle);
+            z-index: 1002;
+            align-items: center;
+            padding: 0 var(--space-4);
+            gap: var(--space-4);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            width: 48px;
+            height: 48px;
+            background: transparent;
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-header-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+        }
+
+                /* Mobile Styles */
                 @media (max-width: 768px) {
             .mobile-header {
                 display: flex;
@@ -261,41 +296,18 @@
             .main-content > section:first-child h2 {
                 margin-top: var(--space-4);
             }
-        }
+        
 
-        .mobile-menu-toggle {
-            position: fixed;
-            top: var(--space-2);
-            left: var(--space-2);
-            z-index: 1002;
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-            }
-            .page-header {
-                margin-top: var(--space-12);
+            /* Mobile-responsive example containers */
+            .example-demo {
+                padding: var(--space-4);
+                overflow-x: auto;
             }
 
-            .page-title {
-                margin-top: var(--space-8);
-                font-size: var(--text-3xl);
+            .example-demo > * {
+                max-width: 100%;
             }
-
-            .hero {
-                margin-top: var(--space-12);
-                padding-top: var(--space-8);
             }
-
-            /* Component page titles */
-            .main-content > h1:first-child,
-            .main-content > section:first-child h1,
-            .main-content > section:first-child h2 {
-                margin-top: var(--space-8);
-            }
-        }
 
         .mobile-overlay {
             display: none;
