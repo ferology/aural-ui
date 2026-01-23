@@ -549,6 +549,17 @@
             const savedTheme = localStorage.getItem('aural-theme') || 'dark';
             const themeLink = document.getElementById('theme-link');
             themeLink.setAttribute('href', `../${savedTheme}.css`);
+
+            // Close mobile menu when clicking navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                        closeMobileMenu();
+                    }
+                });
+            });
         });
 
         // Initialize Lucide Icons

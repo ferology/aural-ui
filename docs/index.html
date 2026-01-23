@@ -876,10 +876,35 @@ npm install aural-ui
         // Mobile menu toggle
         function toggleMobileMenu() {
             const sidebar = document.getElementById('sidebar') || document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
             if (sidebar) {
                 sidebar.classList.toggle('open');
             }
+            if (overlay) {
+                overlay.classList.toggle('active');
+            }
         }
+
+        // Close mobile menu when clicking navigation links
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sidebar = document.getElementById('sidebar') || document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                        if (sidebar) {
+                            sidebar.classList.remove('open');
+                        }
+                        if (overlay) {
+                            overlay.classList.remove('active');
+                        }
+                    }
+                });
+            });
+        });
 
         // Theme toggle functionality
         function toggleTheme() {

@@ -572,10 +572,54 @@
             const savedTheme = localStorage.getItem('aural-theme') || 'dark';
             const themeLink = document.getElementById('theme-link');
             themeLink.setAttribute('href', `../${savedTheme}.css`);
+
+            // Close mobile menu when clicking navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                        closeMobileMenu();
+                    }
+                });
+            });
         });
 
         // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Slider functionality
+        class Slider {
+            constructor(element) {
+                this.container = element;
+                this.input = element.querySelector('.aural-slider__input');
+                this.valueDisplay = element.querySelector('.aural-slider__value');
+
+                if (!this.input || !this.valueDisplay) return;
+
+                this.init();
+            }
+
+            init() {
+                // Update value display on input
+                this.input.addEventListener('input', () => {
+                    this.updateValue();
+                });
+
+                // Initialize the value
+                this.updateValue();
+            }
+
+            updateValue() {
+                this.valueDisplay.textContent = this.input.value;
+            }
+        }
+
+        // Initialize all sliders
+        document.addEventListener('DOMContentLoaded', () => {
+            const sliders = document.querySelectorAll('.aural-slider');
+            sliders.forEach(slider => new Slider(slider));
+        });
     </script>
 </body>
 </html>

@@ -615,10 +615,148 @@
             const savedTheme = localStorage.getItem('aural-theme') || 'dark';
             const themeLink = document.getElementById('theme-link');
             themeLink.setAttribute('href', `../${savedTheme}.css`);
+
+            // Close mobile menu when clicking navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                        closeMobileMenu();
+                    }
+                });
+            });
         });
 
         // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Carousel Component
+        class Carousel {
+            constructor(elementId, options = {}) {
+                this.element = document.getElementById(elementId);
+                if (!this.element) return;
+
+                this.track = this.element.querySelector('.aural-carousel__track');
+                this.slides = Array.from(this.element.querySelectorAll('.aural-carousel__slide'));
+                this.prevBtn = this.element.querySelector('.aural-carousel__arrow--prev');
+                this.nextBtn = this.element.querySelector('.aural-carousel__arrow--next');
+                this.dots = Array.from(this.element.querySelectorAll('.aural-carousel__dot'));
+                this.counter = this.element.querySelector('.aural-carousel__counter');
+
+                this.currentIndex = 0;
+                this.autoplayInterval = options.autoplay || null;
+                this.autoplayTimer = null;
+
+                this.init();
+            }
+
+            init() {
+                // Navigation buttons
+                if (this.prevBtn) {
+                    this.prevBtn.addEventListener('click', () => this.prev());
+                }
+                if (this.nextBtn) {
+                    this.nextBtn.addEventListener('click', () => this.next());
+                }
+
+                // Pagination dots
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Touch/swipe support
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                this.element.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                }, { passive: true });
+
+                this.element.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].clientX;
+                    this.handleSwipe(touchStartX, touchEndX);
+                }, { passive: true });
+
+                // Keyboard navigation
+                this.element.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                });
+
+                // Autoplay
+                if (this.autoplayInterval) {
+                    this.startAutoplay();
+                    this.element.addEventListener('mouseenter', () => this.stopAutoplay());
+                    this.element.addEventListener('mouseleave', () => this.startAutoplay());
+                }
+
+                this.updateCarousel();
+            }
+
+            handleSwipe(startX, endX) {
+                const threshold = 50;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        this.next();
+                    } else {
+                        this.prev();
+                    }
+                }
+            }
+
+            prev() {
+                this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
+                this.updateCarousel();
+            }
+
+            next() {
+                this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+                this.updateCarousel();
+            }
+
+            goToSlide(index) {
+                this.currentIndex = index;
+                this.updateCarousel();
+            }
+
+            updateCarousel() {
+                // Update track position
+                const translateX = -this.currentIndex * 100;
+                this.track.style.transform = `translateX(${translateX}%)`;
+
+                // Update dots
+                this.dots.forEach((dot, index) => {
+                    dot.classList.toggle('aural-carousel__dot--active', index === this.currentIndex);
+                });
+
+                // Update counter
+                if (this.counter) {
+                    this.counter.textContent = `${this.currentIndex + 1} / ${this.slides.length}`;
+                }
+            }
+
+            startAutoplay() {
+                if (this.autoplayInterval) {
+                    this.autoplayTimer = setInterval(() => this.next(), this.autoplayInterval);
+                }
+            }
+
+            stopAutoplay() {
+                if (this.autoplayTimer) {
+                    clearInterval(this.autoplayTimer);
+                    this.autoplayTimer = null;
+                }
+            }
+        }
+
+        // Initialize carousels
+        document.addEventListener('DOMContentLoaded', () => {
+            new Carousel('demo-carousel-1', { autoplay: 5000 });
+            new Carousel('demo-carousel-2', { autoplay: 4000 });
+        });
     </script>
 </body>
 </html>

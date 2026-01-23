@@ -569,10 +569,201 @@
             const savedTheme = localStorage.getItem('aural-theme') || 'dark';
             const themeLink = document.getElementById('theme-link');
             themeLink.setAttribute('href', `../${savedTheme}.css`);
+
+            // Close mobile menu when clicking navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                        closeMobileMenu();
+                    }
+                });
+            });
         });
 
         // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Color Picker Component
+        class ColorPicker {
+            constructor(elementId) {
+                this.element = document.getElementById(elementId);
+                if (!this.element) return;
+
+                this.canvas = this.element.querySelector('.aural-color-picker__canvas');
+                this.cursor = this.element.querySelector('.aural-color-picker__cursor');
+                this.hueSlider = this.element.querySelector('.aural-color-picker__hue');
+                this.hueHandle = this.element.querySelector('.aural-color-picker__hue-handle');
+                this.valueInput = this.element.querySelector('.aural-color-picker__value');
+                this.swatchColor = this.element.querySelector('.aural-color-picker__swatch-color');
+                this.modeButtons = this.element.querySelectorAll('.aural-color-picker__mode');
+                this.presets = this.element.querySelectorAll('.aural-color-picker__preset');
+
+                this.currentMode = 'HEX';
+                this.hue = 340;
+                this.saturation = 100;
+                this.lightness = 50;
+
+                this.init();
+            }
+
+            init() {
+                // Canvas click for saturation/lightness
+                this.canvas.addEventListener('mousedown', (e) => this.handleCanvasClick(e));
+                this.canvas.addEventListener('touchstart', (e) => this.handleCanvasClick(e));
+
+                // Hue slider
+                this.hueSlider.addEventListener('mousedown', (e) => this.startHueDrag(e));
+                this.hueSlider.addEventListener('touchstart', (e) => this.startHueDrag(e));
+
+                // Mode buttons
+                this.modeButtons.forEach(btn => {
+                    btn.addEventListener('click', () => this.switchMode(btn.textContent));
+                });
+
+                // Presets
+                this.presets.forEach(preset => {
+                    preset.addEventListener('click', () => {
+                        const color = preset.style.background;
+                        this.setColorFromHex(color);
+                    });
+                });
+
+                this.updateColor();
+            }
+
+            handleCanvasClick(e) {
+                e.preventDefault();
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+                this.saturation = Math.max(0, Math.min(100, (x / rect.width) * 100));
+                this.lightness = Math.max(0, Math.min(100, 100 - (y / rect.height) * 100));
+
+                this.cursor.style.left = `${this.saturation}%`;
+                this.cursor.style.top = `${100 - this.lightness}%`;
+
+                this.updateColor();
+            }
+
+            startHueDrag(e) {
+                e.preventDefault();
+                const updateHue = (event) => {
+                    const rect = this.hueSlider.getBoundingClientRect();
+                    const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
+                    this.hue = Math.max(0, Math.min(360, (x / rect.width) * 360));
+                    this.hueHandle.style.left = `${(this.hue / 360) * 100}%`;
+                    this.updateColor();
+                };
+
+                const stopDrag = () => {
+                    document.removeEventListener('mousemove', updateHue);
+                    document.removeEventListener('mouseup', stopDrag);
+                    document.removeEventListener('touchmove', updateHue);
+                    document.removeEventListener('touchend', stopDrag);
+                };
+
+                updateHue(e);
+                document.addEventListener('mousemove', updateHue);
+                document.addEventListener('mouseup', stopDrag);
+                document.addEventListener('touchmove', updateHue);
+                document.addEventListener('touchend', stopDrag);
+            }
+
+            switchMode(mode) {
+                this.currentMode = mode;
+                this.modeButtons.forEach(btn => {
+                    btn.classList.toggle('aural-color-picker__mode--active', btn.textContent === mode);
+                });
+                this.updateColor();
+            }
+
+            hslToRgb(h, s, l) {
+                s /= 100;
+                l /= 100;
+                const c = (1 - Math.abs(2 * l - 1)) * s;
+                const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+                const m = l - c / 2;
+                let r, g, b;
+
+                if (h < 60) { r = c; g = x; b = 0; }
+                else if (h < 120) { r = x; g = c; b = 0; }
+                else if (h < 180) { r = 0; g = c; b = x; }
+                else if (h < 240) { r = 0; g = x; b = c; }
+                else if (h < 300) { r = x; g = 0; b = c; }
+                else { r = c; g = 0; b = x; }
+
+                return {
+                    r: Math.round((r + m) * 255),
+                    g: Math.round((g + m) * 255),
+                    b: Math.round((b + m) * 255)
+                };
+            }
+
+            rgbToHex(r, g, b) {
+                return '#' + [r, g, b].map(x => {
+                    const hex = x.toString(16);
+                    return hex.length === 1 ? '0' + hex : hex;
+                }).join('').toUpperCase();
+            }
+
+            setColorFromHex(hex) {
+                // Simple hex to HSL conversion
+                hex = hex.replace('#', '');
+                const r = parseInt(hex.substr(0, 2), 16) / 255;
+                const g = parseInt(hex.substr(2, 2), 16) / 255;
+                const b = parseInt(hex.substr(4, 2), 16) / 255;
+
+                const max = Math.max(r, g, b);
+                const min = Math.min(r, g, b);
+                let h, s, l = (max + min) / 2;
+
+                if (max === min) {
+                    h = s = 0;
+                } else {
+                    const d = max - min;
+                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+                    if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+                    else if (max === g) h = ((b - r) / d + 2) / 6;
+                    else h = ((r - g) / d + 4) / 6;
+                }
+
+                this.hue = Math.round(h * 360);
+                this.saturation = Math.round(s * 100);
+                this.lightness = Math.round(l * 100);
+
+                this.cursor.style.left = `${this.saturation}%`;
+                this.cursor.style.top = `${100 - this.lightness}%`;
+                this.hueHandle.style.left = `${(this.hue / 360) * 100}%`;
+
+                this.updateColor();
+            }
+
+            updateColor() {
+                const rgb = this.hslToRgb(this.hue, this.saturation, this.lightness);
+                const hex = this.rgbToHex(rgb.r, rgb.g, rgb.b);
+
+                let displayValue;
+                if (this.currentMode === 'HEX') {
+                    displayValue = hex;
+                } else if (this.currentMode === 'RGB') {
+                    displayValue = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+                } else if (this.currentMode === 'HSL') {
+                    displayValue = `hsl(${Math.round(this.hue)}, ${Math.round(this.saturation)}%, ${Math.round(this.lightness)}%)`;
+                }
+
+                this.valueInput.value = displayValue;
+                this.swatchColor.style.setProperty('--color-value', hex);
+            }
+        }
+
+        // Initialize color picker
+        document.addEventListener('DOMContentLoaded', () => {
+            new ColorPicker('demo-color-picker-1');
+        });
     </script>
 </body>
 </html>

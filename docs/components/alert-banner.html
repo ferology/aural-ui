@@ -590,10 +590,163 @@
             const savedTheme = localStorage.getItem('aural-theme') || 'dark';
             const themeLink = document.getElementById('theme-link');
             themeLink.setAttribute('href', `../${savedTheme}.css`);
+
+            // Close mobile menu when clicking navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                        closeMobileMenu();
+                    }
+                });
+            });
         });
 
         // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Aural UI Alert Banner & Toast System
+        window.Aural = window.Aural || {};
+
+        Aural.showAlertBanner = function(message, variant = 'info', options = {}) {
+            const {
+                title = variant.charAt(0).toUpperCase() + variant.slice(1),
+                dismissible = true,
+                fixed = 'top',
+                actions = [],
+                duration = null
+            } = options;
+
+            // Remove existing fixed banners
+            const existingBanner = document.querySelector('.aural-alert-banner--fixed');
+            if (existingBanner) {
+                existingBanner.remove();
+            }
+
+            // Create banner element
+            const banner = document.createElement('div');
+            banner.className = `aural-alert-banner aural-alert-banner--${variant}`;
+            if (fixed) {
+                banner.classList.add('aural-alert-banner--fixed');
+                banner.style.cssText = `
+                    position: fixed;
+                    ${fixed}: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 9999;
+                    animation: slideInFromTop 0.3s ease-out;
+                `;
+            }
+
+            // Icon based on variant
+            const icons = {
+                info: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+                success: '<polyline points="20 6 9 17 4 12"/>',
+                warning: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+                error: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
+            };
+
+            banner.innerHTML = `
+                <svg class="aural-alert-banner__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    ${icons[variant] || icons.info}
+                </svg>
+                <div class="aural-alert-banner__content">
+                    <div class="aural-alert-banner__title">${title}</div>
+                    <div class="aural-alert-banner__message">${message}</div>
+                    ${actions.length > 0 ? `
+                        <div class="aural-alert-banner__actions" style="display: flex; gap: var(--space-2); margin-top: var(--space-2);">
+                            ${actions.map(action => `
+                                <button class="btn ${action.primary ? 'btn-primary' : 'btn-secondary'}" style="padding: var(--space-2) var(--space-3);">
+                                    ${action.label}
+                                </button>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+                ${dismissible ? `
+                    <button class="aural-alert-banner__close" style="margin-left: auto; background: transparent; border: none; cursor: pointer; padding: var(--space-2);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                ` : ''}
+            `;
+
+            document.body.appendChild(banner);
+
+            // Add action handlers
+            if (actions.length > 0) {
+                const actionButtons = banner.querySelectorAll('.aural-alert-banner__actions button');
+                actionButtons.forEach((btn, index) => {
+                    btn.addEventListener('click', () => {
+                        if (actions[index].onClick) {
+                            actions[index].onClick();
+                        }
+                        banner.remove();
+                    });
+                });
+            }
+
+            // Add close handler
+            if (dismissible) {
+                const closeBtn = banner.querySelector('.aural-alert-banner__close');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => banner.remove());
+                }
+            }
+
+            // Auto-dismiss if duration is set
+            if (duration) {
+                setTimeout(() => banner.remove(), duration);
+            }
+
+            return banner;
+        };
+
+        Aural.showToast = function(message, variant = 'info', duration = 3000) {
+            const toast = document.createElement('div');
+            toast.className = `aural-toast aural-toast--${variant}`;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: var(--space-6);
+                right: var(--space-6);
+                padding: var(--space-4);
+                border-radius: var(--radius-md);
+                background: var(--color-bg-secondary);
+                border: 1px solid var(--color-border);
+                box-shadow: var(--shadow-lg);
+                z-index: 9999;
+                animation: slideInFromBottom 0.3s ease-out;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOutToBottom 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+
+            return toast;
+        };
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInFromTop {
+                from { transform: translateY(-100%); }
+                to { transform: translateY(0); }
+            }
+            @keyframes slideInFromBottom {
+                from { transform: translateY(100%); }
+                to { transform: translateY(0); }
+            }
+            @keyframes slideOutToBottom {
+                from { transform: translateY(0); }
+                to { transform: translateY(100%); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

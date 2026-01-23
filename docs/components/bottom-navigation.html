@@ -466,6 +466,27 @@
     
     </main>
 
+    <!-- Bottom Navigation Component -->
+    <nav class="aural-bottom-nav aural-bottom-nav--slide-in" id="demo-bottom-nav">
+        <button class="aural-bottom-nav__item aural-bottom-nav__item--active" data-nav="home">
+            <i data-lucide="home"></i>
+            <span class="aural-bottom-nav__label">Home</span>
+        </button>
+        <button class="aural-bottom-nav__item" data-nav="search">
+            <i data-lucide="search"></i>
+            <span class="aural-bottom-nav__label">Search</span>
+        </button>
+        <button class="aural-bottom-nav__item" data-nav="notifications">
+            <i data-lucide="bell"></i>
+            <span class="aural-bottom-nav__label">Notifications</span>
+            <span class="aural-bottom-nav__badge">3</span>
+        </button>
+        <button class="aural-bottom-nav__item" data-nav="profile">
+            <i data-lucide="user"></i>
+            <span class="aural-bottom-nav__label">Profile</span>
+        </button>
+    </nav>
+
     <!-- Aural UI JavaScript -->
     <script src="../aural-ui.js?v=9"></script>
 
@@ -510,10 +531,43 @@
             const savedTheme = localStorage.getItem('aural-theme') || 'dark';
             const themeLink = document.getElementById('theme-link');
             themeLink.setAttribute('href', `../${savedTheme}.css`);
+
+            // Close mobile menu when clicking navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                        closeMobileMenu();
+                    }
+                });
+            });
         });
 
         // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Bottom Navigation functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const bottomNav = document.getElementById('demo-bottom-nav');
+            if (bottomNav) {
+                const navItems = bottomNav.querySelectorAll('.aural-bottom-nav__item');
+
+                navItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        // Remove active class from all items
+                        navItems.forEach(nav => nav.classList.remove('aural-bottom-nav__item--active'));
+
+                        // Add active class to clicked item
+                        item.classList.add('aural-bottom-nav__item--active');
+
+                        // Optional: Log which nav item was clicked
+                        const navId = item.getAttribute('data-nav');
+                        console.log('Navigated to:', navId);
+                    });
+                });
+            }
+        });
     </script>
 </body>
 </html>
