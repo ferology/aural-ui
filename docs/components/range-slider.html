@@ -563,5 +563,176 @@
         // Initialize Lucide Icons
         lucide.createIcons();
     </script>
+
+    <!-- Range Slider Component JavaScript -->
+    <script>
+        class RangeSlider {
+            constructor(elementId, options = {}) {
+                this.element = document.getElementById(elementId);
+                if (!this.element) return;
+
+                this.options = {
+                    min: options.min || 0,
+                    max: options.max || 100,
+                    step: options.step || 1,
+                    minValue: options.minValue || 25,
+                    maxValue: options.maxValue || 75,
+                    prefix: options.prefix || '$',
+                    suffix: options.suffix || '',
+                    ...options
+                };
+
+                this.wrapper = this.element.querySelector('.aural-range-slider__wrapper');
+                this.track = this.element.querySelector('.aural-range-slider__track');
+                this.trackFill = this.element.querySelector('.aural-range-slider__track-fill');
+                this.minHandle = this.element.querySelector('.aural-range-slider__handle--min');
+                this.maxHandle = this.element.querySelector('.aural-range-slider__handle--max');
+                this.minValueDisplay = this.element.querySelectorAll('.aural-range-slider__value-number')[0];
+                this.maxValueDisplay = this.element.querySelectorAll('.aural-range-slider__value-number')[1];
+
+                this.isDragging = false;
+                this.activeHandle = null;
+
+                this.init();
+            }
+
+            init() {
+                // Set initial values
+                this.updateUI();
+
+                // Mouse events for min handle
+                this.minHandle.addEventListener('mousedown', (e) => this.startDrag(e, 'min'));
+
+                // Mouse events for max handle
+                this.maxHandle.addEventListener('mousedown', (e) => this.startDrag(e, 'max'));
+
+                // Global mouse events
+                document.addEventListener('mousemove', (e) => this.onDrag(e));
+                document.addEventListener('mouseup', () => this.stopDrag());
+
+                // Touch events
+                this.minHandle.addEventListener('touchstart', (e) => this.startDrag(e, 'min'));
+                this.maxHandle.addEventListener('touchstart', (e) => this.startDrag(e, 'max'));
+                document.addEventListener('touchmove', (e) => this.onDrag(e));
+                document.addEventListener('touchend', () => this.stopDrag());
+
+                // Keyboard support
+                this.minHandle.addEventListener('keydown', (e) => this.handleKeyboard(e, 'min'));
+                this.maxHandle.addEventListener('keydown', (e) => this.handleKeyboard(e, 'max'));
+            }
+
+            startDrag(e, handle) {
+                e.preventDefault();
+                this.isDragging = true;
+                this.activeHandle = handle;
+                this.element.classList.add('dragging');
+            }
+
+            onDrag(e) {
+                if (!this.isDragging) return;
+
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const rect = this.track.getBoundingClientRect();
+                const percentage = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+                const value = this.percentageToValue(percentage);
+
+                if (this.activeHandle === 'min') {
+                    if (value < this.options.maxValue) {
+                        this.options.minValue = value;
+                    }
+                } else {
+                    if (value > this.options.minValue) {
+                        this.options.maxValue = value;
+                    }
+                }
+
+                this.updateUI();
+            }
+
+            stopDrag() {
+                this.isDragging = false;
+                this.activeHandle = null;
+                this.element.classList.remove('dragging');
+            }
+
+            handleKeyboard(e, handle) {
+                let value = handle === 'min' ? this.options.minValue : this.options.maxValue;
+                let changed = false;
+
+                switch(e.key) {
+                    case 'ArrowLeft':
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        value = Math.max(this.options.min, value - this.options.step);
+                        changed = true;
+                        break;
+                    case 'ArrowRight':
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        value = Math.min(this.options.max, value + this.options.step);
+                        changed = true;
+                        break;
+                }
+
+                if (changed) {
+                    if (handle === 'min' && value < this.options.maxValue) {
+                        this.options.minValue = value;
+                    } else if (handle === 'max' && value > this.options.minValue) {
+                        this.options.maxValue = value;
+                    }
+                    this.updateUI();
+                }
+            }
+
+            percentageToValue(percentage) {
+                const range = this.options.max - this.options.min;
+                const value = (percentage / 100) * range + this.options.min;
+                return Math.round(value / this.options.step) * this.options.step;
+            }
+
+            valueToPercentage(value) {
+                const range = this.options.max - this.options.min;
+                return ((value - this.options.min) / range) * 100;
+            }
+
+            updateUI() {
+                const minPercentage = this.valueToPercentage(this.options.minValue);
+                const maxPercentage = this.valueToPercentage(this.options.maxValue);
+
+                // Update handles
+                this.minHandle.style.left = minPercentage + '%';
+                this.maxHandle.style.left = maxPercentage + '%';
+
+                // Update track fill
+                this.trackFill.style.left = minPercentage + '%';
+                this.trackFill.style.width = (maxPercentage - minPercentage) + '%';
+
+                // Update labels
+                const minLabel = this.minHandle.querySelector('.aural-range-slider__label');
+                const maxLabel = this.maxHandle.querySelector('.aural-range-slider__label');
+                if (minLabel) minLabel.textContent = this.options.prefix + this.options.minValue + this.options.suffix;
+                if (maxLabel) maxLabel.textContent = this.options.prefix + this.options.maxValue + this.options.suffix;
+
+                // Update value displays
+                if (this.minValueDisplay) {
+                    this.minValueDisplay.textContent = this.options.prefix + this.options.minValue + this.options.suffix;
+                }
+                if (this.maxValueDisplay) {
+                    this.maxValueDisplay.textContent = this.options.prefix + this.options.maxValue + this.options.suffix;
+                }
+            }
+        }
+
+        // Initialize range slider
+        new RangeSlider('demo-range-slider-1', {
+            min: 0,
+            max: 100,
+            step: 1,
+            minValue: 25,
+            maxValue: 75,
+            prefix: '$',
+            suffix: ''
+        });
+    </script>
 </body>
 </html>

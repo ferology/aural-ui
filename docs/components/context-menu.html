@@ -547,5 +547,172 @@
         // Initialize Lucide Icons
         lucide.createIcons();
     </script>
+
+    <!-- Context Menu Component JavaScript -->
+    <script>
+        class ContextMenu {
+            constructor() {
+                this.menu = null;
+                this.trigger = document.getElementById('context-menu-trigger');
+                this.createMenu();
+                this.init();
+            }
+
+            createMenu() {
+                // Create context menu HTML
+                const menuHTML = `
+                    <div class="context-menu" id="context-menu" style="
+                        position: fixed;
+                        background: var(--color-bg-primary);
+                        border: 1px solid var(--color-border-subtle);
+                        border-radius: var(--radius-md);
+                        box-shadow: var(--shadow-lg);
+                        padding: var(--space-2);
+                        min-width: 200px;
+                        z-index: 9999;
+                        display: none;
+                    ">
+                        <div class="context-menu-item" style="
+                            padding: var(--space-2) var(--space-3);
+                            cursor: pointer;
+                            border-radius: var(--radius-sm);
+                            display: flex;
+                            align-items: center;
+                            gap: var(--space-2);
+                            color: var(--color-text-primary);
+                            font-size: var(--text-sm);
+                            transition: background 0.15s;
+                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="copy" style="width: 16px; height: 16px;"></i>
+                            <span>Copy</span>
+                            <span style="margin-left: auto; color: var(--color-text-tertiary); font-size: var(--text-xs);">⌘C</span>
+                        </div>
+                        <div class="context-menu-item" style="
+                            padding: var(--space-2) var(--space-3);
+                            cursor: pointer;
+                            border-radius: var(--radius-sm);
+                            display: flex;
+                            align-items: center;
+                            gap: var(--space-2);
+                            color: var(--color-text-primary);
+                            font-size: var(--text-sm);
+                            transition: background 0.15s;
+                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="scissors" style="width: 16px; height: 16px;"></i>
+                            <span>Cut</span>
+                            <span style="margin-left: auto; color: var(--color-text-tertiary); font-size: var(--text-xs);">⌘X</span>
+                        </div>
+                        <div class="context-menu-item" style="
+                            padding: var(--space-2) var(--space-3);
+                            cursor: pointer;
+                            border-radius: var(--radius-sm);
+                            display: flex;
+                            align-items: center;
+                            gap: var(--space-2);
+                            color: var(--color-text-primary);
+                            font-size: var(--text-sm);
+                            transition: background 0.15s;
+                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="clipboard" style="width: 16px; height: 16px;"></i>
+                            <span>Paste</span>
+                            <span style="margin-left: auto; color: var(--color-text-tertiary); font-size: var(--text-xs);">⌘V</span>
+                        </div>
+                        <div style="height: 1px; background: var(--color-border-subtle); margin: var(--space-2) 0;"></div>
+                        <div class="context-menu-item" style="
+                            padding: var(--space-2) var(--space-3);
+                            cursor: pointer;
+                            border-radius: var(--radius-sm);
+                            display: flex;
+                            align-items: center;
+                            gap: var(--space-2);
+                            color: var(--color-text-primary);
+                            font-size: var(--text-sm);
+                            transition: background 0.15s;
+                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                            <span>Delete</span>
+                            <span style="margin-left: auto; color: var(--color-text-tertiary); font-size: var(--text-xs);">⌘⌫</span>
+                        </div>
+                        <div style="height: 1px; background: var(--color-border-subtle); margin: var(--space-2) 0;"></div>
+                        <div class="context-menu-item" style="
+                            padding: var(--space-2) var(--space-3);
+                            cursor: pointer;
+                            border-radius: var(--radius-sm);
+                            display: flex;
+                            align-items: center;
+                            gap: var(--space-2);
+                            color: var(--color-text-primary);
+                            font-size: var(--text-sm);
+                            transition: background 0.15s;
+                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
+                            <i data-lucide="info" style="width: 16px; height: 16px;"></i>
+                            <span>Properties</span>
+                        </div>
+                    </div>
+                `;
+
+                document.body.insertAdjacentHTML('beforeend', menuHTML);
+                this.menu = document.getElementById('context-menu');
+            }
+
+            init() {
+                // Show context menu on right click
+                this.trigger.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    this.showMenu(e.clientX, e.clientY);
+                });
+
+                // Hide menu on click outside
+                document.addEventListener('click', () => {
+                    this.hideMenu();
+                });
+
+                // Hide menu on scroll
+                window.addEventListener('scroll', () => {
+                    this.hideMenu();
+                });
+
+                // Add click handlers to menu items
+                const menuItems = this.menu.querySelectorAll('.context-menu-item');
+                menuItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        console.log('Menu item clicked:', item.textContent.trim());
+                        this.hideMenu();
+                    });
+                });
+            }
+
+            showMenu(x, y) {
+                // Position the menu
+                this.menu.style.left = x + 'px';
+                this.menu.style.top = y + 'px';
+                this.menu.style.display = 'block';
+
+                // Update icons
+                lucide.createIcons();
+
+                // Adjust if menu goes off screen
+                const menuRect = this.menu.getBoundingClientRect();
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+
+                if (menuRect.right > windowWidth) {
+                    this.menu.style.left = (x - menuRect.width) + 'px';
+                }
+
+                if (menuRect.bottom > windowHeight) {
+                    this.menu.style.top = (y - menuRect.height) + 'px';
+                }
+            }
+
+            hideMenu() {
+                this.menu.style.display = 'none';
+            }
+        }
+
+        // Initialize context menu
+        new ContextMenu();
+    </script>
 </body>
 </html>
