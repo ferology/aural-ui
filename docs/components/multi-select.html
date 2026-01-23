@@ -307,6 +307,15 @@
             .example-demo > * {
                 max-width: 100%;
             }
+
+            /* Multi-select mobile styles */
+            .aural-multi-select {
+                max-width: 100%;
+            }
+
+            .aural-multi-select__dropdown {
+                max-width: calc(100vw - var(--space-8));
+            }
             }
 
         .mobile-overlay {
@@ -690,6 +699,9 @@
 
                 // Update clear button visibility
                 this.updateClearButton();
+
+                // Ensure dropdown is closed on initialization
+                this.closeDropdown();
             }
 
             toggleDropdown() {
