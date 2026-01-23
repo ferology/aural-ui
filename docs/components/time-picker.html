@@ -955,14 +955,23 @@
             }
         }
 
-        // Initialize time picker
-        document.addEventListener('DOMContentLoaded', () => {
-            new TimePicker('demo-time-picker-1', { is24Hour: false });
-        });
+        // Initialize time picker - use a function that checks if DOM is ready
+        function initTimePicker() {
+            if (document.getElementById('demo-time-picker-1')) {
+                new TimePicker('demo-time-picker-1', { is24Hour: false });
+            }
+        }
+
+        // Check if DOM is already loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTimePicker);
+        } else {
+            // DOM is already ready
+            initTimePicker();
+        }
     </script>
 
     <script>
-
         // Auto-scroll active nav item into view
         document.addEventListener('DOMContentLoaded', function() {
             const activeLink = document.querySelector('.nav-link.active');
@@ -973,7 +982,6 @@
                 }, 100);
             }
         });
-
     </script>
 </body>
 </html>
