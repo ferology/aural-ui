@@ -307,6 +307,22 @@
             .example-demo > * {
                 max-width: 100%;
             }
+
+            /* Fix checkbox alignment on mobile */
+            .checkbox {
+                display: flex !important;
+                align-items: flex-start !important;
+                gap: var(--space-3) !important;
+            }
+
+            .checkbox input[type="checkbox"] {
+                margin-top: 2px !important;
+                flex-shrink: 0 !important;
+            }
+
+            .flex-col {
+                gap: var(--space-4) !important;
+            }
             }
 
         .mobile-overlay {
