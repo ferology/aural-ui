@@ -222,7 +222,7 @@
             position: fixed;
             top: var(--space-2);
             left: var(--space-2);
-            z-index: 150;
+            z-index: 1002;
             display: none;
         }
 
@@ -250,9 +250,12 @@
 </head>
 <body>
     <!-- Mobile Menu Toggle -->
-    <button class="btn btn-ghost mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
         <i data-lucide="menu"></i>
     </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
 
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
