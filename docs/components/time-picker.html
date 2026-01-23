@@ -941,7 +941,7 @@
             }
 
             toggleDropdown() {
-                const isOpen = this.dropdown.classList.contains('aural-time-picker__dropdown--open');
+                const isOpen = this.element.classList.contains('aural-time-picker--open');
                 if (isOpen) {
                     this.closeDropdown();
                 } else {
@@ -950,12 +950,12 @@
             }
 
             openDropdown() {
-                this.dropdown.classList.add('aural-time-picker__dropdown--open');
+                this.element.classList.add('aural-time-picker--open');
                 this.input.setAttribute('aria-expanded', 'true');
             }
 
             closeDropdown() {
-                this.dropdown.classList.remove('aural-time-picker__dropdown--open');
+                this.element.classList.remove('aural-time-picker--open');
                 this.input.setAttribute('aria-expanded', 'false');
             }
         }
