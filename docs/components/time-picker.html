@@ -834,7 +834,9 @@
         }
 
         // Initialize time picker
-        new TimePicker('demo-time-picker-1', { is24Hour: false });
+        document.addEventListener('DOMContentLoaded', () => {
+            new TimePicker('demo-time-picker-1', { is24Hour: false });
+        });
     </script>
 </body>
 </html>
