@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aural UI - A Modern Design System</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css?v=9">
+
+    <!-- Choose theme -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+
+    <!-- Lucide Icons (MIT License) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--color-bg-secondary);
+            border-right: 1px solid var(--color-border-subtle);
+            overflow-y: auto;
+            padding: var(--space-6);
+            z-index: 100;
+        }
+
+        .sidebar-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+            text-decoration: none;
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
+            transition: var(--transition-all-fast);
+        }
+
+        .sidebar-title:hover {
+            background: var(--color-bg-hover);
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .soundwave-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            filter: drop-shadow(0 0 8px var(--color-primary)) drop-shadow(0 0 12px var(--color-primary));
+        }
+
+        .wave-bar {
+            width: 2px;
+            background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+            border-radius: 2px;
+            animation: wave-pulse 1.2s ease-in-out infinite;
+            transform-origin: center;
+            box-shadow: 0 0 4px var(--color-primary);
+        }
+
+        .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; animation-duration: 1.1s; }
+        .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.15s; animation-duration: 1.3s; background: linear-gradient(180deg, #10b981, #8b5cf6); }
+        .wave-bar:nth-child(3) { height: 21px; animation-delay: 0.25s; animation-duration: 1.0s; }
+        .wave-bar:nth-child(4) { height: 17px; animation-delay: 0.35s; animation-duration: 1.4s; background: linear-gradient(180deg, #8b5cf6, #10b981); }
+        .wave-bar:nth-child(5) { height: 23px; animation-delay: 0.4s; animation-duration: 0.9s; }
+        .wave-bar:nth-child(6) { height: 12px; animation-delay: 0.55s; animation-duration: 1.2s; background: linear-gradient(180deg, #10b981, #8b5cf6); }
+        .wave-bar:nth-child(7) { height: 18px; animation-delay: 0.65s; animation-duration: 1.1s; }
+        .wave-bar:nth-child(8) { height: 10px; animation-delay: 0.75s; animation-duration: 1.3s; background: linear-gradient(180deg, #8b5cf6, #10b981); }
+
+        @keyframes wave-pulse {
+            0%, 100% { transform: scaleY(0.5); opacity: 0.6; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        .logo-icon::before,
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .logo-icon::before {
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.3), transparent 60%);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .logo-icon::after {
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 70%);
+            animation: pulse-glow-alt 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(0.8); opacity: 0.4; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        @keyframes pulse-glow-alt {
+            0%, 100% { transform: scale(1.2); opacity: 0.2; }
+            50% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        .sidebar-title:hover .soundwave-container {
+            filter: drop-shadow(0 0 12px var(--color-primary))
+                    drop-shadow(0 0 20px var(--color-primary))
+                    drop-shadow(0 0 8px var(--color-secondary));
+        }
+
+        .sidebar-title:hover .wave-bar {
+            animation-duration: 0.8s;
+        }
+
+        .logo-text {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-3);
+        }
+
+        .nav-section-title {
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-3);
+        }
+
+        .nav-section-title.collapsible {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-2) var(--space-1);
+            border-radius: var(--radius-sm);
+            transition: var(--transition-all-fast);
+        }
+
+        .nav-section-title.collapsible:hover {
+            background: var(--color-bg-hover);
+            color: var(--color-text-primary);
+        }
+
+        .nav-section-title .collapse-icon {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-section-title.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .nav-links.collapsed {
+            max-height: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: var(--space-2) var(--space-3);
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            transition: var(--transition-all-fast);
+        }
+
+        .nav-link:hover {
+            background: var(--color-bg-hover);
+            color: var(--color-text-primary);
+        }
+
+        .nav-link.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8);
+        }
+
+        /* Centered Hero Section */
+        .hero-section {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .hero-logo {
+            width: 200px;
+            height: 200px;
+        }
+
+        .hero-logo .soundwave-container {
+            gap: 6px;
+            filter: drop-shadow(0 0 16px var(--color-primary))
+                    drop-shadow(0 0 24px var(--color-primary))
+                    drop-shadow(0 0 32px var(--color-secondary));
+        }
+
+        .hero-logo .wave-bar {
+            width: 8px;
+        }
+
+        .hero-logo .wave-bar:nth-child(1) { height: 40px; }
+        .hero-logo .wave-bar:nth-child(2) { height: 80px; }
+        .hero-logo .wave-bar:nth-child(3) { height: 120px; }
+        .hero-logo .wave-bar:nth-child(4) { height: 100px; }
+        .hero-logo .wave-bar:nth-child(5) { height: 140px; }
+        .hero-logo .wave-bar:nth-child(6) { height: 70px; }
+        .hero-logo .wave-bar:nth-child(7) { height: 110px; }
+        .hero-logo .wave-bar:nth-child(8) { height: 60px; }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+
+        .hero-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .hero-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Feature Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-12);
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .feature-card {
+            padding: var(--space-6);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            transition: var(--transition-all-fast);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-primary);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-primary-alpha);
+            color: var(--color-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .feature-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-3);
+        }
+
+        .feature-description {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Token Control Styles */
+        .token-control-group {
+            margin-bottom: var(--space-3);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .token-control-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--color-text-primary);
+        }
+
+        .token-control-value {
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            font-weight: var(--font-normal);
+        }
+
+        .token-control-input {
+            width: 100%;
+        }
+
+        input[type="color"] {
+            height: 48px;
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: var(--color-bg-tertiary);
+            border-radius: var(--radius-sm);
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--color-bg-secondary);
+            border-bottom: 1px solid var(--color-border-subtle);
+            align-items: center;
+            padding: 0 var(--space-4);
+            gap: var(--space-4);
+            z-index: 150;
+        }
+
+        .mobile-menu-toggle {
+            width: 48px;
+            height: 48px;
+            background: transparent;
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-all-fast);
+            color: var(--color-text-primary);
+        }
+
+        .mobile-menu-toggle:hover {
+            background: var(--color-bg-hover);
+        }
+
+        .mobile-header-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .mobile-header {
+                display: flex;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: var(--space-6) var(--space-4);
+                padding-top: calc(60px + var(--space-6));
+            }
+
+            .hero-logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .hero-title {
+                font-size: var(--text-2xl);
+            }
+
+            .hero-description {
+                font-size: var(--text-base);
+            }
+
+            .theme-toggle {
+                top: calc(60px + var(--space-4));
+                right: var(--space-4);
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+            <i data-lucide="menu"></i>
+        </button>
+        <div class="mobile-header-title">Aural UI</div>
+    </div>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <a href="./index.html" class="sidebar-title">
+            <div class="logo-icon">
+                <div class="soundwave-container">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+            </div>
+            <div class="logo-text">Aural UI</div>
+        </a>
+
+        <!-- Intro Section -->
+        <div class="nav-section">
+            <div class="nav-section-title">Intro</div>
+            <ul class="nav-links">
+                <li><a href="./index.html" class="nav-link active">What it is</a></li>
+                <li><a href="./accessibility.html" class="nav-link">Accessibility</a></li>
+                <li><a href="./getting-started.html" class="nav-link">Getting started</a></li>
+                <li><a href="./contributing.html" class="nav-link">Contributing</a></li>
+            </ul>
+        </div>
+
+        <!-- Documentation Section -->
+        <div class="nav-section">
+            <div class="nav-section-title">Documentation</div>
+            <ul class="nav-links">
+                <li><a href="./api.html" class="nav-link">API Reference</a></li>
+                <li><a href="./tokens.html" class="nav-link">Design Tokens</a></li>
+                <li><a href="./themes.html" class="nav-link">Themes</a></li>
+                <li><a href="./examples.html" class="nav-link">Examples</a></li>
+            </ul>
+        </div>
+
+        <!-- Component List -->
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Forms & Inputs
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/buttons.html" class="nav-link">Buttons</a></li>
+                <li><a href="./components/inputs.html" class="nav-link">Inputs</a></li>
+                <li><a href="./components/checkboxes.html" class="nav-link">Checkboxes</a></li>
+                <li><a href="./components/radio-buttons.html" class="nav-link">Radio Buttons</a></li>
+                <li><a href="./components/toggles.html" class="nav-link">Toggles</a></li>
+                <li><a href="./components/switch.html" class="nav-link">Switch</a></li>
+                <li><a href="./components/select.html" class="nav-link">Select</a></li>
+                <li><a href="./components/multi-select.html" class="nav-link">Multi-Select</a></li>
+                <li><a href="./components/combobox.html" class="nav-link">Combobox</a></li>
+                <li><a href="./components/search-bar.html" class="nav-link">Search Bar</a></li>
+                <li><a href="./components/slider.html" class="nav-link">Slider</a></li>
+                <li><a href="./components/range-slider.html" class="nav-link">Range Slider</a></li>
+                <li><a href="./components/rating.html" class="nav-link">Rating</a></li>
+                <li><a href="./components/color-picker.html" class="nav-link">Color Picker</a></li>
+                <li><a href="./components/date-picker.html" class="nav-link">Date Picker</a></li>
+                <li><a href="./components/time-picker.html" class="nav-link">Time Picker</a></li>
+                <li><a href="./components/file-upload.html" class="nav-link">File Upload</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Data Display
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/cards.html" class="nav-link">Cards</a></li>
+                <li><a href="./components/badges.html" class="nav-link">Badges</a></li>
+                <li><a href="./components/chips.html" class="nav-link">Chips</a></li>
+                <li><a href="./components/avatars.html" class="nav-link">Avatars</a></li>
+                <li><a href="./components/tables.html" class="nav-link">Tables</a></li>
+                <li><a href="./components/progress.html" class="nav-link">Progress</a></li>
+                <li><a href="./components/dividers.html" class="nav-link">Dividers</a></li>
+                <li><a href="./components/timeline.html" class="nav-link">Timeline</a></li>
+                <li><a href="./components/stats-cards.html" class="nav-link">Stats Cards</a></li>
+                <li><a href="./components/code-block.html" class="nav-link">Code Block</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Navigation
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/tabs.html" class="nav-link">Tabs</a></li>
+                <li><a href="./components/breadcrumbs.html" class="nav-link">Breadcrumbs</a></li>
+                <li><a href="./components/pagination.html" class="nav-link">Pagination</a></li>
+                <li><a href="./components/stepper.html" class="nav-link">Stepper</a></li>
+                <li><a href="./components/navbar.html" class="nav-link">Navbar</a></li>
+                <li><a href="./components/drawer.html" class="nav-link">Drawer</a></li>
+                <li><a href="./components/context-menu.html" class="nav-link">Context Menu</a></li>
+                <li><a href="./components/command-palette.html" class="nav-link">Command Palette</a></li>
+                <li><a href="./components/bottom-navigation.html" class="nav-link">Bottom Navigation</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Overlays & Feedback
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/tooltips.html" class="nav-link">Tooltips</a></li>
+                <li><a href="./components/dropdowns.html" class="nav-link">Dropdowns</a></li>
+                <li><a href="./components/accordions.html" class="nav-link">Accordions</a></li>
+                <li><a href="./components/popovers.html" class="nav-link">Popovers</a></li>
+                <li><a href="./components/modals.html" class="nav-link">Modals</a></li>
+                <li><a href="./components/dialog.html" class="nav-link">Dialog</a></li>
+                <li><a href="./components/alert-banner.html" class="nav-link">Alert Banner</a></li>
+                <li><a href="./components/toast.html" class="nav-link">Toast</a></li>
+                <li><a href="./components/snackbar.html" class="nav-link">Snackbar</a></li>
+                <li><a href="./components/spinner.html" class="nav-link">Spinner</a></li>
+                <li><a href="./components/skeleton.html" class="nav-link">Skeleton</a></li>
+                <li><a href="./components/empty-state.html" class="nav-link">Empty State</a></li>
+                <li><a href="./components/notification-center.html" class="nav-link">Notification Center</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
+                Layout & Media
+                <i data-lucide="chevron-down" class="collapse-icon"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./components/carousel.html" class="nav-link">Carousel</a></li>
+                <li><a href="./components/tree-view.html" class="nav-link">Tree View</a></li>
+                <li><a href="./components/image-gallery.html" class="nav-link">Image Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="hero-section">
+            <!-- Large Animated Logo -->
+            <div class="hero-logo">
+                <div class="soundwave-container">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+            </div>
+
+            <!-- Centered Content -->
+            <div class="hero-content">
+                <h1 class="hero-title">A Modern, Accessible Design System</h1>
+                <p class="hero-description">
+                    Aural UI is a comprehensive design system built with accessibility, performance, and developer
+                    experience in mind. Featuring 52+ production-ready components, a powerful token system, and
+                    beautiful dark mode support out of the box. Customize every aspect of the design to match
+                    your brand, from colors to spacing to typography.
+                </p>
+            </div>
+
+            <!-- Actions Below -->
+            <div class="hero-actions">
+                <button class="btn btn-primary btn-lg" onclick="Aural.openModal('token-controller-modal')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6"/>
+                        <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24"/>
+                        <path d="M1 12h6m6 0h6"/>
+                        <path d="m4.93 19.07 4.24-4.24m5.66-5.66 4.24-4.24"/>
+                    </svg>
+                    Customize Tokens
+                </button>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="cards-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="layout" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3 class="feature-title">50+ Components</h3>
+                    <p class="feature-description">
+                        A complete library of production-ready components from buttons to complex data tables.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="accessibility" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3 class="feature-title">Accessibility First</h3>
+                    <p class="feature-description">
+                        Built with WCAG 2.1 AA standards, keyboard navigation, and screen reader support.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3 class="feature-title">Fully Themeable</h3>
+                    <p class="feature-description">
+                        Customize every aspect with CSS custom properties and design tokens.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Token Controller Modal -->
+    <div class="modal-overlay" id="token-controller-modal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3>Customize Tokens</h3>
+                <button class="modal-close" onclick="Aural.closeModal('token-controller-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Primary Color -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Primary Color
+                        <span class="token-control-value" id="primaryColorValue">#5ebd8f</span>
+                    </label>
+                    <input type="color" class="token-control-input" id="primaryColor" value="#5ebd8f" onchange="updateToken('--color-primary', this.value, 'primaryColorValue')">
+                </div>
+
+                <!-- Border Radius -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Border Radius Scale
+                        <span class="token-control-value" id="radiusScaleValue">1.0x</span>
+                    </label>
+                    <input type="range" class="token-control-input" id="radiusScale" min="0" max="2" step="0.1" value="1" oninput="updateRadiusScale(this.value)">
+                </div>
+
+                <!-- Spacing Scale -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Spacing Scale
+                        <span class="token-control-value" id="spacingScaleValue">1.0x</span>
+                    </label>
+                    <input type="range" class="token-control-input" id="spacingScale" min="0.5" max="2" step="0.1" value="1" oninput="updateSpacingScale(this.value)">
+                </div>
+
+                <!-- Font Size Scale -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Font Size Scale
+                        <span class="token-control-value" id="fontScaleValue">1.0x</span>
+                    </label>
+                    <input type="range" class="token-control-input" id="fontScale" min="0.75" max="1.5" step="0.05" value="1" oninput="updateFontScale(this.value)">
+                </div>
+
+                <!-- Success Color -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Success Color
+                        <span class="token-control-value" id="successColorValue">#22c55e</span>
+                    </label>
+                    <input type="color" class="token-control-input" id="successColor" value="#22c55e" onchange="updateToken('--color-success', this.value, 'successColorValue')">
+                </div>
+
+                <!-- Warning Color -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Warning Color
+                        <span class="token-control-value" id="warningColorValue">#f59e0b</span>
+                    </label>
+                    <input type="color" class="token-control-input" id="warningColor" value="#f59e0b" onchange="updateToken('--color-warning', this.value, 'warningColorValue')">
+                </div>
+
+                <!-- Error Color -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Error Color
+                        <span class="token-control-value" id="errorColorValue">#ef4444</span>
+                    </label>
+                    <input type="color" class="token-control-input" id="errorColor" value="#ef4444" onchange="updateToken('--color-error', this.value, 'errorColorValue')">
+                </div>
+
+                <!-- Info Color -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Info Color
+                        <span class="token-control-value" id="infoColorValue">#3b82f6</span>
+                    </label>
+                    <input type="color" class="token-control-input" id="infoColor" value="#3b82f6" onchange="updateToken('--color-info', this.value, 'infoColorValue')">
+                </div>
+
+                <!-- Shadow Intensity -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Shadow Intensity
+                        <span class="token-control-value" id="shadowIntensityValue">1.0x</span>
+                    </label>
+                    <input type="range" class="token-control-input" id="shadowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateShadowIntensity(this.value)">
+                </div>
+
+                <!-- Glow Intensity -->
+                <div class="token-control-group">
+                    <label class="token-control-label">
+                        Glow Intensity
+                        <span class="token-control-value" id="glowIntensityValue">1.0x</span>
+                    </label>
+                    <input type="range" class="token-control-input" id="glowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateGlowIntensity(this.value)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="resetTokens()">Reset to Default</button>
+                <button class="btn btn-primary" onclick="saveTokens(); Aural.closeModal('token-controller-modal')">Save & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="./aural-ui.js"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? './dark.css' : './light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? './dark.css' : './light.css';
+        }
+
+        // Token Controller
+        const DEFAULT_TOKENS = {
+            primaryColor: '#5ebd8f',
+            successColor: '#22c55e',
+            warningColor: '#f59e0b',
+            errorColor: '#ef4444',
+            infoColor: '#3b82f6',
+            radiusScale: 1,
+            spacingScale: 1,
+            fontScale: 1,
+            shadowIntensity: 1,
+            glowIntensity: 1
+        };
+
+        const RADIUS_TOKENS = ['--radius-sm', '--radius-md', '--radius-lg', '--radius-xl', '--radius-2xl'];
+        const RADIUS_VALUES = [4, 8, 12, 16, 24];
+
+        const SPACING_TOKENS = ['--space-1', '--space-2', '--space-3', '--space-4', '--space-6', '--space-8', '--space-12', '--space-16'];
+        const SPACING_VALUES = [4, 8, 12, 16, 24, 32, 48, 64];
+
+        const FONT_TOKENS = ['--text-xs', '--text-sm', '--text-base', '--text-lg', '--text-xl', '--text-2xl', '--text-3xl'];
+        const FONT_VALUES = [12, 14, 16, 18, 20, 24, 30];
+
+        const SHADOW_SIZES = {
+            xs: 2, sm: 3, md: 6, lg: 10, xl: 25, '2xl': 50
+        };
+
+        const GLOW_SIZES = {
+            sm: 4, md: 8, lg: 16, xl: 24, '2xl': 32
+        };
+
+        // Update a single token
+        function updateToken(tokenName, value, displayId) {
+            document.documentElement.style.setProperty(tokenName, value);
+            if (displayId) {
+                document.getElementById(displayId).textContent = value;
+            }
+        }
+
+        // Update radius scale
+        function updateRadiusScale(scale) {
+            scale = parseFloat(scale);
+            document.getElementById('radiusScaleValue').textContent = scale.toFixed(1) + 'x';
+
+            RADIUS_TOKENS.forEach((token, index) => {
+                const value = Math.round(RADIUS_VALUES[index] * scale);
+                document.documentElement.style.setProperty(token, value + 'px');
+            });
+        }
+
+        // Update spacing scale
+        function updateSpacingScale(scale) {
+            scale = parseFloat(scale);
+            document.getElementById('spacingScaleValue').textContent = scale.toFixed(1) + 'x';
+
+            SPACING_TOKENS.forEach((token, index) => {
+                const value = Math.round(SPACING_VALUES[index] * scale);
+                document.documentElement.style.setProperty(token, value + 'px');
+            });
+        }
+
+        // Update font scale
+        function updateFontScale(scale) {
+            scale = parseFloat(scale);
+            document.getElementById('fontScaleValue').textContent = scale.toFixed(2) + 'x';
+
+            FONT_TOKENS.forEach((token, index) => {
+                const value = Math.round(FONT_VALUES[index] * scale);
+                document.documentElement.style.setProperty(token, value + 'px');
+            });
+        }
+
+        // Update shadow intensity
+        function updateShadowIntensity(intensity) {
+            intensity = parseFloat(intensity);
+            document.getElementById('shadowIntensityValue').textContent = intensity.toFixed(1) + 'x';
+
+            Object.entries(SHADOW_SIZES).forEach(([size, baseBlur]) => {
+                const blur = Math.round(baseBlur * intensity);
+                const spread = size === 'xs' ? 0 : Math.round((baseBlur / 4) * intensity);
+                const offsetY = size === 'xs' ? 1 : Math.round((baseBlur / 3) * intensity);
+                const opacity = 0.1 * intensity;
+
+                document.documentElement.style.setProperty(
+                    `--shadow-${size}`,
+                    `0 ${offsetY}px ${blur}px ${spread}px rgba(0, 0, 0, ${Math.min(opacity, 0.25)})`
+                );
+            });
+        }
+
+        // Update glow intensity
+        function updateGlowIntensity(intensity) {
+            intensity = parseFloat(intensity);
+            document.getElementById('glowIntensityValue').textContent = intensity.toFixed(1) + 'x';
+
+            Object.entries(GLOW_SIZES).forEach(([size, baseBlur]) => {
+                const blur = Math.round(baseBlur * intensity);
+                const opacity = (size === 'sm' ? 0.5 : size === 'md' ? 0.6 : size === 'lg' ? 0.7 : size === 'xl' ? 0.8 : 0.9) * intensity;
+
+                document.documentElement.style.setProperty(
+                    `--glow-${size}`,
+                    `0 0 ${blur}px rgba(255, 255, 255, ${Math.min(opacity, 1)})`
+                );
+            });
+
+            ['primary', 'secondary', 'success', 'error', 'warning', 'info'].forEach(color => {
+                Object.entries(GLOW_SIZES).forEach(([size, baseBlur]) => {
+                    const blur = Math.round(baseBlur * intensity);
+                    const opacity = (size === 'sm' ? 0.5 : size === 'md' ? 0.6 : size === 'lg' ? 0.7 : 0.8) * intensity;
+
+                    const colorVar = `var(--color-${color})`;
+                    document.documentElement.style.setProperty(
+                        `--glow-${color}-${size}`,
+                        `0 0 ${blur}px color-mix(in srgb, ${colorVar} ${Math.round(opacity * 100)}%, transparent)`
+                    );
+                });
+            });
+        }
+
+        // Save tokens to localStorage
+        function saveTokens() {
+            const tokens = {
+                primaryColor: document.getElementById('primaryColor').value,
+                successColor: document.getElementById('successColor').value,
+                warningColor: document.getElementById('warningColor').value,
+                errorColor: document.getElementById('errorColor').value,
+                infoColor: document.getElementById('infoColor').value,
+                radiusScale: parseFloat(document.getElementById('radiusScale').value),
+                spacingScale: parseFloat(document.getElementById('spacingScale').value),
+                fontScale: parseFloat(document.getElementById('fontScale').value),
+                shadowIntensity: parseFloat(document.getElementById('shadowIntensity').value),
+                glowIntensity: parseFloat(document.getElementById('glowIntensity').value)
+            };
+
+            localStorage.setItem('auralTokens', JSON.stringify(tokens));
+            Aural.showToast('Token preferences saved!', 'success');
+        }
+
+        // Reset tokens to default
+        function resetTokens() {
+            document.getElementById('primaryColor').value = DEFAULT_TOKENS.primaryColor;
+            document.getElementById('successColor').value = DEFAULT_TOKENS.successColor;
+            document.getElementById('warningColor').value = DEFAULT_TOKENS.warningColor;
+            document.getElementById('errorColor').value = DEFAULT_TOKENS.errorColor;
+            document.getElementById('infoColor').value = DEFAULT_TOKENS.infoColor;
+
+            document.getElementById('radiusScale').value = DEFAULT_TOKENS.radiusScale;
+            document.getElementById('spacingScale').value = DEFAULT_TOKENS.spacingScale;
+            document.getElementById('fontScale').value = DEFAULT_TOKENS.fontScale;
+            document.getElementById('shadowIntensity').value = DEFAULT_TOKENS.shadowIntensity;
+            document.getElementById('glowIntensity').value = DEFAULT_TOKENS.glowIntensity;
+
+            updateToken('--color-primary', DEFAULT_TOKENS.primaryColor, 'primaryColorValue');
+            updateToken('--color-success', DEFAULT_TOKENS.successColor, 'successColorValue');
+            updateToken('--color-warning', DEFAULT_TOKENS.warningColor, 'warningColorValue');
+            updateToken('--color-error', DEFAULT_TOKENS.errorColor, 'errorColorValue');
+            updateToken('--color-info', DEFAULT_TOKENS.infoColor, 'infoColorValue');
+
+            updateRadiusScale(DEFAULT_TOKENS.radiusScale);
+            updateSpacingScale(DEFAULT_TOKENS.spacingScale);
+            updateFontScale(DEFAULT_TOKENS.fontScale);
+            updateShadowIntensity(DEFAULT_TOKENS.shadowIntensity);
+            updateGlowIntensity(DEFAULT_TOKENS.glowIntensity);
+
+            localStorage.removeItem('auralTokens');
+            Aural.showToast('Tokens reset to default', 'info');
+        }
+
+        // Load saved tokens on page load
+        function loadSavedTokens() {
+            const saved = localStorage.getItem('auralTokens');
+            if (!saved) return;
+
+            try {
+                const tokens = JSON.parse(saved);
+
+                if (tokens.primaryColor) {
+                    document.getElementById('primaryColor').value = tokens.primaryColor;
+                    updateToken('--color-primary', tokens.primaryColor, 'primaryColorValue');
+                }
+                if (tokens.successColor) {
+                    document.getElementById('successColor').value = tokens.successColor;
+                    updateToken('--color-success', tokens.successColor, 'successColorValue');
+                }
+                if (tokens.warningColor) {
+                    document.getElementById('warningColor').value = tokens.warningColor;
+                    updateToken('--color-warning', tokens.warningColor, 'warningColorValue');
+                }
+                if (tokens.errorColor) {
+                    document.getElementById('errorColor').value = tokens.errorColor;
+                    updateToken('--color-error', tokens.errorColor, 'errorColorValue');
+                }
+                if (tokens.infoColor) {
+                    document.getElementById('infoColor').value = tokens.infoColor;
+                    updateToken('--color-info', tokens.infoColor, 'infoColorValue');
+                }
+
+                if (tokens.radiusScale !== undefined) {
+                    document.getElementById('radiusScale').value = tokens.radiusScale;
+                    updateRadiusScale(tokens.radiusScale);
+                }
+                if (tokens.spacingScale !== undefined) {
+                    document.getElementById('spacingScale').value = tokens.spacingScale;
+                    updateSpacingScale(tokens.spacingScale);
+                }
+                if (tokens.fontScale !== undefined) {
+                    document.getElementById('fontScale').value = tokens.fontScale;
+                    updateFontScale(tokens.fontScale);
+                }
+                if (tokens.shadowIntensity !== undefined) {
+                    document.getElementById('shadowIntensity').value = tokens.shadowIntensity;
+                    updateShadowIntensity(tokens.shadowIntensity);
+                }
+                if (tokens.glowIntensity !== undefined) {
+                    document.getElementById('glowIntensity').value = tokens.glowIntensity;
+                    updateGlowIntensity(tokens.glowIntensity);
+                }
+            } catch (e) {
+                console.error('Failed to load saved tokens:', e);
+            }
+        }
+
+        // Load saved tokens on page load
+        document.addEventListener('DOMContentLoaded', loadSavedTokens);
+
+        // Toggle navigation sections
+        function toggleNavSection(element) {
+            element.classList.toggle('collapsed');
+            const navLinks = element.nextElementSibling;
+            if (navLinks && navLinks.classList.contains('nav-links')) {
+                navLinks.classList.toggle('collapsed');
+            }
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.mobile-overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+    </script>
+
+    <script>
+
+        // Auto-scroll active nav item into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeLink = document.querySelector('.nav-link.active');
+            if (activeLink) {
+                // Scroll the active item into view with some offset
+                setTimeout(() => {
+                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        });
+
+    </script>
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            themeLink.href = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        try {
+            if (window.self !== window.top) {
+                const themeToggle = document.querySelector('.theme-toggle');
+                if (themeToggle) {
+                    themeToggle.style.display = 'none';
+                }
+            }
+        } catch (e) {}
+    })();
+    </script>
+</body>
+</html>

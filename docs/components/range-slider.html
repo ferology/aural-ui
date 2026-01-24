@@ -8,7 +8,7 @@
     <!-- Aural UI CSS -->
     <link rel="stylesheet" href="../aural-ui.css?v=9">
 
-    <!-- Theme CSS (will be set by JavaScript) -->
+    <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
     <!-- Lucide Icons -->
@@ -16,206 +16,17 @@
 
     <style>
         body {
-            display: flex;
             margin: 0;
             padding: 0;
-        }
-
-        /* Sidebar Navigation */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 280px;
-            height: 100vh;
-            background: var(--color-bg-secondary);
-            border-right: 1px solid var(--color-border-subtle);
-            overflow-y: auto;
-            padding: var(--space-6);
-            z-index: 100;
-        }
-
-        .sidebar-title {
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-            margin-bottom: var(--space-3);
-            text-decoration: none;
-            padding: var(--space-2);
-            border-radius: var(--radius-md);
-            transition: var(--transition-all-fast);
-        }
-
-        .sidebar-title:hover {
-            background: var(--color-bg-hover);
-        }
-
-        .logo-icon {
-            width: 28px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .soundwave-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
-            filter: drop-shadow(0 0 8px var(--color-primary)) drop-shadow(0 0 12px var(--color-primary));
-        }
-
-        .wave-bar {
-            width: 2px;
-            background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
-            border-radius: 2px;
-            animation: wave-pulse 1.2s ease-in-out infinite;
-            transform-origin: center;
-            box-shadow: 0 0 4px var(--color-primary);
-        }
-
-        .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; animation-duration: 1.1s; }
-        .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.15s; animation-duration: 1.3s; background: linear-gradient(180deg, #10b981, #8b5cf6); }
-        .wave-bar:nth-child(3) { height: 21px; animation-delay: 0.25s; animation-duration: 1.0s; }
-        .wave-bar:nth-child(4) { height: 17px; animation-delay: 0.35s; animation-duration: 1.4s; background: linear-gradient(180deg, #8b5cf6, #10b981); }
-        .wave-bar:nth-child(5) { height: 23px; animation-delay: 0.4s; animation-duration: 0.9s; }
-        .wave-bar:nth-child(6) { height: 12px; animation-delay: 0.55s; animation-duration: 1.2s; background: linear-gradient(180deg, #10b981, #8b5cf6); }
-        .wave-bar:nth-child(7) { height: 18px; animation-delay: 0.65s; animation-duration: 1.1s; }
-        .wave-bar:nth-child(8) { height: 10px; animation-delay: 0.75s; animation-duration: 1.3s; background: linear-gradient(180deg, #8b5cf6, #10b981); }
-
-        @keyframes wave-pulse {
-            0%, 100% { transform: scaleY(0.5); opacity: 0.6; }
-            50% { transform: scaleY(1); opacity: 1; }
-        }
-
-        .logo-icon::before,
-        .logo-icon::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .logo-icon::before {
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.3), transparent 60%);
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        .logo-icon::after {
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 70%);
-            animation: pulse-glow-alt 2.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { transform: scale(0.8); opacity: 0.4; }
-            50% { transform: scale(1.3); opacity: 0.7; }
-        }
-
-        @keyframes pulse-glow-alt {
-            0%, 100% { transform: scale(1.2); opacity: 0.2; }
-            50% { transform: scale(0.9); opacity: 0.5; }
-        }
-
-        .sidebar-title:hover .soundwave-container {
-            filter: drop-shadow(0 0 12px var(--color-primary))
-                    drop-shadow(0 0 20px var(--color-primary))
-                    drop-shadow(0 0 8px var(--color-secondary));
-        }
-
-        .sidebar-title:hover .wave-bar {
-            animation-duration: 0.8s;
-        }
-
-        .logo-text {
-            font-size: var(--text-lg);
-            font-weight: var(--font-bold);
-            color: var(--color-text-primary);
-        }
-
-        .nav-section {
-            margin-bottom: var(--space-3);
-        }
-
-        .nav-section-title {
-            font-size: var(--text-xs);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-secondary);
-            text-transform: uppercase;
-            letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
-        }
-
-        .nav-section-title.collapsible {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: var(--space-2) var(--space-1);
-            border-radius: var(--radius-sm);
-            transition: var(--transition-all-fast);
-        }
-
-        .nav-section-title.collapsible:hover {
-            background: var(--color-bg-hover);
-            color: var(--color-text-primary);
-        }
-
-        .nav-section-title .collapse-icon {
-            width: 14px;
-            height: 14px;
-            transition: transform 0.2s ease;
-        }
-
-        .nav-section-title.collapsed .collapse-icon {
-            transform: rotate(-90deg);
-        }
-
-        .nav-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 1000px;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .nav-links.collapsed {
-            max-height: 0;
-        }
-
-        .nav-link {
-            display: block;
-            padding: var(--space-2) var(--space-3);
-            color: var(--color-text-secondary);
-            text-decoration: none;
-            border-radius: var(--radius-md);
-            font-size: var(--text-sm);
-            transition: var(--transition-all-fast);
-        }
-
-        .nav-link:hover {
-            background: var(--color-bg-hover);
-            color: var(--color-text-primary);
-        }
-
-        .nav-link.active {
-            background: var(--color-primary);
-            color: white;
+            min-height: 100vh;
         }
 
         /* Main Content */
         .main-content {
-            margin-left: 280px;
-            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
             padding: var(--space-8);
-            max-width: calc(1400px + 280px);
+            min-height: 100vh;
         }
 
         .page-header {
@@ -223,16 +34,17 @@
         }
 
         .page-title {
-            font-size: var(--text-4xl);
+            font-size: var(--text-3xl);
             font-weight: var(--font-bold);
             color: var(--color-text-primary);
-            margin-bottom: var(--space-4);
+            margin: 0 0 var(--space-4) 0;
         }
 
         .page-description {
             font-size: var(--text-lg);
             color: var(--color-text-secondary);
-            line-height: var(--leading-relaxed);
+            line-height: 1.8;
+            margin: 0;
         }
 
         /* Example Container */
@@ -257,353 +69,105 @@
             margin-bottom: var(--space-4);
         }
 
-        /* Theme Toggle */
-        /* Sidebar Overlay */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+        .content-section {
+            margin-bottom: var(--space-8);
         }
 
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Theme Toggle */
         .theme-toggle {
             position: fixed;
-            bottom: var(--space-6);
+            top: var(--space-6);
             right: var(--space-6);
-            z-index: 1000;
+            z-index: 200;
         }
 
-        /* Mobile Header */
-        .mobile-header {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background: var(--color-bg-secondary);
-            border-bottom: 1px solid var(--color-border-subtle);
-            z-index: 1002;
-            align-items: center;
-            padding: 0 var(--space-4);
-            gap: var(--space-4);
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            width: 48px;
-            height: 48px;
-            background: transparent;
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mobile-header-title {
-            font-size: var(--text-lg);
-            font-weight: var(--font-bold);
-            color: var(--color-text-primary);
-        }
-
-                /* Mobile Styles */
-                @media (max-width: 768px) {
-            .mobile-header {
-                display: flex;
-            }
-
+        /* Mobile Styles */
+        @media (max-width: 768px) {
             .main-content {
-                margin-left: 0;
-                margin-top: 64px;
-                padding: var(--space-4);
-            }
-
-            .sidebar {
-                z-index: 1000;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-                top: 64px;
-                height: calc(100vh - 64px);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .sidebar-overlay {
-                top: 64px;
-            }
-
-            .sidebar-overlay.active {
-                display: block;
-            }
-
-            /* Hide sidebar title on mobile - will use mobile header */
-            .sidebar-title {
-                display: none;
-            }
-
-            /* Theme toggle button - icon only on mobile */
-            .theme-toggle button {
-                width: 48px;
-                height: 48px;
-                padding: var(--space-2);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .theme-toggle button i {
-                margin: 0;
-            }
-
-            /* Hide button text on mobile */
-            .theme-toggle-text {
-                display: none !important;
-            }
-
-            .theme-toggle button i {
-                font-size: var(--text-base);
-            }
-
-            .page-header {
-                margin-top: var(--space-8);
+                padding: var(--space-6) var(--space-4);
             }
 
             .page-title {
-                margin-top: var(--space-4);
-                font-size: var(--text-3xl);
+                font-size: var(--text-2xl);
             }
 
-            .hero {
-                margin-top: var(--space-8);
-                padding-top: var(--space-4);
+            .page-description {
+                font-size: var(--text-base);
             }
 
-            /* Component page titles */
-            .main-content > h1:first-child,
-            .main-content > section:first-child h1,
-            .main-content > section:first-child h2 {
-                margin-top: var(--space-4);
-            }
-        
-
-            /* Mobile-responsive example containers */
-            .example-demo {
-                padding: var(--space-4);
-                overflow-x: auto;
+            .section-title {
+                font-size: var(--text-xl);
             }
 
-            .example-demo > * {
-                max-width: 100%;
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
             }
-            }
-
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 99;
-        }
-
-        .mobile-overlay.active {
-            display: block;
         }
     </style>
 </head>
 <body>
-    <!-- Mobile Header -->
-    <div class="mobile-header">
-        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-            <i data-lucide="menu"></i>
-        </button>
-        <div class="mobile-header-title">Aural UI</div>
-    </div>
-
-    <!-- Sidebar Overlay -->
-    <div class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
-
-    <!-- Mobile Overlay -->
-    <div class="mobile-overlay" onclick="closeMobileMenu()"></div>
-
-    <!-- Theme Toggle -->
-    <div class="theme-toggle">
-        <button class="btn btn-secondary" onclick="toggleTheme()">
-            <i data-lucide="sun"></i>
-            <span class="theme-toggle-text">Toggle Theme</span>
-        </button>
-    </div>
-
-    <!-- Sidebar Navigation -->
-    <nav class="sidebar" id="sidebar">
-        <a href="../index.html" class="sidebar-title">
-            <div class="logo-icon">
-                <div class="soundwave-container">
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                    <div class="wave-bar"></div>
-                </div>
-            </div>
-            <div class="logo-text">Aural UI</div>
-        </a>
-
-        <!-- Intro Section -->
-        <div class="nav-section">
-            <div class="nav-section-title">Intro</div>
-            <ul class="nav-links">
-                <li><a href="../index.html" class="nav-link">What it is</a></li>
-                <li><a href="../accessibility.html" class="nav-link">Accessibility</a></li>
-                <li><a href="../getting-started.html" class="nav-link">Getting started</a></li>
-                <li><a href="../contributing.html" class="nav-link">Contributing</a></li>
-            </ul>
-        </div>
-
-        <!-- Documentation Section -->
-        <div class="nav-section">
-            <div class="nav-section-title">Documentation</div>
-            <ul class="nav-links">
-                <li><a href="../api.html" class="nav-link">API Reference</a></li>
-                <li><a href="../tokens.html" class="nav-link">Design Tokens</a></li>
-                <li><a href="../themes.html" class="nav-link">Themes</a></li>
-                <li><a href="../examples.html" class="nav-link">Examples</a></li>
-            </ul>
-        </div>
-
-        <div class="nav-section">
-            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
-                Forms & Inputs
-                <i data-lucide="chevron-down" class="collapse-icon"></i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="./buttons.html" class="nav-link">Buttons</a></li>
-                <li><a href="./inputs.html" class="nav-link">Inputs</a></li>
-                <li><a href="./checkboxes.html" class="nav-link">Checkboxes</a></li>
-                <li><a href="./radio-buttons.html" class="nav-link">Radio Buttons</a></li>
-                <li><a href="./toggles.html" class="nav-link">Toggles</a></li>
-                <li><a href="./switch.html" class="nav-link">Switch</a></li>
-                <li><a href="./select.html" class="nav-link">Select</a></li>
-                <li><a href="./multi-select.html" class="nav-link">Multi-Select</a></li>
-                <li><a href="./combobox.html" class="nav-link">Combobox</a></li>
-                <li><a href="./search-bar.html" class="nav-link">Search Bar</a></li>
-                <li><a href="./slider.html" class="nav-link">Slider</a></li>
-                <li><a href="./range-slider.html" class="nav-link active">Range Slider</a></li>
-                <li><a href="./rating.html" class="nav-link">Rating</a></li>
-                <li><a href="./color-picker.html" class="nav-link">Color Picker</a></li>
-                <li><a href="./date-picker.html" class="nav-link">Date Picker</a></li>
-                <li><a href="./time-picker.html" class="nav-link">Time Picker</a></li>
-                <li><a href="./file-upload.html" class="nav-link">File Upload</a></li>
-            </ul>
-        </div>
-
-        <div class="nav-section">
-            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
-                Data Display
-                <i data-lucide="chevron-down" class="collapse-icon"></i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="./cards.html" class="nav-link">Cards</a></li>
-                <li><a href="./badges.html" class="nav-link">Badges</a></li>
-                <li><a href="./chips.html" class="nav-link">Chips</a></li>
-                <li><a href="./avatars.html" class="nav-link">Avatars</a></li>
-                <li><a href="./tables.html" class="nav-link">Tables</a></li>
-                <li><a href="./progress.html" class="nav-link">Progress</a></li>
-                <li><a href="./dividers.html" class="nav-link">Dividers</a></li>
-                <li><a href="./timeline.html" class="nav-link">Timeline</a></li>
-                <li><a href="./stats-cards.html" class="nav-link">Stats Cards</a></li>
-                <li><a href="./code-block.html" class="nav-link">Code Block</a></li>
-            </ul>
-        </div>
-
-        <div class="nav-section">
-            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
-                Navigation
-                <i data-lucide="chevron-down" class="collapse-icon"></i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="./tabs.html" class="nav-link">Tabs</a></li>
-                <li><a href="./breadcrumbs.html" class="nav-link">Breadcrumbs</a></li>
-                <li><a href="./pagination.html" class="nav-link">Pagination</a></li>
-                <li><a href="./stepper.html" class="nav-link">Stepper</a></li>
-                <li><a href="./navbar.html" class="nav-link">Navbar</a></li>
-                <li><a href="./drawer.html" class="nav-link">Drawer</a></li>
-                <li><a href="./context-menu.html" class="nav-link">Context Menu</a></li>
-                <li><a href="./command-palette.html" class="nav-link">Command Palette</a></li>
-                <li><a href="./bottom-navigation.html" class="nav-link">Bottom Navigation</a></li>
-            </ul>
-        </div>
-
-        <div class="nav-section">
-            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
-                Overlays & Feedback
-                <i data-lucide="chevron-down" class="collapse-icon"></i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="./tooltips.html" class="nav-link">Tooltips</a></li>
-                <li><a href="./dropdowns.html" class="nav-link">Dropdowns</a></li>
-                <li><a href="./accordions.html" class="nav-link">Accordions</a></li>
-                <li><a href="./popovers.html" class="nav-link">Popovers</a></li>
-                <li><a href="./modals.html" class="nav-link">Modals</a></li>
-                <li><a href="./dialog.html" class="nav-link">Dialog</a></li>
-                <li><a href="./alert-banner.html" class="nav-link">Alert Banner</a></li>
-                <li><a href="./toast.html" class="nav-link">Toast</a></li>
-                <li><a href="./snackbar.html" class="nav-link">Snackbar</a></li>
-                <li><a href="./spinner.html" class="nav-link">Spinner</a></li>
-                <li><a href="./skeleton.html" class="nav-link">Skeleton</a></li>
-                <li><a href="./empty-state.html" class="nav-link">Empty State</a></li>
-                <li><a href="./notification-center.html" class="nav-link">Notification Center</a></li>
-            </ul>
-        </div>
-
-        <div class="nav-section">
-            <div class="nav-section-title collapsible" onclick="toggleNavSection(this)">
-                Layout & Media
-                <i data-lucide="chevron-down" class="collapse-icon"></i>
-            </div>
-            <ul class="nav-links">
-                <li><a href="./carousel.html" class="nav-link">Carousel</a></li>
-                <li><a href="./tree-view.html" class="nav-link">Tree View</a></li>
-                <li><a href="./image-gallery.html" class="nav-link">Image Gallery</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <!-- Main Content -->
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Range Slider</h1>
-            <p class="page-description">
-                Dual-handle slider for selecting a range of values.
-            </p>
+            <p class="page-description">Dual-handle slider for range selection.</p>
         </div>
 
-        
-        <h2>Range Slider</h2>
-            <p class="showcase-subtitle">Dual-handle slider for selecting min/max range values</p>
-
-            <div class="example">
-                <div class="example-label">Price Range Example</div>
-                <div class="aural-range-slider aural-range-slider--show-labels" id="demo-range-slider-1">
-                    <div class="aural-range-slider__wrapper">
-                        <div class="aural-range-slider__track">
-                            <div class="aural-range-slider__track-fill" style="left: 25%; width: 50%;"></div>
-                        </div>
-                        <div class="aural-range-slider__handle aural-range-slider__handle--min" style="left: 25%;" tabindex="0">
+        <div class="aural-range-slider__handle aural-range-slider__handle--min" style="left: 25%;" tabindex="0">
                             <div class="aural-range-slider__label">$25</div>
                         </div>
                         <div class="aural-range-slider__handle aural-range-slider__handle--max" style="left: 75%;" tabindex="0">
@@ -622,254 +186,78 @@
                     </div>
                 </div>
             </div>
-    
+
     </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
 
     <!-- Aural UI JavaScript -->
     <script src="../aural-ui.js?v=9"></script>
 
-    <!-- Navigation & Theme Toggle -->
     <script>
-        function toggleMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.querySelector('.mobile-overlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
-        }
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-        function closeMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.querySelector('.mobile-overlay');
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
-        }
-
-        function toggleNavSection(titleElement) {
-            const navLinks = titleElement.nextElementSibling;
-            titleElement.classList.toggle('collapsed');
-            navLinks.classList.toggle('collapsed');
-        }
-
-        // Theme Toggle with localStorage persistence
+        // Theme toggle
+        let isDark = true;
         function toggleTheme() {
             const themeLink = document.getElementById('theme-link');
-            const currentTheme = themeLink.getAttribute('href');
-
-            if (currentTheme.includes('dark')) {
-                themeLink.setAttribute('href', '../light.css');
-                localStorage.setItem('aural-theme', 'light');
-            } else {
-                themeLink.setAttribute('href', '../dark.css');
-                localStorage.setItem('aural-theme', 'dark');
-            }
+            isDark = !isDark;
+            themeLink.href = isDark ? '../dark.css' : '../light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
-        // Load saved theme on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('aural-theme') || 'dark';
-            const themeLink = document.getElementById('theme-link');
-            themeLink.setAttribute('href', `../${savedTheme}.css`);
-
-            // Close mobile menu when clicking navigation links
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    // Only close on mobile
-                    if (window.innerWidth <= 768) {
-                        closeMobileMenu();
-                    }
-                });
-            });
-        });
-
-        // Initialize Lucide Icons
-        lucide.createIcons();
-    </script>
-
-    <!-- Range Slider Component JavaScript -->
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+    </script>    <!-- Unified Theme Sync -->
     <script>
-        class RangeSlider {
-            constructor(elementId, options = {}) {
-                this.element = document.getElementById(elementId);
-                if (!this.element) return;
-
-                this.options = {
-                    min: options.min || 0,
-                    max: options.max || 100,
-                    step: options.step || 1,
-                    minValue: options.minValue || 25,
-                    maxValue: options.maxValue || 75,
-                    prefix: options.prefix || '$',
-                    suffix: options.suffix || '',
-                    ...options
-                };
-
-                this.wrapper = this.element.querySelector('.aural-range-slider__wrapper');
-                this.track = this.element.querySelector('.aural-range-slider__track');
-                this.trackFill = this.element.querySelector('.aural-range-slider__track-fill');
-                this.minHandle = this.element.querySelector('.aural-range-slider__handle--min');
-                this.maxHandle = this.element.querySelector('.aural-range-slider__handle--max');
-                this.minValueDisplay = this.element.querySelectorAll('.aural-range-slider__value-number')[0];
-                this.maxValueDisplay = this.element.querySelectorAll('.aural-range-slider__value-number')[1];
-
-                this.isDragging = false;
-                this.activeHandle = null;
-
-                this.init();
-            }
-
-            init() {
-                // Set initial values
-                this.updateUI();
-
-                // Mouse events for min handle
-                this.minHandle.addEventListener('mousedown', (e) => this.startDrag(e, 'min'));
-
-                // Mouse events for max handle
-                this.maxHandle.addEventListener('mousedown', (e) => this.startDrag(e, 'max'));
-
-                // Global mouse events
-                document.addEventListener('mousemove', (e) => this.onDrag(e));
-                document.addEventListener('mouseup', () => this.stopDrag());
-
-                // Touch events
-                this.minHandle.addEventListener('touchstart', (e) => this.startDrag(e, 'min'));
-                this.maxHandle.addEventListener('touchstart', (e) => this.startDrag(e, 'max'));
-                document.addEventListener('touchmove', (e) => this.onDrag(e));
-                document.addEventListener('touchend', () => this.stopDrag());
-
-                // Keyboard support
-                this.minHandle.addEventListener('keydown', (e) => this.handleKeyboard(e, 'min'));
-                this.maxHandle.addEventListener('keydown', (e) => this.handleKeyboard(e, 'max'));
-            }
-
-            startDrag(e, handle) {
-                e.preventDefault();
-                this.isDragging = true;
-                this.activeHandle = handle;
-                this.element.classList.add('dragging');
-            }
-
-            onDrag(e) {
-                if (!this.isDragging) return;
-
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const rect = this.track.getBoundingClientRect();
-                const percentage = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
-                const value = this.percentageToValue(percentage);
-
-                if (this.activeHandle === 'min') {
-                    if (value < this.options.maxValue) {
-                        this.options.minValue = value;
-                    }
-                } else {
-                    if (value > this.options.minValue) {
-                        this.options.maxValue = value;
-                    }
-                }
-
-                this.updateUI();
-            }
-
-            stopDrag() {
-                this.isDragging = false;
-                this.activeHandle = null;
-                this.element.classList.remove('dragging');
-            }
-
-            handleKeyboard(e, handle) {
-                let value = handle === 'min' ? this.options.minValue : this.options.maxValue;
-                let changed = false;
-
-                switch(e.key) {
-                    case 'ArrowLeft':
-                    case 'ArrowDown':
-                        e.preventDefault();
-                        value = Math.max(this.options.min, value - this.options.step);
-                        changed = true;
-                        break;
-                    case 'ArrowRight':
-                    case 'ArrowUp':
-                        e.preventDefault();
-                        value = Math.min(this.options.max, value + this.options.step);
-                        changed = true;
-                        break;
-                }
-
-                if (changed) {
-                    if (handle === 'min' && value < this.options.maxValue) {
-                        this.options.minValue = value;
-                    } else if (handle === 'max' && value > this.options.minValue) {
-                        this.options.maxValue = value;
-                    }
-                    this.updateUI();
-                }
-            }
-
-            percentageToValue(percentage) {
-                const range = this.options.max - this.options.min;
-                const value = (percentage / 100) * range + this.options.min;
-                return Math.round(value / this.options.step) * this.options.step;
-            }
-
-            valueToPercentage(value) {
-                const range = this.options.max - this.options.min;
-                return ((value - this.options.min) / range) * 100;
-            }
-
-            updateUI() {
-                const minPercentage = this.valueToPercentage(this.options.minValue);
-                const maxPercentage = this.valueToPercentage(this.options.maxValue);
-
-                // Update handles
-                this.minHandle.style.left = minPercentage + '%';
-                this.maxHandle.style.left = maxPercentage + '%';
-
-                // Update track fill
-                this.trackFill.style.left = minPercentage + '%';
-                this.trackFill.style.width = (maxPercentage - minPercentage) + '%';
-
-                // Update labels
-                const minLabel = this.minHandle.querySelector('.aural-range-slider__label');
-                const maxLabel = this.maxHandle.querySelector('.aural-range-slider__label');
-                if (minLabel) minLabel.textContent = this.options.prefix + this.options.minValue + this.options.suffix;
-                if (maxLabel) maxLabel.textContent = this.options.prefix + this.options.maxValue + this.options.suffix;
-
-                // Update value displays
-                if (this.minValueDisplay) {
-                    this.minValueDisplay.textContent = this.options.prefix + this.options.minValue + this.options.suffix;
-                }
-                if (this.maxValueDisplay) {
-                    this.maxValueDisplay.textContent = this.options.prefix + this.options.maxValue + this.options.suffix;
-                }
-            }
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+        
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
+            
+            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+            themeLink.href = themePath;
+        } else {
+            console.error('Theme link not found!');
         }
 
-        // Initialize range slider
-        new RangeSlider('demo-range-slider-1', {
-            min: 0,
-            max: 100,
-            step: 1,
-            minValue: 25,
-            maxValue: 75,
-            prefix: '$',
-            suffix: ''
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
         });
-    </script>
-
-    <script>
-
-        // Auto-scroll active nav item into view
-        document.addEventListener('DOMContentLoaded', function() {
-            const activeLink = document.querySelector('.nav-link.active');
-            if (activeLink) {
-                // Scroll the active item into view with some offset
-                setTimeout(() => {
-                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 100);
-            }
-        });
-
+    })();
     </script>
 </body>
 </html>

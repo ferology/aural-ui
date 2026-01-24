@@ -30,7 +30,7 @@
         <!-- Components Section -->
         <div class="nav-section">
             <h3 class="nav-section-title">
-                <button class="nav-section-toggle" onclick="toggleNavSection(this)">
+                <button class="nav-section-toggle" onclick="">
                     <i data-lucide="chevron-right" class="chevron"></i>
                     <i data-lucide="layout-grid"></i>
                     Components
@@ -144,7 +144,7 @@
         <!-- Utilities Section -->
         <div class="nav-section">
             <h3 class="nav-section-title">
-                <button class="nav-section-toggle" onclick="toggleNavSection(this)">
+                <button class="nav-section-toggle" onclick="">
                     <i data-lucide="chevron-right" class="chevron"></i>
                     <i data-lucide="wrench"></i>
                     Utilities
@@ -199,106 +199,33 @@
         transform: translateX(-280px);
     }
 
-    .sidebar-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: var(--space-4);
-        border-bottom: 1px solid var(--color-border-subtle);
-        position: sticky;
-        top: 0;
-        background: var(--color-bg-secondary);
-        z-index: 10;
-    }
+    
 
-    .sidebar-logo {
-        font-size: var(--text-xl);
-        font-weight: var(--font-bold);
-        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin: 0;
-    }
+    
 
-    .sidebar-toggle {
-        background: none;
-        border: none;
-        color: var(--color-text-secondary);
-        cursor: pointer;
-        padding: var(--space-2);
-        border-radius: var(--radius);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    
 
-    .sidebar-toggle:hover {
-        background: var(--color-bg-tertiary);
-        color: var(--color-text-primary);
-    }
+    
 
-    .sidebar-content {
-        padding: var(--space-4);
-    }
+    
 
-    .nav-section {
-        margin-bottom: var(--space-3);
-    }
+    
 
-    .nav-section-title {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2);
-        font-size: var(--text-sm);
-        font-weight: var(--font-semibold);
-        color: var(--color-text-secondary);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: var(--space-3);
-    }
+    
 
-    .nav-section-title i {
-        width: 16px;
-        height: 10px;
-    }
+    
 
-    .nav-section-toggle {
-        background: none;
-        border: none;
-        color: var(--color-text-secondary);
-        cursor: pointer;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        gap: var(--space-2);
-        font-size: var(--text-sm);
-        font-weight: var(--font-semibold);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        width: 100%;
-    }
+    
 
-    .nav-section-toggle:hover {
-        color: var(--color-text-primary);
-    }
+    
 
-    .nav-section-toggle .chevron {
-        transition: transform 0.2s ease;
-    }
+    
 
-    .nav-section-toggle.expanded .chevron {
-        transform: rotate(90deg);
-    }
+    
 
-    .nav-section-content {
-        display: none;
-        margin-top: var(--space-3);
-    }
+    
 
-    .nav-section-content.expanded {
-        display: block;
-    }
+    
 
     .nav-category {
         margin-bottom: var(--space-4);
@@ -349,82 +276,31 @@
         display: block;
     }
 
-    .nav-link {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2);
-        padding: var(--space-2) var(--space-3);
-        color: var(--color-text-secondary);
-        text-decoration: none;
-        font-size: var(--text-sm);
-        border-radius: var(--radius);
-        transition: var(--transition-all-fast);
-    }
+    
 
-    .nav-link:hover {
-        background: var(--color-bg-tertiary);
-        color: var(--color-text-primary);
-    }
+    
 
-    .nav-link.active {
-        background: var(--color-primary-alpha);
-        color: var(--color-primary);
-        font-weight: var(--font-medium);
-    }
+    
 
-    .nav-link i {
-        width: 16px;
-        height: 10px;
-    }
+    
 
     /* Content adjustment for pages with sidebar */
     body.has-sidebar {
         margin-left: 280px;
     }
 
-    body.has-sidebar.sidebar-collapsed {
-        margin-left: 0;
-    }
+    body.has-sidebar
 
     /* Mobile responsive */
-    @media (max-width: 768px) {
-        .doc-sidebar {
-            transform: translateX(-280px);
-        }
-
-        .doc-sidebar.mobile-open {
-            transform: translateX(0);
-        }
-
-        body.has-sidebar {
-            margin-left: 0;
-        }
-
-        .sidebar-toggle {
-            display: flex;
-        }
-    }
+    
 
     /* Sidebar overlay for mobile */
-    .sidebar-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-    }
+    
 
-    .sidebar-overlay.active {
-        display: block;
-    }
+    
 
     @media (min-width: 769px) {
-        .sidebar-overlay {
-            display: none !important;
-        }
+        
     }
 </style>
 
@@ -444,12 +320,7 @@
         }
     }
 
-    function toggleNavSection(button) {
-        button.classList.toggle('expanded');
-        const content = button.closest('.nav-section-title').nextElementSibling;
-        if (content) {
-            content.classList.toggle('expanded');
-        }
+    
     }
 
     function toggleNavCategory(button) {

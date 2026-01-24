@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Picker - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=9">
+
+    <!-- Theme CSS (will be set by JavaScript) -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar Navigation */
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        
+
+        
+
+        
+
+        
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        
+            50% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        /* Main Content */
+        .main-content {
+            
+            flex: 1;
+            padding: var(--space-8);
+            max-width: calc(1400px + 280px);
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* Example Container */
+        .example-container {
+            margin-bottom: var(--space-8);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-3);
+        }
+
+        .example-demo {
+            padding: var(--space-6);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+        }
+
+        /* Theme Toggle */
+        /* Sidebar Overlay */
+        
+
+        .theme-toggle {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            z-index: 1000;
+        }
+
+        /* Mobile Header */
+        
+
+        /* Mobile Menu Toggle */
+        
+
+        
+
+                /* Mobile Styles */
+                
+
+        
+
+        
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    
+    </div>
+
+    <!-- Sidebar Overlay -->
+    
+
+    <!-- Mobile Overlay -->
+    
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary" onclick="toggleTheme()">
+            <i data-lucide="sun"></i>
+            <span class="theme-toggle-text">Toggle Theme</span>
+        </button>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Time Picker</h1>
+            <p class="page-description">
+                Time selection input with hour and minute selection.
+            </p>
+        </div>
+
+        
+        <h2>Time Picker</h2>
+            <p class="showcase-subtitle">Time selection component with 12/24 hour format support</p>
+
+            <div class="example">
+                <div class="example-label">Basic Time Picker</div>
+                <div style="display: flex; gap: var(--space-6); flex-wrap: wrap;">
+                    <div class="aural-time-picker" id="demo-time-picker-1">
+                        <label class="aural-time-picker__label">Select Time (12h)</label>
+                        <div class="aural-time-picker__input-wrapper">
+                            <input type="text" class="aural-time-picker__input" placeholder="12:00 AM" readonly>
+                            <button class="aural-time-picker__toggle" aria-label="Open time picker">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="aural-time-picker__dropdown">
+                            <div class="aural-time-picker__selectors">
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Hour</div>
+                                    <div class="aural-time-picker__list aural-time-picker__list--hours"></div>
+                                </div>
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Minute</div>
+                                    <div class="aural-time-picker__list aural-time-picker__list--minutes"></div>
+                                </div>
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Period</div>
+                                    <div class="aural-time-picker__period">
+                                        <button class="aural-time-picker__period-btn">AM</button>
+                                        <button class="aural-time-picker__period-btn">PM</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-time-picker__now">
+                                <button class="aural-time-picker__now-btn">Now</button>
+                            </div>
+                            <div class="aural-time-picker__actions">
+                                <button class="aural-time-picker__action-btn">Clear</button>
+                                <button class="aural-time-picker__action-btn aural-time-picker__action-btn--primary">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    </main>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=9"></script>
+
+    <!-- Navigation & Theme Toggle -->
+    <script>
+        
+
+        
+
+        
+
+        // Theme Toggle with localStorage persistence
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            const currentTheme = themeLink.getAttribute('href');
+
+            if (currentTheme.includes('dark')) {
+                themeLink.setAttribute('href', '../light.css');
+                localStorage.setItem('aural-theme', 'light');
+            } else {
+                themeLink.setAttribute('href', '../dark.css');
+                localStorage.setItem('aural-theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('aural-theme') || 'dark';
+            const themeLink = document.getElementById('theme-link');
+            themeLink.setAttribute('href', `../${savedTheme}.css`);
+
+            // Close mobile menu when clicking navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                    }
+                });
+            });
+
+            // Initialize Lucide Icons
+            lucide.createIcons();
+        });
+    </script>
+
+    <!-- Time Picker Component JavaScript -->
+    <script>
+        class TimePicker {
+            constructor(elementId, options = {}) {
+                this.element = document.getElementById(elementId);
+                if (!this.element) return;
+
+                this.input = this.element.querySelector('.aural-time-picker__input');
+                this.dropdown = this.element.querySelector('.aural-time-picker__dropdown');
+                this.toggleBtn = this.element.querySelector('.aural-time-picker__toggle');
+                this.hoursList = this.element.querySelector('.aural-time-picker__list--hours');
+                this.minutesList = this.element.querySelector('.aural-time-picker__list--minutes');
+                this.periodBtns = this.element.querySelectorAll('.aural-time-picker__period-btn');
+                this.nowBtn = this.element.querySelector('.aural-time-picker__now-btn');
+                this.clearBtn = this.element.querySelector('.aural-time-picker__action-btn:first-child');
+                this.doneBtn = this.element.querySelector('.aural-time-picker__action-btn--primary');
+
+                this.is24Hour = options.is24Hour || false;
+                this.selectedHour = 12;
+                this.selectedMinute = 0;
+                this.selectedPeriod = 'AM';
+
+                this.init();
+            }
+
+            init() {
+                // Toggle dropdown
+                this.toggleBtn.addEventListener('click', () => {
+                    this.toggleDropdown();
+                });
+
+                this.input.addEventListener('click', () => {
+                    this.openDropdown();
+                });
+
+                // Generate hour and minute options
+                this.renderHours();
+                this.renderMinutes();
+
+                // Period buttons
+                this.periodBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.selectPeriod(btn.textContent);
+                    });
+                });
+
+                // Set initial AM button as active
+                if (this.periodBtns.length > 0) {
+                    this.periodBtns[0].classList.add('aural-time-picker__period-btn--active');
+                }
+
+                // Now button
+                this.nowBtn.addEventListener('click', () => {
+                    this.setNow();
+                });
+
+                // Action buttons
+                this.clearBtn.addEventListener('click', () => {
+                    this.clear();
+                });
+
+                this.doneBtn.addEventListener('click', () => {
+                    this.done();
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!this.element.contains(e.target)) {
+                        this.closeDropdown();
+                    }
+                });
+
+                // Initial update
+                this.updateDisplay();
+            }
+
+            renderHours() {
+                this.hoursList.innerHTML = '';
+                const hours = this.is24Hour ? 24 : 12;
+
+                for (let i = 1; i <= hours; i++) {
+                    const hour = this.is24Hour ? i - 1 : i;
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'aural-time-picker__option';
+                    button.textContent = String(hour).padStart(2, '0');
+                    button.dataset.value = hour;
+
+                    if (hour === this.selectedHour) {
+                        button.classList.add('aural-time-picker__option--selected');
+                    }
+
+                    button.addEventListener('click', () => {
+                        this.selectHour(hour);
+                    });
+
+                    this.hoursList.appendChild(button);
+                }
+            }
+
+            renderMinutes() {
+                this.minutesList.innerHTML = '';
+
+                for (let i = 0; i < 60; i += 5) {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'aural-time-picker__option';
+                    button.textContent = String(i).padStart(2, '0');
+                    button.dataset.value = i;
+
+                    if (i === this.selectedMinute) {
+                        button.classList.add('aural-time-picker__option--selected');
+                    }
+
+                    button.addEventListener('click', () => {
+                        this.selectMinute(i);
+                    });
+
+                    this.minutesList.appendChild(button);
+                }
+            }
+
+            selectHour(hour) {
+                this.selectedHour = hour;
+                this.updateHourSelection();
+                this.updateDisplay();
+            }
+
+            selectMinute(minute) {
+                this.selectedMinute = minute;
+                this.updateMinuteSelection();
+                this.updateDisplay();
+            }
+
+            selectPeriod(period) {
+                this.selectedPeriod = period;
+                this.periodBtns.forEach(btn => {
+                    if (btn.textContent === period) {
+                        btn.classList.add('aural-time-picker__period-btn--active');
+                    } else {
+                        btn.classList.remove('aural-time-picker__period-btn--active');
+                    }
+                });
+                this.updateDisplay();
+            }
+
+            updateHourSelection() {
+                this.hoursList.querySelectorAll('.aural-time-picker__option').forEach(btn => {
+                    if (parseInt(btn.dataset.value) === this.selectedHour) {
+                        btn.classList.add('aural-time-picker__option--selected');
+                        btn.scrollIntoView({ block: 'nearest' });
+                    } else {
+                        btn.classList.remove('aural-time-picker__option--selected');
+                    }
+                });
+            }
+
+            updateMinuteSelection() {
+                this.minutesList.querySelectorAll('.aural-time-picker__option').forEach(btn => {
+                    if (parseInt(btn.dataset.value) === this.selectedMinute) {
+                        btn.classList.add('aural-time-picker__option--selected');
+                        btn.scrollIntoView({ block: 'nearest' });
+                    } else {
+                        btn.classList.remove('aural-time-picker__option--selected');
+                    }
+                });
+            }
+
+            updateDisplay() {
+                const hour = String(this.selectedHour).padStart(2, '0');
+                const minute = String(this.selectedMinute).padStart(2, '0');
+
+                if (this.is24Hour) {
+                    this.input.value = `${hour}:${minute}`;
+                } else {
+                    this.input.value = `${hour}:${minute} ${this.selectedPeriod}`;
+                }
+            }
+
+            setNow() {
+                const now = new Date();
+                let hour = now.getHours();
+                const minute = Math.floor(now.getMinutes() / 5) * 5;
+
+                if (!this.is24Hour) {
+                    this.selectedPeriod = hour >= 12 ? 'PM' : 'AM';
+                    hour = hour % 12 || 12;
+                }
+
+                this.selectedHour = hour;
+                this.selectedMinute = minute;
+
+                this.renderHours();
+                this.renderMinutes();
+                this.updateHourSelection();
+                this.updateMinuteSelection();
+                this.periodBtns.forEach(btn => {
+                    if (btn.textContent === this.selectedPeriod) {
+                        btn.classList.add('aural-time-picker__period-btn--active');
+                    } else {
+                        btn.classList.remove('aural-time-picker__period-btn--active');
+                    }
+                });
+                this.updateDisplay();
+            }
+
+            clear() {
+                this.input.value = '';
+                this.selectedHour = 12;
+                this.selectedMinute = 0;
+                this.selectedPeriod = 'AM';
+                this.renderHours();
+                this.renderMinutes();
+                this.periodBtns.forEach(btn => {
+                    if (btn.textContent === 'AM') {
+                        btn.classList.add('aural-time-picker__period-btn--active');
+                    } else {
+                        btn.classList.remove('aural-time-picker__period-btn--active');
+                    }
+                });
+            }
+
+            done() {
+                this.closeDropdown();
+
+                // Dispatch custom event
+                const event = new CustomEvent('time-select', {
+                    detail: {
+                        hour: this.selectedHour,
+                        minute: this.selectedMinute,
+                        period: this.selectedPeriod,
+                        formatted: this.input.value
+                    }
+                });
+                this.element.dispatchEvent(event);
+            }
+
+            toggleDropdown() {
+                const isOpen = this.element.classList.contains('aural-time-picker--open');
+                if (isOpen) {
+                    this.closeDropdown();
+                } else {
+                    this.openDropdown();
+                }
+            }
+
+            openDropdown() {
+                this.element.classList.add('aural-time-picker--open');
+                this.input.setAttribute('aria-expanded', 'true');
+            }
+
+            closeDropdown() {
+                this.element.classList.remove('aural-time-picker--open');
+                this.input.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        // Initialize time picker when everything is loaded
+        window.addEventListener('load', () => {
+            console.log('Initializing time picker...');
+            if (document.getElementById('demo-time-picker-1')) {
+                new TimePicker('demo-time-picker-1', { is24Hour: false });
+                console.log('Time picker initialized!');
+            } else {
+                console.error('Time picker element not found!');
+            }
+        });
+    </script>
+
+    <script>
+        // Auto-scroll active nav item into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeLink = document.querySelector('.nav-link.active');
+            if (activeLink) {
+                // Scroll the active item into view with some offset
+                setTimeout(() => {
+                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        });
+    </script>
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            themeLink.href = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        try {
+            if (window.self !== window.top) {
+                const themeToggle = document.querySelector('.theme-toggle');
+                if (themeToggle) {
+                    themeToggle.style.display = 'none';
+                }
+            }
+        } catch (e) {}
+    })();
+    </script>
+</body>
+</html>

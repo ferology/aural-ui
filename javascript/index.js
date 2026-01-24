@@ -1695,6 +1695,615 @@ const Aural = {
     },
 
     // ========================================
+    // CALENDAR
+    // ========================================
+
+    /**
+     * Initialize a Calendar component
+     * @param {string} calendarId - The calendar element ID
+     * @param {Object} options - Configuration options
+     */
+    initCalendar(calendarId, options = {}) {
+        const calendar = document.getElementById(calendarId);
+        if (!calendar) return;
+
+        const config = {
+            selectedDate: options.selectedDate ? new Date(options.selectedDate) : null,
+            minDate: options.minDate || null,
+            maxDate: options.maxDate || null,
+            disabledDates: options.disabledDates || [],
+            highlightWeekends: options.highlightWeekends !== false,
+            events: options.events || [], // Array of dates with events
+            showMonthYearSelectors: options.showMonthYearSelectors || false,
+            onChange: options.onChange || null,
+            onMonthChange: options.onMonthChange || null,
+            ...options
+        };
+
+        let currentMonth = config.selectedDate ? new Date(config.selectedDate) : new Date();
+        currentMonth.setDate(1); // Set to first of month
+        let selectedDate = config.selectedDate;
+
+        // Initial render
+        this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+
+        // Navigation buttons
+        const prevBtn = calendar.querySelector('.aural-calendar__nav-button[data-action="prev"]');
+        const nextBtn = calendar.querySelector('.aural-calendar__nav-button[data-action="next"]');
+        const todayBtn = calendar.querySelector('.aural-calendar__footer-button[data-action="today"]');
+        const clearBtn = calendar.querySelector('.aural-calendar__footer-button[data-action="clear"]');
+
+        if (prevBtn) {
+            prevBtn.onclick = () => {
+                currentMonth.setMonth(currentMonth.getMonth() - 1);
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                if (config.onMonthChange) {
+                    config.onMonthChange(new Date(currentMonth));
+                }
+            };
+        }
+
+        if (nextBtn) {
+            nextBtn.onclick = () => {
+                currentMonth.setMonth(currentMonth.getMonth() + 1);
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                if (config.onMonthChange) {
+                    config.onMonthChange(new Date(currentMonth));
+                }
+            };
+        }
+
+        if (todayBtn) {
+            todayBtn.onclick = () => {
+                const today = new Date();
+                currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                selectedDate = today;
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                if (config.onChange) {
+                    config.onChange(new Date(selectedDate));
+                }
+            };
+        }
+
+        if (clearBtn) {
+            clearBtn.onclick = () => {
+                selectedDate = null;
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                if (config.onChange) {
+                    config.onChange(null);
+                }
+            };
+        }
+
+        // Month/Year selectors
+        if (config.showMonthYearSelectors) {
+            const monthSelect = calendar.querySelector('.aural-calendar__select[data-type="month"]');
+            const yearSelect = calendar.querySelector('.aural-calendar__select[data-type="year"]');
+
+            if (monthSelect) {
+                monthSelect.addEventListener('change', (e) => {
+                    currentMonth.setMonth(parseInt(e.target.value));
+                    this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                    if (config.onMonthChange) {
+                        config.onMonthChange(new Date(currentMonth));
+                    }
+                });
+            }
+
+            if (yearSelect) {
+                yearSelect.addEventListener('change', (e) => {
+                    currentMonth.setFullYear(parseInt(e.target.value));
+                    this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                    if (config.onMonthChange) {
+                        config.onMonthChange(new Date(currentMonth));
+                    }
+                });
+            }
+        }
+
+        return {
+            getSelectedDate: () => selectedDate,
+            setSelectedDate: (date) => {
+                selectedDate = date ? new Date(date) : null;
+                if (selectedDate) {
+                    currentMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+                }
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+            },
+            getCurrentMonth: () => new Date(currentMonth),
+            goToMonth: (year, month) => {
+                currentMonth = new Date(year, month, 1);
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+            },
+            refresh: () => {
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+            }
+        };
+    },
+
+    /**
+     * Render a calendar month
+     */
+    renderCalendarMonth(calendar, currentMonth, selectedDate, config) {
+        const daysContainer = calendar.querySelector('.aural-calendar__days');
+        const currentMonthDisplay = calendar.querySelector('.aural-calendar__current-month');
+
+        // Update month display
+        if (currentMonthDisplay) {
+            currentMonthDisplay.textContent = currentMonth.toLocaleDateString('en-US', {
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+
+        // Update month/year selectors if they exist
+        if (config.showMonthYearSelectors) {
+            const monthSelect = calendar.querySelector('.aural-calendar__select[data-type="month"]');
+            const yearSelect = calendar.querySelector('.aural-calendar__select[data-type="year"]');
+
+            if (monthSelect) {
+                monthSelect.value = currentMonth.getMonth();
+            }
+
+            if (yearSelect) {
+                yearSelect.value = currentMonth.getFullYear();
+            }
+        }
+
+        // Generate calendar days
+        const year = currentMonth.getFullYear();
+        const month = currentMonth.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        let daysHTML = '';
+
+        // Previous month days
+        for (let day = daysInPrevMonth - firstDay + 1; day <= daysInPrevMonth; day++) {
+            daysHTML += `<button class="aural-calendar__day aural-calendar__day--other-month" type="button" tabindex="-1">${day}</button>`;
+        }
+
+        // Current month days
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(year, month, day);
+            date.setHours(0, 0, 0, 0);
+
+            const isToday = date.getTime() === today.getTime();
+            const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+            const isDisabled = this.isDateDisabled(date, config);
+            const isWeekend = config.highlightWeekends && (date.getDay() === 0 || date.getDay() === 6);
+            const hasEvent = config.events.some(eventDate => {
+                const event = new Date(eventDate);
+                event.setHours(0, 0, 0, 0);
+                return event.getTime() === date.getTime();
+            });
+
+            let classes = 'aural-calendar__day';
+            if (isToday) classes += ' aural-calendar__day--today';
+            if (isSelected) classes += ' aural-calendar__day--selected';
+            if (isDisabled) classes += ' aural-calendar__day--disabled';
+            if (isWeekend) classes += ' aural-calendar__day--weekend';
+            if (hasEvent) classes += ' aural-calendar__day--has-event';
+
+            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? 'disabled' : ''}>${day}</button>`;
+        }
+
+        // Next month days
+        const totalCells = firstDay + daysInMonth;
+        const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+        for (let day = 1; day <= remainingCells; day++) {
+            daysHTML += `<button class="aural-calendar__day aural-calendar__day--other-month" type="button" tabindex="-1">${day}</button>`;
+        }
+
+        daysContainer.innerHTML = daysHTML;
+
+        // Add click handlers for date selection
+        daysContainer.querySelectorAll('.aural-calendar__day:not(.aural-calendar__day--disabled):not(.aural-calendar__day--other-month)').forEach(dayBtn => {
+            dayBtn.addEventListener('click', () => {
+                const dateStr = dayBtn.getAttribute('data-date');
+                const date = new Date(dateStr);
+                selectedDate = date;
+
+                // Re-render to update selected state
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+
+                if (config.onChange) {
+                    config.onChange(new Date(date));
+                }
+            });
+        });
+
+        // Update navigation button states based on min/max dates
+        const prevBtn = calendar.querySelector('.aural-calendar__nav-button[data-action="prev"]');
+        const nextBtn = calendar.querySelector('.aural-calendar__nav-button[data-action="next"]');
+
+        if (prevBtn && config.minDate) {
+            const minDate = new Date(config.minDate);
+            const prevMonth = new Date(year, month - 1, 1);
+            prevBtn.disabled = prevMonth < new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+        }
+
+        if (nextBtn && config.maxDate) {
+            const maxDate = new Date(config.maxDate);
+            const nextMonth = new Date(year, month + 1, 1);
+            nextBtn.disabled = nextMonth > new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+        }
+    },
+
+    // ========================================
+    // DATE RANGE PICKER
+    // ========================================
+
+    /**
+     * Initialize a Date Range Picker component
+     * @param {string} pickerId - The date range picker element ID
+     * @param {Object} options - Configuration options
+     */
+    initDateRangePicker(pickerId, options = {}) {
+        const picker = document.getElementById(pickerId);
+        if (!picker) return;
+
+        const config = {
+            startDate: options.startDate ? new Date(options.startDate) : null,
+            endDate: options.endDate ? new Date(options.endDate) : null,
+            minDate: options.minDate || null,
+            maxDate: options.maxDate || null,
+            disabledDates: options.disabledDates || [],
+            presets: options.presets || [],
+            onChange: options.onChange || null,
+            ...options
+        };
+
+        let startDate = config.startDate;
+        let endDate = config.endDate;
+        let hoverDate = null;
+        let selectingStart = true; // Toggle between selecting start and end date
+
+        const startInput = picker.querySelector('.aural-date-range-picker__input[data-range="start"]');
+        const endInput = picker.querySelector('.aural-date-range-picker__input[data-range="end"]');
+        const dropdown = picker.querySelector('.aural-date-range-picker__dropdown');
+        const leftCalendar = picker.querySelector('.aural-date-range-picker__calendar[data-calendar="left"]');
+        const rightCalendar = picker.querySelector('.aural-date-range-picker__calendar[data-calendar="right"]');
+
+        // Initialize months to display
+        let leftMonth = startDate ? new Date(startDate) : new Date();
+        leftMonth.setDate(1);
+        let rightMonth = new Date(leftMonth);
+        rightMonth.setMonth(rightMonth.getMonth() + 1);
+
+        // Update input values
+        const updateInputs = () => {
+            if (startInput) {
+                startInput.value = startDate ? startDate.toLocaleDateString() : '';
+            }
+            if (endInput) {
+                endInput.value = endDate ? endDate.toLocaleDateString() : '';
+            }
+        };
+
+        updateInputs();
+
+        // Open dropdown
+        const openDropdown = () => {
+            dropdown?.classList.add('aural-date-range-picker__dropdown--open');
+            this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+            this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+        };
+
+        // Close dropdown
+        const closeDropdown = () => {
+            dropdown?.classList.remove('aural-date-range-picker__dropdown--open');
+        };
+
+        // Toggle dropdown on input click
+        [startInput, endInput].forEach(input => {
+            input?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openDropdown();
+                selectingStart = input.dataset.range === 'start';
+            });
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!picker.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        // ESC to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && dropdown?.classList.contains('aural-date-range-picker__dropdown--open')) {
+                closeDropdown();
+            }
+        });
+
+        // Navigation buttons
+        const setupNavigation = (calendar, monthRef, isLeft) => {
+            const prevBtn = calendar?.querySelector('.aural-date-range-picker__nav-button[data-action="prev"]');
+            const nextBtn = calendar?.querySelector('.aural-date-range-picker__nav-button[data-action="next"]');
+
+            if (prevBtn) {
+                prevBtn.onclick = () => {
+                    monthRef.setMonth(monthRef.getMonth() - 1);
+                    if (!isLeft) {
+                        leftMonth = new Date(monthRef);
+                        leftMonth.setMonth(leftMonth.getMonth() - 1);
+                        this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+                    }
+                    this.renderDateRangeCalendar(calendar, monthRef, startDate, endDate, hoverDate, config);
+                };
+            }
+
+            if (nextBtn) {
+                nextBtn.onclick = () => {
+                    monthRef.setMonth(monthRef.getMonth() + 1);
+                    if (isLeft) {
+                        rightMonth = new Date(monthRef);
+                        rightMonth.setMonth(rightMonth.getMonth() + 1);
+                        this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+                    }
+                    this.renderDateRangeCalendar(calendar, monthRef, startDate, endDate, hoverDate, config);
+                };
+            }
+        };
+
+        setupNavigation(leftCalendar, leftMonth, true);
+        setupNavigation(rightCalendar, rightMonth, false);
+
+        // Handle date selection
+        const handleDateSelection = (date) => {
+            if (selectingStart || !startDate || (startDate && endDate)) {
+                // Selecting start date
+                startDate = date;
+                endDate = null;
+                selectingStart = false;
+            } else {
+                // Selecting end date
+                if (date < startDate) {
+                    // If selected date is before start, swap them
+                    endDate = startDate;
+                    startDate = date;
+                } else {
+                    endDate = date;
+                }
+                selectingStart = true;
+            }
+
+            updateInputs();
+            this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+            this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+
+            // Call onChange if both dates are selected
+            if (startDate && endDate && config.onChange) {
+                config.onChange(startDate, endDate);
+            }
+        };
+
+        // Setup calendar click handlers
+        const setupCalendarHandlers = (calendar) => {
+            const daysContainer = calendar?.querySelector('.aural-date-range-picker__days');
+            daysContainer?.addEventListener('click', (e) => {
+                const dayBtn = e.target.closest('.aural-date-range-picker__day');
+                if (dayBtn && !dayBtn.classList.contains('aural-date-range-picker__day--disabled') &&
+                    !dayBtn.classList.contains('aural-date-range-picker__day--other-month')) {
+                    const dateStr = dayBtn.getAttribute('data-date');
+                    handleDateSelection(new Date(dateStr));
+                }
+            });
+
+            // Hover effect for range preview
+            daysContainer?.addEventListener('mouseover', (e) => {
+                const dayBtn = e.target.closest('.aural-date-range-picker__day');
+                if (dayBtn && !dayBtn.classList.contains('aural-date-range-picker__day--disabled') &&
+                    !dayBtn.classList.contains('aural-date-range-picker__day--other-month')) {
+                    const dateStr = dayBtn.getAttribute('data-date');
+                    hoverDate = new Date(dateStr);
+                    this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+                    this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+                }
+            });
+
+            daysContainer?.addEventListener('mouseout', () => {
+                hoverDate = null;
+                this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+                this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+            });
+        };
+
+        setupCalendarHandlers(leftCalendar);
+        setupCalendarHandlers(rightCalendar);
+
+        // Footer buttons
+        const clearBtn = picker.querySelector('.aural-date-range-picker__footer-button[data-action="clear"]');
+        const applyBtn = picker.querySelector('.aural-date-range-picker__footer-button[data-action="apply"]');
+
+        if (clearBtn) {
+            clearBtn.onclick = () => {
+                startDate = null;
+                endDate = null;
+                selectingStart = true;
+                updateInputs();
+                this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+                this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+                if (config.onChange) {
+                    config.onChange(null, null);
+                }
+            };
+        }
+
+        if (applyBtn) {
+            applyBtn.onclick = () => {
+                closeDropdown();
+            };
+        }
+
+        // Preset ranges
+        const presetButtons = picker.querySelectorAll('.aural-date-range-picker__preset-button');
+        presetButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const presetType = btn.dataset.preset;
+                const range = this.getPresetDateRange(presetType);
+                if (range) {
+                    startDate = range.start;
+                    endDate = range.end;
+                    updateInputs();
+                    leftMonth = new Date(startDate);
+                    leftMonth.setDate(1);
+                    rightMonth = new Date(leftMonth);
+                    rightMonth.setMonth(rightMonth.getMonth() + 1);
+                    this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+                    this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+                    if (config.onChange) {
+                        config.onChange(startDate, endDate);
+                    }
+                }
+            });
+        });
+
+        return {
+            getRange: () => ({ start: startDate, end: endDate }),
+            setRange: (start, end) => {
+                startDate = start ? new Date(start) : null;
+                endDate = end ? new Date(end) : null;
+                updateInputs();
+                if (startDate) {
+                    leftMonth = new Date(startDate);
+                    leftMonth.setDate(1);
+                    rightMonth = new Date(leftMonth);
+                    rightMonth.setMonth(rightMonth.getMonth() + 1);
+                }
+                this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+                this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+            },
+            clear: () => {
+                startDate = null;
+                endDate = null;
+                updateInputs();
+                this.renderDateRangeCalendar(leftCalendar, leftMonth, startDate, endDate, hoverDate, config);
+                this.renderDateRangeCalendar(rightCalendar, rightMonth, startDate, endDate, hoverDate, config);
+            }
+        };
+    },
+
+    /**
+     * Render a date range calendar month
+     */
+    renderDateRangeCalendar(calendar, currentMonth, startDate, endDate, hoverDate, config) {
+        if (!calendar) return;
+
+        const daysContainer = calendar.querySelector('.aural-date-range-picker__days');
+        const monthLabel = calendar.querySelector('.aural-date-range-picker__month-label');
+
+        // Update month label
+        if (monthLabel) {
+            monthLabel.textContent = currentMonth.toLocaleDateString('en-US', {
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+
+        // Generate calendar days
+        const year = currentMonth.getFullYear();
+        const month = currentMonth.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        let daysHTML = '';
+
+        // Previous month days
+        for (let day = daysInPrevMonth - firstDay + 1; day <= daysInPrevMonth; day++) {
+            daysHTML += `<button class="aural-date-range-picker__day aural-date-range-picker__day--other-month" type="button" tabindex="-1">${day}</button>`;
+        }
+
+        // Current month days
+        for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(year, month, day);
+            date.setHours(0, 0, 0, 0);
+
+            const isToday = date.getTime() === today.getTime();
+            const isDisabled = this.isDateDisabled(date, config);
+
+            // Range selection logic
+            const isRangeStart = startDate && date.getTime() === startDate.getTime();
+            const isRangeEnd = endDate && date.getTime() === endDate.getTime();
+
+            // Determine if in range (including hover preview)
+            let inRange = false;
+            if (startDate && endDate) {
+                inRange = date > startDate && date < endDate;
+            } else if (startDate && hoverDate && !endDate) {
+                const rangeStart = startDate < hoverDate ? startDate : hoverDate;
+                const rangeEnd = startDate > hoverDate ? startDate : hoverDate;
+                inRange = date > rangeStart && date < rangeEnd;
+            }
+
+            let classes = 'aural-date-range-picker__day';
+            if (isToday) classes += ' aural-date-range-picker__day--today';
+            if (isRangeStart) classes += ' aural-date-range-picker__day--range-start';
+            if (isRangeEnd) classes += ' aural-date-range-picker__day--range-end';
+            if (inRange) classes += ' aural-date-range-picker__day--in-range';
+            if (isDisabled) classes += ' aural-date-range-picker__day--disabled';
+
+            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? 'disabled' : ''}>${day}</button>`;
+        }
+
+        // Next month days
+        const totalCells = firstDay + daysInMonth;
+        const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+        for (let day = 1; day <= remainingCells; day++) {
+            daysHTML += `<button class="aural-date-range-picker__day aural-date-range-picker__day--other-month" type="button" tabindex="-1">${day}</button>`;
+        }
+
+        if (daysContainer) {
+            daysContainer.innerHTML = daysHTML;
+        }
+    },
+
+    /**
+     * Get preset date ranges
+     */
+    getPresetDateRange(presetType) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const ranges = {
+            'today': {
+                start: new Date(today),
+                end: new Date(today)
+            },
+            'yesterday': {
+                start: new Date(today.getTime() - 24 * 60 * 60 * 1000),
+                end: new Date(today.getTime() - 24 * 60 * 60 * 1000)
+            },
+            'last7days': {
+                start: new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000),
+                end: new Date(today)
+            },
+            'last30days': {
+                start: new Date(today.getTime() - 29 * 24 * 60 * 60 * 1000),
+                end: new Date(today)
+            },
+            'thisMonth': {
+                start: new Date(today.getFullYear(), today.getMonth(), 1),
+                end: new Date(today)
+            },
+            'lastMonth': {
+                start: new Date(today.getFullYear(), today.getMonth() - 1, 1),
+                end: new Date(today.getFullYear(), today.getMonth(), 0)
+            }
+        };
+
+        return ranges[presetType] || null;
+    },
+
+    // ========================================
     // STEPPER
     // ========================================
 

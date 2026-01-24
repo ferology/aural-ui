@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css?v=9">
+
+    <!-- Choose theme -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+
+    <!-- Lucide Icons (MIT License) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar Navigation */
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        
+
+        
+
+        
+
+        
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        
+            50% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        /* Main Content */
+        .main-content {
+            
+            flex: 1;
+            padding: var(--space-8);
+            max-width: calc(1400px + 280px);
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: var(--space-16);
+            scroll-margin-top: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-3);
+            padding-bottom: var(--space-3);
+            border-bottom: 2px solid var(--color-border-subtle);
+        }
+
+        .section-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-3);
+        }
+        /* Mobile Header */
+        
+
+        /* Mobile Menu Toggle */
+        
+
+        
+
+
+        /* Theme Toggle */
+        /* Sidebar Overlay */
+        
+
+        .theme-toggle {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            z-index: 1000;
+        }
+
+                
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    
+    </div>
+
+    <!-- Sidebar Overlay -->
+    
+
+
+    <!-- Sidebar Navigation -->
+    
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Accessibility -->
+        <section class="section" id="accessibility">
+            <h2 class="section-title">Accessibility</h2>
+            <p class="section-description">
+                Accessibility is not an afterthought. Every component in Aural UI is built from the ground up
+                with accessibility in mind, ensuring your applications are usable by everyone.
+            </p>
+
+            <div class="card" style="padding: var(--space-6); margin-bottom: var(--space-3);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--color-text-primary);">
+                    Our Accessibility Commitments
+                </h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: start; gap: var(--space-3);">
+                        <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
+                        <div>
+                            <strong style="color: var(--color-text-primary);">WCAG 2.1 AA Compliant</strong>
+                            <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
+                                All components meet or exceed WCAG 2.1 Level AA standards
+                            </p>
+                        </div>
+                    </li>
+                    <li style="padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: start; gap: var(--space-3);">
+                        <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
+                        <div>
+                            <strong style="color: var(--color-text-primary);">Keyboard Navigation</strong>
+                            <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
+                                Full keyboard support with logical tab order and focus management
+                            </p>
+                        </div>
+                    </li>
+                    <li style="padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: start; gap: var(--space-3);">
+                        <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
+                        <div>
+                            <strong style="color: var(--color-text-primary);">Screen Reader Support</strong>
+                            <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
+                                Proper ARIA labels, roles, and live regions for assistive technologies
+                            </p>
+                        </div>
+                    </li>
+                    <li style="padding: var(--space-3) 0; display: flex; align-items: start; gap: var(--space-3);">
+                        <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
+                        <div>
+                            <strong style="color: var(--color-text-primary);">Color Contrast</strong>
+                            <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
+                                Minimum 4.5:1 contrast ratio for all text and interactive elements
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary" onclick="toggleTheme()">
+            <i data-lucide="sun"></i>
+            <span class="theme-toggle-text">Toggle Theme</span>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="./aural-ui.js?v=9"></script>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Navigation and Theme Scripts -->
+    <script>
+        // Toggle collapsible navigation sections
+        
+        // Mobile menu toggle
+        
+            if (overlay) {
+                overlay.classList.toggle('active');
+            }
+        }
+
+        // Close mobile menu when clicking navigation links
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sidebar = document.getElementById('sidebar') || document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close on mobile
+                    if (window.innerWidth <= 768) {
+                        if (sidebar) {
+                            sidebar.classList.remove('open');
+                        }
+                        if (overlay) {
+                            overlay.classList.remove('active');
+                        }
+                    }
+                });
+            });
+        });
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            const currentTheme = themeLink.getAttribute('href');
+
+            if (currentTheme.includes('dark')) {
+                themeLink.setAttribute('href', './light.css');
+                localStorage.setItem('aural-theme', 'light');
+            } else {
+                themeLink.setAttribute('href', './dark.css');
+                localStorage.setItem('aural-theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('aural-theme') || 'dark';
+            const themeLink = document.getElementById('theme-link');
+            themeLink.setAttribute('href', `./${savedTheme}.css`);
+        });
+    </script>
+
+    <script>
+
+        // Auto-scroll active nav item into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeLink = document.querySelector('.nav-link.active');
+            if (activeLink) {
+                // Scroll the active item into view with some offset
+                setTimeout(() => {
+                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        });
+
+    </script>
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            themeLink.href = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        try {
+            if (window.self !== window.top) {
+                const themeToggle = document.querySelector('.theme-toggle');
+                if (themeToggle) {
+                    themeToggle.style.display = 'none';
+                }
+            }
+        } catch (e) {}
+    })();
+    </script>
+</body>
+</html>
