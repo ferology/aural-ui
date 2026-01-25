@@ -273,6 +273,14 @@
    COLOR VARIANTS
    ======================================== */
 
+.switch-primary > input[type="checkbox"][role="switch"]:checked + span::before {
+    background: var(--color-primary);
+}
+
+.switch-primary:hover > input[type="checkbox"][role="switch"]:checked + span::before {
+    background: var(--primary-600, var(--color-primary-hover));
+}
+
 .switch-success > input[type="checkbox"][role="switch"]:checked + span::before {
     background: var(--color-success);
 }
@@ -462,6 +470,10 @@
     & > input[type="checkbox"][role="switch"]:checked + span::after {
         left: 26px;
     }
+}
+
+.toggle-primary > input[type="checkbox"][role="switch"]:checked + span::before {
+    background: var(--color-primary);
 }
 
 .toggle-success > input[type="checkbox"][role="switch"]:checked + span::before {
