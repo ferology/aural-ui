@@ -6,7 +6,7 @@
     <title>Stepper - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -126,6 +126,127 @@
             padding: 0;
         }
 
+        /* Stepper Alignment Improvements */
+        .aural-stepper {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .aural-step {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .aural-step__indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-tertiary);
+            border: 2px solid var(--color-border-subtle);
+            color: var(--color-text-secondary);
+            font-weight: var(--font-semibold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .aural-step--completed .aural-step__indicator {
+            background: var(--color-success);
+            border-color: var(--color-success);
+            color: white;
+        }
+
+        .aural-step--active .aural-step__indicator {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+
+        /* Connector Line - Horizontal */
+        .aural-step__connector {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            right: -50%;
+            height: 2px;
+            background: var(--color-border-subtle);
+            z-index: 0;
+        }
+
+        .aural-step:last-child .aural-step__connector {
+            display: none;
+        }
+
+        .aural-step--completed .aural-step__connector {
+            background: var(--color-primary);
+        }
+
+        .aural-step__content {
+            text-align: center;
+            margin-top: var(--space-3);
+            width: 100%;
+        }
+
+        .aural-step__title {
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .aural-step__description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+        }
+
+        /* Vertical Stepper */
+        .aural-stepper--vertical {
+            flex-direction: column;
+        }
+
+        .aural-stepper--vertical .aural-step {
+            flex-direction: row;
+            align-items: flex-start;
+            flex: none;
+            width: 100%;
+            padding-bottom: var(--space-6);
+        }
+
+        .aural-stepper--vertical .aural-step:last-child {
+            padding-bottom: 0;
+        }
+
+        .aural-stepper--vertical .aural-step__content {
+            text-align: left;
+            margin-top: 0;
+            margin-left: var(--space-4);
+            padding-top: 8px;
+            flex: 1;
+        }
+
+        /* Connector Line - Vertical */
+        .aural-stepper--vertical .aural-step__connector {
+            position: absolute;
+            top: 40px;
+            left: 20px;
+            bottom: -24px;
+            width: 2px;
+            height: auto;
+            background: var(--color-border-subtle);
+        }
+
+        .aural-stepper--vertical .aural-step--completed .aural-step__connector {
+            background: var(--color-primary);
+        }
+
+        .aural-stepper--vertical .aural-step:last-child .aural-step__connector {
+            display: none;
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -167,7 +288,20 @@
             <p class="page-description">Multi-step process indicator.</p>
         </div>
 
-        </div>
+        <div class="example-container">
+            <div class="example-label">Horizontal Stepper</div>
+            <div class="example-demo">
+                <div class="aural-stepper" id="stepper-1">
+                    <div class="aural-step aural-step--completed">
+                        <div class="aural-step__indicator" data-step="1">
+                            <i data-lucide="check" class="aural-step__indicator-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-step__connector"></div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Account</div>
+                            <div class="aural-step__description">Create your account</div>
+                        </div>
+                    </div>
                     <div class="aural-step aural-step--active">
                         <div class="aural-step__indicator" data-step="2">2</div>
                         <div class="aural-step__connector"></div>
@@ -193,15 +327,15 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="example">
-                <div class="example-label">Vertical Stepper</div>
-                <div class="aural-stepper aural-stepper--vertical" id="demo-stepper-2" style="max-width: 400px;">
+        <div class="example-container">
+            <div class="example-label">Vertical Stepper</div>
+            <div class="example-demo">
+                <div class="aural-stepper aural-stepper--vertical" id="stepper-2" style="max-width: 400px;">
                     <div class="aural-step aural-step--completed">
                         <div class="aural-step__indicator" data-step="1">
-                            <svg class="aural-step__indicator-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
+                            <i data-lucide="check" class="aural-step__indicator-icon" aria-hidden="true"></i>
                         </div>
                         <div class="aural-step__connector"></div>
                         <div class="aural-step__content">
@@ -234,6 +368,93 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Simple Progress</div>
+            <div class="example-demo">
+                <div class="aural-stepper" id="stepper-3">
+                    <div class="aural-step aural-step--completed">
+                        <div class="aural-step__indicator" data-step="1">
+                            <i data-lucide="check" class="aural-step__indicator-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-step__connector"></div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Personal Info</div>
+                        </div>
+                    </div>
+                    <div class="aural-step aural-step--completed">
+                        <div class="aural-step__indicator" data-step="2">
+                            <i data-lucide="check" class="aural-step__indicator-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-step__connector"></div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Address</div>
+                        </div>
+                    </div>
+                    <div class="aural-step aural-step--active">
+                        <div class="aural-step__indicator" data-step="3">3</div>
+                        <div class="aural-step__connector"></div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Payment</div>
+                        </div>
+                    </div>
+                    <div class="aural-step">
+                        <div class="aural-step__indicator" data-step="4">4</div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Confirmation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">With Icons</div>
+            <div class="example-demo">
+                <div class="aural-stepper" id="stepper-4">
+                    <div class="aural-step aural-step--completed">
+                        <div class="aural-step__indicator" data-step="1">
+                            <i data-lucide="user" class="aural-step__indicator-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-step__connector"></div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Sign Up</div>
+                            <div class="aural-step__description">Create account</div>
+                        </div>
+                    </div>
+                    <div class="aural-step aural-step--active">
+                        <div class="aural-step__indicator" data-step="2">
+                            <i data-lucide="mail" class="aural-step__indicator-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-step__connector"></div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Verify</div>
+                            <div class="aural-step__description">Confirm email</div>
+                        </div>
+                    </div>
+                    <div class="aural-step">
+                        <div class="aural-step__indicator" data-step="3">
+                            <i data-lucide="settings" class="aural-step__indicator-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-step__connector"></div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Setup</div>
+                            <div class="aural-step__description">Configure settings</div>
+                        </div>
+                    </div>
+                    <div class="aural-step">
+                        <div class="aural-step__indicator" data-step="4">
+                            <i data-lucide="check-circle" class="aural-step__indicator-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-step__content">
+                            <div class="aural-step__title">Done</div>
+                            <div class="aural-step__description">All set</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 
