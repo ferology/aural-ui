@@ -107,7 +107,7 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Switch</h1>
-            <p class="page-description">iOS-style toggle switches for binary on/off options. (Unified component - replaces both Toggle and Switch)</p>
+            <p class="page-description">iOS-style toggle switches for binary on/off options.</p>
         </div>
 
         <div class="example-container">
@@ -115,16 +115,25 @@
             <div class="example-demo">
                 <div class="flex flex-col gap-4">
                     <label class="switch">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Enable notifications</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Enable notifications</span>
                     </label>
                     <label class="switch">
-                        <input type="checkbox" role="switch">
-                        <span>Auto-save</span>
+                        <input type="checkbox" class="switch__input" role="switch">
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Auto-save</span>
                     </label>
                     <label class="switch">
-                        <input type="checkbox" role="switch" disabled>
-                        <span>Disabled switch</span>
+                        <input type="checkbox" class="switch__input" role="switch" disabled>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Disabled switch</span>
                     </label>
                 </div>
             </div>
@@ -135,16 +144,25 @@
             <div class="example-demo">
                 <div class="flex flex-col gap-4">
                     <label class="switch switch-sm">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Small switch</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Small</span>
                     </label>
                     <label class="switch">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Default switch</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Default</span>
                     </label>
                     <label class="switch switch-lg">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Large switch</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Large</span>
                     </label>
                 </div>
             </div>
@@ -155,24 +173,39 @@
             <div class="example-demo">
                 <div class="flex flex-col gap-4">
                     <label class="switch switch-primary">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Primary</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Primary</span>
                     </label>
                     <label class="switch switch-success">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Success</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Success</span>
                     </label>
                     <label class="switch switch-warning">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Warning</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Warning</span>
                     </label>
                     <label class="switch switch-error">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Error</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Error</span>
                     </label>
                     <label class="switch switch-info">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Info</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Info</span>
                     </label>
                 </div>
             </div>
@@ -182,10 +215,13 @@
             <div class="example-label">With Description</div>
             <div class="example-demo">
                 <label class="switch switch-with-description">
-                    <input type="checkbox" role="switch" checked>
-                    <span>
+                    <input type="checkbox" class="switch__input" role="switch" checked>
+                    <div class="switch__track">
+                        <div class="switch__thumb"></div>
+                    </div>
+                    <span class="switch__label">
                         Email notifications
-                        <span class="switch-description">Receive email updates about your account activity</span>
+                        <span class="switch__description">Receive email updates about your account activity</span>
                     </span>
                 </label>
             </div>
@@ -196,12 +232,18 @@
             <div class="example-demo">
                 <div class="flex flex-col gap-4">
                     <label class="switch">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Label on right (default)</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Label on right (default)</span>
                     </label>
                     <label class="switch switch-label-left">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Label on left</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Label on left</span>
                     </label>
                 </div>
             </div>
@@ -214,16 +256,25 @@
                     <div class="switch-group-label">Notification preferences</div>
                     <div class="switch-group-description">Choose which notifications you want to receive</div>
                     <label class="switch">
-                        <input type="checkbox" role="switch" checked>
-                        <span>Email notifications</span>
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Email notifications</span>
                     </label>
                     <label class="switch">
-                        <input type="checkbox" role="switch">
-                        <span>Push notifications</span>
+                        <input type="checkbox" class="switch__input" role="switch">
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">Push notifications</span>
                     </label>
                     <label class="switch">
-                        <input type="checkbox" role="switch">
-                        <span>SMS notifications</span>
+                        <input type="checkbox" class="switch__input" role="switch">
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">SMS notifications</span>
                     </label>
                 </div>
             </div>

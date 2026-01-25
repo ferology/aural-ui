@@ -1,13 +1,16 @@
 /**
  * AURAL UI - Switch Component
  *
- * Unified iOS-style toggle switch component (merges toggle + switch)
- * Features: Clean alignment, sizes, colors, labels, descriptions
+ * iOS-style toggle switch component
+ * Uses real DOM elements for better rendering and alignment
  *
  * Usage:
  *   <label class="switch">
- *     <input type="checkbox" role="switch">
- *     <span>Enable notifications</span>
+ *     <input type="checkbox" class="switch__input" role="switch">
+ *     <div class="switch__track">
+ *       <div class="switch__thumb"></div>
+ *     </div>
+ *     <span class="switch__label">Enable notifications</span>
  *   </label>
  */
 
@@ -16,301 +19,228 @@
    ======================================== */
 
 .switch {
-    /* Layout */
     display: inline-flex;
     align-items: center;
-    gap: 0;
-    position: relative;
-
-    /* Typography */
+    gap: var(--space-3);
+    cursor: pointer;
+    user-select: none;
     font-family: var(--font-sans);
     font-size: var(--text-base);
     color: var(--color-text-primary);
     line-height: var(--leading-normal);
-
-    /* Interaction */
-    cursor: pointer;
-    user-select: none;
-
-    /* Accessibility */
     min-height: 44px;
+}
 
-    & > input[type="checkbox"][role="switch"] {
-        /* Hide native checkbox */
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
+.switch__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
 
-    & > input[type="checkbox"][role="switch"] + span {
-        position: relative;
-        padding-left: calc(44px + var(--space-3));
-        display: flex;
-        align-items: center;
-    }
+.switch__track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 44px;
+    height: 24px;
+    background: var(--color-border-strong);
+    border-radius: var(--radius-full);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
+}
 
-    /* Switch track */
-    & > input[type="checkbox"][role="switch"] + span::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
+.switch:hover .switch__track {
+    background: var(--color-border-stronger);
+}
 
-        /* Size (default: medium) */
-        width: 44px;
-        height: 24px;
+.switch__input:checked + .switch__track {
+    background: var(--color-primary);
+}
 
-        /* Appearance */
-        background: var(--color-toggle-track-off, var(--color-border-strong));
-        border-radius: var(--radius-full);
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+.switch:hover .switch__input:checked + .switch__track {
+    background: var(--color-primary-hover);
+}
 
-        /* Transitions */
-        transition: var(--transition-all-fast);
-    }
+.switch__input:focus-visible + .switch__track {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
 
-    /* Switch thumb */
-    & > input[type="checkbox"][role="switch"] + span::after {
-        content: '';
-        position: absolute;
-        left: 2px;
-        top: 50%;
-        transform: translateY(-50%);
+.switch__thumb {
+    position: absolute;
+    left: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
 
-        /* Size - thumb is slightly smaller than track height */
-        width: 20px;
-        height: 20px;
+.switch__input:checked + .switch__track .switch__thumb {
+    transform: translateX(20px);
+}
 
-        /* Appearance */
-        background: var(--color-toggle-thumb, white);
-        border-radius: 50%;
-        box-shadow: 0 2px 4px var(--color-toggle-thumb-shadow, rgba(0, 0, 0, 0.2));
+.switch__label {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+    line-height: 1.5;
+}
 
-        /* Transitions */
-        transition: var(--transition-all-fast);
-    }
+/* Disabled state */
+.switch__input:disabled + .switch__track {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
-    /* Hover state */
-    &:hover > input[type="checkbox"][role="switch"]:not(:disabled) + span::before {
-        background: var(--color-toggle-track-hover, var(--color-border-stronger));
-    }
-
-    /* Checked state - track */
-    & > input[type="checkbox"][role="switch"]:checked + span::before {
-        background: var(--color-toggle-track-on, var(--color-primary));
-        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-    }
-
-    /* Checked state - thumb position */
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        left: 22px;
-    }
-
-    /* Focus state */
-    & > input[type="checkbox"][role="switch"]:focus-visible + span::before {
-        outline: 2px solid var(--color-primary);
-        outline-offset: 2px;
-    }
-
-    /* Disabled state */
-    & > input[type="checkbox"][role="switch"]:disabled + span {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
-    &:has(input[type="checkbox"][role="switch"]:disabled) {
-        cursor: not-allowed;
-    }
+.switch:has(.switch__input:disabled) {
+    cursor: not-allowed;
 }
 
 /* ========================================
    SIZES
    ======================================== */
 
+/* Small */
 .switch-sm {
     font-size: var(--text-sm);
     min-height: 36px;
-
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-left: calc(36px + var(--space-2));
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::before {
-        width: 36px;
-        height: 20px;
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::after {
-        width: 16px;
-        height: 16px;
-    }
-
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        left: 18px;
-    }
 }
 
+.switch-sm .switch__track {
+    width: 36px;
+    height: 20px;
+}
+
+.switch-sm .switch__thumb {
+    width: 16px;
+    height: 16px;
+}
+
+.switch-sm .switch__input:checked + .switch__track .switch__thumb {
+    transform: translateX(16px);
+}
+
+.switch-sm .switch__label {
+    font-size: var(--text-sm);
+}
+
+/* Large */
 .switch-lg {
     font-size: var(--text-lg);
     min-height: 52px;
-
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-left: calc(56px + var(--space-4));
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::before {
-        width: 56px;
-        height: 32px;
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::after {
-        width: 28px;
-        height: 28px;
-    }
-
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        left: 26px;
-    }
 }
 
-/* ========================================
-   VARIANTS
-   ======================================== */
-
-/* Switch without label */
-.switch-only {
-    min-height: auto;
-
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-left: 0;
-    }
-
-    & > span:not(::before):not(::after) {
-        display: none;
-    }
+.switch-lg .switch__track {
+    width: 56px;
+    height: 32px;
 }
 
-/* Switch with description */
-.switch-with-description {
-    align-items: flex-start;
-
-    & > input[type="checkbox"][role="switch"] + span {
-        align-items: flex-start;
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::before {
-        top: 2px;
-        transform: none;
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::after {
-        top: 4px;
-        transform: none;
-    }
-
-    & > span {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-1);
-    }
-
-    & > span > .switch-description {
-        color: var(--color-text-secondary);
-        font-size: var(--text-sm);
-        font-weight: var(--font-normal);
-        line-height: var(--leading-relaxed);
-    }
+.switch-lg .switch__thumb {
+    width: 28px;
+    height: 28px;
 }
 
-/* Label on left (switch on right) */
-.switch-label-left {
-    flex-direction: row-reverse;
-
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-left: 0;
-        padding-right: calc(44px + var(--space-3));
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::before {
-        left: auto;
-        right: 0;
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::after {
-        left: auto;
-        right: 2px;
-    }
-
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        left: auto;
-        right: 22px;
-    }
+.switch-lg .switch__input:checked + .switch__track .switch__thumb {
+    transform: translateX(24px);
 }
 
-.switch-label-left.switch-sm {
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-right: calc(36px + var(--space-2));
-    }
-
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        right: 18px;
-    }
-}
-
-.switch-label-left.switch-lg {
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-right: calc(56px + var(--space-4));
-    }
-
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        right: 26px;
-    }
+.switch-lg .switch__label {
+    font-size: var(--text-lg);
 }
 
 /* ========================================
    COLOR VARIANTS
    ======================================== */
 
-.switch-primary > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-primary .switch__input:checked + .switch__track {
     background: var(--color-primary);
 }
 
-.switch-primary:hover > input[type="checkbox"][role="switch"]:checked + span::before {
-    background: var(--primary-600, var(--color-primary-hover));
+.switch-primary:hover .switch__input:checked + .switch__track {
+    background: var(--color-primary-hover);
 }
 
-.switch-success > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-success .switch__input:checked + .switch__track {
     background: var(--color-success);
 }
 
-.switch-success:hover > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-success:hover .switch__input:checked + .switch__track {
     background: var(--success-600, var(--color-success));
 }
 
-.switch-warning > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-warning .switch__input:checked + .switch__track {
     background: var(--color-warning);
 }
 
-.switch-warning:hover > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-warning:hover .switch__input:checked + .switch__track {
     background: var(--warning-600, var(--color-warning));
 }
 
-.switch-error > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-error .switch__input:checked + .switch__track {
     background: var(--color-error);
 }
 
-.switch-error:hover > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-error:hover .switch__input:checked + .switch__track {
     background: var(--error-600, var(--color-error));
 }
 
-.switch-info > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-info .switch__input:checked + .switch__track {
     background: var(--color-info);
 }
 
-.switch-info:hover > input[type="checkbox"][role="switch"]:checked + span::before {
+.switch-info:hover .switch__input:checked + .switch__track {
     background: var(--info-600, var(--color-info));
+}
+
+/* ========================================
+   VARIANTS
+   ======================================== */
+
+/* Switch with description */
+.switch-with-description {
+    align-items: flex-start;
+}
+
+.switch-with-description .switch__track {
+    margin-top: 2px;
+}
+
+.switch-with-description .switch__label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.switch__description {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-relaxed);
+}
+
+/* Label on left */
+.switch-label-left {
+    flex-direction: row-reverse;
+}
+
+/* Switch without visible label */
+.switch-only {
+    min-height: auto;
+}
+
+.switch-only .switch__label {
+    display: none;
 }
 
 /* ========================================
@@ -321,40 +251,39 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+}
 
-    & > .switch-group-label {
-        color: var(--color-text-primary);
-        font-size: var(--text-sm);
-        font-weight: var(--font-semibold);
-        margin-bottom: var(--space-1);
-    }
+.switch-group-label {
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-1);
+}
 
-    & > .switch-group-description {
-        color: var(--color-text-secondary);
-        font-size: var(--text-sm);
-        margin-top: calc(-1 * var(--space-2));
-        margin-bottom: var(--space-2);
-    }
+.switch-group-description {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    margin-top: calc(-1 * var(--space-2));
+    margin-bottom: var(--space-2);
 }
 
 /* ========================================
    BACKWARDS COMPATIBILITY
    ======================================== */
 
-/* Support legacy .toggle class name */
+/* Support legacy .toggle class */
 .toggle {
-    /* Alias to .switch - all styles inherited */
     display: inline-flex;
     align-items: center;
-    gap: 0;
-    position: relative;
+    gap: var(--space-3);
+    cursor: pointer;
+    user-select: none;
     font-family: var(--font-sans);
     font-size: var(--text-base);
     color: var(--color-text-primary);
     line-height: var(--leading-normal);
-    cursor: pointer;
-    user-select: none;
     min-height: 44px;
+    position: relative;
 
     & > input[type="checkbox"][role="switch"] {
         position: absolute;
@@ -378,7 +307,7 @@
         transform: translateY(-50%);
         width: 44px;
         height: 24px;
-        background: var(--color-toggle-track-off, var(--color-border-strong));
+        background: var(--color-border-strong);
         border-radius: var(--radius-full);
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: var(--transition-all-fast);
@@ -392,18 +321,18 @@
         transform: translateY(-50%);
         width: 20px;
         height: 20px;
-        background: var(--color-toggle-thumb, white);
+        background: white;
         border-radius: 50%;
-        box-shadow: 0 2px 4px var(--color-toggle-thumb-shadow, rgba(0, 0, 0, 0.2));
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         transition: var(--transition-all-fast);
     }
 
     &:hover > input[type="checkbox"][role="switch"]:not(:disabled) + span::before {
-        background: var(--color-toggle-track-hover, var(--color-border-stronger));
+        background: var(--color-border-stronger);
     }
 
     & > input[type="checkbox"][role="switch"]:checked + span::before {
-        background: var(--color-toggle-track-on, var(--color-primary));
+        background: var(--color-primary);
         box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
     }
 
@@ -492,124 +421,25 @@
     background: var(--color-info);
 }
 
-.toggle-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-
-    & > .toggle-group-label {
-        color: var(--color-text-primary);
-        font-size: var(--text-sm);
-        font-weight: var(--font-semibold);
-        margin-bottom: var(--space-1);
-    }
-
-    & > .toggle-group-description {
-        color: var(--color-text-secondary);
-        font-size: var(--text-sm);
-        margin-top: calc(-1 * var(--space-2));
-        margin-bottom: var(--space-2);
-    }
-}
-
-.toggle-label-left {
-    flex-direction: row-reverse;
-
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-left: 0;
-        padding-right: calc(44px + var(--space-3));
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::before {
-        left: auto;
-        right: 0;
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::after {
-        left: auto;
-        right: 2px;
-    }
-
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        left: auto;
-        right: 22px;
-    }
-}
-
-.toggle-label-left.toggle-sm {
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-right: calc(36px + var(--space-2));
-    }
-
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        right: 18px;
-    }
-}
-
-.toggle-label-left.toggle-lg {
-    & > input[type="checkbox"][role="switch"] + span {
-        padding-right: calc(56px + var(--space-4));
-    }
-
-    & > input[type="checkbox"][role="switch"]:checked + span::after {
-        right: 26px;
-    }
-}
-
-.toggle-with-description {
-    align-items: flex-start;
-
-    & > input[type="checkbox"][role="switch"] + span {
-        align-items: flex-start;
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::before {
-        top: 2px;
-        transform: none;
-    }
-
-    & > input[type="checkbox"][role="switch"] + span::after {
-        top: 4px;
-        transform: none;
-    }
-
-    & > span {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-1);
-    }
-
-    & > span > .toggle-description {
-        color: var(--color-text-secondary);
-        font-size: var(--text-sm);
-        font-weight: var(--font-normal);
-        line-height: var(--leading-relaxed);
-    }
-}
-
 /* ========================================
    ACCESSIBILITY
    ======================================== */
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .switch > input[type="checkbox"][role="switch"] + span::before,
-    .toggle > input[type="checkbox"][role="switch"] + span::before {
-        border: 2px solid currentColor;
-    }
-
-    .switch > input[type="checkbox"][role="switch"] + span::after,
-    .toggle > input[type="checkbox"][role="switch"] + span::after {
-        border: 1px solid currentColor;
-    }
-}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .switch > input[type="checkbox"][role="switch"] + span::before,
-    .switch > input[type="checkbox"][role="switch"] + span::after,
+    .switch__track,
+    .switch__thumb,
     .toggle > input[type="checkbox"][role="switch"] + span::before,
     .toggle > input[type="checkbox"][role="switch"] + span::after {
         transition: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .switch__track {
+        border: 2px solid currentColor;
+    }
+
+    .switch__thumb {
+        border: 2px solid currentColor;
     }
 }
