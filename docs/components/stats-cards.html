@@ -6,7 +6,7 @@
     <title>Stats Cards - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -167,115 +167,219 @@
             <p class="page-description">Statistical data cards with metrics.</p>
         </div>
 
-        <div class="aural-stats-card__value">$45,231</div>
-                    <div class="aural-stats-card__footer">
-                        <span class="aural-stats-card__trend aural-stats-card__trend--up">
-                            <svg class="aural-stats-card__trend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="18 15 12 9 6 15"/>
-                            </svg>
-                            12.5%
-                        </span>
-                        <span class="aural-stats-card__description">vs last month</span>
-                    </div>
-                </div>
-
-                <div class="aural-stats-card aural-stats-card--success">
-                    <div class="aural-stats-card__header">
-                        <span class="aural-stats-card__label">Active Users</span>
-                        <div class="aural-stats-card__icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
+        <div class="example-container">
+            <div class="example-label">Basic Stats Cards</div>
+            <div class="example-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
+                    <div class="aural-stats-card aural-stats-card--primary">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Total Revenue</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="dollar-sign" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">$45,231</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                <i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                12.5%
+                            </span>
+                            <span class="aural-stats-card__description">vs last month</span>
                         </div>
                     </div>
-                    <div class="aural-stats-card__value">8,492</div>
-                    <div class="aural-stats-card__footer">
-                        <span class="aural-stats-card__trend aural-stats-card__trend--up">
-                            <svg class="aural-stats-card__trend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="18 15 12 9 6 15"/>
-                            </svg>
-                            8.1%
-                        </span>
-                        <span class="aural-stats-card__description">vs last week</span>
-                    </div>
-                </div>
 
-                <div class="aural-stats-card aural-stats-card--warning">
-                    <div class="aural-stats-card__header">
-                        <span class="aural-stats-card__label">Pending Orders</span>
-                        <div class="aural-stats-card__icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
+                    <div class="aural-stats-card aural-stats-card--success">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Active Users</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="users" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">8,492</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                <i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                8.1%
+                            </span>
+                            <span class="aural-stats-card__description">vs last week</span>
                         </div>
                     </div>
-                    <div class="aural-stats-card__value">127</div>
-                    <div class="aural-stats-card__footer">
-                        <span class="aural-stats-card__trend aural-stats-card__trend--down">
-                            <svg class="aural-stats-card__trend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"/>
-                            </svg>
-                            3.2%
-                        </span>
-                        <span class="aural-stats-card__description">vs yesterday</span>
-                    </div>
-                </div>
 
-                <div class="aural-stats-card aural-stats-card--error">
-                    <div class="aural-stats-card__header">
-                        <span class="aural-stats-card__label">Error Rate</span>
-                        <div class="aural-stats-card__icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="12" y1="8" x2="12" y2="12"/>
-                                <line x1="12" y1="16" x2="12.01" y2="16"/>
-                            </svg>
+                    <div class="aural-stats-card aural-stats-card--warning">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Pending Orders</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="clock" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">127</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__trend aural-stats-card__trend--down">
+                                <i data-lucide="trending-down" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                3.2%
+                            </span>
+                            <span class="aural-stats-card__description">vs yesterday</span>
                         </div>
                     </div>
-                    <div class="aural-stats-card__value">2.3%</div>
-                    <div class="aural-stats-card__footer">
-                        <span class="aural-stats-card__trend aural-stats-card__trend--neutral">
-                            <svg class="aural-stats-card__trend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="5" y1="12" x2="19" y2="12"/>
-                            </svg>
-                            0.0%
-                        </span>
-                        <span class="aural-stats-card__description">no change</span>
+
+                    <div class="aural-stats-card aural-stats-card--error">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Error Rate</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="alert-circle" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">2.3%</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__trend aural-stats-card__trend--neutral">
+                                <i data-lucide="minus" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                0.0%
+                            </span>
+                            <span class="aural-stats-card__description">no change</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="example">
-            <div class="example-label">With Progress Bar</div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
-                <div class="aural-stats-card aural-stats-card--primary">
-                    <div class="aural-stats-card__header">
-                        <span class="aural-stats-card__label">Storage Used</span>
+        <div class="example-container">
+            <div class="example-label">With Progress Bars</div>
+            <div class="example-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4);">
+                    <div class="aural-stats-card aural-stats-card--primary">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Storage Used</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="hard-drive" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">67.8 GB</div>
+                        <div class="aural-stats-card__progress">
+                            <div class="aural-stats-card__progress-bar" style="width: 67.8%" role="progressbar" aria-valuenow="67.8" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__description">of 100 GB total</span>
+                        </div>
                     </div>
-                    <div class="aural-stats-card__value">67.8 GB</div>
-                    <div class="aural-stats-card__progress">
-                        <div class="aural-stats-card__progress-bar" style="width: 67.8%"></div>
+
+                    <div class="aural-stats-card aural-stats-card--success">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Project Completion</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="check-circle" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">85%</div>
+                        <div class="aural-stats-card__progress">
+                            <div class="aural-stats-card__progress-bar" style="width: 85%" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__description">17 of 20 tasks done</span>
+                        </div>
                     </div>
-                    <div class="aural-stats-card__footer">
-                        <span class="aural-stats-card__description">of 100 GB</span>
+
+                    <div class="aural-stats-card aural-stats-card--warning">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">CPU Usage</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="cpu" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">72%</div>
+                        <div class="aural-stats-card__progress">
+                            <div class="aural-stats-card__progress-bar" style="width: 72%" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__description">High load detected</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="aural-stats-card aural-stats-card--success">
-                    <div class="aural-stats-card__header">
-                        <span class="aural-stats-card__label">Project Completion</span>
+        <div class="example-container">
+            <div class="example-label">Simple Stats Grid</div>
+            <div class="example-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                    <div class="aural-stats-card">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Page Views</span>
+                        </div>
+                        <div class="aural-stats-card__value">124.5K</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__description">Last 30 days</span>
+                        </div>
                     </div>
-                    <div class="aural-stats-card__value">85%</div>
-                    <div class="aural-stats-card__progress">
-                        <div class="aural-stats-card__progress-bar" style="width: 85%"></div>
+
+                    <div class="aural-stats-card">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Conversions</span>
+                        </div>
+                        <div class="aural-stats-card__value">3,842</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__description">Last 30 days</span>
+                        </div>
                     </div>
-                    <div class="aural-stats-card__footer">
-                        <span class="aural-stats-card__description">15 of 20 tasks done</span>
+
+                    <div class="aural-stats-card">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Bounce Rate</span>
+                        </div>
+                        <div class="aural-stats-card__value">42.8%</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__description">Last 30 days</span>
+                        </div>
+                    </div>
+
+                    <div class="aural-stats-card">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Avg Session</span>
+                        </div>
+                        <div class="aural-stats-card__value">4m 32s</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__description">Last 30 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Large Stats Cards</div>
+            <div class="example-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
+                    <div class="aural-stats-card aural-stats-card--primary">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">Monthly Revenue</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="trending-up" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">$124,590</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                <i data-lucide="arrow-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                18.2% increase
+                            </span>
+                            <span class="aural-stats-card__description">from last month</span>
+                        </div>
+                    </div>
+
+                    <div class="aural-stats-card aural-stats-card--success">
+                        <div class="aural-stats-card__header">
+                            <span class="aural-stats-card__label">New Customers</span>
+                            <div class="aural-stats-card__icon">
+                                <i data-lucide="user-plus" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="aural-stats-card__value">1,284</div>
+                        <div class="aural-stats-card__footer">
+                            <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                <i data-lucide="arrow-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                24% increase
+                            </span>
+                            <span class="aural-stats-card__description">from last month</span>
+                        </div>
                     </div>
                 </div>
             </div>

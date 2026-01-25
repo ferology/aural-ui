@@ -6,7 +6,7 @@
     <title>Timeline - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -134,6 +134,169 @@
             z-index: 200;
         }
 
+        /* Enhanced Timeline Styles */
+        .timeline-modern {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .timeline-modern .aural-timeline__item {
+            display: grid;
+            grid-template-columns: 120px auto;
+            gap: var(--space-6);
+            align-items: start;
+        }
+
+        .timeline-modern .aural-timeline__marker {
+            display: none;
+        }
+
+        .timeline-modern .aural-timeline__connector {
+            display: none;
+        }
+
+        .timeline-modern .aural-timeline__time {
+            text-align: right;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--color-text-secondary);
+            padding-top: var(--space-1);
+            order: -1;
+        }
+
+        .timeline-modern .aural-timeline__content {
+            position: relative;
+            padding: var(--space-4) var(--space-5);
+            background: var(--color-bg-primary);
+            border-left: 3px solid var(--color-border-default);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        .timeline-modern .aural-timeline__item--completed .aural-timeline__content {
+            border-left-color: var(--color-success);
+        }
+
+        .timeline-modern .aural-timeline__item--active .aural-timeline__content {
+            border-left-color: var(--color-primary);
+            background: var(--color-bg-secondary);
+        }
+
+        .timeline-modern .aural-timeline__item--warning .aural-timeline__content {
+            border-left-color: var(--color-warning);
+        }
+
+        .timeline-modern .aural-timeline__item--error .aural-timeline__content {
+            border-left-color: var(--color-error);
+        }
+
+        .timeline-modern .aural-timeline__content:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateX(4px);
+        }
+
+        .timeline-modern .aural-timeline__title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .timeline-modern .aural-timeline__description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Horizontal Timeline */
+        .timeline-horizontal {
+            display: flex;
+            gap: var(--space-4);
+            overflow-x: auto;
+            padding: var(--space-6) 0;
+        }
+
+        .timeline-horizontal .aural-timeline__item {
+            flex: 0 0 250px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .timeline-horizontal .aural-timeline__marker {
+            position: relative;
+            margin: 0 auto var(--space-3);
+            z-index: 2;
+        }
+
+        .timeline-horizontal .aural-timeline__connector {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            right: -50%;
+            height: 2px;
+            width: calc(100% - 32px);
+            margin-left: 16px;
+        }
+
+        .timeline-horizontal .aural-timeline__item:last-child .aural-timeline__connector {
+            display: none;
+        }
+
+        .timeline-horizontal .aural-timeline__content {
+            text-align: center;
+        }
+
+        .timeline-horizontal .aural-timeline__time {
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-2);
+        }
+
+        .timeline-horizontal .aural-timeline__title {
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-2);
+        }
+
+        .timeline-horizontal .aural-timeline__description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+        }
+
+        /* Compact Timeline */
+        .timeline-compact .aural-timeline__item {
+            padding-left: var(--space-10);
+            padding-bottom: var(--space-4);
+        }
+
+        .timeline-compact .aural-timeline__marker {
+            width: 10px;
+            height: 10px;
+            left: 0;
+        }
+
+        .timeline-compact .aural-timeline__connector {
+            left: 4px;
+            width: 2px;
+        }
+
+        .timeline-compact .aural-timeline__time {
+            font-size: var(--text-xs);
+            color: var(--color-text-tertiary);
+            margin-bottom: var(--space-1);
+        }
+
+        .timeline-compact .aural-timeline__title {
+            font-size: var(--text-base);
+            margin-bottom: var(--space-1);
+        }
+
+        .timeline-compact .aural-timeline__description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -167,35 +330,194 @@
             <p class="page-description">Chronological event display.</p>
         </div>
 
+        <div class="example-container">
+            <div class="example-label">Modern Timeline (Recommended)</div>
+            <div class="example-demo">
+                <div class="aural-timeline timeline-modern">
+                    <div class="aural-timeline__item aural-timeline__item--completed">
+                        <div class="aural-timeline__time">Dec 15, 2023<br>2:30 PM</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Project Initialized</div>
+                            <div class="aural-timeline__description">Created repository and set up initial project structure with all necessary configurations</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--completed">
+                        <div class="aural-timeline__time">Dec 20, 2023<br>4:15 PM</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Core Components Built</div>
+                            <div class="aural-timeline__description">Implemented 15+ reusable components with full accessibility support and documentation</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--active">
+                        <div class="aural-timeline__time">In Progress</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Documentation & Testing</div>
+                            <div class="aural-timeline__description">Writing comprehensive guides, adding interactive examples, and ensuring code quality</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item">
+                        <div class="aural-timeline__time">Coming Soon</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Public Release v1.0</div>
+                            <div class="aural-timeline__description">Official launch with npm package, full documentation site, and community announcement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-                <div class="aural-timeline__item aural-timeline__item--completed">
-                    <div class="aural-timeline__marker">
-                        <svg class="aural-timeline__marker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
-                        </svg>
+
+        <div class="example-container">
+            <div class="example-label">Horizontal Timeline</div>
+            <div class="example-demo">
+                <div class="aural-timeline timeline-horizontal">
+                    <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                        <div class="aural-timeline__marker">
+                            <i data-lucide="check-circle" class="aural-timeline__marker-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-timeline__connector"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">Step 1</div>
+                            <div class="aural-timeline__title">Account Created</div>
+                            <div class="aural-timeline__description">Signed up successfully</div>
+                        </div>
                     </div>
-                    <div class="aural-timeline__connector"></div>
-                    <div class="aural-timeline__content">
-                        <div class="aural-timeline__time">1 hour ago</div>
-                        <div class="aural-timeline__title">Components Added</div>
-                        <div class="aural-timeline__description">Added 5 new components to the library</div>
+                    <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                        <div class="aural-timeline__marker">
+                            <i data-lucide="check-circle" class="aural-timeline__marker-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-timeline__connector"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">Step 2</div>
+                            <div class="aural-timeline__title">Email Verified</div>
+                            <div class="aural-timeline__description">Confirmation email sent</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--active aural-timeline__item--primary">
+                        <div class="aural-timeline__marker">
+                            <i data-lucide="user" class="aural-timeline__marker-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-timeline__connector"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">Step 3</div>
+                            <div class="aural-timeline__title">Profile Setup</div>
+                            <div class="aural-timeline__description">Complete your profile</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item">
+                        <div class="aural-timeline__marker">
+                            <i data-lucide="settings" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-timeline__connector"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">Step 4</div>
+                            <div class="aural-timeline__title">Preferences</div>
+                            <div class="aural-timeline__description">Set your preferences</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item">
+                        <div class="aural-timeline__marker">
+                            <i data-lucide="rocket" aria-hidden="true"></i>
+                        </div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">Step 5</div>
+                            <div class="aural-timeline__title">Get Started</div>
+                            <div class="aural-timeline__description">Ready to use</div>
+                        </div>
                     </div>
                 </div>
-                <div class="aural-timeline__item aural-timeline__item--active">
-                    <div class="aural-timeline__marker"></div>
-                    <div class="aural-timeline__connector"></div>
-                    <div class="aural-timeline__content">
-                        <div class="aural-timeline__time">Now</div>
-                        <div class="aural-timeline__title">Building Documentation</div>
-                        <div class="aural-timeline__description">Creating comprehensive docs and examples</div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Order Tracking</div>
+            <div class="example-demo">
+                <div class="aural-timeline timeline-modern">
+                    <div class="aural-timeline__item aural-timeline__item--completed">
+                        <div class="aural-timeline__time">Jan 15<br>10:30 AM</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Order Placed</div>
+                            <div class="aural-timeline__description">Order #12345 has been placed successfully. Payment confirmed.</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--completed">
+                        <div class="aural-timeline__time">Jan 15<br>2:15 PM</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Order Confirmed</div>
+                            <div class="aural-timeline__description">Your order has been confirmed and is being prepared for shipment.</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--completed">
+                        <div class="aural-timeline__time">Jan 16<br>9:00 AM</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Package Shipped</div>
+                            <div class="aural-timeline__description">Package has left the warehouse. Tracking: TRK123456789</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--active">
+                        <div class="aural-timeline__time">Jan 18<br>Today</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Out for Delivery</div>
+                            <div class="aural-timeline__description">Package is on the delivery truck and will arrive by 5:00 PM.</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item">
+                        <div class="aural-timeline__time">Pending</div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__title">Delivered</div>
+                            <div class="aural-timeline__description">Package will be delivered to your address.</div>
+                        </div>
                     </div>
                 </div>
-                <div class="aural-timeline__item">
-                    <div class="aural-timeline__marker"></div>
-                    <div class="aural-timeline__content">
-                        <div class="aural-timeline__time">Upcoming</div>
-                        <div class="aural-timeline__title">Release v1.0</div>
-                        <div class="aural-timeline__description">Publish to npm and announce release</div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Compact Timeline</div>
+            <div class="example-demo">
+                <div class="aural-timeline timeline-compact">
+                    <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                        <div class="aural-timeline__marker"></div>
+                        <div class="aural-timeline__connector"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">2 minutes ago</div>
+                            <div class="aural-timeline__title">Sarah Johnson joined the Design Team</div>
+                            <div class="aural-timeline__description">New team member as Senior Product Designer</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                        <div class="aural-timeline__marker"></div>
+                        <div class="aural-timeline__connector"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">15 minutes ago</div>
+                            <div class="aural-timeline__title">Pull Request Merged</div>
+                            <div class="aural-timeline__description">Feature/new-components merged into main by @johndoe</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--warning">
+                        <div class="aural-timeline__marker"></div>
+                        <div class="aural-timeline__connector"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">1 hour ago</div>
+                            <div class="aural-timeline__title">Build Warning</div>
+                            <div class="aural-timeline__description">CI/CD pipeline completed with 3 warnings</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--completed">
+                        <div class="aural-timeline__marker"></div>
+                        <div class="aural-timeline__connector"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">3 hours ago</div>
+                            <div class="aural-timeline__title">Comment Added</div>
+                            <div class="aural-timeline__description">Mike Wilson commented on design review</div>
+                        </div>
+                    </div>
+                    <div class="aural-timeline__item aural-timeline__item--completed">
+                        <div class="aural-timeline__marker"></div>
+                        <div class="aural-timeline__content">
+                            <div class="aural-timeline__time">Yesterday at 4:30 PM</div>
+                            <div class="aural-timeline__title">Documentation Updated</div>
+                            <div class="aural-timeline__description">API docs updated with new endpoints</div>
+                        </div>
                     </div>
                 </div>
             </div>

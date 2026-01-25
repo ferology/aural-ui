@@ -6,7 +6,7 @@
     <title>Avatars - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -167,44 +167,159 @@
             <p class="page-description">User profile images with various sizes and states.</p>
         </div>
 
+        <div class="example-container">
+            <div class="example-label">Basic Avatars</div>
+            <div class="example-demo">
+                <div style="display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;">
+                    <div class="avatar"><span>JD</span></div>
+                    <div class="avatar"><span>AB</span></div>
+                    <div class="avatar"><span>CD</span></div>
+                    <div class="avatar"><span>EF</span></div>
+                </div>
+            </div>
         </div>
-            </div>
 
-            <div class="example-container">
-                <div class="example-label">Sizes</div>
-                <div class="example-demo">
-                    <div class="flex items-center gap-3">
+        <div class="example-container">
+            <div class="example-label">Sizes</div>
+            <div class="example-demo">
+                <div style="display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                        <div class="avatar avatar-xs"><span>XS</span></div>
+                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">XS</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
                         <div class="avatar avatar-sm"><span>SM</span></div>
+                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">SM</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
                         <div class="avatar"><span>MD</span></div>
+                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">Default</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
                         <div class="avatar avatar-lg"><span>LG</span></div>
+                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">LG</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
                         <div class="avatar avatar-xl"><span>XL</span></div>
+                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">XL</p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="example-container">
-                <div class="example-label">With Status</div>
-                <div class="example-demo">
-                    <div class="flex gap-3">
-                        <div class="avatar avatar-status-online"><span>JD</span></div>
-                        <div class="avatar avatar-status-busy"><span>AB</span></div>
-                        <div class="avatar avatar-status-away"><span>CD</span></div>
-                        <div class="avatar avatar-status-offline"><span>EF</span></div>
+        <div class="example-container">
+            <div class="example-label">With Images</div>
+            <div class="example-demo">
+                <div style="display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap;">
+                    <div class="avatar">
+                        <img src="https://i.pravatar.cc/150?img=1" alt="User 1">
+                    </div>
+                    <div class="avatar">
+                        <img src="https://i.pravatar.cc/150?img=2" alt="User 2">
+                    </div>
+                    <div class="avatar">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="User 3">
+                    </div>
+                    <div class="avatar">
+                        <img src="https://i.pravatar.cc/150?img=4" alt="User 4">
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="example-container">
-                <div class="example-label">Avatar Group</div>
-                <div class="example-demo">
+        <div class="example-container">
+            <div class="example-label">With Status Indicators</div>
+            <div class="example-demo">
+                <div style="display: flex; gap: var(--space-6); flex-wrap: wrap;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                        <div class="avatar avatar-status-online">
+                            <img src="https://i.pravatar.cc/150?img=5" alt="User online">
+                        </div>
+                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Online</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                        <div class="avatar avatar-status-busy">
+                            <img src="https://i.pravatar.cc/150?img=6" alt="User busy">
+                        </div>
+                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Busy</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                        <div class="avatar avatar-status-away">
+                            <img src="https://i.pravatar.cc/150?img=7" alt="User away">
+                        </div>
+                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Away</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                        <div class="avatar avatar-status-offline">
+                            <img src="https://i.pravatar.cc/150?img=8" alt="User offline">
+                        </div>
+                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Offline</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Avatar Group</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-6);">
                     <div class="avatar-group">
                         <div class="avatar"><span>A</span></div>
                         <div class="avatar"><span>B</span></div>
                         <div class="avatar"><span>C</span></div>
                         <div class="avatar"><span>D</span></div>
+                        <div class="avatar"><span>+5</span></div>
+                    </div>
+                    <div class="avatar-group">
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=10" alt="User 10">
+                        </div>
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=11" alt="User 11">
+                        </div>
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=12" alt="User 12">
+                        </div>
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=13" alt="User 13">
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">With Text</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=20" alt="John Doe">
+                        </div>
+                        <div>
+                            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">John Doe</div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">john.doe@example.com</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div class="avatar avatar-status-online">
+                            <img src="https://i.pravatar.cc/150?img=21" alt="Jane Smith">
+                        </div>
+                        <div>
+                            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Jane Smith</div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Active now</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div class="avatar avatar-lg"><span>MJ</span></div>
+                        <div>
+                            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Mike Johnson</div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Product Designer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 
