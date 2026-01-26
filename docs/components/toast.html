@@ -6,7 +6,7 @@
     <title>Toast - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -164,9 +164,74 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Toast</h1>
-            <p class="page-description">Temporary notification messages.</p>
+            <p class="page-description">Temporary notification messages that appear at the top-right corner.</p>
         </div>
 
+        <div class="example-container">
+            <div class="example-label">Basic Toast Messages</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                    <button class="btn btn-primary" onclick="Aural.showToast('Operation completed successfully!', 'success')">
+                        Show Success
+                    </button>
+                    <button class="btn btn-info" onclick="Aural.showToast('This is an informational message.', 'info')">
+                        Show Info
+                    </button>
+                    <button class="btn btn-warning" onclick="Aural.showToast('Warning: Please review your settings.', 'warning')">
+                        Show Warning
+                    </button>
+                    <button class="btn btn-error" onclick="Aural.showToast('Error: Failed to save changes.', 'error')">
+                        Show Error
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Toast with Title</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                    <button class="btn btn-success" onclick="Aural.showToast('Your profile has been updated.', 'success', 'Success')">
+                        Success with Title
+                    </button>
+                    <button class="btn btn-info" onclick="Aural.showToast('5 new items added to your feed.', 'info', 'Updates')">
+                        Info with Title
+                    </button>
+                    <button class="btn btn-warning" onclick="Aural.showToast('Your session will expire soon.', 'warning', 'Session Warning')">
+                        Warning with Title
+                    </button>
+                    <button class="btn btn-error" onclick="Aural.showToast('Unable to connect to server.', 'error', 'Connection Error')">
+                        Error with Title
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Custom Duration</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                    <button class="btn btn-secondary" onclick="Aural.showToast('This disappears quickly (2s)', 'info', null, 2000)">
+                        Short Duration (2s)
+                    </button>
+                    <button class="btn btn-secondary" onclick="Aural.showToast('This stays longer (8s)', 'info', null, 8000)">
+                        Long Duration (8s)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Multiple Toasts</div>
+            <div class="example-demo">
+                <button class="btn btn-primary" onclick="
+                    Aural.showToast('First notification', 'success');
+                    setTimeout(() => Aural.showToast('Second notification', 'info'), 500);
+                    setTimeout(() => Aural.showToast('Third notification', 'warning'), 1000);
+                ">
+                    Show Multiple Toasts
+                </button>
+            </div>
         </div>
 
     </main>

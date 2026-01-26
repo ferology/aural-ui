@@ -6,7 +6,7 @@
     <title>Alert Banner - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -167,53 +167,117 @@
             <p class="page-description">Prominent banners for important messages and system alerts.</p>
         </div>
 
-        </div>
-
-                        <div class="aural-alert-banner aural-alert-banner--success">
-                            <svg class="aural-alert-banner__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                            <div class="aural-alert-banner__content">
-                                <div class="aural-alert-banner__title">Success</div>
-                                <div class="aural-alert-banner__message">Your changes have been saved successfully!</div>
-                            </div>
+        <div class="example-container">
+            <div class="example-label">Alert Types</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <div class="aural-alert-banner aural-alert-banner--success">
+                        <i data-lucide="check-circle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                        <div class="aural-alert-banner__content">
+                            <div class="aural-alert-banner__title">Success!</div>
+                            <div class="aural-alert-banner__message">Your changes have been saved.</div>
                         </div>
+                    </div>
 
-                        <div class="aural-alert-banner aural-alert-banner--warning">
-                            <svg class="aural-alert-banner__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                                <line x1="12" y1="9" x2="12" y2="13"/>
-                                <line x1="12" y1="17" x2="12.01" y2="17"/>
-                            </svg>
-                            <div class="aural-alert-banner__content">
-                                <div class="aural-alert-banner__title">Warning</div>
-                                <div class="aural-alert-banner__message">Please review your settings before proceeding.</div>
-                            </div>
+                    <div class="aural-alert-banner aural-alert-banner--info">
+                        <i data-lucide="info" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                        <div class="aural-alert-banner__content">
+                            <div class="aural-alert-banner__title">Info</div>
+                            <div class="aural-alert-banner__message">New features are available in the latest update.</div>
                         </div>
+                    </div>
 
-                        <div class="aural-alert-banner aural-alert-banner--error">
-                            <svg class="aural-alert-banner__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="12" y1="8" x2="12" y2="12"/>
-                                <line x1="12" y1="16" x2="12.01" y2="16"/>
-                            </svg>
-                            <div class="aural-alert-banner__content">
-                                <div class="aural-alert-banner__title">Error</div>
-                                <div class="aural-alert-banner__message">An error occurred while processing your request.</div>
-                            </div>
+                    <div class="aural-alert-banner aural-alert-banner--warning">
+                        <i data-lucide="alert-triangle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                        <div class="aural-alert-banner__content">
+                            <div class="aural-alert-banner__title">Warning</div>
+                            <div class="aural-alert-banner__message">Your session will expire in 5 minutes.</div>
+                        </div>
+                    </div>
+
+                    <div class="aural-alert-banner aural-alert-banner--error">
+                        <i data-lucide="alert-circle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                        <div class="aural-alert-banner__content">
+                            <div class="aural-alert-banner__title">Error</div>
+                            <div class="aural-alert-banner__message">Failed to process your request. Please try again.</div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="example-container">
-                <div class="example-label">With Actions</div>
-                <div class="example-demo">
-                    <button class="btn btn-primary" onclick="Aural.showAlertBanner('Your session will expire in 5 minutes', 'warning', { title: 'Session Expiring', dismissible: true, fixed: 'top', actions: [{ label: 'Extend Session', primary: true, onClick: () => Aural.showToast('Session extended!', 'success') }, { label: 'Dismiss', onClick: () => {} }] })">
-                        Show Alert with Actions
+        <div class="example-container">
+            <div class="example-label">With Dismiss Button</div>
+            <div class="example-demo">
+                <div class="aural-alert-banner aural-alert-banner--info">
+                    <i data-lucide="info" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                    <div class="aural-alert-banner__content">
+                        <div class="aural-alert-banner__title">Info</div>
+                        <div class="aural-alert-banner__message">This alert can be dismissed.</div>
+                    </div>
+                    <button class="aural-alert-banner__close" aria-label="Close" onclick="this.parentElement.style.display='none'">
+                        <i data-lucide="x" style="width: 16px; height: 16px;"></i>
                     </button>
                 </div>
             </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Without Icon</div>
+            <div class="example-demo">
+                <div class="aural-alert-banner aural-alert-banner--primary">
+                    <div class="aural-alert-banner__content">
+                        <div class="aural-alert-banner__title">Announcement</div>
+                        <div class="aural-alert-banner__message">Welcome to the new Aural UI design system.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">With Action Button</div>
+            <div class="example-demo">
+                <div class="aural-alert-banner aural-alert-banner--info">
+                    <i data-lucide="megaphone" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                    <div class="aural-alert-banner__content">
+                        <div class="aural-alert-banner__title">New Update Available</div>
+                        <div class="aural-alert-banner__message">Version 2.0 is now available with exciting new features.</div>
+                    </div>
+                    <button class="btn btn-sm btn-primary" style="margin-left: auto;">Update Now</button>
+                    <button class="aural-alert-banner__close" aria-label="Close" onclick="this.parentElement.style.display='none'">
+                        <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Simple Message</div>
+            <div class="example-demo">
+                <div class="aural-alert-banner aural-alert-banner--warning">
+                    <i data-lucide="alert-triangle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                    <div class="aural-alert-banner__content">
+                        <div class="aural-alert-banner__message">Scheduled maintenance on Sunday, 3:00 AM - 6:00 AM EST.</div>
+                    </div>
+                    <button class="aural-alert-banner__close" aria-label="Close" onclick="this.parentElement.style.display='none'">
+                        <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Error with Link</div>
+            <div class="example-demo">
+                <div class="aural-alert-banner aural-alert-banner--error">
+                    <i data-lucide="wifi-off" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                    <div class="aural-alert-banner__content">
+                        <div class="aural-alert-banner__title">Connection Lost</div>
+                        <div class="aural-alert-banner__message">Unable to reach the server. <a href="#" style="color: inherit; text-decoration: underline;">Check your connection</a> or try again later.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 

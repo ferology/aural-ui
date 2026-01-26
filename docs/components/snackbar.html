@@ -6,7 +6,7 @@
     <title>Snackbar - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -164,54 +164,99 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Snackbar</h1>
-            <p class="page-description">Brief notification messages at screen edge.</p>
+            <p class="page-description">Brief notification messages at screen edge with Material Design style.</p>
         </div>
 
-        <h2 class="showcase-heading">Snackbar</h2>
-        <p class="showcase-description">Brief notification messages at screen edge (Material Design style).</p>
+        <div class="example-container">
+            <div class="example-label">Basic Snackbars</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('This is a default snackbar message')">
+                        Show Default
+                    </button>
+                    <button class="btn btn-success" onclick="Aural.showSnackbar('Operation completed successfully!', { type: 'success' })">
+                        Show Success
+                    </button>
+                    <button class="btn btn-error" onclick="Aural.showSnackbar('An error occurred!', { type: 'error' })">
+                        Show Error
+                    </button>
+                    <button class="btn btn-warning" onclick="Aural.showSnackbar('Warning: Check your settings', { type: 'warning' })">
+                        Show Warning
+                    </button>
+                    <button class="btn btn-info" onclick="Aural.showSnackbar('Information updated', { type: 'info' })">
+                        Show Info
+                    </button>
+                </div>
+            </div>
+        </div>
 
-        <div class="component-demo">
-            <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-                <button class="btn btn-primary" onclick="Aural.showSnackbar('This is a default snackbar message')">
-                    Show Default
-                </button>
-                <button class="btn btn-success" onclick="Aural.showSnackbar('Operation completed successfully!', { type: 'success' })">
-                    Show Success
-                </button>
-                <button class="btn btn-danger" onclick="Aural.showSnackbar('An error occurred!', { type: 'error', duration: 5000 })">
-                    Show Error
-                </button>
-                <button class="btn btn-warning" onclick="Aural.showSnackbar('Warning: Check your settings', { type: 'warning' })">
-                    Show Warning
-                </button>
-                <button class="btn" onclick="Aural.showSnackbar('New message received', {
+        <div class="example-container">
+            <div class="example-label">With Action Button</div>
+            <div class="example-demo">
+                <button class="btn btn-primary" onclick="Aural.showSnackbar('New message received', {
                     description: 'From John Doe',
                     type: 'info',
                     action: { label: 'View', onClick: () => alert('Viewing message') }
                 })">
-                    With Action
-                </button>
-                <button class="btn" onclick="Aural.showSnackbar('File uploaded successfully', {
-                    type: 'success',
-                    position: 'top-center',
-                    duration: 3000
-                })">
-                    Top Position
+                    Show with Action
                 </button>
             </div>
+        </div>
 
-            <h4 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Features</h4>
-            <ul class="feature-list">
-                <li>✓ Auto-dismiss with timer</li>
-                <li>✓ Action buttons</li>
-                <li>✓ Position variants (6 positions)</li>
-                <li>✓ Type variants (success, error, warning, info)</li>
-                <li>✓ Progress bar</li>
-                <li>✓ Dismissible with close button</li>
-                <li>✓ Full width variant</li>
-                <li>✓ Stacking support</li>
-                <li>✓ Mobile responsive</li>
-            </ul>
+        <div class="example-container">
+            <div class="example-label">Position Variants</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Bottom Left', { position: 'bottom-left' })">
+                        Bottom Left
+                    </button>
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Bottom Center', { position: 'bottom-center' })">
+                        Bottom Center
+                    </button>
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Bottom Right', { position: 'bottom-right' })">
+                        Bottom Right
+                    </button>
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Top Left', { position: 'top-left' })">
+                        Top Left
+                    </button>
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Top Center', { position: 'top-center' })">
+                        Top Center
+                    </button>
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Top Right', { position: 'top-right' })">
+                        Top Right
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Custom Duration</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Quick message (2s)', { duration: 2000 })">
+                        Short (2s)
+                    </button>
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Default duration (4s)', { duration: 4000 })">
+                        Default (4s)
+                    </button>
+                    <button class="btn btn-secondary" onclick="Aural.showSnackbar('Extended message (8s)', { duration: 8000 })">
+                        Long (8s)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">With Description</div>
+            <div class="example-demo">
+                <button class="btn btn-success" onclick="Aural.showSnackbar('File uploaded', {
+                    description: 'document.pdf has been uploaded successfully',
+                    type: 'success',
+                    action: { label: 'View', onClick: () => alert('View file') }
+                })">
+                    Upload Success with Details
+                </button>
+            </div>
         </div>
 
     </main>

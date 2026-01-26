@@ -6,7 +6,7 @@
     <title>Popovers - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -164,13 +164,203 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Popovers</h1>
-            <p class="page-description">Contextual overlays triggered by user actions.</p>
+            <p class="page-description">Contextual overlays triggered by user actions with rich content.</p>
         </div>
 
+        <div class="example-container">
+            <div class="example-label">Basic Popover</div>
+            <div class="example-demo">
+                <div class="popover-wrapper" style="display: inline-block;">
+                    <button class="btn btn-primary" id="popover-trigger-1">Show Popover</button>
+                    <div class="popover popover-bottom" id="popover-1" role="dialog" aria-labelledby="popover-1-title" hidden>
+                        <div class="popover-header">
+                            <h3 id="popover-1-title" class="popover-title">Popover Title</h3>
+                            <button class="popover-close" aria-label="Close">
+                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                            </button>
+                        </div>
+                        <div class="popover-body">
+                            <p style="margin: 0;">This is a basic popover with a title and some content. Popovers are great for displaying additional information.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="example-container">
+            <div class="example-label">Popover Positions</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: center; padding: var(--space-8);">
+                    <!-- Top -->
+                    <div class="popover-wrapper">
+                        <button class="btn btn-secondary" id="popover-trigger-2">Top</button>
+                        <div class="popover popover-top" id="popover-2" role="dialog" hidden>
+                            <div class="popover-body">
+                                <p style="margin: 0;">Popover on top</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right -->
+                    <div class="popover-wrapper">
+                        <button class="btn btn-secondary" id="popover-trigger-3">Right</button>
+                        <div class="popover popover-right" id="popover-3" role="dialog" hidden>
+                            <div class="popover-body">
+                                <p style="margin: 0;">Popover on right</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom -->
+                    <div class="popover-wrapper">
+                        <button class="btn btn-secondary" id="popover-trigger-4">Bottom</button>
+                        <div class="popover popover-bottom" id="popover-4" role="dialog" hidden>
+                            <div class="popover-body">
+                                <p style="margin: 0;">Popover on bottom</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Left -->
+                    <div class="popover-wrapper">
+                        <button class="btn btn-secondary" id="popover-trigger-5">Left</button>
+                        <div class="popover popover-left" id="popover-5" role="dialog" hidden>
+                            <div class="popover-body">
+                                <p style="margin: 0;">Popover on left</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">With Actions</div>
+            <div class="example-demo">
+                <div class="popover-wrapper" style="display: inline-block;">
+                    <button class="btn btn-primary" id="popover-trigger-6">User Actions</button>
+                    <div class="popover popover-bottom" id="popover-6" role="dialog" aria-labelledby="popover-6-title" hidden>
+                        <div class="popover-header">
+                            <h3 id="popover-6-title" class="popover-title">User Settings</h3>
+                            <button class="popover-close" aria-label="Close">
+                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                            </button>
+                        </div>
+                        <div class="popover-body">
+                            <p style="margin: 0 0 var(--space-3) 0; color: var(--color-text-secondary);">Manage your account</p>
+                            <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+                                <button class="btn btn-ghost btn-sm" style="justify-content: flex-start;">
+                                    <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                                    Profile
+                                </button>
+                                <button class="btn btn-ghost btn-sm" style="justify-content: flex-start;">
+                                    <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
+                                    Settings
+                                </button>
+                                <button class="btn btn-ghost btn-sm" style="justify-content: flex-start;">
+                                    <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
+                                    Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Form in Popover</div>
+            <div class="example-demo">
+                <div class="popover-wrapper" style="display: inline-block;">
+                    <button class="btn btn-primary" id="popover-trigger-7">Add Comment</button>
+                    <div class="popover popover-bottom" id="popover-7" role="dialog" aria-labelledby="popover-7-title" hidden style="width: 300px;">
+                        <div class="popover-header">
+                            <h3 id="popover-7-title" class="popover-title">Add Comment</h3>
+                            <button class="popover-close" aria-label="Close">
+                                <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                            </button>
+                        </div>
+                        <div class="popover-body">
+                            <form style="display: flex; flex-direction: column; gap: var(--space-3);">
+                                <textarea class="input" rows="3" placeholder="Write your comment..."></textarea>
+                                <div style="display: flex; gap: var(--space-2); justify-content: flex-end;">
+                                    <button type="button" class="btn btn-ghost btn-sm">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Post</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Info Popover</div>
+            <div class="example-demo">
+                <div style="display: inline-flex; align-items: center; gap: var(--space-2);">
+                    <span>Hover for information</span>
+                    <div class="popover-wrapper" style="display: inline-block;">
+                        <button class="btn btn-ghost btn-sm" id="popover-trigger-8" style="padding: var(--space-1); width: 24px; height: 24px;">
+                            <i data-lucide="info" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="popover popover-top" id="popover-8" role="dialog" hidden>
+                            <div class="popover-body">
+                                <p style="margin: 0; max-width: 250px;">This feature requires a premium subscription. Upgrade your account to unlock all features.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>
+
+    <script>
+        // Initialize popovers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup all popover triggers
+            for (let i = 1; i <= 8; i++) {
+                const trigger = document.getElementById(`popover-trigger-${i}`);
+                const popover = document.getElementById(`popover-${i}`);
+
+                if (trigger && popover) {
+                    trigger.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const isHidden = popover.hasAttribute('hidden');
+
+                        // Close all other popovers
+                        document.querySelectorAll('.popover').forEach(p => {
+                            if (p !== popover) p.setAttribute('hidden', '');
+                        });
+
+                        // Toggle this popover
+                        if (isHidden) {
+                            popover.removeAttribute('hidden');
+                        } else {
+                            popover.setAttribute('hidden', '');
+                        }
+                    });
+
+                    // Close button
+                    const closeBtn = popover.querySelector('.popover-close');
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', function() {
+                            popover.setAttribute('hidden', '');
+                        });
+                    }
+                }
+            }
+
+            // Close popovers when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.popover-wrapper')) {
+                    document.querySelectorAll('.popover').forEach(p => {
+                        p.setAttribute('hidden', '');
+                    });
+                }
+            });
+        });
+    </script>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
