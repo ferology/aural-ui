@@ -150,7 +150,7 @@ This document outlines potential additions and improvements for Aural UI.
 - [x] Animation utilities (fade, slide, bounce, pulse, etc.) ✅
 - [x] Transition utilities (`.transition-all`, `.transition-colors`, etc.) ✅
 - [x] Transform utilities (`.rotate-*`, `.scale-*`, `.translate-*`) ✅
-- [ ] Backdrop filters (`.backdrop-blur`, `.backdrop-brightness`)
+- [x] Backdrop filters (`.backdrop-blur`, `.backdrop-brightness`) ✅
 - [ ] Filter utilities (`.blur`, `.brightness`, `.contrast`, etc.)
 - [x] Opacity utilities (`.opacity-0` to `.opacity-100`) ✅
 
@@ -159,11 +159,11 @@ This document outlines potential additions and improvements for Aural UI.
 - [x] Border color utilities (`.border-primary`, `.border-error`, etc.) ✅
 - [x] Border radius utilities (`.rounded-none`, `.rounded-full`, etc.) ✅
 - [x] Background color utilities (`.bg-primary`, `.bg-error`, etc.) ✅
-- [ ] Gradient utilities (`.bg-gradient-to-r`, etc.)
+- [x] Gradient utilities (`.bg-gradient-to-r`, etc.) ✅
 
 **Layout**
-- [ ] Aspect ratio utilities (`.aspect-square`, `.aspect-video`)
-- [ ] Object fit utilities (`.object-cover`, `.object-contain`)
+- [x] Aspect ratio utilities (`.aspect-square`, `.aspect-video`) ✅
+- [x] Object fit utilities (`.object-cover`, `.object-contain`) ✅
 - [ ] Container queries support
 
 **Accessibility**
@@ -182,13 +182,13 @@ This document outlines potential additions and improvements for Aural UI.
 - [x] Responsive display (`.sm:hidden`, `.md:block`, etc.) ✅
 
 **Dark Mode**
-- [ ] Dark mode utilities (`.dark:bg-*`, `.dark:text-*`)
+- [x] Dark mode utilities (`.dark:bg-*`, `.dark:text-*`) ✅
 - [ ] System preference detection
 - [ ] Manual dark mode toggle
 
 **RTL Support**
-- [ ] RTL-aware utilities
-- [ ] Direction-specific spacing (`.start-*`, `.end-*`)
+- [x] RTL-aware utilities ✅
+- [x] Direction-specific spacing (`.start-*`, `.end-*`) ✅
 - [ ] RTL-compatible components
 
 ---

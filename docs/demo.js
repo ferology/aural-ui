@@ -120,6 +120,7 @@
                 <ul class="demo-nav-links">
                     <li><a class="demo-nav-link" data-demo-link="api.html">API Reference</a></li>
                     <li><a class="demo-nav-link" data-demo-link="tokens.html">Design Tokens</a></li>
+                    <li><a class="demo-nav-link" data-demo-link="utilities.html">Utility Classes</a></li>
                     <li><a class="demo-nav-link" data-demo-link="themes.html">Themes</a></li>
                     <li><a class="demo-nav-link" data-demo-link="examples.html">Examples</a></li>
                 </ul>
