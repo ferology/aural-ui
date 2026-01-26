@@ -125,7 +125,6 @@
                     <li><a class="demo-nav-link" data-demo-link="themes.html">Themes</a></li>
                     <li><a class="demo-nav-link" data-demo-link="theme-builder.html">Theme Builder</a></li>
                     <li><a class="demo-nav-link" data-demo-link="patterns.html">Common Patterns</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="examples.html">Examples</a></li>
                 </ul>
             </div>
         `;
