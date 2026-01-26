@@ -171,7 +171,7 @@
             <div class="example-label">File Browser</div>
             <div class="example-demo">
                 <ul class="aural-tree" style="max-width: 500px;">
-                <li class="aural-tree__item aural-tree__item--expanded">
+                <li class="aural-tree__item aural-tree__item--collapsed">
                     <button class="aural-tree__content">
                         <span class="aural-tree__toggle">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -187,7 +187,7 @@
                         <span class="aural-tree__badge">12</span>
                     </button>
                     <ul class="aural-tree__children">
-                        <li class="aural-tree__item aural-tree__item--expanded">
+                        <li class="aural-tree__item aural-tree__item--collapsed">
                             <button class="aural-tree__content">
                                 <span class="aural-tree__toggle">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -282,7 +282,7 @@
             <div class="example-label">Navigation Menu</div>
             <div class="example-demo">
                 <ul class="aural-tree" style="max-width: 500px;">
-                    <li class="aural-tree__item aural-tree__item--expanded">
+                    <li class="aural-tree__item aural-tree__item--collapsed">
                         <button class="aural-tree__content">
                             <span class="aural-tree__toggle">
                                 <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -313,7 +313,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="aural-tree__item aural-tree__item--expanded">
+                    <li class="aural-tree__item aural-tree__item--collapsed">
                         <button class="aural-tree__content">
                             <span class="aural-tree__toggle">
                                 <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -363,7 +363,7 @@
             <div class="example-label">With Icons and Badges</div>
             <div class="example-demo">
                 <ul class="aural-tree" style="max-width: 500px;">
-                    <li class="aural-tree__item aural-tree__item--expanded">
+                    <li class="aural-tree__item aural-tree__item--collapsed">
                         <button class="aural-tree__content">
                             <span class="aural-tree__toggle">
                                 <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -450,7 +450,14 @@
                 button.addEventListener('click', function() {
                     const item = this.closest('.aural-tree__item');
                     if (!item.classList.contains('aural-tree__item--leaf')) {
-                        item.classList.toggle('aural-tree__item--expanded');
+                        // Toggle between collapsed and expanded
+                        if (item.classList.contains('aural-tree__item--collapsed')) {
+                            item.classList.remove('aural-tree__item--collapsed');
+                            item.classList.add('aural-tree__item--expanded');
+                        } else {
+                            item.classList.remove('aural-tree__item--expanded');
+                            item.classList.add('aural-tree__item--collapsed');
+                        }
                     }
                 });
             });
