@@ -4,116 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Switch - Aural UI</title>
-
-    <!-- Aural UI CSS -->
     <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
-
-    <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
-
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: var(--space-8);
-            min-height: 100vh;
-        }
-
-        .page-header {
-            margin-bottom: var(--space-8);
-        }
-
-        .page-title {
-            font-size: var(--text-3xl);
-            font-weight: var(--font-bold);
-            color: var(--color-text-primary);
-            margin: 0 0 var(--space-4) 0;
-        }
-
-        .page-description {
-            font-size: var(--text-lg);
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-            margin: 0;
-        }
-
-        /* Example Container */
-        .example-container {
-            margin-bottom: var(--space-8);
-        }
-
-        .example-label {
-            font-size: var(--text-sm);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-secondary);
-            text-transform: uppercase;
-            letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
-        }
-
-        .example-demo {
-            padding: var(--space-6);
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-md);
-            margin-bottom: var(--space-4);
-        }
-
-        .example-demo > * {
-            width: 100%;
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: var(--space-6);
-            right: var(--space-6);
-            z-index: 200;
-        }
-
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .main-content {
-                padding: var(--space-6) var(--space-4);
-            }
-
-            .page-title {
-                font-size: var(--text-2xl);
-            }
-
-            .page-description {
-                font-size: var(--text-base);
-            }
-
-            .theme-toggle {
-                top: var(--space-4);
-                right: var(--space-4);
-            }
-        }
+        body { margin: 0; padding: 0; min-height: 100vh; }
+        .main-content { max-width: 900px; margin: 0 auto; padding: var(--space-8); min-height: 100vh; }
+        .page-header { margin-bottom: var(--space-10); }
+        .page-title { font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0; }
+        .page-description { font-size: var(--text-lg); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
+        .example-container { margin-bottom: var(--space-12); }
+        .example-label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-4); }
+        .example-demo { padding: var(--space-8); background: var(--color-bg-secondary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); margin-bottom: var(--space-4); min-height: 120px; }
+        .section-content { font-size: var(--text-base); color: var(--color-text-secondary); line-height: 1.8; }
+        .section-content code { background: var(--color-bg-tertiary); padding: 2px 6px; border-radius: var(--radius-sm); font-size: 0.9em; }
+        .section-content pre { background: var(--color-bg-tertiary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto; margin: var(--space-4) 0; }
+        .section-content pre code { background: none; padding: 0; }
+        .section-content h3 { font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+        .section-content p { margin: 0 0 var(--space-4) 0; }
+        .section-content ul { margin: 0 0 var(--space-4) 0; padding-left: var(--space-6); }
+        .section-content li { margin-bottom: var(--space-2); }
     </style>
 </head>
 <body>
-    <!-- Main Content -->
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Switch</h1>
-            <p class="page-description">iOS-style toggle switches for binary on/off options.</p>
+            <p class="page-description">iOS-style toggle switches for binary on/off options. Provide immediate visual feedback for settings and feature toggles.</p>
         </div>
 
+        <!-- Basic Switches -->
         <div class="example-container">
             <div class="example-label">Basic Switches</div>
             <div class="example-demo">
-                <div class="flex flex-col gap-4">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
                     <label class="switch">
                         <input type="checkbox" class="switch__input" role="switch" checked>
                         <div class="switch__track">
@@ -137,12 +61,23 @@
                     </label>
                 </div>
             </div>
+            <div class="section-content">
+                <p>Basic switches provide instant on/off toggling. Use <code>role="switch"</code> for proper accessibility.</p>
+                <pre><code>&lt;label class="switch"&gt;
+    &lt;input type="checkbox" class="switch__input" role="switch" checked&gt;
+    &lt;div class="switch__track"&gt;
+        &lt;div class="switch__thumb"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="switch__label"&gt;Enable notifications&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+            </div>
         </div>
 
+        <!-- Sizes -->
         <div class="example-container">
             <div class="example-label">Sizes</div>
             <div class="example-demo">
-                <div class="flex flex-col gap-4">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
                     <label class="switch switch-sm">
                         <input type="checkbox" class="switch__input" role="switch" checked>
                         <div class="switch__track">
@@ -166,12 +101,23 @@
                     </label>
                 </div>
             </div>
+            <div class="section-content">
+                <p>Three size variants: <code>switch-sm</code>, default, and <code>switch-lg</code>.</p>
+                <pre><code>&lt;label class="switch switch-lg"&gt;
+    &lt;input type="checkbox" class="switch__input" role="switch" checked&gt;
+    &lt;div class="switch__track"&gt;
+        &lt;div class="switch__thumb"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="switch__label"&gt;Large&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+            </div>
         </div>
 
+        <!-- Color Variants -->
         <div class="example-container">
             <div class="example-label">Color Variants</div>
             <div class="example-demo">
-                <div class="flex flex-col gap-4">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
                     <label class="switch switch-primary">
                         <input type="checkbox" class="switch__input" role="switch" checked>
                         <div class="switch__track">
@@ -209,28 +155,65 @@
                     </label>
                 </div>
             </div>
-        </div>
-
-        <div class="example-container">
-            <div class="example-label">With Description</div>
-            <div class="example-demo">
-                <label class="switch switch-with-description">
-                    <input type="checkbox" class="switch__input" role="switch" checked>
-                    <div class="switch__track">
-                        <div class="switch__thumb"></div>
-                    </div>
-                    <span class="switch__label">
-                        Email notifications
-                        <span class="switch__description">Receive email updates about your account activity</span>
-                    </span>
-                </label>
+            <div class="section-content">
+                <p>Color variants add semantic meaning: <code>switch-primary</code>, <code>switch-success</code>, <code>switch-warning</code>, <code>switch-error</code>, <code>switch-info</code>.</p>
+                <pre><code>&lt;label class="switch switch-success"&gt;
+    &lt;input type="checkbox" class="switch__input" role="switch" checked&gt;
+    &lt;div class="switch__track"&gt;
+        &lt;div class="switch__thumb"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="switch__label"&gt;Success&lt;/span&gt;
+&lt;/label&gt;</code></pre>
             </div>
         </div>
 
+        <!-- With Description -->
+        <div class="example-container">
+            <div class="example-label">With Description</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                    <label class="switch switch-with-description">
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">
+                            Email notifications
+                            <span class="switch__description">Receive email updates about your account activity</span>
+                        </span>
+                    </label>
+                    <label class="switch switch-with-description">
+                        <input type="checkbox" class="switch__input" role="switch">
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label">
+                            Marketing emails
+                            <span class="switch__description">Get updates about new features and special offers</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Add descriptions to provide context. Use <code>switch-with-description</code> and nest a <code>switch__description</code> span.</p>
+                <pre><code>&lt;label class="switch switch-with-description"&gt;
+    &lt;input type="checkbox" class="switch__input" role="switch"&gt;
+    &lt;div class="switch__track"&gt;
+        &lt;div class="switch__thumb"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="switch__label"&gt;
+        Email notifications
+        &lt;span class="switch__description"&gt;Receive email updates&lt;/span&gt;
+    &lt;/span&gt;
+&lt;/label&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- Label Position -->
         <div class="example-container">
             <div class="example-label">Label Position</div>
             <div class="example-demo">
-                <div class="flex flex-col gap-4">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
                     <label class="switch">
                         <input type="checkbox" class="switch__input" role="switch" checked>
                         <div class="switch__track">
@@ -247,8 +230,19 @@
                     </label>
                 </div>
             </div>
+            <div class="section-content">
+                <p>Control label position with <code>switch-label-left</code> class. Default is label on the right.</p>
+                <pre><code>&lt;label class="switch switch-label-left"&gt;
+    &lt;input type="checkbox" class="switch__input" role="switch" checked&gt;
+    &lt;div class="switch__track"&gt;
+        &lt;div class="switch__thumb"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="switch__label"&gt;Label on left&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+            </div>
         </div>
 
+        <!-- Switch Group -->
         <div class="example-container">
             <div class="example-label">Switch Group</div>
             <div class="example-demo">
@@ -263,7 +257,7 @@
                         <span class="switch__label">Email notifications</span>
                     </label>
                     <label class="switch">
-                        <input type="checkbox" class="switch__input" role="switch">
+                        <input type="checkbox" class="switch__input" role="switch" checked>
                         <div class="switch__track">
                             <div class="switch__thumb"></div>
                         </div>
@@ -278,75 +272,198 @@
                     </label>
                 </div>
             </div>
+            <div class="section-content">
+                <p>Group related switches with <code>switch-group</code>, <code>switch-group-label</code>, and <code>switch-group-description</code>.</p>
+                <pre><code>&lt;div class="switch-group"&gt;
+    &lt;div class="switch-group-label"&gt;Notification preferences&lt;/div&gt;
+    &lt;div class="switch-group-description"&gt;Choose notifications&lt;/div&gt;
+    &lt;label class="switch"&gt;...&lt;/label&gt;
+&lt;/div&gt;</code></pre>
+            </div>
         </div>
 
+        <!-- Settings Panel Pattern -->
+        <div class="example-container">
+            <div class="example-label">Settings Panel Pattern</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-8);">
+                    <div>
+                        <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0;">Privacy</h3>
+                        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                            <label class="switch switch-with-description">
+                                <input type="checkbox" class="switch__input" role="switch" checked>
+                                <div class="switch__track">
+                                    <div class="switch__thumb"></div>
+                                </div>
+                                <span class="switch__label">
+                                    Public profile
+                                    <span class="switch__description">Allow others to view your profile</span>
+                                </span>
+                            </label>
+                            <label class="switch switch-with-description">
+                                <input type="checkbox" class="switch__input" role="switch">
+                                <div class="switch__track">
+                                    <div class="switch__thumb"></div>
+                                </div>
+                                <span class="switch__label">
+                                    Show online status
+                                    <span class="switch__description">Display when you're active</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="border-top: 1px solid var(--color-border-subtle); padding-top: var(--space-6);">
+                        <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0;">Features</h3>
+                        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                            <label class="switch switch-with-description">
+                                <input type="checkbox" class="switch__input" role="switch" checked>
+                                <div class="switch__track">
+                                    <div class="switch__thumb"></div>
+                                </div>
+                                <span class="switch__label">
+                                    Dark mode
+                                    <span class="switch__description">Use dark theme across the app</span>
+                                </span>
+                            </label>
+                            <label class="switch switch-with-description">
+                                <input type="checkbox" class="switch__input" role="switch" checked>
+                                <div class="switch__track">
+                                    <div class="switch__thumb"></div>
+                                </div>
+                                <span class="switch__label">
+                                    Auto-play videos
+                                    <span class="switch__description">Videos start automatically</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Organize switches in settings panels with clear sections and visual separators.</p>
+            </div>
+        </div>
+
+        <!-- With Icons -->
+        <div class="example-container">
+            <div class="example-label">With Icons</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <label class="switch">
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label" style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="bell" style="width: 16px; height: 16px;"></i>
+                            Notifications
+                        </span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" class="switch__input" role="switch" checked>
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label" style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="moon" style="width: 16px; height: 16px;"></i>
+                            Dark mode
+                        </span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" class="switch__input" role="switch">
+                        <div class="switch__track">
+                            <div class="switch__thumb"></div>
+                        </div>
+                        <span class="switch__label" style="display: flex; align-items: center; gap: var(--space-2);">
+                            <i data-lucide="wifi" style="width: 16px; height: 16px;"></i>
+                            Auto-sync
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Add icons to labels for visual clarity and improved scannability.</p>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="example-container">
+            <div class="example-label">Best Practices</div>
+            <div class="section-content">
+                <h3>When to Use</h3>
+                <ul>
+                    <li><strong>Settings and preferences</strong> - For toggling features on/off in settings panels</li>
+                    <li><strong>Instant changes</strong> - When changes take effect immediately without form submission</li>
+                    <li><strong>Binary states</strong> - For clear on/off, enabled/disabled choices</li>
+                    <li><strong>Visibility controls</strong> - Showing/hiding content or features</li>
+                </ul>
+
+                <h3>When NOT to Use</h3>
+                <ul>
+                    <li><strong>Form submissions</strong> - Use checkboxes for form data that requires submission</li>
+                    <li><strong>Multiple selections</strong> - Use checkboxes for selecting multiple items from a list</li>
+                    <li><strong>Single choice from many</strong> - Use radio buttons for mutually exclusive options</li>
+                    <li><strong>Destructive actions</strong> - Don't use switches for delete or irreversible actions</li>
+                </ul>
+
+                <h3>Design Guidelines</h3>
+                <ul>
+                    <li><strong>Clear labels</strong> - Use action-oriented labels that describe what the switch controls</li>
+                    <li><strong>Positive framing</strong> - Frame labels positively ("Enable" vs "Disable")</li>
+                    <li><strong>Add descriptions</strong> - Use descriptions to clarify what enabling a switch does</li>
+                    <li><strong>Visual feedback</strong> - Ensure smooth animations and clear on/off states</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li><strong>Use role="switch"</strong> - Add <code>role="switch"</code> to the input for proper ARIA semantics</li>
+                    <li><strong>Keyboard support</strong> - Ensure Space key toggles the switch</li>
+                    <li><strong>Focus indicators</strong> - Maintain visible focus states for keyboard navigation</li>
+                    <li><strong>State announcement</strong> - Screen readers should announce "on" or "off" state</li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <ul>
+                    <li><strong>Settings panels</strong> - Group related switches by category with section headers</li>
+                    <li><strong>Feature toggles</strong> - Enable/disable app features with immediate effect</li>
+                    <li><strong>Privacy controls</strong> - Toggle visibility and data sharing preferences</li>
+                    <li><strong>Notification preferences</strong> - Control which notifications are enabled</li>
+                </ul>
+
+                <h3>Switch vs Checkbox</h3>
+                <ul>
+                    <li><strong>Use switches</strong> - For settings that take effect immediately (like iOS)</li>
+                    <li><strong>Use checkboxes</strong> - For form data, multi-select, or actions requiring submission</li>
+                    <li><strong>Context matters</strong> - In forms use checkboxes; in settings use switches</li>
+                </ul>
+            </div>
+        </div>
     </main>
 
-    <!-- Theme Toggle -->
-    <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"/>
-                <line x1="12" y1="1" x2="12" y2="3"/>
-                <line x1="12" y1="21" x2="12" y2="23"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                <line x1="1" y1="12" x2="3" y2="12"/>
-                <line x1="21" y1="12" x2="23" y2="12"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-        </button>
-    </div>
-
-    <!-- Aural UI JavaScript -->
-    <script src="../aural-ui.js?v=9"></script>
-
+    <script src="../aural-ui.js?v=1769438626"></script>
     <script>
-        // Initialize Lucide icons
         lucide.createIcons();
-
-        // Theme toggle
-        let isDark = true;
-        function toggleTheme() {
-            const themeLink = document.getElementById('theme-link');
-            isDark = !isDark;
-            themeLink.href = isDark ? '../dark.css' : '../light.css';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            isDark = savedTheme === 'dark';
-            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
-        }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
     <script>
     (function() {
-        // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
-            const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-
-            console.log('Applying theme:', savedTheme, 'Path:', themePath);
-            themeLink.href = themePath;
-        } else {
-            console.error('Theme link not found!');
+            const themeFiles = {
+                'dark': relativePath + 'dark.css',
+                'light': relativePath + 'light.css',
+                'high-contrast': relativePath + 'high-contrast.css',
+                'colorblind': relativePath + 'colorblind-friendly.css'
+            };
+            themeLink.href = themeFiles[savedTheme] || themeFiles['dark'];
         }
-
-        // Hide theme toggle in iframe (demo.html controls theme)
         window.addEventListener('DOMContentLoaded', function() {
             try {
                 if (window.self !== window.top) {
                     const themeToggle = document.querySelector('.theme-toggle');
-                    if (themeToggle) {
-                        themeToggle.style.display = 'none';
-                    }
+                    if (themeToggle) themeToggle.style.display = 'none';
                 }
             } catch (e) {}
         });
