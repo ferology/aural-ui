@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css?v=12">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .version-section {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        .version-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .version-number {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--color-primary);
+        }
+
+        .version-date {
+            font-size: var(--text-sm);
+            color: var(--color-text-tertiary);
+        }
+
+        .version-badge {
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            text-transform: uppercase;
+        }
+
+        .badge-latest {
+            background: var(--color-primary-subtle);
+            color: var(--color-primary);
+        }
+
+        .change-category {
+            margin-bottom: var(--space-5);
+        }
+
+        .change-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-3);
+        }
+
+        .category-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .change-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .change-item {
+            padding: var(--space-3) 0 var(--space-3) var(--space-7);
+            position: relative;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .change-item::before {
+            content: "•";
+            position: absolute;
+            left: var(--space-3);
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .change-item code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+            font-family: var(--font-mono);
+            color: var(--color-primary);
+        }
+
+        .change-item a {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .version-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Changelog</h1>
+            <p class="page-description">Track all updates, new features, and improvements to Aural UI. Each version documents what's new, what's changed, and what's been fixed.</p>
+        </div>
+
+        <!-- Version 1.3.0 - January 26, 2026 -->
+        <div class="version-section">
+            <div class="version-header">
+                <span class="version-number">v1.3.0</span>
+                <span class="version-badge badge-latest">Latest</span>
+                <span class="version-date">January 26, 2026</span>
+            </div>
+
+            <!-- New Features -->
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="sparkles" class="category-icon"></i>
+                    New Features
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <strong>Enhanced Theme Selector:</strong> Replaced simple toggle with dropdown showing all 4 themes (Dark, Light, High Contrast, Colorblind-Friendly) with visual icons
+                    </li>
+                    <li class="change-item">
+                        <strong>High Contrast Theme:</strong> New WCAG AAA compliant theme with 7:1+ contrast ratios, pure black/white colors, and enhanced 3px focus outlines
+                    </li>
+                    <li class="change-item">
+                        <strong>Colorblind-Friendly Theme:</strong> Optimized for users with color vision deficiency using blue for success and orange for errors instead of red/green
+                    </li>
+                    <li class="change-item">
+                        <strong>Visual Theme Builder:</strong> Interactive tool with color pickers, live preview, WCAG contrast checker, and export functionality
+                    </li>
+                    <li class="change-item">
+                        <strong>150+ Utility Classes:</strong> Added backdrop filters, gradients (8 directions), aspect ratios, dark mode variants, and RTL support
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Component Enhancements -->
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="box" class="category-icon"></i>
+                    Component Enhancements
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <strong>Icon-Only Buttons:</strong> Added <code>.btn-icon</code> class with 3 sizes (36px, 44px, 52px) for compact toolbar buttons
+                    </li>
+                    <li class="change-item">
+                        <strong>Input Icons:</strong> Support for prefix and suffix icons using <code>.input-group</code> wrapper with proper spacing
+                    </li>
+                    <li class="change-item">
+                        <strong>Character Counter:</strong> Live character counting for inputs/textareas with warning (80%) and error (100%) states
+                    </li>
+                    <li class="change-item">
+                        <strong>Expandable Table Rows:</strong> Click-to-expand rows with smooth animation and rotatingchevron icons
+                    </li>
+                    <li class="change-item">
+                        <strong>Fullscreen Modals:</strong> Added <code>.modal-fullscreen</code> for 100% viewport coverage
+                    </li>
+                    <li class="change-item">
+                        <strong>Scrollable Modals:</strong> Added <code>.modal-scrollable</code> with fixed header/footer and scrolling body
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Documentation -->
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="book-open" class="category-icon"></i>
+                    Documentation
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">
+                        Enhanced <a href="components/buttons.html">Buttons</a> documentation with icon-only examples and accessibility tips
+                    </li>
+                    <li class="change-item">
+                        Enhanced <a href="components/inputs.html">Inputs</a> documentation with icon examples and character counter guide
+                    </li>
+                    <li class="change-item">
+                        Enhanced <a href="components/tables.html">Tables</a> documentation with expandable row examples
+                    </li>
+                    <li class="change-item">
+                        Enhanced <a href="components/modals.html">Modals</a> documentation with fullscreen and scrollable variants
+                    </li>
+                    <li class="change-item">
+                        Added comprehensive <a href="themes.html">Theme Guide</a> documenting all 4 themes with specifications
+                    </li>
+                    <li class="change-item">
+                        Created <a href="utilities.html">Utilities</a> reference with tables and examples for all 150+ utility classes
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Version 1.2.0 - January 24, 2026 -->
+        <div class="version-section">
+            <div class="version-header">
+                <span class="version-number">v1.2.0</span>
+                <span class="version-date">January 24, 2026</span>
+            </div>
+
+            <!-- Major Features -->
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="sparkles" class="category-icon"></i>
+                    Major Features
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <strong>Unified Demo Navigation:</strong> Iframe-based navigation system with persistent sidebar eliminates duplicate navigation across all 61 pages
+                    </li>
+                    <li class="change-item">
+                        <strong>Theme Synchronization:</strong> Automatic theme sync between parent frame and component demos
+                    </li>
+                    <li class="change-item">
+                        <strong>Mobile Navigation:</strong> Responsive sidebar with search functionality and collapsible sections
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Components -->
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="box" class="category-icon"></i>
+                    Components
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">Fixed checkbox alignment and sizing issues</li>
+                    <li class="change-item">Improved toggle component styling and accessibility</li>
+                    <li class="change-item">Added unified switch component combining toggle and switch patterns</li>
+                </ul>
+            </div>
+
+            <!-- Improvements -->
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="trending-up" class="category-icon"></i>
+                    Improvements
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">Clean sans-serif typography in demo navigation</li>
+                    <li class="change-item">Consistent template applied across all documentation pages</li>
+                    <li class="change-item">Improved search functionality in sidebar navigation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Version 1.1.0 - Earlier -->
+        <div class="version-section">
+            <div class="version-header">
+                <span class="version-number">v1.1.0</span>
+                <span class="version-date">Earlier Releases</span>
+            </div>
+
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="box" class="category-icon"></i>
+                    Component Library
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">61 components across Forms, Navigation, Data Display, Feedback, and Layout categories</li>
+                    <li class="change-item">Date & time components: Date Picker, Time Picker, Date Range Picker, Calendar</li>
+                    <li class="change-item">Advanced inputs: Multi-Select, Combobox, Color Picker, Rating, Range Slider</li>
+                    <li class="change-item">Navigation: Stepper, Drawer, Navbar, Context Menu, Bottom Navigation</li>
+                    <li class="change-item">Feedback: Alert Banner, Toast, Snackbar, Notification Center</li>
+                    <li class="change-item">Data Display: Timeline, Tree View, Stats Cards, Carousel, Image Gallery</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="palette" class="category-icon"></i>
+                    Design System
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">CSS custom properties for easy theming</li>
+                    <li class="change-item">Dark and Light themes included</li>
+                    <li class="change-item">Comprehensive spacing scale (8-point grid)</li>
+                    <li class="change-item">Semantic color system</li>
+                    <li class="change-item">Typography scale with responsive font sizes</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="./aural-ui.js"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? './dark.css' : './light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? './dark.css' : './light.css';
+        }
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const themePath = savedTheme === 'dark' ? './dark.css' : './light.css';
+            themeLink.href = themePath;
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

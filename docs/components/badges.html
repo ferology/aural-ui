@@ -164,21 +164,212 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Badges</h1>
-            <p class="page-description">Small status indicators and labels.</p>
+            <p class="page-description">Small, versatile status indicators and labels for displaying counts, statuses, and categories. Perfect for notifications, tags, and metadata.</p>
         </div>
 
+        <!-- Semantic Variants -->
+        <div class="example-container">
+            <div class="example-label">Semantic Variants</div>
+            <div class="example-demo">
+                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center;">
+                    <span class="badge badge-primary">Primary</span>
+                    <span class="badge badge-secondary">Secondary</span>
+                    <span class="badge badge-success">Success</span>
+                    <span class="badge badge-error">Error</span>
+                    <span class="badge badge-warning">Warning</span>
+                    <span class="badge badge-info">Info</span>
+                </div>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Choose the appropriate semantic variant to convey meaning:</p>
+                <ul>
+                    <li><code>.badge-primary</code> - Default state or brand-related labels</li>
+                    <li><code>.badge-secondary</code> - Alternative or less prominent labels</li>
+                    <li><code>.badge-success</code> - Positive status (Active, Complete, Approved)</li>
+                    <li><code>.badge-error</code> - Negative status (Error, Failed, Rejected)</li>
+                    <li><code>.badge-warning</code> - Cautionary status (Pending, Draft, Warning)</li>
+                    <li><code>.badge-info</code> - Informational status (New, Beta, Info)</li>
+                </ul>
+            </div>
         </div>
 
-            <div class="example-container">
-                <div class="example-label">Sizes</div>
-                <div class="example-demo">
-                    <div class="flex items-center gap-2">
-                        <span class="badge badge-primary badge-sm">Small</span>
-                        <span class="badge badge-primary">Default</span>
-                        <span class="badge badge-primary badge-lg">Large</span>
+        <!-- Sizes -->
+        <div class="example-container">
+            <div class="example-label">Sizes</div>
+            <div class="example-demo">
+                <div style="display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;">
+                    <span class="badge badge-primary badge-sm">Small</span>
+                    <span class="badge badge-primary">Default</span>
+                    <span class="badge badge-primary badge-lg">Large</span>
+                </div>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Three sizes to fit different contexts:</p>
+                <ul>
+                    <li><code>.badge-sm</code> - Compact size for tight spaces or inline text</li>
+                    <li>Default - Standard size for most use cases</li>
+                    <li><code>.badge-lg</code> - Larger size for emphasis or standalone labels</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- With Icons -->
+        <div class="example-container">
+            <div class="example-label">With Icons</div>
+            <div class="example-demo">
+                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                    <span class="badge badge-success">
+                        <i data-lucide="check-circle" style="width: 14px; height: 14px;"></i>
+                        Verified
+                    </span>
+                    <span class="badge badge-error">
+                        <i data-lucide="x-circle" style="width: 14px; height: 14px;"></i>
+                        Failed
+                    </span>
+                    <span class="badge badge-warning">
+                        <i data-lucide="alert-triangle" style="width: 14px; height: 14px;"></i>
+                        Pending
+                    </span>
+                    <span class="badge badge-info">
+                        <i data-lucide="info" style="width: 14px; height: 14px;"></i>
+                        New
+                    </span>
+                </div>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Add icons to badges for enhanced clarity. Icons automatically inherit proper sizing and spacing.</p>
+            </div>
+        </div>
+
+        <!-- Notification Badges -->
+        <div class="example-container">
+            <div class="example-label">Notification Badges</div>
+            <div class="example-demo">
+                <div style="display: flex; gap: var(--space-6); flex-wrap: wrap; align-items: center;">
+                    <div style="position: relative; display: inline-flex;">
+                        <button class="btn btn-ghost btn-icon">
+                            <i data-lucide="bell"></i>
+                        </button>
+                        <span class="badge badge-error badge-sm" style="position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; border-radius: 9px; padding: 0 4px; display: flex; align-items: center; justify-content: center; font-size: 10px;">3</span>
+                    </div>
+
+                    <div style="position: relative; display: inline-flex;">
+                        <button class="btn btn-ghost btn-icon">
+                            <i data-lucide="mail"></i>
+                        </button>
+                        <span class="badge badge-primary badge-sm" style="position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; border-radius: 9px; padding: 0 4px; display: flex; align-items: center; justify-content: center; font-size: 10px;">12</span>
+                    </div>
+
+                    <div style="position: relative; display: inline-flex;">
+                        <button class="btn btn-ghost btn-icon">
+                            <i data-lucide="shopping-cart"></i>
+                        </button>
+                        <span class="badge badge-success badge-sm" style="position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; border-radius: 9px; padding: 0 4px; display: flex; align-items: center; justify-content: center; font-size: 10px;">5</span>
                     </div>
                 </div>
             </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Position badges absolutely on icons or buttons to show counts or notifications. Use small, circular badges for numeric indicators.</p>
+            </div>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="example-container">
+            <div class="example-label">Common Use Cases</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <!-- Status in table -->
+                    <div>
+                        <div style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin-bottom: var(--space-2);">Order Status</div>
+                        <div style="display: flex; gap: var(--space-3);">
+                            <span class="badge badge-success">Delivered</span>
+                            <span class="badge badge-warning">In Transit</span>
+                            <span class="badge badge-error">Cancelled</span>
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div>
+                        <div style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin-bottom: var(--space-2);">Article Tags</div>
+                        <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+                            <span class="badge badge-secondary">JavaScript</span>
+                            <span class="badge badge-secondary">React</span>
+                            <span class="badge badge-secondary">Tutorial</span>
+                            <span class="badge badge-primary badge-sm">Featured</span>
+                        </div>
+                    </div>
+
+                    <!-- User roles -->
+                    <div>
+                        <div style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin-bottom: var(--space-2);">User Roles</div>
+                        <div style="display: flex; gap: var(--space-2); align-items: center;">
+                            <span style="color: var(--color-text-primary);">John Doe</span>
+                            <span class="badge badge-primary badge-sm">Admin</span>
+                            <span class="badge badge-success badge-sm">
+                                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
+                                Verified
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="section-content">
+                <h3>When to Use Badges</h3>
+                <ul>
+                    <li><strong>Status Indicators:</strong> Show order status, user status, or process states</li>
+                    <li><strong>Counts & Numbers:</strong> Display notification counts, unread messages, or quantities</li>
+                    <li><strong>Categories & Tags:</strong> Label content with topics, types, or classifications</li>
+                    <li><strong>Metadata:</strong> Show version numbers, dates, or other supplementary information</li>
+                    <li><strong>Feature Flags:</strong> Highlight new, beta, or experimental features</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li>Use semantic color variants to convey meaning visually</li>
+                    <li>For critical information, supplement color with text or icons</li>
+                    <li>Keep badge text concise and clear (2-3 words maximum)</li>
+                    <li>Ensure sufficient color contrast (badges meet WCAG AA standards)</li>
+                    <li>For notification badges, use <code>aria-label</code> on parent elements to announce counts to screen readers</li>
+                </ul>
+
+                <h3>Design Guidelines</h3>
+                <ul>
+                    <li><strong>Be Concise:</strong> Keep text short - one or two words is ideal</li>
+                    <li><strong>Be Consistent:</strong> Use the same badge variant for similar statuses across your app</li>
+                    <li><strong>Don't Overuse:</strong> Too many badges create visual noise and reduce their effectiveness</li>
+                    <li><strong>Consider Context:</strong> Use smaller badges for inline text, larger ones for standalone labels</li>
+                    <li><strong>Pair with Icons:</strong> Icons enhance understanding, especially for users with color blindness</li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <p><strong>Status Tables:</strong> Use badges in table cells to show record status</p>
+                <pre><code>&lt;td&gt;
+  &lt;span class="badge badge-success"&gt;Active&lt;/span&gt;
+&lt;/td&gt;</code></pre>
+
+                <p><strong>Notification Counts:</strong> Position badges on icons or buttons</p>
+                <pre><code>&lt;div style="position: relative"&gt;
+  &lt;button class="btn btn-ghost btn-icon"&gt;
+    &lt;i data-lucide="bell"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;span class="badge badge-error badge-sm"
+        style="position: absolute; top: -4px; right: -4px"&gt;
+    3
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+                <p><strong>Content Tags:</strong> Group related badges for categorization</p>
+                <pre><code>&lt;div style="display: flex; gap: var(--space-2)"&gt;
+  &lt;span class="badge badge-secondary"&gt;JavaScript&lt;/span&gt;
+  &lt;span class="badge badge-secondary"&gt;Tutorial&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
 
     </main>
 
