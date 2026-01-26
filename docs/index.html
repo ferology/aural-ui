@@ -6,10 +6,10 @@
     <title>Aural UI - A Modern Design System</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="./aural-ui.css?v=1769422996">
+    <link rel="stylesheet" href="./aural-ui.css?v=1769423987">
 
     <!-- Choose theme -->
-    <link rel="stylesheet" href="./dark.css?v=1769422996" id="theme-link">
+    <link rel="stylesheet" href="./dark.css?v=1769423987" id="theme-link">
 
     <!-- Lucide Icons (MIT License) -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -135,14 +135,7 @@
 
         .stat-item {
             text-align: center;
-        }
-
-        .stat-number {
-            font-size: var(--text-3xl);
-            font-weight: var(--font-bold);
-            color: var(--primary-400);
-            display: block;
-            margin-bottom: var(--space-2);
+            margin: 0;
         }
 
         .stat-label {
@@ -150,6 +143,16 @@
             color: var(--primary-400);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
+            margin: 0 0 var(--space-2) 0;
+            font-weight: var(--font-semibold);
+        }
+
+        .stat-number {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--primary-400);
+            display: block;
+            margin: 0;
         }
 
         /* Feature Cards */
@@ -395,9 +398,43 @@
             color: var(--color-text-tertiary);
             font-size: var(--text-sm);
         }
+
+        /* Accessibility: Visually Hidden Class */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Accessibility: Skip to Content Link */
+        .skip-to-content {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--color-primary);
+            color: white;
+            padding: var(--space-3) var(--space-4);
+            text-decoration: none;
+            font-weight: var(--font-semibold);
+            z-index: 9999;
+            transition: top 0.2s ease;
+        }
+
+        .skip-to-content:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body>
+    <!-- Skip to Content Link for Accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
     <!-- Mobile Header -->
     </div>
 
@@ -405,11 +442,11 @@
 
     <!-- Sidebar Navigation -->
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="main-content">
         <div class="hero-section">
             <!-- Large Animated Logo -->
-            <div class="hero-logo">
-                <div class="soundwave-container">
+            <div class="hero-logo" role="img" aria-label="Aural UI animated sound wave logo">
+                <div class="soundwave-container" aria-hidden="true">
                     <div class="wave-bar"></div>
                     <div class="wave-bar"></div>
                     <div class="wave-bar"></div>
@@ -435,44 +472,45 @@
             <!-- Actions Below -->
             <div class="hero-actions">
                 <a href="./demo.html" class="btn btn-primary btn-lg">
-                    <i data-lucide="play-circle"></i>
+                    <i data-lucide="play-circle" aria-hidden="true"></i>
                     View Components
                 </a>
                 <a href="./getting-started.html" class="btn btn-secondary btn-lg">
-                    <i data-lucide="book-open"></i>
+                    <i data-lucide="book-open" aria-hidden="true"></i>
                     Get Started
                 </a>
                 <a href="https://github.com/ferology/aural-ui" target="_blank" class="btn btn-ghost btn-lg">
-                    <i data-lucide="github"></i>
+                    <i data-lucide="github" aria-hidden="true"></i>
                     GitHub
                 </a>
             </div>
 
             <!-- Stats Section -->
-            <div class="stats-section">
-                <div class="stat-item">
-                    <span class="stat-number">52+</span>
-                    <span class="stat-label">Components</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Accessible</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">2</span>
-                    <span class="stat-label">Themes</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Dependencies</span>
-                </div>
+            <div class="stats-section" role="group" aria-label="Key statistics">
+                <dl class="stat-item">
+                    <dt class="stat-label">Components</dt>
+                    <dd class="stat-number">52+</dd>
+                </dl>
+                <dl class="stat-item">
+                    <dt class="stat-label">Accessible</dt>
+                    <dd class="stat-number">100%</dd>
+                </dl>
+                <dl class="stat-item">
+                    <dt class="stat-label">Themes</dt>
+                    <dd class="stat-number">2</dd>
+                </dl>
+                <dl class="stat-item">
+                    <dt class="stat-label">Dependencies</dt>
+                    <dd class="stat-number">0</dd>
+                </dl>
             </div>
 
             <!-- Feature Cards -->
+            <h2 class="visually-hidden">Key Features</h2>
             <div class="cards-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i data-lucide="layout" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="layout" style="width: 24px; height: 24px;" aria-hidden="true"></i>
                     </div>
                     <h3 class="feature-title">52+ Components</h3>
                     <p class="feature-description">
@@ -482,7 +520,7 @@
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i data-lucide="accessibility" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="accessibility" style="width: 24px; height: 24px;" aria-hidden="true"></i>
                     </div>
                     <h3 class="feature-title">Accessibility First</h3>
                     <p class="feature-description">
@@ -492,7 +530,7 @@
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="palette" style="width: 24px; height: 24px;" aria-hidden="true"></i>
                     </div>
                     <h3 class="feature-title">Fully Themeable</h3>
                     <p class="feature-description">
@@ -502,7 +540,7 @@
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i data-lucide="moon" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="moon" style="width: 24px; height: 24px;" aria-hidden="true"></i>
                     </div>
                     <h3 class="feature-title">Dark Mode Built-in</h3>
                     <p class="feature-description">
@@ -512,7 +550,7 @@
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i data-lucide="zap" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="zap" style="width: 24px; height: 24px;" aria-hidden="true"></i>
                     </div>
                     <h3 class="feature-title">Lightweight & Fast</h3>
                     <p class="feature-description">
@@ -522,7 +560,7 @@
 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i data-lucide="code-2" style="width: 24px; height: 24px;"></i>
+                        <i data-lucide="code-2" style="width: 24px; height: 24px;" aria-hidden="true"></i>
                     </div>
                     <h3 class="feature-title">Developer Friendly</h3>
                     <p class="feature-description">
@@ -537,27 +575,27 @@
                     <div class="footer-section">
                         <h4>Documentation</h4>
                         <ul class="footer-links">
-                            <li><a href="./getting-started.html"><i data-lucide="book-open"></i> Getting Started</a></li>
-                            <li><a href="./api.html"><i data-lucide="code-2"></i> API Reference</a></li>
-                            <li><a href="./tokens.html"><i data-lucide="palette"></i> Design Tokens</a></li>
-                            <li><a href="./themes.html"><i data-lucide="paintbrush"></i> Themes</a></li>
+                            <li><a href="./getting-started.html"><i data-lucide="book-open" aria-hidden="true"></i> Getting Started</a></li>
+                            <li><a href="./api.html"><i data-lucide="code-2" aria-hidden="true"></i> API Reference</a></li>
+                            <li><a href="./tokens.html"><i data-lucide="palette" aria-hidden="true"></i> Design Tokens</a></li>
+                            <li><a href="./themes.html"><i data-lucide="paintbrush" aria-hidden="true"></i> Themes</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
                         <h4>Components</h4>
                         <ul class="footer-links">
-                            <li><a href="./demo.html"><i data-lucide="layout"></i> Browse All</a></li>
-                            <li><a href="./showcase.html"><i data-lucide="grid-3x3"></i> Showcase</a></li>
-                            <li><a href="./examples.html"><i data-lucide="file-code"></i> Examples</a></li>
+                            <li><a href="./demo.html"><i data-lucide="layout" aria-hidden="true"></i> Browse All</a></li>
+                            <li><a href="./showcase.html"><i data-lucide="grid-3x3" aria-hidden="true"></i> Showcase</a></li>
+                            <li><a href="./examples.html"><i data-lucide="file-code" aria-hidden="true"></i> Examples</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
                         <h4>Resources</h4>
                         <ul class="footer-links">
-                            <li><a href="https://github.com/ferology/aural-ui" target="_blank"><i data-lucide="github"></i> GitHub</a></li>
-                            <li><a href="https://github.com/ferology/aural-ui/issues" target="_blank"><i data-lucide="bug"></i> Report Issue</a></li>
-                            <li><a href="./contributing.html"><i data-lucide="heart"></i> Contributing</a></li>
-                            <li><a href="./accessibility.html"><i data-lucide="accessibility"></i> Accessibility</a></li>
+                            <li><a href="https://github.com/ferology/aural-ui" target="_blank"><i data-lucide="github" aria-hidden="true"></i> GitHub</a></li>
+                            <li><a href="https://github.com/ferology/aural-ui/issues" target="_blank"><i data-lucide="bug" aria-hidden="true"></i> Report Issue</a></li>
+                            <li><a href="./contributing.html"><i data-lucide="heart" aria-hidden="true"></i> Contributing</a></li>
+                            <li><a href="./accessibility.html"><i data-lucide="accessibility" aria-hidden="true"></i> Accessibility</a></li>
                         </ul>
                     </div>
                 </div>
@@ -570,8 +608,8 @@
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle between light and dark theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -586,101 +624,101 @@
     </div>
 
     <!-- Token Controller Modal -->
-    <div class="modal-overlay" id="token-controller-modal">
+    <div class="modal-overlay" id="token-controller-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal modal-lg">
             <div class="modal-header">
-                <h3>Customize Tokens</h3>
-                <button class="modal-close" onclick="Aural.closeModal('token-controller-modal')">×</button>
+                <h3 id="modal-title">Customize Tokens</h3>
+                <button class="modal-close" onclick="Aural.closeModal('token-controller-modal')" aria-label="Close customize tokens modal">×</button>
             </div>
             <div class="modal-body">
                 <!-- Primary Color -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="primaryColor">
                         Primary Color
                         <span class="token-control-value" id="primaryColorValue">#5ebd8f</span>
                     </label>
-                    <input type="color" class="token-control-input" id="primaryColor" value="#5ebd8f" onchange="updateToken('--color-primary', this.value, 'primaryColorValue')">
+                    <input type="color" class="token-control-input" id="primaryColor" value="#5ebd8f" onchange="updateToken('--color-primary', this.value, 'primaryColorValue')" aria-describedby="primaryColorValue">
                 </div>
 
                 <!-- Border Radius -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="radiusScale">
                         Border Radius Scale
                         <span class="token-control-value" id="radiusScaleValue">1.0x</span>
                     </label>
-                    <input type="range" class="token-control-input" id="radiusScale" min="0" max="2" step="0.1" value="1" oninput="updateRadiusScale(this.value)">
+                    <input type="range" class="token-control-input" id="radiusScale" min="0" max="2" step="0.1" value="1" oninput="updateRadiusScale(this.value)" aria-describedby="radiusScaleValue">
                 </div>
 
                 <!-- Spacing Scale -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="spacingScale">
                         Spacing Scale
                         <span class="token-control-value" id="spacingScaleValue">1.0x</span>
                     </label>
-                    <input type="range" class="token-control-input" id="spacingScale" min="0.5" max="2" step="0.1" value="1" oninput="updateSpacingScale(this.value)">
+                    <input type="range" class="token-control-input" id="spacingScale" min="0.5" max="2" step="0.1" value="1" oninput="updateSpacingScale(this.value)" aria-describedby="spacingScaleValue">
                 </div>
 
                 <!-- Font Size Scale -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="fontScale">
                         Font Size Scale
                         <span class="token-control-value" id="fontScaleValue">1.0x</span>
                     </label>
-                    <input type="range" class="token-control-input" id="fontScale" min="0.75" max="1.5" step="0.05" value="1" oninput="updateFontScale(this.value)">
+                    <input type="range" class="token-control-input" id="fontScale" min="0.75" max="1.5" step="0.05" value="1" oninput="updateFontScale(this.value)" aria-describedby="fontScaleValue">
                 </div>
 
                 <!-- Success Color -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="successColor">
                         Success Color
                         <span class="token-control-value" id="successColorValue">#22c55e</span>
                     </label>
-                    <input type="color" class="token-control-input" id="successColor" value="#22c55e" onchange="updateToken('--color-success', this.value, 'successColorValue')">
+                    <input type="color" class="token-control-input" id="successColor" value="#22c55e" onchange="updateToken('--color-success', this.value, 'successColorValue')" aria-describedby="successColorValue">
                 </div>
 
                 <!-- Warning Color -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="warningColor">
                         Warning Color
                         <span class="token-control-value" id="warningColorValue">#f59e0b</span>
                     </label>
-                    <input type="color" class="token-control-input" id="warningColor" value="#f59e0b" onchange="updateToken('--color-warning', this.value, 'warningColorValue')">
+                    <input type="color" class="token-control-input" id="warningColor" value="#f59e0b" onchange="updateToken('--color-warning', this.value, 'warningColorValue')" aria-describedby="warningColorValue">
                 </div>
 
                 <!-- Error Color -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="errorColor">
                         Error Color
                         <span class="token-control-value" id="errorColorValue">#ef4444</span>
                     </label>
-                    <input type="color" class="token-control-input" id="errorColor" value="#ef4444" onchange="updateToken('--color-error', this.value, 'errorColorValue')">
+                    <input type="color" class="token-control-input" id="errorColor" value="#ef4444" onchange="updateToken('--color-error', this.value, 'errorColorValue')" aria-describedby="errorColorValue">
                 </div>
 
                 <!-- Info Color -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="infoColor">
                         Info Color
                         <span class="token-control-value" id="infoColorValue">#3b82f6</span>
                     </label>
-                    <input type="color" class="token-control-input" id="infoColor" value="#3b82f6" onchange="updateToken('--color-info', this.value, 'infoColorValue')">
+                    <input type="color" class="token-control-input" id="infoColor" value="#3b82f6" onchange="updateToken('--color-info', this.value, 'infoColorValue')" aria-describedby="infoColorValue">
                 </div>
 
                 <!-- Shadow Intensity -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="shadowIntensity">
                         Shadow Intensity
                         <span class="token-control-value" id="shadowIntensityValue">1.0x</span>
                     </label>
-                    <input type="range" class="token-control-input" id="shadowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateShadowIntensity(this.value)">
+                    <input type="range" class="token-control-input" id="shadowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateShadowIntensity(this.value)" aria-describedby="shadowIntensityValue">
                 </div>
 
                 <!-- Glow Intensity -->
                 <div class="token-control-group">
-                    <label class="token-control-label">
+                    <label class="token-control-label" for="glowIntensity">
                         Glow Intensity
                         <span class="token-control-value" id="glowIntensityValue">1.0x</span>
                     </label>
-                    <input type="range" class="token-control-input" id="glowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateGlowIntensity(this.value)">
+                    <input type="range" class="token-control-input" id="glowIntensity" min="0" max="2" step="0.1" value="1" oninput="updateGlowIntensity(this.value)" aria-describedby="glowIntensityValue">
                 </div>
             </div>
             <div class="modal-footer">
