@@ -13,8 +13,7 @@
             { name: 'Inputs', file: 'inputs.html' },
             { name: 'Checkboxes', file: 'checkboxes.html' },
             { name: 'Radio Buttons', file: 'radio-buttons.html' },
-            { name: 'Toggles', file: 'toggles.html' },
-            { name: 'Switch', file: 'switch.html' },
+            { name: 'Switch / Toggle', file: 'switch.html' },
             { name: 'Select', file: 'select.html' },
             { name: 'Multi-Select', file: 'multi-select.html' },
             { name: 'Combobox', file: 'combobox.html' },
@@ -24,6 +23,7 @@
             { name: 'Rating', file: 'rating.html' },
             { name: 'Color Picker', file: 'color-picker.html' },
             { name: 'Date Picker', file: 'date-picker.html' },
+            { name: 'Date Range Picker', file: 'date-range-picker.html' },
             { name: 'Time Picker', file: 'time-picker.html' },
             { name: 'File Upload', file: 'file-upload.html' }
         ],
@@ -126,11 +126,11 @@
             </div>
         `;
 
-        // Add component sections
+        // Add component sections (collapsed by default)
         Object.entries(COMPONENTS).forEach(([section, components]) => {
             html += `
                 <div class="demo-nav-section">
-                    <div class="demo-nav-title collapsible" onclick="this.classList.toggle('collapsed')">
+                    <div class="demo-nav-title collapsible collapsed" onclick="this.classList.toggle('collapsed')">
                         ${section}
                         <i data-lucide="chevron-down"></i>
                     </div>
