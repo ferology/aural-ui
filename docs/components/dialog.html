@@ -69,63 +69,6 @@
             margin-bottom: var(--space-4);
         }
 
-        .content-section {
-            margin-bottom: var(--space-8);
-        }
-
-        .section-title {
-            font-size: var(--text-2xl);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-primary);
-            margin: 0 0 var(--space-4) 0;
-        }
-
-        .section-content {
-            font-size: var(--text-base);
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-        }
-
-        .section-content h3 {
-            font-size: var(--text-xl);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-primary);
-            margin: var(--space-6) 0 var(--space-3) 0;
-        }
-
-        .section-content p {
-            margin: 0 0 var(--space-4) 0;
-        }
-
-        .section-content ul, .section-content ol {
-            margin: 0 0 var(--space-4) 0;
-            padding-left: var(--space-6);
-        }
-
-        .section-content li {
-            margin-bottom: var(--space-2);
-        }
-
-        .section-content code {
-            background: var(--color-bg-tertiary);
-            padding: 2px 6px;
-            border-radius: var(--radius-sm);
-            font-size: 0.9em;
-        }
-
-        .section-content pre {
-            background: var(--color-bg-tertiary);
-            padding: var(--space-4);
-            border-radius: var(--radius-md);
-            overflow-x: auto;
-            margin: var(--space-4) 0;
-        }
-
-        .section-content pre code {
-            background: none;
-            padding: 0;
-        }
-
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -146,10 +89,6 @@
 
             .page-description {
                 font-size: var(--text-base);
-            }
-
-            .section-title {
-                font-size: var(--text-xl);
             }
 
             .theme-toggle {
@@ -205,50 +144,59 @@
     </main>
 
     <!-- Simple Dialog -->
-    <div class="aural-modal" id="dialog-simple" role="dialog" aria-modal="true" aria-labelledby="dialog-simple-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--sm">
-            <div class="aural-modal__header">
-                <h2 class="aural-modal__title" id="dialog-simple-title">Simple Dialog</h2>
-                <button class="aural-modal__close" onclick="Aural.closeModal('dialog-simple')" aria-label="Close dialog">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
+    <div class="modal-overlay" id="dialog-simple">
+        <div class="modal modal-sm">
+            <button class="modal-close" onclick="Aural.closeModal('dialog-simple')" aria-label="Close dialog">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Simple Dialog</h2>
+                </div>
             </div>
-            <div class="aural-modal__body">
+            <div class="modal-body">
                 <p>This is a simple dialog with minimal content and a single action button.</p>
             </div>
-            <div class="aural-modal__footer">
+            <div class="modal-footer">
                 <button class="btn btn-primary" onclick="Aural.closeModal('dialog-simple')">OK</button>
             </div>
         </div>
     </div>
 
     <!-- Success Dialog -->
-    <div class="aural-modal" id="dialog-success" role="dialog" aria-modal="true" aria-labelledby="dialog-success-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--sm">
-            <div class="aural-modal__body" style="text-align: center; padding: var(--space-8);">
-                <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--color-success-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-success); margin: 0 auto var(--space-4);">
-                    <i data-lucide="check-circle" style="width: 32px; height: 32px;" aria-hidden="true"></i>
+    <div class="modal-overlay" id="dialog-success">
+        <div class="modal modal-sm" style="text-align: center;">
+            <button class="modal-close" onclick="Aural.closeModal('dialog-success')" aria-label="Close dialog">
+                <i data-lucide="x"></i>
+            </button>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-4);">
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--color-success-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-success);">
+                    <i data-lucide="check-circle" style="width: 32px; height: 32px;"></i>
                 </div>
-                <h2 id="dialog-success-title" style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Success!</h2>
-                <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-6) 0;">Your changes have been saved successfully.</p>
-                <button class="btn btn-success" onclick="Aural.closeModal('dialog-success')">Continue</button>
+                <div>
+                    <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Success!</h2>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Your changes have been saved successfully.</p>
+                </div>
+                <button class="btn btn-success" onclick="Aural.closeModal('dialog-success')" style="margin-top: var(--space-2);">Continue</button>
             </div>
         </div>
     </div>
 
     <!-- Error Dialog -->
-    <div class="aural-modal" id="dialog-error" role="dialog" aria-modal="true" aria-labelledby="dialog-error-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--sm">
-            <div class="aural-modal__body" style="text-align: center; padding: var(--space-8);">
-                <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--color-danger-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-danger); margin: 0 auto var(--space-4);">
-                    <i data-lucide="x-circle" style="width: 32px; height: 32px;" aria-hidden="true"></i>
+    <div class="modal-overlay" id="dialog-error">
+        <div class="modal modal-sm" style="text-align: center;">
+            <button class="modal-close" onclick="Aural.closeModal('dialog-error')" aria-label="Close dialog">
+                <i data-lucide="x"></i>
+            </button>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-4);">
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--color-danger-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-danger);">
+                    <i data-lucide="x-circle" style="width: 32px; height: 32px;"></i>
                 </div>
-                <h2 id="dialog-error-title" style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Error</h2>
-                <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-6) 0;">An error occurred while processing your request. Please try again.</p>
-                <div style="display: flex; gap: var(--space-3); justify-content: center;">
+                <div>
+                    <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Error</h2>
+                    <p style="color: var(--color-text-secondary); margin: 0;">An error occurred while processing your request. Please try again.</p>
+                </div>
+                <div style="display: flex; gap: var(--space-3); margin-top: var(--space-2);">
                     <button class="btn btn-ghost" onclick="Aural.closeModal('dialog-error')">Cancel</button>
                     <button class="btn btn-error" onclick="Aural.closeModal('dialog-error')">Try Again</button>
                 </div>
@@ -257,43 +205,44 @@
     </div>
 
     <!-- Info Dialog -->
-    <div class="aural-modal" id="dialog-info" role="dialog" aria-modal="true" aria-labelledby="dialog-info-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--sm">
-            <div class="aural-modal__header">
-                <div style="display: flex; align-items: center; gap: var(--space-3);">
-                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-info-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-info);">
-                        <i data-lucide="info" style="width: 20px; height: 20px;" aria-hidden="true"></i>
-                    </div>
-                    <h2 class="aural-modal__title" id="dialog-info-title" style="margin: 0;">Information</h2>
+    <div class="modal-overlay" id="dialog-info">
+        <div class="modal modal-sm">
+            <button class="modal-close" onclick="Aural.closeModal('dialog-info')" aria-label="Close dialog">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--color-info-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-info);">
+                    <i data-lucide="info" style="width: 24px; height: 24px;"></i>
                 </div>
-                <button class="aural-modal__close" onclick="Aural.closeModal('dialog-info')" aria-label="Close dialog">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
+                <div>
+                    <h2 class="modal-title">Information</h2>
+                    <p class="modal-subtitle">Important update</p>
+                </div>
             </div>
-            <div class="aural-modal__body">
+            <div class="modal-body">
                 <p>This feature is currently in beta. Some functionality may be limited or subject to change.</p>
             </div>
-            <div class="aural-modal__footer">
+            <div class="modal-footer">
                 <button class="btn btn-info" onclick="Aural.closeModal('dialog-info')">Got it</button>
             </div>
         </div>
     </div>
 
     <!-- Confirmation Dialog -->
-    <div class="aural-modal" id="dialog-confirm" role="dialog" aria-modal="true" aria-labelledby="dialog-confirm-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--sm">
-            <div class="aural-modal__header">
-                <h2 class="aural-modal__title" id="dialog-confirm-title">Confirm Action</h2>
-                <button class="aural-modal__close" onclick="Aural.closeModal('dialog-confirm')" aria-label="Close dialog">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
+    <div class="modal-overlay" id="dialog-confirm">
+        <div class="modal modal-sm">
+            <button class="modal-close" onclick="Aural.closeModal('dialog-confirm')" aria-label="Close dialog">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Confirm Action</h2>
+                </div>
             </div>
-            <div class="aural-modal__body">
+            <div class="modal-body">
                 <p>Are you sure you want to proceed with this action? This will affect multiple items.</p>
             </div>
-            <div class="aural-modal__footer">
+            <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('dialog-confirm')">Cancel</button>
                 <button class="btn btn-primary" onclick="Aural.closeModal('dialog-confirm')">Confirm</button>
             </div>
@@ -345,12 +294,12 @@
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

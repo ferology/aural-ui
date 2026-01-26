@@ -69,17 +69,6 @@
             margin-bottom: var(--space-4);
         }
 
-        .content-section {
-            margin-bottom: var(--space-8);
-        }
-
-        .section-title {
-            font-size: var(--text-2xl);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-primary);
-            margin: 0 0 var(--space-4) 0;
-        }
-
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -125,6 +114,13 @@
         </div>
 
         <div class="example-container">
+            <div class="example-label">With Icon</div>
+            <div class="example-demo">
+                <button class="btn btn-secondary" onclick="Aural.openModal('modal-icon')">Open Modal with Icon</button>
+            </div>
+        </div>
+
+        <div class="example-container">
             <div class="example-label">Small Modal</div>
             <div class="example-demo">
                 <button class="btn btn-secondary" onclick="Aural.openModal('modal-small')">Open Small Modal</button>
@@ -139,7 +135,7 @@
         </div>
 
         <div class="example-container">
-            <div class="example-label">Confirmation Dialog</div>
+            <div class="example-label">Confirmation Modal</div>
             <div class="example-demo">
                 <button class="btn btn-error" onclick="Aural.openModal('modal-confirm')">Delete Item</button>
             </div>
@@ -152,56 +148,77 @@
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Alert Modal</div>
-            <div class="example-demo">
-                <button class="btn btn-warning" onclick="Aural.openModal('modal-alert')">Show Warning</button>
-            </div>
-        </div>
-
     </main>
 
     <!-- Basic Modal -->
-    <div class="aural-modal" id="modal-basic" role="dialog" aria-modal="true" aria-labelledby="modal-basic-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container">
-            <div class="aural-modal__header">
-                <h2 class="aural-modal__title" id="modal-basic-title">Modal Title</h2>
-                <button class="aural-modal__close" onclick="Aural.closeModal('modal-basic')" aria-label="Close modal">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
+    <div class="modal-overlay" id="modal-basic">
+        <div class="modal">
+            <button class="modal-close" onclick="Aural.closeModal('modal-basic')" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Modal Title</h2>
+                    <p class="modal-subtitle">Optional subtitle or description</p>
+                </div>
             </div>
-            <div class="aural-modal__body">
+            <div class="modal-body">
                 <p>This is a modal dialog. It overlays the page content and focuses user attention on a specific task or message.</p>
-                <p>Modals are useful for:</p>
-                <ul>
-                    <li>Confirming important actions</li>
-                    <li>Collecting user input</li>
-                    <li>Displaying critical information</li>
-                    <li>Creating focused workflows</li>
-                </ul>
+                <p>Modals are useful for confirming important actions, collecting user input, displaying critical information, and creating focused workflows.</p>
             </div>
-            <div class="aural-modal__footer">
+            <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-basic')">Cancel</button>
                 <button class="btn btn-primary" onclick="Aural.closeModal('modal-basic')">Confirm</button>
             </div>
         </div>
     </div>
 
-    <!-- Small Modal -->
-    <div class="aural-modal" id="modal-small" role="dialog" aria-modal="true" aria-labelledby="modal-small-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--sm">
-            <div class="aural-modal__header">
-                <h2 class="aural-modal__title" id="modal-small-title">Quick Action</h2>
-                <button class="aural-modal__close" onclick="Aural.closeModal('modal-small')" aria-label="Close modal">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
+    <!-- Modal with Icon -->
+    <div class="modal-overlay" id="modal-icon">
+        <div class="modal">
+            <button class="modal-close" onclick="Aural.closeModal('modal-icon')" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i data-lucide="rocket"></i>
+                </div>
+                <div>
+                    <h2 class="modal-title">Get Started</h2>
+                    <p class="modal-subtitle">Welcome to Aural UI</p>
+                </div>
             </div>
-            <div class="aural-modal__body">
+            <div class="modal-body">
+                <p>Thank you for choosing Aural UI! This modal demonstrates how to use icons in your modal headers.</p>
+                <ul>
+                    <li>Beautiful gradient icon backgrounds</li>
+                    <li>Flexible header layouts</li>
+                    <li>Smooth animations</li>
+                    <li>Accessible by default</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="Aural.closeModal('modal-icon')">Maybe Later</button>
+                <button class="btn btn-primary" onclick="Aural.closeModal('modal-icon')">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Small Modal -->
+    <div class="modal-overlay" id="modal-small">
+        <div class="modal modal-sm">
+            <button class="modal-close" onclick="Aural.closeModal('modal-small')" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Quick Action</h2>
+                </div>
+            </div>
+            <div class="modal-body">
                 <p>This is a compact modal for simple interactions or brief messages.</p>
             </div>
-            <div class="aural-modal__footer">
+            <div class="modal-footer">
                 <button class="btn btn-ghost btn-sm" onclick="Aural.closeModal('modal-small')">Cancel</button>
                 <button class="btn btn-primary btn-sm" onclick="Aural.closeModal('modal-small')">OK</button>
             </div>
@@ -209,20 +226,22 @@
     </div>
 
     <!-- Large Modal -->
-    <div class="aural-modal" id="modal-large" role="dialog" aria-modal="true" aria-labelledby="modal-large-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--lg">
-            <div class="aural-modal__header">
-                <h2 class="aural-modal__title" id="modal-large-title">Detailed Information</h2>
-                <button class="aural-modal__close" onclick="Aural.closeModal('modal-large')" aria-label="Close modal">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
+    <div class="modal-overlay" id="modal-large">
+        <div class="modal modal-lg">
+            <button class="modal-close" onclick="Aural.closeModal('modal-large')" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Detailed Information</h2>
+                    <p class="modal-subtitle">Everything you need to know</p>
+                </div>
             </div>
-            <div class="aural-modal__body">
+            <div class="modal-body">
                 <h3 style="margin-top: 0; font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary);">Overview</h3>
                 <p>This is a large modal suitable for displaying extensive content, multiple sections, or complex forms.</p>
 
-                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">Features</h3>
+                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary);">Features</h3>
                 <ul>
                     <li>Ample space for content</li>
                     <li>Multiple sections support</li>
@@ -230,10 +249,10 @@
                     <li>Organized information layout</li>
                 </ul>
 
-                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">Additional Details</h3>
+                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary);">Additional Details</h3>
                 <p>Large modals are ideal for complex workflows, detailed forms, or when you need to present comprehensive information without overwhelming the user.</p>
             </div>
-            <div class="aural-modal__footer">
+            <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-large')">Close</button>
                 <button class="btn btn-primary" onclick="Aural.closeModal('modal-large')">Save Changes</button>
             </div>
@@ -241,27 +260,27 @@
     </div>
 
     <!-- Confirmation Modal -->
-    <div class="aural-modal" id="modal-confirm" role="dialog" aria-modal="true" aria-labelledby="modal-confirm-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--sm">
-            <div class="aural-modal__header">
-                <div style="display: flex; align-items: center; gap: var(--space-3);">
-                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-danger-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-danger);">
-                        <i data-lucide="trash-2" style="width: 20px; height: 20px;" aria-hidden="true"></i>
-                    </div>
-                    <h2 class="aural-modal__title" id="modal-confirm-title" style="margin: 0;">Delete Item?</h2>
+    <div class="modal-overlay" id="modal-confirm">
+        <div class="modal modal-sm">
+            <button class="modal-close" onclick="Aural.closeModal('modal-confirm')" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--color-danger-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-danger);">
+                    <i data-lucide="trash-2" style="width: 24px; height: 24px;"></i>
                 </div>
-                <button class="aural-modal__close" onclick="Aural.closeModal('modal-confirm')" aria-label="Close modal">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
+                <div>
+                    <h2 class="modal-title">Delete Item?</h2>
+                    <p class="modal-subtitle">This action cannot be undone</p>
+                </div>
             </div>
-            <div class="aural-modal__body">
-                <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this item? All associated data will be permanently removed.</p>
             </div>
-            <div class="aural-modal__footer">
+            <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-confirm')">Cancel</button>
                 <button class="btn btn-error" onclick="Aural.closeModal('modal-confirm')">
-                    <i data-lucide="trash-2" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+                    <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
                     Delete
                 </button>
             </div>
@@ -269,16 +288,21 @@
     </div>
 
     <!-- Form Modal -->
-    <div class="aural-modal" id="modal-form" role="dialog" aria-modal="true" aria-labelledby="modal-form-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container">
-            <div class="aural-modal__header">
-                <h2 class="aural-modal__title" id="modal-form-title">Create New Item</h2>
-                <button class="aural-modal__close" onclick="Aural.closeModal('modal-form')" aria-label="Close modal">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
+    <div class="modal-overlay" id="modal-form">
+        <div class="modal">
+            <button class="modal-close" onclick="Aural.closeModal('modal-form')" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i data-lucide="plus-circle"></i>
+                </div>
+                <div>
+                    <h2 class="modal-title">Create New Item</h2>
+                    <p class="modal-subtitle">Fill in the details below</p>
+                </div>
             </div>
-            <div class="aural-modal__body">
+            <div class="modal-body">
                 <form id="create-item-form" style="display: flex; flex-direction: column; gap: var(--space-4);">
                     <div>
                         <label for="item-name" style="display: block; margin-bottom: var(--space-2); font-weight: var(--font-medium); color: var(--color-text-primary);">Item Name</label>
@@ -299,34 +323,9 @@
                     </div>
                 </form>
             </div>
-            <div class="aural-modal__footer">
+            <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-form')">Cancel</button>
                 <button class="btn btn-primary" onclick="Aural.closeModal('modal-form')">Create Item</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Alert Modal -->
-    <div class="aural-modal" id="modal-alert" role="dialog" aria-modal="true" aria-labelledby="modal-alert-title">
-        <div class="aural-modal__overlay"></div>
-        <div class="aural-modal__container aural-modal__container--sm">
-            <div class="aural-modal__header">
-                <div style="display: flex; align-items: center; gap: var(--space-3);">
-                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-warning-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-warning);">
-                        <i data-lucide="alert-triangle" style="width: 20px; height: 20px;" aria-hidden="true"></i>
-                    </div>
-                    <h2 class="aural-modal__title" id="modal-alert-title" style="margin: 0;">Warning</h2>
-                </div>
-                <button class="aural-modal__close" onclick="Aural.closeModal('modal-alert')" aria-label="Close modal">
-                    <i data-lucide="x" aria-hidden="true"></i>
-                </button>
-            </div>
-            <div class="aural-modal__body">
-                <p>Your session is about to expire. Please save your work to avoid losing any changes.</p>
-            </div>
-            <div class="aural-modal__footer">
-                <button class="btn btn-ghost" onclick="Aural.closeModal('modal-alert')">Dismiss</button>
-                <button class="btn btn-warning" onclick="Aural.closeModal('modal-alert')">Save Now</button>
             </div>
         </div>
     </div>
@@ -376,12 +375,12 @@
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {
