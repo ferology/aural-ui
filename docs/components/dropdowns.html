@@ -44,6 +44,71 @@
                     </div>
                 </div>
             </div>
+            <div class="section-content">
+                <p>Basic dropdown with menu items. Click the button to reveal options.</p>
+                <pre><code>&lt;div class="dropdown" id="dropdown-id"&gt;
+  &lt;button class="dropdown-trigger"&gt;Options&lt;/button&gt;
+  &lt;div class="dropdown-menu"&gt;
+    &lt;a class="dropdown-item"&gt;Profile&lt;/a&gt;
+    &lt;a class="dropdown-item"&gt;Settings&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Dropdown with Icons</div>
+            <div class="example-demo">
+                <div class="dropdown" id="dropdown-icons">
+                    <button class="btn btn-secondary dropdown-trigger" aria-expanded="false">
+                        Actions
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Edit
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="copy" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Duplicate
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="share-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Share
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" style="color: var(--color-error);">
+                            <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Add icons to menu items for better scanability. Use <code>.dropdown-divider</code> to separate destructive actions.</p>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Icon-Only Dropdown</div>
+            <div class="example-demo">
+                <div class="dropdown" id="dropdown-icon-only">
+                    <button class="btn btn-ghost btn-icon dropdown-trigger" aria-expanded="false" aria-label="More options">
+                        <i data-lucide="more-vertical" style="width: 20px; height: 20px;"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">View Details</a>
+                        <a href="#" class="dropdown-item">Edit</a>
+                        <a href="#" class="dropdown-item">Archive</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" style="color: var(--color-error);">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Perfect for table row actions or compact toolbars. Always include <code>aria-label</code> on icon-only buttons.</p>
+            </div>
         </div>
     </main>
     <script src="../aural-ui.js?v=1769438626"></script>
