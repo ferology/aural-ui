@@ -6,7 +6,7 @@
     <title>Aural UI - A Modern Design System</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="./aural-ui.css?v=9">
+    <link rel="stylesheet" href="./aural-ui.css?v=10">
 
     <!-- Choose theme -->
     <link rel="stylesheet" href="./dark.css" id="theme-link">
@@ -109,6 +109,38 @@
             gap: var(--space-4);
             justify-content: center;
             flex-wrap: wrap;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-8);
+            margin-top: var(--space-12);
+            padding: var(--space-8);
+            max-width: 900px;
+            width: 100%;
+            border-top: 1px solid var(--color-border-subtle);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: var(--space-2);
+        }
+
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
         }
 
         /* Feature Cards */
@@ -280,6 +312,72 @@
             .feature-card {
                 padding: var(--space-4);
             }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-6);
+            }
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: var(--space-16);
+            padding-top: var(--space-8);
+            border-top: 1px solid var(--color-border-subtle);
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-8);
+            margin-bottom: var(--space-8);
+        }
+
+        .footer-section h4 {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-3);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .footer-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: var(--text-sm);
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-links i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .footer-bottom {
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--color-border-subtle);
+            text-align: center;
+            color: var(--color-text-tertiary);
+            font-size: var(--text-sm);
         }
     </style>
 </head>
@@ -320,16 +418,38 @@
 
             <!-- Actions Below -->
             <div class="hero-actions">
-                <button class="btn btn-primary btn-lg" onclick="Aural.openModal('token-controller-modal')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M12 1v6m0 6v6"/>
-                        <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24"/>
-                        <path d="M1 12h6m6 0h6"/>
-                        <path d="m4.93 19.07 4.24-4.24m5.66-5.66 4.24-4.24"/>
-                    </svg>
-                    Customize Tokens
-                </button>
+                <a href="./demo.html" class="btn btn-primary btn-lg">
+                    <i data-lucide="play-circle" style="width: 20px; height: 20px;"></i>
+                    View Components
+                </a>
+                <a href="./getting-started.html" class="btn btn-secondary btn-lg">
+                    <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
+                    Get Started
+                </a>
+                <a href="https://github.com/ferology/aural-ui" target="_blank" class="btn btn-ghost btn-lg">
+                    <i data-lucide="github" style="width: 20px; height: 20px;"></i>
+                    GitHub
+                </a>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stat-item">
+                    <span class="stat-number">52+</span>
+                    <span class="stat-label">Components</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Accessible</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Themes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">0</span>
+                    <span class="stat-label">Dependencies</span>
+                </div>
             </div>
 
             <!-- Feature Cards -->
@@ -338,9 +458,9 @@
                     <div class="feature-icon">
                         <i data-lucide="layout" style="width: 24px; height: 24px;"></i>
                     </div>
-                    <h3 class="feature-title">50+ Components</h3>
+                    <h3 class="feature-title">52+ Components</h3>
                     <p class="feature-description">
-                        A complete library of production-ready components from buttons to complex data tables.
+                        Production-ready components from buttons to complex data tables, modals, carousels, and more.
                     </p>
                 </div>
 
@@ -350,7 +470,7 @@
                     </div>
                     <h3 class="feature-title">Accessibility First</h3>
                     <p class="feature-description">
-                        Built with WCAG 2.1 AA standards, keyboard navigation, and screen reader support.
+                        Built with WCAG 2.1 AA standards, keyboard navigation, and full screen reader support.
                     </p>
                 </div>
 
@@ -360,10 +480,75 @@
                     </div>
                     <h3 class="feature-title">Fully Themeable</h3>
                     <p class="feature-description">
-                        Customize every aspect with CSS custom properties and design tokens.
+                        Customize colors, spacing, typography, and more with powerful CSS custom properties.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="moon" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3 class="feature-title">Dark Mode Built-in</h3>
+                    <p class="feature-description">
+                        Beautiful dark and light themes included. Switch seamlessly between modes with one click.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="zap" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3 class="feature-title">Lightweight & Fast</h3>
+                    <p class="feature-description">
+                        Optimized for performance with minimal bundle size and zero runtime dependencies.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i data-lucide="code-2" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3 class="feature-title">Developer Friendly</h3>
+                    <p class="feature-description">
+                        Simple HTML/CSS with optional JavaScript. Works with any framework or vanilla JS.
                     </p>
                 </div>
             </div>
+
+            <!-- Footer -->
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <ul class="footer-links">
+                            <li><a href="./getting-started.html"><i data-lucide="book-open"></i> Getting Started</a></li>
+                            <li><a href="./api.html"><i data-lucide="code-2"></i> API Reference</a></li>
+                            <li><a href="./tokens.html"><i data-lucide="palette"></i> Design Tokens</a></li>
+                            <li><a href="./themes.html"><i data-lucide="paintbrush"></i> Themes</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Components</h4>
+                        <ul class="footer-links">
+                            <li><a href="./demo.html"><i data-lucide="layout"></i> Browse All</a></li>
+                            <li><a href="./showcase.html"><i data-lucide="grid-3x3"></i> Showcase</a></li>
+                            <li><a href="./examples.html"><i data-lucide="file-code"></i> Examples</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Resources</h4>
+                        <ul class="footer-links">
+                            <li><a href="https://github.com/ferology/aural-ui" target="_blank"><i data-lucide="github"></i> GitHub</a></li>
+                            <li><a href="https://github.com/ferology/aural-ui/issues" target="_blank"><i data-lucide="bug"></i> Report Issue</a></li>
+                            <li><a href="./contributing.html"><i data-lucide="heart"></i> Contributing</a></li>
+                            <li><a href="./accessibility.html"><i data-lucide="accessibility"></i> Accessibility</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>Built with ❤️ by the Aural UI team. Licensed under MIT.</p>
+                </div>
+            </footer>
         </div>
     </main>
 
