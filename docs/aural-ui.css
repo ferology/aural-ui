@@ -1081,29 +1081,6 @@
         border-bottom-right-radius: var(--radius-md);
     }
 
-/* ========================================
-   ICON-ONLY VARIANT
-   Square button with only an icon
-   ======================================== */
-
-.btn-icon {
-    padding: var(--space-3);
-    width: 44px;
-    height: 44px;
-}
-
-.btn-icon.btn-sm {
-    padding: var(--space-2);
-    width: 36px;
-    height: 36px;
-}
-
-.btn-icon.btn-lg {
-    padding: var(--space-4);
-    width: 52px;
-    height: 52px;
-}
-
 /**
  * AURAL UI - Input Component
  *
@@ -1290,152 +1267,6 @@
     padding: var(--space-4) var(--space-6);
     font-size: var(--text-lg);
     min-height: 52px;
-}
-
-/* ========================================
-   INPUT WITH PREFIX/SUFFIX ICONS
-   Wrapper for inputs with icons
-   ======================================== */
-
-.input-group {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.input-group .input {
-    flex: 1;
-}
-
-.input-group-prefix .input {
-    padding-left: var(--space-10);
-}
-
-.input-group-suffix .input {
-    padding-right: var(--space-10);
-}
-
-.input-group-icon {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 100%;
-    color: var(--color-text-muted);
-    pointer-events: none;
-}
-
-.input-group-icon-left {
-    left: 0;
-}
-
-.input-group-icon-right {
-    right: 0;
-}
-
-.input-group-icon svg,
-.input-group-icon i {
-    width: 18px;
-    height: 18px;
-}
-
-/* Size variants for input groups */
-
-.input-group-sm .input {
-    font-size: var(--text-sm);
-    min-height: 36px;
-}
-
-.input-group-sm.input-group-prefix .input {
-    padding-left: var(--space-8);
-}
-
-.input-group-sm.input-group-suffix .input {
-    padding-right: var(--space-8);
-}
-
-.input-group-sm .input-group-icon {
-    width: 32px;
-}
-
-.input-group-sm .input-group-icon svg,
-.input-group-sm .input-group-icon i {
-    width: 16px;
-    height: 16px;
-}
-
-.input-group-lg .input {
-    font-size: var(--text-lg);
-    min-height: 52px;
-}
-
-.input-group-lg.input-group-prefix .input {
-    padding-left: 3rem;
-}
-
-.input-group-lg.input-group-suffix .input {
-    padding-right: 3rem;
-}
-
-.input-group-lg .input-group-icon {
-    width: 48px;
-}
-
-.input-group-lg .input-group-icon svg,
-.input-group-lg .input-group-icon i {
-    width: 20px;
-    height: 20px;
-}
-
-/* ========================================
-   CHARACTER COUNTER
-   Shows remaining/used characters
-   ======================================== */
-
-.input-with-counter {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-}
-
-.input-counter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    margin-top: var(--space-1);
-}
-
-.input-counter-text {
-    color: var(--color-text-secondary);
-}
-
-.input-counter-count {
-    font-weight: var(--font-medium);
-    color: var(--color-text-primary);
-}
-
-/* Warning state when approaching limit */
-
-.input-counter-warning {
-    color: var(--color-warning);
-}
-
-.input-counter-warning .input-counter-count {
-    color: var(--color-warning);
-}
-
-/* Error state when exceeding limit */
-
-.input-counter-error {
-    color: var(--color-error);
-}
-
-.input-counter-error .input-counter-count {
-    color: var(--color-error);
 }
 
 /**
@@ -1917,6 +1748,66 @@
 .card-error { border-left-color: var(--color-error); }
 
 .card-info { border-left-color: var(--color-info); }
+
+/* Card Structure Components */
+
+.card-header {
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--color-border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-5);
+}
+
+.card-title {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+}
+
+.card-body {
+    padding: var(--space-6);
+    margin: calc(-1 * var(--space-6));
+}
+
+/* When card-body follows card-header or comes before card-footer */
+
+.card-header + .card-body {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.card-body:has(+ .card-footer) {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.card-footer {
+    padding: var(--space-5) var(--space-6);
+    border-top: 1px solid var(--color-border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    margin: var(--space-5) calc(-1 * var(--space-6)) calc(-1 * var(--space-6));
+}
+
+.card-image {
+    margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-5);
+    overflow: hidden;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    display: block;
+}
 
 /**
  * AURAL UI - Badge Component
@@ -3331,55 +3222,6 @@
 .modal-full {
     max-width: 95vw;
     max-height: 95vh;
-}
-
-/* Full-screen modal (takes entire viewport) */
-
-.modal-fullscreen {
-    max-width: 100vw;
-    max-height: 100vh;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    border-radius: 0;
-}
-
-/* ========================================
-   SCROLLABLE MODAL BODY
-   Keeps header and footer fixed, body scrolls
-   ======================================== */
-
-.modal-scrollable {
-    display: flex;
-    flex-direction: column;
-    max-height: 90vh;
-    overflow: hidden;
-}
-
-.modal-scrollable .modal-header {
-    flex-shrink: 0;
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding-bottom: var(--space-4);
-    margin-bottom: 0;
-}
-
-.modal-scrollable .modal-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: var(--space-6) 0;
-}
-
-.modal-scrollable .modal-footer {
-    flex-shrink: 0;
-    border-top: 1px solid var(--color-border-subtle);
-    padding-top: var(--space-4);
-    margin-top: 0;
-}
-
-/* Fullscreen scrollable modal */
-
-.modal-fullscreen.modal-scrollable {
-    max-height: 100vh;
 }
 
 /**
@@ -4982,17 +4824,26 @@
 }
 
 /**
- * AURAL UI - Switch
+ * AURAL UI - Switch Component
  *
- * Visual toggle switch component (alternative style to toggle).
- * Features: iOS-style switch, sizes, colors, labels, icons, loading state.
+ * iOS-style toggle switch component
+ * Uses real DOM elements for better rendering and alignment
+ *
+ * Usage:
+ *   <label class="switch">
+ *     <input type="checkbox" class="switch__input" role="switch">
+ *     <div class="switch__track">
+ *       <div class="switch__thumb"></div>
+ *     </div>
+ *     <span class="switch__label">Enable notifications</span>
+ *   </label>
  */
 
 /* ========================================
-   Switch Container
+   BASE SWITCH
    ======================================== */
 
-.aural-switch {
+.switch {
     display: inline-flex;
     align-items: center;
     gap: var(--space-3);
@@ -5000,13 +4851,14 @@
     -webkit-user-select: none;
        -moz-user-select: none;
             user-select: none;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    line-height: var(--leading-normal);
+    min-height: 44px;
 }
 
-/* ========================================
-   Hidden Checkbox
-   ======================================== */
-
-.aural-switch__input {
+.switch__input {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -5018,11 +4870,7 @@
     border-width: 0;
 }
 
-/* ========================================
-   Switch Track (Background)
-   ======================================== */
-
-.aural-switch__track {
+.switch__track {
     position: relative;
     display: flex;
     align-items: center;
@@ -5034,28 +4882,24 @@
     flex-shrink: 0;
 }
 
-.aural-switch:hover .aural-switch__track {
+.switch:hover .switch__track {
     background: var(--color-border-stronger);
 }
 
-.aural-switch__input:checked + .aural-switch__track {
+.switch__input:checked + .switch__track {
     background: var(--color-primary);
 }
 
-.aural-switch:hover .aural-switch__input:checked + .aural-switch__track {
+.switch:hover .switch__input:checked + .switch__track {
     background: var(--color-primary-hover);
 }
 
-.aural-switch__input:focus-visible + .aural-switch__track {
+.switch__input:focus-visible + .switch__track {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
-/* ========================================
-   Switch Thumb (Handle)
-   ======================================== */
-
-.aural-switch__thumb {
+.switch__thumb {
     position: absolute;
     left: 2px;
     display: flex;
@@ -5066,434 +4910,373 @@
     background: white;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
-.aural-switch__input:checked + .aural-switch__track .aural-switch__thumb {
+.switch__input:checked + .switch__track .switch__thumb {
     transform: translateX(20px);
 }
 
-/* ========================================
-   Thumb Icon
-   ======================================== */
-
-.aural-switch__thumb-icon {
-    width: 12px;
-    height: 12px;
-    color: var(--color-text-secondary);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.aural-switch--with-icons .aural-switch__thumb-icon {
-    opacity: 1;
-}
-
-.aural-switch__input:checked + .aural-switch__track .aural-switch__thumb-icon--checked {
-    opacity: 1;
-    color: var(--color-primary);
-}
-
-.aural-switch__input:checked + .aural-switch__track .aural-switch__thumb-icon--unchecked {
-    opacity: 0;
-}
-
-.aural-switch__thumb-icon--unchecked {
-    opacity: 1;
-    color: var(--color-text-tertiary);
-}
-
-/* ========================================
-   Track Icons (Optional)
-   ======================================== */
-
-.aural-switch__track-icons {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0 var(--space-1);
-    position: absolute;
-    inset: 0;
-}
-
-.aural-switch__track-icon {
-    width: 12px;
-    height: 12px;
-    color: rgba(255, 255, 255, 0.8);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.aural-switch__input:checked + .aural-switch__track .aural-switch__track-icon--checked {
-    opacity: 1;
-}
-
-.aural-switch__input:not(:checked) + .aural-switch__track .aural-switch__track-icon--unchecked {
-    opacity: 1;
-}
-
-/* ========================================
-   Label
-   ======================================== */
-
-.aural-switch__label {
-    font-size: var(--text-sm);
+.switch__label {
+    font-size: var(--text-base);
     font-weight: var(--font-medium);
     color: var(--color-text-primary);
     line-height: 1.5;
 }
 
-/* ========================================
-   Description
-   ======================================== */
+/* Disabled state */
 
-.aural-switch__description {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    margin-top: 2px;
-    line-height: 1.4;
-}
-
-/* ========================================
-   Label Position
-   ======================================== */
-
-.aural-switch--label-left {
-    flex-direction: row-reverse;
-}
-
-.aural-switch--label-top {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-}
-
-.aural-switch--label-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-/* ========================================
-   Size Variants
-   ======================================== */
-
-/* Small */
-
-.aural-switch--sm .aural-switch__track {
-    width: 36px;
-    height: 20px;
-}
-
-.aural-switch--sm .aural-switch__thumb {
-    width: 16px;
-    height: 16px;
-}
-
-.aural-switch--sm .aural-switch__input:checked + .aural-switch__track .aural-switch__thumb {
-    transform: translateX(16px);
-}
-
-.aural-switch--sm .aural-switch__thumb-icon,
-.aural-switch--sm .aural-switch__track-icon {
-    width: 10px;
-    height: 10px;
-}
-
-.aural-switch--sm .aural-switch__label {
-    font-size: var(--text-xs);
-}
-
-/* Large */
-
-.aural-switch--lg .aural-switch__track {
-    width: 52px;
-    height: 28px;
-}
-
-.aural-switch--lg .aural-switch__thumb {
-    width: 24px;
-    height: 24px;
-}
-
-.aural-switch--lg .aural-switch__input:checked + .aural-switch__track .aural-switch__thumb {
-    transform: translateX(24px);
-}
-
-.aural-switch--lg .aural-switch__thumb-icon,
-.aural-switch--lg .aural-switch__track-icon {
-    width: 14px;
-    height: 14px;
-}
-
-.aural-switch--lg .aural-switch__label {
-    font-size: var(--text-base);
-}
-
-/* ========================================
-   Color Variants
-   ======================================== */
-
-.aural-switch--success .aural-switch__input:checked + .aural-switch__track {
-    background: var(--color-success);
-}
-
-.aural-switch--success:hover .aural-switch__input:checked + .aural-switch__track {
-    background: var(--success-600);
-}
-
-.aural-switch--warning .aural-switch__input:checked + .aural-switch__track {
-    background: var(--color-warning);
-}
-
-.aural-switch--warning:hover .aural-switch__input:checked + .aural-switch__track {
-    background: var(--warning-600);
-}
-
-.aural-switch--error .aural-switch__input:checked + .aural-switch__track {
-    background: var(--color-error);
-}
-
-.aural-switch--error:hover .aural-switch__input:checked + .aural-switch__track {
-    background: var(--error-600);
-}
-
-.aural-switch--info .aural-switch__input:checked + .aural-switch__track {
-    background: var(--color-info);
-}
-
-.aural-switch--info:hover .aural-switch__input:checked + .aural-switch__track {
-    background: var(--info-600);
-}
-
-/* ========================================
-   Disabled State
-   ======================================== */
-
-.aural-switch--disabled {
+.switch__input:disabled + .switch__track {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.aural-switch--disabled .aural-switch__track {
-    background: var(--color-bg-tertiary);
-}
-
-.aural-switch--disabled .aural-switch__input:checked + .aural-switch__track {
-    background: var(--color-border-strong);
-}
-
-.aural-switch--disabled:hover .aural-switch__track,
-.aural-switch--disabled:hover .aural-switch__input:checked + .aural-switch__track {
-    background: var(--color-bg-tertiary);
-}
-
-.aural-switch__input:disabled + .aural-switch__track {
+.switch:has(.switch__input:disabled) {
     cursor: not-allowed;
 }
 
 /* ========================================
-   Loading State
+   SIZES
    ======================================== */
 
-.aural-switch--loading {
-    pointer-events: none;
+/* Small */
+
+.switch-sm {
+    font-size: var(--text-sm);
+    min-height: 36px;
 }
 
-.aural-switch--loading .aural-switch__thumb {
-    background: transparent;
+.switch-sm .switch__track {
+    width: 36px;
+    height: 20px;
 }
 
-.aural-switch__loading-spinner {
-    display: none;
-    width: 14px;
-    height: 14px;
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    border-top-color: var(--color-primary);
-    border-radius: 50%;
-    animation: aural-switch-spin 0.6s linear infinite;
+.switch-sm .switch__thumb {
+    width: 16px;
+    height: 16px;
 }
 
-.aural-switch--loading .aural-switch__loading-spinner {
-    display: block;
+.switch-sm .switch__input:checked + .switch__track .switch__thumb {
+    transform: translateX(16px);
 }
 
-.aural-switch--loading .aural-switch__thumb-icon {
-    display: none;
+.switch-sm .switch__label {
+    font-size: var(--text-sm);
 }
 
-@keyframes aural-switch-spin {
-    to {
-        transform: rotate(360deg);
-    }
+/* Large */
+
+.switch-lg {
+    font-size: var(--text-lg);
+    min-height: 52px;
+}
+
+.switch-lg .switch__track {
+    width: 56px;
+    height: 32px;
+}
+
+.switch-lg .switch__thumb {
+    width: 28px;
+    height: 28px;
+}
+
+.switch-lg .switch__input:checked + .switch__track .switch__thumb {
+    transform: translateX(24px);
+}
+
+.switch-lg .switch__label {
+    font-size: var(--text-lg);
 }
 
 /* ========================================
-   Required Indicator
+   COLOR VARIANTS
    ======================================== */
 
-.aural-switch--required .aural-switch__label::after {
-    content: ' *';
-    color: var(--color-error);
+.switch-primary .switch__input:checked + .switch__track {
+    background: var(--color-primary);
+}
+
+.switch-primary:hover .switch__input:checked + .switch__track {
+    background: var(--color-primary-hover);
+}
+
+.switch-success .switch__input:checked + .switch__track {
+    background: var(--color-success);
+}
+
+.switch-success:hover .switch__input:checked + .switch__track {
+    background: var(--success-600, var(--color-success));
+}
+
+.switch-warning .switch__input:checked + .switch__track {
+    background: var(--color-warning);
+}
+
+.switch-warning:hover .switch__input:checked + .switch__track {
+    background: var(--warning-600, var(--color-warning));
+}
+
+.switch-error .switch__input:checked + .switch__track {
+    background: var(--color-error);
+}
+
+.switch-error:hover .switch__input:checked + .switch__track {
+    background: var(--error-600, var(--color-error));
+}
+
+.switch-info .switch__input:checked + .switch__track {
+    background: var(--color-info);
+}
+
+.switch-info:hover .switch__input:checked + .switch__track {
+    background: var(--info-600, var(--color-info));
 }
 
 /* ========================================
-   Error State
+   VARIANTS
    ======================================== */
 
-.aural-switch--has-error .aural-switch__track {
-    border: 2px solid var(--color-error);
+/* Switch with description */
+
+.switch-with-description {
+    align-items: flex-start;
 }
 
-.aural-switch__error {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
-    margin-top: var(--space-1);
-    font-size: var(--text-xs);
-    color: var(--color-error);
+.switch-with-description .switch__track {
+    margin-top: 2px;
 }
 
-.aural-switch__error svg {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-}
-
-/* ========================================
-   Group
-   ======================================== */
-
-.aural-switch-group {
+.switch-with-description .switch__label {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-1);
 }
 
-.aural-switch-group__label {
-    display: block;
+.switch__description {
     font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-2);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-relaxed);
 }
 
-.aural-switch-group__description {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    margin-top: var(--space-1);
+/* Label on left */
+
+.switch-label-left {
+    flex-direction: row-reverse;
 }
 
-.aural-switch-group--horizontal {
-    flex-direction: row;
-    flex-wrap: wrap;
+/* Switch without visible label */
+
+.switch-only {
+    min-height: auto;
+}
+
+.switch-only .switch__label {
+    display: none;
+}
+
+/* ========================================
+   SWITCH GROUP
+   ======================================== */
+
+.switch-group {
+    display: flex;
+    flex-direction: column;
     gap: var(--space-4);
 }
 
+.switch-group-label {
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-1);
+}
+
+.switch-group-description {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    margin-top: calc(-1 * var(--space-2));
+    margin-bottom: var(--space-2);
+}
+
 /* ========================================
-   Pill Variant (Text in Track)
+   BACKWARDS COMPATIBILITY
    ======================================== */
 
-.aural-switch--pill .aural-switch__track {
-    width: 64px;
-    padding: 0 var(--space-2);
-    justify-content: space-between;
+/* Support legacy .toggle class */
+
+.toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    line-height: var(--leading-normal);
+    min-height: 44px;
+    position: relative;
 }
 
-.aural-switch--pill .aural-switch__track-text {
-    font-size: var(--text-xs);
-    font-weight: var(--font-bold);
-    color: rgba(255, 255, 255, 0.9);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    position: absolute;
-    transition: opacity 0.2s ease;
+.toggle > input[type="checkbox"][role="switch"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.toggle > input[type="checkbox"][role="switch"] + span {
+        position: relative;
+        padding-left: calc(44px + var(--space-3));
+        display: flex;
+        align-items: center;
+    }
+
+.toggle > input[type="checkbox"][role="switch"] + span::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 24px;
+        background: var(--color-border-strong);
+        border-radius: var(--radius-full);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: var(--transition-all-fast);
+    }
+
+.toggle > input[type="checkbox"][role="switch"] + span::after {
+        content: '';
+        position: absolute;
+        left: 2px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: var(--transition-all-fast);
+    }
+
+.toggle:hover > input[type="checkbox"][role="switch"]:not(:disabled) + span::before {
+        background: var(--color-border-stronger);
+    }
+
+.toggle > input[type="checkbox"][role="switch"]:checked + span::before {
+        background: var(--color-primary);
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+.toggle > input[type="checkbox"][role="switch"]:checked + span::after {
+        left: 22px;
+    }
+
+.toggle > input[type="checkbox"][role="switch"]:focus-visible + span::before {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+.toggle > input[type="checkbox"][role="switch"]:disabled + span {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+.toggle:has(input[type="checkbox"][role="switch"]:disabled) {
+        cursor: not-allowed;
+    }
+
+.toggle-sm {
+    font-size: var(--text-sm);
+    min-height: 36px;
 }
 
-.aural-switch--pill .aural-switch__track-text--on {
-    left: var(--space-2);
-    opacity: 0;
+.toggle-sm > input[type="checkbox"][role="switch"] + span {
+        padding-left: calc(36px + var(--space-2));
+    }
+
+.toggle-sm > input[type="checkbox"][role="switch"] + span::before {
+        width: 36px;
+        height: 20px;
+    }
+
+.toggle-sm > input[type="checkbox"][role="switch"] + span::after {
+        width: 16px;
+        height: 16px;
+    }
+
+.toggle-sm > input[type="checkbox"][role="switch"]:checked + span::after {
+        left: 18px;
+    }
+
+.toggle-lg {
+    font-size: var(--text-lg);
+    min-height: 52px;
 }
 
-.aural-switch--pill .aural-switch__track-text--off {
-    right: var(--space-2);
-    opacity: 1;
-    color: rgba(0, 0, 0, 0.4);
+.toggle-lg > input[type="checkbox"][role="switch"] + span {
+        padding-left: calc(56px + var(--space-4));
+    }
+
+.toggle-lg > input[type="checkbox"][role="switch"] + span::before {
+        width: 56px;
+        height: 32px;
+    }
+
+.toggle-lg > input[type="checkbox"][role="switch"] + span::after {
+        width: 28px;
+        height: 28px;
+    }
+
+.toggle-lg > input[type="checkbox"][role="switch"]:checked + span::after {
+        left: 26px;
+    }
+
+.toggle-primary > input[type="checkbox"][role="switch"]:checked + span::before {
+    background: var(--color-primary);
 }
 
-.aural-switch--pill .aural-switch__input:checked + .aural-switch__track .aural-switch__track-text--on {
-    opacity: 1;
+.toggle-success > input[type="checkbox"][role="switch"]:checked + span::before {
+    background: var(--color-success);
 }
 
-.aural-switch--pill .aural-switch__input:checked + .aural-switch__track .aural-switch__track-text--off {
-    opacity: 0;
+.toggle-warning > input[type="checkbox"][role="switch"]:checked + span::before {
+    background: var(--color-warning);
+}
+
+.toggle-error > input[type="checkbox"][role="switch"]:checked + span::before {
+    background: var(--color-error);
+}
+
+.toggle-info > input[type="checkbox"][role="switch"]:checked + span::before {
+    background: var(--color-info);
 }
 
 /* ========================================
-   Glow Effect (Optional)
-   ======================================== */
-
-.aural-switch--glow .aural-switch__input:checked + .aural-switch__track {
-    box-shadow: 0 0 12px var(--primary-alpha-40);
-}
-
-/* ========================================
-   Accessibility
+   ACCESSIBILITY
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-switch__track,
-    .aural-switch__thumb,
-    .aural-switch__thumb-icon,
-    .aural-switch__track-icon,
-    .aural-switch__track-text,
-    .aural-switch__loading-spinner {
+    .switch__track,
+    .switch__thumb,
+    .toggle > input[type="checkbox"][role="switch"] + span::before,
+    .toggle > input[type="checkbox"][role="switch"] + span::after {
         transition: none;
-        animation: none;
     }
 }
-
-/* High contrast mode support */
 
 @media (prefers-contrast: high) {
-    .aural-switch__track {
+    .switch__track {
         border: 2px solid currentColor;
     }
 
-    .aural-switch__thumb {
+    .switch__thumb {
         border: 2px solid currentColor;
-    }
-}
-
-/* Screen reader only */
-
-.aural-switch__sr-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-/* ========================================
-   Responsive
-   ======================================== */
-
-@media (max-width: 640px) {
-    .aural-switch__label {
-        font-size: var(--text-sm);
-    }
-
-    .aural-switch-group--horizontal {
-        flex-direction: column;
-    }
-
-    /* Touch-friendly sizing */
-    .aural-switch {
-        min-height: 44px;
     }
 }
 
@@ -12514,97 +12297,6 @@ body.has-bottom-nav {
     width: 44px;
     padding: var(--space-2);
     text-align: center;
-}
-
-/* ========================================
-   EXPANDABLE ROWS
-   Rows that can expand to show additional content
-   ======================================== */
-
-.table tbody tr.expandable {
-    cursor: pointer;
-}
-
-.table tbody tr.expandable:hover {
-    background: var(--color-table-row-hover);
-}
-
-/* Expand icon column */
-
-.table th.expand-cell,
-.table td.expand-cell {
-    width: 44px;
-    padding: var(--space-2);
-    text-align: center;
-}
-
-.table-expand-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
-    transition: var(--transition-all-fast);
-}
-
-.table-expand-icon svg {
-    width: 16px;
-    height: 16px;
-}
-
-.table-expand-icon:hover {
-    background: var(--color-bg-hover);
-    color: var(--color-primary);
-}
-
-/* Expanded state */
-
-.table tbody tr.expanded .table-expand-icon {
-    transform: rotate(90deg);
-    color: var(--color-primary);
-}
-
-/* Expanded content row */
-
-.table tbody tr.expanded-content {
-    background: var(--color-bg-secondary);
-}
-
-.table tbody tr.expanded-content td {
-    padding: var(--space-6);
-    border-top: none;
-}
-
-.table tbody tr.expanded-content.hidden {
-    display: none;
-}
-
-/* Expanded content styling */
-
-.table-expanded-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    padding: var(--space-4);
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border-subtle);
-}
-
-.table-expanded-content h4 {
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    margin: 0 0 var(--space-2) 0;
-}
-
-.table-expanded-content p {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    margin: 0;
-    line-height: var(--leading-relaxed);
 }
 
 /* ========================================
@@ -25107,306 +24799,3 @@ body {
 .rounded-lg { border-radius: var(--radius-lg); }
 
 .rounded-full { border-radius: var(--radius-full); }
-
-/* ========================================
-   BACKDROP FILTERS
-   Glassmorphism effects for overlays
-   ======================================== */
-
-/* Backdrop blur */
-.backdrop-blur-none { backdrop-filter: blur(0); }
-.backdrop-blur-sm { backdrop-filter: blur(4px); }
-.backdrop-blur { backdrop-filter: blur(8px); }
-.backdrop-blur-md { backdrop-filter: blur(12px); }
-.backdrop-blur-lg { backdrop-filter: blur(16px); }
-.backdrop-blur-xl { backdrop-filter: blur(24px); }
-.backdrop-blur-2xl { backdrop-filter: blur(40px); }
-.backdrop-blur-3xl { backdrop-filter: blur(64px); }
-
-/* Backdrop brightness */
-.backdrop-brightness-0 { backdrop-filter: brightness(0); }
-.backdrop-brightness-50 { backdrop-filter: brightness(0.5); }
-.backdrop-brightness-75 { backdrop-filter: brightness(0.75); }
-.backdrop-brightness-90 { backdrop-filter: brightness(0.9); }
-.backdrop-brightness-95 { backdrop-filter: brightness(0.95); }
-.backdrop-brightness-100 { backdrop-filter: brightness(1); }
-.backdrop-brightness-105 { backdrop-filter: brightness(1.05); }
-.backdrop-brightness-110 { backdrop-filter: brightness(1.1); }
-.backdrop-brightness-125 { backdrop-filter: brightness(1.25); }
-.backdrop-brightness-150 { backdrop-filter: brightness(1.5); }
-.backdrop-brightness-200 { backdrop-filter: brightness(2); }
-
-/* Backdrop contrast */
-.backdrop-contrast-0 { backdrop-filter: contrast(0); }
-.backdrop-contrast-50 { backdrop-filter: contrast(0.5); }
-.backdrop-contrast-75 { backdrop-filter: contrast(0.75); }
-.backdrop-contrast-100 { backdrop-filter: contrast(1); }
-.backdrop-contrast-125 { backdrop-filter: contrast(1.25); }
-.backdrop-contrast-150 { backdrop-filter: contrast(1.5); }
-.backdrop-contrast-200 { backdrop-filter: contrast(2); }
-
-/* Backdrop saturate */
-.backdrop-saturate-0 { backdrop-filter: saturate(0); }
-.backdrop-saturate-50 { backdrop-filter: saturate(0.5); }
-.backdrop-saturate-100 { backdrop-filter: saturate(1); }
-.backdrop-saturate-150 { backdrop-filter: saturate(1.5); }
-.backdrop-saturate-200 { backdrop-filter: saturate(2); }
-
-/* Backdrop opacity */
-.backdrop-opacity-0 { backdrop-filter: opacity(0); }
-.backdrop-opacity-25 { backdrop-filter: opacity(0.25); }
-.backdrop-opacity-50 { backdrop-filter: opacity(0.5); }
-.backdrop-opacity-75 { backdrop-filter: opacity(0.75); }
-.backdrop-opacity-100 { backdrop-filter: opacity(1); }
-
-/* Backdrop grayscale */
-.backdrop-grayscale-0 { backdrop-filter: grayscale(0); }
-.backdrop-grayscale { backdrop-filter: grayscale(1); }
-
-/* Backdrop invert */
-.backdrop-invert-0 { backdrop-filter: invert(0); }
-.backdrop-invert { backdrop-filter: invert(1); }
-
-/* Backdrop sepia */
-.backdrop-sepia-0 { backdrop-filter: sepia(0); }
-.backdrop-sepia { backdrop-filter: sepia(1); }
-
-/* Backdrop hue rotate */
-.backdrop-hue-rotate-0 { backdrop-filter: hue-rotate(0deg); }
-.backdrop-hue-rotate-15 { backdrop-filter: hue-rotate(15deg); }
-.backdrop-hue-rotate-30 { backdrop-filter: hue-rotate(30deg); }
-.backdrop-hue-rotate-60 { backdrop-filter: hue-rotate(60deg); }
-.backdrop-hue-rotate-90 { backdrop-filter: hue-rotate(90deg); }
-.backdrop-hue-rotate-180 { backdrop-filter: hue-rotate(180deg); }
-
-/* ========================================
-   GRADIENT UTILITIES
-   Background gradient helpers
-   ======================================== */
-
-/* Gradient directions */
-.bg-gradient-to-t { background-image: linear-gradient(to top, var(--tw-gradient-stops)); }
-.bg-gradient-to-tr { background-image: linear-gradient(to top right, var(--tw-gradient-stops)); }
-.bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
-.bg-gradient-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
-.bg-gradient-to-b { background-image: linear-gradient(to bottom, var(--tw-gradient-stops)); }
-.bg-gradient-to-bl { background-image: linear-gradient(to bottom left, var(--tw-gradient-stops)); }
-.bg-gradient-to-l { background-image: linear-gradient(to left, var(--tw-gradient-stops)); }
-.bg-gradient-to-tl { background-image: linear-gradient(to top left, var(--tw-gradient-stops)); }
-
-/* Gradient color stops - Primary palette */
-.from-primary { --tw-gradient-from: var(--color-primary); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-primary { --tw-gradient-stops: var(--tw-gradient-from), var(--color-primary), var(--tw-gradient-to, transparent); }
-.to-primary { --tw-gradient-to: var(--color-primary); }
-
-.from-secondary { --tw-gradient-from: var(--color-secondary); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-secondary { --tw-gradient-stops: var(--tw-gradient-from), var(--color-secondary), var(--tw-gradient-to, transparent); }
-.to-secondary { --tw-gradient-to: var(--color-secondary); }
-
-/* Gradient color stops - Semantic colors */
-.from-success { --tw-gradient-from: var(--color-success); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-success { --tw-gradient-stops: var(--tw-gradient-from), var(--color-success), var(--tw-gradient-to, transparent); }
-.to-success { --tw-gradient-to: var(--color-success); }
-
-.from-warning { --tw-gradient-from: var(--color-warning); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-warning { --tw-gradient-stops: var(--tw-gradient-from), var(--color-warning), var(--tw-gradient-to, transparent); }
-.to-warning { --tw-gradient-to: var(--color-warning); }
-
-.from-error { --tw-gradient-from: var(--color-error); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-error { --tw-gradient-stops: var(--tw-gradient-from), var(--color-error), var(--tw-gradient-to, transparent); }
-.to-error { --tw-gradient-to: var(--color-error); }
-
-.from-info { --tw-gradient-from: var(--color-info); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-info { --tw-gradient-stops: var(--tw-gradient-from), var(--color-info), var(--tw-gradient-to, transparent); }
-.to-info { --tw-gradient-to: var(--color-info); }
-
-/* Gradient color stops - Background colors */
-.from-bg-primary { --tw-gradient-from: var(--color-bg-primary); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-bg-primary { --tw-gradient-stops: var(--tw-gradient-from), var(--color-bg-primary), var(--tw-gradient-to, transparent); }
-.to-bg-primary { --tw-gradient-to: var(--color-bg-primary); }
-
-.from-bg-secondary { --tw-gradient-from: var(--color-bg-secondary); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-bg-secondary { --tw-gradient-stops: var(--tw-gradient-from), var(--color-bg-secondary), var(--tw-gradient-to, transparent); }
-.to-bg-secondary { --tw-gradient-to: var(--color-bg-secondary); }
-
-.from-bg-tertiary { --tw-gradient-from: var(--color-bg-tertiary); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-bg-tertiary { --tw-gradient-stops: var(--tw-gradient-from), var(--color-bg-tertiary), var(--tw-gradient-to, transparent); }
-.to-bg-tertiary { --tw-gradient-to: var(--color-bg-tertiary); }
-
-/* Gradient color stops - Transparent */
-.from-transparent { --tw-gradient-from: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-transparent { --tw-gradient-stops: var(--tw-gradient-from), transparent, var(--tw-gradient-to, transparent); }
-.to-transparent { --tw-gradient-to: transparent; }
-
-/* Gradient color stops - Black/White */
-.from-black { --tw-gradient-from: #000; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-black { --tw-gradient-stops: var(--tw-gradient-from), #000, var(--tw-gradient-to, transparent); }
-.to-black { --tw-gradient-to: #000; }
-
-.from-white { --tw-gradient-from: #fff; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
-.via-white { --tw-gradient-stops: var(--tw-gradient-from), #fff, var(--tw-gradient-to, transparent); }
-.to-white { --tw-gradient-to: #fff; }
-
-/* ========================================
-   ASPECT RATIO UTILITIES
-   Control element aspect ratios
-   ======================================== */
-
-.aspect-auto { aspect-ratio: auto; }
-.aspect-square { aspect-ratio: 1 / 1; }
-.aspect-video { aspect-ratio: 16 / 9; }
-.aspect-wide { aspect-ratio: 21 / 9; }
-.aspect-ultrawide { aspect-ratio: 32 / 9; }
-.aspect-portrait { aspect-ratio: 3 / 4; }
-.aspect-photo { aspect-ratio: 4 / 3; }
-.aspect-golden { aspect-ratio: 1.618 / 1; }
-.aspect-vertical { aspect-ratio: 9 / 16; }
-
-/* Object fit utilities (for images/video) */
-.object-contain { object-fit: contain; }
-.object-cover { object-fit: cover; }
-.object-fill { object-fit: fill; }
-.object-none { object-fit: none; }
-.object-scale-down { object-fit: scale-down; }
-
-/* Object position */
-.object-center { object-position: center; }
-.object-top { object-position: top; }
-.object-right { object-position: right; }
-.object-bottom { object-position: bottom; }
-.object-left { object-position: left; }
-.object-top-left { object-position: top left; }
-.object-top-right { object-position: top right; }
-.object-bottom-left { object-position: bottom left; }
-.object-bottom-right { object-position: bottom right; }
-
-/* ========================================
-   DARK MODE UTILITIES
-   Dark theme variant classes
-   ======================================== */
-
-/* Note: These require a .dark class on the root element */
-
-/* Dark mode text colors */
-.dark\:text-primary { color: var(--color-primary); }
-.dark\:text-secondary { color: var(--color-secondary); }
-.dark\:text-white { color: #fff; }
-.dark\:text-black { color: #000; }
-.dark\:text-inherit { color: inherit; }
-
-/* Dark mode background colors */
-.dark\:bg-primary { background-color: var(--color-bg-primary); }
-.dark\:bg-secondary { background-color: var(--color-bg-secondary); }
-.dark\:bg-tertiary { background-color: var(--color-bg-tertiary); }
-.dark\:bg-transparent { background-color: transparent; }
-.dark\:bg-black { background-color: #000; }
-.dark\:bg-white { background-color: #fff; }
-
-/* Dark mode border colors */
-.dark\:border-primary { border-color: var(--color-border-subtle); }
-.dark\:border-secondary { border-color: var(--color-border-medium); }
-.dark\:border-transparent { border-color: transparent; }
-
-/* Dark mode display */
-.dark\:hidden { display: none; }
-.dark\:block { display: block; }
-.dark\:inline-block { display: inline-block; }
-.dark\:flex { display: flex; }
-
-/* Dark mode opacity */
-.dark\:opacity-0 { opacity: 0; }
-.dark\:opacity-25 { opacity: 0.25; }
-.dark\:opacity-50 { opacity: 0.5; }
-.dark\:opacity-75 { opacity: 0.75; }
-.dark\:opacity-100 { opacity: 1; }
-
-/* ========================================
-   RTL SUPPORT UTILITIES
-   Right-to-left language support
-   ======================================== */
-
-/* Note: These require dir="rtl" on the html element */
-
-/* RTL-aware margins */
-[dir="rtl"] .rtl\:mr-auto { margin-right: auto; margin-left: unset; }
-[dir="rtl"] .rtl\:ml-auto { margin-left: auto; margin-right: unset; }
-[dir="rtl"] .rtl\:mr-0 { margin-right: 0; }
-[dir="rtl"] .rtl\:ml-0 { margin-left: 0; }
-[dir="rtl"] .rtl\:mr-2 { margin-right: var(--space-2); margin-left: unset; }
-[dir="rtl"] .rtl\:ml-2 { margin-left: var(--space-2); margin-right: unset; }
-[dir="rtl"] .rtl\:mr-4 { margin-right: var(--space-4); margin-left: unset; }
-[dir="rtl"] .rtl\:ml-4 { margin-left: var(--space-4); margin-right: unset; }
-[dir="rtl"] .rtl\:mr-6 { margin-right: var(--space-6); margin-left: unset; }
-[dir="rtl"] .rtl\:ml-6 { margin-left: var(--space-6); margin-right: unset; }
-[dir="rtl"] .rtl\:mr-8 { margin-right: var(--space-8); margin-left: unset; }
-[dir="rtl"] .rtl\:ml-8 { margin-left: var(--space-8); margin-right: unset; }
-
-/* RTL-aware padding */
-[dir="rtl"] .rtl\:pr-0 { padding-right: 0; }
-[dir="rtl"] .rtl\:pl-0 { padding-left: 0; }
-[dir="rtl"] .rtl\:pr-2 { padding-right: var(--space-2); padding-left: unset; }
-[dir="rtl"] .rtl\:pl-2 { padding-left: var(--space-2); padding-right: unset; }
-[dir="rtl"] .rtl\:pr-4 { padding-right: var(--space-4); padding-left: unset; }
-[dir="rtl"] .rtl\:pl-4 { padding-left: var(--space-4); padding-right: unset; }
-[dir="rtl"] .rtl\:pr-6 { padding-right: var(--space-6); padding-left: unset; }
-[dir="rtl"] .rtl\:pl-6 { padding-left: var(--space-6); padding-right: unset; }
-[dir="rtl"] .rtl\:pr-8 { padding-right: var(--space-8); padding-left: unset; }
-[dir="rtl"] .rtl\:pl-8 { padding-left: var(--space-8); padding-right: unset; }
-
-/* RTL-aware positioning */
-[dir="rtl"] .rtl\:left-0 { left: auto; right: 0; }
-[dir="rtl"] .rtl\:right-0 { right: auto; left: 0; }
-[dir="rtl"] .rtl\:left-auto { left: auto; }
-[dir="rtl"] .rtl\:right-auto { right: auto; }
-
-/* RTL-aware text alignment */
-[dir="rtl"] .rtl\:text-left { text-align: right; }
-[dir="rtl"] .rtl\:text-right { text-align: left; }
-[dir="rtl"] .rtl\:text-center { text-align: center; }
-
-/* RTL-aware flex direction */
-[dir="rtl"] .rtl\:flex-row-reverse { flex-direction: row-reverse; }
-
-/* RTL-aware transforms */
-[dir="rtl"] .rtl\:scale-x-flip { transform: scaleX(-1); }
-[dir="rtl"] .rtl\:rotate-180 { transform: rotate(180deg); }
-
-/* Logical property utilities (direction-agnostic) */
-.start-0 { inset-inline-start: 0; }
-.end-0 { inset-inline-end: 0; }
-.start-auto { inset-inline-start: auto; }
-.end-auto { inset-inline-end: auto; }
-
-.ms-auto { margin-inline-start: auto; }
-.me-auto { margin-inline-end: auto; }
-.ms-0 { margin-inline-start: 0; }
-.me-0 { margin-inline-end: 0; }
-.ms-2 { margin-inline-start: var(--space-2); }
-.me-2 { margin-inline-end: var(--space-2); }
-.ms-4 { margin-inline-start: var(--space-4); }
-.me-4 { margin-inline-end: var(--space-4); }
-.ms-6 { margin-inline-start: var(--space-6); }
-.me-6 { margin-inline-end: var(--space-6); }
-.ms-8 { margin-inline-start: var(--space-8); }
-.me-8 { margin-inline-end: var(--space-8); }
-
-.ps-0 { padding-inline-start: 0; }
-.pe-0 { padding-inline-end: 0; }
-.ps-2 { padding-inline-start: var(--space-2); }
-.pe-2 { padding-inline-end: var(--space-2); }
-.ps-4 { padding-inline-start: var(--space-4); }
-.pe-4 { padding-inline-end: var(--space-4); }
-.ps-6 { padding-inline-start: var(--space-6); }
-.pe-6 { padding-inline-end: var(--space-6); }
-.ps-8 { padding-inline-start: var(--space-8); }
-.pe-8 { padding-inline-end: var(--space-8); }
-
-.border-s { border-inline-start-width: 1px; }
-.border-e { border-inline-end-width: 1px; }
-.border-s-0 { border-inline-start-width: 0; }
-.border-e-0 { border-inline-end-width: 0; }
-
-.rounded-s { border-start-start-radius: var(--radius); border-end-start-radius: var(--radius); }
-.rounded-e { border-start-end-radius: var(--radius); border-end-end-radius: var(--radius); }
-.rounded-s-none { border-start-start-radius: 0; border-end-start-radius: 0; }
-.rounded-e-none { border-start-end-radius: 0; border-end-end-radius: 0; }
