@@ -10,12 +10,14 @@
     <style>
         body { margin: 0; padding: 0; min-height: 100vh; }
         .main-content { max-width: 900px; margin: 0 auto; padding: var(--space-8); min-height: 100vh; }
-        .page-header { margin-bottom: var(--space-8); }
+        .page-header { margin-bottom: var(--space-10); }
         .page-title { font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0; }
         .page-description { font-size: var(--text-lg); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
-        .example-container { margin-bottom: var(--space-8); }
-        .example-label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-3); }
-        .example-demo { padding: var(--space-6); background: var(--color-bg-secondary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); margin-bottom: var(--space-4); }
+        .example-container { margin-bottom: var(--space-12); }
+        .example-label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-4); }
+        .example-demo { padding: var(--space-8); background: var(--color-bg-secondary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); margin-bottom: var(--space-4); min-height: 120px; display: flex; align-items: center; }
+        .section-content { font-size: var(--text-base); color: var(--color-text-secondary); line-height: 1.8; }
+        .section-content code { background: var(--color-bg-tertiary); padding: 2px 6px; border-radius: var(--radius-sm); font-size: 0.9em; }
     </style>
 </head>
 <body>
@@ -45,6 +47,14 @@
         </div>
     </main>
     <script src="../aural-ui.js?v=1769438626"></script>
-    <script>lucide.createIcons();</script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Explicitly initialize dropdowns
+        if (typeof Aural !== 'undefined' && Aural.initDropdowns) {
+            Aural.initDropdowns();
+        }
+    </script>
 </body>
 </html>
