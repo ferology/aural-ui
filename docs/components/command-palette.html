@@ -6,7 +6,7 @@
     <title>Command Palette - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -164,22 +164,167 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Command Palette</h1>
-            <p class="page-description">Quick command launcher with keyboard shortcuts.</p>
+            <p class="page-description">Quick command launcher with keyboard shortcuts and fuzzy search.</p>
         </div>
 
-        <h2>Command Palette</h2>
-            <p class="showcase-subtitle">Keyboard-driven search interface with CMD/CTRL+K shortcut</p>
-
-            <div class="example">
-                <div class="example-label">Try It Out</div>
-                <button class="btn btn-primary" onclick="Aural.openCommandPalette('demo-palette')">
+        <div class="example-container">
+            <div class="example-label">Basic Command Palette</div>
+            <div class="example-demo">
+                <button class="btn btn-primary" onclick="document.getElementById('command-palette-1').classList.add('is-open')">
                     Open Command Palette
                     <kbd style="margin-left: var(--space-2); padding: var(--space-1) var(--space-2); background: rgba(255,255,255,0.1); border-radius: var(--radius-sm); font-size: var(--text-xs);">⌘K</kbd>
                 </button>
                 <p style="margin-top: var(--space-3); color: var(--color-text-secondary); font-size: var(--text-sm);">
-                    Press <kbd>CMD/CTRL + K</kbd> anywhere on this page to open the command palette
+                    Click to open the command palette with various action groups
                 </p>
             </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">With Search and Categories</div>
+            <div class="example-demo">
+                <button class="btn btn-secondary" onclick="document.getElementById('command-palette-2').classList.add('is-open')">
+                    Open File Commands
+                </button>
+            </div>
+        </div>
+
+        <!-- Command Palette 1 -->
+        <div class="aural-command-palette-backdrop" id="command-palette-1" onclick="if(event.target === this) this.classList.remove('is-open')">
+            <div class="aural-command-palette">
+                <div class="aural-command-palette__search">
+                    <span class="aural-command-palette__search-icon"></span>
+                    <input type="text" class="aural-command-palette__input" placeholder="Type a command or search...">
+                </div>
+                <div class="aural-command-palette__results">
+                    <div class="aural-command-palette__group">
+                        <div class="aural-command-palette__group-label">Navigation</div>
+                        <div class="aural-command-palette__items">
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">Go to Dashboard</div>
+                                    <div class="aural-command-palette__item-subtitle">View your dashboard overview</div>
+                                </div>
+                                <kbd class="aural-command-palette__item-kbd">⌘D</kbd>
+                            </button>
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="folder" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">Browse Projects</div>
+                                    <div class="aural-command-palette__item-subtitle">View all your projects</div>
+                                </div>
+                                <kbd class="aural-command-palette__item-kbd">⌘P</kbd>
+                            </button>
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">Open Settings</div>
+                                    <div class="aural-command-palette__item-subtitle">Configure your preferences</div>
+                                </div>
+                                <kbd class="aural-command-palette__item-kbd">⌘,</kbd>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="aural-command-palette__group">
+                        <div class="aural-command-palette__group-label">Actions</div>
+                        <div class="aural-command-palette__items">
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">Create New Project</div>
+                                    <div class="aural-command-palette__item-subtitle">Start a new project</div>
+                                </div>
+                                <kbd class="aural-command-palette__item-kbd">⌘N</kbd>
+                            </button>
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="upload" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">Upload Files</div>
+                                    <div class="aural-command-palette__item-subtitle">Upload documents or images</div>
+                                </div>
+                                <kbd class="aural-command-palette__item-kbd">⌘U</kbd>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="aural-command-palette__group">
+                        <div class="aural-command-palette__group-label">Theme</div>
+                        <div class="aural-command-palette__items">
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="sun" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">Light Mode</div>
+                                </div>
+                            </button>
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="moon" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">Dark Mode</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Command Palette 2 -->
+        <div class="aural-command-palette-backdrop" id="command-palette-2" onclick="if(event.target === this) this.classList.remove('is-open')">
+            <div class="aural-command-palette">
+                <div class="aural-command-palette__search">
+                    <span class="aural-command-palette__search-icon"></span>
+                    <input type="text" class="aural-command-palette__input" placeholder="Search files...">
+                </div>
+                <div class="aural-command-palette__results">
+                    <div class="aural-command-palette__group">
+                        <div class="aural-command-palette__group-label">Recent Files</div>
+                        <div class="aural-command-palette__items">
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">project-proposal.docx</div>
+                                    <div class="aural-command-palette__item-subtitle">Documents/Projects</div>
+                                </div>
+                            </button>
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="file-spreadsheet" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">budget-2024.xlsx</div>
+                                    <div class="aural-command-palette__item-subtitle">Documents/Finance</div>
+                                </div>
+                            </button>
+                            <button class="aural-command-palette__item">
+                                <span class="aural-command-palette__item-icon">
+                                    <i data-lucide="image" style="width: 18px; height: 18px;"></i>
+                                </span>
+                                <div class="aural-command-palette__item-content">
+                                    <div class="aural-command-palette__item-title">logo-design.png</div>
+                                    <div class="aural-command-palette__item-subtitle">Images/Branding</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 
@@ -206,6 +351,15 @@
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // Close command palettes on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.aural-command-palette-backdrop').forEach(backdrop => {
+                    backdrop.classList.remove('is-open');
+                });
+            }
+        });
 
         // Theme toggle
         let isDark = true;

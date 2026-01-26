@@ -6,7 +6,7 @@
     <title>Notification Center - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -164,15 +164,23 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Notification Center</h1>
-            <p class="page-description">Centralized notification management panel.</p>
+            <p class="page-description">Centralized notification management with different types and states.</p>
         </div>
 
-        <div class="aural-notification-center__list">
+        <div class="example-container">
+            <div class="example-label">With Unread Notifications</div>
+            <div class="example-demo">
+                <div class="aural-notification-center" style="max-width: 400px;">
+                    <div class="aural-notification-center__header">
+                        <h3 class="aural-notification-center__title">Notifications</h3>
+                        <button class="btn btn-ghost btn-sm">
+                            <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="aural-notification-center__list">
                         <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--success">
                             <div class="aural-notification-center__item-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
+                                <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div class="aural-notification-center__item-content">
                                 <div class="aural-notification-center__item-title">Build Successful</div>
@@ -183,11 +191,7 @@
                         </button>
                         <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--info">
                             <div class="aural-notification-center__item-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="12" y1="16" x2="12" y2="12"/>
-                                    <line x1="12" y1="8" x2="12.01" y2="8"/>
-                                </svg>
+                                <i data-lucide="info" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div class="aural-notification-center__item-content">
                                 <div class="aural-notification-center__item-title">New Update Available</div>
@@ -198,11 +202,7 @@
                         </button>
                         <button class="aural-notification-center__item">
                             <div class="aural-notification-center__item-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <line x1="12" y1="16" x2="12" y2="12"/>
-                                    <line x1="12" y1="8" x2="12.01" y2="8"/>
-                                </svg>
+                                <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
                             </div>
                             <div class="aural-notification-center__item-content">
                                 <div class="aural-notification-center__item-title">Welcome to Aural UI</div>
@@ -216,10 +216,84 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <script>
-                Aural.initNotificationCenter('demo-notification-center');
-            </script>
+        <div class="example-container">
+            <div class="example-label">Different Notification Types</div>
+            <div class="example-demo">
+                <div class="aural-notification-center" style="max-width: 400px;">
+                    <div class="aural-notification-center__header">
+                        <h3 class="aural-notification-center__title">Recent Activity</h3>
+                        <span class="badge badge-primary">4 new</span>
+                    </div>
+                    <div class="aural-notification-center__list">
+                        <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--error">
+                            <div class="aural-notification-center__item-icon">
+                                <i data-lucide="alert-circle" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div class="aural-notification-center__item-content">
+                                <div class="aural-notification-center__item-title">Build Failed</div>
+                                <div class="aural-notification-center__item-message">Error in main.js line 42: Unexpected token</div>
+                                <div class="aural-notification-center__item-time">Just now</div>
+                            </div>
+                            <div class="aural-notification-center__item-dot"></div>
+                        </button>
+                        <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--warning">
+                            <div class="aural-notification-center__item-icon">
+                                <i data-lucide="alert-triangle" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div class="aural-notification-center__item-content">
+                                <div class="aural-notification-center__item-title">Storage Almost Full</div>
+                                <div class="aural-notification-center__item-message">You're using 95% of your storage space</div>
+                                <div class="aural-notification-center__item-time">10 minutes ago</div>
+                            </div>
+                            <div class="aural-notification-center__item-dot"></div>
+                        </button>
+                        <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--success">
+                            <div class="aural-notification-center__item-icon">
+                                <i data-lucide="user-check" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div class="aural-notification-center__item-content">
+                                <div class="aural-notification-center__item-title">New Team Member</div>
+                                <div class="aural-notification-center__item-message">Sarah Johnson joined your workspace</div>
+                                <div class="aural-notification-center__item-time">2 hours ago</div>
+                            </div>
+                            <div class="aural-notification-center__item-dot"></div>
+                        </button>
+                        <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--info">
+                            <div class="aural-notification-center__item-icon">
+                                <i data-lucide="message-square" style="width: 20px; height: 20px;"></i>
+                            </div>
+                            <div class="aural-notification-center__item-content">
+                                <div class="aural-notification-center__item-title">New Comment</div>
+                                <div class="aural-notification-center__item-message">John replied to your comment on "Q4 Planning"</div>
+                                <div class="aural-notification-center__item-time">3 hours ago</div>
+                            </div>
+                            <div class="aural-notification-center__item-dot"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Empty State</div>
+            <div class="example-demo">
+                <div class="aural-notification-center" style="max-width: 400px;">
+                    <div class="aural-notification-center__header">
+                        <h3 class="aural-notification-center__title">Notifications</h3>
+                    </div>
+                    <div class="aural-notification-center__list">
+                        <div class="empty-state" style="padding: var(--space-8) var(--space-4);">
+                            <div class="empty-state-icon">
+                                <i data-lucide="bell-off" style="width: 40px; height: 40px;"></i>
+                            </div>
+                            <h3 class="empty-state-title" style="font-size: var(--text-lg);">No notifications</h3>
+                            <p class="empty-state-description">You're all caught up!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>

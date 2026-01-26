@@ -6,7 +6,7 @@
     <title>Tree View - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -164,15 +164,13 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Tree View</h1>
-            <p class="page-description">Hierarchical tree structure display.</p>
+            <p class="page-description">Hierarchical tree structure for files, folders, and nested navigation.</p>
         </div>
 
-        <h2>Tree View</h2>
-        <p class="showcase-subtitle">Hierarchical tree structure for files, folders, and nested navigation</p>
-
-        <div class="example">
-            <div class="example-label">File Browser Example</div>
-            <ul class="aural-tree" id="demo-tree-1" style="max-width: 400px;">
+        <div class="example-container">
+            <div class="example-label">File Browser</div>
+            <div class="example-demo">
+                <ul class="aural-tree" style="max-width: 500px;">
                 <li class="aural-tree__item aural-tree__item--expanded">
                     <button class="aural-tree__content">
                         <span class="aural-tree__toggle">
@@ -277,6 +275,150 @@
                     </ul>
                 </li>
             </ul>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Navigation Menu</div>
+            <div class="example-demo">
+                <ul class="aural-tree" style="max-width: 500px;">
+                    <li class="aural-tree__item aural-tree__item--expanded">
+                        <button class="aural-tree__content">
+                            <span class="aural-tree__toggle">
+                                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__icon">
+                                <i data-lucide="layout-dashboard" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__label">Dashboard</span>
+                        </button>
+                        <ul class="aural-tree__children">
+                            <li class="aural-tree__item aural-tree__item--leaf">
+                                <button class="aural-tree__content">
+                                    <span class="aural-tree__toggle"></span>
+                                    <span class="aural-tree__icon">
+                                        <i data-lucide="bar-chart" style="width: 16px; height: 16px;"></i>
+                                    </span>
+                                    <span class="aural-tree__label">Analytics</span>
+                                </button>
+                            </li>
+                            <li class="aural-tree__item aural-tree__item--leaf">
+                                <button class="aural-tree__content">
+                                    <span class="aural-tree__toggle"></span>
+                                    <span class="aural-tree__icon">
+                                        <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+                                    </span>
+                                    <span class="aural-tree__label">Reports</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="aural-tree__item aural-tree__item--expanded">
+                        <button class="aural-tree__content">
+                            <span class="aural-tree__toggle">
+                                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__icon">
+                                <i data-lucide="users" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__label">Team</span>
+                        </button>
+                        <ul class="aural-tree__children">
+                            <li class="aural-tree__item aural-tree__item--leaf">
+                                <button class="aural-tree__content">
+                                    <span class="aural-tree__toggle"></span>
+                                    <span class="aural-tree__icon">
+                                        <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                                    </span>
+                                    <span class="aural-tree__label">Members</span>
+                                    <span class="aural-tree__badge">24</span>
+                                </button>
+                            </li>
+                            <li class="aural-tree__item aural-tree__item--leaf">
+                                <button class="aural-tree__content">
+                                    <span class="aural-tree__toggle"></span>
+                                    <span class="aural-tree__icon">
+                                        <i data-lucide="user-plus" style="width: 16px; height: 16px;"></i>
+                                    </span>
+                                    <span class="aural-tree__label">Invitations</span>
+                                    <span class="aural-tree__badge">3</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="aural-tree__item aural-tree__item--leaf">
+                        <button class="aural-tree__content">
+                            <span class="aural-tree__toggle"></span>
+                            <span class="aural-tree__icon">
+                                <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__label">Settings</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">With Icons and Badges</div>
+            <div class="example-demo">
+                <ul class="aural-tree" style="max-width: 500px;">
+                    <li class="aural-tree__item aural-tree__item--expanded">
+                        <button class="aural-tree__content">
+                            <span class="aural-tree__toggle">
+                                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__icon aural-tree__icon--primary">
+                                <i data-lucide="inbox" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__label">Inbox</span>
+                            <span class="aural-tree__badge">42</span>
+                        </button>
+                        <ul class="aural-tree__children">
+                            <li class="aural-tree__item aural-tree__item--leaf">
+                                <button class="aural-tree__content">
+                                    <span class="aural-tree__toggle"></span>
+                                    <span class="aural-tree__icon aural-tree__icon--success">
+                                        <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                                    </span>
+                                    <span class="aural-tree__label">Completed</span>
+                                    <span class="aural-tree__badge">128</span>
+                                </button>
+                            </li>
+                            <li class="aural-tree__item aural-tree__item--leaf">
+                                <button class="aural-tree__content">
+                                    <span class="aural-tree__toggle"></span>
+                                    <span class="aural-tree__icon aural-tree__icon--warning">
+                                        <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                    </span>
+                                    <span class="aural-tree__label">Pending</span>
+                                    <span class="aural-tree__badge">15</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="aural-tree__item aural-tree__item--leaf">
+                        <button class="aural-tree__content">
+                            <span class="aural-tree__toggle"></span>
+                            <span class="aural-tree__icon aural-tree__icon--error">
+                                <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__label">Trash</span>
+                            <span class="aural-tree__badge">7</span>
+                        </button>
+                    </li>
+                    <li class="aural-tree__item aural-tree__item--leaf">
+                        <button class="aural-tree__content">
+                            <span class="aural-tree__toggle"></span>
+                            <span class="aural-tree__icon aural-tree__icon--info">
+                                <i data-lucide="archive" style="width: 16px; height: 16px;"></i>
+                            </span>
+                            <span class="aural-tree__label">Archive</span>
+                            <span class="aural-tree__badge">203</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
 
     </main>
@@ -302,6 +444,18 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Tree view toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.aural-tree__content').forEach(button => {
+                button.addEventListener('click', function() {
+                    const item = this.closest('.aural-tree__item');
+                    if (!item.classList.contains('aural-tree__item--leaf')) {
+                        item.classList.toggle('aural-tree__item--expanded');
+                    }
+                });
+            });
+        });
+
         // Initialize Lucide icons
         lucide.createIcons();
 
