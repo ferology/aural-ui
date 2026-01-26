@@ -1081,6 +1081,29 @@
         border-bottom-right-radius: var(--radius-md);
     }
 
+/* ========================================
+   ICON-ONLY VARIANT
+   Square button with only an icon
+   ======================================== */
+
+.btn-icon {
+    padding: var(--space-3);
+    width: 44px;
+    height: 44px;
+}
+
+.btn-icon.btn-sm {
+    padding: var(--space-2);
+    width: 36px;
+    height: 36px;
+}
+
+.btn-icon.btn-lg {
+    padding: var(--space-4);
+    width: 52px;
+    height: 52px;
+}
+
 /**
  * AURAL UI - Input Component
  *
@@ -1267,6 +1290,152 @@
     padding: var(--space-4) var(--space-6);
     font-size: var(--text-lg);
     min-height: 52px;
+}
+
+/* ========================================
+   INPUT WITH PREFIX/SUFFIX ICONS
+   Wrapper for inputs with icons
+   ======================================== */
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-group .input {
+    flex: 1;
+}
+
+.input-group-prefix .input {
+    padding-left: var(--space-10);
+}
+
+.input-group-suffix .input {
+    padding-right: var(--space-10);
+}
+
+.input-group-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 100%;
+    color: var(--color-text-muted);
+    pointer-events: none;
+}
+
+.input-group-icon-left {
+    left: 0;
+}
+
+.input-group-icon-right {
+    right: 0;
+}
+
+.input-group-icon svg,
+.input-group-icon i {
+    width: 18px;
+    height: 18px;
+}
+
+/* Size variants for input groups */
+
+.input-group-sm .input {
+    font-size: var(--text-sm);
+    min-height: 36px;
+}
+
+.input-group-sm.input-group-prefix .input {
+    padding-left: var(--space-8);
+}
+
+.input-group-sm.input-group-suffix .input {
+    padding-right: var(--space-8);
+}
+
+.input-group-sm .input-group-icon {
+    width: 32px;
+}
+
+.input-group-sm .input-group-icon svg,
+.input-group-sm .input-group-icon i {
+    width: 16px;
+    height: 16px;
+}
+
+.input-group-lg .input {
+    font-size: var(--text-lg);
+    min-height: 52px;
+}
+
+.input-group-lg.input-group-prefix .input {
+    padding-left: 3rem;
+}
+
+.input-group-lg.input-group-suffix .input {
+    padding-right: 3rem;
+}
+
+.input-group-lg .input-group-icon {
+    width: 48px;
+}
+
+.input-group-lg .input-group-icon svg,
+.input-group-lg .input-group-icon i {
+    width: 20px;
+    height: 20px;
+}
+
+/* ========================================
+   CHARACTER COUNTER
+   Shows remaining/used characters
+   ======================================== */
+
+.input-with-counter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.input-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+}
+
+.input-counter-text {
+    color: var(--color-text-secondary);
+}
+
+.input-counter-count {
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+}
+
+/* Warning state when approaching limit */
+
+.input-counter-warning {
+    color: var(--color-warning);
+}
+
+.input-counter-warning .input-counter-count {
+    color: var(--color-warning);
+}
+
+/* Error state when exceeding limit */
+
+.input-counter-error {
+    color: var(--color-error);
+}
+
+.input-counter-error .input-counter-count {
+    color: var(--color-error);
 }
 
 /**
@@ -3162,6 +3331,55 @@
 .modal-full {
     max-width: 95vw;
     max-height: 95vh;
+}
+
+/* Full-screen modal (takes entire viewport) */
+
+.modal-fullscreen {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+}
+
+/* ========================================
+   SCROLLABLE MODAL BODY
+   Keeps header and footer fixed, body scrolls
+   ======================================== */
+
+.modal-scrollable {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+.modal-scrollable .modal-header {
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding-bottom: var(--space-4);
+    margin-bottom: 0;
+}
+
+.modal-scrollable .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-6) 0;
+}
+
+.modal-scrollable .modal-footer {
+    flex-shrink: 0;
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: var(--space-4);
+    margin-top: 0;
+}
+
+/* Fullscreen scrollable modal */
+
+.modal-fullscreen.modal-scrollable {
+    max-height: 100vh;
 }
 
 /**
@@ -12296,6 +12514,97 @@ body.has-bottom-nav {
     width: 44px;
     padding: var(--space-2);
     text-align: center;
+}
+
+/* ========================================
+   EXPANDABLE ROWS
+   Rows that can expand to show additional content
+   ======================================== */
+
+.table tbody tr.expandable {
+    cursor: pointer;
+}
+
+.table tbody tr.expandable:hover {
+    background: var(--color-table-row-hover);
+}
+
+/* Expand icon column */
+
+.table th.expand-cell,
+.table td.expand-cell {
+    width: 44px;
+    padding: var(--space-2);
+    text-align: center;
+}
+
+.table-expand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    transition: var(--transition-all-fast);
+}
+
+.table-expand-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.table-expand-icon:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-primary);
+}
+
+/* Expanded state */
+
+.table tbody tr.expanded .table-expand-icon {
+    transform: rotate(90deg);
+    color: var(--color-primary);
+}
+
+/* Expanded content row */
+
+.table tbody tr.expanded-content {
+    background: var(--color-bg-secondary);
+}
+
+.table tbody tr.expanded-content td {
+    padding: var(--space-6);
+    border-top: none;
+}
+
+.table tbody tr.expanded-content.hidden {
+    display: none;
+}
+
+/* Expanded content styling */
+
+.table-expanded-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+}
+
+.table-expanded-content h4 {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-2) 0;
+}
+
+.table-expanded-content p {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
 }
 
 /* ========================================
