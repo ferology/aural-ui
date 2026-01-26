@@ -352,8 +352,20 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // Close command palettes on Escape key
+        // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
+            // CMD+K or CTRL+K to open command palette
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('command-palette-1').classList.add('is-open');
+                // Focus the input after opening
+                setTimeout(() => {
+                    const input = document.querySelector('#command-palette-1 .aural-command-palette__input');
+                    if (input) input.focus();
+                }, 100);
+            }
+
+            // Escape to close command palettes
             if (e.key === 'Escape') {
                 document.querySelectorAll('.aural-command-palette-backdrop').forEach(backdrop => {
                     backdrop.classList.remove('is-open');
