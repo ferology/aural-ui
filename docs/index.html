@@ -6,10 +6,10 @@
     <title>Aural UI - A Modern Design System</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="./aural-ui.css?v=1769422746">
+    <link rel="stylesheet" href="./aural-ui.css?v=1769422873">
 
     <!-- Choose theme -->
-    <link rel="stylesheet" href="./dark.css?v=1769422746" id="theme-link">
+    <link rel="stylesheet" href="./dark.css?v=1769422873" id="theme-link">
 
     <!-- Lucide Icons (MIT License) -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -340,9 +340,16 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-8);
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-12);
             margin-bottom: var(--space-8);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
         }
 
         .footer-section h4 {
