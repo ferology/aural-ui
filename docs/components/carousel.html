@@ -6,7 +6,7 @@
     <title>Carousel - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -167,81 +167,168 @@
             <p class="page-description">Image and content carousel with navigation controls.</p>
         </div>
 
-        <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                        <div class="aural-carousel__slide-content">
-                            <h3 style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: white; margin-bottom: var(--space-2);">Accessible</h3>
-                            <p style="color: rgba(255,255,255,0.9);">Built with WCAG AA compliance and keyboard navigation</p>
+        <div class="example-container">
+            <div class="example-label">Basic Carousel</div>
+            <div class="example-demo">
+                <div class="aural-carousel" id="carousel-1">
+                    <div class="aural-carousel__track">
+                        <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 300px;">
+                            <div class="aural-carousel__slide-content">
+                                <h3 style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: white; margin-bottom: var(--space-2);">Beautiful Design</h3>
+                                <p style="color: rgba(255,255,255,0.9);">Create stunning carousels with smooth animations</p>
+                            </div>
+                        </div>
+                        <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); min-height: 300px;">
+                            <div class="aural-carousel__slide-content">
+                                <h3 style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: white; margin-bottom: var(--space-2);">Accessible</h3>
+                                <p style="color: rgba(255,255,255,0.9);">Built with WCAG AA compliance and keyboard navigation</p>
+                            </div>
+                        </div>
+                        <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); min-height: 300px;">
+                            <div class="aural-carousel__slide-content">
+                                <h3 style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: white; margin-bottom: var(--space-2);">Customizable</h3>
+                                <p style="color: rgba(255,255,255,0.9);">Easy theming with CSS custom properties and utilities</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                        <div class="aural-carousel__slide-content">
-                            <h3 style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: white; margin-bottom: var(--space-2);">Customizable</h3>
-                            <p style="color: rgba(255,255,255,0.9);">Easy theming with CSS custom properties and utilities</p>
-                        </div>
+                    <button class="aural-carousel__arrow aural-carousel__arrow--prev" type="button" aria-label="Previous slide">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button class="aural-carousel__arrow aural-carousel__arrow--next" type="button" aria-label="Next slide">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                    <div class="aural-carousel__pagination">
+                        <button class="aural-carousel__dot aural-carousel__dot--active" aria-label="Go to slide 1"></button>
+                        <button class="aural-carousel__dot" aria-label="Go to slide 2"></button>
+                        <button class="aural-carousel__dot" aria-label="Go to slide 3"></button>
                     </div>
+                    <div class="aural-carousel__counter">1 / 3</div>
                 </div>
-                <button class="aural-carousel__arrow aural-carousel__arrow--prev" type="button" aria-label="Previous slide">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="15 18 9 12 15 6"/>
-                    </svg>
-                </button>
-                <button class="aural-carousel__arrow aural-carousel__arrow--next" type="button" aria-label="Next slide">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                </button>
-                <div class="aural-carousel__pagination">
-                    <button class="aural-carousel__dot aural-carousel__dot--active" aria-label="Go to slide 1"></button>
-                    <button class="aural-carousel__dot" aria-label="Go to slide 2"></button>
-                    <button class="aural-carousel__dot" aria-label="Go to slide 3"></button>
-                </div>
-                <div class="aural-carousel__counter">1 / 3</div>
             </div>
         </div>
 
-        <div class="example">
+        <div class="example-container">
             <div class="example-label">With Captions</div>
-            <div class="aural-carousel aural-carousel--auto-height" id="demo-carousel-2">
-                <div class="aural-carousel__track">
-                    <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                        <div class="aural-carousel__caption">
-                            <div class="aural-carousel__caption-title">Product Showcase</div>
-                            <div class="aural-carousel__caption-description">Feature your latest products with stunning visuals</div>
+            <div class="example-demo">
+                <div class="aural-carousel" id="carousel-2">
+                    <div class="aural-carousel__track">
+                        <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); min-height: 300px;">
+                            <div class="aural-carousel__caption">
+                                <div class="aural-carousel__caption-title">Product Showcase</div>
+                                <div class="aural-carousel__caption-description">Feature your latest products with stunning visuals</div>
+                            </div>
+                        </div>
+                        <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); min-height: 300px;">
+                            <div class="aural-carousel__caption">
+                                <div class="aural-carousel__caption-title">Announcements</div>
+                                <div class="aural-carousel__caption-description">Keep users informed with important updates</div>
+                            </div>
+                        </div>
+                        <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); min-height: 300px;">
+                            <div class="aural-carousel__caption">
+                                <div class="aural-carousel__caption-title">Testimonials</div>
+                                <div class="aural-carousel__caption-description">Share customer stories and build trust</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
-                        <div class="aural-carousel__caption">
-                            <div class="aural-carousel__caption-title">Announcements</div>
-                            <div class="aural-carousel__caption-description">Keep users informed with important updates</div>
-                        </div>
-                    </div>
-                    <div class="aural-carousel__slide" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
-                        <div class="aural-carousel__caption">
-                            <div class="aural-carousel__caption-title">Testimonials</div>
-                            <div class="aural-carousel__caption-description">Share customer stories and build trust</div>
-                        </div>
+                    <button class="aural-carousel__arrow aural-carousel__arrow--prev" type="button" aria-label="Previous slide">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button class="aural-carousel__arrow aural-carousel__arrow--next" type="button" aria-label="Next slide">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                    <div class="aural-carousel__pagination">
+                        <button class="aural-carousel__dot aural-carousel__dot--active" aria-label="Go to slide 1"></button>
+                        <button class="aural-carousel__dot" aria-label="Go to slide 2"></button>
+                        <button class="aural-carousel__dot" aria-label="Go to slide 3"></button>
                     </div>
                 </div>
-                <button class="aural-carousel__arrow aural-carousel__arrow--prev" type="button">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="15 18 9 12 15 6"/>
-                    </svg>
-                </button>
-                <button class="aural-carousel__arrow aural-carousel__arrow--next" type="button">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                </button>
-                <div class="aural-carousel__pagination">
-                    <button class="aural-carousel__dot aural-carousel__dot--active"></button>
-                    <button class="aural-carousel__dot"></button>
-                    <button class="aural-carousel__dot"></button>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Image Carousel</div>
+            <div class="example-demo">
+                <div class="aural-carousel" id="carousel-3">
+                    <div class="aural-carousel__track">
+                        <div class="aural-carousel__slide">
+                            <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=400&fit=crop" alt="Ocean sunset" style="width: 100%; height: 400px; object-fit: cover;">
+                        </div>
+                        <div class="aural-carousel__slide">
+                            <img src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=800&h=400&fit=crop" alt="Forest trail" style="width: 100%; height: 400px; object-fit: cover;">
+                        </div>
+                        <div class="aural-carousel__slide">
+                            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&h=400&fit=crop" alt="Northern lights" style="width: 100%; height: 400px; object-fit: cover;">
+                        </div>
+                        <div class="aural-carousel__slide">
+                            <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=400&fit=crop" alt="Desert dunes" style="width: 100%; height: 400px; object-fit: cover;">
+                        </div>
+                    </div>
+                    <button class="aural-carousel__arrow aural-carousel__arrow--prev" type="button" aria-label="Previous slide">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button class="aural-carousel__arrow aural-carousel__arrow--next" type="button" aria-label="Next slide">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                    <div class="aural-carousel__pagination">
+                        <button class="aural-carousel__dot aural-carousel__dot--active" aria-label="Go to slide 1"></button>
+                        <button class="aural-carousel__dot" aria-label="Go to slide 2"></button>
+                        <button class="aural-carousel__dot" aria-label="Go to slide 3"></button>
+                        <button class="aural-carousel__dot" aria-label="Go to slide 4"></button>
+                    </div>
+                    <div class="aural-carousel__counter">1 / 4</div>
                 </div>
-                <div class="aural-carousel__counter">1 / 3</div>
             </div>
         </div>
 
     </main>
+
+    <script>
+        // Simple carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousels = document.querySelectorAll('.aural-carousel');
+
+            carousels.forEach((carousel, carouselIndex) => {
+                const track = carousel.querySelector('.aural-carousel__track');
+                const slides = carousel.querySelectorAll('.aural-carousel__slide');
+                const prevBtn = carousel.querySelector('.aural-carousel__arrow--prev');
+                const nextBtn = carousel.querySelector('.aural-carousel__arrow--next');
+                const dots = carousel.querySelectorAll('.aural-carousel__dot');
+                const counter = carousel.querySelector('.aural-carousel__counter');
+
+                let currentSlide = 0;
+
+                function updateCarousel() {
+                    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('aural-carousel__dot--active', index === currentSlide);
+                    });
+
+                    if (counter) {
+                        counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+                    }
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1;
+                    updateCarousel();
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    currentSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : 0;
+                    updateCarousel();
+                });
+
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        currentSlide = index;
+                        updateCarousel();
+                    });
+                });
+            });
+        });
+    </script>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">

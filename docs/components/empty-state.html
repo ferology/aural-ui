@@ -6,7 +6,7 @@
     <title>Empty State - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=9">
+    <link rel="stylesheet" href="../aural-ui.css?v=10">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -164,30 +164,131 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Empty State</h1>
-            <p class="page-description">Placeholders for empty data states.</p>
+            <p class="page-description">Placeholders for empty data states with helpful guidance.</p>
         </div>
 
-        <!-- Code snippet accordion -->
-        <div class="accordion">
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="Aural.toggleAccordion('empty-state-code')">
-                            <span>
-                                <span style="font-weight: bold; margin-right: 8px; font-size: 18px;">&lt;/&gt;</span>
-                                View Code
-                            </span>
-                            <i data-lucide="chevron-down" style="width: 16px; height: 10px;"></i>
+        <div class="example-container">
+            <div class="example-label">No Data</div>
+            <div class="example-demo">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i data-lucide="inbox" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h3 class="empty-state-title">No items yet</h3>
+                    <p class="empty-state-description">Get started by creating your first item. It only takes a few seconds!</p>
+                    <button class="btn btn-primary">
+                        <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                        Create Item
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">No Search Results</div>
+            <div class="example-demo">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i data-lucide="search" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h3 class="empty-state-title">No results found</h3>
+                    <p class="empty-state-description">We couldn't find any results matching your search. Try adjusting your filters or search terms.</p>
+                    <button class="btn btn-secondary">Clear Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">No Notifications</div>
+            <div class="example-demo">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i data-lucide="bell-off" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h3 class="empty-state-title">No notifications</h3>
+                    <p class="empty-state-description">You're all caught up! We'll notify you when something new happens.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Error State</div>
+            <div class="example-demo">
+                <div class="empty-state">
+                    <div class="empty-state-icon" style="color: var(--color-error);">
+                        <i data-lucide="alert-circle" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h3 class="empty-state-title">Something went wrong</h3>
+                    <p class="empty-state-description">We're having trouble loading your data. Please check your connection and try again.</p>
+                    <div style="display: flex; gap: var(--space-3); justify-content: center;">
+                        <button class="btn btn-secondary">Go Back</button>
+                        <button class="btn btn-primary">
+                            <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+                            Try Again
                         </button>
-                <div class="accordion-panel" id="empty-state-code" hidden>
-                    <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
-                        <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="empty-state"&gt;
-  &lt;svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
-    &lt;path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/&gt;
-    &lt;rect x="9" y="3" width="6" height="4" rx="1"/&gt;
-  &lt;/svg&gt;
-  &lt;h3 class="empty-state-title"&gt;No items yet&lt;/h3&gt;
-  &lt;p class="empty-state-description"&gt;Get started by creating your first item. It only takes a few seconds!&lt;/p&gt;
-  &lt;button class="btn btn-primary"&gt;Create Item&lt;/button&gt;
-&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">No Connections</div>
+            <div class="example-demo">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i data-lucide="users" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h3 class="empty-state-title">No connections yet</h3>
+                    <p class="empty-state-description">Start building your network by connecting with people you know or discovering new connections.</p>
+                    <div style="display: flex; gap: var(--space-3); justify-content: center;">
+                        <button class="btn btn-secondary">
+                            <i data-lucide="search" style="width: 16px; height: 16px;"></i>
+                            Browse People
+                        </button>
+                        <button class="btn btn-primary">
+                            <i data-lucide="user-plus" style="width: 16px; height: 16px;"></i>
+                            Invite Friends
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Welcome / Onboarding</div>
+            <div class="example-demo">
+                <div class="empty-state">
+                    <div class="empty-state-icon" style="color: var(--color-primary);">
+                        <i data-lucide="rocket" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h3 class="empty-state-title">Welcome to Aural UI!</h3>
+                    <p class="empty-state-description">Let's get you started with a quick tour of the platform. It will only take a minute to set up your workspace.</p>
+                    <button class="btn btn-primary">
+                        <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+                        Start Tour
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">No Files</div>
+            <div class="example-demo">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i data-lucide="folder-open" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h3 class="empty-state-title">This folder is empty</h3>
+                    <p class="empty-state-description">Upload files or create folders to organize your content.</p>
+                    <div style="display: flex; gap: var(--space-3); justify-content: center;">
+                        <button class="btn btn-secondary">
+                            <i data-lucide="folder-plus" style="width: 16px; height: 16px;"></i>
+                            New Folder
+                        </button>
+                        <button class="btn btn-primary">
+                            <i data-lucide="upload" style="width: 16px; height: 16px;"></i>
+                            Upload Files
+                        </button>
                     </div>
                 </div>
             </div>
