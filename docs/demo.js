@@ -160,8 +160,13 @@
         const frame = document.getElementById('demo-content-frame');
         const loading = document.getElementById('demo-loading');
 
+        if (!frame) {
+            console.error('Iframe element not found');
+            return;
+        }
+
         // Show loading
-        loading.classList.add('active');
+        if (loading) loading.classList.add('active');
 
         // Update active link
         document.querySelectorAll('.demo-nav-link').forEach(link => {
@@ -176,7 +181,7 @@
 
         // Hide loading when iframe loads
         frame.onload = () => {
-            loading.classList.remove('active');
+            if (loading) loading.classList.remove('active');
             closeDemoMenu();
 
             // Sync theme with iframe after a short delay
@@ -185,8 +190,16 @@
             }, 100);
         };
 
-        // Update hash
-        location.hash = url;
+        // Handle iframe loading errors
+        frame.onerror = () => {
+            console.error('Failed to load page:', url);
+            if (loading) loading.classList.remove('active');
+        };
+
+        // Update hash (prevent infinite loops)
+        if (location.hash !== '#' + url) {
+            location.hash = url;
+        }
     }
 
     // Sync theme with iframe
@@ -231,7 +244,11 @@
     function loadInitialPage() {
         const hash = location.hash.slice(1);
         const page = hash || 'index.html';
-        loadPage(page);
+
+        // Small delay to ensure DOM is fully ready
+        setTimeout(() => {
+            loadPage(page);
+        }, 50);
     }
 
     // Initialize search
