@@ -290,12 +290,111 @@
             display: none;
         }
 
-        /* Theme Toggle */
+        /* Theme Selector */
         .demo-theme-toggle {
             position: fixed;
             bottom: var(--space-6);
             right: var(--space-6);
             z-index: 1001;
+        }
+
+        .theme-selector {
+            position: relative;
+        }
+
+        .theme-selector-button {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-4);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-medium);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-selector-button:hover {
+            background: var(--color-bg-hover);
+            border-color: var(--color-primary);
+        }
+
+        .theme-selector-button i:last-child {
+            margin-left: var(--space-1);
+            transition: transform 0.2s ease;
+        }
+
+        .theme-selector.active .theme-selector-button i:last-child {
+            transform: rotate(180deg);
+        }
+
+        .theme-options {
+            position: absolute;
+            bottom: calc(100% + var(--space-2));
+            right: 0;
+            min-width: 200px;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-medium);
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: all 0.2s ease;
+        }
+
+        .theme-selector.active .theme-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            color: var(--color-text-primary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .theme-option:first-child {
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+
+        .theme-option:last-child {
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+        }
+
+        .theme-option:hover {
+            background: var(--color-bg-hover);
+            color: var(--color-primary);
+        }
+
+        .theme-option.active {
+            background: var(--color-primary-subtle);
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        .theme-option i {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .theme-option-label {
+            flex: 1;
         }
 
         /* Mobile */
@@ -404,12 +503,33 @@
         <!-- Overlay -->
         <div class="demo-overlay" id="demo-overlay" onclick="toggleDemoMenu()"></div>
 
-        <!-- Theme Toggle -->
+        <!-- Theme Selector -->
         <div class="demo-theme-toggle">
-            <button class="btn btn-secondary" onclick="toggleDemoTheme()">
-                <i data-lucide="sun"></i>
-                <span>Toggle Theme</span>
-            </button>
+            <div class="theme-selector" id="theme-selector">
+                <button class="theme-selector-button" onclick="toggleThemeSelector()">
+                    <i data-lucide="moon" id="current-theme-icon"></i>
+                    <span id="current-theme-name">Dark</span>
+                    <i data-lucide="chevron-up"></i>
+                </button>
+                <div class="theme-options">
+                    <button class="theme-option active" onclick="selectTheme('dark')">
+                        <i data-lucide="moon"></i>
+                        <span class="theme-option-label">Dark</span>
+                    </button>
+                    <button class="theme-option" onclick="selectTheme('light')">
+                        <i data-lucide="sun"></i>
+                        <span class="theme-option-label">Light</span>
+                    </button>
+                    <button class="theme-option" onclick="selectTheme('high-contrast')">
+                        <i data-lucide="zap"></i>
+                        <span class="theme-option-label">High Contrast</span>
+                    </button>
+                    <button class="theme-option" onclick="selectTheme('colorblind')">
+                        <i data-lucide="palette"></i>
+                        <span class="theme-option-label">Colorblind-Friendly</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 

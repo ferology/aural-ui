@@ -194,6 +194,115 @@
                 </div>
             </div>
 
+            <div class="example-container">
+                <div class="example-label">Input with Prefix Icon</div>
+                <div class="example-demo">
+                    <div class="form-group">
+                        <label class="label">Search</label>
+                        <div class="input-group input-group-prefix">
+                            <span class="input-group-icon input-group-icon-left">
+                                <i data-lucide="search"></i>
+                            </span>
+                            <input type="text" class="input" placeholder="Search...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Input with Suffix Icon</div>
+                <div class="example-demo">
+                    <div class="form-group">
+                        <label class="label">Email</label>
+                        <div class="input-group input-group-suffix">
+                            <input type="email" class="input" placeholder="you@example.com">
+                            <span class="input-group-icon input-group-icon-right">
+                                <i data-lucide="at-sign"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Input with Both Icons</div>
+                <div class="example-demo">
+                    <div class="form-group">
+                        <label class="label">Password</label>
+                        <div class="input-group input-group-prefix input-group-suffix">
+                            <span class="input-group-icon input-group-icon-left">
+                                <i data-lucide="lock"></i>
+                            </span>
+                            <input type="password" class="input" placeholder="Enter password">
+                            <span class="input-group-icon input-group-icon-right">
+                                <i data-lucide="eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Input Sizes with Icons</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <div class="input-group input-group-prefix input-group-sm">
+                            <span class="input-group-icon input-group-icon-left">
+                                <i data-lucide="search"></i>
+                            </span>
+                            <input type="text" class="input input-sm" placeholder="Small search...">
+                        </div>
+                        <div class="input-group input-group-prefix">
+                            <span class="input-group-icon input-group-icon-left">
+                                <i data-lucide="search"></i>
+                            </span>
+                            <input type="text" class="input" placeholder="Default search...">
+                        </div>
+                        <div class="input-group input-group-prefix input-group-lg">
+                            <span class="input-group-icon input-group-icon-left">
+                                <i data-lucide="search"></i>
+                            </span>
+                            <input type="text" class="input input-lg" placeholder="Large search...">
+                        </div>
+                    </div>
+                </div>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Add icons to inputs using the <code>.input-group</code> wrapper with <code>.input-group-icon</code> elements. Use these classes to position icons:</p>
+                    <ul>
+                        <li><code>.input-group-prefix</code> - Adds padding for left icon</li>
+                        <li><code>.input-group-suffix</code> - Adds padding for right icon</li>
+                        <li><code>.input-group-icon-left</code> - Position icon on the left</li>
+                        <li><code>.input-group-icon-right</code> - Position icon on the right</li>
+                    </ul>
+                    <p>Available sizes: <code>.input-group-sm</code>, default, and <code>.input-group-lg</code></p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Textarea with Character Counter</div>
+                <div class="example-demo">
+                    <div class="form-group">
+                        <label class="label">Bio</label>
+                        <div class="input-with-counter">
+                            <textarea class="input" id="bio-input" maxlength="200" rows="4" placeholder="Tell us about yourself..." oninput="updateCounter()"></textarea>
+                            <div class="input-counter" id="bio-counter">
+                                <span class="input-counter-text">Characters:</span>
+                                <span class="input-counter-count">0 / 200</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Character counters help users stay within input limits. The counter automatically updates as users type:</p>
+                    <ul>
+                        <li>Default style when under 80% of limit</li>
+                        <li><code>.input-counter-warning</code> - Orange when 80-99% of limit</li>
+                        <li><code>.input-counter-error</code> - Red when at or over limit</li>
+                    </ul>
+                    <p>Use the <code>.input-with-counter</code> wrapper to enable character counting.</p>
+                </div>
+            </div>
+
     </main>
 
     <!-- Theme Toggle -->
@@ -234,6 +343,23 @@
         if (savedTheme) {
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+
+        // Character counter
+        function updateCounter() {
+            const input = document.getElementById('bio-input');
+            const counter = document.getElementById('bio-counter');
+            const count = input.value.length;
+            const max = input.maxLength;
+
+            counter.querySelector('.input-counter-count').textContent = `${count} / ${max}`;
+
+            counter.classList.remove('input-counter-warning', 'input-counter-error');
+            if (count >= max * 0.8 && count < max) {
+                counter.classList.add('input-counter-warning');
+            } else if (count >= max) {
+                counter.classList.add('input-counter-error');
+            }
         }
     </script>    <!-- Unified Theme Sync -->
     <script>

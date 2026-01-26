@@ -203,6 +203,100 @@
                 </div>
             </div>
 
+            <div class="example-container">
+                <div class="example-label">Expandable Rows</div>
+                <div class="example-demo">
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="expand-cell"></th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="expandable" onclick="toggleRow(this)">
+                                    <td class="expand-cell">
+                                        <span class="table-expand-icon">
+                                            <i data-lucide="chevron-right"></i>
+                                        </span>
+                                    </td>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                </tr>
+                                <tr class="expanded-content hidden">
+                                    <td colspan="4">
+                                        <div class="table-expanded-content">
+                                            <h4>Additional Details</h4>
+                                            <p><strong>Department:</strong> Engineering</p>
+                                            <p><strong>Role:</strong> Senior Developer</p>
+                                            <p><strong>Location:</strong> San Francisco, CA</p>
+                                            <p><strong>Joined:</strong> January 15, 2023</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="expandable" onclick="toggleRow(this)">
+                                    <td class="expand-cell">
+                                        <span class="table-expand-icon">
+                                            <i data-lucide="chevron-right"></i>
+                                        </span>
+                                    </td>
+                                    <td>Jane Smith</td>
+                                    <td>jane@example.com</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                </tr>
+                                <tr class="expanded-content hidden">
+                                    <td colspan="4">
+                                        <div class="table-expanded-content">
+                                            <h4>Additional Details</h4>
+                                            <p><strong>Department:</strong> Design</p>
+                                            <p><strong>Role:</strong> Lead Designer</p>
+                                            <p><strong>Location:</strong> New York, NY</p>
+                                            <p><strong>Joined:</strong> March 8, 2022</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="expandable" onclick="toggleRow(this)">
+                                    <td class="expand-cell">
+                                        <span class="table-expand-icon">
+                                            <i data-lucide="chevron-right"></i>
+                                        </span>
+                                    </td>
+                                    <td>Bob Wilson</td>
+                                    <td>bob@example.com</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                </tr>
+                                <tr class="expanded-content hidden">
+                                    <td colspan="4">
+                                        <div class="table-expanded-content">
+                                            <h4>Additional Details</h4>
+                                            <p><strong>Department:</strong> Sales</p>
+                                            <p><strong>Role:</strong> Account Manager</p>
+                                            <p><strong>Location:</strong> Chicago, IL</p>
+                                            <p><strong>Joined:</strong> June 22, 2024</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Expandable rows allow you to show additional details without navigating away. Key features:</p>
+                    <ul>
+                        <li>Click any row with <code>.expandable</code> class to toggle expansion</li>
+                        <li>Chevron icon rotates 90° when expanded</li>
+                        <li>Use <code>.expand-cell</code> for the first column to add proper spacing</li>
+                        <li>Put expanded content in a following row with <code>.expanded-content.hidden</code></li>
+                        <li>Use <code>.table-expanded-content</code> wrapper for styled detail sections</li>
+                    </ul>
+                    <p>The toggle is controlled with JavaScript to add/remove <code>.expanded</code> and <code>.hidden</code> classes.</p>
+                </div>
+            </div>
+
     </main>
 
     <!-- Theme Toggle -->
@@ -243,6 +337,17 @@
         if (savedTheme) {
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+
+        // Table row expand/collapse
+        function toggleRow(row) {
+            row.classList.toggle('expanded');
+            const nextRow = row.nextElementSibling;
+            if (nextRow && nextRow.classList.contains('expanded-content')) {
+                nextRow.classList.toggle('hidden');
+            }
+            // Re-initialize icons after toggle
+            lucide.createIcons();
         }
     </script>    <!-- Unified Theme Sync -->
     <script>

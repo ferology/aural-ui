@@ -221,8 +221,15 @@
                 const iframeSrc = frame.src;
                 const isInComponents = iframeSrc.includes('/components/');
                 const relativePath = isInComponents ? '../' : './';
-                const newHref = currentTheme === 'dark' ? `${relativePath}dark.css` : `${relativePath}light.css`;
 
+                const themeFiles = {
+                    'dark': `${relativePath}dark.css`,
+                    'light': `${relativePath}light.css`,
+                    'high-contrast': `${relativePath}high-contrast.css`,
+                    'colorblind': `${relativePath}colorblind-friendly.css`
+                };
+
+                const newHref = themeFiles[currentTheme];
                 iframeThemeLink.href = newHref;
                 console.log('Synced iframe theme to:', newHref);
             }
@@ -287,30 +294,100 @@
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
 
-        themeLink.href = savedTheme === 'dark' ? 'dark.css' : 'light.css';
+        const themeFiles = {
+            'dark': 'dark.css',
+            'light': 'light.css',
+            'high-contrast': 'high-contrast.css',
+            'colorblind': 'colorblind-friendly.css'
+        };
 
-        const icon = document.querySelector('.demo-theme-toggle i');
-        if (icon) {
-            icon.setAttribute('data-lucide', savedTheme === 'dark' ? 'sun' : 'moon');
-        }
+        const themeIcons = {
+            'dark': 'moon',
+            'light': 'sun',
+            'high-contrast': 'zap',
+            'colorblind': 'palette'
+        };
+
+        const themeLabels = {
+            'dark': 'Dark',
+            'light': 'Light',
+            'high-contrast': 'High Contrast',
+            'colorblind': 'Colorblind-Friendly'
+        };
+
+        themeLink.href = themeFiles[savedTheme];
+
+        // Update current theme display
+        const currentIcon = document.getElementById('current-theme-icon');
+        const currentName = document.getElementById('current-theme-name');
+        if (currentIcon) currentIcon.setAttribute('data-lucide', themeIcons[savedTheme]);
+        if (currentName) currentName.textContent = themeLabels[savedTheme];
+
+        // Set active state on the correct option
+        document.querySelectorAll('.theme-option').forEach(option => {
+            const onclickAttr = option.getAttribute('onclick');
+            if (onclickAttr && onclickAttr.includes(`'${savedTheme}'`)) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
     }
 
     // Public functions
-    window.toggleDemoTheme = function() {
-        const themeLink = document.getElementById('theme-link');
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    window.toggleThemeSelector = function() {
+        const selector = document.getElementById('theme-selector');
+        selector.classList.toggle('active');
+    };
 
-        console.log('Toggling theme from', currentTheme, 'to', newTheme);
+    window.selectTheme = function(themeName) {
+        const themeLink = document.getElementById('theme-link');
+        const themeFiles = {
+            'dark': 'dark.css',
+            'light': 'light.css',
+            'high-contrast': 'high-contrast.css',
+            'colorblind': 'colorblind-friendly.css'
+        };
+
+        const themeIcons = {
+            'dark': 'moon',
+            'light': 'sun',
+            'high-contrast': 'zap',
+            'colorblind': 'palette'
+        };
+
+        const themeLabels = {
+            'dark': 'Dark',
+            'light': 'Light',
+            'high-contrast': 'High Contrast',
+            'colorblind': 'Colorblind-Friendly'
+        };
+
+        console.log('Switching to theme:', themeName);
 
         // Update demo page theme
-        themeLink.href = newTheme === 'dark' ? 'dark.css' : 'light.css';
-        localStorage.setItem('theme', newTheme);
+        themeLink.href = themeFiles[themeName];
+        localStorage.setItem('theme', themeName);
+
+        // Update current theme display
+        const currentIcon = document.getElementById('current-theme-icon');
+        const currentName = document.getElementById('current-theme-name');
+        if (currentIcon) currentIcon.setAttribute('data-lucide', themeIcons[themeName]);
+        if (currentName) currentName.textContent = themeLabels[themeName];
+
+        // Update active state in options
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.classList.remove('active');
+        });
+        event.target.closest('.theme-option').classList.add('active');
+
+        // Close selector
+        document.getElementById('theme-selector').classList.remove('active');
 
         // Reload iframe to apply new theme
         const iframe = document.getElementById('demo-content-frame');
         if (iframe && iframe.src) {
-            console.log('Reloading iframe from:', iframe.src);
+            console.log('Reloading iframe with theme:', themeName);
 
             // Setup onload handler before reloading
             iframe.onload = function() {
@@ -324,16 +401,8 @@
             iframe.src = '';
             setTimeout(() => {
                 iframe.src = currentSrc;
-                console.log('Iframe reloaded with new theme:', newTheme);
+                console.log('Iframe reloaded with new theme:', themeName);
             }, 50);
-        } else {
-            console.error('No iframe or iframe.src found');
-        }
-
-        // Update icon
-        const icon = document.querySelector('.demo-theme-toggle i');
-        if (icon) {
-            icon.setAttribute('data-lucide', newTheme === 'dark' ? 'sun' : 'moon');
         }
 
         // Recreate icons
@@ -341,6 +410,14 @@
             lucide.createIcons();
         }
     };
+
+    // Close theme selector when clicking outside
+    document.addEventListener('click', function(e) {
+        const selector = document.getElementById('theme-selector');
+        if (selector && !selector.contains(e.target)) {
+            selector.classList.remove('active');
+        }
+    });
 
     window.toggleDemoMenu = function() {
         document.getElementById('demo-sidebar').classList.toggle('active');

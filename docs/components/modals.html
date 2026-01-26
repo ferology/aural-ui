@@ -148,6 +148,40 @@
             </div>
         </div>
 
+        <div class="example-container">
+            <div class="example-label">Fullscreen Modal</div>
+            <div class="example-demo">
+                <button class="btn btn-secondary" onclick="Aural.openModal('modal-fullscreen')">Open Fullscreen Modal</button>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Fullscreen modals take up the entire viewport with no margins or border radius. Perfect for:</p>
+                <ul>
+                    <li>Immersive content experiences (photo viewers, document editors)</li>
+                    <li>Mobile-optimized full-page forms</li>
+                    <li>Focus modes that require maximum screen space</li>
+                    <li>Media galleries and slideshows</li>
+                </ul>
+                <p>Use the <code>.modal-fullscreen</code> class to enable this variant.</p>
+            </div>
+        </div>
+
+        <div class="example-container">
+            <div class="example-label">Scrollable Modal</div>
+            <div class="example-demo">
+                <button class="btn btn-secondary" onclick="Aural.openModal('modal-scrollable')">Open Scrollable Modal</button>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Scrollable modals have fixed headers and footers with an independently scrolling body. Benefits:</p>
+                <ul>
+                    <li>Header and footer remain visible while scrolling content</li>
+                    <li>Better user experience for long content</li>
+                    <li>Call-to-action buttons always accessible</li>
+                    <li>Works with all modal sizes</li>
+                </ul>
+                <p>Use the <code>.modal-scrollable</code> class to enable this variant.</p>
+            </div>
+        </div>
+
     </main>
 
     <!-- Basic Modal -->
@@ -326,6 +360,126 @@
             <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-form')">Cancel</button>
                 <button class="btn btn-primary" onclick="Aural.closeModal('modal-form')">Create Item</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Modal -->
+    <div class="modal-overlay" id="modal-fullscreen">
+        <div class="modal modal-fullscreen">
+            <button class="modal-close" onclick="Aural.closeModal('modal-fullscreen')" aria-label="Close modal" style="position: absolute; top: var(--space-6); right: var(--space-6); z-index: 10;">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Fullscreen Experience</h2>
+                    <p class="modal-subtitle">Immersive content view</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h3 style="margin-top: 0; font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary);">Welcome to Fullscreen Mode</h3>
+                <p>This modal takes up the entire viewport, providing maximum space for your content. Perfect for immersive experiences like:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4); margin: var(--space-6) 0;">
+                    <div style="padding: var(--space-4); background: var(--color-bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-primary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-primary); margin-bottom: var(--space-3);">
+                            <i data-lucide="image" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Photo Viewers</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Display images without distractions</p>
+                    </div>
+
+                    <div style="padding: var(--space-4); background: var(--color-bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-secondary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-secondary); margin-bottom: var(--space-3);">
+                            <i data-lucide="file-text" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Document Editors</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Maximize workspace for editing</p>
+                    </div>
+
+                    <div style="padding: var(--space-4); background: var(--color-bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--color-border-subtle);">
+                        <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-success-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-success); margin-bottom: var(--space-3);">
+                            <i data-lucide="play-circle" style="width: 20px; height: 20px;"></i>
+                        </div>
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Video Players</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Full-screen media playback</p>
+                    </div>
+                </div>
+
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">Key Features</h3>
+                <ul>
+                    <li>100% viewport coverage with no margins</li>
+                    <li>No border radius for true edge-to-edge design</li>
+                    <li>Scrollable content if it overflows</li>
+                    <li>Optimal for mobile and desktop experiences</li>
+                    <li>Press ESC to close (when focus is in modal)</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="Aural.closeModal('modal-fullscreen')">Close</button>
+                <button class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scrollable Modal -->
+    <div class="modal-overlay" id="modal-scrollable">
+        <div class="modal modal-scrollable modal-lg">
+            <button class="modal-close" onclick="Aural.closeModal('modal-scrollable')" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i data-lucide="scroll-text"></i>
+                </div>
+                <div>
+                    <h2 class="modal-title">Terms and Conditions</h2>
+                    <p class="modal-subtitle">Please read carefully</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h3 style="margin-top: 0; font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary);">1. Introduction</h3>
+                <p>This modal demonstrates the scrollable variant, where the header and footer remain fixed while the body content scrolls independently. This is particularly useful for long-form content like terms of service, privacy policies, or detailed documentation.</p>
+
+                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">2. Content Organization</h3>
+                <p>The scrollable modal maintains visual hierarchy and keeps important actions (like Accept/Decline buttons) always visible at the bottom. This improves user experience by:</p>
+                <ul>
+                    <li>Providing clear navigation context with a fixed header</li>
+                    <li>Ensuring call-to-action buttons are always accessible</li>
+                    <li>Allowing users to scroll through content comfortably</li>
+                    <li>Supporting various content lengths without layout issues</li>
+                </ul>
+
+                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">3. Use Cases</h3>
+                <p>Scrollable modals are ideal for:</p>
+                <ul>
+                    <li><strong>Legal Documents:</strong> Terms of service, privacy policies, user agreements</li>
+                    <li><strong>Long Forms:</strong> Multi-section forms that require scrolling</li>
+                    <li><strong>Documentation:</strong> Help articles, guides, tutorials</li>
+                    <li><strong>Product Details:</strong> Detailed product information, specifications</li>
+                    <li><strong>Release Notes:</strong> Changelog entries, update information</li>
+                </ul>
+
+                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">4. Technical Implementation</h3>
+                <p>The scrollable modal uses CSS flexbox with specific overflow properties to achieve the fixed header/footer behavior:</p>
+                <ul>
+                    <li>The modal container uses <code>display: flex</code> and <code>flex-direction: column</code></li>
+                    <li>Header and footer have fixed dimensions</li>
+                    <li>Body section has <code>flex: 1</code> and <code>overflow-y: auto</code></li>
+                    <li>Maximum height is set to <code>90vh</code> for comfortable viewing</li>
+                </ul>
+
+                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">5. Additional Content</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">6. Conclusion</h3>
+                <p>The scrollable modal pattern provides an elegant solution for presenting lengthy content within a modal dialog. By keeping the header and footer fixed, users always have context about what they're viewing and can easily take action without scrolling to the bottom.</p>
+                <p>This implementation works seamlessly with all modal sizes (<code>.modal-sm</code>, default, <code>.modal-lg</code>) and maintains accessibility standards.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="Aural.closeModal('modal-scrollable')">Decline</button>
+                <button class="btn btn-primary">Accept Terms</button>
             </div>
         </div>
     </div>
