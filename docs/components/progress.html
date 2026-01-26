@@ -164,57 +164,325 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Progress</h1>
-            <p class="page-description">Progress indicators for ongoing operations.</p>
+            <p class="page-description">Visual indicators for ongoing operations, loading states, and task completion. Show users how far along a process is or that work is happening in the background.</p>
         </div>
 
-        </div>
+        <!-- Basic Progress -->
+        <div class="example-container">
+            <div class="example-label">Basic Progress Bar</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <div>
+                        <div style="margin-bottom: var(--space-2); display: flex; justify-content: space-between;">
+                            <span style="font-size: var(--text-sm); color: var(--color-text-secondary);">Uploading files...</span>
+                            <span style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-primary);">65%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="section-content">
+                <p>The basic progress bar shows determinate progress with a specific percentage. Always pair with a label describing the operation and the current percentage.</p>
+                <pre><code>&lt;div class="progress"&gt;
+  &lt;div class="progress-bar" style="width: 65%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
 
-            <div class="example-container">
-                <div class="example-label">Color Variants</div>
-                <div class="example-demo">
-                    <div class="flex flex-col gap-3">
+        <!-- Semantic Variants -->
+        <div class="example-container">
+            <div class="example-label">Semantic Variants</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Default Progress</div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Installation Complete</div>
                         <div class="progress progress-success">
-                            <div class="progress-bar" style="width: 80%"></div>
+                            <div class="progress-bar" style="width: 100%"></div>
                         </div>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Disk Space Warning</div>
                         <div class="progress progress-warning">
-                            <div class="progress-bar" style="width: 50%"></div>
+                            <div class="progress-bar" style="width: 85%"></div>
                         </div>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Upload Failed</div>
                         <div class="progress progress-error">
                             <div class="progress-bar" style="width: 30%"></div>
                         </div>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Download in Progress</div>
                         <div class="progress progress-info">
                             <div class="progress-bar" style="width: 70%"></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="section-content">
+                <p>Use semantic variants to convey status and meaning:</p>
+                <ul>
+                    <li><code>.progress</code> (default) - Standard operations and neutral progress</li>
+                    <li><code>.progress-success</code> - Completed tasks or successful operations</li>
+                    <li><code>.progress-warning</code> - Approaching limits or requiring attention</li>
+                    <li><code>.progress-error</code> - Failed operations or critical states</li>
+                    <li><code>.progress-info</code> - Informational progress or downloads</li>
+                </ul>
+            </div>
+        </div>
 
-            <div class="example-container">
-                <div class="example-label">Sizes</div>
-                <div class="example-demo">
-                    <div class="flex flex-col gap-3">
+        <!-- Sizes -->
+        <div class="example-container">
+            <div class="example-label">Sizes</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Small - Inline progress</div>
                         <div class="progress progress-sm">
                             <div class="progress-bar" style="width: 60%"></div>
                         </div>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Default - Standard progress</div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Large - Prominent progress</div>
                         <div class="progress progress-lg">
                             <div class="progress-bar" style="width: 60%"></div>
                         </div>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Extra Large - With label inside</div>
                         <div class="progress progress-xl">
                             <div class="progress-bar" style="width: 60%">60%</div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="section-content">
+                <p>Choose the appropriate size based on context:</p>
+                <ul>
+                    <li><code>.progress-sm</code> - Inline progress in compact spaces or table rows</li>
+                    <li>Default - Standard progress bars for most use cases</li>
+                    <li><code>.progress-lg</code> - More prominent progress for important operations</li>
+                    <li><code>.progress-xl</code> - Largest size, suitable for displaying percentage text inside the bar</li>
+                </ul>
+            </div>
+        </div>
 
-            <div class="example-container">
-                <div class="example-label">Indeterminate</div>
-                <div class="example-demo">
-                    <div class="progress progress-indeterminate">
-                        <div class="progress-bar"></div>
+        <!-- Indeterminate Progress -->
+        <div class="example-container">
+            <div class="example-label">Indeterminate Progress</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Processing data...</div>
+                        <div class="progress progress-indeterminate">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Connecting to server...</div>
+                        <div class="progress progress-indeterminate progress-info">
+                            <div class="progress-bar"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="section-content">
+                <p>Use indeterminate progress when you can't calculate the completion percentage. The animated bar indicates that work is happening without showing specific progress.</p>
+                <pre><code>&lt;div class="progress progress-indeterminate"&gt;
+  &lt;div class="progress-bar"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                <p><strong>When to use indeterminate:</strong></p>
+                <ul>
+                    <li>Initial loading or connection establishment</li>
+                    <li>Operations where duration is unknown</li>
+                    <li>Processing steps without measurable progress</li>
+                    <li>Waiting for external services or APIs</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- File Upload Progress -->
+        <div class="example-container">
+            <div class="example-label">File Upload Progress</div>
+            <div class="example-demo">
+                <div style="background: var(--color-bg-primary); padding: var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--color-border-medium);">
+                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                        <div style="width: 40px; height: 40px; background: var(--color-primary-subtle); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i data-lucide="file" style="width: 20px; height: 20px; color: var(--color-primary);"></i>
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary); margin-bottom: var(--space-1);">annual-report-2024.pdf</div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">2.4 MB of 3.2 MB • 45 seconds remaining</div>
+                        </div>
+                        <button class="btn btn-ghost btn-sm" style="flex-shrink: 0;">
+                            <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>File upload progress combines multiple elements to provide comprehensive feedback:</p>
+                <ul>
+                    <li>File icon and name for identification</li>
+                    <li>Current size and total size</li>
+                    <li>Time remaining estimate</li>
+                    <li>Cancel button for user control</li>
+                    <li>Progress bar showing completion percentage</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Multi-Step Progress -->
+        <div class="example-container">
+            <div class="example-label">Multi-Step Progress</div>
+            <div class="example-demo">
+                <div style="margin-bottom: var(--space-4);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-3);">
+                        <span style="font-size: var(--text-sm); color: var(--color-text-secondary);">Step 2 of 4: Payment Information</span>
+                        <span style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-primary);">50%</span>
+                    </div>
+                    <div class="progress progress-lg">
+                        <div class="progress-bar" style="width: 50%"></div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2);">
+                    <div style="text-align: center; padding: var(--space-2); background: var(--color-success-subtle); border-radius: var(--radius-sm);">
+                        <i data-lucide="check" style="width: 16px; height: 16px; color: var(--color-success); margin-bottom: var(--space-1);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">Account</div>
+                    </div>
+                    <div style="text-align: center; padding: var(--space-2); background: var(--color-primary-subtle); border-radius: var(--radius-sm);">
+                        <i data-lucide="credit-card" style="width: 16px; height: 16px; color: var(--color-primary); margin-bottom: var(--space-1);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-primary); font-weight: var(--font-semibold);">Payment</div>
+                    </div>
+                    <div style="text-align: center; padding: var(--space-2); opacity: 0.5;">
+                        <i data-lucide="truck" style="width: 16px; height: 16px; margin-bottom: var(--space-1);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-tertiary);">Shipping</div>
+                    </div>
+                    <div style="text-align: center; padding: var(--space-2); opacity: 0.5;">
+                        <i data-lucide="check-circle" style="width: 16px; height: 16px; margin-bottom: var(--space-1);"></i>
+                        <div style="font-size: var(--text-xs); color: var(--color-text-tertiary);">Confirm</div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>For multi-step processes, combine a progress bar with step indicators to show both overall progress and individual step status.</p>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+
+            <div class="section-content">
+                <h3>When to Use Progress Bars</h3>
+                <ul>
+                    <li><strong>File Uploads/Downloads:</strong> Show transfer progress with size and time estimates</li>
+                    <li><strong>Form Completion:</strong> Indicate how many steps remain in multi-step forms</li>
+                    <li><strong>Data Processing:</strong> Display progress for long-running operations</li>
+                    <li><strong>Installation/Updates:</strong> Show software installation or update progress</li>
+                    <li><strong>Loading Content:</strong> Indicate initial page load or data fetch progress</li>
+                </ul>
+
+                <h3>Determinate vs Indeterminate</h3>
+                <ul>
+                    <li><strong>Use Determinate</strong> when you can calculate percentage (file uploads, multi-step forms, batch processing with known item count)</li>
+                    <li><strong>Use Indeterminate</strong> when duration is unknown (connecting to services, processing with unknown length, waiting for external responses)</li>
+                    <li><strong>Transition:</strong> Start with indeterminate, then switch to determinate when percentage becomes available</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li>Always include a text label describing the operation</li>
+                    <li>Show percentage for determinate progress (visually or in label)</li>
+                    <li>Use <code>role="progressbar"</code> and <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code> attributes</li>
+                    <li>Provide time estimates when possible ("2 minutes remaining")</li>
+                    <li>Don't rely solely on color to convey meaning - combine with text and icons</li>
+                    <li>Ensure sufficient color contrast for progress bars (WCAG AA minimum)</li>
+                </ul>
+
+                <h3>Design Guidelines</h3>
+                <ul>
+                    <li><strong>Always show context:</strong> Label what's progressing and current status</li>
+                    <li><strong>Provide feedback:</strong> Update progress frequently enough to feel responsive (every 100-500ms)</li>
+                    <li><strong>Show completion:</strong> Don't hide progress bars immediately - let users see 100% briefly</li>
+                    <li><strong>Allow cancellation:</strong> For long operations, provide a way to cancel</li>
+                    <li><strong>Handle errors:</strong> Switch to error variant if operation fails, with clear messaging</li>
+                    <li><strong>Time estimates:</strong> Show remaining time for operations over 10 seconds</li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+
+                <p><strong>Loading State with Progress:</strong></p>
+                <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;div style="margin-bottom: 12px;"&gt;
+      &lt;span&gt;Loading dashboard data...&lt;/span&gt;
+      &lt;span style="float: right;"&gt;45%&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="progress"&gt;
+      &lt;div class="progress-bar" style="width: 45%"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                <p><strong>Upload with Cancel:</strong></p>
+                <pre><code>&lt;div style="display: flex; gap: 12px; align-items: center;"&gt;
+  &lt;div style="flex: 1;"&gt;
+    &lt;div style="margin-bottom: 8px;"&gt;
+      Uploading image.jpg (2.1 MB / 5.0 MB)
+    &lt;/div&gt;
+    &lt;div class="progress"&gt;
+      &lt;div class="progress-bar" style="width: 42%"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button class="btn btn-ghost btn-sm"&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+
+                <p><strong>Table Row Progress:</strong></p>
+                <pre><code>&lt;table class="table"&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;backup-2024.zip&lt;/td&gt;
+      &lt;td&gt;
+        &lt;div class="progress progress-sm"&gt;
+          &lt;div class="progress-bar" style="width: 67%"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/td&gt;
+      &lt;td&gt;67%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+
+                <p><strong>Success State:</strong></p>
+                <pre><code>&lt;div&gt;
+  &lt;div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"&gt;
+    &lt;i data-lucide="check-circle"&gt;&lt;/i&gt;
+    &lt;span&gt;Installation complete!&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="progress progress-success"&gt;
+    &lt;div class="progress-bar" style="width: 100%"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
 
     </main>
 
