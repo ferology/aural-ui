@@ -18,15 +18,23 @@
         .example-demo { padding: var(--space-8); background: var(--color-bg-secondary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); margin-bottom: var(--space-4); min-height: 120px; display: flex; align-items: center; }
         .section-content { font-size: var(--text-base); color: var(--color-text-secondary); line-height: 1.8; }
         .section-content code { background: var(--color-bg-tertiary); padding: 2px 6px; border-radius: var(--radius-sm); font-size: 0.9em; }
+        .section-content pre { background: var(--color-bg-tertiary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto; margin: var(--space-4) 0; }
+        .section-content pre code { background: none; padding: 0; }
+        .content-section { margin-bottom: var(--space-12); }
+        .section-title { font-size: var(--text-2xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-6) 0; }
+        .section-content h3 { font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+        .section-content ul { margin: 0 0 var(--space-4) 0; padding-left: var(--space-6); }
+        .section-content li { margin-bottom: var(--space-2); }
     </style>
 </head>
 <body>
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Dropdowns</h1>
-            <p class="page-description">Reveal contextual menus and actions on demand. Dropdowns display a list of options when triggered.</p>
+            <p class="page-description">Reveal contextual menus and actions on demand. Dropdowns display a list of options or actions when triggered, providing access to secondary functions without cluttering the interface.</p>
         </div>
 
+        <!-- Basic Dropdown -->
         <div class="example-container">
             <div class="example-label">Basic Dropdown</div>
             <div class="example-demo">
@@ -45,17 +53,76 @@
                 </div>
             </div>
             <div class="section-content">
-                <p>Basic dropdown with menu items. Click the button to reveal options.</p>
-                <pre><code>&lt;div class="dropdown" id="dropdown-id"&gt;
-  &lt;button class="dropdown-trigger"&gt;Options&lt;/button&gt;
+                <p>Basic dropdown with a button trigger and menu items. Click the button to reveal options. The dropdown requires a unique <code>id</code> attribute.</p>
+                <pre><code>&lt;div class="dropdown" id="dropdown-basic"&gt;
+  &lt;button class="dropdown-trigger"&gt;
+    Options
+  &lt;/button&gt;
   &lt;div class="dropdown-menu"&gt;
     &lt;a class="dropdown-item"&gt;Profile&lt;/a&gt;
     &lt;a class="dropdown-item"&gt;Settings&lt;/a&gt;
+    &lt;div class="dropdown-divider"&gt;&lt;/div&gt;
+    &lt;a class="dropdown-item"&gt;Sign Out&lt;/a&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
             </div>
         </div>
 
+        <!-- Button Variants -->
+        <div class="example-container">
+            <div class="example-label">Button Variants</div>
+            <div class="example-demo">
+                <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                    <div class="dropdown" id="dropdown-primary">
+                        <button class="btn btn-primary dropdown-trigger" aria-expanded="false">
+                            Primary
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Action 1</a>
+                            <a href="#" class="dropdown-item">Action 2</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown" id="dropdown-secondary">
+                        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false">
+                            Secondary
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Action 1</a>
+                            <a href="#" class="dropdown-item">Action 2</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown" id="dropdown-ghost">
+                        <button class="btn btn-ghost dropdown-trigger" aria-expanded="false">
+                            Ghost
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Action 1</a>
+                            <a href="#" class="dropdown-item">Action 2</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown" id="dropdown-icon">
+                        <button class="btn btn-ghost btn-icon dropdown-trigger" aria-expanded="false" aria-label="More options">
+                            <i data-lucide="more-vertical" style="width: 20px; height: 20px;"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Action 1</a>
+                            <a href="#" class="dropdown-item">Action 2</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Use different button variants based on context. Icon-only buttons are perfect for table row actions or compact toolbars.</p>
+            </div>
+        </div>
+
+        <!-- Dropdown with Icons -->
         <div class="example-container">
             <div class="example-label">Dropdown with Icons</div>
             <div class="example-demo">
@@ -77,6 +144,10 @@
                             <i data-lucide="share-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
                             Share
                         </a>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="download" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Download
+                        </a>
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item" style="color: var(--color-error);">
                             <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
@@ -86,37 +157,229 @@
                 </div>
             </div>
             <div class="section-content">
-                <p>Add icons to menu items for better scanability. Use <code>.dropdown-divider</code> to separate destructive actions.</p>
+                <p>Add icons before labels to improve scanability and provide visual cues for different action types. Use <code>.dropdown-divider</code> to separate destructive actions.</p>
             </div>
         </div>
 
+        <!-- User Menu -->
         <div class="example-container">
-            <div class="example-label">Icon-Only Dropdown</div>
+            <div class="example-label">User Menu (Common Pattern)</div>
             <div class="example-demo">
-                <div class="dropdown" id="dropdown-icon-only">
-                    <button class="btn btn-ghost btn-icon dropdown-trigger" aria-expanded="false" aria-label="More options">
-                        <i data-lucide="more-vertical" style="width: 20px; height: 20px;"></i>
+                <div class="dropdown" id="dropdown-user">
+                    <button class="btn btn-ghost dropdown-trigger" aria-expanded="false" style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); display: flex; align-items: center; justify-content: center; color: white; font-weight: var(--font-semibold); font-size: var(--text-sm);">
+                            JD
+                        </div>
+                        <span>John Doe</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
                     </button>
-                    <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">View Details</a>
-                        <a href="#" class="dropdown-item">Edit</a>
-                        <a href="#" class="dropdown-item">Archive</a>
+                    <div class="dropdown-menu" style="min-width: 220px;">
+                        <div style="padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-subtle);">
+                            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">John Doe</div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">john.doe@example.com</div>
+                        </div>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="user" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Your Profile
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="settings" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Settings
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="credit-card" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Billing
+                        </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item" style="color: var(--color-error);">Delete</a>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="help-circle" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Help & Support
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="log-out" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                            Sign Out
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="section-content">
-                <p>Perfect for table row actions or compact toolbars. Always include <code>aria-label</code> on icon-only buttons.</p>
+                <p>Common user menu pattern with avatar, user info header, account actions, and sign out. Include user name and email in the header section for context.</p>
             </div>
         </div>
+
+        <!-- Dropdown with Badges -->
+        <div class="example-container">
+            <div class="example-label">Dropdown with Badges</div>
+            <div class="example-demo">
+                <div class="dropdown" id="dropdown-notifications">
+                    <button class="btn btn-secondary dropdown-trigger" aria-expanded="false">
+                        Notifications
+                        <span class="badge badge-error badge-sm" style="margin-left: 8px;">3</span>
+                        <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                    </button>
+                    <div class="dropdown-menu" style="min-width: 280px;">
+                        <div class="dropdown-item" style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>New Messages</span>
+                            <span class="badge badge-error badge-sm">2</span>
+                        </div>
+                        <div class="dropdown-item" style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Team Updates</span>
+                            <span class="badge badge-warning badge-sm">1</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <span>System Alerts</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" style="text-align: center; color: var(--color-primary);">
+                            View All Notifications
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Display notification counts or status indicators using badges on both the trigger button and menu items.</p>
+            </div>
+        </div>
+
+        <!-- Table Actions Pattern -->
+        <div class="example-container">
+            <div class="example-label">Table Row Actions</div>
+            <div class="example-demo" style="display: block;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th style="width: 50px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Project Alpha</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>Jan 26, 2026</td>
+                            <td>
+                                <div class="dropdown" id="dropdown-table-1">
+                                    <button class="btn btn-ghost btn-icon btn-sm dropdown-trigger" aria-expanded="false" aria-label="Row actions">
+                                        <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="#" class="dropdown-item">
+                                            <i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                            View
+                                        </a>
+                                        <a href="#" class="dropdown-item">
+                                            <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                            Edit
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item" style="color: var(--color-error);">
+                                            <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Project Beta</td>
+                            <td><span class="badge badge-warning">Pending</span></td>
+                            <td>Jan 25, 2026</td>
+                            <td>
+                                <div class="dropdown" id="dropdown-table-2">
+                                    <button class="btn btn-ghost btn-icon btn-sm dropdown-trigger" aria-expanded="false" aria-label="Row actions">
+                                        <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="#" class="dropdown-item">
+                                            <i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                            View
+                                        </a>
+                                        <a href="#" class="dropdown-item">
+                                            <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                            Edit
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item" style="color: var(--color-error);">
+                                            <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section-content">
+                <p>Icon-only dropdown buttons save space in table rows. Use <code>.dropdown-menu-right</code> to align the menu to the right edge, preventing overflow.</p>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="section-content">
+                <h3>When to Use Dropdowns</h3>
+                <ul>
+                    <li><strong>Action Menus:</strong> Provide multiple actions for an item (edit, share, delete)</li>
+                    <li><strong>User Menus:</strong> Account settings, profile, sign out options</li>
+                    <li><strong>Bulk Actions:</strong> Actions on selected table rows or list items</li>
+                    <li><strong>View Options:</strong> Filter, sort, or display options for content</li>
+                    <li><strong>Navigation Overflow:</strong> Secondary navigation items that don't fit in primary nav</li>
+                </ul>
+
+                <h3>Dropdown Organization</h3>
+                <ul>
+                    <li><strong>Logical Grouping:</strong> Group related actions together with dividers</li>
+                    <li><strong>Frequent First:</strong> Place most common actions at the top</li>
+                    <li><strong>Destructive Last:</strong> Place delete/remove actions at the bottom, separated by a divider</li>
+                    <li><strong>Color for Danger:</strong> Use red/error color for destructive actions to warn users</li>
+                    <li><strong>Consistent Order:</strong> Keep menu item order consistent across your application</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li>Use semantic <code>&lt;button&gt;</code> elements for triggers</li>
+                    <li>Add <code>aria-expanded</code> attribute to show open/closed state</li>
+                    <li>Support keyboard navigation: Enter/Space to open, Arrow keys to navigate, Esc to close</li>
+                    <li>Use <code>aria-label</code> on icon-only buttons (e.g., "More options")</li>
+                    <li>Each dropdown must have a unique <code>id</code> attribute</li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <p><strong>Simple Action Menu:</strong></p>
+                <pre><code>&lt;div class="dropdown" id="actions"&gt;
+  &lt;button class="btn btn-secondary dropdown-trigger"&gt;
+    Actions
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu"&gt;
+    &lt;a class="dropdown-item"&gt;Edit&lt;/a&gt;
+    &lt;a class="dropdown-item"&gt;Share&lt;/a&gt;
+    &lt;div class="dropdown-divider"&gt;&lt;/div&gt;
+    &lt;a class="dropdown-item"&gt;Delete&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                <p><strong>Table Row Actions:</strong></p>
+                <pre><code>&lt;div class="dropdown" id="row-1"&gt;
+  &lt;button class="btn btn-ghost btn-icon dropdown-trigger"&gt;
+    &lt;i data-lucide="more-vertical"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu dropdown-menu-right"&gt;
+    &lt;a class="dropdown-item"&gt;View&lt;/a&gt;
+    &lt;a class="dropdown-item"&gt;Edit&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
     </main>
     <script src="../aural-ui.js?v=1769438626"></script>
     <script>
-        // Initialize Lucide icons
         lucide.createIcons();
-
-        // Explicitly initialize dropdowns
         if (typeof Aural !== 'undefined' && Aural.initDropdowns) {
             Aural.initDropdowns();
         }
