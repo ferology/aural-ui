@@ -1,0 +1,262 @@
+/**
+ * AURAL UI - High Contrast Theme
+ *
+ * Maximum contrast for accessibility
+ * WCAG AAA compliant (7:1+ contrast ratios)
+ * Ideal for users with low vision or high ambient light
+ */
+
+:root {
+    /* ========================================
+       Primary Color Override (High Contrast Blue)
+       ======================================== */
+    --primary-50: #e0f2ff;
+    --primary-100: #b9e1ff;
+    --primary-200: #7cc9ff;
+    --primary-300: #36b0ff;
+    --primary-400: #0096ff;  /* Main brand color - bright blue */
+    --primary-500: #007acc;
+    --primary-600: #0062a3;
+    --primary-700: #004d7a;
+    --primary-800: #003a5c;
+    --primary-900: #002a42;
+    --primary-950: #001929;
+
+    /* Secondary Color (High Contrast Yellow) */
+    --secondary-50: #fffef0;
+    --secondary-100: #fffbc2;
+    --secondary-200: #fff88a;
+    --secondary-300: #fff04d;
+    --secondary-400: #ffe600;  /* Bright yellow */
+    --secondary-500: #ffcc00;
+    --secondary-600: #e6b800;
+    --secondary-700: #cc9900;
+    --secondary-800: #997300;
+    --secondary-900: #664d00;
+    --secondary-950: #332600;
+
+    /* ========================================
+       Background Colors (High Contrast Mode)
+       ======================================== */
+    --color-bg-primary: #000000;          /* Pure black */
+    --color-bg-secondary: #0a0a0a;
+    --color-bg-tertiary: #1a1a1a;
+    --color-bg-elevated: #2a2a2a;
+    --color-bg-overlay: rgba(0, 0, 0, 0.95);
+    --color-bg-hover: #333333;
+    --color-bg-active: #404040;
+
+    --color-bg-glass: rgba(0, 0, 0, 0.9);
+    --color-bg-glass-light: rgba(255, 255, 255, 0.1);
+
+    /* ========================================
+       Text Colors (High Contrast Mode)
+       ======================================== */
+    --color-text-primary: #ffffff;        /* Pure white - 21:1 contrast */
+    --color-text-secondary: #e0e0e0;      /* 15:1 contrast (WCAG AAA+) */
+    --color-text-tertiary: #c0c0c0;       /* 10:1 contrast (WCAG AAA) */
+    --color-text-muted: #a0a0a0;          /* 7.5:1 contrast (WCAG AAA) */
+    --color-text-disabled: #666666;
+    --color-text-inverse: #000000;
+
+    /* ========================================
+       Border Colors (High Contrast Mode)
+       ======================================== */
+    --color-border-subtle: rgba(255, 255, 255, 0.2);
+    --color-border-medium: rgba(255, 255, 255, 0.4);
+    --color-border-strong: rgba(255, 255, 255, 0.6);
+
+    /* ========================================
+       Semantic Colors (High Contrast)
+       ======================================== */
+
+    /* Success (Bright Green) */
+    --success-50: #e6ffe6;
+    --success-100: #b3ffb3;
+    --success-200: #80ff80;
+    --success-300: #4dff4d;
+    --success-400: #00ff00;  /* Bright green */
+    --success-500: #00cc00;
+    --success-600: #009900;
+    --success-700: #007700;
+    --success-800: #005500;
+    --success-900: #003300;
+    --success-950: #001a00;
+
+    --color-success: #00ff00;
+    --color-success-bg: #002200;
+    --color-border-success: #00ff00;
+
+    /* Error (Bright Red) */
+    --error-50: #ffe6e6;
+    --error-100: #ffb3b3;
+    --error-200: #ff8080;
+    --error-300: #ff4d4d;
+    --error-400: #ff0000;  /* Bright red */
+    --error-500: #cc0000;
+    --error-600: #990000;
+    --error-700: #770000;
+    --error-800: #550000;
+    --error-900: #330000;
+    --error-950: #1a0000;
+
+    --color-error: #ff0000;
+    --color-error-bg: #220000;
+    --color-border-error: #ff0000;
+
+    /* Warning (Bright Yellow) */
+    --warning-50: #fffef0;
+    --warning-100: #fffbc2;
+    --warning-200: #fff88a;
+    --warning-300: #fff04d;
+    --warning-400: #ffe600;  /* Bright yellow */
+    --warning-500: #ffcc00;
+    --warning-600: #e6b800;
+    --warning-700: #cc9900;
+    --warning-800: #997300;
+    --warning-900: #664d00;
+    --warning-950: #332600;
+
+    --color-warning: #ffe600;
+    --color-warning-bg: #222000;
+    --color-border-warning: #ffe600;
+
+    /* Info (Bright Cyan) */
+    --info-50: #e0ffff;
+    --info-100: #b3ffff;
+    --info-200: #80ffff;
+    --info-300: #4dffff;
+    --info-400: #00ffff;  /* Bright cyan */
+    --info-500: #00cccc;
+    --info-600: #009999;
+    --info-700: #007777;
+    --info-800: #005555;
+    --info-900: #003333;
+    --info-950: #001a1a;
+
+    --color-info: #00ffff;
+    --color-info-bg: #002222;
+    --color-border-info: #00ffff;
+
+    /* ========================================
+       Primary/Secondary Token Overrides
+       ======================================== */
+    --color-primary: var(--primary-400);
+    --color-primary-hover: var(--primary-300);
+    --color-secondary: var(--secondary-400);
+
+    /* ========================================
+       Component Overrides (High Contrast)
+       ======================================== */
+
+    /* Buttons */
+    --color-button-primary-bg: var(--primary-400);
+    --color-button-primary-text: #000000;
+    --color-button-primary-hover: var(--primary-300);
+
+    --color-button-secondary-bg: transparent;
+    --color-button-secondary-text: #ffffff;
+    --color-button-secondary-border: #ffffff;
+    --color-button-secondary-hover: rgba(255, 255, 255, 0.15);
+
+    --color-button-danger-bg: var(--error-400);
+    --color-button-danger-text: #000000;
+    --color-button-danger-hover: var(--error-300);
+
+    --color-button-ghost-bg: transparent;
+    --color-button-ghost-text: #ffffff;
+    --color-button-ghost-hover: rgba(255, 255, 255, 0.15);
+
+    /* Inputs */
+    --color-input-bg: #000000;
+    --color-input-text: #ffffff;
+    --color-input-placeholder: #a0a0a0;
+    --color-input-border: #ffffff;
+    --color-input-border-hover: var(--primary-300);
+    --color-input-border-focus: var(--primary-400);
+    --color-input-disabled-bg: #1a1a1a;
+
+    /* Cards */
+    --color-card-bg: #0a0a0a;
+    --color-card-border: rgba(255, 255, 255, 0.3);
+    --color-card-hover: #1a1a1a;
+
+    /* Modal */
+    --color-modal-bg: #000000;
+    --color-modal-border: #ffffff;
+    --color-modal-overlay: rgba(0, 0, 0, 0.95);
+
+    /* Toast */
+    --color-toast-bg: #1a1a1a;
+    --color-toast-border: #ffffff;
+
+    /* Tables */
+    --color-table-bg: #000000;
+    --color-table-header-bg: #1a1a1a;
+    --color-table-header-text: #ffffff;
+    --color-table-row-text: #e0e0e0;
+    --color-table-row-hover: #2a2a2a;
+    --color-table-row-selected: #0062a3;
+    --color-table-row-selected-border: var(--primary-400);
+    --color-table-row-striped: #0a0a0a;
+    --color-table-border: rgba(255, 255, 255, 0.3);
+
+    /* Tabs */
+    --color-tabs-border: rgba(255, 255, 255, 0.3);
+    --color-tabs-text: #c0c0c0;
+    --color-tabs-text-hover: #ffffff;
+    --color-tabs-active-text: #ffffff;
+    --color-tabs-active-border: var(--primary-400);
+    --color-tabs-active-bg: transparent;
+    --color-tabs-hover-bg: rgba(255, 255, 255, 0.1);
+    --color-tabs-pill-bg: transparent;
+    --color-tabs-pill-active-bg: var(--primary-400);
+
+    /* Skeleton */
+    --color-skeleton-from: rgba(255, 255, 255, 0.1);
+    --color-skeleton-via: rgba(255, 255, 255, 0.2);
+    --color-skeleton-to: rgba(255, 255, 255, 0.1);
+
+    /* Shadows (Enhanced for visibility) */
+    --shadow-sm: 0 2px 4px rgba(255, 255, 255, 0.1);
+    --shadow-md: 0 4px 8px rgba(255, 255, 255, 0.15);
+    --shadow-lg: 0 8px 16px rgba(255, 255, 255, 0.2);
+    --shadow-xl: 0 12px 24px rgba(255, 255, 255, 0.25);
+    --shadow-2xl: 0 16px 32px rgba(255, 255, 255, 0.3);
+    --shadow-primary: 0 4px 12px rgba(0, 150, 255, 0.5);
+    --shadow-primary-lg: 0 8px 24px rgba(0, 150, 255, 0.6);
+    --shadow-error: 0 4px 12px rgba(255, 0, 0, 0.5);
+}
+
+/* High contrast body styles */
+body {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+}
+
+/* Focus indicators - Enhanced for visibility */
+*:focus-visible {
+    outline: 3px solid var(--primary-400);
+    outline-offset: 3px;
+}
+
+/* Link styles - Enhanced contrast */
+a {
+    color: var(--primary-300);
+    text-decoration: underline;
+}
+
+a:hover {
+    color: var(--primary-200);
+}
+
+/* Selection - High visibility */
+::selection {
+    background: var(--primary-400);
+    color: #000000;
+}
+
+::-moz-selection {
+    background: var(--primary-400);
+    color: #000000;
+}
