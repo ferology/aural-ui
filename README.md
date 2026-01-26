@@ -19,7 +19,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
 - 🌓 **Dark & Light Themes** - Both themes included, seamlessly switchable
 - ♿ **Accessibility First** - ~95% WCAG 2.1 AA compliant with comprehensive ARIA support
-- 📦 **59 Components** - Everything from buttons to notification centers
+- 📦 **61 Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
 - 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
@@ -35,9 +35,9 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 
 ### Quick Start
 - **[Navigation Hub](docs/nav.html)** - Central navigation for all documentation
-- **[Project Structure](docs/project-tree.html)** - Complete component hierarchy (59 components organized by category)
+- **[Project Structure](docs/project-tree.html)** - Complete component hierarchy (61 components organized by category)
 - **[Getting Started Tutorial](docs/tutorial.html)** - 5-step interactive tutorial
-- **[Component Showcase](docs/index.html)** - All 59 components with live demos
+- **[Component Showcase](docs/index.html)** - All 61 components with live demos
 
 ### Complete Documentation
 - **[API Reference](docs/api.html)** - 25+ JavaScript methods with interactive playgrounds
@@ -238,6 +238,8 @@ npm run serve
 - **File Upload** - Drag-and-drop with validation and progress tracking
 - **Date Picker** - Calendar component with date selection
 - **Time Picker** - Time selection with 12/24 hour format support
+- **Calendar** - Full month view calendar with navigation and events
+- **Date Range Picker** - Select start and end dates with dual calendars
 
 ### Navigation
 - **Navigation Bar** - Horizontal top navigation with logo, links, dropdowns, and mobile menu

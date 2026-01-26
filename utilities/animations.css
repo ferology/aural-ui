@@ -428,6 +428,124 @@
 }
 
 /* ========================================
+   Opacity Utilities
+   ======================================== */
+
+.opacity-0 { opacity: 0; }
+.opacity-5 { opacity: 0.05; }
+.opacity-10 { opacity: 0.1; }
+.opacity-20 { opacity: 0.2; }
+.opacity-25 { opacity: 0.25; }
+.opacity-30 { opacity: 0.3; }
+.opacity-40 { opacity: 0.4; }
+.opacity-50 { opacity: 0.5; }
+.opacity-60 { opacity: 0.6; }
+.opacity-70 { opacity: 0.7; }
+.opacity-75 { opacity: 0.75; }
+.opacity-80 { opacity: 0.8; }
+.opacity-90 { opacity: 0.9; }
+.opacity-95 { opacity: 0.95; }
+.opacity-100 { opacity: 1; }
+
+/* Hover opacity modifiers */
+.hover\:opacity-0:hover { opacity: 0; }
+.hover\:opacity-50:hover { opacity: 0.5; }
+.hover\:opacity-75:hover { opacity: 0.75; }
+.hover\:opacity-100:hover { opacity: 1; }
+
+/* ========================================
+   Transform Utilities
+   ======================================== */
+
+/* Scale */
+.scale-0 { transform: scale(0); }
+.scale-50 { transform: scale(0.5); }
+.scale-75 { transform: scale(0.75); }
+.scale-90 { transform: scale(0.9); }
+.scale-95 { transform: scale(0.95); }
+.scale-100 { transform: scale(1); }
+.scale-105 { transform: scale(1.05); }
+.scale-110 { transform: scale(1.1); }
+.scale-125 { transform: scale(1.25); }
+.scale-150 { transform: scale(1.5); }
+
+/* Rotate */
+.rotate-0 { transform: rotate(0deg); }
+.rotate-45 { transform: rotate(45deg); }
+.rotate-90 { transform: rotate(90deg); }
+.rotate-180 { transform: rotate(180deg); }
+.rotate-270 { transform: rotate(270deg); }
+.-rotate-45 { transform: rotate(-45deg); }
+.-rotate-90 { transform: rotate(-90deg); }
+.-rotate-180 { transform: rotate(-180deg); }
+
+/* Translate */
+.translate-x-0 { transform: translateX(0); }
+.translate-x-1 { transform: translateX(var(--space-1)); }
+.translate-x-2 { transform: translateX(var(--space-2)); }
+.translate-x-4 { transform: translateX(var(--space-4)); }
+.translate-x-8 { transform: translateX(var(--space-8)); }
+.translate-x-12 { transform: translateX(var(--space-12)); }
+.translate-x-16 { transform: translateX(var(--space-16)); }
+.-translate-x-1 { transform: translateX(calc(var(--space-1) * -1)); }
+.-translate-x-2 { transform: translateX(calc(var(--space-2) * -1)); }
+.-translate-x-4 { transform: translateX(calc(var(--space-4) * -1)); }
+.-translate-x-8 { transform: translateX(calc(var(--space-8) * -1)); }
+.-translate-x-12 { transform: translateX(calc(var(--space-12) * -1)); }
+
+.translate-y-0 { transform: translateY(0); }
+.translate-y-1 { transform: translateY(var(--space-1)); }
+.translate-y-2 { transform: translateY(var(--space-2)); }
+.translate-y-4 { transform: translateY(var(--space-4)); }
+.translate-y-8 { transform: translateY(var(--space-8)); }
+.translate-y-12 { transform: translateY(var(--space-12)); }
+.translate-y-16 { transform: translateY(var(--space-16)); }
+.-translate-y-1 { transform: translateY(calc(var(--space-1) * -1)); }
+.-translate-y-2 { transform: translateY(calc(var(--space-2) * -1)); }
+.-translate-y-4 { transform: translateY(calc(var(--space-4) * -1)); }
+.-translate-y-8 { transform: translateY(calc(var(--space-8) * -1)); }
+.-translate-y-12 { transform: translateY(calc(var(--space-12) * -1)); }
+
+/* Translate by percentage */
+.translate-x-1\/2 { transform: translateX(50%); }
+.translate-x-full { transform: translateX(100%); }
+.-translate-x-1\/2 { transform: translateX(-50%); }
+.-translate-x-full { transform: translateX(-100%); }
+
+.translate-y-1\/2 { transform: translateY(50%); }
+.translate-y-full { transform: translateY(100%); }
+.-translate-y-1\/2 { transform: translateY(-50%); }
+.-translate-y-full { transform: translateY(-100%); }
+
+/* Skew */
+.skew-x-0 { transform: skewX(0deg); }
+.skew-x-3 { transform: skewX(3deg); }
+.skew-x-6 { transform: skewX(6deg); }
+.skew-x-12 { transform: skewX(12deg); }
+.-skew-x-3 { transform: skewX(-3deg); }
+.-skew-x-6 { transform: skewX(-6deg); }
+.-skew-x-12 { transform: skewX(-12deg); }
+
+.skew-y-0 { transform: skewY(0deg); }
+.skew-y-3 { transform: skewY(3deg); }
+.skew-y-6 { transform: skewY(6deg); }
+.skew-y-12 { transform: skewY(12deg); }
+.-skew-y-3 { transform: skewY(-3deg); }
+.-skew-y-6 { transform: skewY(-6deg); }
+.-skew-y-12 { transform: skewY(-12deg); }
+
+/* Transform Origin */
+.origin-center { transform-origin: center; }
+.origin-top { transform-origin: top; }
+.origin-top-right { transform-origin: top right; }
+.origin-right { transform-origin: right; }
+.origin-bottom-right { transform-origin: bottom right; }
+.origin-bottom { transform-origin: bottom; }
+.origin-bottom-left { transform-origin: bottom left; }
+.origin-left { transform-origin: left; }
+.origin-top-left { transform-origin: top left; }
+
+/* ========================================
    Accessibility: Respect Reduced Motion
    ======================================== */
 

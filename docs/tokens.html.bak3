@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Tokens - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css?v=9">
+
+    <!-- Choose theme -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+
+    <!-- Lucide Icons (MIT License) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar Navigation */
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        
+
+        
+
+        
+
+        
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        
+            50% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        /* Main Content */
+        .main-content {
+            
+            flex: 1;
+            padding: var(--space-8);
+            max-width: calc(1400px + 280px);
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-4);
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* Token Category */
+        .token-category {
+            margin-bottom: var(--space-12);
+        }
+
+        .category-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-3);
+            padding-bottom: var(--space-3);
+            border-bottom: 2px solid var(--color-border-subtle);
+        }
+
+        .category-description {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-3);
+            line-height: var(--leading-relaxed);
+        }
+
+        /* Color Swatches */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-3);
+        }
+
+        .color-swatch {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition-all-fast);
+        }
+
+        .color-swatch:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .swatch-color {
+            height: 100px;
+            border-bottom: 1px solid var(--color-border-subtle);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .swatch-label {
+            padding: var(--space-2);
+        }
+
+        .swatch-name {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            font-family: var(--font-mono);
+        }
+
+        .swatch-value {
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        /* Spacing Grid */
+        .spacing-grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+
+        .spacing-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+        }
+
+        .spacing-visual {
+            width: 120px;
+            height: 40px;
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-sm);
+            position: relative;
+        }
+
+        .spacing-bar {
+            height: 100%;
+            background: var(--color-primary);
+            border-radius: var(--radius-sm);
+        }
+
+        .spacing-info {
+            flex: 1;
+        }
+
+        .spacing-name {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            font-family: var(--font-mono);
+        }
+
+        .spacing-value {
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        /* Typography Samples */
+        .typography-sample {
+            margin-bottom: var(--space-3);
+            padding: var(--space-4);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+        }
+
+        .typography-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-3);
+            padding-bottom: var(--space-3);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .typography-token {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            font-family: var(--font-mono);
+        }
+
+        .typography-spec {
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        .typography-preview {
+            color: var(--color-text-primary);
+        }
+
+        /* Radius Examples */
+        .radius-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .radius-item {
+            text-align: center;
+        }
+
+        .radius-box {
+            width: 100%;
+            height: 100px;
+            background: var(--color-primary);
+            margin-bottom: var(--space-3);
+        }
+
+        .radius-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            font-family: var(--font-mono);
+            margin-bottom: var(--space-1);
+        }
+
+        .radius-value {
+            font-size: var(--text-xs);
+            color: var(--color-text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        /* Shadow Examples */
+        .shadow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .shadow-item {
+            text-align: center;
+        }
+
+        .shadow-box {
+            width: 100%;
+            height: 120px;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shadow-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            font-family: var(--font-mono);
+        }
+
+        /* Copy Button */
+        .copy-token-btn {
+            padding: var(--space-1) var(--space-2);
+            background: transparent;
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-sm);
+            color: var(--color-text-secondary);
+            font-size: var(--text-xs);
+            cursor: pointer;
+            transition: var(--transition-all-fast);
+            font-family: var(--font-mono);
+        }
+
+        .copy-token-btn:hover {
+            background: var(--color-bg-hover);
+            color: var(--color-text-primary);
+            border-color: var(--color-primary);
+        }
+        /* Mobile Header */
+        
+
+        /* Mobile Menu Toggle */
+        
+
+        
+
+        /* Sidebar Overlay */
+        
+
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            z-index: 1000;
+        }
+
+                
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    
+    </div>
+
+    <!-- Sidebar Overlay -->
+    
+
+    <!-- Sidebar Navigation -->
+    
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Design Tokens</h1>
+            <p class="page-description">
+                Aural UI uses design tokens (CSS custom properties) for all design decisions. This ensures consistency and makes theming straightforward. Copy any token name to use in your custom CSS.
+            </p>
+        </div>
+
+        <!-- In-Page Navigation -->
+        <nav class="card" style="margin-bottom: var(--space-8); padding: var(--space-4);">
+            <div style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-3);">On This Page</div>
+            <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                <a href="#colors" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Colors</a>
+                <a href="#spacing" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Spacing</a>
+                <a href="#typography" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Typography</a>
+                <a href="#radius" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Border Radius</a>
+                <a href="#shadows" style="color: var(--color-primary); text-decoration: none; font-size: var(--text-sm);">Shadows</a>
+            </div>
+        </nav>
+
+        <!-- COLORS -->
+        <section class="token-category" id="colors">
+            <h2 class="category-title">Colors</h2>
+            <p class="category-description">
+                Color scales from 50 (lightest) to 950 (darkest). Each scale provides semantic meaning and maintains WCAG AA contrast standards.
+            </p>
+
+            <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-8); margin-bottom: var(--space-4);">Primary Colors</h3>
+            <div class="color-grid">
+                <div class="color-swatch" onclick="copyToken('--primary-50')">
+                    <div class="swatch-color" style="background: var(--primary-50);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--primary-50</div>
+                        <div class="swatch-value">Lightest</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--primary-100')">
+                    <div class="swatch-color" style="background: var(--primary-100);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--primary-100</div>
+                        <div class="swatch-value">Very Light</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--primary-200')">
+                    <div class="swatch-color" style="background: var(--primary-200);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--primary-200</div>
+                        <div class="swatch-value">Light</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--primary-300')">
+                    <div class="swatch-color" style="background: var(--primary-300);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--primary-300</div>
+                        <div class="swatch-value">Light+</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--primary-500')">
+                    <div class="swatch-color" style="background: var(--primary-500);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--primary-500</div>
+                        <div class="swatch-value">Main Brand</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--primary-600')">
+                    <div class="swatch-color" style="background: var(--primary-600);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--primary-600</div>
+                        <div class="swatch-value">Darker</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--primary-700')">
+                    <div class="swatch-color" style="background: var(--primary-700);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--primary-700</div>
+                        <div class="swatch-value">Dark</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--primary-900')">
+                    <div class="swatch-color" style="background: var(--primary-900);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--primary-900</div>
+                        <div class="swatch-value">Darkest</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-8); margin-bottom: var(--space-4);">Semantic Colors</h3>
+            <div class="color-grid">
+                <div class="color-swatch" onclick="copyToken('--success-500')">
+                    <div class="swatch-color" style="background: var(--success-500);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--success-500</div>
+                        <div class="swatch-value">Success</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--warning-500')">
+                    <div class="swatch-color" style="background: var(--warning-500);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--warning-500</div>
+                        <div class="swatch-value">Warning</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--error-500')">
+                    <div class="swatch-color" style="background: var(--error-500);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--error-500</div>
+                        <div class="swatch-value">Error/Danger</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--info-500')">
+                    <div class="swatch-color" style="background: var(--info-500);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--info-500</div>
+                        <div class="swatch-value">Info</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-8); margin-bottom: var(--space-4);">Extended Colors</h3>
+            <div class="color-grid">
+                <div class="color-swatch" onclick="copyToken('--purple-500')">
+                    <div class="swatch-color" style="background: var(--purple-500);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--purple-500</div>
+                        <div class="swatch-value">Purple</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--pink-500')">
+                    <div class="swatch-color" style="background: var(--pink-500);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--pink-500</div>
+                        <div class="swatch-value">Pink</div>
+                    </div>
+                </div>
+                <div class="color-swatch" onclick="copyToken('--amber-500')">
+                    <div class="swatch-color" style="background: var(--amber-500);"></div>
+                    <div class="swatch-label">
+                        <div class="swatch-name">--amber-500</div>
+                        <div class="swatch-value">Amber</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPACING -->
+        <section class="token-category" id="spacing">
+            <h2 class="category-title">Spacing</h2>
+            <p class="category-description">
+                Spacing scale based on a 4px (0.25rem) unit for consistent layouts. Use these tokens for margin, padding, and gap properties.
+            </p>
+
+            <div class="spacing-grid">
+                <div class="spacing-item">
+                    <div class="spacing-visual">
+                        <div class="spacing-bar" style="width: 4px;"></div>
+                    </div>
+                    <div class="spacing-info">
+                        <div class="spacing-name">--space-1</div>
+                        <div class="spacing-value">0.25rem (4px)</div>
+                    </div>
+                    <button class="copy-token-btn" onclick="copyToken('var(--space-1)')">Copy</button>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual">
+                        <div class="spacing-bar" style="width: 8px;"></div>
+                    </div>
+                    <div class="spacing-info">
+                        <div class="spacing-name">--space-2</div>
+                        <div class="spacing-value">0.5rem (8px)</div>
+                    </div>
+                    <button class="copy-token-btn" onclick="copyToken('var(--space-2)')">Copy</button>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual">
+                        <div class="spacing-bar" style="width: 12px;"></div>
+                    </div>
+                    <div class="spacing-info">
+                        <div class="spacing-name">--space-3</div>
+                        <div class="spacing-value">0.75rem (12px)</div>
+                    </div>
+                    <button class="copy-token-btn" onclick="copyToken('var(--space-3)')">Copy</button>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual">
+                        <div class="spacing-bar" style="width: 16px;"></div>
+                    </div>
+                    <div class="spacing-info">
+                        <div class="spacing-name">--space-4</div>
+                        <div class="spacing-value">1rem (16px)</div>
+                    </div>
+                    <button class="copy-token-btn" onclick="copyToken('var(--space-4)')">Copy</button>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual">
+                        <div class="spacing-bar" style="width: 24px;"></div>
+                    </div>
+                    <div class="spacing-info">
+                        <div class="spacing-name">--space-6</div>
+                        <div class="spacing-value">1.5rem (24px)</div>
+                    </div>
+                    <button class="copy-token-btn" onclick="copyToken('var(--space-6)')">Copy</button>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual">
+                        <div class="spacing-bar" style="width: 32px;"></div>
+                    </div>
+                    <div class="spacing-info">
+                        <div class="spacing-name">--space-8</div>
+                        <div class="spacing-value">2rem (32px)</div>
+                    </div>
+                    <button class="copy-token-btn" onclick="copyToken('var(--space-8)')">Copy</button>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual">
+                        <div class="spacing-bar" style="width: 48px;"></div>
+                    </div>
+                    <div class="spacing-info">
+                        <div class="spacing-name">--space-12</div>
+                        <div class="spacing-value">3rem (48px)</div>
+                    </div>
+                    <button class="copy-token-btn" onclick="copyToken('var(--space-12)')">Copy</button>
+                </div>
+                <div class="spacing-item">
+                    <div class="spacing-visual">
+                        <div class="spacing-bar" style="width: 64px;"></div>
+                    </div>
+                    <div class="spacing-info">
+                        <div class="spacing-name">--space-16</div>
+                        <div class="spacing-value">4rem (64px)</div>
+                    </div>
+                    <button class="copy-token-btn" onclick="copyToken('var(--space-16)')">Copy</button>
+                </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: var(--space-6);">
+                <strong>Usage Example:</strong><br>
+                <code style="font-family: var(--font-mono);">padding: var(--space-4); margin-top: var(--space-6);</code>
+            </div>
+        </section>
+
+        <!-- TYPOGRAPHY -->
+        <section class="token-category" id="typography">
+            <h2 class="category-title">Typography</h2>
+            <p class="category-description">
+                Typography tokens for font sizes, weights, line heights, and letter spacing. All sizes are responsive and accessible.
+            </p>
+
+            <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6); margin-bottom: var(--space-4);">Font Sizes</h3>
+
+            <div class="typography-sample">
+                <div class="typography-meta">
+                    <span class="typography-token">--text-xs</span>
+                    <span class="typography-spec">0.75rem (12px)</span>
+                </div>
+                <div class="typography-preview" style="font-size: var(--text-xs);">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+
+            <div class="typography-sample">
+                <div class="typography-meta">
+                    <span class="typography-token">--text-sm</span>
+                    <span class="typography-spec">0.875rem (14px)</span>
+                </div>
+                <div class="typography-preview" style="font-size: var(--text-sm);">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+
+            <div class="typography-sample">
+                <div class="typography-meta">
+                    <span class="typography-token">--text-base</span>
+                    <span class="typography-spec">1rem (16px)</span>
+                </div>
+                <div class="typography-preview" style="font-size: var(--text-base);">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+
+            <div class="typography-sample">
+                <div class="typography-meta">
+                    <span class="typography-token">--text-lg</span>
+                    <span class="typography-spec">1.125rem (18px)</span>
+                </div>
+                <div class="typography-preview" style="font-size: var(--text-lg);">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+
+            <div class="typography-sample">
+                <div class="typography-meta">
+                    <span class="typography-token">--text-xl</span>
+                    <span class="typography-spec">1.25rem (20px)</span>
+                </div>
+                <div class="typography-preview" style="font-size: var(--text-xl);">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+
+            <div class="typography-sample">
+                <div class="typography-meta">
+                    <span class="typography-token">--text-2xl</span>
+                    <span class="typography-spec">1.5rem (24px)</span>
+                </div>
+                <div class="typography-preview" style="font-size: var(--text-2xl);">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+
+            <div class="typography-sample">
+                <div class="typography-meta">
+                    <span class="typography-token">--text-3xl</span>
+                    <span class="typography-spec">1.875rem (30px)</span>
+                </div>
+                <div class="typography-preview" style="font-size: var(--text-3xl);">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+
+            <div class="typography-sample">
+                <div class="typography-meta">
+                    <span class="typography-token">--text-4xl</span>
+                    <span class="typography-spec">2.25rem (36px)</span>
+                </div>
+                <div class="typography-preview" style="font-size: var(--text-4xl);">
+                    The quick brown fox jumps over the lazy dog
+                </div>
+            </div>
+
+            <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-8); margin-bottom: var(--space-4);">Font Weights</h3>
+
+            <div class="grid grid-cols-3 gap-4">
+                <div class="card">
+                    <strong style="font-family: var(--font-mono); font-size: var(--text-sm);">--font-light</strong>
+                    <p style="font-weight: var(--font-light); margin-top: var(--space-2);">Light (300)</p>
+                </div>
+                <div class="card">
+                    <strong style="font-family: var(--font-mono); font-size: var(--text-sm);">--font-normal</strong>
+                    <p style="font-weight: var(--font-normal); margin-top: var(--space-2);">Normal (400)</p>
+                </div>
+                <div class="card">
+                    <strong style="font-family: var(--font-mono); font-size: var(--text-sm);">--font-medium</strong>
+                    <p style="font-weight: var(--font-medium); margin-top: var(--space-2);">Medium (500)</p>
+                </div>
+                <div class="card">
+                    <strong style="font-family: var(--font-mono); font-size: var(--text-sm);">--font-semibold</strong>
+                    <p style="font-weight: var(--font-semibold); margin-top: var(--space-2);">Semibold (600)</p>
+                </div>
+                <div class="card">
+                    <strong style="font-family: var(--font-mono); font-size: var(--text-sm);">--font-bold</strong>
+                    <p style="font-weight: var(--font-bold); margin-top: var(--space-2);">Bold (700)</p>
+                </div>
+                <div class="card">
+                    <strong style="font-family: var(--font-mono); font-size: var(--text-sm);">--font-extrabold</strong>
+                    <p style="font-weight: var(--font-extrabold); margin-top: var(--space-2);">Extra Bold (800)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BORDER RADIUS -->
+        <section class="token-category" id="radius">
+            <h2 class="category-title">Border Radius</h2>
+            <p class="category-description">
+                Border radius tokens for consistent component rounding. From sharp corners to fully circular elements.
+            </p>
+
+            <div class="radius-grid">
+                <div class="radius-item">
+                    <div class="radius-box" style="border-radius: var(--radius-none);"></div>
+                    <div class="radius-label">--radius-none</div>
+                    <div class="radius-value">0</div>
+                </div>
+                <div class="radius-item">
+                    <div class="radius-box" style="border-radius: var(--radius-sm);"></div>
+                    <div class="radius-label">--radius-sm</div>
+                    <div class="radius-value">0.25rem</div>
+                </div>
+                <div class="radius-item">
+                    <div class="radius-box" style="border-radius: var(--radius);"></div>
+                    <div class="radius-label">--radius</div>
+                    <div class="radius-value">0.5rem</div>
+                </div>
+                <div class="radius-item">
+                    <div class="radius-box" style="border-radius: var(--radius-md);"></div>
+                    <div class="radius-label">--radius-md</div>
+                    <div class="radius-value">0.75rem</div>
+                </div>
+                <div class="radius-item">
+                    <div class="radius-box" style="border-radius: var(--radius-lg);"></div>
+                    <div class="radius-label">--radius-lg</div>
+                    <div class="radius-value">1rem</div>
+                </div>
+                <div class="radius-item">
+                    <div class="radius-box" style="border-radius: var(--radius-xl);"></div>
+                    <div class="radius-label">--radius-xl</div>
+                    <div class="radius-value">1.25rem</div>
+                </div>
+                <div class="radius-item">
+                    <div class="radius-box" style="border-radius: var(--radius-2xl);"></div>
+                    <div class="radius-label">--radius-2xl</div>
+                    <div class="radius-value">1.5rem</div>
+                </div>
+                <div class="radius-item">
+                    <div class="radius-box" style="border-radius: var(--radius-full);"></div>
+                    <div class="radius-label">--radius-full</div>
+                    <div class="radius-value">9999px</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SHADOWS -->
+        <section class="token-category" id="shadows">
+            <h2 class="category-title">Shadows & Elevation</h2>
+            <p class="category-description">
+                Shadow tokens provide depth and elevation. Use these to create visual hierarchy in your interfaces.
+            </p>
+
+            <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-bottom: var(--space-4);">Standard Shadows</h3>
+            <div class="shadow-grid">
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-xs);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">XS</span>
+                    </div>
+                    <div class="shadow-label">--shadow-xs</div>
+                </div>
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-sm);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">SM</span>
+                    </div>
+                    <div class="shadow-label">--shadow-sm</div>
+                </div>
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">MD</span>
+                    </div>
+                    <div class="shadow-label">--shadow</div>
+                </div>
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-md);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">MD+</span>
+                    </div>
+                    <div class="shadow-label">--shadow-md</div>
+                </div>
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-lg);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">LG</span>
+                    </div>
+                    <div class="shadow-label">--shadow-lg</div>
+                </div>
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-xl);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">XL</span>
+                    </div>
+                    <div class="shadow-label">--shadow-xl</div>
+                </div>
+            </div>
+
+            <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-8); margin-bottom: var(--space-4);">Colored Shadows</h3>
+            <div class="shadow-grid">
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-primary);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Primary</span>
+                    </div>
+                    <div class="shadow-label">--shadow-primary</div>
+                </div>
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-success);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Success</span>
+                    </div>
+                    <div class="shadow-label">--shadow-success</div>
+                </div>
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-warning);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Warning</span>
+                    </div>
+                    <div class="shadow-label">--shadow-warning</div>
+                </div>
+                <div class="shadow-item">
+                    <div class="shadow-box" style="box-shadow: var(--shadow-error);">
+                        <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Error</span>
+                    </div>
+                    <div class="shadow-label">--shadow-error</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary" onclick="toggleTheme()">
+            Toggle Theme
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="./aural-ui.js?v=9"></script>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Token Copy Function -->
+    <script>
+        function copyToken(tokenName) {
+            navigator.clipboard.writeText(tokenName).then(() => {
+                Aural.showToast(`Copied: ${tokenName}`, 'success', 'Token Copied');
+            }).catch(() => {
+                Aural.showToast('Failed to copy token', 'error');
+            });
+        }
+
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            const currentTheme = themeLink.getAttribute('href');
+
+            if (currentTheme.includes('dark')) {
+                themeLink.setAttribute('href', './light.css');
+                localStorage.setItem('aural-theme', 'light');
+            } else {
+                themeLink.setAttribute('href', './dark.css');
+                localStorage.setItem('aural-theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('aural-theme') || 'dark';
+            const themeLink = document.getElementById('theme-link');
+            themeLink.setAttribute('href', `./${savedTheme}.css`);
+        });
+
+        // Toggle collapsible navigation sections
+        
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        
+            }
+        }
+    </script>
+
+    <script>
+
+        // Auto-scroll active nav item into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeLink = document.querySelector('.nav-link.active');
+            if (activeLink) {
+                // Scroll the active item into view with some offset
+                setTimeout(() => {
+                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        });
+
+    </script>
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            themeLink.href = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        try {
+            if (window.self !== window.top) {
+                const themeToggle = document.querySelector('.theme-toggle');
+                if (themeToggle) {
+                    themeToggle.style.display = 'none';
+                }
+            }
+        } catch (e) {}
+    })();
+    </script>
+</body>
+</html>
