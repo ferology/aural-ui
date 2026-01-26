@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Test Showcase - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css?v=12">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .showcase-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .showcase-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-2) 0;
+        }
+
+        .showcase-subtitle {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        .test-section {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        .test-section-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .test-item {
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+        }
+
+        .test-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-2);
+        }
+
+        .demo-box {
+            width: 100%;
+            height: 100px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: var(--font-semibold);
+        }
+
+        .theme-switcher {
+            position: fixed;
+            top: var(--space-4);
+            right: var(--space-4);
+            z-index: 1000;
+            display: flex;
+            gap: var(--space-2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="btn btn-sm btn-secondary" onclick="switchTheme('dark')">Dark</button>
+        <button class="btn btn-sm btn-secondary" onclick="switchTheme('light')">Light</button>
+        <button class="btn btn-sm btn-secondary" onclick="switchTheme('high-contrast')">High Contrast</button>
+        <button class="btn btn-sm btn-secondary" onclick="switchTheme('colorblind')">Colorblind</button>
+    </div>
+
+    <div class="showcase-header">
+        <h1 class="showcase-title">Aural UI - Feature Test Showcase</h1>
+        <p class="showcase-subtitle">Test all newly added features in one place</p>
+    </div>
+
+    <!-- Phase 1: Utilities -->
+    <div class="test-section">
+        <h2 class="test-section-title">Phase 1: New Utilities</h2>
+
+        <h3 style="margin: var(--space-4) 0;">Backdrop Filters</h3>
+        <div class="test-grid">
+            <div class="test-item">
+                <div class="test-label">backdrop-blur-md</div>
+                <div class="demo-box backdrop-blur-md" style="background: rgba(94, 189, 143, 0.3);">
+                    Blurred
+                </div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">backdrop-brightness-150</div>
+                <div class="demo-box backdrop-brightness-150" style="background: rgba(94, 189, 143, 0.3);">
+                    Bright
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Gradients</h3>
+        <div class="test-grid">
+            <div class="test-item">
+                <div class="test-label">bg-gradient-to-r from-primary to-secondary</div>
+                <div class="demo-box bg-gradient-to-r from-primary to-secondary">
+                    Horizontal
+                </div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">bg-gradient-to-br from-success via-warning to-error</div>
+                <div class="demo-box bg-gradient-to-br from-success via-warning to-error">
+                    Diagonal
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Aspect Ratios</h3>
+        <div class="test-grid">
+            <div class="test-item">
+                <div class="test-label">aspect-video</div>
+                <div class="aspect-video demo-box bg-gradient-to-r from-primary to-secondary">
+                    16:9
+                </div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">aspect-square</div>
+                <div class="aspect-square demo-box bg-gradient-to-r from-success to-info">
+                    1:1
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phase 2: Component Enhancements -->
+    <div class="test-section">
+        <h2 class="test-section-title">Phase 2: Component Enhancements</h2>
+
+        <h3 style="margin: var(--space-4) 0;">Button Icon-Only</h3>
+        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-6);">
+            <button class="btn btn-primary btn-icon btn-sm">
+                <i data-lucide="search"></i>
+            </button>
+            <button class="btn btn-primary btn-icon">
+                <i data-lucide="heart"></i>
+            </button>
+            <button class="btn btn-primary btn-icon btn-lg">
+                <i data-lucide="star"></i>
+            </button>
+        </div>
+
+        <h3 style="margin: var(--space-4) 0;">Input with Icons</h3>
+        <div class="test-grid">
+            <div class="form-group">
+                <label class="label">Prefix Icon</label>
+                <div class="input-group input-group-prefix">
+                    <span class="input-group-icon input-group-icon-left">
+                        <i data-lucide="search"></i>
+                    </span>
+                    <input type="text" class="input" placeholder="Search...">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="label">Suffix Icon</label>
+                <div class="input-group input-group-suffix">
+                    <input type="text" class="input" placeholder="Enter email">
+                    <span class="input-group-icon input-group-icon-right">
+                        <i data-lucide="at-sign"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Character Counter</h3>
+        <div class="form-group">
+            <label class="label">Bio</label>
+            <div class="input-with-counter">
+                <textarea class="input" id="bio-input" maxlength="100" rows="3" placeholder="Tell us about yourself..." oninput="updateCounter()"></textarea>
+                <div class="input-counter" id="bio-counter">
+                    <span class="input-counter-text">Characters:</span>
+                    <span class="input-counter-count">0 / 100</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Table Expandable Rows</h3>
+        <div class="table-wrapper">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="expand-cell"></th>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="expandable" onclick="toggleRow(this)">
+                        <td class="expand-cell">
+                            <span class="table-expand-icon">
+                                <i data-lucide="chevron-right"></i>
+                            </span>
+                        </td>
+                        <td>John Doe</td>
+                        <td><span class="badge badge-success">Active</span></td>
+                    </tr>
+                    <tr class="expanded-content hidden">
+                        <td colspan="3">
+                            <div class="table-expanded-content">
+                                <h4>Additional Details</h4>
+                                <p>Email: john@example.com</p>
+                                <p>Department: Engineering</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Modal Variants</h3>
+        <div style="display: flex; gap: var(--space-3);">
+            <button class="btn btn-primary" onclick="openModal('modal-fullscreen')">
+                Fullscreen Modal
+            </button>
+            <button class="btn btn-primary" onclick="openModal('modal-scrollable')">
+                Scrollable Modal
+            </button>
+        </div>
+    </div>
+
+    <!-- Phase 3: Theme System -->
+    <div class="test-section">
+        <h2 class="test-section-title">Phase 3: Theme System</h2>
+
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+            Use the theme switcher buttons in the top-right to test different themes.
+            Then visit <a href="theme-builder.html" style="color: var(--color-primary);">Theme Builder</a> for full customization.
+        </p>
+
+        <div class="test-grid">
+            <div class="test-item">
+                <div class="test-label">Current Theme Colors</div>
+                <div style="display: flex; gap: var(--space-2); margin-top: var(--space-2);">
+                    <div style="width: 40px; height: 40px; background: var(--color-primary); border-radius: var(--radius-sm);"></div>
+                    <div style="width: 40px; height: 40px; background: var(--color-secondary); border-radius: var(--radius-sm);"></div>
+                    <div style="width: 40px; height: 40px; background: var(--color-success); border-radius: var(--radius-sm);"></div>
+                    <div style="width: 40px; height: 40px; background: var(--color-error); border-radius: var(--radius-sm);"></div>
+                    <div style="width: 40px; height: 40px; background: var(--color-warning); border-radius: var(--radius-sm);"></div>
+                </div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">Semantic Badges</div>
+                <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2);">
+                    <span class="badge badge-success">Success</span>
+                    <span class="badge badge-error">Error</span>
+                    <span class="badge badge-warning">Warning</span>
+                    <span class="badge badge-info">Info</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal-fullscreen">
+        <div class="modal modal-fullscreen">
+            <button class="modal-close" onclick="closeModal('modal-fullscreen')">×</button>
+            <div class="modal-header">
+                <h2>Fullscreen Modal</h2>
+            </div>
+            <div class="modal-body">
+                <p>This modal takes up the entire viewport with no margins or border radius.</p>
+                <p>Perfect for immersive content like photo viewers or document editors.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-fullscreen')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-scrollable">
+        <div class="modal modal-scrollable modal-lg">
+            <button class="modal-close" onclick="closeModal('modal-scrollable')">×</button>
+            <div class="modal-header">
+                <h2>Scrollable Modal</h2>
+            </div>
+            <div class="modal-body">
+                <p>This modal has a fixed header and footer, with a scrollable body.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modal-scrollable')">Close</button>
+                <button class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./aural-ui.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Theme switcher
+        function switchTheme(theme) {
+            const themeLink = document.getElementById('theme-link');
+            const themes = {
+                'dark': './dark.css',
+                'light': './light.css',
+                'high-contrast': './high-contrast.css',
+                'colorblind': './colorblind-friendly.css'
+            };
+
+            if (themes[theme]) {
+                themeLink.href = themes[theme];
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+        }
+
+        // Character counter
+        function updateCounter() {
+            const input = document.getElementById('bio-input');
+            const counter = document.getElementById('bio-counter');
+            const count = input.value.length;
+            const max = input.maxLength;
+
+            counter.querySelector('.input-counter-count').textContent = `${count} / ${max}`;
+
+            counter.classList.remove('input-counter-warning', 'input-counter-error');
+            if (count >= max * 0.8 && count < max) {
+                counter.classList.add('input-counter-warning');
+            } else if (count >= max) {
+                counter.classList.add('input-counter-error');
+            }
+        }
+
+        // Table row expand
+        function toggleRow(row) {
+            row.classList.toggle('expanded');
+            const nextRow = row.nextElementSibling;
+            if (nextRow) {
+                nextRow.classList.toggle('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        // Modal functions
+        function openModal(id) {
+            document.getElementById(id).classList.add('open');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+        }
+    </script>
+</body>
+</html>
