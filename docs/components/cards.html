@@ -164,11 +164,315 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Cards</h1>
-            <p class="page-description">Flexible content containers with headers, footers, and actions.</p>
+            <p class="page-description">Flexible, composable content containers for organizing and displaying related information. Cards are one of the most versatile UI patterns for grouping content.</p>
         </div>
 
-        </div>
+        <!-- Basic Card -->
+        <div class="example-container">
+            <div class="example-label">Basic Card</div>
+            <div class="example-demo">
+                <div class="card" style="max-width: 400px;">
+                    <div class="card-body">
+                        <h3 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Simple Card</h3>
+                        <p style="margin: 0; color: var(--color-text-secondary);">A basic card with just a body. Perfect for simple content grouping without extra decoration.</p>
+                    </div>
+                </div>
             </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>The most basic card structure uses just <code>.card</code> and <code>.card-body</code> for simple content containment.</p>
+                <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h3&gt;Card Title&lt;/h3&gt;
+    &lt;p&gt;Card content...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- Card with Header and Footer -->
+        <div class="example-container">
+            <div class="example-label">Card with Header and Footer</div>
+            <div class="example-demo">
+                <div class="card" style="max-width: 400px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Project Status</h3>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="margin: 0; color: var(--color-text-secondary);">This project is currently in active development. The team is working on implementing new features and bug fixes.</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-sm">View Details</button>
+                        <button class="btn btn-ghost btn-sm">Edit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Add <code>.card-header</code> and <code>.card-footer</code> for structured cards with clear sections:</p>
+                <ul>
+                    <li><strong>Header:</strong> Titles, badges, metadata, or actions</li>
+                    <li><strong>Body:</strong> Main content area with flexible layout</li>
+                    <li><strong>Footer:</strong> Actions, links, or supplementary information</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Card with Image -->
+        <div class="example-container">
+            <div class="example-label">Card with Image</div>
+            <div class="example-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4);">
+                    <div class="card">
+                        <div class="card-image" style="height: 160px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: var(--text-3xl);">
+                            <i data-lucide="image" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Design System</h3>
+                            <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Complete design system with 60+ components and utilities.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-sm" style="width: 100%;">Learn More</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-image" style="height: 160px; background: linear-gradient(135deg, var(--color-success), var(--color-info)); display: flex; align-items: center; justify-content: center; color: white; font-size: var(--text-3xl);">
+                            <i data-lucide="code" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h3 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Documentation</h3>
+                            <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Comprehensive guides, examples, and API references.</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary btn-sm" style="width: 100%;">Read Docs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Use <code>.card-image</code> for visual cards with images or illustrations. Images automatically stretch to fill the width.</p>
+            </div>
+        </div>
+
+        <!-- Horizontal Card -->
+        <div class="example-container">
+            <div class="example-label">Horizontal Card</div>
+            <div class="example-demo">
+                <div class="card" style="max-width: 600px;">
+                    <div style="display: flex; gap: 0;">
+                        <div style="width: 200px; min-height: 150px; background: linear-gradient(135deg, var(--color-warning), var(--color-error)); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i data-lucide="package" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column;">
+                            <div class="card-body" style="flex: 1;">
+                                <h3 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Premium Plan</h3>
+                                <p style="margin: 0 0 var(--space-3) 0; color: var(--color-text-secondary); font-size: var(--text-sm);">All features included with priority support and custom integrations.</p>
+                                <div style="display: flex; align-items: baseline; gap: var(--space-2);">
+                                    <span style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-text-primary);">$99</span>
+                                    <span style="color: var(--color-text-tertiary); font-size: var(--text-sm);">/month</span>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-sm">Subscribe Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Create horizontal layouts by using flexbox inside the card. Useful for media-rich content or feature comparisons.</p>
+            </div>
+        </div>
+
+        <!-- Interactive Cards -->
+        <div class="example-container">
+            <div class="example-label">Interactive Cards</div>
+            <div class="example-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                    <div class="card card-hover" style="cursor: pointer;" onclick="alert('Card clicked!')">
+                        <div class="card-body" style="text-align: center;">
+                            <div style="width: 48px; height: 48px; margin: 0 auto var(--space-3); background: var(--color-primary-subtle); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-primary);">
+                                <i data-lucide="users" style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <h4 style="margin: 0 0 var(--space-1) 0; color: var(--color-text-primary);">Team</h4>
+                            <p style="margin: 0; color: var(--color-text-tertiary); font-size: var(--text-sm);">Manage members</p>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover" style="cursor: pointer;" onclick="alert('Card clicked!')">
+                        <div class="card-body" style="text-align: center;">
+                            <div style="width: 48px; height: 48px; margin: 0 auto var(--space-3); background: var(--color-secondary-subtle); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-secondary);">
+                                <i data-lucide="settings" style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <h4 style="margin: 0 0 var(--space-1) 0; color: var(--color-text-primary);">Settings</h4>
+                            <p style="margin: 0; color: var(--color-text-tertiary); font-size: var(--text-sm);">Configure app</p>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover" style="cursor: pointer;" onclick="alert('Card clicked!')">
+                        <div class="card-body" style="text-align: center;">
+                            <div style="width: 48px; height: 48px; margin: 0 auto var(--space-3); background: var(--color-success-subtle); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-success);">
+                                <i data-lucide="bar-chart" style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <h4 style="margin: 0 0 var(--space-1) 0; color: var(--color-text-primary);">Analytics</h4>
+                            <p style="margin: 0; color: var(--color-text-tertiary); font-size: var(--text-sm);">View reports</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Add <code>.card-hover</code> for subtle hover effects on clickable cards. Useful for navigation grids, feature selectors, or dashboard widgets.</p>
+            </div>
+        </div>
+
+        <!-- Card Grids -->
+        <div class="example-container">
+            <div class="example-label">Card Grids</div>
+            <div class="example-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-4);">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                <h4 style="margin: 0; color: var(--color-text-primary);">Total Revenue</h4>
+                                <i data-lucide="dollar-sign" style="width: 20px; height: 20px; color: var(--color-success);"></i>
+                            </div>
+                            <div style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-text-primary); margin-bottom: var(--space-2);">$45,231</div>
+                            <div style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="badge badge-success badge-sm">
+                                    <i data-lucide="trending-up" style="width: 12px; height: 12px;"></i>
+                                    12%
+                                </span>
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">vs last month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                <h4 style="margin: 0; color: var(--color-text-primary);">New Users</h4>
+                                <i data-lucide="users" style="width: 20px; height: 20px; color: var(--color-primary);"></i>
+                            </div>
+                            <div style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-text-primary); margin-bottom: var(--space-2);">1,429</div>
+                            <div style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="badge badge-success badge-sm">
+                                    <i data-lucide="trending-up" style="width: 12px; height: 12px;"></i>
+                                    8%
+                                </span>
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">vs last month</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                                <h4 style="margin: 0; color: var(--color-text-primary);">Conversion Rate</h4>
+                                <i data-lucide="target" style="width: 20px; height: 20px; color: var(--color-secondary);"></i>
+                            </div>
+                            <div style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-text-primary); margin-bottom: var(--space-2);">3.24%</div>
+                            <div style="display: flex; align-items: center; gap: var(--space-2);">
+                                <span class="badge badge-error badge-sm">
+                                    <i data-lucide="trending-down" style="width: 12px; height: 12px;"></i>
+                                    2%
+                                </span>
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">vs last month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content" style="margin-top: var(--space-4);">
+                <p>Use CSS Grid with <code>grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))</code> for responsive card grids that adapt to screen size.</p>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="section-content">
+                <h3>When to Use Cards</h3>
+                <ul>
+                    <li><strong>Content Grouping:</strong> Group related information together (user profiles, product listings, articles)</li>
+                    <li><strong>Dashboards:</strong> Display metrics, stats, and data visualizations</li>
+                    <li><strong>Feature Grids:</strong> Showcase features, services, or options</li>
+                    <li><strong>E-commerce:</strong> Product cards with images, descriptions, and prices</li>
+                    <li><strong>Media Galleries:</strong> Image or video collections with captions</li>
+                    <li><strong>List Views:</strong> Alternative to table rows for rich content</li>
+                </ul>
+
+                <h3>Card Anatomy</h3>
+                <p>Cards typically consist of these sections (all optional):</p>
+                <ul>
+                    <li><strong>Header:</strong> Title, subtitle, badges, or actions (optional)</li>
+                    <li><strong>Image:</strong> Visual content at the top (optional)</li>
+                    <li><strong>Body:</strong> Main content area (required)</li>
+                    <li><strong>Footer:</strong> Actions, links, or metadata (optional)</li>
+                </ul>
+
+                <h3>Layout Guidelines</h3>
+                <ul>
+                    <li><strong>Consistent Heights:</strong> In grids, try to maintain consistent card heights for visual harmony</li>
+                    <li><strong>Responsive Grids:</strong> Use <code>auto-fill</code> or <code>auto-fit</code> with <code>minmax()</code> for flexible grids</li>
+                    <li><strong>Spacing:</strong> Use consistent gap values (typically <code>var(--space-4)</code> or <code>var(--space-6)</code>)</li>
+                    <li><strong>Max Width:</strong> For standalone cards, limit width to 400-600px for readability</li>
+                    <li><strong>Mobile First:</strong> Cards naturally stack on mobile, making them perfect for responsive designs</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li>Use semantic HTML inside cards (<code>&lt;h3&gt;</code> for titles, <code>&lt;p&gt;</code> for content)</li>
+                    <li>For clickable cards, wrap entire card in <code>&lt;a&gt;</code> or use <code>role="button"</code></li>
+                    <li>Ensure sufficient color contrast for all text elements</li>
+                    <li>Add keyboard navigation for interactive cards (<code>tabindex="0"</code>)</li>
+                    <li>Use descriptive alt text for images in <code>.card-image</code></li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+
+                <p><strong>Dashboard Stats Card:</strong></p>
+                <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h4&gt;Total Revenue&lt;/h4&gt;
+    &lt;div class="text-3xl font-bold"&gt;$45,231&lt;/div&gt;
+    &lt;span class="badge badge-success"&gt;↑ 12%&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                <p><strong>Product Card:</strong></p>
+                <pre><code>&lt;div class="card"&gt;
+  &lt;div class="card-image"&gt;
+    &lt;img src="product.jpg" alt="Product name"&gt;
+  &lt;/div&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h3&gt;Product Name&lt;/h3&gt;
+    &lt;p&gt;Product description...&lt;/p&gt;
+    &lt;div class="text-xl font-bold"&gt;$29.99&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="card-footer"&gt;
+    &lt;button class="btn btn-primary"&gt;Add to Cart&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                <p><strong>Clickable Navigation Card:</strong></p>
+                <pre><code>&lt;a href="/settings" class="card card-hover" style="text-decoration: none"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;div class="icon"&gt;⚙️&lt;/div&gt;
+    &lt;h4&gt;Settings&lt;/h4&gt;
+    &lt;p&gt;Configure your preferences&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/a&gt;</code></pre>
+
+                <p><strong>Responsive Card Grid:</strong></p>
+                <pre><code>&lt;div style="display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-4);"&gt;
+  &lt;div class="card"&gt;...&lt;/div&gt;
+  &lt;div class="card"&gt;...&lt;/div&gt;
+  &lt;div class="card"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
 
     </main>
 
