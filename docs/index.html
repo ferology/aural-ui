@@ -6,10 +6,10 @@
     <title>Aural UI - A Modern Design System</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="./aural-ui.css?v=16">
+    <link rel="stylesheet" href="./aural-ui.css?v=1769422218">
 
     <!-- Choose theme -->
-    <link rel="stylesheet" href="./dark.css" id="theme-link">
+    <link rel="stylesheet" href="./dark.css?v=1769422218" id="theme-link">
 
     <!-- Lucide Icons (MIT License) -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -109,6 +109,11 @@
             gap: var(--space-4);
             justify-content: center;
             flex-wrap: wrap;
+        }
+
+        /* Force button styling to override any cached CSS */
+        .hero-actions .btn {
+            border-radius: 0.75rem !important;
         }
 
         /* Stats Section */
