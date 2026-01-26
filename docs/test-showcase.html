@@ -105,13 +105,52 @@
     <div class="showcase-header">
         <h1 class="showcase-title">Aural UI - Feature Test Showcase</h1>
         <p class="showcase-subtitle">Test all newly added features in one place</p>
+        <p style="color: var(--color-text-tertiary); margin-top: var(--space-4); max-width: 600px; margin-left: auto; margin-right: auto;">
+            This page demonstrates the latest enhancements to Aural UI. All features shown here are also available in their respective component documentation pages. Use the theme switcher above to test different themes.
+        </p>
+    </div>
+
+    <!-- Overview -->
+    <div class="test-section">
+        <h2 class="test-section-title">What's New in This Release</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4);">
+            <div style="padding: var(--space-5); background: var(--color-bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--color-border-medium);">
+                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--color-primary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-primary); margin-bottom: var(--space-3);">
+                    <i data-lucide="sparkles" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h3 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary); font-size: var(--text-lg);">Phase 1: Utilities</h3>
+                <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); line-height: 1.6;">150+ new utility classes including backdrop filters, gradients, aspect ratios, dark mode, and RTL support.</p>
+            </div>
+
+            <div style="padding: var(--space-5); background: var(--color-bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--color-border-medium);">
+                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--color-secondary-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-secondary); margin-bottom: var(--space-3);">
+                    <i data-lucide="box" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h3 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary); font-size: var(--text-lg);">Phase 2: Components</h3>
+                <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); line-height: 1.6;">Enhanced buttons, inputs, modals, and tables with icon-only variants, character counters, and expandable rows.</p>
+            </div>
+
+            <div style="padding: var(--space-5); background: var(--color-bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--color-border-medium);">
+                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--color-success-subtle); display: flex; align-items: center; justify-content: center; color: var(--color-success); margin-bottom: var(--space-3);">
+                    <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h3 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary); font-size: var(--text-lg);">Phase 3: Themes</h3>
+                <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); line-height: 1.6;">High Contrast and Colorblind-Friendly themes, plus a visual Theme Builder for creating custom color schemes.</p>
+            </div>
+        </div>
     </div>
 
     <!-- Phase 1: Utilities -->
     <div class="test-section">
         <h2 class="test-section-title">Phase 1: New Utilities</h2>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6); line-height: 1.6;">
+            Over 150 utility classes have been added for rapid UI development. These utilities follow a Tailwind-like naming convention and are fully documented in the <a href="utilities.html" style="color: var(--color-primary); text-decoration: underline;">Utilities page</a>.
+        </p>
 
         <h3 style="margin: var(--space-4) 0;">Backdrop Filters</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            Perfect for glassmorphism effects on modals, cards, and overlays. Apply blur, brightness, contrast, and saturation to elements behind transparent surfaces.
+        </p>
         <div class="test-grid">
             <div class="test-item">
                 <div class="test-label">backdrop-blur-md</div>
@@ -128,6 +167,9 @@
         </div>
 
         <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Gradients</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            Create beautiful gradients with 8 directions (<code>to-t</code>, <code>to-r</code>, <code>to-b</code>, <code>to-l</code>, <code>to-tr</code>, <code>to-br</code>, <code>to-bl</code>, <code>to-tl</code>) and color stops (<code>from-*</code>, <code>via-*</code>, <code>to-*</code>) using all semantic colors.
+        </p>
         <div class="test-grid">
             <div class="test-item">
                 <div class="test-label">bg-gradient-to-r from-primary to-secondary</div>
@@ -144,6 +186,9 @@
         </div>
 
         <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Aspect Ratios</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            Maintain consistent aspect ratios for images, videos, and containers. Available ratios: <code>aspect-square</code> (1:1), <code>aspect-video</code> (16:9), <code>aspect-wide</code> (21:9), <code>aspect-portrait</code> (3:4).
+        </p>
         <div class="test-grid">
             <div class="test-item">
                 <div class="test-label">aspect-video</div>
@@ -163,8 +208,14 @@
     <!-- Phase 2: Component Enhancements -->
     <div class="test-section">
         <h2 class="test-section-title">Phase 2: Component Enhancements</h2>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6); line-height: 1.6;">
+            Enhanced existing components with new variants and functionality. All examples shown here are now integrated into their respective component pages: <a href="components/buttons.html" style="color: var(--color-primary); text-decoration: underline;">Buttons</a>, <a href="components/inputs.html" style="color: var(--color-primary); text-decoration: underline;">Inputs</a>, <a href="components/tables.html" style="color: var(--color-primary); text-decoration: underline;">Tables</a>, and <a href="components/modals.html" style="color: var(--color-primary); text-decoration: underline;">Modals</a>.
+        </p>
 
         <h3 style="margin: var(--space-4) 0;">Button Icon-Only</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            Square buttons optimized for icons. Available in 3 sizes: <code>.btn-icon.btn-sm</code> (36×36px), <code>.btn-icon</code> (44×44px), <code>.btn-icon.btn-lg</code> (52×52px). Perfect for toolbars and compact UIs. <a href="components/buttons.html" style="color: var(--color-primary);">View full docs →</a>
+        </p>
         <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-6);">
             <button class="btn btn-primary btn-icon btn-sm">
                 <i data-lucide="search"></i>
@@ -178,6 +229,9 @@
         </div>
 
         <h3 style="margin: var(--space-4) 0;">Input with Icons</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            Add prefix or suffix icons to inputs using <code>.input-group</code> wrapper. Supports all input sizes and both left/right icon positions. <a href="components/inputs.html" style="color: var(--color-primary);">View full docs →</a>
+        </p>
         <div class="test-grid">
             <div class="form-group">
                 <label class="label">Prefix Icon</label>
@@ -200,6 +254,9 @@
         </div>
 
         <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Character Counter</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            Live character counting with automatic warning (80%) and error (100%) states. Use <code>.input-with-counter</code> wrapper with <code>.input-counter</code> element. <a href="components/inputs.html" style="color: var(--color-primary);">View full docs →</a>
+        </p>
         <div class="form-group">
             <label class="label">Bio</label>
             <div class="input-with-counter">
@@ -212,6 +269,9 @@
         </div>
 
         <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Table Expandable Rows</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            Click rows to reveal additional details with smooth expand/collapse animation. Chevron icon rotates 90° when expanded. Use <code>.expandable</code> and <code>.expanded-content</code> classes. <a href="components/tables.html" style="color: var(--color-primary);">View full docs →</a>
+        </p>
         <div class="table-wrapper">
             <table class="table">
                 <thead>
@@ -245,6 +305,9 @@
         </div>
 
         <h3 style="margin: var(--space-6) 0 var(--space-4) 0;">Modal Variants</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            <strong>Fullscreen:</strong> 100% viewport coverage for immersive experiences (photo viewers, editors). <strong>Scrollable:</strong> Fixed header/footer with scrolling body for long content. <a href="components/modals.html" style="color: var(--color-primary);">View full docs →</a>
+        </p>
         <div style="display: flex; gap: var(--space-3);">
             <button class="btn btn-primary" onclick="openModal('modal-fullscreen')">
                 Fullscreen Modal
@@ -259,9 +322,46 @@
     <div class="test-section">
         <h2 class="test-section-title">Phase 3: Theme System</h2>
 
-        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-            Use the theme switcher buttons in the top-right to test different themes.
-            Then visit <a href="theme-builder.html" style="color: var(--color-primary);">Theme Builder</a> for full customization.
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6); line-height: 1.6;">
+            Two new accessibility-focused themes have been added, plus a visual Theme Builder for creating custom color schemes. Use the theme switcher buttons in the top-right to test each theme instantly.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6);">
+            <div style="padding: var(--space-5); background: var(--color-bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--color-border-medium);">
+                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: #0096ff; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: var(--space-3);">
+                    <i data-lucide="zap" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary); font-size: var(--text-lg);">High Contrast Theme</h4>
+                <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); line-height: 1.6;">
+                    WCAG AAA compliant with 7:1+ contrast ratios. Pure black backgrounds, bright saturated colors, and enhanced 3px focus outlines. Perfect for users with low vision.
+                </p>
+            </div>
+
+            <div style="padding: var(--space-5); background: var(--color-bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--color-border-medium);">
+                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: #1a8cff; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: var(--space-3);">
+                    <i data-lucide="palette" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary); font-size: var(--text-lg);">Colorblind-Friendly Theme</h4>
+                <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); line-height: 1.6;">
+                    Optimized for deuteranopia, protanopia, and tritanopia. Uses blue for success (not green) and orange for errors (not red). Includes border indicators for additional clarity.
+                </p>
+            </div>
+
+            <div style="padding: var(--space-5); background: var(--color-bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--color-border-medium);">
+                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; color: white; margin-bottom: var(--space-3);">
+                    <i data-lucide="paintbrush" style="width: 24px; height: 24px;"></i>
+                </div>
+                <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary); font-size: var(--text-lg);">Theme Builder</h4>
+                <p style="margin: 0 0 var(--space-3) 0; color: var(--color-text-secondary); font-size: var(--text-sm); line-height: 1.6;">
+                    Visual tool for creating custom themes with color pickers, live preview, WCAG contrast checker, preset themes, and export/copy functionality.
+                </p>
+                <a href="theme-builder.html" class="btn btn-sm btn-primary">Open Theme Builder →</a>
+            </div>
+        </div>
+
+        <h3 style="margin: var(--space-4) 0;">Theme Color Preview</h3>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">
+            Switch themes using the buttons at the top-right to see how colors change across the entire UI.
         </p>
 
         <div class="test-grid">
