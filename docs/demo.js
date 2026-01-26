@@ -91,7 +91,7 @@
         const sidebar = document.getElementById('demo-sidebar');
 
         let html = `
-            <a href="#/" class="demo-logo" data-demo-link="index.html">
+            <a href="#/" class="demo-logo" data-demo-link="landing.html">
                 <div class="demo-logo-icon">
                     <div class="demo-soundwave">
                         ${Array(8).fill().map(() => '<div class="demo-wave-bar"></div>').join('')}
@@ -108,7 +108,7 @@
             <div class="demo-nav-section">
                 <div class="demo-nav-title">Intro</div>
                 <ul class="demo-nav-links">
-                    <li><a class="demo-nav-link" data-demo-link="index.html">What it is</a></li>
+                    <li><a class="demo-nav-link" data-demo-link="landing.html">What it is</a></li>
                     <li><a class="demo-nav-link" data-demo-link="accessibility.html">Accessibility</a></li>
                     <li><a class="demo-nav-link" data-demo-link="getting-started.html">Getting started</a></li>
                     <li><a class="demo-nav-link" data-demo-link="contributing.html">Contributing</a></li>
@@ -244,7 +244,7 @@
     // Load initial page
     function loadInitialPage() {
         const hash = location.hash.slice(1);
-        const page = hash || 'index.html';
+        const page = hash || 'landing.html';
 
         // Small delay to ensure DOM is fully ready
         setTimeout(() => {
