@@ -2,78 +2,101 @@
  * AURAL UI - Range Slider
  *
  * Dual-handle slider for selecting min/max range values.
- * Supports vertical/horizontal orientation, steps, and value labels.
+ * Based on the slider component with identical styling and accessibility.
  */
 
 /* ========================================
-   Range Slider Container
+   Base Range Slider Container
    ======================================== */
 
 .aural-range-slider {
+    position: relative;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    width: 100%;
+    gap: var(--space-2);
+}
+
+.aural-range-slider__label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aural-range-slider__label {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-medium);
 }
 
 /* ========================================
-   Range Slider Track
+   Range Slider Track Container
    ======================================== */
 
 .aural-range-slider__wrapper {
     position: relative;
     width: 100%;
-    padding: var(--space-3) 0;
+    height: 44px;
+    display: flex;
+    align-items: center;
 }
 
-.aural-range-slider__track {
-    position: relative;
+.aural-range-slider__track-bg {
+    position: absolute;
     width: 100%;
     height: 6px;
     background: var(--color-bg-tertiary);
     border-radius: var(--radius-full);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .aural-range-slider__track-fill {
     position: absolute;
-    height: 100%;
+    height: 6px;
     background: var(--color-primary);
     border-radius: var(--radius-full);
+    top: 50%;
+    transform: translateY(-50%);
     transition: background-color 0.2s ease;
 }
 
 /* ========================================
-   Range Handles
+   Range Handles (identical to slider thumb)
    ======================================== */
 
 .aural-range-slider__handle {
     position: absolute;
     top: 50%;
-    width: 20px;
-    height: 20px;
-    background: white;
-    border: 2px solid var(--color-primary);
-    border-radius: 50%;
-    box-shadow: var(--shadow-md);
-    cursor: grab;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--color-primary);
+    border: 3px solid var(--color-bg-primary);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
     transform: translate(-50%, -50%);
-    transition: var(--transition-all-fast);
+    transition: all 0.2s ease;
     z-index: 2;
 }
 
 .aural-range-slider__handle:hover {
-    transform: translate(-50%, -50%) scale(1.15);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--glow-primary-sm), var(--shadow-md);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .aural-range-slider__handle:active {
-    cursor: grabbing;
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(0.95);
 }
 
 .aural-range-slider__handle:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
+}
+
+/* Handle label (value inside the handle) - hidden by default */
+.aural-range-slider__handle .aural-range-slider__label {
+    display: none;
 }
 
 .aural-range-slider__handle--min {
@@ -90,101 +113,87 @@
 }
 
 /* ========================================
-   Value Labels
-   ======================================== */
-
-.aural-range-slider__label {
-    position: absolute;
-    top: -32px;
-    transform: translateX(-50%);
-    padding: 2px 8px;
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.aural-range-slider__handle:hover .aural-range-slider__label,
-.aural-range-slider__handle:active .aural-range-slider__label,
-.aural-range-slider__handle:focus-visible .aural-range-slider__label {
-    opacity: 1;
-}
-
-.aural-range-slider--show-labels .aural-range-slider__label {
-    opacity: 1;
-}
-
-/* Arrow pointer */
-.aural-range-slider__label::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid var(--color-border-medium);
-}
-
-/* ========================================
-   Value Display
+   Value Display (matching slider)
    ======================================== */
 
 .aural-range-slider__values {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-}
-
-.aural-range-slider__value {
-    display: flex;
-    align-items: center;
     gap: var(--space-2);
 }
 
-.aural-range-slider__value-label {
-    font-weight: var(--font-medium);
-    color: var(--color-text-tertiary);
+.aural-range-slider__value {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+    min-width: 2.5rem;
 }
 
-.aural-range-slider__value-number {
-    font-family: var(--font-mono);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
+.aural-range-slider__value--min {
+    text-align: left;
+}
+
+.aural-range-slider__value--max {
+    text-align: right;
+}
+
+.aural-range-slider__value-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-medium);
+    margin-right: var(--space-1);
 }
 
 /* ========================================
-   Step Markers
+   Input Fields (for manual value entry)
    ======================================== */
 
-.aural-range-slider__steps {
-    position: absolute;
-    inset: 0;
+.aural-range-slider__inputs {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
 }
 
-.aural-range-slider__step {
-    width: 2px;
-    height: 8px;
-    background: var(--color-border-medium);
-    border-radius: 1px;
+.aural-range-slider__input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex: 1;
 }
 
-.aural-range-slider__step--in-range {
-    background: var(--primary-alpha-50);
+.aural-range-slider__input-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-medium);
+}
+
+.aural-range-slider__input {
+    width: 100%;
+    min-height: 36px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-family: inherit;
+    transition: var(--transition-all-fast);
+}
+
+.aural-range-slider__input:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-hover);
+}
+
+.aural-range-slider__input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+}
+
+.aural-range-slider__input::placeholder {
+    color: var(--color-text-tertiary);
 }
 
 /* ========================================
@@ -195,32 +204,132 @@
     display: flex;
     justify-content: space-between;
     font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
+    color: var(--color-text-muted);
     margin-top: var(--space-1);
 }
 
 /* ========================================
-   Vertical Orientation
+   Size Variants (matching slider exactly)
+   ======================================== */
+
+/* Small */
+.aural-range-slider--sm .aural-range-slider__track-bg,
+.aural-range-slider--sm .aural-range-slider__track-fill {
+    height: 4px;
+}
+
+.aural-range-slider--sm .aural-range-slider__handle {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Large */
+.aural-range-slider--lg .aural-range-slider__track-bg,
+.aural-range-slider--lg .aural-range-slider__track-fill {
+    height: 8px;
+}
+
+.aural-range-slider--lg .aural-range-slider__handle {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ========================================
+   Color Variants (matching slider)
+   ======================================== */
+
+/* Success */
+.aural-range-slider--success .aural-range-slider__track-fill {
+    background: var(--color-success);
+}
+
+.aural-range-slider--success .aural-range-slider__handle {
+    background: var(--color-success);
+}
+
+.aural-range-slider--success .aural-range-slider__value {
+    color: var(--color-success);
+}
+
+.aural-range-slider--success .aural-range-slider__handle:hover {
+    box-shadow: var(--glow-success-md), var(--shadow-md);
+}
+
+/* Warning */
+.aural-range-slider--warning .aural-range-slider__track-fill {
+    background: var(--color-warning);
+}
+
+.aural-range-slider--warning .aural-range-slider__handle {
+    background: var(--color-warning);
+}
+
+.aural-range-slider--warning .aural-range-slider__value {
+    color: var(--color-warning);
+}
+
+.aural-range-slider--warning .aural-range-slider__handle:hover {
+    box-shadow: var(--glow-warning-md), var(--shadow-md);
+}
+
+/* Error */
+.aural-range-slider--error .aural-range-slider__track-fill {
+    background: var(--color-error);
+}
+
+.aural-range-slider--error .aural-range-slider__handle {
+    background: var(--color-error);
+}
+
+.aural-range-slider--error .aural-range-slider__value {
+    color: var(--color-error);
+}
+
+.aural-range-slider--error .aural-range-slider__handle:hover {
+    box-shadow: var(--glow-error-md), var(--shadow-md);
+}
+
+/* ========================================
+   Vertical Orientation (matching slider)
    ======================================== */
 
 .aural-range-slider--vertical {
-    height: 200px;
+    width: auto;
+    height: 250px;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.aural-range-slider--vertical .aural-range-slider__label-row {
+    flex-direction: column;
+    gap: var(--space-2);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.aural-range-slider--vertical .aural-range-slider__label {
+    writing-mode: horizontal-tb;
 }
 
 .aural-range-slider--vertical .aural-range-slider__wrapper {
     height: 100%;
-    width: auto;
-    padding: 0 var(--space-3);
+    width: 44px;
+    min-height: 200px;
+    flex-direction: column;
 }
 
-.aural-range-slider--vertical .aural-range-slider__track {
-    width: 6px;
-    height: 100%;
-}
-
+.aural-range-slider--vertical .aural-range-slider__track-bg,
 .aural-range-slider--vertical .aural-range-slider__track-fill {
-    width: 100%;
+    width: 6px;
     height: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
+}
+
+.aural-range-slider--vertical .aural-range-slider__track-bg {
+    height: 100%;
 }
 
 .aural-range-slider--vertical .aural-range-slider__handle {
@@ -230,33 +339,21 @@
 }
 
 .aural-range-slider--vertical .aural-range-slider__handle:hover {
-    transform: translate(-50%, 50%) scale(1.15);
-}
-
-.aural-range-slider--vertical .aural-range-slider__handle:active {
     transform: translate(-50%, 50%) scale(1.1);
 }
 
-.aural-range-slider--vertical .aural-range-slider__label {
-    top: 50%;
-    left: 36px;
-    transform: translateY(-50%);
-}
-
-.aural-range-slider--vertical .aural-range-slider__label::after {
-    bottom: auto;
-    left: -4px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-right: 4px solid var(--color-border-medium);
-    border-left: none;
+.aural-range-slider--vertical .aural-range-slider__handle:active {
+    transform: translate(-50%, 50%) scale(0.95);
 }
 
 .aural-range-slider--vertical .aural-range-slider__values {
     flex-direction: column;
     align-items: flex-start;
+}
+
+.aural-range-slider--vertical .aural-range-slider__value {
+    writing-mode: horizontal-tb;
+    text-align: center;
 }
 
 .aural-range-slider--vertical .aural-range-slider__limits {
@@ -265,78 +362,13 @@
     margin-left: var(--space-1);
 }
 
-.aural-range-slider--vertical .aural-range-slider__steps {
-    flex-direction: column;
-}
-
-.aural-range-slider--vertical .aural-range-slider__step {
-    width: 8px;
-    height: 2px;
-}
-
-/* ========================================
-   Color Variants
-   ======================================== */
-
-.aural-range-slider--success .aural-range-slider__track-fill {
-    background: var(--color-success);
-}
-
-.aural-range-slider--success .aural-range-slider__handle {
-    border-color: var(--color-success);
-}
-
-.aural-range-slider--warning .aural-range-slider__track-fill {
-    background: var(--color-warning);
-}
-
-.aural-range-slider--warning .aural-range-slider__handle {
-    border-color: var(--color-warning);
-}
-
-.aural-range-slider--error .aural-range-slider__track-fill {
-    background: var(--color-error);
-}
-
-.aural-range-slider--error .aural-range-slider__handle {
-    border-color: var(--color-error);
-}
-
-.aural-range-slider--info .aural-range-slider__track-fill {
-    background: var(--color-info);
-}
-
-.aural-range-slider--info .aural-range-slider__handle {
-    border-color: var(--color-info);
-}
-
-/* ========================================
-   Size Variants
-   ======================================== */
-
-.aural-range-slider--sm .aural-range-slider__track {
-    height: 4px;
-}
-
-.aural-range-slider--sm .aural-range-slider__handle {
-    width: 16px;
-    height: 16px;
-}
-
-.aural-range-slider--sm.aural-range-slider--vertical .aural-range-slider__track {
+.aural-range-slider--vertical.aural-range-slider--sm .aural-range-slider__track-bg,
+.aural-range-slider--vertical.aural-range-slider--sm .aural-range-slider__track-fill {
     width: 4px;
 }
 
-.aural-range-slider--lg .aural-range-slider__track {
-    height: 8px;
-}
-
-.aural-range-slider--lg .aural-range-slider__handle {
-    width: 24px;
-    height: 24px;
-}
-
-.aural-range-slider--lg.aural-range-slider--vertical .aural-range-slider__track {
+.aural-range-slider--vertical.aural-range-slider--lg .aural-range-slider__track-bg,
+.aural-range-slider--vertical.aural-range-slider--lg .aural-range-slider__track-fill {
     width: 8px;
 }
 
@@ -354,87 +386,36 @@
 }
 
 /* ========================================
-   With Input Fields
+   Step Markers (matching slider)
    ======================================== */
 
-.aural-range-slider__inputs {
-    display: flex;
-    gap: var(--space-3);
-    align-items: center;
-}
-
-.aural-range-slider__input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-}
-
-.aural-range-slider__input-label {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    font-weight: var(--font-semibold);
-}
-
-.aural-range-slider__input {
-    padding: var(--space-2) var(--space-3);
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-family: var(--font-mono);
-    color: var(--color-text-primary);
-}
-
-.aural-range-slider__input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-}
-
-/* ========================================
-   Histogram Background
-   ======================================== */
-
-.aural-range-slider--with-histogram .aural-range-slider__track {
-    overflow: visible;
-}
-
-.aural-range-slider__histogram {
+.aural-range-slider__steps {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 20px;
+    inset: 0;
     display: flex;
-    align-items: flex-end;
-    gap: 1px;
-    opacity: 0.3;
+    justify-content: space-between;
+    align-items: center;
     pointer-events: none;
 }
 
-.aural-range-slider__histogram-bar {
-    flex: 1;
-    background: var(--color-primary);
-    border-radius: 1px 1px 0 0;
+.aural-range-slider__step {
+    width: 2px;
+    height: 0.5rem;
+    background: var(--color-border);
+    border-radius: var(--radius-sm);
 }
 
-/* ========================================
-   Tooltip Variant
-   ======================================== */
-
-.aural-range-slider--tooltip .aural-range-slider__label {
-    background: var(--color-bg-primary);
-    box-shadow: var(--shadow-md);
-    padding: 4px 8px;
-    font-size: var(--text-xs);
+.aural-range-slider__step--in-range {
+    background: var(--primary-alpha-50);
 }
 
-/* ========================================
-   Connected Handles
-   ======================================== */
+.aural-range-slider--vertical .aural-range-slider__steps {
+    flex-direction: column;
+}
 
-.aural-range-slider--connected .aural-range-slider__track-fill {
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+.aural-range-slider--vertical .aural-range-slider__step {
+    width: 0.5rem;
+    height: 2px;
 }
 
 /* ========================================
@@ -443,7 +424,6 @@
 
 @media (prefers-reduced-motion: reduce) {
     .aural-range-slider__handle,
-    .aural-range-slider__label,
     .aural-range-slider__track-fill {
         transition: none;
     }
@@ -468,13 +448,13 @@
 
 @media (max-width: 640px) {
     .aural-range-slider__handle {
-        width: 24px;
-        height: 24px;
+        width: 1.5rem;
+        height: 1.5rem;
     }
 
     .aural-range-slider--sm .aural-range-slider__handle {
-        width: 20px;
-        height: 20px;
+        width: 1.25rem;
+        height: 1.25rem;
     }
 }
 
@@ -484,15 +464,25 @@
 
 @media (pointer: coarse) {
     .aural-range-slider__handle {
-        width: 28px;
-        height: 28px;
+        width: 44px;
+        height: 44px;
     }
 
-    .aural-range-slider__track {
+    .aural-range-slider__wrapper {
+        height: 48px;
+    }
+
+    .aural-range-slider__track-bg,
+    .aural-range-slider__track-fill {
         height: 8px;
     }
 
-    .aural-range-slider--vertical .aural-range-slider__track {
+    .aural-range-slider--vertical .aural-range-slider__wrapper {
+        width: 48px;
+    }
+
+    .aural-range-slider--vertical .aural-range-slider__track-bg,
+    .aural-range-slider--vertical .aural-range-slider__track-fill {
         width: 8px;
     }
 }

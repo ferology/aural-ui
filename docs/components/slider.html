@@ -30,7 +30,7 @@
         }
 
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-10);
         }
 
         .page-title {
@@ -47,9 +47,19 @@
             margin: 0;
         }
 
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Example Container */
         .example-container {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .example-label {
@@ -58,15 +68,20 @@
             color: var(--color-text-secondary);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
         .example-demo {
-            padding: var(--space-6);
+            padding: var(--space-8);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: var(--space-6);
         }
 
         .content-section {
@@ -91,6 +106,13 @@
             font-weight: var(--font-semibold);
             color: var(--color-text-primary);
             margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content h4 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-4) 0 var(--space-2) 0;
         }
 
         .section-content p {
@@ -126,6 +148,79 @@
             padding: 0;
         }
 
+        .code-snippet {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: var(--text-sm);
+            line-height: 1.6;
+        }
+
+        .code-snippet code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Component Grid */
+        .component-grid {
+            display: grid;
+            gap: var(--space-6);
+        }
+
+        /* Slider with Min/Max Labels */
+        .slider-with-labels {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .slider-range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--text-sm);
+            color: var(--color-text-tertiary);
+        }
+
+        /* Vertical Slider Container */
+        .vertical-slider-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+
+        /* Price Display */
+        .price-display {
+            text-align: center;
+            margin-top: var(--space-4);
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-primary);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -156,6 +251,10 @@
                 top: var(--space-4);
                 right: var(--space-4);
             }
+
+            .example-demo {
+                padding: var(--space-6);
+            }
         }
     </style>
 </head>
@@ -164,41 +263,441 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Slider</h1>
-            <p class="page-description">Single-handle slider for value selection.</p>
+            <p class="page-description">An interactive control for selecting a value from a continuous range. Perfect for adjustments like volume, brightness, or any value that needs visual feedback.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
         </div>
-            </div>
 
-            <div class="example-container">
-                <div class="example-label">Slider with Color Variants</div>
-                <div class="example-demo">
-                    <div class="component-grid">
-                        <div class="aural-slider aural-slider--success" id="demo-slider-success">
-                            <div class="aural-slider__label-row">
-                                <label class="aural-slider__label">Success</label>
-                                <span class="aural-slider__value">75</span>
-                            </div>
-                            <input type="range" class="aural-slider__input" min="0" max="100" value="75">
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+        <!-- Basic Slider with Sizes -->
+        <div class="example-container">
+            <div class="example-label">Basic Slider with Sizes</div>
+            <div class="example-demo">
+                <div class="component-grid">
+                    <div class="aural-slider aural-slider--sm" id="slider-sm">
+                        <div class="aural-slider__label-row">
+                            <label class="aural-slider__label">Small Slider</label>
+                            <span class="aural-slider__value">30</span>
                         </div>
-                        <div class="aural-slider aural-slider--warning" id="demo-slider-warning">
-                            <div class="aural-slider__label-row">
-                                <label class="aural-slider__label">Warning</label>
-                                <span class="aural-slider__value">60</span>
-                            </div>
-                            <input type="range" class="aural-slider__input" min="0" max="100" value="60">
+                        <input type="range" class="aural-slider__input" min="0" max="100" value="30" aria-label="Small slider">
+                    </div>
+                    <div class="aural-slider" id="slider-default">
+                        <div class="aural-slider__label-row">
+                            <label class="aural-slider__label">Default Slider</label>
+                            <span class="aural-slider__value">50</span>
                         </div>
-                        <div class="aural-slider aural-slider--error" id="demo-slider-error">
-                            <div class="aural-slider__label-row">
-                                <label class="aural-slider__label">Error</label>
-                                <span class="aural-slider__value">40</span>
-                            </div>
-                            <input type="range" class="aural-slider__input" min="0" max="100" value="40">
+                        <input type="range" class="aural-slider__input" min="0" max="100" value="50" aria-label="Default slider">
+                    </div>
+                    <div class="aural-slider aural-slider--lg" id="slider-lg">
+                        <div class="aural-slider__label-row">
+                            <label class="aural-slider__label">Large Slider</label>
+                            <span class="aural-slider__value">70</span>
                         </div>
+                        <input type="range" class="aural-slider__input" min="0" max="100" value="70" aria-label="Large slider">
                     </div>
                 </div>
             </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;!-- Small Slider --&gt;
+&lt;div class="aural-slider aural-slider--sm" id="slider-sm"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Small Slider&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;30&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="30" aria-label="Small slider"&gt;
+&lt;/div&gt;
 
+&lt;!-- Default Slider --&gt;
+&lt;div class="aural-slider" id="slider-default"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Default Slider&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;50&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="50"&gt;
+&lt;/div&gt;
+
+&lt;!-- Large Slider --&gt;
+&lt;div class="aural-slider aural-slider--lg" id="slider-lg"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Large Slider&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;70&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="70"&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- With Value Display -->
+        <div class="example-container">
+            <div class="example-label">With Live Value Display</div>
+            <div class="example-demo">
+                <div class="aural-slider" id="slider-live-value">
+                    <div class="aural-slider__label-row">
+                        <label class="aural-slider__label">Opacity</label>
+                        <span class="aural-slider__value">80%</span>
+                    </div>
+                    <input type="range" class="aural-slider__input" min="0" max="100" value="80" aria-label="Opacity control">
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-slider" id="slider-live-value"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Opacity&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;80%&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="80"&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Value display updates automatically via aural-ui.js
+// The slider component handles live updates of the value display
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+        <!-- With Steps/Marks -->
+        <div class="example-container">
+            <div class="example-label">With Steps and Discrete Values</div>
+            <div class="example-demo">
+                <div class="aural-slider" id="slider-steps">
+                    <div class="aural-slider__label-row">
+                        <label class="aural-slider__label">Rating</label>
+                        <span class="aural-slider__value">3</span>
+                    </div>
+                    <input type="range" class="aural-slider__input" min="1" max="5" value="3" step="1" aria-label="Rating from 1 to 5">
+                </div>
+                <div class="aural-slider" id="slider-steps-25">
+                    <div class="aural-slider__label-row">
+                        <label class="aural-slider__label">Step by 25</label>
+                        <span class="aural-slider__value">50</span>
+                    </div>
+                    <input type="range" class="aural-slider__input" min="0" max="100" value="50" step="25" aria-label="Step by 25">
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;!-- Steps of 1 --&gt;
+&lt;div class="aural-slider" id="slider-steps"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Rating&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;3&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="1" max="5" value="3" step="1"&gt;
+&lt;/div&gt;
+
+&lt;!-- Steps of 25 --&gt;
+&lt;div class="aural-slider" id="slider-steps-25"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Step by 25&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;50&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="50" step="25"&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Color Variants -->
+        <div class="example-container">
+            <div class="example-label">Color Variants</div>
+            <div class="example-demo">
+                <div class="component-grid">
+                    <div class="aural-slider aural-slider--primary" id="slider-primary">
+                        <div class="aural-slider__label-row">
+                            <label class="aural-slider__label">Primary</label>
+                            <span class="aural-slider__value">65</span>
+                        </div>
+                        <input type="range" class="aural-slider__input" min="0" max="100" value="65" aria-label="Primary slider">
+                    </div>
+                    <div class="aural-slider aural-slider--success" id="slider-success">
+                        <div class="aural-slider__label-row">
+                            <label class="aural-slider__label">Success</label>
+                            <span class="aural-slider__value">75</span>
+                        </div>
+                        <input type="range" class="aural-slider__input" min="0" max="100" value="75" aria-label="Success slider">
+                    </div>
+                    <div class="aural-slider aural-slider--warning" id="slider-warning">
+                        <div class="aural-slider__label-row">
+                            <label class="aural-slider__label">Warning</label>
+                            <span class="aural-slider__value">60</span>
+                        </div>
+                        <input type="range" class="aural-slider__input" min="0" max="100" value="60" aria-label="Warning slider">
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;!-- Primary Variant --&gt;
+&lt;div class="aural-slider aural-slider--primary"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Primary&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;65&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="65"&gt;
+&lt;/div&gt;
+
+&lt;!-- Success Variant --&gt;
+&lt;div class="aural-slider aural-slider--success"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Success&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;75&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="75"&gt;
+&lt;/div&gt;
+
+&lt;!-- Warning Variant --&gt;
+&lt;div class="aural-slider aural-slider--warning"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Warning&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;60&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="60"&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Vertical Slider -->
+        <div class="example-container">
+            <div class="example-label">Vertical Slider</div>
+            <div class="example-demo">
+                <div class="vertical-slider-container">
+                    <div class="aural-slider aural-slider--vertical" id="slider-vertical">
+                        <div class="aural-slider__label-row">
+                            <label class="aural-slider__label">Temperature</label>
+                            <span class="aural-slider__value">22°C</span>
+                        </div>
+                        <input type="range" class="aural-slider__input" min="10" max="35" value="22" orient="vertical" aria-label="Temperature control" aria-orientation="vertical">
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="vertical-slider-container"&gt;
+    &lt;div class="aural-slider aural-slider--vertical" id="slider-vertical"&gt;
+        &lt;div class="aural-slider__label-row"&gt;
+            &lt;label class="aural-slider__label"&gt;Temperature&lt;/label&gt;
+            &lt;span class="aural-slider__value"&gt;22°C&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;input type="range" class="aural-slider__input" min="10" max="35" value="22"
+               orient="vertical" aria-orientation="vertical"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.vertical-slider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+.aural-slider--vertical {
+    height: 250px;
+    width: auto;
+}
+.aural-slider--vertical .aural-slider__input {
+    width: 250px;
+    height: auto;
+}
+&lt;/style&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+        <!-- Volume Control Pattern -->
+        <div class="example-container">
+            <div class="example-label">Volume Control Pattern</div>
+            <div class="example-demo">
+                <div class="aural-slider" id="slider-volume">
+                    <div class="aural-slider__label-row">
+                        <label class="aural-slider__label">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 8px;">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            Volume
+                        </label>
+                        <span class="aural-slider__value">70%</span>
+                    </div>
+                    <input type="range" class="aural-slider__input" min="0" max="100" value="70" aria-label="Volume control">
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-slider" id="slider-volume"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;
+            &lt;svg width="16" height="16" viewBox="0 0 24 24"&gt;
+                &lt;!-- Volume icon --&gt;
+            &lt;/svg&gt;
+            Volume
+        &lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;70%&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="100" value="70"&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Price Range Example -->
+        <div class="example-container">
+            <div class="example-label">Price Range Example</div>
+            <div class="example-demo">
+                <div class="aural-slider" id="slider-price">
+                    <div class="aural-slider__label-row">
+                        <label class="aural-slider__label">Maximum Price</label>
+                        <span class="aural-slider__value">$500</span>
+                    </div>
+                    <input type="range" class="aural-slider__input" min="0" max="1000" value="500" step="50" aria-label="Maximum price">
+                </div>
+                <div class="price-display" id="price-display">$500</div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-slider" id="slider-price"&gt;
+    &lt;div class="aural-slider__label-row"&gt;
+        &lt;label class="aural-slider__label"&gt;Maximum Price&lt;/label&gt;
+        &lt;span class="aural-slider__value"&gt;$500&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;input type="range" class="aural-slider__input" min="0" max="1000" value="500" step="50"&gt;
+&lt;/div&gt;
+&lt;div class="price-display"&gt;$500&lt;/div&gt;
+
+&lt;script&gt;
+const slider = document.querySelector('#slider-price .aural-slider__input');
+const display = document.querySelector('.price-display');
+slider.addEventListener('input', (e) =&gt; {
+    display.textContent = '$' + e.target.value;
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- With Min/Max Labels -->
+        <div class="example-container">
+            <div class="example-label">With Min/Max Labels</div>
+            <div class="example-demo">
+                <div class="slider-with-labels">
+                    <div class="aural-slider" id="slider-minmax">
+                        <div class="aural-slider__label-row">
+                            <label class="aural-slider__label">Brightness</label>
+                            <span class="aural-slider__value">60%</span>
+                        </div>
+                        <input type="range" class="aural-slider__input" min="0" max="100" value="60" aria-label="Brightness control from 0% to 100%">
+                    </div>
+                    <div class="slider-range-labels">
+                        <span>0% (Dark)</span>
+                        <span>100% (Bright)</span>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="slider-with-labels"&gt;
+    &lt;div class="aural-slider" id="slider-minmax"&gt;
+        &lt;div class="aural-slider__label-row"&gt;
+            &lt;label class="aural-slider__label"&gt;Brightness&lt;/label&gt;
+            &lt;span class="aural-slider__value"&gt;60%&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;input type="range" class="aural-slider__input" min="0" max="100" value="60"&gt;
+    &lt;/div&gt;
+    &lt;div class="slider-range-labels"&gt;
+        &lt;span&gt;0% (Dark)&lt;/span&gt;
+        &lt;span&gt;100% (Bright)&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.slider-with-labels {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+.slider-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+}
+&lt;/style&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+        <!-- Best Practices Section -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="section-content">
+                <h3>When to Use Sliders</h3>
+                <ul>
+                    <li><strong>Continuous Value Selection:</strong> Use sliders for selecting values from a continuous or large range where the exact value is less important than the relative position (e.g., volume, brightness, temperature).</li>
+                    <li><strong>Visual Feedback Matters:</strong> Ideal when users benefit from seeing the immediate effect of their adjustment, such as audio volume or image opacity.</li>
+                    <li><strong>Range with Context:</strong> When users need to understand their selection within the context of minimum and maximum values.</li>
+                    <li><strong>Approximate Values:</strong> Perfect for scenarios where approximate values are acceptable and the user wants quick, fluid adjustments.</li>
+                    <li><strong>Space-Efficient Controls:</strong> When you need a compact control that clearly shows the current value and available range.</li>
+                </ul>
+
+                <h3>When NOT to Use Sliders</h3>
+                <ul>
+                    <li><strong>Precise Input Required:</strong> Avoid sliders when users need to enter exact values. Use a number input field instead, especially for financial data, measurements, or quantities.</li>
+                    <li><strong>Binary Choices:</strong> Don't use sliders for simple on/off or yes/no decisions. Use a switch or toggle instead.</li>
+                    <li><strong>Small Value Ranges:</strong> For ranges with only a few options (2-5 discrete values), consider using radio buttons or a segmented control for clearer selection.</li>
+                    <li><strong>Non-Numeric Data:</strong> Sliders are inappropriate for categorical data or text-based options. Use dropdowns or radio buttons instead.</li>
+                    <li><strong>Critical Precision:</strong> Avoid in scenarios where precise control is difficult (e.g., selecting a specific date or entering a phone number).</li>
+                </ul>
+
+                <h3>Accessibility Guidelines</h3>
+                <ul>
+                    <li><strong>ARIA Labels:</strong> Always provide descriptive <code>aria-label</code> attributes that include the purpose, range, and current value.</li>
+                    <li><strong>Keyboard Navigation:</strong> Ensure sliders are fully keyboard accessible:
+                        <ul>
+                            <li>Arrow keys (Left/Right or Up/Down) for incremental adjustments</li>
+                            <li>Home/End keys to jump to min/max values</li>
+                            <li>Page Up/Page Down for larger increments</li>
+                        </ul>
+                    </li>
+                    <li><strong>Value Display:</strong> Always show the current value visually, either inline or in a tooltip, so users know the selected value.</li>
+                    <li><strong>Orientation Attribute:</strong> For vertical sliders, include <code>aria-orientation="vertical"</code> to inform assistive technologies.</li>
+                    <li><strong>Touch Targets:</strong> Ensure the slider handle is large enough for touch interaction (minimum 44x44px as per WCAG guidelines).</li>
+                    <li><strong>Focus Indicators:</strong> Provide clear visual focus indicators for keyboard users.</li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <h4>Volume/Audio Control</h4>
+                <p>Use horizontal sliders with icons (speaker symbol) and percentage values. Consider muting at 0% and showing different speaker icons based on volume level.</p>
+
+                <h4>Brightness/Contrast</h4>
+                <p>Implement with min/max labels (Dark/Bright) and percentage display. Provide immediate visual feedback if controlling visible content.</p>
+
+                <h4>Price Range Filtering</h4>
+                <p>Use currency-formatted values with appropriate step increments (e.g., $50 or $100). Consider dual-handle range sliders for min/max price selection.</p>
+
+                <h4>Zoom Level</h4>
+                <p>Horizontal slider with percentage or ratio display (50%, 100%, 200%). Include reset-to-default functionality at 100%.</p>
+
+                <h4>Rating/Quality Selection</h4>
+                <p>Discrete steps (1-5 or 1-10) with appropriate labeling. Consider showing star icons or descriptive labels (Poor, Fair, Good, Excellent).</p>
+
+                <h4>Time/Duration Selection</h4>
+                <p>Format values as time units (minutes, hours). Use appropriate steps based on granularity needed (1 min, 5 min, 15 min).</p>
+            </div>
+        </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->
@@ -225,6 +724,9 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
+        // Initialize tabs
+        Aural.initTabs();
+
         // Theme toggle
         let isDark = true;
         function toggleTheme() {
@@ -240,18 +742,100 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // Custom formatting for specific sliders
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to update slider fill (for WebKit browsers)
+            function updateSliderFill(input) {
+                const min = parseFloat(input.min) || 0;
+                const max = parseFloat(input.max) || 100;
+                const value = parseFloat(input.value);
+                const percentage = ((value - min) / (max - min)) * 100;
+
+                const sliderContainer = input.closest('.aural-slider');
+                let color = '#10b981'; // primary color
+
+                // Check for color variants - use actual hex colors
+                if (sliderContainer.classList.contains('aural-slider--success')) {
+                    color = '#22c55e';
+                } else if (sliderContainer.classList.contains('aural-slider--warning')) {
+                    color = '#f59e0b';
+                } else if (sliderContainer.classList.contains('aural-slider--error')) {
+                    color = '#ef4444';
+                }
+
+                // Determine track height based on size variant
+                let trackHeight = '6px';
+                if (sliderContainer.classList.contains('aural-slider--sm')) {
+                    trackHeight = '4px';
+                } else if (sliderContainer.classList.contains('aural-slider--lg')) {
+                    trackHeight = '8px';
+                }
+
+                const isVertical = sliderContainer.classList.contains('aural-slider--vertical');
+
+                // For WebKit browsers, we create a gradient on the input background
+                const bgColor = '#1f2937'; // bg-tertiary
+
+                if (isVertical) {
+                    input.style.background = `linear-gradient(to top, ${color} ${percentage}%, ${bgColor} ${percentage}%)`;
+                    input.style.backgroundSize = `${trackHeight} 100%`;
+                    input.style.backgroundPosition = 'center';
+                    input.style.backgroundRepeat = 'no-repeat';
+                } else {
+                    input.style.background = `linear-gradient(to right, ${color} ${percentage}%, ${bgColor} ${percentage}%)`;
+                    input.style.backgroundSize = `100% ${trackHeight}`;
+                    input.style.backgroundPosition = 'center';
+                    input.style.backgroundRepeat = 'no-repeat';
+                }
+            }
+
+            // General slider value updater for ALL sliders
+            document.querySelectorAll('.aural-slider').forEach(function(sliderContainer) {
+                const input = sliderContainer.querySelector('.aural-slider__input');
+                const valueDisplay = sliderContainer.querySelector('.aural-slider__value');
+
+                if (input && valueDisplay) {
+                    // Initialize fill on page load
+                    updateSliderFill(input);
+
+                    // Store original suffix if present (%, °C, $, etc.)
+                    const originalText = valueDisplay.textContent;
+                    let suffix = '';
+                    let prefix = '';
+
+                    // Detect suffix/prefix from initial value
+                    if (originalText.includes('%')) suffix = '%';
+                    if (originalText.includes('°C')) suffix = '°C';
+                    if (originalText.includes('$')) prefix = '$';
+
+                    input.addEventListener('input', function(e) {
+                        valueDisplay.textContent = prefix + e.target.value + suffix;
+                        updateSliderFill(input);
+
+                        // Also update price display if it exists
+                        const priceDisplay = document.getElementById('price-display');
+                        if (priceDisplay && sliderContainer.id === 'slider-price') {
+                            priceDisplay.textContent = prefix + e.target.value + suffix;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

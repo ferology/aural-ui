@@ -26,13 +26,14 @@
 }
 
 .aural-chips__container:hover {
-    border-color: var(--color-border-hover);
+    border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-chips__container:focus-within {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
-    box-shadow: var(--glow-primary-sm);
-    outline: none;
 }
 
 /* ========================================
@@ -290,9 +291,9 @@
    ======================================== */
 
 .aural-chips__container--disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-tertiary);
 }
 
 .aural-chips__container--disabled .aural-chip__remove {

@@ -57,10 +57,16 @@
     right: var(--space-3);
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     color: var(--color-text-secondary);
     width: 20px;
     height: 20px;
+    transition: var(--transition-all-fast);
+}
+
+.aural-date-picker__icon:hover {
+    color: var(--color-primary);
 }
 
 /* ========================================
@@ -227,6 +233,11 @@
     color: var(--color-text-primary);
 }
 
+.aural-date-picker__day--hover-range {
+    background: var(--primary-alpha-10);
+    color: var(--color-text-primary);
+}
+
 /* ========================================
    Calendar Footer
    ======================================== */
@@ -324,5 +335,32 @@
 
     .aural-date-picker__calendar.aural-date-picker__calendar--open {
         transform: translateX(-50%) translateY(0);
+    }
+
+    .aural-date-picker__input {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+    .aural-date-picker__day {
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .aural-date-picker__nav-button {
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .aural-date-picker__footer-button {
+        min-height: 48px;
+        padding: var(--space-3) var(--space-4);
+    }
+
+    .aural-date-picker__input {
+        min-height: 48px;
+        font-size: 16px;
     }
 }

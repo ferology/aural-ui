@@ -134,6 +134,37 @@
             z-index: 200;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -167,12 +198,42 @@
             <p class="page-description">Text input fields with validation and various states.</p>
         </div>
 
-        <div class="example-container">
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="content-section">
+                <p class="section-content">Text input fields are fundamental form elements that allow users to enter and edit text. They come with built-in validation states and flexible styling options to provide clear feedback and maintain consistency across your application.</p>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Basic Input</div>
+                <div class="example-demo">
+                    <input type="text" class="input" placeholder="Enter text...">
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;input type="text" class="input" placeholder="Enter text..."&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
                 <div class="example-label">Error State</div>
                 <div class="example-demo">
                     <input type="email" class="input error" placeholder="invalid-email">
                     <p class="form-error">Please enter a valid email address</p>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;input type="email" class="input error" placeholder="invalid-email"&gt;
+&lt;p class="form-error"&gt;Please enter a valid email address&lt;/p&gt;</code></pre>
+                </details>
             </div>
 
             <div class="example-container">
@@ -181,6 +242,49 @@
                     <input type="text" class="input success" value="Valid input">
                     <p class="form-success">Looks good!</p>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;input type="text" class="input success" value="Valid input"&gt;
+&lt;p class="form-success"&gt;Looks good!&lt;/p&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Input Sizes</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <input type="text" class="input input-sm" placeholder="Small input">
+                        <input type="text" class="input" placeholder="Default input">
+                        <input type="text" class="input input-lg" placeholder="Large input">
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;input type="text" class="input input-sm" placeholder="Small input"&gt;
+&lt;input type="text" class="input" placeholder="Default input"&gt;
+&lt;input type="text" class="input input-lg" placeholder="Large input"&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Input States</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <input type="text" class="input" placeholder="Default state">
+                        <input type="text" class="input" placeholder="Focused state" autofocus>
+                        <input type="text" class="input" placeholder="Disabled state" disabled>
+                        <input type="text" class="input" placeholder="Readonly state" readonly value="Read only">
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;input type="text" class="input" placeholder="Default state"&gt;
+&lt;input type="text" class="input" placeholder="Disabled state" disabled&gt;
+&lt;input type="text" class="input" placeholder="Readonly state" readonly value="Read only"&gt;</code></pre>
+                </details>
             </div>
 
             <div class="example-container">
@@ -192,8 +296,118 @@
                         <p class="form-helper">We'll never share your email</p>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="form-group"&gt;
+    &lt;label class="label"&gt;Email Address&lt;/label&gt;
+    &lt;input type="email" class="input" placeholder="you@example.com"&gt;
+    &lt;p class="form-helper"&gt;We'll never share your email&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
 
+            <div class="example-container">
+                <div class="example-label">Number Input with Spinners</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <div class="form-group">
+                            <label class="label">Quantity</label>
+                            <div class="input-number">
+                                <input type="number" class="input" value="5" min="1" max="100">
+                                <div class="input-number__controls">
+                                    <button type="button" class="input-number__button" data-action="increment" aria-label="Increment">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="18 15 12 9 6 15"></polyline>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="input-number__button" data-action="decrement" aria-label="Decrement">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4);">
+                            <div class="form-group">
+                                <label class="label">Small</label>
+                                <div class="input-number input-number--sm">
+                                    <input type="number" class="input input-sm" value="10" min="0" max="50">
+                                    <div class="input-number__controls">
+                                        <button type="button" class="input-number__button" data-action="increment" aria-label="Increment">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="18 15 12 9 6 15"></polyline>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="input-number__button" data-action="decrement" aria-label="Decrement">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">Default</label>
+                                <div class="input-number">
+                                    <input type="number" class="input" value="25" min="0" max="100">
+                                    <div class="input-number__controls">
+                                        <button type="button" class="input-number__button" data-action="increment" aria-label="Increment">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="18 15 12 9 6 15"></polyline>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="input-number__button" data-action="decrement" aria-label="Decrement">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">Large</label>
+                                <div class="input-number input-number--lg">
+                                    <input type="number" class="input input-lg" value="50" min="0" max="200" step="5">
+                                    <div class="input-number__controls">
+                                        <button type="button" class="input-number__button" data-action="increment" aria-label="Increment">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="18 15 12 9 6 15"></polyline>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="input-number__button" data-action="decrement" aria-label="Decrement">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="input-number"&gt;
+    &lt;input type="number" class="input" value="5" min="1" max="100"&gt;
+    &lt;div class="input-number__controls"&gt;
+        &lt;button type="button" class="input-number__button" data-action="increment"&gt;▲&lt;/button&gt;
+        &lt;button type="button" class="input-number__button" data-action="decrement"&gt;▼&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Size variants --&gt;
+&lt;div class="input-number input-number--sm"&gt;...&lt;/div&gt;
+&lt;div class="input-number input-number--lg"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
             <div class="example-container">
                 <div class="example-label">Input with Prefix Icon</div>
                 <div class="example-demo">
@@ -207,6 +421,18 @@
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="form-group"&gt;
+    &lt;label class="label"&gt;Search&lt;/label&gt;
+    &lt;div class="input-group input-group-prefix"&gt;
+        &lt;span class="input-group-icon input-group-icon-left"&gt;
+            &lt;i data-lucide="search"&gt;&lt;/i&gt;
+        &lt;/span&gt;
+        &lt;input type="text" class="input" placeholder="Search..."&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
 
             <div class="example-container">
@@ -222,6 +448,18 @@
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="form-group"&gt;
+    &lt;label class="label"&gt;Email&lt;/label&gt;
+    &lt;div class="input-group input-group-suffix"&gt;
+        &lt;input type="email" class="input" placeholder="you@example.com"&gt;
+        &lt;span class="input-group-icon input-group-icon-right"&gt;
+            &lt;i data-lucide="at-sign"&gt;&lt;/i&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
 
             <div class="example-container">
@@ -240,6 +478,21 @@
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="form-group"&gt;
+    &lt;label class="label"&gt;Password&lt;/label&gt;
+    &lt;div class="input-group input-group-prefix input-group-suffix"&gt;
+        &lt;span class="input-group-icon input-group-icon-left"&gt;
+            &lt;i data-lucide="lock"&gt;&lt;/i&gt;
+        &lt;/span&gt;
+        &lt;input type="password" class="input" placeholder="Enter password"&gt;
+        &lt;span class="input-group-icon input-group-icon-right"&gt;
+            &lt;i data-lucide="eye"&gt;&lt;/i&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
 
             <div class="example-container">
@@ -266,6 +519,32 @@
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Small --&gt;
+&lt;div class="input-group input-group-prefix input-group-sm"&gt;
+    &lt;span class="input-group-icon input-group-icon-left"&gt;
+        &lt;i data-lucide="search"&gt;&lt;/i&gt;
+    &lt;/span&gt;
+    &lt;input type="text" class="input input-sm" placeholder="Small search..."&gt;
+&lt;/div&gt;
+
+&lt;!-- Default --&gt;
+&lt;div class="input-group input-group-prefix"&gt;
+    &lt;span class="input-group-icon input-group-icon-left"&gt;
+        &lt;i data-lucide="search"&gt;&lt;/i&gt;
+    &lt;/span&gt;
+    &lt;input type="text" class="input" placeholder="Default search..."&gt;
+&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+&lt;div class="input-group input-group-prefix input-group-lg"&gt;
+    &lt;span class="input-group-icon input-group-icon-left"&gt;
+        &lt;i data-lucide="search"&gt;&lt;/i&gt;
+    &lt;/span&gt;
+    &lt;input type="text" class="input input-lg" placeholder="Large search..."&gt;
+&lt;/div&gt;</code></pre>
+                </details>
                 <div class="section-content" style="margin-top: var(--space-4);">
                     <p>Add icons to inputs using the <code>.input-group</code> wrapper with <code>.input-group-icon</code> elements. Use these classes to position icons:</p>
                     <ul>
@@ -292,6 +571,39 @@
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="form-group"&gt;
+    &lt;label class="label"&gt;Bio&lt;/label&gt;
+    &lt;div class="input-with-counter"&gt;
+        &lt;textarea class="input" id="bio-input" maxlength="200" rows="4"
+                  placeholder="Tell us about yourself..."
+                  oninput="updateCounter()"&gt;&lt;/textarea&gt;
+        &lt;div class="input-counter" id="bio-counter"&gt;
+            &lt;span class="input-counter-text"&gt;Characters:&lt;/span&gt;
+            &lt;span class="input-counter-count"&gt;0 / 200&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function updateCounter() {
+    const input = document.getElementById('bio-input');
+    const counter = document.getElementById('bio-counter');
+    const count = input.value.length;
+    const max = input.maxLength;
+
+    counter.querySelector('.input-counter-count').textContent = `${count} / ${max}`;
+
+    counter.classList.remove('input-counter-warning', 'input-counter-error');
+    if (count >= max * 0.8 && count < max) {
+        counter.classList.add('input-counter-warning');
+    } else if (count >= max) {
+        counter.classList.add('input-counter-error');
+    }
+}
+&lt;/script&gt;</code></pre>
+                </details>
                 <div class="section-content" style="margin-top: var(--space-4);">
                     <p>Character counters help users stay within input limits. The counter automatically updates as users type:</p>
                     <ul>
@@ -302,6 +614,64 @@
                     <p>Use the <code>.input-with-counter</code> wrapper to enable character counting.</p>
                 </div>
             </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Use text inputs for single-line text entry such as names, emails, and search queries</li>
+                        <li>Use textarea inputs for multi-line text entry such as comments, descriptions, and messages</li>
+                        <li>Provide clear labels that describe what information is expected</li>
+                        <li>Use placeholder text to provide examples or formatting hints, but never as a replacement for labels</li>
+                    </ul>
+
+                    <h3>Validation and Feedback</h3>
+                    <ul>
+                        <li>Show validation states (error/success) after the user has interacted with the field or attempted to submit</li>
+                        <li>Provide clear, actionable error messages that explain what went wrong and how to fix it</li>
+                        <li>Use success states sparingly - only when confirmation is valuable to the user</li>
+                        <li>Display helper text for additional context or requirements before the user interacts with the field</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Always associate labels with inputs using the <code>for</code> attribute or by wrapping the input</li>
+                        <li>Ensure error messages are announced to screen readers using <code>aria-describedby</code></li>
+                        <li>Provide sufficient color contrast between text and backgrounds</li>
+                        <li>Make sure inputs are keyboard accessible and have visible focus states</li>
+                        <li>Use appropriate input types (<code>email</code>, <code>tel</code>, <code>url</code>) to improve mobile experience</li>
+                    </ul>
+
+                    <h3>Icons and Decorations</h3>
+                    <ul>
+                        <li>Use prefix icons to indicate the type of input (search, email, lock for password)</li>
+                        <li>Use suffix icons for actions related to the input (show/hide password, clear field)</li>
+                        <li>Keep icons simple and ensure they're semantically meaningful</li>
+                        <li>Maintain consistent icon sizing across different input sizes</li>
+                    </ul>
+
+                    <h3>Character Limits</h3>
+                    <ul>
+                        <li>Display character counters for inputs with length constraints</li>
+                        <li>Show warning state when approaching the limit (80-99%)</li>
+                        <li>Show error state when at or over the limit</li>
+                        <li>Consider whether a hard limit (preventing input) or soft limit (showing warning) is appropriate</li>
+                    </ul>
+
+                    <h3>Sizing</h3>
+                    <ul>
+                        <li>Use default size for most use cases</li>
+                        <li>Use small inputs in compact layouts or secondary forms</li>
+                        <li>Use large inputs to increase prominence in primary actions or improve touch targets</li>
+                        <li>Maintain consistent sizing within a form or related group of inputs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
     </main>
 
@@ -326,6 +696,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize tabs
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 

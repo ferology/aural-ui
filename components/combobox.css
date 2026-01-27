@@ -51,12 +51,13 @@
 
 .aural-combobox__input:hover {
     border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-combobox__input:focus {
-    outline: none;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--primary-alpha-10);
 }
 
 .aural-combobox__input::placeholder {
@@ -64,7 +65,10 @@
 }
 
 .aural-combobox--open .aural-combobox__input {
-    border-color: var(--color-primary);
+    border-top-color: var(--color-primary);
+    border-left-color: var(--color-primary);
+    border-right-color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -127,6 +131,8 @@
     width: 20px;
     height: 20px;
     color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
     transition: transform 0.2s ease;
     cursor: pointer;
 }
@@ -181,8 +187,7 @@
     max-height: 0;
     overflow: hidden;
     background: var(--color-bg-primary);
-    border: 1px solid var(--color-primary);
-    border-top: none;
+    border: none;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     box-shadow: var(--shadow-lg);
     transition: max-height 0.3s ease;
@@ -190,6 +195,9 @@
 
 .aural-combobox--open .aural-combobox__dropdown {
     max-height: 300px;
+    border-left: 1px solid var(--color-border-medium);
+    border-right: 1px solid var(--color-border-medium);
+    border-bottom: 1px solid var(--color-border-medium);
 }
 
 /* ========================================
@@ -479,7 +487,7 @@
    ======================================== */
 
 .aural-combobox--disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
 }
 

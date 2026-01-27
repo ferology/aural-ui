@@ -30,7 +30,7 @@
         }
 
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-10);
         }
 
         .page-title {
@@ -49,7 +49,7 @@
 
         /* Example Container */
         .example-container {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .example-label {
@@ -58,15 +58,20 @@
             color: var(--color-text-secondary);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
         .example-demo {
-            padding: var(--space-6);
+            padding: var(--space-8);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            min-height: 120px;
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-4);
+            flex-wrap: wrap;
         }
 
         .content-section {
@@ -91,6 +96,13 @@
             font-weight: var(--font-semibold);
             color: var(--color-text-primary);
             margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content h4 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-4) 0 var(--space-2) 0;
         }
 
         .section-content p {
@@ -134,6 +146,37 @@
             z-index: 200;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -164,40 +207,822 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Color Picker</h1>
-            <p class="page-description">Interactive color selection with various input modes.</p>
+            <p class="page-description">A comprehensive color selection component with visual pickers, hex/RGB/HSL input modes, preset colors, and alpha channel support. Perfect for design tools, theme customizers, and any application requiring precise color selection.</p>
         </div>
 
-        <input type="text" class="aural-color-picker__value" value="#F00054" readonly>
-                    </div>
-                    <div class="aural-color-picker__canvas">
-                        <div class="aural-color-picker__saturation"></div>
-                        <div class="aural-color-picker__lightness"></div>
-                        <div class="aural-color-picker__cursor" style="left: 100%; top: 50%;"></div>
-                    </div>
-                    <div class="aural-color-picker__hue">
-                        <div class="aural-color-picker__hue-handle" style="left: 340%;"></div>
-                    </div>
-                    <div class="aural-color-picker__modes">
-                        <button class="aural-color-picker__mode aural-color-picker__mode--active">HEX</button>
-                        <button class="aural-color-picker__mode">RGB</button>
-                        <button class="aural-color-picker__mode">HSL</button>
-                    </div>
-                    <div class="aural-color-picker__presets">
-                        <div class="aural-color-picker__preset-label">Presets</div>
-                        <div class="aural-color-picker__preset-grid">
-                            <button class="aural-color-picker__preset" style="background: #f00054;"></button>
-                            <button class="aural-color-picker__preset" style="background: #22c55e;"></button>
-                            <button class="aural-color-picker__preset" style="background: #3b82f6;"></button>
-                            <button class="aural-color-picker__preset" style="background: #f59e0b;"></button>
-                            <button class="aural-color-picker__preset" style="background: #ef4444;"></button>
-                            <button class="aural-color-picker__preset" style="background: #8b5cf6;"></button>
-                            <button class="aural-color-picker__preset" style="background: #ec4899;"></button>
-                            <button class="aural-color-picker__preset" style="background: #14b8a6;"></button>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <!-- Example 1: Full Featured Color Picker -->
+            <div class="example-container">
+                <div class="example-label">Full Featured Color Picker</div>
+                <div class="example-demo">
+                    <div class="aural-color-picker" id="color-picker-full">
+                        <div class="aural-color-picker__preview">
+                            <div class="aural-color-picker__swatch">
+                                <div class="aural-color-picker__swatch-color"></div>
+                            </div>
+                            <input type="text" class="aural-color-picker__value" value="#F00054" readonly>
+                        </div>
+                        <div class="aural-color-picker__canvas">
+                            <div class="aural-color-picker__saturation"></div>
+                            <div class="aural-color-picker__lightness"></div>
+                            <div class="aural-color-picker__cursor"></div>
+                        </div>
+                        <div class="aural-color-picker__hue">
+                            <div class="aural-color-picker__hue-handle"></div>
+                        </div>
+                        <div class="aural-color-picker__alpha">
+                            <div class="aural-color-picker__alpha-gradient"></div>
+                            <div class="aural-color-picker__alpha-handle"></div>
+                        </div>
+                        <div class="aural-color-picker__modes">
+                            <button class="aural-color-picker__mode aural-color-picker__mode--active" data-mode="hex">HEX</button>
+                            <button class="aural-color-picker__mode" data-mode="rgb">RGB</button>
+                            <button class="aural-color-picker__mode" data-mode="hsl">HSL</button>
+                        </div>
+                        <div class="aural-color-picker__inputs" data-mode="hex">
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">Hex</label>
+                                <input type="text" class="aural-color-picker__input" value="F00054" maxlength="6">
+                            </div>
+                        </div>
+                        <div class="aural-color-picker__presets">
+                            <div class="aural-color-picker__preset-label">Presets</div>
+                            <div class="aural-color-picker__preset-grid">
+                                <button class="aural-color-picker__preset aural-color-picker__preset--active">
+                                    <div class="aural-color-picker__preset-color" style="background: #f00054;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #22c55e;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #3b82f6;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #f59e0b;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #ef4444;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #8b5cf6;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #ec4899;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #14b8a6;"></div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-color-picker" id="color-picker-full"&gt;
+  &lt;div class="aural-color-picker__preview"&gt;
+    &lt;div class="aural-color-picker__swatch"&gt;
+      &lt;div class="aural-color-picker__swatch-color"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-color-picker__value" value="#F00054" readonly&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__canvas"&gt;
+    &lt;div class="aural-color-picker__saturation"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__lightness"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__cursor"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__hue"&gt;
+    &lt;div class="aural-color-picker__hue-handle"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__alpha"&gt;
+    &lt;div class="aural-color-picker__alpha-gradient"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__alpha-handle"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__modes"&gt;
+    &lt;button class="aural-color-picker__mode aural-color-picker__mode--active" data-mode="hex"&gt;HEX&lt;/button&gt;
+    &lt;button class="aural-color-picker__mode" data-mode="rgb"&gt;RGB&lt;/button&gt;
+    &lt;button class="aural-color-picker__mode" data-mode="hsl"&gt;HSL&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__presets"&gt;
+    &lt;div class="aural-color-picker__preset-label"&gt;Presets&lt;/div&gt;
+    &lt;div class="aural-color-picker__preset-grid"&gt;
+      &lt;button class="aural-color-picker__preset"&gt;
+        &lt;div class="aural-color-picker__preset-color" style="background: #f00054;"&gt;&lt;/div&gt;
+      &lt;/button&gt;
+      &lt;!-- More presets... --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initColorPicker('color-picker-full', {
+  color: '#F00054',
+  alpha: true,
+  presets: ['#f00054', '#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6'],
+  onChange: (color) => console.log('Color changed:', color)
+});
+&lt;/script&gt;</code></pre>
+                </details>
             </div>
 
+            <!-- Example 2: With RGB Input Mode -->
+            <div class="example-container">
+                <div class="example-label">RGB Input Mode</div>
+                <div class="example-demo">
+                    <div class="aural-color-picker" id="color-picker-rgb">
+                        <div class="aural-color-picker__preview">
+                            <div class="aural-color-picker__swatch">
+                                <div class="aural-color-picker__swatch-color"></div>
+                            </div>
+                            <input type="text" class="aural-color-picker__value" value="rgb(34, 197, 94)" readonly>
+                        </div>
+                        <div class="aural-color-picker__canvas">
+                            <div class="aural-color-picker__saturation"></div>
+                            <div class="aural-color-picker__lightness"></div>
+                            <div class="aural-color-picker__cursor"></div>
+                        </div>
+                        <div class="aural-color-picker__hue">
+                            <div class="aural-color-picker__hue-handle"></div>
+                        </div>
+                        <div class="aural-color-picker__modes">
+                            <button class="aural-color-picker__mode" data-mode="hex">HEX</button>
+                            <button class="aural-color-picker__mode aural-color-picker__mode--active" data-mode="rgb">RGB</button>
+                            <button class="aural-color-picker__mode" data-mode="hsl">HSL</button>
+                        </div>
+                        <div class="aural-color-picker__inputs aural-color-picker__inputs--rgba" data-mode="rgb">
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">R</label>
+                                <input type="number" class="aural-color-picker__input" value="34" min="0" max="255">
+                            </div>
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">G</label>
+                                <input type="number" class="aural-color-picker__input" value="197" min="0" max="255">
+                            </div>
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">B</label>
+                                <input type="number" class="aural-color-picker__input" value="94" min="0" max="255">
+                            </div>
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">A</label>
+                                <input type="number" class="aural-color-picker__input" value="100" min="0" max="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-color-picker" id="color-picker-rgb"&gt;
+  &lt;div class="aural-color-picker__preview"&gt;
+    &lt;div class="aural-color-picker__swatch"&gt;
+      &lt;div class="aural-color-picker__swatch-color"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-color-picker__value" value="rgb(34, 197, 94)" readonly&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__canvas"&gt;
+    &lt;div class="aural-color-picker__saturation"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__lightness"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__cursor"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__hue"&gt;
+    &lt;div class="aural-color-picker__hue-handle"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__modes"&gt;
+    &lt;button class="aural-color-picker__mode" data-mode="hex"&gt;HEX&lt;/button&gt;
+    &lt;button class="aural-color-picker__mode aural-color-picker__mode--active" data-mode="rgb"&gt;RGB&lt;/button&gt;
+    &lt;button class="aural-color-picker__mode" data-mode="hsl"&gt;HSL&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__inputs aural-color-picker__inputs--rgba" data-mode="rgb"&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;R&lt;/label&gt;
+      &lt;input type="number" class="aural-color-picker__input" value="34" min="0" max="255"&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;G&lt;/label&gt;
+      &lt;input type="number" class="aural-color-picker__input" value="197" min="0" max="255"&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;B&lt;/label&gt;
+      &lt;input type="number" class="aural-color-picker__input" value="94" min="0" max="255"&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;A&lt;/label&gt;
+      &lt;input type="number" class="aural-color-picker__input" value="100" min="0" max="100"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initColorPicker('color-picker-rgb', {
+  color: '#22c55e',
+  alpha: true,
+  mode: 'rgb',
+  onChange: (color) => console.log('Color changed:', color)
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <!-- Example 3: Compact Variant -->
+            <div class="example-container">
+                <div class="example-label">Compact Variant</div>
+                <div class="example-demo">
+                    <div class="aural-color-picker aural-color-picker--compact" id="color-picker-compact">
+                        <div class="aural-color-picker__preview">
+                            <div class="aural-color-picker__swatch">
+                                <div class="aural-color-picker__swatch-color"></div>
+                            </div>
+                            <input type="text" class="aural-color-picker__value" value="#3B82F6" readonly>
+                        </div>
+                        <div class="aural-color-picker__canvas">
+                            <div class="aural-color-picker__saturation"></div>
+                            <div class="aural-color-picker__lightness"></div>
+                            <div class="aural-color-picker__cursor"></div>
+                        </div>
+                        <div class="aural-color-picker__hue">
+                            <div class="aural-color-picker__hue-handle"></div>
+                        </div>
+                        <div class="aural-color-picker__modes">
+                            <button class="aural-color-picker__mode aural-color-picker__mode--active" data-mode="hex">HEX</button>
+                            <button class="aural-color-picker__mode" data-mode="rgb">RGB</button>
+                            <button class="aural-color-picker__mode" data-mode="hsl">HSL</button>
+                        </div>
+                        <div class="aural-color-picker__inputs" data-mode="hex">
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">Hex</label>
+                                <input type="text" class="aural-color-picker__input" value="3B82F6" maxlength="6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-color-picker aural-color-picker--compact" id="color-picker-compact"&gt;
+  &lt;div class="aural-color-picker__preview"&gt;
+    &lt;div class="aural-color-picker__swatch"&gt;
+      &lt;div class="aural-color-picker__swatch-color"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-color-picker__value" value="#3B82F6" readonly&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__canvas"&gt;
+    &lt;div class="aural-color-picker__saturation"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__lightness"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__cursor"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__hue"&gt;
+    &lt;div class="aural-color-picker__hue-handle"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__modes"&gt;
+    &lt;button class="aural-color-picker__mode aural-color-picker__mode--active" data-mode="hex"&gt;HEX&lt;/button&gt;
+    &lt;button class="aural-color-picker__mode" data-mode="rgb"&gt;RGB&lt;/button&gt;
+    &lt;button class="aural-color-picker__mode" data-mode="hsl"&gt;HSL&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__inputs" data-mode="hex"&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;Hex&lt;/label&gt;
+      &lt;input type="text" class="aural-color-picker__input" value="3B82F6" maxlength="6"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initColorPicker('color-picker-compact', {
+  color: '#3B82F6',
+  compact: true,
+  onChange: (color) => console.log('Color changed:', color)
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Example 4: Popover Trigger -->
+            <div class="example-container">
+                <div class="example-label">Popover Trigger</div>
+                <div class="example-demo">
+                    <div style="position: relative;">
+                        <button class="aural-color-picker-trigger" id="color-trigger">
+                            <div class="aural-color-picker-trigger__swatch" style="--color-value: #EC4899;"></div>
+                            <span class="aural-color-picker-trigger__label">Choose Color</span>
+                        </button>
+                        <div class="aural-color-picker-popover" id="color-popover">
+                            <div class="aural-color-picker" id="color-picker-popover">
+                                <div class="aural-color-picker__preview">
+                                    <div class="aural-color-picker__swatch">
+                                        <div class="aural-color-picker__swatch-color"></div>
+                                    </div>
+                                    <input type="text" class="aural-color-picker__value" value="#EC4899" readonly>
+                                </div>
+                                <div class="aural-color-picker__canvas">
+                                    <div class="aural-color-picker__saturation"></div>
+                                    <div class="aural-color-picker__lightness"></div>
+                                    <div class="aural-color-picker__cursor"></div>
+                                </div>
+                                <div class="aural-color-picker__hue">
+                                    <div class="aural-color-picker__hue-handle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="position: relative;"&gt;
+  &lt;button class="aural-color-picker-trigger" id="color-trigger"&gt;
+    &lt;div class="aural-color-picker-trigger__swatch" style="--color-value: #EC4899;"&gt;&lt;/div&gt;
+    &lt;span class="aural-color-picker-trigger__label"&gt;Choose Color&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="aural-color-picker-popover" id="color-popover"&gt;
+    &lt;div class="aural-color-picker" id="color-picker-popover"&gt;
+      &lt;!-- Color picker markup --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const picker = Aural.initColorPicker('color-picker-popover', {
+  color: '#EC4899',
+  onChange: (color) => {
+    document.querySelector('.aural-color-picker-trigger__swatch').style.setProperty('--color-value', color);
+  }
+});
+
+document.getElementById('color-trigger').addEventListener('click', () => {
+  document.getElementById('color-popover').classList.toggle('aural-color-picker-popover--open');
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Example 5: With Recent Colors -->
+            <div class="example-container">
+                <div class="example-label">With Recent Colors</div>
+                <div class="example-demo">
+                    <div class="aural-color-picker" id="color-picker-recent">
+                        <div class="aural-color-picker__preview">
+                            <div class="aural-color-picker__swatch">
+                                <div class="aural-color-picker__swatch-color"></div>
+                            </div>
+                            <input type="text" class="aural-color-picker__value" value="#8B5CF6" readonly>
+                        </div>
+                        <div class="aural-color-picker__canvas">
+                            <div class="aural-color-picker__saturation"></div>
+                            <div class="aural-color-picker__lightness"></div>
+                            <div class="aural-color-picker__cursor"></div>
+                        </div>
+                        <div class="aural-color-picker__hue">
+                            <div class="aural-color-picker__hue-handle"></div>
+                        </div>
+                        <div class="aural-color-picker__presets">
+                            <div class="aural-color-picker__preset-label">Presets</div>
+                            <div class="aural-color-picker__preset-grid">
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #f00054;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #22c55e;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #3b82f6;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #f59e0b;"></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="aural-color-picker__recent">
+                            <div class="aural-color-picker__recent-label">Recent</div>
+                            <div class="aural-color-picker__recent-grid">
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #8b5cf6;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #ec4899;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #14b8a6;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset">
+                                    <div class="aural-color-picker__preset-color" style="background: #ef4444;"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-color-picker" id="color-picker-recent"&gt;
+  &lt;!-- Preview, canvas, hue slider --&gt;
+  &lt;div class="aural-color-picker__presets"&gt;
+    &lt;div class="aural-color-picker__preset-label"&gt;Presets&lt;/div&gt;
+    &lt;div class="aural-color-picker__preset-grid"&gt;
+      &lt;!-- Preset colors --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__recent"&gt;
+    &lt;div class="aural-color-picker__recent-label"&gt;Recent&lt;/div&gt;
+    &lt;div class="aural-color-picker__recent-grid"&gt;
+      &lt;!-- Recent colors --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initColorPicker('color-picker-recent', {
+  color: '#8B5CF6',
+  presets: ['#f00054', '#22c55e', '#3b82f6', '#f59e0b'],
+  recentColors: true,
+  onChange: (color) => console.log('Color changed:', color)
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Example 6: HSL Input Mode -->
+            <div class="example-container">
+                <div class="example-label">HSL Input Mode</div>
+                <div class="example-demo">
+                    <div class="aural-color-picker" id="color-picker-hsl">
+                        <div class="aural-color-picker__preview">
+                            <div class="aural-color-picker__swatch">
+                                <div class="aural-color-picker__swatch-color"></div>
+                            </div>
+                            <input type="text" class="aural-color-picker__value" value="hsl(20, 95%, 52%)" readonly>
+                        </div>
+                        <div class="aural-color-picker__canvas">
+                            <div class="aural-color-picker__saturation"></div>
+                            <div class="aural-color-picker__lightness"></div>
+                            <div class="aural-color-picker__cursor"></div>
+                        </div>
+                        <div class="aural-color-picker__hue">
+                            <div class="aural-color-picker__hue-handle"></div>
+                        </div>
+                        <div class="aural-color-picker__modes">
+                            <button class="aural-color-picker__mode" data-mode="hex">HEX</button>
+                            <button class="aural-color-picker__mode" data-mode="rgb">RGB</button>
+                            <button class="aural-color-picker__mode aural-color-picker__mode--active" data-mode="hsl">HSL</button>
+                        </div>
+                        <div class="aural-color-picker__inputs aural-color-picker__inputs--hsla" data-mode="hsl">
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">H</label>
+                                <input type="number" class="aural-color-picker__input" value="20" min="0" max="360">
+                            </div>
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">S</label>
+                                <input type="number" class="aural-color-picker__input" value="95" min="0" max="100">
+                            </div>
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">L</label>
+                                <input type="number" class="aural-color-picker__input" value="52" min="0" max="100">
+                            </div>
+                            <div class="aural-color-picker__input-group">
+                                <label class="aural-color-picker__input-label">A</label>
+                                <input type="number" class="aural-color-picker__input" value="100" min="0" max="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-color-picker" id="color-picker-hsl"&gt;
+  &lt;div class="aural-color-picker__preview"&gt;
+    &lt;div class="aural-color-picker__swatch"&gt;
+      &lt;div class="aural-color-picker__swatch-color"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-color-picker__value" value="hsl(20, 95%, 52%)" readonly&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__canvas"&gt;
+    &lt;div class="aural-color-picker__saturation"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__lightness"&gt;&lt;/div&gt;
+    &lt;div class="aural-color-picker__cursor"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__hue"&gt;
+    &lt;div class="aural-color-picker__hue-handle"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__modes"&gt;
+    &lt;button class="aural-color-picker__mode" data-mode="hex"&gt;HEX&lt;/button&gt;
+    &lt;button class="aural-color-picker__mode" data-mode="rgb"&gt;RGB&lt;/button&gt;
+    &lt;button class="aural-color-picker__mode aural-color-picker__mode--active" data-mode="hsl"&gt;HSL&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-color-picker__inputs aural-color-picker__inputs--hsla" data-mode="hsl"&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;H&lt;/label&gt;
+      &lt;input type="number" class="aural-color-picker__input" value="20" min="0" max="360"&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;S&lt;/label&gt;
+      &lt;input type="number" class="aural-color-picker__input" value="95" min="0" max="100"&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;L&lt;/label&gt;
+      &lt;input type="number" class="aural-color-picker__input" value="52" min="0" max="100"&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-color-picker__input-group"&gt;
+      &lt;label class="aural-color-picker__input-label"&gt;A&lt;/label&gt;
+      &lt;input type="number" class="aural-color-picker__input" value="100" min="0" max="100"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initColorPicker('color-picker-hsl', {
+  color: '#F59E0B',
+  alpha: true,
+  mode: 'hsl',
+  onChange: (color) => console.log('Color changed:', color)
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <!-- Example 7: Theme Customizer Pattern -->
+            <div class="example-container">
+                <div class="example-label">Theme Customizer Pattern</div>
+                <div class="example-demo" style="flex-direction: column; gap: var(--space-6);">
+                    <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="display: block; font-size: var(--text-sm); font-weight: var(--font-semibold); margin-bottom: var(--space-2);">Primary Color</label>
+                            <div style="position: relative;">
+                                <button class="aural-color-picker-trigger" id="theme-primary-trigger">
+                                    <div class="aural-color-picker-trigger__swatch" style="--color-value: #F00054;"></div>
+                                    <span class="aural-color-picker-trigger__label">#F00054</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="display: block; font-size: var(--text-sm); font-weight: var(--font-semibold); margin-bottom: var(--space-2);">Background</label>
+                            <div style="position: relative;">
+                                <button class="aural-color-picker-trigger" id="theme-bg-trigger">
+                                    <div class="aural-color-picker-trigger__swatch" style="--color-value: #1A1A1A;"></div>
+                                    <span class="aural-color-picker-trigger__label">#1A1A1A</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="display: block; font-size: var(--text-sm); font-weight: var(--font-semibold); margin-bottom: var(--space-2);">Text Color</label>
+                            <div style="position: relative;">
+                                <button class="aural-color-picker-trigger" id="theme-text-trigger">
+                                    <div class="aural-color-picker-trigger__swatch" style="--color-value: #FFFFFF;"></div>
+                                    <span class="aural-color-picker-trigger__label">#FFFFFF</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding: var(--space-4); background: #1A1A1A; border-radius: var(--radius-md);">
+                        <h3 style="color: #FFFFFF; margin: 0 0 var(--space-2) 0;">Preview</h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin: 0 0 var(--space-3) 0;">This is how your theme will look.</p>
+                        <button class="btn" style="background: #F00054; color: white; border: none;">Primary Button</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; gap: var(--space-4); flex-wrap: wrap;"&gt;
+  &lt;div style="flex: 1;"&gt;
+    &lt;label&gt;Primary Color&lt;/label&gt;
+    &lt;button class="aural-color-picker-trigger" id="theme-primary-trigger"&gt;
+      &lt;div class="aural-color-picker-trigger__swatch" style="--color-value: #F00054;"&gt;&lt;/div&gt;
+      &lt;span class="aural-color-picker-trigger__label"&gt;#F00054&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;!-- More color inputs --&gt;
+&lt;/div&gt;
+&lt;div class="theme-preview"&gt;
+  &lt;!-- Preview content --&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const themeColors = {
+  primary: '#F00054',
+  background: '#1A1A1A',
+  text: '#FFFFFF'
+};
+
+// Initialize color pickers for theme customization
+Object.keys(themeColors).forEach(key => {
+  const trigger = document.getElementById(`theme-${key}-trigger`);
+  trigger.addEventListener('click', () => {
+    // Open color picker and update theme on change
+  });
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Example 8: Brand Color Library -->
+            <div class="example-container">
+                <div class="example-label">Brand Color Library</div>
+                <div class="example-demo" style="flex-direction: column;">
+                    <div class="aural-color-picker" id="color-picker-brand">
+                        <div class="aural-color-picker__preview">
+                            <div class="aural-color-picker__swatch">
+                                <div class="aural-color-picker__swatch-color"></div>
+                            </div>
+                            <input type="text" class="aural-color-picker__value" value="#F00054" readonly>
+                        </div>
+                        <div class="aural-color-picker__canvas">
+                            <div class="aural-color-picker__saturation"></div>
+                            <div class="aural-color-picker__lightness"></div>
+                            <div class="aural-color-picker__cursor"></div>
+                        </div>
+                        <div class="aural-color-picker__hue">
+                            <div class="aural-color-picker__hue-handle"></div>
+                        </div>
+                        <div class="aural-color-picker__presets">
+                            <div class="aural-color-picker__preset-label">Brand Colors</div>
+                            <div class="aural-color-picker__preset-grid">
+                                <button class="aural-color-picker__preset" title="Brand Primary">
+                                    <div class="aural-color-picker__preset-color" style="background: #f00054;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset" title="Brand Secondary">
+                                    <div class="aural-color-picker__preset-color" style="background: #1a1a1a;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset" title="Brand Accent">
+                                    <div class="aural-color-picker__preset-color" style="background: #fbbf24;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset" title="Success">
+                                    <div class="aural-color-picker__preset-color" style="background: #22c55e;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset" title="Warning">
+                                    <div class="aural-color-picker__preset-color" style="background: #f59e0b;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset" title="Error">
+                                    <div class="aural-color-picker__preset-color" style="background: #ef4444;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset" title="Info">
+                                    <div class="aural-color-picker__preset-color" style="background: #3b82f6;"></div>
+                                </button>
+                                <button class="aural-color-picker__preset" title="Neutral">
+                                    <div class="aural-color-picker__preset-color" style="background: #6b7280;"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-color-picker" id="color-picker-brand"&gt;
+  &lt;!-- Color picker markup --&gt;
+  &lt;div class="aural-color-picker__presets"&gt;
+    &lt;div class="aural-color-picker__preset-label"&gt;Brand Colors&lt;/div&gt;
+    &lt;div class="aural-color-picker__preset-grid"&gt;
+      &lt;button class="aural-color-picker__preset" title="Brand Primary"&gt;
+        &lt;div class="aural-color-picker__preset-color" style="background: #f00054;"&gt;&lt;/div&gt;
+      &lt;/button&gt;
+      &lt;button class="aural-color-picker__preset" title="Brand Secondary"&gt;
+        &lt;div class="aural-color-picker__preset-color" style="background: #1a1a1a;"&gt;&lt;/div&gt;
+      &lt;/button&gt;
+      &lt;!-- More brand colors --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const brandColors = {
+  primary: '#f00054',
+  secondary: '#1a1a1a',
+  accent: '#fbbf24',
+  success: '#22c55e',
+  warning: '#f59e0b',
+  error: '#ef4444',
+  info: '#3b82f6',
+  neutral: '#6b7280'
+};
+
+Aural.initColorPicker('color-picker-brand', {
+  color: '#F00054',
+  presets: Object.values(brandColors),
+  onChange: (color) => console.log('Brand color changed:', color)
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li><strong>Design Tools:</strong> Applications requiring precise color selection for graphics, UI design, or digital art</li>
+                        <li><strong>Theme Customization:</strong> Allowing users to personalize interface colors, brand colors, or appearance settings</li>
+                        <li><strong>Data Visualization:</strong> Configuring chart colors, graph series, or dashboard color schemes</li>
+                        <li><strong>Content Creation:</strong> Text editors, presentation tools, or any content requiring color formatting</li>
+                        <li><strong>Brand Guidelines:</strong> Managing and selecting from approved brand color palettes</li>
+                        <li><strong>CSS/Style Editing:</strong> Applications where users need to input or modify color values</li>
+                    </ul>
+
+                    <h3>When NOT to Use</h3>
+                    <ul>
+                        <li><strong>Limited Color Options:</strong> Use simple color swatches or radio buttons for 5-10 predefined colors</li>
+                        <li><strong>Binary Choices:</strong> Don't use for selecting between just two colors - use buttons or toggles instead</li>
+                        <li><strong>Theme Mode Only:</strong> For simple light/dark mode, use a toggle switch</li>
+                        <li><strong>Preset Only Selection:</strong> If users should only pick from specific colors, use a swatch grid without the picker</li>
+                        <li><strong>Mobile-First Simple UIs:</strong> Color pickers can be complex on mobile; consider alternatives for mobile-only apps</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li><strong>Keyboard Navigation:</strong> Support Tab, Arrow keys, Enter/Space for all interactive elements</li>
+                        <li><strong>Visual Feedback:</strong> Provide clear focus states and hover effects on all interactive areas</li>
+                        <li><strong>Color Contrast:</strong> Display color contrast ratios for accessibility compliance (WCAG AA/AAA)</li>
+                        <li><strong>Hex Input:</strong> Always provide a text input for precise color entry by keyboard</li>
+                        <li><strong>Screen Reader Support:</strong> Label all inputs and controls with descriptive ARIA labels</li>
+                        <li><strong>Color Blindness:</strong> Include color value text alongside visual swatches</li>
+                        <li><strong>Large Touch Targets:</strong> Ensure handles and interactive areas are at least 44x44px for touch interfaces</li>
+                    </ul>
+
+                    <h3>Color Format Support</h3>
+                    <h4>HEX Format</h4>
+                    <ul>
+                        <li>Most common format for web development (#RRGGBB or #RGB)</li>
+                        <li>Supports 3-digit shorthand (#F00) and 6-digit full format (#FF0000)</li>
+                        <li>Optional 8-digit format for alpha channel (#RRGGBBAA)</li>
+                        <li>Best for: CSS, HTML, design handoff</li>
+                    </ul>
+
+                    <h4>RGB/RGBA Format</h4>
+                    <ul>
+                        <li>Red, Green, Blue channels (0-255) plus optional Alpha (0-1 or 0-100)</li>
+                        <li>rgb(255, 0, 84) or rgba(255, 0, 84, 0.8)</li>
+                        <li>More intuitive for understanding color composition</li>
+                        <li>Best for: Programmatic color manipulation, transparency effects</li>
+                    </ul>
+
+                    <h4>HSL/HSLA Format</h4>
+                    <ul>
+                        <li>Hue (0-360°), Saturation (0-100%), Lightness (0-100%) plus optional Alpha</li>
+                        <li>hsl(340, 100%, 50%) or hsla(340, 100%, 50%, 0.8)</li>
+                        <li>Most human-friendly for understanding and adjusting colors</li>
+                        <li>Best for: Color scheme generation, theme variations</li>
+                    </ul>
+
+                    <h3>Common Patterns</h3>
+
+                    <h4>Theme/Brand Customization</h4>
+                    <p>Allow users to customize interface colors with live preview. Provide presets for primary, secondary, accent, and semantic colors. Store selections in user preferences or local storage.</p>
+
+                    <h4>Design Tool Color Selection</h4>
+                    <p>Full-featured picker with all input modes, eyedropper tool support, and recent colors. Enable copy/paste of color values and provide color history across sessions.</p>
+
+                    <h4>Document/Content Formatting</h4>
+                    <p>Compact picker in a popover triggered by a color swatch button. Focus on quick selection from presets with optional custom color access.</p>
+
+                    <h4>Data Visualization Configuration</h4>
+                    <p>Multiple color pickers for series, categories, or data ranges. Provide color scheme presets and ensure sufficient contrast for accessibility.</p>
+
+                    <h4>Brand Color Library Management</h4>
+                    <p>Display brand colors as presets with names/labels. Allow selection from approved colors while optionally permitting custom colors for special cases.</p>
+
+                    <h3>Implementation Tips</h3>
+                    <ul>
+                        <li><strong>Default to HEX:</strong> Start with HEX mode as it's most familiar to web developers and designers</li>
+                        <li><strong>Validate Input:</strong> Validate hex codes and RGB/HSL ranges, showing clear error feedback</li>
+                        <li><strong>Auto-Update:</strong> Synchronize all representations when any input changes (hex, RGB, HSL, visual picker)</li>
+                        <li><strong>Preset Organization:</strong> Group presets logically (brand colors, grays, common colors) for easy scanning</li>
+                        <li><strong>Recent Colors:</strong> Save recently used colors per user session to speed up workflow</li>
+                        <li><strong>Copy on Click:</strong> Allow clicking the hex value to copy to clipboard for convenience</li>
+                        <li><strong>Eyedropper API:</strong> Use browser EyeDropper API when available for picking colors from screen</li>
+                        <li><strong>Alpha Channel:</strong> Make alpha/opacity control optional and hide when not needed</li>
+                        <li><strong>Responsive Design:</strong> Adjust picker size and layout for mobile screens (vertical layout, larger touch targets)</li>
+                        <li><strong>Color Contrast:</strong> Show WCAG contrast ratio when selecting text/background color pairs</li>
+                    </ul>
+
+                    <h3>JavaScript API</h3>
+                    <p>Initialize a color picker with the <code>Aural.initColorPicker()</code> method:</p>
+                    <pre><code>const colorPicker = Aural.initColorPicker('element-id', {
+  color: '#F00054',           // Initial color (hex, rgb, or hsl string)
+  alpha: true,                // Enable alpha/opacity control (default: false)
+  mode: 'hex',                // Initial input mode: 'hex', 'rgb', 'hsl' (default: 'hex')
+  presets: ['#f00054', ...],  // Array of preset colors to display
+  recentColors: true,         // Track and display recently used colors (default: false)
+  compact: false,             // Use compact variant (default: false)
+  onChange: (color) => {},    // Callback when color changes
+  onModeChange: (mode) => {}  // Callback when input mode changes
+});
+
+// API Methods
+colorPicker.getColor();          // Get current color as hex string
+colorPicker.setColor('#FF0000'); // Set color programmatically
+colorPicker.getColorRGB();       // Get color as RGB object {r, g, b, a}
+colorPicker.getColorHSL();       // Get color as HSL object {h, s, l, a}
+colorPicker.destroy();           // Clean up event listeners</code></pre>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->
@@ -218,11 +1043,14 @@
     </div>
 
     <!-- Aural UI JavaScript -->
-    <script src="../aural-ui.js?v=9"></script>
+    <script src="../aural-ui.js?v=11"></script>
 
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // Initialize tabs
+        Aural.initTabs();
 
         // Theme toggle
         let isDark = true;
@@ -239,18 +1067,111 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // Initialize all color pickers on the page
+
+        // Example 1: Full Featured Color Picker
+        if (document.getElementById('color-picker-full')) {
+            Aural.initColorPicker('color-picker-full', {
+                color: '#F00054',
+                alpha: true,
+                mode: 'hex',
+                presets: ['#f00054', '#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6'],
+                onChange: (color) => console.log('Full picker color changed:', color)
+            });
+        }
+
+        // Example 2: RGB Input Mode
+        if (document.getElementById('color-picker-rgb')) {
+            Aural.initColorPicker('color-picker-rgb', {
+                color: '#22c55e',
+                alpha: true,
+                mode: 'rgb',
+                onChange: (color) => console.log('RGB picker color changed:', color)
+            });
+        }
+
+        // Example 3: Compact Variant
+        if (document.getElementById('color-picker-compact')) {
+            Aural.initColorPicker('color-picker-compact', {
+                color: '#3B82F6',
+                compact: true,
+                onChange: (color) => console.log('Compact picker color changed:', color)
+            });
+        }
+
+        // Example 4: Popover Trigger
+        if (document.getElementById('color-picker-popover')) {
+            const popoverPicker = Aural.initColorPicker('color-picker-popover', {
+                color: '#EC4899',
+                onChange: (color) => {
+                    const swatch = document.querySelector('#color-trigger .aural-color-picker-trigger__swatch');
+                    const label = document.querySelector('#color-trigger .aural-color-picker-trigger__label');
+                    if (swatch) swatch.style.setProperty('--color-value', color);
+                    if (label) label.textContent = color;
+                }
+            });
+
+            const trigger = document.getElementById('color-trigger');
+            const popover = document.getElementById('color-popover');
+            if (trigger && popover) {
+                trigger.addEventListener('click', () => {
+                    popover.classList.toggle('aural-color-picker-popover--open');
+                });
+                // Close on click outside
+                document.addEventListener('click', (e) => {
+                    if (!trigger.contains(e.target) && !popover.contains(e.target)) {
+                        popover.classList.remove('aural-color-picker-popover--open');
+                    }
+                });
+            }
+        }
+
+        // Example 5: With Recent Colors
+        if (document.getElementById('color-picker-recent')) {
+            Aural.initColorPicker('color-picker-recent', {
+                color: '#8B5CF6',
+                presets: ['#f00054', '#22c55e', '#3b82f6', '#f59e0b'],
+                recentColors: true,
+                onChange: (color) => console.log('Recent picker color changed:', color)
+            });
+        }
+
+        // Example 6: HSL Input Mode
+        if (document.getElementById('color-picker-hsl')) {
+            Aural.initColorPicker('color-picker-hsl', {
+                color: '#F59E0B',
+                alpha: true,
+                mode: 'hsl',
+                onChange: (color) => console.log('HSL picker color changed:', color)
+            });
+        }
+
+        // Example 7: Brand Color Library
+        if (document.getElementById('color-picker-brand')) {
+            const brandColors = ['#f00054', '#1a1a1a', '#fbbf24', '#22c55e', '#f59e0b', '#ef4444', '#3b82f6', '#6b7280'];
+            Aural.initColorPicker('color-picker-brand', {
+                color: '#F00054',
+                presets: brandColors,
+                onChange: (color) => console.log('Brand picker color changed:', color)
+            });
+        }
+
+        console.log('Color Picker component initialized');
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

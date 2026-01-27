@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -167,88 +198,260 @@
             <p class="page-description">Interactive buttons with multiple variants, sizes, and states.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Sizes</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap;">
-                    <button class="btn btn-primary btn-sm">Small</button>
-                    <button class="btn btn-primary">Default</button>
-                    <button class="btn btn-primary btn-lg">Large</button>
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Buttons</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-danger">Danger</button>
+                        <button class="btn btn-ghost">Ghost</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="btn btn-danger"&gt;Danger&lt;/button&gt;
+&lt;button class="btn btn-ghost"&gt;Ghost&lt;/button&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Common Actions</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-primary">
+                            <i data-lucide="plus"></i>
+                            Add Item
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i data-lucide="download"></i>
+                            Download
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-primary"&gt;
+    &lt;i data-lucide="plus"&gt;&lt;/i&gt;
+    Add Item
+&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;
+    &lt;i data-lucide="download"&gt;&lt;/i&gt;
+    Download
+&lt;/button&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Sizes</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap;">
+                        <button class="btn btn-primary btn-sm">Small</button>
+                        <button class="btn btn-primary">Default</button>
+                        <button class="btn btn-primary btn-lg">Large</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-primary btn-sm"&gt;Small&lt;/button&gt;
+&lt;button class="btn btn-primary"&gt;Default&lt;/button&gt;
+&lt;button class="btn btn-primary btn-lg"&gt;Large&lt;/button&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">States</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-primary" disabled>Disabled</button>
+                        <button class="btn btn-primary btn-loading">
+                            <span class="btn-spinner"></span>
+                            Loading
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-primary" disabled&gt;Disabled&lt;/button&gt;
+&lt;button class="btn btn-primary btn-loading"&gt;
+    &lt;span class="btn-spinner"&gt;&lt;/span&gt;
+    Loading
+&lt;/button&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">All Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-danger">Danger</button>
+                        <button class="btn btn-ghost">Ghost</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="btn btn-danger"&gt;Danger&lt;/button&gt;
+&lt;button class="btn btn-ghost"&gt;Ghost&lt;/button&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">With Icons</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-primary">
+                            <i data-lucide="plus"></i>
+                            Add Item
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i data-lucide="download"></i>
+                            Download
+                        </button>
+                        <button class="btn btn-danger">
+                            <i data-lucide="trash-2"></i>
+                            Delete
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-primary"&gt;
+    &lt;i data-lucide="plus"&gt;&lt;/i&gt;
+    Add Item
+&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;
+    &lt;i data-lucide="download"&gt;&lt;/i&gt;
+    Download
+&lt;/button&gt;
+&lt;button class="btn btn-danger"&gt;
+    &lt;i data-lucide="trash-2"&gt;&lt;/i&gt;
+    Delete
+&lt;/button&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Icon-Only Buttons</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap;">
+                        <button class="btn btn-primary btn-icon btn-sm" title="Search">
+                            <i data-lucide="search"></i>
+                        </button>
+                        <button class="btn btn-primary btn-icon" title="Heart">
+                            <i data-lucide="heart"></i>
+                        </button>
+                        <button class="btn btn-primary btn-icon btn-lg" title="Star">
+                            <i data-lucide="star"></i>
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-primary btn-icon btn-sm" title="Search"&gt;
+    &lt;i data-lucide="search"&gt;&lt;/i&gt;
+&lt;/button&gt;
+&lt;button class="btn btn-primary btn-icon" title="Heart"&gt;
+    &lt;i data-lucide="heart"&gt;&lt;/i&gt;
+&lt;/button&gt;
+&lt;button class="btn btn-primary btn-icon btn-lg" title="Star"&gt;
+    &lt;i data-lucide="star"&gt;&lt;/i&gt;
+&lt;/button&gt;</code></pre>
+                </details>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap;">
+                        <button class="btn btn-secondary btn-icon" title="Settings">
+                            <i data-lucide="settings"></i>
+                        </button>
+                        <button class="btn btn-danger btn-icon" title="Delete">
+                            <i data-lucide="trash-2"></i>
+                        </button>
+                        <button class="btn btn-ghost btn-icon" title="More">
+                            <i data-lucide="more-vertical"></i>
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-secondary btn-icon" title="Settings"&gt;
+    &lt;i data-lucide="settings"&gt;&lt;/i&gt;
+&lt;/button&gt;
+&lt;button class="btn btn-danger btn-icon" title="Delete"&gt;
+    &lt;i data-lucide="trash-2"&gt;&lt;/i&gt;
+&lt;/button&gt;
+&lt;button class="btn btn-ghost btn-icon" title="More"&gt;
+    &lt;i data-lucide="more-vertical"&gt;&lt;/i&gt;
+&lt;/button&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Icon-only buttons are perfect for toolbars and compact interfaces. Use the <code>.btn-icon</code> class to create square buttons with centered icons. Available in all sizes:</p>
+                    <ul>
+                        <li><code>.btn-icon.btn-sm</code> - 36×36px (small)</li>
+                        <li><code>.btn-icon</code> - 44×44px (default)</li>
+                        <li><code>.btn-icon.btn-lg</code> - 52×52px (large)</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">States</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                    <button class="btn btn-primary" disabled>Disabled</button>
-                    <button class="btn btn-primary btn-loading">
-                        <span class="btn-spinner"></span>
-                        Loading
-                    </button>
-                </div>
-            </div>
-        </div>
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Use <code>.btn-primary</code> for the main action on a page</li>
+                        <li>Use <code>.btn-secondary</code> for secondary actions</li>
+                        <li>Use <code>.btn-danger</code> for destructive actions (delete, remove, etc.)</li>
+                        <li>Use <code>.btn-ghost</code> for tertiary actions or minimal UI</li>
+                    </ul>
 
-        <div class="example-container">
-            <div class="example-label">With Icons</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                    <button class="btn btn-primary">
-                        <i data-lucide="plus"></i>
-                        Add Item
-                    </button>
-                    <button class="btn btn-secondary">
-                        <i data-lucide="download"></i>
-                        Download
-                    </button>
-                    <button class="btn btn-danger">
-                        <i data-lucide="trash-2"></i>
-                        Delete
-                    </button>
-                </div>
-            </div>
-        </div>
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Always provide descriptive button text that clearly indicates the action</li>
+                        <li>For icon-only buttons, include a <code>title</code> or <code>aria-label</code> attribute for screen readers</li>
+                        <li>Ensure sufficient color contrast between button text and background</li>
+                        <li>Use the <code>disabled</code> attribute to disable buttons, not just visual styling</li>
+                        <li>Provide visual feedback for loading states using <code>.btn-loading</code> and <code>.btn-spinner</code></li>
+                    </ul>
 
-        <div class="example-container">
-            <div class="example-label">Icon-Only Buttons</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap;">
-                    <button class="btn btn-primary btn-icon btn-sm" title="Search">
-                        <i data-lucide="search"></i>
-                    </button>
-                    <button class="btn btn-primary btn-icon" title="Heart">
-                        <i data-lucide="heart"></i>
-                    </button>
-                    <button class="btn btn-primary btn-icon btn-lg" title="Star">
-                        <i data-lucide="star"></i>
-                    </button>
+                    <h3>Button Sizing</h3>
+                    <ul>
+                        <li><code>.btn-sm</code> - Use for compact interfaces and tables</li>
+                        <li>Default size - Use for most UI actions</li>
+                        <li><code>.btn-lg</code> - Use for prominent calls-to-action or hero sections</li>
+                    </ul>
+
+                    <h3>Icon Guidelines</h3>
+                    <ul>
+                        <li>Icons should enhance, not replace, button text for primary actions</li>
+                        <li>Icon-only buttons are best for secondary actions in toolbars</li>
+                        <li>Keep icons simple and universally recognizable</li>
+                        <li>Always ensure icon-only buttons have proper accessibility labels</li>
+                    </ul>
                 </div>
-            </div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap;">
-                    <button class="btn btn-secondary btn-icon" title="Settings">
-                        <i data-lucide="settings"></i>
-                    </button>
-                    <button class="btn btn-danger btn-icon" title="Delete">
-                        <i data-lucide="trash-2"></i>
-                    </button>
-                    <button class="btn btn-ghost btn-icon" title="More">
-                        <i data-lucide="more-vertical"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="section-content" style="margin-top: var(--space-4);">
-                <p>Icon-only buttons are perfect for toolbars and compact interfaces. Use the <code>.btn-icon</code> class to create square buttons with centered icons. Available in all sizes:</p>
-                <ul>
-                    <li><code>.btn-icon.btn-sm</code> - 36×36px (small)</li>
-                    <li><code>.btn-icon</code> - 44×44px (default)</li>
-                    <li><code>.btn-icon.btn-lg</code> - 52×52px (large)</li>
-                </ul>
-                <p><strong>Accessibility tip:</strong> Always include a <code>title</code> or <code>aria-label</code> attribute for screen readers.</p>
             </div>
         </div>
 
@@ -275,6 +478,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 

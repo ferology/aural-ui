@@ -1417,6 +1417,379 @@
           const day = String(date.getDate()).padStart(2, "0");
           return format.replace("YYYY", year).replace("MM", month).replace("DD", day);
         },
+        /**
+         * Initialize date range picker with single input field
+         */
+        initDateRangePicker(pickerId, options = {}) {
+          const picker = document.getElementById(pickerId);
+          if (!picker)
+            return;
+          const input = picker.querySelector(".aural-date-picker__input");
+          const calendar = picker.querySelector(".aural-date-picker__calendar");
+          const config = {
+            format: options.format || "MM/DD/YYYY",
+            separator: options.separator || " - ",
+            minDate: options.minDate || null,
+            maxDate: options.maxDate || null,
+            disabledDates: options.disabledDates || [],
+            onChange: options.onChange || null,
+            ...options
+          };
+          let startDate = null;
+          let endDate = null;
+          let currentMonth = /* @__PURE__ */ new Date();
+
+          const renderCalendar = () => {
+            this.renderRangeCalendar(picker, currentMonth, startDate, endDate, config, {
+              onDateSelect: (date) => {
+                console.log('Date selected:', date, 'startDate:', startDate, 'endDate:', endDate);
+                if (!startDate || (startDate && endDate)) {
+                  // Start new range selection
+                  startDate = date;
+                  endDate = null;
+                  input.value = this.formatDate(startDate, config.format);
+                  console.log('Set start date:', startDate);
+                } else if (date.getTime() >= startDate.getTime()) {
+                  // Select end date
+                  endDate = date;
+                  input.value = this.formatDate(startDate, config.format) + config.separator + this.formatDate(endDate, config.format);
+                  calendar.classList.remove("aural-date-picker__calendar--open");
+                  console.log('Set end date:', endDate);
+
+                  if (config.onChange) {
+                    config.onChange({ start: startDate, end: endDate });
+                  }
+                } else {
+                  // Selected date is before start, make it the new start
+                  startDate = date;
+                  endDate = null;
+                  input.value = this.formatDate(startDate, config.format);
+                  console.log('Reset start date:', startDate);
+                }
+                renderCalendar();
+              },
+              onNavigate: (direction) => {
+                currentMonth.setMonth(currentMonth.getMonth() + direction);
+                renderCalendar();
+              },
+              onClear: () => {
+                startDate = null;
+                endDate = null;
+                input.value = "";
+                renderCalendar();
+              },
+              onToday: () => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                startDate = today;
+                endDate = null;
+                input.value = this.formatDate(startDate, config.format);
+                renderCalendar();
+              }
+            });
+          };
+
+          const icon = picker.querySelector(".aural-date-picker__icon");
+
+          // Add ARIA attributes to input
+          if (input) {
+            input.setAttribute("role", "textbox");
+            input.setAttribute("aria-label", "Date range picker");
+            input.setAttribute("aria-haspopup", "dialog");
+            input.setAttribute("aria-expanded", "false");
+            input.setAttribute("aria-readonly", "true");
+          }
+
+          // Add ARIA attributes to calendar
+          if (calendar) {
+            calendar.setAttribute("role", "dialog");
+            calendar.setAttribute("aria-label", "Choose dates");
+            calendar.setAttribute("aria-modal", "false");
+          }
+
+          const openCalendar = (e) => {
+            e.stopPropagation();
+            const isOpen = calendar?.classList.contains("aural-date-picker__calendar--open");
+            if (!isOpen) {
+              calendar?.classList.add("aural-date-picker__calendar--open");
+              input?.setAttribute("aria-expanded", "true");
+              renderCalendar();
+              // Focus first day button
+              setTimeout(() => {
+                const firstDay = calendar.querySelector('.aural-date-picker__day:not(.aural-date-picker__day--disabled):not(.aural-date-picker__day--other-month)');
+                firstDay?.focus();
+              }, 50);
+            }
+          };
+
+          input?.addEventListener("click", openCalendar);
+          icon?.addEventListener("click", openCalendar);
+
+          // Prevent calendar clicks from closing it
+          calendar?.addEventListener("click", (e) => {
+            e.stopPropagation();
+          });
+
+          document.addEventListener("click", (e) => {
+            if (!picker.contains(e.target)) {
+              calendar?.classList.remove("aural-date-picker__calendar--open");
+              input?.setAttribute("aria-expanded", "false");
+              input?.focus();
+            }
+          });
+
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && calendar?.classList.contains("aural-date-picker__calendar--open")) {
+              calendar.classList.remove("aural-date-picker__calendar--open");
+              input?.setAttribute("aria-expanded", "false");
+              input?.focus();
+            }
+          });
+
+          return {
+            getStartDate: () => startDate,
+            getEndDate: () => endDate,
+            getRange: () => ({ start: startDate, end: endDate }),
+            setRange: (start, end) => {
+              startDate = new Date(start);
+              endDate = new Date(end);
+              input.value = this.formatDate(startDate, config.format) + config.separator + this.formatDate(endDate, config.format);
+              renderCalendar();
+            },
+            clear: () => {
+              startDate = null;
+              endDate = null;
+              input.value = "";
+              renderCalendar();
+            }
+          };
+        },
+        /**
+         * Render the range calendar grid
+         */
+        renderRangeCalendar(picker, currentMonth, startDate, endDate, config, callbacks = {}) {
+          const calendar = picker.querySelector(".aural-date-picker__calendar");
+          const daysContainer = calendar.querySelector(".aural-date-picker__days");
+          const currentMonthDisplay = calendar.querySelector(".aural-date-picker__current-month");
+
+          currentMonthDisplay.textContent = currentMonth.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric"
+          });
+
+          const year = currentMonth.getFullYear();
+          const month = currentMonth.getMonth();
+          const firstDay = new Date(year, month, 1).getDay();
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+          const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+          let daysHTML = "";
+          const today = /* @__PURE__ */ new Date();
+          today.setHours(0, 0, 0, 0);
+
+          // Previous month days
+          for (let i = firstDay - 1; i >= 0; i--) {
+            const day = daysInPrevMonth - i;
+            daysHTML += `<button class="aural-date-picker__day aural-date-picker__day--other-month" type="button">${day}</button>`;
+          }
+
+          // Current month days
+          for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(year, month, day);
+            date.setHours(0, 0, 0, 0);
+
+            const isToday = date.getTime() === today.getTime();
+            const isStart = startDate && date.getTime() === startDate.getTime();
+            const isEnd = endDate && date.getTime() === endDate.getTime();
+            const isInRange = startDate && endDate && date > startDate && date < endDate;
+            const isDisabled = this.isDateDisabled(date, config);
+
+            let classes = "aural-date-picker__day";
+            if (isToday) classes += " aural-date-picker__day--today";
+            if (isStart) classes += " aural-date-picker__day--range-start";
+            if (isEnd) classes += " aural-date-picker__day--range-end";
+            if (isInRange) classes += " aural-date-picker__day--in-range";
+            if (isDisabled) classes += " aural-date-picker__day--disabled";
+
+            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? "disabled" : ""}>${day}</button>`;
+          }
+
+          // Next month days
+          const totalCells = firstDay + daysInMonth;
+          const remainingCells = totalCells % 7 === 0 ? 0 : 7 - totalCells % 7;
+          for (let day = 1; day <= remainingCells; day++) {
+            daysHTML += `<button class="aural-date-picker__day aural-date-picker__day--other-month" type="button">${day}</button>`;
+          }
+
+          daysContainer.innerHTML = daysHTML;
+
+          // Add click handlers for date selection
+          if (callbacks.onDateSelect) {
+            const dayButtons = daysContainer.querySelectorAll(".aural-date-picker__day:not(.aural-date-picker__day--disabled):not(.aural-date-picker__day--other-month)");
+
+            dayButtons.forEach((dayBtn, index) => {
+              // Add ARIA attributes
+              dayBtn.setAttribute("role", "button");
+              dayBtn.setAttribute("tabindex", index === 0 ? "0" : "-1");
+              const dateStr = dayBtn.getAttribute("data-date");
+              const date = new Date(dateStr);
+              const dateLabel = date.toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+              });
+              dayBtn.setAttribute("aria-label", dateLabel);
+
+              // Mark selected dates
+              if (startDate && date.getTime() === startDate.getTime()) {
+                dayBtn.setAttribute("aria-pressed", "true");
+              } else if (endDate && date.getTime() === endDate.getTime()) {
+                dayBtn.setAttribute("aria-pressed", "true");
+              } else {
+                dayBtn.setAttribute("aria-pressed", "false");
+              }
+
+              // Click handler
+              dayBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const date = new Date(dateStr);
+                date.setHours(0, 0, 0, 0);
+                callbacks.onDateSelect(date);
+              });
+
+              // Keyboard navigation
+              dayBtn.addEventListener("keydown", (e) => {
+                let handled = false;
+                const currentIndex = Array.from(dayButtons).indexOf(dayBtn);
+
+                switch(e.key) {
+                  case "Enter":
+                  case " ":
+                    e.preventDefault();
+                    const date = new Date(dateStr);
+                    date.setHours(0, 0, 0, 0);
+                    callbacks.onDateSelect(date);
+                    handled = true;
+                    break;
+                  case "ArrowRight":
+                    e.preventDefault();
+                    if (currentIndex < dayButtons.length - 1) {
+                      dayButtons[currentIndex + 1].focus();
+                    }
+                    handled = true;
+                    break;
+                  case "ArrowLeft":
+                    e.preventDefault();
+                    if (currentIndex > 0) {
+                      dayButtons[currentIndex - 1].focus();
+                    }
+                    handled = true;
+                    break;
+                  case "ArrowDown":
+                    e.preventDefault();
+                    if (currentIndex + 7 < dayButtons.length) {
+                      dayButtons[currentIndex + 7].focus();
+                    }
+                    handled = true;
+                    break;
+                  case "ArrowUp":
+                    e.preventDefault();
+                    if (currentIndex - 7 >= 0) {
+                      dayButtons[currentIndex - 7].focus();
+                    }
+                    handled = true;
+                    break;
+                  case "Home":
+                    e.preventDefault();
+                    dayButtons[0].focus();
+                    handled = true;
+                    break;
+                  case "End":
+                    e.preventDefault();
+                    dayButtons[dayButtons.length - 1].focus();
+                    handled = true;
+                    break;
+                }
+              });
+
+              // Focus management
+              dayBtn.addEventListener("focus", () => {
+                dayButtons.forEach(btn => btn.setAttribute("tabindex", "-1"));
+                dayBtn.setAttribute("tabindex", "0");
+              });
+
+              // Hover effect to show potential range
+              dayBtn.addEventListener("mouseenter", () => {
+                if (startDate && !endDate) {
+                  const hoverDate = new Date(dateStr);
+                  hoverDate.setHours(0, 0, 0, 0);
+                  daysContainer.querySelectorAll(".aural-date-picker__day").forEach((btn) => {
+                    const btnDate = btn.getAttribute("data-date");
+                    if (btnDate) {
+                      const date = new Date(btnDate);
+                      date.setHours(0, 0, 0, 0);
+                      const isInHoverRange = date > startDate && date <= hoverDate;
+                      if (isInHoverRange) {
+                        btn.classList.add("aural-date-picker__day--hover-range");
+                      } else {
+                        btn.classList.remove("aural-date-picker__day--hover-range");
+                      }
+                    }
+                  });
+                }
+              });
+
+              // Touch support
+              let touchStarted = false;
+              dayBtn.addEventListener("touchstart", (e) => {
+                touchStarted = true;
+              }, { passive: true });
+
+              dayBtn.addEventListener("touchend", (e) => {
+                if (touchStarted) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const date = new Date(dateStr);
+                  date.setHours(0, 0, 0, 0);
+                  callbacks.onDateSelect(date);
+                  touchStarted = false;
+                }
+              });
+            });
+
+            // Remove hover classes when mouse leaves days container
+            daysContainer.addEventListener("mouseleave", () => {
+              daysContainer.querySelectorAll(".aural-date-picker__day--hover-range").forEach((btn) => {
+                btn.classList.remove("aural-date-picker__day--hover-range");
+              });
+            });
+          }
+
+          // Navigation buttons
+          const prevBtn = calendar.querySelector('.aural-date-picker__nav-button:first-child');
+          const nextBtn = calendar.querySelector('.aural-date-picker__nav-button:last-child');
+
+          if (prevBtn && callbacks.onNavigate) {
+            prevBtn.onclick = () => callbacks.onNavigate(-1);
+          }
+
+          if (nextBtn && callbacks.onNavigate) {
+            nextBtn.onclick = () => callbacks.onNavigate(1);
+          }
+
+          // Footer buttons
+          const todayBtn = calendar.querySelector('.aural-date-picker__footer-button:first-child');
+          const clearBtn = calendar.querySelector('.aural-date-picker__footer-button:last-child');
+
+          if (todayBtn && callbacks.onToday) {
+            todayBtn.onclick = () => callbacks.onToday();
+          }
+
+          if (clearBtn && callbacks.onClear) {
+            clearBtn.onclick = () => callbacks.onClear();
+          }
+        },
         // ========================================
         // STEPPER
         // ========================================
@@ -2676,62 +3049,618 @@
           if (!picker)
             return null;
           const {
-            initialColor = "#000000",
-            mode = "hex",
-            showAlpha = true,
-            onChange = null
+            color = "#F00054",
+            alpha: showAlpha = false,
+            mode: initialMode = "hex",
+            presets = [],
+            recentColors = false,
+            onChange = null,
+            onModeChange = null
           } = options;
-          let currentColor = initialColor;
+
           let hue = 0;
           let saturation = 100;
           let lightness = 50;
           let alpha = 1;
+          let currentMode = initialMode;
+          let isDragging = false;
+          let dragTarget = null;
+
           const canvas = picker.querySelector(".aural-color-picker__canvas");
+          const cursor = picker.querySelector(".aural-color-picker__cursor");
           const hueSlider = picker.querySelector(".aural-color-picker__hue");
+          const hueHandle = picker.querySelector(".aural-color-picker__hue-handle");
           const alphaSlider = picker.querySelector(".aural-color-picker__alpha");
+          const alphaHandle = picker.querySelector(".aural-color-picker__alpha-handle");
+          const alphaGradient = picker.querySelector(".aural-color-picker__alpha-gradient");
           const valueInput = picker.querySelector(".aural-color-picker__value");
-          const updateColor = () => {
-            currentColor = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+          const swatch = picker.querySelector(".aural-color-picker__swatch-color");
+          const modeButtons = picker.querySelectorAll(".aural-color-picker__mode");
+          const inputsContainer = picker.querySelector(".aural-color-picker__inputs");
+          const presetButtons = picker.querySelectorAll(".aural-color-picker__preset");
+
+          // Color conversion utilities
+          const hexToHSL = (hex) => {
+            hex = hex.replace(/^#/, '');
+            if (hex.length === 3) {
+              hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+            }
+            const r = parseInt(hex.substr(0, 2), 16) / 255;
+            const g = parseInt(hex.substr(2, 2), 16) / 255;
+            const b = parseInt(hex.substr(4, 2), 16) / 255;
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+            if (max === min) {
+              h = s = 0;
+            } else {
+              const d = max - min;
+              s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+              switch (max) {
+                case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+                case g: h = ((b - r) / d + 2) / 6; break;
+                case b: h = ((r - g) / d + 4) / 6; break;
+              }
+            }
+            return {
+              h: Math.round(h * 360),
+              s: Math.round(s * 100),
+              l: Math.round(l * 100)
+            };
+          };
+
+          const hslToRGB = (h, s, l) => {
+            s /= 100;
+            l /= 100;
+            const k = n => (n + h / 30) % 12;
+            const a = s * Math.min(l, 1 - l);
+            const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+            return {
+              r: Math.round(255 * f(0)),
+              g: Math.round(255 * f(8)),
+              b: Math.round(255 * f(4))
+            };
+          };
+
+          const rgbToHex = (r, g, b) => {
+            return '#' + [r, g, b].map(x => {
+              const hex = x.toString(16);
+              return hex.length === 1 ? '0' + hex : hex;
+            }).join('');
+          };
+
+          // Update color display and inputs
+          const updateColor = (updateInputs = true) => {
+            const rgb = hslToRGB(hue, saturation, lightness);
+            const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+            const hsla = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+            const rgba = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+
+            // Update canvas background (hue)
             if (canvas) {
               canvas.style.background = `hsl(${hue}, 100%, 50%)`;
             }
+
+            // Update cursor position
+            if (cursor) {
+              cursor.style.left = `${saturation}%`;
+              cursor.style.top = `${100 - lightness}%`;
+              cursor.setAttribute('aria-valuenow', `${saturation}, ${lightness}`);
+            }
+
+            // Update hue handle position
+            if (hueHandle) {
+              hueHandle.style.left = `${(hue / 360) * 100}%`;
+              hueHandle.setAttribute('aria-valuenow', hue);
+            }
+
+            // Update alpha handle and gradient
+            if (alphaHandle && showAlpha) {
+              alphaHandle.style.left = `${alpha * 100}%`;
+              alphaHandle.setAttribute('aria-valuenow', Math.round(alpha * 100));
+            }
+            if (alphaGradient) {
+              alphaGradient.style.background = `linear-gradient(to right, transparent, ${hex})`;
+            }
+
+            // Update swatch
+            if (swatch) {
+              swatch.style.background = showAlpha ? hsla : hex;
+            }
+
+            // Update value input
             if (valueInput) {
-              if (mode === "hex") {
-                valueInput.value = hslToHex(hue, saturation, lightness);
-              } else {
-                valueInput.value = currentColor;
+              if (currentMode === 'hex') {
+                valueInput.value = hex;
+              } else if (currentMode === 'rgb') {
+                valueInput.value = showAlpha ? rgba : `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+              } else if (currentMode === 'hsl') {
+                valueInput.value = showAlpha ? hsla : `hsl(${hue}, ${saturation}%, ${lightness}%)`;
               }
             }
-            const swatch = picker.querySelector(".aural-color-picker__swatch-color");
-            if (swatch) {
-              swatch.style.background = currentColor;
+
+            // Update input fields based on mode
+            if (updateInputs && inputsContainer) {
+              const inputs = inputsContainer.querySelectorAll('.aural-color-picker__input');
+              if (currentMode === 'hex' && inputs.length === 1) {
+                inputs[0].value = hex.replace('#', '');
+              } else if (currentMode === 'rgb' && inputs.length >= 3) {
+                inputs[0].value = rgb.r;
+                inputs[1].value = rgb.g;
+                inputs[2].value = rgb.b;
+                if (inputs[3] && showAlpha) inputs[3].value = Math.round(alpha * 100);
+              } else if (currentMode === 'hsl' && inputs.length >= 3) {
+                inputs[0].value = hue;
+                inputs[1].value = saturation;
+                inputs[2].value = lightness;
+                if (inputs[3] && showAlpha) inputs[3].value = Math.round(alpha * 100);
+              }
             }
+
+            // Trigger onChange callback
             if (onChange) {
-              onChange(currentColor);
+              onChange(showAlpha ? hsla : hex);
             }
           };
+
+          // Canvas interaction (saturation/lightness)
+          const updateCanvasColor = (clientX, clientY) => {
+            if (!canvas) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+            const y = Math.max(0, Math.min(clientY - rect.top, rect.height));
+            saturation = Math.round((x / rect.width) * 100);
+            lightness = Math.round(100 - (y / rect.height) * 100);
+            updateColor();
+          };
+
+          const onCanvasMouseDown = (e) => {
+            e.preventDefault();
+            isDragging = true;
+            dragTarget = 'canvas';
+            updateCanvasColor(e.clientX, e.clientY);
+            if (canvas) canvas.classList.add('aural-color-picker__canvas--active');
+          };
+
+          const onCanvasTouchStart = (e) => {
+            e.preventDefault();
+            isDragging = true;
+            dragTarget = 'canvas';
+            const touch = e.touches[0];
+            updateCanvasColor(touch.clientX, touch.clientY);
+            if (canvas) canvas.classList.add('aural-color-picker__canvas--active');
+          };
+
+          // Hue slider interaction
+          const updateHueFromPosition = (clientX) => {
+            if (!hueSlider) return;
+            const rect = hueSlider.getBoundingClientRect();
+            const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+            hue = Math.round((x / rect.width) * 360);
+            updateColor();
+          };
+
+          const onHueMouseDown = (e) => {
+            e.preventDefault();
+            isDragging = true;
+            dragTarget = 'hue';
+            updateHueFromPosition(e.clientX);
+            if (hueSlider) hueSlider.classList.add('aural-color-picker__hue--active');
+          };
+
+          const onHueTouchStart = (e) => {
+            e.preventDefault();
+            isDragging = true;
+            dragTarget = 'hue';
+            const touch = e.touches[0];
+            updateHueFromPosition(touch.clientX);
+            if (hueSlider) hueSlider.classList.add('aural-color-picker__hue--active');
+          };
+
+          // Alpha slider interaction
+          const updateAlphaFromPosition = (clientX) => {
+            if (!alphaSlider) return;
+            const rect = alphaSlider.getBoundingClientRect();
+            const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+            alpha = Math.max(0, Math.min(x / rect.width, 1));
+            updateColor();
+          };
+
+          const onAlphaMouseDown = (e) => {
+            e.preventDefault();
+            isDragging = true;
+            dragTarget = 'alpha';
+            updateAlphaFromPosition(e.clientX);
+            if (alphaSlider) alphaSlider.classList.add('aural-color-picker__alpha--active');
+          };
+
+          const onAlphaTouchStart = (e) => {
+            e.preventDefault();
+            isDragging = true;
+            dragTarget = 'alpha';
+            const touch = e.touches[0];
+            updateAlphaFromPosition(touch.clientX);
+            if (alphaSlider) alphaSlider.classList.add('aural-color-picker__alpha--active');
+          };
+
+          // Global mouse/touch move and up handlers
+          const onMouseMove = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            if (dragTarget === 'canvas') {
+              updateCanvasColor(e.clientX, e.clientY);
+            } else if (dragTarget === 'hue') {
+              updateHueFromPosition(e.clientX);
+            } else if (dragTarget === 'alpha') {
+              updateAlphaFromPosition(e.clientX);
+            }
+          };
+
+          const onTouchMove = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            if (dragTarget === 'canvas') {
+              updateCanvasColor(touch.clientX, touch.clientY);
+            } else if (dragTarget === 'hue') {
+              updateHueFromPosition(touch.clientX);
+            } else if (dragTarget === 'alpha') {
+              updateAlphaFromPosition(touch.clientX);
+            }
+          };
+
+          const onMouseUp = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            if (canvas) canvas.classList.remove('aural-color-picker__canvas--active');
+            if (hueSlider) hueSlider.classList.remove('aural-color-picker__hue--active');
+            if (alphaSlider) alphaSlider.classList.remove('aural-color-picker__alpha--active');
+            dragTarget = null;
+          };
+
+          // Keyboard navigation
+          const onCanvasKeyDown = (e) => {
+            let changed = false;
+            const step = e.shiftKey ? 10 : 1;
+
+            switch (e.key) {
+              case 'ArrowRight':
+                e.preventDefault();
+                saturation = Math.min(100, saturation + step);
+                changed = true;
+                break;
+              case 'ArrowLeft':
+                e.preventDefault();
+                saturation = Math.max(0, saturation - step);
+                changed = true;
+                break;
+              case 'ArrowUp':
+                e.preventDefault();
+                lightness = Math.min(100, lightness + step);
+                changed = true;
+                break;
+              case 'ArrowDown':
+                e.preventDefault();
+                lightness = Math.max(0, lightness - step);
+                changed = true;
+                break;
+            }
+
+            if (changed) updateColor();
+          };
+
+          const onHueKeyDown = (e) => {
+            let changed = false;
+            const step = e.shiftKey ? 10 : 1;
+
+            switch (e.key) {
+              case 'ArrowRight':
+              case 'ArrowUp':
+                e.preventDefault();
+                hue = (hue + step) % 360;
+                changed = true;
+                break;
+              case 'ArrowLeft':
+              case 'ArrowDown':
+                e.preventDefault();
+                hue = (hue - step + 360) % 360;
+                changed = true;
+                break;
+              case 'Home':
+                e.preventDefault();
+                hue = 0;
+                changed = true;
+                break;
+              case 'End':
+                e.preventDefault();
+                hue = 360;
+                changed = true;
+                break;
+            }
+
+            if (changed) updateColor();
+          };
+
+          const onAlphaKeyDown = (e) => {
+            let changed = false;
+            const step = e.shiftKey ? 0.1 : 0.01;
+
+            switch (e.key) {
+              case 'ArrowRight':
+              case 'ArrowUp':
+                e.preventDefault();
+                alpha = Math.min(1, alpha + step);
+                changed = true;
+                break;
+              case 'ArrowLeft':
+              case 'ArrowDown':
+                e.preventDefault();
+                alpha = Math.max(0, alpha - step);
+                changed = true;
+                break;
+              case 'Home':
+                e.preventDefault();
+                alpha = 0;
+                changed = true;
+                break;
+              case 'End':
+                e.preventDefault();
+                alpha = 1;
+                changed = true;
+                break;
+            }
+
+            if (changed) updateColor();
+          };
+
+          // Mode switching
+          const switchMode = (newMode) => {
+            currentMode = newMode;
+
+            // Update mode button active state
+            modeButtons.forEach(btn => {
+              if (btn.dataset.mode === newMode) {
+                btn.classList.add('aural-color-picker__mode--active');
+                btn.setAttribute('aria-pressed', 'true');
+              } else {
+                btn.classList.remove('aural-color-picker__mode--active');
+                btn.setAttribute('aria-pressed', 'false');
+              }
+            });
+
+            // Dynamically update inputs container with appropriate fields
+            if (inputsContainer) {
+              inputsContainer.setAttribute('data-mode', newMode);
+
+              const rgb = hslToRGB(hue, saturation, lightness);
+              const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+
+              if (newMode === 'hex') {
+                inputsContainer.innerHTML = `
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">Hex</label>
+                    <input type="text" class="aural-color-picker__input" value="${hex.replace('#', '')}" maxlength="6">
+                  </div>
+                `;
+                inputsContainer.className = 'aural-color-picker__inputs';
+              } else if (newMode === 'rgb') {
+                const alphaPercent = Math.round(alpha * 100);
+                inputsContainer.innerHTML = `
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">R</label>
+                    <input type="number" class="aural-color-picker__input" value="${rgb.r}" min="0" max="255">
+                  </div>
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">G</label>
+                    <input type="number" class="aural-color-picker__input" value="${rgb.g}" min="0" max="255">
+                  </div>
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">B</label>
+                    <input type="number" class="aural-color-picker__input" value="${rgb.b}" min="0" max="255">
+                  </div>
+                  ${showAlpha ? `
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">A</label>
+                    <input type="number" class="aural-color-picker__input" value="${alphaPercent}" min="0" max="100">
+                  </div>` : ''}
+                `;
+                inputsContainer.className = showAlpha ? 'aural-color-picker__inputs aural-color-picker__inputs--rgba' : 'aural-color-picker__inputs';
+              } else if (newMode === 'hsl') {
+                const alphaPercent = Math.round(alpha * 100);
+                inputsContainer.innerHTML = `
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">H</label>
+                    <input type="number" class="aural-color-picker__input" value="${hue}" min="0" max="360">
+                  </div>
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">S</label>
+                    <input type="number" class="aural-color-picker__input" value="${saturation}" min="0" max="100">
+                  </div>
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">L</label>
+                    <input type="number" class="aural-color-picker__input" value="${lightness}" min="0" max="100">
+                  </div>
+                  ${showAlpha ? `
+                  <div class="aural-color-picker__input-group">
+                    <label class="aural-color-picker__input-label">A</label>
+                    <input type="number" class="aural-color-picker__input" value="${alphaPercent}" min="0" max="100">
+                  </div>` : ''}
+                `;
+                inputsContainer.className = showAlpha ? 'aural-color-picker__inputs aural-color-picker__inputs--hsla' : 'aural-color-picker__inputs';
+              }
+
+              // Re-attach input event listeners
+              const inputs = inputsContainer.querySelectorAll('.aural-color-picker__input');
+              inputs.forEach((input, idx) => {
+                input.addEventListener('input', (e) => onInputChange(e, idx));
+                input.addEventListener('change', (e) => onInputChange(e, idx));
+              });
+            }
+
+            updateColor();
+
+            if (onModeChange) {
+              onModeChange(newMode);
+            }
+          };
+
+          // Input field synchronization
+          const onInputChange = (e, type) => {
+            const inputs = inputsContainer.querySelectorAll('.aural-color-picker__input');
+
+            if (currentMode === 'hex' && inputs.length === 1) {
+              let hex = inputs[0].value.replace(/[^0-9A-Fa-f]/g, '').substring(0, 6);
+              if (hex.length === 6) {
+                const hsl = hexToHSL('#' + hex);
+                hue = hsl.h;
+                saturation = hsl.s;
+                lightness = hsl.l;
+                updateColor(false);
+              }
+            } else if (currentMode === 'rgb' && inputs.length >= 3) {
+              const r = Math.max(0, Math.min(255, parseInt(inputs[0].value) || 0));
+              const g = Math.max(0, Math.min(255, parseInt(inputs[1].value) || 0));
+              const b = Math.max(0, Math.min(255, parseInt(inputs[2].value) || 0));
+              const hex = rgbToHex(r, g, b);
+              const hsl = hexToHSL(hex);
+              hue = hsl.h;
+              saturation = hsl.s;
+              lightness = hsl.l;
+              if (inputs[3] && showAlpha) {
+                alpha = Math.max(0, Math.min(100, parseInt(inputs[3].value) || 100)) / 100;
+              }
+              updateColor(false);
+            } else if (currentMode === 'hsl' && inputs.length >= 3) {
+              hue = Math.max(0, Math.min(360, parseInt(inputs[0].value) || 0));
+              saturation = Math.max(0, Math.min(100, parseInt(inputs[1].value) || 0));
+              lightness = Math.max(0, Math.min(100, parseInt(inputs[2].value) || 0));
+              if (inputs[3] && showAlpha) {
+                alpha = Math.max(0, Math.min(100, parseInt(inputs[3].value) || 100)) / 100;
+              }
+              updateColor(false);
+            }
+          };
+
+          // Preset color selection
+          const onPresetClick = (e) => {
+            const presetColor = e.currentTarget.querySelector('.aural-color-picker__preset-color');
+            if (presetColor) {
+              const bgColor = window.getComputedStyle(presetColor).backgroundColor;
+              // Parse RGB from computed style
+              const match = bgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+              if (match) {
+                const r = parseInt(match[1]);
+                const g = parseInt(match[2]);
+                const b = parseInt(match[3]);
+                const hex = rgbToHex(r, g, b);
+                const hsl = hexToHSL(hex);
+                hue = hsl.h;
+                saturation = hsl.s;
+                lightness = hsl.l;
+                if (match[4]) alpha = parseFloat(match[4]);
+                updateColor();
+
+                // Update preset active state
+                presetButtons.forEach(btn => btn.classList.remove('aural-color-picker__preset--active'));
+                e.currentTarget.classList.add('aural-color-picker__preset--active');
+              }
+            }
+          };
+
+          // Event listeners - Canvas
+          if (canvas) {
+            canvas.addEventListener('mousedown', onCanvasMouseDown);
+            canvas.addEventListener('touchstart', onCanvasTouchStart, { passive: false });
+            canvas.setAttribute('role', 'slider');
+            canvas.setAttribute('aria-label', 'Saturation and Lightness');
+            canvas.setAttribute('tabindex', '0');
+            canvas.addEventListener('keydown', onCanvasKeyDown);
+          }
+
+          // Event listeners - Hue slider
           if (hueSlider) {
-            hueSlider.addEventListener("click", (e) => {
-              const rect = hueSlider.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              hue = x / rect.width * 360;
-              updateColor();
-            });
+            hueSlider.addEventListener('mousedown', onHueMouseDown);
+            hueSlider.addEventListener('touchstart', onHueTouchStart, { passive: false });
+            hueSlider.setAttribute('role', 'slider');
+            hueSlider.setAttribute('aria-label', 'Hue');
+            hueSlider.setAttribute('aria-valuemin', '0');
+            hueSlider.setAttribute('aria-valuemax', '360');
+            hueSlider.setAttribute('tabindex', '0');
+            hueSlider.addEventListener('keydown', onHueKeyDown);
           }
+
+          // Event listeners - Alpha slider
           if (alphaSlider && showAlpha) {
-            alphaSlider.addEventListener("click", (e) => {
-              const rect = alphaSlider.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              alpha = x / rect.width;
-              updateColor();
-            });
+            alphaSlider.addEventListener('mousedown', onAlphaMouseDown);
+            alphaSlider.addEventListener('touchstart', onAlphaTouchStart, { passive: false });
+            alphaSlider.setAttribute('role', 'slider');
+            alphaSlider.setAttribute('aria-label', 'Alpha/Opacity');
+            alphaSlider.setAttribute('aria-valuemin', '0');
+            alphaSlider.setAttribute('aria-valuemax', '100');
+            alphaSlider.setAttribute('tabindex', '0');
+            alphaSlider.addEventListener('keydown', onAlphaKeyDown);
           }
-          updateColor();
+
+          // Global mouse/touch handlers
+          document.addEventListener('mousemove', onMouseMove);
+          document.addEventListener('mouseup', onMouseUp);
+          document.addEventListener('touchmove', onTouchMove, { passive: false });
+          document.addEventListener('touchend', onMouseUp);
+
+          // Mode buttons
+          modeButtons.forEach(btn => {
+            btn.addEventListener('click', () => switchMode(btn.dataset.mode));
+            btn.setAttribute('role', 'button');
+            btn.setAttribute('aria-pressed', btn.dataset.mode === currentMode ? 'true' : 'false');
+          });
+
+          // Preset buttons
+          presetButtons.forEach(btn => {
+            btn.addEventListener('click', onPresetClick);
+            btn.setAttribute('role', 'button');
+            btn.setAttribute('aria-label', 'Preset color');
+          });
+
+          // Initialize with provided color
+          if (color) {
+            const hsl = hexToHSL(color);
+            hue = hsl.h;
+            saturation = hsl.s;
+            lightness = hsl.l;
+          }
+
+          // Initialize inputs for the current mode
+          if (inputsContainer) {
+            switchMode(currentMode);
+          } else {
+            updateColor();
+          }
+
+          // Return API
           return {
-            getColor: () => currentColor,
-            setColor: (color) => {
-              currentColor = color;
+            getColor: () => {
+              const rgb = hslToRGB(hue, saturation, lightness);
+              return rgbToHex(rgb.r, rgb.g, rgb.b);
+            },
+            setColor: (newColor) => {
+              const hsl = hexToHSL(newColor);
+              hue = hsl.h;
+              saturation = hsl.s;
+              lightness = hsl.l;
               updateColor();
+            },
+            getColorRGB: () => {
+              const rgb = hslToRGB(hue, saturation, lightness);
+              return { ...rgb, a: alpha };
+            },
+            getColorHSL: () => {
+              return { h: hue, s: saturation, l: lightness, a: alpha };
+            },
+            destroy: () => {
+              document.removeEventListener('mousemove', onMouseMove);
+              document.removeEventListener('mouseup', onMouseUp);
+              document.removeEventListener('touchmove', onTouchMove);
+              document.removeEventListener('touchend', onMouseUp);
             }
           };
         },
@@ -2765,6 +3694,7 @@
           const trackFill = slider.querySelector(".aural-range-slider__track-fill");
           const minHandle = slider.querySelector(".aural-range-slider__handle--min");
           const maxHandle = slider.querySelector(".aural-range-slider__handle--max");
+
           const updateSlider = () => {
             const minPercent = (minValue - min) / (max - min) * 100;
             const maxPercent = (maxValue - min) / (max - min) * 100;
@@ -2774,12 +3704,18 @@
             }
             if (minHandle) {
               minHandle.style.left = `${minPercent}%`;
+              minHandle.setAttribute('aria-valuenow', minValue);
+              minHandle.setAttribute('aria-valuemin', min);
+              minHandle.setAttribute('aria-valuemax', max);
               const label = minHandle.querySelector(".aural-range-slider__label");
               if (label)
                 label.textContent = minValue;
             }
             if (maxHandle) {
               maxHandle.style.left = `${maxPercent}%`;
+              maxHandle.setAttribute('aria-valuenow', maxValue);
+              maxHandle.setAttribute('aria-valuemin', min);
+              maxHandle.setAttribute('aria-valuemax', max);
               const label = maxHandle.querySelector(".aural-range-slider__label");
               if (label)
                 label.textContent = maxValue;
@@ -2793,9 +3729,10 @@
               onChange(minValue, maxValue);
             }
           };
+
           const handleDrag = (e, handle) => {
             const rect = track.getBoundingClientRect();
-            const x = e.clientX - rect.left;
+            const x = (e.clientX || e.touches?.[0]?.clientX) - rect.left;
             const percent = Math.max(0, Math.min(1, x / rect.width));
             let value = min + (max - min) * percent;
             value = Math.round(value / step) * step;
@@ -2806,40 +3743,132 @@
             }
             updateSlider();
           };
+
           const onMouseMove = (e) => {
             if (activeHandle) {
               handleDrag(e, activeHandle);
             }
           };
+
+          const onTouchMove = (e) => {
+            if (activeHandle) {
+              e.preventDefault();
+              handleDrag(e, activeHandle);
+            }
+          };
+
           const onMouseUp = () => {
+            if (activeHandle) {
+              activeHandle.classList.remove("aural-range-slider__handle--active");
+            }
             activeHandle = null;
             document.removeEventListener("mousemove", onMouseMove);
             document.removeEventListener("mouseup", onMouseUp);
+            document.removeEventListener("touchmove", onTouchMove);
+            document.removeEventListener("touchend", onMouseUp);
           };
+
+          const handleKeyDown = (e, handle) => {
+            const isMin = handle === minHandle;
+            let newValue = isMin ? minValue : maxValue;
+            const largeStep = Math.max(1, Math.round((max - min) / 10));
+            const pageStep = Math.max(1, Math.round((max - min) / 4));
+
+            switch(e.key) {
+              case 'ArrowRight':
+              case 'ArrowUp':
+                e.preventDefault();
+                newValue += e.shiftKey ? largeStep : step;
+                break;
+              case 'ArrowLeft':
+              case 'ArrowDown':
+                e.preventDefault();
+                newValue -= e.shiftKey ? largeStep : step;
+                break;
+              case 'Home':
+                e.preventDefault();
+                newValue = min;
+                break;
+              case 'End':
+                e.preventDefault();
+                newValue = max;
+                break;
+              case 'PageUp':
+                e.preventDefault();
+                newValue += pageStep;
+                break;
+              case 'PageDown':
+                e.preventDefault();
+                newValue -= pageStep;
+                break;
+              default:
+                return;
+            }
+
+            if (isMin) {
+              minValue = Math.max(min, Math.min(newValue, maxValue - step));
+            } else {
+              maxValue = Math.max(minValue + step, Math.min(newValue, max));
+            }
+            updateSlider();
+          };
+
           if (minHandle) {
             minHandle.addEventListener("mousedown", (e) => {
               e.preventDefault();
               activeHandle = minHandle;
               minHandle.classList.add("aural-range-slider__handle--active");
               document.addEventListener("mousemove", onMouseMove);
-              document.addEventListener("mouseup", () => {
-                minHandle.classList.remove("aural-range-slider__handle--active");
-                onMouseUp();
-              });
+              document.addEventListener("mouseup", onMouseUp);
+            });
+
+            minHandle.addEventListener("touchstart", (e) => {
+              e.preventDefault();
+              activeHandle = minHandle;
+              minHandle.classList.add("aural-range-slider__handle--active");
+              document.addEventListener("touchmove", onTouchMove, { passive: false });
+              document.addEventListener("touchend", onMouseUp);
+            });
+
+            minHandle.addEventListener("keydown", (e) => handleKeyDown(e, minHandle));
+
+            minHandle.addEventListener("focus", () => {
+              minHandle.classList.add("aural-range-slider__handle--active");
+            });
+
+            minHandle.addEventListener("blur", () => {
+              minHandle.classList.remove("aural-range-slider__handle--active");
             });
           }
+
           if (maxHandle) {
             maxHandle.addEventListener("mousedown", (e) => {
               e.preventDefault();
               activeHandle = maxHandle;
               maxHandle.classList.add("aural-range-slider__handle--active");
               document.addEventListener("mousemove", onMouseMove);
-              document.addEventListener("mouseup", () => {
-                maxHandle.classList.remove("aural-range-slider__handle--active");
-                onMouseUp();
-              });
+              document.addEventListener("mouseup", onMouseUp);
+            });
+
+            maxHandle.addEventListener("touchstart", (e) => {
+              e.preventDefault();
+              activeHandle = maxHandle;
+              maxHandle.classList.add("aural-range-slider__handle--active");
+              document.addEventListener("touchmove", onTouchMove, { passive: false });
+              document.addEventListener("touchend", onMouseUp);
+            });
+
+            maxHandle.addEventListener("keydown", (e) => handleKeyDown(e, maxHandle));
+
+            maxHandle.addEventListener("focus", () => {
+              maxHandle.classList.add("aural-range-slider__handle--active");
+            });
+
+            maxHandle.addEventListener("blur", () => {
+              maxHandle.classList.remove("aural-range-slider__handle--active");
             });
           }
+
           updateSlider();
           return {
             getMin: () => minValue,

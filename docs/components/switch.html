@@ -24,6 +24,36 @@
         .section-content p { margin: 0 0 var(--space-4) 0; }
         .section-content ul { margin: 0 0 var(--space-4) 0; padding-left: var(--space-6); }
         .section-content li { margin-bottom: var(--space-2); }
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
     </style>
 </head>
 <body>
@@ -33,6 +63,16 @@
             <p class="page-description">iOS-style toggle switches for binary on/off options. Provide immediate visual feedback for settings and feature toggles.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
         <!-- Basic Switches -->
         <div class="example-container">
             <div class="example-label">Basic Switches</div>
@@ -63,13 +103,16 @@
             </div>
             <div class="section-content">
                 <p>Basic switches provide instant on/off toggling. Use <code>role="switch"</code> for proper accessibility.</p>
-                <pre><code>&lt;label class="switch"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="switch"&gt;
     &lt;input type="checkbox" class="switch__input" role="switch" checked&gt;
     &lt;div class="switch__track"&gt;
         &lt;div class="switch__thumb"&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;span class="switch__label"&gt;Enable notifications&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -103,16 +146,22 @@
             </div>
             <div class="section-content">
                 <p>Three size variants: <code>switch-sm</code>, default, and <code>switch-lg</code>.</p>
-                <pre><code>&lt;label class="switch switch-lg"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="switch switch-lg"&gt;
     &lt;input type="checkbox" class="switch__input" role="switch" checked&gt;
     &lt;div class="switch__track"&gt;
         &lt;div class="switch__thumb"&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;span class="switch__label"&gt;Large&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
+        </div>
 
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
         <!-- Color Variants -->
         <div class="example-container">
             <div class="example-label">Color Variants</div>
@@ -157,13 +206,16 @@
             </div>
             <div class="section-content">
                 <p>Color variants add semantic meaning: <code>switch-primary</code>, <code>switch-success</code>, <code>switch-warning</code>, <code>switch-error</code>, <code>switch-info</code>.</p>
-                <pre><code>&lt;label class="switch switch-success"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="switch switch-success"&gt;
     &lt;input type="checkbox" class="switch__input" role="switch" checked&gt;
     &lt;div class="switch__track"&gt;
         &lt;div class="switch__thumb"&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;span class="switch__label"&gt;Success&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -196,7 +248,9 @@
             </div>
             <div class="section-content">
                 <p>Add descriptions to provide context. Use <code>switch-with-description</code> and nest a <code>switch__description</code> span.</p>
-                <pre><code>&lt;label class="switch switch-with-description"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="switch switch-with-description"&gt;
     &lt;input type="checkbox" class="switch__input" role="switch"&gt;
     &lt;div class="switch__track"&gt;
         &lt;div class="switch__thumb"&gt;&lt;/div&gt;
@@ -206,6 +260,7 @@
         &lt;span class="switch__description"&gt;Receive email updates&lt;/span&gt;
     &lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -232,16 +287,22 @@
             </div>
             <div class="section-content">
                 <p>Control label position with <code>switch-label-left</code> class. Default is label on the right.</p>
-                <pre><code>&lt;label class="switch switch-label-left"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="switch switch-label-left"&gt;
     &lt;input type="checkbox" class="switch__input" role="switch" checked&gt;
     &lt;div class="switch__track"&gt;
         &lt;div class="switch__thumb"&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;span class="switch__label"&gt;Label on left&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
+        </div>
 
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
         <!-- Switch Group -->
         <div class="example-container">
             <div class="example-label">Switch Group</div>
@@ -274,11 +335,14 @@
             </div>
             <div class="section-content">
                 <p>Group related switches with <code>switch-group</code>, <code>switch-group-label</code>, and <code>switch-group-description</code>.</p>
-                <pre><code>&lt;div class="switch-group"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="switch-group"&gt;
     &lt;div class="switch-group-label"&gt;Notification preferences&lt;/div&gt;
     &lt;div class="switch-group-description"&gt;Choose notifications&lt;/div&gt;
     &lt;label class="switch"&gt;...&lt;/label&gt;
 &lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -385,7 +449,10 @@
                 <p>Add icons to labels for visual clarity and improved scannability.</p>
             </div>
         </div>
+        </div>
 
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
         <!-- Best Practices -->
         <div class="example-container">
             <div class="example-label">Best Practices</div>
@@ -438,9 +505,14 @@
                 </ul>
             </div>
         </div>
+        </div>
     </main>
 
     <script src="../aural-ui.js?v=1769438626"></script>
+    <script>
+        // Initialize tabs
+        Aural.initTabs();
+    </script>
     <script>
         lucide.createIcons();
     </script>

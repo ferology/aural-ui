@@ -30,7 +30,7 @@
         }
 
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-10);
         }
 
         .page-title {
@@ -49,7 +49,7 @@
 
         /* Example Container */
         .example-container {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .example-label {
@@ -58,15 +58,19 @@
             color: var(--color-text-secondary);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
         .example-demo {
-            padding: var(--space-6);
+            padding: var(--space-8);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            min-height: 120px;
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-4);
         }
 
         .content-section {
@@ -126,12 +130,55 @@
             padding: 0;
         }
 
+        /* Multi-Select Container */
+        .multi-select-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .limit-indicator {
+            font-size: var(--text-xs);
+            color: var(--color-text-tertiary);
+            margin-top: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -156,6 +203,10 @@
                 top: var(--space-4);
                 right: var(--space-4);
             }
+
+            .multi-select-container {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -164,11 +215,733 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Multi Select</h1>
-            <p class="page-description">Multi-selection dropdown with tags.</p>
+            <p class="page-description">Allow users to select multiple items from a list with visual tags and flexible filtering options.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+                <!-- Example 1: Basic Multi-Select with Tags -->
+        <div class="example-container">
+            <div class="example-label">Basic Multi-Select with Tags</div>
+            <div class="example-demo">
+                <div class="multi-select-container">
+                    <div class="aural-multi-select" id="basic-multi-select">
+                        <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+                            <div class="aural-multi-select__tags"></div>
+                            <span class="aural-multi-select__placeholder">Select items...</span>
+                            <span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="aural-multi-select__dropdown">
+                            <div class="aural-multi-select__search">
+                                <input type="text" class="aural-multi-select__search-input" placeholder="Search...">
+                            </div>
+                            <div class="aural-multi-select__options">
+                                <button class="aural-multi-select__option" data-value="option1">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Option 1</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="option2">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Option 2</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="option3">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Option 3</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="option4">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Option 4</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-multi-select" id="basic-multi-select"&gt;
+  &lt;div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox"&gt;
+    &lt;div class="aural-multi-select__tags"&gt;&lt;/div&gt;
+    &lt;span class="aural-multi-select__placeholder"&gt;Select items...&lt;/span&gt;
+    &lt;span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;line x1="18" y1="6" x2="6" y2="18"/&gt;
+        &lt;line x1="6" y1="6" x2="18" y2="18"/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;span class="aural-multi-select__arrow"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;polyline points="6 9 12 15 18 9"/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-multi-select__dropdown"&gt;
+    &lt;div class="aural-multi-select__search"&gt;
+      &lt;input type="text" class="aural-multi-select__search-input" placeholder="Search..."&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-multi-select__options"&gt;
+      &lt;button class="aural-multi-select__option" data-value="option1"&gt;
+        &lt;span class="aural-multi-select__checkbox"&gt;
+          &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+            &lt;polyline points="20 6 9 17 4 12"/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class="aural-multi-select__option-label"&gt;Option 1&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;!-- More options... --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initMultiSelect('basic-multi-select', {
+  searchable: true,
+  onChange: (values) => console.log('Selected:', values)
+});
+&lt;/script&gt;</code></pre>
+            </details>
         </div>
             </div>
+
+            <!-- Variants Tab Panel -->
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+                <!-- Example 2: With Max Selection Limit -->
+        <div class="example-container">
+            <div class="example-label">With Max Selection Limit</div>
+            <div class="example-demo">
+                <div class="multi-select-container">
+                    <div class="aural-multi-select" id="limit-multi-select">
+                        <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+                            <div class="aural-multi-select__tags"></div>
+                            <span class="aural-multi-select__placeholder">Select up to 3 items...</span>
+                            <span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="aural-multi-select__dropdown">
+                            <div class="aural-multi-select__options">
+                                <button class="aural-multi-select__option" data-value="react">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">React</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="vue">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Vue</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="angular">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Angular</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="svelte">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Svelte</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="solid">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Solid</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="limit-indicator" id="limit-indicator">0 / 3 selected</div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-multi-select" id="limit-multi-select"&gt;
+  &lt;div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox"&gt;
+    &lt;div class="aural-multi-select__tags"&gt;&lt;/div&gt;
+    &lt;span class="aural-multi-select__placeholder"&gt;Select up to 3 items...&lt;/span&gt;
+    &lt;span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;line x1="18" y1="6" x2="6" y2="18"/&gt;
+        &lt;line x1="6" y1="6" x2="18" y2="18"/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;span class="aural-multi-select__arrow"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;polyline points="6 9 12 15 18 9"/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-multi-select__dropdown"&gt;
+    &lt;div class="aural-multi-select__options"&gt;
+      &lt;button class="aural-multi-select__option" data-value="react"&gt;
+        &lt;span class="aural-multi-select__checkbox"&gt;
+          &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+            &lt;polyline points="20 6 9 17 4 12"/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class="aural-multi-select__option-label"&gt;React&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;!-- More options... --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="limit-indicator" id="limit-indicator"&gt;0 / 3 selected&lt;/div&gt;
+
+&lt;script&gt;
+const limitSelect = Aural.initMultiSelect('limit-multi-select', {
+  maxSelections: 3,
+  onChange: (values) => {
+    document.getElementById('limit-indicator').textContent =
+      `${values.length} / 3 selected`;
+  }
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Example 3: With Search/Filter -->
+        <div class="example-container">
+            <div class="example-label">With Search/Filter</div>
+            <div class="example-demo">
+                <div class="multi-select-container">
+                    <div class="aural-multi-select" id="search-multi-select">
+                        <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+                            <div class="aural-multi-select__tags"></div>
+                            <span class="aural-multi-select__placeholder">Search and select...</span>
+                            <span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="aural-multi-select__dropdown">
+                            <div class="aural-multi-select__search">
+                                <input type="text" class="aural-multi-select__search-input" placeholder="Search languages...">
+                            </div>
+                            <div class="aural-multi-select__options">
+                                <button class="aural-multi-select__option" data-value="javascript">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">JavaScript</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="typescript">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">TypeScript</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="python">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Python</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="rust">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Rust</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="go">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Go</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="java">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Java</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-multi-select" id="search-multi-select"&gt;
+  &lt;div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox"&gt;
+    &lt;div class="aural-multi-select__tags"&gt;&lt;/div&gt;
+    &lt;span class="aural-multi-select__placeholder"&gt;Search and select...&lt;/span&gt;
+    &lt;span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;line x1="18" y1="6" x2="6" y2="18"/&gt;
+        &lt;line x1="6" y1="6" x2="18" y2="18"/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;span class="aural-multi-select__arrow"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;polyline points="6 9 12 15 18 9"/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-multi-select__dropdown"&gt;
+    &lt;div class="aural-multi-select__search"&gt;
+      &lt;input type="text" class="aural-multi-select__search-input" placeholder="Search languages..."&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-multi-select__options"&gt;
+      &lt;button class="aural-multi-select__option" data-value="javascript"&gt;
+        &lt;span class="aural-multi-select__checkbox"&gt;
+          &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+            &lt;polyline points="20 6 9 17 4 12"/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class="aural-multi-select__option-label"&gt;JavaScript&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;!-- More options... --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initMultiSelect('search-multi-select', {
+  searchable: true,
+  onChange: (values) => console.log('Selected languages:', values)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+            <!-- Patterns Tab Panel -->
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+                <!-- Example 4: Skills/Technologies Selector Pattern -->
+        <div class="example-container">
+            <div class="example-label">Skills/Technologies Selector Pattern</div>
+            <div class="example-demo">
+                <div class="multi-select-container">
+                    <div class="aural-multi-select" id="skills-multi-select">
+                        <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+                            <div class="aural-multi-select__tags"></div>
+                            <span class="aural-multi-select__placeholder">Select your skills...</span>
+                            <span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="aural-multi-select__dropdown">
+                            <div class="aural-multi-select__search">
+                                <input type="text" class="aural-multi-select__search-input" placeholder="Search skills...">
+                            </div>
+                            <div class="aural-multi-select__options">
+                                <button class="aural-multi-select__option" data-value="html">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">HTML</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="css">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">CSS</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="js">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">JavaScript</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="ts">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">TypeScript</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="react">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">React</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="vue">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Vue</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="node">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Node.js</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="sql">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">SQL</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="git">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Git</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="docker">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Docker</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;!-- Common pattern for job applications, profiles --&gt;
+&lt;div class="form-group"&gt;
+  &lt;label for="skills-multi-select"&gt;Your Skills&lt;/label&gt;
+  &lt;div class="aural-multi-select" id="skills-multi-select"&gt;
+    &lt;div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox"&gt;
+      &lt;div class="aural-multi-select__tags"&gt;&lt;/div&gt;
+      &lt;span class="aural-multi-select__placeholder"&gt;Select your skills...&lt;/span&gt;
+      &lt;span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0"&gt;
+        &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+          &lt;line x1="18" y1="6" x2="6" y2="18"/&gt;
+          &lt;line x1="6" y1="6" x2="18" y2="18"/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class="aural-multi-select__arrow"&gt;
+        &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+          &lt;polyline points="6 9 12 15 18 9"/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-multi-select__dropdown"&gt;
+      &lt;div class="aural-multi-select__search"&gt;
+        &lt;input type="text" class="aural-multi-select__search-input" placeholder="Search skills..."&gt;
+      &lt;/div&gt;
+      &lt;div class="aural-multi-select__options"&gt;
+        &lt;button class="aural-multi-select__option" data-value="html"&gt;
+          &lt;span class="aural-multi-select__checkbox"&gt;
+            &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+              &lt;polyline points="20 6 9 17 4 12"/&gt;
+            &lt;/svg&gt;
+          &lt;/span&gt;
+          &lt;span class="aural-multi-select__option-label"&gt;HTML&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;!-- More skills... --&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="form-hint"&gt;
+    Select up to 10 skills that best represent your expertise
+  &lt;/span&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initMultiSelect('skills-multi-select', {
+  searchable: true,
+  maxSelections: 10,
+  onChange: (values) => console.log('Skills selected:', values)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Example 5: Team Member Selector -->
+        <div class="example-container">
+            <div class="example-label">Team Member Selector</div>
+            <div class="example-demo">
+                <div class="multi-select-container">
+                    <div class="aural-multi-select" id="team-multi-select">
+                        <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+                            <div class="aural-multi-select__tags"></div>
+                            <span class="aural-multi-select__placeholder">Assign to team members...</span>
+                            <span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </span>
+                            <span class="aural-multi-select__arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="aural-multi-select__dropdown">
+                            <div class="aural-multi-select__search">
+                                <input type="text" class="aural-multi-select__search-input" placeholder="Search team members...">
+                            </div>
+                            <div class="aural-multi-select__options">
+                                <button class="aural-multi-select__option" data-value="sarah">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Sarah Johnson</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="mike">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Mike Chen</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="emily">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Emily Rodriguez</span>
+                                </button>
+                                <button class="aural-multi-select__option" data-value="alex">
+                                    <span class="aural-multi-select__checkbox">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-multi-select__option-label">Alex Kumar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;!-- For assigning tasks, sharing documents --&gt;
+&lt;div class="form-group"&gt;
+  &lt;label for="team-multi-select"&gt;Assign To&lt;/label&gt;
+  &lt;div class="aural-multi-select" id="team-multi-select"&gt;
+    &lt;div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox"&gt;
+      &lt;div class="aural-multi-select__tags"&gt;&lt;/div&gt;
+      &lt;span class="aural-multi-select__placeholder"&gt;Assign to team members...&lt;/span&gt;
+      &lt;span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0"&gt;
+        &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+          &lt;line x1="18" y1="6" x2="6" y2="18"/&gt;
+          &lt;line x1="6" y1="6" x2="18" y2="18"/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class="aural-multi-select__arrow"&gt;
+        &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+          &lt;polyline points="6 9 12 15 18 9"/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-multi-select__dropdown"&gt;
+      &lt;div class="aural-multi-select__search"&gt;
+        &lt;input type="text" class="aural-multi-select__search-input" placeholder="Search team members..."&gt;
+      &lt;/div&gt;
+      &lt;div class="aural-multi-select__options"&gt;
+        &lt;button class="aural-multi-select__option" data-value="sarah"&gt;
+          &lt;span class="aural-multi-select__checkbox"&gt;
+            &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+              &lt;polyline points="20 6 9 17 4 12"/&gt;
+            &lt;/svg&gt;
+          &lt;/span&gt;
+          &lt;span class="aural-multi-select__option-label"&gt;Sarah Johnson&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;!-- More team members... --&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initMultiSelect('team-multi-select', {
+  searchable: true,
+  onChange: (values) => {
+    console.log('Assigned to:', values);
+    // Handle team member assignment
+  }
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+            <!-- Guidelines Tab Panel -->
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+                <!-- Best Practices Section -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="section-content">
+                <h3>When to Use Multi-Select</h3>
+                <ul>
+                    <li><strong>Multiple Related Choices:</strong> When users need to select 2 or more items from a predefined list (e.g., skills, tags, categories)</li>
+                    <li><strong>Filtering Operations:</strong> For applying multiple filters to data tables or search results</li>
+                    <li><strong>Permission Assignment:</strong> When assigning multiple roles, permissions, or access levels</li>
+                    <li><strong>Tag Management:</strong> For categorizing content, products, or resources with multiple labels</li>
+                    <li><strong>Team/Group Selection:</strong> When assigning tasks or sharing items with multiple people</li>
+                    <li><strong>Moderate Option Count:</strong> Best for 3-20 options. With search functionality, can handle more</li>
+                </ul>
+
+                <h3>When NOT to Use Multi-Select</h3>
+                <ul>
+                    <li><strong>Single Selection:</strong> Use a regular dropdown or radio buttons when only one option is allowed</li>
+                    <li><strong>Too Many Options (>20):</strong> Use a combobox or autocomplete with search instead. Large lists become overwhelming in dropdowns</li>
+                    <li><strong>Very Few Options (2-3):</strong> Consider checkboxes displayed inline instead for better visibility</li>
+                    <li><strong>Binary Choices:</strong> Use a toggle or single checkbox for yes/no or on/off selections</li>
+                    <li><strong>Complex Hierarchies:</strong> Use a tree select or nested menu for deeply nested categories</li>
+                    <li><strong>Long Text Options:</strong> If options have lengthy descriptions, consider alternative patterns like a list with checkboxes</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li><strong>Keyboard Navigation:</strong> Support Tab, Enter, Space, Arrow keys for navigation and selection</li>
+                    <li><strong>ARIA Labels:</strong> Use <code>role="combobox"</code>, <code>aria-multiselectable="true"</code>, <code>aria-expanded</code></li>
+                    <li><strong>Screen Reader Support:</strong> Announce selection count and changes (e.g., "3 items selected")</li>
+                    <li><strong>Focus Management:</strong> Move focus logically between tags, dropdown, and options</li>
+                    <li><strong>Clear Labels:</strong> Always provide visible labels describing what's being selected</li>
+                    <li><strong>Remove Action:</strong> Ensure tag removal buttons are keyboard accessible and clearly announced</li>
+                    <li><strong>Visual Indicators:</strong> Use clear visual states for hover, focus, and selected items</li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <ul>
+                    <li><strong>Skills/Technologies:</strong> Job applications, developer profiles, project requirements (with max limit)</li>
+                    <li><strong>Tags/Categories:</strong> Blog posts, product categorization, content management (unlimited or high limit)</li>
+                    <li><strong>Filters:</strong> E-commerce filtering, data table filtering, search refinement (with Select All/Clear All)</li>
+                    <li><strong>Permissions:</strong> User role management, access control, feature flags (with checkboxes for clarity)</li>
+                    <li><strong>Team Assignment:</strong> Task assignment, document sharing, project collaboration (with search for large teams)</li>
+                    <li><strong>Time Ranges:</strong> Selecting multiple days of the week, date ranges, scheduling (grouped options)</li>
+                    <li><strong>Multi-Language:</strong> Content translation, locale selection, internationalization settings</li>
+                </ul>
+
+                <h3>Implementation Tips</h3>
+                <ul>
+                    <li><strong>Show Selection Count:</strong> Display "X items selected" when tags are hidden or collapsed</li>
+                    <li><strong>Limit Visual Clutter:</strong> Consider showing only first few tags with "+X more" for many selections</li>
+                    <li><strong>Search for Scale:</strong> Add search/filter when options exceed 10-15 items</li>
+                    <li><strong>Group Related Items:</strong> Use group labels to organize options into logical categories</li>
+                    <li><strong>Validation Feedback:</strong> Show clear messages for required fields or max selection limits</li>
+                    <li><strong>Tag Order:</strong> Consider if tag order matters (reorderable) or is just visual (alphabetical)</li>
+                    <li><strong>Close on Outside Click:</strong> Dropdown should close when clicking outside the component</li>
+                    <li><strong>Preserve Selections:</strong> Maintain selections when dropdown closes and reopens</li>
+                </ul>
+
+                <h3>JavaScript API</h3>
+                <p>Initialize a multi-select component with the <code>Aural.initMultiSelect()</code> method:</p>
+                <pre><code>const multiSelect = Aural.initMultiSelect('element-id', {
+  searchable: true,        // Enable search functionality (default: true)
+  selectAll: false,        // Add "Select All" option (default: false)
+  maxSelections: null,     // Maximum number of selections (default: null)
+  onChange: (values) => {} // Callback when selection changes
+});
+
+// API Methods
+multiSelect.getSelected();      // Get array of selected values
+multiSelect.select('value');    // Select a value programmatically
+multiSelect.deselect('value');  // Deselect a value programmatically
+multiSelect.clear();            // Clear all selections</code></pre>
+            </div>
+        </div>
+            </div>
+        </div>
 
     </main>
 
@@ -211,18 +984,52 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // Initialize tabs
+        Aural.initTabs();
+
+        // Initialize all multi-select components
+        Aural.initMultiSelect('basic-multi-select', {
+            searchable: true,
+            onChange: (values) => console.log('Basic selected:', values)
+        });
+
+        Aural.initMultiSelect('limit-multi-select', {
+            maxSelections: 3,
+            onChange: (values) => {
+                document.getElementById('limit-indicator').textContent =
+                    `${values.length} / 3 selected`;
+            }
+        });
+
+        Aural.initMultiSelect('search-multi-select', {
+            searchable: true,
+            onChange: (values) => console.log('Search selected:', values)
+        });
+
+        Aural.initMultiSelect('skills-multi-select', {
+            searchable: true,
+            maxSelections: 10,
+            onChange: (values) => console.log('Skills selected:', values)
+        });
+
+        Aural.initMultiSelect('team-multi-select', {
+            searchable: true,
+            onChange: (values) => console.log('Team members selected:', values)
+        });
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

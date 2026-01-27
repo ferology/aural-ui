@@ -24,6 +24,37 @@
         .section-content p { margin: 0 0 var(--space-4) 0; }
         .section-content ul { margin: 0 0 var(--space-4) 0; padding-left: var(--space-6); }
         .section-content li { margin-bottom: var(--space-2); }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
     </style>
 </head>
 <body>
@@ -33,7 +64,21 @@
             <p class="page-description">Multi-selection checkboxes with states and variants. Allow users to select multiple options from a list or toggle individual settings.</p>
         </div>
 
-        <!-- Basic Checkboxes -->
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+                <div class="section-content" style="margin-bottom: var(--space-8);">
+                    <p>Checkboxes allow users to select multiple options from a list or toggle individual settings. They are ideal for multi-selection scenarios and binary settings.</p>
+                </div>
+
+                <!-- Basic Checkboxes -->
         <div class="example-container">
             <div class="example-label">Basic Checkboxes</div>
             <div class="example-demo">
@@ -58,10 +103,13 @@
             </div>
             <div class="section-content">
                 <p>Basic checkboxes support checked, unchecked, and disabled states.</p>
-                <pre><code>&lt;label class="checkbox"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="checkbox"&gt;
     &lt;input type="checkbox" checked&gt;
     &lt;span&gt;Checked checkbox&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -86,12 +134,49 @@
             </div>
             <div class="section-content">
                 <p>Three size variants available: <code>checkbox-sm</code>, default, and <code>checkbox-lg</code>.</p>
-                <pre><code>&lt;label class="checkbox checkbox-sm"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="checkbox checkbox-sm"&gt;
     &lt;input type="checkbox" checked&gt;
     &lt;span&gt;Small checkbox&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
+            </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+                <!-- Sizes -->
+                <div class="example-container">
+                    <div class="example-label">Sizes</div>
+                    <div class="example-demo">
+                        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                            <label class="checkbox checkbox-sm">
+                                <input type="checkbox" checked>
+                                <span>Small checkbox</span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" checked>
+                                <span>Default checkbox</span>
+                            </label>
+                            <label class="checkbox checkbox-lg">
+                                <input type="checkbox" checked>
+                                <span>Large checkbox</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        <p>Three size variants available: <code>checkbox-sm</code>, default, and <code>checkbox-lg</code>.</p>
+                        <details>
+                            <summary>View Code</summary>
+                            <pre><code>&lt;label class="checkbox checkbox-sm"&gt;
+    &lt;input type="checkbox" checked&gt;
+    &lt;span&gt;Small checkbox&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                        </details>
+                    </div>
+                </div>
 
         <!-- With Description -->
         <div class="example-container">
@@ -116,16 +201,22 @@
             </div>
             <div class="section-content">
                 <p>Add descriptive text below the label to provide additional context.</p>
-                <pre><code>&lt;label class="checkbox checkbox-with-description"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="checkbox checkbox-with-description"&gt;
     &lt;input type="checkbox"&gt;
     &lt;span&gt;
         Enable notifications
         &lt;span class="checkbox-description"&gt;Receive email updates&lt;/span&gt;
     &lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
+            </div>
 
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
         <!-- Checkbox Group -->
         <div class="example-container">
             <div class="example-label">Checkbox Group</div>
@@ -154,13 +245,16 @@
             </div>
             <div class="section-content">
                 <p>Group related checkboxes using a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> for proper semantics.</p>
-                <pre><code>&lt;fieldset&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;fieldset&gt;
     &lt;legend&gt;Select your interests&lt;/legend&gt;
     &lt;label class="checkbox"&gt;
         &lt;input type="checkbox" name="interests" value="design"&gt;
         &lt;span&gt;Design&lt;/span&gt;
     &lt;/label&gt;
 &lt;/fieldset&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -191,13 +285,16 @@
             </div>
             <div class="section-content">
                 <p>Use indeterminate state for "select all" checkboxes when only some items are selected.</p>
-                <pre><code>const selectAll = document.getElementById('select-all');
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>const selectAll = document.getElementById('select-all');
 const children = document.querySelectorAll('.child-checkbox');
 
 selectAll.indeterminate = true; // Set indeterminate state
 selectAll.addEventListener('change', () => {
     children.forEach(cb => cb.checked = selectAll.checked);
 });</code></pre>
+                </details>
             </div>
         </div>
 
@@ -250,7 +347,10 @@ selectAll.addEventListener('change', () => {
                 <p>Use checkboxes in settings panels with clear sections and descriptions.</p>
             </div>
         </div>
+            </div>
 
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
         <!-- Best Practices -->
         <div class="example-container">
             <div class="example-label">Best Practices</div>
@@ -288,11 +388,16 @@ selectAll.addEventListener('change', () => {
                 </ul>
             </div>
         </div>
+            </div>
+        </div>
     </main>
 
     <script src="../aural-ui.js?v=1769438626"></script>
     <script>
         lucide.createIcons();
+
+        // Initialize tabs
+        Aural.initTabs();
 
         // Indeterminate checkbox demo
         const selectAll = document.getElementById('select-all');

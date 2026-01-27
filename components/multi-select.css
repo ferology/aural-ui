@@ -35,6 +35,7 @@
 
 .aural-multi-select__trigger:hover {
     border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-multi-select__trigger:focus-visible {
@@ -46,7 +47,7 @@
     border-top-color: var(--color-primary);
     border-left-color: var(--color-primary);
     border-right-color: var(--color-primary);
-    border-bottom-color: var(--color-border-medium);
+    border-bottom-color: var(--color-primary);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -192,8 +193,7 @@
     max-height: 0;
     overflow: hidden;
     background: var(--color-bg-primary);
-    border: 1px solid var(--color-primary);
-    border-top: none;
+    border: none;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     box-shadow: var(--shadow-lg);
     transition: max-height 0.3s ease;
@@ -201,6 +201,9 @@
 
 .aural-multi-select--open .aural-multi-select__dropdown {
     max-height: 300px;
+    border-left: 1px solid var(--color-border-medium);
+    border-right: 1px solid var(--color-border-medium);
+    border-bottom: 1px solid var(--color-border-medium);
 }
 
 /* ========================================

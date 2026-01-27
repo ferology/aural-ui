@@ -58,12 +58,13 @@
 
 .aural-time-picker__input:hover {
     border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-time-picker__input:focus {
-    outline: none;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--primary-alpha-10);
 }
 
 .aural-time-picker__input::placeholder {
@@ -420,7 +421,7 @@
    ======================================== */
 
 .aural-time-picker--disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
 }
 

@@ -30,7 +30,7 @@
         }
 
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-10);
         }
 
         .page-title {
@@ -49,7 +49,7 @@
 
         /* Example Container */
         .example-container {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .example-label {
@@ -58,15 +58,19 @@
             color: var(--color-text-secondary);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
         .example-demo {
-            padding: var(--space-6);
+            padding: var(--space-8);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            min-height: 120px;
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-4);
         }
 
         .content-section {
@@ -91,6 +95,13 @@
             font-weight: var(--font-semibold);
             color: var(--color-text-primary);
             margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content h4 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-4) 0 var(--space-2) 0;
         }
 
         .section-content p {
@@ -134,6 +145,43 @@
             z-index: 200;
         }
 
+        /* Demo specific styles */
+        .combobox-wrapper {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -164,16 +212,509 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Combobox</h1>
-            <p class="page-description">Searchable dropdown with autocomplete functionality.</p>
+            <p class="page-description">A searchable dropdown component that combines an input field with a filterable list of options. Perfect for large datasets where users need to search and select from many items.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
         </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+                <!-- Basic Combobox with Search -->
+        <div class="example-container">
+            <div class="example-label">Basic Combobox with Search</div>
+            <div class="example-demo">
+                <div class="combobox-wrapper">
+                    <label for="fruit-combobox-input" class="form-label">Select a Fruit</label>
+                    <div class="aural-combobox" id="fruit-combobox">
+                        <div class="aural-combobox__wrapper">
+                            <input type="text" class="aural-combobox__input" id="fruit-combobox-input" placeholder="Search fruits...">
+                            <div class="aural-combobox__icons">
+                                <button class="aural-combobox__clear">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                                <div class="aural-combobox__spinner"></div>
+                                <button class="aural-combobox__arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
                         <div class="aural-combobox__dropdown">
-                            <div class="aural-combobox__options"></div>
+                            <div class="aural-combobox__options">
+                                <!-- Options rendered by JS -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;label for="fruit-combobox-input" class="form-label"&gt;Select a Fruit&lt;/label&gt;
+&lt;div class="aural-combobox" id="fruit-combobox"&gt;
+  &lt;div class="aural-combobox__wrapper"&gt;
+    &lt;input type="text" class="aural-combobox__input" id="fruit-combobox-input" placeholder="Search fruits..."&gt;
+    &lt;div class="aural-combobox__icons"&gt;
+      &lt;button class="aural-combobox__clear"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;div class="aural-combobox__spinner"&gt;&lt;/div&gt;
+      &lt;button class="aural-combobox__arrow"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-combobox__dropdown"&gt;
+    &lt;div class="aural-combobox__options"&gt;
+      &lt;!-- Options rendered by JS --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initCombobox('fruit-combobox', {
+  options: [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'cherry', label: 'Cherry' },
+    { value: 'grape', label: 'Grape' },
+    { value: 'mango', label: 'Mango' },
+    { value: 'orange', label: 'Orange' },
+    { value: 'pineapple', label: 'Pineapple' },
+    { value: 'strawberry', label: 'Strawberry' }
+  ],
+  searchable: true,
+  onChange: (selected) => console.log('Selected:', selected)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- With Autocomplete -->
+        <div class="example-container">
+            <div class="example-label">With Autocomplete</div>
+            <div class="example-demo">
+                <div class="combobox-wrapper">
+                    <label for="country-combobox-input" class="form-label">Select Country</label>
+                    <div class="aural-combobox" id="country-combobox">
+                        <div class="aural-combobox__wrapper">
+                            <input type="text" class="aural-combobox__input" id="country-combobox-input" placeholder="Type to autocomplete...">
+                            <div class="aural-combobox__icons">
+                                <button class="aural-combobox__clear">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                                <div class="aural-combobox__spinner"></div>
+                                <button class="aural-combobox__arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="aural-combobox__dropdown">
+                            <div class="aural-combobox__options">
+                                <!-- Options rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;label for="country-combobox-input" class="form-label"&gt;Select Country&lt;/label&gt;
+&lt;div class="aural-combobox" id="country-combobox"&gt;
+  &lt;div class="aural-combobox__wrapper"&gt;
+    &lt;input type="text" class="aural-combobox__input" id="country-combobox-input" placeholder="Type to autocomplete..."&gt;
+    &lt;div class="aural-combobox__icons"&gt;
+      &lt;button class="aural-combobox__clear"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;div class="aural-combobox__spinner"&gt;&lt;/div&gt;
+      &lt;button class="aural-combobox__arrow"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-combobox__dropdown"&gt;
+    &lt;div class="aural-combobox__options"&gt;
+      &lt;!-- Options rendered by JS --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initCombobox('country-combobox', {
+  options: [
+    { value: 'us', label: 'United States' },
+    { value: 'uk', label: 'United Kingdom' },
+    { value: 'ca', label: 'Canada' },
+    { value: 'au', label: 'Australia' },
+    { value: 'de', label: 'Germany' },
+    { value: 'fr', label: 'France' },
+    { value: 'jp', label: 'Japan' },
+    { value: 'cn', label: 'China' }
+  ],
+  searchable: true,
+  onChange: (selected) => console.log('Selected:', selected)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+                <!-- With Custom Create Option -->
+        <div class="example-container">
+            <div class="example-label">With Custom Create Option</div>
+            <div class="example-demo">
+                <div class="combobox-wrapper">
+                    <label for="tag-combobox-input" class="form-label">Add Tag</label>
+                    <div class="aural-combobox" id="tag-combobox">
+                        <div class="aural-combobox__wrapper">
+                            <input type="text" class="aural-combobox__input" id="tag-combobox-input" placeholder="Search or create new tag...">
+                            <div class="aural-combobox__icons">
+                                <button class="aural-combobox__clear">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                                <div class="aural-combobox__spinner"></div>
+                                <button class="aural-combobox__arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="aural-combobox__dropdown">
+                            <div class="aural-combobox__options">
+                                <!-- Options rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-tertiary);">
+                        Type a new tag name to create it
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;label for="tag-combobox-input" class="form-label"&gt;Add Tag&lt;/label&gt;
+&lt;div class="aural-combobox" id="tag-combobox"&gt;
+  &lt;div class="aural-combobox__wrapper"&gt;
+    &lt;input type="text" class="aural-combobox__input" id="tag-combobox-input" placeholder="Search or create new tag..."&gt;
+    &lt;div class="aural-combobox__icons"&gt;
+      &lt;button class="aural-combobox__clear"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;div class="aural-combobox__spinner"&gt;&lt;/div&gt;
+      &lt;button class="aural-combobox__arrow"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-combobox__dropdown"&gt;
+    &lt;div class="aural-combobox__options"&gt;
+      &lt;!-- Options rendered by JS --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initCombobox('tag-combobox', {
+  options: [
+    { value: 'design', label: 'Design' },
+    { value: 'frontend', label: 'Frontend' },
+    { value: 'backend', label: 'Backend' },
+    { value: 'ui', label: 'UI' },
+    { value: 'ux', label: 'UX' }
+  ],
+  searchable: true,
+  creatable: true,
+  onCreate: (value) => {
+    console.log('Created new tag:', value);
+    // Add the new tag to your data source
+  },
+  onChange: (selected) => console.log('Selected:', selected)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- With Descriptions -->
+        <div class="example-container">
+            <div class="example-label">With Option Descriptions</div>
+            <div class="example-demo">
+                <div class="combobox-wrapper">
+                    <label for="product-combobox-input" class="form-label">Search Products</label>
+                    <div class="aural-combobox" id="product-combobox">
+                        <div class="aural-combobox__wrapper">
+                            <input type="text" class="aural-combobox__input" id="product-combobox-input" placeholder="Search products...">
+                            <div class="aural-combobox__icons">
+                                <button class="aural-combobox__clear">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                                <div class="aural-combobox__spinner"></div>
+                                <button class="aural-combobox__arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="aural-combobox__dropdown">
+                            <div class="aural-combobox__options">
+                                <!-- Options rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;label for="product-combobox-input" class="form-label"&gt;Search Products&lt;/label&gt;
+&lt;div class="aural-combobox" id="product-combobox"&gt;
+  &lt;div class="aural-combobox__wrapper"&gt;
+    &lt;input type="text" class="aural-combobox__input" id="product-combobox-input" placeholder="Search products..."&gt;
+    &lt;div class="aural-combobox__icons"&gt;
+      &lt;button class="aural-combobox__clear"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;div class="aural-combobox__spinner"&gt;&lt;/div&gt;
+      &lt;button class="aural-combobox__arrow"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-combobox__dropdown"&gt;
+    &lt;div class="aural-combobox__options"&gt;
+      &lt;!-- Options rendered by JS --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initCombobox('product-combobox', {
+  options: [
+    { value: 'prod1', label: 'Wireless Headphones', description: 'SKU: WH-001 | $99.99' },
+    { value: 'prod2', label: 'Laptop Stand', description: 'SKU: LS-045 | $49.99' },
+    { value: 'prod3', label: 'USB-C Hub', description: 'SKU: UH-782 | $79.99' },
+    { value: 'prod4', label: 'Mechanical Keyboard', description: 'SKU: MK-321 | $129.99' },
+    { value: 'prod5', label: 'Webcam HD', description: 'SKU: WC-445 | $89.99' }
+  ],
+  searchable: true,
+  onChange: (selected) => console.log('Selected product:', selected)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+                <!-- Search Callback Pattern -->
+        <div class="example-container">
+            <div class="example-label">Search Callback Pattern</div>
+            <div class="example-demo">
+                <div class="combobox-wrapper">
+                    <label for="search-combobox-input" class="form-label">Search with Callback</label>
+                    <div class="aural-combobox" id="search-combobox">
+                        <div class="aural-combobox__wrapper">
+                            <input type="text" class="aural-combobox__input" id="search-combobox-input" placeholder="Type to search...">
+                            <div class="aural-combobox__icons">
+                                <button class="aural-combobox__clear">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                                <div class="aural-combobox__spinner"></div>
+                                <button class="aural-combobox__arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="aural-combobox__dropdown">
+                            <div class="aural-combobox__options">
+                                <!-- Options rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-tertiary);">
+                        Search callback logs to console
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;label for="search-combobox-input" class="form-label"&gt;Search with Callback&lt;/label&gt;
+&lt;div class="aural-combobox" id="search-combobox"&gt;
+  &lt;div class="aural-combobox__wrapper"&gt;
+    &lt;input type="text" class="aural-combobox__input" id="search-combobox-input" placeholder="Type to search..."&gt;
+    &lt;div class="aural-combobox__icons"&gt;
+      &lt;button class="aural-combobox__clear"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;div class="aural-combobox__spinner"&gt;&lt;/div&gt;
+      &lt;button class="aural-combobox__arrow"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-combobox__dropdown"&gt;
+    &lt;div class="aural-combobox__options"&gt;
+      &lt;!-- Options rendered by JS --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initCombobox('search-combobox', {
+  options: [
+    { value: 'user1', label: 'John Smith', description: 'john@example.com' },
+    { value: 'user2', label: 'Jane Doe', description: 'jane@example.com' },
+    { value: 'user3', label: 'Bob Johnson', description: 'bob@example.com' },
+    { value: 'user4', label: 'Alice Williams', description: 'alice@example.com' }
+  ],
+  searchable: true,
+  onSearch: (query, filteredResults) => {
+    console.log('Search query:', query);
+    console.log('Filtered results:', filteredResults);
+    // You could use this to load async results, update analytics, etc.
+  },
+  onChange: (selected) => console.log('Selected:', selected)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- City/Location Example -->
+        <div class="example-container">
+            <div class="example-label">City/Location Search</div>
+            <div class="example-demo">
+                <div class="combobox-wrapper">
+                    <label for="city-combobox-input" class="form-label">Select City</label>
+                    <div class="aural-combobox" id="city-combobox">
+                        <div class="aural-combobox__wrapper">
+                            <input type="text" class="aural-combobox__input" id="city-combobox-input" placeholder="Search cities...">
+                            <div class="aural-combobox__icons">
+                                <button class="aural-combobox__clear">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                                <div class="aural-combobox__spinner"></div>
+                                <button class="aural-combobox__arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="aural-combobox__dropdown">
+                            <div class="aural-combobox__options">
+                                <!-- Options rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;label for="city-combobox-input" class="form-label"&gt;Select City&lt;/label&gt;
+&lt;div class="aural-combobox" id="city-combobox"&gt;
+  &lt;div class="aural-combobox__wrapper"&gt;
+    &lt;input type="text" class="aural-combobox__input" id="city-combobox-input" placeholder="Search cities..."&gt;
+    &lt;div class="aural-combobox__icons"&gt;
+      &lt;button class="aural-combobox__clear"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;div class="aural-combobox__spinner"&gt;&lt;/div&gt;
+      &lt;button class="aural-combobox__arrow"&gt;
+        &lt;svg&gt;...&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-combobox__dropdown"&gt;
+    &lt;div class="aural-combobox__options"&gt;
+      &lt;!-- Options rendered by JS --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initCombobox('city-combobox', {
+  options: [
+    { value: 'nyc', label: 'New York City', description: 'New York, United States' },
+    { value: 'london', label: 'London', description: 'England, United Kingdom' },
+    { value: 'tokyo', label: 'Tokyo', description: 'Kanto, Japan' },
+    { value: 'paris', label: 'Paris', description: 'Île-de-France, France' },
+    { value: 'sydney', label: 'Sydney', description: 'New South Wales, Australia' },
+    { value: 'berlin', label: 'Berlin', description: 'Berlin, Germany' },
+    { value: 'toronto', label: 'Toronto', description: 'Ontario, Canada' }
+  ],
+  searchable: true,
+  onChange: (selected) => console.log('Selected city:', selected)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+                <!-- Best Practices Section -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="section-content">
+                <h3>When to Use</h3>
+                <ul>
+                    <li><strong>Large datasets:</strong> When you have many options (20+) that would be overwhelming in a regular select dropdown</li>
+                    <li><strong>Search functionality needed:</strong> When users benefit from typing to filter through options quickly</li>
+                    <li><strong>Autocomplete behavior:</strong> When you want to suggest completions as users type</li>
+                    <li><strong>Dynamic or async data:</strong> When options need to be loaded from a server or API</li>
+                    <li><strong>Complex option display:</strong> When options need to show additional information like descriptions</li>
+                    <li><strong>Custom value creation:</strong> When users should be able to enter values not in the predefined list</li>
+                </ul>
+
+                <h3>When NOT to Use</h3>
+                <ul>
+                    <li><strong>Small option lists:</strong> Use a regular <code>&lt;select&gt;</code> element for 5-10 options or fewer - it's simpler and more accessible</li>
+                    <li><strong>Binary choices:</strong> Use radio buttons, checkboxes, or switches for yes/no or on/off choices</li>
+                    <li><strong>Date selection:</strong> Use a proper date picker component instead</li>
+                    <li><strong>Known short lists:</strong> If users are familiar with a short list of options, a select dropdown is more efficient</li>
+                    <li><strong>Multi-select needed:</strong> Consider a multi-select component or checkbox list instead</li>
+                </ul>
+
+                <h3>API Reference</h3>
+                <h4>initCombobox(comboboxId, options)</h4>
+                <p>Initialize a combobox component with the given ID and configuration options.</p>
+
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>comboboxId</code> (string) - The ID of the combobox container element</li>
+                    <li><code>options</code> (object) - Configuration options:
+                        <ul>
+                            <li><code>options</code> (array) - Array of option objects with <code>value</code>, <code>label</code>, and optional <code>description</code></li>
+                            <li><code>searchable</code> (boolean) - Enable search filtering (default: true)</li>
+                            <li><code>creatable</code> (boolean) - Allow creating new options (default: false)</li>
+                            <li><code>placeholder</code> (string) - Input placeholder text (default: "Search...")</li>
+                            <li><code>onChange</code> (function) - Callback when selection changes, receives selected option</li>
+                            <li><code>onSearch</code> (function) - Callback when search query changes, receives query and filtered results</li>
+                            <li><code>onCreate</code> (function) - Callback when new option is created, receives the new value</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <h4>Location/Address Search</h4>
+                <p>Perfect for city, address, or location selection. Use descriptions to show additional location information like region and country.</p>
+
+                <h4>Tag/Category Selection</h4>
+                <p>Allow users to search existing tags or create new ones on the fly. Enable the <code>creatable</code> option and provide an <code>onCreate</code> callback.</p>
+
+                <h4>User/Mention Autocomplete</h4>
+                <p>Search and mention users in text fields. Use descriptions to show email addresses or user IDs alongside names.</p>
+
+                <h4>Product/Inventory Search</h4>
+                <p>Search through large product catalogs with rich results showing SKU, price, and availability in the description field.</p>
+
+                <h4>Search Callbacks</h4>
+                <p>Use the <code>onSearch</code> callback to track search queries, implement analytics, or load async results from an API.</p>
+            </div>
+        </div>
+            </div>
+        </div>
 
     </main>
 
@@ -201,6 +742,9 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
+        // Initialize tabs
+        Aural.initTabs();
+
         // Theme toggle
         let isDark = true;
         function toggleTheme() {
@@ -216,18 +760,108 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // Initialize all comboboxes
+        Aural.initCombobox('fruit-combobox', {
+            options: [
+                { value: 'apple', label: 'Apple' },
+                { value: 'banana', label: 'Banana' },
+                { value: 'cherry', label: 'Cherry' },
+                { value: 'grape', label: 'Grape' },
+                { value: 'mango', label: 'Mango' },
+                { value: 'orange', label: 'Orange' },
+                { value: 'pineapple', label: 'Pineapple' },
+                { value: 'strawberry', label: 'Strawberry' }
+            ],
+            searchable: true,
+            onChange: (selected) => console.log('Selected fruit:', selected)
+        });
+
+        Aural.initCombobox('country-combobox', {
+            options: [
+                { value: 'us', label: 'United States' },
+                { value: 'uk', label: 'United Kingdom' },
+                { value: 'ca', label: 'Canada' },
+                { value: 'au', label: 'Australia' },
+                { value: 'de', label: 'Germany' },
+                { value: 'fr', label: 'France' },
+                { value: 'jp', label: 'Japan' },
+                { value: 'cn', label: 'China' }
+            ],
+            searchable: true,
+            onChange: (selected) => console.log('Selected country:', selected)
+        });
+
+        Aural.initCombobox('tag-combobox', {
+            options: [
+                { value: 'design', label: 'Design' },
+                { value: 'frontend', label: 'Frontend' },
+                { value: 'backend', label: 'Backend' },
+                { value: 'ui', label: 'UI' },
+                { value: 'ux', label: 'UX' }
+            ],
+            searchable: true,
+            creatable: true,
+            onCreate: (value) => {
+                console.log('Created new tag:', value);
+            },
+            onChange: (selected) => console.log('Selected tag:', selected)
+        });
+
+        Aural.initCombobox('product-combobox', {
+            options: [
+                { value: 'prod1', label: 'Wireless Headphones', description: 'SKU: WH-001 | $99.99' },
+                { value: 'prod2', label: 'Laptop Stand', description: 'SKU: LS-045 | $49.99' },
+                { value: 'prod3', label: 'USB-C Hub', description: 'SKU: UH-782 | $79.99' },
+                { value: 'prod4', label: 'Mechanical Keyboard', description: 'SKU: MK-321 | $129.99' },
+                { value: 'prod5', label: 'Webcam HD', description: 'SKU: WC-445 | $89.99' }
+            ],
+            searchable: true,
+            onChange: (selected) => console.log('Selected product:', selected)
+        });
+
+        Aural.initCombobox('search-combobox', {
+            options: [
+                { value: 'user1', label: 'John Smith', description: 'john@example.com' },
+                { value: 'user2', label: 'Jane Doe', description: 'jane@example.com' },
+                { value: 'user3', label: 'Bob Johnson', description: 'bob@example.com' },
+                { value: 'user4', label: 'Alice Williams', description: 'alice@example.com' }
+            ],
+            searchable: true,
+            onSearch: (query, filteredResults) => {
+                console.log('Search query:', query);
+                console.log('Filtered results:', filteredResults);
+            },
+            onChange: (selected) => console.log('Selected user:', selected)
+        });
+
+        Aural.initCombobox('city-combobox', {
+            options: [
+                { value: 'nyc', label: 'New York City', description: 'New York, United States' },
+                { value: 'london', label: 'London', description: 'England, United Kingdom' },
+                { value: 'tokyo', label: 'Tokyo', description: 'Kanto, Japan' },
+                { value: 'paris', label: 'Paris', description: 'Île-de-France, France' },
+                { value: 'sydney', label: 'Sydney', description: 'New South Wales, Australia' },
+                { value: 'berlin', label: 'Berlin', description: 'Berlin, Germany' },
+                { value: 'toronto', label: 'Toronto', description: 'Ontario, Canada' }
+            ],
+            searchable: true,
+            onChange: (selected) => console.log('Selected city:', selected)
+        });
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

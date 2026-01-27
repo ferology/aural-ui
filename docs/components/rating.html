@@ -30,7 +30,7 @@
         }
 
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-10);
         }
 
         .page-title {
@@ -47,9 +47,19 @@
             margin: 0;
         }
 
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Example Container */
         .example-container {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .example-label {
@@ -58,15 +68,20 @@
             color: var(--color-text-secondary);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
         .example-demo {
-            padding: var(--space-6);
+            padding: var(--space-8);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: var(--space-6);
         }
 
         .content-section {
@@ -91,6 +106,13 @@
             font-weight: var(--font-semibold);
             color: var(--color-text-primary);
             margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content h4 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-4) 0 var(--space-2) 0;
         }
 
         .section-content p {
@@ -126,6 +148,33 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Component Grid */
+        .component-grid {
+            display: grid;
+            gap: var(--space-6);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -156,6 +205,10 @@
                 top: var(--space-4);
                 right: var(--space-4);
             }
+
+            .example-demo {
+                padding: var(--space-6);
+            }
         }
     </style>
 </head>
@@ -164,16 +217,181 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Rating</h1>
-            <p class="page-description">Star rating input and display.</p>
+            <p class="page-description">A star rating component for collecting feedback and displaying ratings. Supports interactive rating input, read-only display, half-star ratings, and custom icons.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
         </div>
 
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <!-- Basic Interactive Rating -->
             <div class="example-container">
-                <div class="example-label">Sizes</div>
+                <div class="example-label">Basic Interactive Rating</div>
                 <div class="example-demo">
-                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
-                        <div class="aural-rating aural-rating--sm aural-rating--readonly">
+                    <div class="aural-rating" id="rating-basic" data-rating="0">
+                        <div class="aural-rating__stars">
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="1" aria-label="Rate 1 star" tabindex="0">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="2" aria-label="Rate 2 stars" tabindex="0">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="3" aria-label="Rate 3 stars" tabindex="0">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="4" aria-label="Rate 4 stars" tabindex="0">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="5" aria-label="Rate 5 stars" tabindex="0">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="aural-rating__value">0</span>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-rating" id="rating-basic" data-rating="0"&gt;
+    &lt;div class="aural-rating__stars"&gt;
+        &lt;button class="aural-rating__star aural-rating__star--empty"
+                data-value="1" aria-label="Rate 1 star"&gt;
+            &lt;svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor"&gt;
+                &lt;polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/&gt;
+            &lt;/svg&gt;
+        &lt;/button&gt;
+        &lt;!-- Repeat for stars 2-5 --&gt;
+    &lt;/div&gt;
+    &lt;span class="aural-rating__value"&gt;0&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Read-Only Rating with Count -->
+            <div class="example-container">
+                <div class="example-label">Read-Only Rating with Review Count</div>
+                <div class="example-demo">
+                    <div class="aural-rating aural-rating--readonly" data-rating="4.5">
+                        <div class="aural-rating__stars">
+                            <span class="aural-rating__star aural-rating__star--filled">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </span>
+                            <span class="aural-rating__star aural-rating__star--filled">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </span>
+                            <span class="aural-rating__star aural-rating__star--filled">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </span>
+                            <span class="aural-rating__star aural-rating__star--filled">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </span>
+                            <span class="aural-rating__star aural-rating__star--half">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor" style="position: relative;">
+                                    <defs>
+                                        <linearGradient id="half-fill-1">
+                                            <stop offset="50%" stop-color="var(--color-warning)"/>
+                                            <stop offset="50%" stop-color="var(--color-border-medium)"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="url(#half-fill-1)"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <span class="aural-rating__value">4.5</span>
+                        <span class="aural-rating__count">(1,234)</span>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-rating aural-rating--readonly" data-rating="4.5"&gt;
+    &lt;div class="aural-rating__stars"&gt;
+        &lt;!-- 4 filled stars --&gt;
+        &lt;span class="aural-rating__star aural-rating__star--filled"&gt;...&lt;/span&gt;
+        &lt;!-- 1 half star --&gt;
+        &lt;span class="aural-rating__star aural-rating__star--half"&gt;
+            &lt;svg class="aural-rating__star-icon" viewBox="0 0 24 24"&gt;
+                &lt;defs&gt;
+                    &lt;linearGradient id="half-fill"&gt;
+                        &lt;stop offset="50%" stop-color="var(--color-warning)"/&gt;
+                        &lt;stop offset="50%" stop-color="var(--color-border-medium)"/&gt;
+                    &lt;/linearGradient&gt;
+                &lt;/defs&gt;
+                &lt;polygon points="..." fill="url(#half-fill)"/&gt;
+            &lt;/svg&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;span class="aural-rating__value"&gt;4.5&lt;/span&gt;
+    &lt;span class="aural-rating__count"&gt;(1,234)&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <!-- Size Variants -->
+            <div class="example-container">
+                <div class="example-label">Size Variants</div>
+                <div class="example-demo">
+                    <div class="component-grid">
+                        <!-- Small -->
+                        <div class="aural-rating aural-rating--sm aural-rating--readonly" data-rating="3">
+                            <div class="aural-rating__stars">
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--empty">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--empty">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <span class="aural-rating__value">3.0</span>
+                            <span class="aural-rating__count">(45)</span>
+                        </div>
+
+                        <!-- Default -->
+                        <div class="aural-rating aural-rating--readonly" data-rating="4">
                             <div class="aural-rating__stars">
                                 <span class="aural-rating__star aural-rating__star--filled">
                                     <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -202,10 +420,11 @@
                                 </span>
                             </div>
                             <span class="aural-rating__value">4.0</span>
-                            <span class="aural-rating__count">(128)</span>
+                            <span class="aural-rating__count">(256)</span>
                         </div>
 
-                        <div class="aural-rating aural-rating--lg aural-rating--readonly">
+                        <!-- Large -->
+                        <div class="aural-rating aural-rating--lg aural-rating--readonly" data-rating="5">
                             <div class="aural-rating__stars">
                                 <span class="aural-rating__star aural-rating__star--filled">
                                     <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -234,12 +453,695 @@
                                 </span>
                             </div>
                             <span class="aural-rating__value">5.0</span>
-                            <span class="aural-rating__count">(2,543)</span>
+                            <span class="aural-rating__count">(1,845)</span>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Small --&gt;
+&lt;div class="aural-rating aural-rating--sm aural-rating--readonly"&gt;...&lt;/div&gt;
+
+&lt;!-- Default --&gt;
+&lt;div class="aural-rating aural-rating--readonly"&gt;...&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+&lt;div class="aural-rating aural-rating--lg aural-rating--readonly"&gt;...&lt;/div&gt;</code></pre>
+                </details>
             </div>
 
+            <!-- Color Variants -->
+            <div class="example-container">
+                <div class="example-label">Color Variants</div>
+                <div class="example-demo">
+                    <div class="component-grid">
+                        <!-- Primary -->
+                        <div class="aural-rating aural-rating--primary aural-rating--readonly" data-rating="4">
+                            <div class="aural-rating__stars">
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--empty">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <span class="aural-rating__label">Primary</span>
+                        </div>
+
+                        <!-- Success -->
+                        <div class="aural-rating aural-rating--success aural-rating--readonly" data-rating="5">
+                            <div class="aural-rating__stars">
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <span class="aural-rating__label">Success</span>
+                        </div>
+
+                        <!-- Error -->
+                        <div class="aural-rating aural-rating--error aural-rating--readonly" data-rating="2">
+                            <div class="aural-rating__stars">
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--empty">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--empty">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--empty">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <span class="aural-rating__label">Error</span>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Primary --&gt;
+&lt;div class="aural-rating aural-rating--primary aural-rating--readonly"&gt;...&lt;/div&gt;
+
+&lt;!-- Success --&gt;
+&lt;div class="aural-rating aural-rating--success aural-rating--readonly"&gt;...&lt;/div&gt;
+
+&lt;!-- Error --&gt;
+&lt;div class="aural-rating aural-rating--error aural-rating--readonly"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Heart Icon Variant -->
+            <div class="example-container">
+                <div class="example-label">Heart Icon Variant</div>
+                <div class="example-demo">
+                    <div class="aural-rating aural-rating--heart" id="rating-heart" data-rating="0">
+                        <div class="aural-rating__stars">
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="1" aria-label="1 heart">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="2" aria-label="2 hearts">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="3" aria-label="3 hearts">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="4" aria-label="4 hearts">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="5" aria-label="5 hearts">
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="aural-rating__label">Favorite</span>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-rating aural-rating--heart"&gt;
+    &lt;div class="aural-rating__stars"&gt;
+        &lt;button class="aural-rating__star aural-rating__star--empty"
+                data-value="1" aria-label="1 heart"&gt;
+            &lt;svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor"&gt;
+                &lt;path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/&gt;
+            &lt;/svg&gt;
+        &lt;/button&gt;
+        &lt;!-- Repeat for 2-5 --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Half-Star Support -->
+            <div class="example-container">
+                <div class="example-label">Half-Star Ratings</div>
+                <div class="example-demo">
+                    <div class="component-grid">
+                        <div class="aural-rating aural-rating--readonly" data-rating="3.5">
+                            <div class="aural-rating__stars">
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--half">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <defs>
+                                            <linearGradient id="half-fill-2">
+                                                <stop offset="50%" stop-color="var(--color-warning)"/>
+                                                <stop offset="50%" stop-color="var(--color-border-medium)"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="url(#half-fill-2)"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--empty">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <span class="aural-rating__value">3.5</span>
+                        </div>
+
+                        <div class="aural-rating aural-rating--readonly" data-rating="4.5">
+                            <div class="aural-rating__stars">
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--filled">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                </span>
+                                <span class="aural-rating__star aural-rating__star--half">
+                                    <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <defs>
+                                            <linearGradient id="half-fill-3">
+                                                <stop offset="50%" stop-color="var(--color-warning)"/>
+                                                <stop offset="50%" stop-color="var(--color-border-medium)"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="url(#half-fill-3)"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <span class="aural-rating__value">4.5</span>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Half star uses SVG gradient --&gt;
+&lt;span class="aural-rating__star aural-rating__star--half"&gt;
+    &lt;svg class="aural-rating__star-icon" viewBox="0 0 24 24"&gt;
+        &lt;defs&gt;
+            &lt;linearGradient id="half-fill"&gt;
+                &lt;stop offset="50%" stop-color="var(--color-warning)"/&gt;
+                &lt;stop offset="50%" stop-color="var(--color-border-medium)"/&gt;
+            &lt;/linearGradient&gt;
+        &lt;/defs&gt;
+        &lt;polygon points="..." fill="url(#half-fill)"/&gt;
+    &lt;/svg&gt;
+&lt;/span&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Disabled State -->
+            <div class="example-container">
+                <div class="example-label">Disabled State</div>
+                <div class="example-demo">
+                    <div class="aural-rating aural-rating--disabled" data-rating="3">
+                        <div class="aural-rating__stars">
+                            <button class="aural-rating__star aural-rating__star--filled" data-value="1" disabled>
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--filled" data-value="2" disabled>
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--filled" data-value="3" disabled>
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="4" disabled>
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                            <button class="aural-rating__star aural-rating__star--empty" data-value="5" disabled>
+                                <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="aural-rating__value">3.0</span>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-rating aural-rating--disabled"&gt;
+    &lt;div class="aural-rating__stars"&gt;
+        &lt;button class="aural-rating__star" disabled&gt;...&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <!-- Product Review Pattern -->
+            <div class="example-container">
+                <div class="example-label">Product Review Pattern</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-4); background: var(--color-bg-primary); border-radius: var(--radius-md);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; font-size: var(--text-lg); color: var(--color-text-primary);">Customer Reviews</h3>
+                            <div class="aural-rating aural-rating--readonly" data-rating="4.3">
+                                <div class="aural-rating__stars">
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--empty">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <span class="aural-rating__value">4.3</span>
+                                <span class="aural-rating__count">(487 reviews)</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: var(--space-2);">
+                            <p style="margin: 0 0 var(--space-2) 0; font-size: var(--text-sm); color: var(--color-text-secondary);">Rate this product:</p>
+                            <div class="aural-rating" id="rating-product" data-rating="0">
+                                <div class="aural-rating__stars">
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="1" aria-label="Rate 1 star">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="2" aria-label="Rate 2 stars">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="3" aria-label="Rate 3 stars">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="4" aria-label="Rate 4 stars">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="5" aria-label="Rate 5 stars">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Average rating display --&gt;
+&lt;div class="aural-rating aural-rating--readonly" data-rating="4.3"&gt;
+    &lt;!-- stars --&gt;
+    &lt;span class="aural-rating__value"&gt;4.3&lt;/span&gt;
+    &lt;span class="aural-rating__count"&gt;(487 reviews)&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- User rating input --&gt;
+&lt;div class="aural-rating" id="rating-product"&gt;
+    &lt;!-- interactive stars --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Feedback Form Pattern -->
+            <div class="example-container">
+                <div class="example-label">Feedback Form Pattern</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <div>
+                            <label style="display: block; margin-bottom: var(--space-2); font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-primary);">
+                                How would you rate your experience?
+                            </label>
+                            <div class="aural-rating aural-rating--lg" id="rating-feedback" data-rating="0">
+                                <div class="aural-rating__stars">
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="1" aria-label="Poor">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="2" aria-label="Fair">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="3" aria-label="Good">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="4" aria-label="Very Good">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                    <button class="aural-rating__star aural-rating__star--empty" data-value="5" aria-label="Excellent">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <span class="aural-rating__label" id="rating-label">Select a rating</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label&gt;How would you rate your experience?&lt;/label&gt;
+&lt;div class="aural-rating aural-rating--lg" id="rating-feedback"&gt;
+    &lt;div class="aural-rating__stars"&gt;
+        &lt;button class="aural-rating__star" data-value="1"
+                aria-label="Poor"&gt;...&lt;/button&gt;
+        &lt;button class="aural-rating__star" data-value="2"
+                aria-label="Fair"&gt;...&lt;/button&gt;
+        &lt;!-- etc --&gt;
+    &lt;/div&gt;
+    &lt;span class="aural-rating__label"&gt;Select a rating&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Compact List Display -->
+            <div class="example-container">
+                <div class="example-label">Compact List Display</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: var(--text-sm); color: var(--color-text-secondary);">Design Quality</span>
+                            <div class="aural-rating aural-rating--sm aural-rating--readonly aural-rating--compact" data-rating="5">
+                                <div class="aural-rating__stars">
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: var(--text-sm); color: var(--color-text-secondary);">Value for Money</span>
+                            <div class="aural-rating aural-rating--sm aural-rating--readonly aural-rating--compact" data-rating="4">
+                                <div class="aural-rating__stars">
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--empty">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: var(--text-sm); color: var(--color-text-secondary);">Customer Service</span>
+                            <div class="aural-rating aural-rating--sm aural-rating--readonly aural-rating--compact" data-rating="4">
+                                <div class="aural-rating__stars">
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--filled">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                    <span class="aural-rating__star aural-rating__star--empty">
+                                        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-rating aural-rating--sm aural-rating--readonly aural-rating--compact"&gt;
+    &lt;!-- Compact stars for list views --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <!-- Best Practices Section -->
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use Rating Components</h3>
+                    <ul>
+                        <li><strong>Product Reviews:</strong> Allow customers to rate products, services, or experiences with a familiar 5-star scale.</li>
+                        <li><strong>Feedback Collection:</strong> Gather user satisfaction data through surveys, forms, and post-interaction feedback.</li>
+                        <li><strong>Content Quality Indicators:</strong> Display average ratings to help users make informed decisions about products, articles, or videos.</li>
+                        <li><strong>Skill Level Assessment:</strong> Use ratings to indicate proficiency levels in portfolios, resumes, or educational platforms.</li>
+                        <li><strong>Priority Setting:</strong> Allow users to rank importance or preference for items in lists or features.</li>
+                    </ul>
+
+                    <h3>When NOT to Use Rating Components</h3>
+                    <ul>
+                        <li><strong>Binary Choices:</strong> Don't use ratings for simple yes/no or like/dislike decisions. Use thumbs up/down or toggle switches instead.</li>
+                        <li><strong>Precise Measurements:</strong> Avoid ratings for data requiring exact values. Use number inputs or sliders for precision.</li>
+                        <li><strong>Complex Evaluations:</strong> Don't use simple star ratings when multi-dimensional assessment is needed. Consider separate rating criteria instead.</li>
+                        <li><strong>Unfamiliar Contexts:</strong> Avoid in contexts where the star rating metaphor doesn't make sense or might confuse users.</li>
+                        <li><strong>Too Many Options:</strong> Don't create rating scales beyond 10 points. Studies show 5-7 point scales are optimal for user comprehension.</li>
+                    </ul>
+
+                    <h3>Accessibility Guidelines</h3>
+                    <ul>
+                        <li><strong>ARIA Labels:</strong> Provide clear <code>aria-label</code> attributes for each star describing the rating value (e.g., "Rate 4 stars" or "4 out of 5 stars").</li>
+                        <li><strong>Keyboard Navigation:</strong> Ensure full keyboard support:
+                            <ul>
+                                <li>Tab to focus on the rating component</li>
+                                <li>Arrow keys (Left/Right) to select different rating values</li>
+                                <li>Space or Enter to confirm selection</li>
+                                <li>Escape to cancel and revert to previous value</li>
+                            </ul>
+                        </li>
+                        <li><strong>Screen Reader Announcements:</strong> Announce current rating value and total stars (e.g., "4 out of 5 stars"). Update announcements as user hovers or selects.</li>
+                        <li><strong>Visual Indicators:</strong> Use clear visual differentiation between filled, half-filled, and empty stars with sufficient color contrast (WCAG AA minimum 4.5:1).</li>
+                        <li><strong>Touch Targets:</strong> Ensure each star is at least 44x44px for easy touch interaction on mobile devices.</li>
+                        <li><strong>Focus Indicators:</strong> Provide visible focus rings when navigating with keyboard.</li>
+                        <li><strong>Read-Only Indication:</strong> Clearly distinguish read-only ratings from interactive ones through styling and ARIA attributes.</li>
+                    </ul>
+
+                    <h3>Implementation Patterns</h3>
+
+                    <h4>Product/Service Reviews</h4>
+                    <p>Display average rating prominently with review count. Allow authenticated users to submit ratings. Show distribution of ratings (5-star histogram) for transparency. Implement safeguards against rating manipulation.</p>
+
+                    <h4>Feedback Forms</h4>
+                    <p>Use larger star sizes for better visibility and easier interaction. Provide descriptive labels (Poor, Fair, Good, Excellent) alongside stars. Consider making rating required for form submission if feedback is critical.</p>
+
+                    <h4>Content Quality Display</h4>
+                    <p>Show read-only ratings with half-star precision for accuracy. Include review/rating count for credibility. Use compact variants for lists or cards. Consider showing rating trend (improving/declining) for time-sensitive content.</p>
+
+                    <h4>Multiple Criteria Ratings</h4>
+                    <p>When assessing multiple aspects (quality, value, service), use smaller compact ratings with labels. Calculate and display overall average rating separately. Allow users to expand/collapse detailed ratings to reduce visual clutter.</p>
+
+                    <h4>Half-Star Ratings</h4>
+                    <p>Use for displaying average ratings (read-only) where precision matters. Generally avoid for input - full-star increments are easier for users to select. Implement with SVG gradients for proper rendering across browsers.</p>
+
+                    <h3>Technical Considerations</h3>
+                    <ul>
+                        <li><strong>Hover Preview:</strong> Show preview of rating on hover to help users understand what clicking will select. Clear preview on mouse leave.</li>
+                        <li><strong>Persistent State:</strong> Store and display user's previous rating if they've already rated. Allow rating updates with clear indication of change.</li>
+                        <li><strong>Validation:</strong> Validate rating input on submission. Provide clear error messages if rating is required but not provided.</li>
+                        <li><strong>Loading States:</strong> Show loading indicators when submitting or fetching ratings. Disable interaction during processing.</li>
+                        <li><strong>Empty State:</strong> Clearly indicate when no ratings exist yet. Encourage first ratings with appropriate messaging.</li>
+                        <li><strong>Responsive Design:</strong> Increase star size on mobile devices for better touch interaction. Consider stacking rating components vertically on small screens.</li>
+                        <li><strong>Animation:</strong> Use subtle animations on hover and selection for better feedback. Respect <code>prefers-reduced-motion</code> preference.</li>
+                    </ul>
+
+                    <h3>Rating Scales</h3>
+                    <ul>
+                        <li><strong>5-Star Scale (Most Common):</strong> Industry standard. Easy to understand. Granular enough without being overwhelming.</li>
+                        <li><strong>10-Point Scale:</strong> More precision but requires more cognitive effort. Best for expert users or detailed assessments.</li>
+                        <li><strong>3-Star/Heart Scale:</strong> Simple for quick feedback. Good for like/love/favorite systems.</li>
+                        <li><strong>Labeled Ratings:</strong> Combine stars with text labels (Poor, Fair, Good, Very Good, Excellent) for clarity.</li>
+                    </ul>
+
+                    <h3>Common Pitfalls to Avoid</h3>
+                    <ul>
+                        <li>Stars too small to interact with comfortably, especially on mobile</li>
+                        <li>Unclear whether rating is interactive or read-only</li>
+                        <li>No hover preview showing what clicking will select</li>
+                        <li>Missing or unclear ARIA labels for screen readers</li>
+                        <li>Insufficient color contrast between filled and empty stars</li>
+                        <li>No keyboard navigation support</li>
+                        <li>Allowing ratings without authentication (potential for abuse)</li>
+                        <li>Not showing rating confirmation or feedback after submission</li>
+                        <li>Using ratings for non-evaluative purposes where other UI elements would be more appropriate</li>
+                    </ul>
+
+                    <h3>Design Considerations</h3>
+                    <ul>
+                        <li><strong>Visual Weight:</strong> Balance star size with surrounding content. Larger for main ratings, smaller for supplementary.</li>
+                        <li><strong>Color Choice:</strong> Gold/yellow is traditional for stars. Consider brand colors for custom implementations.</li>
+                        <li><strong>Spacing:</strong> Provide adequate spacing between stars for accurate selection and visual clarity.</li>
+                        <li><strong>Context:</strong> Always provide context - what is being rated and what the scale represents.</li>
+                        <li><strong>Feedback:</strong> Give immediate visual feedback on hover and click to confirm user action.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->
@@ -266,6 +1168,9 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
+        // Initialize tabs
+        Aural.initTabs();
+
         // Theme toggle
         let isDark = true;
         function toggleTheme() {
@@ -281,22 +1186,155 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // Rating Interactive Functionality
+        class Rating {
+            constructor(element) {
+                this.container = element;
+                this.stars = element.querySelectorAll('.aural-rating__star');
+                this.valueDisplay = element.querySelector('.aural-rating__value');
+                this.labelDisplay = element.querySelector('.aural-rating__label');
+                this.currentRating = parseInt(element.dataset.rating) || 0;
+                this.isReadonly = element.classList.contains('aural-rating--readonly');
+                this.isDisabled = element.classList.contains('aural-rating--disabled');
+
+                this.labels = ['Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+
+                if (!this.isReadonly && !this.isDisabled) {
+                    this.init();
+                }
+
+                this.updateDisplay();
+            }
+
+            init() {
+                this.stars.forEach((star, index) => {
+                    const value = index + 1;
+
+                    // Mouse events
+                    star.addEventListener('mouseenter', () => this.handleHover(value));
+                    star.addEventListener('click', () => this.handleClick(value));
+
+                    // Keyboard events
+                    star.addEventListener('keydown', (e) => this.handleKeyDown(e, value));
+                });
+
+                this.container.addEventListener('mouseleave', () => this.handleMouseLeave());
+            }
+
+            handleHover(value) {
+                this.updateStars(value);
+                if (this.labelDisplay) {
+                    this.labelDisplay.textContent = this.labels[value - 1];
+                }
+            }
+
+            handleClick(value) {
+                this.currentRating = value;
+                this.container.dataset.rating = value;
+                this.updateDisplay();
+
+                if (this.labelDisplay) {
+                    this.labelDisplay.textContent = this.labels[value - 1];
+                }
+
+                // Dispatch custom event for form integration
+                this.container.dispatchEvent(new CustomEvent('ratingChange', {
+                    detail: { rating: value },
+                    bubbles: true
+                }));
+            }
+
+            handleKeyDown(e, value) {
+                switch(e.key) {
+                    case 'Enter':
+                    case ' ':
+                        e.preventDefault();
+                        this.handleClick(value);
+                        break;
+                    case 'ArrowLeft':
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (value > 1) {
+                            this.stars[value - 2].focus();
+                        }
+                        break;
+                    case 'ArrowRight':
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (value < this.stars.length) {
+                            this.stars[value].focus();
+                        }
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        this.stars[0].focus();
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        this.stars[this.stars.length - 1].focus();
+                        break;
+                }
+            }
+
+            handleMouseLeave() {
+                this.updateDisplay();
+                if (this.labelDisplay && this.currentRating === 0) {
+                    this.labelDisplay.textContent = 'Select a rating';
+                } else if (this.labelDisplay) {
+                    this.labelDisplay.textContent = this.labels[this.currentRating - 1];
+                }
+            }
+
+            updateStars(rating) {
+                this.stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.remove('aural-rating__star--empty');
+                        star.classList.add('aural-rating__star--filled');
+                    } else {
+                        star.classList.remove('aural-rating__star--filled');
+                        star.classList.add('aural-rating__star--empty');
+                    }
+                });
+            }
+
+            updateDisplay() {
+                this.updateStars(this.currentRating);
+                if (this.valueDisplay) {
+                    this.valueDisplay.textContent = this.currentRating.toFixed(1);
+                }
+            }
+        }
+
+        // Initialize all ratings
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.aural-rating').forEach(el => {
+                if (!el.classList.contains('aural-rating--readonly') ||
+                    el.querySelectorAll('button').length > 0) {
+                    new Rating(el);
+                }
+            });
+
+            // Listen for rating changes
+            document.addEventListener('ratingChange', (e) => {
+                console.log('Rating changed:', e.detail.rating);
+            });
+        });
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
-            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+
             themeLink.href = themePath;
-        } else {
-            console.error('Theme link not found!');
         }
 
         // Hide theme toggle in iframe (demo.html controls theme)

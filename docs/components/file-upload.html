@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -164,14 +195,511 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">File Upload</h1>
-            <p class="page-description">Drag-and-drop file upload with progress indication.</p>
+            <p class="page-description">Drag-and-drop file upload with progress tracking, validation, and preview support.</p>
         </div>
 
-        <input type="file" class="aural-file-upload__input" accept="image/*" multiple>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic File Upload</div>
+                <div class="example-demo">
+                    <div class="file-upload" id="upload-basic">
+                        <label class="file-upload__zone">
+                            <input type="file" class="file-upload__input" multiple>
+                            <div class="file-upload__content">
+                                <i data-lucide="upload" class="file-upload__icon"></i>
+                                <span class="file-upload__text">Drop files here or click to browse</span>
+                                <span class="file-upload__subtext">Support for multiple files</span>
+                            </div>
+                        </label>
+                        <div class="file-upload__list"></div>
                     </div>
-                    <div class="aural-file-upload__files"></div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="file-upload"&gt;
+    &lt;label class="file-upload__zone"&gt;
+        &lt;input type="file" class="file-upload__input" multiple&gt;
+        &lt;div class="file-upload__content"&gt;
+            &lt;i data-lucide="upload" class="file-upload__icon"&gt;&lt;/i&gt;
+            &lt;span class="file-upload__text"&gt;Drop files here or click to browse&lt;/span&gt;
+            &lt;span class="file-upload__subtext"&gt;Support for multiple files&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+    &lt;div class="file-upload__list"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Image Upload with Preview</div>
+                <div class="example-demo">
+                    <div class="file-upload" id="upload-images">
+                        <label class="file-upload__zone">
+                            <input type="file" class="file-upload__input" accept="image/*" multiple>
+                            <div class="file-upload__content">
+                                <i data-lucide="image" class="file-upload__icon"></i>
+                                <span class="file-upload__text">Drop images here or click to browse</span>
+                                <span class="file-upload__subtext">PNG, JPG, GIF up to 10MB</span>
+                            </div>
+                        </label>
+                        <div class="file-upload__constraints">Maximum file size: 10MB</div>
+                        <div class="file-upload__list"></div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="file-upload"&gt;
+    &lt;label class="file-upload__zone"&gt;
+        &lt;input type="file" class="file-upload__input" accept="image/*" multiple&gt;
+        &lt;div class="file-upload__content"&gt;
+            &lt;i data-lucide="image" class="file-upload__icon"&gt;&lt;/i&gt;
+            &lt;span class="file-upload__text"&gt;Drop images here or click to browse&lt;/span&gt;
+            &lt;span class="file-upload__subtext"&gt;PNG, JPG, GIF up to 10MB&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+    &lt;div class="file-upload__constraints"&gt;Maximum file size: 10MB&lt;/div&gt;
+    &lt;div class="file-upload__list"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Size Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <div class="file-upload file-upload--sm" id="upload-small">
+                            <label class="file-upload__zone">
+                                <input type="file" class="file-upload__input" multiple>
+                                <div class="file-upload__content">
+                                    <i data-lucide="upload" class="file-upload__icon"></i>
+                                    <span class="file-upload__text">Small upload zone</span>
+                                </div>
+                            </label>
+                            <div class="file-upload__list"></div>
+                        </div>
+
+                        <div class="file-upload" id="upload-default">
+                            <label class="file-upload__zone">
+                                <input type="file" class="file-upload__input" multiple>
+                                <div class="file-upload__content">
+                                    <i data-lucide="upload" class="file-upload__icon"></i>
+                                    <span class="file-upload__text">Default upload zone</span>
+                                    <span class="file-upload__subtext">Standard size</span>
+                                </div>
+                            </label>
+                            <div class="file-upload__list"></div>
+                        </div>
+
+                        <div class="file-upload file-upload--lg" id="upload-large">
+                            <label class="file-upload__zone">
+                                <input type="file" class="file-upload__input" multiple>
+                                <div class="file-upload__content">
+                                    <i data-lucide="upload" class="file-upload__icon"></i>
+                                    <span class="file-upload__text">Large upload zone</span>
+                                    <span class="file-upload__subtext">Prominent display for primary upload actions</span>
+                                </div>
+                            </label>
+                            <div class="file-upload__list"></div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Small --&gt;
+&lt;div class="file-upload file-upload--sm"&gt;...&lt;/div&gt;
+
+&lt;!-- Default --&gt;
+&lt;div class="file-upload"&gt;...&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+&lt;div class="file-upload file-upload--lg"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Button Style Upload</div>
+                <div class="example-demo">
+                    <div class="file-upload file-upload--button" id="upload-button">
+                        <label class="file-upload__zone">
+                            <input type="file" class="file-upload__input" multiple>
+                            <div class="file-upload__content">
+                                <i data-lucide="upload" class="file-upload__icon"></i>
+                                <span class="file-upload__text">Choose Files</span>
+                            </div>
+                        </label>
+                        <div class="file-upload__list"></div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="file-upload file-upload--button"&gt;
+    &lt;label class="file-upload__zone"&gt;
+        &lt;input type="file" class="file-upload__input" multiple&gt;
+        &lt;div class="file-upload__content"&gt;
+            &lt;i data-lucide="upload" class="file-upload__icon"&gt;&lt;/i&gt;
+            &lt;span class="file-upload__text"&gt;Choose Files&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+    &lt;div class="file-upload__list"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Image Grid Upload</div>
+                <div class="example-demo">
+                    <div class="file-upload file-upload--image-grid" id="upload-grid">
+                        <label class="file-upload__zone">
+                            <input type="file" class="file-upload__input" accept="image/*" multiple>
+                            <div class="file-upload__content">
+                                <i data-lucide="image" class="file-upload__icon"></i>
+                                <span class="file-upload__text">Upload Images</span>
+                                <span class="file-upload__subtext">Display as grid</span>
+                            </div>
+                        </label>
+                        <div class="file-upload__list"></div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="file-upload file-upload--image-grid"&gt;
+    &lt;label class="file-upload__zone"&gt;
+        &lt;input type="file" class="file-upload__input" accept="image/*" multiple&gt;
+        &lt;div class="file-upload__content"&gt;
+            &lt;i data-lucide="image" class="file-upload__icon"&gt;&lt;/i&gt;
+            &lt;span class="file-upload__text"&gt;Upload Images&lt;/span&gt;
+            &lt;span class="file-upload__subtext"&gt;Display as grid&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+    &lt;div class="file-upload__list"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Single File Upload</div>
+                <div class="example-demo">
+                    <div class="file-upload" id="upload-single">
+                        <label class="file-upload__zone">
+                            <input type="file" class="file-upload__input">
+                            <div class="file-upload__content">
+                                <i data-lucide="file-text" class="file-upload__icon"></i>
+                                <span class="file-upload__text">Upload a single file</span>
+                                <span class="file-upload__subtext">PDF, DOC, DOCX up to 5MB</span>
+                            </div>
+                        </label>
+                        <div class="file-upload__list"></div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="file-upload"&gt;
+    &lt;label class="file-upload__zone"&gt;
+        &lt;input type="file" class="file-upload__input"&gt;
+        &lt;div class="file-upload__content"&gt;
+            &lt;i data-lucide="file-text" class="file-upload__icon"&gt;&lt;/i&gt;
+            &lt;span class="file-upload__text"&gt;Upload a single file&lt;/span&gt;
+            &lt;span class="file-upload__subtext"&gt;PDF, DOC, DOCX up to 5MB&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+    &lt;div class="file-upload__list"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">With File Type Restrictions</div>
+                <div class="example-demo">
+                    <div class="file-upload" id="upload-restricted">
+                        <label class="file-upload__zone">
+                            <input type="file" class="file-upload__input" accept=".pdf,.doc,.docx" multiple>
+                            <div class="file-upload__content">
+                                <i data-lucide="file-text" class="file-upload__icon"></i>
+                                <span class="file-upload__text">Upload documents</span>
+                                <span class="file-upload__subtext">Only PDF and DOC files allowed</span>
+                            </div>
+                        </label>
+                        <div class="file-upload__constraints">Accepted: PDF, DOC, DOCX - Max 5MB</div>
+                        <div class="file-upload__list"></div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="file-upload"&gt;
+    &lt;label class="file-upload__zone"&gt;
+        &lt;input type="file" class="file-upload__input" accept=".pdf,.doc,.docx" multiple&gt;
+        &lt;div class="file-upload__content"&gt;
+            &lt;i data-lucide="file-text" class="file-upload__icon"&gt;&lt;/i&gt;
+            &lt;span class="file-upload__text"&gt;Upload documents&lt;/span&gt;
+            &lt;span class="file-upload__subtext"&gt;Only PDF and DOC files allowed&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+    &lt;div class="file-upload__constraints"&gt;Accepted: PDF, DOC, DOCX - Max 5MB&lt;/div&gt;
+    &lt;div class="file-upload__list"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Upload Progress</div>
+                <div class="example-demo">
+                    <div class="file-upload" id="upload-progress">
+                        <label class="file-upload__zone">
+                            <input type="file" class="file-upload__input" multiple>
+                            <div class="file-upload__content">
+                                <i data-lucide="upload-cloud" class="file-upload__icon"></i>
+                                <span class="file-upload__text">Upload with progress tracking</span>
+                                <span class="file-upload__subtext">Simulates upload with progress bar</span>
+                            </div>
+                        </label>
+                        <div class="file-upload__list"></div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- File item with progress --&gt;
+&lt;div class="file-upload__item file-upload__item--uploading"&gt;
+    &lt;div class="file-upload__preview"&gt;
+        &lt;i data-lucide="file" class="file-upload__preview-icon"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div class="file-upload__info"&gt;
+        &lt;div class="file-upload__filename"&gt;document.pdf&lt;/div&gt;
+        &lt;div class="file-upload__meta"&gt;
+            &lt;span class="file-upload__filesize"&gt;2.4 MB&lt;/span&gt;
+            &lt;span class="file-upload__status"&gt;
+                &lt;i data-lucide="loader-2"&gt;&lt;/i&gt;
+                Uploading...
+            &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="file-upload__progress"&gt;
+            &lt;div class="file-upload__progress-bar"&gt;
+                &lt;div class="file-upload__progress-fill" style="width: 65%"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Avatar Upload</div>
+                <div class="example-demo">
+                    <div style="display: flex; align-items: center; gap: var(--space-4);">
+                        <div style="width: 120px; height: 120px; border-radius: 50%; background: var(--color-bg-tertiary); display: flex; align-items: center; justify-content: center; overflow: hidden;" id="avatar-preview">
+                            <i data-lucide="user" style="width: 48px; height: 48px; color: var(--color-text-tertiary);"></i>
+                        </div>
+                        <div>
+                            <input type="file" id="avatar-input" accept="image/*" style="display: none;">
+                            <label for="avatar-input" class="btn btn-primary" style="cursor: pointer;">
+                                <i data-lucide="camera"></i>
+                                <span>Change Avatar</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; align-items: center; gap: var(--space-4);"&gt;
+    &lt;div style="width: 120px; height: 120px; border-radius: 50%;
+                background: var(--color-bg-tertiary); display: flex;
+                align-items: center; justify-content: center; overflow: hidden;" id="avatar-preview"&gt;
+        &lt;i data-lucide="user" style="width: 48px; height: 48px;"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;input type="file" id="avatar-input" accept="image/*" style="display: none;"&gt;
+        &lt;label for="avatar-input" class="btn btn-primary" style="cursor: pointer;"&gt;
+            &lt;i data-lucide="camera"&gt;&lt;/i&gt;
+            &lt;span&gt;Change Avatar&lt;/span&gt;
+        &lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Form Integration</div>
+                <div class="example-demo">
+                    <form style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <div class="form-group">
+                            <label class="label">Project Name</label>
+                            <input type="text" class="input" placeholder="Enter project name">
+                        </div>
+                        <div class="form-group">
+                            <label class="label">Project Files</label>
+                            <div class="file-upload" id="upload-form">
+                                <label class="file-upload__zone">
+                                    <input type="file" class="file-upload__input" multiple>
+                                    <div class="file-upload__content">
+                                        <i data-lucide="folder-up" class="file-upload__icon"></i>
+                                        <span class="file-upload__text">Upload project files</span>
+                                        <span class="file-upload__subtext">All file types accepted</span>
+                                    </div>
+                                </label>
+                                <div class="file-upload__list"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Submit Project</button>
+                        </div>
+                    </form>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;form&gt;
+    &lt;div class="form-group"&gt;
+        &lt;label class="label"&gt;Project Name&lt;/label&gt;
+        &lt;input type="text" class="input" placeholder="Enter project name"&gt;
+    &lt;/div&gt;
+    &lt;div class="form-group"&gt;
+        &lt;label class="label"&gt;Project Files&lt;/label&gt;
+        &lt;div class="file-upload"&gt;
+            &lt;label class="file-upload__zone"&gt;
+                &lt;input type="file" class="file-upload__input" multiple&gt;
+                &lt;div class="file-upload__content"&gt;
+                    &lt;i data-lucide="folder-up" class="file-upload__icon"&gt;&lt;/i&gt;
+                    &lt;span class="file-upload__text"&gt;Upload project files&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/label&gt;
+            &lt;div class="file-upload__list"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button type="submit" class="btn btn-primary"&gt;Submit Project&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use File Upload</h3>
+                    <ul>
+                        <li><strong>Document Submission:</strong> Forms that require file attachments (resumes, applications, documents)</li>
+                        <li><strong>Media Upload:</strong> Photo galleries, avatar changes, media libraries</li>
+                        <li><strong>Bulk Operations:</strong> Importing data, uploading multiple files at once</li>
+                        <li><strong>Content Creation:</strong> Blog posts, articles, or any content that requires media attachments</li>
+                    </ul>
+
+                    <h3>Choosing the Right Variant</h3>
+                    <ul>
+                        <li><strong>Drop Zone (default):</strong> Best for primary upload actions where drag-and-drop is expected</li>
+                        <li><strong>Button Style:</strong> Use for secondary upload actions or when space is limited</li>
+                        <li><strong>Image Grid:</strong> Perfect for photo galleries or when visual preview is important</li>
+                        <li><strong>Small Size:</strong> Use in compact forms or sidebars</li>
+                        <li><strong>Large Size:</strong> Use for prominent upload actions or empty states</li>
+                    </ul>
+
+                    <h3>File Validation</h3>
+                    <ul>
+                        <li>Always specify accepted file types using the <code>accept</code> attribute</li>
+                        <li>Validate file size on the client side before upload to provide immediate feedback</li>
+                        <li>Display clear error messages when files don't meet requirements</li>
+                        <li>Show file constraints (accepted types, max size) near the upload zone</li>
+                        <li>Validate files on the server side as well for security</li>
+                    </ul>
+
+                    <h3>Progress Indication</h3>
+                    <ul>
+                        <li>Always show upload progress for files larger than 1MB</li>
+                        <li>Display percentage or size uploaded for clarity</li>
+                        <li>Use appropriate status indicators (uploading, success, error)</li>
+                        <li>Allow users to cancel uploads in progress</li>
+                        <li>Show clear success confirmation when uploads complete</li>
+                    </ul>
+
+                    <h3>Accessibility Guidelines</h3>
+                    <ul>
+                        <li>Ensure the hidden file input is accessible via keyboard navigation</li>
+                        <li>Provide clear labels and instructions for screen readers</li>
+                        <li>Use <code>aria-label</code> on icon-only buttons</li>
+                        <li>Announce upload progress and status changes to screen readers</li>
+                        <li>Don't rely solely on color to convey status - use icons and text</li>
+                        <li>Ensure sufficient color contrast for all text and icons</li>
+                        <li>Make drag-and-drop optional - always provide click-to-browse alternative</li>
+                    </ul>
+
+                    <h3>User Experience</h3>
+                    <ul>
+                        <li>Show file previews, especially for images</li>
+                        <li>Allow users to remove files before uploading</li>
+                        <li>Display file names, sizes, and types clearly</li>
+                        <li>Provide visual feedback for drag-and-drop (highlight drop zone)</li>
+                        <li>Group multiple uploads together for bulk operations</li>
+                        <li>Show total progress for multiple file uploads</li>
+                        <li>Retain uploaded files if form validation fails</li>
+                    </ul>
+
+                    <h3>Security Considerations</h3>
+                    <ul>
+                        <li>Always validate file types and sizes on the server</li>
+                        <li>Scan uploaded files for malware</li>
+                        <li>Don't trust client-side MIME types - verify on server</li>
+                        <li>Store uploaded files outside the web root when possible</li>
+                        <li>Generate unique filenames to prevent overwrites</li>
+                        <li>Implement rate limiting to prevent abuse</li>
+                    </ul>
+
+                    <h3>Common Patterns</h3>
+                    <p><strong>Basic Usage:</strong></p>
+                    <pre><code>&lt;div class="file-upload"&gt;
+    &lt;label class="file-upload__zone"&gt;
+        &lt;input type="file" class="file-upload__input" multiple&gt;
+        &lt;div class="file-upload__content"&gt;
+            &lt;i data-lucide="upload" class="file-upload__icon"&gt;&lt;/i&gt;
+            &lt;span class="file-upload__text"&gt;Drop files or click to browse&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/label&gt;
+    &lt;div class="file-upload__list"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                    <p><strong>With File Type Restrictions:</strong></p>
+                    <pre><code>&lt;input type="file" class="file-upload__input"
+       accept="image/png,image/jpeg" multiple&gt;</code></pre>
+
+                    <p><strong>Single File Upload:</strong></p>
+                    <pre><code>&lt;input type="file" class="file-upload__input"&gt;</code></pre>
+
+                    <h3>JavaScript Integration</h3>
+                    <p>Aural UI provides automatic file upload functionality. To customize behavior, you can initialize with options:</p>
+                    <pre><code>// The component automatically handles:
+// - Drag and drop
+// - File selection
+// - Preview generation
+// - Progress tracking
+// - File removal
+
+// Custom validation example:
+const input = document.querySelector('.file-upload__input');
+input.addEventListener('change', (e) => {
+    const files = Array.from(e.target.files);
+    const maxSize = 10 * 1024 * 1024; // 10MB
+
+    files.forEach(file => {
+        if (file.size > maxSize) {
+            alert(\`File "\${file.name}" is too large\`);
+        }
+    });
+});</code></pre>
                 </div>
             </div>
+        </div>
 
     </main>
 
@@ -196,6 +724,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -214,18 +745,238 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // ========================================
+        // FILE UPLOAD FUNCTIONALITY
+        // ========================================
+
+        function initFileUpload(container) {
+            const zone = container.querySelector('.file-upload__zone');
+            const input = container.querySelector('.file-upload__input');
+            const list = container.querySelector('.file-upload__list');
+
+            if (!zone || !input || !list) return;
+
+            let files = [];
+
+            // Drag and drop handlers
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('file-upload__zone--active');
+            });
+
+            zone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                zone.classList.remove('file-upload__zone--active');
+            });
+
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('file-upload__zone--active');
+
+                const droppedFiles = Array.from(e.dataTransfer.files);
+                handleFiles(droppedFiles);
+            });
+
+            // File input change handler
+            input.addEventListener('change', (e) => {
+                const selectedFiles = Array.from(e.target.files);
+                handleFiles(selectedFiles);
+            });
+
+            function handleFiles(newFiles) {
+                if (input.multiple) {
+                    files = [...files, ...newFiles];
+                } else {
+                    files = [newFiles[0]];
+                }
+                renderFiles();
+                simulateUpload();
+            }
+
+            function renderFiles() {
+                list.innerHTML = '';
+
+                files.forEach((file, index) => {
+                    const item = createFileItem(file, index);
+                    list.appendChild(item);
+                });
+
+                // Reinitialize Lucide icons for new elements
+                lucide.createIcons();
+            }
+
+            function createFileItem(file, index) {
+                const item = document.createElement('div');
+                item.className = 'file-upload__item file-upload__item--pending';
+                item.dataset.index = index;
+
+                const preview = document.createElement('div');
+                preview.className = 'file-upload__preview';
+
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    preview.appendChild(img);
+                } else {
+                    const icon = document.createElement('i');
+                    icon.setAttribute('data-lucide', getFileIcon(file.type));
+                    icon.className = 'file-upload__preview-icon';
+                    preview.appendChild(icon);
+                }
+
+                const info = document.createElement('div');
+                info.className = 'file-upload__info';
+
+                const filename = document.createElement('div');
+                filename.className = 'file-upload__filename';
+                filename.textContent = file.name;
+
+                const meta = document.createElement('div');
+                meta.className = 'file-upload__meta';
+
+                const size = document.createElement('span');
+                size.className = 'file-upload__filesize';
+                size.textContent = formatFileSize(file.size);
+
+                const status = document.createElement('span');
+                status.className = 'file-upload__status';
+                status.innerHTML = '<i data-lucide="clock"></i> Pending';
+
+                meta.appendChild(size);
+                meta.appendChild(status);
+
+                info.appendChild(filename);
+                info.appendChild(meta);
+
+                const actions = document.createElement('div');
+                actions.className = 'file-upload__actions';
+
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'file-upload__action file-upload__action--remove';
+                removeBtn.setAttribute('aria-label', 'Remove file');
+                removeBtn.innerHTML = '<i data-lucide="x"></i>';
+                removeBtn.onclick = (e) => {
+                    e.preventDefault();
+                    removeFile(index);
+                };
+
+                actions.appendChild(removeBtn);
+
+                item.appendChild(preview);
+                item.appendChild(info);
+                item.appendChild(actions);
+
+                return item;
+            }
+
+            function simulateUpload() {
+                files.forEach((file, index) => {
+                    const item = list.querySelector(`[data-index="${index}"]`);
+                    if (!item || !item.classList.contains('file-upload__item--pending')) return;
+
+                    // Add progress bar
+                    const info = item.querySelector('.file-upload__info');
+                    const progress = document.createElement('div');
+                    progress.className = 'file-upload__progress';
+                    progress.innerHTML = `
+                        <div class="file-upload__progress-bar">
+                            <div class="file-upload__progress-fill" style="width: 0%"></div>
+                        </div>
+                    `;
+                    info.appendChild(progress);
+
+                    // Update status
+                    item.classList.remove('file-upload__item--pending');
+                    item.classList.add('file-upload__item--uploading');
+                    const status = item.querySelector('.file-upload__status');
+                    status.innerHTML = '<i data-lucide="loader-2"></i> Uploading...';
+                    lucide.createIcons();
+
+                    // Simulate progress
+                    let progressValue = 0;
+                    const progressFill = progress.querySelector('.file-upload__progress-fill');
+                    const interval = setInterval(() => {
+                        progressValue += Math.random() * 30;
+                        if (progressValue >= 100) {
+                            progressValue = 100;
+                            clearInterval(interval);
+
+                            // Mark as complete
+                            setTimeout(() => {
+                                item.classList.remove('file-upload__item--uploading');
+                                item.classList.add('file-upload__item--success');
+                                status.innerHTML = '<i data-lucide="check-circle"></i> Complete';
+                                lucide.createIcons();
+                            }, 300);
+                        }
+                        progressFill.style.width = progressValue + '%';
+                    }, 200);
+                });
+            }
+
+            function removeFile(index) {
+                files.splice(index, 1);
+                renderFiles();
+            }
+
+            function getFileIcon(mimeType) {
+                if (mimeType.startsWith('image/')) return 'image';
+                if (mimeType.startsWith('video/')) return 'video';
+                if (mimeType.startsWith('audio/')) return 'music';
+                if (mimeType.includes('pdf')) return 'file-text';
+                if (mimeType.includes('zip') || mimeType.includes('rar')) return 'archive';
+                return 'file';
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+            }
+        }
+
+        // Initialize all file upload components
+        document.querySelectorAll('.file-upload').forEach(container => {
+            initFileUpload(container);
+        });
+
+        // Special handling for avatar upload
+        const avatarInput = document.getElementById('avatar-input');
+        const avatarPreview = document.getElementById('avatar-preview');
+
+        if (avatarInput && avatarPreview) {
+            avatarInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        avatarPreview.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

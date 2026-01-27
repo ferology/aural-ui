@@ -24,6 +24,28 @@
         .section-content p { margin: 0 0 var(--space-4) 0; }
         .section-content ul { margin: 0 0 var(--space-4) 0; padding-left: var(--space-6); }
         .section-content li { margin-bottom: var(--space-2); }
+
+        /* Details/Summary styling */
+        details { margin: var(--space-4) 0; }
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+        summary:hover { color: var(--color-primary); }
+        details[open] summary { margin-bottom: var(--space-2); }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
     </style>
 </head>
 <body>
@@ -33,6 +55,16 @@
             <p class="page-description">Single-selection radio button groups. Allow users to select exactly one option from a set of mutually exclusive choices.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
         <!-- Basic Radio Group -->
         <div class="example-container">
             <div class="example-label">Basic Radio Group</div>
@@ -55,13 +87,16 @@
             </div>
             <div class="section-content">
                 <p>Use radio groups when users must select exactly one option. All radios in a group must share the same <code>name</code> attribute.</p>
-                <pre><code>&lt;div class="radio-group"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="radio-group"&gt;
     &lt;div class="radio-group-label"&gt;Select your plan&lt;/div&gt;
     &lt;label class="radio"&gt;
         &lt;input type="radio" name="plan" value="free" checked&gt;
         &lt;span&gt;Free - $0/month&lt;/span&gt;
     &lt;/label&gt;
 &lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -92,13 +127,20 @@
             </div>
             <div class="section-content">
                 <p>Three size variants available: <code>radio-sm</code>, default, and <code>radio-lg</code>.</p>
-                <pre><code>&lt;label class="radio radio-lg"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="radio radio-lg"&gt;
     &lt;input type="radio" name="size" checked&gt;
     &lt;span&gt;Large radio button&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
 
+            </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
         <!-- With Description -->
         <div class="example-container">
             <div class="example-label">With Description</div>
@@ -130,13 +172,16 @@
             </div>
             <div class="section-content">
                 <p>Add descriptive text below labels to provide additional context for each option.</p>
-                <pre><code>&lt;label class="radio radio-with-description"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="radio radio-with-description"&gt;
     &lt;input type="radio" name="shipping" value="express"&gt;
     &lt;span&gt;
         Express Shipping
         &lt;span class="radio-description"&gt;Delivery in 2-3 days&lt;/span&gt;
     &lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -170,12 +215,15 @@
             </div>
             <div class="section-content">
                 <p>Button-style radios work well for view toggles and toolbar options. Use <code>radio-group-buttons</code> wrapper.</p>
-                <pre><code>&lt;div class="radio-group radio-group-buttons"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="radio-group radio-group-buttons"&gt;
     &lt;label class="radio radio-button"&gt;
         &lt;input type="radio" name="view" value="grid" checked&gt;
         &lt;span&gt;Grid&lt;/span&gt;
     &lt;/label&gt;
 &lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
@@ -230,15 +278,22 @@
             </div>
             <div class="section-content">
                 <p>Attached button radios create a segmented control appearance, ideal for toolbars and filters.</p>
-                <pre><code>&lt;div class="radio-group radio-group-attached"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="radio-group radio-group-attached"&gt;
     &lt;label class="radio radio-button"&gt;
         &lt;input type="radio" name="align" value="left" checked&gt;
         &lt;span&gt;Left&lt;/span&gt;
     &lt;/label&gt;
 &lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
+            </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
         <!-- Card Style -->
         <div class="example-container">
             <div class="example-label">Card Style Selection</div>
@@ -297,13 +352,20 @@
             </div>
             <div class="section-content">
                 <p>Disable individual options that aren't currently available. Use descriptive text to explain why.</p>
-                <pre><code>&lt;label class="radio"&gt;
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="radio"&gt;
     &lt;input type="radio" name="payment" value="crypto" disabled&gt;
     &lt;span&gt;Cryptocurrency (Coming Soon)&lt;/span&gt;
 &lt;/label&gt;</code></pre>
+                </details>
             </div>
         </div>
 
+            </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
         <!-- Best Practices -->
         <div class="example-container">
             <div class="example-label">Best Practices</div>
@@ -350,9 +412,13 @@
                 </ul>
             </div>
         </div>
+
     </main>
 
     <script src="../aural-ui.js?v=1769438626"></script>
+    <script>
+        Aural.initTabs();
+    </script>
     <script>
         lucide.createIcons();
     </script>

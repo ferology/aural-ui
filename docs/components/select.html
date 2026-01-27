@@ -30,7 +30,7 @@
         }
 
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-10);
         }
 
         .page-title {
@@ -47,9 +47,19 @@
             margin: 0;
         }
 
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Example Container */
         .example-container {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .example-label {
@@ -58,26 +68,42 @@
             color: var(--color-text-secondary);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
         .example-demo {
-            padding: var(--space-6);
+            padding: var(--space-8);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            min-height: 120px;
+        }
+
+        .code-snippet {
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            overflow-x: auto;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: var(--text-sm);
+        }
+
+        .code-snippet code {
+            color: var(--color-text-primary);
+            line-height: 1.6;
         }
 
         .content-section {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .section-title {
             font-size: var(--text-2xl);
             font-weight: var(--font-semibold);
             color: var(--color-text-primary);
-            margin: 0 0 var(--space-4) 0;
+            margin: 0 0 var(--space-6) 0;
         }
 
         .section-content {
@@ -91,6 +117,13 @@
             font-weight: var(--font-semibold);
             color: var(--color-text-primary);
             margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content h4 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-4) 0 var(--space-2) 0;
         }
 
         .section-content p {
@@ -124,6 +157,79 @@
         .section-content pre code {
             background: none;
             padding: 0;
+        }
+
+        .section-content strong {
+            color: var(--color-text-primary);
+            font-weight: var(--font-semibold);
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Helper text styles */
+        .helper-text {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-2);
+        }
+
+        .helper-text.error {
+            color: var(--color-error-text);
+        }
+
+        .helper-text.success {
+            color: var(--color-success-text);
+        }
+
+        /* Form label styles */
+        .form-label {
+            display: block;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        /* Icon wrapper for select with icons */
+        .select-with-icon {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .select-with-icon .icon-left {
+            position: absolute;
+            left: var(--space-3);
+            pointer-events: none;
+            color: var(--color-text-secondary);
+            z-index: 1;
+        }
+
+        .select-with-icon .select {
+            flex: 1;
+        }
+
+        .select-with-icon .select select {
+            padding-left: var(--space-10);
         }
 
         /* Theme Toggle */
@@ -164,37 +270,566 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Select</h1>
-            <p class="page-description">Dropdown select menus with custom styling.</p>
+            <p class="page-description">Dropdown select menus for choosing from a list of options with custom styling and comprehensive states.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
         </div>
 
-            <div class="example-container">
-                <div class="example-label">Sizes</div>
-                <div class="example-demo">
-                    <div class="flex flex-col gap-3">
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+        <!-- Basic Select with Sizes -->
+        <div class="example-container">
+            <div class="example-label">Basic Select - Sizes</div>
+            <div class="example-demo">
+                <div class="flex flex-col gap-4">
+                    <div>
+                        <label class="form-label">Small Select</label>
                         <div class="select select-sm">
                             <select>
                                 <option>Small select</option>
-                                <option>Option 2</option>
+                                <option>Apple</option>
+                                <option>Banana</option>
+                                <option>Cherry</option>
                             </select>
                         </div>
+                    </div>
+                    <div>
+                        <label class="form-label">Default Select</label>
                         <div class="select">
                             <select>
                                 <option>Default select</option>
-                                <option>Option 2</option>
+                                <option>Apple</option>
+                                <option>Banana</option>
+                                <option>Cherry</option>
                             </select>
                         </div>
+                    </div>
+                    <div>
+                        <label class="form-label">Large Select</label>
                         <div class="select select-lg">
                             <select>
                                 <option>Large select</option>
-                                <option>Option 2</option>
+                                <option>Apple</option>
+                                <option>Banana</option>
+                                <option>Cherry</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="select select-sm"&gt;
+    &lt;select&gt;
+        &lt;option&gt;Small select&lt;/option&gt;
+        &lt;option&gt;Apple&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
 
+&lt;div class="select"&gt;
+    &lt;select&gt;
+        &lt;option&gt;Default select&lt;/option&gt;
+        &lt;option&gt;Apple&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+
+&lt;div class="select select-lg"&gt;
+    &lt;select&gt;
+        &lt;option&gt;Large select&lt;/option&gt;
+        &lt;option&gt;Apple&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+        <!-- Select States -->
+        <div class="example-container">
+            <div class="example-label">Select States</div>
+            <div class="example-demo">
+                <div class="flex flex-col gap-4">
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Disabled Select</label>
+                        <div class="select">
+                            <select disabled>
+                                <option>Disabled select</option>
+                                <option>Option 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Error State</label>
+                        <div class="select select-error">
+                            <select>
+                                <option value="">Select an option...</option>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                            </select>
+                        </div>
+                        <div class="helper-text error">Please select a valid option</div>
+                    </div>
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Success State</label>
+                        <div class="select select-success">
+                            <select>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                            </select>
+                        </div>
+                        <div class="helper-text success">Selection confirmed</div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;!-- Disabled --&gt;
+&lt;div class="select"&gt;
+    &lt;select disabled&gt;
+        &lt;option&gt;Disabled select&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+
+&lt;!-- Error State --&gt;
+&lt;div class="select select-error"&gt;
+    &lt;select&gt;
+        &lt;option value=""&gt;Select an option...&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+&lt;div class="helper-text error"&gt;Please select a valid option&lt;/div&gt;
+
+&lt;!-- Success State --&gt;
+&lt;div class="select select-success"&gt;
+    &lt;select&gt;
+        &lt;option&gt;Option 1&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+&lt;div class="helper-text success"&gt;Selection confirmed&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Select with Groups -->
+        <div class="example-container">
+            <div class="example-label">Select with Groups</div>
+            <div class="example-demo">
+                <div class="flex flex-col gap-4">
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Choose a programming language</label>
+                        <div class="select">
+                            <select>
+                                <option value="">Select a language...</option>
+                                <optgroup label="Frontend">
+                                    <option>JavaScript</option>
+                                    <option>TypeScript</option>
+                                    <option>HTML/CSS</option>
+                                </optgroup>
+                                <optgroup label="Backend">
+                                    <option>Python</option>
+                                    <option>Ruby</option>
+                                    <option>Go</option>
+                                    <option>Java</option>
+                                </optgroup>
+                                <optgroup label="Systems">
+                                    <option>Rust</option>
+                                    <option>C++</option>
+                                    <option>C</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="select"&gt;
+    &lt;select&gt;
+        &lt;option value=""&gt;Select a language...&lt;/option&gt;
+        &lt;optgroup label="Frontend"&gt;
+            &lt;option&gt;JavaScript&lt;/option&gt;
+            &lt;option&gt;TypeScript&lt;/option&gt;
+            &lt;option&gt;HTML/CSS&lt;/option&gt;
+        &lt;/optgroup&gt;
+        &lt;optgroup label="Backend"&gt;
+            &lt;option&gt;Python&lt;/option&gt;
+            &lt;option&gt;Ruby&lt;/option&gt;
+            &lt;option&gt;Go&lt;/option&gt;
+            &lt;option&gt;Java&lt;/option&gt;
+        &lt;/optgroup&gt;
+        &lt;optgroup label="Systems"&gt;
+            &lt;option&gt;Rust&lt;/option&gt;
+            &lt;option&gt;C++&lt;/option&gt;
+            &lt;option&gt;C&lt;/option&gt;
+        &lt;/optgroup&gt;
+    &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+        <!-- Select with Icons -->
+        <div class="example-container">
+            <div class="example-label">Select with Icons</div>
+            <div class="example-demo">
+                <div class="flex flex-col gap-4">
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Choose Payment Method</label>
+                        <div class="select-with-icon">
+                            <i data-lucide="credit-card" class="icon-left" width="16" height="16"></i>
+                            <div class="select">
+                                <select>
+                                    <option>Credit Card</option>
+                                    <option>PayPal</option>
+                                    <option>Bank Transfer</option>
+                                    <option>Cryptocurrency</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Select Currency</label>
+                        <div class="select-with-icon">
+                            <i data-lucide="dollar-sign" class="icon-left" width="16" height="16"></i>
+                            <div class="select">
+                                <select>
+                                    <option>USD - US Dollar</option>
+                                    <option>EUR - Euro</option>
+                                    <option>GBP - British Pound</option>
+                                    <option>JPY - Japanese Yen</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="select-with-icon"&gt;
+    &lt;i data-lucide="credit-card" class="icon-left" width="16" height="16"&gt;&lt;/i&gt;
+    &lt;div class="select"&gt;
+        &lt;select&gt;
+            &lt;option&gt;Credit Card&lt;/option&gt;
+            &lt;option&gt;PayPal&lt;/option&gt;
+            &lt;option&gt;Bank Transfer&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- CSS --&gt;
+&lt;style&gt;
+.select-with-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.select-with-icon .icon-left {
+    position: absolute;
+    left: var(--space-3);
+    pointer-events: none;
+    color: var(--color-text-secondary);
+    z-index: 1;
+}
+
+.select-with-icon .select select {
+    padding-left: var(--space-10);
+}
+&lt;/style&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Country/Region Selector -->
+        <div class="example-container">
+            <div class="example-label">Country/Region Selector Pattern</div>
+            <div class="example-demo">
+                <div class="flex flex-col gap-4">
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Country</label>
+                        <div class="select">
+                            <select>
+                                <option value="">Select a country...</option>
+                                <optgroup label="North America">
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="MX">Mexico</option>
+                                </optgroup>
+                                <optgroup label="Europe">
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="ES">Spain</option>
+                                    <option value="IT">Italy</option>
+                                </optgroup>
+                                <optgroup label="Asia">
+                                    <option value="JP">Japan</option>
+                                    <option value="CN">China</option>
+                                    <option value="IN">India</option>
+                                    <option value="KR">South Korea</option>
+                                </optgroup>
+                                <optgroup label="Oceania">
+                                    <option value="AU">Australia</option>
+                                    <option value="NZ">New Zealand</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="helper-text">Select your country or region</div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;label class="form-label"&gt;Country&lt;/label&gt;
+&lt;div class="select"&gt;
+    &lt;select&gt;
+        &lt;option value=""&gt;Select a country...&lt;/option&gt;
+        &lt;optgroup label="North America"&gt;
+            &lt;option value="US"&gt;United States&lt;/option&gt;
+            &lt;option value="CA"&gt;Canada&lt;/option&gt;
+            &lt;option value="MX"&gt;Mexico&lt;/option&gt;
+        &lt;/optgroup&gt;
+        &lt;optgroup label="Europe"&gt;
+            &lt;option value="GB"&gt;United Kingdom&lt;/option&gt;
+            &lt;option value="DE"&gt;Germany&lt;/option&gt;
+            &lt;option value="FR"&gt;France&lt;/option&gt;
+        &lt;/optgroup&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+&lt;div class="helper-text"&gt;Select your country or region&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- With Helper Text -->
+        <div class="example-container">
+            <div class="example-label">With Helper Text</div>
+            <div class="example-demo">
+                <div class="flex flex-col gap-4">
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Timezone</label>
+                        <div class="select">
+                            <select>
+                                <option value="">Select timezone...</option>
+                                <option value="UTC-12:00">(GMT-12:00) International Date Line West</option>
+                                <option value="UTC-11:00">(GMT-11:00) Midway Island</option>
+                                <option value="UTC-10:00">(GMT-10:00) Hawaii</option>
+                                <option value="UTC-09:00">(GMT-09:00) Alaska</option>
+                                <option value="UTC-08:00">(GMT-08:00) Pacific Time (US & Canada)</option>
+                                <option value="UTC-07:00">(GMT-07:00) Mountain Time (US & Canada)</option>
+                                <option value="UTC-06:00">(GMT-06:00) Central Time (US & Canada)</option>
+                                <option value="UTC-05:00" selected>(GMT-05:00) Eastern Time (US & Canada)</option>
+                                <option value="UTC+00:00">(GMT+00:00) London</option>
+                                <option value="UTC+01:00">(GMT+01:00) Paris</option>
+                                <option value="UTC+09:00">(GMT+09:00) Tokyo</option>
+                            </select>
+                        </div>
+                        <div class="helper-text">Your timezone affects when you receive notifications</div>
+                    </div>
+                    <div style="max-width: 320px;">
+                        <label class="form-label">Date Format</label>
+                        <div class="select">
+                            <select>
+                                <option value="MM/DD/YYYY">MM/DD/YYYY (US)</option>
+                                <option value="DD/MM/YYYY">DD/MM/YYYY (EU)</option>
+                                <option value="YYYY-MM-DD">YYYY-MM-DD (ISO)</option>
+                                <option value="DD.MM.YYYY">DD.MM.YYYY (DE)</option>
+                            </select>
+                        </div>
+                        <div class="helper-text">Choose how dates are displayed throughout the app</div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;label class="form-label"&gt;Timezone&lt;/label&gt;
+&lt;div class="select"&gt;
+    &lt;select&gt;
+        &lt;option value=""&gt;Select timezone...&lt;/option&gt;
+        &lt;option value="UTC-08:00"&gt;(GMT-08:00) Pacific Time&lt;/option&gt;
+        &lt;option value="UTC-05:00" selected&gt;(GMT-05:00) Eastern Time&lt;/option&gt;
+        &lt;option value="UTC+00:00"&gt;(GMT+00:00) London&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+&lt;div class="helper-text"&gt;Your timezone affects when you receive notifications&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Form Integration -->
+        <div class="example-container">
+            <div class="example-label">Form Integration Example</div>
+            <div class="example-demo">
+                <form style="max-width: 400px;">
+                    <div class="flex flex-col gap-4">
+                        <div>
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="input" placeholder="John Doe" />
+                        </div>
+                        <div>
+                            <label class="form-label">Account Type</label>
+                            <div class="select">
+                                <select required>
+                                    <option value="">Select account type...</option>
+                                    <option value="personal">Personal</option>
+                                    <option value="business">Business</option>
+                                    <option value="enterprise">Enterprise</option>
+                                </select>
+                            </div>
+                            <div class="helper-text">Choose the type of account you want to create</div>
+                        </div>
+                        <div>
+                            <label class="form-label">Subscription Plan</label>
+                            <div class="select">
+                                <select required>
+                                    <option value="">Select a plan...</option>
+                                    <option value="free">Free - $0/month</option>
+                                    <option value="pro">Pro - $19/month</option>
+                                    <option value="team">Team - $49/month</option>
+                                    <option value="enterprise">Enterprise - Custom</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label">Country</label>
+                            <div class="select">
+                                <select required>
+                                    <option value="">Select country...</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="DE">Germany</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                            <button type="button" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;form&gt;
+    &lt;div&gt;
+        &lt;label class="form-label"&gt;Full Name&lt;/label&gt;
+        &lt;input type="text" class="input" placeholder="John Doe" /&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label class="form-label"&gt;Account Type&lt;/label&gt;
+        &lt;div class="select"&gt;
+            &lt;select required&gt;
+                &lt;option value=""&gt;Select account type...&lt;/option&gt;
+                &lt;option value="personal"&gt;Personal&lt;/option&gt;
+                &lt;option value="business"&gt;Business&lt;/option&gt;
+                &lt;option value="enterprise"&gt;Enterprise&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;div class="helper-text"&gt;Choose the type of account&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;button type="submit" class="btn btn-primary"&gt;Create Account&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+            </details>
+        </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+        <!-- Best Practices Section -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="section-content">
+                <h3>When to Use</h3>
+                <ul>
+                    <li><strong>Multiple Options (6+):</strong> Select components work best when you have 6 or more options to choose from. They conserve screen space by hiding options until needed.</li>
+                    <li><strong>Known Options:</strong> Use selects when users are familiar with the options (e.g., country, state, month) and don't need to see all choices at once.</li>
+                    <li><strong>Single Selection:</strong> When users need to choose exactly one option from a predefined list.</li>
+                    <li><strong>Forms and Settings:</strong> Ideal for form fields, configuration panels, and settings pages where space efficiency is important.</li>
+                    <li><strong>Categorized Options:</strong> When options can be logically grouped using <code>optgroup</code> (e.g., programming languages by category, countries by region).</li>
+                    <li><strong>Mobile-Friendly:</strong> Native select elements provide excellent mobile experiences with optimized OS-level pickers.</li>
+                </ul>
+
+                <h3>When NOT to Use</h3>
+                <ul>
+                    <li><strong>Searchable Lists:</strong> If users need to search through many options (100+ countries, all cities), use a <strong>combobox</strong> or autocomplete component instead. Searching through a long select dropdown is frustrating.</li>
+                    <li><strong>3-5 Options:</strong> For fewer options, use <strong>radio buttons</strong> instead. Radio buttons make all options visible and are faster to scan and select.</li>
+                    <li><strong>2 Options:</strong> Use a <strong>switch/toggle</strong> or <strong>checkbox</strong> for binary choices (yes/no, on/off).</li>
+                    <li><strong>Complex Items:</strong> When options need rich formatting (images, multiple lines of text, custom layouts), use a custom dropdown component.</li>
+                    <li><strong>Multiple Selection:</strong> Native select elements with <code>multiple</code> have poor UX. Use checkboxes, multi-select component, or tag input instead.</li>
+                    <li><strong>Primary Actions:</strong> Don't use selects for primary actions or navigation. Use buttons or links.</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li><strong>Labels:</strong> Always provide a visible <code>&lt;label&gt;</code> element associated with the select using the <code>for</code> attribute or by wrapping the select.</li>
+                    <li><strong>ARIA Labels:</strong> If a visible label isn't possible, use <code>aria-label</code> or <code>aria-labelledby</code> to provide an accessible name.</li>
+                    <li><strong>Required Fields:</strong> Use the <code>required</code> attribute and indicate required fields visually (e.g., asterisk).</li>
+                    <li><strong>Error States:</strong> Use <code>aria-describedby</code> to associate error messages with the select. Apply <code>select-error</code> class for visual indication.</li>
+                    <li><strong>Keyboard Navigation:</strong> Native select elements are fully keyboard accessible:
+                        <ul>
+                            <li><code>Tab</code> - Focus the select</li>
+                            <li><code>Space</code> or <code>Enter</code> - Open the dropdown</li>
+                            <li><code>Arrow Keys</code> - Navigate options</li>
+                            <li><code>Escape</code> - Close without selecting</li>
+                            <li><code>Type to search</code> - Jump to options starting with typed letters</li>
+                        </ul>
+                    </li>
+                    <li><strong>Focus Indicators:</strong> Ensure focus states are clearly visible. Don't remove focus outlines.</li>
+                    <li><strong>Helper Text:</strong> Use helper text to provide additional context or instructions. Link it with <code>aria-describedby</code>.</li>
+                    <li><strong>Placeholder Option:</strong> The first option can serve as a placeholder (e.g., "Select an option..."). Give it an empty value so it can be validated as "not selected".</li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <h4>Country Selector</h4>
+                <p>Group countries by region using <code>optgroup</code> for easier scanning. Use ISO country codes as values. Consider providing a search functionality for long lists (use combobox instead).</p>
+
+                <h4>Timezone Selector</h4>
+                <p>Display timezones with GMT offset and city/region name for clarity. Group by major regions or sort by offset. Pre-select the user's detected timezone when possible.</p>
+
+                <h4>Date Format</h4>
+                <p>Show examples of how dates will appear (e.g., "MM/DD/YYYY (US)"). Include common regional formats. Respect user locale preferences.</p>
+
+                <h4>Subscription Plans</h4>
+                <p>Include pricing information directly in the option text. Order from free/lowest to highest price. Consider using a custom component if plans need detailed descriptions.</p>
+
+                <h4>Settings and Preferences</h4>
+                <p>Use selects for settings with predefined options (language, theme, notifications frequency). Provide helper text explaining what each setting affects.</p>
+
+                <h4>Filtering and Sorting</h4>
+                <p>Use selects for sort order (A-Z, newest first, price low-high) and filter criteria. Update content immediately or provide an "Apply" button for multiple filters.</p>
+
+                <h3>Validation</h3>
+                <ul>
+                    <li>Use the <code>required</code> attribute for mandatory selections</li>
+                    <li>Provide immediate validation feedback when possible</li>
+                    <li>Show clear error messages below the select using helper text</li>
+                    <li>Apply <code>select-error</code> class for visual error indication</li>
+                    <li>Don't remove the placeholder option until a valid selection is made</li>
+                </ul>
+
+                <h3>Styling Considerations</h3>
+                <ul>
+                    <li><strong>Consistent Sizing:</strong> Use size modifiers (<code>select-sm</code>, <code>select-lg</code>) consistently across your forms</li>
+                    <li><strong>Width:</strong> Set appropriate widths based on content. Don't make selects unnecessarily wide</li>
+                    <li><strong>Mobile:</strong> Native selects provide better mobile UX. Don't override with custom dropdowns on mobile unless necessary</li>
+                    <li><strong>Icons:</strong> When using icons, ensure adequate padding so text doesn't overlap</li>
+                </ul>
+            </div>
+        </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->
@@ -218,6 +853,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -236,18 +874,20 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

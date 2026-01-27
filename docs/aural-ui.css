@@ -1138,15 +1138,16 @@
 /* Hover state */
 
 .input:hover:not(:disabled) {
-        border-color: var(--color-input-border-hover);
+        border-color: var(--color-primary);
+        background: var(--color-bg-hover);
     }
 
 /* Focus state */
 
 .input:focus {
-        border-color: var(--color-input-border-focus);
-        background: rgba(16, 185, 129, 0.05);
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        border-color: var(--color-primary);
     }
 
 /* Disabled state */
@@ -1154,7 +1155,7 @@
 .input:disabled {
         opacity: 0.5;
         cursor: not-allowed;
-        background: var(--color-input-disabled-bg);
+        background: var(--color-bg-tertiary);
     }
 
 /* Read-only state */
@@ -1170,6 +1171,141 @@
     }
 
 /* ========================================
+   NUMBER INPUT WITH CUSTOM SPINNERS
+   ======================================== */
+
+/* Hide default browser spinners */
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+            appearance: textfield;
+}
+
+/* Number input with custom spinners wrapper */
+
+.input-number {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+}
+
+.input-number .input {
+    padding-right: var(--space-10);
+}
+
+/* Spinner buttons container */
+
+.input-number__controls {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-tertiary);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    overflow: hidden;
+    border-left: 1px solid var(--color-border-medium);
+}
+
+/* Individual spinner button */
+
+.input-number__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition-all-fast);
+    padding: 0;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+    position: relative;
+}
+
+.input-number__button:hover:not(:disabled) {
+    background: var(--color-bg-hover);
+    color: var(--color-primary);
+}
+
+.input-number__button:active:not(:disabled) {
+    background: var(--color-primary);
+    color: white;
+}
+
+.input-number__button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.input-number__button svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.5;
+}
+
+/* Divider between buttons */
+
+.input-number__button + .input-number__button {
+    border-top: 1px solid var(--color-border-medium);
+}
+
+/* Size variants */
+
+.input-number--sm .input {
+    padding-right: var(--space-8);
+}
+
+.input-number--sm .input-number__button {
+    width: 24px;
+}
+
+.input-number--sm .input-number__button svg {
+    width: 12px;
+    height: 12px;
+}
+
+.input-number--lg .input {
+    padding-right: calc(var(--space-10) + 4px);
+}
+
+.input-number--lg .input-number__button {
+    width: 32px;
+}
+
+.input-number--lg .input-number__button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Touch device optimizations */
+
+@media (pointer: coarse) {
+    .input-number__button {
+        width: 44px;
+        min-height: 24px;
+    }
+
+    .input-number .input {
+        padding-right: var(--space-12);
+        min-height: 48px;
+    }
+}
+
+/* ========================================
    VALIDATION STATES
    ======================================== */
 
@@ -1180,9 +1316,9 @@
 }
 
 .input.error:focus {
+        outline: 2px solid var(--color-border-error);
+        outline-offset: 2px;
         border-color: var(--color-border-error);
-        background: rgba(239, 68, 68, 0.05);
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
     }
 
 /* Success state */
@@ -1192,9 +1328,9 @@
 }
 
 .input.success:focus {
+        outline: 2px solid var(--color-border-success);
+        outline-offset: 2px;
         border-color: var(--color-border-success);
-        background: rgba(34, 197, 94, 0.05);
-        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
     }
 
 /* Warning state */
@@ -1204,9 +1340,9 @@
 }
 
 .input.warning:focus {
+        outline: 2px solid var(--color-border-warning);
+        outline-offset: 2px;
         border-color: var(--color-border-warning);
-        background: rgba(245, 158, 11, 0.05);
-        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
     }
 
 /* ========================================
@@ -1247,8 +1383,8 @@
    TEXTAREA
    ======================================== */
 
+textarea.input,
 .textarea {
-    composes: input;
     min-height: 100px;
     resize: vertical;
 }
@@ -1267,6 +1403,58 @@
     padding: var(--space-4) var(--space-6);
     font-size: var(--text-lg);
     min-height: 52px;
+}
+
+/* ========================================
+   INPUT GROUP (With Icons)
+   ======================================== */
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group .input {
+    flex: 1;
+}
+
+/* Input with prefix icon */
+
+.input-group-prefix .input {
+    padding-left: var(--space-10);
+}
+
+/* Input with suffix icon */
+
+.input-group-suffix .input {
+    padding-right: var(--space-10);
+}
+
+/* Icon positioning */
+
+.input-group-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-tertiary);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input-group-icon svg,
+.input-group-icon i {
+    width: 18px;
+    height: 18px;
+}
+
+.input-group-icon-left {
+    left: var(--space-3);
+}
+
+.input-group-icon-right {
+    right: var(--space-3);
 }
 
 /**
@@ -1308,8 +1496,9 @@
 }
 
 .aural-search-bar__wrapper:focus-within {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--primary-alpha-20);
 }
 
 .aural-search-bar__icon {
@@ -6129,8 +6318,8 @@
 
 .aural-color-picker__swatch {
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     border-radius: var(--radius-md);
     border: 2px solid var(--color-border-medium);
     overflow: hidden;
@@ -6167,6 +6356,7 @@
 
 .aural-color-picker__value {
     flex: 1;
+    max-width: 140px;
     padding: var(--space-2) var(--space-3);
     background: var(--color-bg-primary);
     border: 1px solid var(--color-border-medium);
@@ -6175,10 +6365,17 @@
     font-family: var(--font-mono);
     color: var(--color-text-primary);
     text-transform: uppercase;
+    text-align: center;
+}
+
+.aural-color-picker__value:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-color-picker__value:focus {
-    outline: none;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
 }
 
@@ -6381,8 +6578,14 @@
     text-align: center;
 }
 
+.aural-color-picker__input:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-hover);
+}
+
 .aural-color-picker__input:focus {
-    outline: none;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
 }
 
@@ -6523,6 +6726,17 @@
     height: 120px;
 }
 
+.aural-color-picker--compact .aural-color-picker__swatch {
+    width: 48px;
+    height: 48px;
+}
+
+.aural-color-picker--compact .aural-color-picker__value {
+    max-width: 120px;
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+}
+
 .aural-color-picker--compact .aural-color-picker__preset-grid,
 .aural-color-picker--compact .aural-color-picker__recent-grid {
     grid-template-columns: repeat(6, 1fr);
@@ -6644,82 +6858,154 @@
     }
 }
 
+/* ========================================
+   Touch Optimizations
+   ======================================== */
+
+@media (pointer: coarse) {
+    /* Larger touch targets for hue/alpha sliders */
+    .aural-color-picker__hue {
+        height: 44px;
+        padding: 16px 0;
+    }
+
+    .aural-color-picker__alpha {
+        height: 44px;
+        padding: 16px 0;
+    }
+
+    /* Larger handles for touch devices */
+    .aural-color-picker__hue-handle,
+    .aural-color-picker__alpha-handle {
+        width: 28px;
+        height: 28px;
+    }
+
+    /* Larger cursor for canvas */
+    .aural-color-picker__cursor {
+        width: 24px;
+        height: 24px;
+        border-width: 3px;
+    }
+
+    /* Ensure preset buttons are touch-friendly */
+    .aural-color-picker__preset {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* Larger mode buttons for touch */
+    .aural-color-picker__mode {
+        min-height: 44px;
+        padding: var(--space-2) var(--space-3);
+    }
+
+    /* More comfortable canvas height on touch devices */
+    .aural-color-picker__canvas {
+        height: 180px;
+    }
+}
+
 /**
  * AURAL UI - Range Slider
  *
  * Dual-handle slider for selecting min/max range values.
- * Supports vertical/horizontal orientation, steps, and value labels.
+ * Based on the slider component with identical styling and accessibility.
  */
 
 /* ========================================
-   Range Slider Container
+   Base Range Slider Container
    ======================================== */
 
 .aural-range-slider {
+    position: relative;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    width: 100%;
+    gap: var(--space-2);
+}
+
+.aural-range-slider__label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aural-range-slider__label {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-medium);
 }
 
 /* ========================================
-   Range Slider Track
+   Range Slider Track Container
    ======================================== */
 
 .aural-range-slider__wrapper {
     position: relative;
     width: 100%;
-    padding: var(--space-3) 0;
+    height: 44px;
+    display: flex;
+    align-items: center;
 }
 
-.aural-range-slider__track {
-    position: relative;
+.aural-range-slider__track-bg {
+    position: absolute;
     width: 100%;
     height: 6px;
     background: var(--color-bg-tertiary);
     border-radius: var(--radius-full);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .aural-range-slider__track-fill {
     position: absolute;
-    height: 100%;
+    height: 6px;
     background: var(--color-primary);
     border-radius: var(--radius-full);
+    top: 50%;
+    transform: translateY(-50%);
     transition: background-color 0.2s ease;
 }
 
 /* ========================================
-   Range Handles
+   Range Handles (identical to slider thumb)
    ======================================== */
 
 .aural-range-slider__handle {
     position: absolute;
     top: 50%;
-    width: 20px;
-    height: 20px;
-    background: white;
-    border: 2px solid var(--color-primary);
-    border-radius: 50%;
-    box-shadow: var(--shadow-md);
-    cursor: grab;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--color-primary);
+    border: 3px solid var(--color-bg-primary);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
     transform: translate(-50%, -50%);
-    transition: var(--transition-all-fast);
+    transition: all 0.2s ease;
     z-index: 2;
 }
 
 .aural-range-slider__handle:hover {
-    transform: translate(-50%, -50%) scale(1.15);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--glow-primary-sm), var(--shadow-md);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .aural-range-slider__handle:active {
-    cursor: grabbing;
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(0.95);
 }
 
 .aural-range-slider__handle:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
+}
+
+/* Handle label (value inside the handle) - hidden by default */
+
+.aural-range-slider__handle .aural-range-slider__label {
+    display: none;
 }
 
 .aural-range-slider__handle--min {
@@ -6737,102 +7023,91 @@
 }
 
 /* ========================================
-   Value Labels
-   ======================================== */
-
-.aural-range-slider__label {
-    position: absolute;
-    top: -32px;
-    transform: translateX(-50%);
-    padding: 2px 8px;
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.aural-range-slider__handle:hover .aural-range-slider__label,
-.aural-range-slider__handle:active .aural-range-slider__label,
-.aural-range-slider__handle:focus-visible .aural-range-slider__label {
-    opacity: 1;
-}
-
-.aural-range-slider--show-labels .aural-range-slider__label {
-    opacity: 1;
-}
-
-/* Arrow pointer */
-
-.aural-range-slider__label::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid var(--color-border-medium);
-}
-
-/* ========================================
-   Value Display
+   Value Display (matching slider)
    ======================================== */
 
 .aural-range-slider__values {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-}
-
-.aural-range-slider__value {
-    display: flex;
-    align-items: center;
     gap: var(--space-2);
 }
 
-.aural-range-slider__value-label {
-    font-weight: var(--font-medium);
-    color: var(--color-text-tertiary);
+.aural-range-slider__value {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+    min-width: 2.5rem;
 }
 
-.aural-range-slider__value-number {
-    font-family: var(--font-mono);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
+.aural-range-slider__value--min {
+    text-align: left;
+}
+
+.aural-range-slider__value--max {
+    text-align: right;
+}
+
+.aural-range-slider__value-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-medium);
+    margin-right: var(--space-1);
 }
 
 /* ========================================
-   Step Markers
+   Input Fields (for manual value entry)
    ======================================== */
 
-.aural-range-slider__steps {
-    position: absolute;
-    inset: 0;
+.aural-range-slider__inputs {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
 }
 
-.aural-range-slider__step {
-    width: 2px;
-    height: 8px;
-    background: var(--color-border-medium);
-    border-radius: 1px;
+.aural-range-slider__input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex: 1;
 }
 
-.aural-range-slider__step--in-range {
-    background: var(--primary-alpha-50);
+.aural-range-slider__input-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-medium);
+}
+
+.aural-range-slider__input {
+    width: 100%;
+    min-height: 36px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-family: inherit;
+    transition: var(--transition-all-fast);
+}
+
+.aural-range-slider__input:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-hover);
+}
+
+.aural-range-slider__input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+}
+
+.aural-range-slider__input::-moz-placeholder {
+    color: var(--color-text-tertiary);
+}
+
+.aural-range-slider__input::placeholder {
+    color: var(--color-text-tertiary);
 }
 
 /* ========================================
@@ -6843,32 +7118,137 @@
     display: flex;
     justify-content: space-between;
     font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
+    color: var(--color-text-muted);
     margin-top: var(--space-1);
 }
 
 /* ========================================
-   Vertical Orientation
+   Size Variants (matching slider exactly)
+   ======================================== */
+
+/* Small */
+
+.aural-range-slider--sm .aural-range-slider__track-bg,
+.aural-range-slider--sm .aural-range-slider__track-fill {
+    height: 4px;
+}
+
+.aural-range-slider--sm .aural-range-slider__handle {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Large */
+
+.aural-range-slider--lg .aural-range-slider__track-bg,
+.aural-range-slider--lg .aural-range-slider__track-fill {
+    height: 8px;
+}
+
+.aural-range-slider--lg .aural-range-slider__handle {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ========================================
+   Color Variants (matching slider)
+   ======================================== */
+
+/* Success */
+
+.aural-range-slider--success .aural-range-slider__track-fill {
+    background: var(--color-success);
+}
+
+.aural-range-slider--success .aural-range-slider__handle {
+    background: var(--color-success);
+}
+
+.aural-range-slider--success .aural-range-slider__value {
+    color: var(--color-success);
+}
+
+.aural-range-slider--success .aural-range-slider__handle:hover {
+    box-shadow: var(--glow-success-md), var(--shadow-md);
+}
+
+/* Warning */
+
+.aural-range-slider--warning .aural-range-slider__track-fill {
+    background: var(--color-warning);
+}
+
+.aural-range-slider--warning .aural-range-slider__handle {
+    background: var(--color-warning);
+}
+
+.aural-range-slider--warning .aural-range-slider__value {
+    color: var(--color-warning);
+}
+
+.aural-range-slider--warning .aural-range-slider__handle:hover {
+    box-shadow: var(--glow-warning-md), var(--shadow-md);
+}
+
+/* Error */
+
+.aural-range-slider--error .aural-range-slider__track-fill {
+    background: var(--color-error);
+}
+
+.aural-range-slider--error .aural-range-slider__handle {
+    background: var(--color-error);
+}
+
+.aural-range-slider--error .aural-range-slider__value {
+    color: var(--color-error);
+}
+
+.aural-range-slider--error .aural-range-slider__handle:hover {
+    box-shadow: var(--glow-error-md), var(--shadow-md);
+}
+
+/* ========================================
+   Vertical Orientation (matching slider)
    ======================================== */
 
 .aural-range-slider--vertical {
-    height: 200px;
+    width: auto;
+    height: 250px;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.aural-range-slider--vertical .aural-range-slider__label-row {
+    flex-direction: column;
+    gap: var(--space-2);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.aural-range-slider--vertical .aural-range-slider__label {
+    writing-mode: horizontal-tb;
 }
 
 .aural-range-slider--vertical .aural-range-slider__wrapper {
     height: 100%;
-    width: auto;
-    padding: 0 var(--space-3);
+    width: 44px;
+    min-height: 200px;
+    flex-direction: column;
 }
 
-.aural-range-slider--vertical .aural-range-slider__track {
-    width: 6px;
-    height: 100%;
-}
-
+.aural-range-slider--vertical .aural-range-slider__track-bg,
 .aural-range-slider--vertical .aural-range-slider__track-fill {
-    width: 100%;
+    width: 6px;
     height: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
+}
+
+.aural-range-slider--vertical .aural-range-slider__track-bg {
+    height: 100%;
 }
 
 .aural-range-slider--vertical .aural-range-slider__handle {
@@ -6878,33 +7258,21 @@
 }
 
 .aural-range-slider--vertical .aural-range-slider__handle:hover {
-    transform: translate(-50%, 50%) scale(1.15);
-}
-
-.aural-range-slider--vertical .aural-range-slider__handle:active {
     transform: translate(-50%, 50%) scale(1.1);
 }
 
-.aural-range-slider--vertical .aural-range-slider__label {
-    top: 50%;
-    left: 36px;
-    transform: translateY(-50%);
-}
-
-.aural-range-slider--vertical .aural-range-slider__label::after {
-    bottom: auto;
-    left: -4px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-right: 4px solid var(--color-border-medium);
-    border-left: none;
+.aural-range-slider--vertical .aural-range-slider__handle:active {
+    transform: translate(-50%, 50%) scale(0.95);
 }
 
 .aural-range-slider--vertical .aural-range-slider__values {
     flex-direction: column;
     align-items: flex-start;
+}
+
+.aural-range-slider--vertical .aural-range-slider__value {
+    writing-mode: horizontal-tb;
+    text-align: center;
 }
 
 .aural-range-slider--vertical .aural-range-slider__limits {
@@ -6913,78 +7281,13 @@
     margin-left: var(--space-1);
 }
 
-.aural-range-slider--vertical .aural-range-slider__steps {
-    flex-direction: column;
-}
-
-.aural-range-slider--vertical .aural-range-slider__step {
-    width: 8px;
-    height: 2px;
-}
-
-/* ========================================
-   Color Variants
-   ======================================== */
-
-.aural-range-slider--success .aural-range-slider__track-fill {
-    background: var(--color-success);
-}
-
-.aural-range-slider--success .aural-range-slider__handle {
-    border-color: var(--color-success);
-}
-
-.aural-range-slider--warning .aural-range-slider__track-fill {
-    background: var(--color-warning);
-}
-
-.aural-range-slider--warning .aural-range-slider__handle {
-    border-color: var(--color-warning);
-}
-
-.aural-range-slider--error .aural-range-slider__track-fill {
-    background: var(--color-error);
-}
-
-.aural-range-slider--error .aural-range-slider__handle {
-    border-color: var(--color-error);
-}
-
-.aural-range-slider--info .aural-range-slider__track-fill {
-    background: var(--color-info);
-}
-
-.aural-range-slider--info .aural-range-slider__handle {
-    border-color: var(--color-info);
-}
-
-/* ========================================
-   Size Variants
-   ======================================== */
-
-.aural-range-slider--sm .aural-range-slider__track {
-    height: 4px;
-}
-
-.aural-range-slider--sm .aural-range-slider__handle {
-    width: 16px;
-    height: 16px;
-}
-
-.aural-range-slider--sm.aural-range-slider--vertical .aural-range-slider__track {
+.aural-range-slider--vertical.aural-range-slider--sm .aural-range-slider__track-bg,
+.aural-range-slider--vertical.aural-range-slider--sm .aural-range-slider__track-fill {
     width: 4px;
 }
 
-.aural-range-slider--lg .aural-range-slider__track {
-    height: 8px;
-}
-
-.aural-range-slider--lg .aural-range-slider__handle {
-    width: 24px;
-    height: 24px;
-}
-
-.aural-range-slider--lg.aural-range-slider--vertical .aural-range-slider__track {
+.aural-range-slider--vertical.aural-range-slider--lg .aural-range-slider__track-bg,
+.aural-range-slider--vertical.aural-range-slider--lg .aural-range-slider__track-fill {
     width: 8px;
 }
 
@@ -7002,87 +7305,36 @@
 }
 
 /* ========================================
-   With Input Fields
+   Step Markers (matching slider)
    ======================================== */
 
-.aural-range-slider__inputs {
-    display: flex;
-    gap: var(--space-3);
-    align-items: center;
-}
-
-.aural-range-slider__input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-}
-
-.aural-range-slider__input-label {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    font-weight: var(--font-semibold);
-}
-
-.aural-range-slider__input {
-    padding: var(--space-2) var(--space-3);
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-family: var(--font-mono);
-    color: var(--color-text-primary);
-}
-
-.aural-range-slider__input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-}
-
-/* ========================================
-   Histogram Background
-   ======================================== */
-
-.aural-range-slider--with-histogram .aural-range-slider__track {
-    overflow: visible;
-}
-
-.aural-range-slider__histogram {
+.aural-range-slider__steps {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 20px;
+    inset: 0;
     display: flex;
-    align-items: flex-end;
-    gap: 1px;
-    opacity: 0.3;
+    justify-content: space-between;
+    align-items: center;
     pointer-events: none;
 }
 
-.aural-range-slider__histogram-bar {
-    flex: 1;
-    background: var(--color-primary);
-    border-radius: 1px 1px 0 0;
+.aural-range-slider__step {
+    width: 2px;
+    height: 0.5rem;
+    background: var(--color-border);
+    border-radius: var(--radius-sm);
 }
 
-/* ========================================
-   Tooltip Variant
-   ======================================== */
-
-.aural-range-slider--tooltip .aural-range-slider__label {
-    background: var(--color-bg-primary);
-    box-shadow: var(--shadow-md);
-    padding: 4px 8px;
-    font-size: var(--text-xs);
+.aural-range-slider__step--in-range {
+    background: var(--primary-alpha-50);
 }
 
-/* ========================================
-   Connected Handles
-   ======================================== */
+.aural-range-slider--vertical .aural-range-slider__steps {
+    flex-direction: column;
+}
 
-.aural-range-slider--connected .aural-range-slider__track-fill {
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+.aural-range-slider--vertical .aural-range-slider__step {
+    width: 0.5rem;
+    height: 2px;
 }
 
 /* ========================================
@@ -7091,7 +7343,6 @@
 
 @media (prefers-reduced-motion: reduce) {
     .aural-range-slider__handle,
-    .aural-range-slider__label,
     .aural-range-slider__track-fill {
         transition: none;
     }
@@ -7117,13 +7368,13 @@
 
 @media (max-width: 640px) {
     .aural-range-slider__handle {
-        width: 24px;
-        height: 24px;
+        width: 1.5rem;
+        height: 1.5rem;
     }
 
     .aural-range-slider--sm .aural-range-slider__handle {
-        width: 20px;
-        height: 20px;
+        width: 1.25rem;
+        height: 1.25rem;
     }
 }
 
@@ -7133,15 +7384,25 @@
 
 @media (pointer: coarse) {
     .aural-range-slider__handle {
-        width: 28px;
-        height: 28px;
+        width: 44px;
+        height: 44px;
     }
 
-    .aural-range-slider__track {
+    .aural-range-slider__wrapper {
+        height: 48px;
+    }
+
+    .aural-range-slider__track-bg,
+    .aural-range-slider__track-fill {
         height: 8px;
     }
 
-    .aural-range-slider--vertical .aural-range-slider__track {
+    .aural-range-slider--vertical .aural-range-slider__wrapper {
+        width: 48px;
+    }
+
+    .aural-range-slider--vertical .aural-range-slider__track-bg,
+    .aural-range-slider--vertical .aural-range-slider__track-fill {
         width: 8px;
     }
 }
@@ -7183,6 +7444,7 @@
 
 .aural-multi-select__trigger:hover {
     border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-multi-select__trigger:focus-visible {
@@ -7194,7 +7456,7 @@
     border-top-color: var(--color-primary);
     border-left-color: var(--color-primary);
     border-right-color: var(--color-primary);
-    border-bottom-color: var(--color-border-medium);
+    border-bottom-color: var(--color-primary);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -7340,8 +7602,7 @@
     max-height: 0;
     overflow: hidden;
     background: var(--color-bg-primary);
-    border: 1px solid var(--color-primary);
-    border-top: none;
+    border: none;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     box-shadow: var(--shadow-lg);
     transition: max-height 0.3s ease;
@@ -7349,6 +7610,9 @@
 
 .aural-multi-select--open .aural-multi-select__dropdown {
     max-height: 300px;
+    border-left: 1px solid var(--color-border-medium);
+    border-right: 1px solid var(--color-border-medium);
+    border-bottom: 1px solid var(--color-border-medium);
 }
 
 /* ========================================
@@ -7744,12 +8008,13 @@
 
 .aural-combobox__input:hover {
     border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-combobox__input:focus {
-    outline: none;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--primary-alpha-10);
 }
 
 .aural-combobox__input::-moz-placeholder {
@@ -7761,7 +8026,10 @@
 }
 
 .aural-combobox--open .aural-combobox__input {
-    border-color: var(--color-primary);
+    border-top-color: var(--color-primary);
+    border-left-color: var(--color-primary);
+    border-right-color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -7824,6 +8092,8 @@
     width: 20px;
     height: 20px;
     color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
     transition: transform 0.2s ease;
     cursor: pointer;
 }
@@ -7878,8 +8148,7 @@
     max-height: 0;
     overflow: hidden;
     background: var(--color-bg-primary);
-    border: 1px solid var(--color-primary);
-    border-top: none;
+    border: none;
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     box-shadow: var(--shadow-lg);
     transition: max-height 0.3s ease;
@@ -7887,6 +8156,9 @@
 
 .aural-combobox--open .aural-combobox__dropdown {
     max-height: 300px;
+    border-left: 1px solid var(--color-border-medium);
+    border-right: 1px solid var(--color-border-medium);
+    border-bottom: 1px solid var(--color-border-medium);
 }
 
 /* ========================================
@@ -8176,7 +8448,7 @@
    ======================================== */
 
 .aural-combobox--disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
 }
 
@@ -8357,12 +8629,13 @@
 
 .aural-time-picker__input:hover {
     border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-time-picker__input:focus {
-    outline: none;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--primary-alpha-10);
 }
 
 .aural-time-picker__input::-moz-placeholder {
@@ -8725,7 +8998,7 @@
    ======================================== */
 
 .aural-time-picker--disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
 }
 
@@ -17979,9 +18252,11 @@ body.has-bottom-nav {
     -moz-appearance: none;
          appearance: none;
     width: 100%;
-    height: 0.5rem;
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-full);
+    height: 44px;
+    background: linear-gradient(to right, var(--color-primary) 50%, var(--color-bg-tertiary) 50%);
+    background-size: 100% 6px;
+    background-position: center;
+    background-repeat: no-repeat;
     outline: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -17991,7 +18266,7 @@ body.has-bottom-nav {
 
 .aural-slider__input::-webkit-slider-track {
     width: 100%;
-    height: 0.5rem;
+    height: 6px;
     background: transparent;
     border-radius: var(--radius-full);
 }
@@ -18000,8 +18275,16 @@ body.has-bottom-nav {
 
 .aural-slider__input::-moz-range-track {
     width: 100%;
-    height: 0.5rem;
-    background: transparent;
+    height: 6px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+}
+
+/* Filled portion - Firefox */
+
+.aural-slider__input::-moz-range-progress {
+    height: 6px;
+    background: var(--color-primary);
     border-radius: var(--radius-full);
 }
 
@@ -18044,7 +18327,7 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-slider__input:hover {
-    background: var(--color-bg-secondary);
+    opacity: 0.9;
 }
 
 .aural-slider__input:hover::-webkit-slider-thumb {
@@ -18089,15 +18372,19 @@ body.has-bottom-nav {
 /* Small */
 
 .aural-slider--sm .aural-slider__input {
-    height: 0.375rem;
+    background-size: 100% 4px;
 }
 
 .aural-slider--sm .aural-slider__input::-webkit-slider-track {
-    height: 0.375rem;
+    height: 4px;
 }
 
 .aural-slider--sm .aural-slider__input::-moz-range-track {
-    height: 0.375rem;
+    height: 4px;
+}
+
+.aural-slider--sm .aural-slider__input::-moz-range-progress {
+    height: 4px;
 }
 
 .aural-slider--sm .aural-slider__input::-webkit-slider-thumb {
@@ -18113,15 +18400,19 @@ body.has-bottom-nav {
 /* Large */
 
 .aural-slider--lg .aural-slider__input {
-    height: 0.625rem;
+    background-size: 100% 8px;
 }
 
 .aural-slider--lg .aural-slider__input::-webkit-slider-track {
-    height: 0.625rem;
+    height: 8px;
 }
 
 .aural-slider--lg .aural-slider__input::-moz-range-track {
-    height: 0.625rem;
+    height: 8px;
+}
+
+.aural-slider--lg .aural-slider__input::-moz-range-progress {
+    height: 8px;
 }
 
 .aural-slider--lg .aural-slider__input::-webkit-slider-thumb {
@@ -18275,10 +18566,80 @@ body.has-bottom-nav {
     }
 }
 
-/* Ensure minimum touch target size */
+/* ========================================
+   Vertical Slider
+   ======================================== */
 
-.aural-slider__input {
-    min-height: 44px;
+.aural-slider--vertical {
+    width: auto;
+    height: 250px;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.aural-slider--vertical .aural-slider__label-row {
+    flex-direction: column;
+    gap: var(--space-2);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.aural-slider--vertical .aural-slider__label {
+    writing-mode: horizontal-tb;
+}
+
+.aural-slider--vertical .aural-slider__value {
+    writing-mode: horizontal-tb;
+    min-width: auto;
+    text-align: center;
+}
+
+.aural-slider--vertical .aural-slider__input {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 44px;
+    height: 100%;
+    min-height: 200px;
+    margin: 0;
+}
+
+.aural-slider--vertical .aural-slider__input::-webkit-slider-track {
+    width: 6px;
+    height: 100%;
+}
+
+.aural-slider--vertical .aural-slider__input::-moz-range-track {
+    width: 6px;
+    height: 100%;
+}
+
+.aural-slider--vertical .aural-slider__input::-moz-range-progress {
+    width: 6px;
+}
+
+.aural-slider--vertical.aural-slider--sm .aural-slider__input::-webkit-slider-track {
+    width: 4px;
+}
+
+.aural-slider--vertical.aural-slider--sm .aural-slider__input::-moz-range-track {
+    width: 4px;
+}
+
+.aural-slider--vertical.aural-slider--sm .aural-slider__input::-moz-range-progress {
+    width: 4px;
+}
+
+.aural-slider--vertical.aural-slider--lg .aural-slider__input::-webkit-slider-track {
+    width: 8px;
+}
+
+.aural-slider--vertical.aural-slider--lg .aural-slider__input::-moz-range-track {
+    width: 8px;
+}
+
+.aural-slider--vertical.aural-slider--lg .aural-slider__input::-moz-range-progress {
+    width: 8px;
 }
 
 /**
@@ -18309,13 +18670,14 @@ body.has-bottom-nav {
 }
 
 .aural-chips__container:hover {
-    border-color: var(--color-border-hover);
+    border-color: var(--color-primary);
+    background: var(--color-bg-hover);
 }
 
 .aural-chips__container:focus-within {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
     border-color: var(--color-primary);
-    box-shadow: var(--glow-primary-sm);
-    outline: none;
 }
 
 /* ========================================
@@ -18585,9 +18947,9 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-chips__container--disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-tertiary);
 }
 
 .aural-chips__container--disabled .aural-chip__remove {
@@ -19330,101 +19692,126 @@ body.aural-dialog-open {
  * AURAL UI - File Upload Component
  *
  * Drag-and-drop file upload with progress and validation
+ *
+ * Usage:
+ *   <div class="file-upload">
+ *     <label class="file-upload__zone">
+ *       <input type="file" class="file-upload__input" multiple>
+ *       <div class="file-upload__content">
+ *         <i data-lucide="upload"></i>
+ *         <span class="file-upload__text">Drop files or click to browse</span>
+ *       </div>
+ *     </label>
+ *   </div>
  */
 
 /* ========================================
-   File Upload Container
+   FILE UPLOAD CONTAINER
    ======================================== */
 
-.aural-file-upload {
+.file-upload {
     width: 100%;
+    font-family: var(--font-sans);
 }
 
 /* ========================================
-   Drop Zone
+   DROP ZONE
    ======================================== */
 
-.aural-file-upload__dropzone {
+.file-upload__zone {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--space-3);
     padding: var(--space-8);
-    background: var(--color-bg-primary);
+    background: var(--color-bg-secondary);
     border: 2px dashed var(--color-border);
     border-radius: var(--radius-lg);
     cursor: pointer;
-    transition: all 0.2s ease;
-    min-height: 12rem;
+    transition: var(--transition-all-fast);
+    min-height: 200px;
+    text-align: center;
 }
 
-.aural-file-upload__dropzone:hover {
+.file-upload__zone:hover:not(.file-upload__zone--disabled) {
     border-color: var(--color-primary);
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-primary);
 }
 
-.aural-file-upload__dropzone:focus-within {
+.file-upload__zone:focus-within {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
-.aural-file-upload__dropzone--active {
+/* Active (dragging) state */
+
+.file-upload__zone--active {
     border-color: var(--color-primary);
-    background: rgba(16, 185, 129, 0.05);
-    box-shadow: var(--glow-primary-sm);
+    background: var(--primary-alpha-5);
+    box-shadow: 0 0 0 3px var(--primary-alpha-10);
 }
 
-.aural-file-upload__dropzone--error {
+/* Error state */
+
+.file-upload__zone--error {
     border-color: var(--color-error);
-    background: rgba(239, 68, 68, 0.05);
+    background: rgba(239, 68, 68, 0.03);
+}
+
+/* Disabled state */
+
+.file-upload__zone--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background: var(--color-bg-tertiary);
 }
 
 /* ========================================
-   Drop Zone Content
+   DROP ZONE CONTENT
    ======================================== */
 
-.aural-file-upload__icon {
-    font-size: 3rem;
-    opacity: 0.5;
+.file-upload__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    pointer-events: none;
 }
 
-.aural-file-upload__icon::before {
-    content: '📁';
+.file-upload__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-text-tertiary);
+    opacity: 0.7;
 }
 
-.aural-file-upload__dropzone--active .aural-file-upload__icon::before {
-    content: '📂';
-}
-
-.aural-file-upload__text {
-    text-align: center;
-}
-
-.aural-file-upload__primary-text {
-    font-size: var(--text-base);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-1);
-}
-
-.aural-file-upload__secondary-text {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-}
-
-.aural-file-upload__browse {
+.file-upload__zone--active .file-upload__icon {
     color: var(--color-primary);
+    opacity: 1;
+    transform: scale(1.1);
+    transition: var(--transition-all-fast);
+}
+
+.file-upload__text {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+}
+
+.file-upload__subtext {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    margin-top: var(--space-1);
+}
+
+.file-upload__browse {
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
     text-decoration: underline;
-    cursor: pointer;
 }
 
-.aural-file-upload__browse:hover {
-    color: var(--color-primary-hover);
-}
-
-.aural-file-upload__input {
+.file-upload__input {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -19437,21 +19824,46 @@ body.aural-dialog-open {
 }
 
 /* ========================================
-   File Constraints
+   SIZE VARIANTS
    ======================================== */
 
-.aural-file-upload__constraints {
-    margin-top: var(--space-2);
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    text-align: center;
+/* Small */
+
+.file-upload--sm .file-upload__zone {
+    padding: var(--space-6);
+    min-height: 140px;
+}
+
+.file-upload--sm .file-upload__icon {
+    width: 32px;
+    height: 32px;
+}
+
+.file-upload--sm .file-upload__text {
+    font-size: var(--text-sm);
+}
+
+/* Large */
+
+.file-upload--lg .file-upload__zone {
+    padding: var(--space-10);
+    min-height: 260px;
+}
+
+.file-upload--lg .file-upload__icon {
+    width: 64px;
+    height: 64px;
+}
+
+.file-upload--lg .file-upload__text {
+    font-size: var(--text-lg);
 }
 
 /* ========================================
-   File List
+   FILE LIST
    ======================================== */
 
-.aural-file-upload__files {
+.file-upload__list {
     margin-top: var(--space-4);
     display: flex;
     flex-direction: column;
@@ -19459,79 +19871,67 @@ body.aural-dialog-open {
 }
 
 /* ========================================
-   File Item
+   FILE ITEM
    ======================================== */
 
-.aural-file-upload__file {
+.file-upload__item {
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    padding: var(--space-3);
+    padding: var(--space-3) var(--space-4);
     background: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    transition: all 0.2s ease;
+    transition: var(--transition-all-fast);
 }
 
-.aural-file-upload__file:hover {
+.file-upload__item:hover {
     box-shadow: var(--shadow-sm);
 }
 
 /* ========================================
-   File Preview/Thumbnail
+   FILE PREVIEW/THUMBNAIL
    ======================================== */
 
-.aural-file-upload__preview {
-    width: 3rem;
-    height: 3rem;
-    border-radius: var(--radius);
-    -o-object-fit: cover;
-       object-fit: cover;
+.file-upload__preview {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
     flex-shrink: 0;
     background: var(--color-bg-tertiary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-}
-
-.aural-file-upload__preview--image {
     overflow: hidden;
+    position: relative;
 }
 
-.aural-file-upload__preview img {
+.file-upload__preview img {
     width: 100%;
     height: 100%;
     -o-object-fit: cover;
        object-fit: cover;
 }
 
-.aural-file-upload__preview--document::before {
-    content: '📄';
-}
-
-.aural-file-upload__preview--video::before {
-    content: '🎥';
-}
-
-.aural-file-upload__preview--audio::before {
-    content: '🎵';
-}
-
-.aural-file-upload__preview--archive::before {
-    content: '📦';
+.file-upload__preview-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-text-tertiary);
 }
 
 /* ========================================
-   File Info
+   FILE INFO
    ======================================== */
 
-.aural-file-upload__info {
+.file-upload__info {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
 }
 
-.aural-file-upload__filename {
+.file-upload__filename {
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
     color: var(--color-text-primary);
@@ -19540,190 +19940,334 @@ body.aural-dialog-open {
     white-space: nowrap;
 }
 
-.aural-file-upload__filesize {
+.file-upload__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
     font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    margin-top: var(--space-1);
+    color: var(--color-text-tertiary);
+}
+
+.file-upload__filesize {
+    display: inline-flex;
+}
+
+.file-upload__status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
 }
 
 /* ========================================
-   Upload Progress
+   UPLOAD PROGRESS
    ======================================== */
 
-.aural-file-upload__progress {
+.file-upload__progress {
     margin-top: var(--space-2);
+    width: 100%;
 }
 
-.aural-file-upload__progress-bar {
-    height: 0.25rem;
+.file-upload__progress-bar {
+    height: 4px;
     background: var(--color-bg-tertiary);
     border-radius: var(--radius-full);
     overflow: hidden;
 }
 
-.aural-file-upload__progress-fill {
+.file-upload__progress-fill {
     height: 100%;
     background: var(--color-primary);
     border-radius: var(--radius-full);
     transition: width 0.3s ease;
-    box-shadow: var(--glow-primary-sm);
+    box-shadow: 0 0 8px var(--color-primary);
 }
 
-.aural-file-upload__progress-text {
+.file-upload__progress-text {
     font-size: var(--text-xs);
     color: var(--color-text-muted);
     margin-top: var(--space-1);
 }
 
 /* ========================================
-   File States
+   FILE STATES
    ======================================== */
+
+/* Pending */
+
+.file-upload__item--pending {
+    border-color: var(--color-border);
+}
 
 /* Uploading */
 
-.aural-file-upload__file--uploading {
+.file-upload__item--uploading {
     border-color: var(--color-primary);
+    background: var(--primary-alpha-5);
 }
 
-.aural-file-upload__file--uploading .aural-file-upload__status::before {
-    content: '⏳';
-    margin-right: var(--space-2);
+.file-upload__item--uploading .file-upload__status {
+    color: var(--color-primary);
 }
 
 /* Success */
 
-.aural-file-upload__file--success {
+.file-upload__item--success {
     border-color: var(--color-success);
     background: rgba(34, 197, 94, 0.05);
 }
 
-.aural-file-upload__file--success .aural-file-upload__status {
+.file-upload__item--success .file-upload__status {
     color: var(--color-success);
 }
 
-.aural-file-upload__file--success .aural-file-upload__status::before {
-    content: '✓';
-    margin-right: var(--space-2);
-}
-
-.aural-file-upload__file--success .aural-file-upload__progress-fill {
+.file-upload__item--success .file-upload__progress-fill {
     background: var(--color-success);
-    box-shadow: var(--glow-success-sm);
+    box-shadow: 0 0 8px var(--color-success);
 }
 
 /* Error */
 
-.aural-file-upload__file--error {
+.file-upload__item--error {
     border-color: var(--color-error);
     background: rgba(239, 68, 68, 0.05);
 }
 
-.aural-file-upload__file--error .aural-file-upload__status {
+.file-upload__item--error .file-upload__status {
     color: var(--color-error);
 }
 
-.aural-file-upload__file--error .aural-file-upload__status::before {
-    content: '✗';
-    margin-right: var(--space-2);
-}
-
-.aural-file-upload__error-message {
+.file-upload__error-message {
     font-size: var(--text-xs);
     color: var(--color-error);
     margin-top: var(--space-1);
 }
 
 /* ========================================
-   File Actions
+   FILE ACTIONS
    ======================================== */
 
-.aural-file-upload__actions {
+.file-upload__actions {
     display: flex;
     gap: var(--space-2);
     flex-shrink: 0;
 }
 
-.aural-file-upload__remove {
-    display: flex;
+.file-upload__action {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
+    width: 32px;
+    height: 32px;
     padding: 0;
     background: transparent;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    color: var(--color-text-muted);
+    border-radius: var(--radius-md);
+    color: var(--color-text-tertiary);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition-all-fast);
 }
 
-.aural-file-upload__remove:hover {
+.file-upload__action:hover {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-border-medium);
+    color: var(--color-text-primary);
+}
+
+.file-upload__action--remove:hover {
     background: var(--color-error);
     border-color: var(--color-error);
     color: white;
 }
 
-.aural-file-upload__remove:focus-visible {
+.file-upload__action:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
-.aural-file-upload__remove::before {
-    content: '×';
-    font-size: 1.25rem;
-    line-height: 1;
+.file-upload__action svg,
+.file-upload__action i {
+    width: 16px;
+    height: 16px;
 }
 
 /* ========================================
-   Disabled State
+   BUTTON VARIANT
    ======================================== */
 
-.aural-file-upload--disabled .aural-file-upload__dropzone {
-    cursor: not-allowed;
-    opacity: 0.6;
-    background: var(--color-bg-secondary);
+.file-upload--button .file-upload__zone {
+    display: inline-flex;
+    flex-direction: row;
+    padding: var(--space-3) var(--space-6);
+    min-height: auto;
+    border: none;
+    background: var(--color-button-primary-bg);
+    color: var(--color-button-primary-text);
+    border-radius: var(--radius-md);
+    gap: var(--space-2);
 }
 
-.aural-file-upload--disabled .aural-file-upload__browse {
-    pointer-events: none;
+.file-upload--button .file-upload__zone:hover:not(.file-upload__zone--disabled) {
+    background: var(--color-button-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary-lg);
+}
+
+.file-upload--button .file-upload__icon {
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+    opacity: 1;
+}
+
+.file-upload--button .file-upload__text {
+    font-size: var(--text-base);
+    color: currentColor;
+}
+
+.file-upload--button .file-upload__subtext {
+    display: none;
 }
 
 /* ========================================
-   Compact Variant
+   IMAGE GRID VARIANT
    ======================================== */
 
-.aural-file-upload--compact .aural-file-upload__dropzone {
-    padding: var(--space-4);
-    min-height: 6rem;
+.file-upload--image-grid .file-upload__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--space-3);
 }
 
-.aural-file-upload--compact .aural-file-upload__icon {
-    font-size: 2rem;
+.file-upload--image-grid .file-upload__item {
+    flex-direction: column;
+    padding: var(--space-3);
+    aspect-ratio: 1;
 }
 
-.aural-file-upload--compact .aural-file-upload__primary-text {
+.file-upload--image-grid .file-upload__preview {
+    width: 100%;
+    height: 100%;
+    max-height: 120px;
+}
+
+.file-upload--image-grid .file-upload__info {
+    width: 100%;
+}
+
+.file-upload--image-grid .file-upload__filename {
+    text-align: center;
+}
+
+.file-upload--image-grid .file-upload__actions {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.file-upload--image-grid .file-upload__item:hover .file-upload__actions {
+    opacity: 1;
+}
+
+/* ========================================
+   CONSTRAINTS / HELPER TEXT
+   ======================================== */
+
+.file-upload__constraints {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.file-upload__error-text {
+    margin-top: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-md);
     font-size: var(--text-sm);
+    color: var(--color-error);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.file-upload__error-text svg,
+.file-upload__error-text i {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
 }
 
 /* ========================================
-   Accessibility
+   ACCESSIBILITY
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-file-upload__dropzone,
-    .aural-file-upload__file,
-    .aural-file-upload__progress-fill,
-    .aural-file-upload__remove {
+    .file-upload__zone,
+    .file-upload__item,
+    .file-upload__progress-fill,
+    .file-upload__action,
+    .file-upload__icon {
         transition: none;
+        animation: none;
     }
 }
 
 /* Focus visible for keyboard navigation */
 
-.aural-file-upload__input:focus-visible + .aural-file-upload__dropzone {
+.file-upload__input:focus-visible + .file-upload__zone {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
+}
+
+/* Screen reader only text */
+
+.file-upload__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+
+@media (max-width: 640px) {
+    .file-upload__zone {
+        padding: var(--space-6);
+        min-height: 160px;
+    }
+
+    .file-upload__icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .file-upload__text {
+        font-size: var(--text-sm);
+    }
+
+    .file-upload__item {
+        padding: var(--space-3);
+    }
+
+    .file-upload__preview {
+        width: 40px;
+        height: 40px;
+    }
+
+    .file-upload--image-grid .file-upload__list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
 }
 
 /**
@@ -20194,10 +20738,16 @@ body.aural-command-palette-open {
     right: var(--space-3);
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     color: var(--color-text-secondary);
     width: 20px;
     height: 20px;
+    transition: var(--transition-all-fast);
+}
+
+.aural-date-picker__icon:hover {
+    color: var(--color-primary);
 }
 
 /* ========================================
@@ -20365,6 +20915,11 @@ body.aural-command-palette-open {
     color: var(--color-text-primary);
 }
 
+.aural-date-picker__day--hover-range {
+    background: var(--primary-alpha-10);
+    color: var(--color-text-primary);
+}
+
 /* ========================================
    Calendar Footer
    ======================================== */
@@ -20462,6 +21017,34 @@ body.aural-command-palette-open {
 
     .aural-date-picker__calendar.aural-date-picker__calendar--open {
         transform: translateX(-50%) translateY(0);
+    }
+
+    .aural-date-picker__input {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+}
+
+/* Touch device optimizations */
+
+@media (pointer: coarse) {
+    .aural-date-picker__day {
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .aural-date-picker__nav-button {
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .aural-date-picker__footer-button {
+        min-height: 48px;
+        padding: var(--space-3) var(--space-4);
+    }
+
+    .aural-date-picker__input {
+        min-height: 48px;
+        font-size: 16px;
     }
 }
 

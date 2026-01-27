@@ -6,7 +6,7 @@
     <title>Date Range Picker - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -30,7 +30,7 @@
         }
 
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-10);
         }
 
         .page-title {
@@ -47,9 +47,19 @@
             margin: 0;
         }
 
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Example Container */
         .example-container {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .example-label {
@@ -58,15 +68,104 @@
             color: var(--color-text-secondary);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
         .example-demo {
-            padding: var(--space-6);
+            padding: var(--space-8);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content h4 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-4) 0 var(--space-2) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
         }
 
         /* Theme Toggle */
@@ -90,6 +189,17 @@
             border-width: 0;
         }
 
+        /* Date range picker specific */
+        .date-range-wrapper {
+            max-width: 100%;
+        }
+
+        .preset-grid {
+            display: flex;
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -104,9 +214,17 @@
                 font-size: var(--text-base);
             }
 
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
             .theme-toggle {
                 top: var(--space-4);
                 right: var(--space-4);
+            }
+
+            .example-demo {
+                padding: var(--space-6);
             }
         }
     </style>
@@ -119,107 +237,713 @@
 
         <div class="page-header">
             <h1 class="page-title">Date Range Picker</h1>
-            <p class="page-description">Select a start and end date with a visual calendar interface.</p>
+            <p class="page-description">Select a date range with start and end dates using a visual calendar interface. Perfect for filtering data, booking ranges, or scheduling period selections.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Basic Date Range Picker</div>
-            <div class="example-demo">
-                <div class="aural-date-picker aural-date-picker--range" id="date-range-picker-1">
-                    <div class="aural-date-picker__input-wrapper">
-                        <input type="text"
-                               class="aural-date-picker__input"
-                               placeholder="Select date range"
-                               readonly
-                               aria-label="Select date range"
-                               aria-haspopup="dialog"
-                               aria-expanded="false">
-                        <i data-lucide="calendar" class="aural-date-picker__icon" aria-hidden="true"></i>
-                    </div>
-                    <div class="aural-date-picker__calendar" role="dialog" aria-label="Date range picker">
-                        <div class="aural-date-picker__header">
-                            <button class="aural-date-picker__nav-button"
-                                    data-action="prev-month"
-                                    aria-label="Previous month"
-                                    type="button">
-                                <i data-lucide="chevron-left" aria-hidden="true"></i>
-                            </button>
-                            <div class="aural-date-picker__current-month" aria-live="polite">January 2026</div>
-                            <button class="aural-date-picker__nav-button"
-                                    data-action="next-month"
-                                    aria-label="Next month"
-                                    type="button">
-                                <i data-lucide="chevron-right" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div class="aural-date-picker__weekdays" role="row">
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Sunday">Su</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Monday">Mo</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Tuesday">Tu</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Wednesday">We</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Thursday">Th</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Friday">Fr</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Saturday">Sa</div>
-                        </div>
-                        <div class="aural-date-picker__days" role="grid" aria-label="Calendar days"></div>
-                        <div class="aural-date-picker__footer">
-                            <button class="aural-date-picker__footer-button" type="button" aria-label="Select today as start date">Today</button>
-                            <button class="aural-date-picker__footer-button" type="button" aria-label="Clear selected dates">Clear</button>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <!-- Basic Date Range Picker -->
+            <div class="example-container">
+                <div class="example-label">Basic Date Range Picker</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <div class="aural-date-range-picker" id="date-range-1">
+                            <div class="aural-date-range-picker__input-wrapper">
+                                <div class="aural-date-range-picker__inputs">
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="Start date" readonly aria-label="Start date">
+                                    <span class="aural-date-range-picker__separator">to</span>
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="End date" readonly aria-label="End date">
+                                </div>
+                                <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-date-range-picker__dropdown">
+                                <div class="aural-date-range-picker__calendars">
+                                    <div class="aural-date-range-picker__calendar">
+                                        <div class="aural-date-range-picker__calendar-header">
+                                            <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                            <div class="aural-date-range-picker__month-label">January 2026</div>
+                                            <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                        </div>
+                                        <div class="aural-date-range-picker__weekdays">
+                                            <div class="aural-date-range-picker__weekday">Su</div>
+                                            <div class="aural-date-range-picker__weekday">Mo</div>
+                                            <div class="aural-date-range-picker__weekday">Tu</div>
+                                            <div class="aural-date-range-picker__weekday">We</div>
+                                            <div class="aural-date-range-picker__weekday">Th</div>
+                                            <div class="aural-date-range-picker__weekday">Fr</div>
+                                            <div class="aural-date-range-picker__weekday">Sa</div>
+                                        </div>
+                                        <div class="aural-date-range-picker__days"></div>
+                                    </div>
+                                </div>
+                                <div class="aural-date-range-picker__footer">
+                                    <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+                                    <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-date-range-picker" id="date-range-1"&gt;
+    &lt;div class="aural-date-range-picker__input-wrapper"&gt;
+        &lt;div class="aural-date-range-picker__inputs"&gt;
+            &lt;input type="text" class="aural-date-range-picker__input"
+                   placeholder="Start date" readonly aria-label="Start date"&gt;
+            &lt;span class="aural-date-range-picker__separator"&gt;to&lt;/span&gt;
+            &lt;input type="text" class="aural-date-range-picker__input"
+                   placeholder="End date" readonly aria-label="End date"&gt;
+        &lt;/div&gt;
+        &lt;i data-lucide="calendar" class="aural-date-range-picker__icon"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-date-range-picker__dropdown"&gt;
+        &lt;!-- Calendar content --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
-        </div>
 
-        <div class="example-container">
-            <div class="example-label">With Preselected Range</div>
-            <div class="example-demo">
-                <div class="aural-date-picker aural-date-picker--range" id="date-range-picker-2">
-                    <div class="aural-date-picker__input-wrapper">
-                        <input type="text"
-                               class="aural-date-picker__input"
-                               placeholder="Select date range"
-                               readonly
-                               aria-label="Select date range"
-                               aria-haspopup="dialog"
-                               aria-expanded="false">
-                        <i data-lucide="calendar" class="aural-date-picker__icon" aria-hidden="true"></i>
-                    </div>
-                    <div class="aural-date-picker__calendar" role="dialog" aria-label="Date range picker">
-                        <div class="aural-date-picker__header">
-                            <button class="aural-date-picker__nav-button"
-                                    data-action="prev-month"
-                                    aria-label="Previous month"
-                                    type="button">
-                                <i data-lucide="chevron-left" aria-hidden="true"></i>
-                            </button>
-                            <div class="aural-date-picker__current-month" aria-live="polite">January 2026</div>
-                            <button class="aural-date-picker__nav-button"
-                                    data-action="next-month"
-                                    aria-label="Next month"
-                                    type="button">
-                                <i data-lucide="chevron-right" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div class="aural-date-picker__weekdays" role="row">
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Sunday">Su</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Monday">Mo</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Tuesday">Tu</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Wednesday">We</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Thursday">Th</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Friday">Fr</div>
-                            <div class="aural-date-picker__weekday" role="columnheader" aria-label="Saturday">Sa</div>
-                        </div>
-                        <div class="aural-date-picker__days" role="grid" aria-label="Calendar days"></div>
-                        <div class="aural-date-picker__footer">
-                            <button class="aural-date-picker__footer-button" type="button" aria-label="Select today as start date">Today</button>
-                            <button class="aural-date-picker__footer-button" type="button" aria-label="Clear selected dates">Clear</button>
+            <!-- With Preselected Range -->
+            <div class="example-container">
+                <div class="example-label">With Preselected Range</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <div class="aural-date-range-picker" id="date-range-2">
+                            <div class="aural-date-range-picker__input-wrapper">
+                                <div class="aural-date-range-picker__inputs">
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="Start date" readonly aria-label="Start date">
+                                    <span class="aural-date-range-picker__separator">to</span>
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="End date" readonly aria-label="End date">
+                                </div>
+                                <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-date-range-picker__dropdown">
+                                <div class="aural-date-range-picker__calendars">
+                                    <div class="aural-date-range-picker__calendar">
+                                        <div class="aural-date-range-picker__calendar-header">
+                                            <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                            <div class="aural-date-range-picker__month-label">January 2026</div>
+                                            <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                        </div>
+                                        <div class="aural-date-range-picker__weekdays">
+                                            <div class="aural-date-range-picker__weekday">Su</div>
+                                            <div class="aural-date-range-picker__weekday">Mo</div>
+                                            <div class="aural-date-range-picker__weekday">Tu</div>
+                                            <div class="aural-date-range-picker__weekday">We</div>
+                                            <div class="aural-date-range-picker__weekday">Th</div>
+                                            <div class="aural-date-range-picker__weekday">Fr</div>
+                                            <div class="aural-date-range-picker__weekday">Sa</div>
+                                        </div>
+                                        <div class="aural-date-range-picker__days"></div>
+                                    </div>
+                                </div>
+                                <div class="aural-date-range-picker__footer">
+                                    <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+                                    <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;script&gt;
+// Initialize with preselected range (last 7 days)
+const today = new Date();
+const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+const endDate = today;
+
+initDateRangePicker('#date-range-2', { startDate, endDate });
+&lt;/script&gt;</code></pre>
+                </details>
             </div>
         </div>
 
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <!-- Single Input Field -->
+            <div class="example-container">
+                <div class="example-label">Single Input Field</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <div class="aural-date-picker" id="date-range-single">
+                            <div class="aural-date-picker__input-wrapper">
+                                <input type="text" class="aural-date-picker__input" placeholder="Select date range..." readonly>
+                                <div class="aural-date-picker__icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="aural-date-picker__calendar">
+                                <div class="aural-date-picker__header">
+                                    <button class="aural-date-picker__nav-button" aria-label="Previous month">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                    </button>
+                                    <div class="aural-date-picker__current-month">January 2026</div>
+                                    <button class="aural-date-picker__nav-button" aria-label="Next month">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                    </button>
+                                </div>
+                                <div class="aural-date-picker__weekdays">
+                                    <div class="aural-date-picker__weekday">Su</div>
+                                    <div class="aural-date-picker__weekday">Mo</div>
+                                    <div class="aural-date-picker__weekday">Tu</div>
+                                    <div class="aural-date-picker__weekday">We</div>
+                                    <div class="aural-date-picker__weekday">Th</div>
+                                    <div class="aural-date-picker__weekday">Fr</div>
+                                    <div class="aural-date-picker__weekday">Sa</div>
+                                </div>
+                                <div class="aural-date-picker__days">
+                                    <!-- Days rendered by JavaScript -->
+                                </div>
+                                <div class="aural-date-picker__footer">
+                                    <button class="aural-date-picker__footer-button">Today</button>
+                                    <button class="aural-date-picker__footer-button">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-date-picker" id="date-range-single"&gt;
+  &lt;div class="aural-date-picker__input-wrapper"&gt;
+    &lt;input type="text" class="aural-date-picker__input"
+           placeholder="Select date range..." readonly&gt;
+    &lt;div class="aural-date-picker__icon"&gt;
+      &lt;svg&gt;...&lt;/svg&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-date-picker__calendar"&gt;
+    &lt;!-- Calendar structure --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initDateRangePicker('date-range-single', {
+  format: 'MM/DD/YYYY',
+  separator: ' - ',
+  onChange: (range) => console.log('Range:', range)
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- With Quick Presets -->
+            <div class="example-container">
+                <div class="example-label">With Quick Presets</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <div class="aural-date-range-picker" id="date-range-3">
+                            <div class="aural-date-range-picker__input-wrapper">
+                                <div class="aural-date-range-picker__inputs">
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="Start date" readonly aria-label="Start date">
+                                    <span class="aural-date-range-picker__separator">to</span>
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="End date" readonly aria-label="End date">
+                                </div>
+                                <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-date-range-picker__dropdown">
+                                <div style="display: flex; gap: var(--space-4);">
+                                    <div class="aural-date-range-picker__presets">
+                                        <div class="aural-date-range-picker__preset-label">Quick Ranges</div>
+                                        <div class="aural-date-range-picker__preset-list">
+                                            <button class="aural-date-range-picker__preset-button" data-preset="today">Today</button>
+                                            <button class="aural-date-range-picker__preset-button" data-preset="yesterday">Yesterday</button>
+                                            <button class="aural-date-range-picker__preset-button" data-preset="last7">Last 7 Days</button>
+                                            <button class="aural-date-range-picker__preset-button" data-preset="last30">Last 30 Days</button>
+                                            <button class="aural-date-range-picker__preset-button" data-preset="thisMonth">This Month</button>
+                                            <button class="aural-date-range-picker__preset-button" data-preset="lastMonth">Last Month</button>
+                                        </div>
+                                    </div>
+                                    <div class="aural-date-range-picker__calendars">
+                                        <div class="aural-date-range-picker__calendar">
+                                            <div class="aural-date-range-picker__calendar-header">
+                                                <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                                <div class="aural-date-range-picker__month-label">January 2026</div>
+                                                <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                            </div>
+                                            <div class="aural-date-range-picker__weekdays">
+                                                <div class="aural-date-range-picker__weekday">Su</div>
+                                                <div class="aural-date-range-picker__weekday">Mo</div>
+                                                <div class="aural-date-range-picker__weekday">Tu</div>
+                                                <div class="aural-date-range-picker__weekday">We</div>
+                                                <div class="aural-date-range-picker__weekday">Th</div>
+                                                <div class="aural-date-range-picker__weekday">Fr</div>
+                                                <div class="aural-date-range-picker__weekday">Sa</div>
+                                            </div>
+                                            <div class="aural-date-range-picker__days"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aural-date-range-picker__footer">
+                                    <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+                                    <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-date-range-picker__presets"&gt;
+    &lt;div class="aural-date-range-picker__preset-label"&gt;Quick Ranges&lt;/div&gt;
+    &lt;div class="aural-date-range-picker__preset-list"&gt;
+        &lt;button class="aural-date-range-picker__preset-button" data-preset="today"&gt;Today&lt;/button&gt;
+        &lt;button class="aural-date-range-picker__preset-button" data-preset="last7"&gt;Last 7 Days&lt;/button&gt;
+        &lt;button class="aural-date-range-picker__preset-button" data-preset="last30"&gt;Last 30 Days&lt;/button&gt;
+        &lt;button class="aural-date-range-picker__preset-button" data-preset="thisMonth"&gt;This Month&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Two Month View -->
+            <div class="example-container">
+                <div class="example-label">Two Month View</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <div class="aural-date-range-picker" id="date-range-4">
+                            <div class="aural-date-range-picker__input-wrapper">
+                                <div class="aural-date-range-picker__inputs">
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="Start date" readonly aria-label="Start date">
+                                    <span class="aural-date-range-picker__separator">to</span>
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="End date" readonly aria-label="End date">
+                                </div>
+                                <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-date-range-picker__dropdown">
+                                <div class="aural-date-range-picker__calendars">
+                                    <div class="aural-date-range-picker__calendar">
+                                        <div class="aural-date-range-picker__calendar-header">
+                                            <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                            <div class="aural-date-range-picker__month-label">January 2026</div>
+                                            <button class="aural-date-range-picker__nav-button" disabled aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                        </div>
+                                        <div class="aural-date-range-picker__weekdays">
+                                            <div class="aural-date-range-picker__weekday">Su</div>
+                                            <div class="aural-date-range-picker__weekday">Mo</div>
+                                            <div class="aural-date-range-picker__weekday">Tu</div>
+                                            <div class="aural-date-range-picker__weekday">We</div>
+                                            <div class="aural-date-range-picker__weekday">Th</div>
+                                            <div class="aural-date-range-picker__weekday">Fr</div>
+                                            <div class="aural-date-range-picker__weekday">Sa</div>
+                                        </div>
+                                        <div class="aural-date-range-picker__days"></div>
+                                    </div>
+                                    <div class="aural-date-range-picker__calendar">
+                                        <div class="aural-date-range-picker__calendar-header">
+                                            <button class="aural-date-range-picker__nav-button" disabled aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                            <div class="aural-date-range-picker__month-label">February 2026</div>
+                                            <button class="aural-date-range-picker__nav-button" data-action="next2" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                        </div>
+                                        <div class="aural-date-range-picker__weekdays">
+                                            <div class="aural-date-range-picker__weekday">Su</div>
+                                            <div class="aural-date-range-picker__weekday">Mo</div>
+                                            <div class="aural-date-range-picker__weekday">Tu</div>
+                                            <div class="aural-date-range-picker__weekday">We</div>
+                                            <div class="aural-date-range-picker__weekday">Th</div>
+                                            <div class="aural-date-range-picker__weekday">Fr</div>
+                                            <div class="aural-date-range-picker__weekday">Sa</div>
+                                        </div>
+                                        <div class="aural-date-range-picker__days"></div>
+                                    </div>
+                                </div>
+                                <div class="aural-date-range-picker__footer">
+                                    <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+                                    <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Display two calendars side by side --&gt;
+&lt;div class="aural-date-range-picker__calendars"&gt;
+    &lt;div class="aural-date-range-picker__calendar"&gt;
+        &lt;!-- January calendar --&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-date-range-picker__calendar"&gt;
+        &lt;!-- February calendar --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Min/Max Date Restrictions -->
+            <div class="example-container">
+                <div class="example-label">With Date Restrictions</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-4);">Only dates within the next 90 days can be selected</p>
+                        <div class="aural-date-range-picker" id="date-range-5">
+                            <div class="aural-date-range-picker__input-wrapper">
+                                <div class="aural-date-range-picker__inputs">
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="Start date" readonly aria-label="Start date">
+                                    <span class="aural-date-range-picker__separator">to</span>
+                                    <input type="text" class="aural-date-range-picker__input" placeholder="End date" readonly aria-label="End date">
+                                </div>
+                                <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-date-range-picker__dropdown">
+                                <div class="aural-date-range-picker__calendars">
+                                    <div class="aural-date-range-picker__calendar">
+                                        <div class="aural-date-range-picker__calendar-header">
+                                            <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                            <div class="aural-date-range-picker__month-label">January 2026</div>
+                                            <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                        </div>
+                                        <div class="aural-date-range-picker__weekdays">
+                                            <div class="aural-date-range-picker__weekday">Su</div>
+                                            <div class="aural-date-range-picker__weekday">Mo</div>
+                                            <div class="aural-date-range-picker__weekday">Tu</div>
+                                            <div class="aural-date-range-picker__weekday">We</div>
+                                            <div class="aural-date-range-picker__weekday">Th</div>
+                                            <div class="aural-date-range-picker__weekday">Fr</div>
+                                            <div class="aural-date-range-picker__weekday">Sa</div>
+                                        </div>
+                                        <div class="aural-date-range-picker__days"></div>
+                                    </div>
+                                </div>
+                                <div class="aural-date-range-picker__footer">
+                                    <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+                                    <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;script&gt;
+// Initialize with min/max date restrictions
+const today = new Date();
+const maxDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 90);
+
+initDateRangePicker('#date-range-5', {
+    minDate: today,
+    maxDate: maxDate
+});
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <!-- Analytics Dashboard Pattern -->
+            <div class="example-container">
+                <div class="example-label">Analytics Dashboard Pattern</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
+                            <label style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Date Range:</label>
+                            <div class="aural-date-range-picker" id="date-range-6" style="flex: 1;">
+                                <div class="aural-date-range-picker__input-wrapper">
+                                    <div class="aural-date-range-picker__inputs">
+                                        <input type="text" class="aural-date-range-picker__input" placeholder="Start date" readonly aria-label="Start date">
+                                        <span class="aural-date-range-picker__separator">to</span>
+                                        <input type="text" class="aural-date-range-picker__input" placeholder="End date" readonly aria-label="End date">
+                                    </div>
+                                    <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+                                </div>
+                                <div class="aural-date-range-picker__dropdown">
+                                    <div style="display: flex; gap: var(--space-4);">
+                                        <div class="aural-date-range-picker__presets">
+                                            <div class="aural-date-range-picker__preset-label">Quick Ranges</div>
+                                            <div class="aural-date-range-picker__preset-list">
+                                                <button class="aural-date-range-picker__preset-button" data-preset="today">Today</button>
+                                                <button class="aural-date-range-picker__preset-button" data-preset="last7">Last 7 Days</button>
+                                                <button class="aural-date-range-picker__preset-button" data-preset="last30">Last 30 Days</button>
+                                                <button class="aural-date-range-picker__preset-button" data-preset="thisMonth">This Month</button>
+                                            </div>
+                                        </div>
+                                        <div class="aural-date-range-picker__calendars">
+                                            <div class="aural-date-range-picker__calendar">
+                                                <div class="aural-date-range-picker__calendar-header">
+                                                    <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                                    <div class="aural-date-range-picker__month-label">January 2026</div>
+                                                    <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                                </div>
+                                                <div class="aural-date-range-picker__weekdays">
+                                                    <div class="aural-date-range-picker__weekday">Su</div>
+                                                    <div class="aural-date-range-picker__weekday">Mo</div>
+                                                    <div class="aural-date-range-picker__weekday">Tu</div>
+                                                    <div class="aural-date-range-picker__weekday">We</div>
+                                                    <div class="aural-date-range-picker__weekday">Th</div>
+                                                    <div class="aural-date-range-picker__weekday">Fr</div>
+                                                    <div class="aural-date-range-picker__weekday">Sa</div>
+                                                </div>
+                                                <div class="aural-date-range-picker__days"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="aural-date-range-picker__footer">
+                                        <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+                                        <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md); text-align: center;">
+                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-2);">Total Views</div>
+                            <div style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-primary);">12,458</div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; align-items: center; gap: var(--space-3);"&gt;
+    &lt;label&gt;Date Range:&lt;/label&gt;
+    &lt;div class="aural-date-range-picker" id="analytics-range"&gt;
+        &lt;!-- Date range picker with presets --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Booking System Pattern -->
+            <div class="example-container">
+                <div class="example-label">Booking System Pattern</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <div style="background: var(--color-bg-tertiary); padding: var(--space-6); border-radius: var(--radius-lg);">
+                            <h3 style="margin: 0 0 var(--space-4) 0; color: var(--color-text-primary); font-size: var(--text-lg);">Select Your Stay</h3>
+                            <div class="aural-date-range-picker" id="date-range-7">
+                                <div class="aural-date-range-picker__input-wrapper">
+                                    <div class="aural-date-range-picker__inputs">
+                                        <input type="text" class="aural-date-range-picker__input" placeholder="Check-in" readonly aria-label="Check-in date">
+                                        <span class="aural-date-range-picker__separator">to</span>
+                                        <input type="text" class="aural-date-range-picker__input" placeholder="Check-out" readonly aria-label="Check-out date">
+                                    </div>
+                                    <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+                                </div>
+                                <div class="aural-date-range-picker__dropdown">
+                                    <div class="aural-date-range-picker__calendars">
+                                        <div class="aural-date-range-picker__calendar">
+                                            <div class="aural-date-range-picker__calendar-header">
+                                                <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                                <div class="aural-date-range-picker__month-label">January 2026</div>
+                                                <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                            </div>
+                                            <div class="aural-date-range-picker__weekdays">
+                                                <div class="aural-date-range-picker__weekday">Su</div>
+                                                <div class="aural-date-range-picker__weekday">Mo</div>
+                                                <div class="aural-date-range-picker__weekday">Tu</div>
+                                                <div class="aural-date-range-picker__weekday">We</div>
+                                                <div class="aural-date-range-picker__weekday">Th</div>
+                                                <div class="aural-date-range-picker__weekday">Fr</div>
+                                                <div class="aural-date-range-picker__weekday">Sa</div>
+                                            </div>
+                                            <div class="aural-date-range-picker__days"></div>
+                                        </div>
+                                    </div>
+                                    <div class="aural-date-range-picker__footer">
+                                        <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+                                        <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: var(--space-4); padding: var(--space-3); background: var(--color-bg-primary); border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Duration:</span>
+                                <span style="color: var(--color-primary); font-weight: var(--font-semibold);" id="duration-7">0 nights</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="booking-container"&gt;
+    &lt;h3&gt;Select Your Stay&lt;/h3&gt;
+    &lt;div class="aural-date-range-picker"&gt;
+        &lt;!-- Date range picker --&gt;
+    &lt;/div&gt;
+    &lt;div class="duration-display"&gt;
+        &lt;span&gt;Duration:&lt;/span&gt;
+        &lt;span id="duration"&gt;0 nights&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Report Filter Pattern -->
+            <div class="example-container">
+                <div class="example-label">Report Filter Pattern</div>
+                <div class="example-demo">
+                    <div class="date-range-wrapper">
+                        <div style="border: 1px solid var(--color-border-subtle); padding: var(--space-6); border-radius: var(--radius-lg);">
+                            <h3 style="margin: 0 0 var(--space-6) 0; color: var(--color-text-primary); font-size: var(--text-xl);">Generate Report</h3>
+                            <div style="display: grid; gap: var(--space-4);">
+                                <div>
+                                    <label style="display: block; font-weight: var(--font-medium); color: var(--color-text-primary); margin-bottom: var(--space-2);">Report Period</label>
+                                    <div class="aural-date-range-picker" id="date-range-8">
+                                        <div class="aural-date-range-picker__input-wrapper">
+                                            <div class="aural-date-range-picker__inputs">
+                                                <input type="text" class="aural-date-range-picker__input" placeholder="Start date" readonly aria-label="Start date">
+                                                <span class="aural-date-range-picker__separator">to</span>
+                                                <input type="text" class="aural-date-range-picker__input" placeholder="End date" readonly aria-label="End date">
+                                            </div>
+                                            <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="aural-date-range-picker__dropdown">
+                                            <div style="display: flex; gap: var(--space-4);">
+                                                <div class="aural-date-range-picker__presets">
+                                                    <div class="aural-date-range-picker__preset-label">Quick Ranges</div>
+                                                    <div class="aural-date-range-picker__preset-list">
+                                                        <button class="aural-date-range-picker__preset-button" data-preset="last7">Last 7 Days</button>
+                                                        <button class="aural-date-range-picker__preset-button" data-preset="last30">Last 30 Days</button>
+                                                        <button class="aural-date-range-picker__preset-button" data-preset="thisMonth">This Month</button>
+                                                        <button class="aural-date-range-picker__preset-button" data-preset="lastMonth">Last Month</button>
+                                                        <button class="aural-date-range-picker__preset-button" data-preset="thisQuarter">This Quarter</button>
+                                                        <button class="aural-date-range-picker__preset-button" data-preset="thisYear">This Year</button>
+                                                    </div>
+                                                </div>
+                                                <div class="aural-date-range-picker__calendars">
+                                                    <div class="aural-date-range-picker__calendar">
+                                                        <div class="aural-date-range-picker__calendar-header">
+                                                            <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                                                            <div class="aural-date-range-picker__month-label">January 2026</div>
+                                                            <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                                                        </div>
+                                                        <div class="aural-date-range-picker__weekdays">
+                                                            <div class="aural-date-range-picker__weekday">Su</div>
+                                                            <div class="aural-date-range-picker__weekday">Mo</div>
+                                                            <div class="aural-date-range-picker__weekday">Tu</div>
+                                                            <div class="aural-date-range-picker__weekday">We</div>
+                                                            <div class="aural-date-range-picker__weekday">Th</div>
+                                                            <div class="aural-date-range-picker__weekday">Fr</div>
+                                                            <div class="aural-date-range-picker__weekday">Sa</div>
+                                                        </div>
+                                                        <div class="aural-date-range-picker__days"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="aural-date-range-picker__footer">
+                                                <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+                                                <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" style="margin-top: var(--space-2);">
+                                    <i data-lucide="download" style="width: 16px; height: 16px; margin-right: var(--space-2);"></i>
+                                    Generate Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="report-filter"&gt;
+    &lt;h3&gt;Generate Report&lt;/h3&gt;
+    &lt;label&gt;Report Period&lt;/label&gt;
+    &lt;div class="aural-date-range-picker"&gt;
+        &lt;!-- Date range picker with presets --&gt;
+    &lt;/div&gt;
+    &lt;button class="btn btn-primary"&gt;Generate Report&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <!-- Best Practices Section -->
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use Date Range Pickers</h3>
+                    <ul>
+                        <li><strong>Data Filtering:</strong> Perfect for filtering analytics, reports, or logs by date ranges. Users can quickly select time periods to view relevant data.</li>
+                        <li><strong>Booking and Reservations:</strong> Essential for hotel bookings, car rentals, vacation planning, or any service requiring start and end dates.</li>
+                        <li><strong>Event Scheduling:</strong> Use for scheduling events, meetings, or activities that span multiple days.</li>
+                        <li><strong>Report Generation:</strong> Ideal for financial reports, performance reviews, or any report that requires a date range parameter.</li>
+                        <li><strong>Historical Analysis:</strong> When users need to compare data across different time periods or analyze trends.</li>
+                    </ul>
+
+                    <h3>When NOT to Use Date Range Pickers</h3>
+                    <ul>
+                        <li><strong>Single Date Selection:</strong> If you only need one date, use a regular date picker instead. Don't force users to select the same date twice.</li>
+                        <li><strong>Fixed Periods:</strong> When only predefined periods are allowed (e.g., quarters, semesters), use a dropdown or radio buttons instead.</li>
+                        <li><strong>Real-time Data:</strong> For live dashboards showing current data, avoid forcing date range selection. Provide it as an optional filter.</li>
+                        <li><strong>Simple Time Periods:</strong> If you only need "this week" or "this month", consider using preset buttons instead of a full date range picker.</li>
+                    </ul>
+
+                    <h3>Design Guidelines</h3>
+                    <h4>Visual Range Indication</h4>
+                    <p>Always highlight the selected range visually in the calendar. Users should see at a glance which dates are included in their selection.</p>
+
+                    <h4>Start and End Labels</h4>
+                    <p>Clearly label which date is the start and which is the end. Use descriptive placeholders like "Check-in" and "Check-out" or "From" and "To".</p>
+
+                    <h4>Range Validation</h4>
+                    <p>Automatically ensure the end date is after the start date. If users select dates in the wrong order, swap them automatically rather than showing an error.</p>
+
+                    <h4>Quick Presets</h4>
+                    <p>Include commonly used presets like "Last 7 Days", "Last 30 Days", "This Month" to speed up selection for frequent use cases.</p>
+
+                    <h4>Two-Month View</h4>
+                    <p>For desktop displays, show two months side-by-side to make it easier to select ranges that span month boundaries.</p>
+
+                    <h3>Accessibility Guidelines</h3>
+                    <ul>
+                        <li><strong>Keyboard Navigation:</strong> Support full keyboard navigation including:
+                            <ul>
+                                <li>Tab to move between start/end inputs and calendar controls</li>
+                                <li>Arrow keys to navigate between days</li>
+                                <li>Enter/Space to select dates</li>
+                                <li>Escape to close the dropdown</li>
+                            </ul>
+                        </li>
+                        <li><strong>Screen Reader Support:</strong> Provide clear ARIA labels for all interactive elements. Announce range selection and changes to screen reader users.</li>
+                        <li><strong>Focus Management:</strong> When opening the calendar, move focus to the first selectable date or the current selection.</li>
+                        <li><strong>Visual Indicators:</strong> Use distinct colors and styles to indicate selected range, hover states, and disabled dates. Ensure sufficient color contrast.</li>
+                        <li><strong>Touch Targets:</strong> Make date cells large enough for easy touch interaction (minimum 44x44px).</li>
+                    </ul>
+
+                    <h3>Common Patterns</h3>
+                    <h4>Analytics Dashboard</h4>
+                    <p>Combine with quick presets (Last 7 Days, Last 30 Days, This Month) for rapid date range changes. Position prominently at the top of the dashboard.</p>
+
+                    <h4>Booking System</h4>
+                    <p>Use clear labels like "Check-in" and "Check-out". Show the number of nights/days selected. Disable unavailable dates based on inventory.</p>
+
+                    <h4>Report Generation</h4>
+                    <p>Include presets for common reporting periods (This Quarter, Last Quarter, This Year). Display the selected range clearly before report generation.</p>
+
+                    <h4>Data Filtering</h4>
+                    <p>Allow clearing the filter to show all data. Provide a way to save or bookmark frequently used date ranges.</p>
+
+                    <h4>Event Planning</h4>
+                    <p>Show a duration indicator (e.g., "5 days selected"). Consider maximum range limits for practical planning.</p>
+
+                    <h3>Technical Implementation</h3>
+                    <h4>Date Validation</h4>
+                    <p>Implement min/max date restrictions when needed. Validate that end date is after start date. Handle timezone considerations for multi-timezone applications.</p>
+
+                    <h4>State Management</h4>
+                    <p>Store both start and end dates separately. Clear both dates when user clicks Clear. Maintain selection state when calendar is closed and reopened.</p>
+
+                    <h4>Mobile Considerations</h4>
+                    <p>On mobile, consider showing one month at a time with swipe gestures for navigation. Ensure the dropdown doesn't overflow the viewport.</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->
@@ -240,11 +964,14 @@
     </div>
 
     <!-- Aural UI JavaScript -->
-    <script src="../aural-ui.js?v=9"></script>
+    <script src="../aural-ui.js?v=13"></script>
 
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // Initialize tabs
+        Aural.initTabs();
 
         // Theme toggle
         let isDark = true;
@@ -262,265 +989,295 @@
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
 
-        // Date Range Picker functionality
-        function initDateRangePicker(pickerElement) {
-            const input = pickerElement.querySelector('.aural-date-picker__input');
-            const calendar = pickerElement.querySelector('.aural-date-picker__calendar');
-            const monthDisplay = pickerElement.querySelector('.aural-date-picker__current-month');
-            const daysContainer = pickerElement.querySelector('.aural-date-picker__days');
-            const prevBtn = pickerElement.querySelector('[data-action="prev-month"]');
-            const nextBtn = pickerElement.querySelector('[data-action="next-month"]');
-            const footerBtns = pickerElement.querySelectorAll('.aural-date-picker__footer-button');
-            const todayBtn = footerBtns[0];
-            const clearBtn = footerBtns[1];
+        // Date Range Picker Initialization
+        function initDateRangePicker(selector, options = {}) {
+            const picker = typeof selector === 'string' ? document.querySelector(selector) : selector;
+            if (!picker) return;
 
-            if (!input || !calendar) {
-                console.error('Date range picker elements not found');
-                return;
-            }
+            const inputs = picker.querySelectorAll('.aural-date-range-picker__input');
+            const startInput = inputs[0];
+            const endInput = inputs[1];
+            const dropdown = picker.querySelector('.aural-date-range-picker__dropdown');
+            const calendars = picker.querySelectorAll('.aural-date-range-picker__calendar');
+            const monthLabels = picker.querySelectorAll('.aural-date-range-picker__month-label');
+            const daysContainers = picker.querySelectorAll('.aural-date-range-picker__days');
+            const prevBtns = picker.querySelectorAll('[data-action="prev"]');
+            const nextBtns = picker.querySelectorAll('[data-action="next"], [data-action="next2"]');
+            const applyBtn = picker.querySelector('[data-action="apply"]');
+            const clearBtn = picker.querySelector('[data-action="clear"]');
+            const presetBtns = picker.querySelectorAll('.aural-date-range-picker__preset-button');
+
+            let startDate = options.startDate || null;
+            let endDate = options.endDate || null;
+            let currentMonth = new Date();
+            const minDate = options.minDate || null;
+            const maxDate = options.maxDate || null;
 
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                              'July', 'August', 'September', 'October', 'November', 'December'];
-
-            let currentDate = new Date();
-            let startDate = null;
-            let endDate = null;
-            let hoverDate = null;
-
-            const announcer = document.getElementById('date-range-announcer');
-
-            function announce(message) {
-                if (announcer) {
-                    announcer.textContent = message;
-                }
-            }
+                                'July', 'August', 'September', 'October', 'November', 'December'];
 
             function formatDate(date) {
                 if (!date) return '';
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const day = String(date.getDate()).padStart(2, '0');
-                const year = date.getFullYear();
-                return `${month}/${day}/${year}`;
+                return `${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}/${date.getFullYear()}`;
             }
 
-            function updateInput() {
-                if (startDate && endDate) {
-                    input.value = `${formatDate(startDate)} - ${formatDate(endDate)}`;
-                } else if (startDate) {
-                    input.value = formatDate(startDate);
-                } else {
-                    input.value = '';
+            function updateInputs() {
+                startInput.value = formatDate(startDate);
+                endInput.value = formatDate(endDate);
+
+                // Update duration for booking pattern
+                const durationEl = document.getElementById('duration-' + picker.id.split('-')[2]);
+                if (durationEl && startDate && endDate) {
+                    const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+                    durationEl.textContent = `${days} night${days !== 1 ? 's' : ''}`;
                 }
-                console.log('Input updated:', input.value);
             }
 
-            // For the second picker, set a preselected range (7 days)
-            if (pickerElement.id === 'date-range-picker-2') {
-                const today = new Date();
-                startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 3);
-                endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 3);
-                updateInput();
-            }
+            function renderCalendar(calendarIndex = 0) {
+                const monthOffset = calendarIndex;
+                const renderDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + monthOffset, 1);
+                const year = renderDate.getFullYear();
+                const month = renderDate.getMonth();
 
-            function isInRange(date, start, end) {
-                if (!start || !end) return false;
-                const d = date.getTime();
-                const s = start.getTime();
-                const e = end.getTime();
-                return d >= Math.min(s, e) && d <= Math.max(s, e);
-            }
-
-            function renderCalendar() {
-                const year = currentDate.getFullYear();
-                const month = currentDate.getMonth();
-
-                monthDisplay.textContent = `${monthNames[month]} ${year}`;
+                if (monthLabels[calendarIndex]) {
+                    monthLabels[calendarIndex].textContent = `${monthNames[month]} ${year}`;
+                }
 
                 const firstDay = new Date(year, month, 1).getDay();
                 const daysInMonth = new Date(year, month + 1, 0).getDate();
                 const today = new Date();
+                today.setHours(0, 0, 0, 0);
 
-                daysContainer.innerHTML = '';
+                const container = daysContainers[calendarIndex];
+                if (!container) return;
+                container.innerHTML = '';
 
-                // Add empty cells for days before month starts
+                // Empty cells before month starts
                 for (let i = 0; i < firstDay; i++) {
                     const emptyDay = document.createElement('div');
-                    emptyDay.className = 'aural-date-picker__day aural-date-picker__day--other-month';
-                    daysContainer.appendChild(emptyDay);
+                    emptyDay.className = 'aural-date-range-picker__day aural-date-range-picker__day--other-month';
+                    container.appendChild(emptyDay);
                 }
 
-                // Add days of month
+                // Days of month
                 for (let day = 1; day <= daysInMonth; day++) {
-                    const dayElement = document.createElement('button');
-                    dayElement.className = 'aural-date-picker__day';
-                    dayElement.textContent = day;
-                    dayElement.type = 'button';
-
                     const dayDate = new Date(year, month, day);
-                    const dateStr = dayDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    const dayBtn = document.createElement('button');
+                    dayBtn.type = 'button';
+                    dayBtn.className = 'aural-date-range-picker__day';
+                    dayBtn.textContent = day;
+                    dayBtn.setAttribute('aria-label', dayDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
 
-                    // Build aria-label
-                    let ariaLabel = dateStr;
-                    if (dayDate.toDateString() === today.toDateString()) {
-                        ariaLabel += ', today';
-                        dayElement.classList.add('aural-date-picker__day--today');
-                    }
-                    if (startDate && dayDate.toDateString() === startDate.toDateString()) {
-                        ariaLabel += ', range start';
-                        dayElement.classList.add('aural-date-picker__day--range-start');
-                    }
-                    if (endDate && dayDate.toDateString() === endDate.toDateString()) {
-                        ariaLabel += ', range end';
-                        dayElement.classList.add('aural-date-picker__day--range-end');
+                    // Check if today
+                    if (dayDate.getTime() === today.getTime()) {
+                        dayBtn.classList.add('aural-date-range-picker__day--today');
                     }
 
-                    // Check if in range (including hover preview)
-                    const previewEnd = hoverDate || endDate;
-                    if (isInRange(dayDate, startDate, previewEnd)) {
-                        ariaLabel += ', in selected range';
-                        dayElement.classList.add('aural-date-picker__day--in-range');
+                    // Check if disabled
+                    let isDisabled = false;
+                    if (minDate && dayDate < minDate) isDisabled = true;
+                    if (maxDate && dayDate > maxDate) isDisabled = true;
+                    if (isDisabled) {
+                        dayBtn.classList.add('aural-date-range-picker__day--disabled');
+                        dayBtn.disabled = true;
                     }
 
-                    dayElement.setAttribute('aria-label', ariaLabel);
-                    dayElement.setAttribute('role', 'gridcell');
+                    // Check if in selected range
+                    if (startDate && endDate) {
+                        const dayTime = dayDate.getTime();
+                        const startTime = startDate.getTime();
+                        const endTime = endDate.getTime();
 
-                    // Click handler
-                    dayElement.addEventListener('click', (e) => {
-                        e.stopPropagation();
-
-                        console.log('Day clicked:', dayDate, 'Current state - startDate:', startDate, 'endDate:', endDate);
-
-                        if (!startDate || (startDate && endDate)) {
-                            // Start new range
-                            startDate = new Date(dayDate.getTime());
-                            endDate = null;
-                            console.log('Starting new range. Start date:', startDate);
-                            announce(`Start date selected: ${dateStr}. Now select an end date.`);
-                            updateInput();
-                            renderCalendar();
-                        } else {
-                            // Set end date
-                            console.log('Setting end date...');
-                            if (dayDate < startDate) {
-                                // Swap if end is before start
-                                endDate = new Date(startDate.getTime());
-                                startDate = new Date(dayDate.getTime());
-                                console.log('Swapped dates. Start:', startDate, 'End:', endDate);
-                            } else {
-                                endDate = new Date(dayDate.getTime());
-                                console.log('End date set:', endDate);
-                            }
-
-                            updateInput();
-
-                            const rangeStr = `${formatDate(startDate)} to ${formatDate(endDate)}`;
-                            announce(`Date range selected: ${rangeStr}`);
-
-                            console.log('Closing calendar and focusing input');
-                            calendar.classList.remove('aural-date-picker__calendar--open');
-                            input.setAttribute('aria-expanded', 'false');
-
-                            // Don't re-render after selecting end date, just close
-                            setTimeout(() => {
-                                input.focus();
-                            }, 10);
+                        if (dayTime === startTime) {
+                            dayBtn.classList.add('aural-date-range-picker__day--range-start');
                         }
+                        if (dayTime === endTime) {
+                            dayBtn.classList.add('aural-date-range-picker__day--range-end');
+                        }
+                        if (dayTime > startTime && dayTime < endTime) {
+                            dayBtn.classList.add('aural-date-range-picker__day--in-range');
+                        }
+                    }
+
+                    dayBtn.addEventListener('click', () => {
+                        if (!startDate || (startDate && endDate)) {
+                            // Start new selection
+                            startDate = new Date(dayDate);
+                            endDate = null;
+                        } else {
+                            // Complete selection
+                            if (dayDate < startDate) {
+                                endDate = startDate;
+                                startDate = new Date(dayDate);
+                            } else {
+                                endDate = new Date(dayDate);
+                            }
+                        }
+                        renderAllCalendars();
+                        updateInputs();
                     });
 
-                    daysContainer.appendChild(dayElement);
+                    container.appendChild(dayBtn);
                 }
 
                 lucide.createIcons();
             }
 
-            // Toggle calendar
-            input.addEventListener('click', () => {
-                const isOpen = calendar.classList.toggle('aural-date-picker__calendar--open');
-                input.setAttribute('aria-expanded', isOpen);
-                if (isOpen) {
-                    renderCalendar();
-                    // Focus first day button after render
-                    setTimeout(() => {
-                        const firstDay = daysContainer.querySelector('.aural-date-picker__day:not(.aural-date-picker__day--other-month)');
-                        if (firstDay) firstDay.focus();
-                    }, 0);
+            function renderAllCalendars() {
+                for (let i = 0; i < daysContainers.length; i++) {
+                    renderCalendar(i);
+                }
+            }
+
+            // Toggle dropdown
+            startInput.addEventListener('click', () => {
+                dropdown.classList.toggle('aural-date-range-picker__dropdown--open');
+                if (dropdown.classList.contains('aural-date-range-picker__dropdown--open')) {
+                    renderAllCalendars();
                 }
             });
 
-            // Keyboard support for input
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    input.click();
-                } else if (e.key === 'Escape') {
-                    calendar.classList.remove('aural-date-picker__calendar--open');
-                    input.setAttribute('aria-expanded', 'false');
+            endInput.addEventListener('click', () => {
+                dropdown.classList.toggle('aural-date-range-picker__dropdown--open');
+                if (dropdown.classList.contains('aural-date-range-picker__dropdown--open')) {
+                    renderAllCalendars();
                 }
             });
 
             // Navigation
-            prevBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar();
+            prevBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1);
+                    renderAllCalendars();
+                });
             });
 
-            nextBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar();
+            nextBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
+                    renderAllCalendars();
+                });
             });
 
-            // Today button - select today as start date
-            todayBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                startDate = new Date();
-                endDate = null;
-                currentDate = new Date();
-                updateInput();
-                renderCalendar();
-                announce('Today selected as start date. Now select an end date.');
-            });
+            // Apply button
+            if (applyBtn) {
+                applyBtn.addEventListener('click', () => {
+                    dropdown.classList.remove('aural-date-range-picker__dropdown--open');
+                });
+            }
 
             // Clear button
-            clearBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                startDate = null;
-                endDate = null;
-                hoverDate = null;
-                input.value = '';
-                renderCalendar();
-                announce('Date selection cleared.');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    startDate = null;
+                    endDate = null;
+                    updateInputs();
+                    renderAllCalendars();
+                });
+            }
+
+            // Preset buttons
+            presetBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const preset = btn.dataset.preset;
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    switch (preset) {
+                        case 'today':
+                            startDate = new Date(today);
+                            endDate = new Date(today);
+                            break;
+                        case 'yesterday':
+                            startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+                            endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+                            break;
+                        case 'last7':
+                            startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6);
+                            endDate = new Date(today);
+                            break;
+                        case 'last30':
+                            startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 29);
+                            endDate = new Date(today);
+                            break;
+                        case 'thisMonth':
+                            startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                            endDate = new Date(today);
+                            break;
+                        case 'lastMonth':
+                            startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+                            endDate = new Date(today.getFullYear(), today.getMonth(), 0);
+                            break;
+                        case 'thisQuarter':
+                            const quarter = Math.floor(today.getMonth() / 3);
+                            startDate = new Date(today.getFullYear(), quarter * 3, 1);
+                            endDate = new Date(today);
+                            break;
+                        case 'thisYear':
+                            startDate = new Date(today.getFullYear(), 0, 1);
+                            endDate = new Date(today);
+                            break;
+                    }
+
+                    updateInputs();
+                    renderAllCalendars();
+
+                    // Remove active class from all presets
+                    presetBtns.forEach(b => b.classList.remove('aural-date-range-picker__preset-button--active'));
+                    btn.classList.add('aural-date-range-picker__preset-button--active');
+                });
             });
 
-            // Close calendar when clicking outside
+            // Close on outside click
             document.addEventListener('click', (e) => {
-                if (!pickerElement.contains(e.target)) {
-                    calendar.classList.remove('aural-date-picker__calendar--open');
-                    input.setAttribute('aria-expanded', 'false');
-                    hoverDate = null;
-                }
-            });
-
-            // Keyboard navigation for calendar
-            calendar.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    e.preventDefault();
-                    calendar.classList.remove('aural-date-picker__calendar--open');
-                    input.setAttribute('aria-expanded', 'false');
-                    input.focus();
+                if (!picker.contains(e.target)) {
+                    dropdown.classList.remove('aural-date-range-picker__dropdown--open');
                 }
             });
 
             // Initial render
-            renderCalendar();
+            updateInputs();
+            renderAllCalendars();
         }
 
         // Initialize all date range pickers
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.aural-date-picker--range').forEach(initDateRangePicker);
+            initDateRangePicker('#date-range-1');
+
+            // Preselected range (last 7 days)
+            const today = new Date();
+            initDateRangePicker('#date-range-2', {
+                startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7),
+                endDate: new Date(today)
+            });
+
+            initDateRangePicker('#date-range-3');
+            initDateRangePicker('#date-range-4');
+
+            // With date restrictions (next 90 days only)
+            initDateRangePicker('#date-range-5', {
+                minDate: new Date(),
+                maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 90)
+            });
+
+            initDateRangePicker('#date-range-6');
+            initDateRangePicker('#date-range-7');
+            initDateRangePicker('#date-range-8');
+
+            // Initialize single-field date range picker using Aural.initDateRangePicker
+            if (document.getElementById('date-range-single')) {
+                Aural.initDateRangePicker('date-range-single', {
+                    format: 'MM/DD/YYYY',
+                    separator: ' - ',
+                    onChange: (range) => {
+                        console.log('Single-field range selected:', range);
+                    }
+                });
+            }
         });
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY

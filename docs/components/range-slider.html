@@ -30,7 +30,7 @@
         }
 
         .page-header {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-10);
         }
 
         .page-title {
@@ -47,9 +47,19 @@
             margin: 0;
         }
 
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Example Container */
         .example-container {
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-12);
         }
 
         .example-label {
@@ -58,15 +68,20 @@
             color: var(--color-text-secondary);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wide);
-            margin-bottom: var(--space-3);
+            margin-bottom: var(--space-4);
         }
 
         .example-demo {
-            padding: var(--space-6);
+            padding: var(--space-8);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: var(--space-6);
         }
 
         .content-section {
@@ -91,6 +106,13 @@
             font-weight: var(--font-semibold);
             color: var(--color-text-primary);
             margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content h4 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-4) 0 var(--space-2) 0;
         }
 
         .section-content p {
@@ -126,6 +148,51 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        .code-snippet {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: var(--text-sm);
+            line-height: 1.6;
+        }
+
+        /* Component Grid */
+        .component-grid {
+            display: grid;
+            gap: var(--space-6);
+        }
+
+        /* Vertical Range Container */
+        .vertical-range-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -156,6 +223,10 @@
                 top: var(--space-4);
                 right: var(--space-4);
             }
+
+            .example-demo {
+                padding: var(--space-6);
+            }
         }
     </style>
 </head>
@@ -164,29 +235,619 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Range Slider</h1>
-            <p class="page-description">Dual-handle slider for range selection.</p>
+            <p class="page-description">A dual-handle slider component for selecting minimum and maximum values from a range. Perfect for price filters, date ranges, and any scenario requiring bounded value selection.</p>
         </div>
 
-        <div class="aural-range-slider__handle aural-range-slider__handle--min" style="left: 25%;" tabindex="0">
-                            <div class="aural-range-slider__label">$25</div>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <!-- Basic Range Slider -->
+            <div class="example-container">
+                <div class="example-label">Basic Range Slider</div>
+                <div class="example-demo">
+                    <div class="aural-range-slider" id="range-basic">
+                        <div class="aural-range-slider__wrapper">
+                            <div class="aural-range-slider__track-bg"></div>
+                            <div class="aural-range-slider__track-fill"></div>
+                            <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum value" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25"></div>
+                            <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum value" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75"></div>
                         </div>
-                        <div class="aural-range-slider__handle aural-range-slider__handle--max" style="left: 75%;" tabindex="0">
-                            <div class="aural-range-slider__label">$75</div>
-                        </div>
-                    </div>
-                    <div class="aural-range-slider__values">
-                        <div class="aural-range-slider__value">
-                            <span class="aural-range-slider__value-label">Min:</span>
-                            <span class="aural-range-slider__value-number">$25</span>
-                        </div>
-                        <div class="aural-range-slider__value">
-                            <span class="aural-range-slider__value-label">Max:</span>
-                            <span class="aural-range-slider__value-number">$75</span>
+                        <div class="aural-range-slider__values">
+                            <div class="aural-range-slider__value">
+                                <span class="aural-range-slider__value-label">Min:</span>
+                                <span class="aural-range-slider__value-number">25</span>
+                            </div>
+                            <div class="aural-range-slider__value">
+                                <span class="aural-range-slider__value-label">Max:</span>
+                                <span class="aural-range-slider__value-number">75</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-range-slider" id="range-basic"&gt;
+    &lt;div class="aural-range-slider__wrapper"&gt;
+        &lt;div class="aural-range-slider__track-bg"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__track-fill"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--min"
+             tabindex="0" role="slider" aria-label="Minimum value"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="25"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--max"
+             tabindex="0" role="slider" aria-label="Maximum value"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="75"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-range-slider__values"&gt;
+        &lt;div class="aural-range-slider__value"&gt;
+            &lt;span class="aural-range-slider__value-label"&gt;Min:&lt;/span&gt;
+            &lt;span class="aural-range-slider__value-number"&gt;25&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-range-slider__value"&gt;
+            &lt;span class="aural-range-slider__value-label"&gt;Max:&lt;/span&gt;
+            &lt;span class="aural-range-slider__value-number"&gt;75&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
 
+            <!-- With Input Fields -->
+            <div class="example-container">
+                <div class="example-label">With Input Fields</div>
+                <div class="example-demo">
+                    <div class="aural-range-slider" id="range-inputs">
+                        <div class="aural-range-slider__inputs">
+                            <div class="aural-range-slider__input-group">
+                                <label class="aural-range-slider__input-label">Min</label>
+                                <div class="input-number">
+                                    <input type="number" class="aural-range-slider__input" value="30" min="0" max="100">
+                                    <div class="input-number__controls">
+                                        <button type="button" class="input-number__button" data-action="increment" aria-label="Increment">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="18 15 12 9 6 15"></polyline>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="input-number__button" data-action="decrement" aria-label="Decrement">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-range-slider__input-group">
+                                <label class="aural-range-slider__input-label">Max</label>
+                                <div class="input-number">
+                                    <input type="number" class="aural-range-slider__input" value="80" min="0" max="100">
+                                    <div class="input-number__controls">
+                                        <button type="button" class="input-number__button" data-action="increment" aria-label="Increment">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="18 15 12 9 6 15"></polyline>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="input-number__button" data-action="decrement" aria-label="Decrement">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aural-range-slider__wrapper">
+                            <div class="aural-range-slider__track-bg"></div>
+                            <div class="aural-range-slider__track-fill"></div>
+                            <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum value" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30"></div>
+                            <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum value" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80"></div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-range-slider" id="range-inputs"&gt;
+    &lt;div class="aural-range-slider__inputs"&gt;
+        &lt;div class="aural-range-slider__input-group"&gt;
+            &lt;label class="aural-range-slider__input-label"&gt;Min&lt;/label&gt;
+            &lt;div class="input-number"&gt;
+                &lt;input type="number" class="aural-range-slider__input" value="30" min="0" max="100"&gt;
+                &lt;div class="input-number__controls"&gt;
+                    &lt;button type="button" class="input-number__button" data-action="increment"&gt;▲&lt;/button&gt;
+                    &lt;button type="button" class="input-number__button" data-action="decrement"&gt;▼&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-range-slider__input-group"&gt;
+            &lt;label class="aural-range-slider__input-label"&gt;Max&lt;/label&gt;
+            &lt;div class="input-number"&gt;
+                &lt;input type="number" class="aural-range-slider__input" value="80" min="0" max="100"&gt;
+                &lt;div class="input-number__controls"&gt;
+                    &lt;button type="button" class="input-number__button" data-action="increment"&gt;▲&lt;/button&gt;
+                    &lt;button type="button" class="input-number__button" data-action="decrement"&gt;▼&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-range-slider__wrapper"&gt;
+        &lt;div class="aural-range-slider__track-bg"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__track-fill"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <!-- Size Variants -->
+            <div class="example-container">
+                <div class="example-label">Size Variants</div>
+                <div class="example-demo">
+                    <div class="component-grid">
+                        <!-- Small -->
+                        <div class="aural-range-slider aural-range-slider--sm" id="range-sm">
+                            <div class="aural-range-slider__wrapper">
+                                <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20"></div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60"></div>
+                            </div>
+                            <div class="aural-range-slider__values">
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Small</span>
+                            </div>
+                        </div>
+
+                        <!-- Default -->
+                        <div class="aural-range-slider" id="range-default">
+                            <div class="aural-range-slider__wrapper">
+                                <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25">
+                                    </div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75">
+                                        <div class="aural-range-slider__label">75</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-range-slider__values">
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Default</span>
+                            </div>
+                        </div>
+
+                        <!-- Large -->
+                        <div class="aural-range-slider aural-range-slider--lg" id="range-lg">
+                            <div class="aural-range-slider__wrapper">
+                                <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30">
+                                    </div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+                                        <div class="aural-range-slider__label">80</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-range-slider__values">
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Large</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Small --&gt;
+&lt;div class="aural-range-slider aural-range-slider--sm"&gt;...&lt;/div&gt;
+
+&lt;!-- Default --&gt;
+&lt;div class="aural-range-slider"&gt;...&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+&lt;div class="aural-range-slider aural-range-slider--lg"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Color Variants -->
+            <div class="example-container">
+                <div class="example-label">Color Variants</div>
+                <div class="example-demo">
+                    <div class="component-grid">
+                        <!-- Primary -->
+                        <div class="aural-range-slider" id="range-primary">
+                            <div class="aural-range-slider__wrapper">
+                                <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30">
+                                    </div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70">
+                                        <div class="aural-range-slider__label">70</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-range-slider__values">
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Primary</span>
+                            </div>
+                        </div>
+
+                        <!-- Success -->
+                        <div class="aural-range-slider aural-range-slider--success" id="range-success">
+                            <div class="aural-range-slider__wrapper">
+                                <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40">
+                                    </div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+                                        <div class="aural-range-slider__label">80</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-range-slider__values">
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Success</span>
+                            </div>
+                        </div>
+
+                        <!-- Warning -->
+                        <div class="aural-range-slider aural-range-slider--warning" id="range-warning">
+                            <div class="aural-range-slider__wrapper">
+                                <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="35">
+                                    </div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65">
+                                        <div class="aural-range-slider__label">65</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-range-slider__values">
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Warning</span>
+                            </div>
+                        </div>
+
+                        <!-- Error -->
+                        <div class="aural-range-slider aural-range-slider--error" id="range-error">
+                            <div class="aural-range-slider__wrapper">
+                                <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20">
+                                    </div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                                        <div class="aural-range-slider__label">50</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-range-slider__values">
+                                <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Error</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Primary (default) --&gt;
+&lt;div class="aural-range-slider"&gt;...&lt;/div&gt;
+
+&lt;!-- Success --&gt;
+&lt;div class="aural-range-slider aural-range-slider--success"&gt;...&lt;/div&gt;
+
+&lt;!-- Warning --&gt;
+&lt;div class="aural-range-slider aural-range-slider--warning"&gt;...&lt;/div&gt;
+
+&lt;!-- Error --&gt;
+&lt;div class="aural-range-slider aural-range-slider--error"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Vertical Orientation -->
+            <div class="example-container">
+                <div class="example-label">Vertical Orientation</div>
+                <div class="example-demo">
+                    <div class="vertical-range-container">
+                        <div class="aural-range-slider aural-range-slider--vertical" id="range-vertical">
+                            <div class="aural-range-slider__wrapper">
+                                <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30" aria-orientation="vertical">
+                                    </div>
+                                    <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70" aria-orientation="vertical">
+                                        <div class="aural-range-slider__label">70</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-range-slider__values">
+                                <div class="aural-range-slider__value">
+                                    <span class="aural-range-slider__value-label">Min:</span>
+                                    <span class="aural-range-slider__value-number">30</span>
+                                </div>
+                                <div class="aural-range-slider__value">
+                                    <span class="aural-range-slider__value-label">Max:</span>
+                                    <span class="aural-range-slider__value-number">70</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-range-slider aural-range-slider--vertical"&gt;
+    &lt;div class="aural-range-slider__wrapper"&gt;
+        &lt;div class="aural-range-slider__track-bg"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__track-fill"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--min"
+             tabindex="0" role="slider" aria-orientation="vertical"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--max"
+             tabindex="0" role="slider" aria-orientation="vertical"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- With Min/Max Labels -->
+            <div class="example-container">
+                <div class="example-label">With Min/Max Labels</div>
+                <div class="example-demo">
+                    <div class="aural-range-slider" id="range-labels">
+                        <div class="aural-range-slider__wrapper">
+                            <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="15">
+                                </div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85">
+                                    <div class="aural-range-slider__label">85</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aural-range-slider__limits">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-range-slider"&gt;
+    &lt;div class="aural-range-slider__wrapper"&gt;...&lt;/div&gt;
+    &lt;div class="aural-range-slider__limits"&gt;
+        &lt;span&gt;0%&lt;/span&gt;
+        &lt;span&gt;100%&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <!-- Price Range Filter -->
+            <div class="example-container">
+                <div class="example-label">Price Range Filter</div>
+                <div class="example-demo">
+                    <div class="aural-range-slider" id="range-price">
+                        <div class="aural-range-slider__inputs">
+                            <div class="aural-range-slider__input-group">
+                                <label class="aural-range-slider__input-label">Min Price</label>
+                                <input type="number" class="aural-range-slider__input" value="50" min="0" max="1000" step="10">
+                            </div>
+                            <div class="aural-range-slider__input-group">
+                                <label class="aural-range-slider__input-label">Max Price</label>
+                                <input type="number" class="aural-range-slider__input" value="500" min="0" max="1000" step="10">
+                            </div>
+                        </div>
+                        <div class="aural-range-slider__wrapper">
+                            <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum price" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="50">
+                                </div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum price" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="500">
+                                    <div class="aural-range-slider__label">$500</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aural-range-slider__limits">
+                            <span>$0</span>
+                            <span>$1000+</span>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-range-slider" id="range-price"&gt;
+    &lt;div class="aural-range-slider__inputs"&gt;
+        &lt;div class="aural-range-slider__input-group"&gt;
+            &lt;label class="aural-range-slider__input-label"&gt;Min Price&lt;/label&gt;
+            &lt;input type="number" class="aural-range-slider__input"
+                   value="50" min="0" max="1000" step="10"&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-range-slider__input-group"&gt;
+            &lt;label class="aural-range-slider__input-label"&gt;Max Price&lt;/label&gt;
+            &lt;input type="number" class="aural-range-slider__input"
+                   value="500" min="0" max="1000" step="10"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-range-slider__wrapper"&gt;
+        &lt;div class="aural-range-slider__track-bg"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__track-fill"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--min"
+             tabindex="0" role="slider"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--max"
+             tabindex="0" role="slider"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-range-slider__limits"&gt;
+        &lt;span&gt;$0&lt;/span&gt;
+        &lt;span&gt;$1000+&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Age Range -->
+            <div class="example-container">
+                <div class="example-label">Age Range Selector</div>
+                <div class="example-demo">
+                    <div class="aural-range-slider" id="range-age">
+                        <div class="aural-range-slider__wrapper">
+                            <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum age" aria-valuemin="18" aria-valuemax="100" aria-valuenow="25">
+                                </div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum age" aria-valuemin="18" aria-valuemax="100" aria-valuenow="45">
+                                    <div class="aural-range-slider__label">45</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aural-range-slider__values">
+                            <div class="aural-range-slider__value">
+                                <span class="aural-range-slider__value-label">Age:</span>
+                                <span class="aural-range-slider__value-number">25 - 45 years</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-range-slider" id="range-age"&gt;
+    &lt;div class="aural-range-slider__wrapper"&gt;
+        &lt;div class="aural-range-slider__track-bg"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__track-fill"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--min"
+             tabindex="0" role="slider" aria-valuemin="18" aria-valuemax="100"&gt;&lt;/div&gt;
+        &lt;div class="aural-range-slider__handle aural-range-slider__handle--max"
+             tabindex="0" role="slider" aria-valuemin="18" aria-valuemax="100"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Temperature Range -->
+            <div class="example-container">
+                <div class="example-label">Temperature Range (Success Variant)</div>
+                <div class="example-demo">
+                    <div class="aural-range-slider aural-range-slider--success" id="range-temp">
+                        <div class="aural-range-slider__wrapper">
+                            <div class="aural-range-slider__track-bg"></div>
+                                <div class="aural-range-slider__track-fill"></div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--min" tabindex="0" role="slider" aria-label="Minimum temperature" aria-valuemin="0" aria-valuemax="40" aria-valuenow="18">
+                                </div>
+                                <div class="aural-range-slider__handle aural-range-slider__handle--max" tabindex="0" role="slider" aria-label="Maximum temperature" aria-valuemin="0" aria-valuemax="40" aria-valuenow="26">
+                                    <div class="aural-range-slider__label">26°C</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aural-range-slider__values">
+                            <div class="aural-range-slider__value">
+                                <span class="aural-range-slider__value-label">Comfort Zone:</span>
+                                <span class="aural-range-slider__value-number">18°C - 26°C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-range-slider aural-range-slider--success"&gt;
+    &lt;!-- Same structure as basic range slider --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <!-- Best Practices Section -->
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use Range Sliders</h3>
+                    <ul>
+                        <li><strong>Bounded Value Selection:</strong> Use range sliders when users need to select both minimum and maximum values from a continuous range, such as price filters, age ranges, or date ranges.</li>
+                        <li><strong>Visual Context Important:</strong> Perfect when users benefit from seeing the selected range in context of the full available range.</li>
+                        <li><strong>Filtering Interfaces:</strong> Ideal for e-commerce filters, search refinement, and data visualization controls where users need to narrow down results.</li>
+                        <li><strong>Approximate Boundaries:</strong> Best suited for scenarios where approximate boundaries are acceptable, and precise values are less critical.</li>
+                        <li><strong>Large Value Ranges:</strong> Effective for ranges with many possible values (50+ options) where individual options would be impractical to display.</li>
+                    </ul>
+
+                    <h3>When NOT to Use Range Sliders</h3>
+                    <ul>
+                        <li><strong>Precise Value Entry Required:</strong> Avoid when users need exact values. Consider number input fields instead, especially for financial data or measurements.</li>
+                        <li><strong>Small Number of Options:</strong> Don't use for ranges with fewer than 10 discrete values. Use checkboxes or multi-select instead.</li>
+                        <li><strong>Single Value Selection:</strong> If only one value is needed, use a standard single-handle slider instead of a range slider.</li>
+                        <li><strong>Non-Numeric or Categorical Data:</strong> Range sliders are inappropriate for categories or text-based options. Use filters or dropdown menus.</li>
+                        <li><strong>Critical Precision Tasks:</strong> Avoid in scenarios requiring high precision, such as medical dosages or engineering specifications.</li>
+                    </ul>
+
+                    <h3>Accessibility Guidelines</h3>
+                    <ul>
+                        <li><strong>ARIA Attributes:</strong> Always include:
+                            <ul>
+                                <li><code>role="slider"</code> on each handle</li>
+                                <li><code>aria-label</code> describing the purpose (e.g., "Minimum price")</li>
+                                <li><code>aria-valuemin</code>, <code>aria-valuemax</code>, <code>aria-valuenow</code> for current state</li>
+                                <li><code>aria-orientation="vertical"</code> for vertical sliders</li>
+                            </ul>
+                        </li>
+                        <li><strong>Keyboard Navigation:</strong> Ensure full keyboard support:
+                            <ul>
+                                <li>Tab to move focus between handles</li>
+                                <li>Arrow keys (Left/Right or Up/Down) to adjust values incrementally</li>
+                                <li>Shift + Arrow keys for larger increments (10% jumps)</li>
+                                <li>Home/End keys to jump to min/max values</li>
+                                <li>Page Up/Page Down for medium increments (25% jumps)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Visual Value Display:</strong> Always show current min and max values either as persistent text or in tooltips that appear on interaction.</li>
+                        <li><strong>Touch Targets:</strong> Ensure handles are at least 44x44px for easy touch interaction, especially on mobile devices.</li>
+                        <li><strong>Focus Indicators:</strong> Provide clear visual focus indicators so keyboard users can see which handle is currently active.</li>
+                        <li><strong>Input Field Alternatives:</strong> Consider providing number input fields alongside the slider for users who prefer or need precise input.</li>
+                        <li><strong>Handle Collision:</strong> When handles get close together, ensure both remain accessible and distinguishable.</li>
+                    </ul>
+
+                    <h3>Implementation Patterns</h3>
+
+                    <h4>Price Range Filter (E-Commerce)</h4>
+                    <p>Use currency-formatted labels, appropriate step increments (e.g., $10, $50, $100), and show the selected range prominently. Include input fields for precise entry. Consider showing the number of results that match the current filter.</p>
+
+                    <h4>Age Range Selector</h4>
+                    <p>Set appropriate minimum values (e.g., 18 for adults-only content) and reasonable maximum values. Display in years format and consider step size of 1 year for precision.</p>
+
+                    <h4>Date/Time Range Selection</h4>
+                    <p>Convert dates to numerical values internally. Display formatted dates in labels. Consider using a date picker as an alternative input method for precision.</p>
+
+                    <h4>Measurement Ranges (Temperature, Distance, etc.)</h4>
+                    <p>Include unit labels (°C, km, lb) in value displays. Use appropriate precision based on the measurement type. Consider color coding (blue for cold, red for hot).</p>
+
+                    <h4>Data Filtering and Analytics</h4>
+                    <p>Show visual feedback of filtered data. Consider histogram backgrounds showing data distribution. Update results in real-time or with a slight debounce.</p>
+
+                    <h4>Vertical Range Sliders</h4>
+                    <p>Use for height, elevation, or other naturally vertical measurements. Ensure proper aria-orientation attribute. Position value labels to avoid overlap.</p>
+
+                    <h3>Technical Considerations</h3>
+                    <ul>
+                        <li><strong>Step Values:</strong> Define appropriate step increments based on the use case. Fine-grained steps (1) for precision, larger steps (10, 50) for broad ranges.</li>
+                        <li><strong>Value Constraints:</strong> Ensure minimum value never exceeds maximum value programmatically.</li>
+                        <li><strong>Performance:</strong> For real-time filtering, consider debouncing updates to avoid excessive API calls or computations.</li>
+                        <li><strong>Mobile Optimization:</strong> Increase handle size on touch devices and ensure adequate spacing between handles.</li>
+                        <li><strong>Responsive Design:</strong> Consider switching to stacked input fields on very small screens if the slider becomes too cramped.</li>
+                        <li><strong>State Persistence:</strong> Store and restore user-selected ranges when appropriate (e.g., search filters).</li>
+                    </ul>
+
+                    <h3>Common Pitfalls to Avoid</h3>
+                    <ul>
+                        <li>Handles that are too small or close together, making them hard to grab independently</li>
+                        <li>Missing or unclear value labels, leaving users uncertain about their selection</li>
+                        <li>Inadequate keyboard support, excluding users who rely on keyboard navigation</li>
+                        <li>No alternative input method for users who need precise values</li>
+                        <li>Invisible or poorly contrasted track fill, reducing visual feedback</li>
+                        <li>Forgetting to prevent handles from crossing each other</li>
+                        <li>Not updating ARIA values as the slider changes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->
@@ -213,6 +874,9 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
+        // Initialize tabs
+        Aural.initTabs();
+
         // Theme toggle
         let isDark = true;
         function toggleTheme() {
@@ -228,22 +892,281 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // Range Slider Interactive Functionality
+        class RangeSlider {
+            constructor(element) {
+                this.container = element;
+                this.track = element.querySelector('.aural-range-slider__wrapper');
+                this.trackFill = element.querySelector('.aural-range-slider__track-fill');
+                this.minHandle = element.querySelector('.aural-range-slider__handle--min');
+                this.maxHandle = element.querySelector('.aural-range-slider__handle--max');
+                this.minLabel = this.minHandle?.querySelector('.aural-range-slider__label');
+                this.maxLabel = this.maxHandle?.querySelector('.aural-range-slider__label');
+
+                // Get value display elements
+                this.valueNumbers = element.querySelectorAll('.aural-range-slider__value-number');
+                this.minInput = element.querySelectorAll('.aural-range-slider__input')[0];
+                this.maxInput = element.querySelectorAll('.aural-range-slider__input')[1];
+
+                // Check if vertical
+                this.isVertical = element.classList.contains('aural-range-slider--vertical');
+
+                // Get min/max from ARIA attributes or default
+                this.min = parseFloat(this.minHandle?.getAttribute('aria-valuemin') || 0);
+                this.max = parseFloat(this.maxHandle?.getAttribute('aria-valuemax') || 100);
+                this.minValue = parseFloat(this.minHandle?.getAttribute('aria-valuenow') || 25);
+                this.maxValue = parseFloat(this.maxHandle?.getAttribute('aria-valuenow') || 75);
+
+                // Check for special formatting
+                this.format = this.getFormat();
+
+                this.activeHandle = null;
+                this.init();
+            }
+
+            getFormat() {
+                // Detect format from label text
+                const label = this.minLabel?.textContent || '';
+                if (label.includes('$')) return { prefix: '$', suffix: '' };
+                if (label.includes('°C')) return { prefix: '', suffix: '°C' };
+                if (label.includes('%')) return { prefix: '', suffix: '%' };
+                return { prefix: '', suffix: '' };
+            }
+
+            init() {
+                if (!this.minHandle || !this.maxHandle) return;
+
+                this.updateUI();
+
+                // Mouse events
+                this.minHandle.addEventListener('mousedown', (e) => this.handleMouseDown(e, 'min'));
+                this.maxHandle.addEventListener('mousedown', (e) => this.handleMouseDown(e, 'max'));
+
+                // Touch events
+                this.minHandle.addEventListener('touchstart', (e) => this.handleTouchStart(e, 'min'), { passive: true });
+                this.maxHandle.addEventListener('touchstart', (e) => this.handleTouchStart(e, 'max'), { passive: true });
+
+                // Keyboard events
+                this.minHandle.addEventListener('keydown', (e) => this.handleKeyDown(e, 'min'));
+                this.maxHandle.addEventListener('keydown', (e) => this.handleKeyDown(e, 'max'));
+
+                // Input field events
+                if (this.minInput) {
+                    this.minInput.addEventListener('input', (e) => {
+                        this.minValue = Math.min(parseFloat(e.target.value), this.maxValue - 1);
+                        this.updateUI();
+                    });
+                }
+                if (this.maxInput) {
+                    this.maxInput.addEventListener('input', (e) => {
+                        this.maxValue = Math.max(parseFloat(e.target.value), this.minValue + 1);
+                        this.updateUI();
+                    });
+                }
+            }
+
+            handleMouseDown(e, handle) {
+                e.preventDefault();
+                this.activeHandle = handle;
+                this.minHandle.classList.remove('aural-range-slider__handle--active');
+                this.maxHandle.classList.remove('aural-range-slider__handle--active');
+                (handle === 'min' ? this.minHandle : this.maxHandle).classList.add('aural-range-slider__handle--active');
+
+                document.addEventListener('mousemove', this.handleMouseMove);
+                document.addEventListener('mouseup', this.handleMouseUp);
+            }
+
+            handleMouseMove = (e) => {
+                if (!this.activeHandle) return;
+                this.updateValueFromPosition(e.clientX, e.clientY);
+            }
+
+            handleMouseUp = () => {
+                this.activeHandle = null;
+                document.removeEventListener('mousemove', this.handleMouseMove);
+                document.removeEventListener('mouseup', this.handleMouseUp);
+            }
+
+            handleTouchStart(e, handle) {
+                this.activeHandle = handle;
+                this.minHandle.classList.remove('aural-range-slider__handle--active');
+                this.maxHandle.classList.remove('aural-range-slider__handle--active');
+                (handle === 'min' ? this.minHandle : this.maxHandle).classList.add('aural-range-slider__handle--active');
+
+                document.addEventListener('touchmove', this.handleTouchMove);
+                document.addEventListener('touchend', this.handleTouchEnd);
+            }
+
+            handleTouchMove = (e) => {
+                if (!this.activeHandle) return;
+                e.preventDefault(); // Prevent scrolling while dragging
+                const touch = e.touches[0];
+                this.updateValueFromPosition(touch.clientX, touch.clientY);
+            }
+
+            handleTouchEnd = () => {
+                this.activeHandle = null;
+                document.removeEventListener('touchmove', this.handleTouchMove);
+                document.removeEventListener('touchend', this.handleTouchEnd);
+            }
+
+            updateValueFromPosition(clientX, clientY) {
+                const rect = this.track.getBoundingClientRect();
+                let percentage;
+
+                if (this.isVertical) {
+                    percentage = 1 - ((clientY - rect.top) / rect.height);
+                } else {
+                    percentage = (clientX - rect.left) / rect.width;
+                }
+
+                percentage = Math.max(0, Math.min(1, percentage));
+                const value = this.min + percentage * (this.max - this.min);
+
+                if (this.activeHandle === 'min') {
+                    this.minValue = Math.min(value, this.maxValue - 1);
+                } else {
+                    this.maxValue = Math.max(value, this.minValue + 1);
+                }
+
+                this.updateUI();
+            }
+
+            handleKeyDown(e, handle) {
+                const step = e.shiftKey ? (this.max - this.min) * 0.1 : 1;
+                let value = handle === 'min' ? this.minValue : this.maxValue;
+
+                switch(e.key) {
+                    case 'ArrowLeft':
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        value -= step;
+                        break;
+                    case 'ArrowRight':
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        value += step;
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        value = this.min;
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        value = this.max;
+                        break;
+                    case 'PageUp':
+                        e.preventDefault();
+                        value += (this.max - this.min) * 0.25;
+                        break;
+                    case 'PageDown':
+                        e.preventDefault();
+                        value -= (this.max - this.min) * 0.25;
+                        break;
+                    default:
+                        return;
+                }
+
+                if (handle === 'min') {
+                    this.minValue = Math.max(this.min, Math.min(value, this.maxValue - 1));
+                } else {
+                    this.maxValue = Math.min(this.max, Math.max(value, this.minValue + 1));
+                }
+
+                this.updateUI();
+            }
+
+            updateUI() {
+                const minPercent = ((this.minValue - this.min) / (this.max - this.min)) * 100;
+                const maxPercent = ((this.maxValue - this.min) / (this.max - this.min)) * 100;
+
+                // Update handle positions
+                if (this.isVertical) {
+                    this.minHandle.style.bottom = `${minPercent}%`;
+                    this.maxHandle.style.bottom = `${maxPercent}%`;
+                    this.trackFill.style.bottom = `${minPercent}%`;
+                    this.trackFill.style.height = `${maxPercent - minPercent}%`;
+                } else {
+                    this.minHandle.style.left = `${minPercent}%`;
+                    this.maxHandle.style.left = `${maxPercent}%`;
+                    this.trackFill.style.left = `${minPercent}%`;
+                    this.trackFill.style.width = `${maxPercent - minPercent}%`;
+                }
+
+                // Format values
+                const formattedMin = this.format.prefix + Math.round(this.minValue) + this.format.suffix;
+                const formattedMax = this.format.prefix + Math.round(this.maxValue) + this.format.suffix;
+
+                // Update labels
+                if (this.minLabel) this.minLabel.textContent = formattedMin;
+                if (this.maxLabel) this.maxLabel.textContent = formattedMax;
+
+                // Update ARIA
+                this.minHandle.setAttribute('aria-valuenow', this.minValue);
+                this.maxHandle.setAttribute('aria-valuenow', this.maxValue);
+
+                // Update value displays
+                if (this.valueNumbers.length === 2) {
+                    this.valueNumbers[0].textContent = formattedMin;
+                    this.valueNumbers[1].textContent = formattedMax;
+                } else if (this.valueNumbers.length === 1) {
+                    this.valueNumbers[0].textContent = `${formattedMin} - ${formattedMax}`;
+                }
+
+                // Update inputs
+                if (this.minInput) this.minInput.value = Math.round(this.minValue);
+                if (this.maxInput) this.maxInput.value = Math.round(this.maxValue);
+            }
+        }
+
+        // Initialize all range sliders
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.aural-range-slider').forEach(el => {
+                new RangeSlider(el);
+            });
+
+            // Initialize custom number input spinners
+            document.querySelectorAll('.input-number').forEach(wrapper => {
+                const input = wrapper.querySelector('input[type="number"]');
+                const buttons = wrapper.querySelectorAll('.input-number__button');
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const action = button.getAttribute('data-action');
+                        const min = parseFloat(input.getAttribute('min')) || -Infinity;
+                        const max = parseFloat(input.getAttribute('max')) || Infinity;
+                        const step = parseFloat(input.getAttribute('step')) || 1;
+                        let value = parseFloat(input.value) || 0;
+
+                        if (action === 'increment') {
+                            value = Math.min(max, value + step);
+                        } else if (action === 'decrement') {
+                            value = Math.max(min, value - step);
+                        }
+
+                        input.value = value;
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                    });
+                });
+            });
+        });
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
-            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+
             themeLink.href = themePath;
-        } else {
-            console.error('Theme link not found!');
         }
 
         // Hide theme toggle in iframe (demo.html controls theme)

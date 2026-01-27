@@ -49,9 +49,11 @@
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 0.5rem;
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-full);
+    height: 44px;
+    background: linear-gradient(to right, var(--color-primary) 50%, var(--color-bg-tertiary) 50%);
+    background-size: 100% 6px;
+    background-position: center;
+    background-repeat: no-repeat;
     outline: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -60,7 +62,7 @@
 /* Track - Webkit/Blink */
 .aural-slider__input::-webkit-slider-track {
     width: 100%;
-    height: 0.5rem;
+    height: 6px;
     background: transparent;
     border-radius: var(--radius-full);
 }
@@ -68,8 +70,15 @@
 /* Track - Firefox */
 .aural-slider__input::-moz-range-track {
     width: 100%;
-    height: 0.5rem;
-    background: transparent;
+    height: 6px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+}
+
+/* Filled portion - Firefox */
+.aural-slider__input::-moz-range-progress {
+    height: 6px;
+    background: var(--color-primary);
     border-radius: var(--radius-full);
 }
 
@@ -108,7 +117,7 @@
    ======================================== */
 
 .aural-slider__input:hover {
-    background: var(--color-bg-secondary);
+    opacity: 0.9;
 }
 
 .aural-slider__input:hover::-webkit-slider-thumb {
@@ -152,15 +161,19 @@
 
 /* Small */
 .aural-slider--sm .aural-slider__input {
-    height: 0.375rem;
+    background-size: 100% 4px;
 }
 
 .aural-slider--sm .aural-slider__input::-webkit-slider-track {
-    height: 0.375rem;
+    height: 4px;
 }
 
 .aural-slider--sm .aural-slider__input::-moz-range-track {
-    height: 0.375rem;
+    height: 4px;
+}
+
+.aural-slider--sm .aural-slider__input::-moz-range-progress {
+    height: 4px;
 }
 
 .aural-slider--sm .aural-slider__input::-webkit-slider-thumb {
@@ -175,15 +188,19 @@
 
 /* Large */
 .aural-slider--lg .aural-slider__input {
-    height: 0.625rem;
+    background-size: 100% 8px;
 }
 
 .aural-slider--lg .aural-slider__input::-webkit-slider-track {
-    height: 0.625rem;
+    height: 8px;
 }
 
 .aural-slider--lg .aural-slider__input::-moz-range-track {
-    height: 0.625rem;
+    height: 8px;
+}
+
+.aural-slider--lg .aural-slider__input::-moz-range-progress {
+    height: 8px;
 }
 
 .aural-slider--lg .aural-slider__input::-webkit-slider-thumb {
@@ -332,7 +349,79 @@
     }
 }
 
-/* Ensure minimum touch target size */
-.aural-slider__input {
-    min-height: 44px;
+
+/* ========================================
+   Vertical Slider
+   ======================================== */
+
+.aural-slider--vertical {
+    width: auto;
+    height: 250px;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.aural-slider--vertical .aural-slider__label-row {
+    flex-direction: column;
+    gap: var(--space-2);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.aural-slider--vertical .aural-slider__label {
+    writing-mode: horizontal-tb;
+}
+
+.aural-slider--vertical .aural-slider__value {
+    writing-mode: horizontal-tb;
+    min-width: auto;
+    text-align: center;
+}
+
+.aural-slider--vertical .aural-slider__input {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 44px;
+    height: 100%;
+    min-height: 200px;
+    margin: 0;
+}
+
+.aural-slider--vertical .aural-slider__input::-webkit-slider-track {
+    width: 6px;
+    height: 100%;
+}
+
+.aural-slider--vertical .aural-slider__input::-moz-range-track {
+    width: 6px;
+    height: 100%;
+}
+
+.aural-slider--vertical .aural-slider__input::-moz-range-progress {
+    width: 6px;
+}
+
+.aural-slider--vertical.aural-slider--sm .aural-slider__input::-webkit-slider-track {
+    width: 4px;
+}
+
+.aural-slider--vertical.aural-slider--sm .aural-slider__input::-moz-range-track {
+    width: 4px;
+}
+
+.aural-slider--vertical.aural-slider--sm .aural-slider__input::-moz-range-progress {
+    width: 4px;
+}
+
+.aural-slider--vertical.aural-slider--lg .aural-slider__input::-webkit-slider-track {
+    width: 8px;
+}
+
+.aural-slider--vertical.aural-slider--lg .aural-slider__input::-moz-range-track {
+    width: 8px;
+}
+
+.aural-slider--vertical.aural-slider--lg .aural-slider__input::-moz-range-progress {
+    width: 8px;
 }
