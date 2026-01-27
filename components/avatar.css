@@ -62,6 +62,18 @@
    SIZES
    ======================================== */
 
+.avatar-xs {
+    width: 24px;
+    height: 24px;
+    font-size: 0.625rem; /* 10px */
+    border-width: 1px;
+
+    & > svg {
+        width: 45%;
+        height: 45%;
+    }
+}
+
 .avatar-sm {
     width: 32px;
     height: 32px;
@@ -214,5 +226,51 @@
     &:focus-visible {
         outline: 2px solid var(--color-primary);
         outline-offset: 2px;
+    }
+}
+
+/* ========================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ======================================== */
+
+/* Larger status indicators on touch devices for better visibility */
+@media (pointer: coarse) {
+    .avatar-status-online::after,
+    .avatar-status-offline::after,
+    .avatar-status-busy::after,
+    .avatar-status-away::after {
+        min-width: 10px;
+        min-height: 10px;
+        border-width: 2.5px;
+    }
+
+    /* Ensure clickable avatars meet touch target size */
+    .avatar-clickable {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .avatar-clickable.avatar-sm,
+    .avatar-clickable.avatar-xs {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .avatar-clickable,
+    .avatar-group > .avatar {
+        transition: none;
+    }
+
+    .avatar-clickable:hover,
+    .avatar-clickable:active,
+    .avatar-group > .avatar:hover {
+        transform: none;
     }
 }

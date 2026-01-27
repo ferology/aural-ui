@@ -6,7 +6,7 @@
     <title>Avatars - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -164,159 +195,447 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Avatars</h1>
-            <p class="page-description">User profile images with various sizes and states.</p>
+            <p class="page-description">User profile images and visual identifiers with support for images, initials, status indicators, and interactive states.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Basic Avatars</div>
-            <div class="example-demo">
-                <div style="display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap;">
-                    <div class="avatar"><span>JD</span></div>
-                    <div class="avatar"><span>AB</span></div>
-                    <div class="avatar"><span>CD</span></div>
-                    <div class="avatar"><span>EF</span></div>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Avatars</div>
+                <div class="example-demo">
+                    <div style="display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap;">
+                        <div class="avatar"><span>JD</span></div>
+                        <div class="avatar"><span>AB</span></div>
+                        <div class="avatar"><span>CD</span></div>
+                        <div class="avatar"><span>EF</span></div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="avatar"&gt;&lt;span&gt;JD&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar"&gt;&lt;span&gt;AB&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar"&gt;&lt;span&gt;CD&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar"&gt;&lt;span&gt;EF&lt;/span&gt;&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Images</div>
+                <div class="example-demo">
+                    <div style="display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap;">
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=1" alt="User 1">
+                        </div>
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=2" alt="User 2">
+                        </div>
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=3" alt="User 3">
+                        </div>
+                        <div class="avatar">
+                            <img src="https://i.pravatar.cc/150?img=4" alt="User 4">
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="avatar"&gt;
+    &lt;img src="user-photo.jpg" alt="User Name"&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Common Use Cases</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <!-- User Profile -->
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <div class="avatar">
+                                <img src="https://i.pravatar.cc/150?img=20" alt="John Doe">
+                            </div>
+                            <div>
+                                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">John Doe</div>
+                                <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">john.doe@example.com</div>
+                            </div>
+                        </div>
+
+                        <!-- Online User -->
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <div class="avatar avatar-status-online">
+                                <img src="https://i.pravatar.cc/150?img=21" alt="Jane Smith">
+                            </div>
+                            <div>
+                                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Jane Smith</div>
+                                <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Active now</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- User Profile --&gt;
+&lt;div style="display: flex; align-items: center; gap: var(--space-3);"&gt;
+    &lt;div class="avatar"&gt;
+        &lt;img src="user.jpg" alt="John Doe"&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;div&gt;John Doe&lt;/div&gt;
+        &lt;div&gt;john.doe@example.com&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Online Status --&gt;
+&lt;div class="avatar avatar-status-online"&gt;
+    &lt;img src="user.jpg" alt="Jane Smith"&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Sizes</div>
+                <div class="example-demo">
+                    <div style="display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar avatar-xs"><span>XS</span></div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">XS</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar avatar-sm"><span>SM</span></div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">SM</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar"><span>MD</span></div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">Default</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar avatar-lg"><span>LG</span></div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">LG</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar avatar-xl"><span>XL</span></div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">XL</p>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="avatar avatar-xs"&gt;&lt;span&gt;XS&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar avatar-sm"&gt;&lt;span&gt;SM&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar"&gt;&lt;span&gt;MD&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar avatar-lg"&gt;&lt;span&gt;LG&lt;/span&gt;&lt;/div&gt;
+&lt;div class="avatar avatar-xl"&gt;&lt;span&gt;XL&lt;/span&gt;&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Status Indicators</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-6); flex-wrap: wrap;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar avatar-status-online">
+                                <img src="https://i.pravatar.cc/150?img=5" alt="User online">
+                            </div>
+                            <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Online</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar avatar-status-busy">
+                                <img src="https://i.pravatar.cc/150?img=6" alt="User busy">
+                            </div>
+                            <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Busy</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar avatar-status-away">
+                                <img src="https://i.pravatar.cc/150?img=7" alt="User away">
+                            </div>
+                            <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Away</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
+                            <div class="avatar avatar-status-offline">
+                                <img src="https://i.pravatar.cc/150?img=8" alt="User offline">
+                            </div>
+                            <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Offline</p>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="avatar avatar-status-online"&gt;
+    &lt;img src="user.jpg" alt="User online"&gt;
+&lt;/div&gt;
+&lt;div class="avatar avatar-status-busy"&gt;
+    &lt;img src="user.jpg" alt="User busy"&gt;
+&lt;/div&gt;
+&lt;div class="avatar avatar-status-away"&gt;
+    &lt;img src="user.jpg" alt="User away"&gt;
+&lt;/div&gt;
+&lt;div class="avatar avatar-status-offline"&gt;
+    &lt;img src="user.jpg" alt="User offline"&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Clickable Avatars</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-6); flex-wrap: wrap;">
+                        <button class="avatar avatar-clickable" aria-label="View profile of John Doe" tabindex="0">
+                            <img src="https://i.pravatar.cc/150?img=14" alt="">
+                        </button>
+                        <button class="avatar avatar-clickable" aria-label="View profile of Jane Smith" tabindex="0">
+                            <img src="https://i.pravatar.cc/150?img=15" alt="">
+                        </button>
+                        <button class="avatar avatar-clickable avatar-status-online" aria-label="View profile of Mike Johnson (online)" tabindex="0">
+                            <img src="https://i.pravatar.cc/150?img=16" alt="">
+                        </button>
+                        <button class="avatar avatar-clickable avatar-lg" aria-label="View profile of Sarah Wilson" tabindex="0">
+                            <span>SW</span>
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="avatar avatar-clickable"
+        aria-label="View profile of John Doe"&gt;
+    &lt;img src="user.jpg" alt=""&gt;
+&lt;/button&gt;</code></pre>
+                </details>
+                <div class="section-content">
+                    <p>Make avatars interactive using the <code>.avatar-clickable</code> class. Use proper semantic elements (button or anchor) with descriptive <code>aria-label</code> attributes for accessibility.</p>
                 </div>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Sizes</div>
-            <div class="example-demo">
-                <div style="display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap;">
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar avatar-xs"><span>XS</span></div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">XS</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar avatar-sm"><span>SM</span></div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">SM</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar"><span>MD</span></div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">Default</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar avatar-lg"><span>LG</span></div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">LG</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar avatar-xl"><span>XL</span></div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">XL</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="example-container">
-            <div class="example-label">With Images</div>
-            <div class="example-demo">
-                <div style="display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap;">
-                    <div class="avatar">
-                        <img src="https://i.pravatar.cc/150?img=1" alt="User 1">
-                    </div>
-                    <div class="avatar">
-                        <img src="https://i.pravatar.cc/150?img=2" alt="User 2">
-                    </div>
-                    <div class="avatar">
-                        <img src="https://i.pravatar.cc/150?img=3" alt="User 3">
-                    </div>
-                    <div class="avatar">
-                        <img src="https://i.pravatar.cc/150?img=4" alt="User 4">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="example-container">
-            <div class="example-label">With Status Indicators</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-6); flex-wrap: wrap;">
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar avatar-status-online">
-                            <img src="https://i.pravatar.cc/150?img=5" alt="User online">
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Avatar Group</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <div class="avatar-group">
+                            <div class="avatar"><span>A</span></div>
+                            <div class="avatar"><span>B</span></div>
+                            <div class="avatar"><span>C</span></div>
+                            <div class="avatar"><span>D</span></div>
+                            <div class="avatar"><span>+5</span></div>
                         </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Online</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar avatar-status-busy">
-                            <img src="https://i.pravatar.cc/150?img=6" alt="User busy">
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Busy</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar avatar-status-away">
-                            <img src="https://i.pravatar.cc/150?img=7" alt="User away">
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Away</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-2);">
-                        <div class="avatar avatar-status-offline">
-                            <img src="https://i.pravatar.cc/150?img=8" alt="User offline">
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Offline</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="example-container">
-            <div class="example-label">Avatar Group</div>
-            <div class="example-demo">
-                <div style="display: flex; flex-direction: column; gap: var(--space-6);">
-                    <div class="avatar-group">
-                        <div class="avatar"><span>A</span></div>
-                        <div class="avatar"><span>B</span></div>
-                        <div class="avatar"><span>C</span></div>
-                        <div class="avatar"><span>D</span></div>
-                        <div class="avatar"><span>+5</span></div>
-                    </div>
-                    <div class="avatar-group">
-                        <div class="avatar">
-                            <img src="https://i.pravatar.cc/150?img=10" alt="User 10">
-                        </div>
-                        <div class="avatar">
-                            <img src="https://i.pravatar.cc/150?img=11" alt="User 11">
-                        </div>
-                        <div class="avatar">
-                            <img src="https://i.pravatar.cc/150?img=12" alt="User 12">
-                        </div>
-                        <div class="avatar">
-                            <img src="https://i.pravatar.cc/150?img=13" alt="User 13">
+                        <div class="avatar-group">
+                            <div class="avatar">
+                                <img src="https://i.pravatar.cc/150?img=10" alt="User 10">
+                            </div>
+                            <div class="avatar">
+                                <img src="https://i.pravatar.cc/150?img=11" alt="User 11">
+                            </div>
+                            <div class="avatar">
+                                <img src="https://i.pravatar.cc/150?img=12" alt="User 12">
+                            </div>
+                            <div class="avatar">
+                                <img src="https://i.pravatar.cc/150?img=13" alt="User 13">
+                            </div>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="avatar-group"&gt;
+    &lt;div class="avatar"&gt;&lt;span&gt;A&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="avatar"&gt;&lt;span&gt;B&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="avatar"&gt;&lt;span&gt;C&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="avatar"&gt;&lt;span&gt;D&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="avatar"&gt;&lt;span&gt;+5&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content">
+                    <p>Group multiple avatars to show teams, collaborators, or multiple users. Add a count avatar to indicate additional hidden members.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">User List with Avatars</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <div class="avatar avatar-sm">
+                                <img src="https://i.pravatar.cc/150?img=20" alt="John Doe">
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary); font-size: var(--text-sm);">John Doe</div>
+                                <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">Product Designer</div>
+                            </div>
+                            <span class="badge badge-success badge-sm">Admin</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <div class="avatar avatar-sm avatar-status-online">
+                                <img src="https://i.pravatar.cc/150?img=21" alt="Jane Smith">
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary); font-size: var(--text-sm);">Jane Smith</div>
+                                <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">Developer</div>
+                            </div>
+                            <span class="badge badge-secondary badge-sm">Member</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <div class="avatar avatar-sm avatar-status-away">
+                                <span>MJ</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary); font-size: var(--text-sm);">Mike Johnson</div>
+                                <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">Marketing Manager</div>
+                            </div>
+                            <span class="badge badge-secondary badge-sm">Member</span>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; align-items: center; gap: var(--space-3);"&gt;
+    &lt;div class="avatar avatar-sm"&gt;
+        &lt;img src="user.jpg" alt="John Doe"&gt;
+    &lt;/div&gt;
+    &lt;div style="flex: 1;"&gt;
+        &lt;div&gt;John Doe&lt;/div&gt;
+        &lt;div&gt;Product Designer&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="badge badge-success badge-sm"&gt;Admin&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Comments & Activity</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <div style="display: flex; gap: var(--space-3);">
+                            <div class="avatar avatar-sm">
+                                <img src="https://i.pravatar.cc/150?img=30" alt="Sarah Wilson">
+                            </div>
+                            <div style="flex: 1;">
+                                <div>
+                                    <span style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Sarah Wilson</span>
+                                    <span style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin-left: var(--space-2);">2 hours ago</span>
+                                </div>
+                                <p style="margin: var(--space-2) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Great work on the new design! The color scheme really pops and the layout is much more intuitive.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: var(--space-3);">
+                            <div class="avatar avatar-sm">
+                                <span>TJ</span>
+                            </div>
+                            <div style="flex: 1;">
+                                <div>
+                                    <span style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Tom Jackson</span>
+                                    <span style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin-left: var(--space-2);">5 hours ago</span>
+                                </div>
+                                <p style="margin: var(--space-2) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Updated the documentation with the latest API changes. Please review when you get a chance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; gap: var(--space-3);"&gt;
+    &lt;div class="avatar avatar-sm"&gt;
+        &lt;img src="user.jpg" alt="Sarah Wilson"&gt;
+    &lt;/div&gt;
+    &lt;div style="flex: 1;"&gt;
+        &lt;div&gt;
+            &lt;span&gt;Sarah Wilson&lt;/span&gt;
+            &lt;span&gt;2 hours ago&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;p&gt;Great work on the new design!&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">With Text</div>
-            <div class="example-demo">
-                <div style="display: flex; flex-direction: column; gap: var(--space-6);">
-                    <div style="display: flex; align-items: center; gap: var(--space-3);">
-                        <div class="avatar">
-                            <img src="https://i.pravatar.cc/150?img=20" alt="John Doe">
-                        </div>
-                        <div>
-                            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">John Doe</div>
-                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">john.doe@example.com</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-3);">
-                        <div class="avatar avatar-status-online">
-                            <img src="https://i.pravatar.cc/150?img=21" alt="Jane Smith">
-                        </div>
-                        <div>
-                            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Jane Smith</div>
-                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Active now</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: var(--space-3);">
-                        <div class="avatar avatar-lg"><span>MJ</span></div>
-                        <div>
-                            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Mike Johnson</div>
-                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Product Designer</div>
-                        </div>
-                    </div>
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use Avatars</h2>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>User Identification:</strong> Display user profiles, account information, and identity</li>
+                        <li><strong>Comments & Posts:</strong> Attribute content to specific users in social feeds or discussions</li>
+                        <li><strong>Team Members:</strong> Show team rosters, collaborators, or project participants</li>
+                        <li><strong>User Lists:</strong> Enhance tables, lists, or directories with visual identification</li>
+                        <li><strong>Activity Feeds:</strong> Show who performed actions in activity logs or timelines</li>
+                        <li><strong>Navigation:</strong> Display current user in navigation bars or dropdown menus</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Always provide meaningful alt text for avatar images describing the person</li>
+                        <li>For clickable avatars, use semantic HTML (button or anchor tags) with descriptive <code>aria-label</code> attributes</li>
+                        <li>Status indicators are visual only - include status information in nearby text or <code>aria-label</code></li>
+                        <li>Ensure sufficient color contrast for initials on background (meets WCAG AA standards)</li>
+                        <li>Avatar groups maintain proper focus order for keyboard navigation</li>
+                        <li>For decorative avatars without functional purpose, use <code>alt=""</code> on images</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Size Selection</h3>
+                    <ul>
+                        <li><strong>XS (24px):</strong> Inline mentions, compact lists, or very tight spaces</li>
+                        <li><strong>SM (32px):</strong> Table rows, comment threads, or activity feeds</li>
+                        <li><strong>Default (40px):</strong> Standard size for most UI contexts</li>
+                        <li><strong>LG (48px):</strong> User profiles, cards, or prominent displays</li>
+                        <li><strong>XL (64px):</strong> Profile headers, settings pages, or hero sections</li>
+                    </ul>
+
+                    <h3>Image Guidelines</h3>
+                    <ul>
+                        <li>Use square images with 1:1 aspect ratio for best results</li>
+                        <li>Minimum recommended resolution: 200x200px for crisp display at all sizes</li>
+                        <li>Optimize images for web to reduce load times</li>
+                        <li>Provide fallback initials when images fail to load</li>
+                        <li>Consider using WebP format for better compression and quality</li>
+                    </ul>
+
+                    <h3>Initials Display</h3>
+                    <ul>
+                        <li>Show 1-2 characters maximum (typically first and last name initials)</li>
+                        <li>Use uppercase letters for consistency</li>
+                        <li>Consider generating unique background colors per user for variety</li>
+                        <li>Ensure text remains readable on all background colors</li>
+                    </ul>
+
+                    <h3>Status Indicators</h3>
+                    <ul>
+                        <li><strong>Online:</strong> Green indicator for active/available users</li>
+                        <li><strong>Busy:</strong> Red indicator for do-not-disturb status</li>
+                        <li><strong>Away:</strong> Yellow indicator for idle or temporarily away</li>
+                        <li><strong>Offline:</strong> Gray indicator for signed out or unavailable</li>
+                        <li>Update status in real-time for messaging and collaboration apps</li>
+                        <li>Always supplement visual status with text for accessibility</li>
+                    </ul>
+
+                    <h3>Mobile Considerations</h3>
+                    <ul>
+                        <li>Clickable avatars automatically meet 44x44px touch target requirements on mobile devices</li>
+                        <li>Status indicators are slightly larger on touch devices for better visibility</li>
+                        <li>Avatar groups maintain adequate spacing for comfortable interaction</li>
+                        <li>Consider using larger avatar sizes on mobile for better visibility</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -344,6 +663,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -362,25 +684,21 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
-        // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
-            console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
-        } else {
-            console.error('Theme link not found!');
         }
 
-        // Hide theme toggle in iframe (demo.html controls theme)
         window.addEventListener('DOMContentLoaded', function() {
             try {
                 if (window.self !== window.top) {

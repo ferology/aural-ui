@@ -191,11 +191,258 @@
             </div>
         </div>
 
+        <div class="content-section">
+            <h2 class="section-title">Understanding Accessibility in Aural UI</h2>
+            <div class="section-content">
+                <p>Accessibility in Aural UI is a <strong>shared responsibility</strong> between the framework (CSS) and developers (HTML/ARIA). Understanding what each provides is crucial for building truly accessible applications.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">What Aural UI CSS Provides Automatically</h2>
+            <div class="section-content">
+                <p>When you use Aural UI CSS, these accessibility features are <strong>automatically included</strong>:</p>
+
+                <h3>Mobile Responsiveness</h3>
+                <ul>
+                    <li><strong>Responsive breakpoints:</strong> Media queries adapt layouts for all screen sizes</li>
+                    <li><strong>Fluid typography:</strong> Text scales appropriately across devices</li>
+                    <li><strong>Flexible layouts:</strong> Components reflow naturally on smaller screens</li>
+                    <li><strong>Viewport optimization:</strong> Content fits properly without horizontal scrolling</li>
+                </ul>
+
+                <h3>Visual Accessibility</h3>
+                <ul>
+                    <li><strong>Color contrast:</strong> All color tokens meet WCAG AA standards (4.5:1 for text, 3:1 for UI components)</li>
+                    <li><strong>Focus indicators:</strong> Visible <code>:focus</code> and <code>:focus-visible</code> states on all interactive elements</li>
+                    <li><strong>Hover states:</strong> Clear visual feedback for mouse interactions</li>
+                    <li><strong>Touch targets:</strong> Interactive elements sized for comfortable touch (minimum 44×44px)</li>
+                    <li><strong>Consistent spacing:</strong> Adequate whitespace prevents accidental interactions</li>
+                </ul>
+
+                <h3>Example: CSS Provides Visual Focus</h3>
+                <pre><code>/* This styling is already in Aural UI CSS */
+.btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">What Developers Must Add (ARIA Attributes)</h2>
+            <div class="section-content">
+                <p>CSS <strong>cannot</strong> provide semantic meaning to assistive technologies. You must add these HTML attributes:</p>
+
+                <h3>ARIA Roles</h3>
+                <ul>
+                    <li><strong><code>role="status"</code>:</strong> For loading indicators and live updates</li>
+                    <li><strong><code>role="alert"</code>:</strong> For important error messages</li>
+                    <li><strong><code>role="list"</code> / <code>role="listitem"</code>:</strong> For non-semantic lists</li>
+                    <li><strong><code>role="separator"</code>:</strong> For dividers and visual separators</li>
+                    <li><strong><code>role="toolbar"</code>:</strong> For grouped action buttons</li>
+                </ul>
+
+                <h3>ARIA Labels</h3>
+                <ul>
+                    <li><strong><code>aria-label</code>:</strong> Provides text for screen readers when none exists visually</li>
+                    <li><strong><code>aria-labelledby</code>:</strong> Links elements to their labels</li>
+                    <li><strong><code>aria-describedby</code>:</strong> Provides additional context</li>
+                </ul>
+
+                <h3>ARIA States</h3>
+                <ul>
+                    <li><strong><code>aria-busy="true"</code>:</strong> Indicates elements are loading</li>
+                    <li><strong><code>aria-expanded</code>:</strong> Shows collapsed/expanded state</li>
+                    <li><strong><code>aria-selected</code>:</strong> Indicates selected items in lists</li>
+                    <li><strong><code>aria-hidden</code>:</strong> Hides decorative elements from screen readers</li>
+                </ul>
+
+                <h3>Example: Developer Must Add ARIA</h3>
+                <pre><code>&lt;!-- ❌ NOT Accessible (only visual) --&gt;
+&lt;div class="aural-spinner aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ✅ Accessible (visual + semantic) --&gt;
+&lt;div class="aural-spinner aural-spinner--primary"
+     role="status"
+     aria-label="Loading content"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Component-Specific ARIA Requirements</h2>
+            <div class="section-content">
+                <p>Each component type requires specific ARIA attributes. Here's a quick reference:</p>
+
+                <h3>Spinners / Loading Indicators</h3>
+                <pre><code>&lt;div class="aural-spinner aural-spinner--primary"
+     role="status"
+     aria-label="Loading"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Loading buttons --&gt;
+&lt;button class="btn btn-primary" disabled aria-busy="true"&gt;
+    &lt;span class="aural-spinner aural-spinner--xs" role="status" aria-label="Saving"&gt;
+        &lt;span class="aural-spinner__circle"&gt;&lt;/span&gt;
+    &lt;/span&gt;
+    Saving...
+&lt;/button&gt;</code></pre>
+
+                <h3>Chips / Tags</h3>
+                <pre><code>&lt;div class="aural-chips-list" role="list"&gt;
+    &lt;div class="aural-chip" role="listitem"&gt;
+        &lt;span class="aural-chip__text"&gt;JavaScript&lt;/span&gt;
+        &lt;button class="aural-chip__remove"
+                aria-label="Remove JavaScript"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                <h3>Tooltips</h3>
+                <pre><code>&lt;!-- Icon buttons need aria-label --&gt;
+&lt;button class="btn btn-icon"
+        data-tooltip="Edit item"
+        aria-label="Edit"&gt;
+    &lt;i data-lucide="edit-2"&gt;&lt;/i&gt;
+&lt;/button&gt;
+
+&lt;!-- Status indicators --&gt;
+&lt;span style="..."
+      data-tooltip="Service operational"
+      role="status"
+      aria-label="Service operational"&gt;&lt;/span&gt;</code></pre>
+
+                <h3>Dividers</h3>
+                <pre><code>&lt;!-- Horizontal dividers (semantic break) --&gt;
+&lt;hr class="divider"&gt;
+
+&lt;!-- Vertical dividers (decorative) --&gt;
+&lt;hr class="divider divider-vertical"
+    role="separator"
+    aria-orientation="vertical"&gt;</code></pre>
+
+                <h3>Code Blocks</h3>
+                <pre><code>&lt;div class="aural-code-block"&gt;
+    &lt;div class="aural-code-block__header"&gt;
+        &lt;span class="aural-code-block__language"
+              aria-label="Code language"&gt;JavaScript&lt;/span&gt;
+        &lt;button class="aural-code-block__copy"
+                aria-label="Copy code to clipboard"&gt;
+            Copy
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-code-block__content"&gt;
+        &lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Accessibility Checklist</h2>
+            <div class="section-content">
+                <p>Use this checklist when implementing Aural UI components:</p>
+
+                <h3>Visual Accessibility (CSS Handles)</h3>
+                <ul>
+                    <li>✅ Color contrast meets WCAG AA standards</li>
+                    <li>✅ Focus states are visible on all interactive elements</li>
+                    <li>✅ Components are responsive on mobile devices</li>
+                    <li>✅ Touch targets meet 44×44px minimum</li>
+                </ul>
+
+                <h3>Semantic Accessibility (Your Responsibility)</h3>
+                <ul>
+                    <li>⚠️ Add <code>role</code> attributes where needed</li>
+                    <li>⚠️ Add <code>aria-label</code> to icon-only buttons</li>
+                    <li>⚠️ Add <code>aria-busy</code> to loading states</li>
+                    <li>⚠️ Add <code>aria-live</code> regions for dynamic content</li>
+                    <li>⚠️ Ensure proper semantic HTML (<code>&lt;button&gt;</code> not <code>&lt;div&gt;</code>)</li>
+                    <li>⚠️ Test with keyboard navigation (Tab, Enter, Escape)</li>
+                    <li>⚠️ Test with screen readers (NVDA, JAWS, VoiceOver)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Testing Your Implementation</h2>
+            <div class="section-content">
+                <h3>Automated Testing</h3>
+                <ul>
+                    <li><strong>axe DevTools:</strong> Browser extension for automated accessibility testing</li>
+                    <li><strong>Lighthouse:</strong> Chrome DevTools accessibility audit</li>
+                    <li><strong>WAVE:</strong> Web accessibility evaluation tool</li>
+                </ul>
+
+                <h3>Manual Testing</h3>
+                <ul>
+                    <li><strong>Keyboard only:</strong> Navigate using only Tab, Enter, Space, and Arrow keys</li>
+                    <li><strong>Screen reader:</strong> Test with NVDA (Windows), JAWS (Windows), or VoiceOver (Mac/iOS)</li>
+                    <li><strong>Zoom to 200%:</strong> Ensure content remains readable and functional</li>
+                    <li><strong>Color blindness:</strong> Test with color blindness simulators</li>
+                </ul>
+
+                <h3>Mobile Testing</h3>
+                <ul>
+                    <li><strong>Touch targets:</strong> All interactive elements should be easy to tap</li>
+                    <li><strong>Screen readers:</strong> Test with TalkBack (Android) and VoiceOver (iOS)</li>
+                    <li><strong>Orientation:</strong> Test both portrait and landscape modes</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Common Mistakes to Avoid</h2>
+            <div class="section-content">
+                <div class="card" style="padding: var(--space-4); margin-bottom: var(--space-4); border-left: 3px solid var(--color-error);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">❌ Assuming CSS is enough</h4>
+                    <p style="margin: 0;">Just because a component <em>looks</em> accessible doesn't mean it <em>is</em> accessible. Screen readers can't read visual styling.</p>
+                </div>
+
+                <div class="card" style="padding: var(--space-4); margin-bottom: var(--space-4); border-left: 3px solid var(--color-error);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">❌ Icon buttons without labels</h4>
+                    <p style="margin: 0;">Always add <code>aria-label</code> to buttons that only contain icons. Screen reader users need to know what the button does.</p>
+                </div>
+
+                <div class="card" style="padding: var(--space-4); margin-bottom: var(--space-4); border-left: 3px solid var(--color-error);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">❌ Using divs instead of buttons</h4>
+                    <p style="margin: 0;">Use semantic HTML. A <code>&lt;div&gt;</code> with an onclick is not a button. Use <code>&lt;button&gt;</code> elements.</p>
+                </div>
+
+                <div class="card" style="padding: var(--space-4); margin-bottom: var(--space-4); border-left: 3px solid var(--color-error);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">❌ Color-only indicators</h4>
+                    <p style="margin: 0;">Never rely on color alone. Always combine color with text, icons, or patterns for colorblind users.</p>
+                </div>
+
+                <div class="card" style="padding: var(--space-4); border-left: 3px solid var(--color-error);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">❌ Forgetting loading states</h4>
+                    <p style="margin: 0;">Add <code>role="status"</code> and <code>aria-label</code> to spinners. Add <code>aria-busy="true"</code> to loading buttons.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">Resources</h2>
+            <div class="section-content">
+                <ul>
+                    <li><a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" style="color: var(--color-primary);">WCAG 2.1 Quick Reference</a></li>
+                    <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" style="color: var(--color-primary);">ARIA Authoring Practices Guide</a></li>
+                    <li><a href="https://webaim.org/" target="_blank" style="color: var(--color-primary);">WebAIM Resources</a></li>
+                    <li><a href="https://www.deque.com/axe/" target="_blank" style="color: var(--color-primary);">axe DevTools</a></li>
+                    <li><a href="https://wave.webaim.org/" target="_blank" style="color: var(--color-primary);">WAVE Evaluation Tool</a></li>
+                </ul>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>

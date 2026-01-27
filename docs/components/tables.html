@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -164,11 +195,132 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Tables</h1>
-            <p class="page-description">Data tables with sorting and selection.</p>
+            <p class="page-description">Organized data display in rows and columns with support for sorting, striping, and expandable rows.</p>
         </div>
 
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
         </div>
 
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Table</div>
+                <div class="example-demo">
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Jane Smith</td>
+                                    <td>jane@example.com</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Bob Wilson</td>
+                                    <td>bob@example.com</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="table-wrapper"&gt;
+    &lt;table class="table"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Email&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;John Doe&lt;/td&gt;
+                &lt;td&gt;john@example.com&lt;/td&gt;
+                &lt;td&gt;&lt;span class="badge badge-success"&gt;Active&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Product Table</div>
+                <div class="example-demo">
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Widget A</td>
+                                    <td>$19.99</td>
+                                    <td>45</td>
+                                </tr>
+                                <tr>
+                                    <td>Widget B</td>
+                                    <td>$29.99</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>Widget C</td>
+                                    <td>$39.99</td>
+                                    <td>8</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="table-wrapper"&gt;
+    &lt;table class="table"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Product&lt;/th&gt;
+                &lt;th&gt;Price&lt;/th&gt;
+                &lt;th&gt;Stock&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;Widget A&lt;/td&gt;
+                &lt;td&gt;$19.99&lt;/td&gt;
+                &lt;td&gt;45&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
             <div class="example-container">
                 <div class="example-label">Striped & Hover</div>
                 <div class="example-demo">
@@ -197,12 +349,96 @@
                                     <td>$39.99</td>
                                     <td>8</td>
                                 </tr>
+                                <tr>
+                                    <td>Widget D</td>
+                                    <td>$49.99</td>
+                                    <td>23</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="table-wrapper"&gt;
+    &lt;table class="table table-striped table-hover"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Product&lt;/th&gt;
+                &lt;th&gt;Price&lt;/th&gt;
+                &lt;th&gt;Stock&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;Widget A&lt;/td&gt;
+                &lt;td&gt;$19.99&lt;/td&gt;
+                &lt;td&gt;45&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
 
+            <div class="example-container">
+                <div class="example-label">Compact Table</div>
+                <div class="example-demo">
+                    <div class="table-wrapper">
+                        <table class="table table-compact">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>Admin</td>
+                                </tr>
+                                <tr>
+                                    <td>Jane Smith</td>
+                                    <td>jane@example.com</td>
+                                    <td>Editor</td>
+                                </tr>
+                                <tr>
+                                    <td>Bob Wilson</td>
+                                    <td>bob@example.com</td>
+                                    <td>Viewer</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="table-wrapper"&gt;
+    &lt;table class="table table-compact"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Email&lt;/th&gt;
+                &lt;th&gt;Role&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;John Doe&lt;/td&gt;
+                &lt;td&gt;john@example.com&lt;/td&gt;
+                &lt;td&gt;Admin&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
             <div class="example-container">
                 <div class="example-label">Expandable Rows</div>
                 <div class="example-demo">
@@ -284,18 +520,190 @@
                         </table>
                     </div>
                 </div>
-                <div class="section-content" style="margin-top: var(--space-4);">
-                    <p>Expandable rows allow you to show additional details without navigating away. Key features:</p>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="table-wrapper"&gt;
+    &lt;table class="table"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th class="expand-cell"&gt;&lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Email&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr class="expandable" onclick="toggleRow(this)"&gt;
+                &lt;td class="expand-cell"&gt;
+                    &lt;span class="table-expand-icon"&gt;
+                        &lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;
+                    &lt;/span&gt;
+                &lt;/td&gt;
+                &lt;td&gt;John Doe&lt;/td&gt;
+                &lt;td&gt;john@example.com&lt;/td&gt;
+                &lt;td&gt;&lt;span class="badge badge-success"&gt;Active&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr class="expanded-content hidden"&gt;
+                &lt;td colspan="4"&gt;
+                    &lt;div class="table-expanded-content"&gt;
+                        &lt;h4&gt;Additional Details&lt;/h4&gt;
+                        &lt;p&gt;&lt;strong&gt;Department:&lt;/strong&gt; Engineering&lt;/p&gt;
+                        &lt;p&gt;&lt;strong&gt;Role:&lt;/strong&gt; Senior Developer&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function toggleRow(row) {
+    row.classList.toggle('expanded');
+    const nextRow = row.nextElementSibling;
+    if (nextRow && nextRow.classList.contains('expanded-content')) {
+        nextRow.classList.toggle('hidden');
+    }
+    lucide.createIcons();
+}
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Actions</div>
+                <div class="example-demo">
+                    <div class="table-wrapper">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <div style="display: flex; gap: var(--space-2);">
+                                            <button class="btn btn-ghost btn-sm" aria-label="Edit user">
+                                                <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
+                                            </button>
+                                            <button class="btn btn-ghost btn-sm" aria-label="Delete user">
+                                                <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Jane Smith</td>
+                                    <td>jane@example.com</td>
+                                    <td><span class="badge badge-success">Active</span></td>
+                                    <td>
+                                        <div style="display: flex; gap: var(--space-2);">
+                                            <button class="btn btn-ghost btn-sm" aria-label="Edit user">
+                                                <i data-lucide="edit-2" style="width: 16px; height: 16px;"></i>
+                                            </button>
+                                            <button class="btn btn-ghost btn-sm" aria-label="Delete user">
+                                                <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;td&gt;
+    &lt;div style="display: flex; gap: var(--space-2);"&gt;
+        &lt;button class="btn btn-ghost btn-sm" aria-label="Edit user"&gt;
+            &lt;i data-lucide="edit-2"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;button class="btn btn-ghost btn-sm" aria-label="Delete user"&gt;
+            &lt;i data-lucide="trash-2"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/td&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use Tables</h2>
+                <div class="section-content">
                     <ul>
-                        <li>Click any row with <code>.expandable</code> class to toggle expansion</li>
-                        <li>Chevron icon rotates 90° when expanded</li>
-                        <li>Use <code>.expand-cell</code> for the first column to add proper spacing</li>
-                        <li>Put expanded content in a following row with <code>.expanded-content.hidden</code></li>
-                        <li>Use <code>.table-expanded-content</code> wrapper for styled detail sections</li>
+                        <li><strong>Structured Data:</strong> Display data that naturally fits into rows and columns</li>
+                        <li><strong>Comparisons:</strong> Help users compare multiple items across different attributes</li>
+                        <li><strong>Data Analysis:</strong> Present datasets that users need to scan, sort, or search</li>
+                        <li><strong>Records Management:</strong> Show lists of users, products, transactions, or other entities</li>
+                        <li><strong>Reports:</strong> Display financial data, analytics, or statistical information</li>
                     </ul>
-                    <p>The toggle is controlled with JavaScript to add/remove <code>.expanded</code> and <code>.hidden</code> classes.</p>
                 </div>
             </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Always use proper semantic HTML: <code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code></li>
+                        <li>Use <code>&lt;th&gt;</code> elements for header cells with appropriate <code>scope</code> attributes</li>
+                        <li>Provide a <code>&lt;caption&gt;</code> or nearby heading to describe the table's purpose</li>
+                        <li>For complex tables, use <code>headers</code> and <code>id</code> attributes to associate cells</li>
+                        <li>Ensure action buttons have descriptive <code>aria-label</code> attributes</li>
+                        <li>Mark expandable rows with appropriate ARIA states when expanded/collapsed</li>
+                        <li>Maintain sufficient color contrast for text and interactive elements</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Layout & Structure</h3>
+                    <ul>
+                        <li>Use <code>.table-wrapper</code> to enable horizontal scrolling on smaller screens</li>
+                        <li>Keep column count reasonable (5-7 columns ideal, avoid exceeding 10)</li>
+                        <li>Left-align text columns, right-align numerical data</li>
+                        <li>Use consistent column widths for similar data types</li>
+                        <li>Place primary actions in the rightmost column</li>
+                    </ul>
+
+                    <h3>Visual Design</h3>
+                    <ul>
+                        <li>Use <code>table-striped</code> for better row distinction in large tables</li>
+                        <li>Add <code>table-hover</code> to indicate row interactivity</li>
+                        <li>Use <code>table-compact</code> when space is limited</li>
+                        <li>Keep cell padding consistent throughout the table</li>
+                        <li>Use badges or status indicators for categorical data</li>
+                    </ul>
+
+                    <h3>Content Guidelines</h3>
+                    <ul>
+                        <li>Use clear, concise column headers</li>
+                        <li>Format data consistently within columns (dates, currency, numbers)</li>
+                        <li>Provide empty state messaging for tables with no data</li>
+                        <li>Consider pagination for tables with many rows (>50)</li>
+                        <li>Show loading states when fetching data</li>
+                    </ul>
+
+                    <h3>Expandable Rows</h3>
+                    <ul>
+                        <li>Use expandable rows to show additional details without navigation</li>
+                        <li>Include chevron icon to indicate expandability</li>
+                        <li>Use <code>.expand-cell</code> class for proper spacing of expand icons</li>
+                        <li>Wrap expanded content in <code>.table-expanded-content</code> for consistent styling</li>
+                        <li>Toggle <code>.expanded</code> and <code>.hidden</code> classes with JavaScript</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
     </main>
 
@@ -320,6 +728,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -349,25 +760,21 @@
             // Re-initialize icons after toggle
             lucide.createIcons();
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
-        // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
-            console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
-        } else {
-            console.error('Theme link not found!');
         }
 
-        // Hide theme toggle in iframe (demo.html controls theme)
         window.addEventListener('DOMContentLoaded', function() {
             try {
                 if (window.self !== window.top) {

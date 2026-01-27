@@ -1913,6 +1913,16 @@ textarea.input,
         box-shadow: var(--shadow-md);
     }
 
+.card-hover:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        border-color: var(--color-primary);
+    }
+
+.card-hover:active {
+        transform: translateY(0);
+    }
+
 /* Active state */
 
 .card-active {
@@ -1996,6 +2006,62 @@ textarea.input,
     -o-object-fit: cover;
        object-fit: cover;
     display: block;
+}
+
+/* ========================================
+   ACCESSIBILITY & MOBILE
+   ======================================== */
+
+/* Reduced motion support */
+
+@media (prefers-reduced-motion: reduce) {
+    .card-hover {
+        transition: none;
+    }
+
+    .card-hover:hover,
+    .card-hover:active {
+        transform: none;
+    }
+}
+
+/* Mobile responsive spacing */
+
+@media (max-width: 640px) {
+    .card {
+        padding: var(--space-5);
+    }
+
+    .card-compact {
+        padding: var(--space-3);
+    }
+
+    .card-header,
+    .card-footer {
+        padding: var(--space-4) var(--space-5);
+        margin-left: calc(-1 * var(--space-5));
+        margin-right: calc(-1 * var(--space-5));
+    }
+
+    .card-header {
+        margin-top: calc(-1 * var(--space-5));
+        margin-bottom: var(--space-4);
+    }
+
+    .card-footer {
+        margin-top: var(--space-4);
+        margin-bottom: calc(-1 * var(--space-5));
+        flex-wrap: wrap;
+    }
+
+    .card-body {
+        padding: var(--space-5);
+        margin: calc(-1 * var(--space-5));
+    }
+
+    .card-image {
+        margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-4);
+    }
 }
 
 /**
@@ -3488,6 +3554,33 @@ textarea.input,
     }
 }
 
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Reduced motion support */
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton {
+        animation: none;
+        background: var(--color-skeleton-from);
+    }
+}
+
+/* Screen reader text for skeletons */
+
+.skeleton-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
 /**
  * AURAL UI - Loading Spinner
  *
@@ -4022,6 +4115,35 @@ textarea.input,
 .empty-state-compact .empty-state-title {
         font-size: var(--text-base);
     }
+
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+
+@media (max-width: 640px) {
+    .empty-state {
+        padding: var(--space-8) var(--space-4);
+    }
+
+    .empty-state-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: var(--space-5);
+    }
+
+    .empty-state-title {
+        font-size: var(--text-base);
+    }
+
+    .empty-state-description {
+        font-size: var(--text-sm);
+        max-width: 100%;
+    }
+
+    .empty-state-compact {
+        padding: var(--space-6) var(--space-4);
+    }
+}
 
 /* Form Controls */
 
@@ -12789,6 +12911,48 @@ body.has-bottom-nav {
     }
 }
 
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Ensure table-wrapper provides horizontal scroll */
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Slightly reduce padding on mobile */
+    .table th,
+    .table td {
+        padding: var(--space-3);
+    }
+
+    /* Make text slightly smaller on mobile */
+    .table {
+        font-size: 0.8125rem; /* 13px */
+    }
+
+    /* Ensure minimum cell widths for readability */
+    .table th,
+    .table td {
+        min-width: 100px;
+    }
+
+    .table th:first-child,
+    .table td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: var(--color-table-bg);
+    }
+
+    .table thead th:first-child {
+        z-index: 11;
+        background: var(--color-table-header-bg);
+    }
+}
+
 /**
  * AURAL UI - Avatar Component
  *
@@ -12855,6 +13019,18 @@ body.has-bottom-nav {
 /* ========================================
    SIZES
    ======================================== */
+
+.avatar-xs {
+    width: 24px;
+    height: 24px;
+    font-size: 0.625rem; /* 10px */
+    border-width: 1px;
+}
+
+.avatar-xs > svg {
+        width: 45%;
+        height: 45%;
+    }
 
 .avatar-sm {
     width: 32px;
@@ -13011,6 +13187,54 @@ body.has-bottom-nav {
         outline: 2px solid var(--color-primary);
         outline-offset: 2px;
     }
+
+/* ========================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ======================================== */
+
+/* Larger status indicators on touch devices for better visibility */
+
+@media (pointer: coarse) {
+    .avatar-status-online::after,
+    .avatar-status-offline::after,
+    .avatar-status-busy::after,
+    .avatar-status-away::after {
+        min-width: 10px;
+        min-height: 10px;
+        border-width: 2.5px;
+    }
+
+    /* Ensure clickable avatars meet touch target size */
+    .avatar-clickable {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .avatar-clickable.avatar-sm,
+    .avatar-clickable.avatar-xs {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Reduced motion support */
+
+@media (prefers-reduced-motion: reduce) {
+    .avatar-clickable,
+    .avatar-group > .avatar {
+        transition: none;
+    }
+
+    .avatar-clickable:hover,
+    .avatar-clickable:active,
+    .avatar-group > .avatar:hover {
+        transform: none;
+    }
+}
 
 /**
  * AURAL UI - Progress Component

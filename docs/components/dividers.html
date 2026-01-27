@@ -134,6 +134,45 @@
             z-index: 200;
         }
 
+        /* Code Block Styles */
+        details {
+            margin-top: var(--space-4);
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        details pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -164,44 +203,460 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Dividers</h1>
-            <p class="page-description">Visual separators for content sections.</p>
+            <p class="page-description">Visual separators to organize and structure content sections.</p>
         </div>
 
-        <div class="example-container">
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Divider</div>
+                <div class="example-demo">
+                    <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-4) 0;">Content above the divider</p>
+                    <hr class="divider">
+                    <p style="color: var(--color-text-secondary); margin: var(--space-4) 0 0 0;">Content below the divider</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;p&gt;Content above the divider&lt;/p&gt;
+&lt;hr class="divider"&gt;
+&lt;p&gt;Content below the divider&lt;/p&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Vertical Divider</div>
+                <div class="example-demo">
+                    <div style="display: flex; align-items: center; gap: var(--space-4);">
+                        <span style="color: var(--color-text-secondary);">Item 1</span>
+                        <hr class="divider divider-vertical" role="separator" aria-orientation="vertical">
+                        <span style="color: var(--color-text-secondary);">Item 2</span>
+                        <hr class="divider divider-vertical" role="separator" aria-orientation="vertical">
+                        <span style="color: var(--color-text-secondary);">Item 3</span>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; align-items: center; gap: var(--space-4);"&gt;
+    &lt;span&gt;Item 1&lt;/span&gt;
+    &lt;hr class="divider divider-vertical"&gt;
+    &lt;span&gt;Item 2&lt;/span&gt;
+    &lt;hr class="divider divider-vertical"&gt;
+    &lt;span&gt;Item 3&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
                 <div class="example-label">With Text</div>
                 <div class="example-demo">
                     <div class="divider divider-with-text">
                         <span>OR</span>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="divider divider-with-text"&gt;
+    &lt;span&gt;OR&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
+        </div>
 
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
             <div class="example-container">
-                <div class="example-label">Vertical</div>
+                <div class="example-label">Divider Styles</div>
                 <div class="example-demo">
-                    <div style="display: flex; align-items: center; gap: var(--space-2);">
-                        <span>Item 1</span>
-                        <hr class="divider divider-vertical">
-                        <span>Item 2</span>
-                        <hr class="divider divider-vertical">
-                        <span>Item 3</span>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Solid (default)</p>
+                            <hr class="divider">
+                        </div>
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Dashed</p>
+                            <hr class="divider divider-dashed">
+                        </div>
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Dotted</p>
+                            <hr class="divider divider-dotted">
+                        </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Solid --&gt;
+&lt;hr class="divider"&gt;
+
+&lt;!-- Dashed --&gt;
+&lt;hr class="divider divider-dashed"&gt;
+
+&lt;!-- Dotted --&gt;
+&lt;hr class="divider divider-dotted"&gt;</code></pre>
+                </details>
             </div>
 
             <div class="example-container">
-                <div class="example-label">Styles</div>
+                <div class="example-label">Spacing Variants</div>
                 <div class="example-demo">
-                    <hr class="divider divider-dashed">
-                    <hr class="divider divider-dotted">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Compact (less spacing)</p>
+                            <hr class="divider divider-compact">
+                        </div>
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Default spacing</p>
+                            <hr class="divider">
+                        </div>
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Spacious (more spacing)</p>
+                            <hr class="divider divider-spacious">
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Compact --&gt;
+&lt;hr class="divider divider-compact"&gt;
+
+&lt;!-- Default --&gt;
+&lt;hr class="divider"&gt;
+
+&lt;!-- Spacious --&gt;
+&lt;hr class="divider divider-spacious"&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Text Variations</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <div class="divider divider-with-text">
+                            <span>OR</span>
+                        </div>
+                        <div class="divider divider-with-text">
+                            <span>Continue with</span>
+                        </div>
+                        <div class="divider divider-with-text">
+                            <i data-lucide="star" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="divider divider-with-text"&gt;
+    &lt;span&gt;OR&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="divider divider-with-text"&gt;
+    &lt;span&gt;Continue with&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="divider divider-with-text"&gt;
+    &lt;i data-lucide="star"&gt;&lt;/i&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Vertical Height Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; align-items: flex-start; gap: var(--space-4);">
+                        <div style="display: flex; align-items: center; gap: var(--space-3);">
+                            <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Short</span>
+                            <hr class="divider divider-vertical" style="height: 20px;" role="separator" aria-orientation="vertical">
+                            <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Default</span>
+                            <hr class="divider divider-vertical" role="separator" aria-orientation="vertical">
+                            <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Tall</span>
+                            <hr class="divider divider-vertical" style="height: 60px;" role="separator" aria-orientation="vertical">
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Short --&gt;
+&lt;hr class="divider divider-vertical" style="height: 20px;"&gt;
+
+&lt;!-- Default --&gt;
+&lt;hr class="divider divider-vertical"&gt;
+
+&lt;!-- Tall --&gt;
+&lt;hr class="divider divider-vertical" style="height: 60px;"&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Content Sections</div>
+                <div class="example-demo">
+                    <div>
+                        <h3 style="color: var(--color-text-primary); margin: 0 0 var(--space-3) 0;">Section One</h3>
+                        <p style="color: var(--color-text-secondary); margin: 0;">This is the first section of content with some descriptive text.</p>
+
+                        <hr class="divider" style="margin: var(--space-6) 0;">
+
+                        <h3 style="color: var(--color-text-primary); margin: 0 0 var(--space-3) 0;">Section Two</h3>
+                        <p style="color: var(--color-text-secondary); margin: 0;">This is the second section separated by a divider.</p>
+
+                        <hr class="divider" style="margin: var(--space-6) 0;">
+
+                        <h3 style="color: var(--color-text-primary); margin: 0 0 var(--space-3) 0;">Section Three</h3>
+                        <p style="color: var(--color-text-secondary); margin: 0;">And here is the third section of content.</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;h3&gt;Section One&lt;/h3&gt;
+&lt;p&gt;This is the first section of content...&lt;/p&gt;
+
+&lt;hr class="divider"&gt;
+
+&lt;h3&gt;Section Two&lt;/h3&gt;
+&lt;p&gt;This is the second section...&lt;/p&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">List Separators</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="color: var(--color-text-primary);">Dashboard</span>
+                            <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">⌘D</span>
+                        </div>
+                        <hr class="divider divider-compact">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="color: var(--color-text-primary);">Settings</span>
+                            <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">⌘,</span>
+                        </div>
+                        <hr class="divider divider-compact">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="color: var(--color-text-primary);">Profile</span>
+                            <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">⌘P</span>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div&gt;
+    &lt;div&gt;Dashboard&lt;/div&gt;
+    &lt;hr class="divider divider-compact"&gt;
+    &lt;div&gt;Settings&lt;/div&gt;
+    &lt;hr class="divider divider-compact"&gt;
+    &lt;div&gt;Profile&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Form Sections</div>
+                <div class="example-demo">
+                    <form style="max-width: 400px;">
+                        <div style="margin-bottom: var(--space-4);">
+                            <label style="display: block; margin-bottom: var(--space-2); color: var(--color-text-primary);">Full Name</label>
+                            <input type="text" class="input" placeholder="Enter your name">
+                        </div>
+                        <div style="margin-bottom: var(--space-4);">
+                            <label style="display: block; margin-bottom: var(--space-2); color: var(--color-text-primary);">Email</label>
+                            <input type="email" class="input" placeholder="Enter your email">
+                        </div>
+
+                        <div class="divider divider-with-text" style="margin: var(--space-6) 0;">
+                            <span>Optional Information</span>
+                        </div>
+
+                        <div style="margin-bottom: var(--space-4);">
+                            <label style="display: block; margin-bottom: var(--space-2); color: var(--color-text-primary);">Phone</label>
+                            <input type="tel" class="input" placeholder="Enter your phone">
+                        </div>
+                        <div style="margin-bottom: var(--space-4);">
+                            <label style="display: block; margin-bottom: var(--space-2); color: var(--color-text-primary);">Company</label>
+                            <input type="text" class="input" placeholder="Enter your company">
+                        </div>
+                    </form>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;form&gt;
+    &lt;div&gt;
+        &lt;label&gt;Full Name&lt;/label&gt;
+        &lt;input type="text" class="input"&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;label&gt;Email&lt;/label&gt;
+        &lt;input type="email" class="input"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="divider divider-with-text"&gt;
+        &lt;span&gt;Optional Information&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label&gt;Phone&lt;/label&gt;
+        &lt;input type="tel" class="input"&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Toolbar Separators</div>
+                <div class="example-demo">
+                    <div style="display: flex; align-items: center; gap: var(--space-2); background: var(--color-bg-tertiary); padding: var(--space-3); border-radius: var(--radius-md);">
+                        <button class="btn btn-ghost btn-sm btn-icon" aria-label="Bold">
+                            <i data-lucide="bold"></i>
+                        </button>
+                        <button class="btn btn-ghost btn-sm btn-icon" aria-label="Italic">
+                            <i data-lucide="italic"></i>
+                        </button>
+                        <button class="btn btn-ghost btn-sm btn-icon" aria-label="Underline">
+                            <i data-lucide="underline"></i>
+                        </button>
+
+                        <hr class="divider divider-vertical" style="height: 24px;" role="separator" aria-orientation="vertical">
+
+                        <button class="btn btn-ghost btn-sm btn-icon" aria-label="Align left">
+                            <i data-lucide="align-left"></i>
+                        </button>
+                        <button class="btn btn-ghost btn-sm btn-icon" aria-label="Align center">
+                            <i data-lucide="align-center"></i>
+                        </button>
+                        <button class="btn btn-ghost btn-sm btn-icon" aria-label="Align right">
+                            <i data-lucide="align-right"></i>
+                        </button>
+
+                        <hr class="divider divider-vertical" style="height: 24px;" role="separator" aria-orientation="vertical">
+
+                        <button class="btn btn-ghost btn-sm btn-icon" aria-label="Insert link">
+                            <i data-lucide="link"></i>
+                        </button>
+                        <button class="btn btn-ghost btn-sm btn-icon" aria-label="Insert image">
+                            <i data-lucide="image"></i>
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; align-items: center; gap: var(--space-2);"&gt;
+    &lt;button class="btn btn-ghost btn-sm btn-icon"&gt;
+        &lt;i data-lucide="bold"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    &lt;button class="btn btn-ghost btn-sm btn-icon"&gt;
+        &lt;i data-lucide="italic"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+
+    &lt;hr class="divider divider-vertical" style="height: 24px;"&gt;
+
+    &lt;button class="btn btn-ghost btn-sm btn-icon"&gt;
+        &lt;i data-lucide="align-left"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use Dividers</h2>
+                <div class="section-content">
+                    <p>Dividers help organize content and create visual hierarchy:</p>
+                    <ul>
+                        <li><strong>Content sections:</strong> Separate distinct sections of related content</li>
+                        <li><strong>List items:</strong> Divide items in lists, menus, or navigation</li>
+                        <li><strong>Form groups:</strong> Distinguish between different sections of a form</li>
+                        <li><strong>Toolbars:</strong> Group related actions in button groups or toolbars</li>
+                        <li><strong>Alternative flows:</strong> Show "OR" options in authentication or payment flows</li>
+                    </ul>
                 </div>
             </div>
 
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Visual Hierarchy</h3>
+                    <ul>
+                        <li>Use dividers to establish clear visual hierarchy and content structure</li>
+                        <li>Avoid overusing dividers - too many can create visual clutter</li>
+                        <li>Consider using whitespace instead of dividers when separation is already clear</li>
+                        <li>Use consistent divider styles throughout your application</li>
+                    </ul>
+
+                    <h3>Style Selection</h3>
+                    <ul>
+                        <li>Use <strong>solid</strong> dividers for primary content separation</li>
+                        <li>Use <strong>dashed</strong> dividers for less prominent separations</li>
+                        <li>Use <strong>dotted</strong> dividers for subtle visual breaks</li>
+                        <li>Use dividers with text for alternative flows or optional sections</li>
+                    </ul>
+
+                    <h3>Spacing</h3>
+                    <ul>
+                        <li>Use <strong>compact</strong> spacing for densely packed content like lists</li>
+                        <li>Use <strong>default</strong> spacing for standard content sections</li>
+                        <li>Use <strong>spacious</strong> spacing for major section breaks</li>
+                        <li>Maintain consistent spacing between divider and surrounding content</li>
+                    </ul>
+
+                    <h3>Orientation</h3>
+                    <ul>
+                        <li>Use <strong>horizontal</strong> dividers for vertically stacked content</li>
+                        <li>Use <strong>vertical</strong> dividers for inline or horizontally arranged items</li>
+                        <li>Match vertical divider height to the content it separates</li>
+                        <li>Ensure vertical dividers are vertically centered with their content</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <p>While dividers are primarily visual, consider these accessibility points:</p>
+                    <ul>
+                        <li>Use semantic HTML (<code>&lt;hr&gt;</code>) for horizontal dividers when they represent thematic breaks</li>
+                        <li>Dividers should have sufficient contrast with the background (at least 3:1)</li>
+                        <li>Don't rely solely on dividers to convey meaning - use headings and proper document structure</li>
+                        <li>Screen readers may announce <code>&lt;hr&gt;</code> elements as "separator" or "horizontal rule"</li>
+                        <li>For purely decorative dividers, consider using CSS borders instead of <code>&lt;hr&gt;</code></li>
+                        <li>When using text with dividers, ensure text has proper color contrast</li>
+                    </ul>
+
+                    <h3>Semantic Usage</h3>
+                    <pre><code>&lt;!-- Thematic break (semantic) --&gt;
+&lt;hr class="divider"&gt;
+
+&lt;!-- Decorative only (CSS border) --&gt;
+&lt;div style="border-bottom: 1px solid var(--color-border);"&gt;&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Mobile Considerations</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Dividers remain effective on mobile devices for content organization</li>
+                        <li>Consider using more generous spacing on mobile to improve readability</li>
+                        <li>Vertical dividers may not work well on narrow mobile screens</li>
+                        <li>Test divider visibility on various screen sizes and pixel densities</li>
+                        <li>Be mindful of divider length in responsive layouts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
@@ -220,6 +675,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -238,18 +696,19 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

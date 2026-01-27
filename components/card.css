@@ -38,6 +38,16 @@
         transform: translateY(-2px);
         box-shadow: var(--shadow-md);
     }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        border-color: var(--color-primary);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
 }
 
 /* Active state */
@@ -113,4 +123,58 @@
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* ========================================
+   ACCESSIBILITY & MOBILE
+   ======================================== */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .card-hover {
+        transition: none;
+    }
+
+    .card-hover:hover,
+    .card-hover:active {
+        transform: none;
+    }
+}
+
+/* Mobile responsive spacing */
+@media (max-width: 640px) {
+    .card {
+        padding: var(--space-5);
+    }
+
+    .card-compact {
+        padding: var(--space-3);
+    }
+
+    .card-header,
+    .card-footer {
+        padding: var(--space-4) var(--space-5);
+        margin-left: calc(-1 * var(--space-5));
+        margin-right: calc(-1 * var(--space-5));
+    }
+
+    .card-header {
+        margin-top: calc(-1 * var(--space-5));
+        margin-bottom: var(--space-4);
+    }
+
+    .card-footer {
+        margin-top: var(--space-4);
+        margin-bottom: calc(-1 * var(--space-5));
+        flex-wrap: wrap;
+    }
+
+    .card-body {
+        padding: var(--space-5);
+        margin: calc(-1 * var(--space-5));
+    }
+
+    .card-image {
+        margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-4);
+    }
 }

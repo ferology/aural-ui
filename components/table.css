@@ -503,3 +503,45 @@
         transition: none;
     }
 }
+
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Ensure table-wrapper provides horizontal scroll */
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Slightly reduce padding on mobile */
+    .table th,
+    .table td {
+        padding: var(--space-3);
+    }
+
+    /* Make text slightly smaller on mobile */
+    .table {
+        font-size: 0.8125rem; /* 13px */
+    }
+
+    /* Ensure minimum cell widths for readability */
+    .table th,
+    .table td {
+        min-width: 100px;
+    }
+
+    .table th:first-child,
+    .table td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: var(--color-table-bg);
+    }
+
+    .table thead th:first-child {
+        z-index: 11;
+        background: var(--color-table-header-bg);
+    }
+}

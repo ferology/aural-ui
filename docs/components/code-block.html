@@ -134,6 +134,45 @@
             z-index: 200;
         }
 
+        /* Code Block Styles */
+        details {
+            margin-top: var(--space-4);
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        details pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -164,48 +203,558 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Code Block</h1>
-            <p class="page-description">Syntax-highlighted code blocks with copy functionality.</p>
+            <p class="page-description">Display code snippets with syntax highlighting and copy functionality.</p>
         </div>
 
-        <!-- Code snippet accordion -->
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="Aural.toggleAccordion('code-block-basic-code')">
-                            <span>
-                                <span style="font-weight: bold; margin-right: 8px; font-size: 18px;">&lt;/&gt;</span>
-                                View Code
-                            </span>
-                            <i data-lucide="chevron-down" style="width: 16px; height: 10px;"></i>
-                        </button>
-                    <div class="accordion-panel" id="code-block-basic-code" hidden>
-                        <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md);">
-                            <pre style="margin: 0; color: var(--color-text-primary); overflow-x: auto;"><code>&lt;div class="aural-code-block" id="demo-code-1"&gt;
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Code Block</div>
+                <div class="example-demo">
+                    <div class="aural-code-block">
+                        <div class="aural-code-block__header">
+                            <span class="aural-code-block__language" aria-label="Code language">JavaScript</span>
+                            <button class="aural-code-block__copy" onclick="copyCode(this)" aria-label="Copy code to clipboard">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet('World'));</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-code-block"&gt;
   &lt;div class="aural-code-block__header"&gt;
     &lt;span class="aural-code-block__language"&gt;JavaScript&lt;/span&gt;
     &lt;button class="aural-code-block__copy"&gt;Copy&lt;/button&gt;
   &lt;/div&gt;
   &lt;div class="aural-code-block__content"&gt;
     &lt;pre class="aural-code-block__pre"&gt;&lt;code class="aural-code-block__code"&gt;
-// Your code here
-&lt;/code&gt;&lt;/pre&gt;
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+    &lt;/code&gt;&lt;/pre&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Inline Code</div>
+                <div class="example-demo">
+                    <p style="color: var(--color-text-secondary); margin: 0;">
+                        Use the <code class="aural-code-inline">console.log()</code> function to output messages.
+                        Variables can be declared with <code class="aural-code-inline">const</code>,
+                        <code class="aural-code-inline">let</code>, or <code class="aural-code-inline">var</code>.
+                    </p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;p&gt;
+  Use the &lt;code class="aural-code-inline"&gt;console.log()&lt;/code&gt; function.
+&lt;/p&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Without Header</div>
+                <div class="example-demo">
+                    <div class="aural-code-block">
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">npm install aural-ui
+npm run dev</code></pre>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-code-block"&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre class="aural-code-block__pre"&gt;&lt;code class="aural-code-block__code"&gt;
+npm install aural-ui
+    &lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example">
-            <div class="example-label">Inline Code</div>
-            <p>Use the <code class="aural-code-inline">console.log()</code> function to output messages to the console.</p>
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">With Line Numbers</div>
+                <div class="example-demo">
+                    <div class="aural-code-block aural-code-block--line-numbers">
+                        <div class="aural-code-block__header">
+                            <span class="aural-code-block__language" aria-label="Code language">Python</span>
+                            <button class="aural-code-block__copy" onclick="copyCode(this)" aria-label="Copy code to clipboard">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# Print first 10 numbers
+for i in range(10):
+    print(fibonacci(i))</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-code-block aural-code-block--line-numbers"&gt;
+  &lt;div class="aural-code-block__header"&gt;
+    &lt;span class="aural-code-block__language"&gt;Python&lt;/span&gt;
+    &lt;button class="aural-code-block__copy"&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre class="aural-code-block__pre"&gt;&lt;code class="aural-code-block__code"&gt;
+def fibonacci(n):
+    if n <= 1:
+        return n
+    &lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Highlighted Lines</div>
+                <div class="example-demo">
+                    <div class="aural-code-block aural-code-block--line-numbers">
+                        <div class="aural-code-block__header">
+                            <span class="aural-code-block__language" aria-label="Code language">JavaScript</span>
+                            <button class="aural-code-block__copy" onclick="copyCode(this)" aria-label="Copy code to clipboard">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code"><span class="aural-code-block__line">const user = {</span>
+<span class="aural-code-block__line aural-code-block__line--highlight">  name: 'John Doe',</span>
+<span class="aural-code-block__line aural-code-block__line--success">  email: 'john@example.com',</span>
+<span class="aural-code-block__line aural-code-block__line--error">  password: '123456', // Insecure!</span>
+<span class="aural-code-block__line">};</span></code></pre>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;pre&gt;&lt;code&gt;
+&lt;span class="aural-code-block__line"&gt;const user = {&lt;/span&gt;
+&lt;span class="aural-code-block__line aural-code-block__line--highlight"&gt;  name: 'John',&lt;/span&gt;
+&lt;span class="aural-code-block__line aural-code-block__line--success"&gt;  email: 'john@example.com',&lt;/span&gt;
+&lt;span class="aural-code-block__line aural-code-block__line--error"&gt;  password: '123',&lt;/span&gt;
+&lt;span class="aural-code-block__line"&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Terminal Style</div>
+                <div class="example-demo">
+                    <div class="aural-code-block aural-code-block--terminal">
+                        <div class="aural-code-block__header">
+                            <span class="aural-code-block__language" aria-label="Code language">bash</span>
+                            <button class="aural-code-block__copy" onclick="copyCode(this)" aria-label="Copy code to clipboard">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">$ npm install aural-ui
+$ npm run dev
+
+> aural-ui@1.0.0 dev
+> vite
+
+  VITE v4.0.0  ready in 250 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-code-block aural-code-block--terminal"&gt;
+  &lt;div class="aural-code-block__header"&gt;
+    &lt;span class="aural-code-block__language"&gt;bash&lt;/span&gt;
+    &lt;button class="aural-code-block__copy"&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre&gt;&lt;code&gt;$ npm install aural-ui&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Size Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Small</p>
+                            <div class="aural-code-block aural-code-block--sm">
+                                <div class="aural-code-block__content">
+                                    <pre class="aural-code-block__pre"><code class="aural-code-block__code">const x = 42;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Default</p>
+                            <div class="aural-code-block">
+                                <div class="aural-code-block__content">
+                                    <pre class="aural-code-block__pre"><code class="aural-code-block__code">const x = 42;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-2);">Large</p>
+                            <div class="aural-code-block aural-code-block--lg">
+                                <div class="aural-code-block__content">
+                                    <pre class="aural-code-block__pre"><code class="aural-code-block__code">const x = 42;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-code-block aural-code-block--sm"&gt;&lt;/div&gt;
+&lt;div class="aural-code-block"&gt;&lt;/div&gt;
+&lt;div class="aural-code-block aural-code-block--lg"&gt;&lt;/div&gt;</code></pre>
+                </details>
+            </div>
         </div>
 
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">API Documentation</div>
+                <div class="example-demo">
+                    <h3 style="color: var(--color-text-primary); margin: 0 0 var(--space-3) 0;">POST /api/users</h3>
+                    <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-4) 0;">Create a new user account.</p>
+
+                    <p style="color: var(--color-text-primary); font-weight: 600; margin: var(--space-4) 0 var(--space-2) 0;">Request Body:</p>
+                    <div class="aural-code-block">
+                        <div class="aural-code-block__header">
+                            <span class="aural-code-block__language" aria-label="Code language">JSON</span>
+                            <button class="aural-code-block__copy" onclick="copyCode(this)" aria-label="Copy code to clipboard">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "secure_password"
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--color-text-primary); font-weight: 600; margin: var(--space-4) 0 var(--space-2) 0;">Response:</p>
+                    <div class="aural-code-block">
+                        <div class="aural-code-block__header">
+                            <span class="aural-code-block__language" aria-label="Code language">JSON</span>
+                            <button class="aural-code-block__copy" onclick="copyCode(this)" aria-label="Copy code to clipboard">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">{
+  "id": "usr_1234567890",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "created_at": "2024-01-15T10:30:00Z"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;h3&gt;POST /api/users&lt;/h3&gt;
+&lt;p&gt;Create a new user account.&lt;/p&gt;
+
+&lt;div class="aural-code-block"&gt;
+  &lt;div class="aural-code-block__header"&gt;
+    &lt;span class="aural-code-block__language"&gt;JSON&lt;/span&gt;
+    &lt;button class="aural-code-block__copy"&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre&gt;&lt;code&gt;{ "name": "John" }&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Configuration File</div>
+                <div class="example-demo">
+                    <div class="aural-code-block">
+                        <div class="aural-code-block__header">
+                            <span class="aural-code-block__language" aria-label="Code language">package.json</span>
+                            <button class="aural-code-block__copy" onclick="copyCode(this)" aria-label="Copy code to clipboard">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">{
+  "name": "my-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "aural-ui": "^1.0.0",
+    "react": "^18.2.0"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-code-block"&gt;
+  &lt;div class="aural-code-block__header"&gt;
+    &lt;span class="aural-code-block__language"&gt;package.json&lt;/span&gt;
+    &lt;button class="aural-code-block__copy"&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Multi-Language Example</div>
+                <div class="example-demo">
+                    <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-4) 0;">The same function in different languages:</p>
+
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <div class="aural-code-block">
+                            <div class="aural-code-block__header">
+                                <span class="aural-code-block__language" aria-label="Code language">JavaScript</span>
+                            </div>
+                            <div class="aural-code-block__content">
+                                <pre class="aural-code-block__pre"><code class="aural-code-block__code">function sum(a, b) {
+  return a + b;
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="aural-code-block">
+                            <div class="aural-code-block__header">
+                                <span class="aural-code-block__language" aria-label="Code language">Python</span>
+                            </div>
+                            <div class="aural-code-block__content">
+                                <pre class="aural-code-block__pre"><code class="aural-code-block__code">def sum(a, b):
+    return a + b</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="aural-code-block">
+                            <div class="aural-code-block__header">
+                                <span class="aural-code-block__language" aria-label="Code language">Go</span>
+                            </div>
+                            <div class="aural-code-block__content">
+                                <pre class="aural-code-block__pre"><code class="aural-code-block__code">func sum(a, b int) int {
+    return a + b
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-code-block"&gt;
+  &lt;div class="aural-code-block__header"&gt;
+    &lt;span class="aural-code-block__language"&gt;JavaScript&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre&gt;&lt;code&gt;function sum(a, b) { return a + b; }&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Installation Instructions</div>
+                <div class="example-demo">
+                    <h3 style="color: var(--color-text-primary); margin: 0 0 var(--space-3) 0;">Installation</h3>
+
+                    <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-2) 0;">Install via npm:</p>
+                    <div class="aural-code-block aural-code-block--terminal">
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">$ npm install aural-ui</code></pre>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--color-text-secondary); margin: var(--space-4) 0 var(--space-2) 0;">Or using yarn:</p>
+                    <div class="aural-code-block aural-code-block--terminal">
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">$ yarn add aural-ui</code></pre>
+                        </div>
+                    </div>
+
+                    <p style="color: var(--color-text-secondary); margin: var(--space-4) 0 var(--space-2) 0;">Import in your project:</p>
+                    <div class="aural-code-block">
+                        <div class="aural-code-block__header">
+                            <span class="aural-code-block__language" aria-label="Code language">JavaScript</span>
+                        </div>
+                        <div class="aural-code-block__content">
+                            <pre class="aural-code-block__pre"><code class="aural-code-block__code">import 'aural-ui/dist/aural-ui.css';
+import { Button, Card } from 'aural-ui';</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;h3&gt;Installation&lt;/h3&gt;
+
+&lt;div class="aural-code-block aural-code-block--terminal"&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre&gt;&lt;code&gt;$ npm install aural-ui&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use Code Blocks</h2>
+                <div class="section-content">
+                    <p>Use code blocks to display programming code and technical content:</p>
+                    <ul>
+                        <li><strong>Documentation:</strong> Show code examples in technical documentation</li>
+                        <li><strong>Tutorials:</strong> Display code snippets in learning materials</li>
+                        <li><strong>API references:</strong> Show request/response examples</li>
+                        <li><strong>Configuration:</strong> Display config files and settings</li>
+                        <li><strong>Terminal commands:</strong> Show CLI commands and output</li>
+                        <li><strong>Inline code:</strong> Reference code elements within text</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Code Presentation</h3>
+                    <ul>
+                        <li>Always specify the language label for better context</li>
+                        <li>Keep code examples concise and focused on the concept being demonstrated</li>
+                        <li>Include copy buttons for user convenience</li>
+                        <li>Remove unnecessary comments unless they add educational value</li>
+                        <li>Use proper indentation and formatting</li>
+                    </ul>
+
+                    <h3>Line Numbers</h3>
+                    <ul>
+                        <li>Use line numbers for longer code blocks (more than 5 lines)</li>
+                        <li>Enable line numbers when referencing specific lines in documentation</li>
+                        <li>Omit line numbers for short snippets or terminal commands</li>
+                    </ul>
+
+                    <h3>Highlighting</h3>
+                    <ul>
+                        <li>Use <code>--highlight</code> to draw attention to important lines</li>
+                        <li>Use <code>--success</code> to show correct implementations</li>
+                        <li>Use <code>--error</code> to highlight mistakes or anti-patterns</li>
+                        <li>Avoid over-highlighting - use sparingly for maximum impact</li>
+                    </ul>
+
+                    <h3>Context and Labels</h3>
+                    <ul>
+                        <li>Always label the language or file type</li>
+                        <li>Provide brief descriptions before code blocks</li>
+                        <li>For configuration files, use the filename as the label</li>
+                        <li>Group related code blocks together logically</li>
+                    </ul>
+
+                    <h3>Inline Code</h3>
+                    <ul>
+                        <li>Use inline code for short references: variable names, function names, commands</li>
+                        <li>Don't use inline code for long strings or multi-line code</li>
+                        <li>Use inline code consistently within a paragraph</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <p>Ensure code blocks are accessible to all users:</p>
+                    <ul>
+                        <li>Use semantic HTML: <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements</li>
+                        <li>Ensure sufficient color contrast for code text (at least 4.5:1)</li>
+                        <li>Make copy buttons keyboard accessible with proper focus states</li>
+                        <li>Add <code>aria-label</code> to copy buttons: "Copy code"</li>
+                        <li>Consider adding language information for screen readers</li>
+                        <li>For highlighted lines, ensure color is not the only distinguisher</li>
+                        <li>Ensure horizontal scrolling is keyboard accessible</li>
+                    </ul>
+
+                    <h3>Example with Accessibility</h3>
+                    <pre><code>&lt;div class="aural-code-block"&gt;
+  &lt;div class="aural-code-block__header"&gt;
+    &lt;span class="aural-code-block__language" aria-label="Code language"&gt;JavaScript&lt;/span&gt;
+    &lt;button class="aural-code-block__copy" aria-label="Copy code to clipboard"&gt;
+      Copy
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-code-block__content"&gt;
+    &lt;pre&gt;&lt;code&gt;const x = 42;&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Mobile Considerations</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Enable horizontal scrolling for wide code blocks</li>
+                        <li>Consider using smaller font sizes on mobile (use <code>--sm</code> modifier)</li>
+                        <li>Ensure copy buttons are large enough for touch (minimum 44×44px)</li>
+                        <li>Test code blocks on various screen sizes</li>
+                        <li>Consider showing fewer lines on mobile to reduce scrolling</li>
+                        <li>Line numbers may make mobile code blocks harder to read - use judiciously</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
@@ -224,8 +773,28 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.aural-code-block');
+            const code = codeBlock.querySelector('.aural-code-block__code').textContent;
+
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i data-lucide="check" style="width: 14px; height: 14px;"></i> Copied!';
+                lucide.createIcons();
+
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
 
         // Theme toggle
         let isDark = true;
@@ -242,18 +811,19 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

@@ -6,7 +6,7 @@
     <title>Spinner - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -134,6 +134,36 @@
             z-index: 200;
         }
 
+        /* Code Block Styles */
+        details {
+            margin-top: var(--space-4);
+        }
+
+        summary {
+            cursor: pointer;
+            padding: var(--space-3);
+            background: var(--color-bg-tertiary);
+            border-radius: var(--radius-sm);
+            color: var(--color-text-primary);
+            font-weight: var(--font-medium);
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        summary:hover {
+            background: var(--color-bg-hover);
+        }
+
+        details[open] summary {
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+
+        details pre {
+            margin: 0;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            background: var(--color-bg-tertiary);
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -164,136 +194,501 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Spinner</h1>
-            <p class="page-description">Loading indicators with various animations.</p>
+            <p class="page-description">Loading indicators for asynchronous operations and processing states.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Spinner Variants</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-8); align-items: flex-start; flex-wrap: wrap; justify-content: center;">
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--primary">
-                            <div class="aural-spinner__circle"></div>
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Default</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--dual aural-spinner--primary">
-                            <div class="aural-spinner__circle"></div>
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Dual</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--dots aural-spinner--primary">
-                            <div class="aural-spinner__dot"></div>
-                            <div class="aural-spinner__dot"></div>
-                            <div class="aural-spinner__dot"></div>
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Dots</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--pulse aural-spinner--primary">
-                            <div class="aural-spinner__circle"></div>
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Pulse</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--bars aural-spinner--primary">
-                            <div class="aural-spinner__bar"></div>
-                            <div class="aural-spinner__bar"></div>
-                            <div class="aural-spinner__bar"></div>
-                            <div class="aural-spinner__bar"></div>
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Bars</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Sizes</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-8); align-items: flex-end; flex-wrap: wrap; justify-content: center;">
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--primary aural-spinner--xs">
-                            <div class="aural-spinner__circle"></div>
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Spinner Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-6); align-items: center; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--primary" role="status" aria-label="Loading">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Default</p>
                         </div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">XS</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--primary aural-spinner--sm">
-                            <div class="aural-spinner__circle"></div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--dual aural-spinner--primary" role="status" aria-label="Loading">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Dual Ring</p>
                         </div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">SM</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--primary">
-                            <div class="aural-spinner__circle"></div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--dots aural-spinner--primary" role="status" aria-label="Loading">
+                                <div class="aural-spinner__dot"></div>
+                                <div class="aural-spinner__dot"></div>
+                                <div class="aural-spinner__dot"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Dots</p>
                         </div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">Default</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--primary aural-spinner--lg">
-                            <div class="aural-spinner__circle"></div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--pulse aural-spinner--primary" role="status" aria-label="Loading">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Pulse</p>
                         </div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">LG</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--primary aural-spinner--xl">
-                            <div class="aural-spinner__circle"></div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--bars aural-spinner--primary" role="status" aria-label="Loading">
+                                <div class="aural-spinner__bar"></div>
+                                <div class="aural-spinner__bar"></div>
+                                <div class="aural-spinner__bar"></div>
+                                <div class="aural-spinner__bar"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Bars</p>
                         </div>
-                        <p style="font-size: var(--text-xs); color: var(--color-text-secondary); margin: 0;">XL</p>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Default Spinner --&gt;
+&lt;div class="aural-spinner aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Dual Ring Spinner --&gt;
+&lt;div class="aural-spinner aural-spinner--dual aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Dots Spinner --&gt;
+&lt;div class="aural-spinner aural-spinner--dots aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__dot"&gt;&lt;/div&gt;
+    &lt;div class="aural-spinner__dot"&gt;&lt;/div&gt;
+    &lt;div class="aural-spinner__dot"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Pulse Spinner --&gt;
+&lt;div class="aural-spinner aural-spinner--pulse aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Bars Spinner --&gt;
+&lt;div class="aural-spinner aural-spinner--bars aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__bar"&gt;&lt;/div&gt;
+    &lt;div class="aural-spinner__bar"&gt;&lt;/div&gt;
+    &lt;div class="aural-spinner__bar"&gt;&lt;/div&gt;
+    &lt;div class="aural-spinner__bar"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
-        </div>
 
             <div class="example-container">
-            <div class="example-label">Colors</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-8); align-items: flex-start; flex-wrap: wrap; justify-content: center;">
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--primary">
-                            <div class="aural-spinner__circle"></div>
-                        </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Primary</p>
+                <div class="example-label">In Buttons</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                        <button class="btn btn-primary" disabled aria-busy="true">
+                            <span class="aural-spinner aural-spinner--xs aural-spinner--white" role="status" aria-label="Loading">
+                                <span class="aural-spinner__circle"></span>
+                            </span>
+                            <span>Loading...</span>
+                        </button>
+                        <button class="btn btn-secondary" disabled aria-busy="true">
+                            <span class="aural-spinner aural-spinner--xs aural-spinner--primary" role="status" aria-label="Processing">
+                                <span class="aural-spinner__circle"></span>
+                            </span>
+                            <span>Processing</span>
+                        </button>
+                        <button class="btn btn-success" disabled aria-busy="true">
+                            <span class="aural-spinner aural-spinner--xs aural-spinner--white" role="status" aria-label="Saving">
+                                <span class="aural-spinner__circle"></span>
+                            </span>
+                            <span>Saving...</span>
+                        </button>
                     </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--success">
-                            <div class="aural-spinner__circle"></div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-primary" disabled&gt;
+    &lt;span class="aural-spinner aural-spinner--xs aural-spinner--white"&gt;
+        &lt;span class="aural-spinner__circle"&gt;&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span&gt;Loading...&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;button class="btn btn-secondary" disabled&gt;
+    &lt;span class="aural-spinner aural-spinner--xs aural-spinner--primary"&gt;
+        &lt;span class="aural-spinner__circle"&gt;&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span&gt;Processing&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Sizes</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-6); align-items: center; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--primary aural-spinner--xs">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Extra Small</p>
                         </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Success</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--warning">
-                            <div class="aural-spinner__circle"></div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--primary aural-spinner--sm">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Small</p>
                         </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Warning</p>
-                    </div>
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: var(--space-3);">
-                        <div class="aural-spinner aural-spinner--error">
-                            <div class="aural-spinner__circle"></div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--primary">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Medium</p>
                         </div>
-                        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin: 0;">Error</p>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--primary aural-spinner--lg">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Large</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--primary aural-spinner--xl">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Extra Large</p>
+                        </div>
                     </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-spinner aural-spinner--primary aural-spinner--xs"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--primary aural-spinner--sm"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--primary aural-spinner--lg"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--primary aural-spinner--xl"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Colors</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-6); align-items: center; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--primary">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Primary</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--secondary">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Secondary</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--success">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Success</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--warning">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Warning</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="aural-spinner aural-spinner--error">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="margin-top: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Error</p>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-spinner aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--secondary"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--success"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--warning"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--error"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Text</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-6); align-items: center; flex-wrap: wrap;">
+                        <div class="aural-spinner aural-spinner--with-text aural-spinner--primary">
+                            <div class="aural-spinner__circle"></div>
+                            <span class="aural-spinner__text">Loading...</span>
+                        </div>
+                        <div class="aural-spinner aural-spinner--with-text aural-spinner--success">
+                            <div class="aural-spinner__circle"></div>
+                            <span class="aural-spinner__text">Processing</span>
+                        </div>
+                        <div class="aural-spinner aural-spinner--with-text aural-spinner--dots aural-spinner--primary">
+                            <div class="aural-spinner__dot"></div>
+                            <div class="aural-spinner__dot"></div>
+                            <div class="aural-spinner__dot"></div>
+                            <span class="aural-spinner__text">Please wait</span>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-spinner aural-spinner--with-text aural-spinner--primary"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+    &lt;span class="aural-spinner__text"&gt;Loading...&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="aural-spinner aural-spinner--with-text aural-spinner--success"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+    &lt;span class="aural-spinner__text"&gt;Processing&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Loading Cards</div>
+                <div class="example-demo">
+                    <div class="card" style="max-width: 400px;">
+                        <div class="card-content" style="display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding: var(--space-8);">
+                            <div class="aural-spinner aural-spinner--lg aural-spinner--primary">
+                                <div class="aural-spinner__circle"></div>
+                            </div>
+                            <p style="color: var(--color-text-secondary); margin: 0;">Loading content...</p>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="card"&gt;
+    &lt;div class="card-content" style="display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding: var(--space-8);"&gt;
+        &lt;div class="aural-spinner aural-spinner--lg aural-spinner--primary"&gt;
+            &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p style="color: var(--color-text-secondary);"&gt;Loading content...&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Inline Loading</div>
+                <div class="example-demo">
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <span class="aural-spinner aural-spinner--xs aural-spinner--primary">
+                            <span class="aural-spinner__circle"></span>
+                        </span>
+                        <span style="color: var(--color-text-secondary);">Fetching data from server...</span>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; align-items: center; gap: var(--space-3);"&gt;
+    &lt;span class="aural-spinner aural-spinner--xs aural-spinner--primary"&gt;
+        &lt;span class="aural-spinner__circle"&gt;&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span&gt;Fetching data from server...&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Full Page Overlay</div>
+                <div class="example-demo">
+                    <div style="position: relative; height: 200px; background: var(--color-bg-primary); border-radius: var(--radius-md); overflow: hidden;">
+                        <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+                            <div class="aural-spinner aural-spinner--with-text aural-spinner--xl aural-spinner--white">
+                                <div class="aural-spinner__circle"></div>
+                                <span class="aural-spinner__text">Loading application...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px); z-index: 9999;"&gt;
+    &lt;div class="aural-spinner aural-spinner--with-text aural-spinner--xl aural-spinner--white"&gt;
+        &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+        &lt;span class="aural-spinner__text"&gt;Loading application...&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Form Submission</div>
+                <div class="example-demo">
+                    <form style="max-width: 400px;">
+                        <div style="margin-bottom: var(--space-4);">
+                            <label style="display: block; margin-bottom: var(--space-2); color: var(--color-text-primary);">Email</label>
+                            <input type="email" class="input" placeholder="Enter your email" disabled>
+                        </div>
+                        <div style="margin-bottom: var(--space-4);">
+                            <label style="display: block; margin-bottom: var(--space-2); color: var(--color-text-primary);">Password</label>
+                            <input type="password" class="input" placeholder="Enter your password" disabled>
+                        </div>
+                        <button class="btn btn-primary btn-block" disabled>
+                            <span class="aural-spinner aural-spinner--xs aural-spinner--white">
+                                <span class="aural-spinner__circle"></span>
+                            </span>
+                            <span>Signing in...</span>
+                        </button>
+                    </form>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;form&gt;
+    &lt;div&gt;
+        &lt;label&gt;Email&lt;/label&gt;
+        &lt;input type="email" class="input" disabled&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;label&gt;Password&lt;/label&gt;
+        &lt;input type="password" class="input" disabled&gt;
+    &lt;/div&gt;
+    &lt;button class="btn btn-primary" disabled&gt;
+        &lt;span class="aural-spinner aural-spinner--xs aural-spinner--white"&gt;
+            &lt;span class="aural-spinner__circle"&gt;&lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span&gt;Signing in...&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use Spinners</h2>
+                <div class="section-content">
+                    <p>Spinners provide visual feedback during loading states and asynchronous operations:</p>
+                    <ul>
+                        <li><strong>Data fetching:</strong> When loading content from an API or database</li>
+                        <li><strong>Form submission:</strong> During form processing or validation</li>
+                        <li><strong>Page transitions:</strong> When navigating between views or routes</li>
+                        <li><strong>File operations:</strong> During file uploads, downloads, or processing</li>
+                        <li><strong>Background tasks:</strong> For operations that take more than 1 second</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Visual Design</h3>
+                    <ul>
+                        <li>Use appropriate sizes relative to the container or context</li>
+                        <li>Choose spinner variants that match the visual weight of your interface</li>
+                        <li>Maintain consistent spinner styles throughout your application</li>
+                        <li>Consider using different variants for different contexts (e.g., dots for inline, default for cards)</li>
+                    </ul>
+
+                    <h3>Color Usage</h3>
+                    <ul>
+                        <li>Use <code>--primary</code> for general loading states</li>
+                        <li>Use <code>--white</code> for spinners on dark backgrounds (like primary buttons)</li>
+                        <li>Use <code>--success</code> for successful operations in progress</li>
+                        <li>Use <code>--warning</code> for operations that require attention</li>
+                        <li>Use <code>--error</code> sparingly, typically only when retrying failed operations</li>
+                    </ul>
+
+                    <h3>Timing</h3>
+                    <ul>
+                        <li>Show spinners immediately for operations expected to take more than 1 second</li>
+                        <li>For very fast operations (under 300ms), consider not showing a spinner to avoid flashing</li>
+                        <li>Always include descriptive text for operations longer than 3 seconds</li>
+                        <li>For operations longer than 10 seconds, consider progress bars instead</li>
+                    </ul>
+
+                    <h3>User Experience</h3>
+                    <ul>
+                        <li>Always disable interactive elements during loading to prevent duplicate actions</li>
+                        <li>Provide context with text labels when possible ("Loading...", "Saving...", "Processing...")</li>
+                        <li>For full-page loading, use an overlay to prevent interaction with underlying content</li>
+                        <li>Consider skeleton screens for complex layouts instead of just spinners</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <p>Ensure spinners are accessible to all users:</p>
+                    <ul>
+                        <li>Add <code>role="status"</code> to spinner containers for screen reader announcements</li>
+                        <li>Include <code>aria-label</code> with descriptive text (e.g., "Loading content")</li>
+                        <li>For spinners with visible text, ensure text has sufficient color contrast (4.5:1 minimum)</li>
+                        <li>Disable interactive elements during loading to prevent confusion</li>
+                        <li>For full-page overlays, ensure keyboard focus is managed appropriately</li>
+                        <li>Consider <code>aria-live="polite"</code> for dynamic status updates</li>
+                    </ul>
+
+                    <h3>Example with Accessibility Attributes</h3>
+                    <pre><code>&lt;div class="aural-spinner aural-spinner--primary"
+     role="status"
+     aria-label="Loading content"&gt;
+    &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Mobile Considerations</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Use larger spinners (at least <code>--sm</code>) on mobile for better visibility</li>
+                        <li>Ensure spinner overlays cover the entire viewport to prevent accidental taps</li>
+                        <li>Consider performance: use simpler spinner variants (default or dots) for low-end devices</li>
+                        <li>Test spinner visibility on various screen sizes and resolutions</li>
+                        <li>Avoid very small spinners (xs) as primary indicators on mobile devices</li>
+                    </ul>
                 </div>
             </div>
         </div>
-
-        <div class="example-container">
-            <div class="example-label">With Text & Overlay</div>
-            <div class="example-demo">
-                <button class="btn btn-primary" onclick="const overlay = Aural.showSpinner('Loading your data...'); setTimeout(() => Aural.hideSpinner(), 2000)">
-                    Show Loading Overlay (2s)
-                </button>
-            </div>
-        </div>
-
     </main>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
@@ -312,6 +707,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -330,18 +728,19 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

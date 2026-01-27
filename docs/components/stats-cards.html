@@ -6,7 +6,7 @@
     <title>Stats Cards - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -164,223 +195,540 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Stats Cards</h1>
-            <p class="page-description">Statistical data cards with metrics.</p>
+            <p class="page-description">Statistical data cards for displaying key metrics, trends, and performance indicators with visual emphasis.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Basic Stats Cards</div>
-            <div class="example-demo">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
-                    <div class="aural-stats-card aural-stats-card--primary">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Total Revenue</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="dollar-sign" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <div class="aural-stats-card__value">$45,231</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__trend aural-stats-card__trend--up">
-                                <i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
-                                12.5%
-                            </span>
-                            <span class="aural-stats-card__description">vs last month</span>
-                        </div>
-                    </div>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
 
-                    <div class="aural-stats-card aural-stats-card--success">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Active Users</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="users" aria-hidden="true"></i>
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Stats Cards</div>
+                <div class="example-demo">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+                        <div class="aural-stats-card aural-stats-card--primary">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Total Revenue</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="dollar-sign" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">$45,231</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                    <i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                    12.5%
+                                </span>
+                                <span class="aural-stats-card__description">vs last month</span>
                             </div>
                         </div>
-                        <div class="aural-stats-card__value">8,492</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__trend aural-stats-card__trend--up">
-                                <i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
-                                8.1%
-                            </span>
-                            <span class="aural-stats-card__description">vs last week</span>
-                        </div>
-                    </div>
 
-                    <div class="aural-stats-card aural-stats-card--warning">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Pending Orders</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="clock" aria-hidden="true"></i>
+                        <div class="aural-stats-card aural-stats-card--success">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Active Users</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="users" aria-hidden="true"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="aural-stats-card__value">127</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__trend aural-stats-card__trend--down">
-                                <i data-lucide="trending-down" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
-                                3.2%
-                            </span>
-                            <span class="aural-stats-card__description">vs yesterday</span>
-                        </div>
-                    </div>
-
-                    <div class="aural-stats-card aural-stats-card--error">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Error Rate</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="alert-circle" aria-hidden="true"></i>
+                            <div class="aural-stats-card__value">8,492</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                    <i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                    8.1%
+                                </span>
+                                <span class="aural-stats-card__description">vs last week</span>
                             </div>
-                        </div>
-                        <div class="aural-stats-card__value">2.3%</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__trend aural-stats-card__trend--neutral">
-                                <i data-lucide="minus" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
-                                0.0%
-                            </span>
-                            <span class="aural-stats-card__description">no change</span>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-stats-card aural-stats-card--primary"&gt;
+    &lt;div class="aural-stats-card__header"&gt;
+        &lt;span class="aural-stats-card__label"&gt;Total Revenue&lt;/span&gt;
+        &lt;div class="aural-stats-card__icon"&gt;
+            &lt;i data-lucide="dollar-sign" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-stats-card__value"&gt;$45,231&lt;/div&gt;
+    &lt;div class="aural-stats-card__footer"&gt;
+        &lt;span class="aural-stats-card__trend aural-stats-card__trend--up"&gt;
+            &lt;i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"&gt;&lt;/i&gt;
+            12.5%
+        &lt;/span&gt;
+        &lt;span class="aural-stats-card__description"&gt;vs last month&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
-        </div>
 
-        <div class="example-container">
-            <div class="example-label">With Progress Bars</div>
-            <div class="example-demo">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6);">
-                    <div class="aural-stats-card aural-stats-card--primary">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Storage Used</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="hard-drive" aria-hidden="true"></i>
+            <div class="example-container">
+                <div class="example-label">Simple Stats</div>
+                <div class="example-demo">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-6);">
+                        <div class="aural-stats-card">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Page Views</span>
+                            </div>
+                            <div class="aural-stats-card__value">124.5K</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Last 30 days</span>
                             </div>
                         </div>
-                        <div class="aural-stats-card__value">67.8 GB</div>
-                        <div class="aural-stats-card__progress">
-                            <div class="aural-stats-card__progress-bar" style="width: 67.8%" role="progressbar" aria-valuenow="67.8" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__description">of 100 GB total</span>
-                        </div>
-                    </div>
 
-                    <div class="aural-stats-card aural-stats-card--success">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Project Completion</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="check-circle" aria-hidden="true"></i>
+                        <div class="aural-stats-card">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Conversions</span>
                             </div>
-                        </div>
-                        <div class="aural-stats-card__value">85%</div>
-                        <div class="aural-stats-card__progress">
-                            <div class="aural-stats-card__progress-bar" style="width: 85%" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__description">17 of 20 tasks done</span>
-                        </div>
-                    </div>
-
-                    <div class="aural-stats-card aural-stats-card--warning">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">CPU Usage</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="cpu" aria-hidden="true"></i>
+                            <div class="aural-stats-card__value">3,842</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Last 30 days</span>
                             </div>
-                        </div>
-                        <div class="aural-stats-card__value">72%</div>
-                        <div class="aural-stats-card__progress">
-                            <div class="aural-stats-card__progress-bar" style="width: 72%" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__description">High load detected</span>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-stats-card"&gt;
+    &lt;div class="aural-stats-card__header"&gt;
+        &lt;span class="aural-stats-card__label"&gt;Page Views&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-stats-card__value"&gt;124.5K&lt;/div&gt;
+    &lt;div class="aural-stats-card__footer"&gt;
+        &lt;span class="aural-stats-card__description"&gt;Last 30 days&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Simple Stats Grid</div>
-            <div class="example-demo">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-6);">
-                    <div class="aural-stats-card">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Page Views</span>
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Semantic Colors</div>
+                <div class="example-demo">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+                        <div class="aural-stats-card aural-stats-card--primary">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Total Revenue</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="dollar-sign" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">$45,231</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Primary variant</span>
+                            </div>
                         </div>
-                        <div class="aural-stats-card__value">124.5K</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__description">Last 30 days</span>
-                        </div>
-                    </div>
 
-                    <div class="aural-stats-card">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Conversions</span>
+                        <div class="aural-stats-card aural-stats-card--success">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Active Users</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="users" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">8,492</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Success variant</span>
+                            </div>
                         </div>
-                        <div class="aural-stats-card__value">3,842</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__description">Last 30 days</span>
-                        </div>
-                    </div>
 
-                    <div class="aural-stats-card">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Bounce Rate</span>
+                        <div class="aural-stats-card aural-stats-card--warning">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Pending Orders</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="clock" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">127</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Warning variant</span>
+                            </div>
                         </div>
-                        <div class="aural-stats-card__value">42.8%</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__description">Last 30 days</span>
-                        </div>
-                    </div>
 
-                    <div class="aural-stats-card">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Avg Session</span>
-                        </div>
-                        <div class="aural-stats-card__value">4m 32s</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__description">Last 30 days</span>
+                        <div class="aural-stats-card aural-stats-card--error">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Error Rate</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="alert-circle" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">2.3%</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Error variant</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Primary --&gt;
+&lt;div class="aural-stats-card aural-stats-card--primary"&gt;...&lt;/div&gt;
+
+&lt;!-- Success --&gt;
+&lt;div class="aural-stats-card aural-stats-card--success"&gt;...&lt;/div&gt;
+
+&lt;!-- Warning --&gt;
+&lt;div class="aural-stats-card aural-stats-card--warning"&gt;...&lt;/div&gt;
+
+&lt;!-- Error --&gt;
+&lt;div class="aural-stats-card aural-stats-card--error"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Trend Indicators</div>
+                <div class="example-demo">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+                        <div class="aural-stats-card aural-stats-card--success">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Sales Growth</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="trending-up" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">$45,231</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                    <i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                    12.5%
+                                </span>
+                                <span class="aural-stats-card__description">vs last month</span>
+                            </div>
+                        </div>
+
+                        <div class="aural-stats-card aural-stats-card--warning">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Customer Loss</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="trending-down" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">127</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__trend aural-stats-card__trend--down">
+                                    <i data-lucide="trending-down" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                    3.2%
+                                </span>
+                                <span class="aural-stats-card__description">vs yesterday</span>
+                            </div>
+                        </div>
+
+                        <div class="aural-stats-card aural-stats-card--error">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Error Rate</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="alert-circle" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">2.3%</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__trend aural-stats-card__trend--neutral">
+                                    <i data-lucide="minus" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                    0.0%
+                                </span>
+                                <span class="aural-stats-card__description">no change</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Upward trend --&gt;
+&lt;span class="aural-stats-card__trend aural-stats-card__trend--up"&gt;
+    &lt;i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"&gt;&lt;/i&gt;
+    12.5%
+&lt;/span&gt;
+
+&lt;!-- Downward trend --&gt;
+&lt;span class="aural-stats-card__trend aural-stats-card__trend--down"&gt;
+    &lt;i data-lucide="trending-down" class="aural-stats-card__trend-icon" aria-hidden="true"&gt;&lt;/i&gt;
+    3.2%
+&lt;/span&gt;
+
+&lt;!-- Neutral trend --&gt;
+&lt;span class="aural-stats-card__trend aural-stats-card__trend--neutral"&gt;
+    &lt;i data-lucide="minus" class="aural-stats-card__trend-icon" aria-hidden="true"&gt;&lt;/i&gt;
+    0.0%
+&lt;/span&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Large Stats Cards</div>
-            <div class="example-demo">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
-                    <div class="aural-stats-card aural-stats-card--primary">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">Monthly Revenue</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="trending-up" aria-hidden="true"></i>
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">With Progress Bars</div>
+                <div class="example-demo">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6);">
+                        <div class="aural-stats-card aural-stats-card--primary">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Storage Used</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="hard-drive" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">67.8 GB</div>
+                            <div class="aural-stats-card__progress">
+                                <div class="aural-stats-card__progress-bar" style="width: 67.8%" role="progressbar" aria-valuenow="67.8" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">of 100 GB total</span>
                             </div>
                         </div>
-                        <div class="aural-stats-card__value">$124,590</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__trend aural-stats-card__trend--up">
-                                <i data-lucide="arrow-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
-                                18.2% increase
-                            </span>
-                            <span class="aural-stats-card__description">from last month</span>
-                        </div>
-                    </div>
 
-                    <div class="aural-stats-card aural-stats-card--success">
-                        <div class="aural-stats-card__header">
-                            <span class="aural-stats-card__label">New Customers</span>
-                            <div class="aural-stats-card__icon">
-                                <i data-lucide="user-plus" aria-hidden="true"></i>
+                        <div class="aural-stats-card aural-stats-card--success">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Project Completion</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="check-circle" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">85%</div>
+                            <div class="aural-stats-card__progress">
+                                <div class="aural-stats-card__progress-bar" style="width: 85%" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">17 of 20 tasks done</span>
                             </div>
                         </div>
-                        <div class="aural-stats-card__value">1,284</div>
-                        <div class="aural-stats-card__footer">
-                            <span class="aural-stats-card__trend aural-stats-card__trend--up">
-                                <i data-lucide="arrow-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
-                                24% increase
-                            </span>
-                            <span class="aural-stats-card__description">from last month</span>
+
+                        <div class="aural-stats-card aural-stats-card--warning">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">CPU Usage</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="cpu" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">72%</div>
+                            <div class="aural-stats-card__progress">
+                                <div class="aural-stats-card__progress-bar" style="width: 72%" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">High load detected</span>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-stats-card aural-stats-card--primary"&gt;
+    &lt;div class="aural-stats-card__header"&gt;
+        &lt;span class="aural-stats-card__label"&gt;Storage Used&lt;/span&gt;
+        &lt;div class="aural-stats-card__icon"&gt;
+            &lt;i data-lucide="hard-drive" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-stats-card__value"&gt;67.8 GB&lt;/div&gt;
+    &lt;div class="aural-stats-card__progress"&gt;
+        &lt;div class="aural-stats-card__progress-bar"
+             style="width: 67.8%"
+             role="progressbar"
+             aria-valuenow="67.8"
+             aria-valuemin="0"
+             aria-valuemax="100"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-stats-card__footer"&gt;
+        &lt;span class="aural-stats-card__description"&gt;of 100 GB total&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Dashboard Grid</div>
+                <div class="example-demo">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+                        <div class="aural-stats-card">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Page Views</span>
+                            </div>
+                            <div class="aural-stats-card__value">124.5K</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Last 30 days</span>
+                            </div>
+                        </div>
+
+                        <div class="aural-stats-card">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Conversions</span>
+                            </div>
+                            <div class="aural-stats-card__value">3,842</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Last 30 days</span>
+                            </div>
+                        </div>
+
+                        <div class="aural-stats-card">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Bounce Rate</span>
+                            </div>
+                            <div class="aural-stats-card__value">42.8%</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Last 30 days</span>
+                            </div>
+                        </div>
+
+                        <div class="aural-stats-card">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Avg Session</span>
+                            </div>
+                            <div class="aural-stats-card__value">4m 32s</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__description">Last 30 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);"&gt;
+    &lt;div class="aural-stats-card"&gt;
+        &lt;div class="aural-stats-card__header"&gt;
+            &lt;span class="aural-stats-card__label"&gt;Page Views&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-stats-card__value"&gt;124.5K&lt;/div&gt;
+        &lt;div class="aural-stats-card__footer"&gt;
+            &lt;span class="aural-stats-card__description"&gt;Last 30 days&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More cards... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Large Featured Cards</div>
+                <div class="example-demo">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);">
+                        <div class="aural-stats-card aural-stats-card--primary">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">Monthly Revenue</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="trending-up" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">$124,590</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                    <i data-lucide="arrow-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                    18.2% increase
+                                </span>
+                                <span class="aural-stats-card__description">from last month</span>
+                            </div>
+                        </div>
+
+                        <div class="aural-stats-card aural-stats-card--success">
+                            <div class="aural-stats-card__header">
+                                <span class="aural-stats-card__label">New Customers</span>
+                                <div class="aural-stats-card__icon">
+                                    <i data-lucide="user-plus" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="aural-stats-card__value">1,284</div>
+                            <div class="aural-stats-card__footer">
+                                <span class="aural-stats-card__trend aural-stats-card__trend--up">
+                                    <i data-lucide="arrow-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+                                    24% increase
+                                </span>
+                                <span class="aural-stats-card__description">from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-stats-card aural-stats-card--primary"&gt;
+    &lt;div class="aural-stats-card__header"&gt;
+        &lt;span class="aural-stats-card__label"&gt;Monthly Revenue&lt;/span&gt;
+        &lt;div class="aural-stats-card__icon"&gt;
+            &lt;i data-lucide="trending-up" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-stats-card__value"&gt;$124,590&lt;/div&gt;
+    &lt;div class="aural-stats-card__footer"&gt;
+        &lt;span class="aural-stats-card__trend aural-stats-card__trend--up"&gt;
+            &lt;i data-lucide="arrow-up" class="aural-stats-card__trend-icon" aria-hidden="true"&gt;&lt;/i&gt;
+            18.2% increase
+        &lt;/span&gt;
+        &lt;span class="aural-stats-card__description"&gt;from last month&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use Stats Cards</h2>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Dashboard Metrics:</strong> Display key performance indicators on admin or analytics dashboards</li>
+                        <li><strong>Performance Tracking:</strong> Show growth trends, conversions, and business metrics over time</li>
+                        <li><strong>User Analytics:</strong> Present user engagement data, session statistics, and activity metrics</li>
+                        <li><strong>Resource Monitoring:</strong> Track storage usage, CPU performance, and system resources</li>
+                        <li><strong>Financial Data:</strong> Display revenue, expenses, and other monetary statistics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Use semantic HTML structure with proper heading hierarchy</li>
+                        <li>Mark decorative icons with <code>aria-hidden="true"</code></li>
+                        <li>For progress bars, include <code>role="progressbar"</code> with <code>aria-valuenow</code>, <code>aria-valuemin</code>, and <code>aria-valuemax</code> attributes</li>
+                        <li>Ensure sufficient color contrast between text and backgrounds (WCAG AA minimum)</li>
+                        <li>Don't rely solely on color to convey meaning - use text labels and icons</li>
+                        <li>Provide context with descriptive labels and comparison periods</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Layout & Composition</h3>
+                    <ul>
+                        <li>Use responsive grids that adapt to different screen sizes</li>
+                        <li>Group related metrics together for easier scanning</li>
+                        <li>Prioritize the most important metrics with larger cards or prominent placement</li>
+                        <li>Maintain consistent spacing between cards for visual rhythm</li>
+                    </ul>
+
+                    <h3>Data Presentation</h3>
+                    <ul>
+                        <li>Keep values clear and prominently displayed</li>
+                        <li>Use appropriate number formatting (K for thousands, M for millions)</li>
+                        <li>Include comparison periods for context (vs last month, vs last year)</li>
+                        <li>Show trends with directional indicators when relevant</li>
+                        <li>Add progress bars for metrics with known limits (storage, completion)</li>
+                    </ul>
+
+                    <h3>Color Usage</h3>
+                    <ul>
+                        <li><strong>Primary:</strong> Default metrics and brand-related data</li>
+                        <li><strong>Success:</strong> Positive metrics, growth, achievements</li>
+                        <li><strong>Warning:</strong> Cautionary metrics, approaching limits</li>
+                        <li><strong>Error:</strong> Negative metrics, errors, critical issues</li>
+                    </ul>
+
+                    <h3>Icons</h3>
+                    <ul>
+                        <li>Use icons that clearly represent the metric type</li>
+                        <li>Keep icons simple and recognizable</li>
+                        <li>Maintain consistent icon size across all cards</li>
+                        <li>Icons should enhance understanding, not be purely decorative</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -408,6 +756,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -426,25 +777,21 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
-        // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
-            console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
-        } else {
-            console.error('Theme link not found!');
         }
 
-        // Hide theme toggle in iframe (demo.html controls theme)
         window.addEventListener('DOMContentLoaded', function() {
             try {
                 if (window.self !== window.top) {

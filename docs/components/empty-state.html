@@ -6,7 +6,7 @@
     <title>Empty State - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -164,132 +195,453 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Empty State</h1>
-            <p class="page-description">Placeholders for empty data states with helpful guidance.</p>
+            <p class="page-description">Guide users when content is unavailable with helpful placeholders and clear calls to action.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">No Data</div>
-            <div class="example-demo">
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i data-lucide="inbox" style="width: 48px; height: 48px;"></i>
-                    </div>
-                    <h3 class="empty-state-title">No items yet</h3>
-                    <p class="empty-state-description">Get started by creating your first item. It only takes a few seconds!</p>
-                    <button class="btn btn-primary">
-                        <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
-                        Create Item
-                    </button>
-                </div>
-            </div>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">No Search Results</div>
-            <div class="example-demo">
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i data-lucide="search" style="width: 48px; height: 48px;"></i>
-                    </div>
-                    <h3 class="empty-state-title">No results found</h3>
-                    <p class="empty-state-description">We couldn't find any results matching your search. Try adjusting your filters or search terms.</p>
-                    <button class="btn btn-secondary">Clear Filters</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="example-container">
-            <div class="example-label">No Notifications</div>
-            <div class="example-demo">
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i data-lucide="bell-off" style="width: 48px; height: 48px;"></i>
-                    </div>
-                    <h3 class="empty-state-title">No notifications</h3>
-                    <p class="empty-state-description">You're all caught up! We'll notify you when something new happens.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="example-container">
-            <div class="example-label">Error State</div>
-            <div class="example-demo">
-                <div class="empty-state">
-                    <div class="empty-state-icon" style="color: var(--color-error);">
-                        <i data-lucide="alert-circle" style="width: 48px; height: 48px;"></i>
-                    </div>
-                    <h3 class="empty-state-title">Something went wrong</h3>
-                    <p class="empty-state-description">We're having trouble loading your data. Please check your connection and try again.</p>
-                    <div style="display: flex; gap: var(--space-3); justify-content: center;">
-                        <button class="btn btn-secondary">Go Back</button>
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Empty State</div>
+                <div class="example-demo">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="inbox" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h3 class="empty-state-title">No items yet</h3>
+                        <p class="empty-state-description">Get started by creating your first item. It only takes a few seconds!</p>
                         <button class="btn btn-primary">
-                            <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
-                            Try Again
+                            <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                            Create Item
                         </button>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon"&gt;
+        &lt;i data-lucide="inbox"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;No items yet&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Get started by creating your first item.&lt;/p&gt;
+    &lt;button class="btn btn-primary"&gt;
+        &lt;i data-lucide="plus"&gt;&lt;/i&gt;
+        Create Item
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Common Use Cases</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-8);">
+                        <!-- No Data -->
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i data-lucide="inbox" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 class="empty-state-title">No items yet</h3>
+                            <p class="empty-state-description">Get started by creating your first item.</p>
+                            <button class="btn btn-primary">
+                                <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                                Create Item
+                            </button>
+                        </div>
+
+                        <!-- No Search Results -->
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i data-lucide="search" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 class="empty-state-title">No results found</h3>
+                            <p class="empty-state-description">Try adjusting your filters or search terms.</p>
+                            <button class="btn btn-secondary">Clear Filters</button>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- No Data --&gt;
+&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon"&gt;
+        &lt;i data-lucide="inbox"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;No items yet&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Get started by creating your first item.&lt;/p&gt;
+    &lt;button class="btn btn-primary"&gt;Create Item&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- No Search Results --&gt;
+&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon"&gt;
+        &lt;i data-lucide="search"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;No results found&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Try adjusting your filters.&lt;/p&gt;
+    &lt;button class="btn btn-secondary"&gt;Clear Filters&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">No Connections</div>
-            <div class="example-demo">
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i data-lucide="users" style="width: 48px; height: 48px;"></i>
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">With Icon Variations</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-8);">
+                        <!-- Inbox -->
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i data-lucide="inbox" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 class="empty-state-title">No messages</h3>
+                            <p class="empty-state-description">Your inbox is empty. Check back later for new messages.</p>
+                        </div>
+
+                        <!-- Bell Off -->
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i data-lucide="bell-off" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 class="empty-state-title">No notifications</h3>
+                            <p class="empty-state-description">You're all caught up! We'll notify you when something new happens.</p>
+                        </div>
+
+                        <!-- Users -->
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i data-lucide="users" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 class="empty-state-title">No connections yet</h3>
+                            <p class="empty-state-description">Start building your network by connecting with people.</p>
+                        </div>
                     </div>
-                    <h3 class="empty-state-title">No connections yet</h3>
-                    <p class="empty-state-description">Start building your network by connecting with people you know or discovering new connections.</p>
-                    <div style="display: flex; gap: var(--space-3); justify-content: center;">
-                        <button class="btn btn-secondary">
-                            <i data-lucide="search" style="width: 16px; height: 16px;"></i>
-                            Browse People
-                        </button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon"&gt;
+        &lt;i data-lucide="inbox"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;No messages&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Your inbox is empty.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Colored Icons</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-8);">
+                        <!-- Error State -->
+                        <div class="empty-state">
+                            <div class="empty-state-icon" style="color: var(--color-error);">
+                                <i data-lucide="alert-circle" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 class="empty-state-title">Something went wrong</h3>
+                            <p class="empty-state-description">We're having trouble loading your data. Please try again.</p>
+                            <button class="btn btn-primary">
+                                <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+                                Try Again
+                            </button>
+                        </div>
+
+                        <!-- Welcome State -->
+                        <div class="empty-state">
+                            <div class="empty-state-icon" style="color: var(--color-primary);">
+                                <i data-lucide="rocket" style="width: 48px; height: 48px;"></i>
+                            </div>
+                            <h3 class="empty-state-title">Welcome to Aural UI!</h3>
+                            <p class="empty-state-description">Let's get you started with a quick tour of the platform.</p>
+                            <button class="btn btn-primary">
+                                <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+                                Start Tour
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Error State --&gt;
+&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon" style="color: var(--color-error);"&gt;
+        &lt;i data-lucide="alert-circle"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;Something went wrong&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Please try again.&lt;/p&gt;
+    &lt;button class="btn btn-primary"&gt;Try Again&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Welcome State --&gt;
+&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon" style="color: var(--color-primary);"&gt;
+        &lt;i data-lucide="rocket"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;Welcome to Aural UI!&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Let's get started.&lt;/p&gt;
+    &lt;button class="btn btn-primary"&gt;Start Tour&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Multiple Actions</div>
+                <div class="example-demo">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="folder-open" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h3 class="empty-state-title">This folder is empty</h3>
+                        <p class="empty-state-description">Upload files or create folders to organize your content.</p>
+                        <div style="display: flex; gap: var(--space-3); justify-content: center;">
+                            <button class="btn btn-secondary">
+                                <i data-lucide="folder-plus" style="width: 16px; height: 16px;"></i>
+                                New Folder
+                            </button>
+                            <button class="btn btn-primary">
+                                <i data-lucide="upload" style="width: 16px; height: 16px;"></i>
+                                Upload Files
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon"&gt;
+        &lt;i data-lucide="folder-open"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;This folder is empty&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Upload files or create folders.&lt;/p&gt;
+    &lt;div style="display: flex; gap: var(--space-3); justify-content: center;"&gt;
+        &lt;button class="btn btn-secondary"&gt;New Folder&lt;/button&gt;
+        &lt;button class="btn btn-primary"&gt;Upload Files&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">No Search Results</div>
+                <div class="example-demo">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="search" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h3 class="empty-state-title">No results found</h3>
+                        <p class="empty-state-description">We couldn't find any results matching your search. Try adjusting your filters or search terms.</p>
+                        <button class="btn btn-secondary">Clear Filters</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon"&gt;
+        &lt;i data-lucide="search"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;No results found&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Try adjusting your filters.&lt;/p&gt;
+    &lt;button class="btn btn-secondary"&gt;Clear Filters&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Error Recovery</div>
+                <div class="example-demo">
+                    <div class="empty-state">
+                        <div class="empty-state-icon" style="color: var(--color-error);">
+                            <i data-lucide="alert-circle" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h3 class="empty-state-title">Something went wrong</h3>
+                        <p class="empty-state-description">We're having trouble loading your data. Please check your connection and try again.</p>
+                        <div style="display: flex; gap: var(--space-3); justify-content: center;">
+                            <button class="btn btn-secondary">Go Back</button>
+                            <button class="btn btn-primary">
+                                <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon" style="color: var(--color-error);"&gt;
+        &lt;i data-lucide="alert-circle"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;Something went wrong&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Please check your connection and try again.&lt;/p&gt;
+    &lt;div style="display: flex; gap: var(--space-3); justify-content: center;"&gt;
+        &lt;button class="btn btn-secondary"&gt;Go Back&lt;/button&gt;
+        &lt;button class="btn btn-primary"&gt;Try Again&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Onboarding / Welcome</div>
+                <div class="example-demo">
+                    <div class="empty-state">
+                        <div class="empty-state-icon" style="color: var(--color-primary);">
+                            <i data-lucide="rocket" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h3 class="empty-state-title">Welcome to Aural UI!</h3>
+                        <p class="empty-state-description">Let's get you started with a quick tour of the platform. It will only take a minute to set up your workspace.</p>
                         <button class="btn btn-primary">
-                            <i data-lucide="user-plus" style="width: 16px; height: 16px;"></i>
-                            Invite Friends
+                            <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+                            Start Tour
                         </button>
                     </div>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon" style="color: var(--color-primary);"&gt;
+        &lt;i data-lucide="rocket"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;Welcome to Aural UI!&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Let's get you started with a quick tour.&lt;/p&gt;
+    &lt;button class="btn btn-primary"&gt;Start Tour&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Network Building</div>
+                <div class="example-demo">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="users" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h3 class="empty-state-title">No connections yet</h3>
+                        <p class="empty-state-description">Start building your network by connecting with people you know or discovering new connections.</p>
+                        <div style="display: flex; gap: var(--space-3); justify-content: center;">
+                            <button class="btn btn-secondary">
+                                <i data-lucide="search" style="width: 16px; height: 16px;"></i>
+                                Browse People
+                            </button>
+                            <button class="btn btn-primary">
+                                <i data-lucide="user-plus" style="width: 16px; height: 16px;"></i>
+                                Invite Friends
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="empty-state"&gt;
+    &lt;div class="empty-state-icon"&gt;
+        &lt;i data-lucide="users"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;No connections yet&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;Start building your network.&lt;/p&gt;
+    &lt;div style="display: flex; gap: var(--space-3); justify-content: center;"&gt;
+        &lt;button class="btn btn-secondary"&gt;Browse People&lt;/button&gt;
+        &lt;button class="btn btn-primary"&gt;Invite Friends&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Welcome / Onboarding</div>
-            <div class="example-demo">
-                <div class="empty-state">
-                    <div class="empty-state-icon" style="color: var(--color-primary);">
-                        <i data-lucide="rocket" style="width: 48px; height: 48px;"></i>
-                    </div>
-                    <h3 class="empty-state-title">Welcome to Aural UI!</h3>
-                    <p class="empty-state-description">Let's get you started with a quick tour of the platform. It will only take a minute to set up your workspace.</p>
-                    <button class="btn btn-primary">
-                        <i data-lucide="play" style="width: 16px; height: 16px;"></i>
-                        Start Tour
-                    </button>
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use Empty States</h2>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>No Data:</strong> When a user's list, dashboard, or feed has no content yet</li>
+                        <li><strong>No Search Results:</strong> When a search or filter returns zero results</li>
+                        <li><strong>Error States:</strong> When content fails to load or an error occurs</li>
+                        <li><strong>First-Time Experience:</strong> To guide new users through initial setup or onboarding</li>
+                        <li><strong>Empty Collections:</strong> Folders, albums, or categories with no items</li>
+                        <li><strong>Permissions Issues:</strong> When users lack access to view certain content</li>
+                    </ul>
                 </div>
             </div>
-        </div>
 
-        <div class="example-container">
-            <div class="example-label">No Files</div>
-            <div class="example-demo">
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i data-lucide="folder-open" style="width: 48px; height: 48px;"></i>
-                    </div>
-                    <h3 class="empty-state-title">This folder is empty</h3>
-                    <p class="empty-state-description">Upload files or create folders to organize your content.</p>
-                    <div style="display: flex; gap: var(--space-3); justify-content: center;">
-                        <button class="btn btn-secondary">
-                            <i data-lucide="folder-plus" style="width: 16px; height: 16px;"></i>
-                            New Folder
-                        </button>
-                        <button class="btn btn-primary">
-                            <i data-lucide="upload" style="width: 16px; height: 16px;"></i>
-                            Upload Files
-                        </button>
-                    </div>
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Use semantic HTML with proper heading hierarchy (h2, h3)</li>
+                        <li>Ensure icons are decorative with <code>aria-hidden="true"</code> or provide meaningful alt text</li>
+                        <li>Make action buttons keyboard accessible with clear focus states</li>
+                        <li>Use descriptive button text that explains the action</li>
+                        <li>Ensure sufficient color contrast for text and icons</li>
+                        <li>Don't rely solely on color to convey meaning (use icons and text together)</li>
+                        <li>Keep descriptions concise but informative for screen reader users</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Content Guidelines</h3>
+                    <ul>
+                        <li><strong>Be Clear:</strong> Use simple, direct language that explains the situation</li>
+                        <li><strong>Be Helpful:</strong> Provide guidance on what users can do next</li>
+                        <li><strong>Be Encouraging:</strong> Use positive, supportive tone rather than negative language</li>
+                        <li><strong>Be Brief:</strong> Keep titles short (3-6 words) and descriptions concise (1-2 sentences)</li>
+                        <li><strong>Be Specific:</strong> Explain why the state is empty and what actions are available</li>
+                    </ul>
+
+                    <h3>Visual Design</h3>
+                    <ul>
+                        <li><strong>Icons:</strong> Use relevant, recognizable icons that match the context</li>
+                        <li><strong>Icon Size:</strong> 48px is standard, adjust based on importance and space</li>
+                        <li><strong>Color:</strong> Use neutral colors for default states, semantic colors for errors/warnings</li>
+                        <li><strong>Spacing:</strong> Provide adequate whitespace around elements for visual clarity</li>
+                        <li><strong>Alignment:</strong> Center-align empty states for focus and visual balance</li>
+                    </ul>
+
+                    <h3>Actions</h3>
+                    <ul>
+                        <li><strong>Primary Action:</strong> Always provide a clear primary action when possible</li>
+                        <li><strong>Multiple Actions:</strong> Offer alternatives when appropriate (create vs. import)</li>
+                        <li><strong>No Action:</strong> For informational states (all caught up), actions may not be needed</li>
+                        <li><strong>Error Recovery:</strong> Provide retry options and alternative paths forward</li>
+                        <li><strong>Button Text:</strong> Use action-oriented verbs (Create, Upload, Browse, Try Again)</li>
+                    </ul>
+
+                    <h3>Context Matters</h3>
+                    <ul>
+                        <li><strong>First Use:</strong> Welcome users and guide them to get started</li>
+                        <li><strong>User Cleared:</strong> Acknowledge the action with positive reinforcement</li>
+                        <li><strong>No Results:</strong> Suggest ways to modify search or filters</li>
+                        <li><strong>Errors:</strong> Explain the issue and provide recovery options</li>
+                        <li><strong>Permissions:</strong> Clearly communicate access limitations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Common Mistakes to Avoid</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Using negative or blaming language ("You have no items")</li>
+                        <li>Providing empty states without any guidance or actions</li>
+                        <li>Using generic icons that don't match the context</li>
+                        <li>Making descriptions too long or technical</li>
+                        <li>Forgetting to handle empty states during development</li>
+                        <li>Using the same empty state for different contexts</li>
+                        <li>Not providing a way forward for users</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -317,6 +669,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -335,25 +690,21 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
-        // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
-            console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
-        } else {
-            console.error('Theme link not found!');
         }
 
-        // Hide theme toggle in iframe (demo.html controls theme)
         window.addEventListener('DOMContentLoaded', function() {
             try {
                 if (window.self !== window.top) {
