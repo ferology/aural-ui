@@ -390,11 +390,58 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .tab {
+    .tab,
+    .tab-close {
         transition: none;
     }
 
     .tab-panel {
         animation: none;
+    }
+}
+
+/* ========================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ======================================== */
+
+/* Ensure tab buttons meet touch target size of 44x44px */
+@media (pointer: coarse) {
+    .tab {
+        min-height: 48px;
+        padding: var(--space-3) var(--space-5);
+    }
+
+    /* Small size adjustment for touch - still meet minimum size */
+    .tabs-sm .tab {
+        min-height: 44px;
+        padding: var(--space-2) var(--space-4);
+    }
+
+    /* Increase touch target for tab close button */
+    .tab-close {
+        min-width: 28px;
+        min-height: 28px;
+        padding: var(--space-2);
+    }
+
+    /* Increase gap between tabs for easier tapping */
+    .tabs-pills {
+        gap: var(--space-3);
+    }
+
+    /* Better touch targets for vertical tabs */
+    .tabs-vertical .tab {
+        min-height: 48px;
+        padding: var(--space-3) var(--space-5);
+    }
+
+    /* Scrollable tabs with better touch scrolling */
+    .tabs-scrollable {
+        scrollbar-width: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tabs-scrollable::-webkit-scrollbar {
+        height: 8px;
     }
 }

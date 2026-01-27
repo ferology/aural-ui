@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -167,211 +198,192 @@
             <p class="page-description">Organize content into separate views where only one view is visible at a time. Tabs let users switch between related content groups without leaving the page.</p>
         </div>
 
-        <!-- Basic Tabs -->
-        <div class="example-container">
-            <div class="example-label">Basic Tabs</div>
-            <div class="example-demo">
-                <div class="tabs" role="tablist">
-                    <button class="tab tab-active" role="tab">Profile</button>
-                    <button class="tab" role="tab">Settings</button>
-                    <button class="tab" role="tab">Activity</button>
-                    <button class="tab" role="tab">Notifications</button>
-                </div>
-            </div>
-            <div class="section-content">
-                <p>Default tab style with underline indicator. The active tab is marked with <code>.tab-active</code> class.</p>
-                <pre><code>&lt;div class="tabs" role="tablist"&gt;
-  &lt;button class="tab tab-active" role="tab"&gt;Profile&lt;/button&gt;
-  &lt;button class="tab" role="tab"&gt;Settings&lt;/button&gt;
-  &lt;button class="tab" role="tab"&gt;Activity&lt;/button&gt;
-&lt;/div&gt;</code></pre>
-            </div>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist" aria-orientation="horizontal">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" tabindex="0">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false" tabindex="-1">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false" tabindex="-1">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false" tabindex="-1">Guidelines</button>
         </div>
 
-        <!-- Tab Styles -->
-        <div class="example-container">
-            <div class="example-label">Pills Style</div>
-            <div class="example-demo">
-                <div class="tabs tabs-pills" role="tablist">
-                    <button class="tab tab-active" role="tab">Home</button>
-                    <button class="tab" role="tab">Products</button>
-                    <button class="tab" role="tab">About</button>
-                    <button class="tab" role="tab">Contact</button>
-                </div>
-            </div>
-            <div class="section-content">
-                <p>Pills style with rounded background for the active tab. Use <code>.tabs-pills</code> for a softer, more modern appearance.</p>
-                <pre><code>&lt;div class="tabs tabs-pills" role="tablist"&gt;
-  &lt;button class="tab tab-active" role="tab"&gt;Home&lt;/button&gt;
-  &lt;button class="tab" role="tab"&gt;Products&lt;/button&gt;
-&lt;/div&gt;</code></pre>
-            </div>
-        </div>
-
-        <div class="example-container">
-            <div class="example-label">Boxed Style</div>
-            <div class="example-demo">
-                <div class="tabs tabs-boxed" role="tablist">
-                    <button class="tab tab-active" role="tab">Dashboard</button>
-                    <button class="tab" role="tab">Analytics</button>
-                    <button class="tab" role="tab">Reports</button>
-                    <button class="tab" role="tab">Settings</button>
-                </div>
-            </div>
-            <div class="section-content">
-                <p>Boxed style with contained background. Use <code>.tabs-boxed</code> for a more compact, segmented control appearance.</p>
-                <pre><code>&lt;div class="tabs tabs-boxed" role="tablist"&gt;
-  &lt;button class="tab tab-active" role="tab"&gt;Dashboard&lt;/button&gt;
-  &lt;button class="tab" role="tab"&gt;Analytics&lt;/button&gt;
-&lt;/div&gt;</code></pre>
-            </div>
-        </div>
-
-        <!-- Tabs with Icons -->
-        <div class="example-container">
-            <div class="example-label">Tabs with Icons</div>
-            <div class="example-demo">
-                <div class="tabs tabs-pills" role="tablist">
-                    <button class="tab tab-active" role="tab">
-                        <i data-lucide="user" style="width: 16px; height: 16px; margin-right: 6px;"></i>
-                        Profile
-                    </button>
-                    <button class="tab" role="tab">
-                        <i data-lucide="settings" style="width: 16px; height: 16px; margin-right: 6px;"></i>
-                        Settings
-                    </button>
-                    <button class="tab" role="tab">
-                        <i data-lucide="bell" style="width: 16px; height: 16px; margin-right: 6px;"></i>
-                        Notifications
-                    </button>
-                    <button class="tab" role="tab">
-                        <i data-lucide="shield" style="width: 16px; height: 16px; margin-right: 6px;"></i>
-                        Security
-                    </button>
-                </div>
-            </div>
-            <div class="section-content">
-                <p>Add icons before tab labels to improve scanability and visual hierarchy. Icons help users quickly identify tab content.</p>
-                <pre><code>&lt;button class="tab tab-active" role="tab"&gt;
-  &lt;i data-lucide="user"&gt;&lt;/i&gt;
-  Profile
-&lt;/button&gt;</code></pre>
-            </div>
-        </div>
-
-        <!-- Tabs with Badges -->
-        <div class="example-container">
-            <div class="example-label">Tabs with Badges</div>
-            <div class="example-demo">
-                <div class="tabs" role="tablist">
-                    <button class="tab tab-active" role="tab">
-                        <span>All</span>
-                        <span class="badge badge-sm" style="margin-left: 8px;">24</span>
-                    </button>
-                    <button class="tab" role="tab">
-                        <span>Unread</span>
-                        <span class="badge badge-error badge-sm" style="margin-left: 8px;">5</span>
-                    </button>
-                    <button class="tab" role="tab">
-                        <span>Starred</span>
-                        <span class="badge badge-warning badge-sm" style="margin-left: 8px;">3</span>
-                    </button>
-                    <button class="tab" role="tab">
-                        <span>Archived</span>
-                    </button>
-                </div>
-            </div>
-            <div class="section-content">
-                <p>Use badges to show counts or status indicators within tabs. Particularly useful for messaging, notifications, or filtering interfaces.</p>
-                <pre><code>&lt;button class="tab tab-active" role="tab"&gt;
-  &lt;span&gt;All&lt;/span&gt;
-  &lt;span class="badge badge-sm"&gt;24&lt;/span&gt;
-&lt;/button&gt;</code></pre>
-            </div>
-        </div>
-
-        <!-- Disabled Tabs -->
-        <div class="example-container">
-            <div class="example-label">Disabled Tabs</div>
-            <div class="example-demo">
-                <div class="tabs tabs-pills" role="tablist">
-                    <button class="tab tab-active" role="tab">Step 1: Account</button>
-                    <button class="tab" role="tab">Step 2: Profile</button>
-                    <button class="tab" role="tab" disabled style="opacity: 0.4; cursor: not-allowed;">Step 3: Payment</button>
-                    <button class="tab" role="tab" disabled style="opacity: 0.4; cursor: not-allowed;">Step 4: Confirm</button>
-                </div>
-            </div>
-            <div class="section-content">
-                <p>Disable tabs that are not yet accessible using the <code>disabled</code> attribute. Common in multi-step forms or workflows where steps must be completed sequentially.</p>
-                <pre><code>&lt;button class="tab" role="tab" disabled&gt;
-  Step 3: Payment
-&lt;/button&gt;</code></pre>
-            </div>
-        </div>
-
-        <!-- Complete Tab Panels -->
-        <div class="example-container">
-            <div class="example-label">Complete Tab Panels Example</div>
-            <div class="example-demo">
-                <div class="card">
-                    <div class="tabs" role="tablist" style="border-bottom: 1px solid var(--color-border-subtle); padding: 0 var(--space-4);">
-                        <button class="tab tab-active" role="tab" onclick="switchTab(event, 'overview')">Overview</button>
-                        <button class="tab" role="tab" onclick="switchTab(event, 'specs')">Specifications</button>
-                        <button class="tab" role="tab" onclick="switchTab(event, 'reviews')">Reviews</button>
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <!-- Basic Tabs -->
+            <div class="example-container">
+                <div class="example-label">Basic Tabs</div>
+                <div class="example-demo">
+                    <div class="tabs" role="tablist" aria-orientation="horizontal">
+                        <button class="tab tab-active" role="tab" id="basic-tab-profile" aria-controls="basic-panel-profile" aria-selected="true" tabindex="0">Profile</button>
+                        <button class="tab" role="tab" id="basic-tab-settings" aria-controls="basic-panel-settings" aria-selected="false" tabindex="-1">Settings</button>
+                        <button class="tab" role="tab" id="basic-tab-activity" aria-controls="basic-panel-activity" aria-selected="false" tabindex="-1">Activity</button>
+                        <button class="tab" role="tab" id="basic-tab-notifications" aria-controls="basic-panel-notifications" aria-selected="false" tabindex="-1">Notifications</button>
                     </div>
+                </div>
+                <div class="section-content">
+                    <p>Default tab style with underline indicator. The active tab is marked with <code>.tab-active</code> class.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="tabs" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;Profile&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;Settings&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;Activity&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;Notifications&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
 
-                    <div id="overview" class="tab-panel" style="padding: var(--space-6);">
-                        <h3 style="margin: 0 0 var(--space-3) 0; color: var(--color-text-primary);">Product Overview</h3>
-                        <p style="color: var(--color-text-secondary); line-height: 1.6; margin: 0;">This is a comprehensive product description providing key information about features, benefits, and use cases. Content changes dynamically based on the selected tab.</p>
+            <!-- Tabs with Icons -->
+            <div class="example-container">
+                <div class="example-label">Tabs with Icons</div>
+                <div class="example-demo">
+                    <div class="tabs tabs-pills" role="tablist" aria-orientation="horizontal">
+                        <button class="tab tab-active" role="tab" id="icons-tab-profile" aria-controls="icons-panel-profile" aria-selected="true" tabindex="0">
+                            <i data-lucide="user" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"></i>
+                            Profile
+                        </button>
+                        <button class="tab" role="tab" id="icons-tab-settings" aria-controls="icons-panel-settings" aria-selected="false" tabindex="-1">
+                            <i data-lucide="settings" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"></i>
+                            Settings
+                        </button>
+                        <button class="tab" role="tab" id="icons-tab-notifications" aria-controls="icons-panel-notifications" aria-selected="false" tabindex="-1">
+                            <i data-lucide="bell" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"></i>
+                            Notifications
+                        </button>
+                        <button class="tab" role="tab" id="icons-tab-security" aria-controls="icons-panel-security" aria-selected="false" tabindex="-1">
+                            <i data-lucide="shield" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"></i>
+                            Security
+                        </button>
                     </div>
+                </div>
+                <div class="section-content">
+                    <p>Add icons before tab labels to improve scanability and visual hierarchy. Icons help users quickly identify tab content.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="tabs tabs-pills" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;
+    &lt;i data-lucide="user"&gt;&lt;/i&gt;
+    Profile
+  &lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;
+    &lt;i data-lucide="settings"&gt;&lt;/i&gt;
+    Settings
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
 
-                    <div id="specs" class="tab-panel" style="display: none; padding: var(--space-6);">
-                        <h3 style="margin: 0 0 var(--space-3) 0; color: var(--color-text-primary);">Technical Specifications</h3>
-                        <ul style="color: var(--color-text-secondary); line-height: 1.8; margin: 0;">
-                            <li>Dimensions: 10" x 7" x 2"</li>
-                            <li>Weight: 1.5 lbs</li>
-                            <li>Material: Aluminum alloy</li>
-                            <li>Warranty: 2 years</li>
-                        </ul>
-                    </div>
-
-                    <div id="reviews" class="tab-panel" style="display: none; padding: var(--space-6);">
-                        <h3 style="margin: 0 0 var(--space-3) 0; color: var(--color-text-primary);">Customer Reviews</h3>
-                        <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3);">
-                            <div style="color: var(--color-warning);">★★★★★</div>
-                            <span style="color: var(--color-text-primary); font-weight: var(--font-semibold);">4.8</span>
-                            <span style="color: var(--color-text-tertiary);">(124 reviews)</span>
+            <!-- Complete Tab Panels -->
+            <div class="example-container">
+                <div class="example-label">Complete Tab Panels Example</div>
+                <div class="example-demo">
+                    <div class="card">
+                        <div class="tabs" role="tablist" style="border-bottom: 1px solid var(--color-border-subtle); padding: 0 var(--space-4);">
+                            <button class="tab tab-active" role="tab" id="demo-tab-overview" aria-controls="demo-overview" aria-selected="true" onclick="switchTab(event, 'demo-overview')">Overview</button>
+                            <button class="tab" role="tab" id="demo-tab-specs" aria-controls="demo-specs" aria-selected="false" onclick="switchTab(event, 'demo-specs')">Specifications</button>
+                            <button class="tab" role="tab" id="demo-tab-reviews" aria-controls="demo-reviews" aria-selected="false" onclick="switchTab(event, 'demo-reviews')">Reviews</button>
                         </div>
-                        <p style="color: var(--color-text-secondary); margin: 0;">Customers love the quality and durability of this product.</p>
+
+                        <div id="demo-overview" class="tab-panel" role="tabpanel" aria-labelledby="demo-tab-overview" style="padding: var(--space-6);">
+                            <h3 style="margin: 0 0 var(--space-3) 0; color: var(--color-text-primary);">Product Overview</h3>
+                            <p style="color: var(--color-text-secondary); line-height: 1.6; margin: 0;">This is a comprehensive product description providing key information about features, benefits, and use cases. Content changes dynamically based on the selected tab.</p>
+                        </div>
+
+                        <div id="demo-specs" class="tab-panel" role="tabpanel" aria-labelledby="demo-tab-specs" style="display: none; padding: var(--space-6);">
+                            <h3 style="margin: 0 0 var(--space-3) 0; color: var(--color-text-primary);">Technical Specifications</h3>
+                            <ul style="color: var(--color-text-secondary); line-height: 1.8; margin: 0;">
+                                <li>Dimensions: 10" x 7" x 2"</li>
+                                <li>Weight: 1.5 lbs</li>
+                                <li>Material: Aluminum alloy</li>
+                                <li>Warranty: 2 years</li>
+                            </ul>
+                        </div>
+
+                        <div id="demo-reviews" class="tab-panel" role="tabpanel" aria-labelledby="demo-tab-reviews" style="display: none; padding: var(--space-6);">
+                            <h3 style="margin: 0 0 var(--space-3) 0; color: var(--color-text-primary);">Customer Reviews</h3>
+                            <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3);">
+                                <div style="color: var(--color-warning);">★★★★★</div>
+                                <span style="color: var(--color-text-primary); font-weight: var(--font-semibold);">4.8</span>
+                                <span style="color: var(--color-text-tertiary);">(124 reviews)</span>
+                            </div>
+                            <p style="color: var(--color-text-secondary); margin: 0;">Customers love the quality and durability of this product.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="section-content">
-                <p>Complete example showing tabs with corresponding content panels. JavaScript handles switching between panels when tabs are clicked.</p>
-                <pre><code>&lt;div class="tabs" role="tablist"&gt;
-  &lt;button class="tab tab-active" onclick="switchTab(event, 'panel1')"&gt;
-    Tab 1
-  &lt;/button&gt;
-  &lt;button class="tab" onclick="switchTab(event, 'panel2')"&gt;
-    Tab 2
-  &lt;/button&gt;
-&lt;/div&gt;
+                <div class="section-content">
+                    <p>Complete example showing tabs with corresponding content panels. JavaScript handles switching between panels when tabs are clicked.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="card"&gt;
+  &lt;div class="tabs" role="tablist"&gt;
+    &lt;button class="tab tab-active" role="tab"
+            id="tab-overview"
+            aria-controls="panel-overview"
+            aria-selected="true"
+            onclick="switchTab(event, 'panel-overview')"&gt;
+      Overview
+    &lt;/button&gt;
+    &lt;button class="tab" role="tab"
+            id="tab-specs"
+            aria-controls="panel-specs"
+            aria-selected="false"
+            onclick="switchTab(event, 'panel-specs')"&gt;
+      Specifications
+    &lt;/button&gt;
+    &lt;button class="tab" role="tab"
+            id="tab-reviews"
+            aria-controls="panel-reviews"
+            aria-selected="false"
+            onclick="switchTab(event, 'panel-reviews')"&gt;
+      Reviews
+    &lt;/button&gt;
+  &lt;/div&gt;
 
-&lt;div id="panel1" class="tab-panel"&gt;Content 1&lt;/div&gt;
-&lt;div id="panel2" class="tab-panel" style="display: none;"&gt;Content 2&lt;/div&gt;
+  &lt;div id="panel-overview" class="tab-panel"
+       role="tabpanel"
+       aria-labelledby="tab-overview"&gt;
+    &lt;h3&gt;Product Overview&lt;/h3&gt;
+    &lt;p&gt;Content for overview panel...&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div id="panel-specs" class="tab-panel"
+       role="tabpanel"
+       aria-labelledby="tab-specs"
+       style="display: none;"&gt;
+    &lt;h3&gt;Technical Specifications&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Spec 1&lt;/li&gt;
+      &lt;li&gt;Spec 2&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+
+  &lt;div id="panel-reviews" class="tab-panel"
+       role="tabpanel"
+       aria-labelledby="tab-reviews"
+       style="display: none;"&gt;
+    &lt;h3&gt;Customer Reviews&lt;/h3&gt;
+    &lt;p&gt;Review content...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;script&gt;
 function switchTab(event, panelId) {
-  // Remove active class from all tabs
-  document.querySelectorAll('.tab').forEach(tab =&gt; {
+  // Remove active class from all tabs in the same tablist
+  const tablist = event.target.closest('.tabs');
+  tablist.querySelectorAll('.tab').forEach(tab =&gt; {
     tab.classList.remove('tab-active');
+    tab.setAttribute('aria-selected', 'false');
   });
 
   // Add active class to clicked tab
   event.target.classList.add('tab-active');
+  event.target.setAttribute('aria-selected', 'true');
 
-  // Hide all panels
-  document.querySelectorAll('.tab-panel').forEach(panel =&gt; {
+  // Get all panels (siblings of the tablist)
+  const container = tablist.parentElement;
+  container.querySelectorAll('.tab-panel').forEach(panel =&gt; {
     panel.style.display = 'none';
   });
 
@@ -379,73 +391,182 @@ function switchTab(event, panelId) {
   document.getElementById(panelId).style.display = 'block';
 }
 &lt;/script&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <!-- Best Practices -->
-        <div class="content-section">
-            <h2 class="section-title">Best Practices</h2>
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <!-- Pills Style -->
+            <div class="example-container">
+                <div class="example-label">Pills Style</div>
+                <div class="example-demo">
+                    <div class="tabs tabs-pills" role="tablist">
+                        <button class="tab tab-active" role="tab" aria-selected="true">Home</button>
+                        <button class="tab" role="tab" aria-selected="false">Products</button>
+                        <button class="tab" role="tab" aria-selected="false">About</button>
+                        <button class="tab" role="tab" aria-selected="false">Contact</button>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Pills style with rounded background for the active tab. Use <code>.tabs-pills</code> for a softer, more modern appearance.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="tabs tabs-pills" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;Home&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;Products&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;About&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;Contact&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
 
-            <div class="section-content">
-                <h3>When to Use Tabs</h3>
-                <ul>
-                    <li><strong>Organize Related Content:</strong> Group related information that users don't need to see simultaneously (product details, specifications, reviews)</li>
-                    <li><strong>Settings Pages:</strong> Separate settings into categories (profile, privacy, notifications, security)</li>
-                    <li><strong>Data Views:</strong> Provide different perspectives on the same data (table view, chart view, calendar view)</li>
-                    <li><strong>Multi-Step Forms:</strong> Show progress through sequential steps (though consider a stepper component for required sequential completion)</li>
-                    <li><strong>Filtering Content:</strong> Switch between filtered views (all items, unread, starred)</li>
-                </ul>
+            <!-- Boxed Style -->
+            <div class="example-container">
+                <div class="example-label">Boxed Style</div>
+                <div class="example-demo">
+                    <div class="tabs tabs-boxed" role="tablist">
+                        <button class="tab tab-active" role="tab" aria-selected="true">Dashboard</button>
+                        <button class="tab" role="tab" aria-selected="false">Analytics</button>
+                        <button class="tab" role="tab" aria-selected="false">Reports</button>
+                        <button class="tab" role="tab" aria-selected="false">Settings</button>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Boxed style with contained background. Use <code>.tabs-boxed</code> for a more compact, segmented control appearance.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="tabs tabs-boxed" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;Dashboard&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;Analytics&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;Reports&lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;Settings&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
 
-                <h3>When NOT to Use Tabs</h3>
-                <ul>
-                    <li><strong>Content Comparison:</strong> Don't use tabs when users need to compare information side-by-side - use panels or columns instead</li>
-                    <li><strong>Sequential Tasks:</strong> For required step-by-step workflows, use a stepper component that shows progress and prevents skipping</li>
-                    <li><strong>Too Many Options:</strong> Avoid more than 5-7 tabs - consider a dropdown or sidebar navigation for larger sets</li>
-                    <li><strong>Mobile-Heavy Content:</strong> Tabs can be difficult on small screens - consider accordions or stacked sections for mobile</li>
-                    <li><strong>Critical Information:</strong> Don't hide essential information in tabs - users may not explore all tabs</li>
-                </ul>
+            <!-- Tabs with Badges -->
+            <div class="example-container">
+                <div class="example-label">Tabs with Badges</div>
+                <div class="example-demo">
+                    <div class="tabs" role="tablist" aria-orientation="horizontal">
+                        <button class="tab tab-active" role="tab" id="badges-tab-all" aria-controls="badges-panel-all" aria-selected="true" tabindex="0" aria-label="All, 24 items">
+                            <span>All</span>
+                            <span class="badge badge-sm" style="margin-left: 8px;" aria-hidden="true">24</span>
+                        </button>
+                        <button class="tab" role="tab" id="badges-tab-unread" aria-controls="badges-panel-unread" aria-selected="false" tabindex="-1" aria-label="Unread, 5 items">
+                            <span>Unread</span>
+                            <span class="badge badge-error badge-sm" style="margin-left: 8px;" aria-hidden="true">5</span>
+                        </button>
+                        <button class="tab" role="tab" id="badges-tab-starred" aria-controls="badges-panel-starred" aria-selected="false" tabindex="-1" aria-label="Starred, 3 items">
+                            <span>Starred</span>
+                            <span class="badge badge-warning badge-sm" style="margin-left: 8px;" aria-hidden="true">3</span>
+                        </button>
+                        <button class="tab" role="tab" id="badges-tab-archived" aria-controls="badges-panel-archived" aria-selected="false" tabindex="-1">
+                            <span>Archived</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Use badges to show counts or status indicators within tabs. Particularly useful for messaging, notifications, or filtering interfaces.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="tabs" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;
+    &lt;span&gt;All&lt;/span&gt;
+    &lt;span class="badge badge-sm"&gt;24&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;
+    &lt;span&gt;Unread&lt;/span&gt;
+    &lt;span class="badge badge-error badge-sm"&gt;5&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;
+    &lt;span&gt;Starred&lt;/span&gt;
+    &lt;span class="badge badge-warning badge-sm"&gt;3&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
 
-                <h3>Tab Organization</h3>
-                <ul>
-                    <li><strong>Logical Order:</strong> Arrange tabs from most to least important, or in a logical workflow sequence</li>
-                    <li><strong>Clear Labels:</strong> Use concise, descriptive labels (1-2 words). Avoid vague terms like "Other" or "More"</li>
-                    <li><strong>Consistent Width:</strong> Keep tab widths balanced - avoid one very long tab next to several short ones</li>
-                    <li><strong>Default Selection:</strong> Always have one tab active by default (usually the first or most important)</li>
-                    <li><strong>Remember Selection:</strong> Consider persisting the active tab when users navigate away and return</li>
-                </ul>
+            <!-- Disabled Tabs -->
+            <div class="example-container">
+                <div class="example-label">Disabled Tabs</div>
+                <div class="example-demo">
+                    <div class="tabs tabs-pills" role="tablist">
+                        <button class="tab tab-active" role="tab" aria-selected="true">Step 1: Account</button>
+                        <button class="tab" role="tab" aria-selected="false">Step 2: Profile</button>
+                        <button class="tab" role="tab" aria-selected="false" disabled aria-disabled="true" style="opacity: 0.4; cursor: not-allowed;">Step 3: Payment</button>
+                        <button class="tab" role="tab" aria-selected="false" disabled aria-disabled="true" style="opacity: 0.4; cursor: not-allowed;">Step 4: Confirm</button>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Disable tabs that are not yet accessible using the <code>disabled</code> attribute and <code>aria-disabled="true"</code>. Common in multi-step forms or workflows where steps must be completed sequentially.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="tabs tabs-pills" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;
+    Step 1: Account
+  &lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;
+    Step 2: Profile
+  &lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"
+          disabled aria-disabled="true"&gt;
+    Step 3: Payment
+  &lt;/button&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"
+          disabled aria-disabled="true"&gt;
+    Step 4: Confirm
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
 
-                <h3>Accessibility</h3>
-                <ul>
-                    <li>Use <code>role="tablist"</code> on the tabs container</li>
-                    <li>Use <code>role="tab"</code> on each tab button</li>
-                    <li>Use <code>role="tabpanel"</code> on content panels</li>
-                    <li>Add <code>aria-selected="true"</code> to the active tab</li>
-                    <li>Connect tabs to panels using <code>aria-controls</code> and <code>id</code></li>
-                    <li>Support keyboard navigation: Arrow keys to move between tabs, Enter/Space to activate</li>
-                    <li>Ensure sufficient color contrast for active/inactive states</li>
-                    <li>Don't rely solely on color - use underlines, backgrounds, or icons for active state</li>
-                </ul>
-
-                <h3>Mobile Considerations</h3>
-                <ul>
-                    <li><strong>Scrollable Tabs:</strong> Allow horizontal scrolling for tabs on small screens rather than wrapping</li>
-                    <li><strong>Touch Targets:</strong> Ensure tabs are at least 44px tall for easy tapping</li>
-                    <li><strong>Alternative Patterns:</strong> Consider replacing tabs with accordions or a dropdown select on mobile</li>
-                    <li><strong>Visible Indicator:</strong> Make it obvious that more tabs are available off-screen (shadow or fade)</li>
-                </ul>
-
-                <h3>Common Patterns</h3>
-
-                <p><strong>Settings Page:</strong></p>
-                <pre><code>&lt;div class="card"&gt;
-  &lt;div class="tabs tabs-pills" style="padding: var(--space-4);"&gt;
-    &lt;button class="tab tab-active"&gt;
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <!-- Settings Page Pattern -->
+            <div class="example-container">
+                <div class="example-label">Settings Page Pattern</div>
+                <div class="example-demo">
+                    <div class="card">
+                        <div class="tabs tabs-pills" role="tablist" style="padding: var(--space-4); border-bottom: 1px solid var(--color-border-subtle);">
+                            <button class="tab tab-active" role="tab" aria-selected="true">
+                                <i data-lucide="user" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                                Profile
+                            </button>
+                            <button class="tab" role="tab" aria-selected="false">
+                                <i data-lucide="lock" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                                Privacy
+                            </button>
+                            <button class="tab" role="tab" aria-selected="false">
+                                <i data-lucide="bell" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                                Notifications
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <p style="color: var(--color-text-secondary); margin: 0;">Settings content goes here...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Use tabs to organize settings into logical categories. Icons help users quickly identify each section.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="card"&gt;
+  &lt;div class="tabs tabs-pills" role="tablist"&gt;
+    &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;
       &lt;i data-lucide="user"&gt;&lt;/i&gt; Profile
     &lt;/button&gt;
-    &lt;button class="tab"&gt;
+    &lt;button class="tab" role="tab" aria-selected="false"&gt;
       &lt;i data-lucide="lock"&gt;&lt;/i&gt; Privacy
     &lt;/button&gt;
-    &lt;button class="tab"&gt;
+    &lt;button class="tab" role="tab" aria-selected="false"&gt;
       &lt;i data-lucide="bell"&gt;&lt;/i&gt; Notifications
     &lt;/button&gt;
   &lt;/div&gt;
@@ -453,32 +574,205 @@ function switchTab(event, panelId) {
     &lt;!-- Settings content --&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+                </details>
+            </div>
 
-                <p><strong>Inbox Filters:</strong></p>
-                <pre><code>&lt;div class="tabs"&gt;
-  &lt;button class="tab tab-active"&gt;
+            <!-- Inbox Filters Pattern -->
+            <div class="example-container">
+                <div class="example-label">Inbox Filters Pattern</div>
+                <div class="example-demo">
+                    <div class="tabs" role="tablist">
+                        <button class="tab tab-active" role="tab" aria-selected="true">
+                            <span>All</span>
+                            <span class="badge badge-sm" style="margin-left: 8px;">24</span>
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false">
+                            <span>Unread</span>
+                            <span class="badge badge-error badge-sm" style="margin-left: 8px;">5</span>
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false">
+                            <span>Starred</span>
+                            <span class="badge badge-warning badge-sm" style="margin-left: 8px;">3</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Use tabs with badges to filter content and show counts. Perfect for email clients, notifications, or task management.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="tabs" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;
     All &lt;span class="badge badge-sm"&gt;24&lt;/span&gt;
   &lt;/button&gt;
-  &lt;button class="tab"&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;
     Unread &lt;span class="badge badge-error badge-sm"&gt;5&lt;/span&gt;
   &lt;/button&gt;
-  &lt;button class="tab"&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;
     Starred &lt;span class="badge badge-warning badge-sm"&gt;3&lt;/span&gt;
   &lt;/button&gt;
 &lt;/div&gt;</code></pre>
+                </details>
+            </div>
 
-                <p><strong>Dashboard Views:</strong></p>
-                <pre><code>&lt;div class="tabs tabs-boxed"&gt;
-  &lt;button class="tab tab-active"&gt;
+            <!-- Dashboard Views Pattern -->
+            <div class="example-container">
+                <div class="example-label">Dashboard Views Pattern</div>
+                <div class="example-demo">
+                    <div class="tabs tabs-boxed" role="tablist">
+                        <button class="tab tab-active" role="tab" aria-selected="true">
+                            <i data-lucide="bar-chart" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                            Charts
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false">
+                            <i data-lucide="table" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                            Table
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false">
+                            <i data-lucide="calendar" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                            Calendar
+                        </button>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Switch between different views of the same data. Icons make it easy to identify visualization types at a glance.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="tabs tabs-boxed" role="tablist"&gt;
+  &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;
     &lt;i data-lucide="bar-chart"&gt;&lt;/i&gt; Charts
   &lt;/button&gt;
-  &lt;button class="tab"&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;
     &lt;i data-lucide="table"&gt;&lt;/i&gt; Table
   &lt;/button&gt;
-  &lt;button class="tab"&gt;
+  &lt;button class="tab" role="tab" aria-selected="false"&gt;
     &lt;i data-lucide="calendar"&gt;&lt;/i&gt; Calendar
   &lt;/button&gt;
 &lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Form Wizard Pattern -->
+            <div class="example-container">
+                <div class="example-label">Form Wizard Pattern</div>
+                <div class="example-demo">
+                    <div class="card">
+                        <div class="tabs tabs-pills" role="tablist" style="padding: var(--space-4); border-bottom: 1px solid var(--color-border-subtle);">
+                            <button class="tab tab-active" role="tab" aria-selected="true">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: var(--color-primary); color: white; border-radius: 50%; font-size: 12px; margin-right: 8px;">1</span>
+                                Account
+                            </button>
+                            <button class="tab" role="tab" aria-selected="false">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: var(--color-bg-tertiary); color: var(--color-text-tertiary); border-radius: 50%; font-size: 12px; margin-right: 8px;">2</span>
+                                Profile
+                            </button>
+                            <button class="tab" role="tab" aria-selected="false" disabled aria-disabled="true" style="opacity: 0.4; cursor: not-allowed;">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: var(--color-bg-tertiary); color: var(--color-text-tertiary); border-radius: 50%; font-size: 12px; margin-right: 8px;">3</span>
+                                Payment
+                            </button>
+                            <button class="tab" role="tab" aria-selected="false" disabled aria-disabled="true" style="opacity: 0.4; cursor: not-allowed;">
+                                <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: var(--color-bg-tertiary); color: var(--color-text-tertiary); border-radius: 50%; font-size: 12px; margin-right: 8px;">4</span>
+                                Confirm
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <p style="color: var(--color-text-secondary); margin: 0;">Form content for current step...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Multi-step forms can use tabs to show progress. Disable future steps until previous ones are complete. Consider using a dedicated stepper component for complex workflows.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="card"&gt;
+  &lt;div class="tabs tabs-pills" role="tablist"&gt;
+    &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;
+      &lt;span class="step-number"&gt;1&lt;/span&gt; Account
+    &lt;/button&gt;
+    &lt;button class="tab" role="tab" aria-selected="false"&gt;
+      &lt;span class="step-number"&gt;2&lt;/span&gt; Profile
+    &lt;/button&gt;
+    &lt;button class="tab" role="tab" aria-selected="false"
+            disabled aria-disabled="true"&gt;
+      &lt;span class="step-number"&gt;3&lt;/span&gt; Payment
+    &lt;/button&gt;
+    &lt;button class="tab" role="tab" aria-selected="false"
+            disabled aria-disabled="true"&gt;
+      &lt;span class="step-number"&gt;4&lt;/span&gt; Confirm
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="card-body"&gt;
+    &lt;!-- Form content --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <div class="section-content">
+                    <h3>When to Use Tabs</h3>
+                    <ul>
+                        <li><strong>Organize Related Content:</strong> Group related information that users don't need to see simultaneously (product details, specifications, reviews)</li>
+                        <li><strong>Settings Pages:</strong> Separate settings into categories (profile, privacy, notifications, security)</li>
+                        <li><strong>Data Views:</strong> Provide different perspectives on the same data (table view, chart view, calendar view)</li>
+                        <li><strong>Multi-Step Forms:</strong> Show progress through sequential steps (though consider a stepper component for required sequential completion)</li>
+                        <li><strong>Filtering Content:</strong> Switch between filtered views (all items, unread, starred)</li>
+                    </ul>
+
+                    <h3>When NOT to Use Tabs</h3>
+                    <ul>
+                        <li><strong>Content Comparison:</strong> Don't use tabs when users need to compare information side-by-side - use panels or columns instead</li>
+                        <li><strong>Sequential Tasks:</strong> For required step-by-step workflows, use a stepper component that shows progress and prevents skipping</li>
+                        <li><strong>Too Many Options:</strong> Avoid more than 5-7 tabs - consider a dropdown or sidebar navigation for larger sets</li>
+                        <li><strong>Mobile-Heavy Content:</strong> Tabs can be difficult on small screens - consider accordions or stacked sections for mobile</li>
+                        <li><strong>Critical Information:</strong> Don't hide essential information in tabs - users may not explore all tabs</li>
+                    </ul>
+
+                    <h3>Tab Organization</h3>
+                    <ul>
+                        <li><strong>Logical Order:</strong> Arrange tabs from most to least important, or in a logical workflow sequence</li>
+                        <li><strong>Clear Labels:</strong> Use concise, descriptive labels (1-2 words). Avoid vague terms like "Other" or "More"</li>
+                        <li><strong>Consistent Width:</strong> Keep tab widths balanced - avoid one very long tab next to several short ones</li>
+                        <li><strong>Default Selection:</strong> Always have one tab active by default (usually the first or most important)</li>
+                        <li><strong>Remember Selection:</strong> Consider persisting the active tab when users navigate away and return</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Use <code>role="tablist"</code> on the tabs container</li>
+                        <li>Use <code>role="tab"</code> on each tab button</li>
+                        <li>Use <code>role="tabpanel"</code> on content panels</li>
+                        <li>Add <code>aria-selected="true"</code> to the active tab and <code>aria-selected="false"</code> to inactive tabs</li>
+                        <li>Connect tabs to panels using <code>aria-controls</code> (on tab) and <code>aria-labelledby</code> (on panel)</li>
+                        <li>Use <code>aria-disabled="true"</code> along with the <code>disabled</code> attribute for disabled tabs</li>
+                        <li>Support keyboard navigation: Arrow keys to move between tabs, Enter/Space to activate</li>
+                        <li>Ensure sufficient color contrast for active/inactive states</li>
+                        <li>Don't rely solely on color - use underlines, backgrounds, or icons for active state</li>
+                    </ul>
+
+                    <h3>Mobile Considerations</h3>
+                    <ul>
+                        <li><strong>Scrollable Tabs:</strong> Allow horizontal scrolling for tabs on small screens rather than wrapping</li>
+                        <li><strong>Touch Targets:</strong> Ensure tabs are at least 44px tall for easy tapping</li>
+                        <li><strong>Alternative Patterns:</strong> Consider replacing tabs with accordions or a dropdown select on mobile</li>
+                        <li><strong>Visible Indicator:</strong> Make it obvious that more tabs are available off-screen (shadow or fade)</li>
+                        <li><strong>Responsive Behavior:</strong> Test tab layouts on various screen sizes to ensure usability</li>
+                    </ul>
+
+                    <h3>Common Patterns</h3>
+                    <p>See the <strong>Patterns</strong> tab for live examples of these common tab patterns:</p>
+                    <ul>
+                        <li><strong>Settings Page:</strong> Organize settings into categories with icons</li>
+                        <li><strong>Inbox Filters:</strong> Filter content with badges showing counts</li>
+                        <li><strong>Dashboard Views:</strong> Switch between different data visualizations</li>
+                        <li><strong>Form Wizard:</strong> Guide users through multi-step processes</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -486,8 +780,8 @@ function switchTab(event, panelId) {
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -524,16 +818,18 @@ function switchTab(event, panelId) {
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
 
-        // Tab switching function
+        // Tab switching function for demo examples
         function switchTab(event, panelId) {
             // Remove active class from all tabs in the same tablist
             const tablist = event.target.closest('.tabs');
             tablist.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('tab-active');
+                tab.setAttribute('aria-selected', 'false');
             });
 
             // Add active class to clicked tab
             event.target.classList.add('tab-active');
+            event.target.setAttribute('aria-selected', 'true');
 
             // Get all panels (siblings of the tablist)
             const container = tablist.parentElement;
@@ -544,18 +840,25 @@ function switchTab(event, panelId) {
             // Show selected panel
             document.getElementById(panelId).style.display = 'block';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // Initialize tabs using Aural.initTabs() for the main navigation
+        if (typeof Aural !== 'undefined' && Aural.initTabs) {
+            Aural.initTabs();
+        }
+    </script>
+
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

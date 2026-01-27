@@ -313,6 +313,72 @@
     .aural-step__title {
         transition: none;
     }
+
+    /* Disable hover transform effects */
+    .aural-step--clickable .aural-step__indicator:hover:not(.aural-step--disabled .aural-step__indicator) {
+        transform: none;
+    }
+}
+
+/* ========================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ======================================== */
+
+/* Ensure clickable step indicators meet touch target size of 44x44px */
+@media (pointer: coarse) {
+    .aural-step__indicator {
+        min-width: 48px;
+        min-height: 48px;
+        width: 48px;
+        height: 48px;
+    }
+
+    /* Adjust connectors for larger indicators */
+    .aural-stepper--horizontal .aural-step__connector {
+        top: 24px;
+    }
+
+    .aural-stepper--vertical .aural-step__connector {
+        left: 24px;
+        top: 48px;
+        height: calc(100% - 48px);
+    }
+
+    /* Small size still needs to meet minimum touch target */
+    .aural-stepper--sm .aural-step__indicator {
+        min-width: 44px;
+        min-height: 44px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .aural-stepper--sm.aural-stepper--horizontal .aural-step__connector {
+        top: 22px;
+    }
+
+    .aural-stepper--sm.aural-stepper--vertical .aural-step__connector {
+        left: 22px;
+        top: 44px;
+        height: calc(100% - 44px);
+    }
+
+    /* Larger touch areas for clickable steps */
+    .aural-step--clickable {
+        cursor: pointer;
+    }
+
+    .aural-step--clickable .aural-step__indicator {
+        cursor: pointer;
+    }
+
+    /* Increase content spacing on touch devices */
+    .aural-stepper--horizontal .aural-step__content {
+        margin-top: var(--space-4);
+    }
+
+    .aural-stepper--vertical .aural-step__content {
+        margin-left: var(--space-5);
+    }
 }
 
 /* ========================================

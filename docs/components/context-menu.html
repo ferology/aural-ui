@@ -86,12 +86,99 @@
             line-height: 1.8;
         }
 
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* Context Menu Trigger Areas */
+        .context-trigger {
+            background: var(--color-bg-secondary);
+            border: 2px dashed var(--color-border-medium);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            text-align: center;
+            cursor: context-menu;
+            transition: var(--transition-all-fast);
+        }
+
+        .context-trigger:hover {
+            border-color: var(--color-primary);
+            background: var(--color-bg-hover);
         }
 
         /* Mobile Styles */
@@ -108,6 +195,10 @@
                 font-size: var(--text-base);
             }
 
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
             .theme-toggle {
                 top: var(--space-4);
                 right: var(--space-4);
@@ -120,18 +211,450 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Context Menu</h1>
-            <p class="page-description">Right-click menu with nested options.</p>
+            <p class="page-description">Right-click menus for contextual actions and keyboard-accessible options.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Try Right-Click</div>
-            <div class="example-demo">
-                <div style="background: var(--color-bg-secondary); border: 2px dashed var(--color-border-medium); border-radius: var(--radius-lg); padding: var(--space-8); text-align: center; cursor: pointer;" id="context-menu-trigger">
-                    <svg style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
-                    </svg>
-                    <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Right-click anywhere in this area</p>
-                    <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">to see the context menu</p>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Context Menu</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-1">
+                        <i data-lucide="mouse-pointer-click" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Right-click here</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">to see the context menu</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu" id="context-menu"&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="copy" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Copy&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘C&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="scissors" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Cut&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘X&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="clipboard" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Paste&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘V&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--danger"&gt;
+        &lt;i data-lucide="trash-2" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Delete&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Icons and Shortcuts</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-2">
+                        <i data-lucide="file-text" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Document Actions</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">Right-click for options</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu"&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="file-plus" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;New File&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘N&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="folder-plus" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;New Folder&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘⇧N&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Separators</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-3">
+                        <i data-lucide="settings" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Settings Menu</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">Right-click for grouped options</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu"&gt;
+    &lt;div class="aural-context-menu__header"&gt;Edit&lt;/div&gt;
+    &lt;button class="aural-context-menu__item"&gt;...&lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;div class="aural-context-menu__header"&gt;File&lt;/div&gt;
+    &lt;button class="aural-context-menu__item"&gt;...&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">With Disabled Items</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-4">
+                        <i data-lucide="file" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Disabled States</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">Some options are disabled</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu"&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="copy" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Copy&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--disabled"&gt;
+        &lt;i data-lucide="scissors" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Cut (disabled)&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--disabled"&gt;
+        &lt;i data-lucide="clipboard" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Paste (disabled)&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Checkable Items</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-5">
+                        <i data-lucide="layout" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">View Options</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">Toggle view settings</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu"&gt;
+    &lt;div class="aural-context-menu__header"&gt;View&lt;/div&gt;
+    &lt;button class="aural-context-menu__item" role="menuitemcheckbox" aria-checked="true"&gt;
+        &lt;i data-lucide="check" class="aural-context-menu__item-check"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Show Sidebar&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item" role="menuitemcheckbox" aria-checked="false"&gt;
+        &lt;i data-lucide="check" class="aural-context-menu__item-check"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Show Toolbar&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item" role="menuitemcheckbox" aria-checked="true"&gt;
+        &lt;i data-lucide="check" class="aural-context-menu__item-check"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Show Status Bar&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Compact Variant</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-6">
+                        <i data-lucide="more-vertical" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Compact Menu</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">Space-efficient variant</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu aural-context-menu--compact"&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="edit" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Edit&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="share" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Share&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--danger"&gt;
+        &lt;i data-lucide="trash-2" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Delete&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Danger/Destructive Actions</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-7">
+                        <i data-lucide="alert-triangle" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Destructive Actions</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">Highlighted danger items</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu"&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="edit" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Edit&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="copy" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Duplicate&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--danger"&gt;
+        &lt;i data-lucide="trash-2" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Delete&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--danger"&gt;
+        &lt;i data-lucide="x-circle" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Delete Permanently&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">File Management</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-8">
+                        <i data-lucide="folder" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Project Folder</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">File system actions</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu"&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="folder-open" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Open&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="eye" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Preview&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="edit" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Rename&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;F2&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="copy" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Duplicate&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘D&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="share" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Share&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--danger"&gt;
+        &lt;i data-lucide="trash-2" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Move to Trash&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘⌫&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="info" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Get Info&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘I&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Common file management pattern with grouped actions and keyboard shortcuts. Place destructive actions at the bottom.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Text Editor</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-9">
+                        <i data-lucide="type" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">Selected Text</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">Text editing actions</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu"&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="copy" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Copy&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘C&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="scissors" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Cut&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘X&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="clipboard" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Paste&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘V&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="search" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Search Web&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="bold" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Format&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Standard text editing pattern with clipboard operations prominently placed at the top.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Table Row Actions</div>
+                <div class="example-demo">
+                    <div class="context-trigger" id="context-trigger-10">
+                        <i data-lucide="table" style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);"></i>
+                        <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">User Row</p>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm);">Data table actions</p>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-context-menu"&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="eye" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;View Details&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="edit" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Edit&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="copy" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Duplicate&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item"&gt;
+        &lt;i data-lucide="download" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Export&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--danger"&gt;
+        &lt;i data-lucide="trash-2" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Delete&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Context menu for data table rows. Use compact variant for tables to save space.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Use context menus for actions directly related to the clicked element</li>
+                        <li>Use for power users who need quick access to advanced features</li>
+                        <li>Use in data-rich applications like file managers, editors, or data tables</li>
+                        <li>Use when actions are context-specific and not needed in primary navigation</li>
+                        <li>Provide keyboard shortcuts for all context menu actions</li>
+                    </ul>
+
+                    <h3>When Not to Use</h3>
+                    <ul>
+                        <li>Don't hide primary actions in context menus - use visible buttons instead</li>
+                        <li>Don't use as the only way to access important features</li>
+                        <li>Don't use on mobile as the primary interaction pattern</li>
+                        <li>Don't include too many items (keep under 10-12 items)</li>
+                        <li>Don't use for actions that require explanation or aren't obvious</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Provide alternative ways to access all context menu actions</li>
+                        <li>Support keyboard navigation with arrow keys and Enter</li>
+                        <li>Use semantic button elements for menu items</li>
+                        <li>Include proper ARIA roles: <code>role="menu"</code> and <code>role="menuitem"</code></li>
+                        <li>Display keyboard shortcuts in the menu for discoverability</li>
+                        <li>Ensure focus is trapped within the menu when open</li>
+                        <li>Close menu with Escape key</li>
+                        <li>Provide minimum 44x44px touch targets for mobile</li>
+                    </ul>
+
+                    <h3>Content Guidelines</h3>
+                    <ul>
+                        <li>Use clear, action-oriented labels (verbs): "Copy", "Delete", "Open"</li>
+                        <li>Group related actions with separators</li>
+                        <li>Place destructive actions at the bottom, separated from other actions</li>
+                        <li>Show keyboard shortcuts aligned to the right</li>
+                        <li>Use icons for better scannability and recognition</li>
+                        <li>Keep menu item labels short (1-3 words)</li>
+                        <li>Use sentence case for labels</li>
+                    </ul>
+
+                    <h3>Organization</h3>
+                    <ul>
+                        <li>Order items by frequency of use (most common first)</li>
+                        <li>Group related actions together with section headers or separators</li>
+                        <li>Place primary actions at the top</li>
+                        <li>Place destructive actions at the bottom with visual distinction</li>
+                        <li>Limit to 10-12 items; use submenus for additional options</li>
+                        <li>Consider alphabetical order for long lists of similar items</li>
+                    </ul>
+
+                    <h3>Visual Design</h3>
+                    <ul>
+                        <li>Use <code>.aural-context-menu__item--danger</code> for destructive actions</li>
+                        <li>Use <code>.aural-context-menu__item--disabled</code> for unavailable actions</li>
+                        <li>Show disabled items (don't hide them) to maintain consistency</li>
+                        <li>Use <code>.aural-context-menu--compact</code> for dense interfaces like tables</li>
+                        <li>Include icons for improved recognition, but ensure they're consistent</li>
+                        <li>Use separators to create visual groups, but don't overuse them</li>
+                    </ul>
+
+                    <h3>Interaction</h3>
+                    <ul>
+                        <li>Open on right-click (desktop) or long-press (mobile)</li>
+                        <li>Close when clicking outside, pressing Escape, or selecting an action</li>
+                        <li>Position menu near the cursor, but keep it fully visible on screen</li>
+                        <li>Provide visual feedback on hover and focus</li>
+                        <li>Execute action immediately on click (no confirmation for non-destructive actions)</li>
+                        <li>Consider confirmation dialogs for destructive actions</li>
+                    </ul>
+
+                    <h3>Mobile Considerations</h3>
+                    <ul>
+                        <li>On mobile, context menus appear as bottom sheets by default</li>
+                        <li>Trigger with long-press gesture (not available on all contexts)</li>
+                        <li>Provide alternative access via action buttons or overflow menus</li>
+                        <li>Increase touch target sizes to 44x44px minimum</li>
+                        <li>Keep mobile menus shorter (5-7 items maximum)</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -140,8 +663,8 @@
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -159,6 +682,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -181,146 +707,221 @@
 
     <!-- Context Menu Component JavaScript -->
     <script>
+        // Context Menu Configurations
+        const contextMenuConfigs = {
+            'context-trigger-1': {
+                items: [
+                    { icon: 'copy', label: 'Copy', shortcut: '⌘C' },
+                    { icon: 'scissors', label: 'Cut', shortcut: '⌘X' },
+                    { icon: 'clipboard', label: 'Paste', shortcut: '⌘V' },
+                    { separator: true },
+                    { icon: 'trash-2', label: 'Delete', shortcut: '⌘⌫', danger: true }
+                ]
+            },
+            'context-trigger-2': {
+                items: [
+                    { icon: 'file-plus', label: 'New File', shortcut: '⌘N' },
+                    { icon: 'folder-plus', label: 'New Folder', shortcut: '⌘⇧N' },
+                    { separator: true },
+                    { icon: 'folder-open', label: 'Open' },
+                    { icon: 'download', label: 'Download' }
+                ]
+            },
+            'context-trigger-3': {
+                header: 'Edit',
+                items: [
+                    { icon: 'copy', label: 'Copy', shortcut: '⌘C' },
+                    { icon: 'scissors', label: 'Cut', shortcut: '⌘X' },
+                    { separator: true },
+                    { header: 'File' },
+                    { icon: 'save', label: 'Save', shortcut: '⌘S' },
+                    { icon: 'download', label: 'Export' }
+                ]
+            },
+            'context-trigger-4': {
+                items: [
+                    { icon: 'copy', label: 'Copy' },
+                    { icon: 'scissors', label: 'Cut (disabled)', disabled: true },
+                    { icon: 'clipboard', label: 'Paste (disabled)', disabled: true }
+                ]
+            },
+            'context-trigger-5': {
+                header: 'View',
+                items: [
+                    { icon: 'check', label: 'Show Sidebar', checked: true },
+                    { icon: 'check', label: 'Show Toolbar', checked: false },
+                    { icon: 'check', label: 'Show Status Bar', checked: true }
+                ]
+            },
+            'context-trigger-6': {
+                compact: true,
+                items: [
+                    { icon: 'edit', label: 'Edit' },
+                    { icon: 'share', label: 'Share' },
+                    { separator: true },
+                    { icon: 'trash-2', label: 'Delete', danger: true }
+                ]
+            },
+            'context-trigger-7': {
+                items: [
+                    { icon: 'edit', label: 'Edit' },
+                    { icon: 'copy', label: 'Duplicate' },
+                    { separator: true },
+                    { icon: 'trash-2', label: 'Delete', danger: true },
+                    { icon: 'x-circle', label: 'Delete Permanently', danger: true }
+                ]
+            },
+            'context-trigger-8': {
+                items: [
+                    { icon: 'folder-open', label: 'Open' },
+                    { icon: 'eye', label: 'Preview' },
+                    { separator: true },
+                    { icon: 'edit', label: 'Rename', shortcut: 'F2' },
+                    { icon: 'copy', label: 'Duplicate', shortcut: '⌘D' },
+                    { icon: 'share', label: 'Share' },
+                    { separator: true },
+                    { icon: 'trash-2', label: 'Move to Trash', shortcut: '⌘⌫', danger: true },
+                    { separator: true },
+                    { icon: 'info', label: 'Get Info', shortcut: '⌘I' }
+                ]
+            },
+            'context-trigger-9': {
+                items: [
+                    { icon: 'copy', label: 'Copy', shortcut: '⌘C' },
+                    { icon: 'scissors', label: 'Cut', shortcut: '⌘X' },
+                    { icon: 'clipboard', label: 'Paste', shortcut: '⌘V' },
+                    { separator: true },
+                    { icon: 'search', label: 'Search Web' },
+                    { icon: 'bold', label: 'Format' }
+                ]
+            },
+            'context-trigger-10': {
+                items: [
+                    { icon: 'eye', label: 'View Details' },
+                    { icon: 'edit', label: 'Edit' },
+                    { icon: 'copy', label: 'Duplicate' },
+                    { separator: true },
+                    { icon: 'download', label: 'Export' },
+                    { separator: true },
+                    { icon: 'trash-2', label: 'Delete', danger: true }
+                ]
+            }
+        };
+
         class ContextMenu {
-            constructor() {
+            constructor(triggerId, config) {
+                this.triggerId = triggerId;
+                this.trigger = document.getElementById(triggerId);
+                this.config = config;
                 this.menu = null;
-                this.trigger = document.getElementById('context-menu-trigger');
-                this.createMenu();
-                this.init();
+                if (this.trigger) {
+                    this.createMenu();
+                    this.init();
+                }
             }
 
             createMenu() {
-                // Create context menu HTML
-                const menuHTML = `
-                    <div class="context-menu" id="context-menu" style="
-                        position: fixed;
-                        background: var(--color-bg-primary);
-                        border: 1px solid var(--color-border-subtle);
-                        border-radius: var(--radius-md);
-                        box-shadow: var(--shadow-lg);
-                        padding: var(--space-2);
-                        min-width: 200px;
-                        z-index: 9999;
-                        display: none;
-                    ">
-                        <div class="context-menu-item" style="
-                            padding: var(--space-2) var(--space-3);
-                            cursor: pointer;
-                            border-radius: var(--radius-sm);
-                            display: flex;
-                            align-items: center;
-                            gap: var(--space-2);
-                            color: var(--color-text-primary);
-                            font-size: var(--text-sm);
-                            transition: background 0.15s;
-                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
-                            <i data-lucide="copy" style="width: 16px; height: 10px;"></i>
-                            <span>Copy</span>
-                            <span style="margin-left: auto; color: var(--color-text-tertiary); font-size: var(--text-xs);">⌘C</span>
-                        </div>
-                        <div class="context-menu-item" style="
-                            padding: var(--space-2) var(--space-3);
-                            cursor: pointer;
-                            border-radius: var(--radius-sm);
-                            display: flex;
-                            align-items: center;
-                            gap: var(--space-2);
-                            color: var(--color-text-primary);
-                            font-size: var(--text-sm);
-                            transition: background 0.15s;
-                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
-                            <i data-lucide="scissors" style="width: 16px; height: 10px;"></i>
-                            <span>Cut</span>
-                            <span style="margin-left: auto; color: var(--color-text-tertiary); font-size: var(--text-xs);">⌘X</span>
-                        </div>
-                        <div class="context-menu-item" style="
-                            padding: var(--space-2) var(--space-3);
-                            cursor: pointer;
-                            border-radius: var(--radius-sm);
-                            display: flex;
-                            align-items: center;
-                            gap: var(--space-2);
-                            color: var(--color-text-primary);
-                            font-size: var(--text-sm);
-                            transition: background 0.15s;
-                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
-                            <i data-lucide="clipboard" style="width: 16px; height: 10px;"></i>
-                            <span>Paste</span>
-                            <span style="margin-left: auto; color: var(--color-text-tertiary); font-size: var(--text-xs);">⌘V</span>
-                        </div>
-                        <div style="height: 1px; background: var(--color-border-subtle); margin: var(--space-2) 0;"></div>
-                        <div class="context-menu-item" style="
-                            padding: var(--space-2) var(--space-3);
-                            cursor: pointer;
-                            border-radius: var(--radius-sm);
-                            display: flex;
-                            align-items: center;
-                            gap: var(--space-2);
-                            color: var(--color-text-primary);
-                            font-size: var(--text-sm);
-                            transition: background 0.15s;
-                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
-                            <i data-lucide="trash-2" style="width: 16px; height: 10px;"></i>
-                            <span>Delete</span>
-                            <span style="margin-left: auto; color: var(--color-text-tertiary); font-size: var(--text-xs);">⌘⌫</span>
-                        </div>
-                        <div style="height: 1px; background: var(--color-border-subtle); margin: var(--space-2) 0;"></div>
-                        <div class="context-menu-item" style="
-                            padding: var(--space-2) var(--space-3);
-                            cursor: pointer;
-                            border-radius: var(--radius-sm);
-                            display: flex;
-                            align-items: center;
-                            gap: var(--space-2);
-                            color: var(--color-text-primary);
-                            font-size: var(--text-sm);
-                            transition: background 0.15s;
-                        " onmouseover="this.style.background='var(--color-bg-hover)'" onmouseout="this.style.background='transparent'">
-                            <i data-lucide="info" style="width: 16px; height: 10px;"></i>
-                            <span>Properties</span>
-                        </div>
-                    </div>
-                `;
+                const menuId = `menu-${this.triggerId}`;
+                let menuHTML = `<div class="aural-context-menu ${this.config.compact ? 'aural-context-menu--compact' : ''}" id="${menuId}" role="menu">`;
+
+                this.config.items.forEach(item => {
+                    if (item.separator) {
+                        menuHTML += '<div class="aural-context-menu__separator" aria-hidden="true"></div>';
+                    } else if (item.header) {
+                        menuHTML += `<div class="aural-context-menu__header">${item.header}</div>`;
+                    } else {
+                        const classes = ['aural-context-menu__item'];
+                        if (item.danger) classes.push('aural-context-menu__item--danger');
+                        if (item.disabled) classes.push('aural-context-menu__item--disabled');
+                        if (item.checked !== undefined) classes.push('aural-context-menu__item--checkable');
+                        if (item.checked) classes.push('aural-context-menu__item--checked');
+
+                        const ariaDisabled = item.disabled ? ' aria-disabled="true"' : '';
+                        const role = item.checked !== undefined ? 'menuitemcheckbox' : 'menuitem';
+                        const ariaChecked = item.checked !== undefined ? ` aria-checked="${item.checked}"` : '';
+                        menuHTML += `<button class="${classes.join(' ')}" ${item.disabled ? 'disabled' : ''} role="${role}" tabindex="-1"${ariaDisabled}${ariaChecked}>`;
+
+                        if (item.checked !== undefined) {
+                            menuHTML += '<i data-lucide="check" class="aural-context-menu__item-check" aria-hidden="true"></i>';
+                        }
+
+                        if (item.icon) {
+                            menuHTML += `<i data-lucide="${item.icon}" class="aural-context-menu__item-icon" aria-hidden="true"></i>`;
+                        }
+
+                        menuHTML += `<span class="aural-context-menu__item-label">${item.label}</span>`;
+
+                        if (item.shortcut) {
+                            menuHTML += `<span class="aural-context-menu__item-shortcut">${item.shortcut}</span>`;
+                        }
+
+                        menuHTML += '</button>';
+                    }
+                });
+
+                menuHTML += '</div>';
 
                 document.body.insertAdjacentHTML('beforeend', menuHTML);
-                this.menu = document.getElementById('context-menu');
+                this.menu = document.getElementById(menuId);
             }
 
             init() {
-                // Show context menu on right click
+                // Add ARIA attributes to trigger
+                this.trigger.setAttribute('aria-haspopup', 'menu');
+                this.trigger.setAttribute('aria-expanded', 'false');
+
+                // If trigger is a div, add role and tabindex
+                if (this.trigger.tagName.toLowerCase() === 'div') {
+                    this.trigger.setAttribute('role', 'button');
+                    this.trigger.setAttribute('tabindex', '0');
+                }
+
                 this.trigger.addEventListener('contextmenu', (e) => {
                     e.preventDefault();
                     this.showMenu(e.clientX, e.clientY);
                 });
 
-                // Hide menu on click outside
                 document.addEventListener('click', () => {
                     this.hideMenu();
                 });
 
-                // Hide menu on scroll
                 window.addEventListener('scroll', () => {
                     this.hideMenu();
                 });
 
-                // Add click handlers to menu items
-                const menuItems = this.menu.querySelectorAll('.context-menu-item');
+                const menuItems = this.menu.querySelectorAll('.aural-context-menu__item:not(.aural-context-menu__item--disabled)');
                 menuItems.forEach(item => {
                     item.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        console.log('Menu item clicked:', item.textContent.trim());
-                        this.hideMenu();
+
+                        // Handle checkable items with aria-checked
+                        if (item.getAttribute('role') === 'menuitemcheckbox') {
+                            const isChecked = item.getAttribute('aria-checked') === 'true';
+                            item.setAttribute('aria-checked', !isChecked);
+                            item.classList.toggle('aural-context-menu__item--checked');
+                        }
+
+                        console.log('Menu item clicked:', item.querySelector('.aural-context-menu__item-label').textContent);
+
+                        // Don't close for checkable items
+                        if (item.getAttribute('role') !== 'menuitemcheckbox') {
+                            this.hideMenu();
+                        }
                     });
                 });
             }
 
             showMenu(x, y) {
-                // Position the menu
+                // Hide all other menus first
+                document.querySelectorAll('.aural-context-menu').forEach(menu => {
+                    menu.classList.remove('aural-context-menu--open');
+                });
+
                 this.menu.style.left = x + 'px';
                 this.menu.style.top = y + 'px';
-                this.menu.style.display = 'block';
+                this.menu.classList.add('aural-context-menu--open');
+                this.trigger.setAttribute('aria-expanded', 'true');
 
-                // Update icons
                 lucide.createIcons();
 
                 // Adjust if menu goes off screen
@@ -338,12 +939,15 @@
             }
 
             hideMenu() {
-                this.menu.style.display = 'none';
+                this.menu.classList.remove('aural-context-menu--open');
+                this.trigger.setAttribute('aria-expanded', 'false');
             }
         }
 
-        // Initialize context menu
-        new ContextMenu();
+        // Initialize all context menus
+        Object.keys(contextMenuConfigs).forEach(triggerId => {
+            new ContextMenu(triggerId, contextMenuConfigs[triggerId]);
+        });
     </script>    <!-- Unified Theme Sync -->
     <script>
     (function() {

@@ -242,7 +242,42 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .breadcrumb a {
+    .breadcrumb a,
+    .breadcrumb-collapsed & > ol > li:nth-last-child(2)::before {
         transition: none;
+    }
+}
+
+/* ========================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ======================================== */
+
+/* Ensure breadcrumb links meet touch target size of 44x44px */
+@media (pointer: coarse) {
+    .breadcrumb a {
+        min-height: 44px;
+        padding: var(--space-3) var(--space-3);
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Larger touch targets for collapsed breadcrumb expand button */
+    .breadcrumb-collapsed & > ol > li:nth-last-child(2)::before {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Increase separator spacing on touch devices for better readability */
+    .breadcrumb li:not(:last-child)::after {
+        margin-left: var(--space-3);
+    }
+
+    /* Larger size variants for touch */
+    .breadcrumb-sm a {
+        min-height: 44px;
+        padding: var(--space-2) var(--space-3);
     }
 }

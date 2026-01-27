@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -164,28 +195,544 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Pagination</h1>
-            <p class="page-description">Page navigation controls for large datasets.</p>
+            <p class="page-description">Navigation controls for browsing through multiple pages of content.</p>
         </div>
 
-        <div class="example-container">
-                <div class="example-label">Rounded</div>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Pagination</div>
                 <div class="example-demo">
-                    <nav class="pagination pagination-rounded" aria-label="Pagination">
-                        <a href="#" class="pagination-prev">Prev</a>
-                        <a href="#" class="pagination-item">1</a>
-                        <a href="#" class="pagination-item pagination-active">2</a>
-                        <a href="#" class="pagination-item">3</a>
-                        <a href="#" class="pagination-next">Next</a>
+                    <nav class="pagination" aria-label="Pagination">
+                        <a href="#" class="pagination-prev" aria-label="Go to previous page">
+                            <i data-lucide="chevron-left" aria-hidden="true"></i>
+                            Previous
+                        </a>
+                        <a href="#" class="pagination-item" aria-label="Go to page 1">1</a>
+                        <a href="#" class="pagination-item pagination-active" aria-current="page" aria-label="Current page, page 2">2</a>
+                        <a href="#" class="pagination-item" aria-label="Go to page 3">3</a>
+                        <a href="#" class="pagination-item" aria-label="Go to page 4">4</a>
+                        <a href="#" class="pagination-item" aria-label="Go to page 5">5</a>
+                        <a href="#" class="pagination-next" aria-label="Go to next page">
+                            Next
+                            <i data-lucide="chevron-right" aria-hidden="true"></i>
+                        </a>
                     </nav>
                 </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="pagination" aria-label="Pagination"&gt;
+    &lt;a href="#" class="pagination-prev" aria-label="Go to previous page"&gt;
+        &lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;
+        Previous
+    &lt;/a&gt;
+    &lt;a href="#" class="pagination-item" aria-label="Go to page 1"&gt;1&lt;/a&gt;
+    &lt;a href="#" class="pagination-item pagination-active" aria-current="page"&gt;2&lt;/a&gt;
+    &lt;a href="#" class="pagination-item" aria-label="Go to page 3"&gt;3&lt;/a&gt;
+    &lt;a href="#" class="pagination-next" aria-label="Go to next page"&gt;
+        Next
+        &lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
             </div>
+
+            <div class="example-container">
+                <div class="example-label">With Ellipsis</div>
+                <div class="example-demo">
+                    <nav class="pagination" aria-label="Pagination">
+                        <a href="#" class="pagination-prev" aria-label="Go to previous page">
+                            <i data-lucide="chevron-left" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="pagination-item" aria-label="Go to page 1">1</a>
+                        <span class="pagination-ellipsis" aria-hidden="true">...</span>
+                        <a href="#" class="pagination-item" aria-label="Go to page 4">4</a>
+                        <a href="#" class="pagination-item pagination-active" aria-current="page">5</a>
+                        <a href="#" class="pagination-item" aria-label="Go to page 6">6</a>
+                        <span class="pagination-ellipsis" aria-hidden="true">...</span>
+                        <a href="#" class="pagination-item" aria-label="Go to page 10">10</a>
+                        <a href="#" class="pagination-next" aria-label="Go to next page">
+                            <i data-lucide="chevron-right" aria-hidden="true"></i>
+                        </a>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="pagination" aria-label="Pagination"&gt;
+    &lt;a href="#" class="pagination-prev"&gt;
+        &lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="pagination-item"&gt;1&lt;/a&gt;
+    &lt;span class="pagination-ellipsis" aria-hidden="true"&gt;...&lt;/span&gt;
+    &lt;a href="#" class="pagination-item"&gt;4&lt;/a&gt;
+    &lt;a href="#" class="pagination-item pagination-active" aria-current="page"&gt;5&lt;/a&gt;
+    &lt;a href="#" class="pagination-item"&gt;6&lt;/a&gt;
+    &lt;span class="pagination-ellipsis" aria-hidden="true"&gt;...&lt;/span&gt;
+    &lt;a href="#" class="pagination-item"&gt;10&lt;/a&gt;
+    &lt;a href="#" class="pagination-next"&gt;
+        &lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Disabled State</div>
+                <div class="example-demo">
+                    <nav class="pagination" aria-label="Pagination">
+                        <a href="#" class="pagination-prev pagination-disabled" aria-disabled="true" aria-label="No previous page">
+                            <i data-lucide="chevron-left" aria-hidden="true"></i>
+                            Previous
+                        </a>
+                        <a href="#" class="pagination-item pagination-active" aria-current="page">1</a>
+                        <a href="#" class="pagination-item" aria-label="Go to page 2">2</a>
+                        <a href="#" class="pagination-item" aria-label="Go to page 3">3</a>
+                        <a href="#" class="pagination-next" aria-label="Go to next page">
+                            Next
+                            <i data-lucide="chevron-right" aria-hidden="true"></i>
+                        </a>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="pagination" aria-label="Pagination"&gt;
+    &lt;a href="#" class="pagination-prev pagination-disabled" aria-disabled="true"&gt;
+        &lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;
+        Previous
+    &lt;/a&gt;
+    &lt;a href="#" class="pagination-item pagination-active" aria-current="page"&gt;1&lt;/a&gt;
+    &lt;a href="#" class="pagination-item"&gt;2&lt;/a&gt;
+    &lt;a href="#" class="pagination-next"&gt;
+        Next
+        &lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Style Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Default</p>
+                            <nav class="pagination" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Rounded</p>
+                            <nav class="pagination pagination-rounded" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Simple (No Borders)</p>
+                            <nav class="pagination pagination-simple" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Compact (Attached)</p>
+                            <nav class="pagination pagination-compact" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Default --&gt;
+&lt;nav class="pagination"&gt;...&lt;/nav&gt;
+
+&lt;!-- Rounded --&gt;
+&lt;nav class="pagination pagination-rounded"&gt;...&lt;/nav&gt;
+
+&lt;!-- Simple --&gt;
+&lt;nav class="pagination pagination-simple"&gt;...&lt;/nav&gt;
+
+&lt;!-- Compact --&gt;
+&lt;nav class="pagination pagination-compact"&gt;...&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Size Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6); align-items: flex-start;">
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Small</p>
+                            <nav class="pagination pagination-sm" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Default</p>
+                            <nav class="pagination" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Large</p>
+                            <nav class="pagination pagination-lg" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Small --&gt;
+&lt;nav class="pagination pagination-sm"&gt;...&lt;/nav&gt;
+
+&lt;!-- Default --&gt;
+&lt;nav class="pagination"&gt;...&lt;/nav&gt;
+
+&lt;!-- Large --&gt;
+&lt;nav class="pagination pagination-lg"&gt;...&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Alignment Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Left Aligned</p>
+                            <nav class="pagination pagination-left" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Center Aligned (Default)</p>
+                            <nav class="pagination" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                        <div>
+                            <p style="font-size: var(--text-xs); color: var(--color-text-tertiary); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em;">Right Aligned</p>
+                            <nav class="pagination pagination-right" aria-label="Pagination">
+                                <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                                <a href="#" class="pagination-item">1</a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Left Aligned --&gt;
+&lt;nav class="pagination pagination-left"&gt;...&lt;/nav&gt;
+
+&lt;!-- Center Aligned (Default) --&gt;
+&lt;nav class="pagination"&gt;...&lt;/nav&gt;
+
+&lt;!-- Right Aligned --&gt;
+&lt;nav class="pagination pagination-right"&gt;...&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">With Info Text</div>
+                <div class="example-demo">
+                    <div class="pagination-with-info">
+                        <nav class="pagination" aria-label="Pagination">
+                            <a href="#" class="pagination-prev" aria-label="Go to previous page">
+                                <i data-lucide="chevron-left" aria-hidden="true"></i>
+                                Previous
+                            </a>
+                            <a href="#" class="pagination-item" aria-label="Go to page 1">1</a>
+                            <a href="#" class="pagination-item pagination-active" aria-current="page">2</a>
+                            <a href="#" class="pagination-item" aria-label="Go to page 3">3</a>
+                            <a href="#" class="pagination-next" aria-label="Go to next page">
+                                Next
+                                <i data-lucide="chevron-right" aria-hidden="true"></i>
+                            </a>
+                        </nav>
+                        <div class="pagination-info">Showing 11-20 of 50 results</div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="pagination-with-info"&gt;
+    &lt;nav class="pagination" aria-label="Pagination"&gt;
+        &lt;a href="#" class="pagination-prev"&gt;
+            &lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;
+            Previous
+        &lt;/a&gt;
+        &lt;a href="#" class="pagination-item"&gt;1&lt;/a&gt;
+        &lt;a href="#" class="pagination-item pagination-active" aria-current="page"&gt;2&lt;/a&gt;
+        &lt;a href="#" class="pagination-item"&gt;3&lt;/a&gt;
+        &lt;a href="#" class="pagination-next"&gt;
+            Next
+            &lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;div class="pagination-info"&gt;Showing 11-20 of 50 results&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Display contextual information about the current page and total items. This helps users understand their position in the dataset.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Page Jumper</div>
+                <div class="example-demo">
+                    <div class="pagination-with-jumper">
+                        <nav class="pagination" aria-label="Pagination">
+                            <a href="#" class="pagination-prev"><i data-lucide="chevron-left" aria-hidden="true"></i></a>
+                            <a href="#" class="pagination-item">1</a>
+                            <span class="pagination-ellipsis" aria-hidden="true">...</span>
+                            <a href="#" class="pagination-item">4</a>
+                            <a href="#" class="pagination-item pagination-active" aria-current="page">5</a>
+                            <a href="#" class="pagination-item">6</a>
+                            <span class="pagination-ellipsis" aria-hidden="true">...</span>
+                            <a href="#" class="pagination-item">20</a>
+                            <a href="#" class="pagination-next"><i data-lucide="chevron-right" aria-hidden="true"></i></a>
+                        </nav>
+                        <div class="pagination-jumper">
+                            <span>Go to</span>
+                            <input type="number" min="1" max="20" value="5" aria-label="Jump to page">
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="pagination-with-jumper"&gt;
+    &lt;nav class="pagination" aria-label="Pagination"&gt;
+        &lt;a href="#" class="pagination-prev"&gt;&lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;&lt;/a&gt;
+        &lt;a href="#" class="pagination-item"&gt;1&lt;/a&gt;
+        &lt;span class="pagination-ellipsis"&gt;...&lt;/span&gt;
+        &lt;a href="#" class="pagination-item pagination-active" aria-current="page"&gt;5&lt;/a&gt;
+        &lt;span class="pagination-ellipsis"&gt;...&lt;/span&gt;
+        &lt;a href="#" class="pagination-item"&gt;20&lt;/a&gt;
+        &lt;a href="#" class="pagination-next"&gt;&lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;div class="pagination-jumper"&gt;
+        &lt;span&gt;Go to&lt;/span&gt;
+        &lt;input type="number" min="1" max="20" value="5" aria-label="Jump to page"&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Allow users to jump directly to a specific page. Useful for large datasets where users know which page they need.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Table Pagination</div>
+                <div class="example-demo">
+                    <div style="background: var(--color-bg-primary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4);">
+                        <div style="padding: var(--space-4); border-bottom: 1px solid var(--color-border-subtle); display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--color-text-secondary); font-size: var(--text-sm);">Showing 1-10 of 247 items</span>
+                            <nav class="pagination pagination-sm" aria-label="Table pagination">
+                                <a href="#" class="pagination-prev pagination-disabled" aria-disabled="true">
+                                    <i data-lucide="chevron-left" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="pagination-item pagination-active" aria-current="page">1</a>
+                                <a href="#" class="pagination-item">2</a>
+                                <a href="#" class="pagination-item">3</a>
+                                <span class="pagination-ellipsis" aria-hidden="true">...</span>
+                                <a href="#" class="pagination-item">25</a>
+                                <a href="#" class="pagination-next">
+                                    <i data-lucide="chevron-right" aria-hidden="true"></i>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div style="display: flex; justify-content: space-between; align-items: center;"&gt;
+    &lt;span&gt;Showing 1-10 of 247 items&lt;/span&gt;
+    &lt;nav class="pagination pagination-sm" aria-label="Table pagination"&gt;
+        &lt;a href="#" class="pagination-prev pagination-disabled"&gt;
+            &lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+        &lt;a href="#" class="pagination-item pagination-active" aria-current="page"&gt;1&lt;/a&gt;
+        &lt;a href="#" class="pagination-item"&gt;2&lt;/a&gt;
+        &lt;a href="#" class="pagination-item"&gt;3&lt;/a&gt;
+        &lt;span class="pagination-ellipsis"&gt;...&lt;/span&gt;
+        &lt;a href="#" class="pagination-item"&gt;25&lt;/a&gt;
+        &lt;a href="#" class="pagination-next"&gt;&lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Use small pagination at the bottom of data tables. Combine with item count information for context.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Simple Previous/Next</div>
+                <div class="example-demo">
+                    <nav class="pagination pagination-between" aria-label="Pagination">
+                        <a href="#" class="pagination-prev" aria-label="Go to previous article">
+                            <i data-lucide="arrow-left" aria-hidden="true"></i>
+                            Previous Article
+                        </a>
+                        <a href="#" class="pagination-next" aria-label="Go to next article">
+                            Next Article
+                            <i data-lucide="arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="pagination pagination-between" aria-label="Pagination"&gt;
+    &lt;a href="#" class="pagination-prev"&gt;
+        &lt;i data-lucide="arrow-left"&gt;&lt;/i&gt;
+        Previous Article
+    &lt;/a&gt;
+    &lt;a href="#" class="pagination-next"&gt;
+        Next Article
+        &lt;i data-lucide="arrow-right"&gt;&lt;/i&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Use simplified navigation for blog posts or sequential content where page numbers are less important.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Use pagination for large datasets that would be overwhelming on a single page</li>
+                        <li>Use when users need to browse through sequential content</li>
+                        <li>Use at the bottom of data tables, search results, or product listings</li>
+                        <li>Use when the total number of items is known</li>
+                        <li>Consider pagination for lists with more than 25-50 items</li>
+                    </ul>
+
+                    <h3>When Not to Use</h3>
+                    <ul>
+                        <li>Don't use for small datasets (less than 25 items) - show all at once</li>
+                        <li>Don't use for real-time data feeds - use infinite scroll instead</li>
+                        <li>Don't use when users need to find specific items - provide search/filter first</li>
+                        <li>Don't use when content doesn't have a natural order</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Always include <code>aria-label="Pagination"</code> on the nav element</li>
+                        <li>Use <code>aria-current="page"</code> on the active page item</li>
+                        <li>Add descriptive <code>aria-label</code> attributes to all page links</li>
+                        <li>Use <code>aria-disabled="true"</code> on disabled prev/next buttons</li>
+                        <li>Add <code>aria-hidden="true"</code> to ellipsis elements</li>
+                        <li>Ensure minimum touch target size of 44x44px for mobile</li>
+                        <li>Provide clear keyboard focus indicators</li>
+                        <li>Make sure disabled states have sufficient visual differentiation</li>
+                    </ul>
+
+                    <h3>Content Guidelines</h3>
+                    <ul>
+                        <li>Always show the current page as non-clickable (active state)</li>
+                        <li>Disable prev button on first page, next button on last page</li>
+                        <li>Show first and last page numbers when using ellipsis</li>
+                        <li>Display 1-2 pages before and after current page</li>
+                        <li>Use ellipsis (...) to indicate hidden pages</li>
+                        <li>Consider showing page count info: "Page 2 of 10" or "Showing 11-20 of 200"</li>
+                    </ul>
+
+                    <h3>Variant Guidelines</h3>
+                    <ul>
+                        <li>Default - Standard bordered buttons, works in most contexts</li>
+                        <li><code>.pagination-rounded</code> - Fully rounded, modern appearance</li>
+                        <li><code>.pagination-simple</code> - Borderless, minimal visual weight</li>
+                        <li><code>.pagination-compact</code> - Attached buttons, space-efficient</li>
+                        <li><code>.pagination-sm</code> - Use for tables, sidebars, or compact layouts</li>
+                        <li><code>.pagination-lg</code> - Use for prominent navigation or hero sections</li>
+                    </ul>
+
+                    <h3>UX Best Practices</h3>
+                    <ul>
+                        <li>Keep pagination visible and easy to find</li>
+                        <li>Maintain consistent position across pages (usually bottom of content)</li>
+                        <li>Preserve user filters and sort settings when navigating pages</li>
+                        <li>Show loading states when fetching new page data</li>
+                        <li>Consider "Load More" button as alternative for mobile</li>
+                        <li>Update URL with page parameter for bookmarking and sharing</li>
+                        <li>Scroll to top of content when page changes</li>
+                        <li>Consider adding "Jump to page" input for large page counts (20+ pages)</li>
+                    </ul>
+
+                    <h3>Performance</h3>
+                    <ul>
+                        <li>Implement server-side pagination for large datasets</li>
+                        <li>Use appropriate page sizes (10-50 items per page)</li>
+                        <li>Consider infinite scroll for mobile experiences</li>
+                        <li>Cache previously loaded pages when possible</li>
+                        <li>Preload adjacent pages for faster navigation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
     </main>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -203,6 +750,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 

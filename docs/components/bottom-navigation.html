@@ -126,12 +126,78 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* Phone Container for Demo */
+        .phone-container {
+            max-width: 375px;
+            height: 667px;
+            margin: 0 auto;
+            background: var(--color-bg-primary);
+            border: 8px solid var(--color-border-medium);
+            border-radius: var(--radius-2xl);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .phone-screen {
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 72px;
+        }
+
+        .phone-content {
+            padding: var(--space-6);
+        }
+
+        .phone-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .phone-content p {
+            color: var(--color-text-secondary);
+            margin: 0 0 var(--space-4) 0;
         }
 
         /* Mobile Styles */
@@ -156,6 +222,13 @@
                 top: var(--space-4);
                 right: var(--space-4);
             }
+
+            .phone-container {
+                max-width: 100%;
+                height: 500px;
+                border: none;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
@@ -164,26 +237,619 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Bottom Navigation</h1>
-            <p class="page-description">Mobile-friendly bottom navigation bar.</p>
+            <p class="page-description">Mobile-first bottom navigation bar for easy thumb-accessible navigation.</p>
         </div>
 
-        <h2>Bottom Navigation</h2>
-            <p class="showcase-subtitle">Mobile-first bottom navigation bar with icons and labels</p>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
 
-            <div class="example">
-                <div class="example-label">Try It Out</div>
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">Scroll down to see the bottom navigation in action. Click the button below to toggle it.</p>
-                <button class="btn btn-primary" onclick="document.getElementById('demo-bottom-nav').classList.toggle('aural-bottom-nav--slide-out'); document.getElementById('demo-bottom-nav').classList.toggle('aural-bottom-nav--slide-in');">
-                    Toggle Bottom Nav
-                </button>
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Bottom Navigation</div>
+                <div class="example-demo">
+                    <div class="phone-container">
+                        <div class="phone-screen">
+                            <div class="phone-content">
+                                <h3>Welcome to the App</h3>
+                                <p>This is a demo of the bottom navigation component in a phone-sized container.</p>
+                                <p>Click the navigation items below to see the active state change.</p>
+                            </div>
+                        </div>
+                        <nav class="aural-bottom-nav" role="navigation" aria-label="Main navigation" id="demo-nav-1">
+                            <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Home</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Explore</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Notifications</span>
+                                <span class="aural-bottom-nav__badge">3</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="user" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Profile</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-bottom-nav" role="navigation" aria-label="Main navigation"&gt;
+    &lt;a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page"&gt;
+        &lt;i data-lucide="home" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Home&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="compass" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Explore&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="bell" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Notifications&lt;/span&gt;
+        &lt;span class="aural-bottom-nav__badge"&gt;3&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="user" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Profile&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
             </div>
+
+            <div class="example-container">
+                <div class="example-label">With Badge Notifications</div>
+                <div class="example-demo">
+                    <div class="phone-container">
+                        <div class="phone-screen">
+                            <div class="phone-content">
+                                <h3>Notification Badges</h3>
+                                <p>Badges can show counts or simple dots to indicate new activity.</p>
+                            </div>
+                        </div>
+                        <nav class="aural-bottom-nav" role="navigation" aria-label="Navigation with badges" id="demo-nav-2">
+                            <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Home</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="message-circle" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Messages</span>
+                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse">12</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Alerts</span>
+                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--dot"></span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="user" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Profile</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Badge with count and pulse animation --&gt;
+&lt;a href="#" class="aural-bottom-nav__item"&gt;
+    &lt;i data-lucide="message-circle" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+    &lt;span class="aural-bottom-nav__label"&gt;Messages&lt;/span&gt;
+    &lt;span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse"&gt;12&lt;/span&gt;
+&lt;/a&gt;
+
+&lt;!-- Dot badge (no count) --&gt;
+&lt;a href="#" class="aural-bottom-nav__item"&gt;
+    &lt;i data-lucide="bell" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+    &lt;span class="aural-bottom-nav__label"&gt;Alerts&lt;/span&gt;
+    &lt;span class="aural-bottom-nav__badge aural-bottom-nav__badge--dot"&gt;&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Compact Variant (Icon Only)</div>
+                <div class="example-demo">
+                    <div class="phone-container">
+                        <div class="phone-screen">
+                            <div class="phone-content">
+                                <h3>Icon-Only Navigation</h3>
+                                <p>Use the compact variant when you need to save vertical space.</p>
+                            </div>
+                        </div>
+                        <nav class="aural-bottom-nav aural-bottom-nav--compact" role="navigation" aria-label="Compact navigation" id="demo-nav-3">
+                            <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page" aria-label="Home">
+                                <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Home</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item" aria-label="Search">
+                                <i data-lucide="search" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Search</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item" aria-label="Favorites">
+                                <i data-lucide="heart" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Favorites</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item" aria-label="Settings">
+                                <i data-lucide="settings" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Settings</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-bottom-nav aural-bottom-nav--compact"&gt;
+    &lt;a href="#" class="aural-bottom-nav__item" aria-label="Home"&gt;
+        &lt;i data-lucide="home" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Home&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;!-- More items... --&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Labels are visually hidden but still available to screen readers. Always include <code>aria-label</code> on each item.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Floating Action Button (FAB)</div>
+                <div class="example-demo">
+                    <div class="phone-container">
+                        <div class="phone-screen">
+                            <div class="phone-content">
+                                <h3>FAB Navigation</h3>
+                                <p>Add a prominent floating action button for the primary action.</p>
+                            </div>
+                        </div>
+                        <nav class="aural-bottom-nav aural-bottom-nav--with-fab" role="navigation" aria-label="Navigation with FAB" id="demo-nav-4">
+                            <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Home</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="search" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Search</span>
+                            </a>
+                            <button class="aural-bottom-nav__fab" aria-label="Create new post">
+                                <i data-lucide="plus"></i>
+                            </button>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Notifications</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="user" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Profile</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-bottom-nav aural-bottom-nav--with-fab"&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;...&lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;...&lt;/a&gt;
+    &lt;button class="aural-bottom-nav__fab" aria-label="Create new post"&gt;
+        &lt;i data-lucide="plus"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;...&lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;...&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Color Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                        <!-- Primary -->
+                        <div>
+                            <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">Primary Color</p>
+                            <div class="phone-container">
+                                <div class="phone-screen">
+                                    <div class="phone-content">
+                                        <h3>Primary Variant</h3>
+                                        <p>Bold primary color background.</p>
+                                    </div>
+                                </div>
+                                <nav class="aural-bottom-nav aural-bottom-nav--primary" role="navigation" aria-label="Primary navigation" id="demo-nav-5">
+                                    <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Home</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Explore</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Alerts</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Profile</span>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <!-- Dark -->
+                        <div>
+                            <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">Dark with Blur</p>
+                            <div class="phone-container">
+                                <div class="phone-screen">
+                                    <div class="phone-content">
+                                        <h3>Dark Variant</h3>
+                                        <p>Dark background with backdrop blur.</p>
+                                    </div>
+                                </div>
+                                <nav class="aural-bottom-nav aural-bottom-nav--dark" role="navigation" aria-label="Dark navigation" id="demo-nav-6">
+                                    <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Home</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Explore</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Alerts</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Profile</span>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <!-- Blur -->
+                        <div>
+                            <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-sm);">Frosted Glass Blur</p>
+                            <div class="phone-container">
+                                <div class="phone-screen">
+                                    <div class="phone-content">
+                                        <h3>Blur Variant</h3>
+                                        <p>Modern frosted glass effect.</p>
+                                    </div>
+                                </div>
+                                <nav class="aural-bottom-nav aural-bottom-nav--blur" role="navigation" aria-label="Blur navigation" id="demo-nav-7">
+                                    <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Home</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Explore</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Alerts</span>
+                                    </a>
+                                    <a href="#" class="aural-bottom-nav__item">
+                                        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
+                                        <span class="aural-bottom-nav__label">Profile</span>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Primary color --&gt;
+&lt;nav class="aural-bottom-nav aural-bottom-nav--primary"&gt;...&lt;/nav&gt;
+
+&lt;!-- Dark with blur --&gt;
+&lt;nav class="aural-bottom-nav aural-bottom-nav--dark"&gt;...&lt;/nav&gt;
+
+&lt;!-- Frosted glass blur --&gt;
+&lt;nav class="aural-bottom-nav aural-bottom-nav--blur"&gt;...&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">E-commerce App</div>
+                <div class="example-demo">
+                    <div class="phone-container">
+                        <div class="phone-screen">
+                            <div class="phone-content">
+                                <h3>Shop Products</h3>
+                                <p>Browse thousands of products in our mobile store.</p>
+                                <p>Your cart has 2 items ready for checkout.</p>
+                            </div>
+                        </div>
+                        <nav class="aural-bottom-nav" role="navigation" aria-label="Shop navigation" id="demo-nav-8">
+                            <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Home</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="grid-3x3" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Categories</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="shopping-cart" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Cart</span>
+                                <span class="aural-bottom-nav__badge">2</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="user-circle" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Account</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-bottom-nav" role="navigation" aria-label="Shop navigation"&gt;
+    &lt;a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active"&gt;
+        &lt;i data-lucide="home" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Home&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="grid-3x3" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Categories&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="shopping-cart" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Cart&lt;/span&gt;
+        &lt;span class="aural-bottom-nav__badge"&gt;2&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="user-circle" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Account&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Typical e-commerce pattern with Home, Categories, Cart with badge, and Account sections.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Social Media App with FAB</div>
+                <div class="example-demo">
+                    <div class="phone-container">
+                        <div class="phone-screen">
+                            <div class="phone-content">
+                                <h3>Your Feed</h3>
+                                <p>Stay connected with friends and share your moments.</p>
+                                <p>Tap the + button to create a new post.</p>
+                            </div>
+                        </div>
+                        <nav class="aural-bottom-nav aural-bottom-nav--with-fab" role="navigation" aria-label="Social navigation" id="demo-nav-9">
+                            <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Feed</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="search" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Discover</span>
+                            </a>
+                            <button class="aural-bottom-nav__fab" aria-label="Create new post">
+                                <i data-lucide="plus"></i>
+                            </button>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="heart" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Activity</span>
+                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse">8</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="user" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Profile</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-bottom-nav aural-bottom-nav--with-fab"&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="home" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Feed&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="search" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Discover&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;button class="aural-bottom-nav__fab" aria-label="Create new post"&gt;
+        &lt;i data-lucide="plus"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="heart" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Activity&lt;/span&gt;
+        &lt;span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse"&gt;8&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="user" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Profile&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Social media pattern with Feed, Discover, prominent Create button (FAB), Activity with notifications, and Profile.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Mobile-Only Visibility</div>
+                <div class="example-demo">
+                    <div class="phone-container">
+                        <div class="phone-screen">
+                            <div class="phone-content">
+                                <h3>Responsive Navigation</h3>
+                                <p>This bottom nav is visible only on mobile devices (below 1024px).</p>
+                                <p>On desktop, you would use a sidebar or top navbar instead.</p>
+                            </div>
+                        </div>
+                        <nav class="aural-bottom-nav aural-bottom-nav--mobile-only" role="navigation" aria-label="Mobile navigation" id="demo-nav-10">
+                            <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+                                <i data-lucide="layout-dashboard" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Dashboard</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="bar-chart-2" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Analytics</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="users" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Team</span>
+                            </a>
+                            <a href="#" class="aural-bottom-nav__item">
+                                <i data-lucide="settings" class="aural-bottom-nav__icon"></i>
+                                <span class="aural-bottom-nav__label">Settings</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-bottom-nav aural-bottom-nav--mobile-only"&gt;
+    &lt;!-- Bottom nav hidden on screens 1024px and wider --&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Use <code>.aural-bottom-nav--mobile-only</code> to hide the bottom navigation on desktop screens (1024px and wider).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Use bottom navigation for mobile-first applications with 3-5 top-level destinations</li>
+                        <li>Use when destinations need to be accessible from anywhere in the app</li>
+                        <li>Use for equal-weight destinations that users switch between frequently</li>
+                        <li>Use when thumbs need easy access to primary navigation</li>
+                        <li>Ideal for content-focused apps (social media, e-commerce, news)</li>
+                    </ul>
+
+                    <h3>When Not to Use</h3>
+                    <ul>
+                        <li>Don't use for more than 5 destinations (use a hamburger menu instead)</li>
+                        <li>Don't use on desktop unless it's a mobile-responsive design</li>
+                        <li>Don't use for sequential navigation (use breadcrumbs or stepper instead)</li>
+                        <li>Don't hide primary actions in bottom navigation</li>
+                        <li>Don't use for apps with deep hierarchical navigation</li>
+                    </ul>
+
+                    <h3>Navigation Items</h3>
+                    <ul>
+                        <li>Keep to 3-5 items for optimal usability</li>
+                        <li>Use clear, recognizable icons that match their labels</li>
+                        <li>Keep labels short (1-2 words maximum)</li>
+                        <li>Mark the current page with <code>aria-current="page"</code></li>
+                        <li>Use <code>.aural-bottom-nav__item--active</code> for visual active state</li>
+                        <li>Order items by frequency of use (most used in the middle)</li>
+                    </ul>
+
+                    <h3>Icons and Labels</h3>
+                    <ul>
+                        <li>Always pair icons with labels for better recognition</li>
+                        <li>Use 24x24px icons for optimal touch targets</li>
+                        <li>Choose universally understood icons (home, search, profile)</li>
+                        <li>For icon-only variant, always include <code>aria-label</code></li>
+                        <li>Ensure icons have sufficient contrast (3:1 minimum)</li>
+                    </ul>
+
+                    <h3>Badges and Notifications</h3>
+                    <ul>
+                        <li>Use <code>.aural-bottom-nav__badge</code> to show notification counts</li>
+                        <li>Add <code>.aural-bottom-nav__badge--pulse</code> for urgent notifications</li>
+                        <li>Use <code>.aural-bottom-nav__badge--dot</code> for simple presence indicator</li>
+                        <li>Keep badge counts under 99 (show "99+" for larger numbers)</li>
+                        <li>Update badge counts in real-time when possible</li>
+                        <li>Include badge information in ARIA labels (e.g., "Notifications, 3 unread")</li>
+                    </ul>
+
+                    <h3>Floating Action Button (FAB)</h3>
+                    <ul>
+                        <li>Use FAB for the single most important action in your app</li>
+                        <li>Always include descriptive <code>aria-label</code> on FAB</li>
+                        <li>Place FAB in the center of 4-5 nav items</li>
+                        <li>Use <code>.aural-bottom-nav--with-fab</code> for proper spacing</li>
+                        <li>FAB should trigger creation actions (new post, compose, add)</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Include <code>role="navigation"</code> on the nav element</li>
+                        <li>Add descriptive <code>aria-label</code> to the nav (e.g., "Main navigation")</li>
+                        <li>Use <code>aria-current="page"</code> on the active navigation item</li>
+                        <li>Ensure minimum 44x44px touch targets for all items</li>
+                        <li>Support keyboard navigation with Tab and Enter keys</li>
+                        <li>Provide clear focus indicators for keyboard users</li>
+                        <li>Ensure color contrast meets WCAG AA standards (4.5:1)</li>
+                    </ul>
+
+                    <h3>Mobile Considerations</h3>
+                    <ul>
+                        <li>Position at bottom for easy thumb access on mobile devices</li>
+                        <li>Use <code>.aural-bottom-nav--mobile-only</code> to hide on desktop</li>
+                        <li>Add <code>.has-bottom-nav</code> class to body for proper page padding</li>
+                        <li>Support safe area insets for devices with notches (iPhone X+)</li>
+                        <li>Consider hiding on scroll for immersive content (videos, images)</li>
+                        <li>Use <code>.aural-bottom-nav--slide-out</code> and <code>.aural-bottom-nav--slide-in</code> for animations</li>
+                    </ul>
+
+                    <h3>Performance</h3>
+                    <ul>
+                        <li>Use CSS transitions instead of JavaScript animations</li>
+                        <li>Lazy load badge counts via API for better initial load</li>
+                        <li>Avoid heavy JavaScript on navigation item clicks</li>
+                        <li>Use <code>will-change: transform</code> sparingly for animations</li>
+                        <li>Optimize icons (use icon fonts or inline SVG)</li>
+                    </ul>
+
+                    <h3>Color Variants</h3>
+                    <ul>
+                        <li><code>.aural-bottom-nav--primary</code> - Bold primary color background</li>
+                        <li><code>.aural-bottom-nav--dark</code> - Dark background with backdrop blur</li>
+                        <li><code>.aural-bottom-nav--blur</code> - Frosted glass effect</li>
+                        <li>Test color variants with your brand colors for consistency</li>
+                        <li>Ensure text and icons remain legible on colored backgrounds</li>
+                    </ul>
+
+                    <h3>Layout Tips</h3>
+                    <ul>
+                        <li>Items are distributed evenly with flexbox</li>
+                        <li>Max width per item is 120px to prevent overly wide buttons</li>
+                        <li>Use <code>.aural-bottom-nav--compact</code> for more compact spacing</li>
+                        <li>Add <code>.aural-bottom-nav--divided</code> for visual separators between items</li>
+                        <li>Bottom nav height is approximately 72px (with safe area support)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
     </main>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -201,6 +867,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -219,18 +888,47 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+
+        // Interactive bottom navigation demos
+        function initBottomNavDemo(navId) {
+            const nav = document.getElementById(navId);
+            if (!nav) return;
+
+            const items = nav.querySelectorAll('.aural-bottom-nav__item');
+            items.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // Remove active from all items
+                    items.forEach(i => {
+                        i.classList.remove('aural-bottom-nav__item--active');
+                        i.removeAttribute('aria-current');
+                    });
+
+                    // Add active to clicked item
+                    item.classList.add('aural-bottom-nav__item--active');
+                    item.setAttribute('aria-current', 'page');
+                });
+            });
+        }
+
+        // Initialize all demo navs
+        for (let i = 1; i <= 10; i++) {
+            initBottomNavDemo(`demo-nav-${i}`);
+        }
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {
