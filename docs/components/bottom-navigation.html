@@ -165,17 +165,21 @@
             margin-top: var(--space-8);
         }
 
-        /* Phone Container for Demo */
-        .phone-container {
-            max-width: 375px;
-            height: 667px;
+        /* Phone Frame for Demo */
+        .phone-frame {
+            max-width: 400px;
             margin: 0 auto;
-            background: var(--color-bg-primary);
             border: 8px solid var(--color-border-medium);
-            border-radius: var(--radius-2xl);
-            position: relative;
+            border-radius: 32px;
             overflow: hidden;
-            box-shadow: var(--shadow-2xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .phone-frame__screen {
+            position: relative;
+            aspect-ratio: 9 / 19.5;
+            background: var(--color-bg-primary);
+            overflow: hidden;
         }
 
         .phone-screen {
@@ -198,6 +202,34 @@
         .phone-content p {
             color: var(--color-text-secondary);
             margin: 0 0 var(--space-4) 0;
+        }
+
+        /* Override bottom nav to be absolute within phone frame */
+        .phone-container .aural-bottom-nav,
+        .phone-frame .aural-bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        /* Legacy phone-container support */
+        .phone-container {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+            border: 8px solid var(--color-border-medium);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            aspect-ratio: 9 / 19.5;
+            background: var(--color-bg-primary);
+        }
+
+        .phone-container .phone-screen {
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 72px;
         }
 
         /* Mobile Styles */
@@ -223,11 +255,17 @@
                 right: var(--space-4);
             }
 
+            .phone-frame,
             .phone-container {
                 max-width: 100%;
-                height: 500px;
                 border: none;
                 border-radius: 0;
+            }
+
+            .phone-frame__screen,
+            .phone-container .phone-screen {
+                aspect-ratio: auto;
+                min-height: 500px;
             }
         }
     </style>
@@ -270,10 +308,10 @@
                                 <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
                                 <span class="aural-bottom-nav__label">Explore</span>
                             </a>
-                            <a href="#" class="aural-bottom-nav__item">
-                                <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
+                            <a href="#" class="aural-bottom-nav__item" aria-label="Notifications, 3 unread">
+                                <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
                                 <span class="aural-bottom-nav__label">Notifications</span>
-                                <span class="aural-bottom-nav__badge">3</span>
+                                <span class="aural-bottom-nav__badge" aria-hidden="true">3</span>
                             </a>
                             <a href="#" class="aural-bottom-nav__item">
                                 <i data-lucide="user" class="aural-bottom-nav__icon"></i>
@@ -286,20 +324,20 @@
                     <summary>View Code</summary>
                     <pre><code>&lt;nav class="aural-bottom-nav" role="navigation" aria-label="Main navigation"&gt;
     &lt;a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page"&gt;
-        &lt;i data-lucide="home" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
         &lt;span class="aural-bottom-nav__label"&gt;Home&lt;/span&gt;
     &lt;/a&gt;
     &lt;a href="#" class="aural-bottom-nav__item"&gt;
-        &lt;i data-lucide="compass" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;i data-lucide="compass" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
         &lt;span class="aural-bottom-nav__label"&gt;Explore&lt;/span&gt;
     &lt;/a&gt;
-    &lt;a href="#" class="aural-bottom-nav__item"&gt;
-        &lt;i data-lucide="bell" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+    &lt;a href="#" class="aural-bottom-nav__item" aria-label="Notifications, 3 unread"&gt;
+        &lt;i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
         &lt;span class="aural-bottom-nav__label"&gt;Notifications&lt;/span&gt;
-        &lt;span class="aural-bottom-nav__badge"&gt;3&lt;/span&gt;
+        &lt;span class="aural-bottom-nav__badge" aria-hidden="true"&gt;3&lt;/span&gt;
     &lt;/a&gt;
     &lt;a href="#" class="aural-bottom-nav__item"&gt;
-        &lt;i data-lucide="user" class="aural-bottom-nav__icon"&gt;&lt;/i&gt;
+        &lt;i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
         &lt;span class="aural-bottom-nav__label"&gt;Profile&lt;/span&gt;
     &lt;/a&gt;
 &lt;/nav&gt;</code></pre>
@@ -321,15 +359,15 @@
                                 <i data-lucide="home" class="aural-bottom-nav__icon"></i>
                                 <span class="aural-bottom-nav__label">Home</span>
                             </a>
-                            <a href="#" class="aural-bottom-nav__item">
-                                <i data-lucide="message-circle" class="aural-bottom-nav__icon"></i>
+                            <a href="#" class="aural-bottom-nav__item" aria-label="Messages, 12 unread">
+                                <i data-lucide="message-circle" class="aural-bottom-nav__icon" aria-hidden="true"></i>
                                 <span class="aural-bottom-nav__label">Messages</span>
-                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse">12</span>
+                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse" aria-hidden="true">12</span>
                             </a>
-                            <a href="#" class="aural-bottom-nav__item">
-                                <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
+                            <a href="#" class="aural-bottom-nav__item" aria-label="Alerts, new activity">
+                                <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
                                 <span class="aural-bottom-nav__label">Alerts</span>
-                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--dot"></span>
+                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--dot" aria-hidden="true"></span>
                             </a>
                             <a href="#" class="aural-bottom-nav__item">
                                 <i data-lucide="user" class="aural-bottom-nav__icon"></i>
@@ -585,10 +623,10 @@
                                 <i data-lucide="grid-3x3" class="aural-bottom-nav__icon"></i>
                                 <span class="aural-bottom-nav__label">Categories</span>
                             </a>
-                            <a href="#" class="aural-bottom-nav__item">
-                                <i data-lucide="shopping-cart" class="aural-bottom-nav__icon"></i>
+                            <a href="#" class="aural-bottom-nav__item" aria-label="Cart, 2 items">
+                                <i data-lucide="shopping-cart" class="aural-bottom-nav__icon" aria-hidden="true"></i>
                                 <span class="aural-bottom-nav__label">Cart</span>
-                                <span class="aural-bottom-nav__badge">2</span>
+                                <span class="aural-bottom-nav__badge" aria-hidden="true">2</span>
                             </a>
                             <a href="#" class="aural-bottom-nav__item">
                                 <i data-lucide="user-circle" class="aural-bottom-nav__icon"></i>
@@ -647,10 +685,10 @@
                             <button class="aural-bottom-nav__fab" aria-label="Create new post">
                                 <i data-lucide="plus"></i>
                             </button>
-                            <a href="#" class="aural-bottom-nav__item">
-                                <i data-lucide="heart" class="aural-bottom-nav__icon"></i>
+                            <a href="#" class="aural-bottom-nav__item" aria-label="Activity, 8 new">
+                                <i data-lucide="heart" class="aural-bottom-nav__icon" aria-hidden="true"></i>
                                 <span class="aural-bottom-nav__label">Activity</span>
-                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse">8</span>
+                                <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse" aria-hidden="true">8</span>
                             </a>
                             <a href="#" class="aural-bottom-nav__item">
                                 <i data-lucide="user" class="aural-bottom-nav__icon"></i>

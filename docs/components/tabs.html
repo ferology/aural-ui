@@ -199,7 +199,7 @@
         </div>
 
         <!-- Tabs -->
-        <div class="tabs" role="tablist" aria-orientation="horizontal">
+        <div class="tabs" role="tablist" aria-orientation="horizontal" id="main-tablist">
             <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" tabindex="0">Overview</button>
             <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false" tabindex="-1">Variants</button>
             <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false" tabindex="-1">Patterns</button>
@@ -213,14 +213,30 @@
                 <div class="example-label">Basic Tabs</div>
                 <div class="example-demo">
                     <div class="tabs" role="tablist" aria-orientation="horizontal">
-                        <button class="tab tab-active" role="tab" id="basic-tab-profile" aria-controls="basic-panel-profile" aria-selected="true" tabindex="0">Profile</button>
-                        <button class="tab" role="tab" id="basic-tab-settings" aria-controls="basic-panel-settings" aria-selected="false" tabindex="-1">Settings</button>
-                        <button class="tab" role="tab" id="basic-tab-activity" aria-controls="basic-panel-activity" aria-selected="false" tabindex="-1">Activity</button>
-                        <button class="tab" role="tab" id="basic-tab-notifications" aria-controls="basic-panel-notifications" aria-selected="false" tabindex="-1">Notifications</button>
+                        <button class="tab tab-active" role="tab" id="basic-tab-profile" aria-controls="basic-panel-profile" aria-selected="true" tabindex="0" onclick="switchTab(event, 'basic-panel-profile')">Profile</button>
+                        <button class="tab" role="tab" id="basic-tab-settings" aria-controls="basic-panel-settings" aria-selected="false" tabindex="-1" onclick="switchTab(event, 'basic-panel-settings')">Settings</button>
+                        <button class="tab" role="tab" id="basic-tab-activity" aria-controls="basic-panel-activity" aria-selected="false" tabindex="-1" onclick="switchTab(event, 'basic-panel-activity')">Activity</button>
+                        <button class="tab" role="tab" id="basic-tab-notifications" aria-controls="basic-panel-notifications" aria-selected="false" tabindex="-1" onclick="switchTab(event, 'basic-panel-notifications')">Notifications</button>
+                    </div>
+                    <div id="basic-panel-profile" class="tab-panel" role="tabpanel" aria-labelledby="basic-tab-profile" style="padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Profile</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Manage your personal information, avatar, and public profile settings.</p>
+                    </div>
+                    <div id="basic-panel-settings" class="tab-panel" role="tabpanel" aria-labelledby="basic-tab-settings" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Settings</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Configure your account preferences, language, and display options.</p>
+                    </div>
+                    <div id="basic-panel-activity" class="tab-panel" role="tabpanel" aria-labelledby="basic-tab-activity" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Activity</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">View your recent actions, login history, and account activity.</p>
+                    </div>
+                    <div id="basic-panel-notifications" class="tab-panel" role="tabpanel" aria-labelledby="basic-tab-notifications" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Notifications</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Set up email, push, and in-app notification preferences.</p>
                     </div>
                 </div>
                 <div class="section-content">
-                    <p>Default tab style with underline indicator. The active tab is marked with <code>.tab-active</code> class.</p>
+                    <p>Default tab style with underline indicator. Click each tab to see content switch. The active tab is marked with <code>.tab-active</code> class.</p>
                 </div>
                 <details>
                     <summary>View Code</summary>
@@ -238,26 +254,42 @@
                 <div class="example-label">Tabs with Icons</div>
                 <div class="example-demo">
                     <div class="tabs tabs-pills" role="tablist" aria-orientation="horizontal">
-                        <button class="tab tab-active" role="tab" id="icons-tab-profile" aria-controls="icons-panel-profile" aria-selected="true" tabindex="0">
+                        <button class="tab tab-active" role="tab" id="icons-tab-profile" aria-controls="icons-panel-profile" aria-selected="true" tabindex="0" onclick="switchTab(event, 'icons-panel-profile')">
                             <i data-lucide="user" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"></i>
                             Profile
                         </button>
-                        <button class="tab" role="tab" id="icons-tab-settings" aria-controls="icons-panel-settings" aria-selected="false" tabindex="-1">
+                        <button class="tab" role="tab" id="icons-tab-settings" aria-controls="icons-panel-settings" aria-selected="false" tabindex="-1" onclick="switchTab(event, 'icons-panel-settings')">
                             <i data-lucide="settings" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"></i>
                             Settings
                         </button>
-                        <button class="tab" role="tab" id="icons-tab-notifications" aria-controls="icons-panel-notifications" aria-selected="false" tabindex="-1">
+                        <button class="tab" role="tab" id="icons-tab-notifications" aria-controls="icons-panel-notifications" aria-selected="false" tabindex="-1" onclick="switchTab(event, 'icons-panel-notifications')">
                             <i data-lucide="bell" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"></i>
                             Notifications
                         </button>
-                        <button class="tab" role="tab" id="icons-tab-security" aria-controls="icons-panel-security" aria-selected="false" tabindex="-1">
+                        <button class="tab" role="tab" id="icons-tab-security" aria-controls="icons-panel-security" aria-selected="false" tabindex="-1" onclick="switchTab(event, 'icons-panel-security')">
                             <i data-lucide="shield" style="width: 16px; height: 16px; margin-right: 6px;" aria-hidden="true"></i>
                             Security
                         </button>
                     </div>
+                    <div id="icons-panel-profile" class="tab-panel" role="tabpanel" aria-labelledby="icons-tab-profile" style="padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">👤 Profile Settings</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Update your name, bio, and profile picture. This is what others will see when they visit your profile.</p>
+                    </div>
+                    <div id="icons-panel-settings" class="tab-panel" role="tabpanel" aria-labelledby="icons-tab-settings" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">⚙️ General Settings</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Customize your experience with theme, language, timezone, and display preferences.</p>
+                    </div>
+                    <div id="icons-panel-notifications" class="tab-panel" role="tabpanel" aria-labelledby="icons-tab-notifications" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">🔔 Notification Preferences</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Choose how and when you want to be notified about important updates and activities.</p>
+                    </div>
+                    <div id="icons-panel-security" class="tab-panel" role="tabpanel" aria-labelledby="icons-tab-security" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">🛡️ Security Options</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Manage your password, two-factor authentication, and active sessions.</p>
+                    </div>
                 </div>
                 <div class="section-content">
-                    <p>Add icons before tab labels to improve scanability and visual hierarchy. Icons help users quickly identify tab content.</p>
+                    <p>Add icons before tab labels to improve scanability and visual hierarchy. Click each tab to see the content change. Icons help users quickly identify tab content.</p>
                 </div>
                 <details>
                     <summary>View Code</summary>
@@ -402,14 +434,30 @@ function switchTab(event, panelId) {
                 <div class="example-label">Pills Style</div>
                 <div class="example-demo">
                     <div class="tabs tabs-pills" role="tablist">
-                        <button class="tab tab-active" role="tab" aria-selected="true">Home</button>
-                        <button class="tab" role="tab" aria-selected="false">Products</button>
-                        <button class="tab" role="tab" aria-selected="false">About</button>
-                        <button class="tab" role="tab" aria-selected="false">Contact</button>
+                        <button class="tab tab-active" role="tab" aria-selected="true" onclick="switchTab(event, 'pills-panel-home')">Home</button>
+                        <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'pills-panel-products')">Products</button>
+                        <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'pills-panel-about')">About</button>
+                        <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'pills-panel-contact')">Contact</button>
+                    </div>
+                    <div id="pills-panel-home" class="tab-panel" role="tabpanel" style="padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Welcome Home</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">This is the home tab content. Pills style gives a softer, more modern appearance with rounded backgrounds.</p>
+                    </div>
+                    <div id="pills-panel-products" class="tab-panel" role="tabpanel" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Our Products</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Browse through our extensive catalog of products and services.</p>
+                    </div>
+                    <div id="pills-panel-about" class="tab-panel" role="tabpanel" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">About Us</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Learn more about our company, mission, and the team behind our work.</p>
+                    </div>
+                    <div id="pills-panel-contact" class="tab-panel" role="tabpanel" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Contact Us</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Get in touch with our support team for any questions or inquiries.</p>
                     </div>
                 </div>
                 <div class="section-content">
-                    <p>Pills style with rounded background for the active tab. Use <code>.tabs-pills</code> for a softer, more modern appearance.</p>
+                    <p>Pills style with rounded background for the active tab. Click each tab to see the content change. Use <code>.tabs-pills</code> for a softer, more modern appearance.</p>
                 </div>
                 <details>
                     <summary>View Code</summary>
@@ -427,14 +475,30 @@ function switchTab(event, panelId) {
                 <div class="example-label">Boxed Style</div>
                 <div class="example-demo">
                     <div class="tabs tabs-boxed" role="tablist">
-                        <button class="tab tab-active" role="tab" aria-selected="true">Dashboard</button>
-                        <button class="tab" role="tab" aria-selected="false">Analytics</button>
-                        <button class="tab" role="tab" aria-selected="false">Reports</button>
-                        <button class="tab" role="tab" aria-selected="false">Settings</button>
+                        <button class="tab tab-active" role="tab" aria-selected="true" onclick="switchTab(event, 'boxed-panel-dashboard')">Dashboard</button>
+                        <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'boxed-panel-analytics')">Analytics</button>
+                        <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'boxed-panel-reports')">Reports</button>
+                        <button class="tab" role="tab" aria-selected="false" onclick="switchTab(event, 'boxed-panel-settings')">Settings</button>
+                    </div>
+                    <div id="boxed-panel-dashboard" class="tab-panel" role="tabpanel" style="padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Dashboard Overview</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">View your key metrics and performance indicators at a glance.</p>
+                    </div>
+                    <div id="boxed-panel-analytics" class="tab-panel" role="tabpanel" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Analytics Data</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Deep dive into your data with charts, graphs, and detailed statistics.</p>
+                    </div>
+                    <div id="boxed-panel-reports" class="tab-panel" role="tabpanel" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Generated Reports</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Access and download your scheduled and custom reports.</p>
+                    </div>
+                    <div id="boxed-panel-settings" class="tab-panel" role="tabpanel" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Dashboard Settings</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Customize your dashboard layout, widgets, and data preferences.</p>
                     </div>
                 </div>
                 <div class="section-content">
-                    <p>Boxed style with contained background. Use <code>.tabs-boxed</code> for a more compact, segmented control appearance.</p>
+                    <p>Boxed style with contained background. Click each tab to see the content change. Use <code>.tabs-boxed</code> for a more compact, segmented control appearance.</p>
                 </div>
                 <details>
                     <summary>View Code</summary>
@@ -452,25 +516,41 @@ function switchTab(event, panelId) {
                 <div class="example-label">Tabs with Badges</div>
                 <div class="example-demo">
                     <div class="tabs" role="tablist" aria-orientation="horizontal">
-                        <button class="tab tab-active" role="tab" id="badges-tab-all" aria-controls="badges-panel-all" aria-selected="true" tabindex="0" aria-label="All, 24 items">
+                        <button class="tab tab-active" role="tab" id="badges-tab-all" aria-controls="badges-panel-all" aria-selected="true" tabindex="0" aria-label="All, 24 items" onclick="switchTab(event, 'badges-panel-all')">
                             <span>All</span>
                             <span class="badge badge-sm" style="margin-left: 8px;" aria-hidden="true">24</span>
                         </button>
-                        <button class="tab" role="tab" id="badges-tab-unread" aria-controls="badges-panel-unread" aria-selected="false" tabindex="-1" aria-label="Unread, 5 items">
+                        <button class="tab" role="tab" id="badges-tab-unread" aria-controls="badges-panel-unread" aria-selected="false" tabindex="-1" aria-label="Unread, 5 items" onclick="switchTab(event, 'badges-panel-unread')">
                             <span>Unread</span>
                             <span class="badge badge-error badge-sm" style="margin-left: 8px;" aria-hidden="true">5</span>
                         </button>
-                        <button class="tab" role="tab" id="badges-tab-starred" aria-controls="badges-panel-starred" aria-selected="false" tabindex="-1" aria-label="Starred, 3 items">
+                        <button class="tab" role="tab" id="badges-tab-starred" aria-controls="badges-panel-starred" aria-selected="false" tabindex="-1" aria-label="Starred, 3 items" onclick="switchTab(event, 'badges-panel-starred')">
                             <span>Starred</span>
                             <span class="badge badge-warning badge-sm" style="margin-left: 8px;" aria-hidden="true">3</span>
                         </button>
-                        <button class="tab" role="tab" id="badges-tab-archived" aria-controls="badges-panel-archived" aria-selected="false" tabindex="-1">
+                        <button class="tab" role="tab" id="badges-tab-archived" aria-controls="badges-panel-archived" aria-selected="false" tabindex="-1" onclick="switchTab(event, 'badges-panel-archived')">
                             <span>Archived</span>
                         </button>
                     </div>
+                    <div id="badges-panel-all" class="tab-panel" role="tabpanel" aria-labelledby="badges-tab-all" style="padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">All Messages (24)</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Showing all messages in your inbox, including read and unread items.</p>
+                    </div>
+                    <div id="badges-panel-unread" class="tab-panel" role="tabpanel" aria-labelledby="badges-tab-unread" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Unread Messages (5)</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">You have 5 unread messages that need your attention.</p>
+                    </div>
+                    <div id="badges-panel-starred" class="tab-panel" role="tabpanel" aria-labelledby="badges-tab-starred" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Starred Messages (3)</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Your important starred messages for quick access.</p>
+                    </div>
+                    <div id="badges-panel-archived" class="tab-panel" role="tabpanel" aria-labelledby="badges-tab-archived" style="display: none; padding: var(--space-4); margin-top: var(--space-4); background: var(--color-bg-tertiary); border-radius: var(--radius-md);">
+                        <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Archived Messages</h4>
+                        <p style="margin: 0; color: var(--color-text-secondary);">Messages you've archived for future reference.</p>
+                    </div>
                 </div>
                 <div class="section-content">
-                    <p>Use badges to show counts or status indicators within tabs. Particularly useful for messaging, notifications, or filtering interfaces.</p>
+                    <p>Use badges to show counts or status indicators within tabs. Click each tab to see the filtered content. Particularly useful for messaging, notifications, or filtering interfaces.</p>
                 </div>
                 <details>
                     <summary>View Code</summary>
@@ -841,10 +921,73 @@ function switchTab(event, panelId) {
             document.getElementById(panelId).style.display = 'block';
         }
 
-        // Initialize tabs using Aural.initTabs() for the main navigation
-        if (typeof Aural !== 'undefined' && Aural.initTabs) {
-            Aural.initTabs();
+        // Initialize main navigation tabs
+        function initMainTabs() {
+            const mainTablist = document.getElementById('main-tablist');
+            if (!mainTablist) return;
+
+            const tabs = mainTablist.querySelectorAll('[role="tab"]');
+            const panels = ['panel-overview', 'panel-variants', 'panel-patterns', 'panel-guidelines'];
+
+            tabs.forEach((tab) => {
+                tab.addEventListener('click', (e) => {
+                    const panelId = tab.getAttribute('aria-controls');
+
+                    // Update all tabs
+                    tabs.forEach(t => {
+                        t.classList.remove('tab-active');
+                        t.setAttribute('aria-selected', 'false');
+                        t.setAttribute('tabindex', '-1');
+                    });
+
+                    // Activate clicked tab
+                    tab.classList.add('tab-active');
+                    tab.setAttribute('aria-selected', 'true');
+                    tab.setAttribute('tabindex', '0');
+
+                    // Hide all main panels and show the selected one
+                    panels.forEach(id => {
+                        const panel = document.getElementById(id);
+                        if (panel) {
+                            if (id === panelId) {
+                                panel.hidden = false;
+                            } else {
+                                panel.hidden = true;
+                            }
+                        }
+                    });
+                });
+
+                // Keyboard navigation
+                tab.addEventListener('keydown', (e) => {
+                    const tabArray = Array.from(tabs);
+                    const currentIndex = tabArray.indexOf(tab);
+                    let nextTab = null;
+
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        nextTab = tabArray[(currentIndex + 1) % tabArray.length];
+                        e.preventDefault();
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                        nextTab = tabArray[(currentIndex - 1 + tabArray.length) % tabArray.length];
+                        e.preventDefault();
+                    } else if (e.key === 'Home') {
+                        nextTab = tabArray[0];
+                        e.preventDefault();
+                    } else if (e.key === 'End') {
+                        nextTab = tabArray[tabArray.length - 1];
+                        e.preventDefault();
+                    }
+
+                    if (nextTab) {
+                        nextTab.focus();
+                        nextTab.click();
+                    }
+                });
+            });
         }
+
+        // Run initialization
+        initMainTabs();
     </script>
 
     <!-- Unified Theme Sync -->

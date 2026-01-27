@@ -131,6 +131,9 @@
     /* Spacing */
     padding: var(--space-3) var(--space-4);
 
+    /* Touch target - minimum 44px for accessibility */
+    min-height: 44px;
+
     /* Typography */
     font-size: var(--text-sm);
     color: var(--color-dropdown-item-text);
@@ -253,7 +256,8 @@
    ======================================== */
 
 /* Right aligned */
-.dropdown-right .dropdown-menu {
+.dropdown-right .dropdown-menu,
+.dropdown-menu.dropdown-menu-right {
     right: 0;
     left: auto;
 }

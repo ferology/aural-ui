@@ -331,21 +331,23 @@
 
             <div class="pattern-demo">
                 <div class="card">
-                    <div class="tabs tabs-pills" role="tablist" style="border-bottom: 1px solid var(--color-border-subtle); padding: var(--space-4) var(--space-4) 0 var(--space-4);">
+                    <!-- Tab Navigation using tabs-pills component -->
+                    <div class="tabs tabs-pills" role="tablist" style="padding: var(--space-4) var(--space-6);">
                         <button class="tab tab-active" role="tab" onclick="switchSettingsTab(event, 'profile-settings')">
-                            <i data-lucide="user" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                            <i data-lucide="user"></i>
                             Profile
                         </button>
                         <button class="tab" role="tab" onclick="switchSettingsTab(event, 'privacy-settings')">
-                            <i data-lucide="lock" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                            <i data-lucide="lock"></i>
                             Privacy
                         </button>
                         <button class="tab" role="tab" onclick="switchSettingsTab(event, 'notifications-settings')">
-                            <i data-lucide="bell" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                            <i data-lucide="bell"></i>
                             Notifications
                         </button>
                     </div>
 
+                    <!-- Profile Settings Panel -->
                     <div id="profile-settings" class="tab-panel" style="padding: var(--space-6);">
                         <h3 style="margin: 0 0 var(--space-4) 0; color: var(--color-text-primary);">Profile Settings</h3>
                         <form>
@@ -365,57 +367,77 @@
                         </form>
                     </div>
 
+                    <!-- Privacy Settings Panel -->
                     <div id="privacy-settings" class="tab-panel" style="display: none; padding: var(--space-6);">
                         <h3 style="margin: 0 0 var(--space-4) 0; color: var(--color-text-primary);">Privacy Settings</h3>
                         <div style="display: flex; flex-direction: column; gap: var(--space-4);">
-                            <label class="checkbox">
-                                <input type="checkbox" checked>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
                                     <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Make my profile public</div>
                                     <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Allow others to view your profile</div>
                                 </div>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox" checked>
+                                <label class="toggle">
+                                    <input type="checkbox" role="switch" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
                                     <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Show online status</div>
                                     <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Let others see when you're online</div>
                                 </div>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox">
+                                <label class="toggle">
+                                    <input type="checkbox" role="switch" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
                                     <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Allow search engines to index</div>
                                     <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Make your profile discoverable on search engines</div>
                                 </div>
-                            </label>
+                                <label class="toggle">
+                                    <input type="checkbox" role="switch">
+                                    <span></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Notifications Settings Panel -->
                     <div id="notifications-settings" class="tab-panel" style="display: none; padding: var(--space-6);">
                         <h3 style="margin: 0 0 var(--space-4) 0; color: var(--color-text-primary);">Notification Preferences</h3>
                         <div style="display: flex; flex-direction: column; gap: var(--space-4);">
-                            <label class="checkbox">
-                                <input type="checkbox" checked>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
                                     <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Email notifications</div>
                                     <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Receive updates via email</div>
                                 </div>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox" checked>
+                                <label class="toggle">
+                                    <input type="checkbox" role="switch" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
                                     <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Push notifications</div>
                                     <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Receive browser push notifications</div>
                                 </div>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox">
+                                <label class="toggle">
+                                    <input type="checkbox" role="switch" checked>
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <div>
                                     <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">SMS notifications</div>
                                     <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">Receive text messages for important updates</div>
                                 </div>
-                            </label>
+                                <label class="toggle">
+                                    <input type="checkbox" role="switch">
+                                    <span></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

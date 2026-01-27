@@ -67,6 +67,13 @@
             border: 1px solid var(--color-border-subtle);
             border-radius: var(--radius-md);
             margin-bottom: var(--space-4);
+            overflow: hidden;
+        }
+
+        /* Navbar in demo context needs rounded corners and clipping */
+        .example-demo .aural-navbar {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
         }
 
         .content-section {
@@ -325,9 +332,13 @@
                                 <a href="#" class="aural-navbar__link">Team</a>
                             </div>
                             <div class="aural-navbar__actions">
-                                <div class="aural-navbar__search">
-                                    <i data-lucide="search" class="aural-navbar__search-icon"></i>
-                                    <input type="search" class="aural-navbar__search-input" placeholder="Search..." aria-label="Search">
+                                <div class="aural-search-bar" style="max-width: 300px;">
+                                    <div class="aural-search-bar__wrapper">
+                                        <div class="aural-search-bar__icon">
+                                            <i data-lucide="search" aria-hidden="true"></i>
+                                        </div>
+                                        <input type="search" class="aural-search-bar__input" placeholder="Search..." aria-label="Search">
+                                    </div>
                                 </div>
                                 <button class="aural-navbar__action" aria-label="Settings">
                                     <i data-lucide="settings"></i>
@@ -339,10 +350,13 @@
                 <details>
                     <summary>View Code</summary>
                     <pre><code>&lt;div class="aural-navbar__actions"&gt;
-    &lt;div class="aural-navbar__search"&gt;
-        &lt;i data-lucide="search" class="aural-navbar__search-icon"&gt;&lt;/i&gt;
-        &lt;input type="search" class="aural-navbar__search-input"
-               placeholder="Search..." aria-label="Search"&gt;
+    &lt;div class="aural-search-bar" style="max-width: 300px;"&gt;
+        &lt;div class="aural-search-bar__wrapper"&gt;
+            &lt;div class="aural-search-bar__icon"&gt;
+                &lt;i data-lucide="search" aria-hidden="true"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;input type="search" class="aural-search-bar__input" placeholder="Search..." aria-label="Search"&gt;
+        &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                 </details>
@@ -511,9 +525,13 @@
                                 <a href="#" class="aural-navbar__link">Sale</a>
                             </div>
                             <div class="aural-navbar__actions">
-                                <div class="aural-navbar__search">
-                                    <i data-lucide="search" class="aural-navbar__search-icon"></i>
-                                    <input type="search" class="aural-navbar__search-input" placeholder="Search products..." aria-label="Search products">
+                                <div class="aural-search-bar" style="max-width: 300px;">
+                                    <div class="aural-search-bar__wrapper">
+                                        <div class="aural-search-bar__icon">
+                                            <i data-lucide="search" aria-hidden="true"></i>
+                                        </div>
+                                        <input type="search" class="aural-search-bar__input" placeholder="Search products..." aria-label="Search products">
+                                    </div>
                                 </div>
                                 <button class="aural-navbar__action" aria-label="Wishlist">
                                     <i data-lucide="heart"></i>
@@ -544,9 +562,13 @@
             &lt;a href="#" class="aural-navbar__link"&gt;Sale&lt;/a&gt;
         &lt;/div&gt;
         &lt;div class="aural-navbar__actions"&gt;
-            &lt;div class="aural-navbar__search"&gt;
-                &lt;i data-lucide="search" class="aural-navbar__search-icon"&gt;&lt;/i&gt;
-                &lt;input type="search" class="aural-navbar__search-input" placeholder="Search..."&gt;
+            &lt;div class="aural-search-bar" style="max-width: 300px;"&gt;
+                &lt;div class="aural-search-bar__wrapper"&gt;
+                    &lt;div class="aural-search-bar__icon"&gt;
+                        &lt;i data-lucide="search" aria-hidden="true"&gt;&lt;/i&gt;
+                    &lt;/div&gt;
+                    &lt;input type="search" class="aural-search-bar__input" placeholder="Search..." aria-label="Search"&gt;
+                &lt;/div&gt;
             &lt;/div&gt;
             &lt;button class="aural-navbar__action" aria-label="Wishlist"&gt;
                 &lt;i data-lucide="heart"&gt;&lt;/i&gt;
@@ -596,11 +618,9 @@
                                     <i data-lucide="bell" aria-hidden="true"></i>
                                     <span class="aural-navbar__badge aural-navbar__badge--pulse" aria-hidden="true">5</span>
                                 </button>
-                                <button class="aural-navbar__action" aria-label="User profile">
-                                    <div class="aural-avatar aural-avatar--sm">
-                                        <img src="https://i.pravatar.cc/150?img=3" alt="User profile picture">
-                                    </div>
-                                </button>
+                                <a href="#" class="aural-navbar__action avatar avatar-sm" aria-label="User profile">
+                                    <img src="https://i.pravatar.cc/150?img=3" alt="User profile picture">
+                                </a>
                             </div>
                         </div>
                     </nav>
@@ -620,11 +640,9 @@
             &lt;/a&gt;
         &lt;/div&gt;
         &lt;div class="aural-navbar__actions"&gt;
-            &lt;button class="aural-navbar__action"&gt;
-                &lt;div class="aural-avatar aural-avatar--sm"&gt;
-                    &lt;img src="avatar.jpg" alt="User"&gt;
-                &lt;/div&gt;
-            &lt;/button&gt;
+            &lt;a href="#" class="aural-navbar__action avatar avatar-sm" aria-label="User profile"&gt;
+                &lt;img src="avatar.jpg" alt="User"&gt;
+            &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/nav&gt;</code></pre>
@@ -725,7 +743,7 @@ function toggleMobileMenu() {
 
                     <h3>Search Integration</h3>
                     <ul>
-                        <li>Use <code>.aural-navbar__search</code> for integrated search</li>
+                        <li>Use <code>.aural-search-bar</code> component for integrated search</li>
                         <li>Keep search width around 200-300px for desktop</li>
                         <li>Include search icon for visual clarity</li>
                         <li>Use placeholder text like "Search..." or "Search products..."</li>

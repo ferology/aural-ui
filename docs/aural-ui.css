@@ -9422,6 +9422,29 @@ body.has-navbar-fixed {
     height: 20px;
 }
 
+/* Avatar as action button - ensure proper containment */
+.aural-navbar__action.avatar {
+    padding: 0;
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.aural-navbar__action.avatar.avatar-sm {
+    min-width: 28px;
+    min-height: 28px;
+    width: 28px;
+    height: 28px;
+}
+
+.aural-navbar__action.avatar.avatar-xs {
+    min-width: 24px;
+    min-height: 24px;
+    width: 24px;
+    height: 24px;
+}
+
 /* ========================================
    Action Badge (notification count)
    ======================================== */
@@ -16892,7 +16915,8 @@ body.has-bottom-nav {
 
 /* Right aligned */
 
-.dropdown-right .dropdown-menu {
+.dropdown-right .dropdown-menu,
+.dropdown-menu.dropdown-menu-right {
     right: 0;
     left: auto;
 }

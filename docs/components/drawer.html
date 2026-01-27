@@ -6,7 +6,7 @@
     <title>Drawer - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -80,12 +80,89 @@
             margin: 0 0 var(--space-4) 0;
         }
 
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -102,6 +179,10 @@
                 font-size: var(--text-base);
             }
 
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
             .theme-toggle {
                 top: var(--space-4);
                 right: var(--space-4);
@@ -114,38 +195,209 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Drawer</h1>
-            <p class="page-description">Slide-out panel for navigation or additional content.</p>
+            <p class="page-description">Slide-out panels for navigation, settings, or additional content.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Drawer Positions</div>
-            <div class="example-demo">
-                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="Aural.openDrawer('drawer-left')">Open Left Drawer</button>
-                    <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-right')">Open Right Drawer</button>
-                    <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-top')">Open Top Drawer</button>
-                    <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-bottom')">Open Bottom Drawer</button>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Drawers</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="Aural.openDrawer('drawer-left')">Open Left Drawer</button>
+                        <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-right')">Open Right Drawer</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Left Drawer --&gt;
+&lt;div class="aural-drawer-backdrop"&gt;&lt;/div&gt;
+&lt;div class="aural-drawer aural-drawer--left" id="drawer-left"
+     role="dialog" aria-modal="true" aria-labelledby="drawer-title"&gt;
+    &lt;div class="aural-drawer__header"&gt;
+        &lt;h2 class="aural-drawer__title" id="drawer-title"&gt;Drawer Title&lt;/h2&gt;
+        &lt;button class="aural-drawer__close" aria-label="Close drawer"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-drawer__body"&gt;
+        &lt;p&gt;Drawer content here.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Right Drawer --&gt;
+&lt;div class="aural-drawer aural-drawer--right" id="drawer-right"&gt;
+    &lt;!-- Same structure --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Navigation Drawer</div>
+                <div class="example-demo">
+                    <button class="btn btn-primary" onclick="Aural.openDrawer('drawer-nav')">
+                        <i data-lucide="menu" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+                        Open Navigation
+                    </button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-drawer aural-drawer--left" id="drawer-nav"&gt;
+    &lt;div class="aural-drawer__header"&gt;
+        &lt;h2 class="aural-drawer__title"&gt;Navigation&lt;/h2&gt;
+        &lt;button class="aural-drawer__close"&gt;&lt;i data-lucide="x"&gt;&lt;/i&gt;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-drawer__body"&gt;
+        &lt;nav class="aural-drawer__nav"&gt;
+            &lt;a href="#" class="aural-drawer__nav-item"&gt;
+                &lt;i data-lucide="home"&gt;&lt;/i&gt;
+                &lt;span&gt;Home&lt;/span&gt;
+            &lt;/a&gt;
+            &lt;a href="#" class="aural-drawer__nav-item"&gt;
+                &lt;i data-lucide="settings"&gt;&lt;/i&gt;
+                &lt;span&gt;Settings&lt;/span&gt;
+            &lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-drawer__footer"&gt;
+        &lt;a href="#" class="aural-drawer__nav-item"&gt;
+            &lt;i data-lucide="log-out"&gt;&lt;/i&gt;
+            &lt;span&gt;Logout&lt;/span&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Position Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-left')">Left</button>
+                        <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-right')">Right</button>
+                        <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-top')">Top</button>
+                        <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-bottom')">Bottom</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Left --&gt;
+&lt;div class="aural-drawer aural-drawer--left"&gt;...&lt;/div&gt;
+
+&lt;!-- Right --&gt;
+&lt;div class="aural-drawer aural-drawer--right"&gt;...&lt;/div&gt;
+
+&lt;!-- Top --&gt;
+&lt;div class="aural-drawer aural-drawer--top"&gt;...&lt;/div&gt;
+
+&lt;!-- Bottom --&gt;
+&lt;div class="aural-drawer aural-drawer--bottom"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Drawers can slide in from any edge of the screen. Use the position modifier class to specify the direction.</p>
                 </div>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Navigation Drawer</div>
-            <div class="example-demo">
-                <button class="btn btn-primary" onclick="Aural.openDrawer('drawer-nav')">
-                    <i data-lucide="menu" style="width: 16px; height: 16px;" aria-hidden="true"></i>
-                    Open Navigation
-                </button>
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Navigation Pattern</div>
+                <div class="example-demo">
+                    <button class="btn btn-primary" onclick="Aural.openDrawer('drawer-nav')">
+                        <i data-lucide="menu" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+                        Navigation Drawer
+                    </button>
+                </div>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Navigation drawers typically appear from the left and contain:</p>
+                    <ul>
+                        <li>Navigation links with icons</li>
+                        <li>User information at the top</li>
+                        <li>Logout action in the footer</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Settings Pattern</div>
+                <div class="example-demo">
+                    <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-settings')">
+                        <i data-lucide="settings" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+                        Settings Drawer
+                    </button>
+                </div>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Settings drawers typically appear from the right and contain form controls, switches, and action buttons.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Mobile Action Sheet</div>
+                <div class="example-demo">
+                    <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-bottom')">Open Bottom Drawer</button>
+                </div>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Bottom drawers work well as mobile action sheets for quick options and share menus.</p>
+                </div>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Settings Drawer</div>
-            <div class="example-demo">
-                <button class="btn btn-secondary" onclick="Aural.openDrawer('drawer-settings')">
-                    <i data-lucide="settings" style="width: 16px; height: 16px;" aria-hidden="true"></i>
-                    Open Settings
-                </button>
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Navigation menus (left drawer)</li>
+                        <li>Shopping carts and details panels (right drawer)</li>
+                        <li>Announcements and search (top drawer)</li>
+                        <li>Action sheets and quick options (bottom drawer)</li>
+                    </ul>
+
+                    <h3>Position Guidelines</h3>
+                    <ul>
+                        <li><code>.aural-drawer--left</code> - Primary navigation, menus</li>
+                        <li><code>.aural-drawer--right</code> - Settings, details, carts</li>
+                        <li><code>.aural-drawer--top</code> - Announcements, search bars</li>
+                        <li><code>.aural-drawer--bottom</code> - Mobile action sheets</li>
+                    </ul>
+
+                    <h3>Structure</h3>
+                    <ul>
+                        <li>Use <code>.aural-drawer__header</code> for title and close button</li>
+                        <li>Use <code>.aural-drawer__body</code> for main content</li>
+                        <li>Use <code>.aural-drawer__footer</code> for actions</li>
+                        <li>Use <code>.aural-drawer__nav</code> for navigation links</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Include <code>role="dialog"</code> and <code>aria-modal="true"</code></li>
+                        <li>Use <code>aria-labelledby</code> to reference the drawer title</li>
+                        <li>Provide a visible close button with <code>aria-label</code></li>
+                        <li>Trap focus within the drawer when open</li>
+                        <li>Close with Escape key</li>
+                    </ul>
+
+                    <h3>JavaScript API</h3>
+                    <ul>
+                        <li><code>Aural.openDrawer('drawer-id')</code> - Opens a drawer</li>
+                        <li><code>Aural.closeDrawer('drawer-id')</code> - Closes a drawer</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -274,57 +526,134 @@
             </button>
         </div>
         <div class="aural-drawer__body">
+            <!-- Settings Alert Banner (hidden by default) -->
+            <div id="settings-alert" class="aural-alert-banner aural-alert-banner--success" style="display: none; margin-bottom: var(--space-4);">
+                <i data-lucide="check-circle" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+                <div class="aural-alert-banner__content">
+                    <div class="aural-alert-banner__message" id="settings-alert-message">Setting updated</div>
+                </div>
+                <button class="aural-alert-banner__close" aria-label="Close" onclick="hideSettingsAlert()">
+                    <i data-lucide="x" style="width: 14px; height: 14px;"></i>
+                </button>
+            </div>
+
             <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                <!-- Notifications Section -->
                 <div>
-                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-3) 0;">Preferences</h3>
-                    <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0;">
+                        <i data-lucide="bell" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: var(--space-2);"></i>
+                        Notifications
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
                         <label class="switch">
-                            <input type="checkbox" role="switch" checked>
-                            <span>Enable notifications</span>
+                            <input type="checkbox" class="switch__input" role="switch" checked onchange="showSettingsAlert('Push notifications ' + (this.checked ? 'enabled' : 'disabled'), this.checked ? 'success' : 'info')">
+                            <div class="switch__track">
+                                <div class="switch__thumb"></div>
+                            </div>
+                            <span class="switch__label">Push notifications</span>
                         </label>
                         <label class="switch">
-                            <input type="checkbox" role="switch">
-                            <span>Auto-save drafts</span>
+                            <input type="checkbox" class="switch__input" role="switch" checked onchange="showSettingsAlert('Email alerts ' + (this.checked ? 'enabled' : 'disabled'), this.checked ? 'success' : 'info')">
+                            <div class="switch__track">
+                                <div class="switch__thumb"></div>
+                            </div>
+                            <span class="switch__label">Email alerts</span>
                         </label>
                         <label class="switch">
-                            <input type="checkbox" role="switch" checked>
-                            <span>Show previews</span>
+                            <input type="checkbox" class="switch__input" role="switch" onchange="showSettingsAlert('Sound effects ' + (this.checked ? 'enabled' : 'disabled'), this.checked ? 'success' : 'info')">
+                            <div class="switch__track">
+                                <div class="switch__thumb"></div>
+                            </div>
+                            <span class="switch__label">Sound effects</span>
                         </label>
                     </div>
                 </div>
+
+                <!-- Privacy Section -->
                 <div>
-                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-3) 0;">Display</h3>
-                    <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0;">
+                        <i data-lucide="shield" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: var(--space-2);"></i>
+                        Privacy
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                        <label class="switch">
+                            <input type="checkbox" class="switch__input" role="switch" checked onchange="showSettingsAlert('Profile visibility ' + (this.checked ? 'set to public' : 'set to private'), 'info')">
+                            <div class="switch__track">
+                                <div class="switch__thumb"></div>
+                            </div>
+                            <span class="switch__label">Public profile</span>
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" class="switch__input" role="switch" onchange="showSettingsAlert('Activity sharing ' + (this.checked ? 'enabled' : 'disabled'), this.checked ? 'warning' : 'success')">
+                            <div class="switch__track">
+                                <div class="switch__thumb"></div>
+                            </div>
+                            <span class="switch__label">Share activity</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Display Section -->
+                <div>
+                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0;">
+                        <i data-lucide="monitor" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: var(--space-2);"></i>
+                        Display
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-4);">
                         <div>
-                            <label style="display: block; margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Theme</label>
-                            <select class="input input-sm">
+                            <label for="settings-theme" style="display: block; margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Theme</label>
+                            <select id="settings-theme" class="input input-sm" onchange="showSettingsAlert('Theme changed to ' + this.value, 'success')">
                                 <option>Light</option>
                                 <option selected>Dark</option>
                                 <option>Auto</option>
                             </select>
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Language</label>
-                            <select class="input input-sm">
+                            <label for="settings-language" style="display: block; margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary);">Language</label>
+                            <select id="settings-language" class="input input-sm" onchange="showSettingsAlert('Language changed to ' + this.value, 'success')">
                                 <option selected>English</option>
                                 <option>Spanish</option>
                                 <option>French</option>
+                                <option>German</option>
                             </select>
                         </div>
+                        <label class="switch">
+                            <input type="checkbox" class="switch__input" role="switch" checked onchange="showSettingsAlert('Compact mode ' + (this.checked ? 'enabled' : 'disabled'), 'info')">
+                            <div class="switch__track">
+                                <div class="switch__thumb"></div>
+                            </div>
+                            <span class="switch__label">Compact mode</span>
+                        </label>
                     </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div style="border-top: 1px solid var(--color-border-subtle); padding-top: var(--space-4);">
+                    <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-danger); margin: 0 0 var(--space-4) 0;">
+                        <i data-lucide="alert-triangle" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: var(--space-2);"></i>
+                        Danger Zone
+                    </h3>
+                    <button class="btn btn-error btn-sm" onclick="showSettingsAlert('This action would delete all your data!', 'error')">
+                        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+                        Clear All Data
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="aural-drawer__footer">
-            <button class="btn btn-primary btn-block" onclick="Aural.closeDrawer('drawer-settings')">Save Changes</button>
+        <div class="aural-drawer__footer" style="display: flex; gap: var(--space-3);">
+            <button class="btn btn-ghost" onclick="Aural.closeDrawer('drawer-settings')">Cancel</button>
+            <button class="btn btn-primary" style="flex: 1;" onclick="showSettingsAlert('All settings saved successfully!', 'success'); setTimeout(() => Aural.closeDrawer('drawer-settings'), 1500)">
+                <i data-lucide="save" style="width: 16px; height: 16px;"></i>
+                Save Changes
+            </button>
         </div>
     </div>
 
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -342,8 +671,53 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // Settings alert functions
+        let alertTimeout;
+        function showSettingsAlert(message, type = 'success') {
+            const alert = document.getElementById('settings-alert');
+            const alertMessage = document.getElementById('settings-alert-message');
+
+            // Update message
+            alertMessage.textContent = message;
+
+            // Update type classes
+            alert.className = 'aural-alert-banner aural-alert-banner--' + type;
+
+            // Update icon
+            const iconMap = {
+                'success': 'check-circle',
+                'error': 'alert-circle',
+                'warning': 'alert-triangle',
+                'info': 'info'
+            };
+            const iconElement = alert.querySelector('i[data-lucide]');
+            if (iconElement) {
+                iconElement.setAttribute('data-lucide', iconMap[type] || 'check-circle');
+                lucide.createIcons();
+            }
+
+            // Show alert
+            alert.style.display = 'flex';
+
+            // Clear previous timeout
+            if (alertTimeout) clearTimeout(alertTimeout);
+
+            // Auto-hide after 3 seconds
+            alertTimeout = setTimeout(() => {
+                hideSettingsAlert();
+            }, 3000);
+        }
+
+        function hideSettingsAlert() {
+            const alert = document.getElementById('settings-alert');
+            alert.style.display = 'none';
+        }
 
         // Theme toggle
         let isDark = true;
@@ -360,18 +734,19 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

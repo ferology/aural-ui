@@ -6,7 +6,7 @@
     <title>Toast - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -126,12 +126,43 @@
             padding: 0;
         }
 
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -164,73 +195,191 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Toast</h1>
-            <p class="page-description">Temporary notification messages that appear at the top-right corner.</p>
+            <p class="page-description">Temporary notification messages that appear at the corner of the screen.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Basic Toast Messages</div>
-            <div class="example-demo">
-                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-                    <button class="btn btn-primary" onclick="Aural.showToast('Operation completed successfully!', 'success')">
-                        Show Success
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Toasts</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                        <button class="btn btn-success" onclick="Aural.showToast('Operation completed successfully!', 'success')">
+                            Show Success
+                        </button>
+                        <button class="btn btn-error" onclick="Aural.showToast('Error: Failed to save changes.', 'error')">
+                            Show Error
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>// Show a success toast
+Aural.showToast('Operation completed successfully!', 'success');
+
+// Show an error toast
+Aural.showToast('Error: Failed to save changes.', 'error');</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">All Types</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                        <button class="btn btn-success" onclick="Aural.showToast('Success message', 'success')">Success</button>
+                        <button class="btn btn-info" onclick="Aural.showToast('Informational message', 'info')">Info</button>
+                        <button class="btn btn-warning" onclick="Aural.showToast('Warning message', 'warning')">Warning</button>
+                        <button class="btn btn-error" onclick="Aural.showToast('Error message', 'error')">Error</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>Aural.showToast('Success message', 'success');
+Aural.showToast('Informational message', 'info');
+Aural.showToast('Warning message', 'warning');
+Aural.showToast('Error message', 'error');</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Toast with Title</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                        <button class="btn btn-success" onclick="Aural.showToast('Your profile has been updated.', 'success', 'Success')">
+                            Success with Title
+                        </button>
+                        <button class="btn btn-error" onclick="Aural.showToast('Unable to connect to server.', 'error', 'Connection Error')">
+                            Error with Title
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>// Third parameter is the title
+Aural.showToast('Your profile has been updated.', 'success', 'Success');
+Aural.showToast('Unable to connect to server.', 'error', 'Connection Error');</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Custom Duration</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                        <button class="btn btn-secondary" onclick="Aural.showToast('Quick message (2s)', 'info', null, 2000)">
+                            Short (2s)
+                        </button>
+                        <button class="btn btn-secondary" onclick="Aural.showToast('Extended message (8s)', 'info', null, 8000)">
+                            Long (8s)
+                        </button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>// Fourth parameter is duration in milliseconds
+Aural.showToast('Quick message', 'info', null, 2000);  // 2 seconds
+Aural.showToast('Extended message', 'info', null, 8000);  // 8 seconds</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Multiple Toasts</div>
+                <div class="example-demo">
+                    <button class="btn btn-primary" onclick="
+                        Aural.showToast('First notification', 'success');
+                        setTimeout(() => Aural.showToast('Second notification', 'info'), 500);
+                        setTimeout(() => Aural.showToast('Third notification', 'warning'), 1000);
+                    ">
+                        Show Multiple Toasts
                     </button>
-                    <button class="btn btn-info" onclick="Aural.showToast('This is an informational message.', 'info')">
-                        Show Info
-                    </button>
-                    <button class="btn btn-warning" onclick="Aural.showToast('Warning: Please review your settings.', 'warning')">
-                        Show Warning
-                    </button>
-                    <button class="btn btn-error" onclick="Aural.showToast('Error: Failed to save changes.', 'error')">
-                        Show Error
-                    </button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>// Toasts stack automatically
+Aural.showToast('First notification', 'success');
+setTimeout(() => Aural.showToast('Second notification', 'info'), 500);
+setTimeout(() => Aural.showToast('Third notification', 'warning'), 1000);</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Multiple toasts automatically stack in the corner, with newer toasts appearing below existing ones.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Common Use Cases</div>
+                <div class="example-demo">
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+                        <button class="btn btn-primary" onclick="Aural.showToast('Item added to cart', 'success', 'Cart Updated')">
+                            Add to Cart
+                        </button>
+                        <button class="btn btn-secondary" onclick="Aural.showToast('Link copied to clipboard', 'info')">
+                            Copy Link
+                        </button>
+                        <button class="btn btn-danger" onclick="Aural.showToast('Item removed', 'error', 'Deleted')">
+                            Delete Item
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Toast with Title</div>
-            <div class="example-demo">
-                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-                    <button class="btn btn-success" onclick="Aural.showToast('Your profile has been updated.', 'success', 'Success')">
-                        Success with Title
-                    </button>
-                    <button class="btn btn-info" onclick="Aural.showToast('5 new items added to your feed.', 'info', 'Updates')">
-                        Info with Title
-                    </button>
-                    <button class="btn btn-warning" onclick="Aural.showToast('Your session will expire soon.', 'warning', 'Session Warning')">
-                        Warning with Title
-                    </button>
-                    <button class="btn btn-error" onclick="Aural.showToast('Unable to connect to server.', 'error', 'Connection Error')">
-                        Error with Title
-                    </button>
-                </div>
-            </div>
-        </div>
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Brief feedback for user actions (save, delete, copy)</li>
+                        <li>Status updates that don't require user action</li>
+                        <li>Background process completions</li>
+                        <li>Non-critical notifications</li>
+                    </ul>
 
-        <div class="example-container">
-            <div class="example-label">Custom Duration</div>
-            <div class="example-demo">
-                <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-                    <button class="btn btn-secondary" onclick="Aural.showToast('This disappears quickly (2s)', 'info', null, 2000)">
-                        Short Duration (2s)
-                    </button>
-                    <button class="btn btn-secondary" onclick="Aural.showToast('This stays longer (8s)', 'info', null, 8000)">
-                        Long Duration (8s)
-                    </button>
-                </div>
-            </div>
-        </div>
+                    <h3>Toast Types</h3>
+                    <ul>
+                        <li><code>success</code> - Successful operations</li>
+                        <li><code>info</code> - Informational updates</li>
+                        <li><code>warning</code> - Warnings that don't block user</li>
+                        <li><code>error</code> - Errors and failures</li>
+                    </ul>
 
-        <div class="example-container">
-            <div class="example-label">Multiple Toasts</div>
-            <div class="example-demo">
-                <button class="btn btn-primary" onclick="
-                    Aural.showToast('First notification', 'success');
-                    setTimeout(() => Aural.showToast('Second notification', 'info'), 500);
-                    setTimeout(() => Aural.showToast('Third notification', 'warning'), 1000);
-                ">
-                    Show Multiple Toasts
-                </button>
+                    <h3>JavaScript API</h3>
+                    <ul>
+                        <li><code>Aural.showToast(message, type)</code> - Basic toast</li>
+                        <li><code>Aural.showToast(message, type, title)</code> - With title</li>
+                        <li><code>Aural.showToast(message, type, title, duration)</code> - Custom duration</li>
+                    </ul>
+
+                    <h3>Duration Guidelines</h3>
+                    <ul>
+                        <li>Default: 4000ms (4 seconds)</li>
+                        <li>Short messages: 2000-3000ms</li>
+                        <li>Important messages: 6000-8000ms</li>
+                        <li>Keep duration long enough to read</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Toasts are announced to screen readers</li>
+                        <li>Don't put critical actions in toasts</li>
+                        <li>Ensure sufficient display time</li>
+                        <li>Use clear, concise messages</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -238,8 +387,8 @@
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -257,6 +406,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -275,18 +427,19 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {

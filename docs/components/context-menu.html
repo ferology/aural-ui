@@ -351,18 +351,18 @@
                     <summary>View Code</summary>
                     <pre><code>&lt;div class="aural-context-menu"&gt;
     &lt;div class="aural-context-menu__header"&gt;View&lt;/div&gt;
-    &lt;button class="aural-context-menu__item" role="menuitemcheckbox" aria-checked="true"&gt;
-        &lt;i data-lucide="check" class="aural-context-menu__item-check"&gt;&lt;/i&gt;
-        &lt;span class="aural-context-menu__item-label"&gt;Show Sidebar&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button class="aural-context-menu__item" role="menuitemcheckbox" aria-checked="false"&gt;
-        &lt;i data-lucide="check" class="aural-context-menu__item-check"&gt;&lt;/i&gt;
-        &lt;span class="aural-context-menu__item-label"&gt;Show Toolbar&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button class="aural-context-menu__item" role="menuitemcheckbox" aria-checked="true"&gt;
-        &lt;i data-lucide="check" class="aural-context-menu__item-check"&gt;&lt;/i&gt;
-        &lt;span class="aural-context-menu__item-label"&gt;Show Status Bar&lt;/span&gt;
-    &lt;/button&gt;
+    &lt;label class="aural-context-menu__item checkbox"&gt;
+        &lt;input type="checkbox" checked&gt;
+        &lt;span&gt;Show Sidebar&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class="aural-context-menu__item checkbox"&gt;
+        &lt;input type="checkbox"&gt;
+        &lt;span&gt;Show Toolbar&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class="aural-context-menu__item checkbox"&gt;
+        &lt;input type="checkbox" checked&gt;
+        &lt;span&gt;Show Status Bar&lt;/span&gt;
+    &lt;/label&gt;
 &lt;/div&gt;</code></pre>
                 </details>
             </div>
@@ -833,29 +833,31 @@
                         const classes = ['aural-context-menu__item'];
                         if (item.danger) classes.push('aural-context-menu__item--danger');
                         if (item.disabled) classes.push('aural-context-menu__item--disabled');
-                        if (item.checked !== undefined) classes.push('aural-context-menu__item--checkable');
-                        if (item.checked) classes.push('aural-context-menu__item--checked');
 
-                        const ariaDisabled = item.disabled ? ' aria-disabled="true"' : '';
-                        const role = item.checked !== undefined ? 'menuitemcheckbox' : 'menuitem';
-                        const ariaChecked = item.checked !== undefined ? ` aria-checked="${item.checked}"` : '';
-                        menuHTML += `<button class="${classes.join(' ')}" ${item.disabled ? 'disabled' : ''} role="${role}" tabindex="-1"${ariaDisabled}${ariaChecked}>`;
-
+                        // Use label with checkbox for checkable items
                         if (item.checked !== undefined) {
-                            menuHTML += '<i data-lucide="check" class="aural-context-menu__item-check" aria-hidden="true"></i>';
+                            classes.push('checkbox');
+                            menuHTML += `<label class="${classes.join(' ')}" tabindex="-1">`;
+                            menuHTML += `<input type="checkbox" ${item.checked ? 'checked' : ''}>`;
+                            menuHTML += `<span>${item.label}</span>`;
+                            menuHTML += '</label>';
+                        } else {
+                            // Regular button for non-checkable items
+                            const ariaDisabled = item.disabled ? ' aria-disabled="true"' : '';
+                            menuHTML += `<button class="${classes.join(' ')}" ${item.disabled ? 'disabled' : ''} role="menuitem" tabindex="-1"${ariaDisabled}>`;
+
+                            if (item.icon) {
+                                menuHTML += `<i data-lucide="${item.icon}" class="aural-context-menu__item-icon" aria-hidden="true"></i>`;
+                            }
+
+                            menuHTML += `<span class="aural-context-menu__item-label">${item.label}</span>`;
+
+                            if (item.shortcut) {
+                                menuHTML += `<span class="aural-context-menu__item-shortcut">${item.shortcut}</span>`;
+                            }
+
+                            menuHTML += '</button>';
                         }
-
-                        if (item.icon) {
-                            menuHTML += `<i data-lucide="${item.icon}" class="aural-context-menu__item-icon" aria-hidden="true"></i>`;
-                        }
-
-                        menuHTML += `<span class="aural-context-menu__item-label">${item.label}</span>`;
-
-                        if (item.shortcut) {
-                            menuHTML += `<span class="aural-context-menu__item-shortcut">${item.shortcut}</span>`;
-                        }
-
-                        menuHTML += '</button>';
                     }
                 });
 
@@ -892,21 +894,21 @@
                 const menuItems = this.menu.querySelectorAll('.aural-context-menu__item:not(.aural-context-menu__item--disabled)');
                 menuItems.forEach(item => {
                     item.addEventListener('click', (e) => {
+                        // Handle checkable items (labels with checkboxes)
+                        const checkbox = item.querySelector('input[type="checkbox"]');
+                        if (checkbox) {
+                            // Checkbox will handle its own toggle, just prevent closing
+                            e.stopPropagation();
+                            const label = item.querySelector('span');
+                            console.log('Checkbox toggled:', label ? label.textContent : '', checkbox.checked);
+                            return; // Don't close menu for checkable items
+                        }
+
+                        // Handle regular button items
                         e.stopPropagation();
-
-                        // Handle checkable items with aria-checked
-                        if (item.getAttribute('role') === 'menuitemcheckbox') {
-                            const isChecked = item.getAttribute('aria-checked') === 'true';
-                            item.setAttribute('aria-checked', !isChecked);
-                            item.classList.toggle('aural-context-menu__item--checked');
-                        }
-
-                        console.log('Menu item clicked:', item.querySelector('.aural-context-menu__item-label').textContent);
-
-                        // Don't close for checkable items
-                        if (item.getAttribute('role') !== 'menuitemcheckbox') {
-                            this.hideMenu();
-                        }
+                        const label = item.querySelector('.aural-context-menu__item-label') || item.querySelector('span');
+                        console.log('Menu item clicked:', label ? label.textContent : '');
+                        this.hideMenu();
                     });
                 });
             }
@@ -947,6 +949,32 @@
         // Initialize all context menus
         Object.keys(contextMenuConfigs).forEach(triggerId => {
             new ContextMenu(triggerId, contextMenuConfigs[triggerId]);
+        });
+
+        // Global Escape key handler for context menus
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.aural-context-menu--open').forEach(menu => {
+                    menu.classList.remove('aural-context-menu--open');
+                });
+            }
+        });
+
+        // Shift+F10 keyboard shortcut for context menu (accessibility)
+        document.querySelectorAll('.context-trigger').forEach(trigger => {
+            trigger.addEventListener('keydown', function(e) {
+                if (e.key === 'F10' && e.shiftKey) {
+                    e.preventDefault();
+                    const rect = trigger.getBoundingClientRect();
+                    const event = new MouseEvent('contextmenu', {
+                        bubbles: true,
+                        cancelable: true,
+                        clientX: rect.left + rect.width / 2,
+                        clientY: rect.top + rect.height / 2
+                    });
+                    trigger.dispatchEvent(event);
+                }
+            });
         });
     </script>    <!-- Unified Theme Sync -->
     <script>

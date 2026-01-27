@@ -6,7 +6,7 @@
     <title>Modals - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -69,12 +69,100 @@
             margin-bottom: var(--space-4);
         }
 
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -91,6 +179,10 @@
                 font-size: var(--text-base);
             }
 
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
             .theme-toggle {
                 top: var(--space-4);
                 right: var(--space-4);
@@ -103,82 +195,239 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Modals</h1>
-            <p class="page-description">Overlay dialogs for focused user interactions.</p>
+            <p class="page-description">Overlay dialogs for focused user interactions and important content.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Basic Modal</div>
-            <div class="example-demo">
-                <button class="btn btn-primary" onclick="Aural.openModal('modal-basic')">Open Modal</button>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Modal</div>
+                <div class="example-demo">
+                    <button class="btn btn-primary" onclick="Aural.openModal('modal-basic')">Open Modal</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="modal-basic"&gt;
+    &lt;div class="modal"&gt;
+        &lt;button class="modal-close" aria-label="Close modal"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;h2 class="modal-title"&gt;Modal Title&lt;/h2&gt;
+            &lt;p class="modal-subtitle"&gt;Optional subtitle&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;p&gt;Modal content goes here.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-ghost"&gt;Cancel&lt;/button&gt;
+            &lt;button class="btn btn-primary"&gt;Confirm&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Modal with Icon</div>
+                <div class="example-demo">
+                    <button class="btn btn-secondary" onclick="Aural.openModal('modal-icon')">Open Modal with Icon</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="modal-icon"&gt;
+    &lt;div class="modal"&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;div class="modal-icon"&gt;
+                &lt;i data-lucide="rocket"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;h2 class="modal-title"&gt;Get Started&lt;/h2&gt;
+                &lt;p class="modal-subtitle"&gt;Welcome to Aural UI&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;!-- Body and footer... --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">With Icon</div>
-            <div class="example-demo">
-                <button class="btn btn-secondary" onclick="Aural.openModal('modal-icon')">Open Modal with Icon</button>
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Sizes</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-secondary" onclick="Aural.openModal('modal-small')">Small Modal</button>
+                        <button class="btn btn-secondary" onclick="Aural.openModal('modal-basic')">Default Modal</button>
+                        <button class="btn btn-secondary" onclick="Aural.openModal('modal-large')">Large Modal</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Small Modal --&gt;
+&lt;div class="modal modal-sm"&gt;...&lt;/div&gt;
+
+&lt;!-- Default Modal --&gt;
+&lt;div class="modal"&gt;...&lt;/div&gt;
+
+&lt;!-- Large Modal --&gt;
+&lt;div class="modal modal-lg"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Fullscreen Modal</div>
+                <div class="example-demo">
+                    <button class="btn btn-secondary" onclick="Aural.openModal('modal-fullscreen')">Open Fullscreen Modal</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="modal-fullscreen"&gt;
+    &lt;div class="modal modal-fullscreen"&gt;
+        &lt;!-- Full viewport coverage --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Fullscreen modals take up the entire viewport with no margins or border radius. Use the <code>.modal-fullscreen</code> class.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Scrollable Modal</div>
+                <div class="example-demo">
+                    <button class="btn btn-secondary" onclick="Aural.openModal('modal-scrollable')">Open Scrollable Modal</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="modal-scrollable"&gt;
+    &lt;div class="modal modal-scrollable modal-lg"&gt;
+        &lt;!-- Fixed header and footer, scrolling body --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Scrollable modals have fixed headers and footers with an independently scrolling body. Use the <code>.modal-scrollable</code> class.</p>
+                </div>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Small Modal</div>
-            <div class="example-demo">
-                <button class="btn btn-secondary" onclick="Aural.openModal('modal-small')">Open Small Modal</button>
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Confirmation Modal</div>
+                <div class="example-demo">
+                    <button class="btn btn-danger" onclick="Aural.openModal('modal-confirm')">Delete Item</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="modal-confirm"&gt;
+    &lt;div class="modal modal-sm"&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;div style="width: 48px; height: 48px; border-radius: 50%;
+                 background: var(--color-danger-subtle);
+                 display: flex; align-items: center; justify-content: center;
+                 color: var(--color-danger);"&gt;
+                &lt;i data-lucide="trash-2"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;h2 class="modal-title"&gt;Delete Item?&lt;/h2&gt;
+                &lt;p class="modal-subtitle"&gt;This action cannot be undone&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;p&gt;Are you sure you want to delete this item?&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-ghost"&gt;Cancel&lt;/button&gt;
+            &lt;button class="btn btn-error"&gt;Delete&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Form Modal</div>
+                <div class="example-demo">
+                    <button class="btn btn-primary" onclick="Aural.openModal('modal-form')">Create New Item</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="modal-form"&gt;
+    &lt;div class="modal"&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;div class="modal-icon"&gt;
+                &lt;i data-lucide="plus-circle"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;h2 class="modal-title"&gt;Create New Item&lt;/h2&gt;
+                &lt;p class="modal-subtitle"&gt;Fill in the details&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;form&gt;
+                &lt;label&gt;Item Name&lt;/label&gt;
+                &lt;input type="text" class="input" placeholder="Enter name"&gt;
+                &lt;!-- More form fields... --&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-ghost"&gt;Cancel&lt;/button&gt;
+            &lt;button class="btn btn-primary"&gt;Create Item&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Large Modal</div>
-            <div class="example-demo">
-                <button class="btn btn-secondary" onclick="Aural.openModal('modal-large')">Open Large Modal</button>
-            </div>
-        </div>
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Use modals for important decisions that require user confirmation</li>
+                        <li>Use modals to collect focused input without leaving the current context</li>
+                        <li>Use modals for critical information that must be acknowledged</li>
+                        <li>Use modals for complex workflows that need isolation from the main content</li>
+                    </ul>
 
-        <div class="example-container">
-            <div class="example-label">Confirmation Modal</div>
-            <div class="example-demo">
-                <button class="btn btn-error" onclick="Aural.openModal('modal-confirm')">Delete Item</button>
-            </div>
-        </div>
+                    <h3>Modal Sizes</h3>
+                    <ul>
+                        <li><code>.modal-sm</code> - Use for simple confirmations and brief messages</li>
+                        <li>Default size - Use for standard forms and content</li>
+                        <li><code>.modal-lg</code> - Use for complex forms or detailed content</li>
+                        <li><code>.modal-fullscreen</code> - Use for immersive experiences</li>
+                    </ul>
 
-        <div class="example-container">
-            <div class="example-label">Form Modal</div>
-            <div class="example-demo">
-                <button class="btn btn-primary" onclick="Aural.openModal('modal-form')">Create New Item</button>
-            </div>
-        </div>
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Always include a visible close button with proper <code>aria-label</code></li>
+                        <li>Use <code>role="dialog"</code> and <code>aria-modal="true"</code> on the modal</li>
+                        <li>Trap focus within the modal while it's open</li>
+                        <li>Allow closing with the Escape key</li>
+                        <li>Return focus to the trigger element when closed</li>
+                    </ul>
 
-        <div class="example-container">
-            <div class="example-label">Fullscreen Modal</div>
-            <div class="example-demo">
-                <button class="btn btn-secondary" onclick="Aural.openModal('modal-fullscreen')">Open Fullscreen Modal</button>
-            </div>
-            <div class="section-content" style="margin-top: var(--space-4);">
-                <p>Fullscreen modals take up the entire viewport with no margins or border radius. Perfect for:</p>
-                <ul>
-                    <li>Immersive content experiences (photo viewers, document editors)</li>
-                    <li>Mobile-optimized full-page forms</li>
-                    <li>Focus modes that require maximum screen space</li>
-                    <li>Media galleries and slideshows</li>
-                </ul>
-                <p>Use the <code>.modal-fullscreen</code> class to enable this variant.</p>
-            </div>
-        </div>
-
-        <div class="example-container">
-            <div class="example-label">Scrollable Modal</div>
-            <div class="example-demo">
-                <button class="btn btn-secondary" onclick="Aural.openModal('modal-scrollable')">Open Scrollable Modal</button>
-            </div>
-            <div class="section-content" style="margin-top: var(--space-4);">
-                <p>Scrollable modals have fixed headers and footers with an independently scrolling body. Benefits:</p>
-                <ul>
-                    <li>Header and footer remain visible while scrolling content</li>
-                    <li>Better user experience for long content</li>
-                    <li>Call-to-action buttons always accessible</li>
-                    <li>Works with all modal sizes</li>
-                </ul>
-                <p>Use the <code>.modal-scrollable</code> class to enable this variant.</p>
+                    <h3>JavaScript API</h3>
+                    <ul>
+                        <li><code>Aural.openModal('modal-id')</code> - Opens a modal by ID</li>
+                        <li><code>Aural.closeModal('modal-id')</code> - Closes a modal by ID</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -282,9 +531,6 @@
                     <li>Scrollable content area</li>
                     <li>Organized information layout</li>
                 </ul>
-
-                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary);">Additional Details</h3>
-                <p>Large modals are ideal for complex workflows, detailed forms, or when you need to present comprehensive information without overwhelming the user.</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-large')">Close</button>
@@ -358,8 +604,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="Aural.closeModal('modal-form')">Cancel</button>
-                <button class="btn btn-primary" onclick="Aural.closeModal('modal-form')">Create Item</button>
+                <button type="button" class="btn btn-ghost" onclick="Aural.closeModal('modal-form')">Cancel</button>
+                <button type="submit" form="create-item-form" class="btn btn-primary" onclick="event.preventDefault(); Aural.closeModal('modal-form')">Create Item</button>
             </div>
         </div>
     </div>
@@ -378,7 +624,7 @@
             </div>
             <div class="modal-body">
                 <h3 style="margin-top: 0; font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary);">Welcome to Fullscreen Mode</h3>
-                <p>This modal takes up the entire viewport, providing maximum space for your content. Perfect for immersive experiences like:</p>
+                <p>This modal takes up the entire viewport, providing maximum space for your content.</p>
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin: var(--space-6) 0;">
                     <div style="padding: var(--space-4); background: var(--color-bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--color-border-subtle);">
@@ -405,15 +651,6 @@
                         <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Full-screen media playback</p>
                     </div>
                 </div>
-
-                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">Key Features</h3>
-                <ul>
-                    <li>100% viewport coverage with no margins</li>
-                    <li>No border radius for true edge-to-edge design</li>
-                    <li>Scrollable content if it overflows</li>
-                    <li>Optimal for mobile and desktop experiences</li>
-                    <li>Press ESC to close (when focus is in modal)</li>
-                </ul>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-fullscreen')">Close</button>
@@ -439,43 +676,35 @@
             </div>
             <div class="modal-body">
                 <h3 style="margin-top: 0; font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary);">1. Introduction</h3>
-                <p>This modal demonstrates the scrollable variant, where the header and footer remain fixed while the body content scrolls independently. This is particularly useful for long-form content like terms of service, privacy policies, or detailed documentation.</p>
+                <p>This modal demonstrates the scrollable variant, where the header and footer remain fixed while the body content scrolls independently.</p>
 
                 <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">2. Content Organization</h3>
-                <p>The scrollable modal maintains visual hierarchy and keeps important actions (like Accept/Decline buttons) always visible at the bottom. This improves user experience by:</p>
+                <p>The scrollable modal maintains visual hierarchy and keeps important actions always visible at the bottom.</p>
                 <ul>
                     <li>Providing clear navigation context with a fixed header</li>
                     <li>Ensuring call-to-action buttons are always accessible</li>
                     <li>Allowing users to scroll through content comfortably</li>
-                    <li>Supporting various content lengths without layout issues</li>
                 </ul>
 
                 <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">3. Use Cases</h3>
                 <p>Scrollable modals are ideal for:</p>
                 <ul>
-                    <li><strong>Legal Documents:</strong> Terms of service, privacy policies, user agreements</li>
+                    <li><strong>Legal Documents:</strong> Terms of service, privacy policies</li>
                     <li><strong>Long Forms:</strong> Multi-section forms that require scrolling</li>
                     <li><strong>Documentation:</strong> Help articles, guides, tutorials</li>
-                    <li><strong>Product Details:</strong> Detailed product information, specifications</li>
-                    <li><strong>Release Notes:</strong> Changelog entries, update information</li>
+                    <li><strong>Product Details:</strong> Detailed product information</li>
                 </ul>
 
                 <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">4. Technical Implementation</h3>
-                <p>The scrollable modal uses CSS flexbox with specific overflow properties to achieve the fixed header/footer behavior:</p>
+                <p>The scrollable modal uses CSS flexbox with specific overflow properties:</p>
                 <ul>
                     <li>The modal container uses <code>display: flex</code> and <code>flex-direction: column</code></li>
                     <li>Header and footer have fixed dimensions</li>
                     <li>Body section has <code>flex: 1</code> and <code>overflow-y: auto</code></li>
-                    <li>Maximum height is set to <code>90vh</code> for comfortable viewing</li>
                 </ul>
 
-                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">5. Additional Content</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">6. Conclusion</h3>
-                <p>The scrollable modal pattern provides an elegant solution for presenting lengthy content within a modal dialog. By keeping the header and footer fixed, users always have context about what they're viewing and can easily take action without scrolling to the bottom.</p>
-                <p>This implementation works seamlessly with all modal sizes (<code>.modal-sm</code>, default, <code>.modal-lg</code>) and maintains accessibility standards.</p>
+                <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-top: var(--space-6);">5. Conclusion</h3>
+                <p>The scrollable modal pattern provides an elegant solution for presenting lengthy content within a modal dialog.</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-scrollable')">Decline</button>
@@ -486,8 +715,8 @@
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -505,6 +734,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -523,7 +755,8 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY

@@ -109,7 +109,7 @@
                 <div class="demo-nav-title">Intro</div>
                 <ul class="demo-nav-links">
                     <li><a class="demo-nav-link" data-demo-link="landing.html">What it is</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="changelog.html">📝 Changelog</a></li>
+                    <li><a class="demo-nav-link" data-demo-link="changelog.html">Changelog</a></li>
                     <li><a class="demo-nav-link" data-demo-link="accessibility.html">Accessibility</a></li>
                     <li><a class="demo-nav-link" data-demo-link="getting-started.html">Getting started</a></li>
                     <li><a class="demo-nav-link" data-demo-link="contributing.html">Contributing</a></li>

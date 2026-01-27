@@ -6,7 +6,7 @@
     <title>Dialog - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="../aural-ui.css?v=10">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
@@ -69,12 +69,100 @@
             margin-bottom: var(--space-4);
         }
 
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
             top: var(--space-6);
             right: var(--space-6);
             z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
         }
 
         /* Mobile Styles */
@@ -91,6 +179,10 @@
                 font-size: var(--text-base);
             }
 
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
             .theme-toggle {
                 top: var(--space-4);
                 right: var(--space-4);
@@ -103,41 +195,203 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Dialog</h1>
-            <p class="page-description">Modal dialogs for user interactions and confirmations.</p>
+            <p class="page-description">Compact modal dialogs for user interactions, confirmations, and alerts.</p>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Simple Dialog</div>
-            <div class="example-demo">
-                <button class="btn btn-primary" onclick="Aural.openModal('dialog-simple')">Open Dialog</button>
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Simple Dialog</div>
+                <div class="example-demo">
+                    <button class="btn btn-primary" onclick="Aural.openModal('dialog-simple')">Open Dialog</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="dialog-simple"&gt;
+    &lt;div class="modal modal-sm"&gt;
+        &lt;button class="modal-close" aria-label="Close dialog"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;h2 class="modal-title"&gt;Simple Dialog&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;p&gt;Dialog content here.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-primary"&gt;OK&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Confirmation Dialog</div>
+                <div class="example-demo">
+                    <button class="btn btn-secondary" onclick="Aural.openModal('dialog-confirm')">Confirm Action</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="dialog-confirm"&gt;
+    &lt;div class="modal modal-sm"&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;h2 class="modal-title"&gt;Confirm Action&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;p&gt;Are you sure you want to proceed?&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-ghost"&gt;Cancel&lt;/button&gt;
+            &lt;button class="btn btn-primary"&gt;Confirm&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Success Dialog</div>
-            <div class="example-demo">
-                <button class="btn btn-success" onclick="Aural.openModal('dialog-success')">Show Success</button>
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Status Dialogs</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-success" onclick="Aural.openModal('dialog-success')">Success</button>
+                        <button class="btn btn-error" onclick="Aural.openModal('dialog-error')">Error</button>
+                        <button class="btn btn-info" onclick="Aural.openModal('dialog-info')">Info</button>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Success Dialog --&gt;
+&lt;div class="modal modal-sm" style="text-align: center;"&gt;
+    &lt;div style="width: 64px; height: 64px; border-radius: 50%;
+         background: var(--color-success-subtle);
+         display: flex; align-items: center; justify-content: center;
+         color: var(--color-success);"&gt;
+        &lt;i data-lucide="check-circle"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h2&gt;Success!&lt;/h2&gt;
+    &lt;p&gt;Your changes have been saved.&lt;/p&gt;
+    &lt;button class="btn btn-success"&gt;Continue&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Error Dialog --&gt;
+&lt;div class="modal modal-sm" style="text-align: center;"&gt;
+    &lt;div style="background: var(--color-danger-subtle); color: var(--color-danger);"&gt;
+        &lt;i data-lucide="x-circle"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;h2&gt;Error&lt;/h2&gt;
+    &lt;p&gt;An error occurred.&lt;/p&gt;
+    &lt;button class="btn btn-error"&gt;Try Again&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Info Dialog with Icon</div>
+                <div class="example-demo">
+                    <button class="btn btn-info" onclick="Aural.openModal('dialog-info')">Show Info</button>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="modal-overlay" id="dialog-info"&gt;
+    &lt;div class="modal modal-sm"&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;div style="width: 48px; height: 48px; border-radius: 50%;
+                 background: var(--color-info-subtle);
+                 display: flex; align-items: center; justify-content: center;
+                 color: var(--color-info);"&gt;
+                &lt;i data-lucide="info"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;h2 class="modal-title"&gt;Information&lt;/h2&gt;
+                &lt;p class="modal-subtitle"&gt;Important update&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;p&gt;This feature is currently in beta.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-info"&gt;Got it&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Error Dialog</div>
-            <div class="example-demo">
-                <button class="btn btn-error" onclick="Aural.openModal('dialog-error')">Show Error</button>
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Alert Pattern</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                        <button class="btn btn-success" onclick="Aural.openModal('dialog-success')">Success Alert</button>
+                        <button class="btn btn-error" onclick="Aural.openModal('dialog-error')">Error Alert</button>
+                    </div>
+                </div>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Alert dialogs use centered layouts with prominent icons to clearly communicate status. The icon's background color matches the alert type.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Decision Pattern</div>
+                <div class="example-demo">
+                    <button class="btn btn-secondary" onclick="Aural.openModal('dialog-confirm')">Make Decision</button>
+                </div>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Decision dialogs present a clear question with two action buttons. The primary action should be on the right, with secondary/cancel action on the left.</p>
+                </div>
             </div>
         </div>
 
-        <div class="example-container">
-            <div class="example-label">Info Dialog</div>
-            <div class="example-demo">
-                <button class="btn btn-info" onclick="Aural.openModal('dialog-info')">Show Info</button>
-            </div>
-        </div>
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Dialog vs Modal</h3>
+                    <ul>
+                        <li>Dialogs are compact modals for quick interactions</li>
+                        <li>Use dialogs for simple messages, confirmations, and alerts</li>
+                        <li>Use modals for complex forms or detailed content</li>
+                        <li>Dialogs typically use <code>.modal-sm</code> size</li>
+                    </ul>
 
-        <div class="example-container">
-            <div class="example-label">Confirmation Dialog</div>
-            <div class="example-demo">
-                <button class="btn btn-secondary" onclick="Aural.openModal('dialog-confirm')">Confirm Action</button>
+                    <h3>Status Dialogs</h3>
+                    <ul>
+                        <li>Use <code>success</code> for completed actions</li>
+                        <li>Use <code>error</code> for failed operations</li>
+                        <li>Use <code>info</code> for informational messages</li>
+                        <li>Use <code>warning</code> for cautionary notices</li>
+                    </ul>
+
+                    <h3>Button Placement</h3>
+                    <ul>
+                        <li>Single action: Use primary button centered or right-aligned</li>
+                        <li>Two actions: Cancel/secondary on left, primary action on right</li>
+                        <li>Destructive actions: Use <code>.btn-error</code> or <code>.btn-danger</code></li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Always include a way to dismiss the dialog</li>
+                        <li>Use <code>role="alertdialog"</code> for alerts that require acknowledgment</li>
+                        <li>Focus should move to the first interactive element</li>
+                        <li>Escape key should close the dialog</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -251,8 +505,8 @@
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
                 <line x1="12" y1="21" x2="12" y2="23"/>
@@ -270,6 +524,9 @@
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -288,7 +545,8 @@
             isDark = savedTheme === 'dark';
             document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
         }
-    </script>    <!-- Unified Theme Sync -->
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
