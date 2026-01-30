@@ -17,7 +17,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 
 **Key Features:**
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
-- 🌓 **Dark & Light Themes** - Both themes included, seamlessly switchable
+- 🌓 **4 Built-in Themes** - Dark, light, high-contrast, and colorblind-friendly themes included
 - ♿ **Accessibility First** - ~95% WCAG 2.1 AA compliant with comprehensive ARIA support
 - 📦 **61 Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
@@ -159,12 +159,20 @@ Aural.showToast('Operation successful!', 'success');
 
 ### Using Pre-built Themes
 
+Aural UI includes 4 professionally designed themes:
+
 ```html
 <!-- Dark theme (default) -->
 <link rel="stylesheet" href="aural-ui/themes/dark.css">
 
 <!-- Light theme -->
 <link rel="stylesheet" href="aural-ui/themes/light.css">
+
+<!-- High contrast theme -->
+<link rel="stylesheet" href="aural-ui/themes/high-contrast.css">
+
+<!-- Colorblind-friendly theme -->
+<link rel="stylesheet" href="aural-ui/themes/colorblind-friendly.css">
 ```
 
 ### Creating Custom Themes
