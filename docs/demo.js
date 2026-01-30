@@ -137,6 +137,18 @@
                     <li><a class="demo-nav-link" data-demo-link="patterns.html">Common Patterns</a></li>
                 </ul>
             </div>
+
+            <div class="demo-nav-section">
+                <div class="demo-nav-title">Pages</div>
+                <ul class="demo-nav-links">
+                    <li><a class="demo-nav-link" data-demo-link="error-pages/404.html">404 Not Found</a></li>
+                    <li><a class="demo-nav-link" data-demo-link="error-pages/403.html">403 Forbidden</a></li>
+                    <li><a class="demo-nav-link" data-demo-link="error-pages/500.html">500 Server Error</a></li>
+                    <li><a class="demo-nav-link" data-demo-link="error-pages/maintenance.html">Maintenance</a></li>
+                    <li><a class="demo-nav-link" data-demo-link="error-pages/coming-soon.html">Coming Soon</a></li>
+                    <li><a class="demo-nav-link" data-demo-link="theme-detector-demo.html">Theme Detector</a></li>
+                </ul>
+            </div>
         `;
 
         // Add component sections (collapsed by default)
@@ -229,8 +241,8 @@
 
             if (iframeThemeLink) {
                 const iframeSrc = frame.src;
-                const isInComponents = iframeSrc.includes('/components/');
-                const relativePath = isInComponents ? '../' : './';
+                const isInSubdirectory = iframeSrc.includes('/components/') || iframeSrc.includes('/error-pages/');
+                const relativePath = isInSubdirectory ? '../' : './';
 
                 const themeFiles = {
                     'dark': `${relativePath}dark.css`,
