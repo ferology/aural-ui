@@ -169,7 +169,6 @@
                     <li><a class="demo-nav-link" data-demo-link="error-pages/500.html">500 Server Error</a></li>
                     <li><a class="demo-nav-link" data-demo-link="error-pages/maintenance.html">Maintenance</a></li>
                     <li><a class="demo-nav-link" data-demo-link="error-pages/coming-soon.html">Coming Soon</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="theme-detector-demo.html">Theme Detector</a></li>
                 </ul>
             </div>
         `;
