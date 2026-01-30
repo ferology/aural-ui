@@ -44,6 +44,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - **[Design Tokens](docs/tokens.html)** - Visual reference for colors, spacing, typography
 - **[Themes Guide](docs/themes.html)** - Pre-built themes and custom theme creation
 - **[Examples](docs/examples.html)** - Production-ready templates
+- **[Error Pages](docs/error-pages/)** - Accessible, mobile-ready error page templates (404, 403, 500, maintenance, coming soon)
 
 ### Project Organization
 For a detailed overview of the project structure, see **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** which includes:
@@ -435,6 +436,44 @@ Pre-built animations with accessibility support.
 
 <!-- Respects prefers-reduced-motion automatically -->
 ```
+
+### Page Templates
+
+#### Error Pages
+Production-ready, accessible error page templates included:
+
+- **404 Not Found** - Custom styled page not found
+- **403 Forbidden** - Access denied page
+- **500 Server Error** - Internal server error page
+- **Maintenance Mode** - Scheduled maintenance page
+- **Coming Soon** - Launch countdown page
+
+**Features:**
+- ✅ WCAG 2.1 AA compliant
+- ✅ Mobile-optimized with responsive breakpoints (768px, 480px)
+- ✅ Touch-friendly buttons (48×48px minimum)
+- ✅ Theme-aware (works with all 4 themes)
+- ✅ Respects prefers-reduced-motion
+- ✅ High contrast mode support
+- ✅ Semantic HTML with proper ARIA labels
+- ✅ Screen reader tested
+
+**Usage:**
+```html
+<!-- Example: 404 Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="aural-ui.css">
+    <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+    <!-- Ready-to-use error page template -->
+</body>
+</html>
+```
+
+See **[Error Pages Documentation](docs/error-pages/ACCESSIBILITY.md)** for full accessibility and mobile compliance details.
 
 ### Icon Integration
 
