@@ -260,8 +260,16 @@
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
-            const themePath = savedTheme === 'dark' ? relativePath + 'dark.css' : relativePath + 'light.css';
-            
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {
