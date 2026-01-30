@@ -1,0 +1,51 @@
+{
+  "name": "Aural UI Design System",
+  "id": "aural-ui-design-system",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  },
+  "menu": [
+    {
+      "name": "Generate Design System",
+      "command": "generate-all"
+    },
+    {
+      "separator": true
+    },
+    {
+      "name": "Colors",
+      "command": "generate-colors"
+    },
+    {
+      "name": "Typography",
+      "command": "generate-typography"
+    },
+    {
+      "name": "Spacing",
+      "command": "generate-spacing"
+    },
+    {
+      "name": "Shadows & Effects",
+      "command": "generate-effects"
+    },
+    {
+      "separator": true
+    },
+    {
+      "name": "Components",
+      "menu": [
+        { "name": "Buttons", "command": "component-buttons" },
+        { "name": "Inputs", "command": "component-inputs" },
+        { "name": "Cards", "command": "component-cards" },
+        { "name": "Badges", "command": "component-badges" }
+      ]
+    }
+  ]
+}

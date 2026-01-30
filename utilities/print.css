@@ -1,0 +1,352 @@
+/**
+ * AURAL UI - Print Styles
+ *
+ * Optimized styles for printing
+ * Ensures readable, cost-effective prints
+ */
+
+/* ========================================
+   Print Media Query - Base Styles
+   ======================================== */
+
+@media print {
+    /* Remove backgrounds to save ink */
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Optimize page breaks */
+    body {
+        margin: 0;
+        padding: 0;
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    /* Links - show URL after link text */
+    a:link,
+    a:visited {
+        text-decoration: underline;
+        color: #000 !important;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+    }
+
+    /* Don't show links for anchors and javascript */
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    /* Abbreviations - show title */
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /* Headers */
+    h1 {
+        font-size: 24pt;
+        page-break-after: avoid;
+    }
+
+    h2 {
+        font-size: 18pt;
+        page-break-after: avoid;
+    }
+
+    h3 {
+        font-size: 14pt;
+        page-break-after: avoid;
+    }
+
+    h4, h5, h6 {
+        font-size: 12pt;
+        page-break-after: avoid;
+    }
+
+    /* Avoid page breaks */
+    p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+    }
+
+    /* Images */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    /* Tables */
+    table {
+        border-collapse: collapse;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    /* Code blocks */
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+        padding: 0.5rem;
+    }
+
+    /* Hide interactive elements */
+    nav,
+    aside,
+    .no-print,
+    .modal,
+    .modal-overlay,
+    .toast,
+    .snackbar,
+    .tooltip,
+    .dropdown,
+    .popover,
+    button,
+    .btn,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"] {
+        display: none !important;
+    }
+
+    /* Show only main content */
+    .print-only {
+        display: block !important;
+    }
+
+    /* Cards and containers */
+    .card,
+    .alert,
+    .badge {
+        border: 1px solid #ccc !important;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Remove shadows and fancy effects */
+    .shadow,
+    .shadow-sm,
+    .shadow-md,
+    .shadow-lg,
+    .shadow-xl,
+    .shadow-2xl {
+        box-shadow: none !important;
+    }
+
+    /* Ensure contrast for borders */
+    .border,
+    [class*="border-"] {
+        border-color: #000 !important;
+    }
+}
+
+/* ========================================
+   Print Utility Classes
+   ======================================== */
+
+/* Hide on print */
+.print\:hidden {
+    @media print {
+        display: none !important;
+    }
+}
+
+/* Show only on print */
+.print\:block {
+    display: none;
+    @media print {
+        display: block !important;
+    }
+}
+
+.print\:inline {
+    display: none;
+    @media print {
+        display: inline !important;
+    }
+}
+
+.print\:inline-block {
+    display: none;
+    @media print {
+        display: inline-block !important;
+    }
+}
+
+/* Page breaks */
+.print\:break-before {
+    @media print {
+        page-break-before: always;
+    }
+}
+
+.print\:break-after {
+    @media print {
+        page-break-after: always;
+    }
+}
+
+.print\:break-inside-avoid {
+    @media print {
+        page-break-inside: avoid;
+    }
+}
+
+/* Print-specific colors */
+.print\:text-black {
+    @media print {
+        color: #000 !important;
+    }
+}
+
+.print\:border-black {
+    @media print {
+        border-color: #000 !important;
+    }
+}
+
+/* Print-specific spacing */
+.print\:m-0 {
+    @media print {
+        margin: 0 !important;
+    }
+}
+
+.print\:p-0 {
+    @media print {
+        padding: 0 !important;
+    }
+}
+
+.print\:p-1 {
+    @media print {
+        padding: 0.25rem !important;
+    }
+}
+
+.print\:p-2 {
+    @media print {
+        padding: 0.5rem !important;
+    }
+}
+
+/* Print-specific sizing */
+.print\:w-full {
+    @media print {
+        width: 100% !important;
+    }
+}
+
+.print\:w-auto {
+    @media print {
+        width: auto !important;
+    }
+}
+
+/* ========================================
+   Print-Optimized Component Overrides
+   ======================================== */
+
+@media print {
+    /* Tables - ensure they fit on page */
+    .table-responsive,
+    .overflow-auto,
+    .overflow-x-auto {
+        overflow: visible !important;
+    }
+
+    /* Forms - show values not inputs */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="number"],
+    textarea,
+    select {
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    /* Checkboxes and radios */
+    input[type="checkbox"]:checked:before {
+        content: "☑";
+        display: inline-block;
+    }
+
+    input[type="checkbox"]:not(:checked):before {
+        content: "☐";
+        display: inline-block;
+    }
+
+    input[type="radio"]:checked:before {
+        content: "⦿";
+        display: inline-block;
+    }
+
+    input[type="radio"]:not(:checked):before {
+        content: "○";
+        display: inline-block;
+    }
+
+    /* Remove decorative elements */
+    .backdrop-blur,
+    .backdrop-brightness,
+    .backdrop-contrast,
+    .backdrop-grayscale,
+    .backdrop-hue-rotate,
+    .backdrop-invert,
+    .backdrop-opacity,
+    .backdrop-saturate,
+    .backdrop-sepia {
+        backdrop-filter: none !important;
+    }
+
+    .blur,
+    .blur-sm,
+    .blur-md,
+    .blur-lg,
+    .blur-xl {
+        filter: none !important;
+    }
+}
+
+/* ========================================
+   Print Page Setup
+   ======================================== */
+
+@page {
+    margin: 2cm;
+    size: auto;
+}
+
+@page :first {
+    margin-top: 3cm;
+}
+
+@page :left {
+    margin-left: 3cm;
+    margin-right: 2cm;
+}
+
+@page :right {
+    margin-left: 2cm;
+    margin-right: 3cm;
+}

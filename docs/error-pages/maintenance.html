@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Mode | Aural UI</title>
+    <link rel="stylesheet" href="../aural-ui.css">
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-primary);
+        }
+
+        .error-container {
+            max-width: 600px;
+            padding: var(--space-8);
+            text-align: center;
+        }
+
+        .error-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-4) 0;
+        }
+
+        .error-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+
+        .error-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto var(--space-6);
+            color: var(--color-primary);
+            opacity: 0.8;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-4);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-full);
+            color: var(--color-text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-8);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-warning);
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @media (max-width: 768px) {
+            .error-title {
+                font-size: var(--text-2xl);
+            }
+
+            .error-description {
+                font-size: var(--text-base);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-icon">
+            <i data-lucide="wrench" style="width: 100px; height: 100px;"></i>
+        </div>
+
+        <h1 class="error-title">We'll be back soon!</h1>
+
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>Under Maintenance</span>
+        </div>
+
+        <p class="error-description">
+            We're currently performing scheduled maintenance to improve your experience.
+            We should be back up and running in a few hours.
+        </p>
+
+        <p class="error-description">
+            Thank you for your patience!
+        </p>
+    </div>
+
+    <script src="../aural-ui.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Sync theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeFiles = {
+            'dark': '../dark.css',
+            'light': '../light.css',
+            'high-contrast': '../high-contrast.css',
+            'colorblind': '../colorblind-friendly.css'
+        };
+
+        const themeLink = document.getElementById('theme-link');
+        if (themeLink && themeFiles[savedTheme]) {
+            themeLink.href = themeFiles[savedTheme];
+        }
+    </script>
+</body>
+</html>

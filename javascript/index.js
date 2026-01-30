@@ -1,16 +1,41 @@
 /**
  * AURAL UI - JavaScript Utilities
  *
- * Interactive component APIs
+ * A comprehensive JavaScript API for interactive UI components.
+ * Provides accessibility-first implementations for modals, toasts,
+ * tabs, tooltips, dropdowns, accordions, and more.
+ *
+ * @module Aural
+ * @version 1.0.0
+ * @license MIT
+ *
+ * @example
+ * // Show a toast notification
+ * Aural.showToast('File saved successfully', 'success');
+ *
+ * // Open a modal
+ * Aural.openModal('my-modal');
+ *
+ * // Initialize all interactive components
+ * Aural.init();
  */
 
 const Aural = {
     /**
      * Show a toast notification
+     *
+     * Creates an accessible toast notification that auto-dismisses after the
+     * specified duration. Uses ARIA live regions for screen reader support.
+     *
      * @param {string} message - The message to display
-     * @param {string} type - Type: 'success', 'error', 'warning', 'info'
-     * @param {string} title - Optional custom title
-     * @param {number} duration - Auto-dismiss duration in ms (default: 5000)
+     * @param {string} [type='info'] - Type: 'success', 'error', 'warning', 'info'
+     * @param {string|null} [title=null] - Optional custom title (defaults to type name)
+     * @param {number} [duration=5000] - Auto-dismiss duration in ms (0 to disable)
+     * @returns {HTMLElement} The created toast element
+     *
+     * @example
+     * Aural.showToast('Changes saved', 'success');
+     * Aural.showToast('Connection lost', 'error', 'Network Error', 0); // No auto-dismiss
      */
     showToast(message, type = 'info', title = null, duration = 5000) {
         // Create container if it doesn't exist
@@ -82,8 +107,13 @@ const Aural = {
     },
 
     /**
-     * Open a modal
+     * Open a modal dialog
+     *
+     * Opens the specified modal, traps focus inside it, and prevents body scroll.
+     * The modal should have class 'modal-overlay' and will receive class 'open'.
+     *
      * @param {string} modalId - The ID of the modal element
+     * @returns {void}
      */
     openModal(modalId) {
         const modal = document.getElementById(modalId);
@@ -149,11 +179,17 @@ const Aural = {
     },
 
     // ========================================
-    // TABS
+    // TABS - Accessible tabbed interface
+    // Supports keyboard navigation (Arrow keys, Home, End)
     // ========================================
 
     /**
      * Initialize tabs with keyboard navigation
+     *
+     * Sets up click and keyboard handlers for all tab lists on the page.
+     * Supports Arrow keys for navigation, Home/End for first/last tab.
+     *
+     * @returns {void}
      */
     initTabs() {
         document.addEventListener('DOMContentLoaded', () => {
@@ -854,14 +890,32 @@ const Aural = {
     },
 
     // ========================================
-    // CHIPS
+    // CHIPS - Tag/pill input component
+    // Supports keyboard input (Enter, Backspace)
     // ========================================
 
     /**
      * Initialize a chips/tags input component
+     *
+     * Creates an interactive tag input that supports adding/removing tags
+     * via keyboard (Enter to add, Backspace to remove last). Announces
+     * changes to screen readers.
+     *
      * @param {string} chipsId - The ID of the chips container
-     * @param {Object} options - Configuration options
-     * @returns {Object} API with getTags, addTag, clearTags methods
+     * @param {Object} [options={}] - Configuration options
+     * @param {number|null} [options.maxTags=null] - Maximum number of tags allowed
+     * @param {boolean} [options.allowDuplicates=false] - Whether duplicate tags are allowed
+     * @param {Function|null} [options.onAdd=null] - Callback when tag is added
+     * @param {Function|null} [options.onRemove=null] - Callback when tag is removed
+     * @returns {Object|null} API object with getTags(), addTag(text), clearTags() methods
+     *
+     * @example
+     * const chips = Aural.initChips('tag-input', {
+     *   maxTags: 5,
+     *   onAdd: (tag) => console.log('Added:', tag)
+     * });
+     * chips.addTag('JavaScript');
+     * console.log(chips.getTags()); // ['JavaScript']
      */
     initChips(chipsId, options = {}) {
         const chips = document.getElementById(chipsId);
@@ -4758,33 +4812,51 @@ const Aural = {
         return {
             dismiss
         };
+    },
+
+    // ========================================
+    // INITIALIZATION
+    // ========================================
+
+    /**
+     * Initialize all interactive components
+     *
+     * Convenience method to initialize all Aural UI components at once.
+     * Called automatically on DOMContentLoaded, but can be called manually
+     * for dynamically loaded content.
+     *
+     * @returns {void}
+     *
+     * @example
+     * // Re-initialize after dynamic content load
+     * fetch('/api/content').then(() => {
+     *   document.getElementById('container').innerHTML = newContent;
+     *   Aural.init();
+     * });
+     */
+    init() {
+        this.initModals();
+        this.initTabs();
+        this.initTooltips();
+        this.initDropdowns();
+        this.initAccordions();
+        this.initPopovers();
+        this.initSelects();
+        this.initAllCodeBlocks();
+        this.initDrawers();
     }
 };
 
-// Auto-initialize all components when DOM is ready
+// ========================================
+// AUTO-INITIALIZATION
+// Automatically sets up all components when DOM is ready
+// ========================================
+
 if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            Aural.initModals();
-            Aural.initTabs();
-            Aural.initTooltips();
-            Aural.initDropdowns();
-            Aural.initAccordions();
-            Aural.initPopovers();
-            Aural.initSelects();
-            Aural.initAllCodeBlocks();
-            Aural.initDrawers();
-        });
+        document.addEventListener('DOMContentLoaded', () => Aural.init());
     } else {
-        Aural.initModals();
-        Aural.initTabs();
-        Aural.initTooltips();
-        Aural.initDropdowns();
-        Aural.initAccordions();
-        Aural.initPopovers();
-        Aural.initSelects();
-        Aural.initAllCodeBlocks();
-        Aural.initDrawers();
+        Aural.init();
     }
 }
 

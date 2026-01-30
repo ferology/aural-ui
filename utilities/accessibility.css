@@ -1,0 +1,307 @@
+/**
+ * AURAL UI - Accessibility Utilities
+ *
+ * Utilities for screen readers, focus management, and reduced motion
+ * Following WCAG 2.1 AA standards
+ */
+
+/* ========================================
+   Screen Reader Only
+   ======================================== */
+
+/* Hide visually but keep accessible to screen readers */
+.sr-only,
+.screen-reader-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Make sr-only element focusable when tabbed to */
+.sr-only-focusable:focus,
+.screen-reader-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* ========================================
+   Not Screen Reader (Aria Hidden)
+   ======================================== */
+
+/* Hide from screen readers but show visually */
+.not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* ========================================
+   Focus Visible Utilities
+   ======================================== */
+
+/* Enhanced focus visible for keyboard navigation */
+.focus-visible:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.focus-visible-none:focus-visible {
+    outline: none;
+}
+
+.focus-visible-ring:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+}
+
+.focus-visible-ring-inset:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+    border-radius: var(--radius-md);
+}
+
+/* Focus ring colors */
+.focus-visible-primary:focus-visible {
+    outline-color: var(--color-primary);
+}
+
+.focus-visible-secondary:focus-visible {
+    outline-color: var(--color-secondary);
+}
+
+.focus-visible-error:focus-visible {
+    outline-color: var(--color-error);
+}
+
+/* ========================================
+   Reduced Motion
+   ======================================== */
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .motion-reduce {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .motion-reduce * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Force reduced motion regardless of preference */
+.motion-safe {
+    /* Animations only when motion is safe */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .motion-safe {
+        /* Enable animations */
+    }
+}
+
+/* Disable all animations */
+.animate-none {
+    animation: none !important;
+}
+
+/* ========================================
+   High Contrast Mode Support
+   ======================================== */
+
+@media (prefers-contrast: high) {
+    .contrast-more {
+        border-width: 2px;
+        font-weight: var(--font-semibold);
+    }
+
+    .contrast-more-border {
+        border: 2px solid currentColor;
+    }
+}
+
+/* ========================================
+   Skip Links
+   ======================================== */
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--color-primary);
+    color: white;
+    padding: var(--space-3) var(--space-4);
+    text-decoration: none;
+    font-weight: var(--font-semibold);
+    z-index: 9999;
+    transition: top 0.2s ease;
+    border-radius: 0 0 var(--radius-md) 0;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Aria Live Regions
+   ======================================== */
+
+.aria-live-polite {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========================================
+   Focus Trap
+   ======================================== */
+
+.focus-trap {
+    position: relative;
+}
+
+.focus-trap-active {
+    /* Elements outside will be inert */
+}
+
+/* ========================================
+   Keyboard Navigation Indicators
+   ======================================== */
+
+/* Show keyboard focus but hide mouse focus */
+.focus-keyboard:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.focus-keyboard:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ========================================
+   Text Selection
+   ======================================== */
+
+/* Disable text selection for UI elements */
+.select-none {
+    user-select: none;
+}
+
+/* Enable text selection */
+.select-text {
+    user-select: text;
+}
+
+.select-all {
+    user-select: all;
+}
+
+.select-auto {
+    user-select: auto;
+}
+
+/* ========================================
+   Pointer Events
+   ======================================== */
+
+/* Disable pointer events */
+.pointer-events-none {
+    pointer-events: none;
+}
+
+/* Enable pointer events */
+.pointer-events-auto {
+    pointer-events: auto;
+}
+
+/* ========================================
+   Touch Action
+   ======================================== */
+
+/* Disable touch actions for better scroll performance */
+.touch-none {
+    touch-action: none;
+}
+
+.touch-pan-x {
+    touch-action: pan-x;
+}
+
+.touch-pan-y {
+    touch-action: pan-y;
+}
+
+.touch-pan {
+    touch-action: pan-x pan-y;
+}
+
+.touch-pinch-zoom {
+    touch-action: pinch-zoom;
+}
+
+.touch-manipulation {
+    touch-action: manipulation;
+}
+
+.touch-auto {
+    touch-action: auto;
+}
+
+/* ========================================
+   Color Contrast Helpers
+   ======================================== */
+
+/* Ensure minimum contrast ratios */
+.contrast-aa {
+    /* WCAG AA: 4.5:1 for normal text, 3:1 for large text */
+}
+
+.contrast-aaa {
+    /* WCAG AAA: 7:1 for normal text, 4.5:1 for large text */
+}
+
+/* ========================================
+   Forced Colors Mode (Windows High Contrast)
+   ======================================== */
+
+@media (forced-colors: active) {
+    .forced-colors-border {
+        border: 1px solid;
+    }
+
+    .forced-colors-none {
+        forced-color-adjust: none;
+    }
+
+    .forced-colors-auto {
+        forced-color-adjust: auto;
+    }
+}

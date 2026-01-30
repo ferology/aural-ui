@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Server Error | Aural UI</title>
+    <link rel="stylesheet" href="../aural-ui.css">
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-primary);
+        }
+
+        .error-container {
+            max-width: 600px;
+            padding: var(--space-8);
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 120px;
+            font-weight: var(--font-bold);
+            background: linear-gradient(135deg, var(--color-error), var(--color-warning));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .error-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-4) 0;
+        }
+
+        .error-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-8);
+        }
+
+        .error-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-6);
+            color: var(--color-error);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 80px;
+            }
+
+            .error-title {
+                font-size: var(--text-2xl);
+            }
+
+            .error-description {
+                font-size: var(--text-base);
+            }
+
+            .error-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .error-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-icon">
+            <i data-lucide="server-crash" style="width: 80px; height: 80px;"></i>
+        </div>
+
+        <h1 class="error-code">500</h1>
+
+        <h2 class="error-title">Internal Server Error</h2>
+
+        <p class="error-description">
+            Something went wrong on our end. We're working to fix it.
+            Please try again in a few moments.
+        </p>
+
+        <div class="error-actions">
+            <button onclick="location.reload()" class="btn btn-primary btn-lg">
+                <i data-lucide="refresh-cw"></i>
+                Refresh Page
+            </button>
+            <a href="/" class="btn btn-secondary btn-lg">
+                <i data-lucide="home"></i>
+                Go Home
+            </a>
+        </div>
+    </div>
+
+    <script src="../aural-ui.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Sync theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeFiles = {
+            'dark': '../dark.css',
+            'light': '../light.css',
+            'high-contrast': '../high-contrast.css',
+            'colorblind': '../colorblind-friendly.css'
+        };
+
+        const themeLink = document.getElementById('theme-link');
+        if (themeLink && themeFiles[savedTheme]) {
+            themeLink.href = themeFiles[savedTheme];
+        }
+    </script>
+</body>
+</html>

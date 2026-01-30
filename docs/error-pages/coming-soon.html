@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | Aural UI</title>
+    <link rel="stylesheet" href="../aural-ui.css">
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-primary);
+        }
+
+        .error-container {
+            max-width: 600px;
+            padding: var(--space-8);
+            text-align: center;
+        }
+
+        .error-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: var(--space-6) 0 var(--space-4) 0;
+        }
+
+        .error-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-8);
+        }
+
+        .error-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto var(--space-6);
+            color: var(--color-primary);
+            opacity: 0.8;
+        }
+
+        .notify-form {
+            max-width: 400px;
+            margin: 0 auto var(--space-6);
+        }
+
+        .input-group {
+            display: flex;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+
+        .input-group input {
+            flex: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            margin-top: var(--space-8);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            color: var(--color-text-secondary);
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .error-title {
+                font-size: var(--text-2xl);
+            }
+
+            .error-description {
+                font-size: var(--text-base);
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-icon">
+            <i data-lucide="rocket" style="width: 100px; height: 100px;"></i>
+        </div>
+
+        <h1 class="error-title">Coming Soon</h1>
+
+        <p class="error-description">
+            We're working on something awesome! Stay tuned for our launch.
+        </p>
+
+        <div class="notify-form">
+            <div class="input-group">
+                <input type="email" class="input" placeholder="Enter your email" aria-label="Email for notifications">
+                <button class="btn btn-primary">
+                    <i data-lucide="bell"></i>
+                    Notify Me
+                </button>
+            </div>
+            <p style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin: 0;">
+                Get notified when we launch
+            </p>
+        </div>
+
+        <div class="social-links">
+            <a href="#" class="social-link" aria-label="Twitter">
+                <i data-lucide="twitter" style="width: 20px; height: 20px;"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="GitHub">
+                <i data-lucide="github" style="width: 20px; height: 20px;"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="LinkedIn">
+                <i data-lucide="linkedin" style="width: 20px; height: 20px;"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Email">
+                <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="../aural-ui.js"></script>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Sync theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeFiles = {
+            'dark': '../dark.css',
+            'light': '../light.css',
+            'high-contrast': '../high-contrast.css',
+            'colorblind': '../colorblind-friendly.css'
+        };
+
+        const themeLink = document.getElementById('theme-link');
+        if (themeLink && themeFiles[savedTheme]) {
+            themeLink.href = themeFiles[savedTheme];
+        }
+
+        // Handle notify me button
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            const email = document.querySelector('input[type="email"]').value;
+            if (email) {
+                Aural.showToast('Thanks! We\'ll notify you when we launch.', 'success');
+                document.querySelector('input[type="email"]').value = '';
+            } else {
+                Aural.showToast('Please enter your email address', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #1a1a2e;
+      color: #f5f5fa;
+      padding: 16px;
+      font-size: 12px;
+    }
+    .header { text-align: center; margin-bottom: 16px; }
+    .logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px; }
+    .logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #5ebd8f, #4da77a);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2; }
+    .logo-text { font-size: 20px; font-weight: 700; }
+    .subtitle { color: #a0a0b8; font-size: 11px; }
+    .section { margin-bottom: 14px; }
+    .section-title {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.5px; color: #707080; margin-bottom: 8px;
+    }
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .btn-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
+    .btn-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 5px; }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      padding: 8px 6px; border: none; border-radius: 6px;
+      font-size: 10px; font-weight: 500; cursor: pointer; transition: all 0.15s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #5ebd8f, #4da77a);
+      color: white; grid-column: span 2;
+    }
+    .btn-primary:hover { background: linear-gradient(135deg, #71e9bb, #5ebd8f); }
+    .btn-secondary {
+      background: #252540; color: #f5f5fa;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .btn-secondary:hover { background: #35355a; }
+    .btn svg { width: 14px; height: 14px; }
+    .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
+    .scroll-area { max-height: 620px; overflow-y: auto; padding-right: 4px; }
+    .scroll-area::-webkit-scrollbar { width: 4px; }
+    .scroll-area::-webkit-scrollbar-track { background: transparent; }
+    .scroll-area::-webkit-scrollbar-thumb { background: #404060; border-radius: 2px; }
+    .version { text-align: center; color: #50505f; font-size: 10px; margin-top: 12px; }
+    .badge {
+      background: #5ebd8f; color: #1a1a2e; font-size: 9px;
+      padding: 2px 6px; border-radius: 4px; margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 3v18M6 7v10M18 7v10M3 10v4M21 10v4M9 5v14M15 5v14"/></svg>
+      </div>
+      <span class="logo-text">Aural UI</span>
+    </div>
+    <p class="subtitle">Complete Design System Generator <span class="badge">60+</span></p>
+  </div>
+
+  <div class="section">
+    <button class="btn btn-primary" onclick="generate('all')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      Generate Complete Design System
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="scroll-area">
+    <div class="section">
+      <div class="section-title">🎨 Foundations</div>
+      <div class="btn-grid">
+        <button class="btn btn-secondary" onclick="generate('colors')">Colors</button>
+        <button class="btn btn-secondary" onclick="generate('typography')">Typography</button>
+        <button class="btn btn-secondary" onclick="generate('spacing')">Spacing</button>
+        <button class="btn btn-secondary" onclick="generate('effects')">Effects</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📝 Forms & Inputs</div>
+      <div class="btn-grid-4">
+        <button class="btn btn-secondary" onclick="generate('buttons')">Buttons</button>
+        <button class="btn btn-secondary" onclick="generate('icon-buttons')">Icon Btns</button>
+        <button class="btn btn-secondary" onclick="generate('loading-buttons')">Loading</button>
+        <button class="btn btn-secondary" onclick="generate('inputs')">Inputs</button>
+        <button class="btn btn-secondary" onclick="generate('textareas')">Textareas</button>
+        <button class="btn btn-secondary" onclick="generate('checkboxes')">Checkbox</button>
+        <button class="btn btn-secondary" onclick="generate('radio')">Radio</button>
+        <button class="btn btn-secondary" onclick="generate('switches')">Switch</button>
+        <button class="btn btn-secondary" onclick="generate('selects')">Select</button>
+        <button class="btn btn-secondary" onclick="generate('combobox')">Combobox</button>
+        <button class="btn btn-secondary" onclick="generate('multiselect')">Multi Select</button>
+        <button class="btn btn-secondary" onclick="generate('sliders')">Slider</button>
+        <button class="btn btn-secondary" onclick="generate('range-slider')">Range Slider</button>
+        <button class="btn btn-secondary" onclick="generate('rating')">Rating</button>
+        <button class="btn btn-secondary" onclick="generate('search')">Search</button>
+        <button class="btn btn-secondary" onclick="generate('file-upload')">File Upload</button>
+        <button class="btn btn-secondary" onclick="generate('datepicker')">Date Picker</button>
+        <button class="btn btn-secondary" onclick="generate('timepicker')">Time Picker</button>
+        <button class="btn btn-secondary" onclick="generate('colorpicker')">Color Picker</button>
+        <button class="btn btn-secondary" onclick="generate('togglegroup')">Toggle Group</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">📊 Data Display</div>
+      <div class="btn-grid-4">
+        <button class="btn btn-secondary" onclick="generate('badges')">Badges</button>
+        <button class="btn btn-secondary" onclick="generate('cards')">Cards</button>
+        <button class="btn btn-secondary" onclick="generate('tables')">Tables</button>
+        <button class="btn btn-secondary" onclick="generate('progress')">Progress</button>
+        <button class="btn btn-secondary" onclick="generate('avatars')">Avatars</button>
+        <button class="btn btn-secondary" onclick="generate('avatar-groups')">Av Groups</button>
+        <button class="btn btn-secondary" onclick="generate('tooltips')">Tooltips</button>
+        <button class="btn btn-secondary" onclick="generate('chips')">Chips</button>
+        <button class="btn btn-secondary" onclick="generate('spinner')">Spinner</button>
+        <button class="btn btn-secondary" onclick="generate('skeleton')">Skeleton</button>
+        <button class="btn btn-secondary" onclick="generate('timeline')">Timeline</button>
+        <button class="btn btn-secondary" onclick="generate('stats')">Stats</button>
+        <button class="btn btn-secondary" onclick="generate('calendar')">Calendar</button>
+        <button class="btn btn-secondary" onclick="generate('dividers')">Dividers</button>
+        <button class="btn btn-secondary" onclick="generate('codeblock')">Code Block</button>
+        <button class="btn btn-secondary" onclick="generate('emptystate')">Empty State</button>
+        <button class="btn btn-secondary" onclick="generate('imagegallery')">Gallery</button>
+        <button class="btn btn-secondary" onclick="generate('carousel')">Carousel</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">🧭 Navigation</div>
+      <div class="btn-grid-3">
+        <button class="btn btn-secondary" onclick="generate('navbar')">Navbar</button>
+        <button class="btn btn-secondary" onclick="generate('bottomnav')">Bottom Nav</button>
+        <button class="btn btn-secondary" onclick="generate('tabs')">Tabs</button>
+        <button class="btn btn-secondary" onclick="generate('breadcrumbs')">Breadcrumbs</button>
+        <button class="btn btn-secondary" onclick="generate('pagination')">Pagination</button>
+        <button class="btn btn-secondary" onclick="generate('accordion')">Accordion</button>
+        <button class="btn btn-secondary" onclick="generate('stepper')">Stepper</button>
+        <button class="btn btn-secondary" onclick="generate('treeview')">Tree View</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">💬 Overlays & Feedback</div>
+      <div class="btn-grid-3">
+        <button class="btn btn-secondary" onclick="generate('modals')">Modals</button>
+        <button class="btn btn-secondary" onclick="generate('dialog')">Dialog</button>
+        <button class="btn btn-secondary" onclick="generate('toasts')">Toasts</button>
+        <button class="btn btn-secondary" onclick="generate('snackbar')">Snackbar</button>
+        <button class="btn btn-secondary" onclick="generate('drawer')">Drawer</button>
+        <button class="btn btn-secondary" onclick="generate('alerts')">Alerts</button>
+        <button class="btn btn-secondary" onclick="generate('popovers')">Popovers</button>
+        <button class="btn btn-secondary" onclick="generate('dropdowns')">Dropdowns</button>
+        <button class="btn btn-secondary" onclick="generate('contextmenu')">Context Menu</button>
+        <button class="btn btn-secondary" onclick="generate('commandpalette')">Cmd Palette</button>
+        <button class="btn btn-secondary" onclick="generate('notifications')">Notif Center</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="version">Aural UI v1.0.0 • Matches CSS Library</p>
+
+  <script>
+    function generate(type) {
+      parent.postMessage({ pluginMessage: { type: `generate-${type}` } }, '*');
+    }
+  </script>
+</body>
+</html>
