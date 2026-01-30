@@ -17,10 +17,13 @@
             align-items: center;
             justify-content: center;
             background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            font-family: var(--font-sans);
         }
 
         .error-container {
             max-width: 600px;
+            width: 100%;
             padding: var(--space-8);
             text-align: center;
         }
@@ -35,11 +38,21 @@
             margin: var(--space-6) 0 var(--space-4) 0;
         }
 
+        /* Fallback for browsers that don't support background-clip */
+        @supports not (-webkit-background-clip: text) {
+            .error-title {
+                color: var(--color-primary);
+            }
+        }
+
         .error-description {
             font-size: var(--text-lg);
             color: var(--color-text-secondary);
-            line-height: 1.6;
+            line-height: var(--leading-relaxed);
             margin-bottom: var(--space-8);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .error-icon {
@@ -48,6 +61,19 @@
             margin: 0 auto var(--space-6);
             color: var(--color-primary);
             opacity: 0.8;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .error-icon {
+                animation: none;
+            }
         }
 
         .notify-form {
@@ -78,6 +104,7 @@
             justify-content: center;
             width: 48px;
             height: 48px;
+            min-height: 48px; /* Better touch target */
             border-radius: var(--radius-full);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border-subtle);
@@ -93,7 +120,17 @@
             transform: translateY(-2px);
         }
 
+        .social-link:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        /* Mobile optimizations */
         @media (max-width: 768px) {
+            .error-container {
+                padding: var(--space-6) var(--space-4);
+            }
+
             .error-title {
                 font-size: var(--text-2xl);
             }
@@ -105,16 +142,68 @@
             .input-group {
                 flex-direction: column;
             }
+
+            .input-group .btn {
+                width: 100%;
+                min-height: 48px; /* Better touch target */
+            }
+
+            .error-icon {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .error-title {
+                font-size: var(--text-xl);
+            }
+
+            .error-description {
+                font-size: var(--text-sm);
+            }
+
+            .error-icon {
+                width: 64px;
+                height: 64px;
+            }
+
+            .social-links {
+                gap: var(--space-3);
+            }
+
+            .social-link {
+                width: 44px;
+                height: 44px;
+                min-height: 44px;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .error-title {
+                border-bottom: 3px solid var(--color-primary);
+            }
+            
+            .social-link {
+                border-width: 2px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="error-container">
-        <div class="error-icon">
-            <i data-lucide="rocket" style="width: 100px; height: 100px;"></i>
+    <!-- Skip to main content for keyboard users -->
+    <a href="#main-content" class="skip-link sr-only sr-only-focusable">
+        Skip to main content
+    </a>
+
+    <main id="main-content" class="error-container" role="main" aria-labelledby="error-title">
+        <div class="error-icon" role="img" aria-label="Rocket launch icon">
+            <i data-lucide="rocket" style="width: 100px; height: 100px;" aria-hidden="true"></i>
         </div>
 
-        <h1 class="error-title">Coming Soon</h1>
+        <h1 id="error-title" class="error-title">Coming Soon</h1>
 
         <p class="error-description">
             We're working on something awesome! Stay tuned for our launch.
@@ -122,10 +211,20 @@
 
         <div class="notify-form">
             <div class="input-group">
-                <input type="email" class="input" placeholder="Enter your email" aria-label="Email for notifications">
-                <button class="btn btn-primary">
-                    <i data-lucide="bell"></i>
-                    Notify Me
+                <input 
+                    type="email" 
+                    class="input" 
+                    placeholder="Enter your email" 
+                    aria-label="Email address for launch notifications"
+                    id="notify-email"
+                >
+                <button 
+                    class="btn btn-primary" 
+                    aria-label="Subscribe to launch notifications"
+                    onclick="handleNotify()"
+                >
+                    <i data-lucide="bell" aria-hidden="true"></i>
+                    <span>Notify Me</span>
                 </button>
             </div>
             <p style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin: 0;">
@@ -133,21 +232,21 @@
             </p>
         </div>
 
-        <div class="social-links">
-            <a href="#" class="social-link" aria-label="Twitter">
-                <i data-lucide="twitter" style="width: 20px; height: 20px;"></i>
+        <nav class="social-links" aria-label="Social media links">
+            <a href="#" class="social-link" aria-label="Follow us on Twitter">
+                <i data-lucide="twitter" style="width: 20px; height: 20px;" aria-hidden="true"></i>
             </a>
-            <a href="#" class="social-link" aria-label="GitHub">
-                <i data-lucide="github" style="width: 20px; height: 20px;"></i>
+            <a href="#" class="social-link" aria-label="View our GitHub repository">
+                <i data-lucide="github" style="width: 20px; height: 20px;" aria-hidden="true"></i>
             </a>
-            <a href="#" class="social-link" aria-label="LinkedIn">
-                <i data-lucide="linkedin" style="width: 20px; height: 20px;"></i>
+            <a href="#" class="social-link" aria-label="Connect on LinkedIn">
+                <i data-lucide="linkedin" style="width: 20px; height: 20px;" aria-hidden="true"></i>
             </a>
-            <a href="#" class="social-link" aria-label="Email">
-                <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+            <a href="#" class="social-link" aria-label="Contact us via email">
+                <i data-lucide="mail" style="width: 20px; height: 20px;" aria-hidden="true"></i>
             </a>
-        </div>
-    </div>
+        </nav>
+    </main>
 
     <script src="../aural-ui.js"></script>
     <script>
@@ -170,13 +269,22 @@
         }
 
         // Handle notify me button
-        document.querySelector('.btn-primary').addEventListener('click', function() {
-            const email = document.querySelector('input[type="email"]').value;
-            if (email) {
+        function handleNotify() {
+            const emailInput = document.getElementById('notify-email');
+            const email = emailInput.value;
+            
+            if (email && email.includes('@')) {
                 Aural.showToast('Thanks! We\'ll notify you when we launch.', 'success');
-                document.querySelector('input[type="email"]').value = '';
+                emailInput.value = '';
             } else {
-                Aural.showToast('Please enter your email address', 'error');
+                Aural.showToast('Please enter a valid email address', 'error');
+            }
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('notify-email').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleNotify();
             }
         });
     </script>

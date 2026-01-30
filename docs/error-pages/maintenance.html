@@ -17,10 +17,13 @@
             align-items: center;
             justify-content: center;
             background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            font-family: var(--font-sans);
         }
 
         .error-container {
             max-width: 600px;
+            width: 100%;
             padding: var(--space-8);
             text-align: center;
         }
@@ -35,8 +38,11 @@
         .error-description {
             font-size: var(--text-lg);
             color: var(--color-text-secondary);
-            line-height: 1.6;
+            line-height: var(--leading-relaxed);
             margin-bottom: var(--space-4);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .error-icon {
@@ -51,6 +57,16 @@
         @keyframes pulse {
             0%, 100% { opacity: 0.8; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .error-icon {
+                animation: none;
+            }
+            .status-dot {
+                animation: none;
+            }
         }
 
         .status-badge {
@@ -79,7 +95,12 @@
             50% { opacity: 0.3; }
         }
 
+        /* Mobile optimizations */
         @media (max-width: 768px) {
+            .error-container {
+                padding: var(--space-6) var(--space-4);
+            }
+
             .error-title {
                 font-size: var(--text-2xl);
             }
@@ -87,19 +108,52 @@
             .error-description {
                 font-size: var(--text-base);
             }
+
+            .error-icon {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .error-title {
+                font-size: var(--text-xl);
+            }
+
+            .error-description {
+                font-size: var(--text-sm);
+            }
+
+            .error-icon {
+                width: 64px;
+                height: 64px;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .status-badge {
+                border-width: 2px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="error-container">
-        <div class="error-icon">
-            <i data-lucide="wrench" style="width: 100px; height: 100px;"></i>
+    <!-- Skip to main content for keyboard users -->
+    <a href="#main-content" class="skip-link sr-only sr-only-focusable">
+        Skip to main content
+    </a>
+
+    <main id="main-content" class="error-container" role="main" aria-labelledby="error-title">
+        <div class="error-icon" role="img" aria-label="Maintenance icon">
+            <i data-lucide="wrench" style="width: 100px; height: 100px;" aria-hidden="true"></i>
         </div>
 
-        <h1 class="error-title">We'll be back soon!</h1>
+        <h1 id="error-title" class="error-title">We'll be back soon!</h1>
 
-        <div class="status-badge">
-            <span class="status-dot"></span>
+        <div class="status-badge" role="status" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
             <span>Under Maintenance</span>
         </div>
 
@@ -111,7 +165,7 @@
         <p class="error-description">
             Thank you for your patience!
         </p>
-    </div>
+    </main>
 
     <script src="../aural-ui.js"></script>
     <script>

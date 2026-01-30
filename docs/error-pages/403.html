@@ -17,10 +17,13 @@
             align-items: center;
             justify-content: center;
             background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            font-family: var(--font-sans);
         }
 
         .error-container {
             max-width: 600px;
+            width: 100%;
             padding: var(--space-8);
             text-align: center;
         }
@@ -36,6 +39,13 @@
             line-height: 1;
         }
 
+        /* Fallback for browsers that don't support background-clip */
+        @supports not (-webkit-background-clip: text) {
+            .error-code {
+                color: var(--color-warning);
+            }
+        }
+
         .error-title {
             font-size: var(--text-3xl);
             font-weight: var(--font-bold);
@@ -46,8 +56,11 @@
         .error-description {
             font-size: var(--text-lg);
             color: var(--color-text-secondary);
-            line-height: 1.6;
+            line-height: var(--leading-relaxed);
             margin-bottom: var(--space-8);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .error-actions {
@@ -63,9 +76,28 @@
             margin: 0 auto var(--space-6);
             color: var(--color-warning);
             opacity: 0.8;
+            animation: shake 3s ease-in-out infinite;
         }
 
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .error-icon {
+                animation: none;
+            }
+        }
+
+        /* Mobile optimizations */
         @media (max-width: 768px) {
+            .error-container {
+                padding: var(--space-6) var(--space-4);
+            }
+
             .error-code {
                 font-size: 80px;
             }
@@ -85,36 +117,69 @@
 
             .error-actions .btn {
                 width: 100%;
+                min-height: 48px; /* Better touch target */
+            }
+
+            .error-icon {
+                width: 64px;
+                height: 64px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .error-code {
+                font-size: 64px;
+            }
+
+            .error-title {
+                font-size: var(--text-xl);
+            }
+
+            .error-description {
+                font-size: var(--text-sm);
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .error-code {
+                border-bottom: 3px solid var(--color-warning);
             }
         }
     </style>
 </head>
 <body>
-    <div class="error-container">
-        <div class="error-icon">
-            <i data-lucide="shield-alert" style="width: 80px; height: 80px;"></i>
+    <!-- Skip to main content for keyboard users -->
+    <a href="#main-content" class="skip-link sr-only sr-only-focusable">
+        Skip to main content
+    </a>
+
+    <main id="main-content" class="error-container" role="main" aria-labelledby="error-title">
+        <div class="error-icon" role="img" aria-label="Access forbidden icon">
+            <i data-lucide="shield-alert" style="width: 80px; height: 80px;" aria-hidden="true"></i>
         </div>
 
-        <h1 class="error-code">403</h1>
+        <h1 class="error-code" aria-label="Error code 403">403</h1>
 
-        <h2 class="error-title">Access Forbidden</h2>
+        <h2 id="error-title" class="error-title">Access Forbidden</h2>
 
         <p class="error-description">
             You don't have permission to access this page.
             If you believe this is an error, please contact support.
         </p>
 
-        <div class="error-actions">
-            <a href="/" class="btn btn-primary btn-lg">
-                <i data-lucide="home"></i>
-                Go Home
+        <nav class="error-actions" aria-label="Error page navigation">
+            <a href="/" class="btn btn-primary btn-lg" aria-label="Go to home page">
+                <i data-lucide="home" aria-hidden="true"></i>
+                <span>Go Home</span>
             </a>
-            <button onclick="history.back()" class="btn btn-secondary btn-lg">
-                <i data-lucide="arrow-left"></i>
-                Go Back
+            <button onclick="history.back()" class="btn btn-secondary btn-lg" aria-label="Go to previous page">
+                <i data-lucide="arrow-left" aria-hidden="true"></i>
+                <span>Go Back</span>
             </button>
-        </div>
-    </div>
+        </nav>
+    </main>
 
     <script src="../aural-ui.js"></script>
     <script>
