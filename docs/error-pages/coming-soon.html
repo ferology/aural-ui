@@ -111,6 +111,9 @@
             color: var(--color-text-secondary);
             transition: all 0.2s ease;
             text-decoration: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: inherit;
         }
 
         .social-link:hover {
@@ -218,10 +221,9 @@
                     aria-label="Email address for launch notifications"
                     id="notify-email"
                 >
-                <button 
-                    class="btn btn-primary" 
+                <button
+                    class="btn btn-primary"
                     aria-label="Subscribe to launch notifications"
-                    onclick="handleNotify()"
                 >
                     <i data-lucide="bell" aria-hidden="true"></i>
                     <span>Notify Me</span>
@@ -233,18 +235,18 @@
         </div>
 
         <nav class="social-links" aria-label="Social media links">
-            <a href="#" class="social-link" aria-label="Follow us on Twitter">
+            <button class="social-link" aria-label="Follow us on Twitter">
                 <i data-lucide="twitter" style="width: 20px; height: 20px;" aria-hidden="true"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="View our GitHub repository">
+            </button>
+            <button class="social-link" aria-label="View our GitHub repository">
                 <i data-lucide="github" style="width: 20px; height: 20px;" aria-hidden="true"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="Connect on LinkedIn">
+            </button>
+            <button class="social-link" aria-label="Connect on LinkedIn">
                 <i data-lucide="linkedin" style="width: 20px; height: 20px;" aria-hidden="true"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="Contact us via email">
+            </button>
+            <button class="social-link" aria-label="Contact us via email">
                 <i data-lucide="mail" style="width: 20px; height: 20px;" aria-hidden="true"></i>
-            </a>
+            </button>
         </nav>
     </main>
 
@@ -268,25 +270,7 @@
             themeLink.href = themeFiles[savedTheme];
         }
 
-        // Handle notify me button
-        function handleNotify() {
-            const emailInput = document.getElementById('notify-email');
-            const email = emailInput.value;
-            
-            if (email && email.includes('@')) {
-                Aural.showToast('Thanks! We\'ll notify you when we launch.', 'success');
-                emailInput.value = '';
-            } else {
-                Aural.showToast('Please enter a valid email address', 'error');
-            }
-        }
-
-        // Allow Enter key to submit
-        document.getElementById('notify-email').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                handleNotify();
-            }
-        });
+        // Demo only - no functionality needed
     </script>
 </body>
 </html>
