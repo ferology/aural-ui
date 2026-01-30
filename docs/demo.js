@@ -1,12 +1,22 @@
 /**
  * Aural UI Demo Navigation System
- * Simple iframe-based navigation with persistent sidebar
+ *
+ * Provides iframe-based navigation with a persistent sidebar for the
+ * documentation site. Handles theme switching, component search, and
+ * mobile responsive navigation.
+ *
+ * @module DemoNavigation
+ * @version 1.0.0
  */
 
 (function() {
     'use strict';
 
-    // Component list (only files that actually exist)
+    // ========================================
+    // COMPONENT REGISTRY
+    // Maps component categories to their demo files
+    // ========================================
+
     const COMPONENTS = {
         'Forms & Inputs': [
             { name: 'Buttons', file: 'buttons.html' },

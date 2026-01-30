@@ -535,5 +535,26 @@
 
     <script src="aural-ui.js"></script>
     <script src="demo.js"></script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        const themeFiles = {
+            'dark': 'dark.css',
+            'light': 'light.css',
+            'high-contrast': 'high-contrast.css',
+            'colorblind': 'colorblind-friendly.css'
+        };
+
+        if (themeLink && themeFiles[savedTheme]) {
+            themeLink.href = themeFiles[savedTheme];
+            console.log('Demo: Applied theme from localStorage:', savedTheme);
+        }
+    })();
+    </script>
 </body>
 </html>
