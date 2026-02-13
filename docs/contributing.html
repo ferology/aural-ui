@@ -100,6 +100,94 @@
             padding: 0;
         }
 
+        /* Contribution List */
+        .contribution-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-5);
+            margin: var(--space-6) 0;
+            list-style: none;
+            padding: 0;
+        }
+
+        .contribution-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+        }
+
+        .contribution-list i {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            color: var(--color-primary);
+            margin-top: 2px;
+        }
+
+        .contribution-list strong {
+            display: block;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-1);
+            font-size: var(--text-base);
+        }
+
+        .contribution-list span {
+            color: var(--color-text-secondary);
+            font-size: var(--text-sm);
+            line-height: 1.5;
+        }
+
+        /* Step List */
+        .step-list {
+            display: grid;
+            gap: var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .step-list li {
+            list-style: none;
+        }
+
+        .step-list li strong {
+            display: block;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-base);
+        }
+
+        .step-list li > p {
+            margin: 0;
+            color: var(--color-text-secondary);
+        }
+
+        .step-list pre {
+            margin-top: var(--space-3);
+        }
+
+        .step-list ul {
+            margin-top: var(--space-3);
+        }
+
+        /* Guidelines */
+        .guidelines-section {
+            margin: var(--space-6) 0;
+        }
+
+        .guidelines-section > div {
+            margin-bottom: var(--space-6);
+        }
+
+        .guidelines-section strong {
+            display: block;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-3);
+            font-size: var(--text-base);
+        }
+
+        .guidelines-section ul {
+            margin: 0;
+        }
+
         .info-box {
             background: var(--color-bg-secondary);
             border-left: 4px solid var(--color-primary);
@@ -150,6 +238,10 @@
                 font-size: var(--text-xl);
             }
 
+            .contribution-list {
+                grid-template-columns: 1fr;
+            }
+
             .theme-toggle {
                 top: var(--space-4);
                 right: var(--space-4);
@@ -167,76 +259,108 @@
 
         <section class="content-section">
             <h2 class="section-title">Ways to Contribute</h2>
-            <div class="section-content">
-                <ul>
-                    <li><strong>Code Contributions</strong> - Add new components, fix bugs, or improve existing CSS</li>
-                    <li><strong>Design Contributions</strong> - Create new themes or improve existing design tokens</li>
-                    <li><strong>Documentation</strong> - Improve guides, add examples, or fix typos</li>
-                    <li><strong>Bug Reports</strong> - Report issues or suggest improvements</li>
-                </ul>
-            </div>
+            <ul class="contribution-list">
+                <li>
+                    <i data-lucide="code"></i>
+                    <div>
+                        <strong>Code Contributions</strong>
+                        <span>Add new components, fix bugs, or improve existing CSS</span>
+                    </div>
+                </li>
+
+                <li>
+                    <i data-lucide="palette"></i>
+                    <div>
+                        <strong>Design Contributions</strong>
+                        <span>Create new themes or improve existing design tokens</span>
+                    </div>
+                </li>
+
+                <li>
+                    <i data-lucide="book-open"></i>
+                    <div>
+                        <strong>Documentation</strong>
+                        <span>Improve guides, add examples, or fix typos</span>
+                    </div>
+                </li>
+
+                <li>
+                    <i data-lucide="bug"></i>
+                    <div>
+                        <strong>Bug Reports</strong>
+                        <span>Report issues or suggest improvements</span>
+                    </div>
+                </li>
+            </ul>
         </section>
 
         <section class="content-section">
             <h2 class="section-title">Getting Started</h2>
-            <div class="section-content">
-                <ol>
-                    <li>
-                        <strong>Fork and Clone</strong>
-                        <pre><code>git clone https://github.com/your-username/aural-ui.git
+            <ol class="step-list">
+                <li>
+                    <strong>Fork and Clone</strong>
+                    <pre><code>git clone https://github.com/your-username/aural-ui.git
 cd aural-ui
 git checkout -b feature/my-new-feature</code></pre>
-                    </li>
-                    <li>
-                        <strong>Make Your Changes</strong>
-                        <p>Follow our coding standards and design principles when making changes.</p>
-                    </li>
-                    <li>
-                        <strong>Test Thoroughly</strong>
-                        <ul>
-                            <li>Test your changes in all supported browsers</li>
-                            <li>Verify all themes work correctly</li>
-                            <li>Check accessibility with screen readers</li>
-                            <li>Ensure responsive behavior on mobile devices</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>Submit a Pull Request</strong>
-                        <p>Open a pull request with a clear description of your changes and why they're needed.</p>
-                    </li>
-                </ol>
-            </div>
+                </li>
+
+                <li>
+                    <strong>Make Your Changes</strong>
+                    <p>Follow our coding standards and design principles when making changes.</p>
+                </li>
+
+                <li>
+                    <strong>Test Thoroughly</strong>
+                    <ul>
+                        <li>Test your changes in all supported browsers</li>
+                        <li>Verify all themes work correctly</li>
+                        <li>Check accessibility with screen readers</li>
+                        <li>Ensure responsive behavior on mobile devices</li>
+                    </ul>
+                </li>
+
+                <li>
+                    <strong>Submit a Pull Request</strong>
+                    <p>Open a pull request with a clear description of your changes and why they're needed.</p>
+                </li>
+            </ol>
         </section>
 
         <section class="content-section">
             <h2 class="section-title">Code Contribution Guidelines</h2>
-            <div class="section-content">
-                <p><strong>CSS Standards</strong></p>
-                <ul>
-                    <li><strong>Use CSS Custom Properties:</strong> All colors, spacing, and typography should use design tokens</li>
-                    <li><strong>Mobile-First:</strong> Write mobile styles first, then add desktop overrides with media queries</li>
-                    <li><strong>BEM Naming:</strong> Follow BEM methodology for class names (e.g., <code>.btn__icon--primary</code>)</li>
-                    <li><strong>Consistent Spacing:</strong> Use the spacing scale (<code>--space-*</code>) for all padding and margins</li>
-                    <li><strong>Semantic Classes:</strong> Class names should describe purpose, not appearance</li>
-                </ul>
+            <div class="guidelines-section">
+                <div>
+                    <strong>CSS Standards</strong>
+                    <ul>
+                        <li><strong>Use CSS Custom Properties:</strong> All colors, spacing, and typography should use design tokens</li>
+                        <li><strong>Mobile-First:</strong> Write mobile styles first, then add desktop overrides with media queries</li>
+                        <li><strong>BEM Naming:</strong> Follow BEM methodology for class names (e.g., <code>.btn__icon--primary</code>)</li>
+                        <li><strong>Consistent Spacing:</strong> Use the spacing scale (<code>--space-*</code>) for all padding and margins</li>
+                        <li><strong>Semantic Classes:</strong> Class names should describe purpose, not appearance</li>
+                    </ul>
+                </div>
 
-                <p><strong>Accessibility Requirements</strong></p>
-                <ul>
-                    <li>Ensure all color combinations meet WCAG AA contrast ratios (4.5:1 for text)</li>
-                    <li>Provide clear focus states for all interactive elements</li>
-                    <li>Use semantic HTML when adding component examples</li>
-                    <li>Include ARIA attributes in documentation examples</li>
-                    <li>Test with keyboard navigation</li>
-                </ul>
+                <div>
+                    <strong>Accessibility Requirements</strong>
+                    <ul>
+                        <li>Ensure all color combinations meet WCAG AA contrast ratios (4.5:1 for text)</li>
+                        <li>Provide clear focus states for all interactive elements</li>
+                        <li>Use semantic HTML when adding component examples</li>
+                        <li>Include ARIA attributes in documentation examples</li>
+                        <li>Test with keyboard navigation</li>
+                    </ul>
+                </div>
 
-                <p><strong>Browser Support</strong></p>
-                <ul>
-                    <li>Chrome/Edge (last 2 versions)</li>
-                    <li>Firefox (last 2 versions)</li>
-                    <li>Safari (last 2 versions)</li>
-                    <li>Mobile Safari (iOS 14+)</li>
-                    <li>Chrome Android (last 2 versions)</li>
-                </ul>
+                <div>
+                    <strong>Browser Support</strong>
+                    <ul>
+                        <li>Chrome/Edge (last 2 versions)</li>
+                        <li>Firefox (last 2 versions)</li>
+                        <li>Safari (last 2 versions)</li>
+                        <li>Mobile Safari (iOS 14+)</li>
+                        <li>Chrome Android (last 2 versions)</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
