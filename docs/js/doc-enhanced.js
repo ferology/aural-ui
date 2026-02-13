@@ -147,44 +147,6 @@
     }
 
     // ========================================
-    // SCROLL TO TOP BUTTON
-    // ========================================
-
-    function initScrollToTop() {
-        // Create button if doesn't exist
-        let scrollBtn = document.querySelector('.scroll-to-top');
-
-        if (!scrollBtn) {
-            scrollBtn = document.createElement('button');
-            scrollBtn.className = 'scroll-to-top';
-            scrollBtn.setAttribute('aria-label', 'Scroll to top');
-            scrollBtn.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="18 15 12 9 6 15"></polyline>
-                </svg>
-            `;
-            document.body.appendChild(scrollBtn);
-        }
-
-        // Show/hide based on scroll position
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                scrollBtn.classList.add('visible');
-            } else {
-                scrollBtn.classList.remove('visible');
-            }
-        });
-
-        // Scroll to top on click
-        scrollBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-
-    // ========================================
     // SMOOTH SCROLL FOR ANCHOR LINKS
     // ========================================
 
@@ -309,7 +271,6 @@
         // Initialize features
         initScrollSpy();
         initCodeCopy();
-        initScrollToTop();
         initSmoothScroll();
         enhanceAPIMethods();
         initAnimateOnScroll();
