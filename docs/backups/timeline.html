@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Example Container */
+        .example-container {
+            margin-bottom: var(--space-8);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-3);
+        }
+
+        .example-demo {
+            padding: var(--space-6);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* ========================================
+           Accessibility Utilities
+           ======================================== */
+
+        /* Screen reader only text */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Reset list styles for semantic timelines */
+        .aural-timeline {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .aural-timeline__item {
+            list-style: none;
+        }
+
+        /* Reset heading styles within timeline */
+        .aural-timeline__title {
+            all: unset;
+            display: block;
+        }
+
+        /* Reset paragraph styles within timeline */
+        .aural-timeline__description {
+            all: unset;
+            display: block;
+        }
+
+        /* ========================================
+           Timeline Variants - Consistent Spacing
+           ======================================== */
+
+        /* Modern Timeline: Card-based with time labels */
+        .timeline-modern {
+            flex-direction: column;
+            gap: var(--space-5);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-modern .aural-timeline__item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: var(--space-5);
+            align-items: start;
+            padding-bottom: 0;
+        }
+
+        .timeline-modern .aural-timeline__item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-modern .aural-timeline__marker,
+        .timeline-modern .aural-timeline__connector {
+            display: none;
+        }
+
+        .timeline-modern .aural-timeline__time {
+            text-align: right;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--color-text-secondary);
+            padding-top: var(--space-4);
+            line-height: 1.4;
+        }
+
+        .timeline-modern .aural-timeline__content {
+            position: relative;
+            padding: var(--space-5);
+            background: var(--color-bg-primary);
+            border-left: 3px solid var(--color-border-default);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        .timeline-modern .aural-timeline__item--completed .aural-timeline__content {
+            border-left-color: var(--color-success);
+        }
+
+        .timeline-modern .aural-timeline__item--active .aural-timeline__content {
+            border-left-color: var(--color-primary);
+            background: var(--color-bg-secondary);
+        }
+
+        .timeline-modern .aural-timeline__item--warning .aural-timeline__content {
+            border-left-color: var(--color-warning);
+        }
+
+        .timeline-modern .aural-timeline__item--error .aural-timeline__content {
+            border-left-color: var(--color-error);
+        }
+
+        .timeline-modern .aural-timeline__title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-2) 0;
+            line-height: 1.3;
+        }
+
+        .timeline-modern .aural-timeline__description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Horizontal Timeline: Step-by-step process */
+        .timeline-horizontal {
+            display: flex;
+            gap: var(--space-4);
+            overflow-x: auto;
+            padding: var(--space-4) 0;
+            scroll-padding: var(--space-4);
+        }
+
+        .timeline-horizontal .aural-timeline__item {
+            flex: 0 0 240px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 0;
+        }
+
+        .timeline-horizontal .aural-timeline__marker {
+            position: relative;
+            margin: 0 auto var(--space-3);
+            z-index: 2;
+        }
+
+        .timeline-horizontal .aural-timeline__connector {
+            position: absolute;
+            top: 16px;
+            left: calc(50% + 16px);
+            width: calc(100% + var(--space-4) - 32px);
+            height: 2px;
+        }
+
+        .timeline-horizontal .aural-timeline__item:last-child .aural-timeline__connector {
+            display: none;
+        }
+
+        .timeline-horizontal .aural-timeline__content {
+            text-align: center;
+        }
+
+        .timeline-horizontal .aural-timeline__time {
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            color: var(--color-text-tertiary);
+            margin-bottom: var(--space-2);
+        }
+
+        .timeline-horizontal .aural-timeline__title {
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-2) 0;
+            line-height: 1.3;
+        }
+
+        .timeline-horizontal .aural-timeline__description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Compact Timeline: Activity feed style */
+        .timeline-compact {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .timeline-compact .aural-timeline__item {
+            position: relative;
+            padding-left: var(--space-8);
+            padding-bottom: var(--space-5);
+        }
+
+        .timeline-compact .aural-timeline__item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-compact .aural-timeline__marker {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            min-width: 10px;
+            min-height: 10px;
+        }
+
+        .timeline-compact .aural-timeline__connector {
+            position: absolute;
+            left: 4px;
+            top: 14px;
+            bottom: calc(-1 * var(--space-5));
+            width: 2px;
+        }
+
+        .timeline-compact .aural-timeline__item:last-child .aural-timeline__connector {
+            display: none;
+        }
+
+        .timeline-compact .aural-timeline__content {
+            margin: 0;
+            padding: 0;
+        }
+
+        .timeline-compact .aural-timeline__time {
+            font-size: var(--text-xs);
+            font-weight: var(--font-medium);
+            color: var(--color-text-tertiary);
+            margin: 0 0 var(--space-1) 0;
+        }
+
+        .timeline-compact .aural-timeline__title {
+            font-size: var(--text-base);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-1) 0;
+            line-height: 1.4;
+        }
+
+        .timeline-compact .aural-timeline__description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* ========================================
+           Mobile Responsive Styles
+           ======================================== */
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+
+            /* Modern Timeline: Stack vertically on mobile */
+            .timeline-modern .aural-timeline__item {
+                grid-template-columns: 1fr;
+                gap: var(--space-3);
+            }
+
+            .timeline-modern .aural-timeline__time {
+                text-align: left;
+                padding-top: 0;
+                font-size: var(--text-sm); /* Increased from xs for readability */
+                order: 0;
+            }
+
+            .timeline-modern .aural-timeline__content {
+                padding: var(--space-4);
+            }
+
+            .timeline-modern .aural-timeline__title {
+                font-size: var(--text-base);
+            }
+
+            .timeline-modern .aural-timeline__description {
+                font-size: var(--text-sm); /* Ensure minimum 14px on mobile */
+            }
+
+            /* Horizontal Timeline: Keep scrollable with touch-friendly spacing */
+            .timeline-horizontal {
+                gap: var(--space-4); /* Increased for better touch targets */
+                padding: var(--space-4) var(--space-2);
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            }
+
+            .timeline-horizontal .aural-timeline__item {
+                flex: 0 0 220px; /* Wider for better readability */
+            }
+
+            .timeline-horizontal .aural-timeline__connector {
+                width: calc(100% + var(--space-4) - 32px);
+            }
+
+            .timeline-horizontal .aural-timeline__marker {
+                min-width: 40px; /* Larger touch target */
+                min-height: 40px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .timeline-horizontal .aural-timeline__description {
+                font-size: var(--text-sm); /* Minimum 14px */
+            }
+
+            /* Compact Timeline: Maintain readability */
+            .timeline-compact .aural-timeline__item {
+                padding-left: var(--space-7);
+                padding-bottom: var(--space-5);
+            }
+
+            .timeline-compact .aural-timeline__marker {
+                width: 12px; /* Larger than 10px for visibility */
+                height: 12px;
+                min-width: 12px;
+                min-height: 12px;
+            }
+
+            .timeline-compact .aural-timeline__connector {
+                left: 5px;
+                bottom: calc(-1 * var(--space-5));
+            }
+
+            .timeline-compact .aural-timeline__time {
+                font-size: var(--text-sm); /* Increased from xs */
+            }
+
+            .timeline-compact .aural-timeline__title {
+                font-size: var(--text-base); /* Increased from sm */
+            }
+
+            .timeline-compact .aural-timeline__description {
+                font-size: var(--text-sm); /* Minimum 14px for readability */
+            }
+        }
+
+        /* ========================================
+           Reduced Motion Support
+           ======================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+            .timeline-modern .aural-timeline__content {
+                transition: none;
+            }
+
+            .timeline-horizontal .aural-timeline__marker,
+            .timeline-horizontal .aural-timeline__content {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Timeline</h1>
+            <p class="page-description">Display chronological sequences of events with clear visual progression and status indicators.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Timeline</div>
+                <div class="example-demo">
+                    <ol class="aural-timeline timeline-modern" role="list" aria-label="Project timeline">
+                        <li class="aural-timeline__item aural-timeline__item--completed" role="listitem">
+                            <time class="aural-timeline__time" datetime="2023-12-15T14:30">Dec 15, 2023<br>2:30 PM</time>
+                            <div class="aural-timeline__content">
+                                <h3 class="aural-timeline__title">Project Initialized</h3>
+                                <p class="aural-timeline__description">Created repository and set up initial project structure</p>
+                                <span class="sr-only">Status: Completed</span>
+                            </div>
+                        </li>
+                        <li class="aural-timeline__item aural-timeline__item--completed" role="listitem">
+                            <time class="aural-timeline__time" datetime="2023-12-20T16:15">Dec 20, 2023<br>4:15 PM</time>
+                            <div class="aural-timeline__content">
+                                <h3 class="aural-timeline__title">Core Components Built</h3>
+                                <p class="aural-timeline__description">Implemented reusable components with accessibility support</p>
+                                <span class="sr-only">Status: Completed</span>
+                            </div>
+                        </li>
+                        <li class="aural-timeline__item aural-timeline__item--active" role="listitem">
+                            <div class="aural-timeline__time">In Progress</div>
+                            <div class="aural-timeline__content">
+                                <h3 class="aural-timeline__title">Documentation & Testing</h3>
+                                <p class="aural-timeline__description">Writing guides and adding interactive examples</p>
+                                <span class="sr-only">Status: In Progress</span>
+                            </div>
+                        </li>
+                        <li class="aural-timeline__item" role="listitem">
+                            <div class="aural-timeline__time">Coming Soon</div>
+                            <div class="aural-timeline__content">
+                                <h3 class="aural-timeline__title">Public Release v1.0</h3>
+                                <p class="aural-timeline__description">Official launch with npm package and documentation</p>
+                                <span class="sr-only">Status: Pending</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;ol class="aural-timeline timeline-modern" role="list" aria-label="Project timeline"&gt;
+    &lt;li class="aural-timeline__item aural-timeline__item--completed" role="listitem"&gt;
+        &lt;time class="aural-timeline__time" datetime="2023-12-15T14:30"&gt;Dec 15, 2023&lt;br&gt;2:30 PM&lt;/time&gt;
+        &lt;div class="aural-timeline__content"&gt;
+            &lt;h3 class="aural-timeline__title"&gt;Project Initialized&lt;/h3&gt;
+            &lt;p class="aural-timeline__description"&gt;Created repository&lt;/p&gt;
+            &lt;span class="sr-only"&gt;Status: Completed&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class="aural-timeline__item aural-timeline__item--active" role="listitem"&gt;
+        &lt;div class="aural-timeline__time"&gt;In Progress&lt;/div&gt;
+        &lt;div class="aural-timeline__content"&gt;
+            &lt;h3 class="aural-timeline__title"&gt;Documentation&lt;/h3&gt;
+            &lt;p class="aural-timeline__description"&gt;Writing guides&lt;/p&gt;
+            &lt;span class="sr-only"&gt;Status: In Progress&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Common Use Case: Order Tracking</div>
+                <div class="example-demo">
+                    <ol class="aural-timeline timeline-modern" role="list" aria-label="Order tracking timeline">
+                        <li class="aural-timeline__item aural-timeline__item--completed" role="listitem">
+                            <time class="aural-timeline__time" datetime="2024-01-15T10:30">Jan 15<br>10:30 AM</time>
+                            <div class="aural-timeline__content">
+                                <h3 class="aural-timeline__title">Order Placed</h3>
+                                <p class="aural-timeline__description">Order #12345 has been placed successfully. Payment confirmed.</p>
+                                <span class="sr-only">Status: Completed</span>
+                            </div>
+                        </li>
+                        <li class="aural-timeline__item aural-timeline__item--completed" role="listitem">
+                            <time class="aural-timeline__time" datetime="2024-01-15T14:15">Jan 15<br>2:15 PM</time>
+                            <div class="aural-timeline__content">
+                                <h3 class="aural-timeline__title">Order Confirmed</h3>
+                                <p class="aural-timeline__description">Your order has been confirmed and is being prepared for shipment.</p>
+                                <span class="sr-only">Status: Completed</span>
+                            </div>
+                        </li>
+                        <li class="aural-timeline__item aural-timeline__item--active" role="listitem">
+                            <time class="aural-timeline__time" datetime="2024-01-18">Jan 18<br>Today</time>
+                            <div class="aural-timeline__content">
+                                <h3 class="aural-timeline__title">Out for Delivery</h3>
+                                <p class="aural-timeline__description">Package is on the delivery truck and will arrive by 5:00 PM.</p>
+                                <span class="sr-only">Status: In Progress</span>
+                            </div>
+                        </li>
+                        <li class="aural-timeline__item" role="listitem">
+                            <div class="aural-timeline__time">Pending</div>
+                            <div class="aural-timeline__content">
+                                <h3 class="aural-timeline__title">Delivered</h3>
+                                <p class="aural-timeline__description">Package will be delivered to your address.</p>
+                                <span class="sr-only">Status: Pending</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;ol class="aural-timeline timeline-modern" role="list" aria-label="Order tracking timeline"&gt;
+    &lt;li class="aural-timeline__item aural-timeline__item--completed" role="listitem"&gt;
+        &lt;time class="aural-timeline__time" datetime="2024-01-15T10:30"&gt;Jan 15&lt;br&gt;10:30 AM&lt;/time&gt;
+        &lt;div class="aural-timeline__content"&gt;
+            &lt;h3 class="aural-timeline__title"&gt;Order Placed&lt;/h3&gt;
+            &lt;p class="aural-timeline__description"&gt;Order #12345 placed successfully&lt;/p&gt;
+            &lt;span class="sr-only"&gt;Status: Completed&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;!-- More items... --&gt;
+&lt;/ol&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Horizontal Timeline</div>
+                <div class="example-demo">
+                    <div class="aural-timeline timeline-horizontal">
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                            <div class="aural-timeline__marker">
+                                <i data-lucide="check-circle" class="aural-timeline__marker-icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Step 1</div>
+                                <div class="aural-timeline__title">Account Created</div>
+                                <div class="aural-timeline__description">Signed up successfully</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                            <div class="aural-timeline__marker">
+                                <i data-lucide="check-circle" class="aural-timeline__marker-icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Step 2</div>
+                                <div class="aural-timeline__title">Email Verified</div>
+                                <div class="aural-timeline__description">Confirmation email sent</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--active aural-timeline__item--primary">
+                            <div class="aural-timeline__marker">
+                                <i data-lucide="user" class="aural-timeline__marker-icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Step 3</div>
+                                <div class="aural-timeline__title">Profile Setup</div>
+                                <div class="aural-timeline__description">Complete your profile</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item">
+                            <div class="aural-timeline__marker">
+                                <i data-lucide="settings" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Step 4</div>
+                                <div class="aural-timeline__title">Preferences</div>
+                                <div class="aural-timeline__description">Set your preferences</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item">
+                            <div class="aural-timeline__marker">
+                                <i data-lucide="rocket" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Step 5</div>
+                                <div class="aural-timeline__title">Get Started</div>
+                                <div class="aural-timeline__description">Ready to use</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-timeline timeline-horizontal"&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success"&gt;
+        &lt;div class="aural-timeline__marker"&gt;
+            &lt;i data-lucide="check-circle"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-timeline__connector"&gt;&lt;/div&gt;
+        &lt;div class="aural-timeline__content"&gt;
+            &lt;div class="aural-timeline__time"&gt;Step 1&lt;/div&gt;
+            &lt;div class="aural-timeline__title"&gt;Account Created&lt;/div&gt;
+            &lt;div class="aural-timeline__description"&gt;Signed up successfully&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More items... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Compact Timeline</div>
+                <div class="example-demo">
+                    <div class="aural-timeline timeline-compact">
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                            <div class="aural-timeline__marker"></div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">2 minutes ago</div>
+                                <div class="aural-timeline__title">Sarah Johnson joined the Design Team</div>
+                                <div class="aural-timeline__description">New team member as Senior Product Designer</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                            <div class="aural-timeline__marker"></div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">15 minutes ago</div>
+                                <div class="aural-timeline__title">Pull Request Merged</div>
+                                <div class="aural-timeline__description">Feature/new-components merged into main by @johndoe</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--warning">
+                            <div class="aural-timeline__marker"></div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">1 hour ago</div>
+                                <div class="aural-timeline__title">Build Warning</div>
+                                <div class="aural-timeline__description">CI/CD pipeline completed with 3 warnings</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--completed">
+                            <div class="aural-timeline__marker"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Yesterday at 4:30 PM</div>
+                                <div class="aural-timeline__title">Documentation Updated</div>
+                                <div class="aural-timeline__description">API docs updated with new endpoints</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-timeline timeline-compact"&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success"&gt;
+        &lt;div class="aural-timeline__marker"&gt;&lt;/div&gt;
+        &lt;div class="aural-timeline__connector"&gt;&lt;/div&gt;
+        &lt;div class="aural-timeline__content"&gt;
+            &lt;div class="aural-timeline__time"&gt;2 minutes ago&lt;/div&gt;
+            &lt;div class="aural-timeline__title"&gt;Sarah Johnson joined&lt;/div&gt;
+            &lt;div class="aural-timeline__description"&gt;New team member&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More items... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Status Variants</div>
+                <div class="example-demo">
+                    <div class="aural-timeline timeline-modern">
+                        <div class="aural-timeline__item aural-timeline__item--completed">
+                            <div class="aural-timeline__time">Completed</div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__title">Completed Task</div>
+                                <div class="aural-timeline__description">Successfully completed with green indicator</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--active">
+                            <div class="aural-timeline__time">Active</div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__title">Active Task</div>
+                                <div class="aural-timeline__description">Currently in progress with primary color</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--warning">
+                            <div class="aural-timeline__time">Warning</div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__title">Warning Task</div>
+                                <div class="aural-timeline__description">Needs attention with warning indicator</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--error">
+                            <div class="aural-timeline__time">Error</div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__title">Error Task</div>
+                                <div class="aural-timeline__description">Failed or blocked with error indicator</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-timeline timeline-modern"&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--completed"&gt;...&lt;/div&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--active"&gt;...&lt;/div&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--warning"&gt;...&lt;/div&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--error"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Multi-Step Process</div>
+                <div class="example-demo">
+                    <div class="aural-timeline timeline-horizontal">
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                            <div class="aural-timeline__marker">
+                                <i data-lucide="check-circle" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Step 1</div>
+                                <div class="aural-timeline__title">Account Created</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                            <div class="aural-timeline__marker">
+                                <i data-lucide="check-circle" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Step 2</div>
+                                <div class="aural-timeline__title">Email Verified</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--active aural-timeline__item--primary">
+                            <div class="aural-timeline__marker">
+                                <i data-lucide="user" aria-hidden="true"></i>
+                            </div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">Step 3</div>
+                                <div class="aural-timeline__title">Profile Setup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-timeline timeline-horizontal"&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success"&gt;
+        &lt;div class="aural-timeline__marker"&gt;
+            &lt;i data-lucide="check-circle"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-timeline__connector"&gt;&lt;/div&gt;
+        &lt;div class="aural-timeline__content"&gt;
+            &lt;div class="aural-timeline__time"&gt;Step 1&lt;/div&gt;
+            &lt;div class="aural-timeline__title"&gt;Account Created&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Activity Feed</div>
+                <div class="example-demo">
+                    <div class="aural-timeline timeline-compact">
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+                            <div class="aural-timeline__marker"></div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">2 minutes ago</div>
+                                <div class="aural-timeline__title">New Team Member</div>
+                                <div class="aural-timeline__description">Sarah Johnson joined the Design Team</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--completed">
+                            <div class="aural-timeline__marker"></div>
+                            <div class="aural-timeline__connector"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">15 minutes ago</div>
+                                <div class="aural-timeline__title">Pull Request Merged</div>
+                                <div class="aural-timeline__description">Feature branch merged into main</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--warning">
+                            <div class="aural-timeline__marker"></div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__time">1 hour ago</div>
+                                <div class="aural-timeline__title">Build Warning</div>
+                                <div class="aural-timeline__description">CI/CD pipeline completed with warnings</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-timeline timeline-compact"&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success"&gt;
+        &lt;div class="aural-timeline__marker"&gt;&lt;/div&gt;
+        &lt;div class="aural-timeline__connector"&gt;&lt;/div&gt;
+        &lt;div class="aural-timeline__content"&gt;
+            &lt;div class="aural-timeline__time"&gt;2 minutes ago&lt;/div&gt;
+            &lt;div class="aural-timeline__title"&gt;New Team Member&lt;/div&gt;
+            &lt;div class="aural-timeline__description"&gt;Sarah Johnson joined&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Shipping Tracker</div>
+                <div class="example-demo">
+                    <div class="aural-timeline timeline-modern">
+                        <div class="aural-timeline__item aural-timeline__item--completed">
+                            <div class="aural-timeline__time">Jan 15<br>10:30 AM</div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__title">Order Placed</div>
+                                <div class="aural-timeline__description">Order #12345 successfully placed</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--completed">
+                            <div class="aural-timeline__time">Jan 16<br>9:00 AM</div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__title">Package Shipped</div>
+                                <div class="aural-timeline__description">Tracking: TRK123456789</div>
+                            </div>
+                        </div>
+                        <div class="aural-timeline__item aural-timeline__item--active">
+                            <div class="aural-timeline__time">Jan 18<br>Today</div>
+                            <div class="aural-timeline__content">
+                                <div class="aural-timeline__title">Out for Delivery</div>
+                                <div class="aural-timeline__description">Arriving by 5:00 PM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-timeline timeline-modern"&gt;
+    &lt;div class="aural-timeline__item aural-timeline__item--completed"&gt;
+        &lt;div class="aural-timeline__time"&gt;Jan 15&lt;br&gt;10:30 AM&lt;/div&gt;
+        &lt;div class="aural-timeline__content"&gt;
+            &lt;div class="aural-timeline__title"&gt;Order Placed&lt;/div&gt;
+            &lt;div class="aural-timeline__description"&gt;Order successfully placed&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use Timeline</h2>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Order Tracking:</strong> Show shipping and delivery status of packages</li>
+                        <li><strong>Multi-Step Processes:</strong> Guide users through onboarding or setup flows</li>
+                        <li><strong>Activity Feeds:</strong> Display chronological history of events or actions</li>
+                        <li><strong>Project Milestones:</strong> Track progress through project phases</li>
+                        <li><strong>User Journey:</strong> Visualize user progression through an experience</li>
+                        <li><strong>Historical Records:</strong> Present chronological data like transaction history</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <h3>Semantic HTML</h3>
+                    <ul>
+                        <li>Use <code>&lt;ol&gt;</code> or <code>&lt;ul&gt;</code> for timeline container with <code>role="list"</code></li>
+                        <li>Use <code>&lt;li&gt;</code> for timeline items with <code>role="listitem"</code></li>
+                        <li>Use <code>&lt;time&gt;</code> elements with <code>datetime</code> attribute for machine-readable dates</li>
+                        <li>Use <code>&lt;h3&gt;</code> for timeline titles to maintain proper heading hierarchy</li>
+                        <li>Use <code>&lt;p&gt;</code> for timeline descriptions</li>
+                        <li>Add <code>aria-label</code> to timeline container describing its purpose</li>
+                    </ul>
+
+                    <h3>Screen Reader Support</h3>
+                    <ul>
+                        <li>Include <code>&lt;span class="sr-only"&gt;</code> with status text (e.g., "Status: Completed")</li>
+                        <li>Use <code>aria-hidden="true"</code> on decorative icons and visual markers</li>
+                        <li>Ensure status is communicated through text, not just color</li>
+                        <li>Provide descriptive labels for all interactive elements</li>
+                    </ul>
+
+                    <h3>Visual & Motor</h3>
+                    <ul>
+                        <li>Maintain minimum touch target size of 44x44px on interactive elements</li>
+                        <li>Ensure all text meets WCAG AA contrast requirements (4.5:1 for normal text)</li>
+                        <li>Use minimum 14px font size on mobile for body text</li>
+                        <li>Provide adequate spacing between interactive elements</li>
+                        <li>Support <code>prefers-reduced-motion</code> for users sensitive to animation</li>
+                        <li>Ensure keyboard navigation with visible focus indicators</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Layout Selection</h3>
+                    <ul>
+                        <li><strong>Modern (Recommended):</strong> Best for detailed chronological events with emphasis on content</li>
+                        <li><strong>Horizontal:</strong> Ideal for multi-step processes and progress indicators</li>
+                        <li><strong>Compact:</strong> Perfect for activity feeds and space-constrained interfaces</li>
+                    </ul>
+
+                    <h3>Status Indicators</h3>
+                    <ul>
+                        <li><strong>Completed:</strong> Events that have successfully finished (green)</li>
+                        <li><strong>Active:</strong> Current step or ongoing event (primary color)</li>
+                        <li><strong>Warning:</strong> Events needing attention (yellow/orange)</li>
+                        <li><strong>Error:</strong> Failed or blocked events (red)</li>
+                        <li><strong>Default:</strong> Future or pending events (neutral)</li>
+                    </ul>
+
+                    <h3>Content Guidelines</h3>
+                    <ul>
+                        <li>Use clear, descriptive titles that explain what happened</li>
+                        <li>Keep descriptions concise but informative</li>
+                        <li>Format timestamps consistently throughout the timeline</li>
+                        <li>Use relative time for recent events (e.g., "2 minutes ago")</li>
+                        <li>Show absolute dates for older events</li>
+                        <li>Order items chronologically, typically with newest first</li>
+                    </ul>
+
+                    <h3>Visual Design</h3>
+                    <ul>
+                        <li>Maintain consistent spacing between timeline items (use design tokens)</li>
+                        <li>Use different colors to indicate different status types</li>
+                        <li>Consider hover states for interactive timeline items</li>
+                        <li>Add subtle animations to draw attention to state changes</li>
+                        <li>Respect user preferences with <code>prefers-reduced-motion</code></li>
+                    </ul>
+
+                    <h3>Mobile Responsiveness</h3>
+                    <ul>
+                        <li><strong>Modern Timeline:</strong> Collapses to single column, time label moves above content</li>
+                        <li><strong>Horizontal Timeline:</strong> Remains scrollable with touch-friendly spacing</li>
+                        <li><strong>Compact Timeline:</strong> Maintains structure with adjusted spacing</li>
+                        <li>Increase font sizes on mobile (minimum 14px for body text)</li>
+                        <li>Ensure touch targets are at least 44x44px</li>
+                        <li>Use <code>-webkit-overflow-scrolling: touch</code> for smooth scrolling on iOS</li>
+                        <li>Test on various screen sizes (320px minimum width)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=9"></script>
+
+    <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? '../dark.css' : '../light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+            themeLink.href = themePath;
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

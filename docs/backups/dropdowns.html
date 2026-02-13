@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdowns - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Example Container */
+        .example-container {
+            margin-bottom: var(--space-8);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-3);
+        }
+
+        .example-demo {
+            padding: var(--space-6);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+            min-height: 80px;
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Dropdowns</h1>
+            <p class="page-description">Reveal contextual menus and actions on demand. Dropdowns display a list of options when triggered, providing access to secondary functions without cluttering the interface.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Dropdown</div>
+                <div class="example-demo">
+                    <div class="dropdown" id="dropdown-basic">
+                        <button class="btn btn-primary dropdown-trigger" id="dropdown-basic-trigger" aria-expanded="false" aria-haspopup="true">
+                            Options
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;" aria-hidden="true"></i>
+                        </button>
+                        <div class="dropdown-menu" role="menu" aria-labelledby="dropdown-basic-trigger" hidden>
+                            <a href="#" class="dropdown-item" role="menuitem">Profile</a>
+                            <a href="#" class="dropdown-item" role="menuitem">Settings</a>
+                            <a href="#" class="dropdown-item" role="menuitem">Help Center</a>
+                            <div class="dropdown-divider" role="separator"></div>
+                            <a href="#" class="dropdown-item" role="menuitem">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="dropdown" id="dropdown-basic"&gt;
+  &lt;button class="btn btn-primary dropdown-trigger" aria-expanded="false"&gt;
+    Options
+    &lt;i data-lucide="chevron-down"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu" role="menu" hidden&gt;
+    &lt;a href="#" class="dropdown-item"&gt;Profile&lt;/a&gt;
+    &lt;a href="#" class="dropdown-item"&gt;Settings&lt;/a&gt;
+    &lt;a href="#" class="dropdown-item"&gt;Help Center&lt;/a&gt;
+    &lt;div class="dropdown-divider"&gt;&lt;/div&gt;
+    &lt;a href="#" class="dropdown-item"&gt;Sign Out&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Button Variants</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                        <div class="dropdown" id="dropdown-primary">
+                            <button class="btn btn-primary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+                                Primary
+                                <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                            </button>
+                            <div class="dropdown-menu" role="menu" hidden>
+                                <a href="#" class="dropdown-item" role="menuitem">Action 1</a>
+                                <a href="#" class="dropdown-item" role="menuitem">Action 2</a>
+                            </div>
+                        </div>
+
+                        <div class="dropdown" id="dropdown-secondary">
+                            <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+                                Secondary
+                                <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                            </button>
+                            <div class="dropdown-menu" role="menu" hidden>
+                                <a href="#" class="dropdown-item" role="menuitem">Action 1</a>
+                                <a href="#" class="dropdown-item" role="menuitem">Action 2</a>
+                            </div>
+                        </div>
+
+                        <div class="dropdown" id="dropdown-ghost">
+                            <button class="btn btn-ghost dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+                                Ghost
+                                <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                            </button>
+                            <div class="dropdown-menu" role="menu" hidden>
+                                <a href="#" class="dropdown-item" role="menuitem">Action 1</a>
+                                <a href="#" class="dropdown-item" role="menuitem">Action 2</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="dropdown" id="my-dropdown"&gt;
+  &lt;button class="btn btn-primary dropdown-trigger"&gt;Primary&lt;/button&gt;
+  &lt;div class="dropdown-menu" hidden&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="dropdown" id="my-dropdown-2"&gt;
+  &lt;button class="btn btn-secondary dropdown-trigger"&gt;Secondary&lt;/button&gt;
+  &lt;div class="dropdown-menu" hidden&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="dropdown" id="my-dropdown-3"&gt;
+  &lt;button class="btn btn-ghost dropdown-trigger"&gt;Ghost&lt;/button&gt;
+  &lt;div class="dropdown-menu" hidden&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">With Icons</div>
+                <div class="example-demo">
+                    <div class="dropdown" id="dropdown-icons">
+                        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+                            Actions
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                        </button>
+                        <div class="dropdown-menu" role="menu" hidden>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                Edit
+                            </a>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <i data-lucide="copy" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                Duplicate
+                            </a>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <i data-lucide="share-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                Share
+                            </a>
+                            <div class="dropdown-divider" role="separator"></div>
+                            <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">
+                                <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;a href="#" class="dropdown-item"&gt;
+  &lt;i data-lucide="edit"&gt;&lt;/i&gt;
+  Edit
+&lt;/a&gt;
+&lt;a href="#" class="dropdown-item dropdown-item-danger"&gt;
+  &lt;i data-lucide="trash-2"&gt;&lt;/i&gt;
+  Delete
+&lt;/a&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Icon-Only Trigger</div>
+                <div class="example-demo">
+                    <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                        <div class="dropdown" id="dropdown-icon-only">
+                            <button class="btn btn-ghost btn-icon dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="More options">
+                                <i data-lucide="more-vertical" style="width: 20px; height: 20px;"></i>
+                            </button>
+                            <div class="dropdown-menu" role="menu" hidden>
+                                <a href="#" class="dropdown-item" role="menuitem">View</a>
+                                <a href="#" class="dropdown-item" role="menuitem">Edit</a>
+                                <a href="#" class="dropdown-item" role="menuitem">Share</a>
+                            </div>
+                        </div>
+
+                        <div class="dropdown" id="dropdown-icon-dots">
+                            <button class="btn btn-secondary btn-icon dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="More options">
+                                <i data-lucide="more-horizontal" style="width: 20px; height: 20px;"></i>
+                            </button>
+                            <div class="dropdown-menu" role="menu" hidden>
+                                <a href="#" class="dropdown-item" role="menuitem">Option A</a>
+                                <a href="#" class="dropdown-item" role="menuitem">Option B</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="dropdown" id="dropdown-icon"&gt;
+  &lt;button class="btn btn-ghost btn-icon dropdown-trigger" aria-label="More options"&gt;
+    &lt;i data-lucide="more-vertical"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu" hidden&gt;
+    &lt;a href="#" class="dropdown-item"&gt;View&lt;/a&gt;
+    &lt;a href="#" class="dropdown-item"&gt;Edit&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Right-Aligned Menu</div>
+                <div class="example-demo" style="display: flex; justify-content: flex-end;">
+                    <div class="dropdown dropdown-right" id="dropdown-right">
+                        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+                            Right Aligned
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                        </button>
+                        <div class="dropdown-menu" role="menu" hidden>
+                            <a href="#" class="dropdown-item" role="menuitem">Option 1</a>
+                            <a href="#" class="dropdown-item" role="menuitem">Option 2</a>
+                            <a href="#" class="dropdown-item" role="menuitem">Option 3</a>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="dropdown dropdown-right" id="dropdown-right"&gt;
+  &lt;button class="btn btn-secondary dropdown-trigger"&gt;
+    Right Aligned
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu" hidden&gt;
+    &lt;a href="#" class="dropdown-item"&gt;Option 1&lt;/a&gt;
+    &lt;a href="#" class="dropdown-item"&gt;Option 2&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Headers & Sections</div>
+                <div class="example-demo">
+                    <div class="dropdown" id="dropdown-headers">
+                        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+                            Grouped Menu
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                        </button>
+                        <div class="dropdown-menu" role="menu" hidden style="min-width: 200px;">
+                            <div class="dropdown-header">Account</div>
+                            <a href="#" class="dropdown-item" role="menuitem">Profile</a>
+                            <a href="#" class="dropdown-item" role="menuitem">Settings</a>
+                            <div class="dropdown-divider" role="separator"></div>
+                            <div class="dropdown-header">Team</div>
+                            <a href="#" class="dropdown-item" role="menuitem">Members</a>
+                            <a href="#" class="dropdown-item" role="menuitem">Invite</a>
+                            <div class="dropdown-divider" role="separator"></div>
+                            <a href="#" class="dropdown-item" role="menuitem">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="dropdown-menu"&gt;
+  &lt;div class="dropdown-header"&gt;Account&lt;/div&gt;
+  &lt;a href="#" class="dropdown-item"&gt;Profile&lt;/a&gt;
+  &lt;a href="#" class="dropdown-item"&gt;Settings&lt;/a&gt;
+  &lt;div class="dropdown-divider"&gt;&lt;/div&gt;
+  &lt;div class="dropdown-header"&gt;Team&lt;/div&gt;
+  &lt;a href="#" class="dropdown-item"&gt;Members&lt;/a&gt;
+  &lt;a href="#" class="dropdown-item"&gt;Invite&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">User Menu</div>
+                <div class="example-demo">
+                    <div class="dropdown" id="dropdown-user">
+                        <button class="btn btn-ghost dropdown-trigger" aria-expanded="false" aria-haspopup="true" style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); display: flex; align-items: center; justify-content: center; color: white; font-weight: var(--font-semibold); font-size: var(--text-sm);">
+                                JD
+                            </div>
+                            <span>John Doe</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                        </button>
+                        <div class="dropdown-menu" role="menu" hidden style="min-width: 220px;">
+                            <div style="padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-subtle);">
+                                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">John Doe</div>
+                                <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">john.doe@example.com</div>
+                            </div>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <i data-lucide="user" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                Your Profile
+                            </a>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <i data-lucide="settings" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider" role="separator"></div>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <i data-lucide="log-out" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                Sign Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="dropdown" id="dropdown-user"&gt;
+  &lt;button class="btn btn-ghost dropdown-trigger"&gt;
+    &lt;div class="avatar"&gt;JD&lt;/div&gt;
+    &lt;span&gt;John Doe&lt;/span&gt;
+    &lt;i data-lucide="chevron-down"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu" hidden&gt;
+    &lt;div class="dropdown-header-content"&gt;
+      &lt;div&gt;John Doe&lt;/div&gt;
+      &lt;div&gt;john.doe@example.com&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;a href="#" class="dropdown-item"&gt;
+      &lt;i data-lucide="user"&gt;&lt;/i&gt;
+      Your Profile
+    &lt;/a&gt;
+    ...
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Table Row Actions</div>
+                <div class="example-demo" style="display: block;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th style="width: 50px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Project Alpha</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Jan 26, 2026</td>
+                                <td>
+                                    <div class="dropdown dropdown-right" id="dropdown-table-1">
+                                        <button class="btn btn-ghost btn-icon btn-sm dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Row actions">
+                                            <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu" hidden>
+                                            <a href="#" class="dropdown-item" role="menuitem">
+                                                <i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                                View
+                                            </a>
+                                            <a href="#" class="dropdown-item" role="menuitem">
+                                                <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                                Edit
+                                            </a>
+                                            <div class="dropdown-divider" role="separator"></div>
+                                            <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">
+                                                <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Project Beta</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>Jan 25, 2026</td>
+                                <td>
+                                    <div class="dropdown dropdown-right" id="dropdown-table-2">
+                                        <button class="btn btn-ghost btn-icon btn-sm dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Row actions">
+                                            <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu" hidden>
+                                            <a href="#" class="dropdown-item" role="menuitem">
+                                                <i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                                View
+                                            </a>
+                                            <a href="#" class="dropdown-item" role="menuitem">
+                                                <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                                Edit
+                                            </a>
+                                            <div class="dropdown-divider" role="separator"></div>
+                                            <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">
+                                                <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="dropdown dropdown-right" id="dropdown-table-1"&gt;
+  &lt;button class="btn btn-ghost btn-icon btn-sm dropdown-trigger" aria-label="Row actions"&gt;
+    &lt;i data-lucide="more-vertical"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu" hidden&gt;
+    &lt;a href="#" class="dropdown-item"&gt;View&lt;/a&gt;
+    &lt;a href="#" class="dropdown-item"&gt;Edit&lt;/a&gt;
+    &lt;div class="dropdown-divider"&gt;&lt;/div&gt;
+    &lt;a href="#" class="dropdown-item dropdown-item-danger"&gt;Delete&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Notifications</div>
+                <div class="example-demo">
+                    <div class="dropdown" id="dropdown-notifications">
+                        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+                            Notifications
+                            <span class="badge badge-error badge-sm" style="margin-left: 8px;">3</span>
+                            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+                        </button>
+                        <div class="dropdown-menu" role="menu" hidden style="min-width: 280px;">
+                            <a href="#" class="dropdown-item" role="menuitem" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>New Messages</span>
+                                <span class="badge badge-error badge-sm">2</span>
+                            </a>
+                            <a href="#" class="dropdown-item" role="menuitem" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>Team Updates</span>
+                                <span class="badge badge-warning badge-sm">1</span>
+                            </a>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <span>System Alerts</span>
+                            </a>
+                            <div class="dropdown-divider" role="separator"></div>
+                            <a href="#" class="dropdown-item" role="menuitem" style="text-align: center; color: var(--color-primary);">
+                                View All Notifications
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="btn btn-secondary dropdown-trigger"&gt;
+  Notifications
+  &lt;span class="badge badge-error badge-sm"&gt;3&lt;/span&gt;
+&lt;/button&gt;
+&lt;div class="dropdown-menu"&gt;
+  &lt;a class="dropdown-item"&gt;
+    &lt;span&gt;New Messages&lt;/span&gt;
+    &lt;span class="badge badge-error badge-sm"&gt;2&lt;/span&gt;
+  &lt;/a&gt;
+  ...
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li><strong>Action Menus:</strong> Provide multiple actions for an item (edit, share, delete)</li>
+                        <li><strong>User Menus:</strong> Account settings, profile, sign out options</li>
+                        <li><strong>Bulk Actions:</strong> Actions on selected table rows or list items</li>
+                        <li><strong>View Options:</strong> Filter, sort, or display options for content</li>
+                        <li><strong>Navigation Overflow:</strong> Secondary navigation items</li>
+                    </ul>
+
+                    <h3>Organization</h3>
+                    <ul>
+                        <li><strong>Logical Grouping:</strong> Group related actions with dividers</li>
+                        <li><strong>Frequent First:</strong> Place most common actions at the top</li>
+                        <li><strong>Destructive Last:</strong> Place delete/remove actions at the bottom</li>
+                        <li><strong>Color for Danger:</strong> Use <code>.dropdown-item-danger</code> for destructive actions</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Use semantic <code>&lt;button&gt;</code> elements for triggers</li>
+                        <li>Add <code>aria-expanded</code> to show open/closed state</li>
+                        <li>Add <code>aria-haspopup="true"</code> to indicate dropdown behavior</li>
+                        <li>Support keyboard: Enter/Space to open, Arrow keys to navigate, Esc to close</li>
+                        <li>Use <code>aria-label</code> on icon-only buttons</li>
+                        <li>Each dropdown must have a unique <code>id</code> attribute</li>
+                    </ul>
+
+                    <h3>Required Structure</h3>
+                    <pre><code>&lt;div class="dropdown" id="unique-id"&gt;
+  &lt;button class="dropdown-trigger" aria-expanded="false" aria-haspopup="true"&gt;
+    Trigger Text
+  &lt;/button&gt;
+  &lt;div class="dropdown-menu" role="menu" hidden&gt;
+    &lt;a href="#" class="dropdown-item" role="menuitem"&gt;Item&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                    <h3>Available Classes</h3>
+                    <ul>
+                        <li><code>.dropdown</code> - Container element (required)</li>
+                        <li><code>.dropdown-trigger</code> - Button that opens the menu</li>
+                        <li><code>.dropdown-menu</code> - The menu container</li>
+                        <li><code>.dropdown-item</code> - Individual menu items</li>
+                        <li><code>.dropdown-divider</code> - Horizontal separator</li>
+                        <li><code>.dropdown-header</code> - Section header text</li>
+                        <li><code>.dropdown-item-danger</code> - Destructive action styling</li>
+                        <li><code>.dropdown-right</code> - Right-align the menu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=1769438626"></script>
+
+    <script>
+        // Initialize Aural UI Tabs
+        if (typeof Aural !== 'undefined') {
+            Aural.initTabs();
+        }
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // =============================================
+        // DROPDOWN INTERACTIVITY (Event Delegation)
+        // =============================================
+
+        // Helper functions
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown.dropdown-open').forEach(function(dd) {
+                dd.classList.remove('dropdown-open');
+                var trigger = dd.querySelector('.dropdown-trigger');
+                var menu = dd.querySelector('.dropdown-menu');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                if (menu) menu.setAttribute('hidden', '');
+            });
+        }
+
+        function openDropdown(dropdown) {
+            var trigger = dropdown.querySelector('.dropdown-trigger');
+            var menu = dropdown.querySelector('.dropdown-menu');
+            if (!trigger || !menu) return;
+
+            dropdown.classList.add('dropdown-open');
+            trigger.setAttribute('aria-expanded', 'true');
+            menu.removeAttribute('hidden');
+        }
+
+        function closeDropdown(dropdown) {
+            var trigger = dropdown.querySelector('.dropdown-trigger');
+            var menu = dropdown.querySelector('.dropdown-menu');
+            if (!trigger || !menu) return;
+
+            dropdown.classList.remove('dropdown-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            menu.setAttribute('hidden', '');
+        }
+
+        function toggleDropdown(dropdown) {
+            if (dropdown.classList.contains('dropdown-open')) {
+                closeDropdown(dropdown);
+            } else {
+                closeAllDropdowns();
+                openDropdown(dropdown);
+            }
+        }
+
+        // Click handler using event delegation
+        document.addEventListener('click', function(e) {
+            // Check if clicked on a dropdown trigger
+            var trigger = e.target.closest('.dropdown-trigger');
+            if (trigger) {
+                e.preventDefault();
+                e.stopPropagation();
+                var dropdown = trigger.closest('.dropdown');
+                if (dropdown) {
+                    toggleDropdown(dropdown);
+                }
+                return;
+            }
+
+            // Check if clicked on a dropdown item
+            var item = e.target.closest('.dropdown-item');
+            if (item) {
+                var dropdown = item.closest('.dropdown');
+                if (dropdown && !item.closest('.dropdown-submenu')) {
+                    closeDropdown(dropdown);
+                }
+                return;
+            }
+
+            // Clicked outside - close all dropdowns
+            if (!e.target.closest('.dropdown')) {
+                closeAllDropdowns();
+            }
+        });
+
+        // Keyboard handler using event delegation
+        document.addEventListener('keydown', function(e) {
+            var dropdown = e.target.closest('.dropdown');
+            if (!dropdown) return;
+
+            var trigger = dropdown.querySelector('.dropdown-trigger');
+            var menu = dropdown.querySelector('.dropdown-menu');
+            var isOpen = dropdown.classList.contains('dropdown-open');
+
+            // Handle Escape key
+            if (e.key === 'Escape' && isOpen) {
+                e.preventDefault();
+                closeDropdown(dropdown);
+                if (trigger) trigger.focus();
+                return;
+            }
+
+            // Handle trigger keyboard events
+            if (e.target.closest('.dropdown-trigger')) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleDropdown(dropdown);
+                } else if (e.key === 'ArrowDown' && !isOpen) {
+                    e.preventDefault();
+                    openDropdown(dropdown);
+                }
+                return;
+            }
+
+            // Handle menu keyboard navigation
+            if (e.target.closest('.dropdown-menu') && menu) {
+                var items = Array.from(menu.querySelectorAll('.dropdown-item:not([disabled])'));
+                var currentIndex = items.indexOf(document.activeElement);
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    var next = items[currentIndex + 1] || items[0];
+                    if (next) next.focus();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    var prev = items[currentIndex - 1] || items[items.length - 1];
+                    if (prev) prev.focus();
+                } else if (e.key === 'Tab') {
+                    closeDropdown(dropdown);
+                }
+            }
+        });
+
+        console.log('Dropdown interactivity initialized');
+
+        // =============================================
+        // THEME TOGGLE
+        // =============================================
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? '../dark.css' : '../light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+            themeLink.href = themePath;
+        }
+
+        // Hide theme toggle in iframe
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

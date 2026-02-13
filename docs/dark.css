@@ -83,3 +83,100 @@ body {
     background: var(--color-bg-primary);
     color: var(--color-text-primary);
 }
+
+/* ========================================
+   DARK THEME DEMO MENU ENHANCEMENTS
+   ======================================== */
+
+/* Logo - Elegant with teal glow */
+.demo-logo {
+    padding: var(--space-5) var(--space-4) !important;
+    border-bottom: 1px solid rgba(94, 189, 143, 0.2);
+    background: linear-gradient(135deg, rgba(94, 189, 143, 0.05) 0%, transparent 100%);
+}
+
+.demo-logo:hover {
+    background: linear-gradient(135deg, rgba(94, 189, 143, 0.1) 0%, transparent 100%);
+}
+
+.demo-soundwave {
+    filter: drop-shadow(0 0 6px rgba(94, 189, 143, 0.3));
+}
+
+/* Theme Selector */
+.theme-selector-section {
+    padding: 0 var(--space-3);
+    margin-bottom: var(--space-5) !important;
+}
+
+.theme-selector-section .demo-nav-title {
+    color: var(--color-text-secondary) !important;
+}
+
+.theme-select {
+    background: var(--color-bg-tertiary) !important;
+    border: 1px solid var(--color-border-subtle) !important;
+    transition: all 0.2s ease;
+}
+
+.theme-select:hover {
+    border-color: var(--color-border-medium) !important;
+}
+
+.theme-select:focus {
+    border-color: var(--primary-400) !important;
+    box-shadow: 0 0 0 3px rgba(94, 189, 143, 0.1);
+}
+
+/* Navigation Sections */
+.demo-nav-title {
+    color: var(--color-text-secondary) !important;
+    transition: color 0.2s ease;
+}
+
+.demo-nav-title.collapsible:hover {
+    color: var(--primary-400) !important;
+}
+
+.demo-nav-title.collapsible:not(.collapsed) {
+    color: var(--primary-400) !important;
+}
+
+/* Navigation Links - Elegant hover */
+.demo-nav-link {
+    transition: all 0.2s ease !important;
+}
+
+.demo-nav-link:hover {
+    background: var(--color-bg-hover) !important;
+    color: var(--primary-400) !important;
+}
+
+.demo-nav-link.active,
+.demo-nav-link.active:link,
+.demo-nav-link.active:visited,
+.demo-nav-link.active:target {
+    background: linear-gradient(90deg, var(--primary-400) 0%, rgba(94, 189, 143, 0.8) 100%) !important;
+    color: var(--color-bg-primary) !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(94, 189, 143, 0.3);
+}
+
+/* Sidebar */
+.demo-sidebar {
+    background: var(--color-bg-primary) !important;
+    border-right: 1px solid var(--color-border-subtle) !important;
+}
+
+/* Scrollbar */
+.demo-sidebar::-webkit-scrollbar-thumb {
+    background: var(--primary-400);
+}
+
+.demo-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-300);
+}
+
+/* ========================================
+   SEARCH BAR COMPONENT
+   ======================================== */

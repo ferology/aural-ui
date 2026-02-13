@@ -1,0 +1,392 @@
+/**
+ * REFINED CARD SYSTEM
+ * Layered depth, asymmetric composition, prismatic borders
+ */
+
+/* ========================================
+   BASE CARD - Dimensional Glass
+   ======================================== */
+
+.card-prismatic {
+    position: relative;
+    background: var(--color-bg-glass);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    overflow: hidden;
+    transition: all 0.4s var(--ease-smooth);
+    box-shadow: var(--shadow-depth-1);
+}
+
+/* Gradient border accent */
+.card-prismatic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-primary);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    transition: opacity 0.4s var(--ease-smooth);
+}
+
+/* Inner highlight */
+.card-prismatic::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--glass-highlight),
+        transparent
+    );
+}
+
+.card-prismatic:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-depth-2);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.card-prismatic:hover::before {
+    opacity: 0.6;
+}
+
+/* ========================================
+   CARD HEADER
+   ======================================== */
+
+.card-prismatic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.card-prismatic-title {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.card-prismatic-subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* ========================================
+   CARD BODY
+   ======================================== */
+
+.card-prismatic-body {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.card-prismatic-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================================
+   CARD FOOTER
+   ======================================== */
+
+.card-prismatic-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ========================================
+   ELEVATED CARD - More depth
+   ======================================== */
+
+.card-prismatic-elevated {
+    background: linear-gradient(135deg,
+        rgba(14, 165, 165, 0.08) 0%,
+        rgba(123, 44, 191, 0.08) 100%
+    );
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--shadow-depth-2);
+}
+
+.card-prismatic-elevated:hover {
+    box-shadow: var(--shadow-depth-3);
+}
+
+/* ========================================
+   ACCENT BORDER CARD
+   ======================================== */
+
+.card-prismatic-accent-top {
+    border-top: 3px solid transparent;
+    background-image:
+        linear-gradient(var(--color-bg-glass), var(--color-bg-glass)),
+        var(--gradient-primary);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.card-prismatic-accent-left {
+    border-left: 3px solid transparent;
+    background-image:
+        linear-gradient(var(--color-bg-glass), var(--color-bg-glass)),
+        var(--gradient-secondary);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+/* ========================================
+   ASYMMETRIC CARD - Diagonal split
+   ======================================== */
+
+.card-prismatic-asymmetric {
+    padding: 0;
+    overflow: hidden;
+}
+
+.card-prismatic-asymmetric-content {
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.card-prismatic-asymmetric::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 150%;
+    background: var(--gradient-primary);
+    opacity: 0.08;
+    transform: rotate(-12deg);
+    transition: all 0.5s var(--ease-smooth);
+}
+
+.card-prismatic-asymmetric:hover::before {
+    transform: rotate(-12deg) scale(1.1);
+    opacity: 0.12;
+}
+
+/* ========================================
+   FLOATING CARD - Elevated above surface
+   ======================================== */
+
+.card-prismatic-floating {
+    background: var(--color-bg-layer-2);
+    border: 1px solid var(--color-border-medium);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(14, 165, 165, 0.12),
+        inset 0 1px 0 var(--glass-highlight);
+}
+
+.card-prismatic-floating:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(14, 165, 165, 0.18),
+        inset 0 1px 0 var(--glass-highlight);
+}
+
+/* ========================================
+   INTERACTIVE CARD - Tilt on hover
+   ======================================== */
+
+.card-prismatic-interactive {
+    transform-style: preserve-3d;
+    transition:
+        transform 0.3s var(--ease-smooth),
+        box-shadow 0.3s var(--ease-smooth);
+}
+
+.card-prismatic-interactive:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
+}
+
+/* ========================================
+   COMPACT CARD - Less padding
+   ======================================== */
+
+.card-prismatic-compact {
+    padding: 1.25rem;
+    border-radius: 16px;
+}
+
+.card-prismatic-compact .card-prismatic-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+}
+
+.card-prismatic-compact .card-prismatic-title {
+    font-size: 1rem;
+}
+
+/* ========================================
+   CARD GRID - Asymmetric Layout
+   ======================================== */
+
+.card-grid-prismatic {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Feature card in grid takes more space */
+.card-grid-prismatic .card-prismatic-featured {
+    grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+    .card-grid-prismatic .card-prismatic-featured {
+        grid-column: span 1;
+    }
+}
+
+/* ========================================
+   CARD WITH ICON
+   ======================================== */
+
+.card-prismatic-icon {
+    position: relative;
+    padding-top: 4rem;
+}
+
+.card-prismatic-icon-wrapper {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border-radius: 12px;
+    box-shadow: var(--shadow-depth-2);
+}
+
+.card-prismatic-icon-wrapper svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-bg-base);
+}
+
+/* ========================================
+   STACKED CARDS - Overlapping effect
+   ======================================== */
+
+.card-stack-prismatic {
+    position: relative;
+}
+
+.card-stack-prismatic .card-prismatic {
+    position: relative;
+    transition: transform 0.3s var(--ease-smooth);
+}
+
+.card-stack-prismatic .card-prismatic:nth-child(2) {
+    margin-top: -2rem;
+    transform: translateY(-8px) scale(0.98);
+}
+
+.card-stack-prismatic .card-prismatic:nth-child(3) {
+    margin-top: -2rem;
+    transform: translateY(-16px) scale(0.96);
+}
+
+.card-stack-prismatic:hover .card-prismatic:nth-child(2) {
+    transform: translateY(0) scale(1);
+}
+
+.card-stack-prismatic:hover .card-prismatic:nth-child(3) {
+    transform: translateY(0) scale(1);
+}
+
+/* ========================================
+   MEDIA CARD - Image with overlay
+   ======================================== */
+
+.card-prismatic-media {
+    padding: 0;
+    overflow: hidden;
+}
+
+.card-prismatic-media-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease-smooth);
+}
+
+.card-prismatic-media:hover .card-prismatic-media-image {
+    transform: scale(1.05);
+}
+
+.card-prismatic-media-content {
+    padding: 2rem;
+}
+
+.card-prismatic-media-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(5, 5, 8, 0.8) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-smooth);
+}
+
+.card-prismatic-media:hover .card-prismatic-media-overlay {
+    opacity: 1;
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .card-prismatic,
+    .card-prismatic-interactive,
+    .card-stack-prismatic .card-prismatic {
+        transition: none;
+    }
+
+    .card-prismatic-asymmetric::before {
+        transition: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .card-prismatic {
+        border-width: 2px;
+        border-color: var(--color-border-strong);
+    }
+}

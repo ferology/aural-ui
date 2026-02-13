@@ -1,0 +1,459 @@
+/**
+ * Aural UI - Common Page Styles
+ * Shared styles for all documentation and component pages
+ * Ensures consistent layout and theme-aware styling
+ */
+
+/* ==================================================================
+   BASE PAGE STRUCTURE
+   ================================================================== */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+    background: var(--color-bg-primary, #1a1a1a);
+    color: var(--color-text-primary, #ffffff);
+    line-height: 1.6;
+}
+
+/* ==================================================================
+   THEME-AWARE CONTAINERS
+   ================================================================== */
+
+.page-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-8, 32px);
+}
+
+.content-wrapper {
+    background: var(--color-bg-secondary, #2a2a2a);
+    border-radius: var(--radius-lg, 12px);
+    padding: var(--space-6, 24px);
+    border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+}
+
+.section {
+    margin-bottom: var(--space-8, 32px);
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+/* ==================================================================
+   TYPOGRAPHY
+   ================================================================== */
+
+.page-title {
+    font-size: var(--text-4xl, 36px);
+    font-weight: var(--font-bold, 700);
+    color: var(--color-text-primary, #ffffff);
+    margin: 0 0 var(--space-4, 16px) 0;
+    line-height: 1.2;
+}
+
+.page-subtitle {
+    font-size: var(--text-lg, 18px);
+    color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
+    margin: 0 0 var(--space-6, 24px) 0;
+}
+
+.section-title {
+    font-size: var(--text-2xl, 24px);
+    font-weight: var(--font-semibold, 600);
+    color: var(--color-text-primary, #ffffff);
+    margin: 0 0 var(--space-4, 16px) 0;
+    padding-bottom: var(--space-2, 8px);
+    border-bottom: 2px solid var(--color-border-medium, rgba(255, 255, 255, 0.2));
+}
+
+.subsection-title {
+    font-size: var(--text-xl, 20px);
+    font-weight: var(--font-medium, 500);
+    color: var(--color-text-primary, #ffffff);
+    margin: var(--space-6, 24px) 0 var(--space-3, 12px) 0;
+}
+
+/* ==================================================================
+   BREADCRUMBS
+   ================================================================== */
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    margin-bottom: var(--space-6, 24px);
+    font-size: var(--text-sm, 14px);
+    color: var(--color-text-tertiary, rgba(255, 255, 255, 0.5));
+}
+
+.breadcrumb-link {
+    color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumb-link:hover {
+    color: var(--color-primary, #5ebd8f);
+}
+
+.breadcrumb-separator {
+    color: var(--color-text-tertiary, rgba(255, 255, 255, 0.5));
+}
+
+.breadcrumb-current {
+    color: var(--color-text-primary, #ffffff);
+}
+
+/* ==================================================================
+   CODE BLOCKS (THEME-AWARE)
+   ================================================================== */
+
+pre {
+    background: var(--color-bg-elevated, #1a1a1a);
+    border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-md, 8px);
+    padding: var(--space-4, 16px);
+    overflow-x: auto;
+    margin: var(--space-4, 16px) 0;
+    position: relative;
+}
+
+code {
+    font-family: var(--font-mono, 'Monaco', 'Menlo', 'Courier New', monospace);
+    font-size: var(--text-sm, 14px);
+    line-height: 1.5;
+    color: var(--color-text-primary, #ffffff);
+}
+
+pre code {
+    display: block;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+/* Inline code */
+:not(pre) > code {
+    background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.05));
+    padding: 2px 6px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: 0.9em;
+    color: var(--color-primary, #5ebd8f);
+}
+
+/* ==================================================================
+   COPY BUTTON (THEME-AWARE)
+   ================================================================== */
+
+.copy-btn {
+    position: absolute;
+    top: var(--space-2, 8px);
+    right: var(--space-2, 8px);
+    padding: var(--space-2, 8px) var(--space-3, 12px);
+    background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--color-border-medium, rgba(255, 255, 255, 0.2));
+    border-radius: var(--radius-sm, 4px);
+    color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
+    font-size: var(--text-xs, 12px);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1, 4px);
+}
+
+.copy-btn:hover {
+    background: var(--color-bg-hover, rgba(255, 255, 255, 0.1));
+    border-color: var(--color-primary, #5ebd8f);
+    color: var(--color-primary, #5ebd8f);
+}
+
+.copy-btn.copied {
+    background: var(--color-success, #22c55e);
+    border-color: var(--color-success, #22c55e);
+    color: white;
+}
+
+/* ==================================================================
+   EXAMPLE BOXES (THEME-AWARE)
+   ================================================================== */
+
+.example-box {
+    background: var(--color-bg-primary, #1a1a1a);
+    border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-md, 8px);
+    padding: var(--space-6, 24px);
+    margin: var(--space-4, 16px) 0;
+}
+
+.example-title {
+    font-size: var(--text-base, 16px);
+    font-weight: var(--font-medium, 500);
+    color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
+    margin: 0 0 var(--space-4, 16px) 0;
+}
+
+.example-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4, 16px);
+    align-items: center;
+}
+
+/* ==================================================================
+   TABLES (THEME-AWARE)
+   ================================================================== */
+
+.api-table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-4, 16px) 0;
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+}
+
+.api-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm, 14px);
+}
+
+.api-table th {
+    text-align: left;
+    padding: var(--space-3, 12px) var(--space-4, 16px);
+    background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.05));
+    border-bottom: 2px solid var(--color-border-medium, rgba(255, 255, 255, 0.2));
+    font-weight: var(--font-semibold, 600);
+    color: var(--color-text-primary, #ffffff);
+}
+
+.api-table td {
+    padding: var(--space-3, 12px) var(--space-4, 16px);
+    border-bottom: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+    color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
+}
+
+.api-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ==================================================================
+   BADGES (THEME-AWARE)
+   ================================================================== */
+
+.badge-required {
+    background: var(--color-danger, #ef4444);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: var(--font-semibold, 600);
+}
+
+.badge-optional {
+    background: var(--color-info, #3b82f6);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: var(--font-semibold, 600);
+}
+
+.badge-modifier {
+    background: var(--color-secondary, #9333ea);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm, 4px);
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: var(--font-semibold, 600);
+}
+
+/* ==================================================================
+   TABS (THEME-AWARE)
+   ================================================================== */
+
+.tabs-list {
+    display: flex;
+    gap: var(--space-2, 8px);
+    border-bottom: 2px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+    margin-bottom: var(--space-4, 16px);
+}
+
+.tab {
+    padding: var(--space-3, 12px) var(--space-4, 16px);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--color-text-secondary, rgba(255, 255, 255, 0.7));
+    font-size: var(--text-sm, 14px);
+    font-weight: var(--font-medium, 500);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -2px;
+}
+
+.tab:hover {
+    color: var(--color-text-primary, #ffffff);
+    background: var(--color-bg-hover, rgba(255, 255, 255, 0.05));
+}
+
+.tab.active {
+    color: var(--color-primary, #5ebd8f);
+    border-bottom-color: var(--color-primary, #5ebd8f);
+}
+
+[role="tabpanel"] {
+    animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================================================================
+   CARDS (THEME-AWARE)
+   ================================================================== */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-4, 16px);
+    margin: var(--space-4, 16px) 0;
+}
+
+.card {
+    background: var(--color-bg-secondary, #2a2a2a);
+    border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-md, 8px);
+    padding: var(--space-4, 16px);
+    transition: all 0.2s;
+}
+
+.card:hover {
+    border-color: var(--color-primary, #5ebd8f);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg, 0 10px 25px rgba(0, 0, 0, 0.3));
+}
+
+.card-title {
+    font-size: var(--text-lg, 18px);
+    font-weight: var(--font-semibold, 600);
+    color: var(--color-text-primary, #ffffff);
+    margin: 0 0 var(--space-2, 8px) 0;
+}
+
+.card-description {
+    font-size: var(--text-sm, 14px);
+    color: var(--color-text-tertiary, rgba(255, 255, 255, 0.5));
+    margin: 0;
+}
+
+/* ==================================================================
+   ALERTS (THEME-AWARE)
+   ================================================================== */
+
+.alert {
+    padding: var(--space-4, 16px);
+    border-radius: var(--radius-md, 8px);
+    margin: var(--space-4, 16px) 0;
+    border-left: 4px solid;
+}
+
+.alert-info {
+    background: var(--color-bg-info, rgba(59, 130, 246, 0.1));
+    border-color: var(--color-info, #3b82f6);
+    color: var(--color-text-primary, #ffffff);
+}
+
+.alert-success {
+    background: var(--color-bg-success, rgba(34, 197, 94, 0.1));
+    border-color: var(--color-success, #22c55e);
+    color: var(--color-text-primary, #ffffff);
+}
+
+.alert-warning {
+    background: var(--color-bg-warning, rgba(245, 158, 11, 0.1));
+    border-color: var(--color-warning, #f59e0b);
+    color: var(--color-text-primary, #ffffff);
+}
+
+.alert-danger {
+    background: var(--color-bg-danger, rgba(239, 68, 68, 0.1));
+    border-color: var(--color-danger, #ef4444);
+    color: var(--color-text-primary, #ffffff);
+}
+
+/* ==================================================================
+   RESPONSIVE DESIGN
+   ================================================================== */
+
+@media (max-width: 768px) {
+    .page-container {
+        padding: var(--space-4, 16px);
+    }
+
+    .page-title {
+        font-size: var(--text-3xl, 30px);
+    }
+
+    .section-title {
+        font-size: var(--text-xl, 20px);
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tabs-list {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .api-table {
+        font-size: var(--text-xs, 12px);
+    }
+}
+
+/* ==================================================================
+   ACCESSIBILITY
+   ================================================================== */
+
+/* Focus states */
+a:focus-visible,
+button:focus-visible,
+.tab:focus-visible {
+    outline: 2px solid var(--color-primary, #5ebd8f);
+    outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .card,
+    .example-box,
+    pre {
+        border-width: 2px;
+    }
+}

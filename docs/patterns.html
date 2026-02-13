@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="./aural-ui.css?v=12">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="./dark.css" id="theme-link">
+
+    <!-- Enhanced Documentation Styles -->
+    <link rel="stylesheet" href="./styles/doc-enhanced.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -808,8 +811,19 @@
         const themeLink = document.getElementById('theme-link');
 
         if (themeLink) {
-            const themePath = savedTheme === 'dark' ? './dark.css' : './light.css';
-            themeLink.href = themePath;
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            themeLink.href = './' + themeFile;
+            console.log('Applying theme:', savedTheme);
         }
 
         window.addEventListener('DOMContentLoaded', function() {
@@ -824,5 +838,11 @@
         });
     })();
     </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+    <!-- Enhanced Documentation JavaScript -->
+    <script src="js/doc-enhanced.js"></script>
+
 </body>
 </html>

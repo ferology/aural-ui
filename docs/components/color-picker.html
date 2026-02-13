@@ -1163,25 +1163,75 @@ colorPicker.destroy();           // Clean up event listeners</code></pre>
     <!-- Unified Theme Sync -->
     <script>
     (function() {
-        // Sync theme from localStorage IMMEDIATELY
+        // Comprehensive theme sync supporting all 7 themes
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-
+        
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
+            
+            // All 7 theme mappings
             const themeFiles = {
                 'dark': 'dark.css',
                 'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
                 'high-contrast': 'high-contrast.css',
                 'colorblind': 'colorblind-friendly.css'
             };
 
             const themeFile = themeFiles[savedTheme] || 'dark.css';
             const themePath = relativePath + themeFile;
-
+            
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
+
+            // Load theme-specific component CSS
+            const themeComponents = {
+                'kinetic': ['kinetic-buttons.css', 'kinetic-cards.css'],
+                'neon': ['fonts-neon.css', 'deluxe-neon.css'],
+                'neon-refined': ['fonts-neon.css', 'buttons-refined.css', 'cards-refined.css']
+            };
+
+            // Remove existing theme component links
+            document.querySelectorAll('link[data-theme-component]').forEach(link => link.remove());
+
+            // Add theme-specific components
+            const components = themeComponents[savedTheme];
+            if (components) {
+                const head = document.head || document.getElementsByTagName('head')[0];
+                components.forEach(filename => {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = relativePath + filename;
+                    link.setAttribute('data-theme-component', savedTheme);
+                    head.appendChild(link);
+                });
+            }
+
+            // Load neon-effects.js for neon themes
+            if (savedTheme === 'neon' || savedTheme === 'neon-refined') {
+                document.querySelectorAll('script[data-theme-script]').forEach(script => script.remove());
+                
+                const script = document.createElement('script');
+                script.src = relativePath + 'neon-effects.js';
+                script.setAttribute('data-theme-script', savedTheme);
+                script.onload = () => {
+                    if (document.body && !document.body.hasAttribute('data-neon-effects')) {
+                        document.body.setAttribute('data-neon-effects', '');
+                        if (window.Aural?.NeonEffects) {
+                            window.Aural.NeonEffects.initAll({
+                                particles: 30,
+                                gradientMesh: true,
+                                cursorGlow: false
+                            });
+                        }
+                    }
+                };
+                document.body.appendChild(script);
+            }
         } else {
             console.error('Theme link not found!');
         }
@@ -1199,5 +1249,8 @@ colorPicker.destroy();           // Clean up event listeners</code></pre>
         });
     })();
     </script>
+    <!-- Theme Manager -->
+    <script src="../js/theme-manager.js"></script>
+
 </body>
 </html>

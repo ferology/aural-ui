@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css?v=9">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <div class="page-title page-heading-lg">Tutorial</div>
+            <p class="page-description">Learn how to build a complete application with Aural UI. This tutorial will guide you through creating a user profile card with multiple components working together.</p>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">What We'll Build</div>
+            <div class="section-content">
+                <p>In this tutorial, you'll create a user profile card that includes:</p>
+                <ul>
+                    <li>Card component for the container</li>
+                    <li>Badge components for status indicators</li>
+                    <li>Button components for actions</li>
+                    <li>Design tokens for consistent spacing and colors</li>
+                </ul>
+
+                <div class="card" style="max-width: 500px; margin: var(--space-6) auto; padding: var(--space-6);">
+                    <div style="display: flex; align-items: start; gap: var(--space-4); margin-bottom: var(--space-4);">
+                        <div style="width: 64px; height: 64px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); display: flex; align-items: center; justify-content: center; font-size: var(--text-2xl); font-weight: var(--font-bold); color: white; flex-shrink: 0;">
+                            JD
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2);">
+                                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0;">Jane Doe</h3>
+                                <span class="badge badge-success">Active</span>
+                            </div>
+                            <p style="color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm);">Product Designer</p>
+                        </div>
+                    </div>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                        Passionate about creating accessible and beautiful user experiences. 5 years of experience in design systems.
+                    </p>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <button class="btn btn-primary">Follow</button>
+                        <button class="btn btn-secondary">Message</button>
+                    </div>
+                </div>
+                <p style="text-align: center; color: var(--color-text-tertiary); font-size: var(--text-sm);">Preview of what we'll build</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Step 1: Set Up Your HTML</div>
+            <div class="section-content">
+                <p>First, create a basic HTML file with Aural UI included:</p>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;User Profile Tutorial&lt;/title&gt;
+
+    &lt;!-- Aural UI CSS --&gt;
+    &lt;link rel="stylesheet" href="aural-ui.css"&gt;
+    &lt;link rel="stylesheet" href="dark.css" id="theme-link"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- We'll add content here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Step 2: Create the Card Container</div>
+            <div class="section-content">
+                <p>Add a card component to hold our profile. We'll use design tokens for spacing and sizing:</p>
+                <pre><code>&lt;div class="card" style="max-width: 500px; margin: 2rem auto; padding: var(--space-6);"&gt;
+    &lt;!-- Content will go here --&gt;
+&lt;/div&gt;</code></pre>
+                <p>The <code>card</code> class provides the background, border, and shadow. We use:</p>
+                <ul>
+                    <li><code>max-width: 500px</code> - Prevents the card from getting too wide</li>
+                    <li><code>margin: 2rem auto</code> - Centers the card horizontally</li>
+                    <li><code>padding: var(--space-6)</code> - Adds consistent internal spacing using design tokens</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Step 3: Add the Profile Header</div>
+            <div class="section-content">
+                <p>Create the header section with an avatar and user information:</p>
+                <pre><code>&lt;div style="display: flex; align-items: start; gap: var(--space-4); margin-bottom: var(--space-4);"&gt;
+    &lt;!-- Avatar --&gt;
+    &lt;div style="width: 64px; height: 64px; border-radius: var(--radius-full);
+                background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+                display: flex; align-items: center; justify-content: center;
+                font-size: var(--text-2xl); font-weight: var(--font-bold);
+                color: white; flex-shrink: 0;"&gt;
+        JD
+    &lt;/div&gt;
+
+    &lt;!-- User Info --&gt;
+    &lt;div style="flex: 1;"&gt;
+        &lt;div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2);"&gt;
+            &lt;h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold);
+                       color: var(--color-text-primary); margin: 0;"&gt;Jane Doe&lt;/h3&gt;
+            &lt;span class="badge badge-success"&gt;Active&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;p style="color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm);"&gt;
+            Product Designer
+        &lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                <p>Key design tokens used:</p>
+                <ul>
+                    <li><code>var(--space-4)</code> - Spacing between avatar and text</li>
+                    <li><code>var(--radius-full)</code> - Makes the avatar circular</li>
+                    <li><code>var(--color-primary)</code> and <code>var(--color-secondary)</code> - Theme colors</li>
+                    <li><code>var(--text-xl)</code>, <code>var(--text-sm)</code> - Consistent font sizes</li>
+                    <li><code>var(--color-text-primary)</code>, <code>var(--color-text-secondary)</code> - Text colors</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Step 4: Add the Bio Section</div>
+            <div class="section-content">
+                <p>Add a description below the header:</p>
+                <pre><code>&lt;p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);"&gt;
+    Passionate about creating accessible and beautiful user experiences.
+    5 years of experience in design systems.
+&lt;/p&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Step 5: Add Action Buttons</div>
+            <div class="section-content">
+                <p>Finally, add buttons for user actions:</p>
+                <pre><code>&lt;div style="display: flex; gap: var(--space-3);"&gt;
+    &lt;button class="btn btn-primary"&gt;Follow&lt;/button&gt;
+    &lt;button class="btn btn-secondary"&gt;Message&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Complete Code</div>
+            <div class="section-content">
+                <p>Here's the complete HTML for the user profile card:</p>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;User Profile Tutorial&lt;/title&gt;
+
+    &lt;!-- Aural UI CSS --&gt;
+    &lt;link rel="stylesheet" href="aural-ui.css"&gt;
+    &lt;link rel="stylesheet" href="dark.css" id="theme-link"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="card" style="max-width: 500px; margin: 2rem auto; padding: var(--space-6);"&gt;
+        &lt;!-- Profile Header --&gt;
+        &lt;div style="display: flex; align-items: start; gap: var(--space-4); margin-bottom: var(--space-4);"&gt;
+            &lt;div style="width: 64px; height: 64px; border-radius: var(--radius-full);
+                        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+                        display: flex; align-items: center; justify-content: center;
+                        font-size: var(--text-2xl); font-weight: var(--font-bold);
+                        color: white; flex-shrink: 0;"&gt;
+                JD
+            &lt;/div&gt;
+            &lt;div style="flex: 1;"&gt;
+                &lt;div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2);"&gt;
+                    &lt;h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold);
+                               color: var(--color-text-primary); margin: 0;"&gt;Jane Doe&lt;/h3&gt;
+                    &lt;span class="badge badge-success"&gt;Active&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;p style="color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm);"&gt;
+                    Product Designer
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Bio --&gt;
+        &lt;p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);"&gt;
+            Passionate about creating accessible and beautiful user experiences.
+            5 years of experience in design systems.
+        &lt;/p&gt;
+
+        &lt;!-- Actions --&gt;
+        &lt;div style="display: flex; gap: var(--space-3);"&gt;
+            &lt;button class="btn btn-primary"&gt;Follow&lt;/button&gt;
+            &lt;button class="btn btn-secondary"&gt;Message&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Key Takeaways</div>
+            <div class="section-content">
+                <p>This tutorial demonstrated several important concepts:</p>
+
+                <div class="page-subheading">Design Tokens</div>
+                <ul>
+                    <li>Use spacing tokens (<code>var(--space-*)</code>) for consistent spacing</li>
+                    <li>Use color tokens (<code>var(--color-*)</code>) for theme-aware colors</li>
+                    <li>Use typography tokens (<code>var(--text-*)</code>) for consistent text sizes</li>
+                    <li>Use radius tokens (<code>var(--radius-*)</code>) for consistent border radii</li>
+                </ul>
+
+                <div class="page-subheading">Component Classes</div>
+                <ul>
+                    <li><code>card</code> - Container with background, border, and shadow</li>
+                    <li><code>badge</code> - Small status indicators with variants (success, primary, etc.)</li>
+                    <li><code>btn</code> - Interactive buttons with variants (primary, secondary, etc.)</li>
+                </ul>
+
+                <div class="page-subheading">Responsive Design</div>
+                <ul>
+                    <li>Use <code>max-width</code> to prevent components from getting too wide</li>
+                    <li>Use flexbox for layouts that adapt to content size</li>
+                    <li>Design tokens automatically adapt to different screen sizes</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Next Steps</div>
+            <div class="section-content">
+                <p>Now that you've built your first component, try these exercises:</p>
+
+                <ol>
+                    <li><strong>Add icons:</strong> Include Lucide icons in the buttons using the <code>&lt;i data-lucide="icon-name"&gt;&lt;/i&gt;</code> pattern</li>
+                    <li><strong>Make it responsive:</strong> Use media queries to stack the buttons vertically on mobile</li>
+                    <li><strong>Add interactivity:</strong> Use JavaScript to make the Follow button toggle between "Follow" and "Following"</li>
+                    <li><strong>Explore variants:</strong> Try different badge colors (info, warning, error) and button variants</li>
+                </ol>
+
+                <p style="margin-top: var(--space-6);">For more examples and component documentation, visit:</p>
+                <ul>
+                    <li><a href="./demo.html" style="color: var(--color-primary);">Component Gallery</a> - Browse all available components</li>
+                    <li><a href="./tokens.html" style="color: var(--color-primary);">Design Tokens</a> - Complete token reference</li>
+                    <li><a href="./accessibility.html" style="color: var(--color-primary);">Accessibility</a> - Learn about making your UI accessible</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+
+            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+            themeLink.href = themePath;
+        } else {
+            console.error('Theme link not found!');
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+</body>
+</html>

@@ -6,89 +6,39 @@
  * mobile responsive navigation.
  *
  * @module DemoNavigation
- * @version 1.0.0
+ * @version 2.0.0
  */
 
 (function() {
     'use strict';
 
     // ========================================
-    // COMPONENT REGISTRY
-    // Maps component categories to their demo files
+    // STATE
     // ========================================
 
-    const COMPONENTS = {
-        'Forms & Inputs': [
-            { name: 'Buttons', file: 'buttons.html' },
-            { name: 'Inputs', file: 'inputs.html' },
-            { name: 'Checkboxes', file: 'checkboxes.html' },
-            { name: 'Radio Buttons', file: 'radio-buttons.html' },
-            { name: 'Switch / Toggle', file: 'switch.html' },
-            { name: 'Select', file: 'select.html' },
-            { name: 'Multi-Select', file: 'multi-select.html' },
-            { name: 'Combobox', file: 'combobox.html' },
-            { name: 'Search Bar', file: 'search-bar.html' },
-            { name: 'Slider', file: 'slider.html' },
-            { name: 'Range Slider', file: 'range-slider.html' },
-            { name: 'Rating', file: 'rating.html' },
-            { name: 'Color Picker', file: 'color-picker.html' },
-            { name: 'Date Picker', file: 'date-picker.html' },
-            { name: 'Date Range Picker', file: 'date-range-picker.html' },
-            { name: 'Time Picker', file: 'time-picker.html' },
-            { name: 'File Upload', file: 'file-upload.html' }
-        ],
-        'Data Display': [
-            { name: 'Tables', file: 'tables.html' },
-            { name: 'Cards', file: 'cards.html' },
-            { name: 'Badges', file: 'badges.html' },
-            { name: 'Chips', file: 'chips.html' },
-            { name: 'Tooltips', file: 'tooltips.html' },
-            { name: 'Progress', file: 'progress.html' },
-            { name: 'Spinner', file: 'spinner.html' },
-            { name: 'Skeleton', file: 'skeleton.html' },
-            { name: 'Avatars', file: 'avatars.html' },
-            { name: 'Dividers', file: 'dividers.html' },
-            { name: 'Timeline', file: 'timeline.html' },
-            { name: 'Stats Cards', file: 'stats-cards.html' },
-            { name: 'Code Block', file: 'code-block.html' }
-        ],
-        'Navigation': [
-            { name: 'Breadcrumbs', file: 'breadcrumbs.html' },
-            { name: 'Pagination', file: 'pagination.html' },
-            { name: 'Tabs', file: 'tabs.html' },
-            { name: 'Accordions', file: 'accordions.html' },
-            { name: 'Navbar', file: 'navbar.html' },
-            { name: 'Stepper', file: 'stepper.html' },
-            { name: 'Dropdowns', file: 'dropdowns.html' },
-            { name: 'Context Menu', file: 'context-menu.html' },
-            { name: 'Bottom Navigation', file: 'bottom-navigation.html' }
-        ],
-        'Overlays & Feedback': [
-            { name: 'Modals', file: 'modals.html' },
-            { name: 'Dialog', file: 'dialog.html' },
-            { name: 'Drawer', file: 'drawer.html' },
-            { name: 'Alert Banner', file: 'alert-banner.html' },
-            { name: 'Toast', file: 'toast.html' },
-            { name: 'Snackbar', file: 'snackbar.html' },
-            { name: 'Popovers', file: 'popovers.html' }
-        ],
-        'Layout & Media': [
-            { name: 'Carousel', file: 'carousel.html' },
-            { name: 'Image Gallery', file: 'image-gallery.html' },
-            { name: 'Empty State', file: 'empty-state.html' }
-        ],
-        'Advanced': [
-            { name: 'Command Palette', file: 'command-palette.html' },
-            { name: 'Notification Center', file: 'notification-center.html' },
-            { name: 'Tree View', file: 'tree-view.html' }
-        ]
-    };
+    let navigationData = null;
+    let isInitialized = false;
 
-    // Initialize
-    function init() {
+    // Embedded fallback navigation data (for file:// protocol compatibility)
+    const FALLBACK_NAVIGATION = {"sections":[{"id":"intro","title":"Intro","icon":"book-open","expanded":true,"items":[{"name":"What it is","file":"what-it-is.html","description":"Introduction to Aural UI"},{"name":"Changelog","file":"changelog.html","description":"Version history and updates"},{"name":"Accessibility","file":"accessibility.html","description":"Accessibility features and guidelines"},{"name":"Getting started","file":"tutorial.html","description":"Quick start guide"},{"name":"Contributing","file":"contributing.html","description":"How to contribute"}]},{"id":"documentation","title":"Documentation","icon":"file-text","expanded":true,"items":[{"name":"API Reference","file":"api.html","description":"Complete API documentation"},{"name":"Design Tokens","file":"tokens.html","description":"CSS custom properties reference"},{"name":"Font System","file":"fonts.html","description":"Typography and font families showcase"},{"name":"Utility Classes","file":"utilities.html","description":"Utility CSS classes"},{"name":"Themes","file":"themes.html","description":"Theme system and customization"},{"name":"Theme Builder","file":"theme-builder.html","description":"Interactive theme builder"},{"name":"Common Patterns","file":"patterns.html","description":"UI patterns and best practices"}]},{"id":"components","title":"Components","icon":"box","expanded":false,"items":[{"name":"Component Catalog","file":"catalog.html","description":"Browse all components"}],"subsections":[{"id":"forms-inputs","title":"Forms & Inputs","items":[{"name":"Buttons","file":"buttons.html"},{"name":"Inputs","file":"inputs.html"},{"name":"Checkboxes","file":"checkboxes.html"},{"name":"Radio Buttons","file":"radio-buttons.html"},{"name":"Switch / Toggle","file":"switch.html"},{"name":"Select","file":"select.html"},{"name":"Multi-Select","file":"multi-select.html"},{"name":"Combobox","file":"combobox.html"},{"name":"Search Bar","file":"search-bar.html"},{"name":"Slider","file":"slider.html"},{"name":"Range Slider","file":"range-slider.html"},{"name":"Rating","file":"rating.html"},{"name":"Color Picker","file":"color-picker.html"},{"name":"Date Picker","file":"date-picker.html"},{"name":"Date Range Picker","file":"date-range-picker.html"},{"name":"Time Picker","file":"time-picker.html"},{"name":"File Upload","file":"file-upload.html"}]},{"id":"data-display","title":"Data Display","items":[{"name":"Tables","file":"tables.html"},{"name":"Cards","file":"cards.html"},{"name":"Badges","file":"badges.html"},{"name":"Chips","file":"chips.html"},{"name":"Tooltips","file":"tooltips.html"},{"name":"Progress","file":"progress.html"},{"name":"Spinner","file":"spinner.html"},{"name":"Skeleton","file":"skeleton.html"},{"name":"Avatars","file":"avatars.html"},{"name":"Dividers","file":"dividers.html"},{"name":"Timeline","file":"timeline.html"},{"name":"Stats Cards","file":"stats-cards.html"},{"name":"Code Block","file":"code-block.html"}]},{"id":"navigation","title":"Navigation","items":[{"name":"Breadcrumbs","file":"breadcrumbs.html"},{"name":"Pagination","file":"pagination.html"},{"name":"Tabs","file":"tabs.html"},{"name":"Accordions","file":"accordions.html"},{"name":"Navbar","file":"navbar.html"},{"name":"Stepper","file":"stepper.html"},{"name":"Dropdowns","file":"dropdowns.html"},{"name":"Context Menu","file":"context-menu.html"},{"name":"Bottom Navigation","file":"bottom-navigation.html"}]},{"id":"feedback","title":"Overlays & Feedback","items":[{"name":"Modals","file":"modals.html"},{"name":"Dialog","file":"dialog.html"},{"name":"Drawer","file":"drawer.html"},{"name":"Alert Banner","file":"alert-banner.html"},{"name":"Toast","file":"toast.html"},{"name":"Snackbar","file":"snackbar.html"},{"name":"Popovers","file":"popovers.html"}]},{"id":"layout-media","title":"Layout & Media","items":[{"name":"Carousel","file":"carousel.html"},{"name":"Image Gallery","file":"image-gallery.html"},{"name":"Empty State","file":"empty-state.html"}]},{"id":"advanced","title":"Advanced","items":[{"name":"Command Palette","file":"command-palette.html"},{"name":"Notification Center","file":"notification-center.html"},{"name":"Tree View","file":"tree-view.html"}]}]},{"id":"theme-demos","title":"Theme Showcases","icon":"palette","expanded":false,"items":[{"name":"Neon Theme","file":"neon-demo.html","description":"Cyberpunk aesthetic demo"},{"name":"Kinetic Theme","file":"kinetic-demo.html","description":"Brutalist design demo"},{"name":"Prismatic Theme","file":"prismatic-demo.html","description":"Colorful prismatic demo"}]}],"meta":{"version":"2.1","totalComponents":53,"lastUpdated":"2026-02-13"}};
+
+    // ========================================
+    // INITIALIZATION
+    // ========================================
+
+    async function init() {
+        // Prevent multiple initialization
+        if (isInitialized) {
+            console.warn('Demo already initialized, skipping...');
+            return;
+        }
+        isInitialized = true;
+
+        await loadNavigationData();
         generateSidebar();
         initializeSearch();
-        initializeTheme();
+        initKeyboardShortcuts();
+        initThemeSelector();
         loadInitialPage();
 
         if (typeof lucide !== 'undefined') {
@@ -96,12 +46,61 @@
         }
     }
 
-    // Generate sidebar navigation
+    // ========================================
+    // NAVIGATION DATA
+    // ========================================
+
+    async function loadNavigationData() {
+        try {
+            const response = await fetch('./data/navigation.json');
+            if (!response.ok) {
+                throw new Error(`Failed to load navigation data: ${response.status}`);
+            }
+            navigationData = await response.json();
+            console.log('Navigation data loaded from JSON file');
+        } catch (error) {
+            console.warn('Could not load navigation.json, using embedded fallback data', error);
+            // Fallback to embedded navigation data (works with file:// protocol)
+            navigationData = FALLBACK_NAVIGATION;
+            console.log('Using fallback navigation data');
+        }
+    }
+
+    // ========================================
+    // SIDEBAR GENERATION
+    // ========================================
+
     function generateSidebar() {
         const sidebar = document.getElementById('demo-sidebar');
+        if (!sidebar) {
+            console.error('Sidebar element not found');
+            return;
+        }
 
-        let html = `
-            <a href="#/" class="demo-logo" data-demo-link="landing.html">
+        // Remove any duplicate sidebars that may have been created
+        const allSidebars = document.querySelectorAll('.demo-sidebar');
+        if (allSidebars.length > 1) {
+            console.warn(`Found ${allSidebars.length} sidebars, removing duplicates...`);
+            allSidebars.forEach((el, index) => {
+                if (index > 0) el.remove();
+            });
+        }
+
+        const sections = navigationData?.sections || [];
+
+        sidebar.innerHTML = `
+            ${renderLogo()}
+            ${renderSearchBar()}
+            ${renderThemeSelector()}
+            ${sections.map(section => renderSection(section)).join('')}
+        `;
+
+        attachEventListeners();
+    }
+
+    function renderLogo() {
+        return `
+            <a href="javascript:void(0)" class="demo-logo" data-demo-link="landing.html">
                 <div class="demo-logo-icon">
                     <div class="demo-soundwave">
                         ${Array(8).fill().map(() => '<div class="demo-wave-bar"></div>').join('')}
@@ -109,73 +108,118 @@
                 </div>
                 <div class="demo-logo-text">Aural UI</div>
             </a>
+        `;
+    }
 
-            <div class="demo-search">
-                <i data-lucide="search" class="demo-search-icon"></i>
-                <input type="text" id="demo-search" placeholder="Search components..." autocomplete="off">
-            </div>
-
-            <div class="demo-nav-section">
-                <div class="demo-nav-title">Intro</div>
-                <ul class="demo-nav-links">
-                    <li><a class="demo-nav-link" data-demo-link="landing.html">What it is</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="changelog.html">Changelog</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="accessibility.html">Accessibility</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="getting-started.html">Getting started</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="contributing.html">Contributing</a></li>
-                </ul>
-            </div>
-
-            <div class="demo-nav-section">
-                <div class="demo-nav-title">Documentation</div>
-                <ul class="demo-nav-links">
-                    <li><a class="demo-nav-link" data-demo-link="api.html">API Reference</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="tokens.html">Design Tokens</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="utilities.html">Utility Classes</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="themes.html">Themes</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="theme-builder.html">Theme Builder</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="patterns.html">Common Patterns</a></li>
-                </ul>
+    function renderSearchBar() {
+        return `
+            <div style="padding: 0 var(--space-3); margin-bottom: var(--space-5);">
+                <div class="aural-search-bar">
+                    <div class="aural-search-bar__wrapper">
+                        <div class="aural-search-bar__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </div>
+                        <input type="text" id="demo-search" class="aural-search-bar__input" placeholder="Search components (⌘+K)" autocomplete="off" aria-label="Search components">
+                    </div>
+                </div>
             </div>
         `;
+    }
 
-        // Add component sections (collapsed by default)
-        Object.entries(COMPONENTS).forEach(([section, components]) => {
-            html += `
+    function renderThemeSelector() {
+        const themes = [
+            { id: 'dark', name: 'Dark' },
+            { id: 'light', name: 'Light' },
+            { id: 'neon', name: 'Neon' },
+            { id: 'neon-refined', name: 'Neon Refined' },
+            { id: 'kinetic', name: 'Kinetic' },
+            { id: 'high-contrast', name: 'High Contrast' },
+            { id: 'colorblind', name: 'Colorblind' }
+        ];
+
+        const currentTheme = window.AuralThemeManager ? window.AuralThemeManager.currentTheme : 'dark';
+
+        return `
+            <div class="demo-nav-section theme-selector-section">
+                <div class="demo-nav-title">Theme Switcher</div>
+                <select class="theme-select" onchange="selectTheme(this.value)" id="theme-select">
+                    ${themes.map(theme => `
+                        <option value="${theme.id}" ${theme.id === currentTheme ? 'selected' : ''}>
+                            ${theme.name}
+                        </option>
+                    `).join('')}
+                </select>
+            </div>
+        `;
+    }
+
+    function renderSection(section) {
+        // Determine if section should be expanded by default
+        const isExpanded = section.expanded !== false;
+        const collapsedClass = isExpanded ? '' : 'collapsed';
+
+        // Handle sections with subsections (like Components)
+        if (section.subsections) {
+            return `
                 <div class="demo-nav-section">
-                    <div class="demo-nav-title collapsible collapsed" onclick="this.classList.toggle('collapsed')">
-                        ${section}
+                    <div class="demo-nav-title collapsible ${collapsedClass}" data-section="${section.id}">
+                        ${section.title}
                         <i data-lucide="chevron-down"></i>
                     </div>
-                    <ul class="demo-nav-links">
-                        ${components.map(comp => `
-                            <li><a class="demo-nav-link" data-demo-link="components/${comp.file}">${comp.name}</a></li>
+                    <div class="demo-nav-content">
+                        ${section.items ? `
+                            <ul class="demo-nav-links">
+                                ${section.items.map(item => renderNavLink(item)).join('')}
+                            </ul>
+                        ` : ''}
+                        ${section.subsections.map(subsection => `
+                            <div class="demo-nav-subsection">
+                                <div class="demo-nav-subtitle">${subsection.title}</div>
+                                <ul class="demo-nav-links">
+                                    ${subsection.items.map(item => renderNavLink(item, 'components/')).join('')}
+                                </ul>
+                            </div>
                         `).join('')}
-                    </ul>
+                    </div>
                 </div>
             `;
-        });
+        }
 
-        // Add Pages section at the end (collapsed by default)
-        html += `
+        // Handle regular sections
+        return `
             <div class="demo-nav-section">
-                <div class="demo-nav-title collapsible collapsed" onclick="this.classList.toggle('collapsed')">
-                    Pages
-                    <i data-lucide="chevron-down"></i>
+                <div class="demo-nav-title${section.items && section.items.length > 0 ? ` collapsible ${collapsedClass}` : ''}" data-section="${section.id}">
+                    ${section.title}
+                    ${section.items && section.items.length > 0 ? '<i data-lucide="chevron-down"></i>' : ''}
                 </div>
-                <ul class="demo-nav-links">
-                    <li><a class="demo-nav-link" data-demo-link="error-pages/404.html">404 Not Found</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="error-pages/403.html">403 Forbidden</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="error-pages/500.html">500 Server Error</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="error-pages/maintenance.html">Maintenance</a></li>
-                    <li><a class="demo-nav-link" data-demo-link="error-pages/coming-soon.html">Coming Soon</a></li>
-                </ul>
+                ${section.items ? `
+                    <ul class="demo-nav-links">
+                        ${section.items.map(item => renderNavLink(item)).join('')}
+                    </ul>
+                ` : ''}
             </div>
         `;
+    }
 
-        sidebar.innerHTML = html;
+    function renderNavLink(item, pathPrefix = '') {
+        const file = `${pathPrefix}${item.file}`;
+        return `
+            <li>
+                <a class="demo-nav-link"
+                   href="javascript:void(0)"
+                   data-demo-link="${file}"
+                   ${item.description ? `title="${item.description}"` : ''}>
+                    ${item.name}
+                </a>
+            </li>
+        `;
+    }
 
-        // Add click handlers
+    function attachEventListeners() {
+        // Navigation links
         document.querySelectorAll('[data-demo-link]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -183,9 +227,19 @@
                 loadPage(page);
             });
         });
+
+        // Collapsible sections
+        document.querySelectorAll('.demo-nav-title.collapsible').forEach(title => {
+            title.addEventListener('click', () => {
+                title.classList.toggle('collapsed');
+            });
+        });
     }
 
-    // Load a page
+    // ========================================
+    // PAGE LOADING
+    // ========================================
+
     function loadPage(url) {
         const frame = document.getElementById('demo-content-frame');
         const loading = document.getElementById('demo-loading');
@@ -195,32 +249,23 @@
             return;
         }
 
-        // Show loading
+        // Show loading indicator
         if (loading) loading.classList.add('active');
 
         // Update active link
-        document.querySelectorAll('.demo-nav-link').forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('data-demo-link') === url) {
-                link.classList.add('active');
-            }
-        });
+        updateActiveLink(url);
 
         // Load page in iframe
         frame.src = url;
 
-        // Hide loading when iframe loads
+        // Handle iframe load
         frame.onload = () => {
             if (loading) loading.classList.remove('active');
             closeDemoMenu();
-
-            // Sync theme with iframe after a short delay
-            setTimeout(() => {
-                syncIframeTheme();
-            }, 100);
+            syncIframeTheme();
         };
 
-        // Handle iframe loading errors
+        // Handle iframe errors
         frame.onerror = () => {
             console.error('Failed to load page:', url);
             if (loading) loading.classList.remove('active');
@@ -232,16 +277,84 @@
         }
     }
 
-    // Sync theme with iframe
+    function updateActiveLink(url) {
+        // Remove active class from all links first
+        document.querySelectorAll('.demo-nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Add active class to only the first matching link
+        const matchingLink = document.querySelector(`.demo-nav-link[data-demo-link="${url}"]`);
+        if (matchingLink) {
+            matchingLink.classList.add('active');
+        }
+    }
+
+    function loadInitialPage() {
+        const hash = location.hash.slice(1);
+        const page = hash || 'landing.html';
+
+        setTimeout(() => {
+            loadPage(page);
+        }, 50);
+    }
+
+    // ========================================
+    // THEME INTEGRATION
+    // ========================================
+
+    function initThemeSelector() {
+        // Wait for ThemeManager to be available
+        if (!window.AuralThemeManager) {
+            console.error('AuralThemeManager not found! Make sure theme-manager.js is loaded.');
+            return;
+        }
+
+        const themeManager = window.AuralThemeManager;
+
+        // Update UI to reflect current theme
+        updateThemeUI(themeManager.getCurrentTheme());
+
+        // Listen for theme changes
+        themeManager.onChange((themeId) => {
+            const theme = themeManager.getAllThemes().find(t => t.id === themeId);
+            updateThemeUI(theme);
+            reloadIframeWithTheme();
+        });
+
+        // Set active state on theme options
+        updateThemeOptions(themeManager.currentTheme);
+    }
+
+    function updateThemeUI(theme) {
+        // Update select dropdown value
+        const themeSelect = document.getElementById('theme-select');
+        if (themeSelect) {
+            themeSelect.value = theme.id;
+        }
+
+        // Recreate icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
+    function updateThemeOptions(themeId) {
+        // Update select dropdown value
+        const themeSelect = document.getElementById('theme-select');
+        if (themeSelect) {
+            themeSelect.value = themeId;
+        }
+    }
+
     function syncIframeTheme() {
         const frame = document.getElementById('demo-content-frame');
-        if (!frame || !frame.contentDocument) {
-            console.log('Cannot sync theme - iframe not ready');
+        if (!frame || !frame.contentDocument || !window.AuralThemeManager) {
             return;
         }
 
         try {
-            const currentTheme = localStorage.getItem('theme') || 'dark';
+            const currentTheme = window.AuralThemeManager.currentTheme;
             const iframeThemeLink = frame.contentDocument.getElementById('theme-link');
 
             if (iframeThemeLink) {
@@ -249,16 +362,18 @@
                 const isInSubdirectory = iframeSrc.includes('/components/') || iframeSrc.includes('/error-pages/');
                 const relativePath = isInSubdirectory ? '../' : './';
 
-                const themeFiles = {
-                    'dark': `${relativePath}dark.css`,
-                    'light': `${relativePath}light.css`,
-                    'high-contrast': `${relativePath}high-contrast.css`,
-                    'colorblind': `${relativePath}colorblind-friendly.css`
-                };
+                // Get theme info
+                const theme = window.AuralThemeManager.getCurrentTheme();
 
-                const newHref = themeFiles[currentTheme];
-                iframeThemeLink.href = newHref;
-                console.log('Synced iframe theme to:', newHref);
+                // Update theme CSS
+                iframeThemeLink.href = relativePath + theme.file;
+                console.log('Synced iframe theme to:', theme.name);
+
+                // Load theme-specific components
+                loadIframeThemeComponents(frame.contentDocument, currentTheme, relativePath);
+
+                // Load theme-specific scripts
+                loadIframeThemeScripts(frame.contentDocument, currentTheme, relativePath);
             }
 
             // Hide iframe theme toggle if it exists
@@ -270,167 +385,229 @@
             // Re-initialize Lucide icons in iframe
             if (frame.contentWindow.lucide) {
                 frame.contentWindow.lucide.createIcons();
-                console.log('Re-initialized Lucide icons in iframe');
             }
         } catch (e) {
             console.error('Could not sync iframe theme:', e);
         }
     }
 
-    // Load initial page
-    function loadInitialPage() {
-        const hash = location.hash.slice(1);
-        const page = hash || 'landing.html';
+    function loadIframeThemeComponents(doc, themeName, relativePath) {
+        // Remove existing theme component links
+        doc.querySelectorAll('link[data-theme-component]').forEach(link => link.remove());
 
-        // Small delay to ensure DOM is fully ready
-        setTimeout(() => {
-            loadPage(page);
-        }, 50);
-    }
+        const themeComponents = {
+            'kinetic': ['kinetic-buttons.css', 'kinetic-cards.css'],
+            'neon': ['fonts-neon.css', 'deluxe-neon.css'],
+            'neon-refined': ['fonts-neon.css', 'buttons-refined.css', 'cards-refined.css']
+        };
 
-    // Initialize search
-    function initializeSearch() {
-        const searchInput = document.getElementById('demo-search');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase().trim();
-
-                document.querySelectorAll('.demo-nav-section').forEach(section => {
-                    const links = section.querySelectorAll('.demo-nav-link');
-                    let visible = 0;
-
-                    links.forEach(link => {
-                        const text = link.textContent.toLowerCase();
-                        const match = text.includes(term) || term === '';
-                        link.parentElement.style.display = match ? '' : 'none';
-                        if (match) visible++;
-                    });
-
-                    // Hide empty sections (except Intro/Docs)
-                    const title = section.querySelector('.demo-nav-title');
-                    if (title && !['Intro', 'Documentation'].includes(title.textContent.trim())) {
-                        section.style.display = visible > 0 || term === '' ? '' : 'none';
-                    }
-                });
+        const components = themeComponents[themeName];
+        if (components) {
+            const head = doc.head || doc.getElementsByTagName('head')[0];
+            components.forEach(filename => {
+                const link = doc.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = relativePath + filename;
+                link.setAttribute('data-theme-component', themeName);
+                head.appendChild(link);
             });
         }
     }
 
-    // Initialize theme
-    function initializeTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        const themeLink = document.getElementById('theme-link');
+    function loadIframeThemeScripts(doc, themeName, relativePath) {
+        // Remove existing theme scripts
+        doc.querySelectorAll('script[data-theme-script]').forEach(script => script.remove());
 
-        const themeFiles = {
-            'dark': 'dark.css',
-            'light': 'light.css',
-            'high-contrast': 'high-contrast.css',
-            'colorblind': 'colorblind-friendly.css'
+        // Load neon-effects.js for neon themes
+        if (themeName === 'neon' || themeName === 'neon-refined') {
+            const script = doc.createElement('script');
+            script.src = relativePath + 'neon-effects.js';
+            script.setAttribute('data-theme-script', themeName);
+            script.onload = () => {
+                if (doc.body && !doc.body.hasAttribute('data-neon-effects')) {
+                    doc.body.setAttribute('data-neon-effects', '');
+                    if (doc.defaultView.Aural?.NeonEffects) {
+                        doc.defaultView.Aural.NeonEffects.initAll({
+                            particles: 30,
+                            gradientMesh: true,
+                            cursorGlow: false
+                        });
+                    }
+                }
+            };
+            doc.body.appendChild(script);
+        }
+    }
+
+    function reloadIframeWithTheme() {
+        const iframe = document.getElementById('demo-content-frame');
+        if (!iframe || !iframe.src) return;
+
+        // Setup onload handler before reloading
+        iframe.onload = function() {
+            setTimeout(() => {
+                syncIframeTheme();
+            }, 150);
         };
 
-        const themeIcons = {
-            'dark': 'moon',
-            'light': 'sun',
-            'high-contrast': 'zap',
-            'colorblind': 'palette'
-        };
+        // Force reload by re-setting the src
+        const currentSrc = iframe.src;
+        iframe.src = '';
+        setTimeout(() => {
+            iframe.src = currentSrc;
+        }, 50);
+    }
 
-        const themeLabels = {
-            'dark': 'Dark',
-            'light': 'Light',
-            'high-contrast': 'High Contrast',
-            'colorblind': 'Colorblind-Friendly'
-        };
+    // ========================================
+    // SEARCH FUNCTIONALITY
+    // ========================================
 
-        themeLink.href = themeFiles[savedTheme];
+    function initializeSearch() {
+        const searchInput = document.getElementById('demo-search');
+        if (!searchInput) return;
 
-        // Update current theme display
-        const currentIcon = document.getElementById('current-theme-icon');
-        const currentName = document.getElementById('current-theme-name');
-        if (currentIcon) currentIcon.setAttribute('data-lucide', themeIcons[savedTheme]);
-        if (currentName) currentName.textContent = themeLabels[savedTheme];
+        // Build search index
+        const searchIndex = buildSearchIndex();
 
-        // Set active state on the correct option
-        document.querySelectorAll('.theme-option').forEach(option => {
-            const onclickAttr = option.getAttribute('onclick');
-            if (onclickAttr && onclickAttr.includes(`'${savedTheme}'`)) {
-                option.classList.add('active');
-            } else {
-                option.classList.remove('active');
+        // Handle search input
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            performSearch(term, searchIndex);
+        });
+
+        // Update placeholder with keyboard shortcut
+        const isMac = /Mac/.test(navigator.platform);
+        const modifier = isMac ? '⌘' : 'Ctrl';
+        searchInput.placeholder = `Search components (${modifier}+K)`;
+    }
+
+    function buildSearchIndex() {
+        const index = [];
+
+        document.querySelectorAll('.demo-nav-link').forEach(link => {
+            const text = link.textContent.toLowerCase().trim();
+            const file = link.getAttribute('data-demo-link');
+            const section = link.closest('.demo-nav-section')?.querySelector('.demo-nav-title')?.textContent.trim() || '';
+
+            index.push({
+                text,
+                file,
+                element: link,
+                section: section.toLowerCase()
+            });
+        });
+
+        return index;
+    }
+
+    function performSearch(term, searchIndex) {
+        if (term === '') {
+            // Show all
+            searchIndex.forEach(item => item.element.parentElement.style.display = '');
+            document.querySelectorAll('.demo-nav-section').forEach(s => s.style.display = '');
+            return;
+        }
+
+        // Fuzzy search with scoring
+        const results = searchIndex
+            .map(item => ({
+                ...item,
+                score: calculateRelevance(term, item.text, item.section)
+            }))
+            .filter(item => item.score > 0);
+
+        // Hide all initially
+        searchIndex.forEach(item => item.element.parentElement.style.display = 'none');
+
+        // Show matches
+        results.forEach(item => item.element.parentElement.style.display = '');
+
+        // Show/hide sections based on visible items
+        document.querySelectorAll('.demo-nav-section').forEach(section => {
+            const hasVisible = section.querySelector('.demo-nav-link:not([style*="none"])');
+            section.style.display = hasVisible ? '' : 'none';
+        });
+    }
+
+    function calculateRelevance(term, text, section) {
+        let score = 0;
+
+        // Exact match
+        if (text === term) {
+            score += 100;
+        }
+        // Starts with
+        else if (text.startsWith(term)) {
+            score += 80;
+        }
+        // Contains word
+        else if (text.includes(term)) {
+            score += 60;
+        }
+        // Fuzzy match
+        else {
+            let termIndex = 0;
+            for (let i = 0; i < text.length && termIndex < term.length; i++) {
+                if (text[i] === term[termIndex]) {
+                    termIndex++;
+                    score += 5;
+                }
+            }
+            if (termIndex !== term.length) score = 0;
+        }
+
+        // Boost if section matches
+        if (section.includes(term)) {
+            score += 20;
+        }
+
+        return score;
+    }
+
+    // ========================================
+    // KEYBOARD SHORTCUTS
+    // ========================================
+
+    function initKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+            const searchInput = document.getElementById('demo-search');
+
+            // Cmd/Ctrl + K for search
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput?.focus();
+            }
+
+            // Escape to clear search
+            if (e.key === 'Escape' && searchInput === document.activeElement) {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.blur();
             }
         });
     }
 
-    // Public functions
-    window.toggleThemeSelector = function() {
-        const selector = document.getElementById('theme-selector');
-        selector.classList.toggle('active');
-    };
+    // ========================================
+    // PUBLIC API
+    // ========================================
 
     window.selectTheme = function(themeName) {
-        const themeLink = document.getElementById('theme-link');
-        const themeFiles = {
-            'dark': 'dark.css',
-            'light': 'light.css',
-            'high-contrast': 'high-contrast.css',
-            'colorblind': 'colorblind-friendly.css'
-        };
-
-        const themeIcons = {
-            'dark': 'moon',
-            'light': 'sun',
-            'high-contrast': 'zap',
-            'colorblind': 'palette'
-        };
-
-        const themeLabels = {
-            'dark': 'Dark',
-            'light': 'Light',
-            'high-contrast': 'High Contrast',
-            'colorblind': 'Colorblind-Friendly'
-        };
+        if (!window.AuralThemeManager) {
+            console.error('AuralThemeManager not found!');
+            return;
+        }
 
         console.log('Switching to theme:', themeName);
 
-        // Update demo page theme
-        themeLink.href = themeFiles[themeName];
-        localStorage.setItem('theme', themeName);
+        // Apply theme via ThemeManager
+        window.AuralThemeManager.applyTheme(themeName);
 
-        // Update current theme display
-        const currentIcon = document.getElementById('current-theme-icon');
-        const currentName = document.getElementById('current-theme-name');
-        if (currentIcon) currentIcon.setAttribute('data-lucide', themeIcons[themeName]);
-        if (currentName) currentName.textContent = themeLabels[themeName];
+        // Update active state in UI
+        updateThemeOptions(themeName);
 
-        // Update active state in options
-        document.querySelectorAll('.theme-option').forEach(option => {
-            option.classList.remove('active');
-        });
-        event.target.closest('.theme-option').classList.add('active');
-
-        // Close selector
-        document.getElementById('theme-selector').classList.remove('active');
-
-        // Reload iframe to apply new theme
-        const iframe = document.getElementById('demo-content-frame');
-        if (iframe && iframe.src) {
-            console.log('Reloading iframe with theme:', themeName);
-
-            // Setup onload handler before reloading
-            iframe.onload = function() {
-                setTimeout(() => {
-                    syncIframeTheme();
-                }, 150);
-            };
-
-            // Force reload by re-setting the src
-            const currentSrc = iframe.src;
-            iframe.src = '';
-            setTimeout(() => {
-                iframe.src = currentSrc;
-                console.log('Iframe reloaded with new theme:', themeName);
-            }, 50);
-        }
+        // NOTE: reloadIframeWithTheme() is called by the onChange callback
+        // in initThemeSelector(), so we don't need to call it here
+        // (calling it twice was potentially causing issues)
 
         // Recreate icons
         if (typeof lucide !== 'undefined') {
@@ -438,23 +615,19 @@
         }
     };
 
-    // Close theme selector when clicking outside
-    document.addEventListener('click', function(e) {
-        const selector = document.getElementById('theme-selector');
-        if (selector && !selector.contains(e.target)) {
-            selector.classList.remove('active');
-        }
-    });
-
     window.toggleDemoMenu = function() {
-        document.getElementById('demo-sidebar').classList.toggle('active');
-        document.getElementById('demo-overlay').classList.toggle('active');
+        document.getElementById('demo-sidebar')?.classList.toggle('active');
+        document.getElementById('demo-overlay')?.classList.toggle('active');
     };
 
     window.closeDemoMenu = function() {
-        document.getElementById('demo-sidebar').classList.remove('active');
-        document.getElementById('demo-overlay').classList.remove('active');
+        document.getElementById('demo-sidebar')?.classList.remove('active');
+        document.getElementById('demo-overlay')?.classList.remove('active');
     };
+
+    // ========================================
+    // EVENT LISTENERS
+    // ========================================
 
     // Handle hash changes
     window.addEventListener('hashchange', () => {

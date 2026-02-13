@@ -183,12 +183,15 @@
 
         // Sync theme from localStorage
         const savedTheme = localStorage.getItem('theme') || 'dark';
-        const themeFiles = {
-            'dark': '../dark.css',
-            'light': '../light.css',
-            'high-contrast': '../high-contrast.css',
-            'colorblind': '../colorblind-friendly.css'
-        };
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
 
         const themeLink = document.getElementById('theme-link');
         if (themeLink && themeFiles[savedTheme]) {

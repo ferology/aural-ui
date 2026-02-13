@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="./dark.css" id="theme-link">
 
+    <!-- Enhanced Documentation Styles -->
+    <link rel="stylesheet" href="./styles/doc-enhanced.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -141,15 +144,15 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="page-header">
-            <h1 class="page-title">Accessibility</h1>
+            <div class="page-title page-heading-lg">Accessibility</div>
             <p class="page-description">Accessibility is not an afterthought. Every component in Aural UI is built from the ground up with accessibility in mind, ensuring your applications are usable by everyone.</p>
         </div>
 
         <div class="content-section">
             <div class="card" style="padding: var(--space-6); margin-bottom: var(--space-3);">
-                <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--color-text-primary);">
+                <div class="page-subheading">
                     Our Accessibility Commitments
-                </h3>
+                </div>
                 <ul style="list-style: none; padding: 0; margin: 0;">
                     <li style="padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border-subtle); display: flex; align-items: start; gap: var(--space-3);">
                         <i data-lucide="check-circle" style="width: 20px; height: 20px; color: var(--color-success); flex-shrink: 0; margin-top: 2px;"></i>
@@ -192,18 +195,18 @@
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">Understanding Accessibility in Aural UI</h2>
+            <div class="section-title page-heading">Understanding Accessibility in Aural UI</div>
             <div class="section-content">
                 <p>Accessibility in Aural UI is a <strong>shared responsibility</strong> between the framework (CSS) and developers (HTML/ARIA). Understanding what each provides is crucial for building truly accessible applications.</p>
             </div>
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">What Aural UI CSS Provides Automatically</h2>
+            <div class="section-title page-heading">What Aural UI CSS Provides Automatically</div>
             <div class="section-content">
                 <p>When you use Aural UI CSS, these accessibility features are <strong>automatically included</strong>:</p>
 
-                <h3>Mobile Responsiveness</h3>
+                <div class="page-subheading">Mobile Responsiveness</div>
                 <ul>
                     <li><strong>Responsive breakpoints:</strong> Media queries adapt layouts for all screen sizes</li>
                     <li><strong>Fluid typography:</strong> Text scales appropriately across devices</li>
@@ -211,7 +214,7 @@
                     <li><strong>Viewport optimization:</strong> Content fits properly without horizontal scrolling</li>
                 </ul>
 
-                <h3>Visual Accessibility</h3>
+                <div class="page-subheading">Visual Accessibility</div>
                 <ul>
                     <li><strong>Color contrast:</strong> All color tokens meet WCAG AA standards (4.5:1 for text, 3:1 for UI components)</li>
                     <li><strong>Focus indicators:</strong> Visible <code>:focus</code> and <code>:focus-visible</code> states on all interactive elements</li>
@@ -220,7 +223,7 @@
                     <li><strong>Consistent spacing:</strong> Adequate whitespace prevents accidental interactions</li>
                 </ul>
 
-                <h3>Example: CSS Provides Visual Focus</h3>
+                <div class="page-subheading">Example: CSS Provides Visual Focus</div>
                 <pre><code>/* This styling is already in Aural UI CSS */
 .btn:focus-visible {
     outline: 2px solid var(--color-primary);
@@ -230,11 +233,11 @@
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">What Developers Must Add (ARIA Attributes)</h2>
+            <div class="section-title page-heading">What Developers Must Add (ARIA Attributes)</div>
             <div class="section-content">
                 <p>CSS <strong>cannot</strong> provide semantic meaning to assistive technologies. You must add these HTML attributes:</p>
 
-                <h3>ARIA Roles</h3>
+                <div class="page-subheading">ARIA Roles</div>
                 <ul>
                     <li><strong><code>role="status"</code>:</strong> For loading indicators and live updates</li>
                     <li><strong><code>role="alert"</code>:</strong> For important error messages</li>
@@ -243,14 +246,14 @@
                     <li><strong><code>role="toolbar"</code>:</strong> For grouped action buttons</li>
                 </ul>
 
-                <h3>ARIA Labels</h3>
+                <div class="page-subheading">ARIA Labels</div>
                 <ul>
                     <li><strong><code>aria-label</code>:</strong> Provides text for screen readers when none exists visually</li>
                     <li><strong><code>aria-labelledby</code>:</strong> Links elements to their labels</li>
                     <li><strong><code>aria-describedby</code>:</strong> Provides additional context</li>
                 </ul>
 
-                <h3>ARIA States</h3>
+                <div class="page-subheading">ARIA States</div>
                 <ul>
                     <li><strong><code>aria-busy="true"</code>:</strong> Indicates elements are loading</li>
                     <li><strong><code>aria-expanded</code>:</strong> Shows collapsed/expanded state</li>
@@ -258,7 +261,7 @@
                     <li><strong><code>aria-hidden</code>:</strong> Hides decorative elements from screen readers</li>
                 </ul>
 
-                <h3>Example: Developer Must Add ARIA</h3>
+                <div class="page-subheading">Example: Developer Must Add ARIA</div>
                 <pre><code>&lt;!-- ❌ NOT Accessible (only visual) --&gt;
 &lt;div class="aural-spinner aural-spinner--primary"&gt;
     &lt;div class="aural-spinner__circle"&gt;&lt;/div&gt;
@@ -274,11 +277,11 @@
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">Component-Specific ARIA Requirements</h2>
+            <div class="section-title page-heading">Component-Specific ARIA Requirements</div>
             <div class="section-content">
                 <p>Each component type requires specific ARIA attributes. Here's a quick reference:</p>
 
-                <h3>Spinners / Loading Indicators</h3>
+                <div class="page-subheading">Spinners / Loading Indicators</div>
                 <pre><code>&lt;div class="aural-spinner aural-spinner--primary"
      role="status"
      aria-label="Loading"&gt;
@@ -293,7 +296,7 @@
     Saving...
 &lt;/button&gt;</code></pre>
 
-                <h3>Chips / Tags</h3>
+                <div class="page-subheading">Chips / Tags</div>
                 <pre><code>&lt;div class="aural-chips-list" role="list"&gt;
     &lt;div class="aural-chip" role="listitem"&gt;
         &lt;span class="aural-chip__text"&gt;JavaScript&lt;/span&gt;
@@ -302,7 +305,7 @@
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-                <h3>Tooltips</h3>
+                <div class="page-subheading">Tooltips</div>
                 <pre><code>&lt;!-- Icon buttons need aria-label --&gt;
 &lt;button class="btn btn-icon"
         data-tooltip="Edit item"
@@ -316,7 +319,7 @@
       role="status"
       aria-label="Service operational"&gt;&lt;/span&gt;</code></pre>
 
-                <h3>Dividers</h3>
+                <div class="page-subheading">Dividers</div>
                 <pre><code>&lt;!-- Horizontal dividers (semantic break) --&gt;
 &lt;hr class="divider"&gt;
 
@@ -325,7 +328,7 @@
     role="separator"
     aria-orientation="vertical"&gt;</code></pre>
 
-                <h3>Code Blocks</h3>
+                <div class="page-subheading">Code Blocks</div>
                 <pre><code>&lt;div class="aural-code-block"&gt;
     &lt;div class="aural-code-block__header"&gt;
         &lt;span class="aural-code-block__language"
@@ -343,11 +346,11 @@
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">Accessibility Checklist</h2>
+            <div class="section-title page-heading">Accessibility Checklist</div>
             <div class="section-content">
                 <p>Use this checklist when implementing Aural UI components:</p>
 
-                <h3>Visual Accessibility (CSS Handles)</h3>
+                <div class="page-subheading">Visual Accessibility (CSS Handles)</div>
                 <ul>
                     <li>✅ Color contrast meets WCAG AA standards</li>
                     <li>✅ Focus states are visible on all interactive elements</li>
@@ -355,7 +358,7 @@
                     <li>✅ Touch targets meet 44×44px minimum</li>
                 </ul>
 
-                <h3>Semantic Accessibility (Your Responsibility)</h3>
+                <div class="page-subheading">Semantic Accessibility (Your Responsibility)</div>
                 <ul>
                     <li>⚠️ Add <code>role</code> attributes where needed</li>
                     <li>⚠️ Add <code>aria-label</code> to icon-only buttons</li>
@@ -369,16 +372,16 @@
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">Testing Your Implementation</h2>
+            <div class="section-title page-heading">Testing Your Implementation</div>
             <div class="section-content">
-                <h3>Automated Testing</h3>
+                <div class="page-subheading">Automated Testing</div>
                 <ul>
                     <li><strong>axe DevTools:</strong> Browser extension for automated accessibility testing</li>
                     <li><strong>Lighthouse:</strong> Chrome DevTools accessibility audit</li>
                     <li><strong>WAVE:</strong> Web accessibility evaluation tool</li>
                 </ul>
 
-                <h3>Manual Testing</h3>
+                <div class="page-subheading">Manual Testing</div>
                 <ul>
                     <li><strong>Keyboard only:</strong> Navigate using only Tab, Enter, Space, and Arrow keys</li>
                     <li><strong>Screen reader:</strong> Test with NVDA (Windows), JAWS (Windows), or VoiceOver (Mac/iOS)</li>
@@ -386,7 +389,7 @@
                     <li><strong>Color blindness:</strong> Test with color blindness simulators</li>
                 </ul>
 
-                <h3>Mobile Testing</h3>
+                <div class="page-subheading">Mobile Testing</div>
                 <ul>
                     <li><strong>Touch targets:</strong> All interactive elements should be easy to tap</li>
                     <li><strong>Screen readers:</strong> Test with TalkBack (Android) and VoiceOver (iOS)</li>
@@ -396,7 +399,7 @@
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">Common Mistakes to Avoid</h2>
+            <div class="section-title page-heading">Common Mistakes to Avoid</div>
             <div class="section-content">
                 <div class="card" style="padding: var(--space-4); margin-bottom: var(--space-4); border-left: 3px solid var(--color-error);">
                     <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">❌ Assuming CSS is enough</h4>
@@ -426,7 +429,7 @@
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">Resources</h2>
+            <div class="section-title page-heading">Resources</div>
             <div class="section-content">
                 <ul>
                     <li><a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" style="color: var(--color-primary);">WCAG 2.1 Quick Reference</a></li>
@@ -457,29 +460,11 @@
         </button>
     </div>
 
-    <!-- Aural UI JavaScript -->
-    <script src="./aural-ui.js"></script>
-
     <script>
-        // Initialize Lucide icons
         lucide.createIcons();
+    </script>
 
-        // Theme toggle
-        let isDark = true;
-        function toggleTheme() {
-            const themeLink = document.getElementById('theme-link');
-            isDark = !isDark;
-            themeLink.href = isDark ? './dark.css' : './light.css';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            isDark = savedTheme === 'dark';
-            document.getElementById('theme-link').href = isDark ? './dark.css' : './light.css';
-        }
-    </script>    <!-- Unified Theme Sync -->
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
@@ -492,6 +477,9 @@
             const themeFiles = {
                 'dark': 'dark.css',
                 'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
                 'high-contrast': 'high-contrast.css',
                 'colorblind': 'colorblind-friendly.css'
             };
@@ -518,5 +506,11 @@
         });
     })();
     </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+    <!-- Enhanced Documentation JavaScript -->
+    <script src="js/doc-enhanced.js"></script>
+
 </body>
 </html>

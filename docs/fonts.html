@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font System - Aural UI</title>
+    <link rel="stylesheet" href="aural-ui.css">
+    <link rel="stylesheet" href="dark.css" id="theme-link">
+
+    <style>
+        /* Page Layout */
+        body {
+            padding: var(--space-8);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-12);
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: var(--text-5xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-4);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary, var(--color-primary)) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Theme Selector */
+        .theme-selector {
+            display: flex;
+            gap: var(--space-2);
+            justify-content: center;
+            margin-bottom: var(--space-8);
+            flex-wrap: wrap;
+        }
+
+        .theme-btn {
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            background: var(--color-bg-secondary);
+            border: 2px solid var(--color-border);
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .theme-btn.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        /* Font Family Cards */
+        .font-family-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-12);
+        }
+
+        .font-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            transition: all 0.3s;
+        }
+
+        .font-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .font-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-4);
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .font-name {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--color-primary);
+        }
+
+        .font-tag {
+            padding: var(--space-1) var(--space-3);
+            background: var(--color-primary);
+            color: white;
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+        }
+
+        .font-stack {
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            background: var(--color-bg-tertiary, var(--color-bg-primary));
+            padding: var(--space-3);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+            overflow-x: auto;
+        }
+
+        .font-preview {
+            margin-top: var(--space-4);
+        }
+
+        .preview-text {
+            margin-bottom: var(--space-3);
+            padding: var(--space-3);
+            background: var(--color-bg-primary);
+            border-radius: var(--radius-md);
+        }
+
+        /* Size Scale Section */
+        .size-scale-section {
+            margin-bottom: var(--space-12);
+        }
+
+        .section-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-6);
+            color: var(--color-text-primary);
+        }
+
+        .size-grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+
+        .size-example {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            background: var(--color-bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+
+        .size-label {
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            min-width: 120px;
+        }
+
+        .size-pixels {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            min-width: 60px;
+        }
+
+        .size-demo {
+            flex: 1;
+        }
+
+        /* Weight Scale */
+        .weight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .weight-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            text-align: center;
+        }
+
+        .weight-name {
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-2);
+        }
+
+        .weight-value {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-3);
+        }
+
+        /* Special Effects (Neon Theme) */
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .effect-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .effect-title {
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-3);
+        }
+
+        /* Use Cases */
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .use-case-card {
+            background: var(--color-bg-secondary);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            padding: var(--space-5);
+        }
+
+        .use-case-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-3);
+            color: var(--color-primary);
+        }
+
+        .use-case-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .use-case-list li {
+            padding: var(--space-2) 0;
+            padding-left: var(--space-6);
+            position: relative;
+        }
+
+        .use-case-list li::before {
+            content: "→";
+            position: absolute;
+            left: var(--space-2);
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .font-family-grid,
+            .size-grid,
+            .weight-grid,
+            .effects-grid,
+            .use-case-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-3xl);
+            }
+        }
+
+        /* Code snippet styling */
+        .code-snippet {
+            background: var(--color-bg-tertiary, #1a1a1a);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-3);
+            overflow-x: auto;
+        }
+
+        .code-snippet code {
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1 class="page-title">Font System</h1>
+        <p class="page-description">
+            Explore Aural UI's comprehensive typography system with multiple font families,
+            13 size scales, 9 weight options, and theme-specific variations.
+        </p>
+    </header>
+
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+        <button class="theme-btn active" data-theme="dark">Dark</button>
+        <button class="theme-btn" data-theme="light">Light</button>
+        <button class="theme-btn" data-theme="neon">Neon</button>
+        <button class="theme-btn" data-theme="neon-refined">Neon Refined</button>
+        <button class="theme-btn" data-theme="kinetic">Kinetic</button>
+        <button class="theme-btn" data-theme="high-contrast">High Contrast</button>
+        <button class="theme-btn" data-theme="colorblind">Colorblind</button>
+    </div>
+
+    <!-- Font Families -->
+    <section class="font-family-section">
+        <h2 class="section-title">Font Families by Theme</h2>
+
+        <div class="font-family-grid">
+            <!-- Default System Fonts -->
+            <div class="font-card" data-theme-fonts="default">
+                <div class="font-card-header">
+                    <h3 class="font-name">System Sans</h3>
+                    <span class="font-tag">Default</span>
+                </div>
+                <div class="font-stack">
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif
+                </div>
+                <div class="font-preview">
+                    <div class="preview-text" style="font-family: var(--font-sans); font-size: 1.5rem;">
+                        The quick brown fox jumps over the lazy dog
+                    </div>
+                    <div class="preview-text" style="font-family: var(--font-sans); font-size: 1rem;">
+                        ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+                        abcdefghijklmnopqrstuvwxyz<br>
+                        0123456789 !@#$%^&*()
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Monospace -->
+            <div class="font-card">
+                <div class="font-card-header">
+                    <h3 class="font-name">System Mono</h3>
+                    <span class="font-tag">Code</span>
+                </div>
+                <div class="font-stack">
+                    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace
+                </div>
+                <div class="font-preview">
+                    <div class="preview-text" style="font-family: var(--font-mono); font-size: 1.5rem;">
+                        The quick brown fox jumps over the lazy dog
+                    </div>
+                    <div class="preview-text" style="font-family: var(--font-mono); font-size: 1rem;">
+                        const greeting = "Hello World";<br>
+                        function add(a, b) { return a + b; }<br>
+                        0123456789 !== === &lt;= &gt;=
+                    </div>
+                </div>
+            </div>
+
+            <!-- Neon Theme - Space Grotesk -->
+            <div class="font-card" data-theme-fonts="neon">
+                <div class="font-card-header">
+                    <h3 class="font-name">Space Grotesk</h3>
+                    <span class="font-tag" style="background: #00e5e5;">Neon</span>
+                </div>
+                <div class="font-stack">
+                    'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
+                </div>
+                <div class="font-preview">
+                    <div class="preview-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600;">
+                        The quick brown fox jumps over the lazy dog
+                    </div>
+                    <div class="preview-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem;">
+                        Modern geometric sans-serif with a tech-forward aesthetic.<br>
+                        Perfect for headings, UI elements, and body text in neon themes.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Neon Theme - JetBrains Mono -->
+            <div class="font-card" data-theme-fonts="neon">
+                <div class="font-card-header">
+                    <h3 class="font-name">JetBrains Mono</h3>
+                    <span class="font-tag" style="background: #00e5e5;">Neon</span>
+                </div>
+                <div class="font-stack">
+                    'JetBrains Mono', 'Courier New', Consolas, Monaco, monospace
+                </div>
+                <div class="font-preview">
+                    <div class="preview-text" style="font-family: 'JetBrains Mono', monospace; font-size: 1.25rem;">
+                        const cyberPunk = () => "2077";
+                    </div>
+                    <div class="preview-text" style="font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;">
+                        Technical monospace with excellent ligature support.<br>
+                        Optimized for code blocks and data display. 0O Il1 !== ===
+                    </div>
+                </div>
+            </div>
+
+            <!-- Neon Theme - Orbitron -->
+            <div class="font-card" data-theme-fonts="neon">
+                <div class="font-card-header">
+                    <h3 class="font-name">Orbitron</h3>
+                    <span class="font-tag" style="background: #00e5e5;">Neon Display</span>
+                </div>
+                <div class="font-stack">
+                    'Orbitron', 'Space Grotesk', sans-serif
+                </div>
+                <div class="font-preview">
+                    <div class="preview-text" style="font-family: 'Orbitron', sans-serif; font-size: 1.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
+                        FUTURE TECH 2077
+                    </div>
+                    <div class="preview-text" style="font-family: 'Orbitron', sans-serif; font-size: 1rem;">
+                        Futuristic display font for attention-grabbing headlines.<br>
+                        Use sparingly for maximum impact on special UI elements.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kinetic Theme - Helvetica -->
+            <div class="font-card" data-theme-fonts="kinetic">
+                <div class="font-card-header">
+                    <h3 class="font-name">Helvetica Neue</h3>
+                    <span class="font-tag" style="background: #000;">Kinetic</span>
+                </div>
+                <div class="font-stack">
+                    -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", sans-serif
+                </div>
+                <div class="font-preview">
+                    <div class="preview-text" style="font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; font-size: 1.5rem; font-weight: 700;">
+                        THE QUICK BROWN FOX JUMPS
+                    </div>
+                    <div class="preview-text" style="font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif; font-size: 1rem;">
+                        Classic Swiss design. Clean, neutral, brutalist aesthetic.<br>
+                        Bold weights and tight tracking for editorial impact.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Font Sizes -->
+    <section class="size-scale-section">
+        <h2 class="section-title">Font Size Scale</h2>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6);">
+            13 carefully chosen sizes from 12px to 128px, following a harmonious scale.
+        </p>
+
+        <div class="size-grid">
+            <div class="size-example">
+                <div class="size-label">text-xs</div>
+                <div class="size-pixels">12px</div>
+                <div class="size-demo" style="font-size: var(--text-xs);">The quick brown fox jumps</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-sm</div>
+                <div class="size-pixels">14px</div>
+                <div class="size-demo" style="font-size: var(--text-sm);">The quick brown fox jumps</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-base</div>
+                <div class="size-pixels">16px</div>
+                <div class="size-demo" style="font-size: var(--text-base);">The quick brown fox jumps</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-lg</div>
+                <div class="size-pixels">18px</div>
+                <div class="size-demo" style="font-size: var(--text-lg);">The quick brown fox jumps</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-xl</div>
+                <div class="size-pixels">20px</div>
+                <div class="size-demo" style="font-size: var(--text-xl);">The quick brown fox jumps</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-2xl</div>
+                <div class="size-pixels">24px</div>
+                <div class="size-demo" style="font-size: var(--text-2xl);">The quick brown fox jumps</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-3xl</div>
+                <div class="size-pixels">30px</div>
+                <div class="size-demo" style="font-size: var(--text-3xl);">The quick brown fox</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-4xl</div>
+                <div class="size-pixels">36px</div>
+                <div class="size-demo" style="font-size: var(--text-4xl);">The quick brown</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-5xl</div>
+                <div class="size-pixels">48px</div>
+                <div class="size-demo" style="font-size: var(--text-5xl);">Quick brown</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-6xl</div>
+                <div class="size-pixels">60px</div>
+                <div class="size-demo" style="font-size: var(--text-6xl);">Big Text</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-7xl</div>
+                <div class="size-pixels">72px</div>
+                <div class="size-demo" style="font-size: var(--text-7xl);">Hero</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-8xl</div>
+                <div class="size-pixels">96px</div>
+                <div class="size-demo" style="font-size: var(--text-8xl);">XL</div>
+            </div>
+            <div class="size-example">
+                <div class="size-label">text-9xl</div>
+                <div class="size-pixels">128px</div>
+                <div class="size-demo" style="font-size: var(--text-9xl);">!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Font Weights -->
+    <section class="weight-scale-section">
+        <h2 class="section-title">Font Weight Scale</h2>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6);">
+            9 weight values from thin (100) to black (900) for precise typographic control.
+        </p>
+
+        <div class="weight-grid">
+            <div class="weight-card">
+                <div class="weight-name">font-thin</div>
+                <div class="weight-value">100</div>
+                <div style="font-weight: 100; font-size: 1.5rem;">Thin Text</div>
+            </div>
+            <div class="weight-card">
+                <div class="weight-name">font-extralight</div>
+                <div class="weight-value">200</div>
+                <div style="font-weight: 200; font-size: 1.5rem;">Extra Light</div>
+            </div>
+            <div class="weight-card">
+                <div class="weight-name">font-light</div>
+                <div class="weight-value">300</div>
+                <div style="font-weight: 300; font-size: 1.5rem;">Light Text</div>
+            </div>
+            <div class="weight-card">
+                <div class="weight-name">font-normal</div>
+                <div class="weight-value">400</div>
+                <div style="font-weight: 400; font-size: 1.5rem;">Normal Text</div>
+            </div>
+            <div class="weight-card">
+                <div class="weight-name">font-medium</div>
+                <div class="weight-value">500</div>
+                <div style="font-weight: 500; font-size: 1.5rem;">Medium Text</div>
+            </div>
+            <div class="weight-card">
+                <div class="weight-name">font-semibold</div>
+                <div class="weight-value">600</div>
+                <div style="font-weight: 600; font-size: 1.5rem;">Semibold</div>
+            </div>
+            <div class="weight-card">
+                <div class="weight-name">font-bold</div>
+                <div class="weight-value">700</div>
+                <div style="font-weight: 700; font-size: 1.5rem;">Bold Text</div>
+            </div>
+            <div class="weight-card">
+                <div class="weight-name">font-extrabold</div>
+                <div class="weight-value">800</div>
+                <div style="font-weight: 800; font-size: 1.5rem;">Extra Bold</div>
+            </div>
+            <div class="weight-card">
+                <div class="weight-name">font-black</div>
+                <div class="weight-value">900</div>
+                <div style="font-weight: 900; font-size: 1.5rem;">Black Text</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Neon Text Effects -->
+    <section class="effects-section" id="neon-effects-section">
+        <h2 class="section-title">Special Text Effects (Neon Themes)</h2>
+        <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6);">
+            Switch to Neon or Neon Refined theme to see these effects in action!
+        </p>
+
+        <div class="effects-grid">
+            <div class="effect-card">
+                <div class="effect-title">.text-neon-cyan</div>
+                <div class="text-neon-cyan" style="font-size: 2rem; font-weight: 700;">CYBER GLOW</div>
+            </div>
+            <div class="effect-card">
+                <div class="effect-title">.text-neon-magenta</div>
+                <div class="text-neon-magenta" style="font-size: 2rem; font-weight: 700;">NEON PINK</div>
+            </div>
+            <div class="effect-card">
+                <div class="effect-title">.text-gradient-cyber</div>
+                <div class="text-gradient-cyber" style="font-size: 2rem; font-weight: 700;">GRADIENT</div>
+            </div>
+            <div class="effect-card">
+                <div class="effect-title">.font-display</div>
+                <div class="font-display" style="font-size: 1.5rem;">ORBITRON</div>
+            </div>
+            <div class="effect-card">
+                <div class="effect-title">.text-holographic</div>
+                <div class="text-holographic" style="font-size: 2rem; font-weight: 700;">HOLO TEXT</div>
+            </div>
+            <div class="effect-card">
+                <div class="effect-title">.text-gradient-cyber-animated</div>
+                <div class="text-gradient-cyber-animated" style="font-size: 2rem; font-weight: 700;">ANIMATED</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Guidelines -->
+    <section class="usage-section">
+        <h2 class="section-title">When to Use Each Font</h2>
+
+        <div class="use-case-grid">
+            <!-- Sans-Serif -->
+            <div class="use-case-card">
+                <h3 class="use-case-title">System Sans (.font-sans)</h3>
+                <ul class="use-case-list">
+                    <li>Body text and paragraphs</li>
+                    <li>UI labels and descriptions</li>
+                    <li>Form inputs and buttons</li>
+                    <li>Navigation menus</li>
+                    <li>General interface text</li>
+                </ul>
+                <div class="code-snippet">
+                    <code>&lt;p class="font-sans"&gt;Body text&lt;/p&gt;</code>
+                </div>
+            </div>
+
+            <!-- Monospace -->
+            <div class="use-case-card">
+                <h3 class="use-case-title">Monospace (.font-mono)</h3>
+                <ul class="use-case-list">
+                    <li>Code snippets and blocks</li>
+                    <li>API references</li>
+                    <li>Terminal output</li>
+                    <li>Tabular data and numbers</li>
+                    <li>File paths and URLs</li>
+                </ul>
+                <div class="code-snippet">
+                    <code>&lt;code class="font-mono"&gt;const x = 5;&lt;/code&gt;</code>
+                </div>
+            </div>
+
+            <!-- Space Grotesk (Neon) -->
+            <div class="use-case-card">
+                <h3 class="use-case-title">Space Grotesk (Neon Theme)</h3>
+                <ul class="use-case-list">
+                    <li>Modern tech interfaces</li>
+                    <li>Dashboard headings</li>
+                    <li>Cyberpunk aesthetics</li>
+                    <li>Gaming UI elements</li>
+                    <li>Futuristic applications</li>
+                </ul>
+                <div class="code-snippet">
+                    <code>&lt;h1 style="font-family: 'Space Grotesk'"&gt;</code>
+                </div>
+            </div>
+
+            <!-- Orbitron (Neon Display) -->
+            <div class="use-case-card">
+                <h3 class="use-case-title">Orbitron (.font-display)</h3>
+                <ul class="use-case-list">
+                    <li>Hero section titles</li>
+                    <li>Brand logos (sparingly)</li>
+                    <li>Special call-to-actions</li>
+                    <li>Sci-fi themed headers</li>
+                    <li>Attention-grabbing text</li>
+                </ul>
+                <div class="code-snippet">
+                    <code>&lt;h1 class="font-display"&gt;CYBER 2077&lt;/h1&gt;</code>
+                </div>
+            </div>
+
+            <!-- JetBrains Mono (Neon Code) -->
+            <div class="use-case-card">
+                <h3 class="use-case-title">JetBrains Mono (Neon Code)</h3>
+                <ul class="use-case-list">
+                    <li>Code editors</li>
+                    <li>Technical documentation</li>
+                    <li>Developer tools</li>
+                    <li>Terminal interfaces</li>
+                    <li>JSON/XML display</li>
+                </ul>
+                <div class="code-snippet">
+                    <code>&lt;pre class="font-mono"&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>
+                </div>
+            </div>
+
+            <!-- Helvetica (Kinetic) -->
+            <div class="use-case-card">
+                <h3 class="use-case-title">Helvetica Neue (Kinetic)</h3>
+                <ul class="use-case-list">
+                    <li>Brutalist editorial design</li>
+                    <li>Bold, impactful headers</li>
+                    <li>Minimalist interfaces</li>
+                    <li>Swiss design aesthetic</li>
+                    <li>Professional portfolios</li>
+                </ul>
+                <div class="code-snippet">
+                    <code>&lt;h1 style="font-family: 'Helvetica Neue'"&gt;</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typography Best Practices -->
+    <section class="best-practices-section">
+        <h2 class="section-title">Typography Best Practices</h2>
+
+        <div class="use-case-grid">
+            <div class="use-case-card" style="border-left-color: #22c55e;">
+                <h3 class="use-case-title" style="color: #22c55e;">✓ Do</h3>
+                <ul class="use-case-list">
+                    <li>Use max 2-3 fonts per page</li>
+                    <li>Maintain consistent font hierarchy</li>
+                    <li>Ensure 4.5:1 contrast ratio (WCAG AA)</li>
+                    <li>Use line-height: 1.5 for body text</li>
+                    <li>Scale fonts responsively with clamp()</li>
+                    <li>Test with real content</li>
+                </ul>
+            </div>
+
+            <div class="use-case-card" style="border-left-color: #ef4444;">
+                <h3 class="use-case-title" style="color: #ef4444;">✗ Don't</h3>
+                <ul class="use-case-list">
+                    <li>Mix too many font families</li>
+                    <li>Use display fonts for body text</li>
+                    <li>Set line-height below 1.4</li>
+                    <li>Use pure black (#000) on white</li>
+                    <li>Forget about mobile readability</li>
+                    <li>Overuse text effects</li>
+                </ul>
+            </div>
+
+            <div class="use-case-card" style="border-left-color: #3b82f6;">
+                <h3 class="use-case-title" style="color: #3b82f6;">💡 Tips</h3>
+                <ul class="use-case-list">
+                    <li>Use font-weight for emphasis</li>
+                    <li>Combine different weights of same font</li>
+                    <li>Letter-spacing: tighter for large text</li>
+                    <li>Use system fonts for fast load times</li>
+                    <li>Preload custom web fonts</li>
+                    <li>Test across different screens</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Reference -->
+    <section class="quick-ref-section">
+        <h2 class="section-title">Quick Reference</h2>
+
+        <div style="background: var(--color-bg-secondary); border-radius: var(--radius-lg); padding: var(--space-6); border: 1px solid var(--color-border);">
+            <h3 style="font-size: var(--text-xl); margin-bottom: var(--space-4); color: var(--color-primary);">Font Family Classes</h3>
+            <div class="code-snippet">
+                <code>
+.font-sans     → System Sans-Serif<br>
+.font-serif    → System Serif<br>
+.font-mono     → System Monospace<br>
+.font-display  → Display Font (Neon themes: Orbitron)
+                </code>
+            </div>
+
+            <h3 style="font-size: var(--text-xl); margin-top: var(--space-6); margin-bottom: var(--space-4); color: var(--color-primary);">Size Classes</h3>
+            <div class="code-snippet">
+                <code>
+.text-xs   → 12px  |  .text-sm   → 14px  |  .text-base → 16px<br>
+.text-lg   → 18px  |  .text-xl   → 20px  |  .text-2xl  → 24px<br>
+.text-3xl  → 30px  |  .text-4xl  → 36px  |  .text-5xl  → 48px<br>
+.text-6xl  → 60px  |  .text-7xl  → 72px  |  .text-8xl  → 96px<br>
+.text-9xl  → 128px
+                </code>
+            </div>
+
+            <h3 style="font-size: var(--text-xl); margin-top: var(--space-6); margin-bottom: var(--space-4); color: var(--color-primary);">Weight Classes</h3>
+            <div class="code-snippet">
+                <code>
+.font-thin → 100  |  .font-extralight → 200  |  .font-light → 300<br>
+.font-normal → 400  |  .font-medium → 500  |  .font-semibold → 600<br>
+.font-bold → 700  |  .font-extrabold → 800  |  .font-black → 900
+                </code>
+            </div>
+
+            <h3 style="font-size: var(--text-xl); margin-top: var(--space-6); margin-bottom: var(--space-4); color: var(--color-primary);">CSS Variables</h3>
+            <div class="code-snippet">
+                <code>
+/* Families */<br>
+var(--font-sans), var(--font-serif), var(--font-mono), var(--font-display)<br><br>
+/* Sizes */<br>
+var(--text-xs) through var(--text-9xl)<br><br>
+/* Weights */<br>
+var(--font-thin) through var(--font-black)
+                </code>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+    <script>
+        // Theme switching with centralized theme manager
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeButtons = document.querySelectorAll('.theme-btn');
+
+            // Get current theme from theme manager
+            const currentTheme = window.AuralThemeManager?.currentTheme || 'dark';
+
+            // Set initial active button
+            const activeBtn = document.querySelector(`[data-theme="${currentTheme}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+
+            // Add click handlers
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const theme = btn.dataset.theme;
+
+                    // Update active state
+                    themeButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Apply theme via theme manager
+                    if (window.AuralThemeManager) {
+                        window.AuralThemeManager.applyTheme(theme);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

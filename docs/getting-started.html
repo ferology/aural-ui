@@ -107,9 +107,9 @@
         /* Cards Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: var(--space-6);
-            margin-bottom: var(--space-8);
+            margin-bottom: var(--space-6);
         }
 
         /* Theme Toggle */
@@ -138,6 +138,10 @@
                 font-size: var(--text-xl);
             }
 
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
             .theme-toggle {
                 top: var(--space-4);
                 right: var(--space-4);
@@ -149,49 +153,151 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="page-header">
-            <h1 class="page-title">Getting Started</h1>
+            <div class="page-title page-heading-lg">Getting Started</div>
             <p class="page-description">Get up and running with Aural UI in minutes. Choose your preferred installation method and start building beautiful, accessible interfaces.</p>
         </div>
 
-        <div class="cards-grid">
-            <div class="card" style="padding: var(--space-6);">
-                <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
-                    <span class="badge badge-success">Fastest</span>
-                    <h3 style="margin: 0; font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary);">CDN</h3>
+        <div class="content-section">
+            <div class="section-title page-heading">Installation Options</div>
+            <div class="cards-grid">
+                <div class="card" style="padding: var(--space-6);">
+                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                        <span class="badge badge-success">Fastest</span>
+                        <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0;">CDN</h3>
+                    </div>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4); font-size: var(--text-sm);">
+                        Perfect for quick prototyping and demos
+                    </p>
+                    <pre style="background: var(--color-bg-tertiary); padding: var(--space-3); border-radius: var(--radius-md); overflow-x: auto; margin: 0;"><code>&lt;link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/ferology/aural-ui@main/docs/aural-ui.css"&gt;
+&lt;link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/ferology/aural-ui@main/docs/dark.css"&gt;</code></pre>
                 </div>
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                    Perfect for quick prototyping and demos
-                </p>
-                <div class="code-block" style="background: var(--color-bg-code); padding: var(--space-2); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: var(--text-sm); overflow-x: auto; white-space: pre-wrap; word-break: break-all;">
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ferology/aural-ui@main/docs/aural-ui.css"&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ferology/aural-ui@main/docs/dark.css"&gt;
+
+                <div class="card" style="padding: var(--space-6);">
+                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                        <span class="badge badge-primary">Recommended</span>
+                        <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0;">NPM</h3>
+                    </div>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4); font-size: var(--text-sm);">
+                        Best for production applications
+                    </p>
+                    <pre style="background: var(--color-bg-tertiary); padding: var(--space-3); border-radius: var(--radius-md); overflow-x: auto; margin: 0;"><code>npm install aural-design</code></pre>
+                </div>
+
+                <div class="card" style="padding: var(--space-6);">
+                    <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-3) 0;">Download</h3>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4); font-size: var(--text-sm);">
+                        Self-host the files on your server
+                    </p>
+                    <a href="https://github.com/ferology/aural-ui/archive/refs/heads/main.zip" class="btn btn-secondary" style="display: flex; align-items: center; justify-content: center; gap: var(--space-2); width: 100%;">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                        Download ZIP
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <div class="card" style="padding: var(--space-6);">
-                <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
-                    <span class="badge badge-primary">Recommended</span>
-                    <h3 style="margin: 0; font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary);">NPM</h3>
-                </div>
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                    Best for production applications
-                </p>
-                <div class="code-block" style="background: var(--color-bg-code); padding: var(--space-2); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: var(--text-sm); overflow-x: auto;">
-npm install aural-design
+        <div class="content-section">
+            <div class="section-title page-heading">Quick Start</div>
+            <div class="section-content">
+                <p>Once you've included Aural UI in your project, you can start using components immediately. Here's a simple example:</p>
+
+                <h3>1. Basic HTML Structure</h3>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Aural UI App&lt;/title&gt;
+
+    &lt;!-- Aural UI CSS --&gt;
+    &lt;link rel="stylesheet" href="aural-ui.css"&gt;
+    &lt;link rel="stylesheet" href="dark.css" id="theme-link"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Your content here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <h3>2. Add Your First Components</h3>
+                <pre><code>&lt;div class="card" style="max-width: 400px; margin: 2rem auto; padding: var(--space-6);"&gt;
+    &lt;h2 style="margin: 0 0 var(--space-4) 0;"&gt;Welcome to Aural UI&lt;/h2&gt;
+    &lt;p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);"&gt;
+        Start building beautiful interfaces with our accessible component library.
+    &lt;/p&gt;
+    &lt;button class="btn btn-primary"&gt;Get Started&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+
+                <h3>Live Example</h3>
+                <div class="card" style="max-width: 400px; margin: 0 auto; padding: var(--space-6);">
+                    <h2 style="margin: 0 0 var(--space-4) 0; font-size: var(--text-xl); color: var(--color-text-primary);">Welcome to Aural UI</h2>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                        Start building beautiful interfaces with our accessible component library.
+                    </p>
+                    <button class="btn btn-primary">Get Started</button>
                 </div>
             </div>
+        </div>
 
-            <div class="card" style="padding: var(--space-6);">
-                <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
-                    <h3 style="margin: 0; font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary);">Download</h3>
+        <div class="content-section">
+            <div class="section-title page-heading">Available Themes</div>
+            <div class="section-content">
+                <p>Aural UI comes with multiple built-in themes. Switch between them by changing the theme stylesheet:</p>
+
+                <ul>
+                    <li><strong>Dark</strong> - Default dark theme with excellent contrast</li>
+                    <li><strong>Light</strong> - Clean light theme for bright environments</li>
+                    <li><strong>Neon</strong> - Vibrant cyberpunk-inspired theme</li>
+                    <li><strong>Kinetic</strong> - Modern theme with dynamic energy</li>
+                    <li><strong>High Contrast</strong> - Maximum accessibility for low vision</li>
+                    <li><strong>Colorblind Friendly</strong> - Optimized for color vision deficiency</li>
+                </ul>
+
+                <pre><code>&lt;!-- Change theme by swapping the stylesheet --&gt;
+&lt;link rel="stylesheet" href="dark.css" id="theme-link"&gt;
+&lt;link rel="stylesheet" href="light.css" id="theme-link"&gt;
+&lt;link rel="stylesheet" href="neon.css" id="theme-link"&gt;
+&lt;link rel="stylesheet" href="kinetic.css" id="theme-link"&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Next Steps</div>
+            <div class="section-content">
+                <p>Now that you have Aural UI installed, explore our documentation to learn more:</p>
+
+                <div class="cards-grid">
+                    <a href="./tutorial.html" class="card" style="padding: var(--space-6); text-decoration: none; color: inherit; display: block;">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="book-open" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0;">Tutorial</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm);">
+                            Step-by-step guide to building your first application
+                        </p>
+                    </a>
+
+                    <a href="./demo.html" class="card" style="padding: var(--space-6); text-decoration: none; color: inherit; display: block;">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="layout" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0;">Components</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm);">
+                            Browse all available components and examples
+                        </p>
+                    </a>
+
+                    <a href="./tokens.html" class="card" style="padding: var(--space-6); text-decoration: none; color: inherit; display: block;">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                            <i data-lucide="palette" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                            <h3 style="font-size: var(--text-lg); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0;">Design Tokens</h3>
+                        </div>
+                        <p style="color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm);">
+                            Learn about the design system foundation
+                        </p>
+                    </a>
                 </div>
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                    Self-host the files on your server
-                </p>
-                <a href="https://github.com/ferology/aural-ui/archive/refs/heads/main.zip" class="btn btn-secondary" style="width: 100%; justify-content: center;">
-                    <i data-lucide="download" style="width: 16px; height: 16px;"></i>
-                    Download ZIP
-                </a>
             </div>
         </div>
 
@@ -199,7 +305,7 @@ npm install aural-design
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/>
@@ -214,48 +320,33 @@ npm install aural-design
         </button>
     </div>
 
-    <!-- Aural UI JavaScript -->
-    <script src="./aural-ui.js"></script>
-
     <script>
-        // Initialize Lucide icons
         lucide.createIcons();
+    </script>
 
-        // Theme toggle
-        let isDark = true;
-        function toggleTheme() {
-            const themeLink = document.getElementById('theme-link');
-            isDark = !isDark;
-            themeLink.href = isDark ? './dark.css' : './light.css';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            isDark = savedTheme === 'dark';
-            document.getElementById('theme-link').href = isDark ? './dark.css' : './light.css';
-        }
-    </script>    <!-- Unified Theme Sync -->
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
             const isInComponents = window.location.pathname.includes('/components/');
             const relativePath = isInComponents ? '../' : './';
             const themeFiles = {
                 'dark': 'dark.css',
                 'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
                 'high-contrast': 'high-contrast.css',
                 'colorblind': 'colorblind-friendly.css'
             };
 
             const themeFile = themeFiles[savedTheme] || 'dark.css';
             const themePath = relativePath + themeFile;
-            
+
             console.log('Applying theme:', savedTheme, 'Path:', themePath);
             themeLink.href = themePath;
         } else {
@@ -275,5 +366,8 @@ npm install aural-design
         });
     })();
     </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
 </body>
 </html>

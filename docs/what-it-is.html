@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Aural UI? - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css?v=12">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link">
+
+    <!-- Enhanced Documentation Styles -->
+    <link rel="stylesheet" href="./styles/doc-enhanced.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content strong {
+            color: var(--color-text-primary);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--space-4);
+            background: var(--color-bg-secondary);
+            border-radius: var(--radius-md);
+        }
+
+        .stat-value {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-primary);
+        }
+
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        /* Feature List */
+        .feature-list {
+            display: grid;
+            gap: var(--space-4);
+            margin: var(--space-4) 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: start;
+            gap: var(--space-3);
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--color-primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <div class="page-title page-heading-lg">What is Aural UI?</div>
+            <p class="page-description">A modern, accessible, and themeable CSS design system built for creating beautiful user interfaces with zero dependencies.</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">53</div>
+                <div class="stat-label">Components</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">7</div>
+                <div class="stat-label">Themes</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">95</div>
+                <div class="stat-label">WCAG Score</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Dependencies</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Overview</div>
+            <div class="section-content">
+                <p>Aural UI is a comprehensive CSS-based design system that provides a complete set of components, design tokens, and themes to build modern web applications. It's designed with accessibility, customization, and developer experience in mind.</p>
+
+                <p>Unlike traditional UI frameworks that rely on JavaScript, Aural UI is primarily CSS-based, making it lightweight, fast, and framework-agnostic. You can use it with vanilla JavaScript, React, Vue, Svelte, or any other framework of your choice.</p>
+
+                <div class="card" style="padding: var(--space-4); margin: var(--space-4) 0; border-left: 3px solid var(--color-primary);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Pure CSS Architecture</h4>
+                    <p style="margin: 0;">Aural UI leverages modern CSS features like custom properties, Grid, and Flexbox to deliver powerful components without JavaScript dependencies.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Key Features</div>
+            <div class="section-content">
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i data-lucide="palette" class="feature-icon"></i>
+                        <div>
+                            <h3 class="page-subheading">7 Built-in Themes</h3>
+                            <p>Dark, Light, Neon, Neon Refined, Kinetic, High Contrast, and Colorblind-Friendly themes ready to use out of the box.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <i data-lucide="accessibility" class="feature-icon"></i>
+                        <div>
+                            <h3 class="page-subheading">Accessibility First</h3>
+                            <p>WCAG AA/AAA compliant with semantic HTML, ARIA attributes, and full keyboard navigation support.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <i data-lucide="zap" class="feature-icon"></i>
+                        <div>
+                            <h3 class="page-subheading">Zero Dependencies</h3>
+                            <p>Pure CSS implementation with no JavaScript framework requirements. Works anywhere, with anything.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <i data-lucide="layers" class="feature-icon"></i>
+                        <div>
+                            <h3 class="page-subheading">53+ Components</h3>
+                            <p>Comprehensive library of UI components from simple buttons to complex data tables and modals.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <i data-lucide="sliders" class="feature-icon"></i>
+                        <div>
+                            <h3 class="page-subheading">Design Tokens</h3>
+                            <p>CSS custom properties for colors, spacing, typography, and more. Fully customizable to match your brand.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <i data-lucide="smartphone" class="feature-icon"></i>
+                        <div>
+                            <h3 class="page-subheading">Responsive Design</h3>
+                            <p>Mobile-first approach with fluid typography and responsive layouts built directly into components.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Quick Start</div>
+            <div class="section-content">
+                <p>Getting started with Aural UI is incredibly simple. Just include the CSS files and start using components:</p>
+
+                <pre><code>&lt;!-- Include Aural UI Core --&gt;
+&lt;link rel="stylesheet" href="aural-ui.css"&gt;
+
+&lt;!-- Include a Theme (e.g., Dark) --&gt;
+&lt;link rel="stylesheet" href="dark.css"&gt;
+
+&lt;!-- Start using components --&gt;
+&lt;button class="btn btn-primary"&gt;Click Me&lt;/button&gt;</code></pre>
+
+                <div class="card" style="padding: var(--space-4); margin: var(--space-4) 0; border-left: 3px solid var(--color-success);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">That's it!</h4>
+                    <p style="margin: 0;">No build tools, no configuration, no JavaScript required. Just link the CSS and start building.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Design Philosophy</div>
+            <div class="section-content">
+                <p>Aural UI is built on core principles that guide every design decision:</p>
+
+                <h3 class="page-subheading">Simplicity</h3>
+                <p>Clean, readable code that's easy to understand and modify. No magic, no surprises.</p>
+
+                <h3 class="page-subheading">Consistency</h3>
+                <p>Unified design language across all components and themes. Every element feels cohesive.</p>
+
+                <h3 class="page-subheading">Accessibility</h3>
+                <p>Everyone should be able to use your interface, regardless of ability. Built-in WCAG compliance.</p>
+
+                <h3 class="page-subheading">Performance</h3>
+                <p>Fast loading times with minimal CSS and zero JavaScript overhead. Speed matters.</p>
+
+                <h3 class="page-subheading">Flexibility</h3>
+                <p>Customizable to match any brand or design system. Make it yours.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Who Is It For?</div>
+            <div class="section-content">
+                <p>Aural UI is perfect for developers and teams who value quality, accessibility, and simplicity:</p>
+
+                <h3 class="page-subheading">Frontend Developers</h3>
+                <p>Who want a solid foundation for their UI without the bloat of large frameworks or complex build processes.</p>
+
+                <h3 class="page-subheading">Design Teams</h3>
+                <p>Looking for a consistent, themeable design system that maintains quality across all touchpoints.</p>
+
+                <h3 class="page-subheading">Product Teams</h3>
+                <p>Who need to ship accessible, beautiful interfaces quickly without sacrificing quality or user experience.</p>
+
+                <h3 class="page-subheading">Indie Developers</h3>
+                <p>Building side projects and MVPs who need professional-looking UIs without spending weeks on design.</p>
+
+                <div class="card" style="padding: var(--space-4); margin: var(--space-4) 0; border-left: 3px solid var(--color-primary);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Built for Everyone</h4>
+                    <p style="margin: 0;">Whether you're building your first website or your hundredth app, Aural UI provides the tools you need to create beautiful, accessible interfaces.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Technical Highlights</div>
+            <div class="section-content">
+                <p>Built with modern web standards and best practices:</p>
+
+                <pre><code>/* Design Tokens Example */
+:root {
+  /* Colors */
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-4: 1rem;
+  --space-8: 2rem;
+
+  /* Typography */
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}</code></pre>
+
+                <ul>
+                    <li><strong>CSS Custom Properties:</strong> Full theming support with CSS variables</li>
+                    <li><strong>Modern CSS Grid & Flexbox:</strong> Responsive layouts without frameworks</li>
+                    <li><strong>Semantic HTML:</strong> Proper markup for accessibility and SEO</li>
+                    <li><strong>ARIA Attributes:</strong> Full screen reader support built-in</li>
+                    <li><strong>Progressive Enhancement:</strong> Works everywhere, enhanced where supported</li>
+                    <li><strong>Mobile-First:</strong> Optimized for all screen sizes</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Browser Support</div>
+            <div class="section-content">
+                <p>Aural UI works in all modern browsers:</p>
+
+                <ul>
+                    <li><strong>Chrome:</strong> 90+</li>
+                    <li><strong>Firefox:</strong> 88+</li>
+                    <li><strong>Safari:</strong> 14+</li>
+                    <li><strong>Edge:</strong> 90+</li>
+                </ul>
+
+                <div class="card" style="padding: var(--space-4); margin: var(--space-4) 0; border-left: 3px solid var(--color-warning);">
+                    <h4 style="color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Legacy Browser Note</h4>
+                    <p style="margin: 0;">Internet Explorer is not supported. Aural UI uses modern CSS features that require contemporary browsers.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Next Steps</div>
+            <div class="section-content">
+                <p>Ready to get started? Here are some helpful resources:</p>
+
+                <ul>
+                    <li><a href="tutorial.html" style="color: var(--color-primary);">Getting Started Tutorial</a> - Learn the basics and build your first component</li>
+                    <li><a href="catalog.html" style="color: var(--color-primary);">Component Catalog</a> - Browse all 53+ available components</li>
+                    <li><a href="themes.html" style="color: var(--color-primary);">Themes Guide</a> - Explore the 7 built-in themes</li>
+                    <li><a href="accessibility.html" style="color: var(--color-primary);">Accessibility Guide</a> - Learn about WCAG compliance and best practices</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+
+            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+            themeLink.href = themePath;
+        } else {
+            console.error('Theme link not found!');
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+    <!-- Enhanced Documentation JavaScript -->
+    <script src="js/doc-enhanced.js"></script>
+
+</body>
+</html>

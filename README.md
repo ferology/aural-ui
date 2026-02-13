@@ -17,9 +17,9 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 
 **Key Features:**
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
-- 🌓 **4 Built-in Themes** - Dark, light, high-contrast, and colorblind-friendly themes included
-- ♿ **Accessibility First** - ~95% WCAG 2.1 AA compliant with comprehensive ARIA support
-- 📦 **61 Components** - Everything from buttons to notification centers
+- 🌓 **7 Built-in Themes** - Dark, light, neon, neon-refined, kinetic, high-contrast, and colorblind-friendly
+- ♿ **Accessibility First** - 100% WCAG 2.1 AA compliant (all text ≥4.5:1 contrast ratio)
+- 📦 **53 Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
 - 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
@@ -28,6 +28,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - 🔧 **Framework-Agnostic** - Works with React, Vue, Svelte, or vanilla JS
 - 💡 **Developer Friendly** - Simple, semantic HTML with intuitive class names
 - ⌨️ **Keyboard Navigation** - Full keyboard support across all components
+- 📖 **Clean Documentation** - Simplified, accessible documentation following consistent patterns
 
 ---
 
@@ -159,7 +160,7 @@ Aural.showToast('Operation successful!', 'success');
 
 ### Using Pre-built Themes
 
-Aural UI includes 4 professionally designed themes:
+Aural UI includes 6 professionally designed themes:
 
 ```html
 <!-- Dark theme (default) -->
@@ -167,6 +168,12 @@ Aural UI includes 4 professionally designed themes:
 
 <!-- Light theme -->
 <link rel="stylesheet" href="aural-ui/themes/light.css">
+
+<!-- Neon theme (cyberpunk aesthetic) -->
+<link rel="stylesheet" href="aural-ui/themes/neon.css">
+
+<!-- Kinetic theme (brutalist editorial) -->
+<link rel="stylesheet" href="aural-ui/themes/kinetic.css">
 
 <!-- High contrast theme -->
 <link rel="stylesheet" href="aural-ui/themes/high-contrast.css">

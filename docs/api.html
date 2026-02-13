@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="./dark.css" id="theme-link">
 
+    <!-- Enhanced Documentation Styles -->
+    <link rel="stylesheet" href="./styles/doc-enhanced.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -191,13 +194,13 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="page-header">
-            <h1 class="page-title">JavaScript API Reference</h1>
+            <div class="page-title page-heading-lg">JavaScript API Reference</div>
             <p class="page-description">Complete reference for all Aural UI JavaScript methods. All methods are available through the global <code>Aural</code> object.</p>
         </div>
 
         <!-- Toast API -->
         <section class="content-section">
-            <h2 class="section-title">Toast Notifications</h2>
+            <div class="section-title page-heading">Toast Notifications</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.showToast(message, type, title, duration)</h4>
@@ -236,7 +239,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Modal API -->
         <section class="content-section">
-            <h2 class="section-title">Modals</h2>
+            <div class="section-title page-heading">Modals</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.initModals()</h4>
@@ -286,7 +289,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Tabs API -->
         <section class="content-section">
-            <h2 class="section-title">Tabs</h2>
+            <div class="section-title page-heading">Tabs</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.initTabs()</h4>
@@ -313,7 +316,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Tooltips API -->
         <section class="content-section">
-            <h2 class="section-title">Tooltips</h2>
+            <div class="section-title page-heading">Tooltips</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.initTooltips()</h4>
@@ -344,7 +347,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Dropdowns API -->
         <section class="content-section">
-            <h2 class="section-title">Dropdowns</h2>
+            <div class="section-title page-heading">Dropdowns</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.initDropdowns()</h4>
@@ -375,7 +378,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Accordions API -->
         <section class="content-section">
-            <h2 class="section-title">Accordions</h2>
+            <div class="section-title page-heading">Accordions</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.initAccordions()</h4>
@@ -401,7 +404,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Popovers API -->
         <section class="content-section">
-            <h2 class="section-title">Popovers</h2>
+            <div class="section-title page-heading">Popovers</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.initPopovers()</h4>
@@ -427,7 +430,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Progress API -->
         <section class="content-section">
-            <h2 class="section-title">Progress</h2>
+            <div class="section-title page-heading">Progress</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.setProgress(elementId, percentage)</h4>
@@ -457,7 +460,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Code Blocks API -->
         <section class="content-section">
-            <h2 class="section-title">Code Blocks</h2>
+            <div class="section-title page-heading">Code Blocks</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.initAllCodeBlocks()</h4>
@@ -473,7 +476,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
         <!-- Snackbar API -->
         <section class="content-section">
-            <h2 class="section-title">Snackbar</h2>
+            <div class="section-title page-heading">Snackbar</div>
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.showSnackbar(message, type, options)</h4>
@@ -557,6 +560,9 @@ Aural.showSnackbar('Message sent', 'success', {
             const themeFiles = {
                 'dark': 'dark.css',
                 'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
                 'high-contrast': 'high-contrast.css',
                 'colorblind': 'colorblind-friendly.css'
             };
@@ -583,5 +589,11 @@ Aural.showSnackbar('Message sent', 'success', {
         });
     })();
     </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+    <!-- Enhanced Documentation JavaScript -->
+    <script src="js/doc-enhanced.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Picker - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-10);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* Example Container */
+        .example-container {
+            margin-bottom: var(--space-12);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-4);
+        }
+
+        .example-demo {
+            padding: var(--space-8);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content h4 {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-4) 0 var(--space-2) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Time picker grid */
+        .time-picker-grid {
+            display: grid;
+            gap: var(--space-6);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+
+            .example-demo {
+                padding: var(--space-6);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Time Picker</h1>
+            <p class="page-description">Select time with hours and minutes. Supports 12-hour and 24-hour formats with intuitive scrollable lists and keyboard input. Perfect for scheduling, appointments, or any time selection needs.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <!-- Basic Time Picker (12-hour) -->
+            <div class="example-container">
+                <div class="example-label">Basic Time Picker (12-hour Format)</div>
+                <div class="example-demo">
+                    <div class="aural-time-picker" id="time-picker-1">
+                        <label class="aural-time-picker__label">Select Time</label>
+                        <div class="aural-time-picker__input-wrapper">
+                            <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Select time">
+                            <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                <i data-lucide="clock"></i>
+                            </button>
+                        </div>
+                        <div class="aural-time-picker__dropdown">
+                            <div class="aural-time-picker__selectors">
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Hour</div>
+                                    <div class="aural-time-picker__list" data-type="hour"></div>
+                                </div>
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Minute</div>
+                                    <div class="aural-time-picker__list" data-type="minute"></div>
+                                </div>
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Period</div>
+                                    <div class="aural-time-picker__period">
+                                        <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+                                        <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-time-picker__now">
+                                <button type="button" class="aural-time-picker__now-btn">
+                                    <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                    Now
+                                </button>
+                            </div>
+                            <div class="aural-time-picker__actions">
+                                <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-time-picker" id="time-picker-1"&gt;
+    &lt;label class="aural-time-picker__label"&gt;Select Time&lt;/label&gt;
+    &lt;div class="aural-time-picker__input-wrapper"&gt;
+        &lt;input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly&gt;
+        &lt;button type="button" class="aural-time-picker__toggle"&gt;
+            &lt;i data-lucide="clock"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-time-picker__dropdown"&gt;
+        &lt;!-- Scrollable hour/minute lists and AM/PM selector --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- 24-Hour Format -->
+            <div class="example-container">
+                <div class="example-label">24-Hour Format</div>
+                <div class="example-demo">
+                    <div class="aural-time-picker aural-time-picker--24h" id="time-picker-2">
+                        <label class="aural-time-picker__label">Meeting Time</label>
+                        <div class="aural-time-picker__input-wrapper">
+                            <input type="text" class="aural-time-picker__input" placeholder="--:--" readonly aria-label="Select meeting time">
+                            <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                <i data-lucide="clock"></i>
+                            </button>
+                        </div>
+                        <div class="aural-time-picker__dropdown">
+                            <div class="aural-time-picker__selectors">
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Hour</div>
+                                    <div class="aural-time-picker__list" data-type="hour"></div>
+                                </div>
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Minute</div>
+                                    <div class="aural-time-picker__list" data-type="minute"></div>
+                                </div>
+                            </div>
+                            <div class="aural-time-picker__now">
+                                <button type="button" class="aural-time-picker__now-btn">
+                                    <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                    Now
+                                </button>
+                            </div>
+                            <div class="aural-time-picker__actions">
+                                <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-time-picker aural-time-picker--24h" id="time-picker-2"&gt;
+    &lt;label class="aural-time-picker__label"&gt;Meeting Time&lt;/label&gt;
+    &lt;div class="aural-time-picker__input-wrapper"&gt;
+        &lt;input type="text" class="aural-time-picker__input" placeholder="--:--" readonly&gt;
+        &lt;button type="button" class="aural-time-picker__toggle"&gt;
+            &lt;i data-lucide="clock"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;!-- Dropdown with hour/minute selectors only (no AM/PM) --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <!-- Size Variants -->
+            <div class="example-container">
+                <div class="example-label">Size Variants</div>
+                <div class="example-demo">
+                    <div class="time-picker-grid">
+                        <div class="aural-time-picker aural-time-picker--sm" id="time-picker-3">
+                            <label class="aural-time-picker__label">Small</label>
+                            <div class="aural-time-picker__input-wrapper">
+                                <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Small time picker">
+                                <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                    <i data-lucide="clock"></i>
+                                </button>
+                            </div>
+                            <div class="aural-time-picker__dropdown">
+                                <div class="aural-time-picker__selectors">
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Hour</div>
+                                        <div class="aural-time-picker__list" data-type="hour"></div>
+                                    </div>
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Minute</div>
+                                        <div class="aural-time-picker__list" data-type="minute"></div>
+                                    </div>
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Period</div>
+                                        <div class="aural-time-picker__period">
+                                            <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+                                            <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aural-time-picker__actions">
+                                    <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                    <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aural-time-picker" id="time-picker-4">
+                            <label class="aural-time-picker__label">Default</label>
+                            <div class="aural-time-picker__input-wrapper">
+                                <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Default time picker">
+                                <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                    <i data-lucide="clock"></i>
+                                </button>
+                            </div>
+                            <div class="aural-time-picker__dropdown">
+                                <div class="aural-time-picker__selectors">
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Hour</div>
+                                        <div class="aural-time-picker__list" data-type="hour"></div>
+                                    </div>
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Minute</div>
+                                        <div class="aural-time-picker__list" data-type="minute"></div>
+                                    </div>
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Period</div>
+                                        <div class="aural-time-picker__period">
+                                            <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+                                            <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aural-time-picker__actions">
+                                    <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                    <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aural-time-picker aural-time-picker--lg" id="time-picker-5">
+                            <label class="aural-time-picker__label">Large</label>
+                            <div class="aural-time-picker__input-wrapper">
+                                <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Large time picker">
+                                <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                    <i data-lucide="clock"></i>
+                                </button>
+                            </div>
+                            <div class="aural-time-picker__dropdown">
+                                <div class="aural-time-picker__selectors">
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Hour</div>
+                                        <div class="aural-time-picker__list" data-type="hour"></div>
+                                    </div>
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Minute</div>
+                                        <div class="aural-time-picker__list" data-type="minute"></div>
+                                    </div>
+                                    <div class="aural-time-picker__selector">
+                                        <div class="aural-time-picker__selector-label">Period</div>
+                                        <div class="aural-time-picker__period">
+                                            <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+                                            <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aural-time-picker__actions">
+                                    <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                    <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;!-- Small --&gt;
+&lt;div class="aural-time-picker aural-time-picker--sm"&gt;...&lt;/div&gt;
+
+&lt;!-- Default --&gt;
+&lt;div class="aural-time-picker"&gt;...&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+&lt;div class="aural-time-picker aural-time-picker--lg"&gt;...&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- With Minute Intervals -->
+            <div class="example-container">
+                <div class="example-label">With Minute Intervals (15-minute steps)</div>
+                <div class="example-demo">
+                    <div class="aural-time-picker" id="time-picker-6" data-step="15">
+                        <label class="aural-time-picker__label">Appointment Time</label>
+                        <div class="aural-time-picker__input-wrapper">
+                            <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Appointment time">
+                            <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                <i data-lucide="clock"></i>
+                            </button>
+                        </div>
+                        <div class="aural-time-picker__dropdown">
+                            <div class="aural-time-picker__selectors">
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Hour</div>
+                                    <div class="aural-time-picker__list" data-type="hour"></div>
+                                </div>
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Minute</div>
+                                    <div class="aural-time-picker__list" data-type="minute"></div>
+                                </div>
+                                <div class="aural-time-picker__selector">
+                                    <div class="aural-time-picker__selector-label">Period</div>
+                                    <div class="aural-time-picker__period">
+                                        <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+                                        <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aural-time-picker__now">
+                                <button type="button" class="aural-time-picker__now-btn">
+                                    <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                    Now
+                                </button>
+                            </div>
+                            <div class="aural-time-picker__actions">
+                                <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-time-picker" data-step="15"&gt;
+    &lt;!-- Only shows minutes in 15-minute increments: 00, 15, 30, 45 --&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Initialize with custom step
+initTimePicker('#time-picker', { minuteStep: 15 });
+&lt;/script&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Disabled State -->
+            <div class="example-container">
+                <div class="example-label">Disabled State</div>
+                <div class="example-demo">
+                    <div class="aural-time-picker aural-time-picker--disabled" id="time-picker-7">
+                        <label class="aural-time-picker__label">Unavailable Time</label>
+                        <div class="aural-time-picker__input-wrapper">
+                            <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly disabled aria-label="Unavailable time">
+                            <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker" disabled>
+                                <i data-lucide="clock"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-time-picker aural-time-picker--disabled"&gt;
+    &lt;label class="aural-time-picker__label"&gt;Unavailable Time&lt;/label&gt;
+    &lt;div class="aural-time-picker__input-wrapper"&gt;
+        &lt;input type="text" class="aural-time-picker__input" disabled&gt;
+        &lt;button type="button" class="aural-time-picker__toggle" disabled&gt;
+            &lt;i data-lucide="clock"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <!-- Meeting Scheduler Pattern -->
+            <div class="example-container">
+                <div class="example-label">Meeting Scheduler Pattern</div>
+                <div class="example-demo">
+                    <div style="max-width: 500px; width: 100%;">
+                        <div style="background: var(--color-bg-tertiary); padding: var(--space-6); border-radius: var(--radius-lg);">
+                            <h3 style="margin: 0 0 var(--space-4) 0; color: var(--color-text-primary); font-size: var(--text-lg);">Schedule Meeting</h3>
+                            <div style="display: grid; gap: var(--space-4);">
+                                <div class="aural-time-picker" id="time-picker-8">
+                                    <label class="aural-time-picker__label">Start Time</label>
+                                    <div class="aural-time-picker__input-wrapper">
+                                        <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Meeting start time">
+                                        <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                            <i data-lucide="clock"></i>
+                                        </button>
+                                    </div>
+                                    <div class="aural-time-picker__dropdown">
+                                        <div class="aural-time-picker__selectors">
+                                            <div class="aural-time-picker__selector">
+                                                <div class="aural-time-picker__selector-label">Hour</div>
+                                                <div class="aural-time-picker__list" data-type="hour"></div>
+                                            </div>
+                                            <div class="aural-time-picker__selector">
+                                                <div class="aural-time-picker__selector-label">Minute</div>
+                                                <div class="aural-time-picker__list" data-type="minute"></div>
+                                            </div>
+                                            <div class="aural-time-picker__selector">
+                                                <div class="aural-time-picker__selector-label">Period</div>
+                                                <div class="aural-time-picker__period">
+                                                    <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+                                                    <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="aural-time-picker__actions">
+                                            <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                            <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="aural-time-picker" id="time-picker-9">
+                                    <label class="aural-time-picker__label">End Time</label>
+                                    <div class="aural-time-picker__input-wrapper">
+                                        <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Meeting end time">
+                                        <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                            <i data-lucide="clock"></i>
+                                        </button>
+                                    </div>
+                                    <div class="aural-time-picker__dropdown">
+                                        <div class="aural-time-picker__selectors">
+                                            <div class="aural-time-picker__selector">
+                                                <div class="aural-time-picker__selector-label">Hour</div>
+                                                <div class="aural-time-picker__list" data-type="hour"></div>
+                                            </div>
+                                            <div class="aural-time-picker__selector">
+                                                <div class="aural-time-picker__selector-label">Minute</div>
+                                                <div class="aural-time-picker__list" data-type="minute"></div>
+                                            </div>
+                                            <div class="aural-time-picker__selector">
+                                                <div class="aural-time-picker__selector-label">Period</div>
+                                                <div class="aural-time-picker__period">
+                                                    <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+                                                    <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="aural-time-picker__actions">
+                                            <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                            <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" style="margin-top: var(--space-2);">Schedule Meeting</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="meeting-scheduler"&gt;
+    &lt;h3&gt;Schedule Meeting&lt;/h3&gt;
+    &lt;div class="aural-time-picker"&gt;
+        &lt;label&gt;Start Time&lt;/label&gt;
+        &lt;!-- Time picker --&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-time-picker"&gt;
+        &lt;label&gt;End Time&lt;/label&gt;
+        &lt;!-- Time picker --&gt;
+    &lt;/div&gt;
+    &lt;button class="btn btn-primary"&gt;Schedule Meeting&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <!-- Alarm/Reminder Pattern -->
+            <div class="example-container">
+                <div class="example-label">Alarm/Reminder Pattern</div>
+                <div class="example-demo">
+                    <div style="max-width: 400px; width: 100%;">
+                        <div style="border: 1px solid var(--color-border-subtle); padding: var(--space-6); border-radius: var(--radius-lg);">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-4);">
+                                <div>
+                                    <h3 style="margin: 0; color: var(--color-text-primary); font-size: var(--text-lg);">Daily Alarm</h3>
+                                    <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">Wake up time</p>
+                                </div>
+                                <div class="aural-switch">
+                                    <input type="checkbox" id="alarm-switch" checked>
+                                    <label for="alarm-switch"></label>
+                                </div>
+                            </div>
+                            <div class="aural-time-picker aural-time-picker--lg" id="time-picker-10">
+                                <div class="aural-time-picker__input-wrapper">
+                                    <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Alarm time" style="text-align: center; font-size: var(--text-2xl); font-weight: var(--font-semibold);">
+                                    <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+                                        <i data-lucide="clock"></i>
+                                    </button>
+                                </div>
+                                <div class="aural-time-picker__dropdown">
+                                    <div class="aural-time-picker__selectors">
+                                        <div class="aural-time-picker__selector">
+                                            <div class="aural-time-picker__selector-label">Hour</div>
+                                            <div class="aural-time-picker__list" data-type="hour"></div>
+                                        </div>
+                                        <div class="aural-time-picker__selector">
+                                            <div class="aural-time-picker__selector-label">Minute</div>
+                                            <div class="aural-time-picker__list" data-type="minute"></div>
+                                        </div>
+                                        <div class="aural-time-picker__selector">
+                                            <div class="aural-time-picker__selector-label">Period</div>
+                                            <div class="aural-time-picker__period">
+                                                <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+                                                <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="aural-time-picker__actions">
+                                        <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+                                        <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="alarm-card"&gt;
+    &lt;div class="alarm-header"&gt;
+        &lt;h3&gt;Daily Alarm&lt;/h3&gt;
+        &lt;div class="aural-switch"&gt;
+            &lt;input type="checkbox" id="alarm-switch" checked&gt;
+            &lt;label for="alarm-switch"&gt;&lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-time-picker aural-time-picker--lg"&gt;
+        &lt;!-- Large time picker with centered display --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <!-- Best Practices Section -->
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use Time Pickers</h3>
+                    <ul>
+                        <li><strong>Appointment Scheduling:</strong> Perfect for scheduling meetings, appointments, or events where users need to select specific times.</li>
+                        <li><strong>Time-based Settings:</strong> Ideal for alarms, reminders, timers, or any feature that requires time configuration.</li>
+                        <li><strong>Booking Systems:</strong> Essential for restaurant reservations, service bookings, or any time-slot selection.</li>
+                        <li><strong>Form Time Input:</strong> When users need to input time data in a structured, validated format.</li>
+                        <li><strong>Time Range Selection:</strong> Use multiple time pickers for start/end times in scheduling scenarios.</li>
+                    </ul>
+
+                    <h3>When NOT to Use Time Pickers</h3>
+                    <ul>
+                        <li><strong>Duration Entry:</strong> If you need duration (e.g., "2 hours 30 minutes"), use separate hour/minute inputs or a duration field instead.</li>
+                        <li><strong>Relative Time:</strong> For relative times like "in 5 minutes" or "2 hours ago", use preset buttons or relative time inputs.</li>
+                        <li><strong>Time Ranges with Specific Slots:</strong> If only specific time slots are available, use a dropdown or radio buttons showing available times.</li>
+                        <li><strong>Quick Time Entry:</strong> For power users who can type quickly, consider allowing direct keyboard input alongside the picker.</li>
+                    </ul>
+
+                    <h3>Design Guidelines</h3>
+                    <h4>Format Selection</h4>
+                    <p>Choose between 12-hour and 24-hour format based on your user's locale and preferences. 12-hour format is common in the US, while 24-hour format is preferred in many other regions.</p>
+
+                    <h4>Minute Intervals</h4>
+                    <p>Use appropriate minute intervals based on use case. For precise timing, use 1-minute intervals. For appointments, 15 or 30-minute intervals are often sufficient and reduce scrolling.</p>
+
+                    <h4>Now Button</h4>
+                    <p>Include a "Now" button for quick selection of the current time. This is especially useful for logging events or creating records with current timestamps.</p>
+
+                    <h4>Clear Visual Feedback</h4>
+                    <p>Highlight the selected time clearly. Show the formatted time in the input field so users can verify their selection at a glance.</p>
+
+                    <h4>Keyboard Support</h4>
+                    <p>Allow users to type time directly into the input field. Parse common formats like "3pm", "15:30", "3:30 PM".</p>
+
+                    <h3>Accessibility Guidelines</h3>
+                    <ul>
+                        <li><strong>ARIA Labels:</strong> Provide clear labels for all interactive elements. Use <code>aria-label</code> for icon buttons and proper labeling for time selections.</li>
+                        <li><strong>Keyboard Navigation:</strong> Support full keyboard navigation:
+                            <ul>
+                                <li>Tab to move between hour/minute/period selectors</li>
+                                <li>Arrow keys (Up/Down) to scroll through options</li>
+                                <li>Enter/Space to select time</li>
+                                <li>Escape to close dropdown without applying changes</li>
+                            </ul>
+                        </li>
+                        <li><strong>Screen Reader Support:</strong> Announce selected time and changes to screen reader users. Include time format in announcements (e.g., "2:30 PM" or "14:30").</li>
+                        <li><strong>Focus Management:</strong> When opening the dropdown, set focus to the current hour or the first hour if no time is selected.</li>
+                        <li><strong>Touch Targets:</strong> Ensure scrollable lists and buttons are large enough for touch interaction (minimum 44x44px).</li>
+                        <li><strong>Visual Clarity:</strong> Use sufficient color contrast for selected items and ensure the interface is usable by users with color blindness.</li>
+                    </ul>
+
+                    <h3>Common Patterns</h3>
+                    <h4>Meeting Scheduler</h4>
+                    <p>Use two time pickers for start and end times. Validate that end time is after start time. Show meeting duration automatically.</p>
+
+                    <h4>Daily Alarm</h4>
+                    <p>Combine with a toggle switch to enable/disable. Display time prominently in large font. Include repeat options (daily, weekdays, weekends).</p>
+
+                    <h4>Booking Time Slots</h4>
+                    <p>Use minute intervals matching your booking increments (15 or 30 minutes). Disable unavailable time slots. Show available slots prominently.</p>
+
+                    <h4>Business Hours</h4>
+                    <p>Use 24-hour format for clarity. Include separate pickers for open and close times. Allow setting different hours for different days.</p>
+
+                    <h4>Reminder/Timer</h4>
+                    <p>Include preset buttons for common times (5 min, 15 min, 1 hour). Make "Now" option easily accessible.</p>
+
+                    <h3>Technical Implementation</h3>
+                    <h4>Time Formatting</h4>
+                    <p>Store time in a consistent format (preferably 24-hour or ISO 8601). Display in user's preferred format. Handle timezone conversions appropriately.</p>
+
+                    <h4>Validation</h4>
+                    <p>Validate time inputs and provide clear error messages. For time ranges, ensure end time is after start time. Consider business logic (e.g., no bookings after closing time).</p>
+
+                    <h4>Default Values</h4>
+                    <p>Set sensible defaults based on context. For appointments, default to next available slot. For alarms, default to common wake-up times. For current time entries, use "Now".</p>
+
+                    <h4>Mobile Optimization</h4>
+                    <p>On mobile, consider using native time pickers when appropriate. Ensure scrollable lists have sufficient height and smooth scrolling. Use bottom sheets for better reachability.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=9"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Initialize tabs
+        Aural.initTabs();
+
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? '../dark.css' : '../light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+
+        // Time Picker Initialization
+        function initTimePicker(selector, options = {}) {
+            const picker = typeof selector === 'string' ? document.querySelector(selector) : selector;
+            if (!picker) return;
+
+            const input = picker.querySelector('.aural-time-picker__input');
+            const toggle = picker.querySelector('.aural-time-picker__toggle');
+            const dropdown = picker.querySelector('.aural-time-picker__dropdown');
+            const hourList = picker.querySelector('[data-type="hour"]');
+            const minuteList = picker.querySelector('[data-type="minute"]');
+            const periodBtns = picker.querySelectorAll('.aural-time-picker__period-btn');
+            const nowBtn = picker.querySelector('.aural-time-picker__now-btn');
+            const clearBtn = picker.querySelector('[data-action="clear"]');
+            const applyBtn = picker.querySelector('[data-action="apply"]');
+
+            const is24Hour = picker.classList.contains('aural-time-picker--24h');
+            const minuteStep = parseInt(picker.dataset.step) || options.minuteStep || 1;
+
+            let selectedHour = null;
+            let selectedMinute = null;
+            let selectedPeriod = 'AM';
+
+            function formatTime() {
+                if (selectedHour === null || selectedMinute === null) {
+                    return '';
+                }
+
+                const hour = selectedHour.toString().padStart(2, '0');
+                const minute = selectedMinute.toString().padStart(2, '0');
+
+                if (is24Hour) {
+                    return `${hour}:${minute}`;
+                } else {
+                    return `${hour}:${minute} ${selectedPeriod}`;
+                }
+            }
+
+            function updateInput() {
+                input.value = formatTime();
+            }
+
+            function renderHours() {
+                if (!hourList) return;
+                hourList.innerHTML = '';
+
+                const hours = is24Hour ? 24 : 12;
+                const start = is24Hour ? 0 : 1;
+
+                for (let i = start; i < (is24Hour ? hours : hours + 1); i++) {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'aural-time-picker__item';
+                    btn.textContent = i.toString().padStart(2, '0');
+                    btn.dataset.value = i;
+
+                    if (selectedHour === i) {
+                        btn.classList.add('aural-time-picker__item--selected');
+                    }
+
+                    btn.addEventListener('click', () => {
+                        selectedHour = i;
+                        renderHours();
+                        renderMinutes();
+                    });
+
+                    hourList.appendChild(btn);
+                }
+            }
+
+            function renderMinutes() {
+                if (!minuteList) return;
+                minuteList.innerHTML = '';
+
+                for (let i = 0; i < 60; i += minuteStep) {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'aural-time-picker__item';
+                    btn.textContent = i.toString().padStart(2, '0');
+                    btn.dataset.value = i;
+
+                    if (selectedMinute === i) {
+                        btn.classList.add('aural-time-picker__item--selected');
+                    }
+
+                    btn.addEventListener('click', () => {
+                        selectedMinute = i;
+                        renderMinutes();
+                    });
+
+                    minuteList.appendChild(btn);
+                }
+            }
+
+            // Toggle dropdown
+            if (toggle) {
+                toggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    picker.classList.toggle('aural-time-picker--open');
+                    if (picker.classList.contains('aural-time-picker--open')) {
+                        renderHours();
+                        renderMinutes();
+                    }
+                });
+            }
+
+            if (input) {
+                input.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    picker.classList.toggle('aural-time-picker--open');
+                    if (picker.classList.contains('aural-time-picker--open')) {
+                        renderHours();
+                        renderMinutes();
+                    }
+                });
+            }
+
+            // Period buttons
+            periodBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedPeriod = btn.dataset.period;
+                    periodBtns.forEach(b => b.classList.remove('aural-time-picker__period-btn--selected'));
+                    btn.classList.add('aural-time-picker__period-btn--selected');
+                });
+            });
+
+            // Now button
+            if (nowBtn) {
+                nowBtn.addEventListener('click', () => {
+                    const now = new Date();
+                    let hour = now.getHours();
+                    const minute = now.getMinutes();
+
+                    if (!is24Hour) {
+                        selectedPeriod = hour >= 12 ? 'PM' : 'AM';
+                        hour = hour % 12 || 12;
+                        periodBtns.forEach(btn => {
+                            btn.classList.toggle('aural-time-picker__period-btn--selected', btn.dataset.period === selectedPeriod);
+                        });
+                    }
+
+                    selectedHour = hour;
+                    selectedMinute = Math.floor(minute / minuteStep) * minuteStep;
+
+                    renderHours();
+                    renderMinutes();
+                    updateInput();
+                });
+            }
+
+            // Clear button
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    selectedHour = null;
+                    selectedMinute = null;
+                    selectedPeriod = 'AM';
+                    updateInput();
+                    renderHours();
+                    renderMinutes();
+                    periodBtns.forEach(btn => {
+                        btn.classList.toggle('aural-time-picker__period-btn--selected', btn.dataset.period === 'AM');
+                    });
+                });
+            }
+
+            // Apply button
+            if (applyBtn) {
+                applyBtn.addEventListener('click', () => {
+                    updateInput();
+                    picker.classList.remove('aural-time-picker--open');
+                });
+            }
+
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!picker.contains(e.target)) {
+                    picker.classList.remove('aural-time-picker--open');
+                }
+            });
+
+            // Initialize with current time if specified
+            if (options.defaultToNow) {
+                nowBtn && nowBtn.click();
+            }
+
+            // Set default period selection
+            if (periodBtns.length > 0) {
+                periodBtns[0].classList.add('aural-time-picker__period-btn--selected');
+            }
+
+            // Initial render
+            renderHours();
+            renderMinutes();
+        }
+
+        // Initialize all time pickers
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.aural-time-picker').forEach(picker => {
+                initTimePicker(picker);
+            });
+
+            // Set default time for alarm example
+            const alarmPicker = document.getElementById('time-picker-10');
+            if (alarmPicker) {
+                initTimePicker(alarmPicker, { defaultToNow: false });
+                // Set to 7:00 AM
+                setTimeout(() => {
+                    const alarmInput = alarmPicker.querySelector('.aural-time-picker__input');
+                    if (alarmInput) alarmInput.value = '07:00 AM';
+                }, 100);
+            }
+        });
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+
+            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+            themeLink.href = themePath;
+        } else {
+            console.error('Theme link not found!');
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

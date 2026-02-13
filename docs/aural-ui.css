@@ -1517,6 +1517,7 @@ textarea.input,
 
 .aural-search-bar__input {
     flex: 1;
+    min-width: 0; /* Prevent flex overflow */
     padding: var(--space-3) var(--space-4);
     padding-left: 0;
     background: transparent;
@@ -1528,11 +1529,11 @@ textarea.input,
 }
 
 .aural-search-bar__input::-moz-placeholder {
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 .aural-search-bar__input::placeholder {
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 .aural-search-bar__clear {
@@ -1587,9 +1588,11 @@ textarea.input,
     color: var(--color-text-tertiary);
     font-family: var(--font-mono);
     border-left: 1px solid var(--color-border-subtle);
+    flex-shrink: 0;
 }
 
-.aural-search-bar__wrapper:focus-within .aural-search-bar__shortcut {
+.aural-search-bar__wrapper:focus-within .aural-search-bar__shortcut,
+.aural-search-bar__wrapper:has(.aural-search-bar__input:not(:placeholder-shown)) .aural-search-bar__shortcut {
     display: none;
 }
 
@@ -7225,11 +7228,11 @@ textarea.input,
 }
 
 .aural-range-slider__input::-moz-placeholder {
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 .aural-range-slider__input::placeholder {
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 /* ========================================
@@ -19444,17 +19447,17 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-code-block--terminal {
-    background: #1a1a1a;
-    border-color: #333;
+    background: var(--color-bg-elevated, #1a1a1a);
+    border-color: var(--color-border-medium, #333);
 }
 
 .aural-code-block--terminal .aural-code-block__header {
-    background: #2a2a2a;
-    border-bottom-color: #333;
+    background: var(--color-bg-secondary, #2a2a2a);
+    border-bottom-color: var(--color-border-medium, #333);
 }
 
 .aural-code-block--terminal .aural-code-block__code {
-    color: #00ff00;
+    color: var(--color-success, #00ff00);
 }
 
 .aural-code-block--terminal::before {
@@ -20974,11 +20977,11 @@ body.aural-command-palette-open {
 }
 
 .aural-date-picker__input::-moz-placeholder {
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 .aural-date-picker__input::placeholder {
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 .aural-date-picker__icon {
@@ -21714,11 +21717,11 @@ body.aural-command-palette-open {
 }
 
 .aural-date-range-picker__input::-moz-placeholder {
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 .aural-date-range-picker__input::placeholder {
-    color: var(--color-text-tertiary);
+    color: var(--color-text-secondary);
 }
 
 .aural-date-range-picker__separator {

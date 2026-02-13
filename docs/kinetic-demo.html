@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aural UI - Kinetic Editorial</title>
+
+    <!-- Kinetic Theme -->
+    <link rel="stylesheet" href="kinetic.css">
+    <link rel="stylesheet" href="kinetic-buttons.css">
+    <link rel="stylesheet" href="kinetic-cards.css">
+
+    <style>
+        /* Hero Section - Bold Typography */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-10) var(--space-6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: 'AURAL';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25vw;
+            font-weight: var(--weight-black);
+            color: transparent;
+            -webkit-text-stroke: 1px var(--color-gray-200);
+            z-index: 0;
+            pointer-events: none;
+            letter-spacing: var(--tracking-tighter);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            font-size: var(--text-xs);
+            font-weight: var(--weight-bold);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-widest);
+            color: var(--color-accent);
+            margin-bottom: var(--space-6);
+            display: block;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 12vw, 11rem);
+            font-weight: var(--weight-black);
+            line-height: 0.9;
+            letter-spacing: var(--tracking-tighter);
+            margin-bottom: var(--space-7);
+            max-width: 20ch;
+        }
+
+        .hero-title span {
+            display: block;
+            animation: slide-up 0.8s var(--ease-kinetic) backwards;
+        }
+
+        .hero-title span:nth-child(1) { animation-delay: 0.1s; }
+        .hero-title span:nth-child(2) { animation-delay: 0.2s; color: var(--color-accent); }
+        .hero-title span:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: var(--text-xl);
+            line-height: var(--leading-relaxed);
+            color: var(--color-text-secondary);
+            max-width: 50ch;
+            margin-bottom: var(--space-8);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--space-5);
+            flex-wrap: wrap;
+        }
+
+        /* Section */
+        .section {
+            padding: var(--space-11) var(--space-6);
+            position: relative;
+        }
+
+        .section-minimal {
+            padding: var(--space-10) var(--space-6);
+        }
+
+        .section-header {
+            max-width: 1280px;
+            margin: 0 auto var(--space-9);
+        }
+
+        .section-eyebrow {
+            font-size: var(--text-sm);
+            font-weight: var(--weight-bold);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-widest);
+            color: var(--color-accent);
+            margin-bottom: var(--space-4);
+            display: block;
+        }
+
+        .section-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--weight-black);
+            line-height: var(--leading-tight);
+            letter-spacing: var(--tracking-tight);
+            margin-bottom: var(--space-5);
+        }
+
+        .section-description {
+            font-size: var(--text-lg);
+            line-height: var(--leading-relaxed);
+            color: var(--color-text-secondary);
+            max-width: 70ch;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            padding: var(--space-8) 0;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: var(--text-4xl);
+            font-weight: var(--weight-black);
+            line-height: var(--leading-none);
+            color: var(--color-accent);
+            display: block;
+            margin-bottom: var(--space-3);
+        }
+
+        .stat-label {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-widest);
+            font-weight: var(--weight-bold);
+            color: var(--color-text-tertiary);
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+        }
+
+        /* Button Showcase Grid */
+        .btn-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-7);
+        }
+
+        .btn-group-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .btn-label {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-widest);
+            font-weight: var(--weight-bold);
+            color: var(--color-text-tertiary);
+            margin-bottom: var(--space-4);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--color-border);
+            margin: var(--space-11) 0;
+        }
+
+        .divider-accent {
+            height: 2px;
+            background: var(--color-accent);
+        }
+
+        /* Editorial Quote */
+        .editorial-quote {
+            max-width: 800px;
+            margin: var(--space-11) auto;
+            padding: var(--space-9) var(--space-7);
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .editorial-quote-text {
+            font-size: var(--text-3xl);
+            font-weight: var(--weight-bold);
+            line-height: var(--leading-snug);
+            letter-spacing: var(--tracking-tight);
+            margin-bottom: var(--space-6);
+        }
+
+        .editorial-quote-author {
+            font-size: var(--text-sm);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-widest);
+            font-weight: var(--weight-bold);
+            color: var(--color-text-tertiary);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: var(--space-11) var(--space-6);
+            text-align: center;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .cta-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--weight-black);
+            line-height: var(--leading-tight);
+            margin-bottom: var(--space-6);
+        }
+
+        .cta-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            max-width: 60ch;
+            margin: 0 auto var(--space-8);
+            line-height: var(--leading-relaxed);
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: var(--space-5);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            padding: var(--space-9) var(--space-6);
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: var(--text-sm);
+            color: var(--color-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wider);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: clamp(2.5rem, 10vw, 5rem);
+            }
+
+            .section-title {
+                font-size: var(--text-3xl);
+            }
+
+            .editorial-quote-text {
+                font-size: var(--text-2xl);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-title span {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-eyebrow">Kinetic Editorial Design System</span>
+
+            <h1 class="hero-title">
+                <span>DESIGN</span>
+                <span>WITH</span>
+                <span>PURPOSE</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                A brutally minimal design system built on Swiss typography, kinetic geometry, and stark contrast. No decoration. No gimmicks. Just exceptional interface design.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn-kinetic btn-kinetic-primary btn-kinetic-lg">
+                    GET STARTED
+                </button>
+                <button class="btn-kinetic btn-kinetic-secondary btn-kinetic-lg btn-kinetic-slide">
+                    <span>VIEW COMPONENTS →</span>
+                </button>
+                <button class="btn-kinetic btn-kinetic-ghost btn-kinetic-lg">
+                    DOCUMENTATION
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="section-minimal">
+        <div class="container">
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-value">60+</span>
+                    <span class="stat-label">Components</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">350+</span>
+                    <span class="stat-label">Utilities</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">95%</span>
+                    <span class="stat-label">WCAG AA</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Dependencies</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Button Showcase -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Components</span>
+                <h2 class="section-title">Buttons That Command Attention</h2>
+                <p class="section-description">
+                    Sharp edges, bold presence, purposeful motion. Every interaction designed with intention, not decoration.
+                </p>
+            </div>
+
+            <div class="btn-showcase">
+                <div>
+                    <div class="btn-label">Primary Variants</div>
+                    <div class="btn-group-vertical">
+                        <button class="btn-kinetic btn-kinetic-primary">
+                            PRIMARY ACTION
+                        </button>
+                        <button class="btn-kinetic btn-kinetic-secondary">
+                            SECONDARY ACTION
+                        </button>
+                        <button class="btn-kinetic btn-kinetic-ghost">
+                            GHOST ACTION
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="btn-label">Size Variants</div>
+                    <div class="btn-group-vertical">
+                        <button class="btn-kinetic btn-kinetic-secondary btn-kinetic-sm">
+                            SMALL SIZE
+                        </button>
+                        <button class="btn-kinetic btn-kinetic-secondary">
+                            DEFAULT SIZE
+                        </button>
+                        <button class="btn-kinetic btn-kinetic-secondary btn-kinetic-lg">
+                            LARGE SIZE
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="btn-label">Interactive Effects</div>
+                    <div class="btn-group-vertical">
+                        <button class="btn-kinetic btn-kinetic-secondary btn-kinetic-split">
+                            SPLIT REVEAL
+                        </button>
+                        <button class="btn-kinetic btn-kinetic-secondary btn-kinetic-slide">
+                            <span>SLIDE EFFECT →</span>
+                        </button>
+                        <button class="btn-kinetic btn-kinetic-secondary btn-kinetic-skew">
+                            SKEW TRANSFORM
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Quote -->
+    <div class="editorial-quote">
+        <div class="editorial-quote-text">
+            "Design is not decoration. Design is purposeful constraint, mathematical precision, and ruthless editing."
+        </div>
+        <div class="editorial-quote-author">
+            — Design Philosophy
+        </div>
+    </div>
+
+    <!-- Card Showcase -->
+    <section class="section" style="background: var(--color-gray-100);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Layouts</span>
+                <h2 class="section-title">Cards With Hierarchy</h2>
+                <p class="section-description">
+                    Sharp borders, bold typography, kinetic hover states. Content-first design without visual noise.
+                </p>
+            </div>
+
+            <div class="card-grid-kinetic">
+                <div class="card-kinetic card-kinetic-accent">
+                    <div class="card-kinetic-header">
+                        <h3 class="card-kinetic-title">Accent Border</h3>
+                        <div class="card-kinetic-subtitle">Standard Card</div>
+                    </div>
+                    <div class="card-kinetic-body">
+                        <p>Bold yellow accent bar on the left edge. Minimal styling with maximum impact through typography and spacing.</p>
+                    </div>
+                </div>
+
+                <div class="card-kinetic card-kinetic-outlined">
+                    <div class="card-kinetic-header">
+                        <h3 class="card-kinetic-title">Outlined Style</h3>
+                        <div class="card-kinetic-subtitle">Bold Border</div>
+                    </div>
+                    <div class="card-kinetic-body">
+                        <p>Heavy border treatment that expands on hover. Sharp edges, no rounded corners, maximum contrast.</p>
+                    </div>
+                </div>
+
+                <div class="card-kinetic card-kinetic-filled">
+                    <div class="card-kinetic-header">
+                        <h3 class="card-kinetic-title">Filled Background</h3>
+                        <div class="card-kinetic-subtitle">Dark Variant</div>
+                    </div>
+                    <div class="card-kinetic-body">
+                        <p>Subtle background fill for visual hierarchy. Maintains brutalist aesthetic while adding depth.</p>
+                    </div>
+                </div>
+
+                <div class="card-kinetic-stat">
+                    <span class="card-kinetic-stat-value">99.9%</span>
+                    <span class="card-kinetic-stat-label">Uptime</span>
+                </div>
+
+                <div class="card-kinetic-stat">
+                    <span class="card-kinetic-stat-value">142K</span>
+                    <span class="card-kinetic-stat-label">Active Users</span>
+                </div>
+
+                <div class="card-kinetic-stat">
+                    <span class="card-kinetic-stat-value">24ms</span>
+                    <span class="card-kinetic-stat-label">Response Time</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Cards -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Philosophy</span>
+                <h2 class="section-title">Design Principles</h2>
+            </div>
+
+            <div class="feature-grid">
+                <div class="card-kinetic card-kinetic-feature">
+                    <div class="card-kinetic-feature-icon">01</div>
+                    <div class="card-kinetic-feature-content">
+                        <h3>Typographic Dominance</h3>
+                        <p>Text is the interface. Oversized headings, bold weights, mathematical spacing. Every word commands attention.</p>
+                    </div>
+                </div>
+
+                <div class="card-kinetic card-kinetic-feature">
+                    <div class="card-kinetic-feature-icon">02</div>
+                    <div class="card-kinetic-feature-content">
+                        <h3>Kinetic Geometry</h3>
+                        <p>Motion with purpose. No frivolous animations. Every transition reinforces hierarchy and guides attention.</p>
+                    </div>
+                </div>
+
+                <div class="card-kinetic card-kinetic-feature">
+                    <div class="card-kinetic-feature-icon">03</div>
+                    <div class="card-kinetic-feature-content">
+                        <h3>Stark Contrast</h3>
+                        <p>Pure black, pure white, electric lime. No gradients. No gray areas. Maximum visual impact through restraint.</p>
+                    </div>
+                </div>
+
+                <div class="card-kinetic card-kinetic-feature">
+                    <div class="card-kinetic-feature-icon">04</div>
+                    <div class="card-kinetic-feature-content">
+                        <h3>Swiss Precision</h3>
+                        <p>8-point grid system. Mathematical spacing. Perfect alignment. Clarity through systematic constraints.</p>
+                    </div>
+                </div>
+
+                <div class="card-kinetic card-kinetic-feature">
+                    <div class="card-kinetic-feature-icon">05</div>
+                    <div class="card-kinetic-feature-content">
+                        <h3>Editorial Boldness</h3>
+                        <p>Magazine-style layouts. Asymmetric composition. Generous whitespace. Confident, not timid.</p>
+                    </div>
+                </div>
+
+                <div class="card-kinetic card-kinetic-feature">
+                    <div class="card-kinetic-feature-icon">06</div>
+                    <div class="card-kinetic-feature-content">
+                        <h3>Zero Decoration</h3>
+                        <p>No shadows. No glows. No rounded corners. Beauty through function, not ornament.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Ready to Build?</h2>
+            <p class="cta-description">
+                Production-ready components. Zero dependencies. Fully accessible. Built for interfaces that demand clarity and precision.
+            </p>
+            <div class="cta-actions">
+                <button class="btn-kinetic btn-kinetic-primary btn-kinetic-lg btn-kinetic-split">
+                    DOWNLOAD NOW
+                </button>
+                <button class="btn-kinetic btn-kinetic-secondary btn-kinetic-lg">
+                    VIEW DOCUMENTATION
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">Kinetic Editorial Design System — Built for Clarity</p>
+    </footer>
+</body>
+</html>

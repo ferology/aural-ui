@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Catalog - Aural UI</title>
+    <link rel="stylesheet" href="aural-ui.css">
+    <link rel="stylesheet" href="dark.css" id="theme-link">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .catalog-header {
+            max-width: 1200px;
+            margin: 0 auto var(--space-8);
+        }
+
+        .catalog-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-2) 0;
+        }
+
+        .catalog-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            margin: 0 0 var(--space-6) 0;
+        }
+
+        .catalog-filters {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: var(--space-2) var(--space-4);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: var(--color-bg-hover);
+            border-color: var(--color-border-medium);
+        }
+
+        .filter-btn.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-6);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .catalog-item {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .catalog-item:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .catalog-preview {
+            padding: var(--space-6);
+            background: var(--color-bg-primary);
+            border-bottom: 1px solid var(--color-border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+        }
+
+        .catalog-info {
+            padding: var(--space-4);
+        }
+
+        .catalog-info h3 {
+            margin: 0 0 var(--space-2) 0;
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .catalog-info p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--color-text-tertiary);
+        }
+
+        .catalog-meta {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-3);
+        }
+
+        .badge-stable {
+            background: var(--color-success);
+            color: white;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="catalog-header">
+        <h1 class="catalog-title">Component Catalog</h1>
+        <p class="catalog-description">Browse all components in the Aural UI design system</p>
+
+        <div class="aural-search-bar" style="max-width: 600px; margin-bottom: var(--space-6);">
+            <div class="aural-search-bar__wrapper">
+                <div class="aural-search-bar__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                </div>
+                <input type="text" id="catalog-search-input" class="aural-search-bar__input" placeholder="Search components..." aria-label="Search components">
+            </div>
+        </div>
+
+        <div class="catalog-filters">
+            <button class="filter-btn active" data-filter="all">All Components</button>
+            <button class="filter-btn" data-filter="forms">Forms & Inputs</button>
+            <button class="filter-btn" data-filter="data">Data Display</button>
+            <button class="filter-btn" data-filter="navigation">Navigation</button>
+            <button class="filter-btn" data-filter="feedback">Feedback</button>
+            <button class="filter-btn" data-filter="layout">Layout</button>
+        </div>
+    </div>
+
+    <div class="catalog-grid">
+        <!-- Buttons -->
+        <a href="components/buttons.html" class="catalog-item" data-category="forms">
+            <div class="catalog-preview">
+                <button class="btn btn-primary">Click Me</button>
+            </div>
+            <div class="catalog-info">
+                <h3>Buttons</h3>
+                <p>Interactive action buttons with variants</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Inputs -->
+        <a href="components/inputs.html" class="catalog-item" data-category="forms">
+            <div class="catalog-preview">
+                <input type="text" class="input" placeholder="Enter text...">
+            </div>
+            <div class="catalog-info">
+                <h3>Inputs</h3>
+                <p>Text input fields for user data entry</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Checkboxes -->
+        <a href="components/checkboxes.html" class="catalog-item" data-category="forms">
+            <div class="catalog-preview">
+                <label class="checkbox">
+                    <input type="checkbox" checked>
+                    <span class="checkbox-label">Option</span>
+                </label>
+            </div>
+            <div class="catalog-info">
+                <h3>Checkboxes</h3>
+                <p>Selection controls for multiple options</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Radio Buttons -->
+        <a href="components/radio-buttons.html" class="catalog-item" data-category="forms">
+            <div class="catalog-preview">
+                <label class="radio">
+                    <input type="radio" name="example" checked>
+                    <span class="radio-label">Option</span>
+                </label>
+            </div>
+            <div class="catalog-info">
+                <h3>Radio Buttons</h3>
+                <p>Single selection from multiple options</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Select -->
+        <a href="components/select.html" class="catalog-item" data-category="forms">
+            <div class="catalog-preview">
+                <select class="select">
+                    <option>Choose option...</option>
+                </select>
+            </div>
+            <div class="catalog-info">
+                <h3>Select</h3>
+                <p>Dropdown selection menus</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Cards -->
+        <a href="components/cards.html" class="catalog-item" data-category="data">
+            <div class="catalog-preview">
+                <div class="card" style="max-width: 200px;">
+                    <div class="card-header">Card Title</div>
+                    <div class="card-body">Content</div>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Cards</h3>
+                <p>Container for related content</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tables -->
+        <a href="components/tables.html" class="catalog-item" data-category="data">
+            <div class="catalog-preview">
+                <table class="table" style="font-size: 11px;">
+                    <thead><tr><th>Column</th></tr></thead>
+                    <tbody><tr><td>Data</td></tr></tbody>
+                </table>
+            </div>
+            <div class="catalog-info">
+                <h3>Tables</h3>
+                <p>Structured data display</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tabs -->
+        <a href="components/tabs.html" class="catalog-item" data-category="navigation">
+            <div class="catalog-preview">
+                <div class="tabs">
+                    <button class="tab tab-active">Tab 1</button>
+                    <button class="tab">Tab 2</button>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Tabs</h3>
+                <p>Organize content into panels</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Breadcrumbs -->
+        <a href="components/breadcrumbs.html" class="catalog-item" data-category="navigation">
+            <div class="catalog-preview">
+                <nav class="breadcrumbs">
+                    <a href="#">Home</a>
+                    <a href="#">Products</a>
+                </nav>
+            </div>
+            <div class="catalog-info">
+                <h3>Breadcrumbs</h3>
+                <p>Navigation hierarchy indicator</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Modals -->
+        <a href="components/modals.html" class="catalog-item" data-category="feedback">
+            <div class="catalog-preview">
+                <i data-lucide="square" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Modals</h3>
+                <p>Dialog windows for focused content</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Alerts -->
+        <a href="components/alerts.html" class="catalog-item" data-category="feedback">
+            <div class="catalog-preview">
+                <div class="alert alert-info" style="max-width: 220px; font-size: 12px;">
+                    Information message
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Alerts</h3>
+                <p>Contextual feedback messages</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Badges -->
+        <a href="components/badges.html" class="catalog-item" data-category="data">
+            <div class="catalog-preview">
+                <span class="badge badge-primary">Badge</span>
+            </div>
+            <div class="catalog-info">
+                <h3>Badges</h3>
+                <p>Small status indicators</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tooltips -->
+        <a href="components/tooltips.html" class="catalog-item" data-category="feedback">
+            <div class="catalog-preview">
+                <div class="tooltip">Hover me
+                    <span class="tooltip-text">Tooltip text</span>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Tooltips</h3>
+                <p>Contextual help on hover</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Progress Bars -->
+        <a href="components/progress-bars.html" class="catalog-item" data-category="feedback">
+            <div class="catalog-preview">
+                <div class="progress">
+                    <div class="progress-bar" style="width: 60%;"></div>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Progress Bars</h3>
+                <p>Visual progress indicators</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Spinners -->
+        <a href="components/spinners.html" class="catalog-item" data-category="feedback">
+            <div class="catalog-preview">
+                <div class="spinner"></div>
+            </div>
+            <div class="catalog-info">
+                <h3>Spinners</h3>
+                <p>Loading state indicators</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Containers -->
+        <a href="components/containers.html" class="catalog-item" data-category="layout">
+            <div class="catalog-preview">
+                <div class="container" style="max-width: 200px; font-size: 11px; padding: var(--space-3); border: 1px dashed var(--color-border-medium);">
+                    Container
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Containers</h3>
+                <p>Layout wrapper elements</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Grid -->
+        <a href="components/grid.html" class="catalog-item" data-category="layout">
+            <div class="catalog-preview">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; max-width: 100px;">
+                    <div style="background: var(--color-primary); height: 20px; border-radius: 2px;"></div>
+                    <div style="background: var(--color-primary); height: 20px; border-radius: 2px;"></div>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Grid</h3>
+                <p>CSS Grid layout system</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('catalog-search-input');
+        const catalogItems = document.querySelectorAll('.catalog-item');
+        let currentCategoryFilter = 'all';
+
+        function filterComponents() {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            catalogItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const description = item.querySelector('p').textContent.toLowerCase();
+                const category = item.dataset.category;
+
+                const matchesSearch = searchTerm === '' ||
+                                     title.includes(searchTerm) ||
+                                     description.includes(searchTerm);
+                const matchesCategory = currentCategoryFilter === 'all' ||
+                                       category === currentCategoryFilter;
+
+                if (matchesSearch && matchesCategory) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', filterComponents);
+
+        // Category filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                currentCategoryFilter = filter;
+
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Apply filters
+                filterComponents();
+            });
+        });
+
+        // Initialize icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+</body>
+</html>

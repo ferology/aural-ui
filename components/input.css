@@ -1,16 +1,56 @@
 /**
  * AURAL UI - Input Component
  *
- * Text inputs with validation states and form helpers
+ * Accessible text inputs with validation states and form helpers
  *
- * Usage:
+ * Basic Usage:
  *   <input type="text" class="input" placeholder="Enter text">
- *   <input type="email" class="input error" placeholder="Invalid email">
+ *
+ * With Label (REQUIRED for accessibility):
  *   <div class="form-group">
- *     <label class="label">Email</label>
- *     <input type="email" class="input">
+ *     <label class="label" for="email-input">Email</label>
+ *     <input type="email" id="email-input" class="input">
  *     <p class="form-helper">We'll never share your email</p>
  *   </div>
+ *
+ * Error State (with screen reader announcement):
+ *   <div class="form-group">
+ *     <label class="label" for="email-input">Email</label>
+ *     <input
+ *       type="email"
+ *       id="email-input"
+ *       class="input error"
+ *       aria-invalid="true"
+ *       aria-describedby="email-error"
+ *     >
+ *     <p class="form-error" id="email-error">Please enter a valid email address</p>
+ *   </div>
+ *
+ * Success State:
+ *   <div class="form-group">
+ *     <label class="label" for="username">Username</label>
+ *     <input
+ *       type="text"
+ *       id="username"
+ *       class="input success"
+ *       aria-invalid="false"
+ *       aria-describedby="username-success"
+ *     >
+ *     <p class="form-success" id="username-success">Username is available!</p>
+ *   </div>
+ *
+ * Required Field:
+ *   <label class="label" for="name">
+ *     Full Name <span aria-label="required">*</span>
+ *   </label>
+ *   <input type="text" id="name" class="input" required aria-required="true">
+ *
+ * Accessibility Requirements:
+ * - Always use <label> with matching for/id
+ * - Use aria-invalid="true" for error states
+ * - Use aria-describedby to link error/helper messages
+ * - Use aria-required="true" for required fields
+ * - Ensure error messages have unique IDs
  */
 
 /* ========================================

@@ -1,16 +1,44 @@
 /**
  * AURAL UI - Modal Component
  *
- * Dialog overlays
+ * Accessible dialog overlays with focus management
  *
  * Usage:
- *   <div class="modal-overlay open">
- *     <div class="modal">
- *       <div class="modal-header">...</div>
- *       <div class="modal-body">...</div>
- *       <div class="modal-footer">...</div>
+ *   <div class="modal-overlay open" id="my-modal">
+ *     <div
+ *       class="modal"
+ *       role="dialog"
+ *       aria-modal="true"
+ *       aria-labelledby="modal-title"
+ *       aria-describedby="modal-desc"
+ *     >
+ *       <div class="modal-header">
+ *         <h2 id="modal-title" class="modal-title">Modal Title</h2>
+ *         <button
+ *           class="modal-close"
+ *           aria-label="Close modal"
+ *           onclick="Aural.closeModal('my-modal')"
+ *         >
+ *           <svg>...</svg>
+ *         </button>
+ *       </div>
+ *       <div class="modal-body">
+ *         <p id="modal-desc">Modal description...</p>
+ *       </div>
+ *       <div class="modal-footer">
+ *         <button class="btn btn-secondary">Cancel</button>
+ *         <button class="btn btn-primary">Confirm</button>
+ *       </div>
  *     </div>
  *   </div>
+ *
+ * Accessibility:
+ * - role="dialog" and aria-modal="true" are REQUIRED
+ * - aria-labelledby must reference modal title ID
+ * - aria-describedby should reference description ID
+ * - Focus trap implemented via JavaScript
+ * - Escape key closes modal
+ * - Focus returns to trigger on close
  */
 
 .modal-overlay {
@@ -34,7 +62,9 @@
     pointer-events: none;
 
     /* Transitions */
-    transition: all var(--duration-normal) var(--ease-in-out);
+    @media (prefers-reduced-motion: no-preference) {
+        transition: all var(--duration-normal) var(--ease-in-out);
+    }
 
     &.open {
         opacity: 1;
@@ -61,11 +91,19 @@
     box-shadow: var(--shadow-2xl);
 
     /* Animation */
-    transform: translateY(20px) scale(0.95);
-    transition: all var(--duration-normal) var(--ease-out);
+    @media (prefers-reduced-motion: no-preference) {
+        transform: translateY(20px) scale(0.95);
+        transition: all var(--duration-normal) var(--ease-out);
 
-    .modal-overlay.open & {
-        transform: translateY(0) scale(1);
+        .modal-overlay.open & {
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .modal-overlay.open & {
+            transform: none;
+        }
     }
 }
 

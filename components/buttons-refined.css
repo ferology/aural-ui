@@ -1,0 +1,383 @@
+/**
+ * REFINED BUTTON SYSTEM
+ * Sophisticated, dimensional, with prismatic effects
+ */
+
+/* ========================================
+   BASE BUTTON - Glass + Gradient
+   ======================================== */
+
+.btn-prismatic {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+
+    /* Glass effect */
+    background: var(--color-bg-glass);
+    backdrop-filter: var(--glass-blur);
+
+    /* Gradient border */
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    border-radius: 12px;
+
+    /* Typography */
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    white-space: nowrap;
+
+    /* Interaction */
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    user-select: none;
+
+    /* Depth */
+    box-shadow: var(--shadow-depth-1);
+
+    /* Accessibility */
+    min-height: 44px;
+    outline: none;
+}
+
+/* Gradient border effect */
+.btn-prismatic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-primary);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.4;
+    transition: opacity 0.3s var(--ease-smooth);
+}
+
+/* Inner glow */
+.btn-prismatic::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-smooth);
+}
+
+.btn-prismatic:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-depth-2);
+}
+
+.btn-prismatic:hover::before {
+    opacity: 0.8;
+}
+
+.btn-prismatic:hover::after {
+    opacity: 0.12;
+}
+
+.btn-prismatic:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-depth-1);
+}
+
+/* ========================================
+   PRIMARY VARIANT - Teal to Violet
+   ======================================== */
+
+.btn-prismatic-primary {
+    background: linear-gradient(135deg,
+        rgba(14, 165, 165, 0.15) 0%,
+        rgba(123, 44, 191, 0.15) 100%
+    );
+    backdrop-filter: var(--glass-blur);
+}
+
+.btn-prismatic-primary::before {
+    background: var(--gradient-primary);
+}
+
+.btn-prismatic-primary:hover {
+    background: linear-gradient(135deg,
+        rgba(14, 165, 165, 0.25) 0%,
+        rgba(123, 44, 191, 0.25) 100%
+    );
+}
+
+/* ========================================
+   SECONDARY VARIANT - Violet to Rose
+   ======================================== */
+
+.btn-prismatic-secondary {
+    background: linear-gradient(135deg,
+        rgba(123, 44, 191, 0.15) 0%,
+        rgba(225, 29, 72, 0.15) 100%
+    );
+}
+
+.btn-prismatic-secondary::before {
+    background: var(--gradient-secondary);
+}
+
+.btn-prismatic-secondary:hover {
+    background: linear-gradient(135deg,
+        rgba(123, 44, 191, 0.25) 0%,
+        rgba(225, 29, 72, 0.25) 100%
+    );
+}
+
+/* ========================================
+   ACCENT VARIANT - Amber to Teal
+   ======================================== */
+
+.btn-prismatic-accent {
+    background: linear-gradient(135deg,
+        rgba(245, 158, 11, 0.15) 0%,
+        rgba(14, 165, 165, 0.15) 100%
+    );
+}
+
+.btn-prismatic-accent::before {
+    background: var(--gradient-accent);
+}
+
+.btn-prismatic-accent:hover {
+    background: linear-gradient(135deg,
+        rgba(245, 158, 11, 0.25) 0%,
+        rgba(14, 165, 165, 0.25) 100%
+    );
+}
+
+/* ========================================
+   GHOST VARIANT - Minimal
+   ======================================== */
+
+.btn-prismatic-ghost {
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+}
+
+.btn-prismatic-ghost::before {
+    opacity: 0.3;
+}
+
+.btn-prismatic-ghost:hover {
+    background: rgba(14, 165, 165, 0.08);
+    box-shadow: var(--shadow-depth-1);
+}
+
+.btn-prismatic-ghost:hover::before {
+    opacity: 0.6;
+}
+
+/* ========================================
+   SOLID VARIANT - Filled Gradient
+   ======================================== */
+
+.btn-prismatic-solid {
+    background: var(--gradient-primary);
+    color: #050508;
+    font-weight: 700;
+    box-shadow: var(--shadow-depth-2);
+}
+
+.btn-prismatic-solid::before {
+    display: none;
+}
+
+.btn-prismatic-solid::after {
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    opacity: 1;
+}
+
+.btn-prismatic-solid:hover {
+    box-shadow: var(--shadow-depth-3);
+    filter: brightness(1.1);
+}
+
+/* ========================================
+   SIZE VARIANTS
+   ======================================== */
+
+.btn-prismatic-sm {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    border-radius: 10px;
+    min-height: 36px;
+}
+
+.btn-prismatic-lg {
+    padding: 1.125rem 2.25rem;
+    font-size: 1.0625rem;
+    border-radius: 14px;
+    min-height: 52px;
+}
+
+/* ========================================
+   STATES
+   ======================================== */
+
+.btn-prismatic:disabled,
+.btn-prismatic[aria-disabled="true"] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn-prismatic:disabled:hover,
+.btn-prismatic[aria-disabled="true"]:hover {
+    box-shadow: var(--shadow-depth-1);
+}
+
+/* Loading state */
+.btn-prismatic-loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.btn-prismatic-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -8px;
+    border: 2px solid var(--color-text-primary);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: btn-spin 0.6s linear infinite;
+}
+
+@keyframes btn-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   ICON BUTTONS
+   ======================================== */
+
+.btn-prismatic-icon {
+    padding: 0.875rem;
+    aspect-ratio: 1;
+    min-width: 44px;
+}
+
+.btn-prismatic-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ========================================
+   BUTTON GROUPS
+   ======================================== */
+
+.btn-group-prismatic {
+    display: inline-flex;
+    gap: 1px;
+    background: var(--color-border-subtle);
+    border-radius: 12px;
+    padding: 1px;
+}
+
+.btn-group-prismatic .btn-prismatic {
+    border-radius: 11px;
+    margin: 0;
+}
+
+.btn-group-prismatic .btn-prismatic:not(:first-child):not(:last-child) {
+    border-radius: 0;
+}
+
+.btn-group-prismatic .btn-prismatic:first-child {
+    border-radius: 11px 0 0 11px;
+}
+
+.btn-group-prismatic .btn-prismatic:last-child {
+    border-radius: 0 11px 11px 0;
+}
+
+/* ========================================
+   KINETIC HOVER - Text shifts
+   ======================================== */
+
+.btn-prismatic-kinetic {
+    overflow: hidden;
+}
+
+.btn-prismatic-kinetic span {
+    display: inline-block;
+    transition: transform 0.3s var(--ease-elastic);
+}
+
+.btn-prismatic-kinetic:hover span {
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   SHIMMER EFFECT
+   ======================================== */
+
+.btn-prismatic-shimmer {
+    overflow: hidden;
+}
+
+.btn-prismatic-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.btn-prismatic-shimmer:hover::after {
+    left: 100%;
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-prismatic,
+    .btn-prismatic-kinetic span {
+        transition: none;
+    }
+
+    .btn-prismatic-shimmer::after {
+        display: none;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .btn-prismatic {
+        border-width: 2px;
+    }
+
+    .btn-prismatic::before {
+        opacity: 1;
+    }
+}

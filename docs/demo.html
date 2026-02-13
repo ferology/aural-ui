@@ -118,50 +118,6 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
-        /* Search */
-        .demo-search {
-            position: relative;
-            margin-bottom: var(--space-5);
-        }
-
-        .demo-search input {
-            width: 100%;
-            padding: var(--space-2) var(--space-3) var(--space-2) var(--space-8);
-            background: var(--color-bg-tertiary);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-md);
-            color: var(--color-text-primary);
-            font-size: 14px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            transition: all 0.15s ease;
-        }
-
-        .demo-search input:hover {
-            border-color: var(--color-border-medium);
-        }
-
-        .demo-search input:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            background: var(--color-bg-primary);
-        }
-
-        .demo-search input::placeholder {
-            color: var(--color-text-tertiary);
-        }
-
-        .demo-search-icon {
-            position: absolute;
-            left: var(--space-3);
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            color: var(--color-text-tertiary);
-            pointer-events: none;
-            transition: color 0.15s ease;
-        }
-
         /* Navigation */
         .demo-nav-section {
             margin-bottom: var(--space-5);
@@ -205,7 +161,8 @@
             transform: rotate(-90deg);
         }
 
-        .demo-nav-title.collapsed + .demo-nav-links {
+        .demo-nav-title.collapsed + .demo-nav-links,
+        .demo-nav-title.collapsed + .demo-nav-content {
             display: none;
         }
 
@@ -213,29 +170,68 @@
             list-style: none;
         }
 
-        .demo-nav-link {
+        .demo-nav-content {
+            display: block;
+        }
+
+        /* Subsections (for nested navigation like Components) */
+        .demo-nav-subsection {
+            margin-bottom: var(--space-4);
+        }
+
+        .demo-nav-subtitle {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-tertiary);
+            margin-bottom: var(--space-2);
+            margin-top: var(--space-3);
+            padding: 0 var(--space-2);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .demo-nav-link,
+        .demo-nav-link:link,
+        .demo-nav-link:visited,
+        .demo-nav-link:target {
             display: block;
             padding: var(--space-2) var(--space-3);
-            color: var(--color-text-secondary);
-            text-decoration: none;
+            color: var(--color-text-secondary) !important;
+            text-decoration: none !important;
+            background: transparent !important;
             border-radius: var(--radius-md);
             font-size: 14px;
-            font-weight: 400;
+            font-weight: 400 !important;
             transition: all 0.15s ease;
             cursor: pointer;
             position: relative;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
-        .demo-nav-link:hover {
-            background: var(--color-bg-hover);
-            color: var(--color-primary);
+        .demo-nav-link::after,
+        .demo-nav-link::before {
+            display: none !important;
         }
 
-        .demo-nav-link.active {
-            background: var(--color-primary);
+        .demo-nav-link:hover {
+            background: var(--color-bg-hover) !important;
+            color: var(--color-primary) !important;
+        }
+
+        .demo-nav-link:focus-visible {
+            outline: 2px solid var(--color-primary) !important;
+            outline-offset: 2px !important;
+            background: transparent !important;
+        }
+
+        .demo-nav-link.active,
+        .demo-nav-link.active:link,
+        .demo-nav-link.active:visited,
+        .demo-nav-link.active:target {
+            background: var(--color-primary) !important;
             color: white;
-            font-weight: 500;
+            font-weight: 500 !important;
         }
 
         /* Main Content */
@@ -290,111 +286,38 @@
             display: none;
         }
 
-        /* Theme Selector */
-        .demo-theme-toggle {
-            position: fixed;
-            bottom: var(--space-6);
-            right: var(--space-6);
-            z-index: 1001;
+        /* Theme Selector in Sidebar */
+        .theme-selector-section {
+            margin-bottom: var(--space-4);
         }
 
-        .theme-selector {
-            position: relative;
-        }
-
-        .theme-selector-button {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: var(--space-3) var(--space-4);
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border-medium);
-            border-radius: var(--radius-md);
-            color: var(--color-text-primary);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .theme-selector-button:hover {
-            background: var(--color-bg-hover);
-            border-color: var(--color-primary);
-        }
-
-        .theme-selector-button i:last-child {
-            margin-left: var(--space-1);
-            transition: transform 0.2s ease;
-        }
-
-        .theme-selector.active .theme-selector-button i:last-child {
-            transform: rotate(180deg);
-        }
-
-        .theme-options {
-            position: absolute;
-            bottom: calc(100% + var(--space-2));
-            right: 0;
-            min-width: 200px;
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border-medium);
-            border-radius: var(--radius-md);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(8px);
-            transition: all 0.2s ease;
-        }
-
-        .theme-selector.active .theme-options {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .theme-option {
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-            padding: var(--space-3) var(--space-4);
-            color: var(--color-text-primary);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            border: none;
-            background: transparent;
+        .theme-select {
             width: 100%;
-            text-align: left;
+            padding: var(--space-2) var(--space-3);
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-size: 14px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="currentColor" d="M6 9L1 4h10z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right var(--space-3) center;
+            padding-right: var(--space-8);
         }
 
-        .theme-option:first-child {
-            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        .theme-select:hover {
+            border-color: var(--color-border-medium);
+            background-color: var(--color-bg-hover);
         }
 
-        .theme-option:last-child {
-            border-radius: 0 0 var(--radius-md) var(--radius-md);
-        }
-
-        .theme-option:hover {
-            background: var(--color-bg-hover);
-            color: var(--color-primary);
-        }
-
-        .theme-option.active {
-            background: var(--color-primary-subtle);
-            color: var(--color-primary);
-            font-weight: 500;
-        }
-
-        .theme-option i {
-            width: 16px;
-            height: 16px;
-            flex-shrink: 0;
-        }
-
-        .theme-option-label {
-            flex: 1;
+        .theme-select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-alpha, rgba(94, 189, 143, 0.1));
         }
 
         /* Mobile */
@@ -460,32 +383,38 @@
             .demo-overlay.active {
                 display: block;
             }
+        }
 
-            .demo-theme-toggle {
-                bottom: var(--space-4);
-                right: var(--space-4);
-            }
+        /* Skip Navigation Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-primary);
+            color: white;
+            padding: var(--space-2) var(--space-4);
+            text-decoration: none;
+            z-index: 9999;
+            border-radius: 0 0 var(--radius-md) 0;
+            font-weight: var(--font-medium);
+            transition: top 0.2s ease;
+        }
 
-            .demo-theme-toggle .btn {
-                width: 48px;
-                height: 48px;
-                padding: 0;
-                border-radius: 50%;
-            }
-
-            .demo-theme-toggle .btn span {
-                display: none;
-            }
+        .skip-link:focus {
+            top: 0;
+            outline: 2px solid white;
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="demo-container">
         <!-- Sidebar -->
         <nav class="demo-sidebar" id="demo-sidebar"></nav>
 
         <!-- Main Content -->
-        <div class="demo-main">
+        <main class="demo-main" id="main-content">
             <div class="demo-mobile-header">
                 <button class="demo-mobile-toggle" onclick="toggleDemoMenu()">
                     <i data-lucide="menu"></i>
@@ -497,64 +426,36 @@
                 <div class="demo-spinner"></div>
             </div>
 
-            <iframe id="demo-content-frame" class="demo-content-frame"></iframe>
-        </div>
+            <iframe id="demo-content-frame" class="demo-content-frame" title="Component showcase" aria-label="Main content area"></iframe>
+        </main>
 
         <!-- Overlay -->
         <div class="demo-overlay" id="demo-overlay" onclick="toggleDemoMenu()"></div>
-
-        <!-- Theme Selector -->
-        <div class="demo-theme-toggle">
-            <div class="theme-selector" id="theme-selector">
-                <button class="theme-selector-button" onclick="toggleThemeSelector()">
-                    <i data-lucide="moon" id="current-theme-icon"></i>
-                    <span id="current-theme-name">Dark</span>
-                    <i data-lucide="chevron-up"></i>
-                </button>
-                <div class="theme-options">
-                    <button class="theme-option active" onclick="selectTheme('dark')">
-                        <i data-lucide="moon"></i>
-                        <span class="theme-option-label">Dark</span>
-                    </button>
-                    <button class="theme-option" onclick="selectTheme('light')">
-                        <i data-lucide="sun"></i>
-                        <span class="theme-option-label">Light</span>
-                    </button>
-                    <button class="theme-option" onclick="selectTheme('high-contrast')">
-                        <i data-lucide="zap"></i>
-                        <span class="theme-option-label">High Contrast</span>
-                    </button>
-                    <button class="theme-option" onclick="selectTheme('colorblind')">
-                        <i data-lucide="palette"></i>
-                        <span class="theme-option-label">Colorblind-Friendly</span>
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="aural-ui.js"></script>
+    <script src="js/theme-manager.js"></script>
     <script src="demo.js"></script>
 
-    <!-- Unified Theme Sync -->
     <script>
-    (function() {
-        // Sync theme from localStorage IMMEDIATELY
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        const themeLink = document.getElementById('theme-link');
+        // Safety check: Remove any duplicate sidebars on theme change
+        const observer = new MutationObserver(() => {
+            const sidebars = document.querySelectorAll('.demo-sidebar');
+            if (sidebars.length > 1) {
+                console.warn('Duplicate sidebars detected! Removing extras...');
+                sidebars.forEach((sidebar, index) => {
+                    if (index > 0) {
+                        sidebar.remove();
+                    }
+                });
+            }
+        });
 
-        const themeFiles = {
-            'dark': 'dark.css',
-            'light': 'light.css',
-            'high-contrast': 'high-contrast.css',
-            'colorblind': 'colorblind-friendly.css'
-        };
-
-        if (themeLink && themeFiles[savedTheme]) {
-            themeLink.href = themeFiles[savedTheme];
-            console.log('Demo: Applied theme from localStorage:', savedTheme);
-        }
-    })();
+        // Watch for changes to the body
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     </script>
 </body>
 </html>

@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="./dark.css" id="theme-link">
 
+    <!-- Enhanced Documentation Styles -->
+    <link rel="stylesheet" href="./styles/doc-enhanced.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -104,12 +107,70 @@
             padding: 0;
         }
 
-        /* Cards Grid */
-        .cards-grid {
+        /* Contribution Grid */
+        .contribution-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: var(--space-6);
-            margin-bottom: var(--space-8);
+            margin: var(--space-6) 0;
+        }
+
+        .contribution-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            transition: all 0.2s;
+        }
+
+        .contribution-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .contribution-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--color-primary);
+            margin-bottom: var(--space-3);
+        }
+
+        .contribution-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-2) 0;
+        }
+
+        .contribution-description {
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .info-box {
+            background: var(--color-bg-secondary);
+            border-left: 4px solid var(--color-primary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            margin: var(--space-6) 0;
+        }
+
+        .info-box strong {
+            color: var(--color-text-primary);
+        }
+
+        .warning-box {
+            background: var(--color-bg-secondary);
+            border-left: 4px solid var(--color-warning);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            margin: var(--space-6) 0;
+        }
+
+        .warning-box strong {
+            color: var(--color-warning);
         }
 
         /* Theme Toggle */
@@ -149,65 +210,267 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="page-header">
-            <h1 class="page-title">Contributing</h1>
-            <p class="page-description">Help us make Aural UI even better! We welcome contributions from the community.</p>
+            <h1 class="page-title">Contributing to Aural UI</h1>
+            <p class="page-description">We welcome contributions from the community. Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.</p>
         </div>
 
-        <div class="cards-grid">
-            <div class="card" style="padding: var(--space-6);">
-                <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
-                    <i data-lucide="book-open" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
-                    <h3 style="margin: 0; font-size: var(--text-lg);">Contributing Guide</h3>
-                </div>
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                    Read our comprehensive guide on how to contribute, including setup instructions,
-                    code standards, and PR guidelines.
-                </p>
-                <a href="https://github.com/ferology/aural-ui/blob/main/CONTRIBUTING.md"
-                   target="_blank"
-                   class="btn btn-primary btn-sm"
-                   style="text-decoration: none;">
-                    <i data-lucide="external-link" style="width: 16px; height: 10px;"></i>
-                    View Guide
-                </a>
-            </div>
+        <section class="content-section">
+            <h2 class="section-title">Ways to Contribute</h2>
 
-            <div class="card" style="padding: var(--space-6);">
-                <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
-                    <i data-lucide="github" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
-                    <h3 style="margin: 0; font-size: var(--text-lg);">GitHub Repository</h3>
+            <div class="contribution-grid">
+                <div class="contribution-card">
+                    <i data-lucide="code" class="contribution-icon"></i>
+                    <h3 class="contribution-title">Code Contributions</h3>
+                    <p class="contribution-description">Add new components, fix bugs, or improve existing CSS</p>
                 </div>
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                    Star the repository, open issues, submit pull requests, or join discussions.
-                    All contributions are welcome!
-                </p>
-                <a href="https://github.com/ferology/aural-ui"
-                   target="_blank"
-                   class="btn btn-secondary btn-sm"
-                   style="text-decoration: none;">
-                    <i data-lucide="star" style="width: 16px; height: 10px;"></i>
-                    View on GitHub
-                </a>
-            </div>
 
-            <div class="card" style="padding: var(--space-6);">
-                <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
-                    <i data-lucide="message-circle" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
-                    <h3 style="margin: 0; font-size: var(--text-lg);">Report Issues</h3>
+                <div class="contribution-card">
+                    <i data-lucide="palette" class="contribution-icon"></i>
+                    <h3 class="contribution-title">Design Contributions</h3>
+                    <p class="contribution-description">Create new themes or improve existing design tokens</p>
                 </div>
-                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
-                    Found a bug or have a feature request? Open an issue on GitHub with detailed
-                    information and we'll look into it.
-                </p>
-                <a href="https://github.com/ferology/aural-ui/issues"
-                   target="_blank"
-                   class="btn btn-secondary btn-sm"
-                   style="text-decoration: none;">
-                    <i data-lucide="alert-circle" style="width: 16px; height: 10px;"></i>
-                    Report Issue
-                </a>
+
+                <div class="contribution-card">
+                    <i data-lucide="book" class="contribution-icon"></i>
+                    <h3 class="contribution-title">Documentation</h3>
+                    <p class="contribution-description">Improve guides, add examples, or fix typos</p>
+                </div>
+
+                <div class="contribution-card">
+                    <i data-lucide="bug" class="contribution-icon"></i>
+                    <h3 class="contribution-title">Bug Reports</h3>
+                    <p class="contribution-description">Report issues or suggest improvements</p>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Getting Started</h2>
+            <div class="section-content">
+                <h3>1. Fork and Clone</h3>
+                <pre><code>git clone https://github.com/your-username/aural-ui.git
+cd aural-ui
+git checkout -b feature/my-new-feature</code></pre>
+
+                <h3>2. Make Your Changes</h3>
+                <p>Follow our coding standards and design principles when making changes.</p>
+
+                <h3>3. Test Thoroughly</h3>
+                <ul>
+                    <li>Test your changes in all supported browsers</li>
+                    <li>Verify all themes work correctly</li>
+                    <li>Check accessibility with screen readers</li>
+                    <li>Ensure responsive behavior on mobile devices</li>
+                </ul>
+
+                <h3>4. Submit a Pull Request</h3>
+                <p>Open a pull request with a clear description of your changes and why they're needed.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Code Contribution Guidelines</h2>
+            <div class="section-content">
+                <h3>CSS Standards</h3>
+                <ul>
+                    <li><strong>Use CSS Custom Properties:</strong> All colors, spacing, and typography should use design tokens</li>
+                    <li><strong>Mobile-First:</strong> Write mobile styles first, then add desktop overrides with media queries</li>
+                    <li><strong>BEM Naming:</strong> Follow BEM methodology for class names (e.g., <code>.btn__icon--primary</code>)</li>
+                    <li><strong>Consistent Spacing:</strong> Use the spacing scale (<code>--space-*</code>) for all padding and margins</li>
+                    <li><strong>Semantic Classes:</strong> Class names should describe purpose, not appearance</li>
+                </ul>
+
+                <h3>Accessibility Requirements</h3>
+                <ul>
+                    <li>Ensure all color combinations meet WCAG AA contrast ratios (4.5:1 for text)</li>
+                    <li>Provide clear focus states for all interactive elements</li>
+                    <li>Use semantic HTML when adding component examples</li>
+                    <li>Include ARIA attributes in documentation examples</li>
+                    <li>Test with keyboard navigation</li>
+                </ul>
+
+                <h3>Browser Support</h3>
+                <ul>
+                    <li>Chrome/Edge (last 2 versions)</li>
+                    <li>Firefox (last 2 versions)</li>
+                    <li>Safari (last 2 versions)</li>
+                    <li>Mobile Safari (iOS 14+)</li>
+                    <li>Chrome Android (last 2 versions)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Adding New Components</h2>
+            <div class="section-content">
+                <p>When contributing a new component, follow this structure:</p>
+
+                <h3>Component File Structure</h3>
+                <pre><code>/* Component: Button Group
+ * Description: Groups related buttons together
+ * Category: Forms & Inputs
+ * Accessibility: Requires role="toolbar" or role="group"
+ */
+
+.btn-group {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+}
+
+/* Variants */
+.btn-group--vertical {
+    flex-direction: column;
+}
+
+/* States */
+.btn-group .btn:focus {
+    z-index: 1;
+}</code></pre>
+
+                <h3>Documentation Requirements</h3>
+                <ul>
+                    <li>Create a component page in <code>/docs/components/</code></li>
+                    <li>Include usage examples with HTML</li>
+                    <li>Document all variants and modifiers</li>
+                    <li>Provide accessibility guidance</li>
+                    <li>Show the component in all themes</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Tip:</strong> Look at existing components like buttons.html or cards.html for examples of well-documented components.
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Creating New Themes</h2>
+            <div class="section-content">
+                <p>Themes in Aural UI are created by defining CSS custom properties. Here's the structure:</p>
+
+                <pre><code>/* Theme: My Custom Theme */
+:root {
+    /* Colors */
+    --color-primary: #your-color;
+    --color-secondary: #your-color;
+    --color-success: #your-color;
+    --color-warning: #your-color;
+    --color-error: #your-color;
+    --color-info: #your-color;
+
+    /* Backgrounds */
+    --color-bg-primary: #your-color;
+    --color-bg-secondary: #your-color;
+    --color-bg-tertiary: #your-color;
+
+    /* Text */
+    --color-text-primary: #your-color;
+    --color-text-secondary: #your-color;
+    --color-text-tertiary: #your-color;
+
+    /* Borders */
+    --color-border-subtle: #your-color;
+    --color-border-medium: #your-color;
+    --color-border-strong: #your-color;
+}</code></pre>
+
+                <h3>Theme Requirements</h3>
+                <ul>
+                    <li>All color tokens must be defined</li>
+                    <li>Text colors must meet WCAG AA contrast ratios against backgrounds</li>
+                    <li>Provide both light and dark variants if possible</li>
+                    <li>Test with all components to ensure visual coherence</li>
+                    <li>Update <code>demo.js</code> to include your theme in the selector</li>
+                </ul>
+
+                <div class="warning-box">
+                    <strong>Accessibility:</strong> Always check color contrast ratios. Use tools like WebAIM Contrast Checker to verify your colors meet WCAG standards.
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Reporting Issues</h2>
+            <div class="section-content">
+                <p>When reporting bugs or requesting features, please include:</p>
+
+                <h3>Bug Reports</h3>
+                <ul>
+                    <li><strong>Description:</strong> Clear description of the issue</li>
+                    <li><strong>Steps to Reproduce:</strong> Exact steps to recreate the bug</li>
+                    <li><strong>Expected Behavior:</strong> What you expected to happen</li>
+                    <li><strong>Actual Behavior:</strong> What actually happened</li>
+                    <li><strong>Environment:</strong> Browser, OS, screen size</li>
+                    <li><strong>Screenshots:</strong> Visual evidence if applicable</li>
+                    <li><strong>Theme:</strong> Which theme was active when the issue occurred</li>
+                </ul>
+
+                <h3>Feature Requests</h3>
+                <ul>
+                    <li><strong>Use Case:</strong> Describe the problem you're trying to solve</li>
+                    <li><strong>Proposed Solution:</strong> Your idea for how to solve it</li>
+                    <li><strong>Alternatives:</strong> Other approaches you've considered</li>
+                    <li><strong>Examples:</strong> Links to similar implementations elsewhere</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Pull Request Process</h2>
+            <div class="section-content">
+                <ol>
+                    <li><strong>Create an Issue:</strong> Before starting work, create an issue to discuss your proposed changes</li>
+                    <li><strong>Branch Naming:</strong> Use descriptive names like <code>feature/add-toast-component</code> or <code>fix/button-hover-state</code></li>
+                    <li><strong>Commit Messages:</strong> Write clear commit messages describing what and why, not just what changed</li>
+                    <li><strong>Documentation:</strong> Update documentation to reflect your changes</li>
+                    <li><strong>Changelog:</strong> Add an entry to CHANGELOG.md under "Unreleased"</li>
+                    <li><strong>Review:</strong> Address feedback from maintainers promptly</li>
+                </ol>
+
+                <h3>Example Pull Request Template</h3>
+                <pre><code>## Description
+Brief description of changes
+
+## Type of Change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation update
+- [ ] Theme addition/modification
+
+## Checklist
+- [ ] Tested in all supported browsers
+- [ ] Tested with keyboard navigation
+- [ ] Checked color contrast ratios
+- [ ] Updated documentation
+- [ ] Added changelog entry
+- [ ] All themes work correctly</code></pre>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Code of Conduct</h2>
+            <div class="section-content">
+                <p>We are committed to providing a welcoming and inclusive environment. Please:</p>
+                <ul>
+                    <li>Be respectful and considerate of others</li>
+                    <li>Welcome newcomers and help them learn</li>
+                    <li>Focus on constructive feedback</li>
+                    <li>Respect differing viewpoints and experiences</li>
+                    <li>Accept responsibility for mistakes</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Questions?</strong> Don't hesitate to ask for help. We're here to support contributors at all skill levels.
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">License</h2>
+            <div class="section-content">
+                <p>By contributing to Aural UI, you agree that your contributions will be licensed under the same license as the project (MIT License).</p>
+            </div>
+        </section>
 
     </main>
 
@@ -228,29 +491,11 @@
         </button>
     </div>
 
-    <!-- Aural UI JavaScript -->
-    <script src="./aural-ui.js"></script>
-
     <script>
-        // Initialize Lucide icons
         lucide.createIcons();
+    </script>
 
-        // Theme toggle
-        let isDark = true;
-        function toggleTheme() {
-            const themeLink = document.getElementById('theme-link');
-            isDark = !isDark;
-            themeLink.href = isDark ? './dark.css' : './light.css';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            isDark = savedTheme === 'dark';
-            document.getElementById('theme-link').href = isDark ? './dark.css' : './light.css';
-        }
-    </script>    <!-- Unified Theme Sync -->
+    <!-- Unified Theme Sync -->
     <script>
     (function() {
         // Sync theme from localStorage IMMEDIATELY
@@ -263,6 +508,9 @@
             const themeFiles = {
                 'dark': 'dark.css',
                 'light': 'light.css',
+                'neon': 'neon.css',
+                'neon-refined': 'neon-refined.css',
+                'kinetic': 'kinetic.css',
                 'high-contrast': 'high-contrast.css',
                 'colorblind': 'colorblind-friendly.css'
             };
@@ -289,5 +537,11 @@
         });
     })();
     </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+    <!-- Enhanced Documentation JavaScript -->
+    <script src="js/doc-enhanced.js"></script>
+
 </body>
 </html>

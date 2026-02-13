@@ -107,39 +107,145 @@ const Aural = {
     },
 
     /**
+     * Store the element that opened the modal for focus return
+     * @private
+     */
+    _modalTriggers: new Map(),
+
+    /**
+     * Handle modal focus trap
+     * @private
+     */
+    _trapFocusInModal(modal, focusableElements) {
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        // Handle Tab key to trap focus
+        const handleTabKey = (e) => {
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    // Shift + Tab
+                    if (document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    }
+                } else {
+                    // Tab
+                    if (document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    }
+                }
+            } else if (e.key === 'Escape') {
+                // Close modal on Escape
+                const modalId = modal.getAttribute('id');
+                if (modalId) {
+                    Aural.closeModal(modalId);
+                }
+            }
+        };
+
+        // Store handler so we can remove it later
+        modal._focusTrapHandler = handleTabKey;
+        modal.addEventListener('keydown', handleTabKey);
+    },
+
+    /**
      * Open a modal dialog
      *
-     * Opens the specified modal, traps focus inside it, and prevents body scroll.
-     * The modal should have class 'modal-overlay' and will receive class 'open'.
+     * Opens the specified modal with full accessibility support:
+     * - Traps focus inside the modal
+     * - Prevents body scroll
+     * - Handles Escape key to close
+     * - Returns focus to trigger on close
      *
      * @param {string} modalId - The ID of the modal element
      * @returns {void}
+     *
+     * @example
+     * <button onclick="Aural.openModal('confirm-modal')">Open</button>
+     *
+     * <div class="modal-overlay" id="confirm-modal">
+     *   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+     *     <h2 id="modal-title">Confirm Action</h2>
+     *     <button onclick="Aural.closeModal('confirm-modal')">Close</button>
+     *   </div>
+     * </div>
      */
     openModal(modalId) {
         const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('open');
-            // Trap focus in modal
-            const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            if (focusableElements.length > 0) {
+        if (!modal) return;
+
+        // Store currently focused element to return focus later
+        this._modalTriggers.set(modalId, document.activeElement);
+
+        // Add open class
+        modal.classList.add('open');
+
+        // Get all focusable elements
+        const focusableElements = modal.querySelectorAll(
+            'button:not([disabled]), [href]:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])'
+        );
+
+        // Focus first element
+        if (focusableElements.length > 0) {
+            // Small delay to ensure modal is visible
+            setTimeout(() => {
                 focusableElements[0].focus();
-            }
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
+            }, 100);
+        }
+
+        // Set up focus trap
+        this._trapFocusInModal(modal, focusableElements);
+
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+
+        // Add aria-hidden to other content
+        const mainContent = document.querySelector('main, #main-content, [role="main"]');
+        if (mainContent) {
+            mainContent.setAttribute('aria-hidden', 'true');
         }
     },
 
     /**
-     * Close a modal
+     * Close a modal dialog
+     *
+     * Closes the modal and restores focus to the element that opened it.
+     *
      * @param {string} modalId - The ID of the modal element
+     * @returns {void}
      */
     closeModal(modalId) {
         const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.remove('open');
-            // Restore body scroll
-            document.body.style.overflow = '';
+        if (!modal) return;
+
+        // Remove open class
+        modal.classList.remove('open');
+
+        // Remove focus trap handler
+        if (modal._focusTrapHandler) {
+            modal.removeEventListener('keydown', modal._focusTrapHandler);
+            delete modal._focusTrapHandler;
         }
+
+        // Restore body scroll
+        document.body.style.overflow = '';
+
+        // Remove aria-hidden from main content
+        const mainContent = document.querySelector('main, #main-content, [role="main"]');
+        if (mainContent) {
+            mainContent.removeAttribute('aria-hidden');
+        }
+
+        // Return focus to trigger element
+        const trigger = this._modalTriggers.get(modalId);
+        if (trigger && typeof trigger.focus === 'function') {
+            trigger.focus();
+        }
+        this._modalTriggers.delete(modalId);
     },
 
     /**

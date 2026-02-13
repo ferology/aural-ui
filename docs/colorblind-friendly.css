@@ -295,3 +295,103 @@ body {
     content: 'ⓘ';
     margin-right: 0.5em;
 }
+
+/* ========================================
+   COLORBLIND-FRIENDLY THEME DEMO MENU ENHANCEMENTS
+   ======================================== */
+
+/* Logo - Blue accent with good contrast */
+.demo-logo {
+    padding: var(--space-5) var(--space-4) !important;
+    border-bottom: 2px solid var(--primary-400);
+    background: linear-gradient(135deg, rgba(26, 140, 255, 0.08) 0%, transparent 100%);
+}
+
+.demo-logo:hover {
+    background: linear-gradient(135deg, rgba(26, 140, 255, 0.12) 0%, transparent 100%);
+}
+
+.demo-soundwave {
+    filter: drop-shadow(0 0 6px rgba(26, 140, 255, 0.4));
+}
+
+/* Theme Selector - Accessible blue */
+.theme-selector-section {
+    padding: 0 var(--space-3);
+    margin-bottom: var(--space-5) !important;
+}
+
+.theme-selector-section .demo-nav-title {
+    color: var(--primary-400) !important;
+    font-weight: 700 !important;
+}
+
+.theme-select {
+    background: var(--color-bg-tertiary) !important;
+    border: 2px solid var(--color-border-medium) !important;
+    transition: all 0.2s ease;
+}
+
+.theme-select:hover {
+    border-color: var(--primary-400) !important;
+}
+
+.theme-select:focus {
+    border-color: var(--primary-400) !important;
+    box-shadow: 0 0 0 3px rgba(26, 140, 255, 0.15);
+}
+
+/* Navigation Sections - Blue headers */
+.demo-nav-title {
+    color: var(--color-text-secondary) !important;
+    font-weight: 700 !important;
+    transition: color 0.2s ease;
+}
+
+.demo-nav-title.collapsible:hover {
+    color: var(--primary-400) !important;
+}
+
+.demo-nav-title.collapsible:not(.collapsed) {
+    color: var(--primary-400) !important;
+}
+
+/* Navigation Links - Clear blue active states */
+.demo-nav-link {
+    transition: all 0.2s ease !important;
+}
+
+.demo-nav-link:hover {
+    background: var(--color-bg-hover) !important;
+    color: var(--primary-400) !important;
+}
+
+.demo-nav-link.active,
+.demo-nav-link.active:link,
+.demo-nav-link.active:visited,
+.demo-nav-link.active:target {
+    background: var(--primary-400) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(26, 140, 255, 0.3);
+}
+
+/* Subsection labels - Orange accent for variety */
+.demo-nav-subtitle {
+    color: var(--secondary-400) !important;
+}
+
+/* Sidebar - Clean with blue border */
+.demo-sidebar {
+    background: var(--color-bg-primary) !important;
+    border-right: 2px solid var(--color-border-medium) !important;
+}
+
+/* Scrollbar - Blue theme */
+.demo-sidebar::-webkit-scrollbar-thumb {
+    background: var(--primary-400);
+}
+
+.demo-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-300);
+}

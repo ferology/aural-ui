@@ -1,0 +1,533 @@
+/**
+ * AURAL UI - NEON THEME
+ *
+ * Cyberpunk-inspired theme with aggressive glows and electric colors
+ * Bold, memorable, and unapologetically futuristic
+ */
+
+:root {
+    /* ========================================
+       NEON COLOR PALETTE - Electric & Bold
+       ======================================== */
+
+    /* Primary - Electric Cyan */
+    --primary-50: #e0ffff;
+    --primary-100: #b3ffff;
+    --primary-200: #80ffff;
+    --primary-300: #4dffff;
+    --primary-400: #00ffff;  /* Electric cyan - main brand */
+    --primary-500: #00e5e5;
+    --primary-600: #00cccc;
+    --primary-700: #00b3b3;
+    --primary-800: #009999;
+    --primary-900: #008080;
+    --primary-950: #006666;
+
+    /* Secondary - Hot Magenta */
+    --secondary-50: #ffe0ff;
+    --secondary-100: #ffb3ff;
+    --secondary-200: #ff80ff;
+    --secondary-300: #ff4dff;
+    --secondary-400: #ff00ff;  /* Hot magenta */
+    --secondary-500: #e500e5;
+    --secondary-600: #cc00cc;
+    --secondary-700: #b300b3;
+    --secondary-800: #990099;
+    --secondary-900: #800080;
+    --secondary-950: #660066;
+
+    /* Success - Acid Green */
+    --success-50: #e5ffe5;
+    --success-100: #b3ffb3;
+    --success-200: #80ff80;
+    --success-300: #4dff4d;
+    --success-400: #00ff88;  /* Acid green */
+    --success-500: #00e576;
+    --success-600: #00cc66;
+    --success-700: #00b355;
+    --success-800: #009944;
+    --success-900: #008033;
+    --success-950: #006622;
+
+    /* Warning - Cyber Yellow */
+    --warning-50: #ffffcc;
+    --warning-100: #ffff99;
+    --warning-200: #ffff66;
+    --warning-300: #ffff33;
+    --warning-400: #ffff00;  /* Pure yellow */
+    --warning-500: #e5e500;
+    --warning-600: #cccc00;
+    --warning-700: #b3b300;
+    --warning-800: #999900;
+    --warning-900: #808000;
+    --warning-950: #666600;
+
+    /* Error - Laser Red */
+    --error-50: #ffe0e0;
+    --error-100: #ffb3b3;
+    --error-200: #ff8080;
+    --error-300: #ff4d4d;
+    --error-400: #ff0066;  /* Hot pink-red */
+    --error-500: #e5005c;
+    --error-600: #cc0052;
+    --error-700: #b30047;
+    --error-800: #99003d;
+    --error-900: #800033;
+    --error-950: #660029;
+
+    /* Info - Electric Blue */
+    --info-50: #e0e5ff;
+    --info-100: #b3c2ff;
+    --info-200: #809fff;
+    --info-300: #4d7cff;
+    --info-400: #0066ff;  /* Electric blue */
+    --info-500: #005ce5;
+    --info-600: #0052cc;
+    --info-700: #0047b3;
+    --info-800: #003d99;
+    --info-900: #003380;
+    --info-950: #002966;
+
+    /* ========================================
+       BACKGROUNDS - Pure Black Base
+       ======================================== */
+    --color-bg-primary: #000000;          /* Pure black */
+    --color-bg-secondary: #0a0a0a;
+    --color-bg-tertiary: #141414;
+    --color-bg-elevated: #1a1a1a;
+    --color-bg-overlay: rgba(0, 0, 0, 0.95);
+    --color-bg-hover: #1f1f1f;
+    --color-bg-active: #262626;
+
+    --color-bg-glass: rgba(0, 0, 0, 0.7);
+    --color-bg-glass-light: rgba(255, 255, 255, 0.03);
+
+    /* ========================================
+       TEXT COLORS - High Contrast Neon
+       ======================================== */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #00ffff;      /* Cyan accent */
+    --color-text-tertiary: #ff00ff;       /* Magenta accent */
+    --color-text-muted: #808080;
+    --color-text-disabled: #404040;
+    --color-text-inverse: #000000;
+
+    /* ========================================
+       BORDERS - Glowing Edges
+       ======================================== */
+    --color-border-subtle: rgba(0, 255, 255, 0.15);
+    --color-border-medium: rgba(0, 255, 255, 0.3);
+    --color-border-strong: rgba(0, 255, 255, 0.5);
+
+    /* ========================================
+       COMPONENT OVERRIDES - Neon Style
+       ======================================== */
+
+    /* Buttons */
+    --color-button-primary-bg: #00ffff;
+    --color-button-primary-text: #000000;
+    --color-button-primary-hover: #00e5e5;
+
+    --color-button-secondary-bg: transparent;
+    --color-button-secondary-text: #ff00ff;
+    --color-button-secondary-border: #ff00ff;
+    --color-button-secondary-hover: rgba(255, 0, 255, 0.1);
+
+    /* Inputs */
+    --color-input-bg: rgba(0, 255, 255, 0.03);
+    --color-input-border: rgba(0, 255, 255, 0.3);
+    --color-input-border-hover: rgba(0, 255, 255, 0.6);
+    --color-input-border-focus: #00ffff;
+    --color-input-disabled-bg: rgba(255, 255, 255, 0.01);
+
+    /* Cards */
+    --color-card-bg: rgba(10, 10, 10, 0.9);
+    --color-card-border: rgba(0, 255, 255, 0.3);
+
+    /* Modal */
+    --color-modal-bg: #000000;
+
+    /* Toast */
+    --color-toast-bg: #0a0a0a;
+
+    /* Skeleton */
+    --color-skeleton-from: rgba(0, 255, 255, 0.05);
+    --color-skeleton-via: rgba(0, 255, 255, 0.15);
+    --color-skeleton-to: rgba(0, 255, 255, 0.05);
+
+    /* ========================================
+       NEON GLOW TOKENS - Aggressive & Dramatic
+       ======================================== */
+
+    /* Primary Cyan Glows - Refined */
+    --glow-primary-sm:
+        0 0 8px rgba(0, 255, 255, 0.2),
+        0 0 15px rgba(0, 255, 255, 0.1);
+
+    --glow-primary-md:
+        0 0 10px rgba(0, 255, 255, 0.25),
+        0 0 20px rgba(0, 255, 255, 0.15),
+        0 0 30px rgba(0, 255, 255, 0.08);
+
+    --glow-primary-lg:
+        0 0 15px rgba(0, 255, 255, 0.3),
+        0 0 30px rgba(0, 255, 255, 0.2),
+        0 0 45px rgba(0, 255, 255, 0.1);
+
+    --glow-primary-xl:
+        0 0 20px rgba(0, 255, 255, 0.35),
+        0 0 40px rgba(0, 255, 255, 0.25),
+        0 0 60px rgba(0, 255, 255, 0.15);
+
+    /* Secondary Magenta Glows - Refined */
+    --glow-secondary-sm:
+        0 0 8px rgba(255, 0, 255, 0.2),
+        0 0 15px rgba(255, 0, 255, 0.1);
+
+    --glow-secondary-md:
+        0 0 10px rgba(255, 0, 255, 0.25),
+        0 0 20px rgba(255, 0, 255, 0.15),
+        0 0 30px rgba(255, 0, 255, 0.08);
+
+    --glow-secondary-lg:
+        0 0 15px rgba(255, 0, 255, 0.3),
+        0 0 30px rgba(255, 0, 255, 0.2),
+        0 0 45px rgba(255, 0, 255, 0.1);
+
+    --glow-secondary-xl:
+        0 0 20px rgba(255, 0, 255, 0.35),
+        0 0 40px rgba(255, 0, 255, 0.25),
+        0 0 60px rgba(255, 0, 255, 0.15);
+
+    /* Success Acid Green Glows - Refined */
+    --glow-success-sm:
+        0 0 8px rgba(0, 255, 136, 0.2),
+        0 0 15px rgba(0, 255, 136, 0.1);
+
+    --glow-success-md:
+        0 0 10px rgba(0, 255, 136, 0.25),
+        0 0 20px rgba(0, 255, 136, 0.15),
+        0 0 30px rgba(0, 255, 136, 0.08);
+
+    --glow-success-lg:
+        0 0 15px rgba(0, 255, 136, 0.3),
+        0 0 30px rgba(0, 255, 136, 0.2),
+        0 0 45px rgba(0, 255, 136, 0.1);
+
+    --glow-success-xl:
+        0 0 20px rgba(0, 255, 136, 0.35),
+        0 0 40px rgba(0, 255, 136, 0.25),
+        0 0 60px rgba(0, 255, 136, 0.15);
+
+    /* Error Laser Red Glows */
+    --glow-error-sm:
+        0 0 10px rgba(255, 0, 102, 0.5),
+        0 0 20px rgba(255, 0, 102, 0.3);
+
+    --glow-error-md:
+        0 0 15px rgba(255, 0, 102, 0.6),
+        0 0 30px rgba(255, 0, 102, 0.4),
+        0 0 45px rgba(255, 0, 102, 0.2);
+
+    --glow-error-lg:
+        0 0 20px rgba(255, 0, 102, 0.7),
+        0 0 40px rgba(255, 0, 102, 0.5),
+        0 0 60px rgba(255, 0, 102, 0.3);
+
+    --glow-error-xl:
+        0 0 30px rgba(255, 0, 102, 0.8),
+        0 0 60px rgba(255, 0, 102, 0.6),
+        0 0 90px rgba(255, 0, 102, 0.4);
+
+    /* Warning Yellow Glows */
+    --glow-warning-sm:
+        0 0 10px rgba(255, 255, 0, 0.5),
+        0 0 20px rgba(255, 255, 0, 0.3);
+
+    --glow-warning-md:
+        0 0 15px rgba(255, 255, 0, 0.6),
+        0 0 30px rgba(255, 255, 0, 0.4),
+        0 0 45px rgba(255, 255, 0, 0.2);
+
+    --glow-warning-lg:
+        0 0 20px rgba(255, 255, 0, 0.7),
+        0 0 40px rgba(255, 255, 0, 0.5),
+        0 0 60px rgba(255, 255, 0, 0.3);
+
+    --glow-warning-xl:
+        0 0 30px rgba(255, 255, 0, 0.8),
+        0 0 60px rgba(255, 255, 0, 0.6),
+        0 0 90px rgba(255, 255, 0, 0.4);
+
+    /* ========================================
+       SHADOW OVERRIDES - with Neon Edge
+       ======================================== */
+    --shadow-sm: 0 1px 2px rgba(0, 255, 255, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 255, 255, 0.15);
+    --shadow-lg: 0 10px 15px rgba(0, 255, 255, 0.2);
+    --shadow-xl: 0 20px 25px rgba(0, 255, 255, 0.25);
+    --shadow-2xl: 0 25px 50px rgba(0, 255, 255, 0.3);
+
+    --shadow-primary: var(--glow-primary-sm);
+    --shadow-primary-lg: var(--glow-primary-md);
+
+    /* Missing Component Variables */
+    --color-button-danger-bg: #ff0066;
+    --color-button-danger-hover: #e6005c;
+    --color-button-danger-text: #ffffff;
+    --color-button-ghost-bg: transparent;
+    --color-button-ghost-hover: rgba(255, 0, 255, 0.15);
+    --color-button-ghost-text: #ff00ff;
+    --color-input-text: #ffffff;
+    --color-input-placeholder: #a0a0a0;
+    --color-badge-primary-bg: rgba(0, 255, 255, 0.15);
+    --color-badge-primary-text: #00ffff;
+    --color-badge-success-bg: rgba(0, 255, 136, 0.15);
+    --color-badge-success-text: #00ff88;
+    --color-badge-warning-bg: rgba(255, 255, 0, 0.15);
+    --color-badge-warning-text: #ffff00;
+    --color-badge-error-bg: rgba(255, 0, 102, 0.15);
+    --color-badge-error-text: #ff0066;
+    --color-badge-info-bg: rgba(0, 102, 255, 0.15);
+    --color-badge-info-text: #0066ff;
+    --color-toast-border: var(--color-border-medium);
+    --color-toast-success-border: #00ff88;
+    --color-toast-warning-border: #ffff00;
+    --color-toast-error-border: #ff0066;
+    --color-toast-info-border: #0066ff;
+    --color-card-hover-border: rgba(0, 255, 255, 0.5);
+    --color-checkbox-border-hover: rgba(255, 0, 255, 0.8);
+    --color-switch-bg-off: rgba(128, 128, 128, 0.3);
+    --color-switch-bg-on: rgba(255, 0, 255, 0.8);
+}
+
+/* ========================================
+   NEON BODY STYLES
+   ======================================== */
+
+body {
+    background: #000000;
+    color: #ffffff;
+
+    /* Very subtle scan line effect */
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.05),
+            rgba(0, 0, 0, 0.05) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+    background-size: 100% 2px;
+}
+
+/* Optional: Animated gradient background - Subtle */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 60%);
+    z-index: -1;
+    animation: neon-ambient 30s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes neon-ambient {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(5%, 5%) scale(1.05); }
+    50% { transform: translate(-5%, 5%) scale(1); }
+    75% { transform: translate(5%, -5%) scale(1.05); }
+}
+
+/* ========================================
+   SELECTION STYLING
+   ======================================== */
+::selection {
+    background: rgba(0, 255, 255, 0.3);
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+::-moz-selection {
+    background: rgba(0, 255, 255, 0.3);
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+/* ========================================
+   SCROLLBAR STYLING - Neon Theme
+   ======================================== */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00ffff 0%, #ff00ff 100%);
+    border-radius: 6px;
+    box-shadow:
+        0 0 10px rgba(0, 255, 255, 0.5),
+        inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00e5e5 0%, #e500e5 100%);
+    box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 0 40px rgba(255, 0, 255, 0.4),
+        inset 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #00ffff rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   NEON THEME DEMO MENU ENHANCEMENTS
+   ======================================== */
+
+/* Logo - Cyberpunk neon glow */
+.demo-logo {
+    padding: var(--space-5) var(--space-4) !important;
+    border-bottom: 2px solid #00ffff;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 255, 0.05) 100%);
+    box-shadow: 0 2px 15px rgba(0, 255, 255, 0.3);
+}
+
+.demo-logo:hover {
+    box-shadow: 0 2px 25px rgba(0, 255, 255, 0.5);
+}
+
+.demo-logo-text {
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff !important;
+    animation: neon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes neon-pulse {
+    0%, 100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
+    50% { text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff, 0 0 45px #00ffff; }
+}
+
+.demo-soundwave {
+    filter: drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 20px #00ffff);
+}
+
+/* Theme Selector - Cyberpunk style */
+.theme-selector-section {
+    padding: 0 var(--space-3);
+    margin-bottom: var(--space-6) !important;
+}
+
+.theme-selector-section .demo-nav-title {
+    color: #00ffff !important;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.theme-select {
+    background: rgba(0, 255, 255, 0.05) !important;
+    border: 2px solid rgba(0, 255, 255, 0.3) !important;
+    color: #00ffff !important;
+    text-shadow: 0 0 5px #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.theme-select:hover {
+    border-color: #00ffff !important;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.theme-select:focus {
+    border-color: #ff00ff !important;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+    text-shadow: 0 0 8px #ff00ff;
+}
+
+/* Navigation Sections - Neon headers */
+.demo-nav-title {
+    color: rgba(0, 255, 255, 0.95) !important;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.demo-nav-title.collapsible:hover {
+    color: #00ffff !important;
+    text-shadow: 0 0 10px #00ffff, 0 0 15px #00ffff;
+}
+
+.demo-nav-title.collapsible:not(.collapsed) {
+    color: #ff00ff !important;
+    text-shadow: 0 0 10px #ff00ff, 0 0 15px #ff00ff;
+}
+
+/* Navigation Links - Glowing hovers */
+.demo-nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    border-left: 2px solid transparent;
+    transition: all 0.3s ease !important;
+}
+
+.demo-nav-link:hover {
+    background: rgba(0, 255, 255, 0.1) !important;
+    color: #00ffff !important;
+    border-left-color: #00ffff !important;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+    text-shadow: 0 0 8px #00ffff;
+}
+
+.demo-nav-link.active,
+.demo-nav-link.active:link,
+.demo-nav-link.active:visited,
+.demo-nav-link.active:target {
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%) !important;
+    color: #00ffff !important;
+    border-left-color: #ff00ff !important;
+    border-left-width: 3px !important;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3), inset 0 0 15px rgba(0, 255, 255, 0.2);
+    text-shadow: 0 0 10px #00ffff, 0 0 15px #ff00ff;
+    font-weight: 700 !important;
+}
+
+/* Subsection labels - Neon micro typography */
+.demo-nav-subtitle {
+    color: rgba(255, 0, 255, 0.6) !important;
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+/* Sidebar - Cyberpunk atmosphere */
+.demo-sidebar {
+    background: linear-gradient(180deg, #000814 0%, #001233 100%) !important;
+    border-right: 2px solid rgba(0, 255, 255, 0.3) !important;
+    box-shadow: 2px 0 30px rgba(0, 255, 255, 0.2);
+}
+
+/* Scrollbar - Neon cyan */
+.demo-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.demo-sidebar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.demo-sidebar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00ffff 0%, #ff00ff 100%);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.demo-sidebar::-webkit-scrollbar-thumb:hover {
+    box-shadow: 0 0 15px #00ffff, 0 0 20px #ff00ff;
+}

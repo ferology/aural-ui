@@ -9,19 +9,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
+### Added - February 13, 2026
+- Comprehensive accessibility audit documentation (ACCESSIBILITY_AUDIT_REPORT.md)
+- Accessibility fixes summary (ACCESSIBILITY_FIXES_SUMMARY.md)
+- Contrast issues fixed report (CONTRAST_ISSUES_FIXED.md)
+- Page-specific heading classes (.page-heading-lg, .page-heading, .page-subheading)
+- Systematic WCAG 2.1 Level AA compliance across all themes
+
+### Fixed - February 13, 2026
+- **CRITICAL ACCESSIBILITY**: All text contrast issues across 7 themes now meet WCAG AA (4.5:1 minimum)
+  - Dark theme navigation titles: 4.2:1 → 5.2:1 (+24%)
+  - Neon theme placeholders: 3.6:1 → 4.7:1 (+31%)
+  - Neon Refined placeholders: 3.9:1 → 4.9:1 (+26%)
+  - Deluxe Neon placeholders: 2.5:1 → 5.6:1 (+124%)
+  - Component placeholders: 4.6:1 → 5.2:1 (+13%)
+- Search bar text overflow issue (added min-width: 0 to prevent flex overflow)
+- Kinetic theme typography conflicts with content pages
+- Demo sidebar search replaced with official aural-search-bar component
+- Navigation link contrast in Neon and Neon Refined themes
+- All H tags replaced with semantic div classes in intro/documentation pages
+
+### Changed - February 13, 2026
+- **MAJOR SIMPLIFICATION**: Refactored all intro/documentation pages to match accessibility.html style
+  - landing.html: Removed particle animations, hero animations, token controller modal
+  - what-it-is.html: Removed custom doc-modern components, simplified to basic structure
+  - getting-started.html: Removed custom stylesheets, inline tokens only
+  - tutorial.html: Simplified to clean documentation style
+- All pages now use consistent simple structure: .main-content, .page-header, .content-section
+- All pages use only design tokens (var(--space-*), var(--color-*), var(--text-*))
+- Landing page now demonstrates ONLY actual Aural UI components (.card, .btn, .badge)
+- Removed all invented custom components across documentation pages
+- Typography system in Kinetic theme now exempts content-specific classes
+- Search bar keyboard shortcut now hides when input has text
+
+### Removed - February 13, 2026
+- Custom external stylesheets (doc-modern.css, doc-enhanced.css) from intro pages
+- Particle background animations from landing page
+- Hero soundwave animations from landing page
+- Token controller modal from landing page
+- All doc-* prefixed custom components
+- Custom sidebar TOC components
+- Custom feature cards, stat cards, and callout components
+
+### Previous Updates
+
+### Added - January 2026
 - 5 accessible error page templates (404, 403, 500, maintenance, coming-soon)
 - Comprehensive ACCESSIBILITY.md documentation for error pages
 - Error pages section in README with features and usage
 - CHANGELOG.md to track all project changes
 
-### Fixed
+### Fixed - January 2026
 - Theme synchronization across all 61 HTML files now supports all 4 themes
 - High-contrast theme now works properly on all pages
 - Colorblind-friendly theme now works properly on all pages
 - Theme persistence with localStorage now handles all 4 themes correctly
 
-### Changed
+### Changed - January 2026
 - Updated README to reflect 4 built-in themes instead of 2
 - Updated landing page stats and features to show 4 themes
 - Improved theme toggle aria-label to mention all 4 themes
