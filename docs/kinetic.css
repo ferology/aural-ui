@@ -33,6 +33,18 @@
     --color-primary-active: #9acc00;
     --color-primary-alpha: rgba(205, 255, 0, 0.1);
 
+    /* Badge Colors */
+    --color-badge-secondary-bg: var(--color-gray-200);
+    --color-badge-secondary-text: var(--color-text-secondary);
+
+    /* Toast Colors */
+    --color-toast-success-bg: var(--color-primary);
+    --color-toast-warning-bg: var(--color-primary);
+    --color-toast-error-bg: var(--color-white);
+
+    /* Card Hover */
+    --color-card-hover-border: var(--color-white);
+
     /* Accent - Electric Lime (single, bold accent) */
     --color-accent: #cdff00;
     --color-accent-dark: #b3e600;
@@ -230,7 +242,7 @@ h1, h2, h3, h4, h5, h6 {
 h1,
 .h1,
 [class*="title"]:not([class*="section"]):not([class*="nav"]) {
-    font-size: clamp(3rem, 8vw, 6rem) !important; /* 48-96px responsive */
+    font-size: clamp(2rem, 6vw, 4rem) !important; /* 32-64px responsive - more readable */
     letter-spacing: -0.05em !important;
     line-height: 0.95 !important;
     text-transform: uppercase !important;
@@ -919,7 +931,7 @@ img, video, iframe {
 .page-title,
 .main-content .page-title,
 .page-header .page-title {
-    font-size: clamp(3rem, 8vw, 6rem) !important;
+    font-size: clamp(2rem, 6vw, 4rem) !important; /* 32-64px - more readable */
     font-weight: 900 !important;
     letter-spacing: -0.05em !important;
     line-height: 0.95 !important;
@@ -2011,9 +2023,9 @@ input[type="reset"] {
 button[class*="primary"],
 *[class*="btn-primary"],
 *[class*="button-primary"] {
-    background: #cdff00 !important;
-    border-color: #cdff00 !important;
-    color: #000000 !important;
+    background: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-black) !important;
 }
 
 /* Force secondary to be white outline */
@@ -2050,12 +2062,12 @@ h1,
 .component-title,
 .component-name,
 *[class*="page-title"] {
-    font-size: clamp(3rem, 8vw, 6rem) !important;
+    font-size: clamp(2rem, 6vw, 4rem) !important; /* 32-64px - more readable */
     font-weight: 900 !important;
     letter-spacing: -0.05em !important;
     line-height: 0.95 !important;
     text-transform: uppercase !important;
-    color: #ffffff !important;
+    color: var(--color-white) !important;
 }
 
 /* Force all headings to be bold and uppercase */

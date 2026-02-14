@@ -148,6 +148,18 @@
             z-index: 200;
         }
 
+        /* Table Wrapper for Horizontal Scroll */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: var(--space-4) 0;
+        }
+
+        .table-wrapper .token-table {
+            margin: 0;
+        }
+
         /* Mobile Styles */
         @media (max-width: 768px) {
             .main-content {
@@ -179,6 +191,36 @@
             .token-table td {
                 padding: var(--space-2);
             }
+
+            /* Ensure tables are scrollable on small screens */
+            .table-wrapper {
+                margin-left: calc(-1 * var(--space-4));
+                margin-right: calc(-1 * var(--space-4));
+                padding: 0 var(--space-4);
+                border-radius: 0;
+            }
+        }
+
+        /* Extra small screens - additional table optimizations */
+        @media (max-width: 360px) {
+            .token-table {
+                font-size: 0.75rem;
+                min-width: 320px; /* Prevent table from becoming too narrow */
+            }
+
+            .token-table th,
+            .token-table td {
+                padding: var(--space-1) var(--space-2);
+                white-space: nowrap;
+            }
+
+            .token-name {
+                font-size: 0.7rem;
+            }
+
+            .token-value {
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
@@ -197,88 +239,94 @@
                 <p>Color scales from 50 (lightest) to 950 (darkest). Each scale provides semantic meaning and maintains WCAG AA contrast standards.</p>
 
                 <h3>Primary Colors</h3>
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Usage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--primary-50</code></td>
-                            <td>Lightest shade</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--primary-100</code></td>
-                            <td>Very light shade</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--primary-500</code></td>
-                            <td>Main brand color</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--primary-700</code></td>
-                            <td>Dark shade</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--primary-900</code></td>
-                            <td>Darkest shade</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--primary-50</code></td>
+                                <td>Lightest shade</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--primary-100</code></td>
+                                <td>Very light shade</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--primary-500</code></td>
+                                <td>Main brand color</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--primary-700</code></td>
+                                <td>Dark shade</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--primary-900</code></td>
+                                <td>Darkest shade</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h3>Semantic Colors</h3>
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Usage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--color-success</code></td>
-                            <td>Success states and positive actions</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--color-error</code></td>
-                            <td>Error states and destructive actions</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--color-warning</code></td>
-                            <td>Warning states and caution</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--color-info</code></td>
-                            <td>Informational states</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--color-success</code></td>
+                                <td>Success states and positive actions</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--color-error</code></td>
+                                <td>Error states and destructive actions</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--color-warning</code></td>
+                                <td>Warning states and caution</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--color-info</code></td>
+                                <td>Informational states</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h3>Text Colors</h3>
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Usage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--color-text-primary</code></td>
-                            <td>Main text color</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--color-text-secondary</code></td>
-                            <td>Secondary text, less prominent</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--color-text-tertiary</code></td>
-                            <td>Tertiary text, least prominent</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--color-text-primary</code></td>
+                                <td>Main text color</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--color-text-secondary</code></td>
+                                <td>Secondary text, less prominent</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--color-text-tertiary</code></td>
+                                <td>Tertiary text, least prominent</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -288,57 +336,59 @@
             <div class="section-content">
                 <p>Spacing scale based on a 4px (0.25rem) unit for consistent layouts. Use these tokens for margin, padding, and gap properties.</p>
 
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Value</th>
-                            <th>Pixels</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--space-1</code></td>
-                            <td><code class="token-value">0.25rem</code></td>
-                            <td>4px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--space-2</code></td>
-                            <td><code class="token-value">0.5rem</code></td>
-                            <td>8px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--space-3</code></td>
-                            <td><code class="token-value">0.75rem</code></td>
-                            <td>12px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--space-4</code></td>
-                            <td><code class="token-value">1rem</code></td>
-                            <td>16px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--space-6</code></td>
-                            <td><code class="token-value">1.5rem</code></td>
-                            <td>24px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--space-8</code></td>
-                            <td><code class="token-value">2rem</code></td>
-                            <td>32px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--space-12</code></td>
-                            <td><code class="token-value">3rem</code></td>
-                            <td>48px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--space-16</code></td>
-                            <td><code class="token-value">4rem</code></td>
-                            <td>64px</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Value</th>
+                                <th>Pixels</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--space-1</code></td>
+                                <td><code class="token-value">0.25rem</code></td>
+                                <td>4px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--space-2</code></td>
+                                <td><code class="token-value">0.5rem</code></td>
+                                <td>8px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--space-3</code></td>
+                                <td><code class="token-value">0.75rem</code></td>
+                                <td>12px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--space-4</code></td>
+                                <td><code class="token-value">1rem</code></td>
+                                <td>16px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--space-6</code></td>
+                                <td><code class="token-value">1.5rem</code></td>
+                                <td>24px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--space-8</code></td>
+                                <td><code class="token-value">2rem</code></td>
+                                <td>32px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--space-12</code></td>
+                                <td><code class="token-value">3rem</code></td>
+                                <td>48px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--space-16</code></td>
+                                <td><code class="token-value">4rem</code></td>
+                                <td>64px</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <p><strong>Usage Example:</strong></p>
                 <pre><code>padding: var(--space-4);
@@ -353,93 +403,97 @@ margin-top: var(--space-6);</code></pre>
                 <p>Typography tokens for font sizes, weights, line heights, and letter spacing. All sizes are responsive and accessible.</p>
 
                 <h3>Font Sizes</h3>
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Value</th>
-                            <th>Pixels</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--text-xs</code></td>
-                            <td><code class="token-value">0.75rem</code></td>
-                            <td>12px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--text-sm</code></td>
-                            <td><code class="token-value">0.875rem</code></td>
-                            <td>14px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--text-base</code></td>
-                            <td><code class="token-value">1rem</code></td>
-                            <td>16px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--text-lg</code></td>
-                            <td><code class="token-value">1.125rem</code></td>
-                            <td>18px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--text-xl</code></td>
-                            <td><code class="token-value">1.25rem</code></td>
-                            <td>20px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--text-2xl</code></td>
-                            <td><code class="token-value">1.5rem</code></td>
-                            <td>24px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--text-3xl</code></td>
-                            <td><code class="token-value">1.875rem</code></td>
-                            <td>30px</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--text-4xl</code></td>
-                            <td><code class="token-value">2.25rem</code></td>
-                            <td>36px</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Value</th>
+                                <th>Pixels</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--text-xs</code></td>
+                                <td><code class="token-value">0.75rem</code></td>
+                                <td>12px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--text-sm</code></td>
+                                <td><code class="token-value">0.875rem</code></td>
+                                <td>14px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--text-base</code></td>
+                                <td><code class="token-value">1rem</code></td>
+                                <td>16px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--text-lg</code></td>
+                                <td><code class="token-value">1.125rem</code></td>
+                                <td>18px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--text-xl</code></td>
+                                <td><code class="token-value">1.25rem</code></td>
+                                <td>20px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--text-2xl</code></td>
+                                <td><code class="token-value">1.5rem</code></td>
+                                <td>24px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--text-3xl</code></td>
+                                <td><code class="token-value">1.875rem</code></td>
+                                <td>30px</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--text-4xl</code></td>
+                                <td><code class="token-value">2.25rem</code></td>
+                                <td>36px</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h3>Font Weights</h3>
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--font-light</code></td>
-                            <td>300</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--font-normal</code></td>
-                            <td>400</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--font-medium</code></td>
-                            <td>500</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--font-semibold</code></td>
-                            <td>600</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--font-bold</code></td>
-                            <td>700</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--font-extrabold</code></td>
-                            <td>800</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--font-light</code></td>
+                                <td>300</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--font-normal</code></td>
+                                <td>400</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--font-medium</code></td>
+                                <td>500</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--font-semibold</code></td>
+                                <td>600</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--font-bold</code></td>
+                                <td>700</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--font-extrabold</code></td>
+                                <td>800</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -449,57 +503,59 @@ margin-top: var(--space-6);</code></pre>
             <div class="section-content">
                 <p>Border radius tokens for consistent component rounding. From sharp corners to fully circular elements.</p>
 
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Value</th>
-                            <th>Usage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--radius-none</code></td>
-                            <td><code class="token-value">0</code></td>
-                            <td>No rounding</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--radius-sm</code></td>
-                            <td><code class="token-value">0.25rem</code></td>
-                            <td>Subtle rounding</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--radius</code></td>
-                            <td><code class="token-value">0.5rem</code></td>
-                            <td>Default rounding</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--radius-md</code></td>
-                            <td><code class="token-value">0.75rem</code></td>
-                            <td>Medium rounding</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--radius-lg</code></td>
-                            <td><code class="token-value">1rem</code></td>
-                            <td>Large rounding</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--radius-xl</code></td>
-                            <td><code class="token-value">1.25rem</code></td>
-                            <td>Extra large rounding</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--radius-2xl</code></td>
-                            <td><code class="token-value">1.5rem</code></td>
-                            <td>Very large rounding</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--radius-full</code></td>
-                            <td><code class="token-value">9999px</code></td>
-                            <td>Fully circular/pill shape</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Value</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--radius-none</code></td>
+                                <td><code class="token-value">0</code></td>
+                                <td>No rounding</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--radius-sm</code></td>
+                                <td><code class="token-value">0.25rem</code></td>
+                                <td>Subtle rounding</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--radius</code></td>
+                                <td><code class="token-value">0.5rem</code></td>
+                                <td>Default rounding</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--radius-md</code></td>
+                                <td><code class="token-value">0.75rem</code></td>
+                                <td>Medium rounding</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--radius-lg</code></td>
+                                <td><code class="token-value">1rem</code></td>
+                                <td>Large rounding</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--radius-xl</code></td>
+                                <td><code class="token-value">1.25rem</code></td>
+                                <td>Extra large rounding</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--radius-2xl</code></td>
+                                <td><code class="token-value">1.5rem</code></td>
+                                <td>Very large rounding</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--radius-full</code></td>
+                                <td><code class="token-value">9999px</code></td>
+                                <td>Fully circular/pill shape</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -510,68 +566,72 @@ margin-top: var(--space-6);</code></pre>
                 <p>Shadow tokens provide depth and elevation. Use these to create visual hierarchy in your interfaces.</p>
 
                 <h3>Standard Shadows</h3>
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Usage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--shadow-xs</code></td>
-                            <td>Extra subtle shadow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--shadow-sm</code></td>
-                            <td>Small shadow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--shadow</code></td>
-                            <td>Default shadow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--shadow-md</code></td>
-                            <td>Medium shadow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--shadow-lg</code></td>
-                            <td>Large shadow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--shadow-xl</code></td>
-                            <td>Extra large shadow</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--shadow-xs</code></td>
+                                <td>Extra subtle shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--shadow-sm</code></td>
+                                <td>Small shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--shadow</code></td>
+                                <td>Default shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--shadow-md</code></td>
+                                <td>Medium shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--shadow-lg</code></td>
+                                <td>Large shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--shadow-xl</code></td>
+                                <td>Extra large shadow</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h3>Colored Shadows</h3>
-                <table class="token-table">
-                    <thead>
-                        <tr>
-                            <th>Token</th>
-                            <th>Usage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="token-name">--shadow-primary</code></td>
-                            <td>Primary color shadow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--shadow-success</code></td>
-                            <td>Success color shadow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--shadow-warning</code></td>
-                            <td>Warning color shadow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="token-name">--shadow-error</code></td>
-                            <td>Error color shadow</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--shadow-primary</code></td>
+                                <td>Primary color shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--shadow-success</code></td>
+                                <td>Success color shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--shadow-warning</code></td>
+                                <td>Warning color shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--shadow-error</code></td>
+                                <td>Error color shadow</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
