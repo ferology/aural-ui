@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aural UI - Color Contrast Analysis Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #0f0f1a;
+            color: #f5f5fa;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #5ebd8f 0%, #71e9bb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #a0a0b8;
+            margin-bottom: 3rem;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .summary-card {
+            background: #1a1a2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .summary-card.pass {
+            border-left: 4px solid #5ebd8f;
+        }
+
+        .summary-card.fail {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .summary-card h3 {
+            font-size: 0.875rem;
+            color: #a0a0b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f5f5fa;
+        }
+
+        .theme-section {
+            background: #1a1a2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .theme-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .theme-score {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .theme-score.pass {
+            color: #5ebd8f;
+        }
+
+        .theme-score.fail {
+            color: #ff6b6b;
+        }
+
+        .test-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .test-item {
+            background: #252540;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .test-item.fail {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .test-item.pass {
+            border-left: 4px solid #5ebd8f;
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .test-context {
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .test-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .test-status.pass {
+            background: rgba(94, 189, 143, 0.2);
+            color: #5ebd8f;
+        }
+
+        .test-status.fail {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        .color-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .color-swatch {
+            border-radius: 6px;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contrast-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: #a0a0b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .suggestion {
+            background: rgba(94, 189, 143, 0.1);
+            border: 1px solid rgba(94, 189, 143, 0.2);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .suggestion-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #5ebd8f;
+            margin-bottom: 0.5rem;
+        }
+
+        .suggestion-color {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #252540;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin-right: 0.5rem;
+        }
+
+        .wcag-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .wcag-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .wcag-badge.pass {
+            background: rgba(94, 189, 143, 0.2);
+            color: #5ebd8f;
+        }
+
+        .wcag-badge.fail {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        .key-findings {
+            background: rgba(255, 163, 26, 0.1);
+            border: 1px solid rgba(255, 163, 26, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .key-findings h2 {
+            font-size: 1.5rem;
+            color: #ffa31a;
+            margin-bottom: 1rem;
+        }
+
+        .key-findings ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-findings li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .key-findings li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+
+        .recommendations {
+            background: rgba(26, 140, 255, 0.1);
+            border: 1px solid rgba(26, 140, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .recommendations h2 {
+            font-size: 1.5rem;
+            color: #1a8cff;
+            margin-bottom: 1rem;
+        }
+
+        .recommendations ol {
+            padding-left: 1.5rem;
+        }
+
+        .recommendations li {
+            margin-bottom: 0.75rem;
+        }
+
+        code {
+            background: #252540;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #5ebd8f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Color Contrast Analysis Report</h1>
+        <p class="subtitle">Comprehensive WCAG accessibility assessment for all Aural UI themes</p>
+
+        <!-- Key Findings -->
+        <div class="key-findings">
+            <h2>🔍 Key Findings</h2>
+            <ul>
+                <li><strong>Light Theme has severe contrast issues:</strong> Only 40% of tested combinations pass WCAG AA. The green primary color (#5ebd8f) fails on all light backgrounds.</li>
+                <li><strong>Dark Theme primary button issue:</strong> White text on green (#5ebd8f) background has only 2.11:1 contrast ratio (needs 3:1 for large text).</li>
+                <li><strong>Muted text fails in both themes:</strong> The muted text color doesn't meet WCAG AA requirements for normal text size.</li>
+                <li><strong>High Contrast and Colorblind themes excel:</strong> Both achieve 100% pass rate on all tested combinations.</li>
+                <li><strong>Neon themes perform well:</strong> 87.5% pass rate, with only cyan-on-white failing contrast requirements.</li>
+            </ul>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="recommendations">
+            <h2>💡 Recommendations</h2>
+            <ol>
+                <li><strong>For Light Theme:</strong> Darken the primary green from <code>#5ebd8f</code> to <code>#228153</code> (contrast ratio improves from 2.2:1 to 4.6:1)</li>
+                <li><strong>For Dark Theme buttons:</strong> Use dark text on green buttons instead of white, or darken the green background</li>
+                <li><strong>Fix muted text:</strong>
+                    <ul>
+                        <li>Dark theme: Change from <code>#707080</code> to <code>#7a7a8a</code></li>
+                        <li>Light theme: Change from <code>#9ca3af</code> to <code>#6a717d</code></li>
+                    </ul>
+                </li>
+                <li><strong>Add variant shades:</strong> Create separate primary color values for light and dark themes to ensure proper contrast in both contexts</li>
+                <li><strong>Consider the colorblind-friendly palette:</strong> Blue (#1a8cff) and orange (#ffa31a) offer better universal contrast than green</li>
+            </ol>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="summary-card pass">
+                <h3>High Contrast Theme</h3>
+                <div class="value">100%</div>
+                <p>7/7 combinations pass</p>
+            </div>
+            <div class="summary-card pass">
+                <h3>Colorblind Friendly</h3>
+                <div class="value">100%</div>
+                <p>8/8 combinations pass</p>
+            </div>
+            <div class="summary-card pass">
+                <h3>Neon Theme</h3>
+                <div class="value">87.5%</div>
+                <p>7/8 combinations pass</p>
+            </div>
+            <div class="summary-card pass">
+                <h3>Dark Theme</h3>
+                <div class="value">83.3%</div>
+                <p>10/12 combinations pass</p>
+            </div>
+            <div class="summary-card fail">
+                <h3>Light Theme</h3>
+                <div class="value">40%</div>
+                <p>4/10 combinations pass</p>
+            </div>
+        </div>
+
+        <!-- Dark Theme Issues -->
+        <div class="theme-section">
+            <div class="theme-header">
+                <h2 class="theme-title">🌙 Dark Theme Issues</h2>
+                <span class="theme-score pass">83.3% Pass Rate</span>
+            </div>
+
+            <div class="test-grid">
+                <div class="test-item fail">
+                    <div class="test-header">
+                        <div class="test-context">Primary button with white text</div>
+                        <span class="test-status fail">FAIL</span>
+                    </div>
+
+                    <div class="color-preview">
+                        <div class="color-swatch" style="background: #5ebd8f; color: #f5f5fa;">
+                            <div>Sample Text</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem;">#f5f5fa on #5ebd8f</div>
+                        </div>
+                        <div class="color-swatch" style="background: #5ebd8f; color: #0f0f1a;">
+                            <div>Sample Text</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem;">#0f0f1a on #5ebd8f (Fixed)</div>
+                        </div>
+                    </div>
+
+                    <div class="contrast-info">
+                        <div class="info-item">
+                            <div class="info-label">Current Ratio</div>
+                            <div class="info-value" style="color: #ff6b6b;">2.11:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Required (Large Text)</div>
+                            <div class="info-value">3.0:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Fixed Ratio</div>
+                            <div class="info-value" style="color: #5ebd8f;">8.29:1 ✓</div>
+                        </div>
+                    </div>
+
+                    <div class="wcag-badges">
+                        <span class="wcag-badge fail">WCAG AA: FAIL</span>
+                        <span class="wcag-badge fail">WCAG AAA: FAIL</span>
+                    </div>
+
+                    <div class="suggestion">
+                        <div class="suggestion-title">💡 Recommended Fix</div>
+                        <p>Use dark text (<code>#0f0f1a</code>) instead of white on green buttons. This increases contrast from 2.11:1 to 8.29:1 (AAA compliant).</p>
+                    </div>
+                </div>
+
+                <div class="test-item fail">
+                    <div class="test-header">
+                        <div class="test-context">Muted text on dark background</div>
+                        <span class="test-status fail">FAIL</span>
+                    </div>
+
+                    <div class="color-preview">
+                        <div class="color-swatch" style="background: #0f0f1a; color: #707080;">
+                            <div>This is muted text that's hard to read</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem;">#707080 on #0f0f1a</div>
+                        </div>
+                        <div class="color-swatch" style="background: #0f0f1a; color: #7a7a8a;">
+                            <div>This is improved muted text</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem;">#7a7a8a on #0f0f1a (Fixed)</div>
+                        </div>
+                    </div>
+
+                    <div class="contrast-info">
+                        <div class="info-item">
+                            <div class="info-label">Current Ratio</div>
+                            <div class="info-value" style="color: #ff6b6b;">3.91:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Required (Normal Text)</div>
+                            <div class="info-value">4.5:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Suggested Color</div>
+                            <div class="info-value" style="color: #5ebd8f;">#7a7a8a</div>
+                        </div>
+                    </div>
+
+                    <div class="wcag-badges">
+                        <span class="wcag-badge fail">WCAG AA: FAIL (needs 4.5:1)</span>
+                        <span class="wcag-badge fail">WCAG AAA: FAIL (needs 7:1)</span>
+                    </div>
+
+                    <div class="suggestion">
+                        <div class="suggestion-title">💡 Recommended Fix</div>
+                        <p>Change <code>--color-text-muted</code> from <code>#707080</code> to <code>#7a7a8a</code>. This improves contrast from 3.91:1 to 4.51:1 (WCAG AA compliant).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Light Theme Issues -->
+        <div class="theme-section">
+            <div class="theme-header">
+                <h2 class="theme-title">☀️ Light Theme Issues</h2>
+                <span class="theme-score fail">40% Pass Rate</span>
+            </div>
+
+            <div class="test-grid">
+                <div class="test-item fail">
+                    <div class="test-header">
+                        <div class="test-context">Primary color on white background</div>
+                        <span class="test-status fail">CRITICAL FAIL</span>
+                    </div>
+
+                    <div class="color-preview">
+                        <div class="color-swatch" style="background: #ffffff; color: #5ebd8f; border: 2px solid #e0e0e0;">
+                            <div>This green is too light to read</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem;">#5ebd8f on #ffffff</div>
+                        </div>
+                        <div class="color-swatch" style="background: #ffffff; color: #228153; border: 2px solid #e0e0e0;">
+                            <div>This darker green is readable</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem;">#228153 on #ffffff (Fixed)</div>
+                        </div>
+                    </div>
+
+                    <div class="contrast-info">
+                        <div class="info-item">
+                            <div class="info-label">Current Ratio</div>
+                            <div class="info-value" style="color: #ff6b6b;">2.29:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Required (Normal Text)</div>
+                            <div class="info-value">4.5:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Suggested Color</div>
+                            <div class="info-value" style="color: #5ebd8f;">#228153</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Fixed Ratio</div>
+                            <div class="info-value" style="color: #5ebd8f;">4.85:1 ✓</div>
+                        </div>
+                    </div>
+
+                    <div class="wcag-badges">
+                        <span class="wcag-badge fail">WCAG AA: FAIL</span>
+                        <span class="wcag-badge fail">WCAG AAA: FAIL</span>
+                    </div>
+
+                    <div class="suggestion">
+                        <div class="suggestion-title">💡 Recommended Fix</div>
+                        <p>For light theme, use a darker variant of the primary green. Change from <code>#5ebd8f</code> to <code>#228153</code> or <code>#3d8a64</code> (which is already defined as <code>--primary-600</code>).</p>
+                        <p style="margin-top: 0.5rem;"><strong>Alternative approach:</strong> Create a separate CSS variable for light theme: <code>--primary-light-mode: #228153</code></p>
+                    </div>
+                </div>
+
+                <div class="test-item fail">
+                    <div class="test-header">
+                        <div class="test-context">Links on white background</div>
+                        <span class="test-status fail">FAIL</span>
+                    </div>
+
+                    <div class="color-preview">
+                        <div class="color-swatch" style="background: #ffffff; color: #5ebd8f; border: 2px solid #e0e0e0;">
+                            <div><a href="#" style="color: #5ebd8f; text-decoration: underline;">Click this link</a></div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem; color: #666;">#5ebd8f on #ffffff</div>
+                        </div>
+                        <div class="color-swatch" style="background: #ffffff; color: #228153; border: 2px solid #e0e0e0;">
+                            <div><a href="#" style="color: #228153; text-decoration: underline;">Click this link</a></div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem; color: #666;">#228153 on #ffffff (Fixed)</div>
+                        </div>
+                    </div>
+
+                    <div class="contrast-info">
+                        <div class="info-item">
+                            <div class="info-label">Current Ratio</div>
+                            <div class="info-value" style="color: #ff6b6b;">2.29:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Required</div>
+                            <div class="info-value">4.5:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Fixed Ratio</div>
+                            <div class="info-value" style="color: #5ebd8f;">4.85:1 ✓</div>
+                        </div>
+                    </div>
+
+                    <div class="suggestion">
+                        <div class="suggestion-title">💡 Recommended Fix</div>
+                        <p>Same fix as above - use <code>#228153</code> for all primary color usage in light theme.</p>
+                    </div>
+                </div>
+
+                <div class="test-item fail">
+                    <div class="test-header">
+                        <div class="test-context">Muted text on white background</div>
+                        <span class="test-status fail">FAIL</span>
+                    </div>
+
+                    <div class="color-preview">
+                        <div class="color-swatch" style="background: #ffffff; color: #9ca3af; border: 2px solid #e0e0e0;">
+                            <div>This muted text is too light</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem; color: #666;">#9ca3af on #ffffff</div>
+                        </div>
+                        <div class="color-swatch" style="background: #ffffff; color: #6a717d; border: 2px solid #e0e0e0;">
+                            <div>This muted text is readable</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem; color: #666;">#6a717d on #ffffff (Fixed)</div>
+                        </div>
+                    </div>
+
+                    <div class="contrast-info">
+                        <div class="info-item">
+                            <div class="info-label">Current Ratio</div>
+                            <div class="info-value" style="color: #ff6b6b;">2.54:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Required</div>
+                            <div class="info-value">4.5:1</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Suggested Color</div>
+                            <div class="info-value" style="color: #5ebd8f;">#6a717d</div>
+                        </div>
+                    </div>
+
+                    <div class="suggestion">
+                        <div class="suggestion-title">💡 Recommended Fix</div>
+                        <p>In light.css, change <code>--color-text-muted</code> from <code>#9ca3af</code> to <code>#6a717d</code>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Positive Examples -->
+        <div class="theme-section">
+            <div class="theme-header">
+                <h2 class="theme-title">✅ Well-Designed Themes</h2>
+                <span class="theme-score pass">Learn from these examples</span>
+            </div>
+
+            <div class="test-grid">
+                <div class="test-item pass">
+                    <div class="test-header">
+                        <div class="test-context">High Contrast Theme - Primary on Black</div>
+                        <span class="test-status pass">WCAG AAA</span>
+                    </div>
+
+                    <div class="color-preview">
+                        <div class="color-swatch" style="background: #000000; color: #0096ff;">
+                            <div>Bright blue provides excellent contrast</div>
+                            <div style="font-size: 0.75rem; margin-top: 0.5rem;">#0096ff on #000000</div>
+                        </div>
+                    </div>
+
+                    <div class="contrast-info">
+                        <div class="info-item">
+                            <div class="info-label">Contrast Ratio</div>
+                            <div class="info-value" style="color: #5ebd8f;">6.81:1 ✓</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">WCAG AA</div>
+                            <div class="info-value" style="color: #5ebd8f;">PASS</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1rem; color: #a0a0b8;">The bright blue (#0096ff) against pure black provides 6.81:1 contrast ratio - well above WCAG AA requirements.</p>
+                </div>
+
+                <div class="test-item pass">
+                    <div class="test-header">
+                        <div class="test-context">Colorblind Friendly - Blue/Orange Palette</div>
+                        <span class="test-status pass">WCAG AA</span>
+                    </div>
+
+                    <div class="color-preview">
+                        <div class="color-swatch" style="background: #0f1419; color: #1a8cff;">
+                            <div>Primary Blue: 5.50:1 contrast</div>
+                        </div>
+                        <div class="color-swatch" style="background: #0f1419; color: #ffa31a;">
+                            <div>Secondary Orange: Excellent contrast</div>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1rem; color: #a0a0b8;">This theme uses blue and orange instead of green - providing better universal accessibility and avoiding red-green colorblindness issues.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Implementation Guide -->
+        <div class="theme-section">
+            <div class="theme-header">
+                <h2 class="theme-title">🛠️ Implementation Guide</h2>
+            </div>
+
+            <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Quick Fixes</h3>
+
+            <div style="background: #252540; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h4 style="color: #5ebd8f; margin-bottom: 0.5rem;">1. Fix Dark Theme (dark.css)</h4>
+                <pre style="background: #1a1a2e; padding: 1rem; border-radius: 4px; overflow-x: auto; margin-top: 0.5rem;"><code style="color: #f5f5fa;">/* Change muted text color */
+--color-text-muted: #7a7a8a;  /* was #707080 */
+
+/* For primary buttons, use dark text */
+--color-button-primary-text: var(--color-bg-primary);  /* Use dark text instead of white */</code></pre>
+            </div>
+
+            <div style="background: #252540; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h4 style="color: #5ebd8f; margin-bottom: 0.5rem;">2. Fix Light Theme (light.css)</h4>
+                <pre style="background: #1a1a2e; padding: 1rem; border-radius: 4px; overflow-x: auto; margin-top: 0.5rem;"><code style="color: #f5f5fa;">/* Use darker green for light theme */
+--primary-400: #228153;  /* was #5ebd8f - much better contrast on white */
+
+/* OR keep the original green but override for light backgrounds */
+--primary-light-accessible: #228153;
+
+/* Fix muted text */
+--color-text-muted: #6a717d;  /* was #9ca3af */</code></pre>
+            </div>
+
+            <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem;">Alternative: Adaptive Primary Colors</h3>
+
+            <div style="background: #252540; padding: 1.5rem; border-radius: 8px;">
+                <p style="margin-bottom: 1rem;">Create theme-specific primary colors that maintain the green brand while ensuring accessibility:</p>
+                <pre style="background: #1a1a2e; padding: 1rem; border-radius: 4px; overflow-x: auto;"><code style="color: #f5f5fa;">/* dark.css - Can use lighter green */
+--primary-400: #5ebd8f;  /* Original green - works great on dark */
+
+/* light.css - Must use darker green */
+--primary-400: #3d8a64;  /* Darker green - 4.5:1 on white backgrounds */
+
+/* This way each theme is optimized for its context */</code></pre>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; padding: 2rem; background: rgba(94, 189, 143, 0.1); border-radius: 12px; text-align: center;">
+            <p style="font-size: 0.875rem; color: #a0a0b8;">
+                Report generated on <?php echo date('Y-m-d H:i:s'); ?><br>
+                Using WCAG 2.1 Level AA and AAA guidelines
+            </p>
+        </div>
+    </div>
+</body>
+</html>

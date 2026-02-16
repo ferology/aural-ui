@@ -98,8 +98,8 @@
     --color-button-primary-hover: linear-gradient(135deg, #00d4ff 0%, #e600e6 100%);
     --color-button-primary-text: #000000;
     --color-button-secondary-bg: transparent;
-    --color-button-secondary-hover: rgba(255, 0, 255, 0.15);
-    --color-button-secondary-text: #ff00ff;
+    --color-button-secondary-hover: rgba(255, 102, 255, 0.15);
+    --color-button-secondary-text: #ff66ff;  /* Improved contrast: lighter magenta */
     --color-button-danger-bg: linear-gradient(135deg, #ff0066 0%, #cc0052 100%);
     --color-button-danger-hover: linear-gradient(135deg, #e6005c 0%, #b3004a 100%);
     --color-button-danger-text: #ffffff;
@@ -111,25 +111,25 @@
     --color-input-border: rgba(255, 0, 255, 0.3);
     --color-input-border-focus: rgba(0, 255, 255, 0.8);
     --color-badge-primary-bg: linear-gradient(90deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
-    --color-badge-primary-text: #00ffff;
+    --color-badge-primary-text: #66ffff;  /* Improved contrast: lighter cyan */
     --color-badge-success-bg: linear-gradient(90deg, rgba(0, 255, 136, 0.2), rgba(0, 204, 109, 0.2));
     --color-badge-success-text: #00ff88;
     --color-badge-warning-bg: linear-gradient(90deg, rgba(255, 221, 0, 0.2), rgba(204, 177, 0, 0.2));
-    --color-badge-warning-text: #ffdd00;
+    --color-badge-warning-text: #ffe666;  /* Improved contrast: lighter yellow */
     --color-badge-error-bg: linear-gradient(90deg, rgba(255, 0, 102, 0.2), rgba(204, 0, 82, 0.2));
-    --color-badge-error-text: #ff0066;
+    --color-badge-error-text: #ff3385;    /* Improved contrast: lighter pink-red */
     --color-badge-info-bg: linear-gradient(90deg, rgba(0, 102, 255, 0.2), rgba(0, 82, 204, 0.2));
     --color-badge-info-text: #0066ff;
     --color-badge-secondary-bg: linear-gradient(90deg, rgba(148, 163, 184, 0.2), rgba(100, 116, 139, 0.2));
-    --color-badge-secondary-text: #94a3b8;
+    --color-badge-secondary-text: #b0bdd1;  /* Improved contrast: lighter slate */
     --color-primary-alpha: rgba(0, 255, 255, 0.15);
     --color-toast-border: rgba(255, 0, 255, 0.3);
     --color-toast-success-bg: rgba(0, 255, 136, 0.1);
     --color-toast-warning-bg: rgba(255, 221, 0, 0.1);
     --color-toast-error-bg: rgba(255, 0, 102, 0.1);
     --color-toast-success-border: #00ff88;
-    --color-toast-warning-border: #ffdd00;
-    --color-toast-error-border: #ff0066;
+    --color-toast-warning-border: #ffe666;  /* Matches updated badge color */
+    --color-toast-error-border: #ff3385;    /* Improved contrast: lighter pink-red */
     --color-toast-info-border: #0066ff;
     --color-card-hover-border: rgba(0, 255, 255, 0.6);
     --color-checkbox-border-hover: rgba(255, 0, 255, 0.8);
@@ -306,6 +306,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .demo-logo-text {
+    color: var(--color-text-primary) !important;
     text-shadow: 0 0 8px rgba(155, 135, 245, 0.5);
 }
 

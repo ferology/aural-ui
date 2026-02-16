@@ -5,8 +5,8 @@
 <nav class="doc-sidebar" id="doc-sidebar">
     <div class="sidebar-header">
         <h2 class="sidebar-logo">Aural UI</h2>
-        <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
-            <i data-lucide="menu"></i>
+        <button type="button" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+            <i data-lucide="menu" aria-hidden="true"></i>
         </button>
     </div>
 
@@ -14,35 +14,37 @@
         <!-- Documentation Section -->
         <div class="nav-section">
             <h3 class="nav-section-title">
-                <i data-lucide="book-open"></i>
+                <i data-lucide="book-open" aria-hidden="true"></i>
                 Documentation
             </h3>
             <ul class="nav-list">
-                <li><a href="./nav.html" class="nav-link"><i data-lucide="home"></i> Home</a></li>
-                <li><a href="./tutorial.html" class="nav-link"><i data-lucide="graduation-cap"></i> Getting Started</a></li>
-                <li><a href="./api.html" class="nav-link"><i data-lucide="code-2"></i> API Reference</a></li>
-                <li><a href="./tokens.html" class="nav-link"><i data-lucide="palette"></i> Design Tokens</a></li>
-                <li><a href="./themes.html" class="nav-link"><i data-lucide="paintbrush"></i> Themes</a></li>
-                <li><a href="./examples.html" class="nav-link"><i data-lucide="file-code"></i> Examples</a></li>
+                <li><a href="./nav.html" class="nav-link"><i data-lucide="home" aria-hidden="true"></i> Home</a></li>
+                <li><a href="./tutorial.html" class="nav-link"><i data-lucide="graduation-cap" aria-hidden="true"></i> Getting Started</a></li>
+                <li><a href="./api.html" class="nav-link"><i data-lucide="code-2" aria-hidden="true"></i> API Reference</a></li>
+                <li><a href="./tokens.html" class="nav-link"><i data-lucide="palette" aria-hidden="true"></i> Design Tokens</a></li>
+                <li><a href="./themes.html" class="nav-link"><i data-lucide="paintbrush" aria-hidden="true"></i> Themes</a></li>
+                <li><a href="./examples.html" class="nav-link"><i data-lucide="file-code" aria-hidden="true"></i> Examples</a></li>
             </ul>
         </div>
 
         <!-- Components Section -->
         <div class="nav-section">
             <h3 class="nav-section-title">
-                <button class="nav-section-toggle" onclick="">
-                    <i data-lucide="chevron-right" class="chevron"></i>
-                    <i data-lucide="layout-grid"></i>
+                <button type="button" class="nav-section-toggle" onclick="" aria-expanded="false" aria-label="Toggle Components section">
+                    <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                    <i data-lucide="layout-grid" aria-hidden="true"></i>
                     Components
                 </button>
             </h3>
             <div class="nav-section-content">
                 <!-- Form Controls -->
                 <div class="nav-category">
-                    <button class="nav-category-title" onclick="toggleNavCategory(this)">
-                        <i data-lucide="chevron-right" class="chevron"></i>
-                        Form Controls
-                    </button>
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Form Controls
+                        </button>
+                    </h4>
                     <ul class="nav-list nav-sublist">
                         <li><a href="./showcase.html#buttons" class="nav-link">Button</a></li>
                         <li><a href="./showcase.html#inputs" class="nav-link">Input</a></li>
@@ -65,10 +67,12 @@
 
                 <!-- Navigation -->
                 <div class="nav-category">
-                    <button class="nav-category-title" onclick="toggleNavCategory(this)">
-                        <i data-lucide="chevron-right" class="chevron"></i>
-                        Navigation
-                    </button>
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Navigation
+                        </button>
+                    </h4>
                     <ul class="nav-list nav-sublist">
                         <li><a href="./showcase.html#navbar" class="nav-link">Navbar</a></li>
                         <li><a href="./showcase.html#tabs" class="nav-link">Tabs</a></li>
@@ -83,10 +87,12 @@
 
                 <!-- Data Display -->
                 <div class="nav-category">
-                    <button class="nav-category-title" onclick="toggleNavCategory(this)">
-                        <i data-lucide="chevron-right" class="chevron"></i>
-                        Data Display
-                    </button>
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Data Display
+                        </button>
+                    </h4>
                     <ul class="nav-list nav-sublist">
                         <li><a href="./showcase.html#cards" class="nav-link">Card</a></li>
                         <li><a href="./showcase.html#tables" class="nav-link">Table</a></li>
@@ -106,10 +112,12 @@
 
                 <!-- Interactive -->
                 <div class="nav-category">
-                    <button class="nav-category-title" onclick="toggleNavCategory(this)">
-                        <i data-lucide="chevron-right" class="chevron"></i>
-                        Interactive
-                    </button>
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Interactive
+                        </button>
+                    </h4>
                     <ul class="nav-list nav-sublist">
                         <li><a href="./showcase.html#tooltips" class="nav-link">Tooltip</a></li>
                         <li><a href="./showcase.html#dropdowns" class="nav-link">Dropdown</a></li>
@@ -123,10 +131,12 @@
 
                 <!-- Feedback -->
                 <div class="nav-category">
-                    <button class="nav-category-title" onclick="toggleNavCategory(this)">
-                        <i data-lucide="chevron-right" class="chevron"></i>
-                        Feedback
-                    </button>
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Feedback
+                        </button>
+                    </h4>
                     <ul class="nav-list nav-sublist">
                         <li><a href="./showcase.html#alert-banner" class="nav-link">Alert Banner</a></li>
                         <li><a href="./showcase.html#toast" class="nav-link">Toast</a></li>
@@ -143,9 +153,9 @@
         <!-- Utilities Section -->
         <div class="nav-section">
             <h3 class="nav-section-title">
-                <button class="nav-section-toggle" onclick="">
-                    <i data-lucide="chevron-right" class="chevron"></i>
-                    <i data-lucide="wrench"></i>
+                <button type="button" class="nav-section-toggle" onclick="" aria-expanded="false" aria-label="Toggle Utilities section">
+                    <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                    <i data-lucide="wrench" aria-hidden="true"></i>
                     Utilities
                 </button>
             </h3>
@@ -167,13 +177,13 @@
         <!-- Resources Section -->
         <div class="nav-section">
             <h3 class="nav-section-title">
-                <i data-lucide="external-link"></i>
+                <i data-lucide="external-link" aria-hidden="true"></i>
                 Resources
             </h3>
             <ul class="nav-list">
-                <li><a href="https://github.com/ferology/aural-ui" class="nav-link" target="_blank"><i data-lucide="github"></i> GitHub</a></li>
-                <li><a href="https://github.com/ferology/aural-ui/issues" class="nav-link" target="_blank"><i data-lucide="bug"></i> Report Issue</a></li>
-                <li><a href="../README.md" class="nav-link"><i data-lucide="book-open"></i> README</a></li>
+                <li><a href="https://github.com/ferology/aural-ui" class="nav-link" target="_blank" aria-label="GitHub (opens in new tab)"><i data-lucide="github" aria-hidden="true"></i> GitHub</a></li>
+                <li><a href="https://github.com/ferology/aural-ui/issues" class="nav-link" target="_blank" aria-label="Report Issue (opens in new tab)"><i data-lucide="bug" aria-hidden="true"></i> Report Issue</a></li>
+                <li><a href="../README.md" class="nav-link"><i data-lucide="book-open" aria-hidden="true"></i> README</a></li>
             </ul>
         </div>
     </div>
@@ -297,6 +307,12 @@
 
     .nav-category {
         margin-bottom: var(--space-4);
+    }
+
+    .nav-category-header {
+        margin: 0;
+        font-size: inherit;
+        font-weight: inherit;
     }
 
     .nav-category-title {
@@ -439,10 +455,18 @@
     }
 
     function toggleNavCategory(button) {
-        button.classList.toggle('expanded');
-        const sublist = button.nextElementSibling;
+        const isExpanded = button.classList.toggle('expanded');
+        button.setAttribute('aria-expanded', isExpanded);
+        const sublist = button.parentElement.nextElementSibling;
         if (sublist) {
             sublist.classList.toggle('expanded');
+        }
+    }
+
+    function handleNavCategoryKeydown(event, button) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleNavCategory(button);
         }
     }
 

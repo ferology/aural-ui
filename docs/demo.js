@@ -100,8 +100,8 @@
 
     function renderLogo() {
         return `
-            <a href="javascript:void(0)" class="demo-logo" data-demo-link="landing.html">
-                <div class="demo-logo-icon">
+            <a href="#landing.html" class="demo-logo" data-demo-link="landing.html" aria-label="Aural UI Home">
+                <div class="demo-logo-icon" aria-hidden="true">
                     <div class="demo-soundwave">
                         ${Array(8).fill().map(() => '<div class="demo-wave-bar"></div>').join('')}
                     </div>
@@ -116,7 +116,7 @@
             <div style="padding: 0 var(--space-3); margin-bottom: var(--space-5);">
                 <div class="aural-search-bar">
                     <div class="aural-search-bar__wrapper">
-                        <div class="aural-search-bar__icon">
+                        <div class="aural-search-bar__icon" aria-hidden="true">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <path d="m21 21-4.35-4.35"></path>
@@ -144,8 +144,8 @@
 
         return `
             <div class="demo-nav-section theme-selector-section">
-                <div class="demo-nav-title">Theme Switcher</div>
-                <select class="theme-select" onchange="selectTheme(this.value)" id="theme-select">
+                <label for="theme-select" class="demo-nav-title">Theme Switcher</label>
+                <select class="theme-select" onchange="selectTheme(this.value)" id="theme-select" aria-label="Select theme">
                     ${themes.map(theme => `
                         <option value="${theme.id}" ${theme.id === currentTheme ? 'selected' : ''}>
                             ${theme.name}
@@ -160,16 +160,22 @@
         // Determine if section should be expanded by default
         const isExpanded = section.expanded !== false;
         const collapsedClass = isExpanded ? '' : 'collapsed';
+        const contentId = `nav-content-${section.id}`;
 
         // Handle sections with subsections (like Components)
         if (section.subsections) {
             return `
                 <div class="demo-nav-section">
-                    <div class="demo-nav-title collapsible ${collapsedClass}" data-section="${section.id}">
+                    <div class="demo-nav-title collapsible ${collapsedClass}"
+                         data-section="${section.id}"
+                         role="button"
+                         tabindex="0"
+                         aria-expanded="${isExpanded}"
+                         aria-controls="${contentId}">
                         ${section.title}
-                        <i data-lucide="chevron-down"></i>
+                        <i data-lucide="chevron-down" aria-hidden="true"></i>
                     </div>
-                    <div class="demo-nav-content">
+                    <div class="demo-nav-content" id="${contentId}">
                         ${section.items ? `
                             <ul class="demo-nav-links">
                                 ${section.items.map(item => renderNavLink(item)).join('')}
@@ -191,12 +197,14 @@
         // Handle regular sections
         return `
             <div class="demo-nav-section">
-                <div class="demo-nav-title${section.items && section.items.length > 0 ? ` collapsible ${collapsedClass}` : ''}" data-section="${section.id}">
+                <div class="demo-nav-title${section.items && section.items.length > 0 ? ` collapsible ${collapsedClass}` : ''}"
+                     data-section="${section.id}"
+                     ${section.items && section.items.length > 0 ? `role="button" tabindex="0" aria-expanded="${isExpanded}" aria-controls="${contentId}"` : ''}>
                     ${section.title}
-                    ${section.items && section.items.length > 0 ? '<i data-lucide="chevron-down"></i>' : ''}
+                    ${section.items && section.items.length > 0 ? '<i data-lucide="chevron-down" aria-hidden="true"></i>' : ''}
                 </div>
                 ${section.items ? `
-                    <ul class="demo-nav-links">
+                    <ul class="demo-nav-links" id="${contentId}">
                         ${section.items.map(item => renderNavLink(item)).join('')}
                     </ul>
                 ` : ''}
@@ -209,7 +217,7 @@
         return `
             <li>
                 <a class="demo-nav-link"
-                   href="javascript:void(0)"
+                   href="#${file}"
                    data-demo-link="${file}"
                    ${item.description ? `title="${item.description}"` : ''}>
                     ${item.name}
@@ -230,10 +238,25 @@
 
         // Collapsible sections
         document.querySelectorAll('.demo-nav-title.collapsible').forEach(title => {
+            // Click handler
             title.addEventListener('click', () => {
-                title.classList.toggle('collapsed');
+                toggleCollapsible(title);
+            });
+
+            // Keyboard handler (Enter and Space)
+            title.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleCollapsible(title);
+                }
             });
         });
+    }
+
+    function toggleCollapsible(element) {
+        const isCollapsed = element.classList.toggle('collapsed');
+        // Update aria-expanded to match the new state
+        element.setAttribute('aria-expanded', !isCollapsed);
     }
 
     // ========================================
@@ -616,13 +639,37 @@
     };
 
     window.toggleDemoMenu = function() {
-        document.getElementById('demo-sidebar')?.classList.toggle('active');
-        document.getElementById('demo-overlay')?.classList.toggle('active');
+        const sidebar = document.getElementById('demo-sidebar');
+        const overlay = document.getElementById('demo-overlay');
+        const toggle = document.querySelector('.demo-mobile-toggle');
+
+        const isActive = sidebar?.classList.toggle('active');
+        overlay?.classList.toggle('active');
+
+        // Update aria attributes
+        if (toggle) {
+            toggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        }
+        if (overlay) {
+            overlay.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        }
     };
 
     window.closeDemoMenu = function() {
-        document.getElementById('demo-sidebar')?.classList.remove('active');
-        document.getElementById('demo-overlay')?.classList.remove('active');
+        const sidebar = document.getElementById('demo-sidebar');
+        const overlay = document.getElementById('demo-overlay');
+        const toggle = document.querySelector('.demo-mobile-toggle');
+
+        sidebar?.classList.remove('active');
+        overlay?.classList.remove('active');
+
+        // Update aria attributes
+        if (toggle) {
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+        if (overlay) {
+            overlay.setAttribute('aria-hidden', 'true');
+        }
     };
 
     // ========================================

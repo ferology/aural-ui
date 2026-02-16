@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aural UI - Components Demo</title>
-    <link rel="stylesheet" href="aural-ui.css?v=10">
-    <link rel="stylesheet" href="dark.css" id="theme-link">
+    <link rel="stylesheet" href="aural-ui.css?v=11">
+    <link rel="stylesheet" href="dark.css?v=1" id="theme-link">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -111,11 +111,20 @@
         .demo-logo-text {
             font-size: var(--text-xl);
             font-weight: 700;
+            color: var(--color-text-primary); /* Fallback color */
             background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* Ensure text is visible if gradient fails */
+        @supports not (background-clip: text) {
+            .demo-logo-text {
+                color: var(--color-primary);
+                background: none;
+            }
         }
 
         /* Navigation */
@@ -362,11 +371,28 @@
                 background: var(--color-bg-hover);
             }
 
-            .demo-mobile-title {
+            .demo-mobile-logo {
+                display: flex;
+                align-items: center;
+                gap: var(--space-2);
+                flex: 1;
+            }
+
+            .demo-mobile-logo .demo-logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .demo-mobile-logo .demo-soundwave {
+                gap: 2px;
+            }
+
+            .demo-mobile-logo .demo-wave-bar {
+                width: 2px;
+            }
+
+            .demo-mobile-logo .demo-logo-text {
                 font-size: 18px;
-                font-weight: 700;
-                color: var(--color-text-primary);
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             }
 
             .demo-overlay {
@@ -405,6 +431,19 @@
             outline: 2px solid white;
             outline-offset: 2px;
         }
+
+        /* Screen Reader Only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
     </style>
 </head>
 <body>
@@ -416,21 +455,36 @@
         <!-- Main Content -->
         <main class="demo-main" id="main-content">
             <div class="demo-mobile-header">
-                <button class="demo-mobile-toggle" onclick="toggleDemoMenu()">
+                <button class="demo-mobile-toggle" onclick="toggleDemoMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="demo-sidebar">
                     <i data-lucide="menu"></i>
                 </button>
-                <span class="demo-mobile-title">Aural UI</span>
+                <div class="demo-mobile-logo">
+                    <div class="demo-logo-icon">
+                        <div class="demo-soundwave">
+                            <div class="demo-wave-bar"></div>
+                            <div class="demo-wave-bar"></div>
+                            <div class="demo-wave-bar"></div>
+                            <div class="demo-wave-bar"></div>
+                            <div class="demo-wave-bar"></div>
+                            <div class="demo-wave-bar"></div>
+                            <div class="demo-wave-bar"></div>
+                            <div class="demo-wave-bar"></div>
+                        </div>
+                    </div>
+                    <div class="demo-logo-text">Aural UI</div>
+                </div>
             </div>
 
-            <div class="demo-loading" id="demo-loading">
+            <div class="demo-loading" id="demo-loading" role="status" aria-live="polite">
                 <div class="demo-spinner"></div>
+                <span class="sr-only">Loading content...</span>
             </div>
 
             <iframe id="demo-content-frame" class="demo-content-frame" title="Component showcase" aria-label="Main content area"></iframe>
         </main>
 
         <!-- Overlay -->
-        <div class="demo-overlay" id="demo-overlay" onclick="toggleDemoMenu()"></div>
+        <div class="demo-overlay" id="demo-overlay" onclick="toggleDemoMenu()" aria-hidden="true"></div>
     </div>
 
     <script src="aural-ui.js"></script>

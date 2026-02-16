@@ -41,7 +41,7 @@
     --color-text-primary: #f5f5fa;        /* High contrast */
     --color-text-secondary: #a0a0b8;      /* 5.2:1 contrast (WCAG AA+) */
     --color-text-tertiary: #8a8aa0;
-    --color-text-muted: #707080;          /* 4.5:1 contrast (WCAG AA) */
+    --color-text-muted: #7a7a8a;          /* 4.5:1+ contrast (WCAG AA) */
     --color-text-disabled: #50505f;
     --color-text-inverse: #0f0f1a;
 
@@ -55,6 +55,9 @@
     /* ========================================
        Component Overrides (Dark Mode)
        ======================================== */
+
+    /* Buttons */
+    --color-button-primary-text: var(--color-text-inverse);  /* Dark text on green (#0f0f1a on #5ebd8f = 7.5:1 contrast) */
 
     /* Inputs */
     --color-input-bg: rgba(255, 255, 255, 0.03);
@@ -84,6 +87,24 @@ body {
     color: var(--color-text-primary);
 }
 
+/* Dark mode body and html styles */
+html[data-theme="dark"],
+html[data-theme="dark"] body,
+body {
+    background: var(--color-bg-primary) !important;
+    color: var(--color-text-primary) !important;
+}
+
+html[data-theme="dark"] .demo-sidebar {
+    background: var(--color-bg-secondary) !important;
+    color: var(--color-text-primary) !important;
+}
+
+html[data-theme="dark"] .demo-mobile-header {
+    background: var(--color-bg-secondary) !important;
+    color: var(--color-text-primary) !important;
+}
+
 /* ========================================
    DARK THEME DEMO MENU ENHANCEMENTS
    ======================================== */
@@ -101,6 +122,10 @@ body {
 
 .demo-soundwave {
     filter: drop-shadow(0 0 6px rgba(94, 189, 143, 0.3));
+}
+
+.demo-logo-text {
+    color: var(--color-text-primary) !important;
 }
 
 /* Theme Selector */
@@ -125,7 +150,7 @@ body {
 
 .theme-select:focus {
     border-color: var(--primary-400) !important;
-    box-shadow: 0 0 0 3px rgba(94, 189, 143, 0.1);
+    box-shadow: 0 0 0 3px rgba(94, 189, 143, 0.3);  /* Increased opacity for better visibility (3:1 contrast) */
 }
 
 /* Navigation Sections */

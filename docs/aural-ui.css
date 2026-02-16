@@ -25420,16 +25420,41 @@ body {
    ACCESSIBILITY
    ======================================== */
 
-/* Focus visible for keyboard navigation */
+/* Focus visible for keyboard navigation - Base styles */
 
 :focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
+/* Enhanced focus for specific interactive elements */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[role="link"]:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Enhanced focus for form inputs with border glow */
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 0;
+    box-shadow: 0 0 0 3px rgba(94, 189, 143, 0.2);
+}
+
 /* Visually hidden but accessible to screen readers */
 
-.visually-hidden {
+.visually-hidden,
+.sr-only {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -25456,6 +25481,20 @@ body {
 
 .skip-to-main:focus {
     top: 0;
+}
+
+/* High contrast mode support */
+
+@media (prefers-contrast: high) {
+    /* Stronger focus indicators in high contrast */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    [tabindex]:focus-visible {
+        outline-width: 3px;
+    }
 }
 
 /* Respect reduced motion preference */

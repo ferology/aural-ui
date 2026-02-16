@@ -113,8 +113,12 @@
 
             console.log(`Applying theme: ${themeId} (${theme.name})`);
 
-            // Update theme CSS
-            this.themeLink.href = relativePath + theme.file;
+            // Update theme CSS with cache-busting timestamp
+            const cacheBuster = Date.now();
+            this.themeLink.href = `${relativePath}${theme.file}?v=${cacheBuster}`;
+
+            // Set data-theme attribute on document element for CSS specificity
+            document.documentElement.setAttribute('data-theme', themeId);
 
             // Clean up old theme-specific resources
             this.cleanupThemeResources();

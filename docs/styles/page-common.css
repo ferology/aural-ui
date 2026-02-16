@@ -430,10 +430,64 @@ pre code {
    ACCESSIBILITY
    ================================================================== */
 
-/* Focus states */
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus states for all interactive elements */
 a:focus-visible,
 button:focus-visible,
-.tab:focus-visible {
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.tab:focus-visible,
+.copy-btn:focus-visible,
+.breadcrumb-link:focus-visible,
+[role="button"]:focus-visible,
+[role="link"]:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--color-primary, #5ebd8f);
+    outline-offset: 2px;
+}
+
+/* Ensure focus is visible even when user uses mouse */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid transparent;
+}
+
+/* But show clear focus for keyboard users */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--color-primary, #5ebd8f);
+}
+
+/* Enhanced focus for form inputs with border glow */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--color-primary, #5ebd8f);
+    outline-offset: 0;
+    box-shadow: 0 0 0 3px rgba(94, 189, 143, 0.2);
+}
+
+/* Focus for card-based interactive elements */
+.card:focus-visible {
     outline: 2px solid var(--color-primary, #5ebd8f);
     outline-offset: 2px;
 }
@@ -455,5 +509,15 @@ button:focus-visible,
     .example-box,
     pre {
         border-width: 2px;
+    }
+
+    /* Stronger focus indicators in high contrast */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    [tabindex]:focus-visible {
+        outline-width: 3px;
     }
 }
