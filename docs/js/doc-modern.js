@@ -67,45 +67,116 @@
 
         if (tocLinks.length === 0 || sections.length === 0) return;
 
-        const observerOptions = {
-            rootMargin: '-100px 0px -60% 0px',
-            threshold: 0
-        };
+        // Feature detection: Check if IntersectionObserver is available
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                rootMargin: '-100px 0px -60% 0px',
+                threshold: 0
+            };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Remove active class from all
-                    tocLinks.forEach(link => link.classList.remove('active'));
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove active class from all
+                        tocLinks.forEach(link => link.classList.remove('active'));
 
-                    // Add to current
-                    const activeLink = document.querySelector(
-                        `.doc-modern-toc-link[href="#${entry.target.id}"]`
-                    );
+                        // Add to current
+                        const activeLink = document.querySelector(
+                            `.doc-modern-toc-link[href="#${entry.target.id}"]`
+                        );
 
-                    if (activeLink) {
-                        activeLink.classList.add('active');
+                        if (activeLink) {
+                            activeLink.classList.add('active');
 
-                        // Smooth scroll TOC into view if needed
-                        const toc = activeLink.closest('.doc-modern-toc');
-                        if (toc) {
-                            const linkTop = activeLink.offsetTop;
-                            const tocScrollTop = toc.scrollTop;
-                            const tocHeight = toc.clientHeight;
+                            // Smooth scroll TOC into view if needed
+                            const toc = activeLink.closest('.doc-modern-toc');
+                            if (toc) {
+                                const linkTop = activeLink.offsetTop;
+                                const tocScrollTop = toc.scrollTop;
+                                const tocHeight = toc.clientHeight;
 
-                            if (linkTop < tocScrollTop || linkTop > tocScrollTop + tocHeight - 100) {
-                                toc.scrollTo({
-                                    top: linkTop - 100,
-                                    behavior: 'smooth'
-                                });
+                                if (linkTop < tocScrollTop || linkTop > tocScrollTop + tocHeight - 100) {
+                                    // Check if smooth scrolling is supported
+                                    if ('scrollBehavior' in document.documentElement.style) {
+                                        toc.scrollTo({
+                                            top: linkTop - 100,
+                                            behavior: 'smooth'
+                                        });
+                                    } else {
+                                        // Fallback for older browsers
+                                        toc.scrollTop = linkTop - 100;
+                                    }
+                                }
                             }
                         }
                     }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        } else {
+            // Fallback for browsers without IntersectionObserver support
+            initModernScrollSpyFallback(tocLinks, sections);
+        }
+    }
+
+    /**
+     * Scroll spy fallback for older browsers without IntersectionObserver
+     */
+    function initModernScrollSpyFallback(tocLinks, sections) {
+        let ticking = false;
+
+        function updateActiveLink() {
+            const scrollPosition = window.scrollY + 150;
+
+            // Find the current section
+            let currentSection = null;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    currentSection = section;
                 }
             });
-        }, observerOptions);
 
-        sections.forEach(section => observer.observe(section));
+            if (currentSection) {
+                // Remove active class from all links
+                tocLinks.forEach(link => link.classList.remove('active'));
+
+                // Add active class to current link
+                const activeLink = document.querySelector(
+                    `.doc-modern-toc-link[href="#${currentSection.id}"]`
+                );
+                if (activeLink) {
+                    activeLink.classList.add('active');
+
+                    // Scroll TOC if needed
+                    const toc = activeLink.closest('.doc-modern-toc');
+                    if (toc) {
+                        const linkTop = activeLink.offsetTop;
+                        const tocScrollTop = toc.scrollTop;
+                        const tocHeight = toc.clientHeight;
+
+                        if (linkTop < tocScrollTop || linkTop > tocScrollTop + tocHeight - 100) {
+                            toc.scrollTop = linkTop - 100;
+                        }
+                    }
+                }
+            }
+
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateActiveLink);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Initial update
+        updateActiveLink();
     }
 
     // ========================================
@@ -212,6 +283,9 @@
     // ========================================
 
     function initModernSmoothScroll() {
+        // Check if smooth scrolling is supported
+        const supportsSmooth = 'scrollBehavior' in document.documentElement.style;
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -220,10 +294,18 @@
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+
+                    if (supportsSmooth) {
+                        // Use native smooth scrolling
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    } else {
+                        // Fallback for older browsers: basic scroll
+                        target.scrollIntoView(true);
+                    }
+
                     history.pushState(null, null, href);
                 }
             });
@@ -267,21 +349,27 @@
 
         if (elements.length === 0) return;
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Feature detection: Check if IntersectionObserver is available
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fade-in-up');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in-up');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-        elements.forEach(el => observer.observe(el));
+            elements.forEach(el => observer.observe(el));
+        } else {
+            // Fallback: Just add animation class immediately for older browsers
+            elements.forEach(el => el.classList.add('animate-fade-in-up'));
+        }
     }
 
     // ========================================
@@ -316,11 +404,19 @@
             lastScroll = currentScroll;
         }, { passive: true });
 
+        // Check if smooth scrolling is supported
+        const supportsSmooth = 'scrollBehavior' in document.documentElement.style;
+
         scrollBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            if (supportsSmooth) {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Fallback for older browsers
+                window.scrollTo(0, 0);
+            }
         });
     }
 
@@ -359,39 +455,43 @@
 
         if (statValues.length === 0) return;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const finalValue = target.textContent.trim();
-                    const isNumber = /^\d+$/.test(finalValue);
+        // Feature detection: Check if IntersectionObserver is available
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const finalValue = target.textContent.trim();
+                        const isNumber = /^\d+$/.test(finalValue);
 
-                    if (isNumber) {
-                        const final = parseInt(finalValue);
-                        let current = 0;
-                        const increment = final / 50;
-                        const duration = 1000;
-                        const stepTime = duration / 50;
+                        if (isNumber) {
+                            const final = parseInt(finalValue);
+                            let current = 0;
+                            const increment = final / 50;
+                            const duration = 1000;
+                            const stepTime = duration / 50;
 
-                        target.textContent = '0';
+                            target.textContent = '0';
 
-                        const timer = setInterval(() => {
-                            current += increment;
-                            if (current >= final) {
-                                target.textContent = final;
-                                clearInterval(timer);
-                            } else {
-                                target.textContent = Math.floor(current);
-                            }
-                        }, stepTime);
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= final) {
+                                    target.textContent = final;
+                                    clearInterval(timer);
+                                } else {
+                                    target.textContent = Math.floor(current);
+                                }
+                            }, stepTime);
+                        }
+
+                        observer.unobserve(target);
                     }
+                });
+            }, { threshold: 0.5 });
 
-                    observer.unobserve(target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        statValues.forEach(stat => observer.observe(stat));
+            statValues.forEach(stat => observer.observe(stat));
+        }
+        // No fallback needed - stats will just show their final values immediately
     }
 
     // ========================================

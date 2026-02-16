@@ -17,6 +17,7 @@
 
     /* Glass effect */
     background: var(--color-bg-glass);
+    -webkit-backdrop-filter: var(--glass-blur);
     backdrop-filter: var(--glass-blur);
 
     /* Gradient border */
@@ -36,7 +37,9 @@
     /* Interaction */
     cursor: pointer;
     transition: all 0.3s var(--ease-smooth);
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
 
     /* Depth */
     box-shadow: var(--shadow-depth-1);
@@ -101,6 +104,7 @@
         rgba(14, 165, 165, 0.15) 0%,
         rgba(123, 44, 191, 0.15) 100%
     );
+    -webkit-backdrop-filter: var(--glass-blur);
     backdrop-filter: var(--glass-blur);
 }
 
@@ -165,6 +169,7 @@
 
 .btn-prismatic-ghost {
     background: transparent;
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
     box-shadow: none;
 }

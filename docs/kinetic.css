@@ -1943,7 +1943,9 @@ summary {
     font-weight: 900 !important;
     color: var(--color-white) !important;
     padding: var(--space-3) 0 !important;
-    user-select: none !important;
+    -webkit-user-select: none !important;
+       -moz-user-select: none !important;
+            user-select: none !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
     font-size: var(--text-sm) !important;
@@ -2393,6 +2395,7 @@ picture {
     width: 6px;
     height: 6px;
     background: var(--color-gray-500);
+    -webkit-clip-path: polygon(0 0, 100% 50%, 0 100%);
     clip-path: polygon(0 0, 100% 50%, 0 100%);
 }
 

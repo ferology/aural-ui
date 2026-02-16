@@ -58,12 +58,28 @@
     const DEFAULT_THEME = 'dark';
     const STORAGE_KEY = 'theme';
 
+    /**
+     * Check if localStorage is available
+     * @returns {boolean}
+     */
+    function isLocalStorageAvailable() {
+        try {
+            const test = '__localStorage_test__';
+            localStorage.setItem(test, test);
+            localStorage.removeItem(test);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     class ThemeManager {
         constructor() {
             this.currentTheme = null;
             this.themeLink = null;
             this.callbacks = [];
             this.isInIframe = window.self !== window.top;
+            this.storageAvailable = isLocalStorageAvailable();
         }
 
         /**
@@ -93,8 +109,17 @@
          * Get saved theme from localStorage
          */
         getSavedTheme() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            return (saved && THEMES[saved]) ? saved : DEFAULT_THEME;
+            if (!this.storageAvailable) {
+                return DEFAULT_THEME;
+            }
+
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                return (saved && THEMES[saved]) ? saved : DEFAULT_THEME;
+            } catch (e) {
+                console.warn('Could not read from localStorage:', e);
+                return DEFAULT_THEME;
+            }
         }
 
         /**
@@ -133,8 +158,14 @@
                 this.loadThemeScripts(theme.scripts, themeId, relativePath);
             }
 
-            // Save to localStorage
-            localStorage.setItem(STORAGE_KEY, themeId);
+            // Save to localStorage (with error handling)
+            if (this.storageAvailable) {
+                try {
+                    localStorage.setItem(STORAGE_KEY, themeId);
+                } catch (e) {
+                    console.warn('Could not save theme to localStorage:', e);
+                }
+            }
             this.currentTheme = themeId;
 
             // Notify callbacks (unless explicitly skipped)
@@ -213,6 +244,7 @@
             if (document.body && !document.body.hasAttribute('data-neon-effects')) {
                 document.body.setAttribute('data-neon-effects', '');
 
+                // NOTE: Optional chaining (?.) requires transpilation for older browser support (IE11, pre-2020 browsers)
                 if (window.Aural?.NeonEffects) {
                     window.Aural.NeonEffects.initAll({
                         particles: this.isInIframe ? 20 : 30,

@@ -15,6 +15,11 @@ body {
     background: var(--color-bg-primary, #1a1a1a);
     color: var(--color-text-primary, #ffffff);
     line-height: 1.6;
+    /* iOS Safari viewport height fix */
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* Enable smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 /* ==================================================================
@@ -117,6 +122,7 @@ pre {
     border-radius: var(--radius-md, 8px);
     padding: var(--space-4, 16px);
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     margin: var(--space-4, 16px) 0;
     position: relative;
 }
@@ -209,6 +215,7 @@ pre code {
 
 .api-table-wrapper {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     margin: var(--space-4, 16px) 0;
     border-radius: var(--radius-md, 8px);
     border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
@@ -418,7 +425,18 @@ pre code {
 
     .tabs-list {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    /* Add safe area insets for mobile devices */
+    .page-container {
+        padding-left: calc(var(--space-4, 16px) + env(safe-area-inset-left));
+        padding-right: calc(var(--space-4, 16px) + env(safe-area-inset-right));
+        padding-bottom: calc(var(--space-4, 16px) + env(safe-area-inset-bottom));
+    }
+
+    .content-wrapper {
+        margin-bottom: env(safe-area-inset-bottom);
     }
 
     .api-table {

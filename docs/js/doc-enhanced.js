@@ -46,30 +46,83 @@
 
         if (tocLinks.length === 0 || sections.length === 0) return;
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Remove active class from all links
-                        tocLinks.forEach(link => link.classList.remove('active'));
+        // Feature detection: Check if IntersectionObserver is available
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Remove active class from all links
+                            tocLinks.forEach(link => link.classList.remove('active'));
 
-                        // Add active class to current link
-                        const activeLink = document.querySelector(
-                            `.doc-toc-link[href="#${entry.target.id}"]`
-                        );
-                        if (activeLink) {
-                            activeLink.classList.add('active');
+                            // Add active class to current link
+                            const activeLink = document.querySelector(
+                                `.doc-toc-link[href="#${entry.target.id}"]`
+                            );
+                            if (activeLink) {
+                                activeLink.classList.add('active');
+                            }
                         }
-                    }
-                });
-            },
-            {
-                rootMargin: '-100px 0px -80% 0px',
-                threshold: 0
-            }
-        );
+                    });
+                },
+                {
+                    rootMargin: '-100px 0px -80% 0px',
+                    threshold: 0
+                }
+            );
 
-        sections.forEach(section => observer.observe(section));
+            sections.forEach(section => observer.observe(section));
+        } else {
+            // Fallback for browsers without IntersectionObserver support
+            initScrollSpyFallback(tocLinks, sections);
+        }
+    }
+
+    /**
+     * Scroll spy fallback for older browsers without IntersectionObserver
+     */
+    function initScrollSpyFallback(tocLinks, sections) {
+        let ticking = false;
+
+        function updateActiveLink() {
+            const scrollPosition = window.scrollY + 150;
+
+            // Find the current section
+            let currentSection = null;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    currentSection = section;
+                }
+            });
+
+            if (currentSection) {
+                // Remove active class from all links
+                tocLinks.forEach(link => link.classList.remove('active'));
+
+                // Add active class to current link
+                const activeLink = document.querySelector(
+                    `.doc-toc-link[href="#${currentSection.id}"]`
+                );
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateActiveLink);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Initial update
+        updateActiveLink();
     }
 
     // ========================================
@@ -151,6 +204,9 @@
     // ========================================
 
     function initSmoothScroll() {
+        // Check if smooth scrolling is supported
+        const supportsSmooth = 'scrollBehavior' in document.documentElement.style;
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -161,10 +217,17 @@
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+
+                    if (supportsSmooth) {
+                        // Use native smooth scrolling
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    } else {
+                        // Fallback for older browsers: basic scroll
+                        target.scrollIntoView(true);
+                    }
 
                     // Update URL without jumping
                     history.pushState(null, null, href);
@@ -229,24 +292,32 @@
     // ========================================
 
     function initAnimateOnScroll() {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-in-up');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
-            }
-        );
+        const elements = document.querySelectorAll('.feature-card, .api-method, .highlight-box');
 
-        document.querySelectorAll('.feature-card, .api-method, .highlight-box').forEach(el => {
-            observer.observe(el);
-        });
+        if (elements.length === 0) return;
+
+        // Feature detection: Check if IntersectionObserver is available
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate-fade-in-up');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -100px 0px'
+                }
+            );
+
+            elements.forEach(el => observer.observe(el));
+        } else {
+            // Fallback: Just add animation class immediately for older browsers
+            elements.forEach(el => el.classList.add('animate-fade-in-up'));
+        }
     }
 
     // ========================================

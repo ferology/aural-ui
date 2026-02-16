@@ -63,7 +63,9 @@
     white-space: nowrap;
 
     /* Accessibility */
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
 
     /* Border */
     border-bottom: 2px solid var(--color-table-border);
@@ -227,7 +229,9 @@
 
 .table th.sortable {
     cursor: pointer;
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
     position: relative;
     padding-right: var(--space-8);
 
@@ -291,6 +295,7 @@
    ======================================== */
 
 .table-sticky thead th {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -304,6 +309,7 @@
 
 .table th.sticky-left,
 .table td.sticky-left {
+    position: -webkit-sticky;
     position: sticky;
     left: 0;
     z-index: 5;
@@ -318,6 +324,7 @@
 
 .table th.sticky-right,
 .table td.sticky-right {
+    position: -webkit-sticky;
     position: sticky;
     right: 0;
     z-index: 5;
@@ -534,6 +541,7 @@
 
     .table th:first-child,
     .table td:first-child {
+        position: -webkit-sticky;
         position: sticky;
         left: 0;
         z-index: 2;

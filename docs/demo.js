@@ -372,13 +372,30 @@
 
     function syncIframeTheme() {
         const frame = document.getElementById('demo-content-frame');
-        if (!frame || !frame.contentDocument || !window.AuralThemeManager) {
+        if (!frame || !window.AuralThemeManager) {
             return;
         }
 
         try {
+            // Check if iframe is from same origin before accessing contentDocument
+            // This will throw a SecurityError for cross-origin iframes
+            let iframeDoc;
+            try {
+                iframeDoc = frame.contentDocument || frame.contentWindow.document;
+            } catch (e) {
+                // Cross-origin iframe detected - cannot access contentDocument
+                console.warn('Cannot sync theme: iframe is cross-origin', e);
+                // Consider using postMessage for cross-origin communication
+                // frame.contentWindow.postMessage({ type: 'THEME_CHANGE', theme: currentTheme }, '*');
+                return;
+            }
+
+            if (!iframeDoc) {
+                return;
+            }
+
             const currentTheme = window.AuralThemeManager.currentTheme;
-            const iframeThemeLink = frame.contentDocument.getElementById('theme-link');
+            const iframeThemeLink = iframeDoc.getElementById('theme-link');
 
             if (iframeThemeLink) {
                 const iframeSrc = frame.src;
@@ -393,20 +410,21 @@
                 console.log('Synced iframe theme to:', theme.name);
 
                 // Load theme-specific components
-                loadIframeThemeComponents(frame.contentDocument, currentTheme, relativePath);
+                loadIframeThemeComponents(iframeDoc, currentTheme, relativePath);
 
                 // Load theme-specific scripts
-                loadIframeThemeScripts(frame.contentDocument, currentTheme, relativePath);
+                loadIframeThemeScripts(iframeDoc, currentTheme, relativePath);
             }
 
             // Hide iframe theme toggle if it exists
-            const iframeThemeToggle = frame.contentDocument.querySelector('.theme-toggle');
+            const iframeThemeToggle = iframeDoc.querySelector('.theme-toggle');
             if (iframeThemeToggle) {
                 iframeThemeToggle.style.display = 'none';
             }
 
             // Re-initialize Lucide icons in iframe
-            if (frame.contentWindow.lucide) {
+            // NOTE: Optional chaining (?.) requires transpilation for older browser support (IE11, pre-2020 browsers)
+            if (frame.contentWindow && frame.contentWindow.lucide) {
                 frame.contentWindow.lucide.createIcons();
             }
         } catch (e) {
@@ -449,6 +467,7 @@
             script.onload = () => {
                 if (doc.body && !doc.body.hasAttribute('data-neon-effects')) {
                     doc.body.setAttribute('data-neon-effects', '');
+                    // NOTE: Optional chaining (?.) requires transpilation for older browser support (IE11, pre-2020 browsers)
                     if (doc.defaultView.Aural?.NeonEffects) {
                         doc.defaultView.Aural.NeonEffects.initAll({
                             particles: 30,
@@ -598,6 +617,7 @@
             // Cmd/Ctrl + K for search
             if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
                 e.preventDefault();
+                // NOTE: Optional chaining (?.) requires transpilation for older browser support (IE11, pre-2020 browsers)
                 searchInput?.focus();
             }
 
@@ -643,8 +663,16 @@
         const overlay = document.getElementById('demo-overlay');
         const toggle = document.querySelector('.demo-mobile-toggle');
 
+        // NOTE: Optional chaining (?.) requires transpilation for older browser support (IE11, pre-2020 browsers)
         const isActive = sidebar?.classList.toggle('active');
         overlay?.classList.toggle('active');
+
+        // Lock/unlock body scroll on mobile
+        if (isActive) {
+            document.body.classList.add('sidebar-open');
+        } else {
+            document.body.classList.remove('sidebar-open');
+        }
 
         // Update aria attributes
         if (toggle) {
@@ -660,8 +688,12 @@
         const overlay = document.getElementById('demo-overlay');
         const toggle = document.querySelector('.demo-mobile-toggle');
 
+        // NOTE: Optional chaining (?.) requires transpilation for older browser support (IE11, pre-2020 browsers)
         sidebar?.classList.remove('active');
         overlay?.classList.remove('active');
+
+        // Unlock body scroll
+        document.body.classList.remove('sidebar-open');
 
         // Update aria attributes
         if (toggle) {

@@ -20,9 +20,19 @@
             overflow: hidden;
         }
 
+        /* Prevent body scroll when sidebar is open on mobile */
+        body.sidebar-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+        }
+
         .demo-container {
             display: flex;
             height: 100vh;
+            height: 100dvh; /* Use dynamic viewport height for better mobile support */
             width: 100vw;
         }
 
@@ -30,9 +40,11 @@
         .demo-sidebar {
             width: 280px;
             height: 100vh;
+            height: 100dvh; /* Use dynamic viewport height for better mobile support */
             background: var(--color-bg-secondary);
             border-right: 1px solid var(--color-border-subtle);
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
             padding: var(--space-6);
             flex-shrink: 0;
             z-index: 100;
@@ -249,6 +261,7 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
+            height: 100dvh; /* Use dynamic viewport height for better mobile support */
             overflow: hidden;
             position: relative;
         }
@@ -292,7 +305,7 @@
         }
 
         .demo-overlay {
-            display: none;
+            display: none; /* Hidden on desktop */
         }
 
         /* Theme Selector in Sidebar */
@@ -334,15 +347,18 @@
             .demo-sidebar {
                 position: fixed;
                 top: 0;
-                left: 0;
+                left: -280px; /* Use left positioning instead of transform to avoid iOS Safari bugs */
                 height: 100vh;
+                height: calc(100vh + env(safe-area-inset-bottom)); /* Account for safe area */
+                height: calc(100dvh + env(safe-area-inset-bottom));
+                padding-left: calc(var(--space-6) + env(safe-area-inset-left)); /* Add safe area padding */
+                padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
                 z-index: 1001;
-                transform: translateX(-100%);
-                transition: transform 0.3s;
+                transition: left 0.3s ease-in-out; /* Smooth transition on left property */
             }
 
             .demo-sidebar.active {
-                transform: translateX(0);
+                left: 0; /* Slide in by setting left to 0 */
             }
 
             .demo-mobile-header {
@@ -350,6 +366,9 @@
                 align-items: center;
                 gap: var(--space-3);
                 padding: var(--space-4);
+                padding-top: calc(var(--space-4) + env(safe-area-inset-top)); /* Add safe area padding for notch */
+                padding-left: calc(var(--space-4) + env(safe-area-inset-left));
+                padding-right: calc(var(--space-4) + env(safe-area-inset-right));
                 background: var(--color-bg-secondary);
                 border-bottom: 1px solid var(--color-border-subtle);
             }
@@ -396,7 +415,7 @@
             }
 
             .demo-overlay {
-                display: none;
+                display: block; /* Show on mobile (controlled by opacity) */
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -404,10 +423,14 @@
                 bottom: 0;
                 background: rgba(0, 0, 0, 0.5);
                 z-index: 1000;
+                opacity: 0;
+                pointer-events: none; /* Prevent interaction when hidden */
+                transition: opacity 0.3s ease-in-out; /* Smooth fade animation */
             }
 
             .demo-overlay.active {
-                display: block;
+                opacity: 1;
+                pointer-events: auto; /* Allow interaction when visible */
             }
         }
 
