@@ -148,9 +148,10 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Theme Toggle -->
-    <button class="btn btn-ghost theme-toggle" onclick="toggleTheme()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+    <button class="btn btn-ghost theme-toggle" onclick="toggleTheme()" type="button" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
             <circle cx="12" cy="12" r="5"/>
             <line x1="12" y1="1" x2="12" y2="3"/>
             <line x1="12" y1="21" x2="12" y2="23"/>
@@ -274,7 +275,7 @@
     
 
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content" id="main-content">
         <section class="showcase-section" id="introduction">
             <h1 class="showcase-title">Aural UI</h1>
             <p class="showcase-subtitle">A modern, accessible design system built for flexibility and customization</p>
