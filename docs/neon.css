@@ -533,12 +533,12 @@ body::before {
 .demo-nav-link.active:link,
 .demo-nav-link.active:visited,
 .demo-nav-link.active:target {
-    background: linear-gradient(90deg, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%) !important;
-    color: #00ffff !important;
+    background: #00ffff !important;  /* Solid cyan background */
+    color: #000000 !important;  /* Black text for 16.75:1 contrast */
     border-left-color: #ff00ff !important;
     border-left-width: 3px !important;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3), inset 0 0 15px rgba(0, 255, 255, 0.2);
-    text-shadow: 0 0 10px #00ffff, 0 0 15px #ff00ff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 255, 0.4);
+    text-shadow: none !important;  /* Remove glow for better readability */
     font-weight: 700 !important;
 }
 
