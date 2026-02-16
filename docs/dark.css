@@ -131,7 +131,12 @@ html[data-theme="dark"] .demo-mobile-header {
 }
 
 .demo-logo-text {
-    color: var(--color-text-primary) !important;
+    background: linear-gradient(135deg, var(--primary-400), var(--primary-600)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    /* Fallback color in case gradient fails */
+    color: var(--primary-400) !important;
 }
 
 /* Theme Selector */

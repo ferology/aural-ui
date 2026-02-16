@@ -426,6 +426,11 @@ body::before {
 }
 
 .demo-logo-text {
+    background: linear-gradient(135deg, #00ffff, #ff00ff) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    /* Fallback color in case gradient fails */
     color: #00ffff !important;
     text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff !important;
     animation: neon-pulse 2s ease-in-out infinite;

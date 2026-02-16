@@ -2164,7 +2164,12 @@ picture {
     font-weight: 900 !important;
     letter-spacing: -0.02em !important;
     text-transform: uppercase !important;
-    color: var(--color-text-primary) !important;
+    background: linear-gradient(135deg, #cdff00, #b3e600) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    /* Fallback color in case gradient fails */
+    color: var(--color-primary) !important;
 }
 
 .demo-soundwave {
