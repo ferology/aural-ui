@@ -415,7 +415,13 @@ body::before {
     box-shadow: 0 2px 15px rgba(0, 255, 255, 0.3);
 }
 
-.demo-logo:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-logo:hover {
+        box-shadow: 0 2px 25px rgba(0, 255, 255, 0.5);
+    }
+}
+
+.demo-logo:active {
     box-shadow: 0 2px 25px rgba(0, 255, 255, 0.5);
 }
 
@@ -454,7 +460,14 @@ body::before {
     transition: all 0.3s ease;
 }
 
-.theme-select:hover {
+@media (hover: hover) and (pointer: fine) {
+    .theme-select:hover {
+        border-color: #00ffff !important;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    }
+}
+
+.theme-select:active {
     border-color: #00ffff !important;
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
 }
@@ -489,7 +502,17 @@ body::before {
     transition: all 0.3s ease !important;
 }
 
-.demo-nav-link:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-nav-link:hover {
+        background: rgba(0, 255, 255, 0.1) !important;
+        color: #00ffff !important;
+        border-left-color: #00ffff !important;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+        text-shadow: 0 0 8px #00ffff;
+    }
+}
+
+.demo-nav-link:active {
     background: rgba(0, 255, 255, 0.1) !important;
     color: #00ffff !important;
     border-left-color: #00ffff !important;

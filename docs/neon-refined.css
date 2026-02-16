@@ -301,7 +301,13 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 1px 10px rgba(155, 135, 245, 0.15);
 }
 
-.demo-logo:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-logo:hover {
+        box-shadow: 0 1px 15px rgba(155, 135, 245, 0.25);
+    }
+}
+
+.demo-logo:active {
     box-shadow: 0 1px 15px rgba(155, 135, 245, 0.25);
 }
 
@@ -331,7 +337,14 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 0.3s ease;
 }
 
-.theme-select:hover {
+@media (hover: hover) and (pointer: fine) {
+    .theme-select:hover {
+        border-color: rgba(155, 135, 245, 0.4) !important;
+        box-shadow: 0 0 12px rgba(155, 135, 245, 0.15);
+    }
+}
+
+.theme-select:active {
     border-color: rgba(155, 135, 245, 0.4) !important;
     box-shadow: 0 0 12px rgba(155, 135, 245, 0.15);
 }
@@ -362,7 +375,15 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 0.3s ease !important;
 }
 
-.demo-nav-link:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-nav-link:hover {
+        background: rgba(155, 135, 245, 0.08) !important;
+        color: var(--color-primary) !important;
+        box-shadow: 0 0 10px rgba(155, 135, 245, 0.15);
+    }
+}
+
+.demo-nav-link:active {
     background: rgba(155, 135, 245, 0.08) !important;
     color: var(--color-primary) !important;
     box-shadow: 0 0 10px rgba(155, 135, 245, 0.15);

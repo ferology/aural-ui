@@ -116,7 +116,13 @@ html[data-theme="dark"] .demo-mobile-header {
     background: linear-gradient(135deg, rgba(94, 189, 143, 0.05) 0%, transparent 100%);
 }
 
-.demo-logo:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-logo:hover {
+        background: linear-gradient(135deg, rgba(94, 189, 143, 0.1) 0%, transparent 100%);
+    }
+}
+
+.demo-logo:active {
     background: linear-gradient(135deg, rgba(94, 189, 143, 0.1) 0%, transparent 100%);
 }
 
@@ -144,7 +150,13 @@ html[data-theme="dark"] .demo-mobile-header {
     transition: all 0.2s ease;
 }
 
-.theme-select:hover {
+@media (hover: hover) and (pointer: fine) {
+    .theme-select:hover {
+        border-color: var(--color-border-medium) !important;
+    }
+}
+
+.theme-select:active {
     border-color: var(--color-border-medium) !important;
 }
 
@@ -172,7 +184,14 @@ html[data-theme="dark"] .demo-mobile-header {
     transition: all 0.2s ease !important;
 }
 
-.demo-nav-link:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-nav-link:hover {
+        background: var(--color-bg-hover) !important;
+        color: var(--primary-400) !important;
+    }
+}
+
+.demo-nav-link:active {
     background: var(--color-bg-hover) !important;
     color: var(--primary-400) !important;
 }

@@ -1107,7 +1107,15 @@ hr {
     display: block !important;
 }
 
-.demo-nav-link:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-nav-link:hover {
+        color: var(--color-white) !important;
+        background: var(--color-gray-100) !important;
+        font-weight: var(--weight-bold) !important;
+    }
+}
+
+.demo-nav-link:active {
     color: var(--color-white) !important;
     background: var(--color-gray-100) !important;
     font-weight: var(--weight-bold) !important;
@@ -2192,7 +2200,14 @@ picture {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.theme-select:hover {
+@media (hover: hover) and (pointer: fine) {
+    .theme-select:hover {
+        border-color: var(--color-primary) !important;
+        background: var(--color-gray-100) !important;
+    }
+}
+
+.theme-select:active {
     border-color: var(--color-primary) !important;
     background: var(--color-gray-100) !important;
 }
@@ -2302,7 +2317,16 @@ picture {
     width: 3px;
 }
 
-.demo-nav-link:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-nav-link:hover {
+        background: var(--color-gray-200) !important;
+        color: var(--color-white) !important;
+        border-left-color: var(--color-primary) !important;
+        padding-left: var(--space-4) !important;
+    }
+}
+
+.demo-nav-link:active {
     background: var(--color-gray-200) !important;
     color: var(--color-white) !important;
     border-left-color: var(--color-primary) !important;

@@ -283,7 +283,13 @@ a:hover {
     background: var(--color-bg-secondary);
 }
 
-.demo-logo:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-logo:hover {
+        background: var(--color-bg-tertiary);
+    }
+}
+
+.demo-logo:active {
     background: var(--color-bg-tertiary);
 }
 
@@ -312,7 +318,13 @@ a:hover {
     font-weight: 700 !important;
 }
 
-.theme-select:hover {
+@media (hover: hover) and (pointer: fine) {
+    .theme-select:hover {
+        border-color: var(--primary-400) !important;
+    }
+}
+
+.theme-select:active {
     border-color: var(--primary-400) !important;
 }
 
@@ -354,7 +366,15 @@ a:hover {
     border-left: 3px solid transparent;
 }
 
-.demo-nav-link:hover {
+@media (hover: hover) and (pointer: fine) {
+    .demo-nav-link:hover {
+        background: var(--color-bg-tertiary) !important;
+        color: #ffffff !important;
+        border-left-color: var(--primary-400) !important;
+    }
+}
+
+.demo-nav-link:active {
     background: var(--color-bg-tertiary) !important;
     color: #ffffff !important;
     border-left-color: var(--primary-400) !important;
