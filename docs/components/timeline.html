@@ -1099,6 +1099,166 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;div class="timeline"&gt;
+    &lt;div class="timeline-item"&gt;
+        &lt;div class="timeline-marker"&gt;&lt;/div&gt;
+        &lt;div class="timeline-content"&gt;
+            &lt;div class="timeline-time"&gt;2 hours ago&lt;/div&gt;
+            &lt;div class="timeline-title"&gt;Project Started&lt;/div&gt;
+            &lt;div class="timeline-description"&gt;Initial setup completed&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="timeline-item timeline-item-success"&gt;
+        &lt;div class="timeline-marker"&gt;
+            &lt;i data-lucide="check"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class="timeline-content"&gt;
+            &lt;div class="timeline-time"&gt;1 hour ago&lt;/div&gt;
+            &lt;div class="timeline-title"&gt;Task Completed&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const TimelineItem = ({ time, title, description, variant, icon }) => {
+  const itemClass = variant ? `timeline-item timeline-item-${variant}` : 'timeline-item';
+
+  return (
+    &lt;div className={itemClass}&gt;
+      &lt;div className="timeline-marker"&gt;
+        {icon && &lt;i data-lucide={icon} /&gt;}
+      &lt;/div&gt;
+      &lt;div className="timeline-content"&gt;
+        {time && &lt;div className="timeline-time"&gt;{time}&lt;/div&gt;}
+        {title && &lt;div className="timeline-title"&gt;{title}&lt;/div&gt;}
+        {description && &lt;div className="timeline-description"&gt;{description}&lt;/div&gt;}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+const Timeline = ({ items }) => (
+  &lt;div className="timeline"&gt;
+    {items.map((item, idx) => (
+      &lt;TimelineItem key={idx} {...item} /&gt;
+    ))}
+  &lt;/div&gt;
+);
+
+// Usage
+&lt;Timeline items={[
+  { time: '2 hours ago', title: 'Project Started', description: 'Initial setup' },
+  { time: '1 hour ago', title: 'Task Completed', variant: 'success', icon: 'check' }
+]} /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="timeline"&gt;
+    &lt;div
+      v-for="(item, idx) in items"
+      :key="idx"
+      :class="getItemClass(item.variant)"
+    &gt;
+      &lt;div class="timeline-marker"&gt;
+        &lt;i v-if="item.icon" :data-lucide="item.icon" /&gt;
+      &lt;/div&gt;
+      &lt;div class="timeline-content"&gt;
+        &lt;div v-if="item.time" class="timeline-time"&gt;{{ item.time }}&lt;/div&gt;
+        &lt;div v-if="item.title" class="timeline-title"&gt;{{ item.title }}&lt;/div&gt;
+        &lt;div v-if="item.description" class="timeline-description"&gt;
+          {{ item.description }}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    items: { type: Array, required: true }
+  },
+  methods: {
+    getItemClass(variant) {
+      return variant ? `timeline-item timeline-item-${variant}` : 'timeline-item';
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Timeline :items="[
+  { time: '2 hours ago', title: 'Project Started', description: 'Initial setup' },
+  { time: '1 hour ago', title: 'Task Completed', variant: 'success', icon: 'check' }
+]" /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let items = [];
+
+  function getItemClass(variant) {
+    return variant ? `timeline-item timeline-item-${variant}` : 'timeline-item';
+  }
+&lt;/script&gt;
+
+&lt;div class="timeline"&gt;
+  {#each items as item}
+    &lt;div class={getItemClass(item.variant)}&gt;
+      &lt;div class="timeline-marker"&gt;
+        {#if item.icon}
+          &lt;i data-lucide={item.icon} /&gt;
+        {/if}
+      &lt;/div&gt;
+      &lt;div class="timeline-content"&gt;
+        {#if item.time}
+          &lt;div class="timeline-time"&gt;{item.time}&lt;/div&gt;
+        {/if}
+        {#if item.title}
+          &lt;div class="timeline-title"&gt;{item.title}&lt;/div&gt;
+        {/if}
+        {#if item.description}
+          &lt;div class="timeline-description"&gt;{item.description}&lt;/div&gt;
+        {/if}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  {/each}
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Timeline items={[
+  { time: '2 hours ago', title: 'Project Started', description: 'Initial setup' },
+  { time: '1 hour ago', title: 'Task Completed', variant: 'success', icon: 'check' }
+]} /&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

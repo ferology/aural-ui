@@ -861,6 +861,157 @@ initDateRangePicker('#date-range-5', {
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="date-range-inputs"&gt;
+  &lt;input type="date" class="date-start" placeholder="Start date"&gt;
+  &lt;input type="date" class="date-end" placeholder="End date"&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const startInput = document.querySelector('.date-start');
+const endInput = document.querySelector('.date-end');
+
+startInput.addEventListener('change', (e) =&gt; {
+  endInput.min = e.target.value;
+});
+
+endInput.addEventListener('change', (e) =&gt; {
+  startInput.max = e.target.value;
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const DateRangePicker = ({ startDate, endDate, onChange }) =&gt; {
+  const [range, setRange] = useState({
+    start: startDate || '',
+    end: endDate || ''
+  });
+
+  const handleStartChange = (e) =&gt; {
+    const newRange = { ...range, start: e.target.value };
+    setRange(newRange);
+    onChange?.(newRange);
+  };
+
+  const handleEndChange = (e) =&gt; {
+    const newRange = { ...range, end: e.target.value };
+    setRange(newRange);
+    onChange?.(newRange);
+  };
+
+  return (
+    &lt;div className="date-range-picker"&gt;
+      &lt;input
+        type="date"
+        value={range.start}
+        onChange={handleStartChange}
+        max={range.end}
+      /&gt;
+      &lt;input
+        type="date"
+        value={range.end}
+        onChange={handleEndChange}
+        min={range.start}
+      /&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const [dateRange, setDateRange] = useState({ start: '', end: '' });
+&lt;DateRangePicker {...dateRange} onChange={setDateRange} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="date-range-picker"&gt;
+    &lt;input
+      type="date"
+      v-model="range.start"
+      :max="range.end"
+      @change="handleChange"
+    /&gt;
+    &lt;input
+      type="date"
+      v-model="range.end"
+      :min="range.start"
+      @change="handleChange"
+    /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    modelValue: { type: Object, default: () =&gt; ({ start: '', end: '' }) }
+  },
+  data() {
+    return {
+      range: { ...this.modelValue }
+    }
+  },
+  methods: {
+    handleChange() {
+      this.$emit('update:modelValue', this.range);
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { DateRangePicker } from '@aural-ui/svelte';
+
+  let startDate = new Date();
+  let endDate = new Date();
+&lt;/script&gt;
+
+&lt;!-- Basic date range picker --&gt;
+&lt;DateRangePicker
+  bind:startDate
+  bind:endDate
+/&gt;
+
+&lt;!-- With presets --&gt;
+&lt;DateRangePicker
+  bind:startDate
+  bind:endDate
+  presets={['Today', 'Last 7 days', 'Last 30 days', 'This month']}
+/&gt;
+
+&lt;!-- With min/max dates --&gt;
+&lt;DateRangePicker
+  bind:startDate
+  bind:endDate
+  min={new Date(2024, 0, 1)}
+  max={new Date(2024, 11, 31)}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <!-- Best Practices Section -->

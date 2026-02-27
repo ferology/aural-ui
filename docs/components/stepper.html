@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -873,6 +876,211 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="aural-stepper"&gt;
+    &lt;div class="aural-step aural-step--completed"&gt;
+        &lt;div class="aural-step__indicator"&gt;
+            &lt;i data-lucide="check"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-step__connector"&gt;&lt;/div&gt;
+        &lt;div class="aural-step__content"&gt;
+            &lt;div class="aural-step__title"&gt;Account&lt;/div&gt;
+            &lt;div class="aural-step__description"&gt;Create your account&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-step aural-step--active"&gt;
+        &lt;div class="aural-step__indicator" aria-current="step"&gt;2&lt;/div&gt;
+        &lt;div class="aural-step__connector"&gt;&lt;/div&gt;
+        &lt;div class="aural-step__content"&gt;
+            &lt;div class="aural-step__title"&gt;Profile&lt;/div&gt;
+            &lt;div class="aural-step__description"&gt;Add your details&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-step"&gt;
+        &lt;div class="aural-step__indicator"&gt;3&lt;/div&gt;
+        &lt;div class="aural-step__content"&gt;
+            &lt;div class="aural-step__title"&gt;Complete&lt;/div&gt;
+            &lt;div class="aural-step__description"&gt;Review and finish&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Stepper = ({ steps, currentStep }) =&gt; {
+  const getStepState = (index) =&gt; {
+    if (index &lt; currentStep) return 'completed';
+    if (index === currentStep) return 'active';
+    return 'pending';
+  };
+
+  return (
+    &lt;div className="aural-stepper"&gt;
+      {steps.map((step, index) =&gt; {
+        const state = getStepState(index);
+        return (
+          &lt;div
+            key={index}
+            className={`aural-step ${state !== 'pending' ? `aural-step--${state}` : ''}`}
+          &gt;
+            &lt;div
+              className="aural-step__indicator"
+              aria-current={state === 'active' ? 'step' : undefined}
+            &gt;
+              {state === 'completed' ? (
+                &lt;i data-lucide="check" /&gt;
+              ) : (
+                index + 1
+              )}
+            &lt;/div&gt;
+            {index &lt; steps.length - 1 && (
+              &lt;div className="aural-step__connector" /&gt;
+            )}
+            &lt;div className="aural-step__content"&gt;
+              &lt;div className="aural-step__title"&gt;{step.title}&lt;/div&gt;
+              &lt;div className="aural-step__description"&gt;{step.description}&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        );
+      })}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const steps = [
+  { title: 'Account', description: 'Create your account' },
+  { title: 'Profile', description: 'Add your details' },
+  { title: 'Complete', description: 'Review and finish' }
+];
+
+&lt;Stepper steps={steps} currentStep={1} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="aural-stepper"&gt;
+    &lt;div
+      v-for="(step, index) in steps"
+      :key="index"
+      :class="stepClasses(index)"
+    &gt;
+      &lt;div
+        class="aural-step__indicator"
+        :aria-current="index === currentStep ? 'step' : undefined"
+      &gt;
+        &lt;i v-if="index &lt; currentStep" data-lucide="check"&gt;&lt;/i&gt;
+        &lt;template v-else&gt;{{ index + 1 }}&lt;/template&gt;
+      &lt;/div&gt;
+      &lt;div v-if="index &lt; steps.length - 1" class="aural-step__connector"&gt;&lt;/div&gt;
+      &lt;div class="aural-step__content"&gt;
+        &lt;div class="aural-step__title"&gt;{{ step.title }}&lt;/div&gt;
+        &lt;div class="aural-step__description"&gt;{{ step.description }}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    steps: { type: Array, required: true },
+    currentStep: { type: Number, default: 0 }
+  },
+  methods: {
+    stepClasses(index) {
+      const classes = ['aural-step'];
+      if (index &lt; this.currentStep) classes.push('aural-step--completed');
+      if (index === this.currentStep) classes.push('aural-step--active');
+      return classes.join(' ');
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Stepper
+  :steps="[
+    { title: 'Account', description: 'Create your account' },
+    { title: 'Profile', description: 'Add your details' },
+    { title: 'Complete', description: 'Review and finish' }
+  ]"
+  :currentStep="1"
+/&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Stepper } from '@aural-ui/svelte';
+
+  const steps = [
+    { title: 'Account', description: 'Create your account' },
+    { title: 'Profile', description: 'Add your details' },
+    { title: 'Preferences', description: 'Set preferences' },
+    { title: 'Complete', description: 'Review and finish' }
+  ];
+
+  let currentStep = 1;
+&lt;/script&gt;
+
+&lt;!-- Basic stepper --&gt;
+&lt;Stepper {steps} {currentStep} /&gt;
+
+&lt;!-- Vertical stepper --&gt;
+&lt;Stepper {steps} {currentStep} vertical /&gt;
+
+&lt;!-- With icons --&gt;
+&lt;Stepper
+  steps={[
+    { icon: 'user', title: 'Sign Up' },
+    { icon: 'mail', title: 'Verify' },
+    { icon: 'settings', title: 'Setup' },
+    { icon: 'check-circle', title: 'Done' }
+  ]}
+  {currentStep}
+/&gt;
+
+&lt;!-- With step navigation --&gt;
+&lt;Stepper
+  {steps}
+  {currentStep}
+  on:stepClick={(e) =&gt; currentStep = e.detail}
+  clickable
+/&gt;
+
+&lt;!-- With error state --&gt;
+&lt;Stepper
+  steps={[
+    { title: 'Step 1', state: 'completed' },
+    { title: 'Step 2', state: 'error' },
+    { title: 'Step 3', state: 'pending' }
+  ]}
+  {currentStep}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -1089,5 +1297,7 @@
     <!-- Theme Manager -->
     <script src="../js/theme-manager.js"></script>
 
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 </body>
 </html>

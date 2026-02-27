@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -649,6 +652,164 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;nav class="pagination" aria-label="Pagination"&gt;
+    &lt;a href="#" class="pagination-prev" aria-label="Go to previous page"&gt;
+        &lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;
+        Previous
+    &lt;/a&gt;
+    &lt;a href="#" class="pagination-item" aria-label="Go to page 1"&gt;1&lt;/a&gt;
+    &lt;a href="#" class="pagination-item pagination-active" aria-current="page"&gt;2&lt;/a&gt;
+    &lt;a href="#" class="pagination-item" aria-label="Go to page 3"&gt;3&lt;/a&gt;
+    &lt;a href="#" class="pagination-next" aria-label="Go to next page"&gt;
+        Next
+        &lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  return (
+    &lt;nav className="pagination" aria-label="Pagination"&gt;
+      &lt;button
+        className="pagination-prev"
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        aria-label="Go to previous page"
+      &gt;
+        &lt;i data-lucide="chevron-left" /&gt;
+        Previous
+      &lt;/button&gt;
+
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+        &lt;button
+          key={page}
+          className={`pagination-item ${page === currentPage ? 'pagination-active' : ''}`}
+          onClick={() => onPageChange(page)}
+          aria-current={page === currentPage ? 'page' : undefined}
+          aria-label={`Go to page ${page}`}
+        &gt;
+          {page}
+        &lt;/button&gt;
+      ))}
+
+      &lt;button
+        className="pagination-next"
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        aria-label="Go to next page"
+      &gt;
+        Next
+        &lt;i data-lucide="chevron-right" /&gt;
+      &lt;/button&gt;
+    &lt;/nav&gt;
+  );
+};
+
+// Usage
+const [page, setPage] = useState(1);
+&lt;Pagination currentPage={page} totalPages={10} onPageChange={setPage} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;nav class="pagination" aria-label="Pagination"&gt;
+    &lt;button
+      class="pagination-prev"
+      @click="$emit('pageChange', currentPage - 1)"
+      :disabled="currentPage === 1"
+      aria-label="Go to previous page"
+    &gt;
+      &lt;i data-lucide="chevron-left" /&gt;
+      Previous
+    &lt;/button&gt;
+
+    &lt;button
+      v-for="page in totalPages"
+      :key="page"
+      :class="['pagination-item', { 'pagination-active': page === currentPage }]"
+      @click="$emit('pageChange', page)"
+      :aria-current="page === currentPage ? 'page' : undefined"
+      :aria-label="`Go to page ${page}`"
+    &gt;
+      {{ page }}
+    &lt;/button&gt;
+
+    &lt;button
+      class="pagination-next"
+      @click="$emit('pageChange', currentPage + 1)"
+      :disabled="currentPage === totalPages"
+      aria-label="Go to next page"
+    &gt;
+      Next
+      &lt;i data-lucide="chevron-right" /&gt;
+    &lt;/button&gt;
+  &lt;/nav&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    currentPage: { type: Number, required: true },
+    totalPages: { type: Number, required: true }
+  },
+  emits: ['pageChange']
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Pagination } from '@aural-ui/svelte';
+
+  let currentPage = 1;
+  const totalPages = 10;
+
+  function handlePageChange(e) {
+    currentPage = e.detail;
+    console.log('Page changed to:', currentPage);
+  }
+&lt;/script&gt;
+
+&lt;!-- Basic pagination --&gt;
+&lt;Pagination
+  {currentPage}
+  {totalPages}
+  on:pageChange={handlePageChange}
+/&gt;
+
+&lt;!-- With custom page size --&gt;
+&lt;Pagination
+  {currentPage}
+  {totalPages}
+  pageSize={20}
+  on:pageChange={handlePageChange}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -862,6 +1023,9 @@
     </script>
     <!-- Theme Manager -->
     <script src="../js/theme-manager.js"></script>
+
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 
 </body>
 </html>

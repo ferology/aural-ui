@@ -1029,6 +1029,120 @@ Aural.initDatePicker('date-picker-format-long', {
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;input type="date" class="date-picker" value="2026-02-26"&gt;
+
+&lt;script&gt;
+const picker = document.querySelector('.date-picker');
+picker.addEventListener('change', (e) =&gt; {
+  console.log('Date selected:', e.target.value);
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const DatePicker = ({ value, onChange, min, max }) =&gt; {
+  const [date, setDate] = useState(value || '');
+
+  const handleChange = (e) =&gt; {
+    const newDate = e.target.value;
+    setDate(newDate);
+    onChange?.(newDate);
+  };
+
+  return (
+    &lt;input
+      type="date"
+      className="date-picker"
+      value={date}
+      onChange={handleChange}
+      min={min}
+      max={max}
+    /&gt;
+  );
+};
+
+// Usage
+const [selectedDate, setSelectedDate] = useState('2026-02-26');
+&lt;DatePicker value={selectedDate} onChange={setSelectedDate} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;input
+    type="date"
+    class="date-picker"
+    v-model="date"
+    :min="min"
+    :max="max"
+    @change="handleChange"
+  /&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    modelValue: String,
+    min: String,
+    max: String
+  },
+  data() {
+    return {
+      date: this.modelValue || ''
+    }
+  },
+  methods: {
+    handleChange() {
+      this.$emit('update:modelValue', this.date);
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { DatePicker } from '@aural-ui/svelte';
+
+  let date = new Date();
+&lt;/script&gt;
+
+&lt;!-- Basic date picker --&gt;
+&lt;DatePicker bind:value={date} /&gt;
+
+&lt;!-- With min/max dates --&gt;
+&lt;DatePicker
+  bind:value={date}
+  min={new Date(2024, 0, 1)}
+  max={new Date(2024, 11, 31)}
+/&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;DatePicker bind:value={date} disabled /&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">

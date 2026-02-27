@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -639,6 +642,232 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="dropdown" id="my-dropdown"&gt;
+    &lt;button class="btn btn-primary dropdown-trigger" aria-expanded="false" aria-haspopup="true"&gt;
+        Options
+        &lt;i data-lucide="chevron-down"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    &lt;div class="dropdown-menu" role="menu" hidden&gt;
+        &lt;a href="#" class="dropdown-item" role="menuitem"&gt;Profile&lt;/a&gt;
+        &lt;a href="#" class="dropdown-item" role="menuitem"&gt;Settings&lt;/a&gt;
+        &lt;div class="dropdown-divider" role="separator"&gt;&lt;/div&gt;
+        &lt;a href="#" class="dropdown-item" role="menuitem"&gt;Sign Out&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Dropdown functionality is initialized by Aural.initDropdowns()
+// Or manually handle toggle:
+const trigger = document.querySelector('.dropdown-trigger');
+const menu = document.querySelector('.dropdown-menu');
+
+trigger.addEventListener('click', () =&gt; {
+    const expanded = trigger.getAttribute('aria-expanded') === 'true';
+    trigger.setAttribute('aria-expanded', !expanded);
+    menu.hidden = expanded;
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Dropdown = ({ label, items, variant = 'primary' }) =&gt; {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() =&gt; {
+    const handleClickOutside = (e) =&gt; {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () =&gt; document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  return (
+    &lt;div className="dropdown" ref={dropdownRef}&gt;
+      &lt;button
+        className={`btn btn-${variant} dropdown-trigger`}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        onClick={() =&gt; setIsOpen(!isOpen)}
+      &gt;
+        {label}
+        &lt;i data-lucide="chevron-down" /&gt;
+      &lt;/button&gt;
+      &lt;div className="dropdown-menu" role="menu" hidden={!isOpen}&gt;
+        {items.map((item, index) =&gt; (
+          item.divider ? (
+            &lt;div key={index} className="dropdown-divider" role="separator" /&gt;
+          ) : (
+            &lt;a
+              key={index}
+              href={item.href || '#'}
+              className={`dropdown-item ${item.danger ? 'dropdown-item-danger' : ''}`}
+              role="menuitem"
+              onClick={() =&gt; {
+                item.onClick?.();
+                setIsOpen(false);
+              }}
+            &gt;
+              {item.icon && &lt;i data-lucide={item.icon} /&gt;}
+              {item.label}
+            &lt;/a&gt;
+          )
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+&lt;Dropdown
+  label="Options"
+  items={[
+    { label: 'Profile', icon: 'user', onClick: () =&gt; console.log('Profile') },
+    { label: 'Settings', icon: 'settings' },
+    { divider: true },
+    { label: 'Sign Out', icon: 'log-out', danger: true }
+  ]}
+/&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="dropdown" ref="dropdown"&gt;
+    &lt;button
+      class="btn dropdown-trigger"
+      :class="`btn-${variant}`"
+      :aria-expanded="isOpen"
+      aria-haspopup="true"
+      @click="toggle"
+    &gt;
+      {{ label }}
+      &lt;i data-lucide="chevron-down"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    &lt;div class="dropdown-menu" role="menu" :hidden="!isOpen"&gt;
+      &lt;template v-for="(item, index) in items" :key="index"&gt;
+        &lt;div v-if="item.divider" class="dropdown-divider" role="separator"&gt;&lt;/div&gt;
+        &lt;a
+          v-else
+          href="#"
+          class="dropdown-item"
+          :class="{ 'dropdown-item-danger': item.danger }"
+          role="menuitem"
+          @click.prevent="handleItemClick(item)"
+        &gt;
+          &lt;i v-if="item.icon" :data-lucide="item.icon"&gt;&lt;/i&gt;
+          {{ item.label }}
+        &lt;/a&gt;
+      &lt;/template&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    label: { type: String, required: true },
+    items: { type: Array, required: true },
+    variant: { type: String, default: 'primary' }
+  },
+  data() {
+    return { isOpen: false };
+  },
+  methods: {
+    toggle() {
+      this.isOpen = !this.isOpen;
+    },
+    handleItemClick(item) {
+      item.onClick?.();
+      this.isOpen = false;
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Dropdown
+  label="Options"
+  :items="[
+    { label: 'Profile', icon: 'user' },
+    { label: 'Settings', icon: 'settings' },
+    { divider: true },
+    { label: 'Sign Out', icon: 'log-out', danger: true }
+  ]"
+/&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Dropdown } from '@aural-ui/svelte';
+
+  const menuItems = [
+    { label: 'Profile', icon: 'user' },
+    { label: 'Settings', icon: 'settings' },
+    { label: 'Help Center', icon: 'help-circle' },
+    { divider: true },
+    { label: 'Sign Out', icon: 'log-out', danger: true }
+  ];
+&lt;/script&gt;
+
+&lt;!-- Basic dropdown --&gt;
+&lt;Dropdown label="Options" items={menuItems} /&gt;
+
+&lt;!-- With variant --&gt;
+&lt;Dropdown label="Actions" items={menuItems} variant="secondary" /&gt;
+
+&lt;!-- Right-aligned --&gt;
+&lt;Dropdown label="Menu" items={menuItems} align="right" /&gt;
+
+&lt;!-- With icon trigger --&gt;
+&lt;Dropdown icon="more-vertical" items={menuItems} aria-label="More options" /&gt;
+
+&lt;!-- With item click handler --&gt;
+&lt;Dropdown
+  label="Options"
+  items={menuItems}
+  on:itemClick={(e) =&gt; console.log('Clicked:', e.detail.label)}
+/&gt;
+
+&lt;!-- Grouped dropdown --&gt;
+&lt;Dropdown
+  label="Settings"
+  items={[
+    { header: 'Account' },
+    { label: 'Profile', icon: 'user' },
+    { label: 'Security', icon: 'shield' },
+    { divider: true },
+    { header: 'Team' },
+    { label: 'Members', icon: 'users' },
+    { label: 'Invite', icon: 'user-plus' }
+  ]}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -962,5 +1191,7 @@
     <!-- Theme Manager -->
     <script src="../js/theme-manager.js"></script>
 
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 </body>
 </html>

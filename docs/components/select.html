@@ -745,6 +745,157 @@
         </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="form-group"&gt;
+  &lt;label for="country-select" class="form-label"&gt;Country&lt;/label&gt;
+  &lt;select id="country-select" class="form-select"&gt;
+    &lt;option value=""&gt;Select a country&lt;/option&gt;
+    &lt;option value="us"&gt;United States&lt;/option&gt;
+    &lt;option value="uk"&gt;United Kingdom&lt;/option&gt;
+    &lt;option value="ca"&gt;Canada&lt;/option&gt;
+    &lt;option value="au"&gt;Australia&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;
+
+&lt;!-- With custom styling --&gt;
+&lt;div class="select-wrapper"&gt;
+  &lt;select class="form-select"&gt;
+    &lt;option&gt;Option 1&lt;/option&gt;
+    &lt;option&gt;Option 2&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Select = ({ options, value, onChange, placeholder, disabled, ...props }) =&gt; {
+  return (
+    &lt;select
+      className="form-select"
+      value={value}
+      onChange={onChange}
+      disabled={disabled}
+      {...props}
+    &gt;
+      {placeholder &amp;&amp; &lt;option value=""&gt;{placeholder}&lt;/option&gt;}
+      {options.map((option) =&gt; (
+        &lt;option key={option.value} value={option.value} disabled={option.disabled}&gt;
+          {option.label}
+        &lt;/option&gt;
+      ))}
+    &lt;/select&gt;
+  );
+};
+
+// Usage
+const [country, setCountry] = useState('');
+const options = [
+  { value: 'us', label: 'United States' },
+  { value: 'uk', label: 'United Kingdom' },
+  { value: 'ca', label: 'Canada' }
+];
+
+&lt;Select
+  options={options}
+  value={country}
+  onChange={(e) =&gt; setCountry(e.target.value)}
+  placeholder="Select a country"
+/&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;select
+    class="form-select"
+    v-model="selected"
+    :disabled="disabled"
+  &gt;
+    &lt;option v-if="placeholder" value=""&gt;{{ placeholder }}&lt;/option&gt;
+    &lt;option
+      v-for="option in options"
+      :key="option.value"
+      :value="option.value"
+      :disabled="option.disabled"
+    &gt;
+      {{ option.label }}
+    &lt;/option&gt;
+  &lt;/select&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    options: Array,
+    selected: String,
+    placeholder: String,
+    disabled: Boolean
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Select v-model="country" :options="countryOptions" placeholder="Select a country" /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Select } from '@aural-ui/svelte';
+
+  let value = '';
+
+  const options = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+    { value: 'option4', label: 'Option 4', disabled: true }
+  ];
+&lt;/script&gt;
+
+&lt;!-- Basic select --&gt;
+&lt;Select
+  {options}
+  bind:value
+  placeholder="Select an option"
+/&gt;
+
+&lt;!-- Searchable select --&gt;
+&lt;Select
+  {options}
+  bind:value
+  searchable
+  placeholder="Search options..."
+/&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;Select
+  {options}
+  bind:value
+  disabled
+  placeholder="Disabled select"
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>

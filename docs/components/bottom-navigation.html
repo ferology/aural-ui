@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -770,6 +773,245 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;nav class="aural-bottom-nav" role="navigation" aria-label="Main navigation"&gt;
+    &lt;a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page"&gt;
+        &lt;i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Home&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="compass" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Explore&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item" aria-label="Notifications, 3 unread"&gt;
+        &lt;i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Notifications&lt;/span&gt;
+        &lt;span class="aural-bottom-nav__badge" aria-hidden="true"&gt;3&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="aural-bottom-nav__item"&gt;
+        &lt;i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
+        &lt;span class="aural-bottom-nav__label"&gt;Profile&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;script&gt;
+// Handle active state
+const navItems = document.querySelectorAll('.aural-bottom-nav__item');
+navItems.forEach(item =&gt; {
+    item.addEventListener('click', (e) =&gt; {
+        e.preventDefault();
+        navItems.forEach(i =&gt; {
+            i.classList.remove('aural-bottom-nav__item--active');
+            i.removeAttribute('aria-current');
+        });
+        item.classList.add('aural-bottom-nav__item--active');
+        item.setAttribute('aria-current', 'page');
+    });
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const BottomNavigation = ({ items, activeIndex, onItemClick }) =&gt; {
+  const [active, setActive] = useState(activeIndex || 0);
+
+  const handleClick = (index) =&gt; {
+    setActive(index);
+    onItemClick?.(index);
+  };
+
+  return (
+    &lt;nav className="aural-bottom-nav" role="navigation" aria-label="Main navigation"&gt;
+      {items.map((item, index) =&gt; (
+        &lt;a
+          key={index}
+          href={item.href || '#'}
+          className={`aural-bottom-nav__item ${active === index ? 'aural-bottom-nav__item--active' : ''}`}
+          aria-current={active === index ? 'page' : undefined}
+          aria-label={item.badge ? `${item.label}, ${item.badge} unread` : item.label}
+          onClick={(e) =&gt; {
+            e.preventDefault();
+            handleClick(index);
+          }}
+        &gt;
+          &lt;i data-lucide={item.icon} className="aural-bottom-nav__icon" aria-hidden="true" /&gt;
+          &lt;span className="aural-bottom-nav__label"&gt;{item.label}&lt;/span&gt;
+          {item.badge && (
+            &lt;span className="aural-bottom-nav__badge" aria-hidden="true"&gt;
+              {item.badge}
+            &lt;/span&gt;
+          )}
+        &lt;/a&gt;
+      ))}
+    &lt;/nav&gt;
+  );
+};
+
+// Usage
+const navItems = [
+  { label: 'Home', icon: 'home', href: '/' },
+  { label: 'Explore', icon: 'compass', href: '/explore' },
+  { label: 'Notifications', icon: 'bell', href: '/notifications', badge: 3 },
+  { label: 'Profile', icon: 'user', href: '/profile' }
+];
+
+&lt;BottomNavigation
+  items={navItems}
+  activeIndex={0}
+  onItemClick={(index) =&gt; console.log('Clicked:', index)}
+/&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;nav class="aural-bottom-nav" role="navigation" aria-label="Main navigation"&gt;
+    &lt;a
+      v-for="(item, index) in items"
+      :key="index"
+      :href="item.href || '#'"
+      class="aural-bottom-nav__item"
+      :class="{ 'aural-bottom-nav__item--active': activeIndex === index }"
+      :aria-current="activeIndex === index ? 'page' : undefined"
+      :aria-label="item.badge ? `${item.label}, ${item.badge} unread` : undefined"
+      @click.prevent="handleClick(index)"
+    &gt;
+      &lt;i :data-lucide="item.icon" class="aural-bottom-nav__icon" aria-hidden="true"&gt;&lt;/i&gt;
+      &lt;span class="aural-bottom-nav__label"&gt;{{ item.label }}&lt;/span&gt;
+      &lt;span v-if="item.badge" class="aural-bottom-nav__badge" aria-hidden="true"&gt;
+        {{ item.badge }}
+      &lt;/span&gt;
+    &lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    items: { type: Array, required: true },
+    modelValue: { type: Number, default: 0 }
+  },
+  emits: ['update:modelValue', 'itemClick'],
+  computed: {
+    activeIndex: {
+      get() { return this.modelValue; },
+      set(value) { this.$emit('update:modelValue', value); }
+    }
+  },
+  methods: {
+    handleClick(index) {
+      this.activeIndex = index;
+      this.$emit('itemClick', index);
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;BottomNavigation
+  :items="[
+    { label: 'Home', icon: 'home' },
+    { label: 'Explore', icon: 'compass' },
+    { label: 'Notifications', icon: 'bell', badge: 3 },
+    { label: 'Profile', icon: 'user' }
+  ]"
+  v-model="activeTab"
+  @itemClick="handleNavigation"
+/&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { BottomNavigation } from '@aural-ui/svelte';
+
+  const navItems = [
+    { label: 'Home', icon: 'home' },
+    { label: 'Explore', icon: 'compass' },
+    { label: 'Notifications', icon: 'bell', badge: 3 },
+    { label: 'Profile', icon: 'user' }
+  ];
+
+  let activeIndex = 0;
+&lt;/script&gt;
+
+&lt;!-- Basic bottom navigation --&gt;
+&lt;BottomNavigation items={navItems} bind:activeIndex /&gt;
+
+&lt;!-- Compact variant (icon only) --&gt;
+&lt;BottomNavigation items={navItems} bind:activeIndex compact /&gt;
+
+&lt;!-- With FAB --&gt;
+&lt;BottomNavigation
+  items={[
+    { label: 'Feed', icon: 'home' },
+    { label: 'Discover', icon: 'search' },
+    { fab: true, icon: 'plus', ariaLabel: 'Create new post' },
+    { label: 'Activity', icon: 'heart', badge: 8 },
+    { label: 'Profile', icon: 'user' }
+  ]}
+  bind:activeIndex
+  withFab
+/&gt;
+
+&lt;!-- With badge variants --&gt;
+&lt;BottomNavigation
+  items={[
+    { label: 'Home', icon: 'home' },
+    { label: 'Messages', icon: 'message-circle', badge: 12, badgePulse: true },
+    { label: 'Alerts', icon: 'bell', badgeDot: true },
+    { label: 'Profile', icon: 'user' }
+  ]}
+  bind:activeIndex
+/&gt;
+
+&lt;!-- Color variants --&gt;
+&lt;BottomNavigation items={navItems} bind:activeIndex variant="primary" /&gt;
+&lt;BottomNavigation items={navItems} bind:activeIndex variant="dark" /&gt;
+&lt;BottomNavigation items={navItems} bind:activeIndex variant="blur" /&gt;
+
+&lt;!-- Mobile-only visibility --&gt;
+&lt;BottomNavigation items={navItems} bind:activeIndex mobileOnly /&gt;
+
+&lt;!-- With item click handler --&gt;
+&lt;BottomNavigation
+  items={navItems}
+  bind:activeIndex
+  on:itemClick={(e) =&gt; console.log('Navigated to:', e.detail.index)}
+/&gt;
+
+&lt;!-- E-commerce pattern --&gt;
+&lt;BottomNavigation
+  items={[
+    { label: 'Home', icon: 'home' },
+    { label: 'Categories', icon: 'grid-3x3' },
+    { label: 'Cart', icon: 'shopping-cart', badge: 2 },
+    { label: 'Account', icon: 'user-circle' }
+  ]}
+  bind:activeIndex
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -1047,5 +1289,7 @@
     <!-- Theme Manager -->
     <script src="../js/theme-manager.js"></script>
 
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 </body>
 </html>

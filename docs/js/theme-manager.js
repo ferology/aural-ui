@@ -7,7 +7,7 @@
 (function(window) {
     'use strict';
 
-    // Theme configuration
+    // Theme configuration - 7 themes showcasing token system flexibility
     const THEMES = {
         'dark': {
             name: 'Dark',
@@ -28,29 +28,28 @@
             components: ['fonts-neon.css', 'deluxe-neon.css'],
             scripts: ['neon-effects.js']
         },
-        'neon-refined': {
-            name: 'Neon Refined',
-            file: 'neon-refined.css',
-            icon: 'gem',
-            components: ['fonts-neon.css', 'buttons-refined.css', 'cards-refined.css'],
-            scripts: ['neon-effects.js']
-        },
         'kinetic': {
             name: 'Kinetic',
             file: 'kinetic.css',
             icon: 'move',
             components: ['kinetic-buttons.css', 'kinetic-cards.css']
         },
-        'high-contrast': {
-            name: 'High Contrast',
-            file: 'high-contrast.css',
-            icon: 'zap',
+        'prismatic': {
+            name: 'Prismatic',
+            file: 'prismatic.css',
+            icon: 'gem',
             components: []
         },
-        'colorblind': {
-            name: 'Colorblind-Friendly',
-            file: 'colorblind-friendly.css',
-            icon: 'palette',
+        'minimal': {
+            name: 'Minimal',
+            file: 'minimal.css',
+            icon: 'square',
+            components: []
+        },
+        'warm': {
+            name: 'Warm',
+            file: 'warm.css',
+            icon: 'coffee',
             components: []
         }
     };

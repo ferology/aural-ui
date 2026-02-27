@@ -863,6 +863,174 @@ Aural.initMultiSelect('team-multi-select', {
         </div>
             </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="multi-select"&gt;
+  &lt;select multiple class="form-select" size="5"&gt;
+    &lt;option value="option1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="option2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="option3"&gt;Option 3&lt;/option&gt;
+    &lt;option value="option4"&gt;Option 4&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const select = document.querySelector('.form-select');
+select.addEventListener('change', (e) =&gt; {
+  const selected = Array.from(e.target.selectedOptions).map(opt =&gt; opt.value);
+  console.log('Selected:', selected);
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const MultiSelect = ({ options, value, onChange, placeholder, ...props }) =&gt; {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState(value || []);
+
+  const toggleOption = (optionValue) =&gt; {
+    const newSelected = selected.includes(optionValue)
+      ? selected.filter(v =&gt; v !== optionValue)
+      : [...selected, optionValue];
+    setSelected(newSelected);
+    onChange?.(newSelected);
+  };
+
+  return (
+    &lt;div className="multi-select"&gt;
+      &lt;button onClick={() =&gt; setIsOpen(!isOpen)}&gt;
+        {selected.length ? `${selected.length} selected` : placeholder}
+      &lt;/button&gt;
+      {isOpen &amp;&amp; (
+        &lt;div className="multi-select-dropdown"&gt;
+          {options.map(opt =&gt; (
+            &lt;label key={opt.value}&gt;
+              &lt;input
+                type="checkbox"
+                checked={selected.includes(opt.value)}
+                onChange={() =&gt; toggleOption(opt.value)}
+              /&gt;
+              {opt.label}
+            &lt;/label&gt;
+          ))}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const [selected, setSelected] = useState([]);
+&lt;MultiSelect
+  options={options}
+  value={selected}
+  onChange={setSelected}
+  placeholder="Select options"
+/&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="multi-select"&gt;
+    &lt;button @click="isOpen = !isOpen"&gt;
+      {{ selectedText }}
+    &lt;/button&gt;
+    &lt;div v-if="isOpen" class="multi-select-dropdown"&gt;
+      &lt;label v-for="option in options" :key="option.value"&gt;
+        &lt;input
+          type="checkbox"
+          :value="option.value"
+          v-model="selected"
+        /&gt;
+        {{ option.label }}
+      &lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    options: Array,
+    modelValue: Array,
+    placeholder: { type: String, default: 'Select options' }
+  },
+  data() {
+    return {
+      isOpen: false,
+      selected: this.modelValue || []
+    }
+  },
+  computed: {
+    selectedText() {
+      return this.selected.length
+        ? `${this.selected.length} selected`
+        : this.placeholder;
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { MultiSelect } from '@aural-ui/svelte';
+
+  let selected = [];
+
+  const options = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+    { value: 'option4', label: 'Option 4' }
+  ];
+&lt;/script&gt;
+
+&lt;!-- Basic multi-select --&gt;
+&lt;MultiSelect
+  {options}
+  bind:value={selected}
+  placeholder="Select options"
+/&gt;
+
+&lt;!-- With search --&gt;
+&lt;MultiSelect
+  {options}
+  bind:value={selected}
+  searchable
+  placeholder="Search and select..."
+/&gt;
+
+&lt;!-- With tags display --&gt;
+&lt;MultiSelect
+  {options}
+  bind:value={selected}
+  showTags
+  placeholder="Select multiple"
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
             <!-- Guidelines Tab Panel -->
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>

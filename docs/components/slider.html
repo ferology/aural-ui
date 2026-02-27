@@ -636,6 +636,137 @@ slider.addEventListener('input', (e) =&gt; {
         </div>
             </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="aural-slider"&gt;
+  &lt;label class="aural-slider__label"&gt;
+    &lt;span&gt;Volume&lt;/span&gt;
+    &lt;span class="aural-slider__value"&gt;50&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;input
+    type="range"
+    class="aural-slider__input"
+    min="0"
+    max="100"
+    value="50"
+    step="1"
+  /&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const slider = document.querySelector('.aural-slider__input');
+const valueDisplay = document.querySelector('.aural-slider__value');
+
+slider.addEventListener('input', (e) =&gt; {
+  valueDisplay.textContent = e.target.value;
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Slider = ({ min = 0, max = 100, value, onChange, label, step = 1 }) =&gt; {
+  return (
+    &lt;div className="aural-slider"&gt;
+      &lt;label className="aural-slider__label"&gt;
+        &lt;span&gt;{label}&lt;/span&gt;
+        &lt;span className="aural-slider__value"&gt;{value}&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;input
+        type="range"
+        className="aural-slider__input"
+        min={min}
+        max={max}
+        value={value}
+        step={step}
+        onChange={(e) =&gt; onChange?.(Number(e.target.value))}
+      /&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const [volume, setVolume] = useState(50);
+&lt;Slider label="Volume" value={volume} onChange={setVolume} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="aural-slider"&gt;
+    &lt;label class="aural-slider__label"&gt;
+      &lt;span&gt;{{ label }}&lt;/span&gt;
+      &lt;span class="aural-slider__value"&gt;{{ modelValue }}&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;input
+      type="range"
+      class="aural-slider__input"
+      :min="min"
+      :max="max"
+      :value="modelValue"
+      :step="step"
+      @input="$emit('update:modelValue', Number($event.target.value))"
+    /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    label: String,
+    modelValue: Number,
+    min: { type: Number, default: 0 },
+    max: { type: Number, default: 100 },
+    step: { type: Number, default: 1 }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Slider } from '@aural-ui/svelte';
+
+  let value = 50;
+&lt;/script&gt;
+
+&lt;!-- Basic slider --&gt;
+&lt;Slider bind:value min={0} max={100} /&gt;
+
+&lt;!-- With step --&gt;
+&lt;Slider bind:value min={0} max={100} step={5} /&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;Slider bind:value min={0} max={100} disabled /&gt;
+
+&lt;!-- With change event --&gt;
+&lt;Slider
+  bind:value
+  min={0}
+  max={100}
+  on:change={(e) =&gt; console.log('Value:', e.detail)}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
         <!-- Best Practices Section -->

@@ -723,6 +723,153 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;div class="card"&gt;
+    &lt;div class="card-header"&gt;
+        &lt;h3 class="card-title"&gt;Card Title&lt;/h3&gt;
+        &lt;span class="badge badge-success"&gt;Active&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="card-body"&gt;
+        &lt;p&gt;Card content goes here&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="card-footer"&gt;
+        &lt;button class="btn btn-primary btn-sm"&gt;Action&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Card = ({ title, badge, children, actions }) => {
+  return (
+    &lt;div className="card"&gt;
+      {(title || badge) && (
+        &lt;div className="card-header"&gt;
+          {title && &lt;h3 className="card-title"&gt;{title}&lt;/h3&gt;}
+          {badge && &lt;span className={`badge badge-${badge.variant}`}&gt;{badge.text}&lt;/span&gt;}
+        &lt;/div&gt;
+      )}
+      &lt;div className="card-body"&gt;
+        {children}
+      &lt;/div&gt;
+      {actions && (
+        &lt;div className="card-footer"&gt;
+          {actions}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+&lt;Card
+  title="Card Title"
+  badge={{ variant: 'success', text: 'Active' }}
+  actions={&lt;button className="btn btn-primary btn-sm"&gt;Action&lt;/button&gt;}
+&gt;
+  &lt;p&gt;Card content goes here&lt;/p&gt;
+&lt;/Card&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="card"&gt;
+    &lt;div v-if="title || badge" class="card-header"&gt;
+      &lt;h3 v-if="title" class="card-title"&gt;{{ title }}&lt;/h3&gt;
+      &lt;span v-if="badge" :class="`badge badge-${badge.variant}`"&gt;
+        {{ badge.text }}
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="card-body"&gt;
+      &lt;slot /&gt;
+    &lt;/div&gt;
+    &lt;div v-if="$slots.actions" class="card-footer"&gt;
+      &lt;slot name="actions" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    title: String,
+    badge: Object
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Card
+  title="Card Title"
+  :badge="{ variant: 'success', text: 'Active' }"
+&gt;
+  &lt;p&gt;Card content goes here&lt;/p&gt;
+  &lt;template #actions&gt;
+    &lt;button class="btn btn-primary btn-sm"&gt;Action&lt;/button&gt;
+  &lt;/template&gt;
+&lt;/Card&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let title = '';
+  export let badge = null;
+&lt;/script&gt;
+
+&lt;div class="card"&gt;
+  {#if title || badge}
+    &lt;div class="card-header"&gt;
+      {#if title}
+        &lt;h3 class="card-title"&gt;{title}&lt;/h3&gt;
+      {/if}
+      {#if badge}
+        &lt;span class="badge badge-{badge.variant}"&gt;{badge.text}&lt;/span&gt;
+      {/if}
+    &lt;/div&gt;
+  {/if}
+  &lt;div class="card-body"&gt;
+    &lt;slot /&gt;
+  &lt;/div&gt;
+  {#if $$slots.actions}
+    &lt;div class="card-footer"&gt;
+      &lt;slot name="actions" /&gt;
+    &lt;/div&gt;
+  {/if}
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Card
+  title="Card Title"
+  badge={{ variant: 'success', text: 'Active' }}
+&gt;
+  &lt;p&gt;Card content goes here&lt;/p&gt;
+  &lt;button slot="actions" class="btn btn-primary btn-sm"&gt;Action&lt;/button&gt;
+&lt;/Card&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

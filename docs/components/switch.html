@@ -506,6 +506,140 @@
             </div>
         </div>
         </div>
+
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;label class="switch"&gt;
+  &lt;input type="checkbox" class="switch__input" role="switch"&gt;
+  &lt;div class="switch__track"&gt;
+    &lt;div class="switch__thumb"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="switch__label"&gt;Enable notifications&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;label class="switch"&gt;
+  &lt;input type="checkbox" class="switch__input" role="switch" disabled&gt;
+  &lt;div class="switch__track"&gt;
+    &lt;div class="switch__thumb"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="switch__label"&gt;Disabled switch&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Switch = ({ checked, onChange, disabled, children, ...props }) =&gt; {
+  return (
+    &lt;label className="switch"&gt;
+      &lt;input
+        type="checkbox"
+        className="switch__input"
+        role="switch"
+        checked={checked}
+        onChange={onChange}
+        disabled={disabled}
+        {...props}
+      /&gt;
+      &lt;div className="switch__track"&gt;
+        &lt;div className="switch__thumb"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;span className="switch__label"&gt;{children}&lt;/span&gt;
+    &lt;/label&gt;
+  );
+};
+
+// Usage
+const [enabled, setEnabled] = useState(false);
+
+&lt;Switch checked={enabled} onChange={(e) =&gt; setEnabled(e.target.checked)}&gt;
+  Enable notifications
+&lt;/Switch&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;label class="switch"&gt;
+    &lt;input
+      type="checkbox"
+      class="switch__input"
+      role="switch"
+      v-model="checked"
+      :disabled="disabled"
+    /&gt;
+    &lt;div class="switch__track"&gt;
+      &lt;div class="switch__thumb"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;span class="switch__label"&gt;
+      &lt;slot /&gt;
+    &lt;/span&gt;
+  &lt;/label&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    checked: Boolean,
+    disabled: Boolean
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Switch v-model="enabled"&gt;Enable notifications&lt;/Switch&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Switch } from '@aural-ui/svelte';
+
+  let enabled = false;
+&lt;/script&gt;
+
+&lt;!-- Basic switch --&gt;
+&lt;Switch bind:checked={enabled}&gt;
+  Enable notifications
+&lt;/Switch&gt;
+
+&lt;!-- With label prop --&gt;
+&lt;Switch
+  bind:checked={enabled}
+  label="Dark mode"
+/&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;Switch checked disabled&gt;
+  Disabled switch
+&lt;/Switch&gt;
+
+&lt;!-- With change event --&gt;
+&lt;Switch
+  bind:checked={enabled}
+  on:change={(e) =&gt; console.log('Toggled:', e.detail)}
+&gt;
+  Auto-save
+&lt;/Switch&gt;</code></pre>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="../aural-ui.js?v=1769438626"></script>

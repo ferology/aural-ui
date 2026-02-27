@@ -576,6 +576,141 @@ function simulateLoading() {
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;!-- Text skeleton --&gt;
+&lt;div class="skeleton skeleton-text"&gt;&lt;/div&gt;
+
+&lt;!-- Avatar skeleton --&gt;
+&lt;div class="skeleton skeleton-avatar"&gt;&lt;/div&gt;
+
+&lt;!-- Card skeleton --&gt;
+&lt;div class="card"&gt;
+    &lt;div class="skeleton skeleton-image" style="height: 200px;"&gt;&lt;/div&gt;
+    &lt;div class="card-body"&gt;
+        &lt;div class="skeleton skeleton-text"&gt;&lt;/div&gt;
+        &lt;div class="skeleton skeleton-text" style="width: 80%;"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Skeleton = ({ type = 'text', width, height, style }) => {
+  const className = `skeleton skeleton-${type}`;
+  const inlineStyle = {
+    width,
+    height,
+    ...style
+  };
+
+  return &lt;div className={className} style={inlineStyle} aria-busy="true" /&gt;;
+};
+
+const SkeletonCard = () => (
+  &lt;div className="card"&gt;
+    &lt;Skeleton type="image" height="200px" /&gt;
+    &lt;div className="card-body"&gt;
+      &lt;Skeleton type="text" /&gt;
+      &lt;Skeleton type="text" width="80%" /&gt;
+      &lt;Skeleton type="text" width="60%" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+);
+
+// Usage
+&lt;Skeleton type="text" /&gt;
+&lt;Skeleton type="avatar" /&gt;
+&lt;SkeletonCard /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div :class="`skeleton skeleton-${type}`" :style="skeletonStyle" aria-busy="true" /&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    type: { type: String, default: 'text' },
+    width: String,
+    height: String
+  },
+  computed: {
+    skeletonStyle() {
+      return {
+        width: this.width,
+        height: this.height
+      };
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Skeleton type="text" /&gt;
+&lt;Skeleton type="avatar" /&gt;
+&lt;div class="card"&gt;
+  &lt;Skeleton type="image" height="200px" /&gt;
+  &lt;div class="card-body"&gt;
+    &lt;Skeleton type="text" /&gt;
+    &lt;Skeleton type="text" width="80%" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let type = 'text';
+  export let width = '';
+  export let height = '';
+
+  $: skeletonStyle = [
+    width && `width: ${width}`,
+    height && `height: ${height}`
+  ].filter(Boolean).join('; ');
+&lt;/script&gt;
+
+&lt;div
+  class="skeleton skeleton-{type}"
+  style={skeletonStyle}
+  aria-busy="true"
+/&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Skeleton type="text" /&gt;
+&lt;Skeleton type="avatar" /&gt;
+&lt;div class="card"&gt;
+  &lt;Skeleton type="image" height="200px" /&gt;
+  &lt;div class="card-body"&gt;
+    &lt;Skeleton type="text" /&gt;
+    &lt;Skeleton type="text" width="80%" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

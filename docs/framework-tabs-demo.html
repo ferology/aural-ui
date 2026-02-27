@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framework Tabs Demo - Carbon Design System Style</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="./styles/page-common.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-subtitle {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .demo-section {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+
+        .demo-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-4);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-4) 0;
+        }
+
+        .feature-list li {
+            padding: var(--space-2) 0;
+            color: var(--color-text-secondary);
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: var(--color-primary);
+            font-weight: bold;
+            margin-right: var(--space-2);
+        }
+
+        .code-preview {
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            margin-top: var(--space-4);
+        }
+
+        .highlight-box {
+            background: rgba(94, 189, 143, 0.1);
+            border-left: 3px solid var(--color-primary);
+            padding: var(--space-4);
+            margin: var(--space-4) 0;
+            border-radius: var(--radius-sm);
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--color-text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Framework Tabs - Carbon Design System Style</h1>
+            <p class="page-subtitle">
+                Modern, professional tab design inspired by IBM's Carbon Design System,
+                featuring smooth transitions, clean borders, and enhanced accessibility.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-label">Design Features</div>
+            <ul class="feature-list">
+                <li>Clean underline active indicator with smooth animation</li>
+                <li>Subtle hover states with background transitions</li>
+                <li>Carbon-inspired cubic-bezier timing functions (0.2, 0, 0.38, 0.9)</li>
+                <li>Framework-specific icons for visual identification</li>
+                <li>Responsive design with horizontal scrolling on mobile</li>
+                <li>Enhanced focus states for keyboard navigation</li>
+                <li>Smooth panel transitions with fade-in animations</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-label">Interactive Demo</div>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-demo-panel" id="vanilla-demo-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-demo-panel" id="react-demo-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-demo-panel" id="vue-demo-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-demo-panel" id="svelte-demo-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-demo-panel" aria-labelledby="vanilla-demo-tab">
+                    <div class="highlight-box">
+                        <p><strong>Vanilla JavaScript</strong> - Pure HTML and JavaScript implementation</p>
+                    </div>
+                    <pre><code class="language-html">&lt;!-- Simple, no build step required --&gt;
+&lt;button class="btn btn-primary"&gt;Click me&lt;/button&gt;
+&lt;button class="btn btn-secondary"&gt;Cancel&lt;/button&gt;
+&lt;button class="btn btn-danger"&gt;Delete&lt;/button&gt;
+
+&lt;script&gt;
+  // Add event listeners
+  document.querySelector('.btn-primary').addEventListener('click', () => {
+    console.log('Button clicked!');
+  });
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-demo-panel" aria-labelledby="react-demo-tab" hidden>
+                    <div class="highlight-box">
+                        <p><strong>React</strong> - Component-based with hooks and props</p>
+                    </div>
+                    <pre><code class="language-jsx">import React from 'react';
+import { Button } from '@aural-ui/react';
+
+const MyComponent = () => {
+  const handleClick = () => {
+    console.log('Button clicked!');
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;Button variant="primary" onClick={handleClick}&gt;
+        Click me
+      &lt;/Button&gt;
+      &lt;Button variant="secondary"&gt;Cancel&lt;/Button&gt;
+      &lt;Button variant="danger"&gt;Delete&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default MyComponent;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-demo-panel" aria-labelledby="vue-demo-tab" hidden>
+                    <div class="highlight-box">
+                        <p><strong>Vue</strong> - Template-driven with reactive data binding</p>
+                    </div>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;Button variant="primary" @click="handleClick"&gt;
+      Click me
+    &lt;/Button&gt;
+    &lt;Button variant="secondary"&gt;Cancel&lt;/Button&gt;
+    &lt;Button variant="danger"&gt;Delete&lt;/Button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { Button } from '@aural-ui/vue';
+
+export default {
+  components: { Button },
+  methods: {
+    handleClick() {
+      console.log('Button clicked!');
+    }
+  }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-demo-panel" aria-labelledby="svelte-demo-tab" hidden>
+                    <div class="highlight-box">
+                        <p><strong>Svelte</strong> - Compiled, minimal runtime overhead</p>
+                    </div>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Button } from '@aural-ui/svelte';
+
+  function handleClick() {
+    console.log('Button clicked!');
+  }
+&lt;/script&gt;
+
+&lt;div&gt;
+  &lt;Button variant="primary" on:click={handleClick}&gt;
+    Click me
+  &lt;/Button&gt;
+  &lt;Button variant="secondary"&gt;Cancel&lt;/Button&gt;
+  &lt;Button variant="danger"&gt;Delete&lt;/Button&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-label">CSS Implementation Details</div>
+            <div class="code-preview">
+                <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+                    The new tab styles are defined in <code>page-common.css</code> and include:
+                </p>
+                <ul class="feature-list">
+                    <li>Smooth cubic-bezier transitions matching Carbon Design System</li>
+                    <li>3px underline for active state with slide-in animation</li>
+                    <li>Framework-specific icon indicators (::before pseudo-elements)</li>
+                    <li>Horizontal scroll on mobile with hidden scrollbars</li>
+                    <li>Enhanced accessibility with proper ARIA attributes</li>
+                    <li>Reduced motion support for accessibility</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-label">Keyboard Navigation</div>
+            <div class="highlight-box">
+                <p>
+                    Try navigating with your keyboard: Use <code>Tab</code> to focus tabs,
+                    <code>Enter</code> or <code>Space</code> to activate, and
+                    <code>Shift+Tab</code> to go back. Notice the clear focus indicators!
+                </p>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-label">Compatibility</div>
+            <p style="color: var(--color-text-secondary); margin: 0;">
+                The existing JavaScript in <code>doc-utils.js</code> remains fully compatible.
+                No changes needed to the tab switching logic - all functionality is preserved
+                while the visual design has been completely modernized.
+            </p>
+        </div>
+    </div>
+
+    <!-- Doc Utils -->
+    <script src="./doc-utils.js"></script>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

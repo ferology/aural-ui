@@ -484,6 +484,129 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;button
+    class="btn btn-primary"
+    data-tooltip="This is a helpful tooltip"
+    data-tooltip-position="top"
+&gt;
+    Hover me
+&lt;/button&gt;
+
+&lt;!-- With custom color --&gt;
+&lt;button
+    class="btn btn-secondary"
+    data-tooltip="Warning message"
+    data-tooltip-position="right"
+    data-tooltip-color="warning"
+&gt;
+    Warning
+&lt;/button&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Tooltip = ({ children, text, position = 'top', color }) => {
+  return (
+    &lt;span
+      data-tooltip={text}
+      data-tooltip-position={position}
+      data-tooltip-color={color}
+    &gt;
+      {children}
+    &lt;/span&gt;
+  );
+};
+
+// Usage
+&lt;Tooltip text="This is a helpful tooltip" position="top"&gt;
+  &lt;button className="btn btn-primary"&gt;Hover me&lt;/button&gt;
+&lt;/Tooltip&gt;
+
+&lt;Tooltip text="Warning message" position="right" color="warning"&gt;
+  &lt;button className="btn btn-secondary"&gt;Warning&lt;/button&gt;
+&lt;/Tooltip&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;span
+    :data-tooltip="text"
+    :data-tooltip-position="position"
+    :data-tooltip-color="color"
+  &gt;
+    &lt;slot /&gt;
+  &lt;/span&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    text: { type: String, required: true },
+    position: { type: String, default: 'top' },
+    color: String
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Tooltip text="This is a helpful tooltip" position="top"&gt;
+  &lt;button class="btn btn-primary"&gt;Hover me&lt;/button&gt;
+&lt;/Tooltip&gt;
+
+&lt;Tooltip text="Warning message" position="right" color="warning"&gt;
+  &lt;button class="btn btn-secondary"&gt;Warning&lt;/button&gt;
+&lt;/Tooltip&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let text = '';
+  export let position = 'top';
+  export let color = '';
+&lt;/script&gt;
+
+&lt;span
+  data-tooltip={text}
+  data-tooltip-position={position}
+  data-tooltip-color={color || undefined}
+&gt;
+  &lt;slot /&gt;
+&lt;/span&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Tooltip text="This is a helpful tooltip" position="top"&gt;
+  &lt;button class="btn btn-primary"&gt;Hover me&lt;/button&gt;
+&lt;/Tooltip&gt;
+
+&lt;Tooltip text="Warning message" position="right" color="warning"&gt;
+  &lt;button class="btn btn-secondary"&gt;Warning&lt;/button&gt;
+&lt;/Tooltip&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

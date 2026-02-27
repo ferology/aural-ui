@@ -401,6 +401,232 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;button class="btn btn-primary" onclick="openDrawer()"&gt;Open Drawer&lt;/button&gt;
+
+&lt;div class="drawer-overlay" id="my-drawer"&gt;
+    &lt;div class="drawer drawer-right"&gt;
+        &lt;button class="drawer-close" onclick="closeDrawer()" aria-label="Close drawer"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div class="drawer-header"&gt;
+            &lt;h2 class="drawer-title"&gt;Drawer Title&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class="drawer-body"&gt;
+            &lt;p&gt;Drawer content goes here.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="drawer-footer"&gt;
+            &lt;button class="btn btn-ghost" onclick="closeDrawer()"&gt;Close&lt;/button&gt;
+            &lt;button class="btn btn-primary" onclick="handleSave()"&gt;Save&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function openDrawer() {
+    Aural.openDrawer('my-drawer');
+}
+
+function closeDrawer() {
+    Aural.closeDrawer('my-drawer');
+}
+
+function handleSave() {
+    console.log('Saving changes');
+    closeDrawer();
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">import { useState } from 'react';
+
+const Drawer = ({ isOpen, onClose, position = 'right', title, children, onSave }) =&gt; {
+  if (!isOpen) return null;
+
+  return (
+    &lt;div className="drawer-overlay"&gt;
+      &lt;div className={`drawer drawer-${position}`}&gt;
+        &lt;button
+          className="drawer-close"
+          onClick={onClose}
+          aria-label="Close drawer"
+        &gt;
+          &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div className="drawer-header"&gt;
+          &lt;h2 className="drawer-title"&gt;{title}&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div className="drawer-body"&gt;
+          {children}
+        &lt;/div&gt;
+        &lt;div className="drawer-footer"&gt;
+          &lt;button className="btn btn-ghost" onClick={onClose}&gt;
+            Close
+          &lt;/button&gt;
+          &lt;button className="btn btn-primary" onClick={onSave}&gt;
+            Save
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+function App() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handleSave = () =&gt; {
+    console.log('Saving changes');
+    setIsDrawerOpen(false);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;button
+        className="btn btn-primary"
+        onClick={() =&gt; setIsDrawerOpen(true)}
+      &gt;
+        Open Drawer
+      &lt;/button&gt;
+
+      &lt;Drawer
+        isOpen={isDrawerOpen}
+        onClose={() =&gt; setIsDrawerOpen(false)}
+        position="right"
+        title="Drawer Title"
+        onSave={handleSave}
+      &gt;
+        &lt;p&gt;Drawer content goes here.&lt;/p&gt;
+      &lt;/Drawer&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;button class="btn btn-primary" @click="isDrawerOpen = true"&gt;
+      Open Drawer
+    &lt;/button&gt;
+
+    &lt;div v-if="isDrawerOpen" class="drawer-overlay"&gt;
+      &lt;div :class="`drawer drawer-${position}`"&gt;
+        &lt;button
+          class="drawer-close"
+          @click="closeDrawer"
+          aria-label="Close drawer"
+        &gt;
+          &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div class="drawer-header"&gt;
+          &lt;h2 class="drawer-title"&gt;{{ title }}&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class="drawer-body"&gt;
+          &lt;slot&gt;
+            &lt;p&gt;Drawer content goes here.&lt;/p&gt;
+          &lt;/slot&gt;
+        &lt;/div&gt;
+        &lt;div class="drawer-footer"&gt;
+          &lt;button class="btn btn-ghost" @click="closeDrawer"&gt;
+            Close
+          &lt;/button&gt;
+          &lt;button class="btn btn-primary" @click="handleSave"&gt;
+            Save
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      isDrawerOpen: false,
+      title: 'Drawer Title',
+      position: 'right'
+    };
+  },
+  methods: {
+    closeDrawer() {
+      this.isDrawerOpen = false;
+    },
+    handleSave() {
+      console.log('Saving changes');
+      this.closeDrawer();
+    }
+  }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Drawer, Button } from '@aural-ui/svelte';
+
+  let isOpen = false;
+
+  function handleSave() {
+    console.log('Saving changes');
+    isOpen = false;
+  }
+&lt;/script&gt;
+
+&lt;Button on:click={() =&gt; isOpen = true}&gt;
+  Open Drawer
+&lt;/Button&gt;
+
+&lt;Drawer
+  bind:open={isOpen}
+  title="Drawer Title"
+  position="right"
+&gt;
+  &lt;p&gt;Drawer content goes here.&lt;/p&gt;
+
+  &lt;svelte:fragment slot="footer"&gt;
+    &lt;Button variant="ghost" on:click={() =&gt; isOpen = false}&gt;
+      Close
+    &lt;/Button&gt;
+    &lt;Button variant="primary" on:click={handleSave}&gt;
+      Save
+    &lt;/Button&gt;
+  &lt;/svelte:fragment&gt;
+&lt;/Drawer&gt;
+
+&lt;!-- Different positions --&gt;
+&lt;Drawer bind:open={isOpen} position="left" title="Left Drawer" /&gt;
+&lt;Drawer bind:open={isOpen} position="right" title="Right Drawer" /&gt;
+&lt;Drawer bind:open={isOpen} position="top" title="Top Drawer" /&gt;
+&lt;Drawer bind:open={isOpen} position="bottom" title="Bottom Drawer" /&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Left Drawer -->

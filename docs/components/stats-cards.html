@@ -733,6 +733,189 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;div class="stat-card"&gt;
+    &lt;div class="stat-card-header"&gt;
+        &lt;span class="stat-card-label"&gt;Total Revenue&lt;/span&gt;
+        &lt;i data-lucide="dollar-sign" class="stat-card-icon"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-card-value"&gt;$45,231&lt;/div&gt;
+    &lt;div class="stat-card-footer"&gt;
+        &lt;span class="stat-card-trend stat-card-trend-up"&gt;
+            &lt;i data-lucide="trending-up"&gt;&lt;/i&gt;
+            12%
+        &lt;/span&gt;
+        &lt;span class="stat-card-comparison"&gt;vs last month&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const StatCard = ({ label, value, icon, trend, comparison, variant }) => {
+  const cardClass = variant ? `stat-card stat-card-${variant}` : 'stat-card';
+  const trendClass = trend?.direction
+    ? `stat-card-trend stat-card-trend-${trend.direction}`
+    : 'stat-card-trend';
+
+  return (
+    &lt;div className={cardClass}&gt;
+      &lt;div className="stat-card-header"&gt;
+        &lt;span className="stat-card-label"&gt;{label}&lt;/span&gt;
+        {icon && &lt;i data-lucide={icon} className="stat-card-icon" /&gt;}
+      &lt;/div&gt;
+      &lt;div className="stat-card-value"&gt;{value}&lt;/div&gt;
+      {(trend || comparison) && (
+        &lt;div className="stat-card-footer"&gt;
+          {trend && (
+            &lt;span className={trendClass}&gt;
+              &lt;i data-lucide={trend.icon || 'trending-up'} /&gt;
+              {trend.value}
+            &lt;/span&gt;
+          )}
+          {comparison && (
+            &lt;span className="stat-card-comparison"&gt;{comparison}&lt;/span&gt;
+          )}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+&lt;StatCard
+  label="Total Revenue"
+  value="$45,231"
+  icon="dollar-sign"
+  trend={{ direction: 'up', value: '12%' }}
+  comparison="vs last month"
+/&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div :class="cardClass"&gt;
+    &lt;div class="stat-card-header"&gt;
+      &lt;span class="stat-card-label"&gt;{{ label }}&lt;/span&gt;
+      &lt;i v-if="icon" :data-lucide="icon" class="stat-card-icon" /&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-card-value"&gt;{{ value }}&lt;/div&gt;
+    &lt;div v-if="trend || comparison" class="stat-card-footer"&gt;
+      &lt;span v-if="trend" :class="trendClass"&gt;
+        &lt;i :data-lucide="trend.icon || 'trending-up'" /&gt;
+        {{ trend.value }}
+      &lt;/span&gt;
+      &lt;span v-if="comparison" class="stat-card-comparison"&gt;
+        {{ comparison }}
+      &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    label: String,
+    value: [String, Number],
+    icon: String,
+    trend: Object,
+    comparison: String,
+    variant: String
+  },
+  computed: {
+    cardClass() {
+      return this.variant ? `stat-card stat-card-${this.variant}` : 'stat-card';
+    },
+    trendClass() {
+      return this.trend?.direction
+        ? `stat-card-trend stat-card-trend-${this.trend.direction}`
+        : 'stat-card-trend';
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;StatCard
+  label="Total Revenue"
+  value="$45,231"
+  icon="dollar-sign"
+  :trend="{ direction: 'up', value: '12%' }"
+  comparison="vs last month"
+/&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let label = '';
+  export let value = '';
+  export let icon = '';
+  export let trend = null;
+  export let comparison = '';
+  export let variant = '';
+
+  $: cardClass = variant ? `stat-card stat-card-${variant}` : 'stat-card';
+  $: trendClass = trend?.direction
+    ? `stat-card-trend stat-card-trend-${trend.direction}`
+    : 'stat-card-trend';
+&lt;/script&gt;
+
+&lt;div class={cardClass}&gt;
+  &lt;div class="stat-card-header"&gt;
+    &lt;span class="stat-card-label"&gt;{label}&lt;/span&gt;
+    {#if icon}
+      &lt;i data-lucide={icon} class="stat-card-icon" /&gt;
+    {/if}
+  &lt;/div&gt;
+  &lt;div class="stat-card-value"&gt;{value}&lt;/div&gt;
+  {#if trend || comparison}
+    &lt;div class="stat-card-footer"&gt;
+      {#if trend}
+        &lt;span class={trendClass}&gt;
+          &lt;i data-lucide={trend.icon || 'trending-up'} /&gt;
+          {trend.value}
+        &lt;/span&gt;
+      {/if}
+      {#if comparison}
+        &lt;span class="stat-card-comparison"&gt;{comparison}&lt;/span&gt;
+      {/if}
+    &lt;/div&gt;
+  {/if}
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;StatCard
+  label="Total Revenue"
+  value="$45,231"
+  icon="dollar-sign"
+  trend={{ direction: 'up', value: '12%' }}
+  comparison="vs last month"
+/&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

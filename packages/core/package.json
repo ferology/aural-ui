@@ -1,0 +1,52 @@
+{
+  "name": "@aural-ui/core",
+  "version": "1.0.0",
+  "description": "Aural UI - Core vanilla JavaScript design system",
+  "main": "dist/aural-ui.js",
+  "module": "dist/aural-ui.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/aural-ui.mjs",
+      "require": "./dist/aural-ui.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./css": "./dist/aural-ui.css",
+    "./themes/*": "./themes/*.css"
+  },
+  "files": [
+    "dist",
+    "themes",
+    "types"
+  ],
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:js dev:css",
+    "build": "npm-run-all clean build:js build:css",
+    "dev:js": "esbuild javascript/index.js --bundle --outfile=dist/aural-ui.js --watch",
+    "dev:css": "postcss src/aural-ui.css -o dist/aural-ui.css --watch",
+    "build:js": "npm-run-all build:js:esm build:js:cjs build:js:min",
+    "build:js:esm": "esbuild javascript/index.js --bundle --format=esm --outfile=dist/aural-ui.mjs",
+    "build:js:cjs": "esbuild javascript/index.js --bundle --format=cjs --outfile=dist/aural-ui.js",
+    "build:js:min": "esbuild javascript/index.js --bundle --minify --outfile=dist/aural-ui.min.js",
+    "build:css": "postcss src/aural-ui.css -o dist/aural-ui.css",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "ui",
+    "design-system",
+    "components",
+    "vanilla-js",
+    "css",
+    "accessibility"
+  ],
+  "author": "Workshop BAI Team",
+  "license": "MIT",
+  "dependencies": {},
+  "peerDependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.19.11",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0"
+  }
+}

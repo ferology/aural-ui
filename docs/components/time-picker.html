@@ -708,6 +708,122 @@ initTimePicker('#time-picker', { minuteStep: 15 });
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;input type="time" class="time-picker" value="14:30"&gt;
+
+&lt;script&gt;
+const picker = document.querySelector('.time-picker');
+picker.addEventListener('change', (e) =&gt; {
+  console.log('Time selected:', e.target.value);
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const TimePicker = ({ value, onChange }) =&gt; {
+  const [time, setTime] = useState(value || '12:00');
+
+  const handleChange = (e) =&gt; {
+    const newTime = e.target.value;
+    setTime(newTime);
+    onChange?.(newTime);
+  };
+
+  return (
+    &lt;input
+      type="time"
+      className="time-picker"
+      value={time}
+      onChange={handleChange}
+    /&gt;
+  );
+};
+
+// Usage
+const [selectedTime, setSelectedTime] = useState('14:30');
+&lt;TimePicker value={selectedTime} onChange={setSelectedTime} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;input
+    type="time"
+    class="time-picker"
+    v-model="time"
+    @change="handleChange"
+  /&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    modelValue: { type: String, default: '12:00' }
+  },
+  data() {
+    return {
+      time: this.modelValue
+    }
+  },
+  methods: {
+    handleChange() {
+      this.$emit('update:modelValue', this.time);
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { TimePicker } from '@aural-ui/svelte';
+
+  let time = '14:30';
+&lt;/script&gt;
+
+&lt;!-- Basic time picker --&gt;
+&lt;TimePicker bind:value={time} /&gt;
+
+&lt;!-- 12-hour format --&gt;
+&lt;TimePicker
+  bind:value={time}
+  format="12h"
+/&gt;
+
+&lt;!-- 24-hour format --&gt;
+&lt;TimePicker
+  bind:value={time}
+  format="24h"
+/&gt;
+
+&lt;!-- With change event --&gt;
+&lt;TimePicker
+  bind:value={time}
+  on:change={(e) =&gt; console.log('Time:', e.detail)}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <!-- Best Practices Section -->

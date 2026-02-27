@@ -750,6 +750,193 @@ import { Button, Card } from 'aural-ui';</code></pre>
                 </div>
             </div>
         </div>
+
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;div class="code-block"&gt;
+    &lt;div class="code-block-header"&gt;
+        &lt;span class="code-block-title"&gt;example.js&lt;/span&gt;
+        &lt;button class="btn btn-ghost btn-sm code-block-copy" onclick="copyCode(this)"&gt;
+            &lt;i data-lucide="copy"&gt;&lt;/i&gt;
+            Copy
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;pre&gt;&lt;code class="language-javascript"&gt;console.log('Hello, World!');&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function copyCode(button) {
+    const codeBlock = button.closest('.code-block');
+    const code = codeBlock.querySelector('code').textContent;
+    navigator.clipboard.writeText(code);
+    button.innerHTML = '&lt;i data-lucide="check"&gt;&lt;/i&gt; Copied';
+    setTimeout(() => {
+        button.innerHTML = '&lt;i data-lucide="copy"&gt;&lt;/i&gt; Copy';
+        lucide.createIcons();
+    }, 2000);
+}
+&lt;/script&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">import { useState } from 'react';
+
+const CodeBlock = ({ code, language = 'javascript', title, showLineNumbers }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    &lt;div className="code-block"&gt;
+      {title && (
+        &lt;div className="code-block-header"&gt;
+          &lt;span className="code-block-title"&gt;{title}&lt;/span&gt;
+          &lt;button
+            className="btn btn-ghost btn-sm code-block-copy"
+            onClick={handleCopy}
+          &gt;
+            &lt;i data-lucide={copied ? 'check' : 'copy'} /&gt;
+            {copied ? 'Copied' : 'Copy'}
+          &lt;/button&gt;
+        &lt;/div&gt;
+      )}
+      &lt;pre className={showLineNumbers ? 'line-numbers' : ''}&gt;
+        &lt;code className={`language-${language}`}&gt;{code}&lt;/code&gt;
+      &lt;/pre&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+&lt;CodeBlock
+  code="console.log('Hello, World!');"
+  language="javascript"
+  title="example.js"
+/&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="code-block"&gt;
+    &lt;div v-if="title" class="code-block-header"&gt;
+      &lt;span class="code-block-title"&gt;{{ title }}&lt;/span&gt;
+      &lt;button
+        class="btn btn-ghost btn-sm code-block-copy"
+        @click="handleCopy"
+      &gt;
+        &lt;i :data-lucide="copied ? 'check' : 'copy'" /&gt;
+        {{ copied ? 'Copied' : 'Copy' }}
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;pre :class="{ 'line-numbers': showLineNumbers }"&gt;
+      &lt;code :class="`language-${language}`"&gt;{{ code }}&lt;/code&gt;
+    &lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    code: { type: String, required: true },
+    language: { type: String, default: 'javascript' },
+    title: String,
+    showLineNumbers: Boolean
+  },
+  data() {
+    return {
+      copied: false
+    };
+  },
+  methods: {
+    async handleCopy() {
+      await navigator.clipboard.writeText(this.code);
+      this.copied = true;
+      setTimeout(() => {
+        this.copied = false;
+      }, 2000);
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;CodeBlock
+  code="console.log('Hello, World!');"
+  language="javascript"
+  title="example.js"
+/&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let code = '';
+  export let language = 'javascript';
+  export let title = '';
+  export let showLineNumbers = false;
+
+  let copied = false;
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(code);
+    copied = true;
+    setTimeout(() => {
+      copied = false;
+    }, 2000);
+  }
+&lt;/script&gt;
+
+&lt;div class="code-block"&gt;
+  {#if title}
+    &lt;div class="code-block-header"&gt;
+      &lt;span class="code-block-title"&gt;{title}&lt;/span&gt;
+      &lt;button
+        class="btn btn-ghost btn-sm code-block-copy"
+        on:click={handleCopy}
+      &gt;
+        &lt;i data-lucide={copied ? 'check' : 'copy'} /&gt;
+        {copied ? 'Copied' : 'Copy'}
+      &lt;/button&gt;
+    &lt;/div&gt;
+  {/if}
+  &lt;pre class:line-numbers={showLineNumbers}&gt;
+    &lt;code class="language-{language}"&gt;{code}&lt;/code&gt;
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;CodeBlock
+  code="console.log('Hello, World!');"
+  language="javascript"
+  title="example.js"
+/&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->

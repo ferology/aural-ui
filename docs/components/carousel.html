@@ -578,6 +578,356 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-javascript">// Initialize carousel
+const carousel = document.querySelector('.aural-carousel');
+const track = carousel.querySelector('.aural-carousel__track');
+const slides = carousel.querySelectorAll('.aural-carousel__slide');
+const prevBtn = carousel.querySelector('.aural-carousel__arrow--prev');
+const nextBtn = carousel.querySelector('.aural-carousel__arrow--next');
+const dots = carousel.querySelectorAll('.aural-carousel__dot');
+
+let currentSlide = 0;
+
+function updateCarousel() {
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  dots.forEach((dot, index) => {
+    dot.classList.toggle('aural-carousel__dot--active', index === currentSlide);
+    dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+  });
+}
+
+prevBtn.addEventListener('click', () => {
+  currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1;
+  updateCarousel();
+});
+
+nextBtn.addEventListener('click', () => {
+  currentSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : 0;
+  updateCarousel();
+});
+
+dots.forEach((dot, index) => {
+  dot.addEventListener('click', () => {
+    currentSlide = index;
+    updateCarousel();
+  });
+});
+
+// Auto-advance (optional)
+let autoplayInterval;
+function startAutoplay() {
+  autoplayInterval = setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateCarousel();
+  }, 5000);
+}
+
+// Pause on hover
+carousel.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+carousel.addEventListener('mouseleave', startAutoplay);</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">import { useState, useEffect } from 'react';
+
+const Carousel = ({ slides, autoplay = false, interval = 5000 }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (!autoplay || isPaused) return;
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [autoplay, isPaused, slides.length, interval]);
+
+  const goToSlide = (index) => setCurrentSlide(index);
+  const nextSlide = () => setCurrentSlide((prev) =>
+    prev < slides.length - 1 ? prev + 1 : 0
+  );
+  const prevSlide = () => setCurrentSlide((prev) =>
+    prev > 0 ? prev - 1 : slides.length - 1
+  );
+
+  return (
+    &lt;div
+      className="aural-carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    &gt;
+      &lt;div className="aural-carousel__track"
+        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+      &gt;
+        {slides.map((slide, index) => (
+          &lt;div key={index} className="aural-carousel__slide"&gt;
+            {slide}
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+
+      &lt;button
+        className="aural-carousel__arrow aural-carousel__arrow--prev"
+        onClick={prevSlide}
+        aria-label="Previous slide"
+      &gt;
+        &lt;ChevronLeft /&gt;
+      &lt;/button&gt;
+
+      &lt;button
+        className="aural-carousel__arrow aural-carousel__arrow--next"
+        onClick={nextSlide}
+        aria-label="Next slide"
+      &gt;
+        &lt;ChevronRight /&gt;
+      &lt;/button&gt;
+
+      &lt;div className="aural-carousel__pagination"&gt;
+        {slides.map((_, index) => (
+          &lt;button
+            key={index}
+            className={`aural-carousel__dot ${
+              index === currentSlide ? 'aural-carousel__dot--active' : ''
+            }`}
+            onClick={() => goToSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          /&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div
+    class="aural-carousel"
+    @mouseenter="isPaused = true"
+    @mouseleave="isPaused = false"
+  &gt;
+    &lt;div
+      class="aural-carousel__track"
+      :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+    &gt;
+      &lt;div
+        v-for="(slide, index) in slides"
+        :key="index"
+        class="aural-carousel__slide"
+      &gt;
+        &lt;slot name="slide" :slide="slide" :index="index"&gt;
+          {{ slide }}
+        &lt;/slot&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;button
+      class="aural-carousel__arrow aural-carousel__arrow--prev"
+      @click="prevSlide"
+      aria-label="Previous slide"
+    &gt;
+      &lt;ChevronLeft /&gt;
+    &lt;/button&gt;
+
+    &lt;button
+      class="aural-carousel__arrow aural-carousel__arrow--next"
+      @click="nextSlide"
+      aria-label="Next slide"
+    &gt;
+      &lt;ChevronRight /&gt;
+    &lt;/button&gt;
+
+    &lt;div class="aural-carousel__pagination"&gt;
+      &lt;button
+        v-for="(_, index) in slides"
+        :key="index"
+        :class="[
+          'aural-carousel__dot',
+          { 'aural-carousel__dot--active': index === currentSlide }
+        ]"
+        @click="goToSlide(index)"
+        :aria-label="`Go to slide ${index + 1}`"
+      /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    slides: { type: Array, required: true },
+    autoplay: { type: Boolean, default: false },
+    interval: { type: Number, default: 5000 }
+  },
+  data() {
+    return {
+      currentSlide: 0,
+      isPaused: false,
+      timer: null
+    };
+  },
+  watch: {
+    isPaused(paused) {
+      if (this.autoplay) {
+        paused ? this.stopAutoplay() : this.startAutoplay();
+      }
+    }
+  },
+  methods: {
+    goToSlide(index) {
+      this.currentSlide = index;
+    },
+    nextSlide() {
+      this.currentSlide = this.currentSlide &lt; this.slides.length - 1
+        ? this.currentSlide + 1
+        : 0;
+    },
+    prevSlide() {
+      this.currentSlide = this.currentSlide &gt; 0
+        ? this.currentSlide - 1
+        : this.slides.length - 1;
+    },
+    startAutoplay() {
+      this.timer = setInterval(() => {
+        this.nextSlide();
+      }, this.interval);
+    },
+    stopAutoplay() {
+      clearInterval(this.timer);
+    }
+  },
+  mounted() {
+    if (this.autoplay) this.startAutoplay();
+  },
+  beforeUnmount() {
+    this.stopAutoplay();
+  }
+};
+&lt;/script&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  import { onMount, onDestroy } from 'svelte';
+
+  export let slides = [];
+  export let autoplay = false;
+  export let interval = 5000;
+
+  let currentSlide = 0;
+  let isPaused = false;
+  let timer;
+
+  function goToSlide(index) {
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    currentSlide = currentSlide &lt; slides.length - 1 ? currentSlide + 1 : 0;
+  }
+
+  function prevSlide() {
+    currentSlide = currentSlide &gt; 0 ? currentSlide - 1 : slides.length - 1;
+  }
+
+  function startAutoplay() {
+    if (!autoplay) return;
+    timer = setInterval(() => {
+      nextSlide();
+    }, interval);
+  }
+
+  function stopAutoplay() {
+    clearInterval(timer);
+  }
+
+  $: if (autoplay && !isPaused) {
+    startAutoplay();
+  } else {
+    stopAutoplay();
+  }
+
+  onMount(() => {
+    if (autoplay) startAutoplay();
+  });
+
+  onDestroy(() => {
+    stopAutoplay();
+  });
+&lt;/script&gt;
+
+&lt;div
+  class="aural-carousel"
+  on:mouseenter={() => isPaused = true}
+  on:mouseleave={() => isPaused = false}
+&gt;
+  &lt;div
+    class="aural-carousel__track"
+    style="transform: translateX(-{currentSlide * 100}%)"
+  &gt;
+    {#each slides as slide, index}
+      &lt;div class="aural-carousel__slide"&gt;
+        &lt;slot name="slide" {slide} {index}&gt;
+          {slide}
+        &lt;/slot&gt;
+      &lt;/div&gt;
+    {/each}
+  &lt;/div&gt;
+
+  &lt;button
+    class="aural-carousel__arrow aural-carousel__arrow--prev"
+    on:click={prevSlide}
+    aria-label="Previous slide"
+  &gt;
+    &lt;ChevronLeft /&gt;
+  &lt;/button&gt;
+
+  &lt;button
+    class="aural-carousel__arrow aural-carousel__arrow--next"
+    on:click={nextSlide}
+    aria-label="Next slide"
+  &gt;
+    &lt;ChevronRight /&gt;
+  &lt;/button&gt;
+
+  &lt;div class="aural-carousel__pagination"&gt;
+    {#each slides as _, index}
+      &lt;button
+        class="aural-carousel__dot"
+        class:aural-carousel__dot--active={index === currentSlide}
+        on:click={() => goToSlide(index)}
+        aria-label="Go to slide {index + 1}"
+      /&gt;
+    {/each}
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>

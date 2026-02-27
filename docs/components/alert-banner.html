@@ -524,6 +524,213 @@ function showAlert(type, title, message) {
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;div class="alert-banner alert-info" id="my-alert"&gt;
+    &lt;div class="alert-icon"&gt;
+        &lt;i data-lucide="info"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div class="alert-content"&gt;
+        &lt;h4 class="alert-title"&gt;Information&lt;/h4&gt;
+        &lt;p class="alert-description"&gt;This is an informational message.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;button class="alert-close" onclick="dismissAlert()" aria-label="Close alert"&gt;
+        &lt;i data-lucide="x"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function dismissAlert() {
+    const alert = document.getElementById('my-alert');
+    alert.style.display = 'none';
+    console.log('Alert dismissed');
+}
+
+// Show alert programmatically
+function showAlert() {
+    const alert = document.getElementById('my-alert');
+    alert.style.display = 'flex';
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">import { useState } from 'react';
+
+const AlertBanner = ({ variant = 'info', title, message, onDismiss }) =&gt; {
+  const icons = {
+    info: 'info',
+    success: 'check-circle',
+    warning: 'alert-triangle',
+    error: 'alert-circle'
+  };
+
+  return (
+    &lt;div className={`alert-banner alert-${variant}`}&gt;
+      &lt;div className="alert-icon"&gt;
+        &lt;i data-lucide={icons[variant]}&gt;&lt;/i&gt;
+      &lt;/div&gt;
+      &lt;div className="alert-content"&gt;
+        &lt;h4 className="alert-title"&gt;{title}&lt;/h4&gt;
+        &lt;p className="alert-description"&gt;{message}&lt;/p&gt;
+      &lt;/div&gt;
+      {onDismiss &amp;&amp; (
+        &lt;button
+          className="alert-close"
+          onClick={onDismiss}
+          aria-label="Close alert"
+        &gt;
+          &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+function App() {
+  const [showAlert, setShowAlert] = useState(true);
+
+  if (!showAlert) return null;
+
+  return (
+    &lt;AlertBanner
+      variant="info"
+      title="Information"
+      message="This is an informational message."
+      onDismiss={() =&gt; {
+        setShowAlert(false);
+        console.log('Alert dismissed');
+      }}
+    /&gt;
+  );
+}</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div
+    v-if="visible"
+    :class="`alert-banner alert-${variant}`"
+  &gt;
+    &lt;div class="alert-icon"&gt;
+      &lt;i :data-lucide="icon"&gt;&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;div class="alert-content"&gt;
+      &lt;h4 class="alert-title"&gt;{{ title }}&lt;/h4&gt;
+      &lt;p class="alert-description"&gt;{{ message }}&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;button
+      v-if="dismissible"
+      class="alert-close"
+      @click="dismiss"
+      aria-label="Close alert"
+    &gt;
+      &lt;i data-lucide="x"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      visible: true,
+      variant: 'info',
+      title: 'Information',
+      message: 'This is an informational message.',
+      dismissible: true
+    };
+  },
+  computed: {
+    icon() {
+      const icons = {
+        info: 'info',
+        success: 'check-circle',
+        warning: 'alert-triangle',
+        error: 'alert-circle'
+      };
+      return icons[this.variant] || 'info';
+    }
+  },
+  methods: {
+    dismiss() {
+      this.visible = false;
+      console.log('Alert dismissed');
+      this.$emit('dismiss');
+    }
+  }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { AlertBanner } from '@aural-ui/svelte';
+
+  let visible = true;
+
+  function handleDismiss() {
+    visible = false;
+    console.log('Alert dismissed');
+  }
+&lt;/script&gt;
+
+&lt;AlertBanner
+  variant="info"
+  title="Information"
+  bind:visible
+  on:dismiss={handleDismiss}
+&gt;
+  This is an informational message.
+&lt;/AlertBanner&gt;
+
+&lt;!-- Different variants --&gt;
+&lt;AlertBanner variant="success" title="Success!"&gt;
+  Your action was completed successfully.
+&lt;/AlertBanner&gt;
+
+&lt;AlertBanner variant="warning" title="Warning"&gt;
+  Please review this important information.
+&lt;/AlertBanner&gt;
+
+&lt;AlertBanner variant="danger" title="Error"&gt;
+  An error occurred. Please try again.
+&lt;/AlertBanner&gt;
+
+&lt;!-- Dismissible --&gt;
+&lt;AlertBanner
+  variant="info"
+  title="Dismissible Alert"
+  dismissible
+  bind:visible
+&gt;
+  You can close this alert.
+&lt;/AlertBanner&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

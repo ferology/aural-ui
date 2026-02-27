@@ -550,6 +550,161 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;div class="aural-chip"&gt;
+    JavaScript
+&lt;/div&gt;
+
+&lt;!-- With icon --&gt;
+&lt;div class="aural-chip aural-chip--primary"&gt;
+    &lt;i data-lucide="star"&gt;&lt;/i&gt;
+    Featured
+&lt;/div&gt;
+
+&lt;!-- Removable --&gt;
+&lt;div class="aural-chip aural-chip--removable"&gt;
+    React
+    &lt;button class="aural-chip__remove" onclick="this.parentElement.remove()" aria-label="Remove"&gt;
+        &lt;i data-lucide="x"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Chip = ({ children, variant, icon, removable, onRemove }) => {
+  const classNames = [
+    'aural-chip',
+    variant && `aural-chip--${variant}`,
+    removable && 'aural-chip--removable'
+  ].filter(Boolean).join(' ');
+
+  return (
+    &lt;div className={classNames}&gt;
+      {icon && &lt;i data-lucide={icon} /&gt;}
+      {children}
+      {removable && (
+        &lt;button
+          className="aural-chip__remove"
+          onClick={onRemove}
+          aria-label="Remove"
+        &gt;
+          &lt;i data-lucide="x" /&gt;
+        &lt;/button&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+&lt;Chip&gt;JavaScript&lt;/Chip&gt;
+&lt;Chip variant="primary" icon="star"&gt;Featured&lt;/Chip&gt;
+&lt;Chip removable onRemove={() =&gt; console.log('Remove')}&gt;React&lt;/Chip&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div :class="chipClasses"&gt;
+    &lt;i v-if="icon" :data-lucide="icon" /&gt;
+    &lt;slot /&gt;
+    &lt;button
+      v-if="removable"
+      class="aural-chip__remove"
+      @click="$emit('remove')"
+      aria-label="Remove"
+    &gt;
+      &lt;i data-lucide="x" /&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    variant: String,
+    icon: String,
+    removable: Boolean
+  },
+  computed: {
+    chipClasses() {
+      return [
+        'aural-chip',
+        this.variant && `aural-chip--${this.variant}`,
+        this.removable && 'aural-chip--removable'
+      ].filter(Boolean).join(' ');
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Chip&gt;JavaScript&lt;/Chip&gt;
+&lt;Chip variant="primary" icon="star"&gt;Featured&lt;/Chip&gt;
+&lt;Chip removable @remove="handleRemove"&gt;React&lt;/Chip&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  import { createEventDispatcher } from 'svelte';
+
+  export let variant = '';
+  export let icon = '';
+  export let removable = false;
+
+  const dispatch = createEventDispatcher();
+
+  $: chipClasses = [
+    'aural-chip',
+    variant && `aural-chip--${variant}`,
+    removable && 'aural-chip--removable'
+  ].filter(Boolean).join(' ');
+&lt;/script&gt;
+
+&lt;div class={chipClasses}&gt;
+  {#if icon}
+    &lt;i data-lucide={icon} /&gt;
+  {/if}
+  &lt;slot /&gt;
+  {#if removable}
+    &lt;button
+      class="aural-chip__remove"
+      on:click={() =&gt; dispatch('remove')}
+      aria-label="Remove"
+    &gt;
+      &lt;i data-lucide="x" /&gt;
+    &lt;/button&gt;
+  {/if}
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Chip&gt;JavaScript&lt;/Chip&gt;
+&lt;Chip variant="primary" icon="star"&gt;Featured&lt;/Chip&gt;
+&lt;Chip removable on:remove={handleRemove}&gt;React&lt;/Chip&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

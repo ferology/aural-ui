@@ -755,6 +755,156 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="aural-range-slider"&gt;
+  &lt;div class="aural-range-slider__wrapper"&gt;
+    &lt;div class="aural-range-slider__track-bg"&gt;&lt;/div&gt;
+    &lt;div class="aural-range-slider__track-fill"&gt;&lt;/div&gt;
+    &lt;div class="aural-range-slider__handle aural-range-slider__handle--min"
+         tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30"&gt;
+      &lt;div class="aural-range-slider__label"&gt;30&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="aural-range-slider__handle aural-range-slider__handle--max"
+         tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70"&gt;
+      &lt;div class="aural-range-slider__label"&gt;70&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Initialize range slider with drag handlers
+const slider = new RangeSlider('.aural-range-slider', {
+  min: 0,
+  max: 100,
+  values: [30, 70]
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const RangeSlider = ({ min = 0, max = 100, values, onChange }) =&gt; {
+  const [range, setRange] = useState(values || [min, max]);
+
+  const handleChange = (index, value) =&gt; {
+    const newRange = [...range];
+    newRange[index] = value;
+    if (index === 0 &amp;&amp; value &lt;= range[1]) {
+      setRange(newRange);
+      onChange?.(newRange);
+    } else if (index === 1 &amp;&amp; value &gt;= range[0]) {
+      setRange(newRange);
+      onChange?.(newRange);
+    }
+  };
+
+  return (
+    &lt;div className="aural-range-slider"&gt;
+      &lt;div className="aural-range-slider__wrapper"&gt;
+        &lt;div className="aural-range-slider__track-bg" /&gt;
+        &lt;div
+          className="aural-range-slider__track-fill"
+          style={{
+            left: `${(range[0] / max) * 100}%`,
+            width: `${((range[1] - range[0]) / max) * 100}%`
+          }}
+        /&gt;
+        {/* Handles */}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const [priceRange, setPriceRange] = useState([25, 75]);
+&lt;RangeSlider values={priceRange} onChange={setPriceRange} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="aural-range-slider"&gt;
+    &lt;div class="aural-range-slider__wrapper"&gt;
+      &lt;div class="aural-range-slider__track-bg" /&gt;
+      &lt;div
+        class="aural-range-slider__track-fill"
+        :style="fillStyle"
+      /&gt;
+      &lt;!-- Handles --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    modelValue: { type: Array, default: () =&gt; [0, 100] },
+    min: { type: Number, default: 0 },
+    max: { type: Number, default: 100 }
+  },
+  computed: {
+    fillStyle() {
+      const [start, end] = this.modelValue;
+      return {
+        left: `${(start / this.max) * 100}%`,
+        width: `${((end - start) / this.max) * 100}%`
+      };
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { RangeSlider } from '@aural-ui/svelte';
+
+  let range = [30, 70];
+&lt;/script&gt;
+
+&lt;!-- Basic range slider --&gt;
+&lt;RangeSlider bind:values={range} min={0} max={100} /&gt;
+
+&lt;!-- With step --&gt;
+&lt;RangeSlider bind:values={range} min={0} max={100} step={5} /&gt;
+
+&lt;!-- With labels --&gt;
+&lt;RangeSlider
+  bind:values={range}
+  min={0}
+  max={100}
+  showLabels
+/&gt;
+
+&lt;!-- With change event --&gt;
+&lt;RangeSlider
+  bind:values={range}
+  min={0}
+  max={100}
+  on:change={(e) =&gt; console.log('Range:', e.detail)}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <!-- Best Practices Section -->

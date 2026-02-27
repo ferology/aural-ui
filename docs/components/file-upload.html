@@ -584,6 +584,169 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;input type="file" class="file-input" id="file-upload"&gt;
+
+&lt;script&gt;
+const input = document.getElementById('file-upload');
+input.addEventListener('change', (e) =&gt; {
+  const files = e.target.files;
+  console.log('Files selected:', files);
+
+  // Handle file upload
+  for (const file of files) {
+    console.log('File:', file.name, file.size);
+  }
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const FileUpload = ({ onUpload, accept, multiple = false }) =&gt; {
+  const [files, setFiles] = useState([]);
+
+  const handleChange = (e) =&gt; {
+    const selectedFiles = Array.from(e.target.files);
+    setFiles(selectedFiles);
+    onUpload?.(selectedFiles);
+  };
+
+  const handleDrop = (e) =&gt; {
+    e.preventDefault();
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    setFiles(droppedFiles);
+    onUpload?.(droppedFiles);
+  };
+
+  return (
+    &lt;div
+      className="file-upload-zone"
+      onDrop={handleDrop}
+      onDragOver={(e) =&gt; e.preventDefault()}
+    &gt;
+      &lt;input
+        type="file"
+        onChange={handleChange}
+        accept={accept}
+        multiple={multiple}
+      /&gt;
+      &lt;p&gt;Drag files here or click to browse&lt;/p&gt;
+      {files.length &gt; 0 &amp;&amp; (
+        &lt;ul&gt;
+          {files.map((file, i) =&gt; (
+            &lt;li key={i}&gt;{file.name}&lt;/li&gt;
+          ))}
+        &lt;/ul&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+&lt;FileUpload onUpload={(files) =&gt; console.log(files)} multiple /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div
+    class="file-upload-zone"
+    @drop.prevent="handleDrop"
+    @dragover.prevent
+  &gt;
+    &lt;input
+      type="file"
+      @change="handleChange"
+      :accept="accept"
+      :multiple="multiple"
+    /&gt;
+    &lt;p&gt;Drag files here or click to browse&lt;/p&gt;
+    &lt;ul v-if="files.length"&gt;
+      &lt;li v-for="(file, i) in files" :key="i"&gt;
+        {{ file.name }}
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    accept: String,
+    multiple: Boolean
+  },
+  data() {
+    return {
+      files: []
+    }
+  },
+  methods: {
+    handleChange(e) {
+      this.files = Array.from(e.target.files);
+      this.$emit('upload', this.files);
+    },
+    handleDrop(e) {
+      this.files = Array.from(e.dataTransfer.files);
+      this.$emit('upload', this.files);
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { FileUpload } from '@aural-ui/svelte';
+
+  let files = [];
+
+  function handleUpload(event) {
+    console.log('Files uploaded:', event.detail);
+  }
+&lt;/script&gt;
+
+&lt;!-- Basic file upload --&gt;
+&lt;FileUpload bind:files on:upload={handleUpload} /&gt;
+
+&lt;!-- Multiple files --&gt;
+&lt;FileUpload bind:files multiple /&gt;
+
+&lt;!-- With accepted file types --&gt;
+&lt;FileUpload
+  bind:files
+  accept="image/*"
+  multiple
+/&gt;
+
+&lt;!-- Drag and drop --&gt;
+&lt;FileUpload
+  bind:files
+  dragAndDrop
+  multiple
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">

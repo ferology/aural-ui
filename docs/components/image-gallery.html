@@ -563,6 +563,398 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-javascript">// Image gallery with lightbox
+class ImageGallery {
+  constructor(element) {
+    this.gallery = element;
+    this.items = this.gallery.querySelectorAll('.aural-gallery__item');
+    this.currentIndex = 0;
+    this.init();
+  }
+
+  init() {
+    this.items.forEach((item, index) => {
+      // Add keyboard navigation
+      item.addEventListener('click', () => this.openLightbox(index));
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.openLightbox(index);
+        }
+      });
+    });
+  }
+
+  openLightbox(index) {
+    this.currentIndex = index;
+    const img = this.items[index].querySelector('.aural-gallery__image');
+
+    // Create lightbox
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = `
+      &lt;button class="lightbox__close" aria-label="Close"&gt;&times;&lt;/button&gt;
+      &lt;button class="lightbox__prev" aria-label="Previous"&gt;&lsaquo;&lt;/button&gt;
+      &lt;img src="${img.src}" alt="${img.alt}"&gt;
+      &lt;button class="lightbox__next" aria-label="Next"&gt;&rsaquo;&lt;/button&gt;
+    `;
+
+    document.body.appendChild(lightbox);
+
+    // Event listeners
+    lightbox.querySelector('.lightbox__close').addEventListener('click',
+      () => this.closeLightbox(lightbox)
+    );
+    lightbox.querySelector('.lightbox__prev').addEventListener('click',
+      () => this.navigate(-1, lightbox)
+    );
+    lightbox.querySelector('.lightbox__next').addEventListener('click',
+      () => this.navigate(1, lightbox)
+    );
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => this.handleKeyboard(e, lightbox));
+  }
+
+  navigate(direction, lightbox) {
+    this.currentIndex = (this.currentIndex + direction + this.items.length)
+      % this.items.length;
+    const img = this.items[this.currentIndex].querySelector('.aural-gallery__image');
+    lightbox.querySelector('img').src = img.src;
+    lightbox.querySelector('img').alt = img.alt;
+  }
+
+  handleKeyboard(e, lightbox) {
+    if (e.key === 'Escape') this.closeLightbox(lightbox);
+    if (e.key === 'ArrowLeft') this.navigate(-1, lightbox);
+    if (e.key === 'ArrowRight') this.navigate(1, lightbox);
+  }
+
+  closeLightbox(lightbox) {
+    lightbox.remove();
+  }
+}
+
+// Initialize all galleries
+document.querySelectorAll('.aural-gallery').forEach(gallery => {
+  new ImageGallery(gallery);
+});</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">import { useState } from 'react';
+
+const ImageGallery = ({ images, columns = 3 }) => {
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const openLightbox = (index) => setLightboxIndex(index);
+  const closeLightbox = () => setLightboxIndex(null);
+
+  const navigate = (direction) => {
+    setLightboxIndex((prev) =>
+      (prev + direction + images.length) % images.length
+    );
+  };
+
+  const handleKeyDown = (e) => {
+    if (lightboxIndex === null) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex]);
+
+  return (
+    &lt;&gt;
+      &lt;div className={`aural-gallery aural-gallery--cols-${columns}`}&gt;
+        {images.map((image, index) => (
+          &lt;div
+            key={index}
+            className="aural-gallery__item"
+            tabIndex={0}
+            onClick={() => openLightbox(index)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(index);
+              }
+            }}
+          &gt;
+            &lt;img
+              className="aural-gallery__image"
+              src={image.src}
+              alt={image.alt}
+            /&gt;
+            &lt;div className="aural-gallery__overlay"&gt;
+              &lt;div className="aural-gallery__title"&gt;{image.title}&lt;/div&gt;
+              &lt;div className="aural-gallery__description"&gt;
+                {image.description}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+
+      {lightboxIndex !== null && (
+        &lt;div className="lightbox" onClick={closeLightbox}&gt;
+          &lt;button
+            className="lightbox__close"
+            onClick={closeLightbox}
+            aria-label="Close"
+          &gt;
+            &times;
+          &lt;/button&gt;
+          &lt;button
+            className="lightbox__prev"
+            onClick={(e) => { e.stopPropagation(); navigate(-1); }}
+            aria-label="Previous"
+          &gt;
+            &lsaquo;
+          &lt;/button&gt;
+          &lt;img
+            src={images[lightboxIndex].src}
+            alt={images[lightboxIndex].alt}
+            onClick={(e) => e.stopPropagation()}
+          /&gt;
+          &lt;button
+            className="lightbox__next"
+            onClick={(e) => { e.stopPropagation(); navigate(1); }}
+            aria-label="Next"
+          &gt;
+            &rsaquo;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/&gt;
+  );
+};</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;div :class="`aural-gallery aural-gallery--cols-${columns}`"&gt;
+      &lt;div
+        v-for="(image, index) in images"
+        :key="index"
+        class="aural-gallery__item"
+        tabindex="0"
+        @click="openLightbox(index)"
+        @keydown="handleItemKeydown($event, index)"
+      &gt;
+        &lt;img
+          class="aural-gallery__image"
+          :src="image.src"
+          :alt="image.alt"
+        /&gt;
+        &lt;div class="aural-gallery__overlay"&gt;
+          &lt;div class="aural-gallery__title"&gt;{{ image.title }}&lt;/div&gt;
+          &lt;div class="aural-gallery__description"&gt;
+            {{ image.description }}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div v-if="lightboxIndex !== null" class="lightbox" @click="closeLightbox"&gt;
+      &lt;button
+        class="lightbox__close"
+        @click="closeLightbox"
+        aria-label="Close"
+      &gt;
+        &times;
+      &lt;/button&gt;
+      &lt;button
+        class="lightbox__prev"
+        @click.stop="navigate(-1)"
+        aria-label="Previous"
+      &gt;
+        &lsaquo;
+      &lt;/button&gt;
+      &lt;img
+        :src="images[lightboxIndex].src"
+        :alt="images[lightboxIndex].alt"
+        @click.stop
+      /&gt;
+      &lt;button
+        class="lightbox__next"
+        @click.stop="navigate(1)"
+        aria-label="Next"
+      &gt;
+        &rsaquo;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    images: { type: Array, required: true },
+    columns: { type: Number, default: 3 }
+  },
+  data() {
+    return {
+      lightboxIndex: null
+    };
+  },
+  methods: {
+    openLightbox(index) {
+      this.lightboxIndex = index;
+    },
+    closeLightbox() {
+      this.lightboxIndex = null;
+    },
+    navigate(direction) {
+      this.lightboxIndex = (this.lightboxIndex + direction + this.images.length)
+        % this.images.length;
+    },
+    handleItemKeydown(e, index) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.openLightbox(index);
+      }
+    },
+    handleKeydown(e) {
+      if (this.lightboxIndex === null) return;
+      if (e.key === 'Escape') this.closeLightbox();
+      if (e.key === 'ArrowLeft') this.navigate(-1);
+      if (e.key === 'ArrowRight') this.navigate(1);
+    }
+  },
+  mounted() {
+    document.addEventListener('keydown', this.handleKeydown);
+  },
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleKeydown);
+  }
+};
+&lt;/script&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  import { onMount, onDestroy } from 'svelte';
+
+  export let images = [];
+  export let columns = 3;
+
+  let lightboxIndex = null;
+
+  function openLightbox(index) {
+    lightboxIndex = index;
+  }
+
+  function closeLightbox() {
+    lightboxIndex = null;
+  }
+
+  function navigate(direction) {
+    lightboxIndex = (lightboxIndex + direction + images.length) % images.length;
+  }
+
+  function handleItemKeydown(e, index) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(index);
+    }
+  }
+
+  function handleKeydown(e) {
+    if (lightboxIndex === null) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  }
+
+  onMount(() => {
+    document.addEventListener('keydown', handleKeydown);
+  });
+
+  onDestroy(() => {
+    document.removeEventListener('keydown', handleKeydown);
+  });
+&lt;/script&gt;
+
+&lt;div class="aural-gallery aural-gallery--cols-{columns}"&gt;
+  {#each images as image, index}
+    &lt;div
+      class="aural-gallery__item"
+      tabindex="0"
+      on:click={() => openLightbox(index)}
+      on:keydown={(e) => handleItemKeydown(e, index)}
+    &gt;
+      &lt;img
+        class="aural-gallery__image"
+        src={image.src}
+        alt={image.alt}
+      /&gt;
+      &lt;div class="aural-gallery__overlay"&gt;
+        &lt;div class="aural-gallery__title"&gt;{image.title}&lt;/div&gt;
+        &lt;div class="aural-gallery__description"&gt;{image.description}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  {/each}
+&lt;/div&gt;
+
+{#if lightboxIndex !== null}
+  &lt;div class="lightbox" on:click={closeLightbox}&gt;
+    &lt;button
+      class="lightbox__close"
+      on:click={closeLightbox}
+      aria-label="Close"
+    &gt;
+      &times;
+    &lt;/button&gt;
+    &lt;button
+      class="lightbox__prev"
+      on:click|stopPropagation={() => navigate(-1)}
+      aria-label="Previous"
+    &gt;
+      &lsaquo;
+    &lt;/button&gt;
+    &lt;img
+      src={images[lightboxIndex].src}
+      alt={images[lightboxIndex].alt}
+      on:click|stopPropagation
+    /&gt;
+    &lt;button
+      class="lightbox__next"
+      on:click|stopPropagation={() => navigate(1)}
+      aria-label="Next"
+    &gt;
+      &rsaquo;
+    &lt;/button&gt;
+  &lt;/div&gt;
+{/if}</code></pre>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>

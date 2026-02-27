@@ -678,6 +678,156 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;div class="progress" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"&gt;
+    &lt;div class="progress-bar" style="width: 65%"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- With label --&gt;
+&lt;div class="progress" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"&gt;
+    &lt;div class="progress-bar progress-bar-primary" style="width: 65%"&gt;
+        &lt;span class="progress-label"&gt;65%&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Progress = ({ value = 0, max = 100, variant, size, showLabel }) => {
+  const percentage = Math.min(100, Math.max(0, (value / max) * 100));
+
+  const classNames = [
+    'progress-bar',
+    variant && `progress-bar-${variant}`,
+    size && `progress-bar-${size}`
+  ].filter(Boolean).join(' ');
+
+  return (
+    &lt;div
+      className="progress"
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin="0"
+      aria-valuemax={max}
+    &gt;
+      &lt;div className={classNames} style={{ width: `${percentage}%` }}&gt;
+        {showLabel && &lt;span className="progress-label"&gt;{Math.round(percentage)}%&lt;/span&gt;}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+&lt;Progress value={65} showLabel /&gt;
+&lt;Progress value={80} variant="success" /&gt;
+&lt;Progress value={45} variant="warning" size="lg" showLabel /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div
+    class="progress"
+    role="progressbar"
+    :aria-valuenow="value"
+    aria-valuemin="0"
+    :aria-valuemax="max"
+  &gt;
+    &lt;div :class="barClasses" :style="{ width: `${percentage}%` }"&gt;
+      &lt;span v-if="showLabel" class="progress-label"&gt;
+        {{ Math.round(percentage) }}%
+      &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    value: { type: Number, default: 0 },
+    max: { type: Number, default: 100 },
+    variant: String,
+    size: String,
+    showLabel: Boolean
+  },
+  computed: {
+    percentage() {
+      return Math.min(100, Math.max(0, (this.value / this.max) * 100));
+    },
+    barClasses() {
+      return [
+        'progress-bar',
+        this.variant && `progress-bar-${this.variant}`,
+        this.size && `progress-bar-${this.size}`
+      ].filter(Boolean).join(' ');
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Progress :value="65" show-label /&gt;
+&lt;Progress :value="80" variant="success" /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let value = 0;
+  export let max = 100;
+  export let variant = '';
+  export let size = '';
+  export let showLabel = false;
+
+  $: percentage = Math.min(100, Math.max(0, (value / max) * 100));
+  $: barClasses = [
+    'progress-bar',
+    variant && `progress-bar-${variant}`,
+    size && `progress-bar-${size}`
+  ].filter(Boolean).join(' ');
+&lt;/script&gt;
+
+&lt;div
+  class="progress"
+  role="progressbar"
+  aria-valuenow={value}
+  aria-valuemin="0"
+  aria-valuemax={max}
+&gt;
+  &lt;div class={barClasses} style="width: {percentage}%"&gt;
+    {#if showLabel}
+      &lt;span class="progress-label"&gt;{Math.round(percentage)}%&lt;/span&gt;
+    {/if}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Progress value={65} showLabel /&gt;
+&lt;Progress value={80} variant="success" /&gt;
+&lt;Progress value={45} variant="warning" size="lg" showLabel /&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

@@ -473,6 +473,123 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;span class="badge badge-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="badge badge-success"&gt;Success&lt;/span&gt;
+&lt;span class="badge badge-warning"&gt;Warning&lt;/span&gt;
+&lt;span class="badge badge-error"&gt;Error&lt;/span&gt;
+
+&lt;!-- With icons --&gt;
+&lt;span class="badge badge-primary"&gt;
+    &lt;i data-lucide="check"&gt;&lt;/i&gt;
+    Verified
+&lt;/span&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Badge = ({ children, variant = 'primary', size, icon }) => {
+  const classNames = [
+    'badge',
+    `badge-${variant}`,
+    size && `badge-${size}`
+  ].filter(Boolean).join(' ');
+
+  return (
+    &lt;span className={classNames}&gt;
+      {icon && &lt;i data-lucide={icon} /&gt;}
+      {children}
+    &lt;/span&gt;
+  );
+};
+
+// Usage
+&lt;Badge variant="primary"&gt;Primary&lt;/Badge&gt;
+&lt;Badge variant="success" icon="check"&gt;Verified&lt;/Badge&gt;
+&lt;Badge variant="warning" size="sm"&gt;Warning&lt;/Badge&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;span :class="badgeClasses"&gt;
+    &lt;i v-if="icon" :data-lucide="icon" /&gt;
+    &lt;slot /&gt;
+  &lt;/span&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    variant: { type: String, default: 'primary' },
+    size: String,
+    icon: String
+  },
+  computed: {
+    badgeClasses() {
+      return [
+        'badge',
+        `badge-${this.variant}`,
+        this.size && `badge-${this.size}`
+      ].filter(Boolean).join(' ');
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Badge variant="primary"&gt;Primary&lt;/Badge&gt;
+&lt;Badge variant="success" icon="check"&gt;Verified&lt;/Badge&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let variant = 'primary';
+  export let size = '';
+  export let icon = '';
+
+  $: badgeClasses = [
+    'badge',
+    `badge-${variant}`,
+    size && `badge-${size}`
+  ].filter(Boolean).join(' ');
+&lt;/script&gt;
+
+&lt;span class={badgeClasses}&gt;
+  {#if icon}
+    &lt;i data-lucide={icon} /&gt;
+  {/if}
+  &lt;slot /&gt;
+&lt;/span&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Badge variant="primary"&gt;Primary&lt;/Badge&gt;
+&lt;Badge variant="success" icon="check"&gt;Verified&lt;/Badge&gt;
+&lt;Badge variant="warning" size="sm"&gt;Warning&lt;/Badge&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

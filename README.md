@@ -17,9 +17,9 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 
 **Key Features:**
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
-- 🌓 **7 Built-in Themes** - Dark, light, neon, neon-refined, kinetic, high-contrast, and colorblind-friendly
-- ♿ **Accessibility First** - 100% WCAG 2.1 AA compliant (all text ≥4.5:1 contrast ratio)
-- 📦 **53 Components** - Everything from buttons to notification centers
+- 🌓 **7 Built-in Themes** - Dark, Light, Neon, Kinetic, Prismatic, Minimal, and Warm
+- ♿ **Accessibility First** - WCAG 2.1 AAA compliant (7:1+ contrast ratios across all themes)
+- 📦 **60+ Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
 - 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
@@ -160,7 +160,17 @@ Aural.showToast('Operation successful!', 'success');
 
 ### Using Pre-built Themes
 
-Aural UI includes 6 professionally designed themes:
+Aural UI includes 7 professionally designed themes, each showcasing the flexibility of our token system:
+
+| Theme | Description | Use Case |
+|-------|-------------|----------|
+| **Dark** | Professional dark theme with blue accents | Default, general purpose |
+| **Light** | Clean light theme with subtle grays | Light mode preference |
+| **Neon** | Cyberpunk aesthetic with vibrant cyan/magenta | Bold, modern applications |
+| **Kinetic** | Brutalist editorial with high contrast | Content-focused, editorial |
+| **Prismatic** | Purple gradients with glass morphism | Colorful, modern design systems |
+| **Minimal** | Ultra-clean monochrome | Maximum clarity, minimal distraction |
+| **Warm** | Cozy earth tones with amber accents | Long reading sessions, comfort |
 
 ```html
 <!-- Dark theme (default) -->
@@ -169,18 +179,23 @@ Aural UI includes 6 professionally designed themes:
 <!-- Light theme -->
 <link rel="stylesheet" href="aural-ui/themes/light.css">
 
-<!-- Neon theme (cyberpunk aesthetic) -->
+<!-- Neon theme -->
 <link rel="stylesheet" href="aural-ui/themes/neon.css">
 
-<!-- Kinetic theme (brutalist editorial) -->
+<!-- Kinetic theme -->
 <link rel="stylesheet" href="aural-ui/themes/kinetic.css">
 
-<!-- High contrast theme -->
-<link rel="stylesheet" href="aural-ui/themes/high-contrast.css">
+<!-- Prismatic theme (NEW) -->
+<link rel="stylesheet" href="aural-ui/themes/prismatic.css">
 
-<!-- Colorblind-friendly theme -->
-<link rel="stylesheet" href="aural-ui/themes/colorblind-friendly.css">
+<!-- Minimal theme (NEW) -->
+<link rel="stylesheet" href="aural-ui/themes/minimal.css">
+
+<!-- Warm theme (NEW) -->
+<link rel="stylesheet" href="aural-ui/themes/warm.css">
 ```
+
+**All themes are WCAG 2.1 AAA compliant** with 7:1+ contrast ratios for superior accessibility.
 
 ### Creating Custom Themes
 
@@ -580,7 +595,7 @@ npm run serve
 
 ## ♿ Accessibility
 
-All components follow WCAG AA accessibility guidelines and include:
+All components follow WCAG 2.1 AAA accessibility guidelines and include:
 
 - ✅ **Keyboard Navigation** - Full support for Tab, Arrow keys, Enter, Escape
 - ✅ **Focus Indicators** - Visible focus outlines with proper contrast (2px solid)
@@ -588,7 +603,7 @@ All components follow WCAG AA accessibility guidelines and include:
 - ✅ **Screen Reader Support** - Meaningful labels and state announcements
 - ✅ **Touch Targets** - Minimum 44px for all interactive elements
 - ✅ **Reduced Motion** - Respects `prefers-reduced-motion` preference
-- ✅ **Color Contrast** - WCAG AA compliant (4.5:1 for text, 3:1 for UI)
+- ✅ **Color Contrast** - WCAG AAA compliant (7:1+ for all text across all 7 themes)
 - ✅ **Semantic HTML** - Proper use of headings, lists, and landmarks
 
 ### Testing Recommendations

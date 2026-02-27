@@ -644,6 +644,351 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;!-- Basic empty state --&gt;
+&lt;div class="empty-state"&gt;
+  &lt;div class="empty-state-icon"&gt;
+    &lt;i data-lucide="inbox"&gt;&lt;/i&gt;
+  &lt;/div&gt;
+  &lt;h3 class="empty-state-title"&gt;No items yet&lt;/h3&gt;
+  &lt;p class="empty-state-description"&gt;
+    Get started by creating your first item.
+  &lt;/p&gt;
+  &lt;button class="btn btn-primary" onclick="createItem()"&gt;
+    &lt;i data-lucide="plus"&gt;&lt;/i&gt;
+    Create Item
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Dynamic empty state rendering
+function renderEmptyState(type) {
+  const states = {
+    noData: {
+      icon: 'inbox',
+      title: 'No items yet',
+      description: 'Get started by creating your first item.',
+      action: { text: 'Create Item', handler: createItem }
+    },
+    noResults: {
+      icon: 'search',
+      title: 'No results found',
+      description: 'Try adjusting your filters or search terms.',
+      action: { text: 'Clear Filters', handler: clearFilters }
+    },
+    error: {
+      icon: 'alert-circle',
+      iconColor: 'var(--color-error)',
+      title: 'Something went wrong',
+      description: 'We\'re having trouble loading your data.',
+      action: { text: 'Try Again', handler: retry }
+    }
+  };
+
+  const state = states[type];
+  const container = document.getElementById('content');
+
+  container.innerHTML = `
+    &lt;div class="empty-state"&gt;
+      &lt;div class="empty-state-icon" ${state.iconColor ? `style="color: ${state.iconColor}"` : ''}&gt;
+        &lt;i data-lucide="${state.icon}"&gt;&lt;/i&gt;
+      &lt;/div&gt;
+      &lt;h3 class="empty-state-title"&gt;${state.title}&lt;/h3&gt;
+      &lt;p class="empty-state-description"&gt;${state.description}&lt;/p&gt;
+      ${state.action ? `
+        &lt;button class="btn btn-primary" id="empty-state-action"&gt;
+          ${state.action.text}
+        &lt;/button&gt;
+      ` : ''}
+    &lt;/div&gt;
+  `;
+
+  if (state.action) {
+    document.getElementById('empty-state-action')
+      .addEventListener('click', state.action.handler);
+  }
+
+  lucide.createIcons();
+}
+&lt;/script&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const EmptyState = ({
+  icon,
+  iconColor,
+  title,
+  description,
+  action,
+  secondaryAction
+}) => {
+  return (
+    &lt;div className="empty-state"&gt;
+      &lt;div
+        className="empty-state-icon"
+        style={iconColor ? { color: iconColor } : undefined}
+      &gt;
+        {icon}
+      &lt;/div&gt;
+      &lt;h3 className="empty-state-title"&gt;{title}&lt;/h3&gt;
+      &lt;p className="empty-state-description"&gt;{description}&lt;/p&gt;
+      {(action || secondaryAction) && (
+        &lt;div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}&gt;
+          {secondaryAction && (
+            &lt;button
+              className="btn btn-secondary"
+              onClick={secondaryAction.onClick}
+            &gt;
+              {secondaryAction.icon}
+              {secondaryAction.text}
+            &lt;/button&gt;
+          )}
+          {action && (
+            &lt;button
+              className="btn btn-primary"
+              onClick={action.onClick}
+            &gt;
+              {action.icon}
+              {action.text}
+            &lt;/button&gt;
+          )}
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+// Usage examples
+function DataList({ items, onCreateItem }) {
+  if (items.length === 0) {
+    return (
+      &lt;EmptyState
+        icon={&lt;Inbox size={48} /&gt;}
+        title="No items yet"
+        description="Get started by creating your first item."
+        action={{
+          icon: &lt;Plus size={16} /&gt;,
+          text: 'Create Item',
+          onClick: onCreateItem
+        }}
+      /&gt;
+    );
+  }
+
+  return &lt;div&gt;{/* Render items */}&lt;/div&gt;;
+}
+
+function SearchResults({ results, query, onClearFilters }) {
+  if (results.length === 0 && query) {
+    return (
+      &lt;EmptyState
+        icon={&lt;Search size={48} /&gt;}
+        title="No results found"
+        description="Try adjusting your filters or search terms."
+        action={{
+          text: 'Clear Filters',
+          onClick: onClearFilters
+        }}
+      /&gt;
+    );
+  }
+
+  return &lt;div&gt;{/* Render results */}&lt;/div&gt;;
+}
+
+function ErrorState({ onRetry, onGoBack }) {
+  return (
+    &lt;EmptyState
+      icon={&lt;AlertCircle size={48} /&gt;}
+      iconColor="var(--color-error)"
+      title="Something went wrong"
+      description="We're having trouble loading your data. Please try again."
+      secondaryAction={{
+        text: 'Go Back',
+        onClick: onGoBack
+      }}
+      action={{
+        icon: &lt;RefreshCw size={16} /&gt;,
+        text: 'Try Again',
+        onClick: onRetry
+      }}
+    /&gt;
+  );
+}</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="empty-state"&gt;
+    &lt;div
+      class="empty-state-icon"
+      :style="iconColor ? { color: iconColor } : undefined"
+    &gt;
+      &lt;slot name="icon"&gt;
+        &lt;component :is="icon" :size="48" /&gt;
+      &lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;h3 class="empty-state-title"&gt;{{ title }}&lt;/h3&gt;
+    &lt;p class="empty-state-description"&gt;{{ description }}&lt;/p&gt;
+    &lt;div
+      v-if="$slots.actions || action || secondaryAction"
+      style="display: flex; gap: var(--space-3); justify-content: center"
+    &gt;
+      &lt;slot name="actions"&gt;
+        &lt;button
+          v-if="secondaryAction"
+          class="btn btn-secondary"
+          @click="secondaryAction.onClick"
+        &gt;
+          &lt;component v-if="secondaryAction.icon" :is="secondaryAction.icon" :size="16" /&gt;
+          {{ secondaryAction.text }}
+        &lt;/button&gt;
+        &lt;button
+          v-if="action"
+          class="btn btn-primary"
+          @click="action.onClick"
+        &gt;
+          &lt;component v-if="action.icon" :is="action.icon" :size="16" /&gt;
+          {{ action.text }}
+        &lt;/button&gt;
+      &lt;/slot&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    icon: { type: [String, Object], default: null },
+    iconColor: { type: String, default: null },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    action: { type: Object, default: null },
+    secondaryAction: { type: Object, default: null }
+  }
+};
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;template&gt;
+  &lt;div v-if="items.length === 0"&gt;
+    &lt;EmptyState
+      :icon="Inbox"
+      title="No items yet"
+      description="Get started by creating your first item."
+      :action="{
+        icon: Plus,
+        text: 'Create Item',
+        onClick: createItem
+      }"
+    /&gt;
+  &lt;/div&gt;
+  &lt;div v-else&gt;
+    &lt;!-- Render items --&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let icon;
+  export let iconColor = null;
+  export let title;
+  export let description;
+  export let action = null;
+  export let secondaryAction = null;
+&lt;/script&gt;
+
+&lt;div class="empty-state"&gt;
+  &lt;div
+    class="empty-state-icon"
+    style:color={iconColor}
+  &gt;
+    &lt;slot name="icon"&gt;
+      &lt;svelte:component this={icon} size={48} /&gt;
+    &lt;/slot&gt;
+  &lt;/div&gt;
+  &lt;h3 class="empty-state-title"&gt;{title}&lt;/h3&gt;
+  &lt;p class="empty-state-description"&gt;{description}&lt;/p&gt;
+  {#if $$slots.actions || action || secondaryAction}
+    &lt;div style="display: flex; gap: var(--space-3); justify-content: center"&gt;
+      &lt;slot name="actions"&gt;
+        {#if secondaryAction}
+          &lt;button
+            class="btn btn-secondary"
+            on:click={secondaryAction.onClick}
+          &gt;
+            {#if secondaryAction.icon}
+              &lt;svelte:component this={secondaryAction.icon} size={16} /&gt;
+            {/if}
+            {secondaryAction.text}
+          &lt;/button&gt;
+        {/if}
+        {#if action}
+          &lt;button
+            class="btn btn-primary"
+            on:click={action.onClick}
+          &gt;
+            {#if action.icon}
+              &lt;svelte:component this={action.icon} size={16} /&gt;
+            {/if}
+            {action.text}
+          &lt;/button&gt;
+        {/if}
+      &lt;/slot&gt;
+    &lt;/div&gt;
+  {/if}
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;script&gt;
+  import EmptyState from './EmptyState.svelte';
+  import { Inbox, Plus, Search, AlertCircle, RefreshCw } from 'lucide-svelte';
+
+  let items = [];
+
+  function createItem() {
+    // Create new item
+  }
+&lt;/script&gt;
+
+{#if items.length === 0}
+  &lt;EmptyState
+    icon={Inbox}
+    title="No items yet"
+    description="Get started by creating your first item."
+    action={{
+      icon: Plus,
+      text: 'Create Item',
+      onClick: createItem
+    }}
+  /&gt;
+{:else}
+  &lt;!-- Render items --&gt;
+{/if}</code></pre>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>

@@ -428,6 +428,266 @@ Aural.showSnackbar('Extended message', { duration: 8000 });  // 8 seconds</code>
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;button class="btn btn-primary" onclick="showSnackbar()"&gt;Show Snackbar&lt;/button&gt;
+
+&lt;div id="snackbar-container" class="snackbar-container"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+function showSnackbar(message = 'This is a snackbar', action = null) {
+    const container = document.getElementById('snackbar-container');
+
+    const snackbar = document.createElement('div');
+    snackbar.className = 'snackbar';
+
+    snackbar.innerHTML = `
+        &lt;div class="snackbar-content"&gt;
+            &lt;p class="snackbar-message"&gt;${message}&lt;/p&gt;
+        &lt;/div&gt;
+        ${action ? `
+            &lt;button class="snackbar-action"&gt;${action}&lt;/button&gt;
+        ` : ''}
+        &lt;button class="snackbar-close" aria-label="Close snackbar"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    `;
+
+    container.appendChild(snackbar);
+    lucide.createIcons();
+
+    // Auto dismiss after 4 seconds
+    setTimeout(() =&gt; {
+        snackbar.classList.add('snackbar-hiding');
+        setTimeout(() =&gt; snackbar.remove(), 300);
+    }, 4000);
+
+    // Close button handler
+    snackbar.querySelector('.snackbar-close').addEventListener('click', () =&gt; {
+        snackbar.classList.add('snackbar-hiding');
+        setTimeout(() =&gt; snackbar.remove(), 300);
+    });
+
+    // Action button handler
+    if (action) {
+        snackbar.querySelector('.snackbar-action').addEventListener('click', () =&gt; {
+            console.log('Action clicked');
+            snackbar.classList.add('snackbar-hiding');
+            setTimeout(() =&gt; snackbar.remove(), 300);
+        });
+    }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">import { useState, useEffect } from 'react';
+
+const Snackbar = ({ message, action, onAction, duration = 4000, onClose }) =&gt; {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() =&gt; {
+    if (duration) {
+      const timer = setTimeout(() =&gt; {
+        setIsVisible(false);
+        setTimeout(() =&gt; onClose(), 300);
+      }, duration);
+      return () =&gt; clearTimeout(timer);
+    }
+  }, [duration, onClose]);
+
+  const handleClose = () =&gt; {
+    setIsVisible(false);
+    setTimeout(() =&gt; onClose(), 300);
+  };
+
+  const handleAction = () =&gt; {
+    if (onAction) onAction();
+    handleClose();
+  };
+
+  return (
+    &lt;div className={`snackbar ${!isVisible ? 'snackbar-hiding' : ''}`}&gt;
+      &lt;div className="snackbar-content"&gt;
+        &lt;p className="snackbar-message"&gt;{message}&lt;/p&gt;
+      &lt;/div&gt;
+      {action &amp;&amp; (
+        &lt;button className="snackbar-action" onClick={handleAction}&gt;
+          {action}
+        &lt;/button&gt;
+      )}
+      &lt;button className="snackbar-close" onClick={handleClose} aria-label="Close snackbar"&gt;
+        &lt;i data-lucide="x"&gt;&lt;/i&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+function App() {
+  const [snackbars, setSnackbars] = useState([]);
+
+  const showSnackbar = (message, action = null) =&gt; {
+    const id = Date.now();
+    setSnackbars(prev =&gt; [...prev, { id, message, action }]);
+  };
+
+  const removeSnackbar = (id) =&gt; {
+    setSnackbars(prev =&gt; prev.filter(sb =&gt; sb.id !== id));
+  };
+
+  return (
+    &lt;&gt;
+      &lt;button
+        className="btn btn-primary"
+        onClick={() =&gt; showSnackbar('Item deleted', 'Undo')}
+      &gt;
+        Show Snackbar
+      &lt;/button&gt;
+
+      &lt;div className="snackbar-container"&gt;
+        {snackbars.map(snackbar =&gt; (
+          &lt;Snackbar
+            key={snackbar.id}
+            message={snackbar.message}
+            action={snackbar.action}
+            onAction={() =&gt; console.log('Action clicked')}
+            onClose={() =&gt; removeSnackbar(snackbar.id)}
+          /&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;button class="btn btn-primary" @click="showSnackbar"&gt;
+      Show Snackbar
+    &lt;/button&gt;
+
+    &lt;div class="snackbar-container"&gt;
+      &lt;transition-group name="snackbar"&gt;
+        &lt;div
+          v-for="snackbar in snackbars"
+          :key="snackbar.id"
+          class="snackbar"
+        &gt;
+          &lt;div class="snackbar-content"&gt;
+            &lt;p class="snackbar-message"&gt;{{ snackbar.message }}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;button
+            v-if="snackbar.action"
+            class="snackbar-action"
+            @click="handleAction(snackbar.id)"
+          &gt;
+            {{ snackbar.action }}
+          &lt;/button&gt;
+          &lt;button
+            class="snackbar-close"
+            @click="removeSnackbar(snackbar.id)"
+            aria-label="Close snackbar"
+          &gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/transition-group&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      snackbars: []
+    };
+  },
+  methods: {
+    showSnackbar(message = 'This is a snackbar', action = null, duration = 4000) {
+      const id = Date.now();
+      this.snackbars.push({ id, message, action });
+
+      if (duration) {
+        setTimeout(() =&gt; this.removeSnackbar(id), duration);
+      }
+    },
+    removeSnackbar(id) {
+      this.snackbars = this.snackbars.filter(sb =&gt; sb.id !== id);
+    },
+    handleAction(id) {
+      console.log('Action clicked');
+      this.removeSnackbar(id);
+      this.$emit('action');
+    }
+  }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Snackbar, Button } from '@aural-ui/svelte';
+
+  let showSnackbar = false;
+
+  function show() {
+    showSnackbar = true;
+    setTimeout(() =&gt; showSnackbar = false, 4000);
+  }
+
+  function handleAction() {
+    console.log('Action clicked');
+    showSnackbar = false;
+  }
+&lt;/script&gt;
+
+&lt;Button on:click={show}&gt;Show Snackbar&lt;/Button&gt;
+
+{#if showSnackbar}
+  &lt;Snackbar
+    message="Item deleted"
+    action="Undo"
+    on:action={handleAction}
+    on:close={() =&gt; showSnackbar = false}
+  /&gt;
+{/if}
+
+&lt;!-- Simple snackbar without action --&gt;
+&lt;Snackbar message="Changes saved" /&gt;
+
+&lt;!-- With action button --&gt;
+&lt;Snackbar
+  message="Item deleted"
+  action="Undo"
+  on:action={handleAction}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

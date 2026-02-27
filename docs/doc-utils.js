@@ -41,7 +41,11 @@ const DocUtils = {
             const panels = container.querySelectorAll('[role="tabpanel"]');
 
             tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default behavior
+                    e.stopPropagation(); // Prevent Aural.initTabs() from interfering
+                    e.stopImmediatePropagation(); // Stop all other handlers
+
                     const target = tab.getAttribute('aria-controls');
 
                     // Update tabs
@@ -55,7 +59,7 @@ const DocUtils = {
                     // Update panels
                     panels.forEach(p => p.hidden = true);
                     document.getElementById(target).hidden = false;
-                });
+                }, true); // Use capture phase to run before Aural's listeners
             });
         });
     },

@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -628,6 +631,182 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="accordion"&gt;
+    &lt;div class="accordion-item"&gt;
+        &lt;button class="accordion-header" aria-expanded="false" aria-controls="panel-1"&gt;
+            &lt;span&gt;Section 1&lt;/span&gt;
+            &lt;svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20"&gt;
+                &lt;path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/&gt;
+            &lt;/svg&gt;
+        &lt;/button&gt;
+        &lt;div id="panel-1" class="accordion-panel" role="region" hidden&gt;
+            &lt;div class="accordion-content"&gt;
+                Content for section 1
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const expanded = header.getAttribute('aria-expanded') === 'true';
+        const panel = document.getElementById(header.getAttribute('aria-controls'));
+
+        header.setAttribute('aria-expanded', !expanded);
+        panel.hidden = expanded;
+    });
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Accordion = ({ items }) => {
+  const [openItems, setOpenItems] = useState([]);
+
+  const toggleItem = (id) => {
+    setOpenItems(prev =>
+      prev.includes(id)
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    );
+  };
+
+  return (
+    &lt;div className="accordion"&gt;
+      {items.map(item => (
+        &lt;div key={item.id} className="accordion-item"&gt;
+          &lt;button
+            className="accordion-header"
+            aria-expanded={openItems.includes(item.id)}
+            onClick={() => toggleItem(item.id)}
+          &gt;
+            &lt;span&gt;{item.title}&lt;/span&gt;
+            &lt;svg className="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20"&gt;
+              &lt;path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+          {openItems.includes(item.id) && (
+            &lt;div className="accordion-panel" role="region"&gt;
+              &lt;div className="accordion-content"&gt;
+                {item.content}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+};</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="accordion"&gt;
+    &lt;div
+      v-for="item in items"
+      :key="item.id"
+      class="accordion-item"
+    &gt;
+      &lt;button
+        class="accordion-header"
+        :aria-expanded="openItems.includes(item.id)"
+        @click="toggleItem(item.id)"
+      &gt;
+        &lt;span&gt;{{ item.title }}&lt;/span&gt;
+        &lt;svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20"&gt;
+          &lt;path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;div v-if="openItems.includes(item.id)" class="accordion-panel" role="region"&gt;
+        &lt;div class="accordion-content"&gt;
+          {{ item.content }}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    items: { type: Array, required: true }
+  },
+  data() {
+    return {
+      openItems: []
+    };
+  },
+  methods: {
+    toggleItem(id) {
+      const index = this.openItems.indexOf(id);
+      if (index > -1) {
+        this.openItems.splice(index, 1);
+      } else {
+        this.openItems.push(id);
+      }
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Accordion } from '@aural-ui/svelte';
+
+  const items = [
+    {
+      id: 'item1',
+      title: 'Section 1',
+      content: 'Content for section 1'
+    },
+    {
+      id: 'item2',
+      title: 'Section 2',
+      content: 'Content for section 2'
+    },
+    {
+      id: 'item3',
+      title: 'Section 3',
+      content: 'Content for section 3'
+    }
+  ];
+&lt;/script&gt;
+
+&lt;!-- Basic accordion --&gt;
+&lt;Accordion {items} /&gt;
+
+&lt;!-- Allow multiple open --&gt;
+&lt;Accordion {items} multiple /&gt;
+
+&lt;!-- Default open items --&gt;
+&lt;Accordion {items} defaultOpen={['item1', 'item2']} /&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -860,6 +1039,9 @@
     </script>
     <!-- Theme Manager -->
     <script src="../js/theme-manager.js"></script>
+
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 
 </body>
 </html>

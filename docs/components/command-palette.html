@@ -558,6 +558,596 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-javascript">class CommandPalette {
+  constructor(commands) {
+    this.commands = commands;
+    this.filteredCommands = commands;
+    this.selectedIndex = 0;
+    this.isOpen = false;
+    this.init();
+  }
+
+  init() {
+    // Global keyboard shortcut (Cmd/Ctrl + K)
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        this.toggle();
+      }
+    });
+  }
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+    const backdrop = document.querySelector('.aural-command-palette-backdrop');
+
+    if (this.isOpen) {
+      backdrop.classList.add('is-open');
+      const input = backdrop.querySelector('.aural-command-palette__input');
+      input.focus();
+      this.setupEventListeners();
+    } else {
+      backdrop.classList.remove('is-open');
+    }
+  }
+
+  setupEventListeners() {
+    const input = document.querySelector('.aural-command-palette__input');
+    const items = document.querySelectorAll('.aural-command-palette__item');
+
+    // Search input
+    input.addEventListener('input', (e) => this.handleSearch(e.target.value));
+
+    // Keyboard navigation
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        this.navigate(1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        this.navigate(-1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        this.executeCommand(this.filteredCommands[this.selectedIndex]);
+      } else if (e.key === 'Escape') {
+        this.toggle();
+      }
+    });
+
+    // Click handlers
+    items.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        this.executeCommand(this.filteredCommands[index]);
+      });
+    });
+  }
+
+  handleSearch(query) {
+    this.filteredCommands = this.commands.filter(cmd =>
+      cmd.title.toLowerCase().includes(query.toLowerCase()) ||
+      cmd.subtitle?.toLowerCase().includes(query.toLowerCase())
+    );
+    this.selectedIndex = 0;
+    this.render();
+  }
+
+  navigate(direction) {
+    this.selectedIndex = Math.max(
+      0,
+      Math.min(this.filteredCommands.length - 1, this.selectedIndex + direction)
+    );
+    this.updateSelection();
+  }
+
+  updateSelection() {
+    const items = document.querySelectorAll('.aural-command-palette__item');
+    items.forEach((item, index) => {
+      item.classList.toggle('is-selected', index === this.selectedIndex);
+    });
+  }
+
+  executeCommand(command) {
+    if (command && command.action) {
+      command.action();
+      this.toggle();
+    }
+  }
+
+  render() {
+    const container = document.querySelector('.aural-command-palette__results');
+    // Group commands by category
+    const groups = this.filteredCommands.reduce((acc, cmd) => {
+      const category = cmd.category || 'General';
+      if (!acc[category]) acc[category] = [];
+      acc[category].push(cmd);
+      return acc;
+    }, {});
+
+    container.innerHTML = Object.entries(groups).map(([category, items]) => `
+      &lt;div class="aural-command-palette__group"&gt;
+        &lt;div class="aural-command-palette__group-label"&gt;${category}&lt;/div&gt;
+        &lt;div class="aural-command-palette__items"&gt;
+          ${items.map((cmd, i) => `
+            &lt;button class="aural-command-palette__item ${i === 0 ? 'is-selected' : ''}"&gt;
+              &lt;span class="aural-command-palette__item-icon"&gt;${cmd.icon}&lt;/span&gt;
+              &lt;div class="aural-command-palette__item-content"&gt;
+                &lt;div class="aural-command-palette__item-title"&gt;${cmd.title}&lt;/div&gt;
+                ${cmd.subtitle ? `&lt;div class="aural-command-palette__item-subtitle"&gt;${cmd.subtitle}&lt;/div&gt;` : ''}
+              &lt;/div&gt;
+              ${cmd.kbd ? `&lt;kbd class="aural-command-palette__item-kbd"&gt;${cmd.kbd}&lt;/kbd&gt;` : ''}
+            &lt;/button&gt;
+          `).join('')}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    `).join('');
+  }
+}
+
+// Initialize
+const commands = [
+  { category: 'Navigation', icon: '🏠', title: 'Go to Dashboard', kbd: '⌘D', action: () => navigate('/dashboard') },
+  { category: 'Navigation', icon: '📁', title: 'Browse Projects', kbd: '⌘P', action: () => navigate('/projects') },
+  { category: 'Actions', icon: '➕', title: 'Create New', kbd: '⌘N', action: () => createNew() }
+];
+
+const palette = new CommandPalette(commands);</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">import { useState, useEffect, useRef } from 'react';
+
+const CommandPalette = ({ commands, isOpen, onClose }) => {
+  const [query, setQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const inputRef = useRef(null);
+
+  const filteredCommands = commands.filter(cmd =>
+    cmd.title.toLowerCase().includes(query.toLowerCase()) ||
+    cmd.subtitle?.toLowerCase().includes(query.toLowerCase())
+  );
+
+  // Group commands by category
+  const groupedCommands = filteredCommands.reduce((acc, cmd) => {
+    const category = cmd.category || 'General';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(cmd);
+    return acc;
+  }, {});
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [query]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex(i => Math.min(filteredCommands.length - 1, i + 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex(i => Math.max(0, i - 1));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      executeCommand(filteredCommands[selectedIndex]);
+    } else if (e.key === 'Escape') {
+      onClose();
+    }
+  };
+
+  const executeCommand = (command) => {
+    if (command?.action) {
+      command.action();
+      onClose();
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    &lt;div
+      className="aural-command-palette-backdrop is-open"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    &gt;
+      &lt;div className="aural-command-palette"&gt;
+        &lt;div className="aural-command-palette__search"&gt;
+          &lt;span className="aural-command-palette__search-icon"&gt;
+            &lt;Search size={20} /&gt;
+          &lt;/span&gt;
+          &lt;input
+            ref={inputRef}
+            type="text"
+            className="aural-command-palette__input"
+            placeholder="Type a command..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+          /&gt;
+        &lt;/div&gt;
+
+        &lt;div className="aural-command-palette__results"&gt;
+          {Object.entries(groupedCommands).map(([category, items]) => (
+            &lt;div key={category} className="aural-command-palette__group"&gt;
+              &lt;div className="aural-command-palette__group-label"&gt;
+                {category}
+              &lt;/div&gt;
+              &lt;div className="aural-command-palette__items"&gt;
+                {items.map((cmd, index) => (
+                  &lt;button
+                    key={cmd.id || index}
+                    className={`aural-command-palette__item ${
+                      index === selectedIndex ? 'is-selected' : ''
+                    }`}
+                    onClick={() => executeCommand(cmd)}
+                  &gt;
+                    &lt;span className="aural-command-palette__item-icon"&gt;
+                      {cmd.icon}
+                    &lt;/span&gt;
+                    &lt;div className="aural-command-palette__item-content"&gt;
+                      &lt;div className="aural-command-palette__item-title"&gt;
+                        {cmd.title}
+                      &lt;/div&gt;
+                      {cmd.subtitle && (
+                        &lt;div className="aural-command-palette__item-subtitle"&gt;
+                          {cmd.subtitle}
+                        &lt;/div&gt;
+                      )}
+                    &lt;/div&gt;
+                    {cmd.kbd && (
+                      &lt;kbd className="aural-command-palette__item-kbd"&gt;
+                        {cmd.kbd}
+                      &lt;/kbd&gt;
+                    )}
+                  &lt;/button&gt;
+                ))}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          ))}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage with global shortcut
+function App() {
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setPaletteOpen(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const commands = [
+    {
+      category: 'Navigation',
+      icon: &lt;Home size={18} /&gt;,
+      title: 'Go to Dashboard',
+      kbd: '⌘D',
+      action: () => navigate('/dashboard')
+    },
+    // More commands...
+  ];
+
+  return (
+    &lt;&gt;
+      &lt;CommandPalette
+        commands={commands}
+        isOpen={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+      /&gt;
+      &lt;!-- App content --&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;Teleport to="body"&gt;
+    &lt;div
+      v-if="isOpen"
+      class="aural-command-palette-backdrop is-open"
+      @click.self="$emit('close')"
+    &gt;
+      &lt;div class="aural-command-palette"&gt;
+        &lt;div class="aural-command-palette__search"&gt;
+          &lt;span class="aural-command-palette__search-icon"&gt;
+            &lt;Search :size="20" /&gt;
+          &lt;/span&gt;
+          &lt;input
+            ref="inputRef"
+            type="text"
+            class="aural-command-palette__input"
+            placeholder="Type a command..."
+            v-model="query"
+            @keydown="handleKeyDown"
+          /&gt;
+        &lt;/div&gt;
+
+        &lt;div class="aural-command-palette__results"&gt;
+          &lt;div
+            v-for="(items, category) in groupedCommands"
+            :key="category"
+            class="aural-command-palette__group"
+          &gt;
+            &lt;div class="aural-command-palette__group-label"&gt;
+              {{ category }}
+            &lt;/div&gt;
+            &lt;div class="aural-command-palette__items"&gt;
+              &lt;button
+                v-for="(cmd, index) in items"
+                :key="cmd.id || index"
+                :class="[
+                  'aural-command-palette__item',
+                  { 'is-selected': index === selectedIndex }
+                ]"
+                @click="executeCommand(cmd)"
+              &gt;
+                &lt;span class="aural-command-palette__item-icon"&gt;
+                  &lt;component :is="cmd.icon" :size="18" /&gt;
+                &lt;/span&gt;
+                &lt;div class="aural-command-palette__item-content"&gt;
+                  &lt;div class="aural-command-palette__item-title"&gt;
+                    {{ cmd.title }}
+                  &lt;/div&gt;
+                  &lt;div
+                    v-if="cmd.subtitle"
+                    class="aural-command-palette__item-subtitle"
+                  &gt;
+                    {{ cmd.subtitle }}
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;kbd
+                  v-if="cmd.kbd"
+                  class="aural-command-palette__item-kbd"
+                &gt;
+                  {{ cmd.kbd }}
+                &lt;/kbd&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/Teleport&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { ref, computed, watch, nextTick } from 'vue';
+
+export default {
+  props: {
+    commands: { type: Array, required: true },
+    isOpen: { type: Boolean, default: false }
+  },
+  emits: ['close'],
+  setup(props, { emit }) {
+    const query = ref('');
+    const selectedIndex = ref(0);
+    const inputRef = ref(null);
+
+    const filteredCommands = computed(() =>
+      props.commands.filter(cmd =>
+        cmd.title.toLowerCase().includes(query.value.toLowerCase()) ||
+        cmd.subtitle?.toLowerCase().includes(query.value.toLowerCase())
+      )
+    );
+
+    const groupedCommands = computed(() =>
+      filteredCommands.value.reduce((acc, cmd) => {
+        const category = cmd.category || 'General';
+        if (!acc[category]) acc[category] = [];
+        acc[category].push(cmd);
+        return acc;
+      }, {})
+    );
+
+    watch(() => props.isOpen, async (open) => {
+      if (open) {
+        await nextTick();
+        inputRef.value?.focus();
+      }
+    });
+
+    watch(query, () => {
+      selectedIndex.value = 0;
+    });
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex.value = Math.min(
+          filteredCommands.value.length - 1,
+          selectedIndex.value + 1
+        );
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex.value = Math.max(0, selectedIndex.value - 1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        executeCommand(filteredCommands.value[selectedIndex.value]);
+      } else if (e.key === 'Escape') {
+        emit('close');
+      }
+    };
+
+    const executeCommand = (command) => {
+      if (command?.action) {
+        command.action();
+        emit('close');
+      }
+    };
+
+    return {
+      query,
+      selectedIndex,
+      inputRef,
+      groupedCommands,
+      handleKeyDown,
+      executeCommand
+    };
+  }
+};
+&lt;/script&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  import { onMount, tick } from 'svelte';
+
+  export let commands = [];
+  export let isOpen = false;
+  export let onClose = () => {};
+
+  let query = '';
+  let selectedIndex = 0;
+  let inputRef;
+
+  $: filteredCommands = commands.filter(cmd =>
+    cmd.title.toLowerCase().includes(query.toLowerCase()) ||
+    cmd.subtitle?.toLowerCase().includes(query.toLowerCase())
+  );
+
+  $: groupedCommands = filteredCommands.reduce((acc, cmd) => {
+    const category = cmd.category || 'General';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(cmd);
+    return acc;
+  }, {});
+
+  $: if (isOpen) {
+    tick().then(() => inputRef?.focus());
+  }
+
+  $: if (query) {
+    selectedIndex = 0;
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      selectedIndex = Math.min(filteredCommands.length - 1, selectedIndex + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      selectedIndex = Math.max(0, selectedIndex - 1);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      executeCommand(filteredCommands[selectedIndex]);
+    } else if (e.key === 'Escape') {
+      onClose();
+    }
+  }
+
+  function executeCommand(command) {
+    if (command?.action) {
+      command.action();
+      onClose();
+    }
+  }
+
+  function handleBackdropClick(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+&lt;/script&gt;
+
+{#if isOpen}
+  &lt;div
+    class="aural-command-palette-backdrop is-open"
+    on:click={handleBackdropClick}
+  &gt;
+    &lt;div class="aural-command-palette"&gt;
+      &lt;div class="aural-command-palette__search"&gt;
+        &lt;span class="aural-command-palette__search-icon"&gt;
+          &lt;Search size={20} /&gt;
+        &lt;/span&gt;
+        &lt;input
+          bind:this={inputRef}
+          type="text"
+          class="aural-command-palette__input"
+          placeholder="Type a command..."
+          bind:value={query}
+          on:keydown={handleKeyDown}
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;div class="aural-command-palette__results"&gt;
+        {#each Object.entries(groupedCommands) as [category, items]}
+          &lt;div class="aural-command-palette__group"&gt;
+            &lt;div class="aural-command-palette__group-label"&gt;
+              {category}
+            &lt;/div&gt;
+            &lt;div class="aural-command-palette__items"&gt;
+              {#each items as cmd, index}
+                &lt;button
+                  class="aural-command-palette__item"
+                  class:is-selected={index === selectedIndex}
+                  on:click={() => executeCommand(cmd)}
+                &gt;
+                  &lt;span class="aural-command-palette__item-icon"&gt;
+                    &lt;svelte:component this={cmd.icon} size={18} /&gt;
+                  &lt;/span&gt;
+                  &lt;div class="aural-command-palette__item-content"&gt;
+                    &lt;div class="aural-command-palette__item-title"&gt;
+                      {cmd.title}
+                    &lt;/div&gt;
+                    {#if cmd.subtitle}
+                      &lt;div class="aural-command-palette__item-subtitle"&gt;
+                        {cmd.subtitle}
+                      &lt;/div&gt;
+                    {/if}
+                  &lt;/div&gt;
+                  {#if cmd.kbd}
+                    &lt;kbd class="aural-command-palette__item-kbd"&gt;
+                      {cmd.kbd}
+                    &lt;/kbd&gt;
+                  {/if}
+                &lt;/button&gt;
+              {/each}
+            &lt;/div&gt;
+          &lt;/div&gt;
+        {/each}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+{/if}</code></pre>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Command Palette 1 -->

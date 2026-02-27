@@ -395,6 +395,247 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;button class="btn btn-primary" onclick="openDialog()"&gt;Open Dialog&lt;/button&gt;
+
+&lt;div class="modal-overlay" id="my-dialog"&gt;
+    &lt;div class="modal modal-sm"&gt;
+        &lt;button class="modal-close" onclick="closeDialog()" aria-label="Close dialog"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;div class="modal-icon"&gt;
+                &lt;i data-lucide="info"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+                &lt;h2 class="modal-title"&gt;Confirm Action&lt;/h2&gt;
+                &lt;p class="modal-subtitle"&gt;Are you sure?&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;p&gt;This action requires confirmation.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-ghost btn-sm" onclick="closeDialog()"&gt;Cancel&lt;/button&gt;
+            &lt;button class="btn btn-primary btn-sm" onclick="handleConfirm()"&gt;OK&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function openDialog() {
+    Aural.openModal('my-dialog');
+}
+
+function closeDialog() {
+    Aural.closeModal('my-dialog');
+}
+
+function handleConfirm() {
+    console.log('Action confirmed');
+    closeDialog();
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">import { useState } from 'react';
+
+const Dialog = ({ isOpen, onClose, title, subtitle, message, onConfirm }) =&gt; {
+  if (!isOpen) return null;
+
+  return (
+    &lt;div className="modal-overlay"&gt;
+      &lt;div className="modal modal-sm"&gt;
+        &lt;button
+          className="modal-close"
+          onClick={onClose}
+          aria-label="Close dialog"
+        &gt;
+          &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div className="modal-header"&gt;
+          &lt;div className="modal-icon"&gt;
+            &lt;i data-lucide="info"&gt;&lt;/i&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h2 className="modal-title"&gt;{title}&lt;/h2&gt;
+            {subtitle &amp;&amp; &lt;p className="modal-subtitle"&gt;{subtitle}&lt;/p&gt;}
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div className="modal-body"&gt;
+          &lt;p&gt;{message}&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div className="modal-footer"&gt;
+          &lt;button className="btn btn-ghost btn-sm" onClick={onClose}&gt;
+            Cancel
+          &lt;/button&gt;
+          &lt;button className="btn btn-primary btn-sm" onClick={onConfirm}&gt;
+            OK
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+function App() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleConfirm = () =&gt; {
+    console.log('Action confirmed');
+    setIsDialogOpen(false);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;button
+        className="btn btn-primary"
+        onClick={() =&gt; setIsDialogOpen(true)}
+      &gt;
+        Open Dialog
+      &lt;/button&gt;
+
+      &lt;Dialog
+        isOpen={isDialogOpen}
+        onClose={() =&gt; setIsDialogOpen(false)}
+        title="Confirm Action"
+        subtitle="Are you sure?"
+        message="This action requires confirmation."
+        onConfirm={handleConfirm}
+      /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;button class="btn btn-primary" @click="isDialogOpen = true"&gt;
+      Open Dialog
+    &lt;/button&gt;
+
+    &lt;div v-if="isDialogOpen" class="modal-overlay"&gt;
+      &lt;div class="modal modal-sm"&gt;
+        &lt;button
+          class="modal-close"
+          @click="closeDialog"
+          aria-label="Close dialog"
+        &gt;
+          &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div class="modal-header"&gt;
+          &lt;div class="modal-icon"&gt;
+            &lt;i data-lucide="info"&gt;&lt;/i&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h2 class="modal-title"&gt;{{ title }}&lt;/h2&gt;
+            &lt;p class="modal-subtitle"&gt;{{ subtitle }}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+          &lt;p&gt;{{ message }}&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+          &lt;button class="btn btn-ghost btn-sm" @click="closeDialog"&gt;
+            Cancel
+          &lt;/button&gt;
+          &lt;button class="btn btn-primary btn-sm" @click="handleConfirm"&gt;
+            OK
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      isDialogOpen: false,
+      title: 'Confirm Action',
+      subtitle: 'Are you sure?',
+      message: 'This action requires confirmation.'
+    };
+  },
+  methods: {
+    closeDialog() {
+      this.isDialogOpen = false;
+    },
+    handleConfirm() {
+      console.log('Action confirmed');
+      this.closeDialog();
+    }
+  }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Modal, Button } from '@aural-ui/svelte';
+
+  let isOpen = false;
+
+  function handleConfirm() {
+    console.log('Action confirmed');
+    isOpen = false;
+  }
+&lt;/script&gt;
+
+&lt;Button on:click={() =&gt; isOpen = true}&gt;
+  Open Dialog
+&lt;/Button&gt;
+
+&lt;Modal
+  bind:open={isOpen}
+  title="Confirm Action"
+  subtitle="Are you sure?"
+  size="small"
+&gt;
+  &lt;div slot="icon"&gt;
+    &lt;i data-lucide="info"&gt;&lt;/i&gt;
+  &lt;/div&gt;
+
+  &lt;p&gt;This action requires confirmation.&lt;/p&gt;
+
+  &lt;svelte:fragment slot="footer"&gt;
+    &lt;Button variant="ghost" size="small" on:click={() =&gt; isOpen = false}&gt;
+      Cancel
+    &lt;/Button&gt;
+    &lt;Button variant="primary" size="small" on:click={handleConfirm}&gt;
+      OK
+    &lt;/Button&gt;
+  &lt;/svelte:fragment&gt;
+&lt;/Modal&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Simple Dialog -->

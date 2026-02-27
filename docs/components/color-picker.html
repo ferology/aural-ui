@@ -910,6 +910,128 @@ Aural.initColorPicker('color-picker-brand', {
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;input type="color" class="color-picker" value="#3b82f6"&gt;
+
+&lt;script&gt;
+const picker = document.querySelector('.color-picker');
+picker.addEventListener('change', (e) =&gt; {
+  console.log('Color selected:', e.target.value);
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const ColorPicker = ({ value, onChange }) =&gt; {
+  const [color, setColor] = useState(value || '#3b82f6');
+
+  const handleChange = (e) =&gt; {
+    const newColor = e.target.value;
+    setColor(newColor);
+    onChange?.(newColor);
+  };
+
+  return (
+    &lt;div className="color-picker-wrapper"&gt;
+      &lt;input
+        type="color"
+        value={color}
+        onChange={handleChange}
+        className="color-picker"
+      /&gt;
+      &lt;span className="color-value"&gt;{color}&lt;/span&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const [selectedColor, setSelectedColor] = useState('#3b82f6');
+&lt;ColorPicker value={selectedColor} onChange={setSelectedColor} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="color-picker-wrapper"&gt;
+    &lt;input
+      type="color"
+      v-model="color"
+      class="color-picker"
+      @change="handleChange"
+    /&gt;
+    &lt;span class="color-value"&gt;{{ color }}&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    modelValue: { type: String, default: '#3b82f6' }
+  },
+  data() {
+    return {
+      color: this.modelValue
+    }
+  },
+  methods: {
+    handleChange() {
+      this.$emit('update:modelValue', this.color);
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { ColorPicker } from '@aural-ui/svelte';
+
+  let color = '#3b82f6';
+&lt;/script&gt;
+
+&lt;!-- Basic color picker --&gt;
+&lt;ColorPicker bind:value={color} /&gt;
+
+&lt;!-- With preset colors --&gt;
+&lt;ColorPicker
+  bind:value={color}
+  presets={['#ef4444', '#3b82f6', '#10b981', '#f59e0b']}
+/&gt;
+
+&lt;!-- With opacity --&gt;
+&lt;ColorPicker
+  bind:value={color}
+  showAlpha
+/&gt;
+
+&lt;!-- With change event --&gt;
+&lt;ColorPicker
+  bind:value={color}
+  on:change={(e) =&gt; console.log('Color:', e.detail)}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">

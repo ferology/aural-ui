@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -571,6 +574,293 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="aural-context-menu" id="context-menu" role="menu"&gt;
+    &lt;button class="aural-context-menu__item" role="menuitem"&gt;
+        &lt;i data-lucide="copy" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Copy&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘C&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="aural-context-menu__item" role="menuitem"&gt;
+        &lt;i data-lucide="scissors" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Cut&lt;/span&gt;
+        &lt;span class="aural-context-menu__item-shortcut"&gt;⌘X&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="aural-context-menu__separator" role="separator"&gt;&lt;/div&gt;
+    &lt;button class="aural-context-menu__item aural-context-menu__item--danger" role="menuitem"&gt;
+        &lt;i data-lucide="trash-2" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;Delete&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Show context menu on right-click
+document.addEventListener('contextmenu', (e) =&gt; {
+    e.preventDefault();
+    const menu = document.getElementById('context-menu');
+    menu.style.left = e.clientX + 'px';
+    menu.style.top = e.clientY + 'px';
+    menu.classList.add('aural-context-menu--open');
+});
+
+// Hide on click outside
+document.addEventListener('click', () =&gt; {
+    const menu = document.getElementById('context-menu');
+    menu.classList.remove('aural-context-menu--open');
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const ContextMenu = ({ items, onItemClick }) =&gt; {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  const handleContextMenu = (e) =&gt; {
+    e.preventDefault();
+    setPosition({ x: e.clientX, y: e.clientY });
+    setIsOpen(true);
+  };
+
+  useEffect(() =&gt; {
+    const handleClick = () =&gt; setIsOpen(false);
+    const handleEscape = (e) =&gt; {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+
+    document.addEventListener('click', handleClick);
+    document.addEventListener('keydown', handleEscape);
+
+    return () =&gt; {
+      document.removeEventListener('click', handleClick);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
+
+  return (
+    &lt;&gt;
+      &lt;div onContextMenu={handleContextMenu}&gt;
+        {/* Your content */}
+      &lt;/div&gt;
+
+      {isOpen && (
+        &lt;div
+          ref={menuRef}
+          className="aural-context-menu aural-context-menu--open"
+          role="menu"
+          style={{ left: position.x, top: position.y }}
+        &gt;
+          {items.map((item, index) =&gt; (
+            item.separator ? (
+              &lt;div key={index} className="aural-context-menu__separator" role="separator" /&gt;
+            ) : item.header ? (
+              &lt;div key={index} className="aural-context-menu__header"&gt;{item.label}&lt;/div&gt;
+            ) : (
+              &lt;button
+                key={index}
+                className={`aural-context-menu__item ${item.danger ? 'aural-context-menu__item--danger' : ''}`}
+                role="menuitem"
+                onClick={() =&gt; {
+                  item.onClick?.();
+                  setIsOpen(false);
+                }}
+              &gt;
+                {item.icon && &lt;i data-lucide={item.icon} className="aural-context-menu__item-icon" /&gt;}
+                &lt;span className="aural-context-menu__item-label"&gt;{item.label}&lt;/span&gt;
+                {item.shortcut && &lt;span className="aural-context-menu__item-shortcut"&gt;{item.shortcut}&lt;/span&gt;}
+              &lt;/button&gt;
+            )
+          ))}
+        &lt;/div&gt;
+      )}
+    &lt;/&gt;
+  );
+};
+
+// Usage
+&lt;ContextMenu
+  items={[
+    { label: 'Copy', icon: 'copy', shortcut: '⌘C' },
+    { label: 'Cut', icon: 'scissors', shortcut: '⌘X' },
+    { separator: true },
+    { label: 'Delete', icon: 'trash-2', danger: true }
+  ]}
+/&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div @contextmenu.prevent="handleContextMenu"&gt;
+    &lt;slot /&gt;
+  &lt;/div&gt;
+
+  &lt;div
+    v-if="isOpen"
+    ref="menu"
+    class="aural-context-menu aural-context-menu--open"
+    role="menu"
+    :style="{ left: position.x + 'px', top: position.y + 'px' }"
+  &gt;
+    &lt;template v-for="(item, index) in items" :key="index"&gt;
+      &lt;div v-if="item.separator" class="aural-context-menu__separator" role="separator"&gt;&lt;/div&gt;
+      &lt;div v-else-if="item.header" class="aural-context-menu__header"&gt;{{ item.label }}&lt;/div&gt;
+      &lt;button
+        v-else
+        class="aural-context-menu__item"
+        :class="{ 'aural-context-menu__item--danger': item.danger }"
+        role="menuitem"
+        @click="handleItemClick(item)"
+      &gt;
+        &lt;i v-if="item.icon" :data-lucide="item.icon" class="aural-context-menu__item-icon"&gt;&lt;/i&gt;
+        &lt;span class="aural-context-menu__item-label"&gt;{{ item.label }}&lt;/span&gt;
+        &lt;span v-if="item.shortcut" class="aural-context-menu__item-shortcut"&gt;{{ item.shortcut }}&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/template&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    items: { type: Array, required: true }
+  },
+  data() {
+    return {
+      isOpen: false,
+      position: { x: 0, y: 0 }
+    };
+  },
+  mounted() {
+    document.addEventListener('click', this.close);
+    document.addEventListener('keydown', this.handleEscape);
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.close);
+    document.removeEventListener('keydown', this.handleEscape);
+  },
+  methods: {
+    handleContextMenu(e) {
+      this.position = { x: e.clientX, y: e.clientY };
+      this.isOpen = true;
+    },
+    handleItemClick(item) {
+      item.onClick?.();
+      this.close();
+    },
+    handleEscape(e) {
+      if (e.key === 'Escape') this.close();
+    },
+    close() {
+      this.isOpen = false;
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;ContextMenu
+  :items="[
+    { label: 'Copy', icon: 'copy', shortcut: '⌘C' },
+    { label: 'Cut', icon: 'scissors', shortcut: '⌘X' },
+    { separator: true },
+    { label: 'Delete', icon: 'trash-2', danger: true }
+  ]"
+&gt;
+  &lt;div&gt;Right-click me&lt;/div&gt;
+&lt;/ContextMenu&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { ContextMenu } from '@aural-ui/svelte';
+
+  const fileMenuItems = [
+    { label: 'Open', icon: 'folder-open' },
+    { label: 'Preview', icon: 'eye' },
+    { separator: true },
+    { label: 'Rename', icon: 'edit', shortcut: 'F2' },
+    { label: 'Duplicate', icon: 'copy', shortcut: '⌘D' },
+    { separator: true },
+    { label: 'Delete', icon: 'trash-2', danger: true, shortcut: '⌘⌫' }
+  ];
+
+  const editMenuItems = [
+    { label: 'Copy', icon: 'copy', shortcut: '⌘C' },
+    { label: 'Cut', icon: 'scissors', shortcut: '⌘X' },
+    { label: 'Paste', icon: 'clipboard', shortcut: '⌘V' },
+    { separator: true },
+    { label: 'Search Web', icon: 'search' }
+  ];
+&lt;/script&gt;
+
+&lt;!-- Basic context menu --&gt;
+&lt;ContextMenu items={fileMenuItems}&gt;
+  &lt;div class="trigger"&gt;Right-click here&lt;/div&gt;
+&lt;/ContextMenu&gt;
+
+&lt;!-- Compact variant --&gt;
+&lt;ContextMenu items={editMenuItems} compact&gt;
+  &lt;div&gt;Compact context menu&lt;/div&gt;
+&lt;/ContextMenu&gt;
+
+&lt;!-- With grouped items --&gt;
+&lt;ContextMenu
+  items={[
+    { header: 'Edit' },
+    { label: 'Copy', icon: 'copy' },
+    { label: 'Cut', icon: 'scissors' },
+    { separator: true },
+    { header: 'File' },
+    { label: 'Save', icon: 'save' },
+    { label: 'Export', icon: 'download' }
+  ]}
+&gt;
+  &lt;div&gt;Grouped menu&lt;/div&gt;
+&lt;/ContextMenu&gt;
+
+&lt;!-- With item click handler --&gt;
+&lt;ContextMenu
+  items={fileMenuItems}
+  on:itemClick={(e) =&gt; console.log('Clicked:', e.detail.label)}
+&gt;
+  &lt;div&gt;File element&lt;/div&gt;
+&lt;/ContextMenu&gt;
+
+&lt;!-- Disabled items --&gt;
+&lt;ContextMenu
+  items={[
+    { label: 'Copy', icon: 'copy' },
+    { label: 'Cut', icon: 'scissors', disabled: true },
+    { label: 'Paste', icon: 'clipboard', disabled: true }
+  ]}
+&gt;
+  &lt;div&gt;Some options disabled&lt;/div&gt;
+&lt;/ContextMenu&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -1068,5 +1358,7 @@
     <!-- Theme Manager -->
     <script src="../js/theme-manager.js"></script>
 
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 </body>
 </html>

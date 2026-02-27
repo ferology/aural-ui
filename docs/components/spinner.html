@@ -684,6 +684,117 @@
                 </div>
             </div>
         </div>
+
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;div class="spinner" role="status" aria-label="Loading"&gt;&lt;/div&gt;
+
+&lt;!-- With size and variant --&gt;
+&lt;div class="spinner spinner--lg spinner--primary" role="status" aria-label="Loading"&gt;&lt;/div&gt;
+
+&lt;!-- Dots spinner --&gt;
+&lt;div class="spinner spinner--dots" role="status" aria-label="Loading"&gt;&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Spinner = ({ size, variant, type = 'default', label = 'Loading' }) => {
+  const classNames = [
+    'spinner',
+    size && `spinner--${size}`,
+    variant && `spinner--${variant}`,
+    type !== 'default' && `spinner--${type}`
+  ].filter(Boolean).join(' ');
+
+  return (
+    &lt;div className={classNames} role="status" aria-label={label} /&gt;
+  );
+};
+
+// Usage
+&lt;Spinner /&gt;
+&lt;Spinner size="lg" variant="primary" /&gt;
+&lt;Spinner type="dots" /&gt;
+&lt;Spinner type="pulse" variant="success" /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div :class="spinnerClasses" role="status" :aria-label="label" /&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    size: String,
+    variant: String,
+    type: { type: String, default: 'default' },
+    label: { type: String, default: 'Loading' }
+  },
+  computed: {
+    spinnerClasses() {
+      return [
+        'spinner',
+        this.size && `spinner--${this.size}`,
+        this.variant && `spinner--${this.variant}`,
+        this.type !== 'default' && `spinner--${this.type}`
+      ].filter(Boolean).join(' ');
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Spinner /&gt;
+&lt;Spinner size="lg" variant="primary" /&gt;
+&lt;Spinner type="dots" /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let size = '';
+  export let variant = '';
+  export let type = 'default';
+  export let label = 'Loading';
+
+  $: spinnerClasses = [
+    'spinner',
+    size && `spinner--${size}`,
+    variant && `spinner--${variant}`,
+    type !== 'default' && `spinner--${type}`
+  ].filter(Boolean).join(' ');
+&lt;/script&gt;
+
+&lt;div class={spinnerClasses} role="status" aria-label={label} /&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Spinner /&gt;
+&lt;Spinner size="lg" variant="primary" /&gt;
+&lt;Spinner type="dots" /&gt;
+&lt;Spinner type="pulse" variant="success" /&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Theme Toggle -->

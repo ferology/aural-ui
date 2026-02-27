@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -594,6 +597,123 @@ document.querySelector('.breadcrumb-collapsed').addEventListener('click', (e) =>
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;nav class="breadcrumb" aria-label="Breadcrumb"&gt;
+    &lt;ol&gt;
+        &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/products"&gt;Products&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/products/category"&gt;Category&lt;/a&gt;&lt;/li&gt;
+        &lt;li aria-current="page"&gt;Item&lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Breadcrumb = ({ items }) => {
+  return (
+    &lt;nav className="breadcrumb" aria-label="Breadcrumb"&gt;
+      &lt;ol&gt;
+        {items.map((item, index) => (
+          &lt;li key={index}&gt;
+            {index === items.length - 1 ? (
+              &lt;span aria-current="page"&gt;{item.label}&lt;/span&gt;
+            ) : (
+              &lt;a href={item.href}&gt;{item.label}&lt;/a&gt;
+            )}
+          &lt;/li&gt;
+        ))}
+      &lt;/ol&gt;
+    &lt;/nav&gt;
+  );
+};
+
+// Usage
+const items = [
+  { label: 'Home', href: '/' },
+  { label: 'Products', href: '/products' },
+  { label: 'Category', href: '/products/category' },
+  { label: 'Item' }
+];
+
+&lt;Breadcrumb items={items} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;nav class="breadcrumb" aria-label="Breadcrumb"&gt;
+    &lt;ol&gt;
+      &lt;li v-for="(item, index) in items" :key="index"&gt;
+        &lt;a v-if="index !== items.length - 1" :href="item.href"&gt;
+          {{ item.label }}
+        &lt;/a&gt;
+        &lt;span v-else aria-current="page"&gt;{{ item.label }}&lt;/span&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/nav&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    items: {
+      type: Array,
+      required: true
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Breadcrumb :items="[
+  { label: 'Home', href: '/' },
+  { label: 'Products', href: '/products' },
+  { label: 'Category', href: '/products/category' },
+  { label: 'Item' }
+]" /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Breadcrumb } from '@aural-ui/svelte';
+
+  const items = [
+    { label: 'Home', href: '/' },
+    { label: 'Products', href: '/products' },
+    { label: 'Category', href: '/products/category' },
+    { label: 'Item' }
+  ];
+&lt;/script&gt;
+
+&lt;!-- Basic usage --&gt;
+&lt;Breadcrumb {items} /&gt;
+
+&lt;!-- Custom separator --&gt;
+&lt;Breadcrumb {items} separator="&gt;" /&gt;
+&lt;Breadcrumb {items} separator="|" /&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -801,6 +921,9 @@ document.querySelector('.breadcrumb-collapsed').addEventListener('click', (e) =>
     </script>
     <!-- Theme Manager -->
     <script src="../js/theme-manager.js"></script>
+
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 
 </body>
 </html>

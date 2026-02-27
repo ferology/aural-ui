@@ -349,6 +349,147 @@ selectAll.addEventListener('change', () => {
         </div>
             </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox" class="checkbox__input"&gt;
+  &lt;span class="checkbox__box"&gt;
+    &lt;svg class="checkbox__icon" viewBox="0 0 16 16"&gt;
+      &lt;path d="M13 4L6 11L3 8" fill="none" stroke="currentColor" stroke-width="2"/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  &lt;span class="checkbox__label"&gt;Accept terms and conditions&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox" class="checkbox__input" disabled&gt;
+  &lt;span class="checkbox__box"&gt;&lt;/span&gt;
+  &lt;span class="checkbox__label"&gt;Disabled checkbox&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Checkbox = ({ checked, onChange, disabled, children, ...props }) =&gt; {
+  return (
+    &lt;label className="checkbox"&gt;
+      &lt;input
+        type="checkbox"
+        className="checkbox__input"
+        checked={checked}
+        onChange={onChange}
+        disabled={disabled}
+        {...props}
+      /&gt;
+      &lt;span className="checkbox__box"&gt;
+        &lt;svg className="checkbox__icon" viewBox="0 0 16 16"&gt;
+          &lt;path d="M13 4L6 11L3 8" fill="none" stroke="currentColor" strokeWidth="2"/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span className="checkbox__label"&gt;{children}&lt;/span&gt;
+    &lt;/label&gt;
+  );
+};
+
+// Usage
+const [accepted, setAccepted] = useState(false);
+
+&lt;Checkbox checked={accepted} onChange={(e) =&gt; setAccepted(e.target.checked)}&gt;
+  Accept terms and conditions
+&lt;/Checkbox&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;label class="checkbox"&gt;
+    &lt;input
+      type="checkbox"
+      class="checkbox__input"
+      v-model="checked"
+      :disabled="disabled"
+    /&gt;
+    &lt;span class="checkbox__box"&gt;
+      &lt;svg class="checkbox__icon" viewBox="0 0 16 16"&gt;
+        &lt;path d="M13 4L6 11L3 8" fill="none" stroke="currentColor" stroke-width="2"/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;span class="checkbox__label"&gt;
+      &lt;slot /&gt;
+    &lt;/span&gt;
+  &lt;/label&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    checked: Boolean,
+    disabled: Boolean
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Checkbox v-model="accepted"&gt;Accept terms and conditions&lt;/Checkbox&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Checkbox } from '@aural-ui/svelte';
+
+  let checked = false;
+&lt;/script&gt;
+
+&lt;!-- Basic checkbox --&gt;
+&lt;Checkbox bind:checked&gt;
+  Accept terms and conditions
+&lt;/Checkbox&gt;
+
+&lt;!-- With label prop --&gt;
+&lt;Checkbox
+  bind:checked
+  label="Subscribe to newsletter"
+/&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;Checkbox checked disabled&gt;
+  Disabled checkbox
+&lt;/Checkbox&gt;
+
+&lt;!-- Indeterminate --&gt;
+&lt;Checkbox indeterminate&gt;
+  Select all
+&lt;/Checkbox&gt;
+
+&lt;!-- With change event --&gt;
+&lt;Checkbox
+  bind:checked
+  on:change={(e) =&gt; console.log('Changed:', e.detail)}
+&gt;
+  Notify me
+&lt;/Checkbox&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
         <!-- Best Practices -->

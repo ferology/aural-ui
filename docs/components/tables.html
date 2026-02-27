@@ -705,6 +705,168 @@ function toggleRow(row) {
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;div class="table-wrapper"&gt;
+    &lt;table class="table table-striped table-hover"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Email&lt;/th&gt;
+                &lt;th&gt;Status&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;John Doe&lt;/td&gt;
+                &lt;td&gt;john@example.com&lt;/td&gt;
+                &lt;td&gt;&lt;span class="badge badge-success"&gt;Active&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Table = ({ data, columns }) => {
+  return (
+    &lt;div className="table-wrapper"&gt;
+      &lt;table className="table table-striped table-hover"&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            {columns.map(col => (
+              &lt;th key={col.key}&gt;{col.label}&lt;/th&gt;
+            ))}
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {data.map((row, idx) => (
+            &lt;tr key={idx}&gt;
+              {columns.map(col => (
+                &lt;td key={col.key}&gt;{row[col.key]}&lt;/td&gt;
+              ))}
+            &lt;/tr&gt;
+          ))}
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const users = [
+  { name: 'John Doe', email: 'john@example.com', status: 'Active' }
+];
+const columns = [
+  { key: 'name', label: 'Name' },
+  { key: 'email', label: 'Email' },
+  { key: 'status', label: 'Status' }
+];
+
+&lt;Table data={users} columns={columns} /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="table-wrapper"&gt;
+    &lt;table class="table table-striped table-hover"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th v-for="col in columns" :key="col.key"&gt;{{ col.label }}&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr v-for="(row, idx) in data" :key="idx"&gt;
+          &lt;td v-for="col in columns" :key="col.key"&gt;
+            {{ row[col.key] }}
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    data: { type: Array, required: true },
+    columns: { type: Array, required: true }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Table
+  :data="users"
+  :columns="[
+    { key: 'name', label: 'Name' },
+    { key: 'email', label: 'Email' },
+    { key: 'status', label: 'Status' }
+  ]"
+/&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  export let data = [];
+  export let columns = [];
+&lt;/script&gt;
+
+&lt;div class="table-wrapper"&gt;
+  &lt;table class="table table-striped table-hover"&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        {#each columns as col}
+          &lt;th&gt;{col.label}&lt;/th&gt;
+        {/each}
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      {#each data as row}
+        &lt;tr&gt;
+          {#each columns as col}
+            &lt;td&gt;{row[col.key]}&lt;/td&gt;
+          {/each}
+        &lt;/tr&gt;
+      {/each}
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Table
+  data={users}
+  columns={[
+    { key: 'name', label: 'Name' },
+    { key: 'email', label: 'Email' },
+    { key: 'status', label: 'Status' }
+  ]}
+/&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

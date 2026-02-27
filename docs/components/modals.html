@@ -434,6 +434,231 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;button class="btn btn-primary" onclick="openMyModal()"&gt;Open Modal&lt;/button&gt;
+
+&lt;div class="modal-overlay" id="my-modal"&gt;
+    &lt;div class="modal"&gt;
+        &lt;button class="modal-close" onclick="closeMyModal()" aria-label="Close modal"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div class="modal-header"&gt;
+            &lt;h2 class="modal-title"&gt;Modal Title&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+            &lt;p&gt;Modal content goes here.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+            &lt;button class="btn btn-ghost" onclick="closeMyModal()"&gt;Cancel&lt;/button&gt;
+            &lt;button class="btn btn-primary" onclick="handleConfirm()"&gt;Confirm&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function openMyModal() {
+    Aural.openModal('my-modal');
+}
+
+function closeMyModal() {
+    Aural.closeModal('my-modal');
+}
+
+function handleConfirm() {
+    // Handle confirmation logic
+    console.log('Confirmed!');
+    closeMyModal();
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">import { useState } from 'react';
+
+const Modal = ({ isOpen, onClose, title, children, onConfirm }) =&gt; {
+  if (!isOpen) return null;
+
+  return (
+    &lt;div className="modal-overlay"&gt;
+      &lt;div className="modal"&gt;
+        &lt;button
+          className="modal-close"
+          onClick={onClose}
+          aria-label="Close modal"
+        &gt;
+          &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div className="modal-header"&gt;
+          &lt;h2 className="modal-title"&gt;{title}&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div className="modal-body"&gt;
+          {children}
+        &lt;/div&gt;
+        &lt;div className="modal-footer"&gt;
+          &lt;button className="btn btn-ghost" onClick={onClose}&gt;
+            Cancel
+          &lt;/button&gt;
+          &lt;button className="btn btn-primary" onClick={onConfirm}&gt;
+            Confirm
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleConfirm = () =&gt; {
+    console.log('Confirmed!');
+    setIsModalOpen(false);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;button
+        className="btn btn-primary"
+        onClick={() =&gt; setIsModalOpen(true)}
+      &gt;
+        Open Modal
+      &lt;/button&gt;
+
+      &lt;Modal
+        isOpen={isModalOpen}
+        onClose={() =&gt; setIsModalOpen(false)}
+        title="Modal Title"
+        onConfirm={handleConfirm}
+      &gt;
+        &lt;p&gt;Modal content goes here.&lt;/p&gt;
+      &lt;/Modal&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;button class="btn btn-primary" @click="isModalOpen = true"&gt;
+      Open Modal
+    &lt;/button&gt;
+
+    &lt;div v-if="isModalOpen" class="modal-overlay"&gt;
+      &lt;div class="modal"&gt;
+        &lt;button
+          class="modal-close"
+          @click="closeModal"
+          aria-label="Close modal"
+        &gt;
+          &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;div class="modal-header"&gt;
+          &lt;h2 class="modal-title"&gt;{{ title }}&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-body"&gt;
+          &lt;slot&gt;
+            &lt;p&gt;Modal content goes here.&lt;/p&gt;
+          &lt;/slot&gt;
+        &lt;/div&gt;
+        &lt;div class="modal-footer"&gt;
+          &lt;button class="btn btn-ghost" @click="closeModal"&gt;
+            Cancel
+          &lt;/button&gt;
+          &lt;button class="btn btn-primary" @click="handleConfirm"&gt;
+            Confirm
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      isModalOpen: false,
+      title: 'Modal Title'
+    };
+  },
+  methods: {
+    closeModal() {
+      this.isModalOpen = false;
+    },
+    handleConfirm() {
+      console.log('Confirmed!');
+      this.closeModal();
+    }
+  }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Modal, Button } from '@aural-ui/svelte';
+
+  let isOpen = false;
+
+  function handleConfirm() {
+    console.log('Confirmed!');
+    isOpen = false;
+  }
+&lt;/script&gt;
+
+&lt;Button on:click={() =&gt; isOpen = true}&gt;
+  Open Modal
+&lt;/Button&gt;
+
+&lt;Modal
+  bind:open={isOpen}
+  title="Modal Title"
+  size="medium"
+&gt;
+  &lt;p&gt;Modal content goes here.&lt;/p&gt;
+
+  &lt;svelte:fragment slot="footer"&gt;
+    &lt;Button variant="ghost" on:click={() =&gt; isOpen = false}&gt;
+      Cancel
+    &lt;/Button&gt;
+    &lt;Button variant="primary" on:click={handleConfirm}&gt;
+      Confirm
+    &lt;/Button&gt;
+  &lt;/svelte:fragment&gt;
+&lt;/Modal&gt;
+
+&lt;!-- Different sizes --&gt;
+&lt;Modal bind:open={isOpen} size="small" title="Small Modal" /&gt;
+&lt;Modal bind:open={isOpen} size="medium" title="Medium Modal" /&gt;
+&lt;Modal bind:open={isOpen} size="large" title="Large Modal" /&gt;
+&lt;Modal bind:open={isOpen} size="fullscreen" title="Fullscreen Modal" /&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Basic Modal -->

@@ -579,6 +579,598 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-javascript">class NotificationCenter {
+  constructor(containerId) {
+    this.container = document.getElementById(containerId);
+    this.notifications = [];
+    this.init();
+  }
+
+  init() {
+    this.render();
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    this.container.addEventListener('click', (e) => {
+      const item = e.target.closest('.aural-notification-center__item');
+      if (item) {
+        const index = Array.from(item.parentNode.children).indexOf(item);
+        this.handleNotificationClick(index);
+      }
+
+      const clearAll = e.target.closest('[data-action="clear-all"]');
+      if (clearAll) {
+        this.clearAll();
+      }
+
+      const markAllRead = e.target.closest('[data-action="mark-all-read"]');
+      if (markAllRead) {
+        this.markAllAsRead();
+      }
+    });
+  }
+
+  addNotification(notification) {
+    this.notifications.unshift({
+      id: Date.now(),
+      timestamp: new Date(),
+      read: false,
+      ...notification
+    });
+    this.render();
+  }
+
+  handleNotificationClick(index) {
+    const notification = this.notifications[index];
+    if (!notification.read) {
+      notification.read = true;
+      this.render();
+    }
+
+    // Execute notification action if provided
+    if (notification.action) {
+      notification.action();
+    }
+  }
+
+  markAsRead(id) {
+    const notification = this.notifications.find(n => n.id === id);
+    if (notification) {
+      notification.read = true;
+      this.render();
+    }
+  }
+
+  markAllAsRead() {
+    this.notifications.forEach(n => n.read = true);
+    this.render();
+  }
+
+  remove(id) {
+    this.notifications = this.notifications.filter(n => n.id !== id);
+    this.render();
+  }
+
+  clearAll() {
+    this.notifications = [];
+    this.render();
+  }
+
+  getUnreadCount() {
+    return this.notifications.filter(n => !n.read).length;
+  }
+
+  formatTimestamp(date) {
+    const diff = Date.now() - date.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  }
+
+  render() {
+    const unreadCount = this.getUnreadCount();
+
+    this.container.innerHTML = `
+      &lt;div class="aural-notification-center"&gt;
+        &lt;div class="aural-notification-center__header"&gt;
+          &lt;h3 class="aural-notification-center__title"&gt;Notifications&lt;/h3&gt;
+          ${unreadCount > 0 ? `&lt;span class="badge badge-primary"&gt;${unreadCount}&lt;/span&gt;` : ''}
+          &lt;button class="btn btn-ghost btn-sm" data-action="mark-all-read"&gt;
+            Mark all read
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-notification-center__list"&gt;
+          ${this.notifications.length === 0 ? `
+            &lt;div class="empty-state"&gt;
+              &lt;div class="empty-state-icon"&gt;
+                &lt;i data-lucide="bell-off"&gt;&lt;/i&gt;
+              &lt;/div&gt;
+              &lt;h3 class="empty-state-title"&gt;No notifications&lt;/h3&gt;
+              &lt;p class="empty-state-description"&gt;You're all caught up!&lt;/p&gt;
+            &lt;/div&gt;
+          ` : this.notifications.map(n => `
+            &lt;button class="aural-notification-center__item ${!n.read ? 'aural-notification-center__item--unread' : ''} ${n.type ? `aural-notification-center__item--${n.type}` : ''}"&gt;
+              &lt;div class="aural-notification-center__item-icon"&gt;
+                &lt;i data-lucide="${n.icon}"&gt;&lt;/i&gt;
+              &lt;/div&gt;
+              &lt;div class="aural-notification-center__item-content"&gt;
+                &lt;div class="aural-notification-center__item-title"&gt;${n.title}&lt;/div&gt;
+                &lt;div class="aural-notification-center__item-message"&gt;${n.message}&lt;/div&gt;
+                &lt;div class="aural-notification-center__item-time"&gt;${this.formatTimestamp(n.timestamp)}&lt;/div&gt;
+              &lt;/div&gt;
+              ${!n.read ? '&lt;div class="aural-notification-center__item-dot"&gt;&lt;/div&gt;' : ''}
+            &lt;/button&gt;
+          `).join('')}
+        &lt;/div&gt;
+        &lt;div class="aural-notification-center__footer"&gt;
+          &lt;a href="#" class="aural-notification-center__footer-link"&gt;View all notifications&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    `;
+
+    // Re-initialize Lucide icons
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+// Usage
+const notificationCenter = new NotificationCenter('notification-container');
+
+// Add notifications
+notificationCenter.addNotification({
+  type: 'success',
+  icon: 'check-circle',
+  title: 'Build Successful',
+  message: 'Your project built successfully'
+});
+
+notificationCenter.addNotification({
+  type: 'error',
+  icon: 'alert-circle',
+  title: 'Build Failed',
+  message: 'Error in main.js line 42'
+});</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">import { useState, useEffect } from 'react';
+import { CheckCircle, AlertCircle, Info, Bell, BellOff } from 'lucide-react';
+
+const NotificationCenter = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  const addNotification = (notification) => {
+    setNotifications(prev => [{
+      id: Date.now(),
+      timestamp: new Date(),
+      read: false,
+      ...notification
+    }, ...prev]);
+  };
+
+  const markAsRead = (id) => {
+    setNotifications(prev =>
+      prev.map(n => n.id === id ? { ...n, read: true } : n)
+    );
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+  };
+
+  const removeNotification = (id) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  };
+
+  const clearAll = () => {
+    setNotifications([]);
+  };
+
+  const formatTimestamp = (date) => {
+    const diff = Date.now() - date.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  };
+
+  const getIcon = (type) => {
+    const icons = {
+      success: CheckCircle,
+      error: AlertCircle,
+      info: Info,
+      warning: AlertTriangle
+    };
+    return icons[type] || Bell;
+  };
+
+  const handleNotificationClick = (notification) => {
+    if (!notification.read) {
+      markAsRead(notification.id);
+    }
+    if (notification.action) {
+      notification.action();
+    }
+  };
+
+  return (
+    &lt;div className="aural-notification-center"&gt;
+      &lt;div className="aural-notification-center__header"&gt;
+        &lt;h3 className="aural-notification-center__title"&gt;Notifications&lt;/h3&gt;
+        {unreadCount > 0 && (
+          &lt;span className="badge badge-primary"&gt;{unreadCount}&lt;/span&gt;
+        )}
+        &lt;button
+          className="btn btn-ghost btn-sm"
+          onClick={markAllAsRead}
+        &gt;
+          Mark all read
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;div className="aural-notification-center__list"&gt;
+        {notifications.length === 0 ? (
+          &lt;div className="empty-state"&gt;
+            &lt;div className="empty-state-icon"&gt;
+              &lt;BellOff size={40} /&gt;
+            &lt;/div&gt;
+            &lt;h3 className="empty-state-title"&gt;No notifications&lt;/h3&gt;
+            &lt;p className="empty-state-description"&gt;You're all caught up!&lt;/p&gt;
+          &lt;/div&gt;
+        ) : (
+          notifications.map(notification => {
+            const Icon = getIcon(notification.type);
+            return (
+              &lt;button
+                key={notification.id}
+                className={`aural-notification-center__item ${
+                  !notification.read ? 'aural-notification-center__item--unread' : ''
+                } ${
+                  notification.type
+                    ? `aural-notification-center__item--${notification.type}`
+                    : ''
+                }`}
+                onClick={() => handleNotificationClick(notification)}
+              &gt;
+                &lt;div className="aural-notification-center__item-icon"&gt;
+                  &lt;Icon size={20} /&gt;
+                &lt;/div&gt;
+                &lt;div className="aural-notification-center__item-content"&gt;
+                  &lt;div className="aural-notification-center__item-title"&gt;
+                    {notification.title}
+                  &lt;/div&gt;
+                  &lt;div className="aural-notification-center__item-message"&gt;
+                    {notification.message}
+                  &lt;/div&gt;
+                  &lt;div className="aural-notification-center__item-time"&gt;
+                    {formatTimestamp(notification.timestamp)}
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                {!notification.read && (
+                  &lt;div className="aural-notification-center__item-dot" /&gt;
+                )}
+              &lt;/button&gt;
+            );
+          })
+        )}
+      &lt;/div&gt;
+
+      &lt;div className="aural-notification-center__footer"&gt;
+        &lt;a href="#" className="aural-notification-center__footer-link"&gt;
+          View all notifications
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default NotificationCenter;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="aural-notification-center"&gt;
+    &lt;div class="aural-notification-center__header"&gt;
+      &lt;h3 class="aural-notification-center__title"&gt;Notifications&lt;/h3&gt;
+      &lt;span v-if="unreadCount > 0" class="badge badge-primary"&gt;
+        {{ unreadCount }}
+      &lt;/span&gt;
+      &lt;button class="btn btn-ghost btn-sm" @click="markAllAsRead"&gt;
+        Mark all read
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class="aural-notification-center__list"&gt;
+      &lt;div v-if="notifications.length === 0" class="empty-state"&gt;
+        &lt;div class="empty-state-icon"&gt;
+          &lt;BellOff :size="40" /&gt;
+        &lt;/div&gt;
+        &lt;h3 class="empty-state-title"&gt;No notifications&lt;/h3&gt;
+        &lt;p class="empty-state-description"&gt;You're all caught up!&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;button
+        v-for="notification in notifications"
+        :key="notification.id"
+        :class="[
+          'aural-notification-center__item',
+          { 'aural-notification-center__item--unread': !notification.read },
+          notification.type
+            ? `aural-notification-center__item--${notification.type}`
+            : ''
+        ]"
+        @click="handleNotificationClick(notification)"
+      &gt;
+        &lt;div class="aural-notification-center__item-icon"&gt;
+          &lt;component :is="getIcon(notification.type)" :size="20" /&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-notification-center__item-content"&gt;
+          &lt;div class="aural-notification-center__item-title"&gt;
+            {{ notification.title }}
+          &lt;/div&gt;
+          &lt;div class="aural-notification-center__item-message"&gt;
+            {{ notification.message }}
+          &lt;/div&gt;
+          &lt;div class="aural-notification-center__item-time"&gt;
+            {{ formatTimestamp(notification.timestamp) }}
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div
+          v-if="!notification.read"
+          class="aural-notification-center__item-dot"
+        /&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class="aural-notification-center__footer"&gt;
+      &lt;a href="#" class="aural-notification-center__footer-link"&gt;
+        View all notifications
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { ref, computed } from 'vue';
+import { CheckCircle, AlertCircle, Info, Bell, BellOff } from 'lucide-vue-next';
+
+export default {
+  components: { CheckCircle, AlertCircle, Info, Bell, BellOff },
+  setup() {
+    const notifications = ref([]);
+
+    const unreadCount = computed(() =>
+      notifications.value.filter(n => !n.read).length
+    );
+
+    const addNotification = (notification) => {
+      notifications.value.unshift({
+        id: Date.now(),
+        timestamp: new Date(),
+        read: false,
+        ...notification
+      });
+    };
+
+    const markAsRead = (id) => {
+      const notification = notifications.value.find(n => n.id === id);
+      if (notification) notification.read = true;
+    };
+
+    const markAllAsRead = () => {
+      notifications.value.forEach(n => n.read = true);
+    };
+
+    const removeNotification = (id) => {
+      notifications.value = notifications.value.filter(n => n.id !== id);
+    };
+
+    const formatTimestamp = (date) => {
+      const diff = Date.now() - date.getTime();
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+
+      if (minutes &lt; 1) return 'Just now';
+      if (minutes &lt; 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      if (hours &lt; 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    };
+
+    const getIcon = (type) => {
+      const icons = {
+        success: CheckCircle,
+        error: AlertCircle,
+        info: Info
+      };
+      return icons[type] || Bell;
+    };
+
+    const handleNotificationClick = (notification) => {
+      if (!notification.read) {
+        markAsRead(notification.id);
+      }
+      if (notification.action) {
+        notification.action();
+      }
+    };
+
+    return {
+      notifications,
+      unreadCount,
+      addNotification,
+      markAsRead,
+      markAllAsRead,
+      removeNotification,
+      formatTimestamp,
+      getIcon,
+      handleNotificationClick
+    };
+  }
+};
+&lt;/script&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  import { writable, derived } from 'svelte/store';
+  import { CheckCircle, AlertCircle, Info, Bell, BellOff } from 'lucide-svelte';
+
+  const notifications = writable([]);
+  const unreadCount = derived(
+    notifications,
+    $notifications => $notifications.filter(n => !n.read).length
+  );
+
+  function addNotification(notification) {
+    notifications.update(list => [{
+      id: Date.now(),
+      timestamp: new Date(),
+      read: false,
+      ...notification
+    }, ...list]);
+  }
+
+  function markAsRead(id) {
+    notifications.update(list =>
+      list.map(n => n.id === id ? { ...n, read: true } : n)
+    );
+  }
+
+  function markAllAsRead() {
+    notifications.update(list =>
+      list.map(n => ({ ...n, read: true }))
+    );
+  }
+
+  function removeNotification(id) {
+    notifications.update(list => list.filter(n => n.id !== id));
+  }
+
+  function formatTimestamp(date) {
+    const diff = Date.now() - date.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (minutes &lt; 1) return 'Just now';
+    if (minutes &lt; 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    if (hours &lt; 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  }
+
+  function getIcon(type) {
+    const icons = {
+      success: CheckCircle,
+      error: AlertCircle,
+      info: Info
+    };
+    return icons[type] || Bell;
+  }
+
+  function handleNotificationClick(notification) {
+    if (!notification.read) {
+      markAsRead(notification.id);
+    }
+    if (notification.action) {
+      notification.action();
+    }
+  }
+&lt;/script&gt;
+
+&lt;div class="aural-notification-center"&gt;
+  &lt;div class="aural-notification-center__header"&gt;
+    &lt;h3 class="aural-notification-center__title"&gt;Notifications&lt;/h3&gt;
+    {#if $unreadCount > 0}
+      &lt;span class="badge badge-primary"&gt;{$unreadCount}&lt;/span&gt;
+    {/if}
+    &lt;button class="btn btn-ghost btn-sm" on:click={markAllAsRead}&gt;
+      Mark all read
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class="aural-notification-center__list"&gt;
+    {#if $notifications.length === 0}
+      &lt;div class="empty-state"&gt;
+        &lt;div class="empty-state-icon"&gt;
+          &lt;BellOff size={40} /&gt;
+        &lt;/div&gt;
+        &lt;h3 class="empty-state-title"&gt;No notifications&lt;/h3&gt;
+        &lt;p class="empty-state-description"&gt;You're all caught up!&lt;/p&gt;
+      &lt;/div&gt;
+    {:else}
+      {#each $notifications as notification (notification.id)}
+        &lt;button
+          class="aural-notification-center__item"
+          class:aural-notification-center__item--unread={!notification.read}
+          class:aural-notification-center__item--{notification.type}={notification.type}
+          on:click={() => handleNotificationClick(notification)}
+        &gt;
+          &lt;div class="aural-notification-center__item-icon"&gt;
+            &lt;svelte:component this={getIcon(notification.type)} size={20} /&gt;
+          &lt;/div&gt;
+          &lt;div class="aural-notification-center__item-content"&gt;
+            &lt;div class="aural-notification-center__item-title"&gt;
+              {notification.title}
+            &lt;/div&gt;
+            &lt;div class="aural-notification-center__item-message"&gt;
+              {notification.message}
+            &lt;/div&gt;
+            &lt;div class="aural-notification-center__item-time"&gt;
+              {formatTimestamp(notification.timestamp)}
+            &lt;/div&gt;
+          &lt;/div&gt;
+          {#if !notification.read}
+            &lt;div class="aural-notification-center__item-dot" /&gt;
+          {/if}
+        &lt;/button&gt;
+      {/each}
+    {/if}
+  &lt;/div&gt;
+
+  &lt;div class="aural-notification-center__footer"&gt;
+    &lt;a href="#" class="aural-notification-center__footer-link"&gt;
+      View all notifications
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </main>

@@ -383,6 +383,253 @@ setTimeout(() => Aural.showToast('Third notification', 'warning'), 1000);</code>
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;button class="btn btn-primary" onclick="showToast()"&gt;Show Toast&lt;/button&gt;
+
+&lt;div id="toast-container" class="toast-container"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+function showToast(message = 'This is a toast message', variant = 'info') {
+    const container = document.getElementById('toast-container');
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${variant}`;
+
+    const icons = {
+        info: 'info',
+        success: 'check-circle',
+        warning: 'alert-triangle',
+        error: 'x-circle'
+    };
+
+    toast.innerHTML = `
+        &lt;div class="toast-icon"&gt;
+            &lt;i data-lucide="${icons[variant]}"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div class="toast-content"&gt;
+            &lt;p class="toast-message"&gt;${message}&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;button class="toast-close" aria-label="Close toast"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    `;
+
+    container.appendChild(toast);
+    lucide.createIcons();
+
+    // Auto dismiss after 3 seconds
+    setTimeout(() =&gt; {
+        toast.classList.add('toast-hiding');
+        setTimeout(() =&gt; toast.remove(), 300);
+    }, 3000);
+
+    // Close button handler
+    toast.querySelector('.toast-close').addEventListener('click', () =&gt; {
+        toast.classList.add('toast-hiding');
+        setTimeout(() =&gt; toast.remove(), 300);
+    });
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">import { useState, useEffect } from 'react';
+
+const Toast = ({ message, variant = 'info', duration = 3000, onClose }) =&gt; {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const icons = {
+    info: 'info',
+    success: 'check-circle',
+    warning: 'alert-triangle',
+    error: 'x-circle'
+  };
+
+  useEffect(() =&gt; {
+    if (duration) {
+      const timer = setTimeout(() =&gt; {
+        setIsVisible(false);
+        setTimeout(() =&gt; onClose(), 300);
+      }, duration);
+      return () =&gt; clearTimeout(timer);
+    }
+  }, [duration, onClose]);
+
+  const handleClose = () =&gt; {
+    setIsVisible(false);
+    setTimeout(() =&gt; onClose(), 300);
+  };
+
+  return (
+    &lt;div className={`toast toast-${variant} ${!isVisible ? 'toast-hiding' : ''}`}&gt;
+      &lt;div className="toast-icon"&gt;
+        &lt;i data-lucide={icons[variant]}&gt;&lt;/i&gt;
+      &lt;/div&gt;
+      &lt;div className="toast-content"&gt;
+        &lt;p className="toast-message"&gt;{message}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;button className="toast-close" onClick={handleClose} aria-label="Close toast"&gt;
+        &lt;i data-lucide="x"&gt;&lt;/i&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+function App() {
+  const [toasts, setToasts] = useState([]);
+
+  const showToast = (message, variant = 'info') =&gt; {
+    const id = Date.now();
+    setToasts(prev =&gt; [...prev, { id, message, variant }]);
+  };
+
+  const removeToast = (id) =&gt; {
+    setToasts(prev =&gt; prev.filter(toast =&gt; toast.id !== id));
+  };
+
+  return (
+    &lt;&gt;
+      &lt;button
+        className="btn btn-primary"
+        onClick={() =&gt; showToast('This is a toast message', 'success')}
+      &gt;
+        Show Toast
+      &lt;/button&gt;
+
+      &lt;div className="toast-container"&gt;
+        {toasts.map(toast =&gt; (
+          &lt;Toast
+            key={toast.id}
+            message={toast.message}
+            variant={toast.variant}
+            onClose={() =&gt; removeToast(toast.id)}
+          /&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;button class="btn btn-primary" @click="showToast"&gt;
+      Show Toast
+    &lt;/button&gt;
+
+    &lt;div class="toast-container"&gt;
+      &lt;transition-group name="toast"&gt;
+        &lt;div
+          v-for="toast in toasts"
+          :key="toast.id"
+          :class="`toast toast-${toast.variant}`"
+        &gt;
+          &lt;div class="toast-icon"&gt;
+            &lt;i :data-lucide="getIcon(toast.variant)"&gt;&lt;/i&gt;
+          &lt;/div&gt;
+          &lt;div class="toast-content"&gt;
+            &lt;p class="toast-message"&gt;{{ toast.message }}&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;button
+            class="toast-close"
+            @click="removeToast(toast.id)"
+            aria-label="Close toast"
+          &gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/transition-group&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      toasts: []
+    };
+  },
+  methods: {
+    showToast(message = 'This is a toast message', variant = 'info', duration = 3000) {
+      const id = Date.now();
+      this.toasts.push({ id, message, variant });
+
+      if (duration) {
+        setTimeout(() =&gt; this.removeToast(id), duration);
+      }
+    },
+    removeToast(id) {
+      this.toasts = this.toasts.filter(toast =&gt; toast.id !== id);
+    },
+    getIcon(variant) {
+      const icons = {
+        info: 'info',
+        success: 'check-circle',
+        warning: 'alert-triangle',
+        error: 'x-circle'
+      };
+      return icons[variant] || 'info';
+    }
+  }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Toast, Button } from '@aural-ui/svelte';
+
+  let showToast = false;
+
+  function show() {
+    showToast = true;
+    setTimeout(() =&gt; showToast = false, 3000);
+  }
+&lt;/script&gt;
+
+&lt;Button on:click={show}&gt;Show Toast&lt;/Button&gt;
+
+{#if showToast}
+  &lt;Toast
+    message="This is a toast message"
+    variant="success"
+    on:close={() =&gt; showToast = false}
+  /&gt;
+{/if}
+
+&lt;!-- Different variants --&gt;
+&lt;Toast message="Info message" variant="info" /&gt;
+&lt;Toast message="Success message" variant="success" /&gt;
+&lt;Toast message="Warning message" variant="warning" /&gt;
+&lt;Toast message="Error message" variant="danger" /&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

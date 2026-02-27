@@ -413,6 +413,162 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="radio-group"&gt;
+  &lt;label class="radio"&gt;
+    &lt;input type="radio" name="option" value="option1" class="radio__input"&gt;
+    &lt;span class="radio__circle"&gt;&lt;/span&gt;
+    &lt;span class="radio__label"&gt;Option 1&lt;/span&gt;
+  &lt;/label&gt;
+
+  &lt;label class="radio"&gt;
+    &lt;input type="radio" name="option" value="option2" class="radio__input"&gt;
+    &lt;span class="radio__circle"&gt;&lt;/span&gt;
+    &lt;span class="radio__label"&gt;Option 2&lt;/span&gt;
+  &lt;/label&gt;
+
+  &lt;label class="radio"&gt;
+    &lt;input type="radio" name="option" value="option3" class="radio__input"&gt;
+    &lt;span class="radio__circle"&gt;&lt;/span&gt;
+    &lt;span class="radio__label"&gt;Option 3&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Radio = ({ name, value, checked, onChange, children, ...props }) =&gt; {
+  return (
+    &lt;label className="radio"&gt;
+      &lt;input
+        type="radio"
+        name={name}
+        value={value}
+        className="radio__input"
+        checked={checked}
+        onChange={onChange}
+        {...props}
+      /&gt;
+      &lt;span className="radio__circle"&gt;&lt;/span&gt;
+      &lt;span className="radio__label"&gt;{children}&lt;/span&gt;
+    &lt;/label&gt;
+  );
+};
+
+// Usage
+const [selected, setSelected] = useState('option1');
+
+&lt;div className="radio-group"&gt;
+  &lt;Radio
+    name="options"
+    value="option1"
+    checked={selected === 'option1'}
+    onChange={(e) =&gt; setSelected(e.target.value)}
+  &gt;
+    Option 1
+  &lt;/Radio&gt;
+  &lt;Radio
+    name="options"
+    value="option2"
+    checked={selected === 'option2'}
+    onChange={(e) =&gt; setSelected(e.target.value)}
+  &gt;
+    Option 2
+  &lt;/Radio&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;label class="radio"&gt;
+    &lt;input
+      type="radio"
+      :name="name"
+      :value="value"
+      class="radio__input"
+      v-model="selected"
+    /&gt;
+    &lt;span class="radio__circle"&gt;&lt;/span&gt;
+    &lt;span class="radio__label"&gt;
+      &lt;slot /&gt;
+    &lt;/span&gt;
+  &lt;/label&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    name: String,
+    value: String,
+    selected: String
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;div class="radio-group"&gt;
+  &lt;Radio name="options" value="option1" v-model="selected"&gt;Option 1&lt;/Radio&gt;
+  &lt;Radio name="options" value="option2" v-model="selected"&gt;Option 2&lt;/Radio&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Radio } from '@aural-ui/svelte';
+
+  let selected = 'option1';
+&lt;/script&gt;
+
+&lt;!-- Radio group --&gt;
+&lt;Radio
+  name="options"
+  value="option1"
+  bind:checked={selected}
+  label="Option 1"
+/&gt;
+&lt;Radio
+  name="options"
+  value="option2"
+  bind:checked={selected}
+  label="Option 2"
+/&gt;
+&lt;Radio
+  name="options"
+  value="option3"
+  bind:checked={selected}
+  label="Option 3"
+/&gt;
+
+&lt;!-- Disabled --&gt;
+&lt;Radio
+  name="options"
+  value="option4"
+  disabled
+  label="Disabled option"
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <script src="../aural-ui.js?v=1769438626"></script>

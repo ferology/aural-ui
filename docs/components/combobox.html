@@ -651,6 +651,211 @@ Aural.initCombobox('city-combobox', {
         </div>
             </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="combobox"&gt;
+  &lt;input
+    type="text"
+    class="combobox-input"
+    role="combobox"
+    aria-expanded="false"
+    aria-autocomplete="list"
+    placeholder="Search..."
+  /&gt;
+  &lt;ul class="combobox-listbox" role="listbox" hidden&gt;
+    &lt;li role="option"&gt;Option 1&lt;/li&gt;
+    &lt;li role="option"&gt;Option 2&lt;/li&gt;
+    &lt;li role="option"&gt;Option 3&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const input = document.querySelector('.combobox-input');
+const listbox = document.querySelector('.combobox-listbox');
+
+input.addEventListener('input', (e) =&gt; {
+  const value = e.target.value.toLowerCase();
+  const options = listbox.querySelectorAll('[role="option"]');
+
+  options.forEach(opt =&gt; {
+    const text = opt.textContent.toLowerCase();
+    opt.hidden = !text.includes(value);
+  });
+
+  listbox.hidden = false;
+  input.setAttribute('aria-expanded', 'true');
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Combobox = ({ options, value, onChange, placeholder }) =&gt; {
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState(value || '');
+  const [filtered, setFiltered] = useState(options);
+
+  const handleInput = (e) =&gt; {
+    const val = e.target.value;
+    setInputValue(val);
+    setFiltered(
+      options.filter(opt =&gt;
+        opt.label.toLowerCase().includes(val.toLowerCase())
+      )
+    );
+    setIsOpen(true);
+  };
+
+  const selectOption = (option) =&gt; {
+    setInputValue(option.label);
+    onChange?.(option.value);
+    setIsOpen(false);
+  };
+
+  return (
+    &lt;div className="combobox"&gt;
+      &lt;input
+        type="text"
+        value={inputValue}
+        onChange={handleInput}
+        onFocus={() =&gt; setIsOpen(true)}
+        placeholder={placeholder}
+        role="combobox"
+        aria-expanded={isOpen}
+      /&gt;
+      {isOpen &amp;&amp; (
+        &lt;ul role="listbox"&gt;
+          {filtered.map(opt =&gt; (
+            &lt;li
+              key={opt.value}
+              role="option"
+              onClick={() =&gt; selectOption(opt)}
+            &gt;
+              {opt.label}
+            &lt;/li&gt;
+          ))}
+        &lt;/ul&gt;
+      )}
+    &lt;/div&gt;
+  );
+};</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="combobox"&gt;
+    &lt;input
+      type="text"
+      v-model="inputValue"
+      @input="filterOptions"
+      @focus="isOpen = true"
+      :placeholder="placeholder"
+      role="combobox"
+      :aria-expanded="isOpen"
+    /&gt;
+    &lt;ul v-if="isOpen" role="listbox"&gt;
+      &lt;li
+        v-for="option in filteredOptions"
+        :key="option.value"
+        role="option"
+        @click="selectOption(option)"
+      &gt;
+        {{ option.label }}
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    options: Array,
+    modelValue: String,
+    placeholder: String
+  },
+  data() {
+    return {
+      isOpen: false,
+      inputValue: this.modelValue || '',
+      filteredOptions: this.options
+    }
+  },
+  methods: {
+    filterOptions() {
+      const val = this.inputValue.toLowerCase();
+      this.filteredOptions = this.options.filter(opt =&gt;
+        opt.label.toLowerCase().includes(val)
+      );
+    },
+    selectOption(option) {
+      this.inputValue = option.label;
+      this.$emit('update:modelValue', option.value);
+      this.isOpen = false;
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Combobox } from '@aural-ui/svelte';
+
+  let value = '';
+
+  const options = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'cherry', label: 'Cherry' },
+    { value: 'date', label: 'Date' }
+  ];
+&lt;/script&gt;
+
+&lt;!-- Basic combobox --&gt;
+&lt;Combobox
+  {options}
+  bind:value
+  placeholder="Search fruits..."
+/&gt;
+
+&lt;!-- With async options --&gt;
+&lt;Combobox
+  {options}
+  bind:value
+  async
+  on:search={(e) =&gt; loadOptions(e.detail)}
+  placeholder="Search..."
+/&gt;
+
+&lt;!-- Allow custom values --&gt;
+&lt;Combobox
+  {options}
+  bind:value
+  allowCustom
+  placeholder="Type or select..."
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
                 <!-- Best Practices Section -->

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons (Live Preview) - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Preview System CSS -->
+    <link rel="stylesheet" href="../styles/preview-system.css">
+
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .badge-new {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-left: var(--space-3);
+            vertical-align: middle;
+        }
+
+        .intro-section {
+            background: var(--color-bg-secondary);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--color-primary);
+            margin-bottom: var(--space-8);
+        }
+
+        .intro-section h2 {
+            margin: 0 0 var(--space-3) 0;
+            font-size: var(--text-xl);
+            color: var(--color-primary);
+        }
+
+        .intro-section p {
+            margin: 0;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+        }
+
+        .section-divider {
+            margin: var(--space-10) 0;
+            border: none;
+            border-top: 2px solid var(--color-border-subtle);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-6);
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--color-primary);
+        }
+
+        .back-link i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .badge-new {
+                display: block;
+                margin-left: 0;
+                margin-top: var(--space-2);
+                width: fit-content;
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <a href="buttons.html" class="back-link">
+            <i data-lucide="arrow-left"></i>
+            Back to standard view
+        </a>
+
+        <div class="page-header">
+            <h1 class="page-title">
+                Buttons
+                <span class="badge-new">Live Preview</span>
+            </h1>
+            <p class="page-description">
+                Interactive buttons with multiple variants, sizes, and states.
+                Try switching between frameworks to see the same component in Vanilla JS, React, Vue, and Svelte.
+            </p>
+        </div>
+
+        <div class="intro-section">
+            <h2>What's New?</h2>
+            <p>
+                This is a proof-of-concept for the new live component preview system.
+                Each example below shows working, interactive components that you can click and test.
+                Use the framework tabs to see how to implement the same component in different frameworks.
+                Click "Copy" to quickly grab the code.
+            </p>
+        </div>
+
+        <!-- Live Preview: Button Variants -->
+        <div class="live-preview"
+             data-component="Button"
+             data-example="primary-buttons"
+             data-frameworks="vanilla,react,vue,svelte">
+        </div>
+
+        <!-- Live Preview: Button Sizes -->
+        <div class="live-preview"
+             data-component="Button"
+             data-example="button-sizes"
+             data-frameworks="vanilla,react,vue,svelte">
+        </div>
+
+        <!-- Live Preview: Button States -->
+        <div class="live-preview"
+             data-component="Button"
+             data-example="button-states"
+             data-frameworks="vanilla,react,vue">
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Live Preview: Buttons with Icons -->
+        <div class="live-preview"
+             data-component="Button"
+             data-example="button-icons"
+             data-frameworks="vanilla,react,vue,svelte">
+        </div>
+
+        <!-- Live Preview: Icon-Only Buttons -->
+        <div class="live-preview"
+             data-component="Button"
+             data-example="icon-only-buttons"
+             data-frameworks="vanilla,react,vue">
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Live Preview: Interactive Example -->
+        <div class="live-preview"
+             data-component="Button"
+             data-example="interactive-example"
+             data-frameworks="vanilla,react,vue,svelte">
+        </div>
+
+        <div class="intro-section" style="margin-top: var(--space-10);">
+            <h2>How It Works</h2>
+            <p style="margin-bottom: var(--space-3);">
+                The preview system uses sandboxed iframes to render actual components in isolated environments.
+                Framework-specific code is loaded from ESM CDNs, ensuring you see real, working implementations.
+            </p>
+            <p style="margin-bottom: var(--space-3);">
+                <strong>Vanilla JS:</strong> Direct HTML injection with Aural UI classes<br>
+                <strong>React:</strong> Uses React 18 ESM with component wrappers<br>
+                <strong>Vue:</strong> Uses Vue 3 Composition API with templates<br>
+                <strong>Svelte:</strong> Pre-compiled Svelte components (coming soon)
+            </p>
+            <p style="margin: 0;">
+                All previews automatically sync with the current theme and support full interactivity including
+                state management, event handlers, and animations.
+            </p>
+        </div>
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=9"></script>
+
+    <!-- Theme Manager -->
+    <script src="../js/theme-manager.js"></script>
+
+    <!-- Preview System (ES Modules) -->
+    <script type="module">
+        import PreviewManager from '../js/preview-system/PreviewManager.js';
+
+        // Initialize preview system
+        PreviewManager.init({
+            defaultFramework: 'vanilla',
+            theme: 'dark',
+            showCode: true,
+            editable: false,
+            autoHeight: true
+        });
+
+        console.log('Preview system initialized');
+    </script>
+
+    <script>
+        // Initialize Lucide icons
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+
+        // Theme toggle (uses centralized theme manager)
+        function toggleTheme() {
+            if (window.AuralThemeManager) {
+                window.AuralThemeManager.cycleTheme();
+            }
+        }
+    </script>
+</body>
+</html>

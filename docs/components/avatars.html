@@ -640,6 +640,162 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div id="panel-framework" role="tabpanel" aria-labelledby="tab-framework">
+            <div class="content-section">
+                <h2 class="section-title">Framework Examples</h2>
+
+                <div class="framework-tabs">
+                    <div role="tablist" class="tabs-list">
+                        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                            Vanilla JS
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                            React
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                            Vue
+                        </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                        <pre><code class="language-html">&lt;!-- Image avatar --&gt;
+&lt;div class="avatar"&gt;
+    &lt;img src="user.jpg" alt="John Doe"&gt;
+&lt;/div&gt;
+
+&lt;!-- Initials avatar --&gt;
+&lt;div class="avatar avatar-initials"&gt;JD&lt;/div&gt;
+
+&lt;!-- With status --&gt;
+&lt;div class="avatar"&gt;
+    &lt;img src="user.jpg" alt="John Doe"&gt;
+    &lt;span class="avatar-status avatar-status-online"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                        <pre><code class="language-jsx">const Avatar = ({ src, alt, initials, size, status, onClick }) => {
+  const classNames = [
+    'avatar',
+    size && `avatar-${size}`,
+    !src && initials && 'avatar-initials',
+    onClick && 'avatar-clickable'
+  ].filter(Boolean).join(' ');
+
+  return (
+    &lt;div className={classNames} onClick={onClick}&gt;
+      {src ? (
+        &lt;img src={src} alt={alt} /&gt;
+      ) : (
+        initials
+      )}
+      {status && (
+        &lt;span className={`avatar-status avatar-status-${status}`} /&gt;
+      )}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+&lt;Avatar src="user.jpg" alt="John Doe" /&gt;
+&lt;Avatar initials="JD" /&gt;
+&lt;Avatar src="user.jpg" alt="Jane" status="online" /&gt;
+&lt;Avatar initials="JD" size="lg" onClick={() =&gt; console.log('Clicked')} /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                        <pre><code class="language-vue">&lt;template&gt;
+  &lt;div :class="avatarClasses" @click="handleClick"&gt;
+    &lt;img v-if="src" :src="src" :alt="alt" /&gt;
+    &lt;template v-else&gt;{{ initials }}&lt;/template&gt;
+    &lt;span
+      v-if="status"
+      :class="`avatar-status avatar-status-${status}`"
+    /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    src: String,
+    alt: String,
+    initials: String,
+    size: String,
+    status: String
+  },
+  computed: {
+    avatarClasses() {
+      return [
+        'avatar',
+        this.size && `avatar-${this.size}`,
+        !this.src && this.initials && 'avatar-initials',
+        this.$listeners.click && 'avatar-clickable'
+      ].filter(Boolean).join(' ');
+    }
+  },
+  methods: {
+    handleClick() {
+      this.$emit('click');
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Avatar src="user.jpg" alt="John Doe" /&gt;
+&lt;Avatar initials="JD" /&gt;
+&lt;Avatar src="user.jpg" alt="Jane" status="online" /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  import { createEventDispatcher } from 'svelte';
+
+  export let src = '';
+  export let alt = '';
+  export let initials = '';
+  export let size = '';
+  export let status = '';
+
+  const dispatch = createEventDispatcher();
+
+  $: avatarClasses = [
+    'avatar',
+    size && `avatar-${size}`,
+    !src && initials && 'avatar-initials',
+    $$listeners.click && 'avatar-clickable'
+  ].filter(Boolean).join(' ');
+
+  function handleClick() {
+    dispatch('click');
+  }
+&lt;/script&gt;
+
+&lt;div class={avatarClasses} on:click={handleClick}&gt;
+  {#if src}
+    &lt;img {src} {alt} /&gt;
+  {:else}
+    {initials}
+  {/if}
+  {#if status}
+    &lt;span class="avatar-status avatar-status-{status}" /&gt;
+  {/if}
+&lt;/div&gt;
+
+&lt;!-- Usage --&gt;
+&lt;Avatar src="user.jpg" alt="John Doe" /&gt;
+&lt;Avatar initials="JD" /&gt;
+&lt;Avatar src="user.jpg" alt="Jane" status="online" /&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Theme Toggle -->

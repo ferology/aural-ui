@@ -292,45 +292,8 @@
             font-weight: 600;
         }
 
-        /* Framework Tabs */
-        .tabs-list {
-            display: flex;
-            gap: var(--space-2);
-            border-bottom: 2px solid var(--color-border-subtle);
-            margin-bottom: var(--space-4);
-        }
-
-        .framework-tabs .tab {
-            padding: var(--space-3) var(--space-4);
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid transparent;
-            color: var(--color-text-secondary);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: -2px;
-        }
-
-        .framework-tabs .tab:hover {
-            color: var(--color-text-primary);
-            background: var(--color-bg-hover);
-        }
-
-        .framework-tabs .tab.active {
-            color: var(--color-primary);
-            border-bottom-color: var(--color-primary);
-        }
-
-        [role="tabpanel"] {
-            animation: fadeIn 0.2s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Framework Tabs - Styles moved to page-common.css */
+        /* See page-common.css for Carbon Design System-inspired tab styles */
 
         /* Related Components */
         .related-grid {
@@ -472,6 +435,9 @@
                         <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
                             Vue
                         </button>
+                        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                            Svelte
+                        </button>
                     </div>
 
                     <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
@@ -531,6 +497,43 @@ export default {
   :error="true"
   errorMessage="Please enter a valid email address"
 /&gt;</code></pre>
+                    </div>
+
+                    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                        <pre><code class="language-svelte">&lt;script&gt;
+  import { Input } from '@aural-ui/svelte';
+
+  let emailValue = '';
+&lt;/script&gt;
+
+&lt;!-- Basic usage --&gt;
+&lt;Input
+  type="text"
+  placeholder="Enter text..."
+  bind:value={emailValue}
+/&gt;
+
+&lt;!-- With label and helper text --&gt;
+&lt;Input
+  type="email"
+  label="Email Address"
+  placeholder="you@example.com"
+  helperText="We'll never share your email"
+  bind:value={emailValue}
+/&gt;
+
+&lt;!-- With error state --&gt;
+&lt;Input
+  type="email"
+  placeholder="invalid-email"
+  error="Please enter a valid email address"
+  bind:value={emailValue}
+/&gt;
+
+&lt;!-- Different sizes --&gt;
+&lt;Input size="small" placeholder="Small input" /&gt;
+&lt;Input size="medium" placeholder="Medium input" /&gt;
+&lt;Input size="large" placeholder="Large input" /&gt;</code></pre>
                     </div>
                 </div>
             </div>

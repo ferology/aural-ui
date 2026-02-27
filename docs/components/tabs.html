@@ -794,6 +794,143 @@ function switchTab(event, panelId) {
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="tabs" role="tablist"&gt;
+    &lt;button class="tab tab-active" role="tab" aria-selected="true"&gt;
+        Profile
+    &lt;/button&gt;
+    &lt;button class="tab" role="tab" aria-selected="false"&gt;
+        Settings
+    &lt;/button&gt;
+    &lt;button class="tab" role="tab" aria-selected="false"&gt;
+        Notifications
+    &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+        // Remove active from all tabs
+        document.querySelectorAll('.tab').forEach(t => {
+            t.classList.remove('tab-active');
+            t.setAttribute('aria-selected', 'false');
+        });
+        // Add active to clicked tab
+        e.target.classList.add('tab-active');
+        e.target.setAttribute('aria-selected', 'true');
+    });
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Tabs = ({ tabs, activeTab, onTabChange }) => {
+  return (
+    &lt;div className="tabs" role="tablist"&gt;
+      {tabs.map(tab => (
+        &lt;button
+          key={tab.id}
+          className={`tab ${activeTab === tab.id ? 'tab-active' : ''}`}
+          role="tab"
+          aria-selected={activeTab === tab.id}
+          onClick={() => onTabChange(tab.id)}
+        &gt;
+          {tab.label}
+        &lt;/button&gt;
+      ))}
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const tabs = [
+  { id: 'tab1', label: 'Profile' },
+  { id: 'tab2', label: 'Settings' },
+  { id: 'tab3', label: 'Notifications' }
+];
+
+const [activeTab, setActiveTab] = useState('tab1');
+&lt;Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div class="tabs" role="tablist"&gt;
+    &lt;button
+      v-for="tab in tabs"
+      :key="tab.id"
+      :class="['tab', { 'tab-active': activeTab === tab.id }]"
+      role="tab"
+      :aria-selected="activeTab === tab.id"
+      @click="$emit('tabChange', tab.id)"
+    &gt;
+      {{ tab.label }}
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    tabs: { type: Array, required: true },
+    activeTab: { type: String, required: true }
+  },
+  emits: ['tabChange']
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Tabs } from '@aural-ui/svelte';
+
+  let activeTab = 'tab1';
+
+  const tabs = [
+    { id: 'tab1', label: 'Profile', content: 'Profile content' },
+    { id: 'tab2', label: 'Settings', content: 'Settings content' },
+    { id: 'tab3', label: 'Notifications', content: 'Notifications content' }
+  ];
+&lt;/script&gt;
+
+&lt;!-- Basic tabs --&gt;
+&lt;Tabs {tabs} bind:activeTab /&gt;
+
+&lt;!-- With custom content --&gt;
+&lt;Tabs {tabs} bind:activeTab&gt;
+  &lt;svelte:fragment slot="tab1"&gt;
+    &lt;h3&gt;Custom Profile&lt;/h3&gt;
+    &lt;p&gt;Custom content for profile tab&lt;/p&gt;
+  &lt;/svelte:fragment&gt;
+  &lt;svelte:fragment slot="tab2"&gt;
+    &lt;h3&gt;Custom Settings&lt;/h3&gt;
+    &lt;p&gt;Custom content for settings tab&lt;/p&gt;
+  &lt;/svelte:fragment&gt;
+&lt;/Tabs&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -986,5 +1123,8 @@ function switchTab(event, panelId) {
         // Run initialization
         initMainTabs();
     </script>
+
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 </body>
 </html>

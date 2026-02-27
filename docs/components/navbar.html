@@ -11,6 +11,9 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="../dark.css" id="theme-link">
 
+    <!-- Common Page Styles -->
+    <link rel="stylesheet" href="../styles/page-common.css">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -701,6 +704,168 @@ function toggleMobileMenu() {
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;nav class="aural-navbar" role="navigation" aria-label="Main navigation"&gt;
+    &lt;div class="aural-navbar__inner"&gt;
+        &lt;a href="#" class="aural-navbar__brand"&gt;
+            &lt;span&gt;Brand&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;div class="aural-navbar__nav"&gt;
+            &lt;a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page"&gt;Home&lt;/a&gt;
+            &lt;a href="#" class="aural-navbar__link"&gt;Products&lt;/a&gt;
+            &lt;a href="#" class="aural-navbar__link"&gt;About&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-navbar__actions"&gt;
+            &lt;button class="btn btn-ghost btn-sm"&gt;Sign In&lt;/button&gt;
+            &lt;button class="btn btn-primary btn-sm"&gt;Sign Up&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Navbar = ({ brand, links, onSignIn, onSignUp }) => {
+  const [activeLink, setActiveLink] = useState(links[0]?.id);
+
+  return (
+    &lt;nav className="aural-navbar" role="navigation" aria-label="Main navigation"&gt;
+      &lt;div className="aural-navbar__inner"&gt;
+        &lt;a href="#" className="aural-navbar__brand"&gt;
+          &lt;span&gt;{brand}&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;div className="aural-navbar__nav"&gt;
+          {links.map(link => (
+            &lt;a
+              key={link.id}
+              href={link.href}
+              className={`aural-navbar__link ${activeLink === link.id ? 'aural-navbar__link--active' : ''}`}
+              aria-current={activeLink === link.id ? 'page' : undefined}
+              onClick={() => setActiveLink(link.id)}
+            &gt;
+              {link.label}
+            &lt;/a&gt;
+          ))}
+        &lt;/div&gt;
+        &lt;div className="aural-navbar__actions"&gt;
+          &lt;button className="btn btn-ghost btn-sm" onClick={onSignIn}&gt;
+            Sign In
+          &lt;/button&gt;
+          &lt;button className="btn btn-primary btn-sm" onClick={onSignUp}&gt;
+            Sign Up
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  );
+};</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;nav class="aural-navbar" role="navigation" aria-label="Main navigation"&gt;
+    &lt;div class="aural-navbar__inner"&gt;
+      &lt;a href="#" class="aural-navbar__brand"&gt;
+        &lt;span&gt;{{ brand }}&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;div class="aural-navbar__nav"&gt;
+        &lt;a
+          v-for="link in links"
+          :key="link.id"
+          :href="link.href"
+          :class="['aural-navbar__link', { 'aural-navbar__link--active': activeLink === link.id }]"
+          :aria-current="activeLink === link.id ? 'page' : undefined"
+          @click="activeLink = link.id"
+        &gt;
+          {{ link.label }}
+        &lt;/a&gt;
+      &lt;/div&gt;
+      &lt;div class="aural-navbar__actions"&gt;
+        &lt;button class="btn btn-ghost btn-sm" @click="$emit('signIn')"&gt;
+          Sign In
+        &lt;/button&gt;
+        &lt;button class="btn btn-primary btn-sm" @click="$emit('signUp')"&gt;
+          Sign Up
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    brand: { type: String, required: true },
+    links: { type: Array, required: true }
+  },
+  data() {
+    return {
+      activeLink: this.links[0]?.id
+    };
+  },
+  emits: ['signIn', 'signUp']
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Navbar } from '@aural-ui/svelte';
+
+  const links = [
+    { id: 'home', label: 'Home', href: '/' },
+    { id: 'products', label: 'Products', href: '/products' },
+    { id: 'about', label: 'About', href: '/about' }
+  ];
+
+  function handleSignIn() {
+    console.log('Sign in clicked');
+  }
+
+  function handleSignUp() {
+    console.log('Sign up clicked');
+  }
+&lt;/script&gt;
+
+&lt;!-- Basic navbar --&gt;
+&lt;Navbar
+  brand="Brand"
+  {links}
+  on:signIn={handleSignIn}
+  on:signUp={handleSignUp}
+/&gt;
+
+&lt;!-- Sticky navbar --&gt;
+&lt;Navbar
+  brand="Brand"
+  {links}
+  sticky
+  on:signIn={handleSignIn}
+  on:signUp={handleSignUp}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <div class="content-section">
@@ -933,6 +1098,9 @@ function toggleMobileMenu() {
     </script>
     <!-- Theme Manager -->
     <script src="../js/theme-manager.js"></script>
+
+    <!-- Documentation Utilities -->
+    <script src="../doc-utils.js"></script>
 
 </body>
 </html>

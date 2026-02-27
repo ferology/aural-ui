@@ -1040,6 +1040,165 @@
             </div>
         </div>
 
+        <!-- Framework Examples -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;div class="aural-rating" data-rating="0"&gt;
+  &lt;div class="aural-rating__stars"&gt;
+    &lt;span class="aural-rating__star" data-value="1"&gt;
+      &lt;svg viewBox="0 0 24 24"&gt;&lt;polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/&gt;&lt;/svg&gt;
+    &lt;/span&gt;
+    &lt;!-- Repeat for 5 stars --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const rating = document.querySelector('.aural-rating');
+const stars = rating.querySelectorAll('.aural-rating__star');
+
+stars.forEach((star, index) =&gt; {
+  star.addEventListener('click', () =&gt; {
+    const value = index + 1;
+    rating.dataset.rating = value;
+    updateStars(value);
+  });
+});
+
+function updateStars(rating) {
+  stars.forEach((star, index) =&gt; {
+    star.classList.toggle('aural-rating__star--filled', index &lt; rating);
+  });
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">const Rating = ({ value, onChange, max = 5, readonly = false }) =&gt; {
+  const [rating, setRating] = useState(value || 0);
+  const [hover, setHover] = useState(0);
+
+  const handleClick = (index) =&gt; {
+    if (!readonly) {
+      const newRating = index + 1;
+      setRating(newRating);
+      onChange?.(newRating);
+    }
+  };
+
+  return (
+    &lt;div className={`aural-rating ${readonly ? 'aural-rating--readonly' : ''}`}&gt;
+      &lt;div className="aural-rating__stars"&gt;
+        {Array.from({ length: max }, (_, i) =&gt; (
+          &lt;span
+            key={i}
+            className={`aural-rating__star ${
+              i &lt; (hover || rating) ? 'aural-rating__star--filled' : ''
+            }`}
+            onClick={() =&gt; handleClick(i)}
+            onMouseEnter={() =&gt; !readonly &amp;&amp; setHover(i + 1)}
+            onMouseLeave={() =&gt; setHover(0)}
+          &gt;
+            &lt;StarIcon /&gt;
+          &lt;/span&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+// Usage
+const [userRating, setUserRating] = useState(0);
+&lt;Rating value={userRating} onChange={setUserRating} /&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div :class="['aural-rating', { 'aural-rating--readonly': readonly }]"&gt;
+    &lt;div class="aural-rating__stars"&gt;
+      &lt;span
+        v-for="i in max"
+        :key="i"
+        :class="['aural-rating__star', {
+          'aural-rating__star--filled': i &lt;= (hover || modelValue)
+        }]"
+        @click="handleClick(i)"
+        @mouseenter="!readonly &amp;&amp; (hover = i)"
+        @mouseleave="hover = 0"
+      &gt;
+        &lt;StarIcon /&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    modelValue: { type: Number, default: 0 },
+    max: { type: Number, default: 5 },
+    readonly: Boolean
+  },
+  data() {
+    return {
+      hover: 0
+    }
+  },
+  methods: {
+    handleClick(value) {
+      if (!this.readonly) {
+        this.$emit('update:modelValue', value);
+      }
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Rating } from '@aural-ui/svelte';
+
+  let rating = 0;
+&lt;/script&gt;
+
+&lt;!-- Basic rating --&gt;
+&lt;Rating bind:value={rating} /&gt;
+
+&lt;!-- Read-only rating --&gt;
+&lt;Rating value={4.5} readonly /&gt;
+
+&lt;!-- Different sizes --&gt;
+&lt;Rating bind:value={rating} size="small" /&gt;
+&lt;Rating bind:value={rating} size="medium" /&gt;
+&lt;Rating bind:value={rating} size="large" /&gt;
+
+&lt;!-- With change event --&gt;
+&lt;Rating
+  bind:value={rating}
+  on:change={(e) =&gt; console.log('Rating:', e.detail)}
+/&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
         <!-- Guidelines Panel -->
         <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
             <!-- Best Practices Section -->

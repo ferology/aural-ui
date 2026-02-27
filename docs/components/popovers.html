@@ -473,6 +473,276 @@
             </div>
         </div>
 
+        <!-- Framework Examples Section -->
+        <div class="content-section">
+            <h2 class="section-title">Framework Examples</h2>
+
+            <div class="framework-tabs">
+                <div role="tablist" class="tabs-list">
+                    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
+                        Vanilla JS
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+                        React
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+                        Vue
+                    </button>
+                    <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+                        Svelte
+                    </button>
+                </div>
+
+                <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+                    <pre><code class="language-html">&lt;!-- HTML --&gt;
+&lt;button class="btn btn-primary" id="popover-trigger"&gt;
+    Show Popover
+&lt;/button&gt;
+
+&lt;div class="popover popover-top" id="my-popover" style="display: none;"&gt;
+    &lt;div class="popover-arrow"&gt;&lt;/div&gt;
+    &lt;div class="popover-header"&gt;
+        &lt;h4 class="popover-title"&gt;Popover Title&lt;/h4&gt;
+        &lt;button class="popover-close" id="popover-close" aria-label="Close popover"&gt;
+            &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="popover-body"&gt;
+        &lt;p&gt;This is the popover content.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const trigger = document.getElementById('popover-trigger');
+const popover = document.getElementById('my-popover');
+const closeBtn = document.getElementById('popover-close');
+
+function showPopover() {
+    popover.style.display = 'block';
+    positionPopover();
+}
+
+function hidePopover() {
+    popover.style.display = 'none';
+}
+
+function positionPopover() {
+    const rect = trigger.getBoundingClientRect();
+    popover.style.position = 'absolute';
+    popover.style.top = (rect.top - popover.offsetHeight - 10) + 'px';
+    popover.style.left = (rect.left + (rect.width / 2) - (popover.offsetWidth / 2)) + 'px';
+}
+
+trigger.addEventListener('click', showPopover);
+closeBtn.addEventListener('click', hidePopover);
+
+// Close on outside click
+document.addEventListener('click', (e) =&gt; {
+    if (!popover.contains(e.target) &amp;&amp; e.target !== trigger) {
+        hidePopover();
+    }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) =&gt; {
+    if (e.key === 'Escape') hidePopover();
+});
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+                    <pre><code class="language-jsx">import { useState, useRef, useEffect } from 'react';
+
+const Popover = ({ trigger, title, content, position = 'top' }) =&gt; {
+  const [isOpen, setIsOpen] = useState(false);
+  const popoverRef = useRef(null);
+  const triggerRef = useRef(null);
+
+  useEffect(() =&gt; {
+    const handleClickOutside = (e) =&gt; {
+      if (
+        popoverRef.current &amp;&amp;
+        !popoverRef.current.contains(e.target) &amp;&amp;
+        !triggerRef.current.contains(e.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleEscape = (e) =&gt; {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+
+    if (isOpen) {
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () =&gt; {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
+
+  return (
+    &lt;&gt;
+      &lt;div ref={triggerRef} onClick={() =&gt; setIsOpen(!isOpen)}&gt;
+        {trigger}
+      &lt;/div&gt;
+
+      {isOpen &amp;&amp; (
+        &lt;div ref={popoverRef} className={`popover popover-${position}`}&gt;
+          &lt;div className="popover-arrow" /&gt;
+          &lt;div className="popover-header"&gt;
+            &lt;h4 className="popover-title"&gt;{title}&lt;/h4&gt;
+            &lt;button
+              className="popover-close"
+              onClick={() =&gt; setIsOpen(false)}
+              aria-label="Close popover"
+            &gt;
+              &lt;i data-lucide="x"&gt;&lt;/i&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div className="popover-body"&gt;
+            {content}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/&gt;
+  );
+};
+
+// Usage
+function App() {
+  return (
+    &lt;Popover
+      trigger={&lt;button className="btn btn-primary"&gt;Show Popover&lt;/button&gt;}
+      title="Popover Title"
+      content={&lt;p&gt;This is the popover content.&lt;/p&gt;}
+      position="top"
+    /&gt;
+  );
+}</code></pre>
+                </div>
+
+                <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+                    <pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;div @click="togglePopover" ref="trigger"&gt;
+      &lt;slot name="trigger"&gt;
+        &lt;button class="btn btn-primary"&gt;Show Popover&lt;/button&gt;
+      &lt;/slot&gt;
+    &lt;/div&gt;
+
+    &lt;div
+      v-if="isOpen"
+      ref="popover"
+      :class="`popover popover-${position}`"
+    &gt;
+      &lt;div class="popover-arrow"&gt;&lt;/div&gt;
+      &lt;div class="popover-header"&gt;
+        &lt;h4 class="popover-title"&gt;{{ title }}&lt;/h4&gt;
+        &lt;button
+          class="popover-close"
+          @click="closePopover"
+          aria-label="Close popover"
+        &gt;
+          &lt;i data-lucide="x"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="popover-body"&gt;
+        &lt;slot&gt;
+          &lt;p&gt;This is the popover content.&lt;/p&gt;
+        &lt;/slot&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    title: { type: String, default: 'Popover Title' },
+    position: { type: String, default: 'top' }
+  },
+  data() {
+    return {
+      isOpen: false
+    };
+  },
+  methods: {
+    togglePopover() {
+      this.isOpen = !this.isOpen;
+    },
+    closePopover() {
+      this.isOpen = false;
+    },
+    handleClickOutside(e) {
+      if (
+        this.$refs.popover &amp;&amp;
+        !this.$refs.popover.contains(e.target) &amp;&amp;
+        !this.$refs.trigger.contains(e.target)
+      ) {
+        this.closePopover();
+      }
+    },
+    handleEscape(e) {
+      if (e.key === 'Escape') this.closePopover();
+    }
+  },
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);
+    document.addEventListener('keydown', this.handleEscape);
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener('keydown', this.handleEscape);
+  }
+};
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+                    <pre><code class="language-svelte">&lt;script&gt;
+  import { Popover, Button } from '@aural-ui/svelte';
+
+  let isOpen = false;
+&lt;/script&gt;
+
+&lt;Popover bind:open={isOpen} position="top"&gt;
+  &lt;svelte:fragment slot="trigger"&gt;
+    &lt;Button on:click={() =&gt; isOpen = !isOpen}&gt;
+      Show Popover
+    &lt;/Button&gt;
+  &lt;/svelte:fragment&gt;
+
+  &lt;svelte:fragment slot="title"&gt;
+    Popover Title
+  &lt;/svelte:fragment&gt;
+
+  &lt;p&gt;This is the popover content.&lt;/p&gt;
+&lt;/Popover&gt;
+
+&lt;!-- Different positions --&gt;
+&lt;Popover position="top" title="Top Popover"&gt;
+  Content appears above
+&lt;/Popover&gt;
+
+&lt;Popover position="bottom" title="Bottom Popover"&gt;
+  Content appears below
+&lt;/Popover&gt;
+
+&lt;Popover position="left" title="Left Popover"&gt;
+  Content appears on left
+&lt;/Popover&gt;
+
+&lt;Popover position="right" title="Right Popover"&gt;
+  Content appears on right
+&lt;/Popover&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <script>
