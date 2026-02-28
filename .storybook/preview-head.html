@@ -5,44 +5,79 @@
 <link rel="stylesheet" href="/aural-ui.css">
 
 <style>
-  /* Apply theme to preview */
-  html {
-    background: var(--color-bg-primary, #0a0a0a);
-    color: var(--color-text-primary, #ffffff);
-  }
-
-  body {
+  /* Apply theme to entire preview iframe */
+  html,
+  body,
+  #storybook-root,
+  #storybook-docs {
     margin: 0;
     padding: 0;
+    background: var(--color-bg-primary, #0a0a0a) !important;
+    color: var(--color-text-primary, #ffffff) !important;
     font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-    background: transparent;
-    color: inherit;
+    min-height: 100%;
+  }
+
+  /* Remove all white backgrounds from Storybook containers */
+  .sb-show-main,
+  .sb-main-padded,
+  #storybook-preview-wrapper,
+  #panel-tab-content {
+    background: var(--color-bg-primary, #0a0a0a) !important;
   }
 
   /* Apply theme colors to docs container */
-  .sbdocs {
-    background: var(--color-bg-primary, #0a0a0a);
-    color: var(--color-text-primary, #ffffff);
+  .sbdocs,
+  .sbdocs-wrapper,
+  .sbdocs-content {
+    background: var(--color-bg-primary, #0a0a0a) !important;
+    color: var(--color-text-primary, #ffffff) !important;
   }
 
-  .sbdocs h1, .sbdocs h2, .sbdocs h3, .sbdocs h4 {
-    color: var(--color-text-primary, #ffffff);
+  .sbdocs h1, .sbdocs h2, .sbdocs h3, .sbdocs h4, .sbdocs h5, .sbdocs h6 {
+    color: var(--color-text-primary, #ffffff) !important;
   }
 
-  .sbdocs p, .sbdocs li {
-    color: var(--color-text-secondary, #b0b0b0);
+  .sbdocs p, .sbdocs li, .sbdocs td {
+    color: var(--color-text-secondary, #b0b0b0) !important;
   }
 
   .sbdocs code {
-    background: var(--color-bg-tertiary, #1a1a1a);
-    color: var(--color-primary, #10b981);
+    background: var(--color-bg-tertiary, #1a1a1a) !important;
+    color: var(--color-primary, #10b981) !important;
     padding: 2px 6px;
     border-radius: 4px;
   }
 
-  .sbdocs pre {
+  .sbdocs pre,
+  .sbdocs pre code {
     background: var(--color-bg-secondary, #141414) !important;
     border: 1px solid var(--color-border-subtle, #2a2a2a);
+  }
+
+  /* Style tables in docs */
+  .sbdocs table {
+    border-color: var(--color-border-subtle, #2a2a2a) !important;
+  }
+
+  .sbdocs th {
+    background: var(--color-bg-secondary, #141414) !important;
+    color: var(--color-text-primary, #ffffff) !important;
+    border-color: var(--color-border-subtle, #2a2a2a) !important;
+  }
+
+  .sbdocs tr {
+    border-color: var(--color-border-subtle, #2a2a2a) !important;
+  }
+
+  /* Style links */
+  .sbdocs a {
+    color: var(--color-primary, #10b981) !important;
+  }
+
+  /* Story canvas background */
+  .sb-story {
+    background: transparent !important;
   }
 
   /* Reduce search field text size in Storybook sidebar */
