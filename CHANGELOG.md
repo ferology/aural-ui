@@ -9,6 +9,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added - February 28, 2026
+- **Storybook Integration**: Multi-theme component preview system
+  - createThemeGrid utility for side-by-side theme comparison
+  - AllThemes story showing components across all 9 themes
+  - ThemeComparison story with interactive controls
+- **New Themes**: Expanded from 7 to 9 themes
+  - Minimal theme: Clean, understated design with subtle styling
+  - Warm theme: Earthy tones with amber accents
+  - Prismatic theme (replaces Neon Refined): Colorful prismatic design
+- **Theme System Enhancements**:
+  - High Contrast theme now fully integrated
+  - Colorblind-Friendly theme now fully integrated
+
+### Changed - February 28, 2026
+- **Documentation Updates**: All 60+ documentation files updated to reflect 9 themes
+- **Navigation Improvements**:
+  - Theme Switcher relocated to bottom of sidebar for better UX
+  - Simplified navigation structure (removed Theme Showcases section)
+- **Theme System**:
+  - Neon Refined renamed to Prismatic theme
+  - Updated landing page with Prismatic, Minimal, and Warm theme cards
+- **UI Polish**:
+  - Search bar placeholder simplified (removed "components" word)
+  - Theme manager now supports all 9 themes with proper definitions
+
+### Removed - February 28, 2026
+- "Try Themes Live" interactive section from themes.html (sync issues)
+- Theme Showcases navigation section (redundant with Themes documentation page)
+
 ### Added - February 13, 2026
 - Comprehensive accessibility audit documentation (ACCESSIBILITY_AUDIT_REPORT.md)
 - Accessibility fixes summary (ACCESSIBILITY_FIXES_SUMMARY.md)

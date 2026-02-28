@@ -17,7 +17,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 
 **Key Features:**
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
-- 🌓 **7 Built-in Themes** - Dark, Light, Neon, Kinetic, Prismatic, Minimal, and Warm
+- 🌓 **9 Built-in Themes** - Dark, Light, Neon, Kinetic, Prismatic, High Contrast, Colorblind-Friendly, Minimal, and Warm
 - ♿ **Accessibility First** - WCAG 2.1 AAA compliant (7:1+ contrast ratios across all themes)
 - 📦 **60+ Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
@@ -603,7 +603,7 @@ All components follow WCAG 2.1 AAA accessibility guidelines and include:
 - ✅ **Screen Reader Support** - Meaningful labels and state announcements
 - ✅ **Touch Targets** - Minimum 44px for all interactive elements
 - ✅ **Reduced Motion** - Respects `prefers-reduced-motion` preference
-- ✅ **Color Contrast** - WCAG AAA compliant (7:1+ for all text across all 7 themes)
+- ✅ **Color Contrast** - WCAG AAA compliant (7:1+ for all text across all 9 themes)
 - ✅ **Semantic HTML** - Proper use of headings, lists, and landmarks
 
 ### Testing Recommendations

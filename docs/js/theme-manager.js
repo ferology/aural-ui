@@ -51,6 +51,18 @@
             file: 'warm.css',
             icon: 'coffee',
             components: []
+        },
+        'high-contrast': {
+            name: 'High Contrast',
+            file: 'high-contrast.css',
+            icon: 'contrast',
+            components: []
+        },
+        'colorblind-friendly': {
+            name: 'Colorblind-Friendly',
+            file: 'colorblind-friendly.css',
+            icon: 'eye',
+            components: []
         }
     };
 

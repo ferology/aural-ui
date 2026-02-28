@@ -193,10 +193,10 @@
         .theme-preview-neon .preview-dot:nth-child(2) { background: #00ffff; }
         .theme-preview-neon .preview-dot:nth-child(3) { background: #ff00aa; }
 
-        .theme-preview-neon-refined { background: linear-gradient(135deg, #0a0015 0%, #1a0028 100%); }
-        .theme-preview-neon-refined .preview-dot:nth-child(1) { background: #00f5ff; }
-        .theme-preview-neon-refined .preview-dot:nth-child(2) { background: #ff00ff; }
-        .theme-preview-neon-refined .preview-dot:nth-child(3) { background: #cdff00; }
+        .theme-preview-prismatic { background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%); }
+        .theme-preview-prismatic .preview-dot:nth-child(1) { background: #b794f6; }
+        .theme-preview-prismatic .preview-dot:nth-child(2) { background: #f687b3; }
+        .theme-preview-prismatic .preview-dot:nth-child(3) { background: #9f7aea; }
 
         .theme-preview-kinetic { background: #000000; }
         .theme-preview-kinetic .preview-dot:nth-child(1) { background: #cdff00; }
@@ -212,6 +212,16 @@
         .theme-preview-colorblind .preview-dot:nth-child(1) { background: #1a8cff; }
         .theme-preview-colorblind .preview-dot:nth-child(2) { background: #ff8c1a; }
         .theme-preview-colorblind .preview-dot:nth-child(3) { background: #0066cc; }
+
+        .theme-preview-minimal { background: #f5f5f5; border: 1px solid #e0e0e0; }
+        .theme-preview-minimal .preview-dot:nth-child(1) { background: #333333; }
+        .theme-preview-minimal .preview-dot:nth-child(2) { background: #666666; }
+        .theme-preview-minimal .preview-dot:nth-child(3) { background: #999999; }
+
+        .theme-preview-warm { background: #2c1810; }
+        .theme-preview-warm .preview-dot:nth-child(1) { background: #f59e0b; }
+        .theme-preview-warm .preview-dot:nth-child(2) { background: #d97706; }
+        .theme-preview-warm .preview-dot:nth-child(3) { background: #92400e; }
 
         /* Theme Toggle */
         .theme-toggle {
@@ -356,8 +366,8 @@
                     <div class="feature-icon">
                         <i data-lucide="moon" aria-hidden="true"></i>
                     </div>
-                    <h3 class="page-subheading" style="margin-bottom: var(--space-2);">7 Built-in Themes</h3>
-                    <p style="color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm);">Dark, light, neon, neon refined, kinetic, high-contrast, and colorblind-friendly themes included.</p>
+                    <h3 class="page-subheading" style="margin-bottom: var(--space-2);">9 Built-in Themes</h3>
+                    <p style="color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm);">Dark, light, neon, kinetic, prismatic, high-contrast, colorblind, minimal, and warm themes included.</p>
                 </div>
 
                 <div class="card feature-card">
@@ -382,7 +392,7 @@
         <div class="content-section">
             <div class="section-title page-heading">Beautiful Themes</div>
             <div class="section-content">
-                <p>Aural UI includes 7 professionally designed themes that you can switch between instantly. Each theme maintains accessibility standards while providing a unique visual experience.</p>
+                <p>Aural UI includes 9 professionally designed themes that you can switch between instantly. Each theme maintains accessibility standards while providing a unique visual experience.</p>
             </div>
             <div class="themes-grid">
                 <div class="card theme-card">
@@ -416,13 +426,13 @@
                 </div>
 
                 <div class="card theme-card">
-                    <div class="theme-preview theme-preview-neon-refined">
+                    <div class="theme-preview theme-preview-prismatic">
                         <span class="preview-dot"></span>
                         <span class="preview-dot"></span>
                         <span class="preview-dot"></span>
                     </div>
-                    <h4 class="page-subheading" style="margin-bottom: var(--space-1); font-size: var(--text-base);">Neon Refined</h4>
-                    <p style="color: var(--color-text-tertiary); font-size: var(--text-xs); margin: 0;">Sophisticated gradients</p>
+                    <h4 class="page-subheading" style="margin-bottom: var(--space-1); font-size: var(--text-base);">Prismatic</h4>
+                    <p style="color: var(--color-text-tertiary); font-size: var(--text-xs); margin: 0;">Iridescent purple gradients</p>
                 </div>
 
                 <div class="card theme-card">
@@ -453,6 +463,26 @@
                     </div>
                     <h4 class="page-subheading" style="margin-bottom: var(--space-1); font-size: var(--text-base);">Colorblind-Friendly</h4>
                     <p style="color: var(--color-text-tertiary); font-size: var(--text-xs); margin: 0;">Optimized for CVD</p>
+                </div>
+
+                <div class="card theme-card">
+                    <div class="theme-preview theme-preview-minimal">
+                        <span class="preview-dot"></span>
+                        <span class="preview-dot"></span>
+                        <span class="preview-dot"></span>
+                    </div>
+                    <h4 class="page-subheading" style="margin-bottom: var(--space-1); font-size: var(--text-base);">Minimal</h4>
+                    <p style="color: var(--color-text-tertiary); font-size: var(--text-xs); margin: 0;">Ultra-clean monochrome</p>
+                </div>
+
+                <div class="card theme-card">
+                    <div class="theme-preview theme-preview-warm">
+                        <span class="preview-dot"></span>
+                        <span class="preview-dot"></span>
+                        <span class="preview-dot"></span>
+                    </div>
+                    <h4 class="page-subheading" style="margin-bottom: var(--space-1); font-size: var(--text-base);">Warm</h4>
+                    <p style="color: var(--color-text-tertiary); font-size: var(--text-xs); margin: 0;">Cozy earth tones</p>
                 </div>
             </div>
         </div>
@@ -522,7 +552,9 @@
                 'dark': 'dark.css',
                 'light': 'light.css',
                 'neon': 'neon.css',
-                'neon-refined': 'neon-refined.css',
+                'prismatic': 'prismatic.css',
+                'minimal': 'minimal.css',
+                'warm': 'warm.css',
                 'kinetic': 'kinetic.css',
                 'high-contrast': 'high-contrast.css',
                 'colorblind': 'colorblind-friendly.css'

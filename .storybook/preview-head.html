@@ -1,0 +1,27 @@
+<!-- Load Aural UI JavaScript for interactive components -->
+<script src="/javascript/index.js"></script>
+
+<!-- Load base Aural UI CSS (compiled version with all imports resolved) -->
+<link rel="stylesheet" href="/aural-ui.css">
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Reduce search field text size in Storybook sidebar */
+  [role="search"] input,
+  input[type="search"],
+  .sidebar-search input,
+  form[role="search"] input {
+    font-size: 13px !important;
+  }
+
+  /* Also adjust placeholder text size */
+  [role="search"] input::placeholder,
+  input[type="search"]::placeholder,
+  form[role="search"] input::placeholder {
+    font-size: 13px !important;
+  }
+</style>

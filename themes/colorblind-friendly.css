@@ -1,0 +1,440 @@
+/**
+ * AURAL UI - Colorblind-Friendly Theme
+ *
+ * Optimized for deuteranopia, protanopia, and tritanopia
+ * Uses blue/orange contrast instead of red/green
+ * Relies on brightness and saturation differences
+ * All semantic colors tested with colorblind simulators
+ */
+
+:root {
+    /* ========================================
+       Primary Color Override (Blue - Universal)
+       ======================================== */
+    --primary-50: #e6f2ff;
+    --primary-100: #b3d9ff;
+    --primary-200: #80c0ff;
+    --primary-300: #4da6ff;
+    --primary-400: #0066cc;  /* Main brand color - bright blue */
+    --primary-500: #0073e6;
+    --primary-600: #005bb3;
+    --primary-700: #004380;
+    --primary-800: #002b4d;
+    --primary-900: #00141a;
+    --primary-950: #000a0d;
+
+    /* Secondary Color (Orange - Universal) */
+    --secondary-50: #fff5e6;
+    --secondary-100: #ffe0b3;
+    --secondary-200: #ffcc80;
+    --secondary-300: #ffb84d;
+    --secondary-400: #ffa31a;  /* Bright orange */
+    --secondary-500: #e68a00;
+    --secondary-600: #b36b00;
+    --secondary-700: #804d00;
+    --secondary-800: #4d2e00;
+    --secondary-900: #1a0f00;
+    --secondary-950: #0d0700;
+
+    /* ========================================
+       Background Colors (Dark Mode)
+       ======================================== */
+    --color-bg-primary: #0f1419;
+    --color-bg-secondary: #1a1f2e;
+    --color-bg-tertiary: #252a40;
+    --color-bg-elevated: #2a2f45;
+    --color-bg-overlay: rgba(0, 0, 0, 0.85);
+    --color-bg-hover: #35395a;
+    --color-bg-active: #40456f;
+
+    --color-bg-glass: rgba(15, 20, 25, 0.7);
+    --color-bg-glass-light: rgba(255, 255, 255, 0.05);
+
+    /* ========================================
+       Text Colors (Dark Mode)
+       ======================================== */
+    --color-text-primary: #f5f7fa;
+    --color-text-secondary: #b0b8c8;
+    --color-text-tertiary: #8a92a8;
+    --color-text-muted: #707888;
+    --color-text-disabled: #505865;
+    --color-text-inverse: #0f1419;
+
+    /* ========================================
+       Border Colors (Dark Mode)
+       ======================================== */
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-medium: rgba(255, 255, 255, 0.12);
+    --color-border-strong: rgba(255, 255, 255, 0.16);
+
+    /* ========================================
+       Semantic Colors (Colorblind-Friendly)
+       ======================================== */
+
+    /* Success (Blue - instead of green) */
+    --success-50: #e6f2ff;
+    --success-100: #b3d9ff;
+    --success-200: #80c0ff;
+    --success-300: #4da6ff;
+    --success-400: #0066cc;  /* Blue for success */
+    --success-500: #0073e6;
+    --success-600: #005bb3;
+    --success-700: #004380;
+    --success-800: #002b4d;
+    --success-900: #00141a;
+    --success-950: #000a0d;
+
+    --color-success: #0066cc;
+    --color-success-bg: rgba(0, 102, 204, 0.15);
+    --color-border-success: #0066cc;
+
+    /* Error (Orange/Red - distinguishable by brightness) */
+    --error-50: #fff0e6;
+    --error-100: #ffd6b3;
+    --error-200: #ffbb80;
+    --error-300: #ffa14d;
+    --error-400: #ff8c1a;  /* Orange-red for error */
+    --error-500: #e67300;
+    --error-600: #b35900;
+    --error-700: #804000;
+    --error-800: #4d2600;
+    --error-900: #1a0d00;
+    --error-950: #0d0600;
+
+    --color-error: #ff8c1a;
+    --color-error-bg: rgba(255, 140, 26, 0.15);
+    --color-border-error: #ff8c1a;
+
+    /* Warning (Yellow-Orange - high brightness) */
+    --warning-50: #fffce6;
+    --warning-100: #fff5b3;
+    --warning-200: #ffed80;
+    --warning-300: #ffe64d;
+    --warning-400: #ffde1a;  /* Bright yellow for warning */
+    --warning-500: #e6c500;
+    --warning-600: #b39900;
+    --warning-700: #806e00;
+    --warning-800: #4d4200;
+    --warning-900: #1a1600;
+    --warning-950: #0d0b00;
+
+    --color-warning: #ffde1a;
+    --color-warning-bg: rgba(255, 222, 26, 0.15);
+    --color-border-warning: #ffde1a;
+
+    /* Info (Cyan - distinguishable from primary blue) */
+    --info-50: #e6ffff;
+    --info-100: #b3f5ff;
+    --info-200: #80ebff;
+    --info-300: #4de0ff;
+    --info-400: #1ad6ff;  /* Cyan for info */
+    --info-500: #00bde6;
+    --info-600: #0094b3;
+    --info-700: #006b80;
+    --info-800: #00424d;
+    --info-900: #00191a;
+    --info-950: #000c0d;
+
+    --color-info: #1ad6ff;
+    --color-info-bg: rgba(26, 214, 255, 0.15);
+    --color-border-info: #1ad6ff;
+
+    /* ========================================
+       Primary/Secondary Token Overrides
+       ======================================== */
+    --color-primary: var(--primary-400);
+    --color-primary-hover: var(--primary-300);
+    --color-secondary: var(--secondary-400);
+
+    /* ========================================
+       Component Overrides
+       ======================================== */
+
+    /* Buttons */
+    --color-button-primary-bg: var(--primary-400);
+    --color-button-primary-text: #ffffff;
+    --color-button-primary-hover: var(--primary-300);
+
+    --color-button-secondary-bg: transparent;
+    --color-button-secondary-text: var(--color-text-primary);
+    --color-button-secondary-border: var(--color-border-medium);
+    --color-button-secondary-hover: var(--color-bg-hover);
+
+    --color-button-danger-bg: var(--error-400);
+    --color-button-danger-text: #ffffff;
+    --color-button-danger-hover: var(--error-300);
+
+    --color-button-ghost-bg: transparent;
+    --color-button-ghost-text: var(--color-text-secondary);
+    --color-button-ghost-hover: var(--color-bg-hover);
+
+    /* Badges */
+    --color-badge-secondary-bg: rgba(176, 184, 200, 0.15);
+    --color-badge-secondary-text: #b0b8c8;
+
+    /* Primary Alpha */
+    --color-primary-alpha: rgba(0, 102, 204, 0.15);
+
+    /* Inputs */
+    --color-input-bg: rgba(255, 255, 255, 0.03);
+    --color-input-text: var(--color-text-primary);
+    --color-input-placeholder: var(--color-text-muted);
+    --color-input-border: var(--color-border-subtle);
+    --color-input-border-hover: var(--color-border-medium);
+    --color-input-border-focus: var(--primary-400);
+    --color-input-disabled-bg: rgba(255, 255, 255, 0.01);
+
+    /* Cards */
+    --color-card-bg: rgba(26, 31, 46, 0.7);
+    --color-card-border: var(--color-border-subtle);
+    --color-card-hover: var(--color-bg-hover);
+    --color-card-hover-border: var(--primary-400);
+
+    /* Modal */
+    --color-modal-bg: var(--color-bg-primary);
+    --color-modal-border: var(--color-border-medium);
+    --color-modal-overlay: rgba(0, 0, 0, 0.85);
+
+    /* Toast */
+    --color-toast-bg: var(--color-bg-secondary);
+    --color-toast-border: var(--color-border-subtle);
+    --color-toast-success-bg: rgba(0, 102, 204, 0.15);
+    --color-toast-warning-bg: rgba(255, 222, 26, 0.15);
+    --color-toast-error-bg: rgba(255, 140, 26, 0.15);
+
+    /* Tables */
+    --color-table-bg: var(--color-bg-primary);
+    --color-table-header-bg: var(--color-bg-secondary);
+    --color-table-header-text: var(--color-text-primary);
+    --color-table-row-text: var(--color-text-secondary);
+    --color-table-row-hover: var(--color-bg-hover);
+    --color-table-row-selected: rgba(0, 102, 204, 0.2);
+    --color-table-row-selected-border: var(--primary-400);
+    --color-table-row-striped: rgba(255, 255, 255, 0.02);
+    --color-table-border: var(--color-border-subtle);
+
+    /* Tabs */
+    --color-tabs-border: var(--color-border-subtle);
+    --color-tabs-text: var(--color-text-secondary);
+    --color-tabs-text-hover: var(--color-text-primary);
+    --color-tabs-active-text: var(--primary-400);
+    --color-tabs-active-border: var(--primary-400);
+    --color-tabs-active-bg: rgba(0, 102, 204, 0.1);
+    --color-tabs-hover-bg: var(--color-bg-hover);
+    --color-tabs-pill-bg: transparent;
+    --color-tabs-pill-active-bg: var(--primary-400);
+
+    /* Skeleton */
+    --color-skeleton-from: rgba(255, 255, 255, 0.03);
+    --color-skeleton-via: rgba(255, 255, 255, 0.06);
+    --color-skeleton-to: rgba(255, 255, 255, 0.03);
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.25);
+    --shadow-2xl: 0 16px 32px rgba(0, 0, 0, 0.3);
+    --shadow-primary: 0 4px 12px rgba(0, 102, 204, 0.4);
+    --shadow-primary-lg: 0 8px 24px rgba(0, 102, 204, 0.5);
+    --shadow-error: 0 4px 12px rgba(255, 140, 26, 0.4);
+
+    /* ========================================
+       Alpha Color Utilities (for colorblind-safe overlays)
+       ======================================== */
+    --primary-alpha-5: rgba(0, 102, 204, 0.05);
+    --primary-alpha-10: rgba(0, 102, 204, 0.1);
+    --primary-alpha-15: rgba(0, 102, 204, 0.15);
+    --primary-alpha-20: rgba(0, 102, 204, 0.2);
+    --primary-alpha-30: rgba(0, 102, 204, 0.3);
+    --primary-alpha-50: rgba(0, 102, 204, 0.5);
+
+    --secondary-alpha-5: rgba(255, 163, 26, 0.05);
+    --secondary-alpha-10: rgba(255, 163, 26, 0.1);
+    --secondary-alpha-15: rgba(255, 163, 26, 0.15);
+    --secondary-alpha-20: rgba(255, 163, 26, 0.2);
+}
+
+/* Colorblind-friendly body styles */
+body {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+}
+
+/* Enhanced patterns for status indicators */
+.badge-success,
+.alert-success,
+.toast-success {
+    border-left: 4px solid var(--color-success);
+}
+
+.badge-error,
+.alert-error,
+.toast-error {
+    border-left: 4px solid var(--color-error);
+}
+
+.badge-warning,
+.alert-warning,
+.toast-warning {
+    border-left: 4px solid var(--color-warning);
+}
+
+.badge-info,
+.alert-info,
+.toast-info {
+    border-left: 4px solid var(--color-info);
+}
+
+/* Icon-based indicators (always use icons with color) */
+.success-indicator::before {
+    content: '✓';
+    margin-right: 0.5em;
+}
+
+.error-indicator::before {
+    content: '✕';
+    margin-right: 0.5em;
+}
+
+.warning-indicator::before {
+    content: '⚠';
+    margin-right: 0.5em;
+}
+
+.info-indicator::before {
+    content: 'ⓘ';
+    margin-right: 0.5em;
+}
+
+/* ========================================
+   COLORBLIND-FRIENDLY THEME DEMO MENU ENHANCEMENTS
+   ======================================== */
+
+/* Logo - Blue accent with good contrast */
+.demo-logo {
+    padding: var(--space-5) var(--space-4) !important;
+    border-bottom: 2px solid var(--primary-400);
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, transparent 100%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .demo-logo:hover {
+        background: linear-gradient(135deg, rgba(0, 102, 204, 0.12) 0%, transparent 100%);
+    }
+}
+
+.demo-logo:active {
+    background: linear-gradient(135deg, rgba(26, 140, 255, 0.12) 0%, transparent 100%);
+}
+
+.demo-soundwave {
+    filter: drop-shadow(0 0 8px rgba(0, 102, 204, 0.5)) !important;
+}
+
+.demo-wave-bar {
+    background: linear-gradient(180deg, #0066cc, #ffa31a) !important;
+}
+
+.demo-logo-text {
+    background: linear-gradient(135deg, #0066cc, #ffa31a) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    /* Fallback color in case gradient fails */
+    color: var(--primary-400) !important;
+}
+
+/* Theme Selector - Accessible blue */
+.theme-selector-section {
+    padding: 0 var(--space-3);
+    margin-bottom: var(--space-5) !important;
+}
+
+.theme-selector-section .demo-nav-title {
+    color: var(--primary-400) !important;
+    font-weight: 700 !important;
+}
+
+.theme-select {
+    background: var(--color-bg-tertiary) !important;
+    border: 2px solid var(--color-border-medium) !important;
+    transition: all 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .theme-select:hover {
+        border-color: var(--primary-400) !important;
+    }
+}
+
+.theme-select:active {
+    border-color: var(--primary-400) !important;
+}
+
+.theme-select:focus {
+    border-color: var(--primary-400) !important;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.3);  /* Increased opacity for better visibility */
+}
+
+/* Navigation Sections - Blue headers */
+.demo-nav-title {
+    color: var(--color-text-secondary) !important;
+    font-weight: 700 !important;
+    transition: color 0.2s ease;
+}
+
+.demo-nav-title.collapsible:hover {
+    color: var(--primary-400) !important;
+}
+
+.demo-nav-title.collapsible:not(.collapsed) {
+    color: var(--primary-400) !important;
+}
+
+/* Navigation Links - Clear blue active states */
+.demo-nav-link {
+    transition: all 0.2s ease !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .demo-nav-link:hover {
+        background: var(--color-bg-hover) !important;
+        color: var(--primary-400) !important;
+    }
+}
+
+.demo-nav-link:active {
+    background: var(--color-bg-hover) !important;
+    color: var(--primary-400) !important;
+}
+
+.demo-nav-link.active,
+.demo-nav-link.active:link,
+.demo-nav-link.active:visited,
+.demo-nav-link.active:target {
+    background: var(--primary-400) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+}
+
+/* Subsection labels - Orange accent for variety */
+.demo-nav-subtitle {
+    color: var(--secondary-400) !important;
+}
+
+/* Sidebar - Clean with blue border */
+.demo-sidebar {
+    background: var(--color-bg-primary) !important;
+    border-right: 2px solid var(--color-border-medium) !important;
+}
+
+/* Scrollbar - Blue theme */
+.demo-sidebar::-webkit-scrollbar-thumb {
+    background: var(--primary-400);
+}
+
+.demo-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-300);
+}
