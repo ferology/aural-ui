@@ -10,6 +10,9 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    docs: {
+      toc: true,
+    },
   },
   decorators: [
     (story, context) => {
@@ -29,24 +32,10 @@ const preview: Preview = {
       document.documentElement.setAttribute('data-theme', theme);
       document.body.setAttribute('data-theme', theme);
 
-      // Apply theme background immediately
+      // Apply smooth transition
       document.body.style.transition = 'background-color 0.2s ease, color 0.2s ease';
 
-      // Wrap story in a themed container
-      const wrapper = document.createElement('div');
-      wrapper.style.minHeight = '100vh';
-      wrapper.style.background = 'var(--color-bg-primary)';
-      wrapper.style.color = 'var(--color-text-primary)';
-      wrapper.setAttribute('data-theme', theme);
-
-      const storyContent = story();
-      if (storyContent instanceof HTMLElement) {
-        wrapper.appendChild(storyContent);
-      } else {
-        wrapper.innerHTML = storyContent;
-      }
-
-      return wrapper;
+      return story();
     }
   ],
   globalTypes: {

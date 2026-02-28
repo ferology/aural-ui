@@ -5,20 +5,18 @@
 <link rel="stylesheet" href="/aural-ui.css">
 
 <style>
-  /* Apply theme background to preview */
-  html, body {
-    margin: 0;
-    padding: 0;
+  /* Apply theme to preview */
+  html {
     background: var(--color-bg-primary, #0a0a0a);
     color: var(--color-text-primary, #ffffff);
-    font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-    min-height: 100vh;
   }
 
-  /* Ensure Storybook's root element also gets theme background */
-  #storybook-root {
-    background: var(--color-bg-primary, #0a0a0a);
-    min-height: 100vh;
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+    background: transparent;
+    color: inherit;
   }
 
   /* Apply theme colors to docs container */
@@ -27,7 +25,6 @@
     color: var(--color-text-primary, #ffffff);
   }
 
-  /* Style docs content */
   .sbdocs h1, .sbdocs h2, .sbdocs h3, .sbdocs h4 {
     color: var(--color-text-primary, #ffffff);
   }
