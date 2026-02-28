@@ -15,24 +15,38 @@ const preview: Preview = {
     (story, context) => {
       const theme = context.globals.theme || 'dark';
 
-      // Remove any existing theme link
-      const existingLink = document.getElementById('theme-stylesheet');
-      if (existingLink) {
-        existingLink.remove();
+      // Update or create theme link
+      let themeLink = document.getElementById('theme-stylesheet') as HTMLLinkElement;
+      if (!themeLink) {
+        themeLink = document.createElement('link');
+        themeLink.id = 'theme-stylesheet';
+        themeLink.rel = 'stylesheet';
+        document.head.appendChild(themeLink);
       }
+      themeLink.href = `/themes/${theme}.css`;
 
-      // Add new theme link
-      const link = document.createElement('link');
-      link.id = 'theme-stylesheet';
-      link.rel = 'stylesheet';
-      link.href = `/themes/${theme}.css`;
-      document.head.appendChild(link);
-
-      // Set data-theme attribute
+      // Set data-theme attribute on html and body
       document.documentElement.setAttribute('data-theme', theme);
       document.body.setAttribute('data-theme', theme);
 
-      return story();
+      // Apply theme background immediately
+      document.body.style.transition = 'background-color 0.2s ease, color 0.2s ease';
+
+      // Wrap story in a themed container
+      const wrapper = document.createElement('div');
+      wrapper.style.minHeight = '100vh';
+      wrapper.style.background = 'var(--color-bg-primary)';
+      wrapper.style.color = 'var(--color-text-primary)';
+      wrapper.setAttribute('data-theme', theme);
+
+      const storyContent = story();
+      if (storyContent instanceof HTMLElement) {
+        wrapper.appendChild(storyContent);
+      } else {
+        wrapper.innerHTML = storyContent;
+      }
+
+      return wrapper;
     }
   ],
   globalTypes: {
