@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Theme System Enhancements**:
   - High Contrast theme now fully integrated
   - Colorblind-Friendly theme now fully integrated
+- **Accessibility Enhancement**: Explanatory tooltip for "Skip to main content" links
+  - Tooltip explains purpose: "Press Tab to see this link - allows keyboard users to skip navigation and jump directly to main content"
+  - Helps users understand accessibility feature on first encounter
+  - Applied to all 11 main documentation pages
 
 ### Changed - February 28, 2026
 - **Documentation Updates**: All 60+ documentation files updated to reflect 9 themes
