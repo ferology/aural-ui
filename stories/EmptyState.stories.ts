@@ -13,6 +13,22 @@ const meta: Meta = {
 Guide users when content is unavailable with helpful placeholders and clear calls to action.
 See the **Documentation** tab for framework-specific code examples (React, Vue, Svelte).
 
+## Structure
+
+\`\`\`html
+<div class="empty-state">
+  <div class="empty-state-icon">
+    <i data-lucide="inbox"></i>
+  </div>
+  <h3 class="empty-state-title">No items yet</h3>
+  <p class="empty-state-description">Get started by creating your first item.</p>
+  <button class="btn btn-primary">
+    <i data-lucide="plus"></i>
+    Create Item
+  </button>
+</div>
+\`\`\`
+
 ## Framework Examples
 
 **Vanilla HTML:**
@@ -44,6 +60,18 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 <div class="empty-state">
   <div class="empty-state-icon">
     <Inbox :size="48" />
+  </div>
+  <h3 class="empty-state-title">No items yet</h3>
+  <p class="empty-state-description">Get started by creating your first item.</p>
+  <button class="btn btn-primary">Create Item</button>
+</div>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<div class="empty-state">
+  <div class="empty-state-icon">
+    <Inbox size={48} />
   </div>
   <h3 class="empty-state-title">No items yet</h3>
   <p class="empty-state-description">Get started by creating your first item.</p>
@@ -90,7 +118,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 export default meta;
 type Story = StoryObj;
 
-// Helper function to create empty state
+// Helper function to create empty state following the exact Aural UI structure
 function createEmptyState(args: any): HTMLElement {
   const container = document.createElement('div');
   container.style.padding = '3rem';
@@ -102,7 +130,7 @@ function createEmptyState(args: any): HTMLElement {
   const emptyState = document.createElement('div');
   emptyState.className = 'empty-state';
 
-  // Icon
+  // Icon - wrapped in empty-state-icon div
   const iconWrapper = document.createElement('div');
   iconWrapper.className = 'empty-state-icon';
   if (args.iconColor) {
@@ -116,33 +144,60 @@ function createEmptyState(args: any): HTMLElement {
   iconWrapper.appendChild(icon);
   emptyState.appendChild(iconWrapper);
 
-  // Title
+  // Title - h3 with empty-state-title class
   const title = document.createElement('h3');
   title.className = 'empty-state-title';
   title.textContent = args.title || 'No items yet';
   emptyState.appendChild(title);
 
-  // Description
+  // Description - p with empty-state-description class
   const description = document.createElement('p');
   description.className = 'empty-state-description';
   description.textContent = args.description || 'Get started by creating your first item.';
   emptyState.appendChild(description);
 
-  // Actions
+  // Actions - buttons directly under empty-state or in wrapper div for multiple actions
   if (args.primaryAction || args.secondaryAction) {
-    const actionsWrapper = document.createElement('div');
-    actionsWrapper.style.display = 'flex';
-    actionsWrapper.style.gap = 'var(--space-3)';
-    actionsWrapper.style.justifyContent = 'center';
-
     if (args.secondaryAction) {
+      // Multiple actions - use flex wrapper
+      const actionsWrapper = document.createElement('div');
+      actionsWrapper.style.display = 'flex';
+      actionsWrapper.style.gap = 'var(--space-3)';
+      actionsWrapper.style.justifyContent = 'center';
+
       const secondaryBtn = document.createElement('button');
       secondaryBtn.className = 'btn btn-secondary';
-      secondaryBtn.textContent = args.secondaryAction;
-      actionsWrapper.appendChild(secondaryBtn);
-    }
 
-    if (args.primaryAction) {
+      if (args.secondaryIcon) {
+        const btnIcon = document.createElement('i');
+        btnIcon.setAttribute('data-lucide', args.secondaryIcon);
+        btnIcon.style.width = '16px';
+        btnIcon.style.height = '16px';
+        secondaryBtn.appendChild(btnIcon);
+      }
+
+      secondaryBtn.appendChild(document.createTextNode(args.secondaryAction));
+      actionsWrapper.appendChild(secondaryBtn);
+
+      if (args.primaryAction) {
+        const primaryBtn = document.createElement('button');
+        primaryBtn.className = 'btn btn-primary';
+
+        if (args.primaryIcon) {
+          const btnIcon = document.createElement('i');
+          btnIcon.setAttribute('data-lucide', args.primaryIcon);
+          btnIcon.style.width = '16px';
+          btnIcon.style.height = '16px';
+          primaryBtn.appendChild(btnIcon);
+        }
+
+        primaryBtn.appendChild(document.createTextNode(args.primaryAction));
+        actionsWrapper.appendChild(primaryBtn);
+      }
+
+      emptyState.appendChild(actionsWrapper);
+    } else if (args.primaryAction) {
+      // Single primary action - button directly under empty-state
       const primaryBtn = document.createElement('button');
       primaryBtn.className = 'btn btn-primary';
 
@@ -151,16 +206,12 @@ function createEmptyState(args: any): HTMLElement {
         btnIcon.setAttribute('data-lucide', args.primaryIcon);
         btnIcon.style.width = '16px';
         btnIcon.style.height = '16px';
-        btnIcon.setAttribute('aria-hidden', 'true');
         primaryBtn.appendChild(btnIcon);
-        primaryBtn.appendChild(document.createTextNode(' '));
       }
 
       primaryBtn.appendChild(document.createTextNode(args.primaryAction));
-      actionsWrapper.appendChild(primaryBtn);
+      emptyState.appendChild(primaryBtn);
     }
-
-    emptyState.appendChild(actionsWrapper);
   }
 
   container.appendChild(emptyState);
@@ -192,7 +243,16 @@ export const NoResults: Story = {
     title: 'No results found',
     description: 'We couldn\'t find any results matching your search. Try adjusting your filters or search terms.',
     icon: 'search',
-    variant: 'search',
+    primaryAction: 'Clear Filters'
+  }
+};
+
+export const NoSearchResults: Story = {
+  render: (args) => createEmptyState(args),
+  args: {
+    title: 'No results found',
+    description: 'Try adjusting your filters or search terms.',
+    icon: 'search',
     primaryAction: 'Clear Filters'
   }
 };
@@ -202,7 +262,7 @@ export const NoData: Story = {
   args: {
     title: 'No data available',
     description: 'There is no data to display at this time. Check back later or refresh the page.',
-    icon: 'database',
+    icon: 'inbox',
     primaryAction: 'Refresh',
     primaryIcon: 'refresh-cw'
   }
@@ -215,26 +275,53 @@ export const Error: Story = {
     description: 'We\'re having trouble loading your data. Please check your connection and try again.',
     icon: 'alert-circle',
     iconColor: 'var(--color-error)',
-    variant: 'error',
     primaryAction: 'Try Again',
     primaryIcon: 'refresh-cw',
     secondaryAction: 'Go Back'
   }
 };
 
-export const SearchNoResults: Story = {
+export const ErrorRecovery: Story = {
   render: (args) => createEmptyState(args),
   args: {
-    title: 'No results found for "React"',
-    description: 'Try searching for something else or browse our popular categories.',
-    icon: 'search-x',
-    variant: 'search',
-    primaryAction: 'Clear Search',
-    secondaryAction: 'Browse All'
+    title: 'Something went wrong',
+    description: 'We\'re having trouble loading your data. Please check your connection and try again.',
+    icon: 'alert-circle',
+    iconColor: 'var(--color-error)',
+    primaryAction: 'Try Again',
+    primaryIcon: 'refresh-cw',
+    secondaryAction: 'Go Back'
   }
 };
 
-export const FirstTimeUse: Story = {
+export const NoMessages: Story = {
+  render: (args) => createEmptyState(args),
+  args: {
+    title: 'No messages',
+    description: 'Your inbox is empty. Check back later for new messages.',
+    icon: 'inbox'
+  }
+};
+
+export const NoNotifications: Story = {
+  render: (args) => createEmptyState(args),
+  args: {
+    title: 'No notifications',
+    description: 'You\'re all caught up! We\'ll notify you when something new happens.',
+    icon: 'bell-off'
+  }
+};
+
+export const NoConnections: Story = {
+  render: (args) => createEmptyState(args),
+  args: {
+    title: 'No connections yet',
+    description: 'Start building your network by connecting with people.',
+    icon: 'users'
+  }
+};
+
+export const Welcome: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'Welcome to Aural UI!',
@@ -243,6 +330,44 @@ export const FirstTimeUse: Story = {
     iconColor: 'var(--color-primary)',
     primaryAction: 'Start Tour',
     primaryIcon: 'play'
+  }
+};
+
+export const Onboarding: Story = {
+  render: (args) => createEmptyState(args),
+  args: {
+    title: 'Welcome to Aural UI!',
+    description: 'Let\'s get you started with a quick tour of the platform.',
+    icon: 'rocket',
+    iconColor: 'var(--color-primary)',
+    primaryAction: 'Start Tour',
+    primaryIcon: 'play'
+  }
+};
+
+export const EmptyFolder: Story = {
+  render: (args) => createEmptyState(args),
+  args: {
+    title: 'This folder is empty',
+    description: 'Upload files or create folders to organize your content.',
+    icon: 'folder-open',
+    primaryAction: 'Upload Files',
+    primaryIcon: 'upload',
+    secondaryAction: 'New Folder',
+    secondaryIcon: 'folder-plus'
+  }
+};
+
+export const NetworkBuilding: Story = {
+  render: (args) => createEmptyState(args),
+  args: {
+    title: 'No connections yet',
+    description: 'Start building your network by connecting with people you know or discovering new connections.',
+    icon: 'users',
+    primaryAction: 'Invite Friends',
+    primaryIcon: 'user-plus',
+    secondaryAction: 'Browse People',
+    secondaryIcon: 'search'
   }
 };
 
@@ -276,92 +401,21 @@ export const Completed: Story = {
     title: 'All caught up!',
     description: 'You\'ve completed all your tasks. Great work! We\'ll notify you when new items arrive.',
     icon: 'check-circle',
-    iconColor: 'var(--color-success)',
-    variant: 'success'
+    iconColor: 'var(--color-success)'
   }
 };
 
-export const WithIllustration: Story = {
-  render: (args) => {
-    const container = document.createElement('div');
-    container.style.padding = '3rem';
-    container.style.minHeight = '400px';
-    container.style.display = 'flex';
-    container.style.alignItems = 'center';
-    container.style.justifyContent = 'center';
-
-    const emptyState = document.createElement('div');
-    emptyState.className = 'empty-state';
-
-    // Illustration placeholder (can be replaced with actual SVG)
-    const illustration = document.createElement('div');
-    illustration.style.cssText = `
-      width: 200px;
-      height: 200px;
-      margin: 0 auto var(--space-6);
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-      border-radius: var(--radius-lg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.1;
-    `;
-    const illustrationIcon = document.createElement('i');
-    illustrationIcon.setAttribute('data-lucide', args.icon || 'inbox');
-    illustrationIcon.style.width = '80px';
-    illustrationIcon.style.height = '80px';
-    illustrationIcon.style.opacity = '1';
-    illustration.appendChild(illustrationIcon);
-    emptyState.appendChild(illustration);
-
-    // Title
-    const title = document.createElement('h3');
-    title.className = 'empty-state-title';
-    title.textContent = args.title;
-    emptyState.appendChild(title);
-
-    // Description
-    const description = document.createElement('p');
-    description.className = 'empty-state-description';
-    description.textContent = args.description;
-    emptyState.appendChild(description);
-
-    // Actions
-    const actionsWrapper = document.createElement('div');
-    actionsWrapper.style.display = 'flex';
-    actionsWrapper.style.gap = 'var(--space-3)';
-    actionsWrapper.style.justifyContent = 'center';
-
-    const primaryBtn = document.createElement('button');
-    primaryBtn.className = 'btn btn-primary';
-    const btnIcon = document.createElement('i');
-    btnIcon.setAttribute('data-lucide', 'upload');
-    btnIcon.style.width = '16px';
-    btnIcon.style.height = '16px';
-    btnIcon.setAttribute('aria-hidden', 'true');
-    primaryBtn.appendChild(btnIcon);
-    primaryBtn.appendChild(document.createTextNode(' Upload Files'));
-    actionsWrapper.appendChild(primaryBtn);
-
-    emptyState.appendChild(actionsWrapper);
-    container.appendChild(emptyState);
-
-    setTimeout(() => {
-      if ((window as any).lucide) {
-        (window as any).lucide.createIcons();
-      }
-    }, 0);
-
-    return container;
-  },
+export const AllCaughtUp: Story = {
+  render: (args) => createEmptyState(args),
   args: {
-    title: 'This folder is empty',
-    description: 'Upload files or create folders to organize your content.',
-    icon: 'folder-open'
+    title: 'All caught up!',
+    description: 'You\'re all caught up! We\'ll notify you when something new happens.',
+    icon: 'check-circle',
+    iconColor: 'var(--color-success)'
   }
 };
 
-export const WithActions: Story = {
+export const WithMultipleActions: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '3rem';
@@ -377,7 +431,7 @@ export const WithActions: Story = {
     const iconWrapper = document.createElement('div');
     iconWrapper.className = 'empty-state-icon';
     const icon = document.createElement('i');
-    icon.setAttribute('data-lucide', 'users');
+    icon.setAttribute('data-lucide', 'folder-open');
     icon.style.width = '48px';
     icon.style.height = '48px';
     iconWrapper.appendChild(icon);
@@ -386,42 +440,39 @@ export const WithActions: Story = {
     // Title
     const title = document.createElement('h3');
     title.className = 'empty-state-title';
-    title.textContent = 'No connections yet';
+    title.textContent = 'This folder is empty';
     emptyState.appendChild(title);
 
     // Description
     const description = document.createElement('p');
     description.className = 'empty-state-description';
-    description.textContent = 'Start building your network by connecting with people you know or discovering new connections.';
+    description.textContent = 'Upload files or create folders to organize your content.';
     emptyState.appendChild(description);
 
-    // Multiple actions
+    // Multiple actions in flex container
     const actionsWrapper = document.createElement('div');
     actionsWrapper.style.display = 'flex';
     actionsWrapper.style.gap = 'var(--space-3)';
     actionsWrapper.style.justifyContent = 'center';
-    actionsWrapper.style.flexWrap = 'wrap';
 
     const secondaryBtn = document.createElement('button');
     secondaryBtn.className = 'btn btn-secondary';
-    const searchIcon = document.createElement('i');
-    searchIcon.setAttribute('data-lucide', 'search');
-    searchIcon.style.width = '16px';
-    searchIcon.style.height = '16px';
-    searchIcon.setAttribute('aria-hidden', 'true');
-    secondaryBtn.appendChild(searchIcon);
-    secondaryBtn.appendChild(document.createTextNode(' Browse People'));
+    const folderIcon = document.createElement('i');
+    folderIcon.setAttribute('data-lucide', 'folder-plus');
+    folderIcon.style.width = '16px';
+    folderIcon.style.height = '16px';
+    secondaryBtn.appendChild(folderIcon);
+    secondaryBtn.appendChild(document.createTextNode('New Folder'));
     actionsWrapper.appendChild(secondaryBtn);
 
     const primaryBtn = document.createElement('button');
     primaryBtn.className = 'btn btn-primary';
-    const userPlusIcon = document.createElement('i');
-    userPlusIcon.setAttribute('data-lucide', 'user-plus');
-    userPlusIcon.style.width = '16px';
-    userPlusIcon.style.height = '16px';
-    userPlusIcon.setAttribute('aria-hidden', 'true');
-    primaryBtn.appendChild(userPlusIcon);
-    primaryBtn.appendChild(document.createTextNode(' Invite Friends'));
+    const uploadIcon = document.createElement('i');
+    uploadIcon.setAttribute('data-lucide', 'upload');
+    uploadIcon.style.width = '16px';
+    uploadIcon.style.height = '16px';
+    primaryBtn.appendChild(uploadIcon);
+    primaryBtn.appendChild(document.createTextNode('Upload Files'));
     actionsWrapper.appendChild(primaryBtn);
 
     emptyState.appendChild(actionsWrapper);
@@ -434,6 +485,18 @@ export const WithActions: Story = {
     }, 0);
 
     return container;
+  }
+};
+
+export const WithColoredIcon: Story = {
+  render: (args) => createEmptyState(args),
+  args: {
+    title: 'Welcome to Aural UI!',
+    description: 'Let\'s get you started with a quick tour of the platform.',
+    icon: 'rocket',
+    iconColor: 'var(--color-primary)',
+    primaryAction: 'Start Tour',
+    primaryIcon: 'play'
   }
 };
 
@@ -474,7 +537,16 @@ export const ThemeComparison: Story = {
       if (args.primaryAction) {
         const button = document.createElement('button');
         button.className = 'btn btn-primary btn-sm';
-        button.textContent = args.primaryAction;
+
+        if (args.primaryIcon) {
+          const btnIcon = document.createElement('i');
+          btnIcon.setAttribute('data-lucide', args.primaryIcon);
+          btnIcon.style.width = '16px';
+          btnIcon.style.height = '16px';
+          button.appendChild(btnIcon);
+        }
+
+        button.appendChild(document.createTextNode(args.primaryAction));
         emptyState.appendChild(button);
       }
 
@@ -492,6 +564,7 @@ export const ThemeComparison: Story = {
     description: 'Get started by creating your first item.',
     icon: 'inbox',
     primaryAction: 'Create Item',
+    primaryIcon: 'plus',
     iconColor: ''
   },
   argTypes: {
@@ -514,6 +587,10 @@ export const ThemeComparison: Story = {
     primaryAction: {
       control: 'text',
       description: 'Primary button text'
+    },
+    primaryIcon: {
+      control: 'text',
+      description: 'Primary button icon'
     }
   }
 };

@@ -22,7 +22,8 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     <input type="file" class="file-upload__input" multiple>
     <div class="file-upload__content">
       <i data-lucide="upload" class="file-upload__icon"></i>
-      <span class="file-upload__text">Drop files or click to browse</span>
+      <span class="file-upload__text">Drop files here or click to browse</span>
+      <span class="file-upload__subtext">Support for multiple files</span>
     </div>
   </label>
   <div class="file-upload__list"></div>
@@ -40,6 +41,13 @@ const FileUpload = ({ onUpload, accept, multiple = false }) => {
     onUpload?.(selectedFiles);
   };
 
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    setFiles(droppedFiles);
+    onUpload?.(droppedFiles);
+  };
+
   return (
     <div className="file-upload">
       <label className="file-upload__zone">
@@ -51,17 +59,11 @@ const FileUpload = ({ onUpload, accept, multiple = false }) => {
           multiple={multiple}
         />
         <div className="file-upload__content">
-          <span className="file-upload__icon">📁</span>
+          <i data-lucide="upload" className="file-upload__icon"></i>
           <span className="file-upload__text">Drop files or click to browse</span>
         </div>
       </label>
-      <div className="file-upload__list">
-        {files.map((file, i) => (
-          <div key={i} className="file-upload__item">
-            <span>{file.name}</span>
-          </div>
-        ))}
-      </div>
+      <div className="file-upload__list"></div>
     </div>
   );
 };
@@ -111,6 +113,22 @@ const FileUpload = ({ onUpload, accept, multiple = false }) => {
 export default meta;
 type Story = StoryObj;
 
+// Helper function to create Lucide icon
+function createIcon(iconName: string): HTMLElement {
+  const icon = document.createElement('i');
+  icon.setAttribute('data-lucide', iconName);
+  icon.className = 'file-upload__icon';
+  return icon;
+}
+
+// Helper function to create preview icon
+function createPreviewIcon(iconName: string): HTMLElement {
+  const icon = document.createElement('i');
+  icon.setAttribute('data-lucide', iconName);
+  icon.className = 'file-upload__preview-icon';
+  return icon;
+}
+
 // Helper function to initialize file upload functionality
 function initFileUpload(container: HTMLElement) {
   const zone = container.querySelector('.file-upload__zone') as HTMLElement;
@@ -154,6 +172,7 @@ function initFileUpload(container: HTMLElement) {
       files = [newFiles[0]];
     }
     renderFiles();
+    simulateUpload();
   }
 
   function renderFiles() {
@@ -163,6 +182,11 @@ function initFileUpload(container: HTMLElement) {
       const item = createFileItem(file, index);
       list.appendChild(item);
     });
+
+    // Initialize Lucide icons
+    if (typeof (window as any).lucide !== 'undefined') {
+      (window as any).lucide.createIcons();
+    }
   }
 
   function createFileItem(file: File, index: number) {
@@ -182,10 +206,7 @@ function initFileUpload(container: HTMLElement) {
       reader.readAsDataURL(file);
       preview.appendChild(img);
     } else {
-      const icon = document.createElement('span');
-      icon.textContent = getFileIcon(file.type);
-      icon.className = 'file-upload__preview-icon';
-      icon.setAttribute('aria-hidden', 'true');
+      const icon = createPreviewIcon(getFileIcon(file.type));
       preview.appendChild(icon);
     }
 
@@ -205,7 +226,10 @@ function initFileUpload(container: HTMLElement) {
 
     const status = document.createElement('span');
     status.className = 'file-upload__status';
-    status.textContent = '⏱ Pending';
+    const clockIcon = document.createElement('i');
+    clockIcon.setAttribute('data-lucide', 'clock');
+    status.appendChild(clockIcon);
+    status.appendChild(document.createTextNode(' Pending'));
 
     meta.appendChild(size);
     meta.appendChild(status);
@@ -219,7 +243,9 @@ function initFileUpload(container: HTMLElement) {
     const removeBtn = document.createElement('button');
     removeBtn.className = 'file-upload__action file-upload__action--remove';
     removeBtn.setAttribute('aria-label', `Remove ${file.name}`);
-    removeBtn.textContent = '×';
+    const removeIcon = document.createElement('i');
+    removeIcon.setAttribute('data-lucide', 'x');
+    removeBtn.appendChild(removeIcon);
     removeBtn.onclick = (e) => {
       e.preventDefault();
       removeFile(index);
@@ -234,18 +260,87 @@ function initFileUpload(container: HTMLElement) {
     return item;
   }
 
+  function simulateUpload() {
+    files.forEach((file, index) => {
+      const item = list.querySelector(`[data-index="${index}"]`);
+      if (!item || !item.classList.contains('file-upload__item--pending')) return;
+
+      // Add progress bar
+      const info = item.querySelector('.file-upload__info');
+      const progress = document.createElement('div');
+      progress.className = 'file-upload__progress';
+
+      const progressBar = document.createElement('div');
+      progressBar.className = 'file-upload__progress-bar';
+
+      const progressFill = document.createElement('div');
+      progressFill.className = 'file-upload__progress-fill';
+      progressFill.style.width = '0%';
+
+      progressBar.appendChild(progressFill);
+      progress.appendChild(progressBar);
+      info?.appendChild(progress);
+
+      // Update status
+      item.classList.remove('file-upload__item--pending');
+      item.classList.add('file-upload__item--uploading');
+      const status = item.querySelector('.file-upload__status');
+      if (status) {
+        status.innerHTML = '';
+        const loaderIcon = document.createElement('i');
+        loaderIcon.setAttribute('data-lucide', 'loader-2');
+        status.appendChild(loaderIcon);
+        status.appendChild(document.createTextNode(' Uploading...'));
+      }
+
+      // Initialize Lucide icons for new elements
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+
+      // Simulate progress
+      let progressValue = 0;
+      const interval = setInterval(() => {
+        progressValue += Math.random() * 30;
+        if (progressValue >= 100) {
+          progressValue = 100;
+          clearInterval(interval);
+
+          // Mark as complete
+          setTimeout(() => {
+            item.classList.remove('file-upload__item--uploading');
+            item.classList.add('file-upload__item--success');
+            if (status) {
+              status.innerHTML = '';
+              const checkIcon = document.createElement('i');
+              checkIcon.setAttribute('data-lucide', 'check-circle');
+              status.appendChild(checkIcon);
+              status.appendChild(document.createTextNode(' Complete'));
+
+              // Initialize Lucide icons for new elements
+              if (typeof (window as any).lucide !== 'undefined') {
+                (window as any).lucide.createIcons();
+              }
+            }
+          }, 300);
+        }
+        progressFill.style.width = progressValue + '%';
+      }, 200);
+    });
+  }
+
   function removeFile(index: number) {
     files.splice(index, 1);
     renderFiles();
   }
 
   function getFileIcon(mimeType: string): string {
-    if (mimeType.startsWith('image/')) return '🖼️';
-    if (mimeType.startsWith('video/')) return '🎬';
-    if (mimeType.startsWith('audio/')) return '🎵';
-    if (mimeType.includes('pdf')) return '📄';
-    if (mimeType.includes('zip') || mimeType.includes('rar')) return '📦';
-    return '📁';
+    if (mimeType.startsWith('image/')) return 'image';
+    if (mimeType.startsWith('video/')) return 'video';
+    if (mimeType.startsWith('audio/')) return 'music';
+    if (mimeType.includes('pdf')) return 'file-text';
+    if (mimeType.includes('zip') || mimeType.includes('rar')) return 'archive';
+    return 'file';
   }
 
   function formatFileSize(bytes: number): string {
@@ -268,9 +363,6 @@ export const Default: Story = {
 
     const zone = document.createElement('label');
     zone.className = 'file-upload__zone';
-    zone.setAttribute('role', 'button');
-    zone.setAttribute('tabindex', '0');
-    zone.setAttribute('aria-label', 'Upload files');
 
     const input = document.createElement('input');
     input.type = 'file';
@@ -284,11 +376,7 @@ export const Default: Story = {
     const content = document.createElement('div');
     content.className = 'file-upload__content';
 
-    const icon = document.createElement('span');
-    icon.className = 'file-upload__icon';
-    icon.textContent = '⬆️';
-    icon.setAttribute('aria-hidden', 'true');
-
+    const icon = createIcon('upload');
     const text = document.createElement('span');
     text.className = 'file-upload__text';
     text.textContent = 'Drop files here or click to browse';
@@ -317,8 +405,13 @@ export const Default: Story = {
 
     container.appendChild(fileUpload);
 
-    // Initialize functionality
-    setTimeout(() => initFileUpload(fileUpload), 0);
+    // Initialize functionality and Lucide icons
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
 
     return container;
   },
@@ -334,24 +427,7 @@ export const Default: Story = {
   }
 };
 
-export const DragDrop: Story = {
-  ...Default,
-  args: {
-    multiple: true,
-    dragDrop: true,
-    showPreview: true
-  }
-};
-
-export const Multiple: Story = {
-  ...Default,
-  args: {
-    multiple: true,
-    maxSize: '10MB'
-  }
-};
-
-export const WithPreview: Story = {
+export const ImageUploadWithPreview: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -362,9 +438,6 @@ export const WithPreview: Story = {
 
     const zone = document.createElement('label');
     zone.className = 'file-upload__zone';
-    zone.setAttribute('role', 'button');
-    zone.setAttribute('tabindex', '0');
-    zone.setAttribute('aria-label', 'Upload images with preview');
 
     const input = document.createElement('input');
     input.type = 'file';
@@ -375,11 +448,7 @@ export const WithPreview: Story = {
     const content = document.createElement('div');
     content.className = 'file-upload__content';
 
-    const icon = document.createElement('span');
-    icon.className = 'file-upload__icon';
-    icon.textContent = '🖼️';
-    icon.setAttribute('aria-hidden', 'true');
-
+    const icon = createIcon('image');
     const text = document.createElement('span');
     text.className = 'file-upload__text';
     text.textContent = 'Drop images here or click to browse';
@@ -407,23 +476,226 @@ export const WithPreview: Story = {
 
     container.appendChild(fileUpload);
 
-    // Initialize functionality
-    setTimeout(() => initFileUpload(fileUpload), 0);
+    // Initialize functionality and Lucide icons
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
 
     return container;
   }
 };
 
-export const ImageOnly: Story = {
-  ...Default,
-  args: {
-    accept: 'image/*',
-    multiple: true,
-    maxSize: '10MB'
+export const SmallSize: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '600px';
+
+    const fileUpload = document.createElement('div');
+    fileUpload.className = 'file-upload file-upload--sm';
+
+    const zone = document.createElement('label');
+    zone.className = 'file-upload__zone';
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.className = 'file-upload__input';
+    input.multiple = true;
+
+    const content = document.createElement('div');
+    content.className = 'file-upload__content';
+
+    const icon = createIcon('upload');
+    const text = document.createElement('span');
+    text.className = 'file-upload__text';
+    text.textContent = 'Small upload zone';
+
+    content.appendChild(icon);
+    content.appendChild(text);
+    zone.appendChild(input);
+    zone.appendChild(content);
+
+    const list = document.createElement('div');
+    list.className = 'file-upload__list';
+
+    fileUpload.appendChild(zone);
+    fileUpload.appendChild(list);
+
+    container.appendChild(fileUpload);
+
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
+
+    return container;
   }
 };
 
-export const PdfOnly: Story = {
+export const LargeSize: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '600px';
+
+    const fileUpload = document.createElement('div');
+    fileUpload.className = 'file-upload file-upload--lg';
+
+    const zone = document.createElement('label');
+    zone.className = 'file-upload__zone';
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.className = 'file-upload__input';
+    input.multiple = true;
+
+    const content = document.createElement('div');
+    content.className = 'file-upload__content';
+
+    const icon = createIcon('upload');
+    const text = document.createElement('span');
+    text.className = 'file-upload__text';
+    text.textContent = 'Large upload zone';
+
+    const subtext = document.createElement('span');
+    subtext.className = 'file-upload__subtext';
+    subtext.textContent = 'Prominent display for primary upload actions';
+
+    content.appendChild(icon);
+    content.appendChild(text);
+    content.appendChild(subtext);
+    zone.appendChild(input);
+    zone.appendChild(content);
+
+    const list = document.createElement('div');
+    list.className = 'file-upload__list';
+
+    fileUpload.appendChild(zone);
+    fileUpload.appendChild(list);
+
+    container.appendChild(fileUpload);
+
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
+
+    return container;
+  }
+};
+
+export const ButtonStyle: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '600px';
+
+    const fileUpload = document.createElement('div');
+    fileUpload.className = 'file-upload file-upload--button';
+
+    const zone = document.createElement('label');
+    zone.className = 'file-upload__zone';
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.className = 'file-upload__input';
+    input.multiple = true;
+
+    const content = document.createElement('div');
+    content.className = 'file-upload__content';
+
+    const icon = createIcon('upload');
+    const text = document.createElement('span');
+    text.className = 'file-upload__text';
+    text.textContent = 'Choose Files';
+
+    content.appendChild(icon);
+    content.appendChild(text);
+    zone.appendChild(input);
+    zone.appendChild(content);
+
+    const list = document.createElement('div');
+    list.className = 'file-upload__list';
+
+    fileUpload.appendChild(zone);
+    fileUpload.appendChild(list);
+
+    container.appendChild(fileUpload);
+
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
+
+    return container;
+  }
+};
+
+export const ImageGrid: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '800px';
+
+    const fileUpload = document.createElement('div');
+    fileUpload.className = 'file-upload file-upload--image-grid';
+
+    const zone = document.createElement('label');
+    zone.className = 'file-upload__zone';
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.className = 'file-upload__input';
+    input.accept = 'image/*';
+    input.multiple = true;
+
+    const content = document.createElement('div');
+    content.className = 'file-upload__content';
+
+    const icon = createIcon('image');
+    const text = document.createElement('span');
+    text.className = 'file-upload__text';
+    text.textContent = 'Upload Images';
+
+    const subtext = document.createElement('span');
+    subtext.className = 'file-upload__subtext';
+    subtext.textContent = 'Display as grid';
+
+    content.appendChild(icon);
+    content.appendChild(text);
+    content.appendChild(subtext);
+    zone.appendChild(input);
+    zone.appendChild(content);
+
+    const list = document.createElement('div');
+    list.className = 'file-upload__list';
+
+    fileUpload.appendChild(zone);
+    fileUpload.appendChild(list);
+
+    container.appendChild(fileUpload);
+
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
+
+    return container;
+  }
+};
+
+export const SingleFileUpload: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -434,31 +706,78 @@ export const PdfOnly: Story = {
 
     const zone = document.createElement('label');
     zone.className = 'file-upload__zone';
-    zone.setAttribute('role', 'button');
-    zone.setAttribute('tabindex', '0');
-    zone.setAttribute('aria-label', 'Upload PDF documents');
 
     const input = document.createElement('input');
     input.type = 'file';
     input.className = 'file-upload__input';
-    input.accept = '.pdf';
+    // No multiple attribute - single file only
+
+    const content = document.createElement('div');
+    content.className = 'file-upload__content';
+
+    const icon = createIcon('file-text');
+    const text = document.createElement('span');
+    text.className = 'file-upload__text';
+    text.textContent = 'Upload a single file';
+
+    const subtext = document.createElement('span');
+    subtext.className = 'file-upload__subtext';
+    subtext.textContent = 'PDF, DOC, DOCX up to 5MB';
+
+    content.appendChild(icon);
+    content.appendChild(text);
+    content.appendChild(subtext);
+    zone.appendChild(input);
+    zone.appendChild(content);
+
+    const list = document.createElement('div');
+    list.className = 'file-upload__list';
+
+    fileUpload.appendChild(zone);
+    fileUpload.appendChild(list);
+
+    container.appendChild(fileUpload);
+
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
+
+    return container;
+  }
+};
+
+export const WithFileTypeRestrictions: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '600px';
+
+    const fileUpload = document.createElement('div');
+    fileUpload.className = 'file-upload';
+
+    const zone = document.createElement('label');
+    zone.className = 'file-upload__zone';
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.className = 'file-upload__input';
+    input.accept = '.pdf,.doc,.docx';
     input.multiple = true;
 
     const content = document.createElement('div');
     content.className = 'file-upload__content';
 
-    const icon = document.createElement('span');
-    icon.className = 'file-upload__icon';
-    icon.textContent = '📄';
-    icon.setAttribute('aria-hidden', 'true');
-
+    const icon = createIcon('file-text');
     const text = document.createElement('span');
     text.className = 'file-upload__text';
-    text.textContent = 'Upload PDF documents';
+    text.textContent = 'Upload documents';
 
     const subtext = document.createElement('span');
     subtext.className = 'file-upload__subtext';
-    subtext.textContent = 'Only PDF files allowed';
+    subtext.textContent = 'Only PDF and DOC files allowed';
 
     content.appendChild(icon);
     content.appendChild(text);
@@ -468,7 +787,7 @@ export const PdfOnly: Story = {
 
     const constraints = document.createElement('div');
     constraints.className = 'file-upload__constraints';
-    constraints.textContent = 'Accepted: PDF - Max 5MB';
+    constraints.textContent = 'Accepted: PDF, DOC, DOCX - Max 5MB';
 
     const list = document.createElement('div');
     list.className = 'file-upload__list';
@@ -479,38 +798,18 @@ export const PdfOnly: Story = {
 
     container.appendChild(fileUpload);
 
-    // Initialize functionality
-    setTimeout(() => initFileUpload(fileUpload), 0);
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
 
     return container;
   }
 };
 
-export const Disabled: Story = {
-  ...Default,
-  args: {
-    disabled: true,
-    multiple: true
-  }
-};
-
-export const Small: Story = {
-  ...Default,
-  args: {
-    size: 'sm',
-    multiple: true
-  }
-};
-
-export const Large: Story = {
-  ...Default,
-  args: {
-    size: 'lg',
-    multiple: true
-  }
-};
-
-export const WithProgress: Story = {
+export const WithUploadProgress: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -521,9 +820,6 @@ export const WithProgress: Story = {
 
     const zone = document.createElement('label');
     zone.className = 'file-upload__zone';
-    zone.setAttribute('role', 'button');
-    zone.setAttribute('tabindex', '0');
-    zone.setAttribute('aria-label', 'Upload files with progress tracking');
 
     const input = document.createElement('input');
     input.type = 'file';
@@ -533,18 +829,14 @@ export const WithProgress: Story = {
     const content = document.createElement('div');
     content.className = 'file-upload__content';
 
-    const icon = document.createElement('span');
-    icon.className = 'file-upload__icon';
-    icon.textContent = '☁️';
-    icon.setAttribute('aria-hidden', 'true');
-
+    const icon = createIcon('upload-cloud');
     const text = document.createElement('span');
     text.className = 'file-upload__text';
     text.textContent = 'Upload with progress tracking';
 
     const subtext = document.createElement('span');
     subtext.className = 'file-upload__subtext';
-    subtext.textContent = 'Watch files upload with progress bars';
+    subtext.textContent = 'Simulates upload with progress bar';
 
     content.appendChild(icon);
     content.appendChild(text);
@@ -560,61 +852,11 @@ export const WithProgress: Story = {
 
     container.appendChild(fileUpload);
 
-    // Initialize with simulated progress
     setTimeout(() => {
       initFileUpload(fileUpload);
-
-      // Add event listener to simulate upload progress
-      input.addEventListener('change', () => {
-        setTimeout(() => {
-          const items = list.querySelectorAll('.file-upload__item');
-          items.forEach((item, index) => {
-            setTimeout(() => {
-              // Add uploading state
-              item.classList.remove('file-upload__item--pending');
-              item.classList.add('file-upload__item--uploading');
-
-              const info = item.querySelector('.file-upload__info');
-              const progress = document.createElement('div');
-              progress.className = 'file-upload__progress';
-              progress.innerHTML = `
-                <div class="file-upload__progress-bar">
-                  <div class="file-upload__progress-fill" style="width: 0%"></div>
-                </div>
-              `;
-              info?.appendChild(progress);
-
-              const status = item.querySelector('.file-upload__status');
-              if (status) {
-                status.textContent = '⏳ Uploading...';
-              }
-
-              // Simulate progress
-              let progressValue = 0;
-              const progressFill = progress.querySelector('.file-upload__progress-fill') as HTMLElement;
-              const interval = setInterval(() => {
-                progressValue += Math.random() * 30;
-                if (progressValue >= 100) {
-                  progressValue = 100;
-                  clearInterval(interval);
-
-                  // Mark as complete
-                  setTimeout(() => {
-                    item.classList.remove('file-upload__item--uploading');
-                    item.classList.add('file-upload__item--success');
-                    if (status) {
-                      status.textContent = '✓ Complete';
-                    }
-                  }, 300);
-                }
-                if (progressFill) {
-                  progressFill.style.width = progressValue + '%';
-                }
-              }, 200);
-            }, index * 500);
-          });
-        }, 100);
-      });
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
     }, 0);
 
     return container;
@@ -641,7 +883,14 @@ export const AvatarUpload: Story = {
     preview.style.alignItems = 'center';
     preview.style.justifyContent = 'center';
     preview.style.overflow = 'hidden';
-    preview.innerHTML = '<span style="font-size: 48px;" aria-hidden="true">👤</span>';
+    preview.id = 'avatar-preview';
+
+    const userIcon = document.createElement('i');
+    userIcon.setAttribute('data-lucide', 'user');
+    userIcon.style.width = '48px';
+    userIcon.style.height = '48px';
+    userIcon.style.color = 'var(--color-text-tertiary)';
+    preview.appendChild(userIcon);
 
     const uploadSection = document.createElement('div');
 
@@ -650,13 +899,16 @@ export const AvatarUpload: Story = {
     input.id = 'avatar-upload-input';
     input.accept = 'image/*';
     input.style.display = 'none';
-    input.setAttribute('aria-label', 'Upload avatar image');
 
     const label = document.createElement('label');
     label.htmlFor = 'avatar-upload-input';
     label.className = 'btn btn-primary';
     label.style.cursor = 'pointer';
-    label.innerHTML = '<span aria-hidden="true">📷</span> <span>Change Avatar</span>';
+
+    const cameraIcon = document.createElement('i');
+    cameraIcon.setAttribute('data-lucide', 'camera');
+    label.appendChild(cameraIcon);
+    label.appendChild(document.createTextNode(' Change Avatar'));
 
     // Handle avatar preview
     input.addEventListener('change', (e) => {
@@ -679,103 +931,79 @@ export const AvatarUpload: Story = {
 
     container.appendChild(avatarContainer);
 
+    // Initialize Lucide icons
+    setTimeout(() => {
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
+
     return container;
   }
 };
 
-export const ButtonStyle: Story = {
+export const FormIntegration: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
     container.style.maxWidth = '600px';
 
+    const form = document.createElement('form');
+    form.style.display = 'flex';
+    form.style.flexDirection = 'column';
+    form.style.gap = 'var(--space-4)';
+
+    // Project Name Field
+    const formGroup1 = document.createElement('div');
+    formGroup1.className = 'form-group';
+
+    const label1 = document.createElement('label');
+    label1.className = 'label';
+    label1.textContent = 'Project Name';
+
+    const input1 = document.createElement('input');
+    input1.type = 'text';
+    input1.className = 'input';
+    input1.placeholder = 'Enter project name';
+
+    formGroup1.appendChild(label1);
+    formGroup1.appendChild(input1);
+
+    // File Upload Field
+    const formGroup2 = document.createElement('div');
+    formGroup2.className = 'form-group';
+
+    const label2 = document.createElement('label');
+    label2.className = 'label';
+    label2.textContent = 'Project Files';
+
     const fileUpload = document.createElement('div');
-    fileUpload.className = 'file-upload file-upload--button';
+    fileUpload.className = 'file-upload';
 
     const zone = document.createElement('label');
     zone.className = 'file-upload__zone';
-    zone.setAttribute('role', 'button');
-    zone.setAttribute('tabindex', '0');
-    zone.setAttribute('aria-label', 'Choose files to upload');
 
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.className = 'file-upload__input';
-    input.multiple = true;
+    const input2 = document.createElement('input');
+    input2.type = 'file';
+    input2.className = 'file-upload__input';
+    input2.multiple = true;
 
     const content = document.createElement('div');
     content.className = 'file-upload__content';
 
-    const icon = document.createElement('span');
-    icon.className = 'file-upload__icon';
-    icon.textContent = '⬆️';
-    icon.setAttribute('aria-hidden', 'true');
-
+    const icon = createIcon('folder-up');
     const text = document.createElement('span');
     text.className = 'file-upload__text';
-    text.textContent = 'Choose Files';
-
-    content.appendChild(icon);
-    content.appendChild(text);
-    zone.appendChild(input);
-    zone.appendChild(content);
-
-    const list = document.createElement('div');
-    list.className = 'file-upload__list';
-
-    fileUpload.appendChild(zone);
-    fileUpload.appendChild(list);
-
-    container.appendChild(fileUpload);
-
-    // Initialize functionality
-    setTimeout(() => initFileUpload(fileUpload), 0);
-
-    return container;
-  }
-};
-
-export const ImageGrid: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.padding = '2rem';
-    container.style.maxWidth = '800px';
-
-    const fileUpload = document.createElement('div');
-    fileUpload.className = 'file-upload file-upload--image-grid';
-
-    const zone = document.createElement('label');
-    zone.className = 'file-upload__zone';
-    zone.setAttribute('role', 'button');
-    zone.setAttribute('tabindex', '0');
-    zone.setAttribute('aria-label', 'Upload images to grid');
-
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.className = 'file-upload__input';
-    input.accept = 'image/*';
-    input.multiple = true;
-
-    const content = document.createElement('div');
-    content.className = 'file-upload__content';
-
-    const icon = document.createElement('span');
-    icon.className = 'file-upload__icon';
-    icon.textContent = '🖼️';
-    icon.setAttribute('aria-hidden', 'true');
-
-    const text = document.createElement('span');
-    text.className = 'file-upload__text';
-    text.textContent = 'Upload Images';
+    text.textContent = 'Upload project files';
 
     const subtext = document.createElement('span');
     subtext.className = 'file-upload__subtext';
-    subtext.textContent = 'Display as grid';
+    subtext.textContent = 'All file types accepted';
 
     content.appendChild(icon);
     content.appendChild(text);
     content.appendChild(subtext);
-    zone.appendChild(input);
+    zone.appendChild(input2);
     zone.appendChild(content);
 
     const list = document.createElement('div');
@@ -784,10 +1012,29 @@ export const ImageGrid: Story = {
     fileUpload.appendChild(zone);
     fileUpload.appendChild(list);
 
-    container.appendChild(fileUpload);
+    formGroup2.appendChild(label2);
+    formGroup2.appendChild(fileUpload);
 
-    // Initialize functionality
-    setTimeout(() => initFileUpload(fileUpload), 0);
+    // Submit Button
+    const submitDiv = document.createElement('div');
+    const submitBtn = document.createElement('button');
+    submitBtn.type = 'submit';
+    submitBtn.className = 'btn btn-primary';
+    submitBtn.textContent = 'Submit Project';
+    submitDiv.appendChild(submitBtn);
+
+    form.appendChild(formGroup1);
+    form.appendChild(formGroup2);
+    form.appendChild(submitDiv);
+
+    container.appendChild(form);
+
+    setTimeout(() => {
+      initFileUpload(fileUpload);
+      if (typeof (window as any).lucide !== 'undefined') {
+        (window as any).lucide.createIcons();
+      }
+    }, 0);
 
     return container;
   }
@@ -801,9 +1048,6 @@ export const ThemeComparison: Story = {
 
       const zone = document.createElement('label');
       zone.className = 'file-upload__zone';
-      zone.setAttribute('role', 'button');
-      zone.setAttribute('tabindex', '0');
-      zone.setAttribute('aria-label', 'Upload files');
 
       const input = document.createElement('input');
       input.type = 'file';
@@ -816,11 +1060,7 @@ export const ThemeComparison: Story = {
       const content = document.createElement('div');
       content.className = 'file-upload__content';
 
-      const icon = document.createElement('span');
-      icon.className = 'file-upload__icon';
-      icon.textContent = '⬆️';
-      icon.setAttribute('aria-hidden', 'true');
-
+      const icon = createIcon('upload');
       const text = document.createElement('span');
       text.className = 'file-upload__text';
       text.textContent = 'Drop files or browse';

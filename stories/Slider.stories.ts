@@ -12,6 +12,30 @@ const meta: Meta = {
 
 Interactive control for selecting a value from a continuous range. Perfect for adjustments like volume, brightness, or any value that needs visual feedback.
 
+## HTML Structure
+
+\`\`\`html
+<div class="aural-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">Volume</label>
+    <span class="aural-slider__value">50</span>
+  </div>
+  <input type="range" class="aural-slider__input" min="0" max="100" value="50">
+</div>
+\`\`\`
+
+## Sizes
+
+- \`aural-slider--sm\` - Small slider
+- Default (no modifier) - Medium slider
+- \`aural-slider--lg\` - Large slider
+
+## Color Variants
+
+- \`aural-slider--primary\` - Primary color (default)
+- \`aural-slider--success\` - Success color
+- \`aural-slider--warning\` - Warning color
+
 ## Framework Examples
 
 **Vanilla HTML:**
@@ -41,14 +65,16 @@ const [value, setValue] = useState(50);
 
 **Vue:**
 \`\`\`vue
-<div class="aural-slider">
-  <div class="aural-slider__label-row">
-    <label class="aural-slider__label">Volume</label>
-    <span class="aural-slider__value">{{ value }}</span>
+<template>
+  <div class="aural-slider">
+    <div class="aural-slider__label-row">
+      <label class="aural-slider__label">Volume</label>
+      <span class="aural-slider__value">{{ value }}</span>
+    </div>
+    <input type="range" class="aural-slider__input"
+      min="0" max="100" v-model="value" />
   </div>
-  <input type="range" class="aural-slider__input"
-    min="0" max="100" v-model="value" />
-</div>
+</template>
 \`\`\`
         `.trim()
       }
@@ -94,7 +120,7 @@ const [value, setValue] = useState(50);
     },
     color: {
       control: 'select',
-      options: ['primary', 'success', 'warning', 'danger'],
+      options: ['primary', 'success', 'warning'],
       description: 'Color variant'
     }
   }
@@ -110,14 +136,26 @@ function createSlider(args: any): HTMLElement {
   container.style.maxWidth = '500px';
 
   const sliderWrapper = document.createElement('div');
-  const sizeClass = args.size && args.size !== 'md' ? ` aural-slider--${args.size}` : '';
-  const colorClass = args.color && args.color !== 'primary' ? ` aural-slider--${args.color}` : '';
-  sliderWrapper.className = `aural-slider${sizeClass}${colorClass}`;
+  sliderWrapper.className = 'aural-slider';
+
+  // Add size class
+  if (args.size === 'sm') {
+    sliderWrapper.classList.add('aural-slider--sm');
+  } else if (args.size === 'lg') {
+    sliderWrapper.classList.add('aural-slider--lg');
+  }
+
+  // Add color class
+  if (args.color && args.color !== 'primary') {
+    sliderWrapper.classList.add(`aural-slider--${args.color}`);
+  } else if (args.color === 'primary') {
+    sliderWrapper.classList.add('aural-slider--primary');
+  }
 
   // Generate unique ID for accessibility
   const sliderId = `slider-${Math.random().toString(36).substr(2, 9)}`;
 
-  // Label row
+  // Label row (always create if label or showValue is true)
   if (args.label || args.showValue) {
     const labelRow = document.createElement('div');
     labelRow.className = 'aural-slider__label-row';
@@ -145,16 +183,10 @@ function createSlider(args: any): HTMLElement {
   input.id = sliderId;
   input.type = 'range';
   input.className = 'aural-slider__input';
-  input.min = String(args.min || 0);
-  input.max = String(args.max || 100);
-  input.value = String(args.value || 50);
-  input.step = String(args.step || 1);
-
-  // ARIA attributes
-  input.setAttribute('role', 'slider');
-  input.setAttribute('aria-valuemin', String(args.min || 0));
-  input.setAttribute('aria-valuemax', String(args.max || 100));
-  input.setAttribute('aria-valuenow', String(args.value || 50));
+  input.min = String(args.min !== undefined ? args.min : 0);
+  input.max = String(args.max !== undefined ? args.max : 100);
+  input.value = String(args.value !== undefined ? args.value : 50);
+  input.step = String(args.step !== undefined ? args.step : 1);
   input.setAttribute('aria-label', args.label || 'Slider');
 
   if (args.disabled) {
@@ -169,36 +201,37 @@ function createSlider(args: any): HTMLElement {
       if (valueSpan) {
         valueSpan.textContent = target.value;
       }
-      input.setAttribute('aria-valuenow', target.value);
     });
   }
 
   sliderWrapper.appendChild(input);
 
-  // Min/Max labels
+  // Min/Max labels (outside of slider wrapper, in a separate container)
   if (args.showLabels) {
     const labelsWrapper = document.createElement('div');
     labelsWrapper.className = 'slider-range-labels';
     labelsWrapper.style.cssText = `
       display: flex;
       justify-content: space-between;
-      font-size: 0.875rem;
+      font-size: var(--text-sm);
       color: var(--color-text-tertiary);
-      margin-top: 0.5rem;
+      margin-top: var(--space-2);
     `;
 
     const minLabel = document.createElement('span');
-    minLabel.textContent = String(args.min || 0);
+    minLabel.textContent = String(args.min !== undefined ? args.min : 0);
     labelsWrapper.appendChild(minLabel);
 
     const maxLabel = document.createElement('span');
-    maxLabel.textContent = String(args.max || 100);
+    maxLabel.textContent = String(args.max !== undefined ? args.max : 100);
     labelsWrapper.appendChild(maxLabel);
 
-    sliderWrapper.appendChild(labelsWrapper);
+    container.appendChild(sliderWrapper);
+    container.appendChild(labelsWrapper);
+  } else {
+    container.appendChild(sliderWrapper);
   }
 
-  container.appendChild(sliderWrapper);
   return container;
 }
 
@@ -218,64 +251,81 @@ export const Default: Story = {
   }
 };
 
+export const Sizes: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '2rem';
+    container.style.maxWidth = '500px';
+
+    const sizes = [
+      { size: 'sm', label: 'Small Slider', value: 30 },
+      { size: 'md', label: 'Default Slider', value: 50 },
+      { size: 'lg', label: 'Large Slider', value: 70 }
+    ];
+
+    sizes.forEach(({ size, label, value }) => {
+      const slider = createSlider({
+        label,
+        value,
+        min: 0,
+        max: 100,
+        step: 1,
+        showValue: true,
+        size
+      });
+      slider.style.padding = '0';
+      container.appendChild(slider);
+    });
+
+    return container;
+  }
+};
+
 export const WithValue: Story = {
   render: (args) => createSlider(args),
   args: {
-    label: 'Brightness',
-    value: 75,
+    label: 'Opacity',
+    value: 80,
     min: 0,
     max: 100,
     step: 1,
     showValue: true,
     showLabels: false,
-    size: 'md',
-    color: 'primary'
-  }
-};
-
-export const WithLabels: Story = {
-  render: (args) => createSlider(args),
-  args: {
-    label: 'Temperature',
-    value: 22,
-    min: 10,
-    max: 35,
-    step: 1,
-    showValue: true,
-    showLabels: true,
-    size: 'md',
-    color: 'primary'
+    size: 'md'
   }
 };
 
 export const WithSteps: Story = {
-  render: (args) => createSlider(args),
-  args: {
-    label: 'Rating',
-    value: 3,
-    min: 1,
-    max: 5,
-    step: 1,
-    showValue: true,
-    showLabels: true,
-    size: 'md',
-    color: 'primary'
-  }
-};
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '2rem';
+    container.style.maxWidth = '500px';
 
-export const Disabled: Story = {
-  render: (args) => createSlider(args),
-  args: {
-    label: 'Disabled Slider',
-    value: 50,
-    min: 0,
-    max: 100,
-    step: 1,
-    disabled: true,
-    showValue: true,
-    showLabels: false,
-    size: 'md',
-    color: 'primary'
+    const examples = [
+      { label: 'Rating', min: 1, max: 5, value: 3, step: 1 },
+      { label: 'Step by 25', min: 0, max: 100, value: 50, step: 25 }
+    ];
+
+    examples.forEach(({ label, min, max, value, step }) => {
+      const slider = createSlider({
+        label,
+        min,
+        max,
+        value,
+        step,
+        showValue: true
+      });
+      slider.style.padding = '0';
+      container.appendChild(slider);
+    });
+
+    return container;
   }
 };
 
@@ -291,8 +341,7 @@ export const Colors: Story = {
     const colors = [
       { color: 'primary', label: 'Primary', value: 65 },
       { color: 'success', label: 'Success', value: 75 },
-      { color: 'warning', label: 'Warning', value: 60 },
-      { color: 'danger', label: 'Danger', value: 45 }
+      { color: 'warning', label: 'Warning', value: 60 }
     ];
 
     colors.forEach(({ color, label, value }) => {
@@ -314,31 +363,83 @@ export const Colors: Story = {
   }
 };
 
-export const Small: Story = {
-  render: (args) => createSlider(args),
-  args: {
-    label: 'Small Slider',
-    value: 30,
-    min: 0,
-    max: 100,
-    step: 1,
-    showValue: true,
-    size: 'sm',
-    color: 'primary'
+export const WithLabels: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '500px';
+
+    const sliderWrapper = document.createElement('div');
+    sliderWrapper.className = 'aural-slider';
+
+    const labelRow = document.createElement('div');
+    labelRow.className = 'aural-slider__label-row';
+
+    const label = document.createElement('label');
+    label.className = 'aural-slider__label';
+    label.textContent = 'Brightness';
+    labelRow.appendChild(label);
+
+    const valueSpan = document.createElement('span');
+    valueSpan.className = 'aural-slider__value';
+    valueSpan.textContent = '60%';
+    labelRow.appendChild(valueSpan);
+
+    sliderWrapper.appendChild(labelRow);
+
+    const input = document.createElement('input');
+    input.type = 'range';
+    input.className = 'aural-slider__input';
+    input.min = '0';
+    input.max = '100';
+    input.value = '60';
+    input.setAttribute('aria-label', 'Brightness control from 0% to 100%');
+
+    input.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      valueSpan.textContent = target.value + '%';
+    });
+
+    sliderWrapper.appendChild(input);
+    container.appendChild(sliderWrapper);
+
+    // Min/Max labels
+    const labelsWrapper = document.createElement('div');
+    labelsWrapper.className = 'slider-range-labels';
+    labelsWrapper.style.cssText = `
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--text-sm);
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-2);
+    `;
+
+    const minLabel = document.createElement('span');
+    minLabel.textContent = '0% (Dark)';
+    labelsWrapper.appendChild(minLabel);
+
+    const maxLabel = document.createElement('span');
+    maxLabel.textContent = '100% (Bright)';
+    labelsWrapper.appendChild(maxLabel);
+
+    container.appendChild(labelsWrapper);
+
+    return container;
   }
 };
 
-export const Large: Story = {
+export const Disabled: Story = {
   render: (args) => createSlider(args),
   args: {
-    label: 'Large Slider',
-    value: 70,
+    label: 'Disabled Slider',
+    value: 50,
     min: 0,
     max: 100,
     step: 1,
+    disabled: true,
     showValue: true,
-    size: 'lg',
-    color: 'primary'
+    showLabels: false,
+    size: 'md'
   }
 };
 
@@ -368,7 +469,8 @@ export const VolumeControl: Story = {
     icon.setAttribute('fill', 'none');
     icon.setAttribute('stroke', 'currentColor');
     icon.setAttribute('stroke-width', '2');
-    icon.setAttribute('aria-hidden', 'true');
+    icon.style.verticalAlign = 'middle';
+    icon.style.marginRight = '8px';
 
     const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
     polygon.setAttribute('points', '11 5 6 9 2 9 2 15 6 15 11 19 11 5');
@@ -449,27 +551,25 @@ export const PriceRange: Story = {
     });
 
     sliderWrapper.appendChild(input);
-
-    // Min/Max labels
-    const labelsWrapper = document.createElement('div');
-    labelsWrapper.style.cssText = `
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.875rem;
-      color: var(--color-text-tertiary);
-      margin-top: 0.5rem;
-    `;
-
-    const minLabel = document.createElement('span');
-    minLabel.textContent = '$0';
-    labelsWrapper.appendChild(minLabel);
-
-    const maxLabel = document.createElement('span');
-    maxLabel.textContent = '$1000';
-    labelsWrapper.appendChild(maxLabel);
-
-    sliderWrapper.appendChild(labelsWrapper);
     container.appendChild(sliderWrapper);
+
+    // Price display
+    const priceDisplay = document.createElement('div');
+    priceDisplay.style.cssText = `
+      text-align: center;
+      margin-top: var(--space-4);
+      font-size: var(--text-xl);
+      font-weight: var(--font-semibold);
+      color: var(--color-primary);
+    `;
+    priceDisplay.textContent = '$500';
+
+    input.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      priceDisplay.textContent = '$' + target.value;
+    });
+
+    container.appendChild(priceDisplay);
 
     return container;
   }
@@ -479,9 +579,21 @@ export const ThemeComparison: Story = {
   render: (args) => {
     return createThemeGrid(() => {
       const sliderWrapper = document.createElement('div');
-      const sizeClass = args.size && args.size !== 'md' ? ` aural-slider--${args.size}` : '';
-      const colorClass = args.color && args.color !== 'primary' ? ` aural-slider--${args.color}` : '';
-      sliderWrapper.className = `aural-slider${sizeClass}${colorClass}`;
+      sliderWrapper.className = 'aural-slider';
+
+      // Add size class
+      if (args.size === 'sm') {
+        sliderWrapper.classList.add('aural-slider--sm');
+      } else if (args.size === 'lg') {
+        sliderWrapper.classList.add('aural-slider--lg');
+      }
+
+      // Add color class
+      if (args.color && args.color !== 'primary') {
+        sliderWrapper.classList.add(`aural-slider--${args.color}`);
+      } else if (args.color === 'primary') {
+        sliderWrapper.classList.add('aural-slider--primary');
+      }
 
       const labelRow = document.createElement('div');
       labelRow.className = 'aural-slider__label-row';
@@ -571,7 +683,7 @@ export const ThemeComparison: Story = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'success', 'warning', 'danger'],
+      options: ['primary', 'success', 'warning'],
       description: 'Color'
     },
     disabled: {

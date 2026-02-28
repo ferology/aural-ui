@@ -69,33 +69,19 @@ function createComboboxHTML(id: string, placeholder: string, size: string = 'md'
   return `
     <div class="aural-combobox${sizeClass}" id="${id}">
       <div class="aural-combobox__wrapper">
-        <input
-          type="text"
-          class="aural-combobox__input"
-          id="${id}-input"
-          placeholder="${placeholder}"
-          role="combobox"
-          aria-expanded="false"
-          aria-autocomplete="list"
-          aria-controls="${id}-listbox"
-        >
+        <input type="text" class="aural-combobox__input" id="${id}-input" placeholder="${placeholder}">
         <div class="aural-combobox__icons">
-          <button class="aural-combobox__clear" aria-label="Clear selection" tabindex="-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
+          <button class="aural-combobox__clear">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
-          <div class="aural-combobox__spinner" role="status" aria-label="Loading"></div>
-          <button class="aural-combobox__arrow" aria-label="Toggle options" tabindex="-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+          <div class="aural-combobox__spinner"></div>
+          <button class="aural-combobox__arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
         </div>
       </div>
       <div class="aural-combobox__dropdown">
-        <div class="aural-combobox__options" id="${id}-listbox" role="listbox">
+        <div class="aural-combobox__options">
           <!-- Options rendered by JS -->
         </div>
       </div>
@@ -182,9 +168,7 @@ export const WithAutocomplete: Story = {
             { value: 'de', label: 'Germany' },
             { value: 'fr', label: 'France' },
             { value: 'jp', label: 'Japan' },
-            { value: 'cn', label: 'China' },
-            { value: 'in', label: 'India' },
-            { value: 'br', label: 'Brazil' }
+            { value: 'cn', label: 'China' }
           ],
           searchable: true,
           onChange: (selected) => console.log('Selected country:', selected)
@@ -221,8 +205,10 @@ export const AllowCustomValue: Story = {
     wrapper.innerHTML = createComboboxHTML('combobox-custom', args.placeholder, args.size);
     container.appendChild(wrapper.firstElementChild as HTMLElement);
 
-    const helperText = document.createElement('p');
-    helperText.className = 'form-helper';
+    const helperText = document.createElement('div');
+    helperText.style.marginTop = 'var(--space-2)';
+    helperText.style.fontSize = 'var(--text-sm)';
+    helperText.style.color = 'var(--color-text-tertiary)';
     helperText.textContent = 'Type a new tag name to create it';
     container.appendChild(helperText);
 
@@ -234,8 +220,7 @@ export const AllowCustomValue: Story = {
             { value: 'frontend', label: 'Frontend' },
             { value: 'backend', label: 'Backend' },
             { value: 'ui', label: 'UI' },
-            { value: 'ux', label: 'UX' },
-            { value: 'accessibility', label: 'Accessibility' }
+            { value: 'ux', label: 'UX' }
           ],
           searchable: true,
           creatable: args.creatable,
@@ -254,6 +239,129 @@ export const AllowCustomValue: Story = {
     placeholder: 'Search or create new tag...',
     size: 'md',
     creatable: true
+  }
+};
+
+export const WithDescriptions: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '400px';
+    container.style.minHeight = '400px';
+
+    const label = document.createElement('label');
+    label.className = 'form-label';
+    label.textContent = 'Search Products';
+    label.htmlFor = 'combobox-descriptions-input';
+    container.appendChild(label);
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = createComboboxHTML('combobox-descriptions', 'Search products...');
+    container.appendChild(wrapper.firstElementChild as HTMLElement);
+
+    setTimeout(() => {
+      if (typeof window.Aural !== 'undefined') {
+        window.Aural.initCombobox('combobox-descriptions', {
+          options: [
+            { value: 'prod1', label: 'Wireless Headphones', description: 'SKU: WH-001 | $99.99' },
+            { value: 'prod2', label: 'Laptop Stand', description: 'SKU: LS-045 | $49.99' },
+            { value: 'prod3', label: 'USB-C Hub', description: 'SKU: UH-782 | $79.99' },
+            { value: 'prod4', label: 'Mechanical Keyboard', description: 'SKU: MK-321 | $129.99' },
+            { value: 'prod5', label: 'Webcam HD', description: 'SKU: WC-445 | $89.99' }
+          ],
+          searchable: true,
+          onChange: (selected) => console.log('Selected product:', selected)
+        });
+      }
+    }, 100);
+
+    return container;
+  }
+};
+
+export const SearchCallback: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '400px';
+    container.style.minHeight = '400px';
+
+    const label = document.createElement('label');
+    label.className = 'form-label';
+    label.textContent = 'Search with Callback';
+    label.htmlFor = 'combobox-search-input';
+    container.appendChild(label);
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = createComboboxHTML('combobox-search', 'Type to search...');
+    container.appendChild(wrapper.firstElementChild as HTMLElement);
+
+    const helperText = document.createElement('div');
+    helperText.style.marginTop = 'var(--space-2)';
+    helperText.style.fontSize = 'var(--text-sm)';
+    helperText.style.color = 'var(--color-text-tertiary)';
+    helperText.textContent = 'Search callback logs to console';
+    container.appendChild(helperText);
+
+    setTimeout(() => {
+      if (typeof window.Aural !== 'undefined') {
+        window.Aural.initCombobox('combobox-search', {
+          options: [
+            { value: 'user1', label: 'John Smith', description: 'john@example.com' },
+            { value: 'user2', label: 'Jane Doe', description: 'jane@example.com' },
+            { value: 'user3', label: 'Bob Johnson', description: 'bob@example.com' },
+            { value: 'user4', label: 'Alice Williams', description: 'alice@example.com' }
+          ],
+          searchable: true,
+          onSearch: (query, filteredResults) => {
+            console.log('Search query:', query);
+            console.log('Filtered results:', filteredResults);
+          },
+          onChange: (selected) => console.log('Selected:', selected)
+        });
+      }
+    }, 100);
+
+    return container;
+  }
+};
+
+export const CityLocation: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.maxWidth = '400px';
+    container.style.minHeight = '400px';
+
+    const label = document.createElement('label');
+    label.className = 'form-label';
+    label.textContent = 'Select City';
+    label.htmlFor = 'combobox-city-input';
+    container.appendChild(label);
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = createComboboxHTML('combobox-city', 'Search cities...');
+    container.appendChild(wrapper.firstElementChild as HTMLElement);
+
+    setTimeout(() => {
+      if (typeof window.Aural !== 'undefined') {
+        window.Aural.initCombobox('combobox-city', {
+          options: [
+            { value: 'nyc', label: 'New York City', description: 'New York, United States' },
+            { value: 'london', label: 'London', description: 'England, United Kingdom' },
+            { value: 'tokyo', label: 'Tokyo', description: 'Kanto, Japan' },
+            { value: 'paris', label: 'Paris', description: 'Île-de-France, France' },
+            { value: 'sydney', label: 'Sydney', description: 'New South Wales, Australia' },
+            { value: 'berlin', label: 'Berlin', description: 'Berlin, Germany' },
+            { value: 'toronto', label: 'Toronto', description: 'Ontario, Canada' }
+          ],
+          searchable: true,
+          onChange: (selected) => console.log('Selected city:', selected)
+        });
+      }
+    }, 100);
+
+    return container;
   }
 };
 
@@ -279,7 +387,6 @@ export const Disabled: Story = {
       const input = container.querySelector('.aural-combobox__input') as HTMLInputElement;
       if (input) {
         input.disabled = true;
-        input.setAttribute('aria-disabled', 'true');
       }
     }, 0);
 
@@ -329,7 +436,7 @@ export const AsyncLoading: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
     container.style.maxWidth = '400px';
-    container.style.minHeight = '350px';
+    container.style.minHeight = '400px';
 
     const label = document.createElement('label');
     label.className = 'form-label';
@@ -341,8 +448,10 @@ export const AsyncLoading: Story = {
     wrapper.innerHTML = createComboboxHTML('combobox-async', 'Search users...');
     container.appendChild(wrapper.firstElementChild as HTMLElement);
 
-    const helperText = document.createElement('p');
-    helperText.className = 'form-helper';
+    const helperText = document.createElement('div');
+    helperText.style.marginTop = 'var(--space-2)';
+    helperText.style.fontSize = 'var(--text-sm)';
+    helperText.style.color = 'var(--color-text-tertiary)';
     helperText.textContent = 'Simulates async data loading with spinner';
     container.appendChild(helperText);
 
@@ -380,82 +489,6 @@ export const AsyncLoading: Story = {
   },
   args: {
     loading: true
-  }
-};
-
-export const WithDescriptions: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.padding = '2rem';
-    container.style.maxWidth = '400px';
-    container.style.minHeight = '400px';
-
-    const label = document.createElement('label');
-    label.className = 'form-label';
-    label.textContent = 'Search Products';
-    label.htmlFor = 'combobox-descriptions-input';
-    container.appendChild(label);
-
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = createComboboxHTML('combobox-descriptions', 'Search products...');
-    container.appendChild(wrapper.firstElementChild as HTMLElement);
-
-    setTimeout(() => {
-      if (typeof window.Aural !== 'undefined') {
-        window.Aural.initCombobox('combobox-descriptions', {
-          options: [
-            { value: 'prod1', label: 'Wireless Headphones', description: 'SKU: WH-001 | $99.99' },
-            { value: 'prod2', label: 'Laptop Stand', description: 'SKU: LS-045 | $49.99' },
-            { value: 'prod3', label: 'USB-C Hub', description: 'SKU: UH-782 | $79.99' },
-            { value: 'prod4', label: 'Mechanical Keyboard', description: 'SKU: MK-321 | $129.99' },
-            { value: 'prod5', label: 'Webcam HD', description: 'SKU: WC-445 | $89.99' },
-            { value: 'prod6', label: 'Monitor Arm', description: 'SKU: MA-556 | $159.99' }
-          ],
-          searchable: true,
-          onChange: (selected) => console.log('Selected product:', selected)
-        });
-      }
-    }, 100);
-
-    return container;
-  }
-};
-
-export const WithIcons: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.padding = '2rem';
-    container.style.maxWidth = '400px';
-    container.style.minHeight = '350px';
-
-    const label = document.createElement('label');
-    label.className = 'form-label';
-    label.textContent = 'Select City';
-    label.htmlFor = 'combobox-icons-input';
-    container.appendChild(label);
-
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = createComboboxHTML('combobox-icons', 'Search cities...');
-    container.appendChild(wrapper.firstElementChild as HTMLElement);
-
-    setTimeout(() => {
-      if (typeof window.Aural !== 'undefined') {
-        window.Aural.initCombobox('combobox-icons', {
-          options: [
-            { value: 'nyc', label: '🗽 New York City', description: 'New York, United States' },
-            { value: 'london', label: '🏰 London', description: 'England, United Kingdom' },
-            { value: 'tokyo', label: '🗼 Tokyo', description: 'Kanto, Japan' },
-            { value: 'paris', label: '🗼 Paris', description: 'Île-de-France, France' },
-            { value: 'sydney', label: '🌊 Sydney', description: 'New South Wales, Australia' },
-            { value: 'berlin', label: '🏛️ Berlin', description: 'Berlin, Germany' }
-          ],
-          searchable: true,
-          onChange: (selected) => console.log('Selected city:', selected)
-        });
-      }
-    }, 100);
-
-    return container;
   }
 };
 

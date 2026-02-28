@@ -20,7 +20,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 \`\`\`html
 <div class="aural-rating" data-rating="4">
   <div class="aural-rating__stars">
-    <button class="aural-rating__star aural-rating__star--filled" data-value="1" aria-label="Rate 1 star">
+    <button class="aural-rating__star aural-rating__star--filled" data-value="1" aria-label="Rate 1 star" tabindex="0">
       <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
       </svg>
@@ -44,6 +44,7 @@ const [hover, setHover] = useState(0);
         className={\`aural-rating__star \${i < (hover || rating) ? 'aural-rating__star--filled' : 'aural-rating__star--empty'}\`}
         data-value={i + 1}
         aria-label={\`Rate \${i + 1} star\${i === 0 ? '' : 's'}\`}
+        tabindex="0"
         onMouseEnter={() => setHover(i + 1)}
         onMouseLeave={() => setHover(0)}
         onClick={() => setRating(i + 1)}
@@ -74,6 +75,7 @@ const hover = ref(0);
         :class="['aural-rating__star', i <= (hover || rating) ? 'aural-rating__star--filled' : 'aural-rating__star--empty']"
         :data-value="i"
         :aria-label="\`Rate \${i} star\${i === 1 ? '' : 's'}\`"
+        tabindex="0"
         @mouseenter="hover = i"
         @mouseleave="hover = 0"
         @click="rating = i"
@@ -145,8 +147,8 @@ const hover = ref(0);
 export default meta;
 type Story = StoryObj;
 
-// Star SVG paths
-const STAR_PATH = 'M12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2';
+// Star SVG path - using polygon points from docs
+const STAR_POINTS = '12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2';
 const HEART_PATH = 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z';
 
 // Helper function to create rating component
@@ -168,8 +170,8 @@ function createRating(args: any) {
 
   const max = args.max || 5;
   const value = args.value || 0;
-  const iconPath = args.icon === 'heart' ? HEART_PATH : STAR_PATH;
-  const iconType = args.icon === 'heart' ? 'heart' : 'star';
+  const isHeart = args.icon === 'heart';
+  const iconType = isHeart ? 'heart' : 'star';
 
   // Create stars
   for (let i = 1; i <= max; i++) {
@@ -221,18 +223,29 @@ function createRating(args: any) {
       defs.appendChild(gradient);
       svg.appendChild(defs);
 
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-      path.setAttribute('points', iconPath);
-      path.setAttribute('fill', `url(#half-fill-${i})`);
-      svg.appendChild(path);
-    } else {
-      const path = document.createElementNS('http://www.w3.org/2000/svg', args.icon === 'heart' ? 'path' : 'polygon');
-      if (args.icon === 'heart') {
-        path.setAttribute('d', iconPath);
+      // Use polygon for stars, path for hearts
+      if (isHeart) {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', HEART_PATH);
+        path.setAttribute('fill', `url(#half-fill-${i})`);
+        svg.appendChild(path);
       } else {
-        path.setAttribute('points', iconPath);
+        const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        polygon.setAttribute('points', STAR_POINTS);
+        polygon.setAttribute('fill', `url(#half-fill-${i})`);
+        svg.appendChild(polygon);
       }
-      svg.appendChild(path);
+    } else {
+      // Use polygon for stars, path for hearts
+      if (isHeart) {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', HEART_PATH);
+        svg.appendChild(path);
+      } else {
+        const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        polygon.setAttribute('points', STAR_POINTS);
+        svg.appendChild(polygon);
+      }
     }
 
     starElement.appendChild(svg);
@@ -443,31 +456,90 @@ export const WithCount: Story = {
   }
 };
 
-export const Small: Story = {
-  render: (args) => createRating(args),
-  args: {
-    value: 3,
-    max: 5,
-    readonly: true,
-    size: 'sm',
-    showValue: true,
-    showCount: true,
-    count: 45,
-    icon: 'star',
-    color: 'default'
+export const Sizes: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = 'var(--space-6)';
+    container.style.padding = 'var(--space-4)';
+
+    const sizes = [
+      { size: 'sm', label: 'Small', value: 3, count: 45 },
+      { size: 'md', label: 'Default', value: 4, count: 256 },
+      { size: 'lg', label: 'Large', value: 5, count: 1845 }
+    ];
+
+    sizes.forEach(item => {
+      const wrapper = document.createElement('div');
+
+      const label = document.createElement('div');
+      label.textContent = item.label;
+      label.style.fontSize = 'var(--text-sm)';
+      label.style.color = 'var(--color-text-secondary)';
+      label.style.marginBottom = 'var(--space-2)';
+      wrapper.appendChild(label);
+
+      const rating = createRating({
+        value: item.value,
+        max: 5,
+        readonly: true,
+        size: item.size,
+        showValue: true,
+        showCount: true,
+        count: item.count,
+        icon: 'star',
+        color: 'default'
+      });
+      wrapper.appendChild(rating);
+
+      container.appendChild(wrapper);
+    });
+
+    return container;
   }
 };
 
-export const Large: Story = {
-  render: (args) => createRating(args),
-  args: {
-    value: 5,
-    max: 5,
-    readonly: false,
-    size: 'lg',
-    showValue: true,
-    icon: 'star',
-    color: 'default'
+export const ColorVariants: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = 'var(--space-4)';
+    container.style.padding = 'var(--space-4)';
+
+    const variants = [
+      { color: 'default', label: 'Default (Warning)', value: 4 },
+      { color: 'primary', label: 'Primary', value: 4 },
+      { color: 'success', label: 'Success', value: 5 },
+      { color: 'error', label: 'Error', value: 2 }
+    ];
+
+    variants.forEach(variant => {
+      const wrapper = document.createElement('div');
+
+      const label = document.createElement('div');
+      label.textContent = variant.label;
+      label.style.fontSize = 'var(--text-sm)';
+      label.style.color = 'var(--color-text-secondary)';
+      label.style.marginBottom = 'var(--space-2)';
+      wrapper.appendChild(label);
+
+      const rating = createRating({
+        value: variant.value,
+        max: 5,
+        readonly: true,
+        size: 'md',
+        showValue: true,
+        icon: 'star',
+        color: variant.color
+      });
+      wrapper.appendChild(rating);
+
+      container.appendChild(wrapper);
+    });
+
+    return container;
   }
 };
 
@@ -616,49 +688,6 @@ export const ProductRating: Story = {
       row.appendChild(count);
 
       container.appendChild(row);
-    });
-
-    return container;
-  }
-};
-
-export const ColorVariants: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.flexDirection = 'column';
-    container.style.gap = 'var(--space-4)';
-    container.style.padding = 'var(--space-4)';
-
-    const variants = [
-      { color: 'default', label: 'Default', value: 4 },
-      { color: 'primary', label: 'Primary', value: 4 },
-      { color: 'success', label: 'Success', value: 5 },
-      { color: 'error', label: 'Error', value: 2 }
-    ];
-
-    variants.forEach(variant => {
-      const wrapper = document.createElement('div');
-
-      const label = document.createElement('div');
-      label.textContent = variant.label;
-      label.style.fontSize = 'var(--text-sm)';
-      label.style.color = 'var(--color-text-secondary)';
-      label.style.marginBottom = 'var(--space-2)';
-      wrapper.appendChild(label);
-
-      const rating = createRating({
-        value: variant.value,
-        max: 5,
-        readonly: true,
-        size: 'md',
-        showValue: true,
-        icon: 'star',
-        color: variant.color
-      });
-      wrapper.appendChild(rating);
-
-      container.appendChild(wrapper);
     });
 
     return container;

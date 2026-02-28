@@ -20,12 +20,22 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 <div class="aural-code-block">
   <div class="aural-code-block__header">
     <span class="aural-code-block__language">JavaScript</span>
-    <button class="aural-code-block__copy">Copy</button>
+    <button class="aural-code-block__copy">
+      <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+      Copy
+    </button>
   </div>
   <div class="aural-code-block__content">
     <pre class="aural-code-block__pre"><code class="aural-code-block__code">const x = 42;</code></pre>
   </div>
 </div>
+
+<script>
+  // Initialize code blocks
+  window.Aural?.initAllCodeBlocks();
+  // Initialize Lucide icons
+  lucide.createIcons();
+</script>
 \`\`\`
 
 **React:**
@@ -82,22 +92,13 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 export default meta;
 type Story = StoryObj;
 
-// Helper function to create copy button functionality
-function attachCopyHandler(container: HTMLElement) {
-  const copyButton = container.querySelector('.aural-code-block__copy') as HTMLButtonElement;
-  if (copyButton) {
-    copyButton.addEventListener('click', () => {
-      const codeBlock = container.querySelector('.aural-code-block__code');
-      if (codeBlock) {
-        navigator.clipboard.writeText(codeBlock.textContent || '');
-        const originalHTML = copyButton.innerHTML;
-        copyButton.innerHTML = '✓ Copied!';
-        setTimeout(() => {
-          copyButton.innerHTML = originalHTML;
-        }, 2000);
-      }
-    });
-  }
+// Helper function to initialize Lucide icons
+function initLucideIcons(container: HTMLElement) {
+  setTimeout(() => {
+    if (typeof (window as any).lucide !== 'undefined') {
+      (window as any).lucide.createIcons({ nameAttr: 'data-lucide' });
+    }
+  }, 0);
 }
 
 export const JavaScript: Story = {
@@ -125,7 +126,7 @@ export const JavaScript: Story = {
       const copyButton = document.createElement('button');
       copyButton.className = 'aural-code-block__copy';
       copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-      copyButton.innerHTML = '📋 Copy';
+      copyButton.innerHTML = '<i data-lucide="copy" style="width: 14px; height: 14px;"></i> Copy';
       header.appendChild(copyButton);
     }
 
@@ -146,7 +147,15 @@ export const JavaScript: Story = {
     codeBlock.appendChild(content);
     container.appendChild(codeBlock);
 
-    attachCopyHandler(container);
+    initLucideIcons(container);
+
+    // Initialize code blocks if Aural is available
+    setTimeout(() => {
+      if (typeof (window as any).Aural?.initAllCodeBlocks === 'function') {
+        (window as any).Aural.initAllCodeBlocks();
+      }
+    }, 0);
+
     return container;
   },
   args: {
@@ -301,7 +310,7 @@ export const WithHighlightedLines: Story = {
     const copyButton = document.createElement('button');
     copyButton.className = 'aural-code-block__copy';
     copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-    copyButton.innerHTML = '📋 Copy';
+    copyButton.innerHTML = '<i data-lucide="copy" style="width: 14px; height: 14px;"></i> Copy';
     header.appendChild(copyButton);
 
     codeBlock.appendChild(header);
@@ -325,7 +334,14 @@ export const WithHighlightedLines: Story = {
     codeBlock.appendChild(content);
     container.appendChild(codeBlock);
 
-    attachCopyHandler(container);
+    initLucideIcons(container);
+
+    setTimeout(() => {
+      if (typeof (window as any).Aural?.initAllCodeBlocks === 'function') {
+        (window as any).Aural.initAllCodeBlocks();
+      }
+    }, 0);
+
     return container;
   }
 };
@@ -359,6 +375,41 @@ export const WithCopyButton: Story = {
     copyable: true,
     terminal: true,
     size: 'md'
+  }
+};
+
+export const WithoutHeader: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    const codeBlock = document.createElement('div');
+    codeBlock.className = 'aural-code-block';
+
+    const content = document.createElement('div');
+    content.className = 'aural-code-block__content';
+
+    const pre = document.createElement('pre');
+    pre.className = 'aural-code-block__pre';
+
+    const code = document.createElement('code');
+    code.className = 'aural-code-block__code';
+    code.textContent = args.code;
+
+    pre.appendChild(code);
+    content.appendChild(pre);
+    codeBlock.appendChild(content);
+    container.appendChild(codeBlock);
+
+    setTimeout(() => {
+      if (typeof (window as any).Aural?.initAllCodeBlocks === 'function') {
+        (window as any).Aural.initAllCodeBlocks();
+      }
+    }, 0);
+
+    return container;
+  },
+  args: {
+    code: `npm install aural-ui
+npm run dev`
   }
 };
 
@@ -405,6 +456,7 @@ export const MultiLanguageDemo: Story = {
 
       const languageLabel = document.createElement('span');
       languageLabel.className = 'aural-code-block__language';
+      languageLabel.setAttribute('aria-label', 'Code language');
       languageLabel.textContent = lang;
       header.appendChild(languageLabel);
 
@@ -425,6 +477,12 @@ export const MultiLanguageDemo: Story = {
       codeBlock.appendChild(content);
       container.appendChild(codeBlock);
     });
+
+    setTimeout(() => {
+      if (typeof (window as any).Aural?.initAllCodeBlocks === 'function') {
+        (window as any).Aural.initAllCodeBlocks();
+      }
+    }, 0);
 
     return container;
   }
@@ -469,6 +527,130 @@ export const SizeVariants: Story = {
       container.appendChild(wrapper);
     });
 
+    setTimeout(() => {
+      if (typeof (window as any).Aural?.initAllCodeBlocks === 'function') {
+        (window as any).Aural.initAllCodeBlocks();
+      }
+    }, 0);
+
+    return container;
+  }
+};
+
+export const APIDocumentation: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.cssText = 'padding: 2rem;';
+
+    const title = document.createElement('h3');
+    title.style.cssText = 'color: var(--color-text-primary); margin: 0 0 1rem 0;';
+    title.textContent = 'POST /api/users';
+    container.appendChild(title);
+
+    const description = document.createElement('p');
+    description.style.cssText = 'color: var(--color-text-secondary); margin: 0 0 1.5rem 0;';
+    description.textContent = 'Create a new user account.';
+    container.appendChild(description);
+
+    const requestLabel = document.createElement('p');
+    requestLabel.style.cssText = 'color: var(--color-text-primary); font-weight: 600; margin: 1.5rem 0 0.5rem 0;';
+    requestLabel.textContent = 'Request Body:';
+    container.appendChild(requestLabel);
+
+    // Request code block
+    const requestBlock = document.createElement('div');
+    requestBlock.className = 'aural-code-block';
+
+    const requestHeader = document.createElement('div');
+    requestHeader.className = 'aural-code-block__header';
+
+    const requestLang = document.createElement('span');
+    requestLang.className = 'aural-code-block__language';
+    requestLang.setAttribute('aria-label', 'Code language');
+    requestLang.textContent = 'JSON';
+    requestHeader.appendChild(requestLang);
+
+    const requestCopy = document.createElement('button');
+    requestCopy.className = 'aural-code-block__copy';
+    requestCopy.setAttribute('aria-label', 'Copy code to clipboard');
+    requestCopy.innerHTML = '<i data-lucide="copy" style="width: 14px; height: 14px;"></i> Copy';
+    requestHeader.appendChild(requestCopy);
+
+    requestBlock.appendChild(requestHeader);
+
+    const requestContent = document.createElement('div');
+    requestContent.className = 'aural-code-block__content';
+
+    const requestPre = document.createElement('pre');
+    requestPre.className = 'aural-code-block__pre';
+
+    const requestCode = document.createElement('code');
+    requestCode.className = 'aural-code-block__code';
+    requestCode.textContent = `{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "secure_password"
+}`;
+
+    requestPre.appendChild(requestCode);
+    requestContent.appendChild(requestPre);
+    requestBlock.appendChild(requestContent);
+    container.appendChild(requestBlock);
+
+    const responseLabel = document.createElement('p');
+    responseLabel.style.cssText = 'color: var(--color-text-primary); font-weight: 600; margin: 1.5rem 0 0.5rem 0;';
+    responseLabel.textContent = 'Response:';
+    container.appendChild(responseLabel);
+
+    // Response code block
+    const responseBlock = document.createElement('div');
+    responseBlock.className = 'aural-code-block';
+
+    const responseHeader = document.createElement('div');
+    responseHeader.className = 'aural-code-block__header';
+
+    const responseLang = document.createElement('span');
+    responseLang.className = 'aural-code-block__language';
+    responseLang.setAttribute('aria-label', 'Code language');
+    responseLang.textContent = 'JSON';
+    responseHeader.appendChild(responseLang);
+
+    const responseCopy = document.createElement('button');
+    responseCopy.className = 'aural-code-block__copy';
+    responseCopy.setAttribute('aria-label', 'Copy code to clipboard');
+    responseCopy.innerHTML = '<i data-lucide="copy" style="width: 14px; height: 14px;"></i> Copy';
+    responseHeader.appendChild(responseCopy);
+
+    responseBlock.appendChild(responseHeader);
+
+    const responseContent = document.createElement('div');
+    responseContent.className = 'aural-code-block__content';
+
+    const responsePre = document.createElement('pre');
+    responsePre.className = 'aural-code-block__pre';
+
+    const responseCode = document.createElement('code');
+    responseCode.className = 'aural-code-block__code';
+    responseCode.textContent = `{
+  "id": "usr_1234567890",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "created_at": "2024-01-15T10:30:00Z"
+}`;
+
+    responsePre.appendChild(responseCode);
+    responseContent.appendChild(responsePre);
+    responseBlock.appendChild(responseContent);
+    container.appendChild(responseBlock);
+
+    initLucideIcons(container);
+
+    setTimeout(() => {
+      if (typeof (window as any).Aural?.initAllCodeBlocks === 'function') {
+        (window as any).Aural.initAllCodeBlocks();
+      }
+    }, 0);
+
     return container;
   }
 };
@@ -492,7 +674,7 @@ export const ThemeComparison: Story = {
         const copyButton = document.createElement('button');
         copyButton.className = 'aural-code-block__copy';
         copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-        copyButton.innerHTML = '📋 Copy';
+        copyButton.innerHTML = '<i data-lucide="copy" style="width: 14px; height: 14px;"></i> Copy';
         header.appendChild(copyButton);
       }
 
@@ -511,6 +693,15 @@ export const ThemeComparison: Story = {
       pre.appendChild(code);
       content.appendChild(pre);
       codeBlock.appendChild(content);
+
+      setTimeout(() => {
+        if (typeof (window as any).lucide !== 'undefined') {
+          (window as any).lucide.createIcons({ nameAttr: 'data-lucide' });
+        }
+        if (typeof (window as any).Aural?.initAllCodeBlocks === 'function') {
+          (window as any).Aural.initAllCodeBlocks();
+        }
+      }, 100);
 
       return codeBlock;
     });

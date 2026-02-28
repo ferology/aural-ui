@@ -66,7 +66,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     },
     spacing: {
       control: 'select',
-      options: ['default', 'sm', 'lg', 'xl'],
+      options: ['default', 'compact', 'spacious'],
       description: 'Spacing around the divider',
       table: {
         defaultValue: { summary: 'default' }
@@ -406,7 +406,7 @@ export const InList: Story = {
 
       if (index < items.length - 1) {
         const divider = document.createElement('hr');
-        divider.className = 'divider divider-sm';
+        divider.className = 'divider divider-compact';
         container.appendChild(divider);
       }
     });
@@ -476,7 +476,7 @@ export const Spacing: Story = {
     container.style.padding = 'var(--space-6)';
     container.style.display = 'flex';
     container.style.flexDirection = 'column';
-    container.style.gap = 'var(--space-2)';
+    container.style.gap = 'var(--space-8)';
 
     const createSection = (label: string, className: string) => {
       const section = document.createElement('div');
@@ -485,7 +485,7 @@ export const Spacing: Story = {
       labelEl.textContent = label;
       labelEl.style.color = 'var(--color-text-secondary)';
       labelEl.style.fontSize = 'var(--text-sm)';
-      labelEl.style.margin = '0';
+      labelEl.style.margin = '0 0 var(--space-2) 0';
 
       const divider = document.createElement('hr');
       divider.className = className;
@@ -496,10 +496,9 @@ export const Spacing: Story = {
       return section;
     };
 
-    container.appendChild(createSection('Small spacing (divider-sm)', 'divider divider-sm'));
+    container.appendChild(createSection('Compact spacing (divider-compact)', 'divider divider-compact'));
     container.appendChild(createSection('Default spacing', 'divider'));
-    container.appendChild(createSection('Large spacing (divider-lg)', 'divider divider-lg'));
-    container.appendChild(createSection('Extra large spacing (divider-xl)', 'divider divider-xl'));
+    container.appendChild(createSection('Spacious (divider-spacious)', 'divider divider-spacious'));
 
     return container;
   }
@@ -610,7 +609,7 @@ export const ThemeComparison: Story = {
     },
     spacing: {
       control: 'select',
-      options: ['default', 'sm', 'lg', 'xl'],
+      options: ['default', 'compact', 'spacious'],
       description: 'Spacing around the divider'
     },
     withLabel: {

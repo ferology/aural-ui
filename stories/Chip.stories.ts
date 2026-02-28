@@ -19,10 +19,55 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 - Multiple color variants (default, primary, success, warning, error, info)
 - 3 sizes (small, medium, large)
 - Removable with close button
-- Optional icons
+- Optional Lucide icons
 - Standalone or input mode
 - Full keyboard accessibility
 - WCAG AAA compliant
+
+## Component Structure
+
+\`\`\`html
+<!-- Basic Chip -->
+<div class="aural-chip aural-chip--standalone">
+  <span class="aural-chip__text">Design</span>
+</div>
+
+<!-- Chip with Remove Button -->
+<div class="aural-chip aural-chip--standalone">
+  <span class="aural-chip__text">JavaScript</span>
+  <button class="aural-chip__remove" aria-label="Remove JavaScript"></button>
+</div>
+
+<!-- Chip with Icon -->
+<div class="aural-chip aural-chip--primary aural-chip--standalone">
+  <i data-lucide="star"></i>
+  <span class="aural-chip__text">Featured</span>
+</div>
+
+<!-- Chip Input Container -->
+<div class="aural-chips">
+  <div class="aural-chips__container">
+    <div class="aural-chip">
+      <span class="aural-chip__text">HTML</span>
+      <button class="aural-chip__remove" aria-label="Remove HTML"></button>
+    </div>
+    <input type="text" class="aural-chips__input" placeholder="Add skill...">
+  </div>
+</div>
+\`\`\`
+
+## Important Classes
+
+- \`.aural-chip\` - Base chip class
+- \`.aural-chip--standalone\` - Use when chip is NOT inside \`.aural-chips\` input container
+- \`.aural-chip--primary\`, \`.aural-chip--success\`, etc. - Color variants
+- \`.aural-chip--sm\`, \`.aural-chip--lg\` - Size variants (default is medium)
+- \`.aural-chip__text\` - Text wrapper (required)
+- \`.aural-chip__remove\` - Remove button
+- \`.aural-chips\` - Chip input container
+- \`.aural-chips__container\` - Inner container for chips and input
+- \`.aural-chips__input\` - Input field within chip container
+- \`.aural-chips-list\` - Container for displaying multiple standalone chips
         `.trim()
       }
     }
@@ -48,7 +93,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     },
     icon: {
       control: 'text',
-      description: 'Icon text or emoji'
+      description: 'Lucide icon name (e.g., "star", "tag", "x")'
     },
     standalone: {
       control: 'boolean',
@@ -82,13 +127,12 @@ function createChip(args: any): HTMLElement {
   chip.className = classes.join(' ');
   chip.setAttribute('role', 'listitem');
 
-  // Add icon if provided
+  // Add icon if provided (using Lucide)
   if (args.icon) {
-    const iconSpan = document.createElement('span');
-    iconSpan.className = 'aural-chip__icon';
-    iconSpan.setAttribute('aria-hidden', 'true');
-    iconSpan.textContent = args.icon;
-    chip.appendChild(iconSpan);
+    const iconElement = document.createElement('i');
+    iconElement.setAttribute('data-lucide', args.icon);
+    iconElement.setAttribute('aria-hidden', 'true');
+    chip.appendChild(iconElement);
   }
 
   // Add text
@@ -112,6 +156,18 @@ function createChip(args: any): HTMLElement {
   return chip;
 }
 
+/**
+ * Initialize Lucide icons after rendering
+ */
+function initializeLucideIcons(container: HTMLElement) {
+  // Wait for next tick to ensure DOM is ready
+  setTimeout(() => {
+    if (typeof (window as any).lucide !== 'undefined') {
+      (window as any).lucide.createIcons();
+    }
+  }, 0);
+}
+
 export const Default: Story = {
   render: (args) => {
     const container = document.createElement('div');
@@ -125,6 +181,7 @@ export const Default: Story = {
     chipsList.appendChild(chip);
     container.appendChild(chipsList);
 
+    initializeLucideIcons(container);
     return container;
   },
   args: {
@@ -195,11 +252,11 @@ export const Info: Story = {
 export const WithIcon: Story = {
   ...Default,
   args: {
-    label: 'JavaScript',
+    label: 'Featured',
     variant: 'primary',
     size: 'md',
     closeable: false,
-    icon: '⚡',
+    icon: 'star',
     standalone: true
   }
 };
@@ -267,6 +324,7 @@ export const AllVariants: Story = {
     });
 
     container.appendChild(chipsList);
+    initializeLucideIcons(container);
     return container;
   }
 };
@@ -299,6 +357,7 @@ export const AllSizes: Story = {
     });
 
     container.appendChild(chipsList);
+    initializeLucideIcons(container);
     return container;
   }
 };
@@ -313,10 +372,10 @@ export const WithIcons: Story = {
     chipsList.setAttribute('role', 'list');
 
     const chips = [
-      { label: 'JavaScript', icon: '⚡', variant: 'primary' },
-      { label: 'TypeScript', icon: '🔷', variant: 'info' },
-      { label: 'React', icon: '⚛️', variant: 'success' },
-      { label: 'Vue', icon: '💚', variant: 'success' }
+      { label: 'JavaScript', icon: 'zap', variant: 'primary' },
+      { label: 'TypeScript', icon: 'code', variant: 'info' },
+      { label: 'React', icon: 'atom', variant: 'success' },
+      { label: 'Vue', icon: 'triangle', variant: 'success' }
     ];
 
     chips.forEach(({ label, icon, variant }) => {
@@ -332,6 +391,7 @@ export const WithIcons: Story = {
     });
 
     container.appendChild(chipsList);
+    initializeLucideIcons(container);
     return container;
   }
 };
@@ -365,6 +425,7 @@ export const StatusTags: Story = {
     });
 
     container.appendChild(chipsList);
+    initializeLucideIcons(container);
     return container;
   }
 };
@@ -414,8 +475,14 @@ export const FilterChips: Story = {
     clearBtn.className = 'btn btn-ghost btn-sm';
     clearBtn.textContent = 'Clear All Filters';
     clearBtn.style.alignSelf = 'flex-start';
+    clearBtn.onclick = () => {
+      while (chipsList.firstChild) {
+        chipsList.removeChild(chipsList.firstChild);
+      }
+    };
     container.appendChild(clearBtn);
 
+    initializeLucideIcons(container);
     return container;
   }
 };
@@ -465,6 +532,7 @@ export const ChipInput: Story = {
         newChip.classList.remove('aural-chip--standalone');
         chipsInnerContainer.insertBefore(newChip, input);
         input.value = '';
+        initializeLucideIcons(container);
       }
     });
 
@@ -472,6 +540,52 @@ export const ChipInput: Story = {
     chipsContainer.appendChild(chipsInnerContainer);
     container.appendChild(chipsContainer);
 
+    initializeLucideIcons(container);
+    return container;
+  }
+};
+
+export const TagFilters: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+
+    const chipsList = document.createElement('div');
+    chipsList.className = 'aural-chips-list';
+    chipsList.setAttribute('role', 'list');
+
+    const tags = [
+      { label: 'All', variant: 'primary', active: true },
+      { label: 'Design', variant: 'default', active: false },
+      { label: 'Development', variant: 'default', active: false },
+      { label: 'Marketing', variant: 'default', active: false }
+    ];
+
+    tags.forEach(({ label, variant, active }) => {
+      const chip = createChip({
+        label,
+        variant,
+        size: 'md',
+        closeable: false,
+        standalone: true
+      });
+
+      // Make clickable for filtering
+      chip.style.cursor = 'pointer';
+      chip.onclick = () => {
+        // Remove primary from all chips
+        chipsList.querySelectorAll('.aural-chip').forEach(c => {
+          c.classList.remove('aural-chip--primary');
+        });
+        // Add primary to clicked chip
+        chip.classList.add('aural-chip--primary');
+      };
+
+      chipsList.appendChild(chip);
+    });
+
+    container.appendChild(chipsList);
+    initializeLucideIcons(container);
     return container;
   }
 };
@@ -493,6 +607,14 @@ export const ThemeComparison: Story = {
       });
 
       chipsList.appendChild(chip);
+
+      // Initialize Lucide for the grid
+      setTimeout(() => {
+        if (typeof (window as any).lucide !== 'undefined') {
+          (window as any).lucide.createIcons();
+        }
+      }, 100);
+
       return chipsList;
     });
   },
@@ -524,7 +646,7 @@ export const ThemeComparison: Story = {
     },
     icon: {
       control: 'text',
-      description: 'Icon text or emoji'
+      description: 'Lucide icon name (e.g., "star", "tag", "x")'
     }
   }
 };
