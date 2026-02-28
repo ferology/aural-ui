@@ -1,0 +1,542 @@
+import { Meta, Canvas, Story } from '@storybook/blocks';
+import * as PopoverStories from './Popover.stories';
+
+<Meta of={PopoverStories} />
+
+# Popover
+
+Contextual overlays triggered by user actions with rich content. Popovers display interactive content like forms, menus, and detailed information.
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```html
+<!-- HTML Structure -->
+<div class="popover-wrapper">
+  <button class="btn btn-primary" id="popover-trigger">Show Popover</button>
+  <div class="popover popover-bottom" id="my-popover" role="dialog" aria-labelledby="popover-title" hidden>
+    <div class="popover-header">
+      <h3 id="popover-title" class="popover-title">Popover Title</h3>
+      <button class="popover-close" aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="popover-body">
+      <p>This is the popover content.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Initialize popovers
+window.Aural?.initPopovers();
+
+// Or manually control
+const trigger = document.getElementById('popover-trigger');
+const popover = document.getElementById('my-popover');
+
+trigger.addEventListener('click', function(e) {
+  e.stopPropagation();
+  const isHidden = popover.hasAttribute('hidden');
+
+  if (isHidden) {
+    popover.removeAttribute('hidden');
+  } else {
+    popover.setAttribute('hidden', '');
+  }
+});
+
+// Close on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.popover-wrapper')) {
+    document.querySelectorAll('.popover').forEach(p => {
+      p.setAttribute('hidden', '');
+    });
+  }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.popover').forEach(p => {
+      p.setAttribute('hidden', '');
+    });
+  }
+});
+</script>
+```
+
+### React
+
+```jsx
+import { useState, useRef, useEffect } from 'react';
+
+const Popover = ({ trigger, title, content, position = 'bottom', showClose = true }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const popoverRef = useRef(null);
+  const triggerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(e.target) &&
+        !triggerRef.current.contains(e.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+
+    if (isOpen) {
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
+
+  return (
+    <div className="popover-wrapper">
+      <div ref={triggerRef} onClick={() => setIsOpen(!isOpen)}>
+        {trigger}
+      </div>
+
+      {isOpen && (
+        <div
+          ref={popoverRef}
+          className={`popover popover-${position}`}
+          role="dialog"
+          aria-labelledby="popover-title"
+        >
+          {title && (
+            <div className="popover-header">
+              <h3 id="popover-title" className="popover-title">{title}</h3>
+              {showClose && (
+                <button
+                  className="popover-close"
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Close"
+                >
+                  <i data-lucide="x"></i>
+                </button>
+              )}
+            </div>
+          )}
+          <div className="popover-body">
+            {content}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Usage
+function App() {
+  return (
+    <Popover
+      trigger={<button className="btn btn-primary">Show Popover</button>}
+      title="Popover Title"
+      content={<p>This is the popover content.</p>}
+      position="bottom"
+    />
+  );
+}
+
+// Menu Pattern Example
+function UserMenu() {
+  return (
+    <Popover
+      trigger={<button className="btn btn-primary">User Actions</button>}
+      title="User Settings"
+      content={
+        <>
+          <p style={{ marginBottom: 'var(--space-3)', color: 'var(--color-text-secondary)' }}>
+            Manage your account
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <button className="btn btn-ghost btn-sm" style={{ justifyContent: 'flex-start' }}>
+              <i data-lucide="user"></i>
+              Profile
+            </button>
+            <button className="btn btn-ghost btn-sm" style={{ justifyContent: 'flex-start' }}>
+              <i data-lucide="settings"></i>
+              Settings
+            </button>
+            <button className="btn btn-ghost btn-sm" style={{ justifyContent: 'flex-start' }}>
+              <i data-lucide="log-out"></i>
+              Logout
+            </button>
+          </div>
+        </>
+      }
+    />
+  );
+}
+
+// Form Pattern Example
+function CommentPopover() {
+  return (
+    <Popover
+      trigger={<button className="btn btn-primary">Add Comment</button>}
+      title="Add Comment"
+      content={
+        <form style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <textarea
+            className="input"
+            rows={3}
+            placeholder="Write your comment..."
+            aria-label="Your comment"
+          />
+          <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end' }}>
+            <button type="button" className="btn btn-ghost btn-sm">Cancel</button>
+            <button type="submit" className="btn btn-primary btn-sm">Post</button>
+          </div>
+        </form>
+      }
+    />
+  );
+}
+```
+
+### Vue
+
+```vue
+<template>
+  <div class="popover-wrapper">
+    <div @click="togglePopover" ref="trigger">
+      <slot name="trigger">
+        <button class="btn btn-primary">Show Popover</button>
+      </slot>
+    </div>
+
+    <div
+      v-if="isOpen"
+      ref="popover"
+      :class="['popover', `popover-${position}`]"
+      role="dialog"
+      aria-labelledby="popover-title"
+    >
+      <div v-if="title" class="popover-header">
+        <h3 id="popover-title" class="popover-title">{{ title }}</h3>
+        <button
+          v-if="showClose"
+          class="popover-close"
+          @click="closePopover"
+          aria-label="Close"
+        >
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="popover-body">
+        <slot>
+          <p>This is the popover content.</p>
+        </slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    title: { type: String, default: '' },
+    position: { type: String, default: 'bottom' },
+    showClose: { type: Boolean, default: true }
+  },
+  data() {
+    return {
+      isOpen: false
+    };
+  },
+  methods: {
+    togglePopover() {
+      this.isOpen = !this.isOpen;
+    },
+    closePopover() {
+      this.isOpen = false;
+    },
+    handleClickOutside(e) {
+      if (
+        this.$refs.popover &&
+        !this.$refs.popover.contains(e.target) &&
+        !this.$refs.trigger.contains(e.target)
+      ) {
+        this.closePopover();
+      }
+    },
+    handleEscape(e) {
+      if (e.key === 'Escape') this.closePopover();
+    }
+  },
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);
+    document.addEventListener('keydown', this.handleEscape);
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener('keydown', this.handleEscape);
+  }
+};
+</script>
+
+<!-- Usage Examples -->
+
+<!-- Basic Popover -->
+<Popover title="Popover Title">
+  <p>This is the popover content.</p>
+</Popover>
+
+<!-- Menu Pattern -->
+<Popover title="User Settings">
+  <template #trigger>
+    <button class="btn btn-primary">User Actions</button>
+  </template>
+  <p style="margin-bottom: var(--space-3); color: var(--color-text-secondary);">
+    Manage your account
+  </p>
+  <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+    <button class="btn btn-ghost btn-sm" style="justify-content: flex-start;">
+      <i data-lucide="user"></i>
+      Profile
+    </button>
+    <button class="btn btn-ghost btn-sm" style="justify-content: flex-start;">
+      <i data-lucide="settings"></i>
+      Settings
+    </button>
+  </div>
+</Popover>
+
+<!-- Form Pattern -->
+<Popover title="Add Comment" position="bottom">
+  <template #trigger>
+    <button class="btn btn-primary">Add Comment</button>
+  </template>
+  <form style="display: flex; flex-direction: column; gap: var(--space-3);">
+    <textarea class="input" rows="3" placeholder="Write your comment..."></textarea>
+    <div style="display: flex; gap: var(--space-2); justify-content: flex-end;">
+      <button type="button" class="btn btn-ghost btn-sm">Cancel</button>
+      <button type="submit" class="btn btn-primary btn-sm">Post</button>
+    </div>
+  </form>
+</Popover>
+
+<!-- Different Positions -->
+<Popover position="top" title="Top Popover">
+  Content appears above
+</Popover>
+
+<Popover position="right" title="Right Popover">
+  Content appears on the right
+</Popover>
+
+<Popover position="left" title="Left Popover">
+  Content appears on the left
+</Popover>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount, onDestroy } from 'svelte';
+
+  export let title = '';
+  export let position = 'bottom';
+  export let showClose = true;
+
+  let isOpen = false;
+  let popoverRef;
+  let triggerRef;
+
+  function togglePopover() {
+    isOpen = !isOpen;
+  }
+
+  function closePopover() {
+    isOpen = false;
+  }
+
+  function handleClickOutside(e) {
+    if (
+      popoverRef &&
+      !popoverRef.contains(e.target) &&
+      !triggerRef.contains(e.target)
+    ) {
+      closePopover();
+    }
+  }
+
+  function handleEscape(e) {
+    if (e.key === 'Escape') closePopover();
+  }
+
+  onMount(() => {
+    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+  });
+
+  onDestroy(() => {
+    document.removeEventListener('click', handleClickOutside);
+    document.removeEventListener('keydown', handleEscape);
+  });
+</script>
+
+<div class="popover-wrapper">
+  <div bind:this={triggerRef} on:click={togglePopover}>
+    <slot name="trigger">
+      <button class="btn btn-primary">Show Popover</button>
+    </slot>
+  </div>
+
+  {#if isOpen}
+    <div
+      bind:this={popoverRef}
+      class="popover popover-{position}"
+      role="dialog"
+      aria-labelledby="popover-title"
+    >
+      {#if title}
+        <div class="popover-header">
+          <h3 id="popover-title" class="popover-title">{title}</h3>
+          {#if showClose}
+            <button
+              class="popover-close"
+              on:click={closePopover}
+              aria-label="Close"
+            >
+              <i data-lucide="x"></i>
+            </button>
+          {/if}
+        </div>
+      {/if}
+      <div class="popover-body">
+        <slot>
+          <p>This is the popover content.</p>
+        </slot>
+      </div>
+    </div>
+  {/if}
+</div>
+
+<!-- Usage Examples -->
+
+<!-- Basic Popover -->
+<Popover title="Popover Title">
+  <p>This is the popover content.</p>
+</Popover>
+
+<!-- Menu Pattern -->
+<Popover title="User Settings">
+  <svelte:fragment slot="trigger">
+    <button class="btn btn-primary">User Actions</button>
+  </svelte:fragment>
+
+  <p style="margin-bottom: var(--space-3); color: var(--color-text-secondary);">
+    Manage your account
+  </p>
+  <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+    <button class="btn btn-ghost btn-sm" style="justify-content: flex-start;">
+      <i data-lucide="user"></i>
+      Profile
+    </button>
+    <button class="btn btn-ghost btn-sm" style="justify-content: flex-start;">
+      <i data-lucide="settings"></i>
+      Settings
+    </button>
+  </div>
+</Popover>
+
+<!-- Form Pattern -->
+<Popover title="Add Comment">
+  <svelte:fragment slot="trigger">
+    <button class="btn btn-primary">Add Comment</button>
+  </svelte:fragment>
+
+  <form style="display: flex; flex-direction: column; gap: var(--space-3);">
+    <textarea class="input" rows="3" placeholder="Write your comment..."></textarea>
+    <div style="display: flex; gap: var(--space-2); justify-content: flex-end;">
+      <button type="button" class="btn btn-ghost btn-sm">Cancel</button>
+      <button type="submit" class="btn btn-primary btn-sm">Post</button>
+    </div>
+  </form>
+</Popover>
+
+<!-- Different Positions -->
+<Popover position="top" title="Top Popover">
+  Content appears above
+</Popover>
+
+<Popover position="right" title="Right Popover">
+  Content appears on the right
+</Popover>
+```
+
+## Best Practices
+
+### Popover vs Tooltip
+
+- **Popovers** are for rich content (forms, menus, detailed info)
+- **Tooltips** are for simple text hints
+- Popovers can be triggered by click
+- Tooltips are typically triggered by hover
+
+### When to Use
+
+- Quick forms or input fields
+- Menu actions related to a trigger
+- Detailed information that doesn't need a modal
+- Contextual help or explanations
+
+### Accessibility
+
+- Use `role="dialog"` for the popover
+- Link title with `aria-labelledby`
+- Include a visible close button
+- Support keyboard navigation (Escape to close)
+- Ensure focus management when popover opens/closes
+
+### Position Guidelines
+
+- **Top**: Use when trigger is near bottom of viewport
+- **Bottom**: Default position, works well in most cases
+- **Left**: Use when trigger is near right edge
+- **Right**: Use when trigger is near left edge
+
+### Content Guidelines
+
+- Keep popover content focused and concise
+- Use clear, actionable headings
+- Don't nest popovers inside popovers
+- Provide clear close affordances
+- Consider mobile viewport constraints
+
+## Common Patterns
+
+### Menu Pattern
+Use for action menus, user settings, or contextual options.
+
+### Form Pattern
+Use for quick input like comments, notes, or simple forms.
+
+### Info Pattern
+Use for help text, feature explanations, or additional context.
+
+## Initialization
+
+```javascript
+// Initialize all popovers on the page
+window.Aural?.initPopovers();
+
+// Or initialize specific popovers
+const popover = document.getElementById('my-popover');
+window.Aural?.initPopover(popover);
+```

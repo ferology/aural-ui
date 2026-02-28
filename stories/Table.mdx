@@ -1,0 +1,713 @@
+import { Meta, Canvas, Story } from '@storybook/blocks';
+import * as TableStories from './Table.stories';
+
+<Meta of={TableStories} />
+
+# Table
+
+Organized data display in rows and columns with support for sorting, striping, and expandable rows.
+
+## Features
+
+- **Semantic HTML**: Proper table structure with `<table>`, `<thead>`, `<tbody>`, `<th>`, and `<td>` elements
+- **Striped Rows**: Better readability with alternating row colors
+- **Hoverable Rows**: Visual feedback for interactive tables
+- **Compact Variant**: Dense layout for space-constrained environments
+- **Expandable Rows**: Show additional details without navigation
+- **Row Selection**: Checkboxes for bulk actions
+- **Sortable Headers**: Click-to-sort functionality
+- **Responsive Wrapper**: Horizontal scrolling for wide tables
+- **Loading States**: Skeleton UI for async data loading
+
+## CSS Classes
+
+- `.table` - Base table class
+- `.table-wrapper` - Responsive wrapper with horizontal scroll
+- `.table-striped` - Alternating row background colors
+- `.table-hover` - Hover effect on rows
+- `.table-compact` - Reduced padding for dense layouts
+- `.expand-cell` - Cell containing expand/collapse icon
+- `.table-expand-icon` - Icon for expandable rows
+- `.expanded-content` - Hidden row containing additional details
+- `.table-expanded-content` - Styled container for expanded content
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```html
+<div class="table-wrapper">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John Doe</td>
+        <td>john@example.com</td>
+        <td><span class="badge badge-success">Active</span></td>
+      </tr>
+      <tr>
+        <td>Jane Smith</td>
+        <td>jane@example.com</td>
+        <td><span class="badge badge-success">Active</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+### React
+
+```jsx
+import React from 'react';
+
+interface Column {
+  key: string;
+  label: string;
+}
+
+interface TableProps {
+  data: Record<string, any>[];
+  columns: Column[];
+  striped?: boolean;
+  hover?: boolean;
+  compact?: boolean;
+}
+
+const Table: React.FC<TableProps> = ({
+  data,
+  columns,
+  striped = false,
+  hover = false,
+  compact = false
+}) => {
+  const tableClasses = [
+    'table',
+    striped && 'table-striped',
+    hover && 'table-hover',
+    compact && 'table-compact'
+  ].filter(Boolean).join(' ');
+
+  return (
+    <div className="table-wrapper">
+      <table className={tableClasses}>
+        <thead>
+          <tr>
+            {columns.map(col => (
+              <th key={col.key} scope="col">
+                {col.label}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, idx) => (
+            <tr key={idx}>
+              {columns.map(col => (
+                <td key={col.key}>{row[col.key]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+// Usage
+const users = [
+  { name: 'John Doe', email: 'john@example.com', status: 'Active' },
+  { name: 'Jane Smith', email: 'jane@example.com', status: 'Active' }
+];
+
+const columns = [
+  { key: 'name', label: 'Name' },
+  { key: 'email', label: 'Email' },
+  { key: 'status', label: 'Status' }
+];
+
+<Table data={users} columns={columns} striped hover />
+```
+
+### React with Sortable Headers
+
+```jsx
+import React, { useState } from 'react';
+
+interface SortConfig {
+  key: string;
+  direction: 'asc' | 'desc';
+}
+
+const SortableTable: React.FC<TableProps> = ({ data, columns }) => {
+  const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
+
+  const handleSort = (key: string) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig?.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = React.useMemo(() => {
+    if (!sortConfig) return data;
+
+    return [...data].sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'asc' ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+  }, [data, sortConfig]);
+
+  return (
+    <div className="table-wrapper">
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            {columns.map(col => (
+              <th
+                key={col.key}
+                scope="col"
+                role="button"
+                tabIndex={0}
+                aria-sort={
+                  sortConfig?.key === col.key
+                    ? sortConfig.direction === 'asc'
+                      ? 'ascending'
+                      : 'descending'
+                    : 'none'
+                }
+                onClick={() => handleSort(col.key)}
+                style={{ cursor: 'pointer' }}
+              >
+                {col.label}
+                {sortConfig?.key === col.key && (
+                  <span aria-hidden="true">
+                    {sortConfig.direction === 'asc' ? ' ↑' : ' ↓'}
+                  </span>
+                )}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {sortedData.map((row, idx) => (
+            <tr key={idx}>
+              {columns.map(col => (
+                <td key={col.key}>{row[col.key]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+```
+
+### React with Expandable Rows
+
+```jsx
+import React, { useState } from 'react';
+
+interface ExpandableRowProps {
+  row: any;
+  columns: Column[];
+  expandedContent: React.ReactNode;
+}
+
+const ExpandableRow: React.FC<ExpandableRowProps> = ({
+  row,
+  columns,
+  expandedContent
+}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <>
+      <tr
+        className="expandable"
+        role="button"
+        aria-expanded={isExpanded}
+        onClick={() => setIsExpanded(!isExpanded)}
+        style={{ cursor: 'pointer' }}
+      >
+        <td className="expand-cell">
+          <span className="table-expand-icon" aria-hidden="true">
+            {isExpanded ? '⌄' : '›'}
+          </span>
+        </td>
+        {columns.map(col => (
+          <td key={col.key}>{row[col.key]}</td>
+        ))}
+      </tr>
+      {isExpanded && (
+        <tr className="expanded-content">
+          <td colSpan={columns.length + 1}>
+            <div className="table-expanded-content">
+              {expandedContent}
+            </div>
+          </td>
+        </tr>
+      )}
+    </>
+  );
+};
+
+const ExpandableTable: React.FC = ({ data, columns }) => {
+  return (
+    <div className="table-wrapper">
+      <table className="table">
+        <thead>
+          <tr>
+            <th className="expand-cell" scope="col"></th>
+            {columns.map(col => (
+              <th key={col.key} scope="col">{col.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, idx) => (
+            <ExpandableRow
+              key={idx}
+              row={row}
+              columns={columns}
+              expandedContent={
+                <div>
+                  <h4>Additional Details</h4>
+                  <p><strong>Department:</strong> {row.department}</p>
+                  <p><strong>Role:</strong> {row.role}</p>
+                </div>
+              }
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+```
+
+### Vue 3 (Composition API)
+
+```vue
+<template>
+  <div class="table-wrapper">
+    <table :class="tableClasses">
+      <thead>
+        <tr>
+          <th v-for="col in columns" :key="col.key" scope="col">
+            {{ col.label }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row, idx) in data" :key="idx">
+          <td v-for="col in columns" :key="col.key">
+            {{ row[col.key] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+
+interface Column {
+  key: string;
+  label: string;
+}
+
+interface Props {
+  data: Record<string, any>[];
+  columns: Column[];
+  striped?: boolean;
+  hover?: boolean;
+  compact?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  striped: false,
+  hover: false,
+  compact: false
+});
+
+const tableClasses = computed(() => {
+  return [
+    'table',
+    props.striped && 'table-striped',
+    props.hover && 'table-hover',
+    props.compact && 'table-compact'
+  ].filter(Boolean).join(' ');
+});
+</script>
+```
+
+### Vue 3 with Sortable Headers
+
+```vue
+<template>
+  <div class="table-wrapper">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th
+            v-for="col in columns"
+            :key="col.key"
+            scope="col"
+            role="button"
+            tabindex="0"
+            :aria-sort="getSortAria(col.key)"
+            @click="handleSort(col.key)"
+            style="cursor: pointer"
+          >
+            {{ col.label }}
+            <span v-if="sortConfig?.key === col.key" aria-hidden="true">
+              {{ sortConfig.direction === 'asc' ? ' ↑' : ' ↓' }}
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row, idx) in sortedData" :key="idx">
+          <td v-for="col in columns" :key="col.key">
+            {{ row[col.key] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+
+interface SortConfig {
+  key: string;
+  direction: 'asc' | 'desc';
+}
+
+const props = defineProps<{
+  data: Record<string, any>[];
+  columns: Column[];
+}>();
+
+const sortConfig = ref<SortConfig | null>(null);
+
+const handleSort = (key: string) => {
+  let direction: 'asc' | 'desc' = 'asc';
+  if (sortConfig.value?.key === key && sortConfig.value.direction === 'asc') {
+    direction = 'desc';
+  }
+  sortConfig.value = { key, direction };
+};
+
+const getSortAria = (key: string) => {
+  if (sortConfig.value?.key !== key) return 'none';
+  return sortConfig.value.direction === 'asc' ? 'ascending' : 'descending';
+};
+
+const sortedData = computed(() => {
+  if (!sortConfig.value) return props.data;
+
+  return [...props.data].sort((a, b) => {
+    const aVal = a[sortConfig.value!.key];
+    const bVal = b[sortConfig.value!.key];
+
+    if (aVal < bVal) return sortConfig.value!.direction === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sortConfig.value!.direction === 'asc' ? 1 : -1;
+    return 0;
+  });
+});
+</script>
+```
+
+### Svelte
+
+```svelte
+<script lang="ts">
+  export let data: Record<string, any>[] = [];
+  export let columns: { key: string; label: string }[] = [];
+  export let striped: boolean = false;
+  export let hover: boolean = false;
+  export let compact: boolean = false;
+
+  $: tableClasses = [
+    'table',
+    striped && 'table-striped',
+    hover && 'table-hover',
+    compact && 'table-compact'
+  ].filter(Boolean).join(' ');
+</script>
+
+<div class="table-wrapper">
+  <table class={tableClasses}>
+    <thead>
+      <tr>
+        {#each columns as col}
+          <th scope="col">{col.label}</th>
+        {/each}
+      </tr>
+    </thead>
+    <tbody>
+      {#each data as row}
+        <tr>
+          {#each columns as col}
+            <td>{row[col.key]}</td>
+          {/each}
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+```
+
+### Svelte with Sortable Headers
+
+```svelte
+<script lang="ts">
+  export let data: Record<string, any>[] = [];
+  export let columns: { key: string; label: string }[] = [];
+
+  interface SortConfig {
+    key: string;
+    direction: 'asc' | 'desc';
+  }
+
+  let sortConfig: SortConfig | null = null;
+
+  function handleSort(key: string) {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig?.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    sortConfig = { key, direction };
+  }
+
+  function getSortAria(key: string) {
+    if (sortConfig?.key !== key) return 'none';
+    return sortConfig.direction === 'asc' ? 'ascending' : 'descending';
+  }
+
+  $: sortedData = sortConfig
+    ? [...data].sort((a, b) => {
+        const aVal = a[sortConfig.key];
+        const bVal = b[sortConfig.key];
+
+        if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
+        if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
+        return 0;
+      })
+    : data;
+</script>
+
+<div class="table-wrapper">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        {#each columns as col}
+          <th
+            scope="col"
+            role="button"
+            tabindex="0"
+            aria-sort={getSortAria(col.key)}
+            on:click={() => handleSort(col.key)}
+            on:keydown={(e) => e.key === 'Enter' && handleSort(col.key)}
+            style="cursor: pointer"
+          >
+            {col.label}
+            {#if sortConfig?.key === col.key}
+              <span aria-hidden="true">
+                {sortConfig.direction === 'asc' ? ' ↑' : ' ↓'}
+              </span>
+            {/if}
+          </th>
+        {/each}
+      </tr>
+    </thead>
+    <tbody>
+      {#each sortedData as row}
+        <tr>
+          {#each columns as col}
+            <td>{row[col.key]}</td>
+          {/each}
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+```
+
+### Svelte with Expandable Rows
+
+```svelte
+<script lang="ts">
+  export let data: any[] = [];
+  export let columns: { key: string; label: string }[] = [];
+
+  let expandedRows = new Set<number>();
+
+  function toggleRow(idx: number) {
+    if (expandedRows.has(idx)) {
+      expandedRows.delete(idx);
+    } else {
+      expandedRows.add(idx);
+    }
+    expandedRows = expandedRows; // Trigger reactivity
+  }
+</script>
+
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="expand-cell" scope="col"></th>
+        {#each columns as col}
+          <th scope="col">{col.label}</th>
+        {/each}
+      </tr>
+    </thead>
+    <tbody>
+      {#each data as row, idx}
+        <tr
+          class="expandable"
+          role="button"
+          aria-expanded={expandedRows.has(idx)}
+          on:click={() => toggleRow(idx)}
+          on:keydown={(e) => e.key === 'Enter' && toggleRow(idx)}
+          style="cursor: pointer"
+        >
+          <td class="expand-cell">
+            <span class="table-expand-icon" aria-hidden="true">
+              {expandedRows.has(idx) ? '⌄' : '›'}
+            </span>
+          </td>
+          {#each columns as col}
+            <td>{row[col.key]}</td>
+          {/each}
+        </tr>
+        {#if expandedRows.has(idx)}
+          <tr class="expanded-content">
+            <td colspan={columns.length + 1}>
+              <div class="table-expanded-content">
+                <h4>Additional Details</h4>
+                <p><strong>Department:</strong> {row.department}</p>
+                <p><strong>Role:</strong> {row.role}</p>
+              </div>
+            </td>
+          </tr>
+        {/if}
+      {/each}
+    </tbody>
+  </table>
+</div>
+```
+
+## Accessibility Guidelines
+
+- Always use proper semantic HTML: `<table>`, `<thead>`, `<tbody>`, `<th>`, `<td>`
+- Use `<th>` elements for header cells with `scope="col"` or `scope="row"` attributes
+- Provide a `<caption>` or nearby heading to describe the table's purpose
+- For complex tables, use `headers` and `id` attributes to associate cells
+- Ensure action buttons have descriptive `aria-label` attributes
+- Mark expandable rows with `aria-expanded` to indicate state
+- Use `aria-sort` on sortable headers to indicate sort direction
+- Maintain sufficient color contrast for text and interactive elements
+- Use `aria-busy` and `aria-live` for loading states and dynamic updates
+
+## Best Practices
+
+### Layout & Structure
+
+- Use `.table-wrapper` to enable horizontal scrolling on smaller screens
+- Keep column count reasonable (5-7 columns ideal, avoid exceeding 10)
+- Left-align text columns, right-align numerical data
+- Use consistent column widths for similar data types
+- Place primary actions in the rightmost column
+
+### Visual Design
+
+- Use `table-striped` for better row distinction in large tables
+- Add `table-hover` to indicate row interactivity
+- Use `table-compact` when space is limited
+- Keep cell padding consistent throughout the table
+- Use badges or status indicators for categorical data
+
+### Content Guidelines
+
+- Use clear, concise column headers
+- Format data consistently within columns (dates, currency, numbers)
+- Provide empty state messaging for tables with no data
+- Consider pagination for tables with many rows (>50)
+- Show loading states when fetching data
+
+### Expandable Rows
+
+- Use expandable rows to show additional details without navigation
+- Include chevron icon to indicate expandability
+- Use `.expand-cell` class for proper spacing of expand icons
+- Wrap expanded content in `.table-expanded-content` for consistent styling
+- Toggle `.expanded` and `.hidden` classes with JavaScript
+- Support keyboard navigation (Enter/Space to toggle)
+
+## Examples
+
+### Basic Table
+
+<Canvas of={TableStories.Basic} />
+
+### Striped Rows
+
+<Canvas of={TableStories.Striped} />
+
+### Striped and Hoverable
+
+<Canvas of={TableStories.StripedAndHover} />
+
+### Compact Table
+
+<Canvas of={TableStories.Compact} />
+
+### With Row Selection
+
+<Canvas of={TableStories.WithSelection} />
+
+### With Sorting
+
+<Canvas of={TableStories.WithSorting} />
+
+### With Pagination
+
+<Canvas of={TableStories.WithPagination} />
+
+### Responsive Scrollable
+
+<Canvas of={TableStories.ResponsiveScrollable} />
+
+### Loading Skeleton
+
+<Canvas of={TableStories.LoadingSkeleton} />
+
+### Expandable Rows
+
+<Canvas of={TableStories.ExpandableRows} />
+
+### With Actions
+
+<Canvas of={TableStories.WithActions} />
+
+### Theme Comparison
+
+<Canvas of={TableStories.ThemeComparison} />

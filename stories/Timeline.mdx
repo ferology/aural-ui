@@ -1,0 +1,632 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as TimelineStories from './Timeline.stories';
+
+<Meta of={TimelineStories} />
+
+# Timeline
+
+Display chronological sequences of events with clear visual progression and status indicators.
+
+## Overview
+
+The Timeline component helps users visualize the progression of events, processes, or activities over time. It supports multiple layout variants (modern/vertical, horizontal, and compact) to suit different use cases from order tracking to activity feeds.
+
+## When to Use
+
+- **Order Tracking**: Show shipping and delivery status of packages
+- **Multi-Step Processes**: Guide users through onboarding or setup flows
+- **Activity Feeds**: Display chronological history of events or actions
+- **Project Milestones**: Track progress through project phases
+- **User Journey**: Visualize user progression through an experience
+- **Historical Records**: Present chronological data like transaction history
+
+## Basic Usage
+
+### Modern Timeline (Vertical)
+
+The modern timeline is best for detailed chronological events with emphasis on content. It features a card-based design with time labels.
+
+<Canvas of={TimelineStories.VerticalTimeline} />
+
+### Horizontal Timeline
+
+Ideal for multi-step processes and progress indicators. Works great for onboarding flows and sequential tasks.
+
+<Canvas of={TimelineStories.HorizontalTimeline} />
+
+### Compact Timeline
+
+Perfect for activity feeds and space-constrained interfaces. Shows a streamlined view of recent events.
+
+<Canvas of={TimelineStories.CompactTimeline} />
+
+## Status Variants
+
+Timeline items support different status states to communicate event types:
+
+- **Completed** (default with `--completed`): Events that have successfully finished (green border)
+- **Active** (`--active`): Current step or ongoing event (primary color border)
+- **Warning** (`--warning`): Events needing attention (yellow/orange border)
+- **Error** (`--error`): Failed or blocked events (red border)
+- **Default**: Future or pending events (neutral border)
+
+<Canvas of={TimelineStories.StatusVariants} />
+
+## Patterns
+
+### Activity Feed
+
+<Canvas of={TimelineStories.ActivityFeed} />
+
+### Order Tracking
+
+<Canvas of={TimelineStories.OrderTracking} />
+
+### Project Milestones
+
+<Canvas of={TimelineStories.ProjectMilestones} />
+
+### With Icons
+
+<Canvas of={TimelineStories.WithIcons} />
+
+## Framework Examples
+
+### HTML
+
+```html
+<!-- Modern Timeline (Vertical) -->
+<ol class="aural-timeline timeline-modern" role="list" aria-label="Project timeline">
+  <li class="aural-timeline__item aural-timeline__item--completed" role="listitem">
+    <time class="aural-timeline__time" datetime="2023-12-15T14:30">Dec 15, 2023<br>2:30 PM</time>
+    <div class="aural-timeline__content">
+      <h3 class="aural-timeline__title">Project Initialized</h3>
+      <p class="aural-timeline__description">Created repository and set up initial project structure</p>
+      <span class="sr-only">Status: Completed</span>
+    </div>
+  </li>
+  <li class="aural-timeline__item aural-timeline__item--active" role="listitem">
+    <div class="aural-timeline__time">In Progress</div>
+    <div class="aural-timeline__content">
+      <h3 class="aural-timeline__title">Documentation</h3>
+      <p class="aural-timeline__description">Writing guides and examples</p>
+      <span class="sr-only">Status: In Progress</span>
+    </div>
+  </li>
+</ol>
+
+<!-- Horizontal Timeline -->
+<div class="aural-timeline timeline-horizontal">
+  <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+    <div class="aural-timeline__marker">
+      <i data-lucide="check-circle" aria-hidden="true"></i>
+    </div>
+    <div class="aural-timeline__connector"></div>
+    <div class="aural-timeline__content">
+      <div class="aural-timeline__time">Step 1</div>
+      <div class="aural-timeline__title">Account Created</div>
+      <div class="aural-timeline__description">Signed up successfully</div>
+    </div>
+  </div>
+  <!-- More items... -->
+</div>
+
+<!-- Compact Timeline -->
+<div class="aural-timeline timeline-compact">
+  <div class="aural-timeline__item aural-timeline__item--completed aural-timeline__item--success">
+    <div class="aural-timeline__marker"></div>
+    <div class="aural-timeline__connector"></div>
+    <div class="aural-timeline__content">
+      <div class="aural-timeline__time">2 minutes ago</div>
+      <div class="aural-timeline__title">Sarah Johnson joined</div>
+      <div class="aural-timeline__description">New team member</div>
+    </div>
+  </div>
+  <!-- More items... -->
+</div>
+```
+
+### React
+
+```jsx
+// TimelineItem.jsx
+const TimelineItem = ({ time, title, description, status, datetime }) => (
+  <li className={`aural-timeline__item ${status ? `aural-timeline__item--${status}` : ''}`} role="listitem">
+    {datetime ? (
+      <time className="aural-timeline__time" dateTime={datetime}>
+        {time}
+      </time>
+    ) : (
+      <div className="aural-timeline__time">{time}</div>
+    )}
+    <div className="aural-timeline__content">
+      <h3 className="aural-timeline__title">{title}</h3>
+      {description && <p className="aural-timeline__description">{description}</p>}
+      {status && <span className="sr-only">Status: {status}</span>}
+    </div>
+  </li>
+);
+
+// ModernTimeline.jsx
+const ModernTimeline = ({ items, label }) => (
+  <ol className="aural-timeline timeline-modern" role="list" aria-label={label}>
+    {items.map((item, index) => (
+      <TimelineItem key={index} {...item} />
+    ))}
+  </ol>
+);
+
+// Usage
+<ModernTimeline
+  label="Order tracking"
+  items={[
+    {
+      time: 'Jan 15\n10:30 AM',
+      datetime: '2024-01-15T10:30',
+      title: 'Order Placed',
+      description: 'Order #12345 placed successfully',
+      status: 'completed'
+    },
+    {
+      time: 'Today',
+      title: 'Out for Delivery',
+      description: 'Arriving by 5:00 PM',
+      status: 'active'
+    }
+  ]}
+/>
+
+// HorizontalTimelineItem.jsx
+const HorizontalTimelineItem = ({ step, title, description, status, icon }) => (
+  <div className={`aural-timeline__item ${status ? `aural-timeline__item--${status}` : ''}`}>
+    <div className="aural-timeline__marker">
+      {icon && <i data-lucide={icon} aria-hidden="true"></i>}
+    </div>
+    <div className="aural-timeline__connector"></div>
+    <div className="aural-timeline__content">
+      <div className="aural-timeline__time">{step}</div>
+      <div className="aural-timeline__title">{title}</div>
+      {description && <div className="aural-timeline__description">{description}</div>}
+    </div>
+  </div>
+);
+
+// HorizontalTimeline.jsx
+const HorizontalTimeline = ({ items }) => {
+  useEffect(() => {
+    // Initialize Lucide icons
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }, [items]);
+
+  return (
+    <div className="aural-timeline timeline-horizontal">
+      {items.map((item, index) => (
+        <HorizontalTimelineItem key={index} {...item} />
+      ))}
+    </div>
+  );
+};
+
+// Usage
+<HorizontalTimeline
+  items={[
+    { step: 'Step 1', title: 'Account', icon: 'user-plus', status: 'completed' },
+    { step: 'Step 2', title: 'Verify', icon: 'mail', status: 'active' },
+    { step: 'Step 3', title: 'Complete', icon: 'check' }
+  ]}
+/>
+
+// CompactTimelineItem.jsx
+const CompactTimelineItem = ({ time, title, description, status }) => (
+  <div className={`aural-timeline__item ${status ? `aural-timeline__item--${status}` : ''}`}>
+    <div className="aural-timeline__marker"></div>
+    <div className="aural-timeline__connector"></div>
+    <div className="aural-timeline__content">
+      <div className="aural-timeline__time">{time}</div>
+      <div className="aural-timeline__title">{title}</div>
+      {description && <div className="aural-timeline__description">{description}</div>}
+    </div>
+  </div>
+);
+
+// CompactTimeline.jsx
+const CompactTimeline = ({ items }) => (
+  <div className="aural-timeline timeline-compact">
+    {items.map((item, index) => (
+      <CompactTimelineItem key={index} {...item} />
+    ))}
+  </div>
+);
+
+// Usage
+<CompactTimeline
+  items={[
+    { time: '2 min ago', title: 'User logged in', status: 'completed' },
+    { time: '1 hour ago', title: 'Settings updated', status: 'warning' }
+  ]}
+/>
+```
+
+### Vue
+
+```vue
+<!-- TimelineItem.vue -->
+<template>
+  <li
+    :class="itemClass"
+    role="listitem"
+  >
+    <time
+      v-if="datetime"
+      class="aural-timeline__time"
+      :datetime="datetime"
+    >
+      {{ time }}
+    </time>
+    <div v-else class="aural-timeline__time">{{ time }}</div>
+
+    <div class="aural-timeline__content">
+      <h3 class="aural-timeline__title">{{ title }}</h3>
+      <p v-if="description" class="aural-timeline__description">{{ description }}</p>
+      <span v-if="status" class="sr-only">Status: {{ status }}</span>
+    </div>
+  </li>
+</template>
+
+<script>
+export default {
+  name: 'TimelineItem',
+  props: {
+    time: { type: String, required: true },
+    datetime: { type: String, default: null },
+    title: { type: String, required: true },
+    description: { type: String, default: null },
+    status: { type: String, default: null }
+  },
+  computed: {
+    itemClass() {
+      const classes = ['aural-timeline__item'];
+      if (this.status) {
+        classes.push(`aural-timeline__item--${this.status}`);
+      }
+      return classes.join(' ');
+    }
+  }
+};
+</script>
+
+<!-- ModernTimeline.vue -->
+<template>
+  <ol class="aural-timeline timeline-modern" role="list" :aria-label="label">
+    <TimelineItem
+      v-for="(item, index) in items"
+      :key="index"
+      v-bind="item"
+    />
+  </ol>
+</template>
+
+<script>
+import TimelineItem from './TimelineItem.vue';
+
+export default {
+  name: 'ModernTimeline',
+  components: { TimelineItem },
+  props: {
+    items: { type: Array, required: true },
+    label: { type: String, required: true }
+  }
+};
+</script>
+
+<!-- Usage -->
+<ModernTimeline
+  label="Order tracking"
+  :items="[
+    {
+      time: 'Jan 15\n10:30 AM',
+      datetime: '2024-01-15T10:30',
+      title: 'Order Placed',
+      description: 'Order #12345 placed successfully',
+      status: 'completed'
+    },
+    {
+      time: 'Today',
+      title: 'Out for Delivery',
+      description: 'Arriving by 5:00 PM',
+      status: 'active'
+    }
+  ]"
+/>
+
+<!-- HorizontalTimelineItem.vue -->
+<template>
+  <div :class="itemClass">
+    <div class="aural-timeline__marker">
+      <i v-if="icon" :data-lucide="icon" aria-hidden="true"></i>
+    </div>
+    <div class="aural-timeline__connector"></div>
+    <div class="aural-timeline__content">
+      <div class="aural-timeline__time">{{ step }}</div>
+      <div class="aural-timeline__title">{{ title }}</div>
+      <div v-if="description" class="aural-timeline__description">{{ description }}</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HorizontalTimelineItem',
+  props: {
+    step: { type: String, required: true },
+    title: { type: String, required: true },
+    description: { type: String, default: null },
+    status: { type: String, default: null },
+    icon: { type: String, default: null }
+  },
+  computed: {
+    itemClass() {
+      const classes = ['aural-timeline__item'];
+      if (this.status) {
+        classes.push(`aural-timeline__item--${this.status}`);
+      }
+      return classes.join(' ');
+    }
+  }
+};
+</script>
+
+<!-- HorizontalTimeline.vue -->
+<template>
+  <div class="aural-timeline timeline-horizontal">
+    <HorizontalTimelineItem
+      v-for="(item, index) in items"
+      :key="index"
+      v-bind="item"
+    />
+  </div>
+</template>
+
+<script>
+import HorizontalTimelineItem from './HorizontalTimelineItem.vue';
+
+export default {
+  name: 'HorizontalTimeline',
+  components: { HorizontalTimelineItem },
+  props: {
+    items: { type: Array, required: true }
+  },
+  mounted() {
+    this.initIcons();
+  },
+  updated() {
+    this.initIcons();
+  },
+  methods: {
+    initIcons() {
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    }
+  }
+};
+</script>
+```
+
+### Svelte
+
+```svelte
+<!-- TimelineItem.svelte -->
+<script>
+  export let time;
+  export let datetime = null;
+  export let title;
+  export let description = null;
+  export let status = null;
+
+  $: itemClass = status ? `aural-timeline__item aural-timeline__item--${status}` : 'aural-timeline__item';
+</script>
+
+<li class={itemClass} role="listitem">
+  {#if datetime}
+    <time class="aural-timeline__time" {datetime}>
+      {time}
+    </time>
+  {:else}
+    <div class="aural-timeline__time">{time}</div>
+  {/if}
+
+  <div class="aural-timeline__content">
+    <h3 class="aural-timeline__title">{title}</h3>
+    {#if description}
+      <p class="aural-timeline__description">{description}</p>
+    {/if}
+    {#if status}
+      <span class="sr-only">Status: {status}</span>
+    {/if}
+  </div>
+</li>
+
+<!-- ModernTimeline.svelte -->
+<script>
+  import TimelineItem from './TimelineItem.svelte';
+
+  export let items;
+  export let label;
+</script>
+
+<ol class="aural-timeline timeline-modern" role="list" aria-label={label}>
+  {#each items as item}
+    <TimelineItem {...item} />
+  {/each}
+</ol>
+
+<!-- Usage -->
+<script>
+  import ModernTimeline from './ModernTimeline.svelte';
+
+  const items = [
+    {
+      time: 'Jan 15\n10:30 AM',
+      datetime: '2024-01-15T10:30',
+      title: 'Order Placed',
+      description: 'Order #12345 placed successfully',
+      status: 'completed'
+    },
+    {
+      time: 'Today',
+      title: 'Out for Delivery',
+      description: 'Arriving by 5:00 PM',
+      status: 'active'
+    }
+  ];
+</script>
+
+<ModernTimeline label="Order tracking" {items} />
+
+<!-- HorizontalTimelineItem.svelte -->
+<script>
+  import { onMount, afterUpdate } from 'svelte';
+
+  export let step;
+  export let title;
+  export let description = null;
+  export let status = null;
+  export let icon = null;
+
+  $: itemClass = status ? `aural-timeline__item aural-timeline__item--${status}` : 'aural-timeline__item';
+
+  function initIcons() {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }
+
+  onMount(initIcons);
+  afterUpdate(initIcons);
+</script>
+
+<div class={itemClass}>
+  <div class="aural-timeline__marker">
+    {#if icon}
+      <i data-lucide={icon} aria-hidden="true"></i>
+    {/if}
+  </div>
+  <div class="aural-timeline__connector"></div>
+  <div class="aural-timeline__content">
+    <div class="aural-timeline__time">{step}</div>
+    <div class="aural-timeline__title">{title}</div>
+    {#if description}
+      <div class="aural-timeline__description">{description}</div>
+    {/if}
+  </div>
+</div>
+
+<!-- HorizontalTimeline.svelte -->
+<script>
+  import HorizontalTimelineItem from './HorizontalTimelineItem.svelte';
+
+  export let items;
+</script>
+
+<div class="aural-timeline timeline-horizontal">
+  {#each items as item}
+    <HorizontalTimelineItem {...item} />
+  {/each}
+</div>
+```
+
+## Accessibility
+
+### Semantic HTML
+
+- Use `<ol>` or `<ul>` for timeline container with `role="list"`
+- Use `<li>` for timeline items with `role="listitem"`
+- Use `<time>` elements with `datetime` attribute for machine-readable dates
+- Use `<h3>` for timeline titles to maintain proper heading hierarchy
+- Use `<p>` for timeline descriptions
+- Add `aria-label` to timeline container describing its purpose
+
+### Screen Reader Support
+
+- Include `<span class="sr-only">` with status text (e.g., "Status: Completed")
+- Use `aria-hidden="true"` on decorative icons and visual markers
+- Ensure status is communicated through text, not just color
+- Provide descriptive labels for all interactive elements
+
+### Visual & Motor
+
+- Maintain minimum touch target size of 44x44px on interactive elements
+- Ensure all text meets WCAG AA contrast requirements (4.5:1 for normal text)
+- Use minimum 14px font size on mobile for body text
+- Provide adequate spacing between interactive elements
+- Support `prefers-reduced-motion` for users sensitive to animation
+- Ensure keyboard navigation with visible focus indicators
+
+## Best Practices
+
+### Layout Selection
+
+- **Modern (Recommended)**: Best for detailed chronological events with emphasis on content
+- **Horizontal**: Ideal for multi-step processes and progress indicators
+- **Compact**: Perfect for activity feeds and space-constrained interfaces
+
+### Status Indicators
+
+- **Completed**: Events that have successfully finished (green)
+- **Active**: Current step or ongoing event (primary color)
+- **Warning**: Events needing attention (yellow/orange)
+- **Error**: Failed or blocked events (red)
+- **Default**: Future or pending events (neutral)
+
+### Content Guidelines
+
+- Use clear, descriptive titles that explain what happened
+- Keep descriptions concise but informative
+- Format timestamps consistently throughout the timeline
+- Use relative time for recent events (e.g., "2 minutes ago")
+- Show absolute dates for older events
+- Order items chronologically, typically with newest first
+
+### Mobile Responsiveness
+
+- **Modern Timeline**: Collapses to single column, time label moves above content
+- **Horizontal Timeline**: Remains scrollable with touch-friendly spacing
+- **Compact Timeline**: Maintains structure with adjusted spacing
+- Increase font sizes on mobile (minimum 14px for body text)
+- Ensure touch targets are at least 44x44px
+- Test on various screen sizes (320px minimum width)
+
+## CSS Classes
+
+### Container Classes
+
+- `.aural-timeline` - Base timeline container
+- `.timeline-modern` - Modern/vertical layout variant
+- `.timeline-horizontal` - Horizontal layout variant
+- `.timeline-compact` - Compact layout variant
+
+### Item Classes
+
+- `.aural-timeline__item` - Individual timeline item
+- `.aural-timeline__item--completed` - Completed status
+- `.aural-timeline__item--active` - Active/in-progress status
+- `.aural-timeline__item--warning` - Warning status
+- `.aural-timeline__item--error` - Error status
+- `.aural-timeline__item--success` - Success status (for horizontal)
+- `.aural-timeline__item--primary` - Primary status (for horizontal)
+
+### Element Classes
+
+- `.aural-timeline__marker` - Visual marker/dot/icon container
+- `.aural-timeline__connector` - Connecting line between items
+- `.aural-timeline__time` - Time/date label
+- `.aural-timeline__content` - Content container
+- `.aural-timeline__title` - Event title
+- `.aural-timeline__description` - Event description
+
+### Utility Classes
+
+- `.sr-only` - Screen reader only content (for status announcements)

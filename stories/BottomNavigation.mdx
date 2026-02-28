@@ -1,0 +1,772 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as BottomNavigationStories from './BottomNavigation.stories';
+
+<Meta of={BottomNavigationStories} />
+
+# Bottom Navigation
+
+Mobile-first bottom navigation bar for easy thumb-accessible navigation on mobile devices. Perfect for apps with 3-5 top-level destinations.
+
+## Overview
+
+The Bottom Navigation component provides a fixed navigation bar at the bottom of the screen, optimized for mobile thumb access. It supports badges, icons, labels, and various visual styles.
+
+**Key Features:**
+- Mobile-optimized thumb-accessible navigation
+- Support for 3-5 navigation items
+- Badge notifications with counts or dots
+- Floating Action Button (FAB) variant
+- Multiple color variants (Primary, Dark, Blur)
+- Icon-only compact mode
+- Full ARIA accessibility
+- Safe area support for notched devices
+
+---
+
+## Usage
+
+<Canvas of={BottomNavigationStories.BasicBottomNav} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Bottom Navigation -->
+<nav class="aural-bottom-nav" role="navigation" aria-label="Main navigation">
+  <a href="#home" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
+    <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+    <span class="aural-bottom-nav__label">Home</span>
+  </a>
+  <a href="#explore" class="aural-bottom-nav__item">
+    <i data-lucide="compass" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+    <span class="aural-bottom-nav__label">Explore</span>
+  </a>
+  <a href="#notifications" class="aural-bottom-nav__item" aria-label="Notifications, 3 unread">
+    <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+    <span class="aural-bottom-nav__label">Notifications</span>
+    <span class="aural-bottom-nav__badge" aria-hidden="true">3</span>
+  </a>
+  <a href="#profile" class="aural-bottom-nav__item">
+    <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+    <span class="aural-bottom-nav__label">Profile</span>
+  </a>
+</nav>
+
+<script>
+// Handle active state changes
+const navItems = document.querySelectorAll('.aural-bottom-nav__item');
+navItems.forEach(item => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Remove active from all items
+    navItems.forEach(i => {
+      i.classList.remove('aural-bottom-nav__item--active');
+      i.removeAttribute('aria-current');
+    });
+
+    // Add active to clicked item
+    item.classList.add('aural-bottom-nav__item--active');
+    item.setAttribute('aria-current', 'page');
+  });
+});
+
+// Initialize Lucide icons
+lucide.createIcons();
+</script>
+```
+
+### React
+
+```jsx
+import { useState, useEffect } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function BottomNavigation({ items, activeIndex, onItemClick }) {
+  const [active, setActive] = useState(activeIndex || 0);
+
+  useEffect(() => {
+    // Initialize Lucide icons
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }, []);
+
+  const handleClick = (index, e) => {
+    e.preventDefault();
+    setActive(index);
+    onItemClick?.(index);
+  };
+
+  return (
+    <nav className="aural-bottom-nav" role="navigation" aria-label="Main navigation">
+      {items.map((item, index) => (
+        <a
+          key={index}
+          href={item.href || '#'}
+          className={`aural-bottom-nav__item ${active === index ? 'aural-bottom-nav__item--active' : ''}`}
+          aria-current={active === index ? 'page' : undefined}
+          aria-label={item.badge ? `${item.label}, ${item.badge} unread` : undefined}
+          onClick={(e) => handleClick(index, e)}
+        >
+          <i data-lucide={item.icon} className="aural-bottom-nav__icon" aria-hidden="true" />
+          <span className="aural-bottom-nav__label">{item.label}</span>
+          {item.badge && (
+            <span
+              className={`aural-bottom-nav__badge ${item.badgePulse ? 'aural-bottom-nav__badge--pulse' : ''} ${item.badgeDot ? 'aural-bottom-nav__badge--dot' : ''}`}
+              aria-hidden="true"
+            >
+              {!item.badgeDot && item.badge}
+            </span>
+          )}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
+// Usage
+const navItems = [
+  { label: 'Home', icon: 'home', href: '/' },
+  { label: 'Explore', icon: 'compass', href: '/explore' },
+  { label: 'Notifications', icon: 'bell', href: '/notifications', badge: 3 },
+  { label: 'Profile', icon: 'user', href: '/profile' }
+];
+
+function App() {
+  const [activeTab, setActiveTab] = useState(0);
+
+  return (
+    <div>
+      {/* Your content */}
+      <BottomNavigation
+        items={navItems}
+        activeIndex={activeTab}
+        onItemClick={(index) => setActiveTab(index)}
+      />
+    </div>
+  );
+}
+
+// With FAB variant
+function BottomNavigationWithFAB({ items, activeIndex, onItemClick, onFABClick }) {
+  const [active, setActive] = useState(activeIndex || 0);
+
+  return (
+    <nav className="aural-bottom-nav aural-bottom-nav--with-fab" role="navigation" aria-label="Main navigation">
+      {items.map((item, index) => {
+        if (item.fab) {
+          return (
+            <button
+              key={index}
+              className="aural-bottom-nav__fab"
+              aria-label={item.ariaLabel || 'Create new'}
+              onClick={onFABClick}
+            >
+              <i data-lucide={item.icon} />
+            </button>
+          );
+        }
+
+        return (
+          <a
+            key={index}
+            href={item.href || '#'}
+            className={`aural-bottom-nav__item ${active === index ? 'aural-bottom-nav__item--active' : ''}`}
+            aria-current={active === index ? 'page' : undefined}
+            onClick={(e) => {
+              e.preventDefault();
+              setActive(index);
+              onItemClick?.(index);
+            }}
+          >
+            <i data-lucide={item.icon} className="aural-bottom-nav__icon" aria-hidden="true" />
+            <span className="aural-bottom-nav__label">{item.label}</span>
+            {item.badge && (
+              <span className="aural-bottom-nav__badge" aria-hidden="true">
+                {item.badge}
+              </span>
+            )}
+          </a>
+        );
+      })}
+    </nav>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <nav
+    class="aural-bottom-nav"
+    :class="{
+      'aural-bottom-nav--compact': compact,
+      'aural-bottom-nav--with-fab': withFab,
+      'aural-bottom-nav--primary': variant === 'primary',
+      'aural-bottom-nav--dark': variant === 'dark',
+      'aural-bottom-nav--blur': variant === 'blur',
+      'aural-bottom-nav--mobile-only': mobileOnly
+    }"
+    role="navigation"
+    aria-label="Main navigation"
+  >
+    <template v-for="(item, index) in items" :key="index">
+      <!-- FAB Button -->
+      <button
+        v-if="item.fab"
+        class="aural-bottom-nav__fab"
+        :aria-label="item.ariaLabel || 'Create new'"
+        @click="$emit('fabClick')"
+      >
+        <i :data-lucide="item.icon"></i>
+      </button>
+
+      <!-- Navigation Item -->
+      <a
+        v-else
+        :href="item.href || '#'"
+        class="aural-bottom-nav__item"
+        :class="{ 'aural-bottom-nav__item--active': activeIndex === index }"
+        :aria-current="activeIndex === index ? 'page' : undefined"
+        :aria-label="item.badge ? `${item.label}, ${item.badge} unread` : undefined"
+        @click.prevent="handleClick(index)"
+      >
+        <i :data-lucide="item.icon" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <span class="aural-bottom-nav__label">{{ item.label }}</span>
+        <span
+          v-if="item.badge"
+          class="aural-bottom-nav__badge"
+          :class="{
+            'aural-bottom-nav__badge--pulse': item.badgePulse,
+            'aural-bottom-nav__badge--dot': item.badgeDot
+          }"
+          aria-hidden="true"
+        >
+          <template v-if="!item.badgeDot">{{ item.badge }}</template>
+        </span>
+      </a>
+    </template>
+  </nav>
+</template>
+
+<script setup>
+import { onMounted, watch } from 'vue';
+
+const props = defineProps({
+  items: { type: Array, required: true },
+  modelValue: { type: Number, default: 0 },
+  compact: { type: Boolean, default: false },
+  withFab: { type: Boolean, default: false },
+  variant: { type: String, default: null },
+  mobileOnly: { type: Boolean, default: false }
+});
+
+const emit = defineEmits(['update:modelValue', 'itemClick', 'fabClick']);
+
+const activeIndex = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value)
+});
+
+function handleClick(index) {
+  activeIndex.value = index;
+  emit('itemClick', index);
+}
+
+onMounted(() => {
+  // Initialize Lucide icons
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+});
+
+watch(() => props.items, () => {
+  // Re-initialize icons when items change
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+}, { deep: true });
+</script>
+
+<!-- Usage -->
+<template>
+  <BottomNavigation
+    :items="[
+      { label: 'Home', icon: 'home' },
+      { label: 'Explore', icon: 'compass' },
+      { label: 'Notifications', icon: 'bell', badge: 3, badgePulse: true },
+      { label: 'Profile', icon: 'user' }
+    ]"
+    v-model="activeTab"
+    @itemClick="handleNavigation"
+  />
+
+  <!-- With FAB -->
+  <BottomNavigation
+    :items="[
+      { label: 'Feed', icon: 'home' },
+      { label: 'Discover', icon: 'search' },
+      { fab: true, icon: 'plus', ariaLabel: 'Create new post' },
+      { label: 'Activity', icon: 'heart', badge: 8 },
+      { label: 'Profile', icon: 'user' }
+    ]"
+    v-model="activeTab"
+    with-fab
+    @fabClick="createPost"
+  />
+
+  <!-- Compact variant -->
+  <BottomNavigation
+    :items="navItems"
+    v-model="activeTab"
+    compact
+  />
+
+  <!-- Color variants -->
+  <BottomNavigation :items="navItems" v-model="activeTab" variant="primary" />
+  <BottomNavigation :items="navItems" v-model="activeTab" variant="dark" />
+  <BottomNavigation :items="navItems" v-model="activeTab" variant="blur" />
+
+  <!-- Mobile-only visibility -->
+  <BottomNavigation :items="navItems" v-model="activeTab" mobile-only />
+</template>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount, afterUpdate } from 'svelte';
+
+  export let items = [];
+  export let activeIndex = 0;
+  export let compact = false;
+  export let withFab = false;
+  export let variant = null;
+  export let mobileOnly = false;
+
+  let navClass = '';
+  $: navClass = [
+    'aural-bottom-nav',
+    compact && 'aural-bottom-nav--compact',
+    withFab && 'aural-bottom-nav--with-fab',
+    variant === 'primary' && 'aural-bottom-nav--primary',
+    variant === 'dark' && 'aural-bottom-nav--dark',
+    variant === 'blur' && 'aural-bottom-nav--blur',
+    mobileOnly && 'aural-bottom-nav--mobile-only'
+  ].filter(Boolean).join(' ');
+
+  function handleClick(index) {
+    activeIndex = index;
+    dispatch('itemClick', { index });
+  }
+
+  function handleFABClick() {
+    dispatch('fabClick');
+  }
+
+  onMount(() => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  });
+
+  afterUpdate(() => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  });
+
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+</script>
+
+<nav class={navClass} role="navigation" aria-label="Main navigation">
+  {#each items as item, index}
+    {#if item.fab}
+      <!-- FAB Button -->
+      <button
+        class="aural-bottom-nav__fab"
+        aria-label={item.ariaLabel || 'Create new'}
+        on:click={handleFABClick}
+      >
+        <i data-lucide={item.icon}></i>
+      </button>
+    {:else}
+      <!-- Navigation Item -->
+      <a
+        href={item.href || '#'}
+        class="aural-bottom-nav__item"
+        class:aural-bottom-nav__item--active={activeIndex === index}
+        aria-current={activeIndex === index ? 'page' : undefined}
+        aria-label={item.badge ? `${item.label}, ${item.badge} unread` : undefined}
+        on:click|preventDefault={() => handleClick(index)}
+      >
+        <i data-lucide={item.icon} class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <span class="aural-bottom-nav__label">{item.label}</span>
+        {#if item.badge}
+          <span
+            class="aural-bottom-nav__badge"
+            class:aural-bottom-nav__badge--pulse={item.badgePulse}
+            class:aural-bottom-nav__badge--dot={item.badgeDot}
+            aria-hidden="true"
+          >
+            {#if !item.badgeDot}{item.badge}{/if}
+          </span>
+        {/if}
+      </a>
+    {/if}
+  {/each}
+</nav>
+
+<!-- Usage -->
+<script>
+  const navItems = [
+    { label: 'Home', icon: 'home' },
+    { label: 'Explore', icon: 'compass' },
+    { label: 'Notifications', icon: 'bell', badge: 3 },
+    { label: 'Profile', icon: 'user' }
+  ];
+
+  let activeTab = 0;
+
+  function handleNavigation(event) {
+    console.log('Navigated to:', event.detail.index);
+  }
+
+  function createPost() {
+    console.log('Create new post');
+  }
+</script>
+
+<!-- Basic -->
+<BottomNavigation
+  items={navItems}
+  bind:activeIndex={activeTab}
+  on:itemClick={handleNavigation}
+/>
+
+<!-- With FAB -->
+<BottomNavigation
+  items={[
+    { label: 'Feed', icon: 'home' },
+    { label: 'Discover', icon: 'search' },
+    { fab: true, icon: 'plus', ariaLabel: 'Create new post' },
+    { label: 'Activity', icon: 'heart', badge: 8 },
+    { label: 'Profile', icon: 'user' }
+  ]}
+  bind:activeIndex={activeTab}
+  withFab={true}
+  on:fabClick={createPost}
+/>
+
+<!-- Compact variant (icon only) -->
+<BottomNavigation items={navItems} bind:activeIndex={activeTab} compact={true} />
+
+<!-- Color variants -->
+<BottomNavigation items={navItems} bind:activeIndex={activeTab} variant="primary" />
+<BottomNavigation items={navItems} bind:activeIndex={activeTab} variant="dark" />
+<BottomNavigation items={navItems} bind:activeIndex={activeTab} variant="blur" />
+
+<!-- Mobile-only visibility -->
+<BottomNavigation items={navItems} bind:activeIndex={activeTab} mobileOnly={true} />
+```
+
+---
+
+## Badges
+
+Use badges to show notification counts or presence indicators.
+
+<Canvas of={BottomNavigationStories.WithBadges} />
+
+### Badge Types
+
+```html
+<!-- Badge with count -->
+<a href="#" class="aural-bottom-nav__item" aria-label="Messages, 12 unread">
+  <i data-lucide="message-circle" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+  <span class="aural-bottom-nav__label">Messages</span>
+  <span class="aural-bottom-nav__badge" aria-hidden="true">12</span>
+</a>
+
+<!-- Badge with pulse animation (urgent) -->
+<a href="#" class="aural-bottom-nav__item" aria-label="Messages, 12 unread">
+  <i data-lucide="message-circle" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+  <span class="aural-bottom-nav__label">Messages</span>
+  <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse" aria-hidden="true">12</span>
+</a>
+
+<!-- Dot badge (presence indicator) -->
+<a href="#" class="aural-bottom-nav__item" aria-label="Alerts, new activity">
+  <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+  <span class="aural-bottom-nav__label">Alerts</span>
+  <span class="aural-bottom-nav__badge aural-bottom-nav__badge--dot" aria-hidden="true"></span>
+</a>
+```
+
+---
+
+## Variants
+
+### Icon-Only (Compact)
+
+<Canvas of={BottomNavigationStories.IconsOnly} />
+
+Use the compact variant to save vertical space. Labels are visually hidden but remain accessible to screen readers.
+
+```html
+<nav class="aural-bottom-nav aural-bottom-nav--compact">
+  <a href="#" class="aural-bottom-nav__item" aria-label="Home">
+    <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+    <span class="aural-bottom-nav__label">Home</span>
+  </a>
+  <!-- More items... -->
+</nav>
+```
+
+### With Floating Action Button (FAB)
+
+<Canvas of={BottomNavigationStories.WithFAB} />
+
+Add a prominent FAB for the primary action in your app.
+
+```html
+<nav class="aural-bottom-nav aural-bottom-nav--with-fab">
+  <a href="#" class="aural-bottom-nav__item">...</a>
+  <a href="#" class="aural-bottom-nav__item">...</a>
+  <button class="aural-bottom-nav__fab" aria-label="Create new post">
+    <i data-lucide="plus"></i>
+  </button>
+  <a href="#" class="aural-bottom-nav__item">...</a>
+  <a href="#" class="aural-bottom-nav__item">...</a>
+</nav>
+```
+
+### Color Variants
+
+#### Primary Variant
+
+<Canvas of={BottomNavigationStories.PrimaryVariant} />
+
+```html
+<nav class="aural-bottom-nav aural-bottom-nav--primary">
+  <!-- Navigation items -->
+</nav>
+```
+
+#### Dark Variant
+
+<Canvas of={BottomNavigationStories.DarkVariant} />
+
+```html
+<nav class="aural-bottom-nav aural-bottom-nav--dark">
+  <!-- Navigation items -->
+</nav>
+```
+
+#### Blur Variant
+
+<Canvas of={BottomNavigationStories.BlurVariant} />
+
+```html
+<nav class="aural-bottom-nav aural-bottom-nav--blur">
+  <!-- Navigation items -->
+</nav>
+```
+
+---
+
+## Patterns
+
+### E-commerce App
+
+<Canvas of={BottomNavigationStories.EcommercePattern} />
+
+Typical e-commerce pattern with Home, Categories, Cart with badge, and Account sections.
+
+### Social Media App
+
+<Canvas of={BottomNavigationStories.SocialMediaPattern} />
+
+Social media pattern with Feed, Discover, Create FAB, Activity with notifications, and Profile.
+
+### Mobile-Only Visibility
+
+<Canvas of={BottomNavigationStories.MobileOnlyPattern} />
+
+Use `.aural-bottom-nav--mobile-only` to hide the bottom navigation on desktop screens (1024px and wider).
+
+```html
+<nav class="aural-bottom-nav aural-bottom-nav--mobile-only">
+  <!-- Navigation items -->
+</nav>
+```
+
+### Fixed Position
+
+<Canvas of={BottomNavigationStories.FixedAtBottom} />
+
+Use `position: fixed` to keep navigation visible while scrolling.
+
+```css
+.aural-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+```
+
+---
+
+## Theme Comparison
+
+See how the Bottom Navigation looks across all 9 Aural UI themes:
+
+<Canvas of={BottomNavigationStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+✅ **Keyboard Navigation**
+- Focus with `Tab`
+- Activate with `Enter` or `Space`
+- Skip links for screen reader users
+
+✅ **Screen Readers**
+- Use `role="navigation"` on nav element
+- Include descriptive `aria-label` on navigation
+- Use `aria-current="page"` on active item
+- Include badge counts in `aria-label` (e.g., "Notifications, 3 unread")
+- Mark decorative icons with `aria-hidden="true"`
+
+✅ **Color Contrast**
+- All variants meet WCAG AA standards (4.5:1+ contrast)
+- High contrast theme available
+- Active states clearly distinguishable
+
+✅ **Touch Targets**
+- Minimum 44x44px touch target for all items
+- Adequate spacing between navigation items
+- Large tap areas for thumb accessibility
+
+### Best Practices
+
+**Do:**
+- Keep to 3-5 navigation items for optimal usability
+- Use clear, recognizable icons that match their labels
+- Keep labels short (1-2 words maximum)
+- Mark the current page with `aria-current="page"`
+- Include badge information in ARIA labels
+- Use `.aural-bottom-nav__item--active` for visual active state
+- Order items by frequency of use (most used in the middle)
+
+**Don't:**
+- Use more than 5 items (use hamburger menu instead)
+- Hide important actions in bottom navigation
+- Use vague or unclear icons
+- Rely solely on color to indicate active state
+- Forget to add `aria-label` on icon-only variants
+- Use bottom nav for sequential navigation (use stepper instead)
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-bottom-nav` | Base navigation container (required) |
+| `.aural-bottom-nav__item` | Navigation item link |
+| `.aural-bottom-nav__item--active` | Active/current item state |
+| `.aural-bottom-nav__icon` | Icon within navigation item |
+| `.aural-bottom-nav__label` | Text label for navigation item |
+| `.aural-bottom-nav__badge` | Badge for notification count |
+| `.aural-bottom-nav__badge--pulse` | Pulsing animation for badge |
+| `.aural-bottom-nav__badge--dot` | Dot indicator (no count) |
+| `.aural-bottom-nav__fab` | Floating action button |
+| `.aural-bottom-nav--compact` | Icon-only variant (labels hidden) |
+| `.aural-bottom-nav--with-fab` | Variant with FAB button |
+| `.aural-bottom-nav--primary` | Primary color background |
+| `.aural-bottom-nav--dark` | Dark background with blur |
+| `.aural-bottom-nav--blur` | Frosted glass blur effect |
+| `.aural-bottom-nav--mobile-only` | Hidden on desktop (≥1024px) |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `role="navigation"` | string | Identifies navigation landmark |
+| `aria-label` | string | Descriptive label for navigation |
+| `aria-current="page"` | string | Marks current/active item |
+| `aria-hidden="true"` | boolean | Hides decorative elements from screen readers |
+| `data-lucide` | string | Lucide icon name |
+
+### JavaScript Events
+
+```javascript
+// Handle navigation item clicks
+const items = document.querySelectorAll('.aural-bottom-nav__item');
+items.forEach(item => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Update active state
+    items.forEach(i => {
+      i.classList.remove('aural-bottom-nav__item--active');
+      i.removeAttribute('aria-current');
+    });
+    item.classList.add('aural-bottom-nav__item--active');
+    item.setAttribute('aria-current', 'page');
+  });
+});
+```
+
+---
+
+## Guidelines
+
+### When to Use
+
+- Mobile-first applications with 3-5 top-level destinations
+- When destinations need to be accessible from anywhere in the app
+- For equal-weight destinations that users switch between frequently
+- When thumbs need easy access to primary navigation
+- Content-focused apps (social media, e-commerce, news)
+
+### When Not to Use
+
+- For more than 5 destinations (use hamburger menu instead)
+- On desktop unless it's a mobile-responsive design
+- For sequential navigation (use breadcrumbs or stepper instead)
+- For apps with deep hierarchical navigation
+- When primary actions should be more prominent (use toolbar instead)
+
+### Layout Considerations
+
+- Items are distributed evenly with flexbox
+- Max width per item is 120px to prevent overly wide buttons
+- Bottom nav height is approximately 72px (with safe area support)
+- Add `padding-bottom` to your content to prevent overlap
+- Consider hiding on scroll for immersive content (videos, images)
+
+### Performance Tips
+
+- Use CSS transitions instead of JavaScript animations
+- Lazy load badge counts via API for better initial load
+- Avoid heavy JavaScript on navigation item clicks
+- Use `will-change: transform` sparingly for animations
+- Optimize icons (use icon fonts or inline SVG)
+
+---
+
+## Related Components
+
+- **Tabs**: For content organization within a page
+- **Drawer**: For additional navigation options
+- **Menu**: For hierarchical navigation
+- **Breadcrumbs**: For showing navigation hierarchy

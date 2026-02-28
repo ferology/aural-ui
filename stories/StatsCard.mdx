@@ -1,0 +1,686 @@
+import { Meta, Canvas, Story } from '@storybook/blocks';
+import * as StatsCardStories from './StatsCard.stories';
+
+<Meta of={StatsCardStories} />
+
+# Stats Card
+
+Statistical data cards for displaying key metrics, trends, and performance indicators with visual emphasis.
+
+## Overview
+
+Stats Cards are designed to present important metrics in a clear, scannable format. They're ideal for dashboards, analytics pages, and anywhere you need to highlight key performance indicators.
+
+### Key Features
+
+- **Semantic Variants**: Primary, success, warning, and error colors
+- **Trend Indicators**: Up, down, and neutral trend arrows with percentages
+- **Progress Bars**: Visual representation of completion or usage
+- **Icons**: Support for Lucide icons for visual categorization
+- **Responsive**: Adapts to different screen sizes with grid layouts
+- **Accessible**: Proper ARIA labels and semantic HTML
+
+## Basic Usage
+
+<Canvas of={StatsCardStories.Basic} />
+
+## With Icon
+
+Icons help users quickly identify the type of metric being displayed.
+
+<Canvas of={StatsCardStories.WithIcon} />
+
+## Trend Indicators
+
+Show how metrics are trending over time with directional arrows.
+
+### Upward Trend
+
+<Canvas of={StatsCardStories.WithTrendUp} />
+
+### Downward Trend
+
+<Canvas of={StatsCardStories.WithTrendDown} />
+
+### Neutral Trend
+
+<Canvas of={StatsCardStories.WithTrendNeutral} />
+
+## Progress Bars
+
+Use progress bars for metrics with known limits, like storage or completion percentage.
+
+<Canvas of={StatsCardStories.WithProgress} />
+
+## Semantic Variants
+
+### Primary
+
+<Canvas of={StatsCardStories.VariantPrimary} />
+
+### Success
+
+<Canvas of={StatsCardStories.VariantSuccess} />
+
+### Warning
+
+<Canvas of={StatsCardStories.VariantWarning} />
+
+### Error
+
+<Canvas of={StatsCardStories.VariantError} />
+
+## Complex Examples
+
+### Dashboard Grid
+
+<Canvas of={StatsCardStories.DashboardGrid} />
+
+### Featured Cards
+
+<Canvas of={StatsCardStories.FeaturedCards} />
+
+### With Progress Bars
+
+<Canvas of={StatsCardStories.WithProgressBars} />
+
+## Loading State
+
+<Canvas of={StatsCardStories.Loading} />
+
+## Theme Comparison
+
+<Canvas of={StatsCardStories.ThemeComparison} />
+
+---
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```html
+<div class="aural-stats-card aural-stats-card--primary">
+  <div class="aural-stats-card__header">
+    <span class="aural-stats-card__label">Total Revenue</span>
+    <div class="aural-stats-card__icon">
+      <i data-lucide="dollar-sign" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="aural-stats-card__value">$45,231</div>
+  <div class="aural-stats-card__footer">
+    <span class="aural-stats-card__trend aural-stats-card__trend--up">
+      <i data-lucide="trending-up" class="aural-stats-card__trend-icon" aria-hidden="true"></i>
+      12.5%
+    </span>
+    <span class="aural-stats-card__description">vs last month</span>
+  </div>
+</div>
+
+<script>
+  // Initialize Lucide icons after DOM is ready
+  lucide.createIcons();
+</script>
+```
+
+### React
+
+```jsx
+import React from 'react';
+
+interface StatsCardProps {
+  label: string;
+  value: string | number;
+  icon?: string;
+  variant?: 'primary' | 'success' | 'warning' | 'error';
+  trend?: {
+    direction: 'up' | 'down' | 'neutral';
+    value: string;
+    icon?: string;
+  };
+  description?: string;
+  progress?: number;
+}
+
+const StatsCard: React.FC<StatsCardProps> = ({
+  label,
+  value,
+  icon,
+  variant = 'default',
+  trend,
+  description,
+  progress,
+}) => {
+  const cardClass = variant !== 'default'
+    ? `aural-stats-card aural-stats-card--${variant}`
+    : 'aural-stats-card';
+
+  const getTrendIcon = (direction: string) => {
+    switch (direction) {
+      case 'up': return 'trending-up';
+      case 'down': return 'trending-down';
+      case 'neutral': return 'minus';
+      default: return 'trending-up';
+    }
+  };
+
+  React.useEffect(() => {
+    // Initialize Lucide icons
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }, []);
+
+  return (
+    <div className={cardClass}>
+      <div className="aural-stats-card__header">
+        <span className="aural-stats-card__label">{label}</span>
+        {icon && (
+          <div className="aural-stats-card__icon">
+            <i data-lucide={icon} aria-hidden="true"></i>
+          </div>
+        )}
+      </div>
+      <div className="aural-stats-card__value">{value}</div>
+      {progress !== undefined && (
+        <div className="aural-stats-card__progress">
+          <div
+            className="aural-stats-card__progress-bar"
+            style={{ width: `${progress}%` }}
+            role="progressbar"
+            aria-valuenow={progress}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          ></div>
+        </div>
+      )}
+      {(trend || description) && (
+        <div className="aural-stats-card__footer">
+          {trend && (
+            <span className={`aural-stats-card__trend aural-stats-card__trend--${trend.direction}`}>
+              <i
+                data-lucide={trend.icon || getTrendIcon(trend.direction)}
+                className="aural-stats-card__trend-icon"
+                aria-hidden="true"
+              ></i>
+              {trend.value}
+            </span>
+          )}
+          {description && (
+            <span className="aural-stats-card__description">{description}</span>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Usage
+export default function Dashboard() {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-6)' }}>
+      <StatsCard
+        label="Total Revenue"
+        value="$45,231"
+        icon="dollar-sign"
+        variant="primary"
+        trend={{ direction: 'up', value: '12.5%' }}
+        description="vs last month"
+      />
+      <StatsCard
+        label="Active Users"
+        value="8,492"
+        icon="users"
+        variant="success"
+        trend={{ direction: 'up', value: '8.1%' }}
+        description="vs last week"
+      />
+      <StatsCard
+        label="Storage Used"
+        value="67.8 GB"
+        icon="hard-drive"
+        variant="primary"
+        progress={67.8}
+        description="of 100 GB total"
+      />
+    </div>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div :class="cardClass">
+    <div class="aural-stats-card__header">
+      <span class="aural-stats-card__label">{{ label }}</span>
+      <div v-if="icon" class="aural-stats-card__icon">
+        <i :data-lucide="icon" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="aural-stats-card__value">{{ value }}</div>
+    <div v-if="progress !== undefined" class="aural-stats-card__progress">
+      <div
+        class="aural-stats-card__progress-bar"
+        :style="{ width: `${progress}%` }"
+        role="progressbar"
+        :aria-valuenow="progress"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      ></div>
+    </div>
+    <div v-if="trend || description" class="aural-stats-card__footer">
+      <span v-if="trend" :class="trendClass">
+        <i
+          :data-lucide="trend.icon || getTrendIcon(trend.direction)"
+          class="aural-stats-card__trend-icon"
+          aria-hidden="true"
+        ></i>
+        {{ trend.value }}
+      </span>
+      <span v-if="description" class="aural-stats-card__description">
+        {{ description }}
+      </span>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed, onMounted } from 'vue';
+
+interface Trend {
+  direction: 'up' | 'down' | 'neutral';
+  value: string;
+  icon?: string;
+}
+
+interface Props {
+  label: string;
+  value: string | number;
+  icon?: string;
+  variant?: 'primary' | 'success' | 'warning' | 'error';
+  trend?: Trend;
+  description?: string;
+  progress?: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'default',
+});
+
+const cardClass = computed(() => {
+  return props.variant !== 'default'
+    ? `aural-stats-card aural-stats-card--${props.variant}`
+    : 'aural-stats-card';
+});
+
+const trendClass = computed(() => {
+  return props.trend?.direction
+    ? `aural-stats-card__trend aural-stats-card__trend--${props.trend.direction}`
+    : 'aural-stats-card__trend';
+});
+
+const getTrendIcon = (direction: string) => {
+  switch (direction) {
+    case 'up': return 'trending-up';
+    case 'down': return 'trending-down';
+    case 'neutral': return 'minus';
+    default: return 'trending-up';
+  }
+};
+
+onMounted(() => {
+  // Initialize Lucide icons
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+});
+</script>
+
+<!-- Usage -->
+<template>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+    <StatsCard
+      label="Total Revenue"
+      value="$45,231"
+      icon="dollar-sign"
+      variant="primary"
+      :trend="{ direction: 'up', value: '12.5%' }"
+      description="vs last month"
+    />
+    <StatsCard
+      label="Active Users"
+      value="8,492"
+      icon="users"
+      variant="success"
+      :trend="{ direction: 'up', value: '8.1%' }"
+      description="vs last week"
+    />
+    <StatsCard
+      label="Storage Used"
+      value="67.8 GB"
+      icon="hard-drive"
+      variant="primary"
+      :progress="67.8"
+      description="of 100 GB total"
+    />
+  </div>
+</template>
+```
+
+### Svelte
+
+```svelte
+<script lang="ts">
+  import { onMount } from 'svelte';
+
+  interface Trend {
+    direction: 'up' | 'down' | 'neutral';
+    value: string;
+    icon?: string;
+  }
+
+  export let label: string = '';
+  export let value: string | number = '';
+  export let icon: string = '';
+  export let variant: 'default' | 'primary' | 'success' | 'warning' | 'error' = 'default';
+  export let trend: Trend | undefined = undefined;
+  export let description: string = '';
+  export let progress: number | undefined = undefined;
+
+  $: cardClass = variant !== 'default'
+    ? `aural-stats-card aural-stats-card--${variant}`
+    : 'aural-stats-card';
+
+  $: trendClass = trend?.direction
+    ? `aural-stats-card__trend aural-stats-card__trend--${trend.direction}`
+    : 'aural-stats-card__trend';
+
+  function getTrendIcon(direction: string): string {
+    switch (direction) {
+      case 'up': return 'trending-up';
+      case 'down': return 'trending-down';
+      case 'neutral': return 'minus';
+      default: return 'trending-up';
+    }
+  }
+
+  onMount(() => {
+    // Initialize Lucide icons
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  });
+</script>
+
+<div class={cardClass}>
+  <div class="aural-stats-card__header">
+    <span class="aural-stats-card__label">{label}</span>
+    {#if icon}
+      <div class="aural-stats-card__icon">
+        <i data-lucide={icon} aria-hidden="true"></i>
+      </div>
+    {/if}
+  </div>
+  <div class="aural-stats-card__value">{value}</div>
+  {#if progress !== undefined}
+    <div class="aural-stats-card__progress">
+      <div
+        class="aural-stats-card__progress-bar"
+        style="width: {progress}%"
+        role="progressbar"
+        aria-valuenow={progress}
+        aria-valuemin="0"
+        aria-valuemax="100"
+      ></div>
+    </div>
+  {/if}
+  {#if trend || description}
+    <div class="aural-stats-card__footer">
+      {#if trend}
+        <span class={trendClass}>
+          <i
+            data-lucide={trend.icon || getTrendIcon(trend.direction)}
+            class="aural-stats-card__trend-icon"
+            aria-hidden="true"
+          ></i>
+          {trend.value}
+        </span>
+      {/if}
+      {#if description}
+        <span class="aural-stats-card__description">{description}</span>
+      {/if}
+    </div>
+  {/if}
+</div>
+
+<!-- Usage -->
+<script lang="ts">
+  import StatsCard from './StatsCard.svelte';
+</script>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+  <StatsCard
+    label="Total Revenue"
+    value="$45,231"
+    icon="dollar-sign"
+    variant="primary"
+    trend={{ direction: 'up', value: '12.5%' }}
+    description="vs last month"
+  />
+  <StatsCard
+    label="Active Users"
+    value="8,492"
+    icon="users"
+    variant="success"
+    trend={{ direction: 'up', value: '8.1%' }}
+    description="vs last week"
+  />
+  <StatsCard
+    label="Storage Used"
+    value="67.8 GB"
+    icon="hard-drive"
+    variant="primary"
+    progress={67.8}
+    description="of 100 GB total"
+  />
+</div>
+```
+
+### Angular
+
+```typescript
+// stats-card.component.ts
+import { Component, Input, AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Trend {
+  direction: 'up' | 'down' | 'neutral';
+  value: string;
+  icon?: string;
+}
+
+@Component({
+  selector: 'app-stats-card',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div [class]="cardClass">
+      <div class="aural-stats-card__header">
+        <span class="aural-stats-card__label">{{ label }}</span>
+        <div *ngIf="icon" class="aural-stats-card__icon">
+          <i [attr.data-lucide]="icon" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="aural-stats-card__value">{{ value }}</div>
+      <div *ngIf="progress !== undefined" class="aural-stats-card__progress">
+        <div
+          class="aural-stats-card__progress-bar"
+          [style.width.%]="progress"
+          role="progressbar"
+          [attr.aria-valuenow]="progress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+      <div *ngIf="trend || description" class="aural-stats-card__footer">
+        <span *ngIf="trend" [class]="trendClass">
+          <i
+            [attr.data-lucide]="trend.icon || getTrendIcon(trend.direction)"
+            class="aural-stats-card__trend-icon"
+            aria-hidden="true"
+          ></i>
+          {{ trend.value }}
+        </span>
+        <span *ngIf="description" class="aural-stats-card__description">
+          {{ description }}
+        </span>
+      </div>
+    </div>
+  `,
+})
+export class StatsCardComponent implements AfterViewInit {
+  @Input() label: string = '';
+  @Input() value: string | number = '';
+  @Input() icon?: string;
+  @Input() variant: 'default' | 'primary' | 'success' | 'warning' | 'error' = 'default';
+  @Input() trend?: Trend;
+  @Input() description?: string;
+  @Input() progress?: number;
+
+  get cardClass(): string {
+    return this.variant !== 'default'
+      ? `aural-stats-card aural-stats-card--${this.variant}`
+      : 'aural-stats-card';
+  }
+
+  get trendClass(): string {
+    return this.trend?.direction
+      ? `aural-stats-card__trend aural-stats-card__trend--${this.trend.direction}`
+      : 'aural-stats-card__trend';
+  }
+
+  getTrendIcon(direction: string): string {
+    switch (direction) {
+      case 'up': return 'trending-up';
+      case 'down': return 'trending-down';
+      case 'neutral': return 'minus';
+      default: return 'trending-up';
+    }
+  }
+
+  ngAfterViewInit() {
+    // Initialize Lucide icons
+    if ((window as any).lucide) {
+      (window as any).lucide.createIcons();
+    }
+  }
+}
+
+// Usage in template
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);">
+  <app-stats-card
+    label="Total Revenue"
+    value="$45,231"
+    icon="dollar-sign"
+    variant="primary"
+    [trend]="{ direction: 'up', value: '12.5%' }"
+    description="vs last month"
+  ></app-stats-card>
+  <app-stats-card
+    label="Active Users"
+    value="8,492"
+    icon="users"
+    variant="success"
+    [trend]="{ direction: 'up', value: '8.1%' }"
+    description="vs last week"
+  ></app-stats-card>
+  <app-stats-card
+    label="Storage Used"
+    value="67.8 GB"
+    icon="hard-drive"
+    variant="primary"
+    [progress]="67.8"
+    description="of 100 GB total"
+  ></app-stats-card>
+</div>
+```
+
+---
+
+## Accessibility Guidelines
+
+### ARIA Attributes
+
+- **Icons**: All decorative icons must include `aria-hidden="true"`
+- **Progress Bars**: Include `role="progressbar"`, `aria-valuenow`, `aria-valuemin`, and `aria-valuemax`
+- **Labels**: Use semantic labels that describe the metric clearly
+
+### Color Contrast
+
+- Ensure text has sufficient contrast against backgrounds (WCAG AA minimum: 4.5:1)
+- Don't rely solely on color to convey meaning - use icons and text labels
+- Test with colorblind-friendly themes
+
+### Keyboard Navigation
+
+- Stats cards are informational and typically don't require keyboard interaction
+- If cards are clickable/interactive, ensure proper focus states and keyboard accessibility
+
+---
+
+## Best Practices
+
+### Layout & Composition
+
+- Use responsive grids that adapt to screen sizes (`repeat(auto-fit, minmax(250px, 1fr))`)
+- Group related metrics together
+- Prioritize important metrics with prominent placement or larger cards
+- Maintain consistent spacing between cards
+
+### Data Presentation
+
+- Keep values clear and prominently displayed
+- Use appropriate number formatting (K for thousands, M for millions)
+- Include comparison periods for context ("vs last month", "vs last year")
+- Show trends with directional indicators when relevant
+- Add progress bars for metrics with known limits
+
+### Color Usage
+
+- **Primary**: Default metrics and brand-related data
+- **Success**: Positive metrics, growth, achievements
+- **Warning**: Cautionary metrics, approaching limits
+- **Error**: Negative metrics, errors, critical issues
+
+### Icons
+
+- Use icons that clearly represent the metric type
+- Keep icons simple and recognizable
+- Maintain consistent icon size across all cards
+- Icons should enhance understanding, not be purely decorative
+
+---
+
+## CSS Classes Reference
+
+| Class | Description |
+|-------|-------------|
+| `.aural-stats-card` | Base stats card container |
+| `.aural-stats-card--primary` | Primary color variant |
+| `.aural-stats-card--success` | Success color variant |
+| `.aural-stats-card--warning` | Warning color variant |
+| `.aural-stats-card--error` | Error color variant |
+| `.aural-stats-card__header` | Header section containing label and icon |
+| `.aural-stats-card__label` | Metric label text |
+| `.aural-stats-card__icon` | Icon container |
+| `.aural-stats-card__value` | Main value/metric display |
+| `.aural-stats-card__progress` | Progress bar container |
+| `.aural-stats-card__progress-bar` | Progress bar fill |
+| `.aural-stats-card__footer` | Footer section with trends and description |
+| `.aural-stats-card__trend` | Trend indicator container |
+| `.aural-stats-card__trend--up` | Upward trend modifier |
+| `.aural-stats-card__trend--down` | Downward trend modifier |
+| `.aural-stats-card__trend--neutral` | Neutral trend modifier |
+| `.aural-stats-card__trend-icon` | Trend icon element |
+| `.aural-stats-card__description` | Description text |

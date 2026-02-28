@@ -1,0 +1,697 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Components/TreeView/Documentation" />
+
+# Tree View
+
+Hierarchical tree structure for files, folders, and nested navigation with expand/collapse functionality.
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```javascript
+class TreeView {
+  constructor(data, containerId) {
+    this.data = data;
+    this.container = document.getElementById(containerId);
+    this.expanded = new Set();
+    this.selected = null;
+    this.render();
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    this.container.addEventListener('click', (e) => {
+      const button = e.target.closest('.aural-tree__content');
+      if (!button) return;
+
+      const item = button.closest('.aural-tree__item');
+      const itemId = item.dataset.id;
+
+      // Handle toggle for expandable items
+      if (button.querySelector('.aural-tree__toggle i')) {
+        e.stopPropagation();
+        this.toggleNode(itemId);
+      } else {
+        // Handle selection for all items
+        this.selectNode(itemId);
+      }
+    });
+
+    // Keyboard navigation
+    this.container.addEventListener('keydown', (e) => {
+      const item = e.target.closest('.aural-tree__item');
+      if (!item) return;
+
+      const itemId = item.dataset.id;
+
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        this.expandNode(itemId);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        this.collapseNode(itemId);
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.selectNode(itemId);
+      }
+    });
+  }
+
+  toggleNode(id) {
+    if (this.expanded.has(id)) {
+      this.collapseNode(id);
+    } else {
+      this.expandNode(id);
+    }
+  }
+
+  expandNode(id) {
+    this.expanded.add(id);
+    this.render();
+  }
+
+  collapseNode(id) {
+    this.expanded.delete(id);
+    this.render();
+  }
+
+  selectNode(id) {
+    this.selected = id;
+    this.render();
+
+    // Trigger callback if provided
+    const node = this.findNode(this.data, id);
+    if (node && node.onSelect) {
+      node.onSelect(node);
+    }
+  }
+
+  findNode(nodes, id) {
+    for (const node of nodes) {
+      if (node.id === id) return node;
+      if (node.children) {
+        const found = this.findNode(node.children, id);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
+  renderNode(node, level = 0) {
+    const isExpanded = this.expanded.has(node.id);
+    const isSelected = this.selected === node.id;
+    const hasChildren = node.children && node.children.length > 0;
+
+    return `
+      <li
+        class="aural-tree__item ${hasChildren ? (isExpanded ? '' : 'aural-tree__item--collapsed') : 'aural-tree__item--leaf'}"
+        data-id="${node.id}"
+      >
+        <button
+          class="aural-tree__content ${isSelected ? 'is-selected' : ''}"
+          tabindex="0"
+        >
+          <span class="aural-tree__toggle">
+            ${hasChildren ? `<i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}"></i>` : ''}
+          </span>
+          <span class="aural-tree__icon ${node.iconColor ? `aural-tree__icon--${node.iconColor}` : ''}">
+            <i data-lucide="${node.icon}"></i>
+          </span>
+          <span class="aural-tree__label">${node.label}</span>
+          ${node.badge ? `<span class="aural-tree__badge">${node.badge}</span>` : ''}
+        </button>
+        ${hasChildren && isExpanded ? `
+          <ul class="aural-tree__children">
+            ${node.children.map(child => this.renderNode(child, level + 1)).join('')}
+          </ul>
+        ` : ''}
+      </li>
+    `;
+  }
+
+  render() {
+    this.container.innerHTML = `
+      <ul class="aural-tree">
+        ${this.data.map(node => this.renderNode(node)).join('')}
+      </ul>
+    `;
+
+    // Re-initialize Lucide icons
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+// Usage
+const treeData = [
+  {
+    id: '1',
+    icon: 'folder',
+    label: 'Documents',
+    badge: '12',
+    children: [
+      {
+        id: '1-1',
+        icon: 'folder',
+        label: 'Projects',
+        children: [
+          { id: '1-1-1', icon: 'file-text', iconColor: 'primary', label: 'project-plan.pdf' },
+          { id: '1-1-2', icon: 'file-spreadsheet', iconColor: 'success', label: 'budget.xlsx' }
+        ]
+      },
+      { id: '1-2', icon: 'file', iconColor: 'warning', label: 'report-draft.doc' }
+    ]
+  }
+];
+
+const tree = new TreeView(treeData, 'tree-container');
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import { ChevronRight, ChevronDown, Folder, File } from 'lucide-react';
+
+const TreeNode = ({ node, level = 0, expanded, selected, onToggle, onSelect }) => {
+  const isExpanded = expanded.has(node.id);
+  const isSelected = selected === node.id;
+  const hasChildren = node.children && node.children.length > 0;
+
+  const handleToggle = (e) => {
+    e.stopPropagation();
+    onToggle(node.id);
+  };
+
+  const handleSelect = () => {
+    onSelect(node.id, node);
+  };
+
+  return (
+    <li
+      className={`aural-tree__item ${
+        hasChildren
+          ? isExpanded
+            ? ''
+            : 'aural-tree__item--collapsed'
+          : 'aural-tree__item--leaf'
+      }`}
+    >
+      <button
+        className={`aural-tree__content ${isSelected ? 'is-selected' : ''}`}
+        onClick={handleSelect}
+        tabIndex={0}
+      >
+        <span className="aural-tree__toggle" onClick={handleToggle}>
+          {hasChildren && (
+            isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />
+          )}
+        </span>
+        <span
+          className={`aural-tree__icon ${
+            node.iconColor ? `aural-tree__icon--${node.iconColor}` : ''
+          }`}
+        >
+          {node.icon}
+        </span>
+        <span className="aural-tree__label">{node.label}</span>
+        {node.badge && (
+          <span className="aural-tree__badge">{node.badge}</span>
+        )}
+      </button>
+      {hasChildren && isExpanded && (
+        <ul className="aural-tree__children">
+          {node.children.map((child) => (
+            <TreeNode
+              key={child.id}
+              node={child}
+              level={level + 1}
+              expanded={expanded}
+              selected={selected}
+              onToggle={onToggle}
+              onSelect={onSelect}
+            />
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+};
+
+const TreeView = ({ data, onNodeSelect }) => {
+  const [expanded, setExpanded] = useState(new Set());
+  const [selected, setSelected] = useState(null);
+
+  const handleToggle = (id) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const handleSelect = (id, node) => {
+    setSelected(id);
+    if (onNodeSelect) {
+      onNodeSelect(node);
+    }
+  };
+
+  return (
+    <ul className="aural-tree">
+      {data.map((node) => (
+        <TreeNode
+          key={node.id}
+          node={node}
+          expanded={expanded}
+          selected={selected}
+          onToggle={handleToggle}
+          onSelect={handleSelect}
+        />
+      ))}
+    </ul>
+  );
+};
+
+// Usage
+function FileBrowser() {
+  const treeData = [
+    {
+      id: '1',
+      icon: <Folder size={16} />,
+      label: 'Documents',
+      badge: '12',
+      children: [
+        {
+          id: '1-1',
+          icon: <Folder size={16} />,
+          label: 'Projects',
+          children: [
+            {
+              id: '1-1-1',
+              icon: <File size={16} />,
+              iconColor: 'primary',
+              label: 'project-plan.pdf'
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  return (
+    <TreeView
+      data={treeData}
+      onNodeSelect={(node) => console.log('Selected:', node)}
+    />
+  );
+}
+
+export default TreeView;
+```
+
+### Vue
+
+```vue
+<!-- TreeView.vue -->
+<template>
+  <ul class="aural-tree">
+    <TreeNode
+      v-for="node in data"
+      :key="node.id"
+      :node="node"
+      :expanded="expanded"
+      :selected="selected"
+      @toggle="handleToggle"
+      @select="handleSelect"
+    />
+  </ul>
+</template>
+
+<script>
+import { ref } from 'vue';
+import TreeNode from './TreeNode.vue';
+
+export default {
+  components: { TreeNode },
+  props: {
+    data: { type: Array, required: true }
+  },
+  emits: ['node-select'],
+  setup(props, { emit }) {
+    const expanded = ref(new Set());
+    const selected = ref(null);
+
+    const handleToggle = (id) => {
+      if (expanded.value.has(id)) {
+        expanded.value.delete(id);
+      } else {
+        expanded.value.add(id);
+      }
+      // Trigger reactivity
+      expanded.value = new Set(expanded.value);
+    };
+
+    const handleSelect = (id, node) => {
+      selected.value = id;
+      emit('node-select', node);
+    };
+
+    return {
+      expanded,
+      selected,
+      handleToggle,
+      handleSelect
+    };
+  }
+};
+</script>
+
+<!-- TreeNode.vue -->
+<template>
+  <li
+    :class="[
+      'aural-tree__item',
+      hasChildren
+        ? isExpanded
+          ? ''
+          : 'aural-tree__item--collapsed'
+        : 'aural-tree__item--leaf'
+    ]"
+  >
+    <button
+      :class="['aural-tree__content', { 'is-selected': isSelected }]"
+      @click="$emit('select', node.id, node)"
+      tabindex="0"
+    >
+      <span class="aural-tree__toggle" @click.stop="$emit('toggle', node.id)">
+        <ChevronDown v-if="hasChildren && isExpanded" :size="16" />
+        <ChevronRight v-else-if="hasChildren" :size="16" />
+      </span>
+      <span
+        :class="[
+          'aural-tree__icon',
+          node.iconColor ? `aural-tree__icon--${node.iconColor}` : ''
+        ]"
+      >
+        <component :is="node.icon" :size="16" />
+      </span>
+      <span class="aural-tree__label">{{ node.label }}</span>
+      <span v-if="node.badge" class="aural-tree__badge">
+        {{ node.badge }}
+      </span>
+    </button>
+    <ul v-if="hasChildren && isExpanded" class="aural-tree__children">
+      <TreeNode
+        v-for="child in node.children"
+        :key="child.id"
+        :node="child"
+        :expanded="expanded"
+        :selected="selected"
+        @toggle="$emit('toggle', $event)"
+        @select="$emit('select', $event)"
+      />
+    </ul>
+  </li>
+</template>
+
+<script>
+import { computed } from 'vue';
+import { ChevronRight, ChevronDown } from 'lucide-vue-next';
+
+export default {
+  name: 'TreeNode',
+  components: { ChevronRight, ChevronDown },
+  props: {
+    node: { type: Object, required: true },
+    expanded: { type: Set, required: true },
+    selected: { type: String, default: null }
+  },
+  emits: ['toggle', 'select'],
+  setup(props) {
+    const isExpanded = computed(() => props.expanded.has(props.node.id));
+    const isSelected = computed(() => props.selected === props.node.id);
+    const hasChildren = computed(
+      () => props.node.children && props.node.children.length > 0
+    );
+
+    return { isExpanded, isSelected, hasChildren };
+  }
+};
+</script>
+```
+
+### Svelte
+
+```svelte
+<!-- TreeView.svelte -->
+<script>
+  import { writable } from 'svelte/store';
+  import TreeNode from './TreeNode.svelte';
+
+  export let data = [];
+  export let onNodeSelect = () => {};
+
+  const expanded = writable(new Set());
+  const selected = writable(null);
+
+  function handleToggle(id) {
+    expanded.update(set => {
+      const newSet = new Set(set);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  }
+
+  function handleSelect(id, node) {
+    selected.set(id);
+    onNodeSelect(node);
+  }
+</script>
+
+<ul class="aural-tree">
+  {#each data as node (node.id)}
+    <TreeNode
+      {node}
+      {expanded}
+      {selected}
+      on:toggle={(e) => handleToggle(e.detail)}
+      on:select={(e) => handleSelect(e.detail.id, e.detail.node)}
+    />
+  {/each}
+</ul>
+
+<!-- TreeNode.svelte -->
+<script>
+  import { createEventDispatcher } from 'svelte';
+  import { ChevronRight, ChevronDown } from 'lucide-svelte';
+
+  export let node;
+  export let expanded;
+  export let selected;
+  export let level = 0;
+
+  const dispatch = createEventDispatcher();
+
+  $: isExpanded = $expanded.has(node.id);
+  $: isSelected = $selected === node.id;
+  $: hasChildren = node.children && node.children.length > 0;
+
+  function handleToggle(e) {
+    e.stopPropagation();
+    dispatch('toggle', node.id);
+  }
+
+  function handleSelect() {
+    dispatch('select', { id: node.id, node });
+  }
+</script>
+
+<li
+  class="aural-tree__item"
+  class:aural-tree__item--collapsed={hasChildren && !isExpanded}
+  class:aural-tree__item--leaf={!hasChildren}
+>
+  <button
+    class="aural-tree__content"
+    class:is-selected={isSelected}
+    on:click={handleSelect}
+    tabindex="0"
+  >
+    <span class="aural-tree__toggle" on:click={handleToggle}>
+      {#if hasChildren}
+        {#if isExpanded}
+          <ChevronDown size={16} />
+        {:else}
+          <ChevronRight size={16} />
+        {/if}
+      {/if}
+    </span>
+    <span
+      class="aural-tree__icon"
+      class:aural-tree__icon--{node.iconColor}={node.iconColor}
+    >
+      <svelte:component this={node.icon} size={16} />
+    </span>
+    <span class="aural-tree__label">{node.label}</span>
+    {#if node.badge}
+      <span class="aural-tree__badge">{node.badge}</span>
+    {/if}
+  </button>
+  {#if hasChildren && isExpanded}
+    <ul class="aural-tree__children">
+      {#each node.children as child (child.id)}
+        <svelte:self
+          node={child}
+          {expanded}
+          {selected}
+          level={level + 1}
+          on:toggle
+          on:select
+        />
+      {/each}
+    </ul>
+  {/if}
+</li>
+```
+
+## Accessibility Best Practices
+
+### ARIA Attributes
+
+```html
+<ul class="aural-tree" role="tree" aria-label="File browser">
+  <li class="aural-tree__item" role="treeitem" aria-expanded="false">
+    <button class="aural-tree__content" aria-selected="false">
+      <!-- Content -->
+    </button>
+  </li>
+</ul>
+```
+
+### Keyboard Navigation
+
+- **Arrow Up/Down**: Navigate between items
+- **Arrow Right**: Expand collapsed item
+- **Arrow Left**: Collapse expanded item
+- **Enter/Space**: Select/activate item
+- **Home**: Jump to first item
+- **End**: Jump to last item
+
+### Screen Reader Support
+
+```javascript
+// Add proper labels for toggle buttons
+const toggle = document.createElement('button');
+toggle.setAttribute('aria-label', `${isExpanded ? 'Collapse' : 'Expand'} ${node.label}`);
+```
+
+## Best Practices
+
+### Performance
+
+For large trees (1000+ items), consider:
+
+1. **Virtual scrolling** - Only render visible items
+2. **Lazy loading** - Load children on demand
+3. **Memoization** - Cache rendered nodes
+4. **Debounced search** - Prevent excessive re-renders
+
+### UX Patterns
+
+1. **Persist state** - Save expanded/selected state to localStorage
+2. **Visual feedback** - Show loading states when fetching children
+3. **Smooth transitions** - Animate expand/collapse
+4. **Smart defaults** - Auto-expand to selected item
+
+### Accessibility
+
+1. **Focus management** - Maintain focus on keyboard navigation
+2. **ARIA live regions** - Announce dynamic changes
+3. **Color + icons** - Don't rely on color alone
+4. **Touch targets** - Minimum 44px for mobile
+
+## Common Use Cases
+
+### File Explorer
+
+```javascript
+const fileTree = [
+  {
+    id: 'root',
+    icon: 'hard-drive',
+    label: 'My Computer',
+    children: [
+      { id: 'desktop', icon: 'folder', label: 'Desktop' },
+      { id: 'docs', icon: 'folder', label: 'Documents' }
+    ]
+  }
+];
+```
+
+### Navigation Menu
+
+```javascript
+const navTree = [
+  {
+    id: 'dashboard',
+    icon: 'layout-dashboard',
+    label: 'Dashboard',
+    children: [
+      { id: 'analytics', icon: 'bar-chart', label: 'Analytics' }
+    ]
+  }
+];
+```
+
+### Settings Panel
+
+```javascript
+const settingsTree = [
+  {
+    id: 'account',
+    icon: 'user',
+    label: 'Account',
+    children: [
+      { id: 'profile', icon: 'user-circle', label: 'Profile' },
+      { id: 'security', icon: 'shield', label: 'Security' }
+    ]
+  }
+];
+```
+
+## Initialization
+
+Initialize the tree view component after DOM is ready:
+
+```javascript
+// Vanilla JS
+document.addEventListener('DOMContentLoaded', () => {
+  window.Aural.initTreeView();
+});
+
+// Or manually
+window.Aural.initTreeView();
+```
+
+## CSS Variables
+
+Customize tree view appearance:
+
+```css
+:root {
+  --tree-indent: 1.5rem;
+  --tree-item-height: 2.5rem;
+  --tree-icon-size: 1rem;
+  --tree-toggle-size: 1rem;
+}
+```

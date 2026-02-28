@@ -1,0 +1,571 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as StepperStories from './Stepper.stories';
+
+<Meta of={StepperStories} />
+
+# Stepper
+
+Multi-step process indicator showing progress through sequential steps. Steppers guide users through complex tasks by breaking them into manageable steps.
+
+## Overview
+
+The Stepper component provides visual feedback for multi-step processes, helping users understand where they are in a workflow and what steps remain.
+
+**Key Features:**
+- Horizontal and vertical orientations
+- Multiple step states (completed, active, error, pending)
+- Support for numbers or icons in step indicators
+- Optional step descriptions
+- Full keyboard accessibility
+- ARIA attributes for screen readers
+
+---
+
+## Usage
+
+<Canvas of={StepperStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic horizontal stepper -->
+<div class="aural-stepper" role="navigation" aria-label="Registration progress">
+  <div class="aural-step aural-step--completed">
+    <div class="aural-step__indicator" aria-label="Step 1: Completed">
+      <i data-lucide="check" style="width: 20px; height: 20px;" aria-hidden="true"></i>
+    </div>
+    <div class="aural-step__connector" aria-hidden="true"></div>
+    <div class="aural-step__content">
+      <div class="aural-step__title">Account</div>
+      <div class="aural-step__description">Create your account</div>
+    </div>
+  </div>
+
+  <div class="aural-step aural-step--active">
+    <div class="aural-step__indicator" aria-current="step" aria-label="Step 2: Active">2</div>
+    <div class="aural-step__connector" aria-hidden="true"></div>
+    <div class="aural-step__content">
+      <div class="aural-step__title">Profile</div>
+      <div class="aural-step__description">Add your details</div>
+    </div>
+  </div>
+
+  <div class="aural-step">
+    <div class="aural-step__indicator" aria-disabled="true" aria-label="Step 3: Pending">3</div>
+    <div class="aural-step__content">
+      <div class="aural-step__title">Complete</div>
+      <div class="aural-step__description">Review and finish</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+</script>
+```
+
+### React
+
+```jsx
+import { useEffect } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function Stepper({ steps, currentStep }) {
+  useEffect(() => {
+    // Initialize Lucide icons
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }, []);
+
+  const getStepState = (index) => {
+    if (index < currentStep) return 'completed';
+    if (index === currentStep) return 'active';
+    return 'pending';
+  };
+
+  return (
+    <div className="aural-stepper" role="navigation" aria-label="Progress">
+      {steps.map((step, index) => {
+        const state = getStepState(index);
+        const isLast = index === steps.length - 1;
+
+        return (
+          <div
+            key={index}
+            className={`aural-step ${state !== 'pending' ? `aural-step--${state}` : ''}`}
+          >
+            <div
+              className="aural-step__indicator"
+              aria-current={state === 'active' ? 'step' : undefined}
+              aria-label={`Step ${index + 1}: ${step.title}, ${state}`}
+            >
+              {state === 'completed' ? (
+                <i data-lucide="check" style={{ width: 20, height: 20 }} aria-hidden="true" />
+              ) : step.icon ? (
+                <i data-lucide={step.icon} style={{ width: 20, height: 20 }} aria-hidden="true" />
+              ) : (
+                index + 1
+              )}
+            </div>
+            {!isLast && <div className="aural-step__connector" aria-hidden="true" />}
+            <div className="aural-step__content">
+              <div className="aural-step__title">{step.title}</div>
+              {step.description && (
+                <div className="aural-step__description">{step.description}</div>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// Usage
+const steps = [
+  { title: 'Account', description: 'Create your account' },
+  { title: 'Profile', description: 'Add your details' },
+  { title: 'Preferences', description: 'Set preferences' },
+  { title: 'Complete', description: 'Review and finish' }
+];
+
+<Stepper steps={steps} currentStep={1} />
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div class="aural-stepper" role="navigation" aria-label="Progress">
+    <div
+      v-for="(step, index) in steps"
+      :key="index"
+      :class="stepClasses(index)"
+    >
+      <div
+        class="aural-step__indicator"
+        :aria-current="getStepState(index) === 'active' ? 'step' : undefined"
+        :aria-label="`Step ${index + 1}: ${step.title}, ${getStepState(index)}`"
+      >
+        <i
+          v-if="getStepState(index) === 'completed'"
+          data-lucide="check"
+          style="width: 20px; height: 20px;"
+          aria-hidden="true"
+        ></i>
+        <i
+          v-else-if="step.icon"
+          :data-lucide="step.icon"
+          style="width: 20px; height: 20px;"
+          aria-hidden="true"
+        ></i>
+        <template v-else>{{ index + 1 }}</template>
+      </div>
+      <div v-if="index < steps.length - 1" class="aural-step__connector" aria-hidden="true"></div>
+      <div class="aural-step__content">
+        <div class="aural-step__title">{{ step.title }}</div>
+        <div v-if="step.description" class="aural-step__description">
+          {{ step.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { onMounted, computed } from 'vue';
+
+const props = defineProps({
+  steps: { type: Array, required: true },
+  currentStep: { type: Number, default: 0 }
+});
+
+const getStepState = (index) => {
+  if (index < props.currentStep) return 'completed';
+  if (index === props.currentStep) return 'active';
+  return 'pending';
+};
+
+const stepClasses = (index) => {
+  const state = getStepState(index);
+  return [
+    'aural-step',
+    state !== 'pending' ? `aural-step--${state}` : ''
+  ].filter(Boolean);
+};
+
+onMounted(() => {
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+});
+</script>
+
+<!-- Usage -->
+<Stepper
+  :steps="[
+    { title: 'Account', description: 'Create your account' },
+    { title: 'Profile', description: 'Add your details' },
+    { title: 'Complete', description: 'Review and finish' }
+  ]"
+  :currentStep="1"
+/>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+
+  export let steps = [];
+  export let currentStep = 0;
+
+  function getStepState(index) {
+    if (index < currentStep) return 'completed';
+    if (index === currentStep) return 'active';
+    return 'pending';
+  }
+
+  onMount(() => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  });
+</script>
+
+<div class="aural-stepper" role="navigation" aria-label="Progress">
+  {#each steps as step, index}
+    {@const state = getStepState(index)}
+    {@const isLast = index === steps.length - 1}
+    <div class="aural-step" class:aural-step--completed={state === 'completed'}
+         class:aural-step--active={state === 'active'}>
+      <div
+        class="aural-step__indicator"
+        aria-current={state === 'active' ? 'step' : undefined}
+        aria-label="Step {index + 1}: {step.title}, {state}"
+      >
+        {#if state === 'completed'}
+          <i data-lucide="check" style="width: 20px; height: 20px;" aria-hidden="true"></i>
+        {:else if step.icon}
+          <i data-lucide={step.icon} style="width: 20px; height: 20px;" aria-hidden="true"></i>
+        {:else}
+          {index + 1}
+        {/if}
+      </div>
+      {#if !isLast}
+        <div class="aural-step__connector" aria-hidden="true"></div>
+      {/if}
+      <div class="aural-step__content">
+        <div class="aural-step__title">{step.title}</div>
+        {#if step.description}
+          <div class="aural-step__description">{step.description}</div>
+        {/if}
+      </div>
+    </div>
+  {/each}
+</div>
+
+<!-- Usage -->
+<Stepper
+  steps={[
+    { title: 'Account', description: 'Create your account' },
+    { title: 'Profile', description: 'Add your details' },
+    { title: 'Complete', description: 'Review and finish' }
+  ]}
+  currentStep={1}
+/>
+```
+
+---
+
+## Orientations
+
+### Horizontal Stepper
+
+<Canvas of={StepperStories.Default} />
+
+Best for 3-5 steps on desktop. Shows all steps at once in a compact horizontal layout.
+
+```html
+<div class="aural-stepper">
+  <!-- Steps -->
+</div>
+```
+
+### Vertical Stepper
+
+<Canvas of={StepperStories.Vertical} />
+
+Best for 5+ steps or mobile layouts. Allows for longer descriptions and detailed status updates.
+
+```html
+<div class="aural-stepper aural-stepper--vertical">
+  <!-- Steps -->
+</div>
+```
+
+---
+
+## Step States
+
+<Canvas of={StepperStories.AllStates} />
+
+### Available States:
+
+- **Completed** (`.aural-step--completed`): Step has been finished, shows check icon
+- **Active** (`.aural-step--active`): Current step, highlighted with primary color
+- **Error** (`.aural-step--error`): Step has an error, shows X icon
+- **Pending** (default): Upcoming step, not yet accessible
+
+```html
+<!-- Completed step -->
+<div class="aural-step aural-step--completed">
+  <div class="aural-step__indicator">
+    <i data-lucide="check"></i>
+  </div>
+  <!-- ... -->
+</div>
+
+<!-- Active step -->
+<div class="aural-step aural-step--active">
+  <div class="aural-step__indicator" aria-current="step">2</div>
+  <!-- ... -->
+</div>
+
+<!-- Error step -->
+<div class="aural-step aural-step--error">
+  <div class="aural-step__indicator">
+    <i data-lucide="x"></i>
+  </div>
+  <!-- ... -->
+</div>
+
+<!-- Pending step -->
+<div class="aural-step">
+  <div class="aural-step__indicator" aria-disabled="true">3</div>
+  <!-- ... -->
+</div>
+```
+
+---
+
+## Indicators
+
+### Number Indicators
+
+<Canvas of={StepperStories.WithNumbers} />
+
+Use numbers when step order is important and steps follow a sequence.
+
+### Icon Indicators
+
+<Canvas of={StepperStories.WithIcons} />
+
+Use icons when they add clarity or represent the step's purpose visually.
+
+```html
+<div class="aural-step__indicator">
+  <i data-lucide="user" style="width: 20px; height: 20px;" aria-hidden="true"></i>
+</div>
+```
+
+---
+
+## Patterns
+
+### Form Wizard
+
+<Canvas of={StepperStories.FormWizard} />
+
+Guide users through multi-step forms with clear navigation and progress indication.
+
+### Order Tracking
+
+<Canvas of={StepperStories.OrderTracking} />
+
+Show order status and delivery progress with timestamps and detailed updates.
+
+### Onboarding Flow
+
+<Canvas of={StepperStories.OnboardingFlow} />
+
+Guide new users through setup and configuration with intuitive step progression.
+
+---
+
+## Theme Comparison
+
+See how the stepper looks across all 9 Aural UI themes:
+
+<Canvas of={StepperStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+✅ **Keyboard Navigation**
+- Stepper itself is not keyboard navigable (informational only)
+- Associated form controls and buttons remain fully accessible
+
+✅ **Screen Readers**
+- Use `role="navigation"` on stepper container
+- Add `aria-label` to describe the stepper purpose
+- Use `aria-current="step"` on active step indicator
+- Add `aria-label` to each indicator describing step number and state
+- Use `aria-disabled="true"` for pending steps
+- Mark decorative connectors with `aria-hidden="true"`
+
+✅ **Color Contrast**
+- All states meet WCAG AAA contrast requirements
+- Icons and numbers provide non-color indicators
+
+✅ **Visual Indicators**
+- Check icon for completed steps
+- X icon for error steps
+- Numbers or icons for pending steps
+- Connector lines show step relationships
+
+### ARIA Example
+
+```html
+<div class="aural-stepper" role="navigation" aria-label="Checkout progress">
+  <div class="aural-step aural-step--completed">
+    <div class="aural-step__indicator" aria-label="Step 1 of 4: Cart, Completed">
+      <i data-lucide="check" aria-hidden="true"></i>
+    </div>
+    <div class="aural-step__connector" aria-hidden="true"></div>
+    <div class="aural-step__content">
+      <div class="aural-step__title">Cart</div>
+    </div>
+  </div>
+
+  <div class="aural-step aural-step--active">
+    <div class="aural-step__indicator" aria-current="step" aria-label="Step 2 of 4: Payment, Active">2</div>
+    <div class="aural-step__connector" aria-hidden="true"></div>
+    <div class="aural-step__content">
+      <div class="aural-step__title">Payment</div>
+    </div>
+  </div>
+
+  <div class="aural-step">
+    <div class="aural-step__indicator" aria-disabled="true" aria-label="Step 3 of 4: Confirm, Pending">3</div>
+    <div class="aural-step__content">
+      <div class="aural-step__title">Confirm</div>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Best Practices
+
+### When to Use
+
+**Do:**
+- Use for multi-step processes (forms, checkout, onboarding)
+- Show progress through sequential workflows
+- Use horizontal steppers for 3-5 steps on desktop
+- Use vertical steppers for 5+ steps or mobile
+- Include descriptive step titles
+- Use timestamps for order tracking
+
+**Don't:**
+- Use for non-sequential processes
+- Use for single-step processes
+- Have more than 7 steps (consider breaking into multiple flows)
+- Rely solely on color to indicate state
+- Skip intermediate steps in the sequence
+
+### Content Guidelines
+
+- Keep step titles concise (1-2 words)
+- Use descriptions for additional context
+- Number steps when order matters
+- Use clear, action-oriented titles
+- Maintain consistent title length across steps
+- Provide estimated time for each step if relevant
+
+### Interactive vs Non-Interactive
+
+**Non-Interactive** (Progress Indicator Only):
+- Order tracking
+- Process status
+- Installation progress
+- Read-only workflow visualization
+
+**Interactive** (Clickable Steps):
+- Form wizards with back/next navigation
+- Multi-step configuration
+- Allow clicking completed steps to review/edit
+- Disable future steps until prerequisites complete
+
+### Mobile Considerations
+
+- Consider vertical orientation on mobile
+- Ensure 40×40px minimum touch targets
+- Hide descriptions on small screens if needed
+- Test with horizontal scrolling for many steps
+- Use compact variants when appropriate
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-stepper` | Base stepper container (required) |
+| `.aural-stepper--vertical` | Vertical orientation |
+| `.aural-step` | Individual step container |
+| `.aural-step--completed` | Completed step state |
+| `.aural-step--active` | Active/current step state |
+| `.aural-step--error` | Error step state |
+| `.aural-step__indicator` | Step number/icon circle |
+| `.aural-step__connector` | Line connecting steps |
+| `.aural-step__content` | Step text content container |
+| `.aural-step__title` | Step title text |
+| `.aural-step__description` | Step description text |
+
+### HTML Attributes
+
+| Attribute | Element | Description |
+|-----------|---------|-------------|
+| `role="navigation"` | `.aural-stepper` | Identifies stepper as navigation landmark |
+| `aria-label` | `.aural-stepper` | Describes the stepper's purpose |
+| `aria-current="step"` | `.aural-step__indicator` | Marks the current active step |
+| `aria-disabled="true"` | `.aural-step__indicator` | Marks pending/inactive steps |
+| `aria-hidden="true"` | `.aural-step__connector`, icons | Hides decorative elements from screen readers |
+| `aria-label` | `.aural-step__indicator` | Describes step number and state |
+
+### Structure
+
+```html
+<div class="aural-stepper [aural-stepper--vertical]" role="navigation" aria-label="...">
+  <div class="aural-step [aural-step--completed|active|error]">
+    <div class="aural-step__indicator" aria-current="step" aria-label="...">
+      <!-- Number, icon, or check/error icon -->
+    </div>
+    <div class="aural-step__connector" aria-hidden="true"></div>
+    <div class="aural-step__content">
+      <div class="aural-step__title">...</div>
+      <div class="aural-step__description">...</div>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## Related Components
+
+- **Progress**: Linear progress indicator for single processes
+- **Breadcrumbs**: Navigation trail showing location hierarchy
+- **Tabs**: Switch between different content panels
+- **Wizard**: Complete form wizard with step management

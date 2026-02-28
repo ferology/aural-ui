@@ -1,0 +1,724 @@
+import { Meta, Canvas, Story, Controls } from '@storybook/blocks';
+import * as NavbarStories from './Navbar.stories';
+
+<Meta of={NavbarStories} />
+
+# Navbar
+
+Top navigation bar with branding, links, and actions. Supports responsive design, icons, search, notifications, and multiple variants.
+
+## Overview
+
+The Navbar component provides consistent top-level navigation across your application. It includes support for:
+
+- Brand/logo area
+- Navigation links with active states
+- Action buttons and icon buttons
+- Search integration
+- Notification badges
+- User profile menus
+- Mobile responsive with hamburger menu
+- Multiple visual variants (sticky, transparent, blur)
+- Size variants (small, default, large)
+
+<Canvas of={NavbarStories.Basic} />
+
+## Interactive Demo
+
+<Canvas of={NavbarStories.WithIcons} />
+<Controls of={NavbarStories.WithIcons} />
+
+## Variants
+
+### With Icons
+
+Add icons to navigation links and brand for enhanced visual hierarchy.
+
+<Canvas of={NavbarStories.WithIcons} />
+
+### With Search
+
+Integrate a search bar directly into the navbar actions area.
+
+<Canvas of={NavbarStories.WithSearch} />
+
+### With Notifications
+
+Show notification counts with optional pulsing animation to draw attention.
+
+<Canvas of={NavbarStories.WithNotifications} />
+
+### With User Menu
+
+Display user profile avatar for authenticated states.
+
+<Canvas of={NavbarStories.WithUserMenu} />
+
+### Sticky Navbar
+
+Navbar that stays at the top when scrolling using `position: sticky`.
+
+<Canvas of={NavbarStories.StickyNavbar} />
+
+### Transparent Navbar
+
+Perfect for hero sections or background images.
+
+<Canvas of={NavbarStories.TransparentNavbar} />
+
+### Blur Navbar
+
+Modern frosted glass effect with backdrop blur.
+
+<Canvas of={NavbarStories.BlurNavbar} />
+
+### Size Variants
+
+<Canvas of={NavbarStories.SmallSize} />
+<Canvas of={NavbarStories.LargeSize} />
+
+## Common Patterns
+
+### E-commerce Header
+
+Complete e-commerce navigation with search, wishlist, cart, and account.
+
+<Canvas of={NavbarStories.EcommerceHeader} />
+
+### SaaS Dashboard
+
+Dashboard navigation with icon links, help, notifications, and profile.
+
+<Canvas of={NavbarStories.SaaSDashboard} />
+
+### Mobile Responsive
+
+Hamburger menu for mobile devices with toggle functionality.
+
+<Canvas of={NavbarStories.MobileResponsive} />
+
+## Theme Comparison
+
+<Canvas of={NavbarStories.ThemeComparison} />
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```html
+<nav class="aural-navbar" role="navigation" aria-label="Main navigation">
+  <div class="aural-navbar__inner">
+    <a href="#" class="aural-navbar__brand">
+      <span>Brand</span>
+    </a>
+    <div class="aural-navbar__nav">
+      <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
+      <a href="#" class="aural-navbar__link">Products</a>
+      <a href="#" class="aural-navbar__link">About</a>
+    </div>
+    <div class="aural-navbar__actions">
+      <button class="btn btn-ghost btn-sm">Sign In</button>
+      <button class="btn btn-primary btn-sm">Sign Up</button>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Initialize navbar (handles mobile menu, etc.)
+  if (window.Aural?.initNavbar) {
+    window.Aural.initNavbar();
+  }
+
+  // Initialize Lucide icons if using icons
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
+  // Mobile menu toggle
+  function toggleMobileMenu() {
+    const navbar = document.querySelector('.aural-navbar');
+    const isOpen = navbar.classList.toggle('aural-navbar--menu-open');
+    const toggle = navbar.querySelector('.aural-navbar__toggle');
+    toggle.setAttribute('aria-expanded', isOpen);
+  }
+</script>
+```
+
+### React
+
+```tsx
+import React, { useState } from 'react';
+import { Home, Briefcase, Users, Bell } from 'lucide-react';
+
+interface NavLink {
+  id: string;
+  label: string;
+  href: string;
+  icon?: React.ReactNode;
+}
+
+interface NavbarProps {
+  brand: string;
+  brandIcon?: React.ReactNode;
+  links: NavLink[];
+  variant?: 'default' | 'sticky' | 'transparent' | 'blur';
+  size?: 'sm' | 'default' | 'lg';
+  withSearch?: boolean;
+  notificationCount?: number;
+  userAvatar?: string;
+  onSignIn?: () => void;
+  onSignUp?: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  brand,
+  brandIcon,
+  links,
+  variant = 'default',
+  size = 'default',
+  withSearch = false,
+  notificationCount,
+  userAvatar,
+  onSignIn,
+  onSignUp,
+}) => {
+  const [activeLink, setActiveLink] = useState(links[0]?.id);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const variantClass = variant !== 'default' ? `aural-navbar--${variant}` : '';
+  const sizeClass = size !== 'default' ? `aural-navbar--${size}` : '';
+
+  return (
+    <nav
+      className={`aural-navbar ${variantClass} ${sizeClass} ${menuOpen ? 'aural-navbar--menu-open' : ''}`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <div className="aural-navbar__inner">
+        <a href="#" className="aural-navbar__brand">
+          {brandIcon}
+          <span>{brand}</span>
+        </a>
+
+        <div className="aural-navbar__nav">
+          {links.map((link) => (
+            <a
+              key={link.id}
+              href={link.href}
+              className={`aural-navbar__link ${
+                activeLink === link.id ? 'aural-navbar__link--active' : ''
+              }`}
+              aria-current={activeLink === link.id ? 'page' : undefined}
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveLink(link.id);
+              }}
+            >
+              {link.icon && <span className="aural-navbar__link-icon">{link.icon}</span>}
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        <div className="aural-navbar__actions">
+          {withSearch && (
+            <div className="aural-search-bar" style={{ maxWidth: '300px' }}>
+              <div className="aural-search-bar__wrapper">
+                <div className="aural-search-bar__icon">
+                  <i data-lucide="search" aria-hidden="true" />
+                </div>
+                <input
+                  type="search"
+                  className="aural-search-bar__input"
+                  placeholder="Search..."
+                  aria-label="Search"
+                />
+              </div>
+            </div>
+          )}
+
+          {notificationCount !== undefined && (
+            <button className="aural-navbar__action" aria-label={`Notifications, ${notificationCount} unread`}>
+              <Bell size={20} />
+              {notificationCount > 0 && (
+                <span className="aural-navbar__badge aural-navbar__badge--pulse">
+                  {notificationCount}
+                </span>
+              )}
+            </button>
+          )}
+
+          {userAvatar ? (
+            <a href="#" className="aural-navbar__action avatar avatar-sm" aria-label="User profile">
+              <img src={userAvatar} alt="User profile" />
+            </a>
+          ) : (
+            <>
+              <button className="btn btn-ghost btn-sm" onClick={onSignIn}>
+                Sign In
+              </button>
+              <button className="btn btn-primary btn-sm" onClick={onSignUp}>
+                Sign Up
+              </button>
+            </>
+          )}
+        </div>
+
+        <button
+          className="aural-navbar__toggle"
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <i data-lucide="menu" />
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+// Usage
+const App = () => {
+  const links = [
+    { id: 'home', label: 'Home', href: '/', icon: <Home size={16} /> },
+    { id: 'work', label: 'Work', href: '/work', icon: <Briefcase size={16} /> },
+    { id: 'team', label: 'Team', href: '/team', icon: <Users size={16} /> },
+  ];
+
+  return (
+    <Navbar
+      brand="Brand"
+      links={links}
+      notificationCount={3}
+      onSignIn={() => console.log('Sign in')}
+      onSignUp={() => console.log('Sign up')}
+    />
+  );
+};
+```
+
+### Vue 3
+
+```vue
+<template>
+  <nav
+    :class="navbarClasses"
+    role="navigation"
+    aria-label="Main navigation"
+  >
+    <div class="aural-navbar__inner">
+      <a href="#" class="aural-navbar__brand">
+        <slot name="brand-icon" />
+        <span>{{ brand }}</span>
+      </a>
+
+      <div class="aural-navbar__nav">
+        <a
+          v-for="link in links"
+          :key="link.id"
+          :href="link.href"
+          :class="getLinkClasses(link.id)"
+          :aria-current="activeLink === link.id ? 'page' : undefined"
+          @click.prevent="activeLink = link.id"
+        >
+          <component
+            v-if="link.icon"
+            :is="link.icon"
+            class="aural-navbar__link-icon"
+            aria-hidden="true"
+          />
+          {{ link.label }}
+        </a>
+      </div>
+
+      <div class="aural-navbar__actions">
+        <div v-if="withSearch" class="aural-search-bar" style="max-width: 300px;">
+          <div class="aural-search-bar__wrapper">
+            <div class="aural-search-bar__icon">
+              <i data-lucide="search" aria-hidden="true"></i>
+            </div>
+            <input
+              type="search"
+              class="aural-search-bar__input"
+              placeholder="Search..."
+              aria-label="Search"
+            />
+          </div>
+        </div>
+
+        <button
+          v-if="notificationCount !== undefined"
+          class="aural-navbar__action"
+          :aria-label="`Notifications, ${notificationCount} unread`"
+        >
+          <i data-lucide="bell" aria-hidden="true"></i>
+          <span
+            v-if="notificationCount > 0"
+            class="aural-navbar__badge aural-navbar__badge--pulse"
+          >
+            {{ notificationCount }}
+          </span>
+        </button>
+
+        <a
+          v-if="userAvatar"
+          href="#"
+          class="aural-navbar__action avatar avatar-sm"
+          aria-label="User profile"
+        >
+          <img :src="userAvatar" alt="User profile" />
+        </a>
+
+        <template v-else>
+          <button class="btn btn-ghost btn-sm" @click="$emit('signIn')">
+            Sign In
+          </button>
+          <button class="btn btn-primary btn-sm" @click="$emit('signUp')">
+            Sign Up
+          </button>
+        </template>
+      </div>
+
+      <button
+        class="aural-navbar__toggle"
+        aria-label="Toggle menu"
+        :aria-expanded="menuOpen"
+        @click="menuOpen = !menuOpen"
+      >
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+
+interface NavLink {
+  id: string;
+  label: string;
+  href: string;
+  icon?: any;
+}
+
+interface Props {
+  brand: string;
+  links: NavLink[];
+  variant?: 'default' | 'sticky' | 'transparent' | 'blur';
+  size?: 'sm' | 'default' | 'lg';
+  withSearch?: boolean;
+  notificationCount?: number;
+  userAvatar?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'default',
+  size: 'default',
+  withSearch: false,
+});
+
+const emit = defineEmits<{
+  signIn: [];
+  signUp: [];
+}>();
+
+const activeLink = ref(props.links[0]?.id);
+const menuOpen = ref(false);
+
+const navbarClasses = computed(() => {
+  const classes = ['aural-navbar'];
+  if (props.variant !== 'default') classes.push(`aural-navbar--${props.variant}`);
+  if (props.size !== 'default') classes.push(`aural-navbar--${props.size}`);
+  if (menuOpen.value) classes.push('aural-navbar--menu-open');
+  return classes.join(' ');
+});
+
+const getLinkClasses = (linkId: string) => {
+  return [
+    'aural-navbar__link',
+    activeLink.value === linkId ? 'aural-navbar__link--active' : '',
+  ].filter(Boolean).join(' ');
+};
+</script>
+
+<!-- Usage -->
+<template>
+  <Navbar
+    brand="Brand"
+    :links="navLinks"
+    :notification-count="3"
+    @sign-in="handleSignIn"
+    @sign-up="handleSignUp"
+  />
+</template>
+
+<script setup>
+import { Home, Briefcase, Users } from 'lucide-vue-next';
+
+const navLinks = [
+  { id: 'home', label: 'Home', href: '/', icon: Home },
+  { id: 'work', label: 'Work', href: '/work', icon: Briefcase },
+  { id: 'team', label: 'Team', href: '/team', icon: Users },
+];
+
+function handleSignIn() {
+  console.log('Sign in');
+}
+
+function handleSignUp() {
+  console.log('Sign up');
+}
+</script>
+```
+
+### Svelte
+
+```svelte
+<script lang="ts">
+  import { Home, Briefcase, Users, Bell, Menu } from 'lucide-svelte';
+
+  interface NavLink {
+    id: string;
+    label: string;
+    href: string;
+    icon?: any;
+  }
+
+  export let brand: string;
+  export let links: NavLink[];
+  export let variant: 'default' | 'sticky' | 'transparent' | 'blur' = 'default';
+  export let size: 'sm' | 'default' | 'lg' = 'default';
+  export let withSearch = false;
+  export let notificationCount: number | undefined = undefined;
+  export let userAvatar: string | undefined = undefined;
+
+  let activeLink = links[0]?.id;
+  let menuOpen = false;
+
+  $: navbarClasses = [
+    'aural-navbar',
+    variant !== 'default' && `aural-navbar--${variant}`,
+    size !== 'default' && `aural-navbar--${size}`,
+    menuOpen && 'aural-navbar--menu-open',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  function handleLinkClick(linkId: string) {
+    activeLink = linkId;
+  }
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+  }
+</script>
+
+<nav class={navbarClasses} role="navigation" aria-label="Main navigation">
+  <div class="aural-navbar__inner">
+    <a href="/" class="aural-navbar__brand">
+      <slot name="brand-icon" />
+      <span>{brand}</span>
+    </a>
+
+    <div class="aural-navbar__nav">
+      {#each links as link (link.id)}
+        <a
+          href={link.href}
+          class="aural-navbar__link {activeLink === link.id ? 'aural-navbar__link--active' : ''}"
+          aria-current={activeLink === link.id ? 'page' : undefined}
+          on:click|preventDefault={() => handleLinkClick(link.id)}
+        >
+          {#if link.icon}
+            <svelte:component
+              this={link.icon}
+              size={16}
+              class="aural-navbar__link-icon"
+              aria-hidden="true"
+            />
+          {/if}
+          {link.label}
+        </a>
+      {/each}
+    </div>
+
+    <div class="aural-navbar__actions">
+      {#if withSearch}
+        <div class="aural-search-bar" style="max-width: 300px;">
+          <div class="aural-search-bar__wrapper">
+            <div class="aural-search-bar__icon">
+              <i data-lucide="search" aria-hidden="true"></i>
+            </div>
+            <input
+              type="search"
+              class="aural-search-bar__input"
+              placeholder="Search..."
+              aria-label="Search"
+            />
+          </div>
+        </div>
+      {/if}
+
+      {#if notificationCount !== undefined}
+        <button
+          class="aural-navbar__action"
+          aria-label="Notifications, {notificationCount} unread"
+        >
+          <Bell size={20} />
+          {#if notificationCount > 0}
+            <span class="aural-navbar__badge aural-navbar__badge--pulse">
+              {notificationCount}
+            </span>
+          {/if}
+        </button>
+      {/if}
+
+      {#if userAvatar}
+        <a href="/profile" class="aural-navbar__action avatar avatar-sm" aria-label="User profile">
+          <img src={userAvatar} alt="User profile" />
+        </a>
+      {:else}
+        <button class="btn btn-ghost btn-sm" on:click={() => dispatch('signIn')}>
+          Sign In
+        </button>
+        <button class="btn btn-primary btn-sm" on:click={() => dispatch('signUp')}>
+          Sign Up
+        </button>
+      {/if}
+    </div>
+
+    <button
+      class="aural-navbar__toggle"
+      aria-label="Toggle menu"
+      aria-expanded={menuOpen}
+      on:click={toggleMenu}
+    >
+      <Menu size={24} />
+    </button>
+  </div>
+</nav>
+
+<!-- Usage -->
+<script>
+  import Navbar from './Navbar.svelte';
+  import { Home, Briefcase, Users } from 'lucide-svelte';
+
+  const navLinks = [
+    { id: 'home', label: 'Home', href: '/', icon: Home },
+    { id: 'work', label: 'Work', href: '/work', icon: Briefcase },
+    { id: 'team', label: 'Team', href: '/team', icon: Users },
+  ];
+
+  function handleSignIn() {
+    console.log('Sign in');
+  }
+
+  function handleSignUp() {
+    console.log('Sign up');
+  }
+</script>
+
+<Navbar
+  brand="Brand"
+  links={navLinks}
+  notificationCount={3}
+  on:signIn={handleSignIn}
+  on:signUp={handleSignUp}
+/>
+```
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-navbar` | Base navbar container |
+| `.aural-navbar__inner` | Inner wrapper for navbar content |
+| `.aural-navbar__brand` | Brand/logo area |
+| `.aural-navbar__nav` | Navigation links container |
+| `.aural-navbar__link` | Individual navigation link |
+| `.aural-navbar__link--active` | Active navigation link state |
+| `.aural-navbar__link-icon` | Icon within navigation link |
+| `.aural-navbar__actions` | Actions area (right side) |
+| `.aural-navbar__action` | Individual action button (icon button) |
+| `.aural-navbar__badge` | Notification badge |
+| `.aural-navbar__badge--pulse` | Pulsing notification badge |
+| `.aural-navbar__toggle` | Mobile menu toggle button |
+| `.aural-navbar--sticky` | Sticky positioning variant |
+| `.aural-navbar--transparent` | Transparent background variant |
+| `.aural-navbar--blur` | Blur background variant |
+| `.aural-navbar--sm` | Small size variant |
+| `.aural-navbar--lg` | Large size variant |
+| `.aural-navbar--menu-open` | Mobile menu open state |
+
+### JavaScript API
+
+```javascript
+// Initialize navbar functionality
+window.Aural.initNavbar();
+
+// Manual mobile menu toggle
+function toggleMobileMenu() {
+  const navbar = document.querySelector('.aural-navbar');
+  const isOpen = navbar.classList.toggle('aural-navbar--menu-open');
+  const toggle = navbar.querySelector('.aural-navbar__toggle');
+  toggle.setAttribute('aria-expanded', isOpen);
+}
+```
+
+## Accessibility
+
+The Navbar component follows WCAG 2.1 Level AA guidelines:
+
+- **Semantic HTML**: Uses `<nav>` element with `role="navigation"`
+- **Descriptive Labels**: `aria-label` on nav and icon-only buttons
+- **Active State**: `aria-current="page"` on active link
+- **Keyboard Navigation**: Full keyboard support with proper focus states
+- **Mobile Menu**: `aria-expanded` on toggle button
+- **Color Contrast**: Meets 4.5:1 minimum contrast ratio
+- **Screen Reader Support**: Icon buttons include descriptive `aria-label`
+
+## Best Practices
+
+### When to Use
+
+- Use navbar for primary site navigation accessible from every page
+- Keep navigation items between 4-7 for optimal scanability
+- Place the logo/brand on the left for better discoverability
+- Position primary CTAs (sign up, login) on the right side
+- Use sticky navbar for long-scrolling pages to maintain access
+
+### Logo and Branding
+
+- Always link the logo/brand to the homepage
+- Keep logo height between 28-40px for optimal display
+- Include both icon and text for better brand recognition
+
+### Navigation Links
+
+- Keep link labels concise (1-2 words)
+- Order links by importance or logical flow
+- Use icons sparingly - only when they add clarity
+- Always mark the current page with `.aural-navbar__link--active` and `aria-current="page"`
+
+### Action Buttons
+
+- Use icon buttons for secondary actions (search, notifications, settings)
+- Always include `aria-label` on icon-only buttons
+- Use badges to show notification counts
+- Add `.aural-navbar__badge--pulse` for important notifications
+- Limit action buttons to 3-4 to avoid clutter
+
+### Mobile Considerations
+
+- Hamburger menu appears automatically below 768px
+- Ensure toggle button is at least 44x44px for touch targets
+- Include `aria-expanded` attribute on toggle button
+- Consider hiding search bar on mobile or moving it to menu
+
+## Related Components
+
+- [Button](/docs/components-button--docs) - Action buttons in navbar
+- [Avatar](/docs/components-avatar--docs) - User profile in navbar
+- [Search Bar](/docs/components-searchbar--docs) - Search integration
+- [Dropdown](/docs/components-dropdown--docs) - Dropdown menus in navbar
