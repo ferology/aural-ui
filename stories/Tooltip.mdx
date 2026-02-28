@@ -1,0 +1,574 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as TooltipStories from './Tooltip.stories';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+Tooltips provide contextual help text that appears on hover or focus. They are essential for providing additional information without cluttering the interface.
+
+## Overview
+
+The Tooltip component displays helpful information when users hover over or focus on an element. Tooltips are particularly useful for icon buttons, abbreviated labels, or providing additional context for actions.
+
+**Key Features:**
+- 4 positioning options (Top, Bottom, Left, Right)
+- 5 color variants (Default, Primary, Success, Warning, Error)
+- 3 sizes (Small, Medium, Large)
+- Keyboard accessible (works on focus)
+- ARIA compliant with proper accessibility attributes
+- Auto-positioning to prevent viewport overflow
+- Theme-aware styling across all 9 Aural UI themes
+
+---
+
+## Usage
+
+<Canvas of={TooltipStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic tooltip -->
+<button data-tooltip="This is a helpful tooltip">
+  Hover me
+</button>
+
+<!-- With position -->
+<button
+  data-tooltip="Tooltip on right"
+  data-tooltip-position="right">
+  Right
+</button>
+
+<!-- With color -->
+<button
+  data-tooltip="Warning message"
+  data-tooltip-color="warning">
+  Warning
+</button>
+
+<!-- With size -->
+<button
+  data-tooltip="Large tooltip with more content"
+  data-tooltip-size="lg">
+  Large
+</button>
+
+<!-- Icon button with tooltip (accessibility required) -->
+<button
+  class="btn btn-ghost btn-icon"
+  data-tooltip="Edit item"
+  aria-label="Edit">
+  <i data-lucide="edit-2"></i>
+</button>
+```
+
+### React
+
+```jsx
+// Basic usage
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function MyComponent() {
+  return (
+    <button data-tooltip="This is a helpful tooltip">
+      Hover me
+    </button>
+  );
+}
+
+// Reusable Tooltip wrapper component
+function Tooltip({
+  text,
+  position = 'top',
+  color,
+  size,
+  children
+}) {
+  const tooltipId = `tooltip-${Math.random().toString(36).substr(2, 9)}`;
+
+  return React.cloneElement(children, {
+    'data-tooltip': text,
+    'data-tooltip-position': position !== 'top' ? position : undefined,
+    'data-tooltip-color': color,
+    'data-tooltip-size': size !== 'md' ? size : undefined,
+    'aria-describedby': tooltipId
+  });
+}
+
+// Usage with wrapper
+function MyComponent() {
+  return (
+    <Tooltip text="Save your changes" position="top" color="primary">
+      <button className="btn btn-primary">Save</button>
+    </Tooltip>
+  );
+}
+
+// Icon button with tooltip
+function IconButton({ icon, tooltip, ariaLabel, onClick }) {
+  return (
+    <button
+      className="btn btn-ghost btn-icon"
+      data-tooltip={tooltip}
+      aria-label={ariaLabel}
+      onClick={onClick}
+    >
+      {icon}
+    </button>
+  );
+}
+
+// Usage
+<IconButton
+  icon={<EditIcon />}
+  tooltip="Edit item"
+  ariaLabel="Edit"
+  onClick={handleEdit}
+/>
+```
+
+### Vue 3
+
+```vue
+<template>
+  <!-- Basic usage -->
+  <button data-tooltip="This is a helpful tooltip">
+    Hover me
+  </button>
+
+  <!-- Reusable Tooltip component -->
+  <Tooltip :text="tooltipText" :position="position" :color="color">
+    <button class="btn btn-primary">Save</button>
+  </Tooltip>
+</template>
+
+<script setup>
+// Tooltip.vue - Reusable component
+import { computed } from 'vue';
+
+const props = defineProps({
+  text: {
+    type: String,
+    required: true
+  },
+  position: {
+    type: String,
+    default: 'top',
+    validator: (value) => ['top', 'bottom', 'left', 'right'].includes(value)
+  },
+  color: {
+    type: String,
+    validator: (value) =>
+      ['primary', 'success', 'warning', 'error'].includes(value)
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  }
+});
+
+const tooltipAttrs = computed(() => {
+  const attrs = {
+    'data-tooltip': props.text
+  };
+
+  if (props.position !== 'top') {
+    attrs['data-tooltip-position'] = props.position;
+  }
+
+  if (props.color) {
+    attrs['data-tooltip-color'] = props.color;
+  }
+
+  if (props.size !== 'md') {
+    attrs['data-tooltip-size'] = props.size;
+  }
+
+  return attrs;
+});
+</script>
+
+<template>
+  <span v-bind="tooltipAttrs">
+    <slot />
+  </span>
+</template>
+
+<!-- Usage in parent component -->
+<script setup>
+const tooltipText = 'Save your changes';
+const position = 'top';
+const color = 'primary';
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  // Basic usage - just use data attributes
+  let tooltipText = 'This is a helpful tooltip';
+</script>
+
+<button data-tooltip={tooltipText}>
+  Hover me
+</button>
+
+<!-- Tooltip.svelte - Reusable component -->
+<script>
+  export let text = '';
+  export let position = 'top';
+  export let color = '';
+  export let size = 'md';
+
+  $: tooltipId = `tooltip-${Math.random().toString(36).substr(2, 9)}`;
+</script>
+
+<span
+  data-tooltip={text}
+  data-tooltip-position={position !== 'top' ? position : undefined}
+  data-tooltip-color={color || undefined}
+  data-tooltip-size={size !== 'md' ? size : undefined}
+  aria-describedby={tooltipId}
+>
+  <slot />
+</span>
+
+<!-- Usage -->
+<script>
+  import Tooltip from './Tooltip.svelte';
+</script>
+
+<Tooltip text="Save your changes" position="top" color="primary">
+  <button class="btn btn-primary">Save</button>
+</Tooltip>
+
+<!-- Icon button with tooltip -->
+<button
+  class="btn btn-ghost btn-icon"
+  data-tooltip="Edit item"
+  aria-label="Edit"
+>
+  <EditIcon />
+</button>
+```
+
+---
+
+## Positions
+
+Tooltips can be positioned on any side of the target element.
+
+<Canvas of={TooltipStories.Positions} />
+
+### Position Guidelines:
+
+- **Top** (default): Use for most cases, appears above element
+- **Bottom**: Use when top would go off-screen or in headers
+- **Left**: Use in right-aligned toolbars or navigation
+- **Right**: Use for left-aligned help icons in forms
+
+Tooltips automatically adjust position if they would overflow the viewport.
+
+---
+
+## Colors
+
+Use color variants to convey different types of information.
+
+<Canvas of={TooltipStories.Colors} />
+
+### Color Usage:
+
+- **Default**: General information and help text
+- **Primary**: Highlight important features or new functionality
+- **Success**: Positive status, completed actions, operational services
+- **Warning**: Cautions, degraded states, important notices
+- **Error**: Errors, offline status, critical issues
+
+---
+
+## Sizes
+
+Adjust tooltip size based on content length.
+
+<Canvas of={TooltipStories.Sizes} />
+
+### Size Guidelines:
+
+- **Small (`sm`)**: Short labels, single words, keyboard shortcuts
+- **Medium (`md`)**: Default size, 1-2 short sentences
+- **Large (`lg`)**: Longer explanations, detailed help text (3-4 sentences max)
+
+**Note**: For content longer than 4 sentences, consider using a Popover or Modal instead.
+
+---
+
+## Icon Buttons
+
+Tooltips are essential for icon-only buttons to ensure accessibility.
+
+<Canvas of={TooltipStories.WithIcon} />
+
+```html
+<button
+  class="btn btn-ghost btn-icon"
+  data-tooltip="Edit item"
+  aria-label="Edit">
+  <i data-lucide="edit-2"></i>
+</button>
+```
+
+**Critical**: Always include both `data-tooltip` AND `aria-label` on icon-only buttons. The tooltip provides visual help, while aria-label ensures screen reader accessibility.
+
+---
+
+## Buttons with Tooltips
+
+Add contextual help to action buttons.
+
+<Canvas of={TooltipStories.OnButton} />
+
+Use tooltips to explain what will happen when a button is clicked, especially for destructive or irreversible actions.
+
+---
+
+## Help Icons
+
+Provide contextual help in forms without cluttering labels.
+
+<Canvas of={TooltipStories.HelpIcons} />
+
+```html
+<div style="display: flex; align-items: center; gap: 0.5rem;">
+  <label for="username">Username</label>
+  <button
+    class="btn btn-ghost btn-icon btn-sm"
+    data-tooltip="Your unique username for login"
+    data-tooltip-position="right"
+    aria-label="Help">
+    ?
+  </button>
+</div>
+```
+
+This pattern keeps forms clean while providing helpful guidance when needed.
+
+---
+
+## Status Indicators
+
+Use colored tooltips to explain status indicators.
+
+<Canvas of={TooltipStories.StatusIndicators} />
+
+```html
+<span
+  style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-success);"
+  data-tooltip="Service is operational"
+  data-tooltip-color="success"
+  role="status"
+  aria-label="Service operational">
+</span>
+```
+
+---
+
+## Theme Comparison
+
+See how tooltips look across all 9 Aural UI themes:
+
+<Canvas of={TooltipStories.ThemeComparison} />
+
+All tooltips maintain WCAG AAA contrast ratios across all themes.
+
+---
+
+## Accessibility
+
+### WCAG AAA Compliance
+
+All tooltip implementations meet WCAG AAA standards:
+
+- **Color Contrast**: 7:1+ contrast ratio for all color variants
+- **Keyboard Access**: Tooltips appear on both hover and focus
+- **Screen Readers**: Proper ARIA attributes ensure content is announced
+- **Touch Support**: Works on touch devices with focus/tap
+
+### Keyboard Navigation
+
+- **Tab**: Focus on element to show tooltip
+- **Shift+Tab**: Navigate backwards through focusable elements
+- **Esc**: Hide tooltip (auto-hides on blur)
+
+### Screen Reader Support
+
+Tooltips use proper ARIA attributes:
+
+```html
+<button
+  data-tooltip="Save your changes"
+  aria-describedby="tooltip-save"
+  aria-label="Save">
+  💾
+</button>
+```
+
+- `aria-describedby`: Links tooltip text to element
+- `aria-label`: Required for icon-only buttons
+- `role="tooltip"`: Automatically added by tooltip system
+
+### When to Use Tooltips vs. aria-label
+
+**Use Tooltips When:**
+- Providing supplementary information visible users need
+- Explaining icon buttons (use BOTH tooltip and aria-label)
+- Showing keyboard shortcuts
+- Displaying full text for truncated content
+
+**Use aria-label Only When:**
+- The element has no visible text
+- Screen reader text differs from visual text
+- Providing context for screen readers only
+
+**Use Both When:**
+- Icon-only buttons need labels for sighted and non-sighted users
+- Different information is needed for visual vs. screen reader users
+
+### Best Practices
+
+**Do:**
+- Use tooltips on icon-only buttons (with aria-label)
+- Keep text concise (1-2 sentences max)
+- Use appropriate color variants for context
+- Ensure tooltips work on keyboard focus
+- Test with screen readers
+
+**Don't:**
+- Put critical information only in tooltips
+- Use tooltips for long text (use Popover instead)
+- Repeat visible text in tooltips
+- Rely on tooltips on touch devices
+- Use tooltips without aria-label on icon buttons
+
+### Mobile Considerations
+
+Tooltips have limitations on mobile devices:
+
+- Hover doesn't exist on touch screens
+- Focus behavior varies across browsers
+- Touch-and-hold may not trigger tooltips
+
+**Mobile Alternatives:**
+- Use visible labels instead of icon-only buttons
+- Show help text by default in forms
+- Use Popovers with explicit tap targets
+- Consider expandable sections for help content
+
+---
+
+## API Reference
+
+### Data Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `data-tooltip` | string | - | Tooltip text content (required) |
+| `data-tooltip-position` | 'top' \| 'bottom' \| 'left' \| 'right' | 'top' | Tooltip position |
+| `data-tooltip-color` | 'primary' \| 'success' \| 'warning' \| 'error' | - | Color variant |
+| `data-tooltip-size` | 'sm' \| 'md' \| 'lg' | 'md' | Tooltip size |
+
+### ARIA Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `aria-describedby` | string | Links tooltip to element (recommended) |
+| `aria-label` | string | Required for icon-only buttons |
+| `role` | 'tooltip' | Added automatically by tooltip system |
+
+### CSS Custom Properties
+
+Tooltips inherit theme variables:
+
+```css
+.tooltip {
+  background: var(--color-bg-tooltip);
+  color: var(--color-text-tooltip);
+  border: 1px solid var(--color-border-tooltip);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-3);
+}
+```
+
+---
+
+## Related Components
+
+- **Popover**: For richer content with interactive elements
+- **Help Icon**: Dedicated component for form field help
+- **Status Badge**: For status indicators with built-in tooltips
+- **Icon Button**: Icon-only buttons that require tooltips
+
+---
+
+## Examples & Patterns
+
+### Keyboard Shortcuts
+
+```html
+<button data-tooltip="Save (Ctrl+S)" data-tooltip-size="sm">
+  Save
+</button>
+```
+
+### Truncated Text
+
+```html
+<span
+  data-tooltip="Very long file name that is truncated.pdf"
+  style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
+  Very long file name...
+</span>
+```
+
+### Disabled Elements
+
+```html
+<!-- Wrap disabled elements since they don't receive focus -->
+<span data-tooltip="This action is not available">
+  <button class="btn btn-primary" disabled>
+    Save
+  </button>
+</span>
+```
+
+### Complex Toolbar
+
+```html
+<div role="toolbar" aria-label="Text formatting">
+  <button
+    class="btn btn-ghost btn-icon"
+    data-tooltip="Bold (Ctrl+B)"
+    aria-label="Bold">
+    <strong>B</strong>
+  </button>
+  <button
+    class="btn btn-ghost btn-icon"
+    data-tooltip="Italic (Ctrl+I)"
+    aria-label="Italic">
+    <em>I</em>
+  </button>
+  <button
+    class="btn btn-ghost btn-icon"
+    data-tooltip="Underline (Ctrl+U)"
+    aria-label="Underline">
+    <u>U</u>
+  </button>
+</div>
+```

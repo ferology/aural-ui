@@ -1,0 +1,857 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as CodeBlockStories from './CodeBlock.stories';
+
+<Meta of={CodeBlockStories} />
+
+# Code Block
+
+Code blocks are used to display programming code with syntax highlighting, copy functionality, and proper formatting for technical documentation and tutorials.
+
+## Overview
+
+The Code Block component provides a clean, accessible way to present code snippets with features like line numbers, syntax highlighting context, copy-to-clipboard functionality, and multiple visual variants.
+
+**Key Features:**
+- Multi-language support (JavaScript, HTML, CSS, Python, Bash, JSON, and more)
+- Copy to clipboard functionality
+- Line numbers for longer code snippets
+- Line highlighting for emphasis (highlight, success, error)
+- Terminal-style variant for command-line examples
+- Inline code for short references
+- File name display
+- 3 sizes (Small, Medium, Large)
+- Full keyboard accessibility
+- WCAG AAA compliant
+
+---
+
+## Usage
+
+<Canvas of={CodeBlockStories.JavaScript} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Code Block -->
+<div class="aural-code-block">
+  <div class="aural-code-block__header">
+    <span class="aural-code-block__language" aria-label="Code language">JavaScript</span>
+    <button class="aural-code-block__copy" aria-label="Copy code to clipboard">
+      📋 Copy
+    </button>
+  </div>
+  <div class="aural-code-block__content">
+    <pre class="aural-code-block__pre"><code class="aural-code-block__code">function greet(name) {
+  return `Hello, ${name}!`;
+}</code></pre>
+  </div>
+</div>
+
+<!-- With Line Numbers -->
+<div class="aural-code-block aural-code-block--line-numbers">
+  <div class="aural-code-block__content">
+    <pre class="aural-code-block__pre"><code class="aural-code-block__code">const x = 42;</code></pre>
+  </div>
+</div>
+
+<!-- Terminal Style -->
+<div class="aural-code-block aural-code-block--terminal">
+  <div class="aural-code-block__content">
+    <pre class="aural-code-block__pre"><code class="aural-code-block__code">$ npm install aural-ui</code></pre>
+  </div>
+</div>
+
+<!-- Inline Code -->
+<p>
+  Use the <code class="aural-code-inline">console.log()</code> function to output messages.
+</p>
+
+<script>
+// Copy code functionality
+function copyCode(button) {
+  const codeBlock = button.closest('.aural-code-block');
+  const code = codeBlock.querySelector('.aural-code-block__code').textContent;
+
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = button.innerHTML;
+    button.innerHTML = '✓ Copied!';
+
+    setTimeout(() => {
+      button.innerHTML = originalText;
+    }, 2000);
+  });
+}
+
+// Attach to all copy buttons
+document.querySelectorAll('.aural-code-block__copy').forEach(button => {
+  button.addEventListener('click', () => copyCode(button));
+});
+</script>
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+// Basic usage
+function MyComponent() {
+  return (
+    <div className="aural-code-block">
+      <div className="aural-code-block__header">
+        <span className="aural-code-block__language" aria-label="Code language">
+          JavaScript
+        </span>
+        <button className="aural-code-block__copy" aria-label="Copy code to clipboard">
+          📋 Copy
+        </button>
+      </div>
+      <div className="aural-code-block__content">
+        <pre className="aural-code-block__pre">
+          <code className="aural-code-block__code">
+            const x = 42;
+          </code>
+        </pre>
+      </div>
+    </div>
+  );
+}
+
+// Reusable component with Prism.js for syntax highlighting
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css';
+import { useEffect, useRef, useState } from 'react';
+
+function CodeBlock({
+  code,
+  language = 'javascript',
+  fileName,
+  showLineNumbers = false,
+  copyable = true,
+  size = 'md',
+  terminal = false
+}) {
+  const [copied, setCopied] = useState(false);
+  const codeRef = useRef(null);
+
+  useEffect(() => {
+    if (codeRef.current) {
+      Prism.highlightElement(codeRef.current);
+    }
+  }, [code, language]);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const classes = [
+    'aural-code-block',
+    showLineNumbers && 'aural-code-block--line-numbers',
+    terminal && 'aural-code-block--terminal',
+    size !== 'md' && `aural-code-block--${size}`
+  ].filter(Boolean).join(' ');
+
+  return (
+    <div className={classes}>
+      <div className="aural-code-block__header">
+        <span className="aural-code-block__language" aria-label="Code language">
+          {fileName || language}
+        </span>
+        {copyable && (
+          <button
+            className="aural-code-block__copy"
+            onClick={handleCopy}
+            aria-label="Copy code to clipboard"
+          >
+            {copied ? '✓ Copied!' : '📋 Copy'}
+          </button>
+        )}
+      </div>
+      <div className="aural-code-block__content">
+        <pre className="aural-code-block__pre">
+          <code
+            ref={codeRef}
+            className={`aural-code-block__code language-${language}`}
+          >
+            {code}
+          </code>
+        </pre>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<CodeBlock
+  code="function greet(name) { return `Hello, ${name}!`; }"
+  language="javascript"
+  fileName="greeting.js"
+  showLineNumbers
+  copyable
+/>
+
+// Inline code
+function InlineExample() {
+  return (
+    <p>
+      Use the <code className="aural-code-inline">console.log()</code> function.
+    </p>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div :class="blockClasses">
+    <div class="aural-code-block__header">
+      <span class="aural-code-block__language" aria-label="Code language">
+        {{ fileName || language }}
+      </span>
+      <button
+        v-if="copyable"
+        class="aural-code-block__copy"
+        @click="handleCopy"
+        aria-label="Copy code to clipboard"
+      >
+        {{ copied ? '✓ Copied!' : '📋 Copy' }}
+      </button>
+    </div>
+    <div class="aural-code-block__content">
+      <pre class="aural-code-block__pre"><code
+        ref="codeRef"
+        :class="`aural-code-block__code language-${language}`"
+      >{{ code }}</code></pre>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue';
+import Prism from 'prismjs';
+
+const props = defineProps({
+  code: {
+    type: String,
+    required: true
+  },
+  language: {
+    type: String,
+    default: 'javascript',
+    validator: (value) =>
+      ['javascript', 'html', 'css', 'python', 'bash', 'json', 'typescript', 'jsx', 'vue'].includes(value)
+  },
+  fileName: String,
+  showLineNumbers: {
+    type: Boolean,
+    default: false
+  },
+  copyable: {
+    type: Boolean,
+    default: true
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  terminal: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const copied = ref(false);
+const codeRef = ref(null);
+
+const blockClasses = computed(() => [
+  'aural-code-block',
+  props.showLineNumbers && 'aural-code-block--line-numbers',
+  props.terminal && 'aural-code-block--terminal',
+  props.size !== 'md' && `aural-code-block--${props.size}`
+].filter(Boolean).join(' '));
+
+const handleCopy = async () => {
+  await navigator.clipboard.writeText(props.code);
+  copied.value = true;
+  setTimeout(() => {
+    copied.value = false;
+  }, 2000);
+};
+
+onMounted(() => {
+  if (codeRef.value) {
+    Prism.highlightElement(codeRef.value);
+  }
+});
+
+watch(() => props.code, () => {
+  if (codeRef.value) {
+    Prism.highlightElement(codeRef.value);
+  }
+});
+</script>
+
+<!-- Usage -->
+<CodeBlock
+  code="function greet(name) { return `Hello, ${name}!`; }"
+  language="javascript"
+  fileName="greeting.js"
+  :show-line-numbers="true"
+  :copyable="true"
+/>
+
+<!-- Inline code -->
+<template>
+  <p>
+    Use the <code class="aural-code-inline">console.log()</code> function.
+  </p>
+</template>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+  import Prism from 'prismjs';
+
+  export let code = '';
+  export let language = 'javascript';
+  export let fileName = '';
+  export let showLineNumbers = false;
+  export let copyable = true;
+  export let size = 'md';
+  export let terminal = false;
+
+  let copied = false;
+  let codeElement;
+
+  $: blockClass = [
+    'aural-code-block',
+    showLineNumbers && 'aural-code-block--line-numbers',
+    terminal && 'aural-code-block--terminal',
+    size !== 'md' && `aural-code-block--${size}`
+  ].filter(Boolean).join(' ');
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(code);
+    copied = true;
+    setTimeout(() => {
+      copied = false;
+    }, 2000);
+  }
+
+  $: if (codeElement && code) {
+    Prism.highlightElement(codeElement);
+  }
+</script>
+
+<div class={blockClass}>
+  <div class="aural-code-block__header">
+    <span class="aural-code-block__language" aria-label="Code language">
+      {fileName || language}
+    </span>
+    {#if copyable}
+      <button
+        class="aural-code-block__copy"
+        on:click={handleCopy}
+        aria-label="Copy code to clipboard"
+      >
+        {copied ? '✓ Copied!' : '📋 Copy'}
+      </button>
+    {/if}
+  </div>
+  <div class="aural-code-block__content">
+    <pre class="aural-code-block__pre"><code
+      bind:this={codeElement}
+      class="aural-code-block__code language-{language}"
+    >{code}</code></pre>
+  </div>
+</div>
+
+<!-- Usage -->
+<CodeBlock
+  code="function greet(name) { return `Hello, ${name}!`; }"
+  language="javascript"
+  fileName="greeting.js"
+  showLineNumbers={true}
+  copyable={true}
+/>
+
+<!-- Inline code -->
+<p>
+  Use the <code class="aural-code-inline">console.log()</code> function.
+</p>
+```
+
+---
+
+## Language Support
+
+The Code Block component supports displaying code in various programming languages:
+
+<Canvas of={CodeBlockStories.MultiLanguageDemo} />
+
+### Supported Languages
+
+- **JavaScript / TypeScript**: `language="javascript"`, `language="typescript"`
+- **HTML**: `language="html"`
+- **CSS / SCSS**: `language="css"`
+- **Python**: `language="python"`
+- **Bash / Shell**: `language="bash"`
+- **JSON**: `language="json"`
+- **JSX / TSX**: `language="jsx"`
+- **Vue**: `language="vue"`
+- **Go**: `language="go"`
+- **Rust**: `language="rust"`
+- **And many more**: Works with any language identifier for syntax highlighting libraries
+
+---
+
+## Variants
+
+### HTML Example
+
+<Canvas of={CodeBlockStories.HTML} />
+
+### CSS Example
+
+<Canvas of={CodeBlockStories.CSS} />
+
+### Terminal / Bash
+
+Terminal-style code blocks for command-line examples:
+
+<Canvas of={CodeBlockStories.Bash} />
+
+### JSON Configuration
+
+<Canvas of={CodeBlockStories.JSON} />
+
+### Python Example
+
+<Canvas of={CodeBlockStories.Python} />
+
+---
+
+## Features
+
+### Line Numbers
+
+Enable line numbers for longer code snippets to help reference specific lines:
+
+<Canvas of={CodeBlockStories.WithLineNumbers} />
+
+```html
+<div class="aural-code-block aural-code-block--line-numbers">
+  <!-- code block content -->
+</div>
+```
+
+### Highlighted Lines
+
+Highlight important lines with visual emphasis. Supports three variants:
+- **Highlight** (`.aural-code-block__line--highlight`): Default emphasis
+- **Success** (`.aural-code-block__line--success`): Positive/correct code
+- **Error** (`.aural-code-block__line--error`): Mistakes/anti-patterns
+
+<Canvas of={CodeBlockStories.WithHighlightedLines} />
+
+```html
+<pre><code class="aural-code-block__code">
+  <span class="aural-code-block__line">const user = {</span>
+  <span class="aural-code-block__line aural-code-block__line--highlight">  name: 'John',</span>
+  <span class="aural-code-block__line aural-code-block__line--success">  email: 'john@example.com',</span>
+  <span class="aural-code-block__line aural-code-block__line--error">  password: '123456',</span>
+  <span class="aural-code-block__line">};</span>
+</code></pre>
+```
+
+### File Name Display
+
+Show the file name in the header for better context:
+
+<Canvas of={CodeBlockStories.WithFileName} />
+
+### Copy to Clipboard
+
+Enable users to quickly copy code with one click:
+
+<Canvas of={CodeBlockStories.WithCopyButton} />
+
+```javascript
+function copyCode(button) {
+  const codeBlock = button.closest('.aural-code-block');
+  const code = codeBlock.querySelector('.aural-code-block__code').textContent;
+
+  navigator.clipboard.writeText(code).then(() => {
+    button.innerHTML = '✓ Copied!';
+    setTimeout(() => {
+      button.innerHTML = '📋 Copy';
+    }, 2000);
+  });
+}
+```
+
+### Inline Code
+
+For short code references within paragraphs:
+
+<Canvas of={CodeBlockStories.InlineCode} />
+
+```html
+<p>
+  Use the <code class="aural-code-inline">console.log()</code> function to output messages.
+</p>
+```
+
+---
+
+## Size Variants
+
+<Canvas of={CodeBlockStories.SizeVariants} />
+
+- **Small (`.aural-code-block--sm`)**: Compact code blocks for inline documentation
+- **Medium (default)**: Standard size for most use cases
+- **Large (`.aural-code-block--lg`)**: Larger font size for readability in presentations
+
+---
+
+## Theme Comparison
+
+See how code blocks look across all 9 Aural UI themes:
+
+<Canvas of={CodeBlockStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+The Code Block component is built with accessibility as a priority, meeting WCAG AAA standards.
+
+### Code Accessibility
+
+✅ **Semantic HTML**
+- Uses proper `<pre>` and `<code>` elements
+- Semantic structure for screen readers
+- Proper document outline
+
+✅ **Keyboard Navigation**
+- Copy button is keyboard accessible
+- Focus visible with high-contrast outline
+- Tab order follows logical flow
+- Horizontal scrolling is keyboard accessible (use arrow keys)
+
+✅ **Screen Readers**
+- Language information provided via `aria-label`
+- Copy button has descriptive `aria-label`
+- Code content properly announced
+- Decorative icons hidden with `aria-hidden="true"`
+
+✅ **Color Contrast**
+- All text meets WCAG AAA (7:1+ contrast)
+- Line highlights don't rely solely on color
+- Works with High Contrast theme
+- Tested with colorblind-friendly themes
+
+✅ **WCAG Compliance**
+- Level AAA compliant
+- Works with screen magnification
+- Respects user motion preferences
+- Supports high contrast mode
+
+### Best Practices
+
+```html
+<!-- ✓ Good: Accessible code block -->
+<div class="aural-code-block">
+  <div class="aural-code-block__header">
+    <span class="aural-code-block__language" aria-label="Code language">JavaScript</span>
+    <button class="aural-code-block__copy" aria-label="Copy code to clipboard">
+      <span aria-hidden="true">📋</span> Copy
+    </button>
+  </div>
+  <div class="aural-code-block__content">
+    <pre class="aural-code-block__pre"><code class="aural-code-block__code">const x = 42;</code></pre>
+  </div>
+</div>
+
+<!-- ✗ Bad: Missing accessibility attributes -->
+<div class="aural-code-block">
+  <div class="aural-code-block__header">
+    <span>JavaScript</span>
+    <button>Copy</button> <!-- No aria-label -->
+  </div>
+  <div class="aural-code-block__content">
+    <pre><code>const x = 42;</code></pre>
+  </div>
+</div>
+```
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Navigate to copy button |
+| `Enter` or `Space` | Activate copy button |
+| `Arrow keys` | Scroll code horizontally (when overflow) |
+| `Shift + Tab` | Navigate backwards |
+
+---
+
+## When to Use
+
+**Use code blocks when:**
+- Displaying programming code examples
+- Showing configuration files
+- Demonstrating API request/response formats
+- Teaching programming concepts
+- Documenting CLI commands
+- Presenting code snippets in tutorials
+
+**Use inline code when:**
+- Referencing variable names within text
+- Mentioning function names
+- Showing short code keywords
+- Referencing file paths
+- Displaying configuration values
+
+---
+
+## Design Guidelines
+
+### Code Presentation
+
+**Do:**
+- Always specify the language label for context
+- Keep code examples concise and focused
+- Include copy buttons for user convenience
+- Use proper indentation and formatting
+- Provide file names for configuration examples
+
+**Don't:**
+- Show overly long code blocks without context
+- Use code blocks for plain text
+- Omit language labels
+- Use tiny font sizes that are hard to read
+
+### Line Numbers
+
+**Do:**
+- Use line numbers for code longer than 5 lines
+- Enable line numbers when referencing specific lines in documentation
+- Keep line numbers for educational content
+
+**Don't:**
+- Use line numbers for short snippets (1-3 lines)
+- Use line numbers for terminal commands
+- Number every single code block
+
+### Highlighting
+
+**Do:**
+- Use highlighting to draw attention to important lines
+- Use success variant for correct implementations
+- Use error variant for mistakes or anti-patterns
+- Combine with explanatory text
+
+**Don't:**
+- Over-highlight - use sparingly for maximum impact
+- Rely solely on color - ensure sufficient contrast
+- Highlight entire code blocks
+
+### Context and Labels
+
+**Do:**
+- Always label the language or file type
+- Provide brief descriptions before code blocks
+- For configuration files, use the filename as the label
+- Group related code blocks logically
+
+**Don't:**
+- Leave code blocks unlabeled
+- Use generic labels like "code"
+- Mix unrelated code examples
+
+---
+
+## Inline Code vs Block Code
+
+### Use Block Code for:
+- Multi-line code snippets
+- Complete functions or components
+- Configuration files
+- Terminal commands with output
+- API examples
+
+### Use Inline Code for:
+- Variable names: `userName`
+- Function names: `getUserData()`
+- Short commands: `npm install`
+- File paths: `/src/components/Button.jsx`
+- Single-line expressions: `const x = 42;`
+
+---
+
+## Syntax Highlighting Integration
+
+While Aural UI provides the structure and styling, you can integrate syntax highlighting libraries:
+
+### Prism.js
+
+```html
+<!-- Include Prism -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+<!-- Use with Aural UI classes -->
+<div class="aural-code-block">
+  <div class="aural-code-block__content">
+    <pre class="aural-code-block__pre"><code class="aural-code-block__code language-javascript">
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+    </code></pre>
+  </div>
+</div>
+
+<script>
+  Prism.highlightAll();
+</script>
+```
+
+### Highlight.js
+
+```html
+<!-- Include Highlight.js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- Use with Aural UI classes -->
+<div class="aural-code-block">
+  <div class="aural-code-block__content">
+    <pre class="aural-code-block__pre"><code class="aural-code-block__code javascript">
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+    </code></pre>
+  </div>
+</div>
+
+<script>
+  hljs.highlightAll();
+</script>
+```
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-code-block` | Base code block container (required) |
+| `.aural-code-block__header` | Header containing language and copy button |
+| `.aural-code-block__language` | Language label element |
+| `.aural-code-block__copy` | Copy button |
+| `.aural-code-block__content` | Code content wrapper |
+| `.aural-code-block__pre` | Pre element for code |
+| `.aural-code-block__code` | Code element |
+| `.aural-code-block--line-numbers` | Enable line numbers |
+| `.aural-code-block--terminal` | Terminal style variant |
+| `.aural-code-block--sm` | Small size |
+| `.aural-code-block--lg` | Large size |
+| `.aural-code-block__line` | Individual line wrapper (for highlighting) |
+| `.aural-code-block__line--highlight` | Highlighted line |
+| `.aural-code-block__line--success` | Success/correct line |
+| `.aural-code-block__line--error` | Error/incorrect line |
+| `.aural-code-inline` | Inline code within text |
+
+### HTML Attributes
+
+| Attribute | Element | Description |
+|-----------|---------|-------------|
+| `aria-label="Code language"` | `.aural-code-block__language` | Announces language to screen readers |
+| `aria-label="Copy code to clipboard"` | `.aural-code-block__copy` | Describes copy button action |
+| `aria-hidden="true"` | Icons | Hides decorative icons from screen readers |
+
+---
+
+## Related Components
+
+- **Tooltip**: Add tooltips to copy buttons for additional context
+- **Card**: Wrap code blocks in cards for documentation layouts
+- **Tabs**: Organize multiple code examples by language or framework
+- **Alert**: Combine with alerts to show code warnings or tips
+
+---
+
+## Examples in Context
+
+### API Documentation Pattern
+
+```html
+<div>
+  <h3>POST /api/users</h3>
+  <p>Create a new user account.</p>
+
+  <h4>Request Body:</h4>
+  <div class="aural-code-block">
+    <div class="aural-code-block__header">
+      <span class="aural-code-block__language">JSON</span>
+      <button class="aural-code-block__copy">📋 Copy</button>
+    </div>
+    <div class="aural-code-block__content">
+      <pre class="aural-code-block__pre"><code class="aural-code-block__code">{
+  "name": "John Doe",
+  "email": "john@example.com"
+}</code></pre>
+    </div>
+  </div>
+
+  <h4>Response:</h4>
+  <div class="aural-code-block">
+    <div class="aural-code-block__header">
+      <span class="aural-code-block__language">JSON</span>
+      <button class="aural-code-block__copy">📋 Copy</button>
+    </div>
+    <div class="aural-code-block__content">
+      <pre class="aural-code-block__pre"><code class="aural-code-block__code">{
+  "id": "usr_123",
+  "name": "John Doe",
+  "email": "john@example.com"
+}</code></pre>
+    </div>
+  </div>
+</div>
+```
+
+### Installation Instructions Pattern
+
+```html
+<div>
+  <h3>Installation</h3>
+
+  <p>Install via npm:</p>
+  <div class="aural-code-block aural-code-block--terminal">
+    <div class="aural-code-block__content">
+      <pre class="aural-code-block__pre"><code class="aural-code-block__code">$ npm install aural-ui</code></pre>
+    </div>
+  </div>
+
+  <p>Or using yarn:</p>
+  <div class="aural-code-block aural-code-block--terminal">
+    <div class="aural-code-block__content">
+      <pre class="aural-code-block__pre"><code class="aural-code-block__code">$ yarn add aural-ui</code></pre>
+    </div>
+  </div>
+</div>
+```

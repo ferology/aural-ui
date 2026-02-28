@@ -1,0 +1,766 @@
+import { Canvas, Meta, Story, Controls } from '@storybook/blocks';
+import * as EmptyStateStories from './EmptyState.stories';
+
+<Meta of={EmptyStateStories} />
+
+# Empty State
+
+Empty states are used to guide users when content is unavailable, providing helpful context and clear next steps. They transform potentially frustrating moments into opportunities for user engagement.
+
+## Overview
+
+The Empty State component helps users understand why content is missing and what they can do about it. Whether it's a zero state for new users, a "no results" message for searches, or an error recovery screen, empty states should be friendly, helpful, and actionable.
+
+**Key Features:**
+- Semantic HTML structure with proper heading hierarchy
+- Support for icons and illustrations
+- Customizable messaging and actions
+- Accessibility-first design
+- WCAG AAA compliant color contrast
+- Responsive and mobile-friendly
+
+---
+
+## Interactive Demo
+
+<Canvas of={EmptyStateStories.Default} />
+<Controls of={EmptyStateStories.Default} />
+
+---
+
+## Usage
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic empty state -->
+<div class="empty-state">
+  <div class="empty-state-icon">
+    <i data-lucide="inbox"></i>
+  </div>
+  <h3 class="empty-state-title">No items yet</h3>
+  <p class="empty-state-description">
+    Get started by creating your first item. It only takes a few seconds!
+  </p>
+  <button class="btn btn-primary">
+    <i data-lucide="plus"></i>
+    Create Item
+  </button>
+</div>
+
+<!-- With multiple actions -->
+<div class="empty-state">
+  <div class="empty-state-icon">
+    <i data-lucide="folder-open"></i>
+  </div>
+  <h3 class="empty-state-title">This folder is empty</h3>
+  <p class="empty-state-description">
+    Upload files or create folders to organize your content.
+  </p>
+  <div style="display: flex; gap: var(--space-3); justify-content: center;">
+    <button class="btn btn-secondary">
+      <i data-lucide="folder-plus"></i>
+      New Folder
+    </button>
+    <button class="btn btn-primary">
+      <i data-lucide="upload"></i>
+      Upload Files
+    </button>
+  </div>
+</div>
+
+<!-- Error state with colored icon -->
+<div class="empty-state">
+  <div class="empty-state-icon" style="color: var(--color-error);">
+    <i data-lucide="alert-circle"></i>
+  </div>
+  <h3 class="empty-state-title">Something went wrong</h3>
+  <p class="empty-state-description">
+    We're having trouble loading your data. Please try again.
+  </p>
+  <button class="btn btn-primary">
+    <i data-lucide="refresh-cw"></i>
+    Try Again
+  </button>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+```
+
+### React
+
+```jsx
+import { Inbox, Plus, Search, AlertCircle, RefreshCw } from 'lucide-react';
+
+// Reusable EmptyState component
+function EmptyState({
+  icon: Icon,
+  iconColor,
+  title,
+  description,
+  primaryAction,
+  secondaryAction
+}) {
+  return (
+    <div className="empty-state">
+      <div
+        className="empty-state-icon"
+        style={iconColor ? { color: iconColor } : undefined}
+      >
+        <Icon size={48} />
+      </div>
+      <h3 className="empty-state-title">{title}</h3>
+      <p className="empty-state-description">{description}</p>
+      {(primaryAction || secondaryAction) && (
+        <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center' }}>
+          {secondaryAction && (
+            <button
+              className="btn btn-secondary"
+              onClick={secondaryAction.onClick}
+            >
+              {secondaryAction.icon && <secondaryAction.icon size={16} />}
+              {secondaryAction.text}
+            </button>
+          )}
+          {primaryAction && (
+            <button
+              className="btn btn-primary"
+              onClick={primaryAction.onClick}
+            >
+              {primaryAction.icon && <primaryAction.icon size={16} />}
+              {primaryAction.text}
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Usage examples with conditional rendering
+function ItemsList({ items, onCreateItem }) {
+  if (items.length === 0) {
+    return (
+      <EmptyState
+        icon={Inbox}
+        title="No items yet"
+        description="Get started by creating your first item. It only takes a few seconds!"
+        primaryAction={{
+          icon: Plus,
+          text: 'Create Item',
+          onClick: onCreateItem
+        }}
+      />
+    );
+  }
+
+  return (
+    <ul>
+      {items.map(item => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+function SearchResults({ results, query, onClearSearch }) {
+  if (results.length === 0 && query) {
+    return (
+      <EmptyState
+        icon={Search}
+        title={`No results found for "${query}"`}
+        description="Try searching for something else or browse our popular categories."
+        primaryAction={{
+          text: 'Clear Search',
+          onClick: onClearSearch
+        }}
+      />
+    );
+  }
+
+  return (
+    <div>
+      {results.map(result => (
+        <div key={result.id}>{result.title}</div>
+      ))}
+    </div>
+  );
+}
+
+function ErrorBoundaryFallback({ error, resetErrorBoundary }) {
+  return (
+    <EmptyState
+      icon={AlertCircle}
+      iconColor="var(--color-error)"
+      title="Something went wrong"
+      description="We're having trouble loading your data. Please check your connection and try again."
+      secondaryAction={{
+        text: 'Go Back',
+        onClick: () => window.history.back()
+      }}
+      primaryAction={{
+        icon: RefreshCw,
+        text: 'Try Again',
+        onClick: resetErrorBoundary
+      }}
+    />
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div class="empty-state">
+    <div
+      class="empty-state-icon"
+      :style="iconColor ? { color: iconColor } : undefined"
+    >
+      <component :is="icon" :size="48" />
+    </div>
+    <h3 class="empty-state-title">{{ title }}</h3>
+    <p class="empty-state-description">{{ description }}</p>
+    <div
+      v-if="primaryAction || secondaryAction"
+      style="display: flex; gap: var(--space-3); justify-content: center"
+    >
+      <button
+        v-if="secondaryAction"
+        class="btn btn-secondary"
+        @click="secondaryAction.onClick"
+      >
+        <component v-if="secondaryAction.icon" :is="secondaryAction.icon" :size="16" />
+        {{ secondaryAction.text }}
+      </button>
+      <button
+        v-if="primaryAction"
+        class="btn btn-primary"
+        @click="primaryAction.onClick"
+      >
+        <component v-if="primaryAction.icon" :is="primaryAction.icon" :size="16" />
+        {{ primaryAction.text }}
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  icon: { type: Object, required: true },
+  iconColor: { type: String, default: null },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  primaryAction: { type: Object, default: null },
+  secondaryAction: { type: Object, default: null }
+});
+</script>
+
+<!-- Usage with conditional rendering -->
+<template>
+  <div>
+    <EmptyState
+      v-if="items.length === 0"
+      :icon="Inbox"
+      title="No items yet"
+      description="Get started by creating your first item."
+      :primary-action="{
+        icon: Plus,
+        text: 'Create Item',
+        onClick: createItem
+      }"
+    />
+    <ul v-else>
+      <li v-for="item in items" :key="item.id">{{ item.name }}</li>
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import EmptyState from './EmptyState.vue';
+import { Inbox, Plus } from 'lucide-vue-next';
+
+const items = ref([]);
+
+function createItem() {
+  // Create new item
+}
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let icon;
+  export let iconColor = null;
+  export let title;
+  export let description;
+  export let primaryAction = null;
+  export let secondaryAction = null;
+</script>
+
+<div class="empty-state">
+  <div
+    class="empty-state-icon"
+    style:color={iconColor}
+  >
+    <svelte:component this={icon} size={48} />
+  </div>
+  <h3 class="empty-state-title">{title}</h3>
+  <p class="empty-state-description">{description}</p>
+  {#if primaryAction || secondaryAction}
+    <div style="display: flex; gap: var(--space-3); justify-content: center">
+      {#if secondaryAction}
+        <button
+          class="btn btn-secondary"
+          on:click={secondaryAction.onClick}
+        >
+          {#if secondaryAction.icon}
+            <svelte:component this={secondaryAction.icon} size={16} />
+          {/if}
+          {secondaryAction.text}
+        </button>
+      {/if}
+      {#if primaryAction}
+        <button
+          class="btn btn-primary"
+          on:click={primaryAction.onClick}
+        >
+          {#if primaryAction.icon}
+            <svelte:component this={primaryAction.icon} size={16} />
+          {/if}
+          {primaryAction.text}
+        </button>
+      {/if}
+    </div>
+  {/if}
+</div>
+
+<!-- Usage with conditional rendering -->
+<script>
+  import EmptyState from './EmptyState.svelte';
+  import { Inbox, Plus } from 'lucide-svelte';
+
+  let items = [];
+
+  function createItem() {
+    // Create new item
+  }
+</script>
+
+{#if items.length === 0}
+  <EmptyState
+    icon={Inbox}
+    title="No items yet"
+    description="Get started by creating your first item."
+    primaryAction={{
+      icon: Plus,
+      text: 'Create Item',
+      onClick: createItem
+    }}
+  />
+{:else}
+  <ul>
+    {#each items as item (item.id)}
+      <li>{item.name}</li>
+    {/each}
+  </ul>
+{/if}
+```
+
+---
+
+## Common Scenarios
+
+### No Search Results
+
+<Canvas of={EmptyStateStories.NoResults} />
+
+Use when a search or filter returns no results. Provide clear guidance on how to modify the search.
+
+```html
+<div class="empty-state">
+  <div class="empty-state-icon">
+    <i data-lucide="search"></i>
+  </div>
+  <h3 class="empty-state-title">No results found</h3>
+  <p class="empty-state-description">
+    Try adjusting your filters or search terms.
+  </p>
+  <button class="btn btn-secondary">Clear Filters</button>
+</div>
+```
+
+### No Data Yet (First Time Use)
+
+<Canvas of={EmptyStateStories.FirstTimeUse} />
+
+Welcome new users and guide them through their first action.
+
+```html
+<div class="empty-state">
+  <div class="empty-state-icon" style="color: var(--color-primary);">
+    <i data-lucide="rocket"></i>
+  </div>
+  <h3 class="empty-state-title">Welcome to Aural UI!</h3>
+  <p class="empty-state-description">
+    Let's get you started with a quick tour.
+  </p>
+  <button class="btn btn-primary">
+    <i data-lucide="play"></i>
+    Start Tour
+  </button>
+</div>
+```
+
+### Permissions Denied
+
+<Canvas of={EmptyStateStories.Permissions} />
+
+Explain access restrictions and provide a path to request access.
+
+```html
+<div class="empty-state">
+  <div class="empty-state-icon" style="color: var(--color-warning);">
+    <i data-lucide="lock"></i>
+  </div>
+  <h3 class="empty-state-title">Access restricted</h3>
+  <p class="empty-state-description">
+    You don't have permission to view this content.
+  </p>
+  <button class="btn btn-primary">Request Access</button>
+</div>
+```
+
+### Error Occurred
+
+<Canvas of={EmptyStateStories.Error} />
+
+Provide clear error messaging and recovery options.
+
+```html
+<div class="empty-state">
+  <div class="empty-state-icon" style="color: var(--color-error);">
+    <i data-lucide="alert-circle"></i>
+  </div>
+  <h3 class="empty-state-title">Something went wrong</h3>
+  <p class="empty-state-description">
+    We're having trouble loading your data. Please try again.
+  </p>
+  <div style="display: flex; gap: var(--space-3); justify-content: center;">
+    <button class="btn btn-secondary">Go Back</button>
+    <button class="btn btn-primary">
+      <i data-lucide="refresh-cw"></i>
+      Try Again
+    </button>
+  </div>
+</div>
+```
+
+### All Tasks Completed
+
+<Canvas of={EmptyStateStories.Completed} />
+
+Celebrate user success when they've completed everything.
+
+```html
+<div class="empty-state">
+  <div class="empty-state-icon" style="color: var(--color-success);">
+    <i data-lucide="check-circle"></i>
+  </div>
+  <h3 class="empty-state-title">All caught up!</h3>
+  <p class="empty-state-description">
+    You've completed all your tasks. Great work!
+  </p>
+</div>
+```
+
+---
+
+## With Illustration
+
+<Canvas of={EmptyStateStories.WithIllustration} />
+
+For more prominent empty states, use illustrations alongside or instead of icons.
+
+---
+
+## Multiple Actions
+
+<Canvas of={EmptyStateStories.WithActions} />
+
+Provide multiple pathways when users have different options to proceed.
+
+---
+
+## Theme Comparison
+
+See how empty states look across all Aural UI themes:
+
+<Canvas of={EmptyStateStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+Empty states are designed with accessibility as a core principle.
+
+### Semantic Structure
+
+- Use proper heading hierarchy (`<h2>`, `<h3>`) based on page context
+- Wrap empty state in a semantic container (`<div>` or `<section>`)
+- Use `<p>` tags for descriptions to ensure proper document outline
+
+```html
+<div class="empty-state">
+  <div class="empty-state-icon" aria-hidden="true">
+    <i data-lucide="inbox"></i>
+  </div>
+  <h3 class="empty-state-title">No items yet</h3>
+  <p class="empty-state-description">Get started by creating your first item.</p>
+  <button class="btn btn-primary" aria-label="Create your first item">
+    Create Item
+  </button>
+</div>
+```
+
+### Icons and Decorative Elements
+
+- Icons are decorative and should have `aria-hidden="true"`
+- Ensure meaningful text accompanies all icons
+- Don't rely solely on icons to convey meaning
+
+```html
+<!-- Good: Icon is decorative, text provides meaning -->
+<div class="empty-state-icon" aria-hidden="true">
+  <i data-lucide="inbox"></i>
+</div>
+<h3 class="empty-state-title">No items yet</h3>
+
+<!-- Bad: Icon alone without meaningful text -->
+<div class="empty-state-icon">
+  <i data-lucide="inbox"></i>
+</div>
+```
+
+### Screen Reader Considerations
+
+- Keep titles concise and descriptive (3-6 words)
+- Descriptions should explain the situation and next steps
+- Button labels should be action-oriented and clear
+- Avoid vague language like "Click here" or "OK"
+
+```html
+<!-- Good: Clear, descriptive labels -->
+<button class="btn btn-primary">Create Item</button>
+<button class="btn btn-primary">Try Again</button>
+
+<!-- Bad: Vague labels -->
+<button class="btn btn-primary">Click Here</button>
+<button class="btn btn-primary">OK</button>
+```
+
+### Color and Contrast
+
+- All text meets WCAG AAA contrast ratio (7:1+)
+- Don't rely on color alone to convey state
+- Use icons, text, and color together
+- Test with colorblind-friendly theme
+
+```html
+<!-- Good: Color + icon + text -->
+<div class="empty-state-icon" style="color: var(--color-error);">
+  <i data-lucide="alert-circle"></i>
+</div>
+<h3 class="empty-state-title">Something went wrong</h3>
+
+<!-- Bad: Color alone -->
+<div class="empty-state-icon" style="color: red;">
+  <div></div>
+</div>
+```
+
+### Keyboard Navigation
+
+- All action buttons must be keyboard accessible
+- Ensure logical tab order
+- Provide visible focus indicators
+- Test with keyboard-only navigation
+
+---
+
+## Best Practices
+
+### Content Guidelines
+
+**Do:**
+- Use clear, direct language that explains the situation
+- Provide helpful guidance on what users can do next
+- Use positive, encouraging tone ("Get started" vs "You have nothing")
+- Keep titles short (3-6 words) and descriptions concise (1-2 sentences)
+- Be specific about why content is missing and what actions are available
+
+**Don't:**
+- Use negative or blaming language ("You have no items")
+- Leave users without guidance or next steps
+- Use technical jargon or error codes
+- Make descriptions too long or overwhelming
+- Use the same generic empty state for different contexts
+
+### Visual Design
+
+**Do:**
+- Use relevant, recognizable icons that match the context
+- Provide adequate whitespace for visual clarity
+- Center-align empty states for focus and balance
+- Use semantic colors (error red, success green) when appropriate
+- Keep icon size consistent (48px is standard)
+
+**Don't:**
+- Use generic or confusing icons
+- Crowd the empty state with too many elements
+- Rely solely on color to convey meaning
+- Make icons too large or too small
+- Use decorative elements that don't add meaning
+
+### Messaging Tone
+
+**Helpful:** "Get started by creating your first item."
+**Not Helpful:** "No items found."
+
+**Encouraging:** "Welcome! Let's set up your workspace."
+**Not Encouraging:** "You haven't done anything yet."
+
+**Clear:** "Try adjusting your filters or search terms."
+**Not Clear:** "No results."
+
+**Friendly:** "All caught up! You've completed everything."
+**Not Friendly:** "Empty."
+
+### When to Use Actions
+
+**Always provide an action when:**
+- Users can create new content
+- Users can modify their search/filters
+- Users can retry after an error
+- Users can navigate to alternative content
+
+**Actions may not be needed when:**
+- Users have completed all tasks (celebration state)
+- Content is temporarily unavailable (check back later)
+- No user action can change the state
+
+---
+
+## Common Patterns by Context
+
+### First-Time User (Zero State)
+```html
+<div class="empty-state">
+  <div class="empty-state-icon" style="color: var(--color-primary);">
+    <i data-lucide="rocket"></i>
+  </div>
+  <h3 class="empty-state-title">Welcome!</h3>
+  <p class="empty-state-description">Let's get started...</p>
+  <button class="btn btn-primary">Start Tour</button>
+</div>
+```
+
+### User Cleared Content
+```html
+<div class="empty-state">
+  <div class="empty-state-icon" style="color: var(--color-success);">
+    <i data-lucide="check-circle"></i>
+  </div>
+  <h3 class="empty-state-title">All caught up!</h3>
+  <p class="empty-state-description">You've completed everything.</p>
+</div>
+```
+
+### No Search Results
+```html
+<div class="empty-state">
+  <div class="empty-state-icon">
+    <i data-lucide="search"></i>
+  </div>
+  <h3 class="empty-state-title">No results found</h3>
+  <p class="empty-state-description">Try different keywords.</p>
+  <button class="btn btn-secondary">Clear Search</button>
+</div>
+```
+
+### Network Error
+```html
+<div class="empty-state">
+  <div class="empty-state-icon" style="color: var(--color-error);">
+    <i data-lucide="wifi-off"></i>
+  </div>
+  <h3 class="empty-state-title">Connection lost</h3>
+  <p class="empty-state-description">Check your internet connection.</p>
+  <button class="btn btn-primary">Retry</button>
+</div>
+```
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.empty-state` | Container for the empty state |
+| `.empty-state-icon` | Icon wrapper (48px recommended) |
+| `.empty-state-title` | Heading text (h2, h3 based on context) |
+| `.empty-state-description` | Descriptive text explaining the empty state |
+
+### Semantic Colors
+
+Use CSS variables for consistent theming:
+
+| Variable | Usage |
+|----------|-------|
+| `var(--color-primary)` | Welcome/onboarding states |
+| `var(--color-error)` | Error states |
+| `var(--color-warning)` | Warning/permission states |
+| `var(--color-success)` | Success/completion states |
+
+### Icon Sizes
+
+```html
+<!-- Standard icon (48px) -->
+<i data-lucide="inbox" style="width: 48px; height: 48px;"></i>
+
+<!-- Large icon (64px) for emphasis -->
+<i data-lucide="inbox" style="width: 64px; height: 64px;"></i>
+
+<!-- Small icon (32px) for compact spaces -->
+<i data-lucide="inbox" style="width: 32px; height: 32px;"></i>
+```
+
+---
+
+## Related Components
+
+- **Card**: Empty states often appear inside cards
+- **Alert**: For temporary, dismissible messages
+- **Error Pages**: Full-page error states (404, 500)
+- **Loading Spinner**: Shown while content is loading
+- **Skeleton Loader**: Progressive loading placeholder
+
+---
+
+## Additional Examples
+
+### All Empty State Variants
+
+<Canvas of={EmptyStateStories.NoData} />
+<Canvas of={EmptyStateStories.SearchNoResults} />
+<Canvas of={EmptyStateStories.Offline} />

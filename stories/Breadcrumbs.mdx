@@ -1,0 +1,684 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as BreadcrumbsStories from './Breadcrumbs.stories';
+
+<Meta of={BreadcrumbsStories} />
+
+# Breadcrumbs
+
+Breadcrumbs are a secondary navigation pattern that shows the current page's location within the site hierarchy, helping users understand where they are and providing a way to navigate back through parent pages.
+
+## Overview
+
+The Breadcrumbs component provides a clear navigational trail showing users their current location within the application hierarchy. It enhances wayfinding and reduces the number of actions needed to navigate to higher-level pages.
+
+**Key Features:**
+- Semantic HTML structure with `<nav>` and `<ol>` elements
+- 5 separator styles (Slash, Chevron, Arrow, Dash, Dot)
+- 3 size variants (Small, Medium, Large)
+- Optional icon support
+- Background variant for increased visibility
+- Collapsed view for deep hierarchies
+- Full ARIA support and keyboard accessibility
+- WCAG AAA compliant contrast ratios
+
+---
+
+## Usage
+
+<Canvas of={BreadcrumbsStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Breadcrumbs -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/products/electronics">Electronics</a></li>
+    <li aria-current="page">Laptop</li>
+  </ol>
+</nav>
+
+<!-- With Icons -->
+<nav class="breadcrumb breadcrumb-with-icons" aria-label="Breadcrumb">
+  <ol>
+    <li>
+      <a href="/">
+        <i data-lucide="home" class="breadcrumb-icon" aria-hidden="true"></i>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="/documents">
+        <i data-lucide="folder" class="breadcrumb-icon" aria-hidden="true"></i>
+        Documents
+      </a>
+    </li>
+    <li aria-current="page">
+      <i data-lucide="file-text" class="breadcrumb-icon" aria-hidden="true"></i>
+      Report.pdf
+    </li>
+  </ol>
+</nav>
+
+<!-- With Background -->
+<nav class="breadcrumb breadcrumb-bg" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/dashboard/settings">Settings</a></li>
+    <li aria-current="page">Profile</li>
+  </ol>
+</nav>
+
+<!-- Different Separators -->
+<nav class="breadcrumb breadcrumb-chevron" aria-label="Breadcrumb">
+  <!-- Chevron separator (>) -->
+</nav>
+
+<nav class="breadcrumb breadcrumb-arrow" aria-label="Breadcrumb">
+  <!-- Arrow separator (→) -->
+</nav>
+
+<nav class="breadcrumb breadcrumb-dash" aria-label="Breadcrumb">
+  <!-- Dash separator (-) -->
+</nav>
+
+<nav class="breadcrumb breadcrumb-dot" aria-label="Breadcrumb">
+  <!-- Dot separator (•) -->
+</nav>
+
+<!-- Size Variants -->
+<nav class="breadcrumb breadcrumb-sm" aria-label="Breadcrumb">
+  <!-- Small size -->
+</nav>
+
+<nav class="breadcrumb breadcrumb-lg" aria-label="Breadcrumb">
+  <!-- Large size -->
+</nav>
+
+<!-- Collapsed for Deep Hierarchies -->
+<nav class="breadcrumb breadcrumb-collapsed" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/electronics">Electronics</a></li>
+    <li><a href="/computers">Computers</a></li>
+    <li><a href="/laptops">Laptops</a></li>
+    <li aria-current="page">Gaming Laptop</li>
+  </ol>
+</nav>
+
+<script>
+// Expand collapsed breadcrumbs on click
+document.querySelector('.breadcrumb-collapsed').addEventListener('click', (e) => {
+  if (e.target.textContent.includes('...')) {
+    e.currentTarget.classList.add('breadcrumb-expanded');
+  }
+});
+</script>
+```
+
+### React
+
+```jsx
+// Basic usage
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function Breadcrumbs({ items }) {
+  return (
+    <nav className="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        {items.map((item, index) => (
+          <li key={index}>
+            {index === items.length - 1 ? (
+              <span aria-current="page">{item.label}</span>
+            ) : (
+              <a href={item.href}>{item.label}</a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+// Usage
+const items = [
+  { label: 'Home', href: '/' },
+  { label: 'Products', href: '/products' },
+  { label: 'Electronics', href: '/products/electronics' },
+  { label: 'Laptop' }
+];
+
+<Breadcrumbs items={items} />
+
+// Reusable component with props
+function Breadcrumbs({
+  items,
+  separator = 'slash',
+  size = 'md',
+  withIcons = false,
+  withBackground = false
+}) {
+  const classNames = [
+    'breadcrumb',
+    separator !== 'slash' && `breadcrumb-${separator}`,
+    size !== 'md' && `breadcrumb-${size}`,
+    withIcons && 'breadcrumb-with-icons',
+    withBackground && 'breadcrumb-bg'
+  ].filter(Boolean).join(' ');
+
+  return (
+    <nav className={classNames} aria-label="Breadcrumb">
+      <ol>
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={index} {...(isLast && { 'aria-current': 'page' })}>
+              {isLast ? (
+                <>
+                  {withIcons && (
+                    <i
+                      data-lucide="file-text"
+                      className="breadcrumb-icon"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {item.label}
+                </>
+              ) : (
+                <a href={item.href}>
+                  {withIcons && (
+                    <i
+                      data-lucide={index === 0 ? 'home' : 'folder'}
+                      className="breadcrumb-icon"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {item.label}
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
+// With React Router
+import { Link, useLocation } from 'react-router-dom';
+
+function BreadcrumbsRouter() {
+  const location = useLocation();
+  const pathnames = location.pathname.split('/').filter(x => x);
+
+  return (
+    <nav className="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        {pathnames.map((name, index) => {
+          const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
+          const isLast = index === pathnames.length - 1;
+
+          return (
+            <li key={name} {...(isLast && { 'aria-current': 'page' })}>
+              {isLast ? (
+                name
+              ) : (
+                <Link to={routeTo}>{name}</Link>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <nav
+    :class="breadcrumbClasses"
+    aria-label="Breadcrumb"
+  >
+    <ol>
+      <li
+        v-for="(item, index) in items"
+        :key="index"
+        :aria-current="index === items.length - 1 ? 'page' : undefined"
+      >
+        <template v-if="index === items.length - 1">
+          <i
+            v-if="withIcons"
+            data-lucide="file-text"
+            class="breadcrumb-icon"
+            aria-hidden="true"
+          />
+          {{ item.label }}
+        </template>
+        <a v-else :href="item.href">
+          <i
+            v-if="withIcons"
+            :data-lucide="index === 0 ? 'home' : 'folder'"
+            class="breadcrumb-icon"
+            aria-hidden="true"
+          />
+          {{ item.label }}
+        </a>
+      </li>
+    </ol>
+  </nav>
+</template>
+
+<script setup>
+import { computed, onMounted } from 'vue';
+
+const props = defineProps({
+  items: {
+    type: Array,
+    required: true,
+    validator: (items) => items.every(item => item.label)
+  },
+  separator: {
+    type: String,
+    default: 'slash',
+    validator: (value) => ['slash', 'chevron', 'arrow', 'dash', 'dot'].includes(value)
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  withIcons: {
+    type: Boolean,
+    default: false
+  },
+  withBackground: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const breadcrumbClasses = computed(() => [
+  'breadcrumb',
+  props.separator !== 'slash' && `breadcrumb-${props.separator}`,
+  props.size !== 'md' && `breadcrumb-${props.size}`,
+  props.withIcons && 'breadcrumb-with-icons',
+  props.withBackground && 'breadcrumb-bg'
+].filter(Boolean));
+
+onMounted(() => {
+  // Initialize Lucide icons if using icons
+  if (props.withIcons && window.lucide) {
+    window.lucide.createIcons();
+  }
+});
+</script>
+
+<!-- Usage -->
+<Breadcrumbs
+  :items="[
+    { label: 'Home', href: '/' },
+    { label: 'Products', href: '/products' },
+    { label: 'Electronics', href: '/products/electronics' },
+    { label: 'Laptop' }
+  ]"
+  separator="chevron"
+  with-icons
+/>
+
+<!-- With Vue Router -->
+<template>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li>
+        <router-link to="/">Home</router-link>
+      </li>
+      <li
+        v-for="(route, index) in breadcrumbRoutes"
+        :key="route.path"
+        :aria-current="index === breadcrumbRoutes.length - 1 ? 'page' : undefined"
+      >
+        <router-link v-if="index !== breadcrumbRoutes.length - 1" :to="route.path">
+          {{ route.label }}
+        </router-link>
+        <span v-else>{{ route.label }}</span>
+      </li>
+    </ol>
+  </nav>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const breadcrumbRoutes = computed(() => {
+  return route.matched
+    .filter(r => r.meta.breadcrumb)
+    .map(r => ({
+      label: r.meta.breadcrumb,
+      path: r.path
+    }));
+});
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let items = [];
+  export let separator = 'slash';
+  export let size = 'md';
+  export let withIcons = false;
+  export let withBackground = false;
+
+  $: breadcrumbClass = [
+    'breadcrumb',
+    separator !== 'slash' && `breadcrumb-${separator}`,
+    size !== 'md' && `breadcrumb-${size}`,
+    withIcons && 'breadcrumb-with-icons',
+    withBackground && 'breadcrumb-bg'
+  ].filter(Boolean).join(' ');
+
+  import { onMount } from 'svelte';
+
+  onMount(() => {
+    // Initialize Lucide icons if using icons
+    if (withIcons && window.lucide) {
+      window.lucide.createIcons();
+    }
+  });
+</script>
+
+<nav class={breadcrumbClass} aria-label="Breadcrumb">
+  <ol>
+    {#each items as item, index}
+      <li aria-current={index === items.length - 1 ? 'page' : undefined}>
+        {#if index === items.length - 1}
+          {#if withIcons}
+            <i data-lucide="file-text" class="breadcrumb-icon" aria-hidden="true"></i>
+          {/if}
+          {item.label}
+        {:else}
+          <a href={item.href}>
+            {#if withIcons}
+              <i
+                data-lucide={index === 0 ? 'home' : 'folder'}
+                class="breadcrumb-icon"
+                aria-hidden="true"
+              ></i>
+            {/if}
+            {item.label}
+          </a>
+        {/if}
+      </li>
+    {/each}
+  </ol>
+</nav>
+
+<!-- Usage -->
+<Breadcrumbs
+  items={[
+    { label: 'Home', href: '/' },
+    { label: 'Products', href: '/products' },
+    { label: 'Electronics', href: '/products/electronics' },
+    { label: 'Laptop' }
+  ]}
+  separator="chevron"
+  withIcons={true}
+/>
+```
+
+---
+
+## Examples
+
+### Two Levels
+
+Simple breadcrumb with just two levels of navigation.
+
+<Canvas of={BreadcrumbsStories.TwoLevels} />
+
+### Four Levels
+
+Medium-depth navigation hierarchy with background.
+
+<Canvas of={BreadcrumbsStories.FourLevels} />
+
+### Many Levels (Collapsed)
+
+Deep navigation hierarchy that collapses middle items for better readability.
+
+<Canvas of={BreadcrumbsStories.ManyLevels} />
+
+### With Icons
+
+Icons provide visual context for different page types.
+
+<Canvas of={BreadcrumbsStories.WithIcons} />
+
+### With Background
+
+Background variant increases visibility and separates breadcrumbs from content.
+
+<Canvas of={BreadcrumbsStories.WithBackground} />
+
+---
+
+## Separator Styles
+
+Choose from 5 different separator styles to match your design system.
+
+<Canvas of={BreadcrumbsStories.AllSeparators} />
+
+### When to use each separator:
+
+- **Slash (/)** - Universal, works for most contexts, default choice
+- **Chevron (>)** - Modern, popular choice for web applications and documentation
+- **Arrow (→)** - Good for file paths and linear flows, suggests forward progression
+- **Dash (-)** - Subtle, works well with minimal designs, reduces visual noise
+- **Dot (•)** - Light visual weight, good for compact spaces, elegant
+
+---
+
+## Size Variants
+
+<Canvas of={BreadcrumbsStories.AllSizes} />
+
+- **Small (`breadcrumb-sm`)**: Compact interfaces, sidebars, mobile views
+- **Medium (`breadcrumb-md`)**: Default size for most use cases
+- **Large (`breadcrumb-lg`)**: Prominent navigation, marketing pages, hero sections
+
+---
+
+## Current Page Highlighting
+
+The last item in the breadcrumb trail represents the current page and is automatically highlighted.
+
+<Canvas of={BreadcrumbsStories.CurrentPageHighlighted} />
+
+The current page item:
+- Uses `aria-current="page"` for accessibility
+- Is not clickable (no `<a>` tag)
+- Has distinct styling to indicate the current location
+- Should match the page's `<h1>` heading
+
+---
+
+## Theme Comparison
+
+See how breadcrumbs look across all 9 Aural UI themes:
+
+<Canvas of={BreadcrumbsStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+The Breadcrumbs component is built with accessibility as a top priority.
+
+### Keyboard Navigation
+- All links are keyboard accessible via `Tab` key
+- Links activate with `Enter` key
+- Focus indicators clearly show current position
+- Logical tab order follows visual hierarchy
+
+### Screen Readers
+- Semantic `<nav>` element with `aria-label="Breadcrumb"` identifies the navigation landmark
+- Ordered list (`<ol>`) structure conveys hierarchy
+- `aria-current="page"` on current page item announces location
+- Icons use `aria-hidden="true"` to hide decorative elements
+- Link text is clear and descriptive
+
+### Color Contrast
+- All text meets WCAG AAA standards (7:1+ contrast ratio)
+- Links have sufficient contrast in all states (default, hover, focus, visited)
+- Current page text has enhanced contrast
+- High contrast theme available for users who need it
+
+### Semantic Structure
+```html
+<nav aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+    <li aria-current="page">Details</li>
+  </ol>
+</nav>
+```
+
+This structure:
+- Uses `<nav>` to identify navigation landmark
+- Uses `<ol>` to convey ordered hierarchy
+- Places `aria-current="page"` on current location
+- Avoids using `<div>` soup for semantic clarity
+
+### Best Practices
+
+**Do:**
+- Always include `aria-label="Breadcrumb"` on the `<nav>` element
+- Use `aria-current="page"` on the current page item
+- Keep breadcrumb labels short and descriptive (1-3 words)
+- Make all parent links keyboard and mouse accessible
+- Test with screen readers (NVDA, JAWS, VoiceOver)
+- Ensure focus indicators are clearly visible
+
+**Don't:**
+- Make the current page a clickable link
+- Use breadcrumbs on single-level sites
+- Rely solely on color to indicate current page
+- Skip levels in the hierarchy
+- Use overly long or technical labels
+- Place breadcrumbs below the main content
+
+---
+
+## Props / CSS Classes
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.breadcrumb` | Base breadcrumb class (required) |
+| `.breadcrumb-chevron` | Chevron separator (>) |
+| `.breadcrumb-arrow` | Arrow separator (→) |
+| `.breadcrumb-dash` | Dash separator (-) |
+| `.breadcrumb-dot` | Dot separator (•) |
+| `.breadcrumb-sm` | Small size |
+| `.breadcrumb-md` | Medium size (default) |
+| `.breadcrumb-lg` | Large size |
+| `.breadcrumb-with-icons` | Enables icon display |
+| `.breadcrumb-bg` | Background variant |
+| `.breadcrumb-collapsed` | Collapsed view for deep hierarchies |
+| `.breadcrumb-expanded` | Expanded state (add via JavaScript) |
+
+### HTML Attributes
+
+| Attribute | Element | Description |
+|-----------|---------|-------------|
+| `aria-label="Breadcrumb"` | `<nav>` | Identifies breadcrumb navigation landmark |
+| `aria-current="page"` | `<li>` | Indicates current page in breadcrumb trail |
+| `aria-hidden="true"` | `<i>` | Hides decorative icons from screen readers |
+
+### Component Props (React/Vue/Svelte)
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `Array<{label: string, href?: string}>` | Required | Breadcrumb items |
+| `separator` | `'slash' \| 'chevron' \| 'arrow' \| 'dash' \| 'dot'` | `'slash'` | Separator style |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size variant |
+| `withIcons` | `boolean` | `false` | Show icons |
+| `withBackground` | `boolean` | `false` | Show background |
+| `maxItems` | `number` | `undefined` | Max items before collapsing |
+
+---
+
+## Usage Guidelines
+
+### When to Use
+
+**Use breadcrumbs when:**
+- Your site has multiple levels of navigation hierarchy (3+ levels)
+- Users need to understand their current location
+- Users need quick access to parent pages
+- You have e-commerce category hierarchies
+- You have documentation with nested sections
+- You have file management interfaces
+
+**Common use cases:**
+- E-commerce: `Home > Men's Fashion > Shoes > Sneakers > Running Shoes`
+- Documentation: `Docs > Components > Navigation > Breadcrumbs`
+- File Systems: `Drive > Projects > Website > index.html`
+- Multi-step Processes: `Cart > Shipping > Payment > Confirmation`
+
+### When NOT to Use
+
+**Don't use breadcrumbs when:**
+- Your site has a flat structure (single level)
+- You only have 1-2 levels of navigation
+- The navigation path is not linear or hierarchical
+- On mobile when space is extremely limited (consider alternatives)
+- As a replacement for primary navigation
+- For showing progress through a multi-step process (use a stepper instead)
+
+### Content Guidelines
+
+**Labels:**
+- Keep labels short and clear (1-3 words ideal)
+- Use sentence case, not title case ("New products" not "New Products")
+- Make labels descriptive enough to understand out of context
+- Match category/page names exactly
+- Avoid technical jargon in user-facing breadcrumbs
+
+**Structure:**
+- Always start with the homepage or top-level category
+- Include all levels in the hierarchy (don't skip levels)
+- The last item should be the current page title
+- The last item should match the page's `<h1>` heading
+- For very deep hierarchies (6+ levels), use the collapsed variant
+
+**Placement:**
+- Position near the top of the page, below the main navigation
+- Place above the page title/heading
+- Align to the left of the page content
+- Maintain consistent placement across all pages
+
+---
+
+## Related Components
+
+- **Navbar**: Primary navigation for top-level pages
+- **Pagination**: Navigate through paginated content
+- **Stepper**: Show progress through multi-step processes
+- **Tabs**: Switch between related views of content

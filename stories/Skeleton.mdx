@@ -1,0 +1,681 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as SkeletonStories from './Skeleton.stories';
+
+<Meta of={SkeletonStories} />
+
+# Skeleton
+
+Animated loading placeholders that mimic the structure of content before it loads, improving perceived performance and providing a better user experience during data fetching.
+
+## Overview
+
+Skeleton screens (also called skeleton loaders) are visual placeholders that show the approximate shape and structure of content while it's loading. Unlike traditional spinners, skeletons reduce the perceived loading time by showing users what to expect, making the interface feel faster and more responsive.
+
+**Key Features:**
+- Multiple shape variants (text, circle, rectangle)
+- Smooth pulse animation with reduced motion support
+- WCAG AAA compliant with proper ARIA attributes
+- Customizable dimensions and styling
+- Respects `prefers-reduced-motion` system preference
+- Screen reader announcements for loading states
+
+**When to Use:**
+- Loading data from APIs or databases
+- Initial page load before content is ready
+- Lazy loading images or components
+- Progressive data loading
+- Complex layouts (cards, lists, tables, forms)
+
+**When Not to Use:**
+- Very quick operations (under 200ms)
+- Background refresh of visible content
+- Critical actions where spinner may be more appropriate
+- When loading time is highly unpredictable
+
+---
+
+## Interactive Demo
+
+<Canvas of={SkeletonStories.Text} />
+
+---
+
+## Shape Variants
+
+### Text Lines
+
+Use for loading text content like paragraphs, headings, or labels.
+
+<Canvas of={SkeletonStories.Text} />
+
+```html
+<div aria-busy="true" aria-label="Loading content">
+  <div class="skeleton skeleton-text"></div>
+  <div class="skeleton skeleton-text" style="width: 80%;"></div>
+  <div class="skeleton skeleton-text" style="width: 60%;"></div>
+  <span class="sr-only">Loading content...</span>
+</div>
+```
+
+### Circles
+
+Use for loading avatars, profile pictures, or circular icons.
+
+<Canvas of={SkeletonStories.Circle} />
+
+```html
+<div class="skeleton skeleton-circle" style="width: 48px; height: 48px;"></div>
+```
+
+### Rectangles
+
+Use for loading images, cards, buttons, or any rectangular content.
+
+<Canvas of={SkeletonStories.Rectangle} />
+
+```html
+<div class="skeleton skeleton-rect" style="width: 300px; height: 200px; border-radius: var(--radius-md);"></div>
+```
+
+---
+
+## Common Patterns
+
+### User Avatar with Text
+
+<Canvas of={SkeletonStories.Avatar} />
+
+```html
+<div style="display: flex; gap: var(--space-6); align-items: center;" aria-busy="true">
+  <div class="skeleton skeleton-circle" style="width: 48px; height: 48px;"></div>
+  <div style="flex: 1; display: flex; flex-direction: column; gap: var(--space-2);">
+    <div class="skeleton skeleton-text" style="width: 40%;"></div>
+    <div class="skeleton skeleton-text" style="width: 60%;"></div>
+  </div>
+  <span class="sr-only">Loading user profile...</span>
+</div>
+```
+
+### Card Loading
+
+<Canvas of={SkeletonStories.Card} />
+
+```html
+<div class="card" aria-busy="true" aria-label="Loading card content">
+  <div class="skeleton skeleton-rect" style="width: 100%; height: 200px; border-radius: var(--radius-md) var(--radius-md) 0 0;"></div>
+  <div style="padding: var(--space-4);">
+    <div class="skeleton skeleton-text" style="width: 70%; height: 24px; margin-bottom: var(--space-3);"></div>
+    <div class="skeleton skeleton-text" style="width: 100%; margin-bottom: var(--space-2);"></div>
+    <div class="skeleton skeleton-text" style="width: 90%; margin-bottom: var(--space-4);"></div>
+    <div style="display: flex; gap: var(--space-3);">
+      <div class="skeleton skeleton-rect" style="width: 80px; height: 36px; border-radius: var(--radius-sm);"></div>
+      <div class="skeleton skeleton-rect" style="width: 80px; height: 36px; border-radius: var(--radius-sm);"></div>
+    </div>
+  </div>
+</div>
+```
+
+### List Loading
+
+<Canvas of={SkeletonStories.List} />
+
+### Table Loading
+
+<Canvas of={SkeletonStories.Table} />
+
+### Form Loading
+
+<Canvas of={SkeletonStories.Form} />
+
+### Article Preview
+
+<Canvas of={SkeletonStories.ArticlePreview} />
+
+---
+
+## Framework Examples
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic skeleton -->
+<div class="skeleton skeleton-text"></div>
+
+<!-- With ARIA attributes for accessibility -->
+<div aria-busy="true" aria-label="Loading user profile">
+  <div class="skeleton skeleton-circle" style="width: 48px; height: 48px;"></div>
+  <div class="skeleton skeleton-text" style="width: 60%;"></div>
+  <span class="sr-only">Loading content...</span>
+</div>
+
+<!-- Loading simulation -->
+<script>
+function loadData() {
+  const container = document.getElementById('content');
+
+  // Show skeleton
+  container.setAttribute('aria-busy', 'true');
+  container.innerHTML = `
+    <div class="skeleton skeleton-text"></div>
+    <div class="skeleton skeleton-text" style="width: 80%;"></div>
+    <span class="sr-only">Loading...</span>
+  `;
+
+  // Fetch data
+  fetch('/api/data')
+    .then(response => response.json())
+    .then(data => {
+      container.removeAttribute('aria-busy');
+      container.innerHTML = `<p>${data.content}</p>`;
+    });
+}
+</script>
+```
+
+### React
+
+```jsx
+import { useState, useEffect } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+// Reusable Skeleton component
+function Skeleton({ variant = 'text', width, height, className = '', style = {} }) {
+  return (
+    <div
+      className={`skeleton skeleton-${variant} ${className}`}
+      style={{ width, height, ...style }}
+      aria-hidden="true"
+    />
+  );
+}
+
+// Skeleton Card component
+function SkeletonCard() {
+  return (
+    <div className="card" aria-busy="true" aria-label="Loading card">
+      <Skeleton variant="rect" height="200px" style={{ borderRadius: 'var(--radius-md) var(--radius-md) 0 0' }} />
+      <div style={{ padding: 'var(--space-4)' }}>
+        <Skeleton width="70%" height="24px" style={{ marginBottom: 'var(--space-3)' }} />
+        <Skeleton width="100%" style={{ marginBottom: 'var(--space-2)' }} />
+        <Skeleton width="90%" />
+      </div>
+      <span className="sr-only">Loading card content...</span>
+    </div>
+  );
+}
+
+// Usage with loading state
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/users/${userId}`)
+      .then(res => res.json())
+      .then(data => {
+        setUser(data);
+        setLoading(false);
+      });
+  }, [userId]);
+
+  if (loading) {
+    return (
+      <div aria-busy="true" aria-label="Loading user profile">
+        <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'center' }}>
+          <Skeleton variant="circle" width="48px" height="48px" />
+          <div style={{ flex: 1 }}>
+            <Skeleton width="40%" style={{ marginBottom: 'var(--space-2)' }} />
+            <Skeleton width="60%" />
+          </div>
+        </div>
+        <span className="sr-only">Loading user profile...</span>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'center' }}>
+      <img src={user.avatar} alt="" style={{ width: 48, height: 48, borderRadius: '50%' }} />
+      <div>
+        <div style={{ fontWeight: 'var(--font-semibold)' }}>{user.name}</div>
+        <div style={{ color: 'var(--color-text-secondary)' }}>{user.email}</div>
+      </div>
+    </div>
+  );
+}
+
+// List with skeleton loading
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/users')
+      .then(res => res.json())
+      .then(data => {
+        setUsers(data);
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div>
+      {loading ? (
+        <div aria-busy="true" aria-label="Loading users">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} style={{ display: 'flex', gap: 'var(--space-4)', marginBottom: 'var(--space-4)' }}>
+              <Skeleton variant="circle" width="40px" height="40px" />
+              <div style={{ flex: 1 }}>
+                <Skeleton width="30%" />
+                <Skeleton width="50%" />
+              </div>
+            </div>
+          ))}
+          <span className="sr-only">Loading users...</span>
+        </div>
+      ) : (
+        users.map(user => (
+          <div key={user.id} style={{ display: 'flex', gap: 'var(--space-4)', marginBottom: 'var(--space-4)' }}>
+            <img src={user.avatar} alt="" style={{ width: 40, height: 40, borderRadius: '50%' }} />
+            <div>
+              <div>{user.name}</div>
+              <div style={{ color: 'var(--color-text-secondary)' }}>{user.email}</div>
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div>
+    <!-- Skeleton component -->
+    <div
+      :class="`skeleton skeleton-${variant}`"
+      :style="skeletonStyle"
+      aria-hidden="true"
+    />
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: {
+    type: String,
+    default: 'text',
+    validator: (value) => ['text', 'circle', 'rect'].includes(value)
+  },
+  width: String,
+  height: String
+});
+
+const skeletonStyle = computed(() => ({
+  width: props.width,
+  height: props.height
+}));
+</script>
+
+<!-- Usage Example -->
+<template>
+  <div v-if="loading" aria-busy="true" aria-label="Loading user profile">
+    <div style="display: flex; gap: var(--space-6); align-items: center;">
+      <Skeleton variant="circle" width="48px" height="48px" />
+      <div style="flex: 1;">
+        <Skeleton width="40%" style="margin-bottom: var(--space-2);" />
+        <Skeleton width="60%" />
+      </div>
+    </div>
+    <span class="sr-only">Loading user profile...</span>
+  </div>
+
+  <div v-else style="display: flex; gap: var(--space-6); align-items: center;">
+    <img :src="user.avatar" alt="" style="width: 48px; height: 48px; border-radius: 50%;" />
+    <div>
+      <div style="font-weight: var(--font-semibold);">{{ user.name }}</div>
+      <div style="color: var(--color-text-secondary);">{{ user.email }}</div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import Skeleton from './Skeleton.vue';
+
+const loading = ref(true);
+const user = ref(null);
+
+onMounted(async () => {
+  const response = await fetch('/api/user');
+  user.value = await response.json();
+  loading.value = false;
+});
+</script>
+```
+
+### Svelte
+
+```svelte
+<!-- Skeleton.svelte -->
+<script>
+  export let variant = 'text';
+  export let width = '';
+  export let height = '';
+
+  $: skeletonStyle = [
+    width && `width: ${width}`,
+    height && `height: ${height}`
+  ].filter(Boolean).join('; ');
+</script>
+
+<div
+  class="skeleton skeleton-{variant}"
+  style={skeletonStyle}
+  aria-hidden="true"
+/>
+
+<!-- Usage Example -->
+<script>
+  import { onMount } from 'svelte';
+  import Skeleton from './Skeleton.svelte';
+
+  let loading = true;
+  let user = null;
+
+  onMount(async () => {
+    const response = await fetch('/api/user');
+    user = await response.json();
+    loading = false;
+  });
+</script>
+
+{#if loading}
+  <div aria-busy="true" aria-label="Loading user profile">
+    <div style="display: flex; gap: var(--space-6); align-items: center;">
+      <Skeleton variant="circle" width="48px" height="48px" />
+      <div style="flex: 1;">
+        <Skeleton width="40%" />
+        <Skeleton width="60%" />
+      </div>
+    </div>
+    <span class="sr-only">Loading user profile...</span>
+  </div>
+{:else}
+  <div style="display: flex; gap: var(--space-6); align-items: center;">
+    <img src={user.avatar} alt="" style="width: 48px; height: 48px; border-radius: 50%;" />
+    <div>
+      <div style="font-weight: var(--font-semibold);">{user.name}</div>
+      <div style="color: var(--color-text-secondary);">{user.email}</div>
+    </div>
+  </div>
+{/if}
+```
+
+---
+
+## Loading Simulation
+
+Try the interactive loading simulation to see how skeletons improve perceived performance:
+
+<Canvas of={SkeletonStories.LoadingSimulation} />
+
+---
+
+## Accessibility
+
+The Skeleton component follows WCAG AAA accessibility standards with comprehensive support for assistive technologies.
+
+### Screen Reader Support
+
+**Do:**
+- Add `aria-busy="true"` to the container while loading
+- Include visually hidden text with `class="sr-only"` describing what's loading
+- Remove `aria-busy` when content finishes loading
+- Use `aria-live="polite"` regions to announce when content loads
+
+```html
+<!-- Good: Proper ARIA attributes -->
+<div aria-busy="true" aria-label="Loading user list">
+  <div class="skeleton skeleton-text"></div>
+  <div class="skeleton skeleton-text"></div>
+  <span class="sr-only">Loading users...</span>
+</div>
+```
+
+**Don't:**
+- Rely solely on visual animation without ARIA attributes
+- Use `aria-live="assertive"` (too aggressive for loading states)
+- Forget to announce when loading completes
+
+### Reduced Motion
+
+The skeleton automatically respects the `prefers-reduced-motion` system preference:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--color-skeleton-from);
+  }
+}
+```
+
+Users who prefer reduced motion will see a static placeholder instead of the animated shimmer effect.
+
+### Color Contrast
+
+- Skeleton colors meet WCAG AAA contrast requirements (7:1+)
+- Shapes clearly indicate content structure without relying on animation
+- High contrast theme available for users with low vision
+
+### Progressive Enhancement
+
+```html
+<!-- Graceful degradation -->
+<noscript>
+  <div role="alert">
+    Please enable JavaScript to load content.
+  </div>
+</noscript>
+```
+
+---
+
+## Best Practices
+
+### Shape & Structure
+
+**Do:**
+- Match skeleton shapes to actual content layout as closely as possible
+- Use `skeleton-text` for text lines
+- Use `skeleton-circle` for avatars and circular elements
+- Use `skeleton-rect` for images, buttons, and rectangular content
+- Vary line widths slightly (100%, 80%, 60%) to create a more natural appearance
+
+**Don't:**
+- Use generic rectangles for everything
+- Make skeletons too different from actual content
+- Forget to include all major UI elements (buttons, avatars, etc.)
+
+### Timing
+
+**Do:**
+- Show skeletons immediately when loading begins
+- Display for minimum 200-300ms to avoid flash of loading state
+- Replace with actual content smoothly
+- Consider a subtle fade-in animation when content appears
+
+**Don't:**
+- Show skeletons for very fast loads (under 200ms)
+- Use skeletons for background refresh of visible content
+- Display for too long on slow connections (consider timeout + error state)
+
+```javascript
+// Good: Minimum display time
+const MIN_LOADING_TIME = 300;
+const startTime = Date.now();
+
+fetchData().then(data => {
+  const elapsed = Date.now() - startTime;
+  const delay = Math.max(0, MIN_LOADING_TIME - elapsed);
+
+  setTimeout(() => {
+    setContent(data);
+  }, delay);
+});
+```
+
+### Animation
+
+**Do:**
+- Use subtle shimmer/pulse animation
+- Keep animation speed moderate (1-2 second cycle)
+- Ensure animation respects `prefers-reduced-motion`
+- Make animation smooth and consistent
+
+**Don't:**
+- Make animation too fast (distracting)
+- Make animation too bright or high contrast
+- Ignore reduced motion preferences
+
+### Content Patterns
+
+**Do:**
+- Create reusable skeleton components for common patterns
+- Show the same number of items as typical content count
+- Include all major UI elements in skeleton
+- Maintain proper spacing and alignment
+
+**Don't:**
+- Create overly complex skeletons
+- Forget loading states for errors
+- Use skeletons as the only loading indicator for critical actions
+
+---
+
+## Skeleton vs. Spinner
+
+### Use Skeleton When:
+- Loading lists, cards, tables, or structured content
+- Initial page load with known layout
+- Lazy loading images or components
+- You want to reduce perceived loading time
+- Layout is relatively stable and predictable
+
+### Use Spinner When:
+- Processing user actions (submit, save, delete)
+- Loading unknown or dynamic content
+- Short operations (0.5-2 seconds)
+- Space is limited (buttons, small components)
+- Content structure is unpredictable
+
+### Use Both:
+```html
+<!-- Spinner in button during action -->
+<button class="btn btn-primary" disabled aria-busy="true">
+  <span class="spinner spinner-sm" aria-hidden="true"></span>
+  Saving...
+</button>
+
+<!-- Skeleton for content loading -->
+<div aria-busy="true" aria-label="Loading posts">
+  <div class="skeleton skeleton-text"></div>
+  <div class="skeleton skeleton-text"></div>
+  <span class="sr-only">Loading posts...</span>
+</div>
+```
+
+---
+
+## Theme Comparison
+
+See how the skeleton looks across all 9 Aural UI themes:
+
+<Canvas of={SkeletonStories.ThemeComparison} />
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.skeleton` | Base skeleton class (required) |
+| `.skeleton-text` | Text line variant (default height: 16px) |
+| `.skeleton-circle` | Circle variant (for avatars) |
+| `.skeleton-rect` | Rectangle variant (for images, buttons) |
+| `.skeleton-text-sm` | Small text (height: 12px) |
+| `.skeleton-text-lg` | Large text (height: 20px) |
+| `.skeleton-title` | Title variant (height: 24px, width: 60%) |
+| `.skeleton-button` | Button variant (44px × 120px) |
+| `.skeleton-card` | Card variant (200px height) |
+| `.sr-only` | Screen reader only text |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `aria-busy` | boolean | Indicates container is loading |
+| `aria-label` | string | Describes what's loading |
+| `aria-live` | string | Announces loading completion ("polite" recommended) |
+
+### CSS Custom Properties
+
+| Property | Default | Description |
+|----------|---------|-------------|
+| `--color-skeleton-from` | Theme-specific | Skeleton start color |
+| `--color-skeleton-via` | Theme-specific | Skeleton mid-point color |
+| `--color-skeleton-to` | Theme-specific | Skeleton end color |
+
+### Customization
+
+```css
+/* Custom skeleton colors */
+.skeleton.custom {
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 0%,
+    #f0f0f0 50%,
+    #e0e0e0 100%
+  );
+}
+
+/* Custom animation speed */
+.skeleton.slow {
+  animation-duration: 2.5s;
+}
+
+/* Custom dimensions */
+.skeleton.large-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+```
+
+---
+
+## Related Components
+
+- **[Spinner](/docs/components-spinner--docs)**: Loading indicator for actions and short operations
+- **[Progress](/docs/components-progress--docs)**: Show determinate loading progress
+- **[Empty State](/docs/components-empty-state--docs)**: Display when no content is available
+- **[Alert](/docs/components-alert--docs)**: Show error states when loading fails
+
+---
+
+## Resources
+
+- [WCAG 2.2 Loading States](https://www.w3.org/WAI/WCAG22/Understanding/)
+- [ARIA Live Regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)
+- [Reduced Motion Media Query](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
+- [Skeleton Screens Best Practices](https://www.nngroup.com/articles/skeleton-screens/)

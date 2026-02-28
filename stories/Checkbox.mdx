@@ -1,0 +1,623 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+Checkboxes allow users to select multiple options from a list or toggle individual settings. They are ideal for multi-selection scenarios and binary settings.
+
+## Overview
+
+The Checkbox component supports multiple states, sizes, and patterns to accommodate different use cases across your application.
+
+**Key Features:**
+- 3 sizes (Small, Medium, Large)
+- Multiple states (unchecked, checked, indeterminate, disabled)
+- Optional description text
+- Indeterminate state for "select all" patterns
+- Full keyboard accessibility (Space to toggle)
+- WCAG AAA compliant contrast ratios
+
+---
+
+## Usage
+
+<Canvas of={CheckboxStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic checkbox -->
+<label class="checkbox">
+  <input type="checkbox" id="terms">
+  <span>Accept terms and conditions</span>
+</label>
+
+<!-- Checked -->
+<label class="checkbox">
+  <input type="checkbox" id="newsletter" checked>
+  <span>Subscribe to newsletter</span>
+</label>
+
+<!-- Disabled -->
+<label class="checkbox">
+  <input type="checkbox" id="disabled" disabled>
+  <span>Disabled checkbox</span>
+</label>
+
+<!-- With size -->
+<label class="checkbox checkbox-lg">
+  <input type="checkbox" id="large" checked>
+  <span>Large checkbox</span>
+</label>
+
+<!-- With description -->
+<label class="checkbox checkbox-with-description">
+  <input type="checkbox" id="notifications" checked aria-describedby="notifications-desc">
+  <span>
+    Enable notifications
+    <span class="checkbox-description" id="notifications-desc">
+      Receive email updates about your account
+    </span>
+  </span>
+</label>
+
+<!-- Indeterminate state (requires JavaScript) -->
+<label class="checkbox">
+  <input type="checkbox" id="select-all" aria-checked="mixed">
+  <span>Select all</span>
+</label>
+<script>
+  const checkbox = document.getElementById('select-all');
+  checkbox.indeterminate = true;
+</script>
+```
+
+### React
+
+```tsx
+// Basic usage
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+import { useState } from 'react';
+
+function MyComponent() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <label className="checkbox">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+        aria-checked={checked}
+      />
+      <span>Accept terms and conditions</span>
+    </label>
+  );
+}
+
+// Reusable component
+interface CheckboxProps {
+  label: string;
+  description?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  indeterminate?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  onChange?: (checked: boolean) => void;
+  id?: string;
+}
+
+function Checkbox({
+  label,
+  description,
+  checked = false,
+  disabled = false,
+  indeterminate = false,
+  size = 'md',
+  onChange,
+  id
+}: CheckboxProps) {
+  const [internalId] = useState(() => id || `checkbox-${Math.random().toString(36).substr(2, 9)}`);
+  const descId = description ? `${internalId}-desc` : undefined;
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.indeterminate = indeterminate;
+    }
+  }, [indeterminate]);
+
+  const className = [
+    'checkbox',
+    size !== 'md' && `checkbox-${size}`,
+    description && 'checkbox-with-description'
+  ].filter(Boolean).join(' ');
+
+  return (
+    <label className={className}>
+      <input
+        ref={inputRef}
+        type="checkbox"
+        id={internalId}
+        checked={checked}
+        disabled={disabled}
+        onChange={(e) => onChange?.(e.target.checked)}
+        aria-checked={indeterminate ? 'mixed' : checked}
+        aria-describedby={descId}
+      />
+      <span>
+        {label}
+        {description && (
+          <span className="checkbox-description" id={descId}>
+            {description}
+          </span>
+        )}
+      </span>
+    </label>
+  );
+}
+
+// Usage
+function App() {
+  const [accepted, setAccepted] = useState(false);
+
+  return (
+    <Checkbox
+      label="Accept terms and conditions"
+      checked={accepted}
+      onChange={setAccepted}
+    />
+  );
+}
+
+// Select all pattern
+function SelectAllExample() {
+  const [items, setItems] = useState([
+    { id: 1, label: 'Option 1', checked: true },
+    { id: 2, label: 'Option 2', checked: false },
+    { id: 3, label: 'Option 3', checked: false }
+  ]);
+
+  const checkedCount = items.filter(item => item.checked).length;
+  const allChecked = checkedCount === items.length;
+  const indeterminate = checkedCount > 0 && checkedCount < items.length;
+
+  const handleSelectAll = (checked: boolean) => {
+    setItems(items.map(item => ({ ...item, checked })));
+  };
+
+  const handleItemChange = (id: number, checked: boolean) => {
+    setItems(items.map(item =>
+      item.id === id ? { ...item, checked } : item
+    ));
+  };
+
+  return (
+    <div>
+      <Checkbox
+        label="Select all"
+        checked={allChecked}
+        indeterminate={indeterminate}
+        onChange={handleSelectAll}
+      />
+      <div style={{ paddingLeft: '1.5rem', marginTop: '0.5rem' }}>
+        {items.map(item => (
+          <Checkbox
+            key={item.id}
+            label={item.label}
+            checked={item.checked}
+            onChange={(checked) => handleItemChange(item.id, checked)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <label :class="checkboxClasses">
+    <input
+      ref="inputRef"
+      type="checkbox"
+      :id="inputId"
+      :checked="checked"
+      :disabled="disabled"
+      :aria-checked="ariaChecked"
+      :aria-describedby="descId"
+      @change="$emit('update:checked', $event.target.checked)"
+    />
+    <span>
+      {{ label }}
+      <span v-if="description" class="checkbox-description" :id="descId">
+        {{ description }}
+      </span>
+    </span>
+  </label>
+</template>
+
+<script setup lang="ts">
+import { computed, ref, watch, onMounted } from 'vue';
+
+interface Props {
+  label: string;
+  description?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  indeterminate?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  id?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  checked: false,
+  disabled: false,
+  indeterminate: false,
+  size: 'md'
+});
+
+defineEmits<{
+  'update:checked': [value: boolean];
+}>();
+
+const inputRef = ref<HTMLInputElement>();
+const inputId = computed(() => props.id || `checkbox-${Math.random().toString(36).substr(2, 9)}`);
+const descId = computed(() => props.description ? `${inputId.value}-desc` : undefined);
+
+const checkboxClasses = computed(() => [
+  'checkbox',
+  props.size !== 'md' && `checkbox-${props.size}`,
+  props.description && 'checkbox-with-description'
+].filter(Boolean).join(' '));
+
+const ariaChecked = computed(() =>
+  props.indeterminate ? 'mixed' : props.checked
+);
+
+// Update indeterminate state
+watch(() => props.indeterminate, (value) => {
+  if (inputRef.value) {
+    inputRef.value.indeterminate = value;
+  }
+});
+
+onMounted(() => {
+  if (inputRef.value && props.indeterminate) {
+    inputRef.value.indeterminate = true;
+  }
+});
+</script>
+
+<!-- Usage -->
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const accepted = ref(false);
+</script>
+
+<template>
+  <Checkbox
+    label="Accept terms and conditions"
+    v-model:checked="accepted"
+  />
+
+  <Checkbox
+    label="Enable notifications"
+    description="Receive email updates about your account"
+    v-model:checked="notifications"
+  />
+</template>
+```
+
+### Svelte
+
+```svelte
+<script lang="ts">
+  export let label: string;
+  export let description: string = '';
+  export let checked: boolean = false;
+  export let disabled: boolean = false;
+  export let indeterminate: boolean = false;
+  export let size: 'sm' | 'md' | 'lg' = 'md';
+  export let id: string = `checkbox-${Math.random().toString(36).substr(2, 9)}`;
+
+  let inputElement: HTMLInputElement;
+
+  $: checkboxClass = [
+    'checkbox',
+    size !== 'md' && `checkbox-${size}`,
+    description && 'checkbox-with-description'
+  ].filter(Boolean).join(' ');
+
+  $: ariaChecked = indeterminate ? 'mixed' : checked;
+  $: descId = description ? `${id}-desc` : undefined;
+
+  $: if (inputElement) {
+    inputElement.indeterminate = indeterminate;
+  }
+
+  function handleChange(event: Event) {
+    checked = (event.target as HTMLInputElement).checked;
+  }
+</script>
+
+<label class={checkboxClass}>
+  <input
+    bind:this={inputElement}
+    type="checkbox"
+    {id}
+    {checked}
+    {disabled}
+    aria-checked={ariaChecked}
+    aria-describedby={descId}
+    on:change={handleChange}
+  />
+  <span>
+    {label}
+    {#if description}
+      <span class="checkbox-description" id={descId}>
+        {description}
+      </span>
+    {/if}
+  </span>
+</label>
+
+<!-- Usage -->
+<script>
+  let accepted = false;
+  let notifications = true;
+</script>
+
+<Checkbox
+  label="Accept terms and conditions"
+  bind:checked={accepted}
+/>
+
+<Checkbox
+  label="Enable notifications"
+  description="Receive email updates about your account"
+  bind:checked={notifications}
+  size="lg"
+/>
+```
+
+---
+
+## States
+
+All checkbox states are accessible and maintain proper contrast ratios.
+
+<Canvas of={CheckboxStories.AllStates} />
+
+### Available States:
+
+- **Unchecked**: Default state, no selection
+- **Checked**: User has selected the option
+- **Indeterminate**: Partial selection (for "select all" patterns)
+- **Disabled Unchecked**: Cannot be interacted with
+- **Disabled Checked**: Cannot be changed from checked state
+- **Disabled Indeterminate**: Cannot be changed from indeterminate state
+
+---
+
+## Sizes
+
+<Canvas of={CheckboxStories.AllSizes} />
+
+- **Small (`checkbox-sm`)**: Compact spaces, inline forms, tables
+- **Medium (`checkbox-md`)**: Default size for most use cases
+- **Large (`checkbox-lg`)**: Better accessibility, touch interfaces, primary settings
+
+---
+
+## Variants
+
+### With Description
+
+<Canvas of={CheckboxStories.WithDescription} />
+
+Use description text to provide additional context about what the checkbox controls:
+
+```html
+<label class="checkbox checkbox-with-description">
+  <input type="checkbox" id="notifications" aria-describedby="notifications-desc">
+  <span>
+    Enable notifications
+    <span class="checkbox-description" id="notifications-desc">
+      Receive email updates about your account
+    </span>
+  </span>
+</label>
+```
+
+### Indeterminate State
+
+<Canvas of={CheckboxStories.Indeterminate} />
+
+The indeterminate state represents partial selection, commonly used for "select all" checkboxes:
+
+```javascript
+const checkbox = document.getElementById('select-all');
+checkbox.indeterminate = true;
+checkbox.setAttribute('aria-checked', 'mixed');
+```
+
+---
+
+## Patterns
+
+### Checkbox Group
+
+<Canvas of={CheckboxStories.CheckboxGroup} />
+
+Use `<fieldset>` and `<legend>` for semantic grouping:
+
+```html
+<fieldset>
+  <legend>Select your interests</legend>
+  <label class="checkbox">
+    <input type="checkbox" name="interests" value="design">
+    <span>Design</span>
+  </label>
+  <label class="checkbox">
+    <input type="checkbox" name="interests" value="development">
+    <span>Development</span>
+  </label>
+  <label class="checkbox">
+    <input type="checkbox" name="interests" value="marketing">
+    <span>Marketing</span>
+  </label>
+</fieldset>
+```
+
+### Select All Pattern
+
+<Canvas of={CheckboxStories.SelectAllPattern} />
+
+Implement a "select all" checkbox with indeterminate state:
+
+```javascript
+const selectAll = document.getElementById('select-all');
+const childCheckboxes = document.querySelectorAll('.child-checkbox');
+
+function updateSelectAll() {
+  const checkedCount = Array.from(childCheckboxes).filter(cb => cb.checked).length;
+  selectAll.checked = checkedCount === childCheckboxes.length;
+  selectAll.indeterminate = checkedCount > 0 && checkedCount < childCheckboxes.length;
+  selectAll.setAttribute('aria-checked',
+    selectAll.indeterminate ? 'mixed' : (selectAll.checked ? 'true' : 'false')
+  );
+}
+
+selectAll.addEventListener('change', () => {
+  childCheckboxes.forEach(cb => {
+    cb.checked = selectAll.checked;
+    cb.setAttribute('aria-checked', selectAll.checked ? 'true' : 'false');
+  });
+});
+
+childCheckboxes.forEach(cb => {
+  cb.addEventListener('change', () => {
+    cb.setAttribute('aria-checked', cb.checked ? 'true' : 'false');
+    updateSelectAll();
+  });
+});
+
+updateSelectAll();
+```
+
+---
+
+## Theme Comparison
+
+See how the checkbox looks across all 9 Aural UI themes:
+
+<Canvas of={CheckboxStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+✅ **Keyboard Navigation**
+- Focus with `Tab`
+- Toggle with `Space`
+- Navigate through checkbox groups with `Tab`
+
+✅ **Screen Readers**
+- Use `aria-checked="true"` for checked state
+- Use `aria-checked="false"` for unchecked state
+- Use `aria-checked="mixed"` for indeterminate state
+- Use `aria-describedby` to link description text
+- Use `<fieldset>` and `<legend>` for groups
+
+✅ **Color Contrast**
+- All states meet WCAG AAA (7:1+ contrast)
+- Visual indicators don't rely on color alone
+- High contrast theme available
+
+✅ **Touch Targets**
+- Minimum 44x44px touch target
+- Full label is clickable
+- Adequate spacing between checkboxes
+
+### Best Practices
+
+**Do:**
+- Use clear, concise labels
+- Provide descriptions for complex options
+- Group related checkboxes with `<fieldset>` and `<legend>`
+- Use indeterminate state for "select all" with partial selection
+- Ensure labels are always visible (don't hide behind placeholders)
+
+**Don't:**
+- Use checkboxes for mutually exclusive options (use radio buttons instead)
+- Make labels too long (use descriptions for additional context)
+- Nest checkboxes more than one level deep
+- Rely solely on color to indicate state
+- Use checkboxes for actions (use buttons instead)
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.checkbox` | Base checkbox class (required) |
+| `.checkbox-sm` | Small size variant |
+| `.checkbox-lg` | Large size variant |
+| `.checkbox-with-description` | Adds description text styling |
+| `.checkbox-description` | Description text element |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `checked` | boolean | Checked state |
+| `disabled` | boolean | Disables the checkbox |
+| `indeterminate` | boolean | Set via JavaScript for partial selection |
+| `aria-checked` | string | "true", "false", or "mixed" for screen readers |
+| `aria-describedby` | string | ID of description element |
+
+### JavaScript Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `checked` | boolean | Get/set checked state |
+| `disabled` | boolean | Get/set disabled state |
+| `indeterminate` | boolean | Get/set indeterminate state (not reflected in HTML) |
+
+---
+
+## Related Components
+
+- **Radio**: Single selection from a list of options
+- **Switch**: Toggle between on/off states with visual feedback
+- **Form**: Complete form with validation and submission
+
+---
+
+## When to Use
+
+### Use Checkboxes When:
+- Users can select **multiple options** from a list
+- Users need to **toggle individual settings** on/off
+- Users must **agree to terms** or policies
+- Implementing **filters** that can be combined
+
+### Use Radio Buttons Instead When:
+- Users can select **only one option** from a list
+- Options are **mutually exclusive**
+
+### Use Switches Instead When:
+- The action takes **immediate effect** (no submit button)
+- You need to emphasize the **on/off nature** of the control
+- The setting controls a **system state** rather than a user preference

@@ -1,0 +1,631 @@
+import { Canvas, Meta, Story, Controls } from '@storybook/blocks';
+import * as ChipStories from './Chip.stories';
+
+<Meta of={ChipStories} />
+
+# Chip
+
+Chips are compact elements used to represent tags, filters, and selections. They help users view and remove selected items, categorize content, or filter data.
+
+## Overview
+
+The Chip component (also known as tags or pills) provides a flexible way to display compact information with optional interactivity.
+
+**Key Features:**
+- 6 color variants (Default, Primary, Success, Warning, Error, Info)
+- 3 sizes (Small, Medium, Large)
+- Removable with accessible close button
+- Icon support
+- Standalone mode or chip input mode
+- Full keyboard accessibility
+- WCAG AAA compliant
+
+---
+
+## Usage
+
+<Canvas of={ChipStories.Default} />
+
+<Controls of={ChipStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic chip -->
+<div class="aural-chips-list" role="list">
+  <div class="aural-chip aural-chip--standalone" role="listitem">
+    <span class="aural-chip__text">Design</span>
+  </div>
+</div>
+
+<!-- Chip with variant -->
+<div class="aural-chip aural-chip--primary aural-chip--standalone" role="listitem">
+  <span class="aural-chip__text">Primary</span>
+</div>
+
+<!-- Chip with icon -->
+<div class="aural-chip aural-chip--primary aural-chip--standalone" role="listitem">
+  <span class="aural-chip__icon" aria-hidden="true">⚡</span>
+  <span class="aural-chip__text">JavaScript</span>
+</div>
+
+<!-- Removable chip -->
+<div class="aural-chip aural-chip--standalone" role="listitem">
+  <span class="aural-chip__text">Removable</span>
+  <button class="aural-chip__remove"
+          type="button"
+          aria-label="Remove Removable"
+          onclick="this.parentElement.remove()">
+  </button>
+</div>
+
+<!-- Small chip -->
+<div class="aural-chip aural-chip--sm aural-chip--standalone" role="listitem">
+  <span class="aural-chip__text">Small</span>
+</div>
+
+<!-- Chip input -->
+<div class="aural-chips">
+  <div class="aural-chips__container">
+    <div class="aural-chip">
+      <span class="aural-chip__text">HTML</span>
+      <button class="aural-chip__remove" aria-label="Remove HTML"></button>
+    </div>
+    <input type="text"
+           class="aural-chips__input"
+           placeholder="Add skill..."
+           aria-label="Add new chip">
+  </div>
+</div>
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+// Basic Chip Component
+function Chip({
+  label,
+  variant = 'default',
+  size = 'md',
+  icon,
+  closeable = false,
+  onClose
+}) {
+  const classes = [
+    'aural-chip',
+    'aural-chip--standalone',
+    variant !== 'default' && `aural-chip--${variant}`,
+    size !== 'md' && `aural-chip--${size}`
+  ].filter(Boolean).join(' ');
+
+  return (
+    <div className={classes} role="listitem">
+      {icon && (
+        <span className="aural-chip__icon" aria-hidden="true">
+          {icon}
+        </span>
+      )}
+      <span className="aural-chip__text">{label}</span>
+      {closeable && (
+        <button
+          type="button"
+          className="aural-chip__remove"
+          aria-label={`Remove ${label}`}
+          onClick={onClose}
+        />
+      )}
+    </div>
+  );
+}
+
+// Basic usage
+function MyComponent() {
+  return (
+    <div className="aural-chips-list" role="list">
+      <Chip label="Design" />
+      <Chip label="Development" variant="primary" />
+      <Chip label="Marketing" variant="success" closeable />
+    </div>
+  );
+}
+
+// Chip Input Component
+function ChipInput({ placeholder = 'Add tag...' }) {
+  const [chips, setChips] = useState(['HTML', 'CSS', 'JavaScript']);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && inputValue.trim()) {
+      e.preventDefault();
+      setChips([...chips, inputValue.trim()]);
+      setInputValue('');
+    }
+  };
+
+  const handleRemove = (index) => {
+    setChips(chips.filter((_, i) => i !== index));
+  };
+
+  return (
+    <div className="aural-chips">
+      <div className="aural-chips__container">
+        {chips.map((chip, index) => (
+          <div key={index} className="aural-chip">
+            <span className="aural-chip__text">{chip}</span>
+            <button
+              type="button"
+              className="aural-chip__remove"
+              aria-label={`Remove ${chip}`}
+              onClick={() => handleRemove(index)}
+            />
+          </div>
+        ))}
+        <input
+          type="text"
+          className="aural-chips__input"
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyPress={handleKeyPress}
+          aria-label="Add new chip"
+        />
+      </div>
+    </div>
+  );
+}
+
+// Usage with state management
+function FilterExample() {
+  const [filters, setFilters] = useState([
+    { id: 1, label: 'Status: Active', variant: 'primary' },
+    { id: 2, label: 'Category: Design', variant: 'success' },
+    { id: 3, label: 'Priority: High', variant: 'info' }
+  ]);
+
+  const removeFilter = (id) => {
+    setFilters(filters.filter(f => f.id !== id));
+  };
+
+  const clearAll = () => {
+    setFilters([]);
+  };
+
+  return (
+    <div>
+      <p style={{ fontSize: '0.875rem', fontWeight: 600 }}>
+        Active Filters ({filters.length})
+      </p>
+      <div className="aural-chips-list" role="list">
+        {filters.map(filter => (
+          <Chip
+            key={filter.id}
+            label={filter.label}
+            variant={filter.variant}
+            closeable
+            onClose={() => removeFilter(filter.id)}
+          />
+        ))}
+      </div>
+      {filters.length > 0 && (
+        <button className="btn btn-ghost btn-sm" onClick={clearAll}>
+          Clear All Filters
+        </button>
+      )}
+    </div>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <!-- Basic Chip Component -->
+  <div
+    :class="chipClasses"
+    role="listitem"
+  >
+    <span
+      v-if="icon"
+      class="aural-chip__icon"
+      aria-hidden="true"
+    >
+      {{ icon }}
+    </span>
+    <span class="aural-chip__text">{{ label }}</span>
+    <button
+      v-if="closeable"
+      type="button"
+      class="aural-chip__remove"
+      :aria-label="`Remove ${label}`"
+      @click="$emit('close')"
+    />
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  label: {
+    type: String,
+    required: true
+  },
+  variant: {
+    type: String,
+    default: 'default',
+    validator: (value) =>
+      ['default', 'primary', 'success', 'warning', 'error', 'info'].includes(value)
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  icon: {
+    type: String,
+    default: ''
+  },
+  closeable: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const chipClasses = computed(() => [
+  'aural-chip',
+  'aural-chip--standalone',
+  props.variant !== 'default' && `aural-chip--${props.variant}`,
+  props.size !== 'md' && `aural-chip--${props.size}`
+].filter(Boolean));
+</script>
+
+<!-- Chip Input Component -->
+<template>
+  <div class="aural-chips">
+    <div class="aural-chips__container">
+      <div
+        v-for="(chip, index) in chips"
+        :key="index"
+        class="aural-chip"
+      >
+        <span class="aural-chip__text">{{ chip }}</span>
+        <button
+          type="button"
+          class="aural-chip__remove"
+          :aria-label="`Remove ${chip}`"
+          @click="removeChip(index)"
+        />
+      </div>
+      <input
+        v-model="inputValue"
+        type="text"
+        class="aural-chips__input"
+        :placeholder="placeholder"
+        aria-label="Add new chip"
+        @keypress.enter="addChip"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const props = defineProps({
+  placeholder: {
+    type: String,
+    default: 'Add tag...'
+  }
+});
+
+const chips = ref(['HTML', 'CSS', 'JavaScript']);
+const inputValue = ref('');
+
+const addChip = () => {
+  if (inputValue.value.trim()) {
+    chips.value.push(inputValue.value.trim());
+    inputValue.value = '';
+  }
+};
+
+const removeChip = (index) => {
+  chips.value.splice(index, 1);
+};
+</script>
+
+<!-- Usage -->
+<template>
+  <div class="aural-chips-list" role="list">
+    <Chip label="Design" />
+    <Chip label="Development" variant="primary" />
+    <Chip label="Marketing" variant="success" closeable @close="handleClose" />
+  </div>
+</template>
+```
+
+### Svelte
+
+```svelte
+<script>
+  // Basic Chip Component
+  export let label;
+  export let variant = 'default';
+  export let size = 'md';
+  export let icon = '';
+  export let closeable = false;
+
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
+  $: chipClasses = [
+    'aural-chip',
+    'aural-chip--standalone',
+    variant !== 'default' && `aural-chip--${variant}`,
+    size !== 'md' && `aural-chip--${size}`
+  ].filter(Boolean).join(' ');
+</script>
+
+<div class={chipClasses} role="listitem">
+  {#if icon}
+    <span class="aural-chip__icon" aria-hidden="true">{icon}</span>
+  {/if}
+  <span class="aural-chip__text">{label}</span>
+  {#if closeable}
+    <button
+      type="button"
+      class="aural-chip__remove"
+      aria-label="Remove {label}"
+      on:click={() => dispatch('close')}
+    />
+  {/if}
+</div>
+
+<!-- Chip Input Component -->
+<script>
+  export let placeholder = 'Add tag...';
+
+  import { writable } from 'svelte/store';
+
+  let chips = ['HTML', 'CSS', 'JavaScript'];
+  let inputValue = '';
+
+  function handleKeyPress(event) {
+    if (event.key === 'Enter' && inputValue.trim()) {
+      event.preventDefault();
+      chips = [...chips, inputValue.trim()];
+      inputValue = '';
+    }
+  }
+
+  function removeChip(index) {
+    chips = chips.filter((_, i) => i !== index);
+  }
+</script>
+
+<div class="aural-chips">
+  <div class="aural-chips__container">
+    {#each chips as chip, index}
+      <div class="aural-chip">
+        <span class="aural-chip__text">{chip}</span>
+        <button
+          type="button"
+          class="aural-chip__remove"
+          aria-label="Remove {chip}"
+          on:click={() => removeChip(index)}
+        />
+      </div>
+    {/each}
+    <input
+      type="text"
+      class="aural-chips__input"
+      {placeholder}
+      bind:value={inputValue}
+      on:keypress={handleKeyPress}
+      aria-label="Add new chip"
+    />
+  </div>
+</div>
+
+<!-- Usage -->
+<div class="aural-chips-list" role="list">
+  <Chip label="Design" />
+  <Chip label="Development" variant="primary" />
+  <Chip label="Marketing" variant="success" closeable on:close={handleClose} />
+</div>
+```
+
+---
+
+## Variants
+
+All chip variants are designed with semantic meaning and maintain WCAG AAA color contrast standards.
+
+<Canvas of={ChipStories.AllVariants} />
+
+### When to use each variant:
+
+- **Default**: Neutral tags, categories, and general labels
+- **Primary**: Active or selected states, highlighted tags
+- **Success**: Positive status (completed, approved, active)
+- **Warning**: Cautionary status (pending, in progress, attention needed)
+- **Error**: Negative status (failed, blocked, error)
+- **Info**: Informational status (new, review, note)
+
+---
+
+## Sizes
+
+Chips come in three sizes to fit different UI contexts.
+
+<Canvas of={ChipStories.AllSizes} />
+
+- **Small (`aural-chip--sm`)**: Compact interfaces, tables, dense layouts
+- **Medium (default)**: Standard size for most use cases
+- **Large (`aural-chip--lg`)**: Prominent displays, touch interfaces
+
+---
+
+## With Icons
+
+Add visual context with icons or emoji.
+
+<Canvas of={ChipStories.WithIcons} />
+
+Icons should be decorative and hidden from screen readers using `aria-hidden="true"`.
+
+---
+
+## Interactive Features
+
+### Closeable Chips
+
+<Canvas of={ChipStories.Closeable} />
+
+Removable chips include a close button with proper ARIA labels for accessibility.
+
+### Filter Chips
+
+<Canvas of={ChipStories.FilterChips} />
+
+Use chips to display active filters with the ability to remove individual filters or clear all at once.
+
+### Chip Input
+
+<Canvas of={ChipStories.ChipInput} />
+
+Chip input allows users to add and remove items dynamically. Press Enter to add a new chip.
+
+---
+
+## Status Tags
+
+Use color-coded chips to represent different statuses.
+
+<Canvas of={ChipStories.StatusTags} />
+
+---
+
+## Theme Comparison
+
+See how chips look across all 9 Aural UI themes:
+
+<Canvas of={ChipStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+✅ **Keyboard Navigation**
+- Close button is keyboard accessible (Tab to focus, Enter/Space to activate)
+- Chip input supports Enter key to add chips
+- Minimum 44x44px touch target for close button
+
+✅ **Screen Readers**
+- Use `aria-label` on close buttons to describe what will be removed
+- Use `role="list"` on chip containers and `role="listitem"` on individual chips
+- Icons are hidden from screen readers with `aria-hidden="true"`
+- Chip input has proper `aria-label`
+
+✅ **Color Contrast**
+- All variants meet WCAG AAA standards (7:1+ contrast ratio)
+- High contrast theme available for users who need extra contrast
+- Color is not the only means of conveying information
+
+✅ **Focus States**
+- Clear focus indicators on close buttons
+- Visible focus outline with 2px solid border
+- Focus outline offset for better visibility
+
+### Best Practices
+
+**Do:**
+- Use descriptive labels (1-3 words maximum)
+- Provide specific `aria-label` for close buttons ("Remove JavaScript" not just "Remove")
+- Use semantic color variants that match their meaning
+- Group related chips in a list container
+- Support keyboard navigation for all interactive elements
+
+**Don't:**
+- Make chips clickable if they're just labels (use buttons for actions)
+- Use long text that wraps to multiple lines
+- Rely solely on color to convey meaning
+- Forget to add proper ARIA labels for close buttons
+- Make close buttons too small for touch targets
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-chip` | Base chip class (required) |
+| `.aural-chip--standalone` | Standalone chip styling (use outside of chip input) |
+| `.aural-chip--primary` | Primary variant |
+| `.aural-chip--success` | Success variant |
+| `.aural-chip--warning` | Warning variant |
+| `.aural-chip--error` | Error variant |
+| `.aural-chip--info` | Info variant |
+| `.aural-chip--sm` | Small size |
+| `.aural-chip--lg` | Large size |
+| `.aural-chip__text` | Text content wrapper |
+| `.aural-chip__icon` | Icon wrapper |
+| `.aural-chip__remove` | Close/remove button |
+| `.aural-chips` | Chip input container |
+| `.aural-chips__container` | Inner container for chip input |
+| `.aural-chips__input` | Input field for chip input |
+| `.aural-chips-list` | Container for standalone chip list |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `role="list"` | string | Applied to chip container |
+| `role="listitem"` | string | Applied to individual chips |
+| `aria-label` | string | Required on close buttons (e.g., "Remove JavaScript") |
+| `aria-hidden="true"` | boolean | Applied to decorative icons |
+| `type="button"` | string | Required on close button |
+
+### Component Props (Framework)
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | string | required | Chip text content |
+| `variant` | string | `'default'` | Color variant: default, primary, success, warning, error, info |
+| `size` | string | `'md'` | Size: sm, md, lg |
+| `icon` | string | `''` | Icon text or emoji |
+| `closeable` | boolean | `false` | Show remove button |
+| `onClose` | function | - | Callback when close button is clicked |
+
+---
+
+## Usage Guidelines
+
+### When to Use
+
+- **Tags**: Categorize content with multiple labels (blog posts, products)
+- **Filters**: Display active filters that can be removed
+- **Selections**: Show selected items from a multi-select input
+- **Skills/Interests**: User profile tags or interests
+- **Status Labels**: Compact status indicators
+
+### When Not to Use
+
+- For single status indicators with no interaction - use **Badge** instead
+- For actionable items that navigate - use **Button** instead
+- For long text content - chips are designed for short labels only
+
+---
+
+## Related Components
+
+- **Badge**: Small status indicators without interaction
+- **Button**: Interactive elements for actions
+- **Tag Input**: Full-featured tag input with autocomplete
+- **Filter Bar**: Complete filtering UI with chips

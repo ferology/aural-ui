@@ -1,0 +1,915 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as PaginationStories from './Pagination.stories';
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+Pagination controls help users navigate through large datasets by dividing content into discrete pages. Essential for tables, search results, product listings, and any interface displaying extensive information.
+
+## Overview
+
+The Pagination component provides a complete navigation solution for multi-page content with support for various styles, sizes, and configurations.
+
+**Key Features:**
+- Smart page number calculation with ellipsis
+- Multiple visual variants (Default, Rounded, Simple, Compact)
+- 3 size options (Small, Medium, Large)
+- First/Last page navigation
+- Previous/Next controls
+- Edge case handling (first page, last page)
+- Full keyboard accessibility
+- WCAG AAA compliant
+- Interactive page changes
+
+---
+
+## Usage
+
+<Canvas of={PaginationStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Pagination -->
+<nav class="pagination" aria-label="Pagination">
+  <a href="#" class="pagination-prev" aria-label="Go to previous page">
+    <i data-lucide="chevron-left" aria-hidden="true"></i>
+    Previous
+  </a>
+  <a href="#" class="pagination-item" aria-label="Go to page 1">1</a>
+  <a href="#" class="pagination-item pagination-active" aria-current="page" aria-label="Current page, page 2">2</a>
+  <a href="#" class="pagination-item" aria-label="Go to page 3">3</a>
+  <a href="#" class="pagination-item" aria-label="Go to page 4">4</a>
+  <a href="#" class="pagination-item" aria-label="Go to page 5">5</a>
+  <a href="#" class="pagination-next" aria-label="Go to next page">
+    Next
+    <i data-lucide="chevron-right" aria-hidden="true"></i>
+  </a>
+</nav>
+
+<!-- With Ellipsis for Large Datasets -->
+<nav class="pagination" aria-label="Pagination">
+  <a href="#" class="pagination-prev" aria-label="Go to previous page">
+    <i data-lucide="chevron-left" aria-hidden="true"></i>
+  </a>
+  <a href="#" class="pagination-item" aria-label="Go to page 1">1</a>
+  <span class="pagination-ellipsis" aria-hidden="true">...</span>
+  <a href="#" class="pagination-item" aria-label="Go to page 4">4</a>
+  <a href="#" class="pagination-item pagination-active" aria-current="page">5</a>
+  <a href="#" class="pagination-item" aria-label="Go to page 6">6</a>
+  <span class="pagination-ellipsis" aria-hidden="true">...</span>
+  <a href="#" class="pagination-item" aria-label="Go to page 10">10</a>
+  <a href="#" class="pagination-next" aria-label="Go to next page">
+    <i data-lucide="chevron-right" aria-hidden="true"></i>
+  </a>
+</nav>
+
+<!-- Disabled State (First Page) -->
+<nav class="pagination" aria-label="Pagination">
+  <a href="#" class="pagination-prev pagination-disabled" aria-disabled="true" aria-label="No previous page">
+    <i data-lucide="chevron-left" aria-hidden="true"></i>
+    Previous
+  </a>
+  <a href="#" class="pagination-item pagination-active" aria-current="page">1</a>
+  <a href="#" class="pagination-item" aria-label="Go to page 2">2</a>
+  <a href="#" class="pagination-item" aria-label="Go to page 3">3</a>
+  <a href="#" class="pagination-next" aria-label="Go to next page">
+    Next
+    <i data-lucide="chevron-right" aria-hidden="true"></i>
+  </a>
+</nav>
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+// Reusable Pagination Component
+function Pagination({
+  currentPage,
+  totalPages,
+  siblingCount = 1,
+  onPageChange,
+  size = 'md',
+  variant = 'default',
+  showPrevNext = true,
+  showPrevNextText = true
+}) {
+  // Generate page range with ellipsis
+  const generatePageRange = () => {
+    const range = [];
+
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        range.push(i);
+      }
+      return range;
+    }
+
+    // Always show first page
+    range.push(1);
+
+    const leftSiblingIndex = Math.max(currentPage - siblingCount, 2);
+    const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPages - 1);
+
+    const showLeftDots = leftSiblingIndex > 2;
+    const showRightDots = rightSiblingIndex < totalPages - 1;
+
+    if (showLeftDots) range.push('...');
+
+    for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+      range.push(i);
+    }
+
+    if (showRightDots) range.push('...');
+
+    // Always show last page
+    range.push(totalPages);
+
+    return range;
+  };
+
+  const pages = generatePageRange();
+
+  return (
+    <nav
+      className={`pagination ${variant !== 'default' ? `pagination-${variant}` : ''} ${size !== 'md' ? `pagination-${size}` : ''}`}
+      aria-label="Pagination"
+    >
+      {showPrevNext && (
+        <button
+          className={`pagination-prev ${currentPage === 1 ? 'pagination-disabled' : ''}`}
+          onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          aria-label={currentPage === 1 ? 'No previous page' : 'Go to previous page'}
+          aria-disabled={currentPage === 1}
+        >
+          <i data-lucide="chevron-left" aria-hidden="true"></i>
+          {showPrevNextText && ' Previous'}
+        </button>
+      )}
+
+      {pages.map((page, index) => {
+        if (page === '...') {
+          return (
+            <span key={`ellipsis-${index}`} className="pagination-ellipsis" aria-hidden="true">
+              ...
+            </span>
+          );
+        }
+
+        return (
+          <button
+            key={page}
+            className={`pagination-item ${page === currentPage ? 'pagination-active' : ''}`}
+            onClick={() => page !== currentPage && onPageChange(page)}
+            aria-current={page === currentPage ? 'page' : undefined}
+            aria-label={page === currentPage ? `Current page, page ${page}` : `Go to page ${page}`}
+          >
+            {page}
+          </button>
+        );
+      })}
+
+      {showPrevNext && (
+        <button
+          className={`pagination-next ${currentPage === totalPages ? 'pagination-disabled' : ''}`}
+          onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          aria-label={currentPage === totalPages ? 'No next page' : 'Go to next page'}
+          aria-disabled={currentPage === totalPages}
+        >
+          {showPrevNextText && 'Next '}
+          <i data-lucide="chevron-right" aria-hidden="true"></i>
+        </button>
+      )}
+    </nav>
+  );
+}
+
+// Usage Example
+function DataTableExample() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
+  const totalPages = 25;
+  const itemsPerPage = 10;
+
+  // Fetch data when page changes
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(`/api/items?page=${currentPage}&limit=${itemsPerPage}`);
+      const items = await response.json();
+      setData(items);
+
+      // Scroll to top of table
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    fetchData();
+  }, [currentPage]);
+
+  return (
+    <div>
+      <table>
+        {/* Table content */}
+      </table>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        siblingCount={1}
+        size="md"
+      />
+
+      <p style={{ textAlign: 'center', marginTop: '1rem', opacity: 0.7 }}>
+        Showing {(currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, totalPages * itemsPerPage)} of {totalPages * itemsPerPage} results
+      </p>
+    </div>
+  );
+}
+
+// Simple Example
+function SimpleExample() {
+  const [page, setPage] = useState(1);
+
+  return (
+    <Pagination
+      currentPage={page}
+      totalPages={10}
+      onPageChange={setPage}
+    />
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <nav
+    :class="paginationClasses"
+    aria-label="Pagination"
+  >
+    <!-- Previous Button -->
+    <button
+      v-if="showPrevNext"
+      :class="prevButtonClasses"
+      :disabled="currentPage === 1"
+      :aria-label="currentPage === 1 ? 'No previous page' : 'Go to previous page'"
+      :aria-disabled="currentPage === 1"
+      @click="changePage(currentPage - 1)"
+    >
+      <i data-lucide="chevron-left" aria-hidden="true"></i>
+      <template v-if="showPrevNextText"> Previous</template>
+    </button>
+
+    <!-- Page Numbers -->
+    <template v-for="(page, index) in pages" :key="index">
+      <span
+        v-if="page === '...'"
+        class="pagination-ellipsis"
+        aria-hidden="true"
+      >
+        ...
+      </span>
+      <button
+        v-else
+        :class="['pagination-item', { 'pagination-active': page === currentPage }]"
+        :aria-current="page === currentPage ? 'page' : undefined"
+        :aria-label="page === currentPage ? `Current page, page ${page}` : `Go to page ${page}`"
+        @click="changePage(page)"
+      >
+        {{ page }}
+      </button>
+    </template>
+
+    <!-- Next Button -->
+    <button
+      v-if="showPrevNext"
+      :class="nextButtonClasses"
+      :disabled="currentPage === totalPages"
+      :aria-label="currentPage === totalPages ? 'No next page' : 'Go to next page'"
+      :aria-disabled="currentPage === totalPages"
+      @click="changePage(currentPage + 1)"
+    >
+      <template v-if="showPrevNextText">Next </template>
+      <i data-lucide="chevron-right" aria-hidden="true"></i>
+    </button>
+  </nav>
+</template>
+
+<script setup>
+import { computed, watch } from 'vue';
+
+const props = defineProps({
+  currentPage: {
+    type: Number,
+    required: true
+  },
+  totalPages: {
+    type: Number,
+    required: true
+  },
+  siblingCount: {
+    type: Number,
+    default: 1
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  variant: {
+    type: String,
+    default: 'default',
+    validator: (value) => ['default', 'rounded', 'simple', 'compact'].includes(value)
+  },
+  showPrevNext: {
+    type: Boolean,
+    default: true
+  },
+  showPrevNextText: {
+    type: Boolean,
+    default: true
+  }
+});
+
+const emit = defineEmits(['pageChange', 'update:currentPage']);
+
+const generatePageRange = () => {
+  const range = [];
+
+  if (props.totalPages <= 7) {
+    for (let i = 1; i <= props.totalPages; i++) {
+      range.push(i);
+    }
+    return range;
+  }
+
+  range.push(1);
+
+  const leftSiblingIndex = Math.max(props.currentPage - props.siblingCount, 2);
+  const rightSiblingIndex = Math.min(props.currentPage + props.siblingCount, props.totalPages - 1);
+
+  const showLeftDots = leftSiblingIndex > 2;
+  const showRightDots = rightSiblingIndex < props.totalPages - 1;
+
+  if (showLeftDots) range.push('...');
+
+  for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+    range.push(i);
+  }
+
+  if (showRightDots) range.push('...');
+
+  range.push(props.totalPages);
+
+  return range;
+};
+
+const pages = computed(() => generatePageRange());
+
+const paginationClasses = computed(() => [
+  'pagination',
+  props.variant !== 'default' && `pagination-${props.variant}`,
+  props.size !== 'md' && `pagination-${props.size}`
+]);
+
+const prevButtonClasses = computed(() => [
+  'pagination-prev',
+  { 'pagination-disabled': props.currentPage === 1 }
+]);
+
+const nextButtonClasses = computed(() => [
+  'pagination-next',
+  { 'pagination-disabled': props.currentPage === props.totalPages }
+]);
+
+const changePage = (page) => {
+  if (page >= 1 && page <= props.totalPages && page !== props.currentPage) {
+    emit('pageChange', page);
+    emit('update:currentPage', page);
+  }
+};
+
+// Initialize Lucide icons when component mounts
+watch(() => pages.value, () => {
+  if (window.lucide) {
+    setTimeout(() => window.lucide.createIcons(), 0);
+  }
+}, { immediate: true });
+</script>
+
+<!-- Usage -->
+<script setup>
+import { ref } from 'vue';
+import Pagination from './Pagination.vue';
+
+const currentPage = ref(1);
+const totalPages = ref(10);
+
+function handlePageChange(newPage) {
+  currentPage.value = newPage;
+  // Fetch new data
+  console.log('Loading page:', newPage);
+}
+</script>
+
+<template>
+  <Pagination
+    :currentPage="currentPage"
+    :totalPages="totalPages"
+    @pageChange="handlePageChange"
+  />
+</template>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let currentPage = 1;
+  export let totalPages = 10;
+  export let siblingCount = 1;
+  export let size = 'md';
+  export let variant = 'default';
+  export let showPrevNext = true;
+  export let showPrevNextText = true;
+
+  function generatePageRange() {
+    const range = [];
+
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        range.push(i);
+      }
+      return range;
+    }
+
+    range.push(1);
+
+    const leftSiblingIndex = Math.max(currentPage - siblingCount, 2);
+    const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPages - 1);
+
+    const showLeftDots = leftSiblingIndex > 2;
+    const showRightDots = rightSiblingIndex < totalPages - 1;
+
+    if (showLeftDots) range.push('...');
+
+    for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+      range.push(i);
+    }
+
+    if (showRightDots) range.push('...');
+
+    range.push(totalPages);
+
+    return range;
+  }
+
+  $: pages = generatePageRange();
+  $: paginationClasses = `pagination ${variant !== 'default' ? `pagination-${variant}` : ''} ${size !== 'md' ? `pagination-${size}` : ''}`.trim();
+
+  function changePage(page) {
+    if (page >= 1 && page <= totalPages && page !== currentPage) {
+      currentPage = page;
+    }
+  }
+
+  import { onMount, afterUpdate } from 'svelte';
+
+  onMount(() => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  });
+
+  afterUpdate(() => {
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  });
+</script>
+
+<nav class={paginationClasses} aria-label="Pagination">
+  {#if showPrevNext}
+    <button
+      class="pagination-prev {currentPage === 1 ? 'pagination-disabled' : ''}"
+      disabled={currentPage === 1}
+      aria-label={currentPage === 1 ? 'No previous page' : 'Go to previous page'}
+      aria-disabled={currentPage === 1}
+      on:click={() => changePage(currentPage - 1)}
+    >
+      <i data-lucide="chevron-left" aria-hidden="true"></i>
+      {#if showPrevNextText} Previous{/if}
+    </button>
+  {/if}
+
+  {#each pages as page, index}
+    {#if page === '...'}
+      <span class="pagination-ellipsis" aria-hidden="true">...</span>
+    {:else}
+      <button
+        class="pagination-item {page === currentPage ? 'pagination-active' : ''}"
+        aria-current={page === currentPage ? 'page' : undefined}
+        aria-label={page === currentPage ? `Current page, page ${page}` : `Go to page ${page}`}
+        on:click={() => changePage(page)}
+      >
+        {page}
+      </button>
+    {/if}
+  {/each}
+
+  {#if showPrevNext}
+    <button
+      class="pagination-next {currentPage === totalPages ? 'pagination-disabled' : ''}"
+      disabled={currentPage === totalPages}
+      aria-label={currentPage === totalPages ? 'No next page' : 'Go to next page'}
+      aria-disabled={currentPage === totalPages}
+      on:click={() => changePage(currentPage + 1)}
+    >
+      {#if showPrevNextText}Next {/if}
+      <i data-lucide="chevron-right" aria-hidden="true"></i>
+    </button>
+  {/if}
+</nav>
+
+<!-- Usage -->
+<script>
+  import Pagination from './Pagination.svelte';
+
+  let currentPage = 1;
+  let totalPages = 10;
+
+  $: console.log('Current page:', currentPage);
+</script>
+
+<Pagination bind:currentPage {totalPages} />
+```
+
+---
+
+## Variants
+
+### Style Variants
+
+<Canvas of={PaginationStories.AllVariants} />
+
+- **Default**: Standard bordered buttons with spacing
+- **Rounded** (`.pagination-rounded`): Fully rounded buttons for modern aesthetic
+- **Simple** (`.pagination-simple`): Borderless design with minimal visual weight
+- **Compact** (`.pagination-compact`): Attached buttons for space-efficient layouts
+
+### Size Variants
+
+<Canvas of={PaginationStories.AllSizes} />
+
+- **Small** (`.pagination-sm`): Compact size for tables, sidebars, or dense layouts
+- **Medium** (`.pagination-md`): Default size for most use cases
+- **Large** (`.pagination-lg`): Larger touch targets for prominent placement
+
+---
+
+## Use Cases
+
+### Large Datasets
+
+<Canvas of={PaginationStories.LargeDataset} />
+
+For datasets with many pages, pagination automatically shows ellipsis to keep the interface clean while maintaining access to first/last pages.
+
+### Compact View
+
+<Canvas of={PaginationStories.CompactView} />
+
+Use compact variant for table footers or sidebars where space is limited. Icons-only navigation reduces visual clutter.
+
+### Edge Cases
+
+#### First Page
+
+<Canvas of={PaginationStories.FirstPage} />
+
+When on the first page, the Previous button is automatically disabled with proper ARIA attributes.
+
+#### Last Page
+
+<Canvas of={PaginationStories.LastPage} />
+
+When on the last page, the Next button is automatically disabled with proper ARIA attributes.
+
+---
+
+## Theme Comparison
+
+See how pagination looks across all 9 Aural UI themes:
+
+<Canvas of={PaginationStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+The Pagination component is built with accessibility as a top priority, meeting WCAG AAA standards.
+
+### Keyboard Navigation
+
+- **Tab**: Move focus between pagination controls
+- **Shift + Tab**: Move focus backwards
+- **Enter** or **Space**: Activate focused button to navigate to page
+
+### Screen Reader Support
+
+All pagination controls include comprehensive ARIA attributes:
+
+```html
+<!-- Navigation container -->
+<nav class="pagination" aria-label="Pagination">
+
+  <!-- Disabled previous button -->
+  <a class="pagination-prev pagination-disabled"
+     aria-disabled="true"
+     aria-label="No previous page">
+    <i data-lucide="chevron-left" aria-hidden="true"></i>
+    Previous
+  </a>
+
+  <!-- Regular page link -->
+  <a class="pagination-item" aria-label="Go to page 1">1</a>
+
+  <!-- Active/current page -->
+  <a class="pagination-item pagination-active"
+     aria-current="page"
+     aria-label="Current page, page 2">
+    2
+  </a>
+
+  <!-- Ellipsis (hidden from screen readers) -->
+  <span class="pagination-ellipsis" aria-hidden="true">...</span>
+
+  <!-- Next button -->
+  <a class="pagination-next" aria-label="Go to next page">
+    Next
+    <i data-lucide="chevron-right" aria-hidden="true"></i>
+  </a>
+</nav>
+```
+
+### ARIA Attributes
+
+| Attribute | Usage | Purpose |
+|-----------|-------|---------|
+| `aria-label="Pagination"` | On `<nav>` element | Identifies the navigation landmark |
+| `aria-current="page"` | On active page item | Indicates current page to screen readers |
+| `aria-label="Go to page X"` | On page buttons | Provides descriptive label for each page |
+| `aria-disabled="true"` | On disabled buttons | Indicates disabled state |
+| `aria-hidden="true"` | On icons and ellipsis | Hides decorative elements from screen readers |
+
+### Color Contrast
+
+All pagination controls meet WCAG AAA standards (7:1+ contrast ratio):
+- Active page has strong visual differentiation
+- Hover states provide clear feedback
+- Disabled states remain visible but indicate unavailability
+- High Contrast theme available for enhanced visibility
+
+### Touch Targets
+
+- All buttons meet minimum 44x44px touch target size
+- Adequate spacing prevents accidental activations
+- Large variant (`pagination-lg`) provides even larger targets for accessibility
+
+---
+
+## Best Practices
+
+### When to Use Pagination
+
+- **Large Datasets**: Use for collections with 25+ items
+- **Known Total**: When total number of pages is known upfront
+- **Sequential Content**: For content with natural ordering
+- **Performance**: When loading all items would impact performance
+- **User Control**: When users need to jump to specific pages
+
+### When NOT to Use Pagination
+
+- **Small Lists**: For lists with fewer than 25 items, show all at once
+- **Real-time Feeds**: Use infinite scroll for social feeds or real-time data
+- **Unknown Total**: When total items aren't known (use "Load More" instead)
+- **Search Results**: Consider infinite scroll or "Load More" for better UX
+
+### Content Guidelines
+
+**Do:**
+- Show current page with `aria-current="page"`
+- Disable Previous on first page, Next on last page
+- Show first and last page numbers when using ellipsis
+- Display 1-2 pages before and after current page
+- Use ellipsis (...) to indicate hidden pages
+- Provide context: "Showing 11-20 of 200 results"
+
+**Don't:**
+- Make current page clickable
+- Show too many page numbers (keep it under 9 visible)
+- Hide first or last page when using ellipsis
+- Use pagination alone without context about total items
+
+### UX Best Practices
+
+**State Management:**
+```javascript
+// Update URL with page parameter for bookmarking
+function handlePageChange(newPage) {
+  setCurrentPage(newPage);
+
+  // Update URL
+  const url = new URL(window.location);
+  url.searchParams.set('page', newPage);
+  window.history.pushState({}, '', url);
+
+  // Scroll to top of content
+  document.querySelector('#content').scrollIntoView({
+    behavior: 'smooth'
+  });
+
+  // Fetch new data
+  fetchPageData(newPage);
+}
+```
+
+**Loading States:**
+```javascript
+function PaginationWithLoading({ isLoading }) {
+  return (
+    <div>
+      <Pagination
+        currentPage={page}
+        totalPages={total}
+        onPageChange={handlePageChange}
+      />
+      {isLoading && (
+        <div role="status" aria-live="polite">
+          Loading page {page}...
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+**Preserve Filters:**
+```javascript
+// Maintain user filters and sort settings across pages
+const [filters, setFilters] = useState({ category: 'all', sort: 'date' });
+
+function handlePageChange(newPage) {
+  fetchData({
+    page: newPage,
+    ...filters // Preserve filters
+  });
+}
+```
+
+---
+
+## Patterns
+
+### With Information Text
+
+Combine pagination with contextual information:
+
+```html
+<div class="pagination-with-info">
+  <nav class="pagination" aria-label="Pagination">
+    <!-- Pagination controls -->
+  </nav>
+  <div class="pagination-info">
+    Showing 11-20 of 50 results
+  </div>
+</div>
+```
+
+### With Page Jumper
+
+Allow direct page input for large datasets:
+
+```html
+<div class="pagination-with-jumper">
+  <nav class="pagination" aria-label="Pagination">
+    <!-- Pagination controls -->
+  </nav>
+  <div class="pagination-jumper">
+    <span>Go to</span>
+    <input
+      type="number"
+      min="1"
+      max="20"
+      value="5"
+      aria-label="Jump to page"
+    />
+  </div>
+</div>
+```
+
+### Table Pagination
+
+Use small pagination with item counts in table footers:
+
+```html
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <span>Showing 1-10 of 247 items</span>
+  <nav class="pagination pagination-sm" aria-label="Table pagination">
+    <!-- Pagination controls -->
+  </nav>
+</div>
+```
+
+### Simple Previous/Next
+
+For blog posts or sequential content:
+
+```html
+<nav class="pagination pagination-between" aria-label="Pagination">
+  <a href="#" class="pagination-prev">
+    <i data-lucide="arrow-left" aria-hidden="true"></i>
+    Previous Article
+  </a>
+  <a href="#" class="pagination-next">
+    Next Article
+    <i data-lucide="arrow-right" aria-hidden="true"></i>
+  </a>
+</nav>
+```
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.pagination` | Base pagination container (required) |
+| `.pagination-prev` | Previous button |
+| `.pagination-next` | Next button |
+| `.pagination-item` | Individual page button |
+| `.pagination-active` | Active/current page state |
+| `.pagination-disabled` | Disabled button state |
+| `.pagination-ellipsis` | Ellipsis separator |
+| `.pagination-sm` | Small size variant |
+| `.pagination-lg` | Large size variant |
+| `.pagination-rounded` | Rounded style variant |
+| `.pagination-simple` | Simple/borderless variant |
+| `.pagination-compact` | Compact/attached variant |
+| `.pagination-left` | Left-aligned pagination |
+| `.pagination-right` | Right-aligned pagination |
+| `.pagination-between` | Space-between layout (prev/next only) |
+
+### HTML Attributes
+
+| Attribute | Element | Type | Description |
+|-----------|---------|------|-------------|
+| `aria-label="Pagination"` | `<nav>` | string | Identifies pagination navigation |
+| `aria-current="page"` | `.pagination-item` | boolean | Marks current page |
+| `aria-label` | Links/Buttons | string | Descriptive label for each control |
+| `aria-disabled` | Disabled controls | boolean | Indicates disabled state |
+| `aria-hidden="true"` | Icons, ellipsis | boolean | Hides decorative elements |
+
+### JavaScript Props (Framework Components)
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `currentPage` | number | 1 | Current active page number |
+| `totalPages` | number | required | Total number of pages |
+| `siblingCount` | number | 1 | Pages shown before/after current |
+| `size` | 'sm' \| 'md' \| 'lg' | 'md' | Size variant |
+| `variant` | 'default' \| 'rounded' \| 'simple' \| 'compact' | 'default' | Style variant |
+| `showFirstLast` | boolean | true | Show first/last with ellipsis |
+| `showPrevNext` | boolean | true | Show previous/next buttons |
+| `showPrevNextText` | boolean | true | Show text in prev/next buttons |
+| `onPageChange` | function | - | Callback when page changes |
+
+---
+
+## Related Components
+
+- **Table**: Use pagination with data tables for large datasets
+- **Breadcrumbs**: Hierarchical navigation vs sequential pagination
+- **Tabs**: Alternative navigation pattern for organized content
+- **Infinite Scroll**: Alternative to pagination for feeds
+
+---
+
+## Performance Tips
+
+1. **Server-side Pagination**: Fetch only the current page's data
+2. **Appropriate Page Size**: 10-50 items per page depending on content
+3. **Cache Pages**: Store previously loaded pages for instant back/forward
+4. **Preload Adjacent**: Prefetch next/previous pages for faster navigation
+5. **URL Parameters**: Enable bookmarking and sharing specific pages
+6. **Loading States**: Show feedback during page transitions

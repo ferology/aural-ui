@@ -1,0 +1,803 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as RadioStories from './Radio.stories';
+
+<Meta of={RadioStories} />
+
+# Radio Button
+
+Radio buttons allow users to select exactly one option from a set of mutually exclusive choices. Use radio buttons when all available options need to be visible at once.
+
+## Overview
+
+The Radio Button component provides a consistent way to present single-selection choices across your application.
+
+**Key Features:**
+- Single selection from mutually exclusive options
+- 3 sizes (Small, Medium, Large)
+- Multiple layout options (Stacked, Inline, Button Style, Card Style)
+- Support for descriptions and additional context
+- Disabled states for individual options
+- Full keyboard navigation (Arrow keys)
+- WCAG AAA compliant
+
+---
+
+## Usage
+
+<Canvas of={RadioStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Radio Group -->
+<div class="radio-group" role="radiogroup" aria-labelledby="plan-label">
+  <div id="plan-label" class="radio-group-label">Select your plan</div>
+  <label class="radio">
+    <input type="radio" name="plan" value="free" checked aria-checked="true">
+    <span>Free - $0/month</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="plan" value="pro" aria-checked="false">
+    <span>Pro - $9/month</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="plan" value="enterprise" aria-checked="false">
+    <span>Enterprise - $29/month</span>
+  </label>
+</div>
+
+<!-- With Description -->
+<div class="radio-group" role="radiogroup" aria-labelledby="shipping-label">
+  <div id="shipping-label" class="radio-group-label">Choose shipping</div>
+  <label class="radio radio-with-description">
+    <input type="radio" name="shipping" value="standard" checked>
+    <span>
+      Standard Shipping
+      <span class="radio-description">Delivery in 5-7 business days</span>
+    </span>
+  </label>
+  <label class="radio radio-with-description">
+    <input type="radio" name="shipping" value="express">
+    <span>
+      Express Shipping
+      <span class="radio-description">Delivery in 2-3 business days</span>
+    </span>
+  </label>
+</div>
+
+<!-- Button Style -->
+<div class="radio-group radio-group-buttons">
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="grid" checked>
+    <span>Grid</span>
+  </label>
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="list">
+    <span>List</span>
+  </label>
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="table">
+    <span>Table</span>
+  </label>
+</div>
+
+<!-- Attached Buttons (Segmented Control) -->
+<div class="radio-group radio-group-attached">
+  <label class="radio radio-button">
+    <input type="radio" name="period" value="day" checked>
+    <span>Day</span>
+  </label>
+  <label class="radio radio-button">
+    <input type="radio" name="period" value="week">
+    <span>Week</span>
+  </label>
+  <label class="radio radio-button">
+    <input type="radio" name="period" value="month">
+    <span>Month</span>
+  </label>
+</div>
+
+<!-- Disabled Option -->
+<label class="radio">
+  <input type="radio" name="payment" value="crypto" disabled>
+  <span>Cryptocurrency (Coming Soon)</span>
+</label>
+
+<!-- Sizes -->
+<label class="radio radio-sm">
+  <input type="radio" name="size" checked>
+  <span>Small radio button</span>
+</label>
+
+<label class="radio">
+  <input type="radio" name="size" checked>
+  <span>Default radio button</span>
+</label>
+
+<label class="radio radio-lg">
+  <input type="radio" name="size" checked>
+  <span>Large radio button</span>
+</label>
+```
+
+### React (TypeScript)
+
+```tsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+// Reusable Radio Component
+interface RadioProps {
+  name: string;
+  value: string;
+  checked?: boolean;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
+  children: React.ReactNode;
+}
+
+function Radio({ name, value, checked, disabled, onChange, children }: RadioProps) {
+  return (
+    <label className="radio">
+      <input
+        type="radio"
+        name={name}
+        value={value}
+        checked={checked}
+        disabled={disabled}
+        aria-checked={checked}
+        onChange={(e) => onChange?.(e.target.value)}
+      />
+      <span>{children}</span>
+    </label>
+  );
+}
+
+// Radio Group Component
+interface RadioGroupProps {
+  name: string;
+  label?: string;
+  value: string;
+  onChange: (value: string) => void;
+  children: React.ReactNode;
+}
+
+function RadioGroup({ name, label, value, onChange, children }: RadioGroupProps) {
+  const groupLabelId = `radio-group-${name}`;
+
+  return (
+    <div className="radio-group" role="radiogroup" aria-labelledby={label ? groupLabelId : undefined}>
+      {label && (
+        <div id={groupLabelId} className="radio-group-label">
+          {label}
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+
+// Usage Example
+function MyComponent() {
+  const [plan, setPlan] = useState('free');
+
+  return (
+    <RadioGroup name="plan" label="Select your plan" value={plan} onChange={setPlan}>
+      <Radio name="plan" value="free" checked={plan === 'free'} onChange={setPlan}>
+        Free - $0/month
+      </Radio>
+      <Radio name="plan" value="pro" checked={plan === 'pro'} onChange={setPlan}>
+        Pro - $9/month
+      </Radio>
+      <Radio name="plan" value="enterprise" checked={plan === 'enterprise'} onChange={setPlan}>
+        Enterprise - $29/month
+      </Radio>
+    </RadioGroup>
+  );
+}
+
+// With Description
+interface RadioWithDescriptionProps extends RadioProps {
+  description?: string;
+}
+
+function RadioWithDescription({
+  name,
+  value,
+  checked,
+  disabled,
+  onChange,
+  description,
+  children
+}: RadioWithDescriptionProps) {
+  return (
+    <label className="radio radio-with-description">
+      <input
+        type="radio"
+        name={name}
+        value={value}
+        checked={checked}
+        disabled={disabled}
+        aria-checked={checked}
+        onChange={(e) => onChange?.(e.target.value)}
+      />
+      <span>
+        {children}
+        {description && <span className="radio-description">{description}</span>}
+      </span>
+    </label>
+  );
+}
+
+// Button Style
+function ViewToggle() {
+  const [view, setView] = useState<'grid' | 'list' | 'table'>('grid');
+
+  return (
+    <div className="radio-group radio-group-buttons">
+      <label className="radio radio-button">
+        <input
+          type="radio"
+          name="view"
+          value="grid"
+          checked={view === 'grid'}
+          onChange={(e) => setView(e.target.value as any)}
+        />
+        <span>Grid</span>
+      </label>
+      <label className="radio radio-button">
+        <input
+          type="radio"
+          name="view"
+          value="list"
+          checked={view === 'list'}
+          onChange={(e) => setView(e.target.value as any)}
+        />
+        <span>List</span>
+      </label>
+      <label className="radio radio-button">
+        <input
+          type="radio"
+          name="view"
+          value="table"
+          checked={view === 'table'}
+          onChange={(e) => setView(e.target.value as any)}
+        />
+        <span>Table</span>
+      </label>
+    </div>
+  );
+}
+```
+
+### Vue 3 (TypeScript)
+
+```vue
+<template>
+  <div class="radio-group" role="radiogroup" :aria-labelledby="labelId">
+    <div v-if="label" :id="labelId" class="radio-group-label">
+      {{ label }}
+    </div>
+    <slot />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+
+interface Props {
+  name: string;
+  label?: string;
+}
+
+const props = defineProps<Props>();
+
+const labelId = computed(() => `radio-group-${props.name}`);
+</script>
+
+<!-- Radio Component -->
+<template>
+  <label class="radio" :class="radioClasses">
+    <input
+      type="radio"
+      :name="name"
+      :value="value"
+      :checked="checked"
+      :disabled="disabled"
+      :aria-checked="checked"
+      @change="$emit('update:modelValue', value)"
+    />
+    <span>
+      <slot />
+      <span v-if="description" class="radio-description">{{ description }}</span>
+    </span>
+  </label>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+
+interface Props {
+  name: string;
+  value: string;
+  checked?: boolean;
+  disabled?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  description?: string;
+  withDescription?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  checked: false,
+  disabled: false,
+  size: 'md',
+  withDescription: false
+});
+
+defineEmits<{
+  'update:modelValue': [value: string];
+}>();
+
+const radioClasses = computed(() => [
+  props.size !== 'md' && `radio-${props.size}`,
+  props.withDescription && 'radio-with-description'
+]);
+</script>
+
+<!-- Usage Example -->
+<template>
+  <RadioGroup name="plan" label="Select your plan">
+    <Radio
+      name="plan"
+      value="free"
+      :checked="selectedPlan === 'free'"
+      @update:modelValue="selectedPlan = $event"
+    >
+      Free - $0/month
+    </Radio>
+    <Radio
+      name="plan"
+      value="pro"
+      :checked="selectedPlan === 'pro'"
+      @update:modelValue="selectedPlan = $event"
+    >
+      Pro - $9/month
+    </Radio>
+    <Radio
+      name="plan"
+      value="enterprise"
+      :checked="selectedPlan === 'enterprise'"
+      @update:modelValue="selectedPlan = $event"
+    >
+      Enterprise - $29/month
+    </Radio>
+  </RadioGroup>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const selectedPlan = ref('free');
+</script>
+
+<!-- Button Style -->
+<template>
+  <div class="radio-group radio-group-buttons">
+    <label class="radio radio-button">
+      <input
+        type="radio"
+        name="view"
+        value="grid"
+        :checked="view === 'grid'"
+        @change="view = 'grid'"
+      />
+      <span>Grid</span>
+    </label>
+    <label class="radio radio-button">
+      <input
+        type="radio"
+        name="view"
+        value="list"
+        :checked="view === 'list'"
+        @change="view = 'list'"
+      />
+      <span>List</span>
+    </label>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const view = ref<'grid' | 'list'>('grid');
+</script>
+```
+
+### Svelte (TypeScript)
+
+```svelte
+<!-- Radio.svelte -->
+<script lang="ts">
+  export let name: string;
+  export let value: string;
+  export let checked: boolean = false;
+  export let disabled: boolean = false;
+  export let size: 'sm' | 'md' | 'lg' = 'md';
+  export let description: string = '';
+
+  $: radioClass = `radio ${size !== 'md' ? `radio-${size}` : ''} ${description ? 'radio-with-description' : ''}`;
+</script>
+
+<label class={radioClass}>
+  <input
+    type="radio"
+    {name}
+    {value}
+    {checked}
+    {disabled}
+    aria-checked={checked}
+    on:change
+  />
+  <span>
+    <slot />
+    {#if description}
+      <span class="radio-description">{description}</span>
+    {/if}
+  </span>
+</label>
+
+<!-- RadioGroup.svelte -->
+<script lang="ts">
+  export let name: string;
+  export let label: string = '';
+
+  $: labelId = `radio-group-${name}`;
+</script>
+
+<div class="radio-group" role="radiogroup" aria-labelledby={label ? labelId : undefined}>
+  {#if label}
+    <div id={labelId} class="radio-group-label">{label}</div>
+  {/if}
+  <slot />
+</div>
+
+<!-- Usage Example -->
+<script lang="ts">
+  import Radio from './Radio.svelte';
+  import RadioGroup from './RadioGroup.svelte';
+
+  let selectedPlan = 'free';
+
+  function handleChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    selectedPlan = target.value;
+  }
+</script>
+
+<RadioGroup name="plan" label="Select your plan">
+  <Radio
+    name="plan"
+    value="free"
+    checked={selectedPlan === 'free'}
+    on:change={handleChange}
+  >
+    Free - $0/month
+  </Radio>
+  <Radio
+    name="plan"
+    value="pro"
+    checked={selectedPlan === 'pro'}
+    on:change={handleChange}
+  >
+    Pro - $9/month
+  </Radio>
+  <Radio
+    name="plan"
+    value="enterprise"
+    checked={selectedPlan === 'enterprise'}
+    on:change={handleChange}
+  >
+    Enterprise - $29/month
+  </Radio>
+</RadioGroup>
+
+<!-- Button Style -->
+<script lang="ts">
+  let view = 'grid';
+</script>
+
+<div class="radio-group radio-group-buttons">
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="grid" bind:group={view} />
+    <span>Grid</span>
+  </label>
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="list" bind:group={view} />
+    <span>List</span>
+  </label>
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="table" bind:group={view} />
+    <span>Table</span>
+  </label>
+</div>
+
+<!-- With Description -->
+<RadioGroup name="shipping" label="Choose shipping method">
+  <Radio
+    name="shipping"
+    value="standard"
+    checked={shipping === 'standard'}
+    description="Delivery in 5-7 business days"
+    on:change={handleShippingChange}
+  >
+    Standard Shipping
+  </Radio>
+  <Radio
+    name="shipping"
+    value="express"
+    checked={shipping === 'express'}
+    description="Delivery in 2-3 business days"
+    on:change={handleShippingChange}
+  >
+    Express Shipping
+  </Radio>
+</RadioGroup>
+```
+
+---
+
+## Layout Variants
+
+### Stacked (Default)
+
+<Canvas of={RadioStories.Stacked} />
+
+Vertical stacking is the default and most common layout for radio groups.
+
+### Inline
+
+<Canvas of={RadioStories.Inline} />
+
+Use inline layout for short option lists or when horizontal space is available.
+
+---
+
+## Style Variants
+
+### With Description
+
+<Canvas of={RadioStories.WithDescription} />
+
+Add descriptive text below each option to provide additional context or information.
+
+### Button Style
+
+<Canvas of={RadioStories.ButtonStyle} />
+
+Button-style radios work well for view toggles, filters, and toolbar options.
+
+### Attached Buttons
+
+<Canvas of={RadioStories.AttachedButtons} />
+
+Attached button radios create a segmented control appearance, perfect for related options.
+
+### Card Style
+
+<Canvas of={RadioStories.CardStyle} />
+
+Card-style radios are excellent for pricing tiers, feature comparisons, or selections requiring visual emphasis.
+
+---
+
+## Sizes
+
+<Canvas of={RadioStories.Sizes} />
+
+Three size variants are available:
+- **Small (`radio-sm`)**: Compact spaces, dense forms
+- **Medium (default)**: Standard size for most use cases
+- **Large (`radio-lg`)**: Emphasis, touch-friendly interfaces
+
+---
+
+## States
+
+### Selected
+
+<Canvas of={RadioStories.Selected} />
+
+One option must always be selected in a radio group. Use the `checked` attribute to set the default selection.
+
+### Disabled
+
+<Canvas of={RadioStories.Disabled} />
+
+Individual options can be disabled to indicate unavailable choices. Always provide context about why an option is disabled.
+
+### All States
+
+<Canvas of={RadioStories.AllStates} />
+
+---
+
+## Theme Comparison
+
+See how radio buttons look across all 9 Aural UI themes:
+
+<Canvas of={RadioStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+### WCAG AAA Compliance
+
+Radio buttons are designed to meet WCAG AAA standards:
+
+**Keyboard Navigation:**
+- `Tab` - Move focus between radio groups
+- `Arrow Up/Down` - Navigate between options within a group
+- `Arrow Left/Right` - Navigate between options within a group
+- `Space` - Select focused radio button
+
+**Screen Reader Support:**
+- `role="radiogroup"` on container for proper grouping
+- `aria-labelledby` links group to its label
+- `aria-checked` attribute updates based on selection state
+- All radios in a group share the same `name` attribute
+- Each radio has a unique `value` attribute
+
+**Visual Accessibility:**
+- High contrast ratios (7:1+ for AAA compliance)
+- Clear focus indicators for keyboard navigation
+- Visible disabled states with reduced opacity
+- Large touch targets (minimum 44x44px)
+
+### Best Practices
+
+**Do:**
+- Use radio groups when users must select exactly one option
+- Provide a clear group label using `radio-group-label` or `<fieldset>/<legend>`
+- Keep option labels concise and scannable
+- Pre-select a default option when appropriate
+- Use descriptions for options that need clarification
+- Ensure all radios in a group share the same `name` attribute
+- Provide unique `value` attributes for each option
+- Use 2-7 options; consider a select dropdown for longer lists
+
+**Don't:**
+- Use for multiple selections (use checkboxes instead)
+- Use for binary choices (use a switch or single checkbox)
+- Leave all options unselected unless it's truly optional
+- Rely solely on color to convey state
+- Use ambiguous labels ("Option 1", "Option 2")
+- Mix different radio groups without clear separation
+- Use more than 8 options without considering alternative patterns
+
+---
+
+## Common Patterns
+
+### Pricing Tiers
+
+Use card-style radios with visual hierarchy for pricing plans:
+
+```html
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+  <label class="radio radio-card">
+    <input type="radio" name="pricing" value="starter" checked>
+    <div class="radio-card-content">
+      <div style="font-weight: 600; font-size: 1.125rem;">Starter</div>
+      <div style="font-size: 1.5rem; font-weight: 700; color: var(--color-primary);">$9</div>
+      <div style="font-size: 0.875rem; color: var(--color-text-secondary);">Perfect for individuals</div>
+    </div>
+  </label>
+  <!-- More pricing options... -->
+</div>
+```
+
+### Shipping Options
+
+Include delivery times and costs using descriptions:
+
+```html
+<div class="radio-group">
+  <div class="radio-group-label">Choose shipping method</div>
+  <label class="radio radio-with-description">
+    <input type="radio" name="shipping" value="standard" checked>
+    <span>
+      Standard Shipping
+      <span class="radio-description">Delivery in 5-7 business days - Free</span>
+    </span>
+  </label>
+  <label class="radio radio-with-description">
+    <input type="radio" name="shipping" value="express">
+    <span>
+      Express Shipping
+      <span class="radio-description">Delivery in 2-3 business days - $9.99</span>
+    </span>
+  </label>
+</div>
+```
+
+### View Toggles
+
+Use button-style or attached radios for UI view switches:
+
+```html
+<div class="radio-group radio-group-attached">
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="grid" checked>
+    <span>Grid</span>
+  </label>
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="list">
+    <span>List</span>
+  </label>
+  <label class="radio radio-button">
+    <input type="radio" name="view" value="table">
+    <span>Table</span>
+  </label>
+</div>
+```
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.radio-group` | Container for radio group (required) |
+| `.radio-group-label` | Label/heading for the radio group |
+| `.radio` | Individual radio label wrapper (required) |
+| `.radio-sm` | Small size variant |
+| `.radio-lg` | Large size variant |
+| `.radio-with-description` | Radio with description text |
+| `.radio-description` | Description text below label |
+| `.radio-button` | Button-style radio appearance |
+| `.radio-card` | Card-style radio appearance |
+| `.radio-card-content` | Content wrapper for card-style radios |
+| `.radio-group-buttons` | Container for button-style radios |
+| `.radio-group-attached` | Container for attached button radios |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `type="radio"` | string | Input type (required) |
+| `name` | string | Group name - all radios in group must share same name (required) |
+| `value` | string | Option value (required) |
+| `checked` | boolean | Selected state |
+| `disabled` | boolean | Disabled state |
+| `aria-checked` | boolean | Announces checked state to screen readers |
+| `role="radiogroup"` | string | Applied to container for proper grouping |
+| `aria-labelledby` | string | Links group to its label element |
+
+### When to Use
+
+**Use Radio Buttons when:**
+- Users must select exactly one option from a set
+- All options need to be visible simultaneously
+- The option set is small (2-7 options)
+- The choice is required before proceeding
+- Options are mutually exclusive
+
+**Don't use Radio Buttons when:**
+- Multiple selections are needed (use Checkboxes)
+- There are many options (8+) - use Select dropdown
+- The choice is binary/toggle (use Switch or Checkbox)
+- Selection is optional and "none" is valid
+- Options change dynamically or frequently
+
+---
+
+## Related Components
+
+- **Checkbox**: For multiple selections from a list
+- **Select**: For single selection from long option lists
+- **Switch**: For binary on/off toggles
+- **Segmented Control**: Alternative to button-style radios
