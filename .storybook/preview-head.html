@@ -1,5 +1,25 @@
+<!-- Load Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
 <!-- Load Aural UI JavaScript for interactive components -->
 <script src="/javascript/index.js"></script>
+
+<!-- Initialize Aural UI components after page load -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.Aural) {
+      // Initialize all interactive components globally
+      window.Aural.init();
+    }
+  });
+
+  // Also listen for Storybook story changes
+  window.addEventListener('storybook:story-rendered', () => {
+    if (window.Aural) {
+      window.Aural.init();
+    }
+  });
+</script>
 
 <!-- Load base Aural UI CSS (compiled version with all imports resolved) -->
 <link rel="stylesheet" href="/aural-ui.css">

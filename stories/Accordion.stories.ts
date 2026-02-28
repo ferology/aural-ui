@@ -30,7 +30,7 @@ export const Default: Story = {
     accordion.className = 'accordion';
 
     accordion.innerHTML = `
-      <div class="accordion-item">
+      <div class="accordion-item" id="acc-item-1">
         <button class="accordion-header" aria-expanded="true" aria-controls="acc-panel-1">
           <span>What is Aural UI?</span>
           ${chevronIcon}
@@ -42,7 +42,7 @@ export const Default: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="acc-item-2">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-panel-2">
           <span>How do I install it?</span>
           ${chevronIcon}
@@ -54,7 +54,7 @@ export const Default: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="acc-item-3">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-panel-3">
           <span>Is it accessible?</span>
           ${chevronIcon}
@@ -89,7 +89,7 @@ export const Bordered: Story = {
     accordion.className = 'accordion accordion-bordered';
 
     accordion.innerHTML = `
-      <div class="accordion-item">
+      <div class="accordion-item" id="bordered-item-1">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-bordered-1">
           <span>First Section</span>
           ${chevronIcon}
@@ -101,7 +101,7 @@ export const Bordered: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="bordered-item-2">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-bordered-2">
           <span>Second Section</span>
           ${chevronIcon}
@@ -113,7 +113,7 @@ export const Bordered: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="bordered-item-3">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-bordered-3">
           <span>Third Section</span>
           ${chevronIcon}
@@ -148,7 +148,7 @@ export const Flush: Story = {
     accordion.className = 'accordion accordion-flush';
 
     accordion.innerHTML = `
-      <div class="accordion-item">
+      <div class="accordion-item" id="flush-item-1">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-flush-1">
           <span>Flush Item One</span>
           ${chevronIcon}
@@ -160,7 +160,7 @@ export const Flush: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="flush-item-2">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-flush-2">
           <span>Flush Item Two</span>
           ${chevronIcon}
@@ -172,7 +172,7 @@ export const Flush: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="flush-item-3">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-flush-3">
           <span>Flush Item Three</span>
           ${chevronIcon}
@@ -207,7 +207,7 @@ export const AlwaysOpen: Story = {
     accordion.className = 'accordion accordion-always-open accordion-bordered';
 
     accordion.innerHTML = `
-      <div class="accordion-item">
+      <div class="accordion-item" id="multi-item-1">
         <button class="accordion-header" aria-expanded="true" aria-controls="acc-multi-1">
           <span>Section One</span>
           ${chevronIcon}
@@ -219,7 +219,7 @@ export const AlwaysOpen: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="multi-item-2">
         <button class="accordion-header" aria-expanded="true" aria-controls="acc-multi-2">
           <span>Section Two</span>
           ${chevronIcon}
@@ -231,7 +231,7 @@ export const AlwaysOpen: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="multi-item-3">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-multi-3">
           <span>Section Three</span>
           ${chevronIcon}
@@ -243,7 +243,7 @@ export const AlwaysOpen: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="multi-item-4">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-multi-4">
           <span>Section Four</span>
           ${chevronIcon}
@@ -278,7 +278,7 @@ export const DefaultOpen: Story = {
     accordion.className = 'accordion';
 
     accordion.innerHTML = `
-      <div class="accordion-item">
+      <div class="accordion-item" id="open-item-1">
         <button class="accordion-header" aria-expanded="true" aria-controls="acc-open-1">
           <span>Getting Started</span>
           ${chevronIcon}
@@ -290,7 +290,7 @@ export const DefaultOpen: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="open-item-2">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-open-2">
           <span>Advanced Features</span>
           ${chevronIcon}
@@ -302,7 +302,7 @@ export const DefaultOpen: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="open-item-3">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-open-3">
           <span>API Reference</span>
           ${chevronIcon}
@@ -337,7 +337,7 @@ export const FAQ: Story = {
     accordion.className = 'accordion';
 
     accordion.innerHTML = `
-      <div class="accordion-item">
+      <div class="accordion-item" id="faq-item-1">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-faq-1">
           <span>What payment methods do you accept?</span>
           ${chevronIcon}
@@ -349,7 +349,7 @@ export const FAQ: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="faq-item-2">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-faq-2">
           <span>Can I cancel my subscription anytime?</span>
           ${chevronIcon}
@@ -361,7 +361,7 @@ export const FAQ: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="faq-item-3">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-faq-3">
           <span>Do you offer refunds?</span>
           ${chevronIcon}
@@ -373,7 +373,7 @@ export const FAQ: Story = {
         </div>
       </div>
 
-      <div class="accordion-item">
+      <div class="accordion-item" id="faq-item-4">
         <button class="accordion-header" aria-expanded="false" aria-controls="acc-faq-4">
           <span>How do I upgrade my plan?</span>
           ${chevronIcon}
