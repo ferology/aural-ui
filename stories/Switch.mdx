@@ -1,0 +1,756 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as SwitchStories from './Switch.stories';
+
+<Meta of={SwitchStories} />
+
+# Switch
+
+iOS-style toggle switches for binary on/off options. Switches provide immediate visual feedback for settings and feature toggles that take effect instantly without requiring form submission.
+
+## Overview
+
+The Switch component is ideal for settings and preferences where changes should take effect immediately. Unlike checkboxes, switches represent a physical on/off state and are commonly used in mobile interfaces and settings panels.
+
+**Key Features:**
+- Binary on/off state with immediate feedback
+- 3 sizes (Small, Medium, Large)
+- Color variants for semantic meaning
+- Label positioning (left or right)
+- Optional descriptions for context
+- Disabled state
+- Full WCAG AAA accessibility compliance
+- Proper ARIA switch role
+
+---
+
+## Usage
+
+<Canvas of={SwitchStories.Default} />
+
+### Interactive Controls
+
+Use the controls panel below to experiment with different switch configurations:
+
+<Canvas of={SwitchStories.Default} withToolbar />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic switch -->
+<label class="switch">
+  <input type="checkbox" class="switch__input" role="switch">
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">Enable notifications</span>
+</label>
+
+<!-- Checked state -->
+<label class="switch">
+  <input type="checkbox" class="switch__input" role="switch" checked>
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">Dark mode</span>
+</label>
+
+<!-- With size -->
+<label class="switch switch-lg">
+  <input type="checkbox" class="switch__input" role="switch" checked>
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">Large switch</span>
+</label>
+
+<!-- Disabled -->
+<label class="switch">
+  <input type="checkbox" class="switch__input" role="switch" disabled>
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">Disabled switch</span>
+</label>
+
+<!-- JavaScript event handling -->
+<script>
+const switchInput = document.querySelector('.switch__input');
+switchInput.addEventListener('change', (e) => {
+  console.log('Switch state:', e.target.checked);
+  // Update aria-checked for accessibility
+  e.target.setAttribute('aria-checked', e.target.checked ? 'true' : 'false');
+});
+</script>
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+// Simple usage
+function BasicSwitch() {
+  const [enabled, setEnabled] = useState(false);
+
+  return (
+    <label className="switch">
+      <input
+        type="checkbox"
+        className="switch__input"
+        role="switch"
+        checked={enabled}
+        onChange={(e) => setEnabled(e.target.checked)}
+        aria-checked={enabled}
+      />
+      <div className="switch__track">
+        <div className="switch__thumb"></div>
+      </div>
+      <span className="switch__label">Enable notifications</span>
+    </label>
+  );
+}
+
+// Reusable component
+function Switch({
+  checked,
+  onChange,
+  disabled = false,
+  size = 'md',
+  variant = 'default',
+  labelPosition = 'right',
+  description,
+  children,
+  ...props
+}) {
+  const classes = [
+    'switch',
+    size !== 'md' && `switch-${size}`,
+    variant !== 'default' && `switch-${variant}`,
+    description && 'switch-with-description',
+    labelPosition === 'left' && 'switch-label-left'
+  ].filter(Boolean).join(' ');
+
+  const id = `switch-${Math.random().toString(36).substr(2, 9)}`;
+
+  return (
+    <label className={classes}>
+      <input
+        type="checkbox"
+        className="switch__input"
+        role="switch"
+        id={id}
+        checked={checked}
+        onChange={onChange}
+        disabled={disabled}
+        aria-checked={checked}
+        aria-labelledby={`${id}-label`}
+        aria-describedby={description ? `${id}-desc` : undefined}
+        {...props}
+      />
+      <div className="switch__track">
+        <div className="switch__thumb"></div>
+      </div>
+      <span className="switch__label" id={`${id}-label`}>
+        {children}
+        {description && (
+          <span className="switch__description" id={`${id}-desc`}>
+            {description}
+          </span>
+        )}
+      </span>
+    </label>
+  );
+}
+
+// Usage examples
+function App() {
+  const [settings, setSettings] = useState({
+    darkMode: false,
+    notifications: true,
+    autoSave: true
+  });
+
+  const updateSetting = (key) => (e) => {
+    setSettings(prev => ({ ...prev, [key]: e.target.checked }));
+  };
+
+  return (
+    <div>
+      <Switch
+        checked={settings.darkMode}
+        onChange={updateSetting('darkMode')}
+      >
+        Dark mode
+      </Switch>
+
+      <Switch
+        checked={settings.notifications}
+        onChange={updateSetting('notifications')}
+        description="Receive email updates about your account"
+      >
+        Email notifications
+      </Switch>
+
+      <Switch
+        checked={settings.autoSave}
+        onChange={updateSetting('autoSave')}
+        size="lg"
+        variant="success"
+      >
+        Auto-save
+      </Switch>
+    </div>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <label :class="switchClasses">
+    <input
+      type="checkbox"
+      class="switch__input"
+      role="switch"
+      :id="switchId"
+      :checked="checked"
+      @change="handleChange"
+      :disabled="disabled"
+      :aria-checked="checked"
+      :aria-labelledby="`${switchId}-label`"
+      :aria-describedby="description ? `${switchId}-desc` : undefined"
+    />
+    <div class="switch__track">
+      <div class="switch__thumb"></div>
+    </div>
+    <span class="switch__label" :id="`${switchId}-label`">
+      <slot />
+      <span
+        v-if="description"
+        class="switch__description"
+        :id="`${switchId}-desc`"
+      >
+        {{ description }}
+      </span>
+    </span>
+  </label>
+</template>
+
+<script setup>
+import { computed, ref } from 'vue';
+
+const props = defineProps({
+  checked: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  variant: {
+    type: String,
+    default: 'default',
+    validator: (value) =>
+      ['default', 'primary', 'success', 'warning', 'error', 'info'].includes(value)
+  },
+  labelPosition: {
+    type: String,
+    default: 'right',
+    validator: (value) => ['left', 'right'].includes(value)
+  },
+  description: {
+    type: String,
+    default: ''
+  }
+});
+
+const emit = defineEmits(['update:checked', 'change']);
+
+const switchId = ref(`switch-${Math.random().toString(36).substr(2, 9)}`);
+
+const switchClasses = computed(() => [
+  'switch',
+  props.size !== 'md' && `switch-${props.size}`,
+  props.variant !== 'default' && `switch-${props.variant}`,
+  props.description && 'switch-with-description',
+  props.labelPosition === 'left' && 'switch-label-left'
+].filter(Boolean).join(' '));
+
+const handleChange = (event) => {
+  emit('update:checked', event.target.checked);
+  emit('change', event);
+};
+</script>
+
+<!-- Usage -->
+<template>
+  <div>
+    <Switch v-model:checked="darkMode">
+      Dark mode
+    </Switch>
+
+    <Switch
+      v-model:checked="notifications"
+      description="Receive email updates"
+    >
+      Email notifications
+    </Switch>
+
+    <Switch
+      v-model:checked="autoSave"
+      size="lg"
+      variant="success"
+    >
+      Auto-save
+    </Switch>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const darkMode = ref(false);
+const notifications = ref(true);
+const autoSave = ref(true);
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let checked = false;
+  export let disabled = false;
+  export let size = 'md';
+  export let variant = 'default';
+  export let labelPosition = 'right';
+  export let description = '';
+
+  let switchId = `switch-${Math.random().toString(36).substr(2, 9)}`;
+
+  $: switchClass = [
+    'switch',
+    size !== 'md' && `switch-${size}`,
+    variant !== 'default' && `switch-${variant}`,
+    description && 'switch-with-description',
+    labelPosition === 'left' && 'switch-label-left'
+  ].filter(Boolean).join(' ');
+
+  function handleChange(event) {
+    checked = event.target.checked;
+  }
+</script>
+
+<label class={switchClass}>
+  <input
+    type="checkbox"
+    class="switch__input"
+    role="switch"
+    id={switchId}
+    bind:checked
+    {disabled}
+    aria-checked={checked}
+    aria-labelledby="{switchId}-label"
+    aria-describedby={description ? `${switchId}-desc` : undefined}
+    on:change={handleChange}
+  />
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label" id="{switchId}-label">
+    <slot />
+    {#if description}
+      <span class="switch__description" id="{switchId}-desc">
+        {description}
+      </span>
+    {/if}
+  </span>
+</label>
+
+<!-- Usage -->
+<script>
+  import Switch from './Switch.svelte';
+
+  let darkMode = false;
+  let notifications = true;
+  let autoSave = true;
+</script>
+
+<Switch bind:checked={darkMode}>
+  Dark mode
+</Switch>
+
+<Switch
+  bind:checked={notifications}
+  description="Receive email updates"
+>
+  Email notifications
+</Switch>
+
+<Switch
+  bind:checked={autoSave}
+  size="lg"
+  variant="success"
+>
+  Auto-save
+</Switch>
+```
+
+---
+
+## States
+
+### All States
+
+<Canvas of={SwitchStories.AllStates} />
+
+Switches support four states:
+- **Off (unchecked)**: Default inactive state
+- **On (checked)**: Active state
+- **Disabled off**: Cannot be toggled, shown as inactive
+- **Disabled on**: Cannot be toggled, shown as active
+
+---
+
+## Sizes
+
+<Canvas of={SwitchStories.AllSizes} />
+
+Three sizes available:
+- **Small (`switch-sm`)**: Compact interfaces, dense layouts, mobile
+- **Medium (default)**: Standard size for most use cases
+- **Large (`switch-lg`)**: Emphasis, accessibility, touch interfaces
+
+---
+
+## Variants
+
+### Color Variants
+
+<Canvas of={SwitchStories.ColorVariants} />
+
+Use color variants to add semantic meaning:
+- **Primary**: Brand-related features
+- **Success**: Positive actions (enable features)
+- **Warning**: Caution-required settings
+- **Error**: High-risk or destructive toggles
+- **Info**: Informational features
+
+```html
+<label class="switch switch-success">
+  <input type="checkbox" class="switch__input" role="switch" checked>
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">Success</span>
+</label>
+```
+
+---
+
+## Patterns
+
+### With Description
+
+<Canvas of={SwitchStories.WithDescription} />
+
+Add descriptions to clarify what enabling a switch will do:
+
+```html
+<label class="switch switch-with-description">
+  <input type="checkbox" class="switch__input" role="switch" checked>
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">
+    Email notifications
+    <span class="switch__description">Receive email updates about your account activity</span>
+  </span>
+</label>
+```
+
+### Label Position
+
+<Canvas of={SwitchStories.LabelLeft} />
+
+Control label placement with the `switch-label-left` class:
+
+```html
+<label class="switch switch-label-left">
+  <input type="checkbox" class="switch__input" role="switch" checked>
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">Label on left</span>
+</label>
+```
+
+### Settings Panel
+
+<Canvas of={SwitchStories.SettingsPanel} />
+
+Group switches in settings panels with clear sections:
+
+```html
+<div class="settings-panel">
+  <h3>Privacy</h3>
+  <label class="switch switch-with-description">
+    <input type="checkbox" class="switch__input" role="switch" checked>
+    <div class="switch__track">
+      <div class="switch__thumb"></div>
+    </div>
+    <span class="switch__label">
+      Public profile
+      <span class="switch__description">Allow others to view your profile</span>
+    </span>
+  </label>
+  <label class="switch switch-with-description">
+    <input type="checkbox" class="switch__input" role="switch">
+    <div class="switch__track">
+      <div class="switch__thumb"></div>
+    </div>
+    <span class="switch__label">
+      Show online status
+      <span class="switch__description">Display when you're active</span>
+    </span>
+  </label>
+</div>
+```
+
+---
+
+## Theme Comparison
+
+See how the switch looks across all 9 Aural UI themes:
+
+<Canvas of={SwitchStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+✅ **ARIA Switch Role**
+- Use `role="switch"` on the input element
+- Properly announces as a switch to screen readers
+- Distinct from checkbox semantics
+
+✅ **Keyboard Navigation**
+- Focus with `Tab`
+- Toggle with `Space` key
+- Same keyboard interaction as native checkbox
+
+✅ **Screen Readers**
+- Use `aria-checked="true"` or `aria-checked="false"` to announce state
+- Use `aria-labelledby` to associate labels
+- Use `aria-describedby` for descriptions
+- Announces "on" or "off" state changes
+
+✅ **Color Contrast**
+- All variants meet WCAG AAA (7:1+ contrast ratio)
+- Clear visual distinction between on/off states
+- High contrast theme available
+
+✅ **Focus Indicators**
+- Visible focus ring for keyboard navigation
+- High contrast focus states
+- Clear visual feedback
+
+### Accessibility Code Example
+
+```html
+<label class="switch">
+  <input
+    type="checkbox"
+    class="switch__input"
+    role="switch"
+    id="notifications-switch"
+    aria-checked="false"
+    aria-labelledby="notifications-label"
+    aria-describedby="notifications-desc"
+  />
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label" id="notifications-label">
+    Email notifications
+    <span class="switch__description" id="notifications-desc">
+      Receive email updates about your account activity
+    </span>
+  </span>
+</label>
+
+<script>
+// Update aria-checked when state changes
+const switchInput = document.getElementById('notifications-switch');
+switchInput.addEventListener('change', (e) => {
+  e.target.setAttribute('aria-checked', e.target.checked ? 'true' : 'false');
+});
+</script>
+```
+
+---
+
+## When to Use
+
+### Use Switch When:
+
+- **Settings & Preferences**: Toggling features on/off in settings panels
+- **Immediate Effect**: Changes take effect instantly without form submission
+- **Binary Choices**: Clear on/off, enabled/disabled decisions
+- **Feature Toggles**: Activating or deactivating app features
+- **Visibility Controls**: Showing/hiding content or interface elements
+
+### Use Checkbox Instead When:
+
+- **Form Submissions**: Data that requires explicit form submission
+- **Multiple Selections**: Selecting multiple items from a list
+- **Agreement Required**: Terms acceptance, consent forms
+- **Data Collection**: Gathering user choices for batch processing
+
+### Comparison Table
+
+| Feature | Switch | Checkbox |
+|---------|--------|----------|
+| **Purpose** | Binary on/off state | Multi-selection or single agreement |
+| **Effect** | Immediate | On form submission |
+| **Context** | Settings, preferences | Forms, lists, data entry |
+| **Visual** | Physical toggle | Checkmark in box |
+| **ARIA Role** | `role="switch"` | Default checkbox role |
+| **Mobile Pattern** | iOS-style toggle | Traditional checkbox |
+
+---
+
+## Best Practices
+
+### Do:
+
+- Use clear, action-oriented labels ("Enable notifications", "Dark mode")
+- Frame labels positively (prefer "Enable" over "Disable")
+- Add descriptions for complex or unclear options
+- Group related switches with section headers
+- Provide immediate visual feedback when toggled
+- Use appropriate color variants for semantic meaning
+- Keep labels concise and scannable
+
+### Don't:
+
+- Use switches for form data requiring submission
+- Use for destructive actions without confirmation
+- Rely solely on color to convey meaning
+- Use vague labels ("Option 1", "Setting A")
+- Create overly long label text
+- Use switches for multiple-choice scenarios
+- Make switches too small for touch targets
+
+### Layout Guidelines:
+
+```html
+<!-- Good: Organized settings panel -->
+<div class="settings-section">
+  <h3>Notifications</h3>
+  <label class="switch switch-with-description">
+    <input type="checkbox" class="switch__input" role="switch" checked>
+    <div class="switch__track">
+      <div class="switch__thumb"></div>
+    </div>
+    <span class="switch__label">
+      Email notifications
+      <span class="switch__description">Daily digest of activity</span>
+    </span>
+  </label>
+  <label class="switch switch-with-description">
+    <input type="checkbox" class="switch__input" role="switch">
+    <div class="switch__track">
+      <div class="switch__thumb"></div>
+    </div>
+    <span class="switch__label">
+      Push notifications
+      <span class="switch__description">Real-time alerts on your device</span>
+    </span>
+  </label>
+</div>
+
+<!-- Bad: Unclear labels without context -->
+<label class="switch">
+  <input type="checkbox" class="switch__input" role="switch">
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">Option 1</span>
+</label>
+```
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.switch` | Base switch class (required) |
+| `.switch__input` | Checkbox input element |
+| `.switch__track` | Visual track/rail element |
+| `.switch__thumb` | Movable thumb/knob element |
+| `.switch__label` | Label text container |
+| `.switch__description` | Optional description text |
+| `.switch-sm` | Small size variant |
+| `.switch-md` | Medium size (default, can be omitted) |
+| `.switch-lg` | Large size variant |
+| `.switch-primary` | Primary color variant |
+| `.switch-success` | Success/positive variant |
+| `.switch-warning` | Warning/caution variant |
+| `.switch-error` | Error/danger variant |
+| `.switch-info` | Info variant |
+| `.switch-with-description` | Adds spacing for description text |
+| `.switch-label-left` | Positions label on the left side |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `type="checkbox"` | string | Required input type |
+| `role="switch"` | string | Required ARIA role for proper semantics |
+| `checked` | boolean | Checked/on state |
+| `disabled` | boolean | Disabled state |
+| `aria-checked` | string | "true" or "false" for state announcement |
+| `aria-labelledby` | string | ID of the label element |
+| `aria-describedby` | string | ID of the description element |
+
+### Component Structure
+
+```html
+<label class="switch [modifiers]">
+  <input
+    type="checkbox"
+    class="switch__input"
+    role="switch"
+    [attributes]
+  />
+  <div class="switch__track">
+    <div class="switch__thumb"></div>
+  </div>
+  <span class="switch__label">
+    [Label text]
+    <span class="switch__description">[Optional description]</span>
+  </span>
+</label>
+```
+
+---
+
+## Related Components
+
+- **Checkbox**: Multi-selection and form data collection
+- **Radio**: Single selection from multiple options
+- **Toggle Button**: Visual button-style toggles
+- **Segmented Control**: Mutually exclusive grouped options

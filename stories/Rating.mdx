@@ -1,0 +1,788 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as RatingStories from './Rating.stories';
+
+<Meta of={RatingStories} />
+
+# Rating
+
+A star rating component for collecting feedback and displaying ratings. Supports interactive rating input, read-only display, half-star ratings, and custom icons.
+
+## Overview
+
+The Rating component provides a flexible and accessible way to collect and display ratings in your application.
+
+**Key Features:**
+- Interactive rating input with hover preview
+- Read-only display mode for showing existing ratings
+- Half-star support for precise ratings (e.g., 4.5)
+- Custom icons (stars, hearts, or custom SVG)
+- Multiple sizes (Small, Medium, Large)
+- Color variants (Default, Primary, Success, Error)
+- Review count display
+- Full keyboard accessibility
+- WCAG AAA compliant
+
+---
+
+## Usage
+
+<Canvas of={RatingStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Interactive Rating -->
+<div class="aural-rating" data-rating="0">
+  <div class="aural-rating__stars">
+    <button class="aural-rating__star aural-rating__star--empty"
+            data-value="1" aria-label="Rate 1 star" tabindex="0">
+      <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+    </button>
+    <!-- Repeat for stars 2-5 -->
+  </div>
+  <span class="aural-rating__value">0.0</span>
+</div>
+
+<!-- Read-Only Rating with Count -->
+<div class="aural-rating aural-rating--readonly" data-rating="4.5">
+  <div class="aural-rating__stars">
+    <span class="aural-rating__star aural-rating__star--filled">
+      <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+    </span>
+    <!-- More stars... -->
+  </div>
+  <span class="aural-rating__value">4.5</span>
+  <span class="aural-rating__count">(1,234)</span>
+</div>
+
+<script>
+// Interactive rating logic
+const rating = document.querySelector('.aural-rating');
+const stars = rating.querySelectorAll('.aural-rating__star');
+let currentRating = 0;
+
+stars.forEach((star, index) => {
+  const value = index + 1;
+
+  // Hover preview
+  star.addEventListener('mouseenter', () => {
+    updateStars(value);
+  });
+
+  // Click to rate
+  star.addEventListener('click', () => {
+    currentRating = value;
+    rating.dataset.rating = value;
+    const valueDisplay = rating.querySelector('.aural-rating__value');
+    if (valueDisplay) valueDisplay.textContent = value.toFixed(1);
+  });
+
+  // Keyboard support
+  star.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      star.click();
+    }
+  });
+});
+
+// Reset on mouse leave
+rating.addEventListener('mouseleave', () => {
+  updateStars(currentRating);
+});
+
+function updateStars(value) {
+  stars.forEach((star, index) => {
+    star.classList.toggle('aural-rating__star--filled', index < value);
+    star.classList.toggle('aural-rating__star--empty', index >= value);
+  });
+}
+</script>
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function Rating({
+  value = 0,
+  max = 5,
+  onChange,
+  readonly = false,
+  allowHalf = false,
+  size = 'md',
+  showValue = true,
+  showCount = false,
+  count = 0,
+  icon = 'star'
+}) {
+  const [rating, setRating] = useState(value);
+  const [hover, setHover] = useState(0);
+
+  const handleClick = (newValue) => {
+    if (readonly) return;
+    setRating(newValue);
+    onChange?.(newValue);
+  };
+
+  const StarIcon = () => (
+    <svg className="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </svg>
+  );
+
+  const HeartIcon = () => (
+    <svg className="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  );
+
+  const Icon = icon === 'heart' ? HeartIcon : StarIcon;
+  const Element = readonly ? 'span' : 'button';
+
+  return (
+    <div
+      className={`aural-rating ${readonly ? 'aural-rating--readonly' : ''} ${size !== 'md' ? `aural-rating--${size}` : ''}`}
+      data-rating={rating}
+    >
+      <div className="aural-rating__stars">
+        {[...Array(max)].map((_, i) => {
+          const starValue = i + 1;
+          const isFilled = starValue <= (hover || rating);
+
+          return (
+            <Element
+              key={i}
+              className={`aural-rating__star ${isFilled ? 'aural-rating__star--filled' : 'aural-rating__star--empty'}`}
+              data-value={starValue}
+              aria-label={`Rate ${starValue} ${icon}${starValue === 1 ? '' : 's'}`}
+              onMouseEnter={() => !readonly && setHover(starValue)}
+              onMouseLeave={() => !readonly && setHover(0)}
+              onClick={() => handleClick(starValue)}
+              {...(!readonly && { tabIndex: 0 })}
+            >
+              <Icon />
+            </Element>
+          );
+        })}
+      </div>
+      {showValue && <span className="aural-rating__value">{rating.toFixed(1)}</span>}
+      {showCount && count > 0 && <span className="aural-rating__count">({count.toLocaleString()})</span>}
+    </div>
+  );
+}
+
+// Usage
+function App() {
+  const [userRating, setUserRating] = useState(0);
+
+  return (
+    <div>
+      <h3>Rate this product</h3>
+      <Rating
+        value={userRating}
+        onChange={setUserRating}
+        size="lg"
+        showValue
+      />
+
+      <h3>Average rating</h3>
+      <Rating
+        value={4.5}
+        readonly
+        allowHalf
+        showValue
+        showCount
+        count={1234}
+      />
+    </div>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div
+    :class="ratingClasses"
+    :data-rating="currentRating"
+    @mouseleave="handleMouseLeave"
+  >
+    <div class="aural-rating__stars">
+      <component
+        v-for="i in max"
+        :key="i"
+        :is="readonly ? 'span' : 'button'"
+        :class="getStarClass(i)"
+        :data-value="i"
+        :aria-label="`Rate ${i} ${icon}${i === 1 ? '' : 's'}`"
+        :tabindex="readonly ? undefined : 0"
+        @mouseenter="handleMouseEnter(i)"
+        @click="handleClick(i)"
+      >
+        <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+          <polygon v-if="icon === 'star'" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          <path v-else d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </component>
+    </div>
+    <span v-if="showValue" class="aural-rating__value">{{ currentRating.toFixed(1) }}</span>
+    <span v-if="showCount && count > 0" class="aural-rating__count">({{ count.toLocaleString() }})</span>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue';
+
+const props = defineProps({
+  modelValue: {
+    type: Number,
+    default: 0
+  },
+  max: {
+    type: Number,
+    default: 5
+  },
+  readonly: {
+    type: Boolean,
+    default: false
+  },
+  allowHalf: {
+    type: Boolean,
+    default: false
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  showValue: {
+    type: Boolean,
+    default: true
+  },
+  showCount: {
+    type: Boolean,
+    default: false
+  },
+  count: {
+    type: Number,
+    default: 0
+  },
+  icon: {
+    type: String,
+    default: 'star',
+    validator: (value) => ['star', 'heart'].includes(value)
+  }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const currentRating = ref(props.modelValue);
+const hoverRating = ref(0);
+
+const ratingClasses = computed(() => [
+  'aural-rating',
+  props.readonly && 'aural-rating--readonly',
+  props.size !== 'md' && `aural-rating--${props.size}`
+].filter(Boolean).join(' '));
+
+const getStarClass = (index) => {
+  const isFilled = index <= (hoverRating.value || currentRating.value);
+  return [
+    'aural-rating__star',
+    isFilled ? 'aural-rating__star--filled' : 'aural-rating__star--empty'
+  ].join(' ');
+};
+
+const handleMouseEnter = (value) => {
+  if (!props.readonly) {
+    hoverRating.value = value;
+  }
+};
+
+const handleMouseLeave = () => {
+  if (!props.readonly) {
+    hoverRating.value = 0;
+  }
+};
+
+const handleClick = (value) => {
+  if (!props.readonly) {
+    currentRating.value = value;
+    emit('update:modelValue', value);
+  }
+};
+</script>
+
+<!-- Usage -->
+<template>
+  <div>
+    <h3>Rate this product</h3>
+    <Rating v-model="userRating" size="lg" :show-value="true" />
+
+    <h3>Average rating</h3>
+    <Rating
+      :model-value="4.5"
+      readonly
+      :allow-half="true"
+      :show-value="true"
+      :show-count="true"
+      :count="1234"
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+const userRating = ref(0);
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let value = 0;
+  export let max = 5;
+  export let readonly = false;
+  export let allowHalf = false;
+  export let size = 'md';
+  export let showValue = true;
+  export let showCount = false;
+  export let count = 0;
+  export let icon = 'star';
+
+  let rating = value;
+  let hover = 0;
+
+  $: ratingClass = [
+    'aural-rating',
+    readonly && 'aural-rating--readonly',
+    size !== 'md' && `aural-rating--${size}`
+  ].filter(Boolean).join(' ');
+
+  function getStarClass(i) {
+    const isFilled = i <= (hover || rating);
+    return `aural-rating__star ${isFilled ? 'aural-rating__star--filled' : 'aural-rating__star--empty'}`;
+  }
+
+  function handleMouseEnter(i) {
+    if (!readonly) hover = i;
+  }
+
+  function handleMouseLeave() {
+    if (!readonly) hover = 0;
+  }
+
+  function handleClick(i) {
+    if (!readonly) {
+      rating = i;
+      value = i;
+    }
+  }
+
+  const starPath = "12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2";
+  const heartPath = "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z";
+</script>
+
+<div class={ratingClass} data-rating={rating} on:mouseleave={handleMouseLeave}>
+  <div class="aural-rating__stars">
+    {#each Array(max) as _, i}
+      {#if readonly}
+        <span
+          class={getStarClass(i + 1)}
+          data-value={i + 1}
+        >
+          <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+            {#if icon === 'star'}
+              <polygon points={starPath}/>
+            {:else}
+              <path d={heartPath}/>
+            {/if}
+          </svg>
+        </span>
+      {:else}
+        <button
+          class={getStarClass(i + 1)}
+          data-value={i + 1}
+          aria-label="Rate {i + 1} {icon}{i === 0 ? '' : 's'}"
+          tabindex="0"
+          on:mouseenter={() => handleMouseEnter(i + 1)}
+          on:click={() => handleClick(i + 1)}
+        >
+          <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+            {#if icon === 'star'}
+              <polygon points={starPath}/>
+            {:else}
+              <path d={heartPath}/>
+            {/if}
+          </svg>
+        </button>
+      {/if}
+    {/each}
+  </div>
+  {#if showValue}
+    <span class="aural-rating__value">{rating.toFixed(1)}</span>
+  {/if}
+  {#if showCount && count > 0}
+    <span class="aural-rating__count">({count.toLocaleString()})</span>
+  {/if}
+</div>
+
+<!-- Usage -->
+<script>
+  import Rating from './Rating.svelte';
+  let userRating = 0;
+</script>
+
+<h3>Rate this product</h3>
+<Rating bind:value={userRating} size="lg" showValue={true} />
+
+<h3>Average rating</h3>
+<Rating value={4.5} readonly={true} allowHalf={true} showValue={true} showCount={true} count={1234} />
+```
+
+---
+
+## Variants
+
+### Read-Only Mode
+
+Display existing ratings without user interaction.
+
+<Canvas of={RatingStories.ReadOnly} />
+
+```html
+<div class="aural-rating aural-rating--readonly" data-rating="4.5">
+  <div class="aural-rating__stars">
+    <!-- Use <span> instead of <button> for readonly -->
+    <span class="aural-rating__star aural-rating__star--filled">...</span>
+  </div>
+  <span class="aural-rating__value">4.5</span>
+  <span class="aural-rating__count">(1,234)</span>
+</div>
+```
+
+### Half-Star Ratings
+
+Support for precise decimal ratings using SVG gradients.
+
+<Canvas of={RatingStories.HalfStars} />
+
+```html
+<span class="aural-rating__star aural-rating__star--half">
+  <svg class="aural-rating__star-icon" viewBox="0 0 24 24">
+    <defs>
+      <linearGradient id="half-fill">
+        <stop offset="50%" stop-color="var(--color-warning)"/>
+        <stop offset="50%" stop-color="var(--color-border-medium)"/>
+      </linearGradient>
+    </defs>
+    <polygon points="..." fill="url(#half-fill)"/>
+  </svg>
+</span>
+```
+
+### Custom Icons
+
+Use hearts or other custom icons instead of stars.
+
+<Canvas of={RatingStories.CustomIcon} />
+
+```html
+<!-- Heart Icon -->
+<div class="aural-rating aural-rating--heart">
+  <div class="aural-rating__stars">
+    <button class="aural-rating__star" data-value="1" aria-label="1 heart">
+      <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </button>
+    <!-- More hearts... -->
+  </div>
+</div>
+```
+
+### With Review Count
+
+Display the number of reviews alongside the rating.
+
+<Canvas of={RatingStories.WithCount} />
+
+---
+
+## Sizes
+
+<Canvas of={RatingStories.Small} />
+<Canvas of={RatingStories.Large} />
+
+- **Small (`aural-rating--sm`)**: Compact spaces, cards, lists
+- **Medium (default)**: Standard use cases
+- **Large (`aural-rating--lg`)**: Emphasis, review forms, hero sections
+
+---
+
+## States
+
+### Disabled State
+
+<Canvas of={RatingStories.Disabled} />
+
+```html
+<div class="aural-rating aural-rating--disabled">
+  <div class="aural-rating__stars">
+    <button class="aural-rating__star" disabled>...</button>
+  </div>
+</div>
+```
+
+### Color Variants
+
+<Canvas of={RatingStories.ColorVariants} />
+
+```html
+<!-- Primary color -->
+<div class="aural-rating aural-rating--primary aural-rating--readonly">...</div>
+
+<!-- Success color -->
+<div class="aural-rating aural-rating--success aural-rating--readonly">...</div>
+
+<!-- Error color -->
+<div class="aural-rating aural-rating--error aural-rating--readonly">...</div>
+```
+
+---
+
+## Patterns
+
+### Review Form
+
+Complete review submission form with rating input.
+
+<Canvas of={RatingStories.ReviewForm} />
+
+### Product Rating Display
+
+Comprehensive rating breakdown with histogram.
+
+<Canvas of={RatingStories.ProductRating} />
+
+---
+
+## Theme Comparison
+
+See how the rating component looks across all 9 Aural UI themes:
+
+<Canvas of={RatingStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+### WCAG AAA Compliance
+
+The Rating component meets the highest accessibility standards:
+
+**Keyboard Navigation:**
+- `Tab` - Focus next/previous star
+- `Enter` or `Space` - Select rating
+- `Arrow Left/Right` - Navigate between stars (recommended enhancement)
+
+**Screen Reader Support:**
+- Each star has descriptive `aria-label` (e.g., "Rate 3 stars")
+- Current rating announced when focused
+- Changes announced when rating is updated
+- Use `role="radiogroup"` for grouped stars (optional enhancement)
+
+**Visual Accessibility:**
+- High contrast between filled and empty stars
+- Color is not the only indicator (shape/fill also changes)
+- Meets WCAG AAA color contrast (7:1+)
+- Focus indicators clearly visible
+- Large touch targets (44x44px minimum)
+
+**Motor Accessibility:**
+- Large click/touch targets
+- No precision required for interaction
+- Hover states provide clear feedback
+- No time-based interactions
+
+### Implementation Example
+
+```html
+<!-- Fully accessible rating -->
+<div
+  class="aural-rating"
+  role="radiogroup"
+  aria-label="Rate this product"
+  data-rating="0"
+>
+  <div class="aural-rating__stars">
+    <button
+      class="aural-rating__star aural-rating__star--empty"
+      role="radio"
+      aria-checked="false"
+      aria-label="Rate 1 star"
+      data-value="1"
+      tabindex="0"
+    >
+      <svg class="aural-rating__star-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+    </button>
+    <!-- More stars... -->
+  </div>
+  <span class="aural-rating__value" aria-live="polite">0.0</span>
+</div>
+```
+
+### Best Practices
+
+**Do:**
+- Provide clear labels for each star
+- Announce rating changes to screen readers
+- Use large, easy-to-click targets
+- Show hover states for visual feedback
+- Display numeric rating alongside stars
+- Use semantic HTML (buttons for interactive, spans for readonly)
+
+**Don't:**
+- Rely solely on color to convey state
+- Make stars too small to click/tap easily
+- Hide the current rating from screen readers
+- Use overly complex interaction patterns
+- Force users to rate (allow skipping)
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-rating` | Base rating container (required) |
+| `.aural-rating--readonly` | Read-only display mode |
+| `.aural-rating--disabled` | Disabled state |
+| `.aural-rating--sm` | Small size |
+| `.aural-rating--lg` | Large size |
+| `.aural-rating--primary` | Primary color variant |
+| `.aural-rating--success` | Success color variant |
+| `.aural-rating--error` | Error color variant |
+| `.aural-rating--heart` | Heart icon variant |
+| `.aural-rating__stars` | Stars container |
+| `.aural-rating__star` | Individual star element |
+| `.aural-rating__star--filled` | Filled star state |
+| `.aural-rating__star--empty` | Empty star state |
+| `.aural-rating__star--half` | Half-filled star state |
+| `.aural-rating__star-icon` | Star SVG icon |
+| `.aural-rating__value` | Numeric rating display |
+| `.aural-rating__count` | Review count display |
+| `.aural-rating__label` | Optional text label |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `data-rating` | number | Current rating value |
+| `data-value` | number | Star value (1-5) |
+| `aria-label` | string | Accessible label for each star |
+| `aria-checked` | boolean | Radio button state (optional) |
+| `role` | string | ARIA role (radiogroup/radio recommended) |
+| `tabindex` | number | Tab order for keyboard navigation |
+| `disabled` | boolean | Disabled state for buttons |
+
+### Events
+
+| Event | Description | Event Detail |
+|-------|-------------|--------------|
+| `ratingChange` | Fired when rating changes | `{ rating: number }` |
+| `click` | Star clicked | Native click event |
+| `mouseenter` | Mouse enters star | Native mouse event |
+| `mouseleave` | Mouse leaves rating | Native mouse event |
+
+### JavaScript API (Optional Enhancement)
+
+```javascript
+class Rating {
+  constructor(element, options = {}) {
+    this.container = element;
+    this.options = {
+      max: options.max || 5,
+      readonly: options.readonly || false,
+      allowHalf: options.allowHalf || false,
+      onChange: options.onChange || null
+    };
+    this.currentRating = parseFloat(element.dataset.rating) || 0;
+    this.init();
+  }
+
+  init() {
+    // Setup event listeners
+  }
+
+  setRating(value) {
+    this.currentRating = value;
+    this.container.dataset.rating = value;
+    this.updateStars();
+    this.options.onChange?.(value);
+  }
+
+  getRating() {
+    return this.currentRating;
+  }
+
+  updateStars() {
+    // Update visual state
+  }
+}
+
+// Usage
+const rating = new Rating(document.querySelector('.aural-rating'), {
+  max: 5,
+  readonly: false,
+  onChange: (value) => console.log('Rating:', value)
+});
+```
+
+---
+
+## Use Cases
+
+**Product Reviews:**
+- E-commerce product ratings
+- Customer feedback collection
+- Review aggregation display
+
+**Content Rating:**
+- Article/blog post ratings
+- Video/media ratings
+- Course/tutorial ratings
+
+**Service Feedback:**
+- Restaurant/hotel ratings
+- App store ratings
+- Driver/delivery ratings
+
+**User Experience:**
+- Feature satisfaction surveys
+- Support experience ratings
+- Onboarding feedback
+
+---
+
+## Related Components
+
+- **Input**: Text input fields for accompanying review text
+- **Textarea**: Multi-line text input for detailed reviews
+- **Slider**: Alternative input method for ratings
+- **Card**: Container for review content
+- **Badge**: Display rating categories or highlights

@@ -1,0 +1,743 @@
+import { Canvas, Meta, Story, Controls } from '@storybook/blocks';
+import * as RangeSliderStories from './RangeSlider.stories';
+
+<Meta of={RangeSliderStories} />
+
+# Range Slider
+
+A dual-handle slider component for selecting minimum and maximum values from a range. Perfect for price filters, date ranges, and any scenario requiring bounded value selection.
+
+## Overview
+
+The Range Slider (Dual Slider) component allows users to select both a minimum and maximum value from a continuous range. Unlike single-value sliders, range sliders are essential for filtering, setting boundaries, and defining intervals.
+
+**Key Features:**
+- Dual independent handles for min/max selection
+- Handles cannot cross each other
+- Full keyboard navigation support
+- Touch-optimized for mobile devices
+- Multiple size variants (Small, Medium, Large)
+- Color variants (Primary, Success, Warning, Error)
+- Optional value displays and input fields
+- WCAG AAA accessible
+- Beautiful presentation across all 9 themes
+
+---
+
+## Interactive Demo
+
+<Canvas of={RangeSliderStories.Default}>
+  <Story of={RangeSliderStories.Default} />
+</Canvas>
+
+<Controls of={RangeSliderStories.Default} />
+
+---
+
+## Usage
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Range Slider -->
+<div class="aural-range-slider">
+  <div class="aural-range-slider__wrapper">
+    <div class="aural-range-slider__track-bg"></div>
+    <div class="aural-range-slider__track-fill"></div>
+    <div class="aural-range-slider__handle aural-range-slider__handle--min"
+         tabindex="0"
+         role="slider"
+         aria-label="Minimum value"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         aria-valuenow="25"></div>
+    <div class="aural-range-slider__handle aural-range-slider__handle--max"
+         tabindex="0"
+         role="slider"
+         aria-label="Maximum value"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         aria-valuenow="75"></div>
+  </div>
+  <div class="aural-range-slider__values">
+    <div class="aural-range-slider__value">
+      <span class="aural-range-slider__value-label">Min:</span>
+      <span class="aural-range-slider__value-number">25</span>
+    </div>
+    <div class="aural-range-slider__value">
+      <span class="aural-range-slider__value-label">Max:</span>
+      <span class="aural-range-slider__value-number">75</span>
+    </div>
+  </div>
+</div>
+
+<!-- With size and variant -->
+<div class="aural-range-slider aural-range-slider--lg aural-range-slider--success">
+  <!-- Same structure as above -->
+</div>
+
+<!-- With limit labels -->
+<div class="aural-range-slider">
+  <div class="aural-range-slider__wrapper">
+    <!-- Handles here -->
+  </div>
+  <div class="aural-range-slider__limits">
+    <span>$0</span>
+    <span>$1000</span>
+  </div>
+</div>
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function RangeSlider({
+  min = 0,
+  max = 100,
+  step = 1,
+  values = [min, max],
+  onChange,
+  prefix = '',
+  suffix = ''
+}) {
+  const [range, setRange] = useState(values);
+  const [activeHandle, setActiveHandle] = useState(null);
+
+  const handleChange = (index, value) => {
+    const newRange = [...range];
+    newRange[index] = value;
+
+    // Prevent handles from crossing
+    if (index === 0 && value <= range[1]) {
+      setRange(newRange);
+      onChange?.(newRange);
+    } else if (index === 1 && value >= range[0]) {
+      setRange(newRange);
+      onChange?.(newRange);
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    const increment = e.shiftKey ? (max - min) * 0.1 : step;
+    let newValue = range[index];
+
+    switch (e.key) {
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        e.preventDefault();
+        newValue = Math.max(min, newValue - increment);
+        break;
+      case 'ArrowRight':
+      case 'ArrowUp':
+        e.preventDefault();
+        newValue = Math.min(max, newValue + increment);
+        break;
+      case 'Home':
+        e.preventDefault();
+        newValue = min;
+        break;
+      case 'End':
+        e.preventDefault();
+        newValue = max;
+        break;
+      case 'PageUp':
+        e.preventDefault();
+        newValue = Math.min(max, newValue + (max - min) * 0.25);
+        break;
+      case 'PageDown':
+        e.preventDefault();
+        newValue = Math.max(min, newValue - (max - min) * 0.25);
+        break;
+      default:
+        return;
+    }
+
+    handleChange(index, newValue);
+  };
+
+  const minPercent = ((range[0] - min) / (max - min)) * 100;
+  const maxPercent = ((range[1] - min) / (max - min)) * 100;
+
+  return (
+    <div className="aural-range-slider">
+      <div className="aural-range-slider__wrapper">
+        <div className="aural-range-slider__track-bg" />
+        <div
+          className="aural-range-slider__track-fill"
+          style={{
+            left: `${minPercent}%`,
+            width: `${maxPercent - minPercent}%`
+          }}
+        />
+        <div
+          className="aural-range-slider__handle aural-range-slider__handle--min"
+          tabIndex={0}
+          role="slider"
+          aria-label="Minimum value"
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuenow={range[0]}
+          onKeyDown={(e) => handleKeyDown(e, 0)}
+          style={{ left: `${minPercent}%` }}
+        />
+        <div
+          className="aural-range-slider__handle aural-range-slider__handle--max"
+          tabIndex={0}
+          role="slider"
+          aria-label="Maximum value"
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuenow={range[1]}
+          onKeyDown={(e) => handleKeyDown(e, 1)}
+          style={{ left: `${maxPercent}%` }}
+        >
+          <div className="aural-range-slider__label">
+            {prefix}{range[1]}{suffix}
+          </div>
+        </div>
+      </div>
+      <div className="aural-range-slider__values">
+        <div className="aural-range-slider__value">
+          <span className="aural-range-slider__value-label">Min:</span>
+          <span className="aural-range-slider__value-number">
+            {prefix}{range[0]}{suffix}
+          </span>
+        </div>
+        <div className="aural-range-slider__value">
+          <span className="aural-range-slider__value-label">Max:</span>
+          <span className="aural-range-slider__value-number">
+            {prefix}{range[1]}{suffix}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+function PriceFilter() {
+  const [priceRange, setPriceRange] = useState([50, 500]);
+
+  return (
+    <RangeSlider
+      min={0}
+      max={1000}
+      step={10}
+      values={priceRange}
+      onChange={setPriceRange}
+      prefix="$"
+    />
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div class="aural-range-slider">
+    <div class="aural-range-slider__wrapper">
+      <div class="aural-range-slider__track-bg" />
+      <div
+        class="aural-range-slider__track-fill"
+        :style="fillStyle"
+      />
+      <div
+        ref="minHandle"
+        class="aural-range-slider__handle aural-range-slider__handle--min"
+        tabindex="0"
+        role="slider"
+        aria-label="Minimum value"
+        :aria-valuemin="min"
+        :aria-valuemax="max"
+        :aria-valuenow="range[0]"
+        :style="{ left: `${minPercent}%` }"
+        @keydown="(e) => handleKeyDown(e, 0)"
+      />
+      <div
+        ref="maxHandle"
+        class="aural-range-slider__handle aural-range-slider__handle--max"
+        tabindex="0"
+        role="slider"
+        aria-label="Maximum value"
+        :aria-valuemin="min"
+        :aria-valuemax="max"
+        :aria-valuenow="range[1]"
+        :style="{ left: `${maxPercent}%` }"
+        @keydown="(e) => handleKeyDown(e, 1)"
+      >
+        <div class="aural-range-slider__label">
+          {{ prefix }}{{ range[1] }}{{ suffix }}
+        </div>
+      </div>
+    </div>
+    <div class="aural-range-slider__values">
+      <div class="aural-range-slider__value">
+        <span class="aural-range-slider__value-label">Min:</span>
+        <span class="aural-range-slider__value-number">
+          {{ prefix }}{{ range[0] }}{{ suffix }}
+        </span>
+      </div>
+      <div class="aural-range-slider__value">
+        <span class="aural-range-slider__value-label">Max:</span>
+        <span class="aural-range-slider__value-number">
+          {{ prefix }}{{ range[1] }}{{ suffix }}
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue';
+
+const props = defineProps({
+  modelValue: {
+    type: Array,
+    default: () => [0, 100]
+  },
+  min: {
+    type: Number,
+    default: 0
+  },
+  max: {
+    type: Number,
+    default: 100
+  },
+  step: {
+    type: Number,
+    default: 1
+  },
+  prefix: {
+    type: String,
+    default: ''
+  },
+  suffix: {
+    type: String,
+    default: ''
+  }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const range = ref([...props.modelValue]);
+
+const minPercent = computed(() => {
+  return ((range.value[0] - props.min) / (props.max - props.min)) * 100;
+});
+
+const maxPercent = computed(() => {
+  return ((range.value[1] - props.min) / (props.max - props.min)) * 100;
+});
+
+const fillStyle = computed(() => ({
+  left: `${minPercent.value}%`,
+  width: `${maxPercent.value - minPercent.value}%`
+}));
+
+const handleChange = (index, value) => {
+  const newRange = [...range.value];
+  newRange[index] = value;
+
+  // Prevent handles from crossing
+  if (index === 0 && value <= range.value[1]) {
+    range.value = newRange;
+    emit('update:modelValue', newRange);
+  } else if (index === 1 && value >= range.value[0]) {
+    range.value = newRange;
+    emit('update:modelValue', newRange);
+  }
+};
+
+const handleKeyDown = (e, index) => {
+  const increment = e.shiftKey ? (props.max - props.min) * 0.1 : props.step;
+  let newValue = range.value[index];
+
+  switch (e.key) {
+    case 'ArrowLeft':
+    case 'ArrowDown':
+      e.preventDefault();
+      newValue = Math.max(props.min, newValue - increment);
+      break;
+    case 'ArrowRight':
+    case 'ArrowUp':
+      e.preventDefault();
+      newValue = Math.min(props.max, newValue + increment);
+      break;
+    case 'Home':
+      e.preventDefault();
+      newValue = props.min;
+      break;
+    case 'End':
+      e.preventDefault();
+      newValue = props.max;
+      break;
+    default:
+      return;
+  }
+
+  handleChange(index, newValue);
+};
+</script>
+
+<!-- Usage -->
+<script setup>
+import RangeSlider from './RangeSlider.vue';
+import { ref } from 'vue';
+
+const priceRange = ref([50, 500]);
+</script>
+
+<template>
+  <RangeSlider
+    v-model="priceRange"
+    :min="0"
+    :max="1000"
+    :step="10"
+    prefix="$"
+  />
+</template>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let values = [0, 100];
+  export let min = 0;
+  export let max = 100;
+  export let step = 1;
+  export let prefix = '';
+  export let suffix = '';
+
+  let range = [...values];
+  $: range = [...values];
+
+  $: minPercent = ((range[0] - min) / (max - min)) * 100;
+  $: maxPercent = ((range[1] - min) / (max - min)) * 100;
+
+  function handleChange(index, value) {
+    const newRange = [...range];
+    newRange[index] = value;
+
+    // Prevent handles from crossing
+    if (index === 0 && value <= range[1]) {
+      range = newRange;
+      values = newRange;
+    } else if (index === 1 && value >= range[0]) {
+      range = newRange;
+      values = newRange;
+    }
+  }
+
+  function handleKeyDown(e, index) {
+    const increment = e.shiftKey ? (max - min) * 0.1 : step;
+    let newValue = range[index];
+
+    switch (e.key) {
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        e.preventDefault();
+        newValue = Math.max(min, newValue - increment);
+        break;
+      case 'ArrowRight':
+      case 'ArrowUp':
+        e.preventDefault();
+        newValue = Math.min(max, newValue + increment);
+        break;
+      case 'Home':
+        e.preventDefault();
+        newValue = min;
+        break;
+      case 'End':
+        e.preventDefault();
+        newValue = max;
+        break;
+      default:
+        return;
+    }
+
+    handleChange(index, newValue);
+  }
+</script>
+
+<div class="aural-range-slider">
+  <div class="aural-range-slider__wrapper">
+    <div class="aural-range-slider__track-bg"></div>
+    <div
+      class="aural-range-slider__track-fill"
+      style="left: {minPercent}%; width: {maxPercent - minPercent}%"
+    ></div>
+    <div
+      class="aural-range-slider__handle aural-range-slider__handle--min"
+      tabindex="0"
+      role="slider"
+      aria-label="Minimum value"
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={range[0]}
+      style="left: {minPercent}%"
+      on:keydown={(e) => handleKeyDown(e, 0)}
+    ></div>
+    <div
+      class="aural-range-slider__handle aural-range-slider__handle--max"
+      tabindex="0"
+      role="slider"
+      aria-label="Maximum value"
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={range[1]}
+      style="left: {maxPercent}%"
+      on:keydown={(e) => handleKeyDown(e, 1)}
+    >
+      <div class="aural-range-slider__label">
+        {prefix}{range[1]}{suffix}
+      </div>
+    </div>
+  </div>
+  <div class="aural-range-slider__values">
+    <div class="aural-range-slider__value">
+      <span class="aural-range-slider__value-label">Min:</span>
+      <span class="aural-range-slider__value-number">
+        {prefix}{range[0]}{suffix}
+      </span>
+    </div>
+    <div class="aural-range-slider__value">
+      <span class="aural-range-slider__value-label">Max:</span>
+      <span class="aural-range-slider__value-number">
+        {prefix}{range[1]}{suffix}
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Usage -->
+<script>
+  import RangeSlider from './RangeSlider.svelte';
+  let priceRange = [50, 500];
+</script>
+
+<RangeSlider
+  bind:values={priceRange}
+  min={0}
+  max={1000}
+  step={10}
+  prefix="$"
+/>
+```
+
+---
+
+## Common Use Cases
+
+### Price Range Filter
+
+<Canvas of={RangeSliderStories.PriceRange} />
+
+Perfect for e-commerce filtering. Shows currency formatting and supports step increments for smoother interaction.
+
+### Age Range Selector
+
+<Canvas of={RangeSliderStories.AgeRange} />
+
+Filter content or search results by age range. Set appropriate minimum values (e.g., 18 for adult content).
+
+### Time Range
+
+<Canvas of={RangeSliderStories.TimeRange} />
+
+Select time windows for scheduling, availability, or filtering time-based data.
+
+### Temperature Range
+
+<Canvas of={RangeSliderStories.TemperatureRange} />
+
+Use color variants to convey semantic meaning (Success for comfortable temperature ranges).
+
+---
+
+## Sizes
+
+<Canvas of={RangeSliderStories.Small} />
+<Canvas of={RangeSliderStories.Large} />
+
+- **Small (`aural-range-slider--sm`)**: Compact spaces, inline filters, tables
+- **Medium (default)**: Standard use cases, forms, filter panels
+- **Large (`aural-range-slider--lg`)**: Emphasis, mobile-first designs, touch-heavy interfaces
+
+---
+
+## Color Variants
+
+<Canvas of={RangeSliderStories.ColorVariants} />
+
+- **Primary (default)**: Standard range selection
+- **Success (`aural-range-slider--success`)**: Positive ranges (comfort zones, ideal values)
+- **Warning (`aural-range-slider--warning`)**: Caution ranges (moderate risk areas)
+- **Error (`aural-range-slider--error`)**: Critical ranges (danger zones, restricted areas)
+
+---
+
+## States
+
+### Disabled
+
+<Canvas of={RangeSliderStories.Disabled} />
+
+Disabled range sliders are not interactive and indicate unavailable functionality. Set `tabindex="-1"` on handles when disabled.
+
+---
+
+## Theme Comparison
+
+See how the Range Slider appears across all 9 Aural UI themes:
+
+<Canvas of={RangeSliderStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+The Range Slider component meets WCAG AAA accessibility standards.
+
+### Keyboard Navigation
+
+Both handles support full keyboard interaction:
+
+- **Tab**: Move focus between handles
+- **Arrow Left/Down**: Decrease value by step
+- **Arrow Right/Up**: Increase value by step
+- **Shift + Arrows**: Large increments (10% of range)
+- **Home**: Jump to minimum value
+- **End**: Jump to maximum value
+- **Page Up/Down**: Medium increments (25% of range)
+
+### Screen Reader Support
+
+Each handle includes:
+- `role="slider"` for proper element identification
+- `aria-label` describing the handle's purpose
+- `aria-valuemin`, `aria-valuemax`, `aria-valuenow` for current state
+- `aria-orientation="vertical"` for vertical sliders (when applicable)
+
+### Color Contrast
+
+- All variants meet WCAG AAA contrast ratios (7:1+)
+- Track fill provides clear visual feedback
+- Focus indicators are prominent and visible
+- High Contrast theme available for additional accessibility
+
+### Touch Targets
+
+- Handles are minimum 44x44px for easy touch interaction
+- Increased handle size on small screens
+- Adequate spacing prevents accidental handle selection
+
+---
+
+## Handle Interaction
+
+### Preventing Handles from Crossing
+
+The component ensures handles never cross:
+
+```javascript
+// Minimum handle constraint
+if (newMinValue > maxValue - 1) {
+  newMinValue = maxValue - 1;
+}
+
+// Maximum handle constraint
+if (newMaxValue < minValue + 1) {
+  newMaxValue = minValue + 1;
+}
+```
+
+### Visual Feedback
+
+- Track fill updates in real-time
+- Active handle receives visual emphasis
+- Value labels update during interaction
+- Smooth transitions enhance user experience
+
+---
+
+## Best Practices
+
+**Do:**
+- Use for selecting bounded ranges (price, age, time)
+- Provide clear min/max labels or limit indicators
+- Show current values prominently
+- Use appropriate step increments for the data type
+- Consider providing input fields for precise entry
+- Use color variants to convey semantic meaning
+- Ensure adequate spacing between handles at rest
+
+**Don't:**
+- Use for single value selection (use regular Slider instead)
+- Use for categorical or non-numeric data
+- Make handles too small for touch targets
+- Hide current values from users
+- Allow handles to cross each other
+- Use without proper ARIA attributes
+- Forget to prevent handle collision
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-range-slider` | Base range slider container (required) |
+| `.aural-range-slider--sm` | Small size variant |
+| `.aural-range-slider--lg` | Large size variant |
+| `.aural-range-slider--success` | Success color variant |
+| `.aural-range-slider--warning` | Warning color variant |
+| `.aural-range-slider--error` | Error color variant |
+| `.aural-range-slider--disabled` | Disabled state |
+| `.aural-range-slider__wrapper` | Handle and track container |
+| `.aural-range-slider__track-bg` | Background track |
+| `.aural-range-slider__track-fill` | Active range fill |
+| `.aural-range-slider__handle` | Draggable handle (base) |
+| `.aural-range-slider__handle--min` | Minimum value handle |
+| `.aural-range-slider__handle--max` | Maximum value handle |
+| `.aural-range-slider__label` | Value label on handle |
+| `.aural-range-slider__values` | Value display container |
+| `.aural-range-slider__value` | Individual value display |
+| `.aural-range-slider__value-label` | Value label text |
+| `.aural-range-slider__value-number` | Value number text |
+| `.aural-range-slider__limits` | Min/max limit labels |
+
+### ARIA Attributes
+
+| Attribute | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `role="slider"` | string | Yes | Identifies element as slider handle |
+| `aria-label` | string | Yes | Describes handle purpose |
+| `aria-valuemin` | number | Yes | Minimum possible value |
+| `aria-valuemax` | number | Yes | Maximum possible value |
+| `aria-valuenow` | number | Yes | Current value |
+| `aria-orientation` | string | No | "horizontal" or "vertical" |
+| `tabindex` | number | Yes | 0 for enabled, -1 for disabled |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `tabindex` | number | Keyboard navigation (0 or -1) |
+
+---
+
+## Related Components
+
+- **Slider**: Single-value slider for simple selection
+- **Input**: Text input for precise value entry
+- **Number Input**: Numeric input with increment/decrement controls
+- **Date Range Picker**: Calendar-based date range selection
+- **Filter Panel**: Container for multiple filter controls

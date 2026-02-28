@@ -1,0 +1,741 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as SearchBarStories from './SearchBar.stories';
+
+<Meta of={SearchBarStories} />
+
+# Search Bar
+
+Versatile search input components with autocomplete, filters, keyboard shortcuts, and command palette functionality for enhanced user experience.
+
+## Overview
+
+The Search Bar component is essential for navigation and content discovery. It can be a simple input field or a sophisticated command palette with autocomplete, filters, and keyboard shortcuts.
+
+**Key Features:**
+- Multiple sizes (Small, Medium, Large)
+- Search icon and clear button
+- Loading states with spinner
+- Keyboard shortcuts (⌘K / Ctrl+K)
+- ARIA attributes for accessibility
+- WCAG AAA compliant contrast
+- Support for autocomplete and suggestions
+
+---
+
+## Usage
+
+<Canvas of={SearchBarStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Search Bar -->
+<div class="aural-search-bar" role="search">
+  <div class="aural-search-bar__wrapper">
+    <div class="aural-search-bar__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+    </div>
+    <input
+      type="text"
+      class="aural-search-bar__input"
+      placeholder="Search..."
+      aria-label="Search"
+    >
+  </div>
+</div>
+
+<!-- With Clear Button -->
+<div class="aural-search-bar" role="search">
+  <div class="aural-search-bar__wrapper">
+    <div class="aural-search-bar__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+    </div>
+    <input
+      type="text"
+      class="aural-search-bar__input"
+      placeholder="Type to search..."
+      aria-label="Search with clear button"
+    >
+    <button class="aural-search-bar__clear" aria-label="Clear search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- With Keyboard Shortcut -->
+<div class="aural-search-bar" role="search">
+  <div class="aural-search-bar__wrapper" style="position: relative;">
+    <div class="aural-search-bar__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+    </div>
+    <input
+      type="text"
+      id="search-input"
+      class="aural-search-bar__input"
+      placeholder="Search..."
+      aria-label="Search with keyboard shortcut"
+    >
+    <kbd style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);">⌘K</kbd>
+  </div>
+</div>
+
+<script>
+// Keyboard shortcut support
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('search-input').focus();
+  }
+});
+</script>
+```
+
+### React
+
+```jsx
+import { useState, useEffect, useRef } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+// Basic Search Bar
+function SearchBar({
+  placeholder = 'Search...',
+  onSearch,
+  showClearButton = true,
+  ...props
+}) {
+  const [query, setQuery] = useState('');
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+    onSearch?.(value);
+  };
+
+  const handleClear = () => {
+    setQuery('');
+    onSearch?.('');
+  };
+
+  return (
+    <div className="aural-search-bar" role="search">
+      <div className="aural-search-bar__wrapper">
+        <div className="aural-search-bar__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </div>
+        <input
+          type="text"
+          className="aural-search-bar__input"
+          placeholder={placeholder}
+          value={query}
+          onChange={handleChange}
+          aria-label={placeholder}
+          {...props}
+        />
+        {showClearButton && query && (
+          <button
+            className="aural-search-bar__clear"
+            onClick={handleClear}
+            aria-label="Clear search"
+            type="button"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// With Debounce for API calls
+function DebouncedSearchBar({ onSearch, delay = 300, ...props }) {
+  const [query, setQuery] = useState('');
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    // Clear existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // Set new timeout for debounced search
+    timeoutRef.current = setTimeout(() => {
+      onSearch?.(query);
+    }, delay);
+
+    // Cleanup on unmount
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [query, delay, onSearch]);
+
+  return (
+    <SearchBar
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      {...props}
+    />
+  );
+}
+
+// With Keyboard Shortcut
+function SearchBarWithShortcut({ ...props }) {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  return (
+    <div className="aural-search-bar" role="search">
+      <div className="aural-search-bar__wrapper" style={{ position: 'relative' }}>
+        <div className="aural-search-bar__icon" aria-hidden="true">
+          <SearchIcon />
+        </div>
+        <input
+          ref={inputRef}
+          type="text"
+          className="aural-search-bar__input"
+          placeholder="Search..."
+          aria-label="Search with keyboard shortcut"
+          {...props}
+        />
+        <kbd style={{
+          position: 'absolute',
+          right: '12px',
+          top: '50%',
+          transform: 'translateY(-50%)'
+        }}>
+          ⌘K
+        </kbd>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+<SearchBar
+  placeholder="Search components..."
+  onSearch={(query) => console.log('Search:', query)}
+/>
+
+<DebouncedSearchBar
+  placeholder="Search with debounce..."
+  onSearch={(query) => fetchResults(query)}
+  delay={500}
+/>
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div class="aural-search-bar" role="search">
+    <div class="aural-search-bar__wrapper">
+      <div class="aural-search-bar__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+      </div>
+      <input
+        v-model="query"
+        type="text"
+        class="aural-search-bar__input"
+        :placeholder="placeholder"
+        :aria-label="placeholder"
+        @input="handleSearch"
+      />
+      <button
+        v-if="showClearButton && query"
+        class="aural-search-bar__clear"
+        @click="handleClear"
+        aria-label="Clear search"
+        type="button"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch, onMounted, onUnmounted } from 'vue';
+
+const props = defineProps({
+  placeholder: {
+    type: String,
+    default: 'Search...'
+  },
+  showClearButton: {
+    type: Boolean,
+    default: true
+  },
+  debounce: {
+    type: Number,
+    default: 0
+  },
+  keyboardShortcut: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const emit = defineEmits(['search', 'clear']);
+
+const query = ref('');
+let timeoutId = null;
+
+const handleSearch = () => {
+  if (props.debounce > 0) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      emit('search', query.value);
+    }, props.debounce);
+  } else {
+    emit('search', query.value);
+  }
+};
+
+const handleClear = () => {
+  query.value = '';
+  emit('clear');
+  emit('search', '');
+};
+
+// Keyboard shortcut support
+const handleKeyDown = (e) => {
+  if (props.keyboardShortcut && (e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.querySelector('.aural-search-bar__input')?.focus();
+  }
+};
+
+onMounted(() => {
+  if (props.keyboardShortcut) {
+    document.addEventListener('keydown', handleKeyDown);
+  }
+});
+
+onUnmounted(() => {
+  if (props.keyboardShortcut) {
+    document.removeEventListener('keydown', handleKeyDown);
+  }
+  clearTimeout(timeoutId);
+});
+
+// Watch for external value changes
+watch(() => props.modelValue, (newValue) => {
+  query.value = newValue || '';
+});
+</script>
+
+<!-- Usage -->
+<SearchBar
+  placeholder="Search components..."
+  :debounce="300"
+  @search="handleSearch"
+/>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount, onDestroy } from 'svelte';
+
+  export let placeholder = 'Search...';
+  export let showClearButton = true;
+  export let debounce = 0;
+  export let keyboardShortcut = false;
+
+  let query = '';
+  let timeoutId;
+  let inputElement;
+
+  // Reactive search handler
+  $: if (query !== undefined) {
+    if (debounce > 0) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        handleSearch();
+      }, debounce);
+    } else {
+      handleSearch();
+    }
+  }
+
+  function handleSearch() {
+    // Dispatch custom event
+    const event = new CustomEvent('search', { detail: query });
+    dispatchEvent(event);
+  }
+
+  function handleClear() {
+    query = '';
+    inputElement?.focus();
+  }
+
+  function handleKeyDown(e) {
+    if (keyboardShortcut && (e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      inputElement?.focus();
+    }
+  }
+
+  onMount(() => {
+    if (keyboardShortcut) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+  });
+
+  onDestroy(() => {
+    if (keyboardShortcut) {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+    clearTimeout(timeoutId);
+  });
+</script>
+
+<div class="aural-search-bar" role="search">
+  <div class="aural-search-bar__wrapper">
+    <div class="aural-search-bar__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+    </div>
+    <input
+      bind:this={inputElement}
+      bind:value={query}
+      type="text"
+      class="aural-search-bar__input"
+      {placeholder}
+      aria-label={placeholder}
+    />
+    {#if showClearButton && query}
+      <button
+        class="aural-search-bar__clear"
+        on:click={handleClear}
+        aria-label="Clear search"
+        type="button"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    {/if}
+  </div>
+</div>
+
+<!-- Usage -->
+<SearchBar
+  placeholder="Search components..."
+  debounce={300}
+  keyboardShortcut={true}
+  on:search={(e) => console.log('Search:', e.detail)}
+/>
+```
+
+---
+
+## Variants & States
+
+### Sizes
+
+<Canvas of={SearchBarStories.AllSizes} />
+
+- **Small (`aural-search-bar--sm`)**: Compact spaces, toolbars, inline search
+- **Medium (default)**: Standard search bar for most use cases
+- **Large (`aural-search-bar--lg`)**: Hero sections, primary search areas
+
+### With Clear Button
+
+<Canvas of={SearchBarStories.WithClearButton} />
+
+Provide a clear button to quickly reset the search input.
+
+### Loading State
+
+<Canvas of={SearchBarStories.Loading} />
+
+Show loading state during search operations with animated spinner.
+
+### With Results
+
+<Canvas of={SearchBarStories.WithResults} />
+
+Display autocomplete suggestions or search results below the input.
+
+### Keyboard Shortcut
+
+<Canvas of={SearchBarStories.WithKeyboardShortcut} />
+
+Add keyboard shortcut hints (⌘K / Ctrl+K) for quick access.
+
+---
+
+## Search Patterns
+
+### Instant Search
+
+Trigger search on every keystroke (use with debouncing):
+
+```javascript
+const input = document.querySelector('.aural-search-bar__input');
+
+// With debounce to avoid excessive API calls
+let timeoutId;
+input.addEventListener('input', (e) => {
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => {
+    performSearch(e.target.value);
+  }, 300); // 300ms debounce
+});
+
+function performSearch(query) {
+  // Fetch and display results
+  console.log('Searching for:', query);
+}
+```
+
+### Debounced Search
+
+Wait for user to stop typing before searching:
+
+```javascript
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+const debouncedSearch = debounce((query) => {
+  fetch(`/api/search?q=${encodeURIComponent(query)}`)
+    .then(res => res.json())
+    .then(results => displayResults(results));
+}, 500);
+
+input.addEventListener('input', (e) => debouncedSearch(e.target.value));
+```
+
+### On Submit Search
+
+Only search when user submits (presses Enter):
+
+```javascript
+const form = document.querySelector('.aural-search-bar');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const query = input.value;
+  performSearch(query);
+});
+```
+
+### Clear Functionality
+
+```javascript
+const clearButton = document.querySelector('.aural-search-bar__clear');
+const input = document.querySelector('.aural-search-bar__input');
+
+clearButton.addEventListener('click', () => {
+  input.value = '';
+  input.focus();
+  // Optional: clear results
+  clearResults();
+});
+```
+
+---
+
+## Accessibility
+
+The Search Bar component is built with accessibility as a top priority:
+
+### ARIA Attributes
+
+- **`role="search"`**: Identifies the search landmark
+- **`aria-label`**: Provides accessible name for the input
+- **`aria-busy="true"`**: Indicates loading state to screen readers
+- **`aria-autocomplete="list"`**: Announces autocomplete behavior
+- **`aria-expanded`**: Indicates whether suggestions are visible
+- **`aria-activedescendant`**: Identifies the active suggestion for keyboard navigation
+
+### Keyboard Shortcuts
+
+- **⌘K / Ctrl+K**: Focus search input (industry standard)
+- **Escape**: Clear input or close suggestions
+- **↑/↓ Arrow Keys**: Navigate through suggestions
+- **Enter**: Select highlighted suggestion or submit search
+- **Tab**: Move focus to clear button or next element
+
+### Screen Reader Support
+
+```html
+<!-- Proper ARIA labeling -->
+<div class="aural-search-bar" role="search">
+  <div class="aural-search-bar__wrapper">
+    <div class="aural-search-bar__icon" aria-hidden="true">
+      <!-- Icon hidden from screen readers -->
+    </div>
+    <input
+      type="text"
+      class="aural-search-bar__input"
+      placeholder="Search..."
+      aria-label="Search components"
+      aria-autocomplete="list"
+      aria-expanded="false"
+    >
+  </div>
+</div>
+
+<!-- Results with proper roles -->
+<div class="search-suggestions" role="listbox" aria-live="polite">
+  <div class="suggestion-item" role="option" aria-selected="true">
+    Button Component
+  </div>
+</div>
+```
+
+### Color Contrast
+
+All text and icons meet **WCAG AAA** standards (7:1+ contrast ratio):
+- Input text: High contrast against background
+- Placeholder text: Sufficient contrast for readability
+- Icons: Clear and visible in all themes
+
+### Touch Targets
+
+- Minimum 44x44px touch target for mobile
+- Adequate spacing between interactive elements
+- Clear button is easily tappable
+
+---
+
+## Theme Comparison
+
+See how the Search Bar looks across all 9 Aural UI themes:
+
+<Canvas of={SearchBarStories.ThemeComparison} />
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-search-bar` | Base search bar container (required) |
+| `.aural-search-bar--sm` | Small size variant |
+| `.aural-search-bar--lg` | Large size variant |
+| `.aural-search-bar__wrapper` | Inner wrapper for flex layout |
+| `.aural-search-bar__icon` | Search icon container |
+| `.aural-search-bar__input` | Text input element |
+| `.aural-search-bar__clear` | Clear button |
+| `.aural-search-bar__suggestions` | Autocomplete suggestions container |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `role="search"` | string | Identifies search landmark |
+| `aria-label` | string | Accessible label for input |
+| `aria-busy` | boolean | Loading state indicator |
+| `aria-autocomplete` | string | Autocomplete behavior ("list", "both") |
+| `aria-expanded` | boolean | Whether suggestions are visible |
+| `placeholder` | string | Placeholder text |
+| `disabled` | boolean | Disables the input |
+
+### JavaScript Events
+
+```javascript
+// Input events
+input.addEventListener('input', (e) => {
+  console.log('Query:', e.target.value);
+});
+
+// Submit event (if wrapped in form)
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  performSearch(input.value);
+});
+
+// Clear button
+clearBtn.addEventListener('click', () => {
+  input.value = '';
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    input.focus();
+  }
+});
+```
+
+---
+
+## Best Practices
+
+**Do:**
+- Use debouncing for instant search to reduce API calls
+- Provide clear button for easy input clearing
+- Show loading states during search operations
+- Implement keyboard shortcuts for power users
+- Use proper ARIA attributes for accessibility
+- Limit suggestions to 5-8 items for better UX
+- Highlight matching text in suggestions
+
+**Don't:**
+- Search on every keystroke without debouncing
+- Make the search bar too small for mobile users
+- Forget to handle empty states
+- Rely solely on placeholder text for instructions
+- Ignore keyboard navigation in suggestions
+- Show too many suggestions at once
+
+---
+
+## Related Components
+
+- **Input**: Basic text input field
+- **Combobox**: Dropdown with search functionality
+- **Command Palette**: Modal search with actions
+- **Autocomplete**: Input with suggestions
+- **Filter**: Search with category filters

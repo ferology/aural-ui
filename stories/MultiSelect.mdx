@@ -1,0 +1,814 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as MultiSelectStories from './MultiSelect.stories';
+
+<Meta of={MultiSelectStories} />
+
+# Multi-Select
+
+The Multi-Select component allows users to select multiple items from a list with visual feedback through tags, optional search functionality, and comprehensive keyboard navigation.
+
+## Overview
+
+Multi-Select is ideal for scenarios where users need to choose multiple related options from a predefined list, such as selecting skills, categories, team members, or filters.
+
+**Key Features:**
+- Visual tags for selected items
+- Optional search/filter functionality
+- Keyboard navigation (Arrow keys, Space, Enter)
+- Support for grouped options
+- Customizable size variants
+- Maximum selection limits
+- WCAG AAA compliant
+- Full screen reader support
+
+---
+
+## Interactive Demo
+
+<Canvas of={MultiSelectStories.Default} />
+
+---
+
+## Usage
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Multi-Select -->
+<div class="aural-multi-select" id="basic-multi-select">
+  <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox">
+    <div class="aural-multi-select__tags"></div>
+    <span class="aural-multi-select__placeholder">Select items...</span>
+    <span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </span>
+    <span class="aural-multi-select__arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </span>
+  </div>
+  <div class="aural-multi-select__dropdown">
+    <div class="aural-multi-select__search">
+      <input type="text" class="aural-multi-select__search-input" placeholder="Search...">
+    </div>
+    <div class="aural-multi-select__options">
+      <button class="aural-multi-select__option" data-value="option1" role="option" aria-selected="false">
+        <span class="aural-multi-select__checkbox" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </span>
+        <span class="aural-multi-select__option-label">Option 1</span>
+      </button>
+      <button class="aural-multi-select__option" data-value="option2" role="option" aria-selected="false">
+        <span class="aural-multi-select__checkbox" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </span>
+        <span class="aural-multi-select__option-label">Option 2</span>
+      </button>
+      <!-- More options... -->
+    </div>
+  </div>
+</div>
+
+<script>
+// Initialize multi-select
+Aural.initMultiSelect('basic-multi-select', {
+  searchable: true,
+  onChange: (values) => console.log('Selected:', values)
+});
+</script>
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function MultiSelect({ options, value = [], onChange, placeholder, searchable, maxSelections }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selected, setSelected] = useState(value);
+
+  const filteredOptions = searchable
+    ? options.filter(opt =>
+        opt.label.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : options;
+
+  const toggleOption = (optionValue) => {
+    let newSelected;
+    if (selected.includes(optionValue)) {
+      newSelected = selected.filter(v => v !== optionValue);
+    } else {
+      if (maxSelections && selected.length >= maxSelections) {
+        return; // Max selections reached
+      }
+      newSelected = [...selected, optionValue];
+    }
+    setSelected(newSelected);
+    onChange?.(newSelected);
+  };
+
+  const removeTag = (valueToRemove) => {
+    const newSelected = selected.filter(v => v !== valueToRemove);
+    setSelected(newSelected);
+    onChange?.(newSelected);
+  };
+
+  const clearAll = () => {
+    setSelected([]);
+    onChange?.([]);
+  };
+
+  return (
+    <div className="aural-multi-select">
+      <div
+        className="aural-multi-select__trigger"
+        tabIndex={0}
+        role="button"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="aural-multi-select__tags">
+          {selected.map(val => {
+            const option = options.find(opt => opt.value === val);
+            return (
+              <span key={val} className="aural-multi-select__tag">
+                {option?.label}
+                <button
+                  className="aural-multi-select__tag-remove"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeTag(val);
+                  }}
+                  aria-label={`Remove ${option?.label}`}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+              </span>
+            );
+          })}
+        </div>
+        {selected.length === 0 && (
+          <span className="aural-multi-select__placeholder">{placeholder}</span>
+        )}
+        {selected.length > 0 && (
+          <span
+            className="aural-multi-select__clear"
+            role="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              clearAll();
+            }}
+            aria-label="Clear all"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </span>
+        )}
+        <span className="aural-multi-select__arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </span>
+      </div>
+      {isOpen && (
+        <div className="aural-multi-select__dropdown" role="listbox" aria-multiselectable="true">
+          {searchable && (
+            <div className="aural-multi-select__search">
+              <input
+                type="text"
+                className="aural-multi-select__search-input"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          )}
+          <div className="aural-multi-select__options">
+            {filteredOptions.map(option => (
+              <button
+                key={option.value}
+                className={`aural-multi-select__option ${
+                  selected.includes(option.value) ? 'aural-multi-select__option--selected' : ''
+                }`}
+                role="option"
+                aria-selected={selected.includes(option.value)}
+                onClick={() => toggleOption(option.value)}
+              >
+                <span className="aural-multi-select__checkbox" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </span>
+                <span className="aural-multi-select__option-label">{option.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Usage
+function MyComponent() {
+  const [selected, setSelected] = useState([]);
+
+  const options = [
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue' },
+    { value: 'angular', label: 'Angular' },
+    { value: 'svelte', label: 'Svelte' }
+  ];
+
+  return (
+    <MultiSelect
+      options={options}
+      value={selected}
+      onChange={setSelected}
+      placeholder="Select frameworks..."
+      searchable
+      maxSelections={3}
+    />
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div class="aural-multi-select">
+    <div
+      class="aural-multi-select__trigger"
+      tabindex="0"
+      role="button"
+      aria-haspopup="listbox"
+      :aria-expanded="isOpen"
+      @click="isOpen = !isOpen"
+    >
+      <div class="aural-multi-select__tags">
+        <span
+          v-for="val in selected"
+          :key="val"
+          class="aural-multi-select__tag"
+        >
+          {{ getOptionLabel(val) }}
+          <button
+            class="aural-multi-select__tag-remove"
+            @click.stop="removeTag(val)"
+            :aria-label="`Remove ${getOptionLabel(val)}`"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </span>
+      </div>
+      <span v-if="selected.length === 0" class="aural-multi-select__placeholder">
+        {{ placeholder }}
+      </span>
+      <span
+        v-if="selected.length > 0"
+        class="aural-multi-select__clear"
+        role="button"
+        @click.stop="clearAll"
+        aria-label="Clear all"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </span>
+      <span class="aural-multi-select__arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </span>
+    </div>
+    <div
+      v-if="isOpen"
+      class="aural-multi-select__dropdown"
+      role="listbox"
+      aria-multiselectable="true"
+    >
+      <div v-if="searchable" class="aural-multi-select__search">
+        <input
+          type="text"
+          class="aural-multi-select__search-input"
+          placeholder="Search..."
+          v-model="searchTerm"
+          @click.stop
+        />
+      </div>
+      <div class="aural-multi-select__options">
+        <button
+          v-for="option in filteredOptions"
+          :key="option.value"
+          :class="[
+            'aural-multi-select__option',
+            { 'aural-multi-select__option--selected': selected.includes(option.value) }
+          ]"
+          role="option"
+          :aria-selected="selected.includes(option.value)"
+          @click="toggleOption(option.value)"
+        >
+          <span class="aural-multi-select__checkbox" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+          <span class="aural-multi-select__option-label">{{ option.label }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue';
+
+const props = defineProps({
+  options: {
+    type: Array,
+    required: true
+  },
+  modelValue: {
+    type: Array,
+    default: () => []
+  },
+  placeholder: {
+    type: String,
+    default: 'Select items...'
+  },
+  searchable: {
+    type: Boolean,
+    default: false
+  },
+  maxSelections: {
+    type: Number,
+    default: null
+  }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const isOpen = ref(false);
+const searchTerm = ref('');
+const selected = ref([...props.modelValue]);
+
+const filteredOptions = computed(() => {
+  if (!props.searchable || !searchTerm.value) {
+    return props.options;
+  }
+  return props.options.filter(opt =>
+    opt.label.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
+});
+
+const getOptionLabel = (value) => {
+  const option = props.options.find(opt => opt.value === value);
+  return option?.label || value;
+};
+
+const toggleOption = (value) => {
+  if (selected.value.includes(value)) {
+    selected.value = selected.value.filter(v => v !== value);
+  } else {
+    if (props.maxSelections && selected.value.length >= props.maxSelections) {
+      return;
+    }
+    selected.value = [...selected.value, value];
+  }
+  emit('update:modelValue', selected.value);
+};
+
+const removeTag = (value) => {
+  selected.value = selected.value.filter(v => v !== value);
+  emit('update:modelValue', selected.value);
+};
+
+const clearAll = () => {
+  selected.value = [];
+  emit('update:modelValue', selected.value);
+};
+</script>
+
+<!-- Usage -->
+<script setup>
+import { ref } from 'vue';
+
+const selected = ref([]);
+const options = [
+  { value: 'react', label: 'React' },
+  { value: 'vue', label: 'Vue' },
+  { value: 'angular', label: 'Angular' }
+];
+</script>
+
+<MultiSelect
+  v-model="selected"
+  :options="options"
+  placeholder="Select frameworks..."
+  searchable
+/>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let options = [];
+  export let value = [];
+  export let placeholder = 'Select items...';
+  export let searchable = false;
+  export let maxSelections = null;
+
+  let isOpen = false;
+  let searchTerm = '';
+  let selected = [...value];
+
+  $: filteredOptions = searchable && searchTerm
+    ? options.filter(opt => opt.label.toLowerCase().includes(searchTerm.toLowerCase()))
+    : options;
+
+  function toggleOption(optionValue) {
+    if (selected.includes(optionValue)) {
+      selected = selected.filter(v => v !== optionValue);
+    } else {
+      if (maxSelections && selected.length >= maxSelections) return;
+      selected = [...selected, optionValue];
+    }
+    value = selected;
+  }
+
+  function removeTag(valueToRemove) {
+    selected = selected.filter(v => v !== valueToRemove);
+    value = selected;
+  }
+
+  function clearAll() {
+    selected = [];
+    value = selected;
+  }
+
+  function getOptionLabel(val) {
+    const option = options.find(opt => opt.value === val);
+    return option?.label || val;
+  }
+</script>
+
+<div class="aural-multi-select">
+  <div
+    class="aural-multi-select__trigger"
+    tabindex="0"
+    role="button"
+    aria-haspopup="listbox"
+    aria-expanded={isOpen}
+    on:click={() => isOpen = !isOpen}
+  >
+    <div class="aural-multi-select__tags">
+      {#each selected as val}
+        <span class="aural-multi-select__tag">
+          {getOptionLabel(val)}
+          <button
+            class="aural-multi-select__tag-remove"
+            on:click|stopPropagation={() => removeTag(val)}
+            aria-label="Remove {getOptionLabel(val)}"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </span>
+      {/each}
+    </div>
+    {#if selected.length === 0}
+      <span class="aural-multi-select__placeholder">{placeholder}</span>
+    {/if}
+    {#if selected.length > 0}
+      <span
+        class="aural-multi-select__clear"
+        role="button"
+        on:click|stopPropagation={clearAll}
+        aria-label="Clear all"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </span>
+    {/if}
+    <span class="aural-multi-select__arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </span>
+  </div>
+  {#if isOpen}
+    <div class="aural-multi-select__dropdown" role="listbox" aria-multiselectable="true">
+      {#if searchable}
+        <div class="aural-multi-select__search">
+          <input
+            type="text"
+            class="aural-multi-select__search-input"
+            placeholder="Search..."
+            bind:value={searchTerm}
+            on:click|stopPropagation
+          />
+        </div>
+      {/if}
+      <div class="aural-multi-select__options">
+        {#each filteredOptions as option}
+          <button
+            class="aural-multi-select__option {selected.includes(option.value) ? 'aural-multi-select__option--selected' : ''}"
+            role="option"
+            aria-selected={selected.includes(option.value)}
+            on:click={() => toggleOption(option.value)}
+          >
+            <span class="aural-multi-select__checkbox" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            <span class="aural-multi-select__option-label">{option.label}</span>
+          </button>
+        {/each}
+      </div>
+    </div>
+  {/if}
+</div>
+
+<!-- Usage -->
+<script>
+  let selected = [];
+  const options = [
+    { value: 'react', label: 'React' },
+    { value: 'vue', label: 'Vue' },
+    { value: 'angular', label: 'Angular' }
+  ];
+</script>
+
+<MultiSelect
+  bind:value={selected}
+  {options}
+  placeholder="Select frameworks..."
+  searchable
+/>
+```
+
+---
+
+## Variants
+
+### With Search
+
+<Canvas of={MultiSelectStories.WithSearch} />
+
+Enable search functionality to help users quickly find options in longer lists.
+
+### Pre-Selected Items
+
+<Canvas of={MultiSelectStories.PreSelected} />
+
+Initialize the component with pre-selected values using the `selected` prop.
+
+### With Groups
+
+<Canvas of={MultiSelectStories.WithGroups} />
+
+Organize options into logical groups with visual separators and group labels.
+
+### Many Options
+
+<Canvas of={MultiSelectStories.ManyOptions} />
+
+Efficiently handle large option sets with search and scrollable dropdown.
+
+---
+
+## Sizes
+
+<Canvas of={MultiSelectStories.Small} />
+<Canvas of={MultiSelectStories.Large} />
+
+- **Small (`aural-multi-select--sm`)**: Compact spaces, inline forms, dense layouts
+- **Medium (default)**: Standard form controls
+- **Large (`aural-multi-select--lg`)**: Prominent selections, marketing forms
+
+---
+
+## States
+
+### Disabled
+
+<Canvas of={MultiSelectStories.Disabled} />
+
+Disabled state prevents interaction and shows pre-selected values in a read-only manner.
+
+```html
+<div class="aural-multi-select aural-multi-select--disabled">
+  <!-- ... -->
+</div>
+```
+
+---
+
+## Theme Comparison
+
+See how the Multi-Select component looks across all 9 Aural UI themes:
+
+<Canvas of={MultiSelectStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+✅ **ARIA Attributes**
+- `role="button"` on trigger element
+- `role="listbox"` on dropdown container
+- `role="option"` on each selectable option
+- `aria-multiselectable="true"` indicates multiple selections
+- `aria-selected="true/false"` on each option
+- `aria-expanded="true/false"` on trigger
+- `aria-haspopup="listbox"` on trigger
+- `aria-label` on remove buttons and clear button
+
+✅ **Keyboard Navigation**
+- `Tab` - Focus trigger, move between tags
+- `Enter` or `Space` - Open/close dropdown, toggle option selection
+- `Arrow Down/Up` - Navigate through options
+- `Escape` - Close dropdown
+- `Backspace` - Remove last tag when trigger is focused
+
+✅ **Screen Reader Support**
+- Selected items announced as tags
+- Selection changes announced
+- Count of selected items announced
+- Clear and remove actions clearly labeled
+
+✅ **Color Contrast**
+- All text meets WCAG AAA (7:1+ contrast)
+- Selected state clearly visible
+- Focus indicators highly visible
+- Works with High Contrast theme
+
+✅ **Touch Targets**
+- Minimum 44x44px touch targets
+- Adequate spacing between interactive elements
+- Large tap areas for tags and remove buttons
+
+### Best Practices
+
+**Do:**
+- Use clear, descriptive labels for options
+- Enable search for 10+ options
+- Set reasonable `maxSelections` limits when appropriate
+- Group related options together
+- Provide helpful placeholder text
+- Show selected count for many selections
+
+**Don't:**
+- Use for single selections (use Select instead)
+- Overwhelm with too many ungrouped options
+- Rely solely on color to indicate selection
+- Make tags too small to interact with
+- Use without clear labels or instructions
+
+---
+
+## JavaScript API
+
+### Initialization
+
+```javascript
+const multiSelect = Aural.initMultiSelect('element-id', {
+  searchable: true,           // Enable search (default: true)
+  selectAll: false,           // Add "Select All" option (default: false)
+  maxSelections: null,        // Maximum selections (default: null - unlimited)
+  closeOnSelect: false,       // Close dropdown after selection (default: false)
+  onChange: (values) => {},   // Callback when selection changes
+  onOpen: () => {},          // Callback when dropdown opens
+  onClose: () => {}          // Callback when dropdown closes
+});
+```
+
+### Methods
+
+```javascript
+// Get selected values as array
+const selected = multiSelect.getSelected();
+
+// Set selected values programmatically
+multiSelect.setSelected(['value1', 'value2']);
+
+// Select a value
+multiSelect.select('value1');
+
+// Deselect a value
+multiSelect.deselect('value1');
+
+// Clear all selections
+multiSelect.clear();
+
+// Toggle selection
+multiSelect.toggle('value1');
+
+// Open dropdown
+multiSelect.open();
+
+// Close dropdown
+multiSelect.close();
+
+// Destroy instance
+multiSelect.destroy();
+```
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-multi-select` | Base container class (required) |
+| `.aural-multi-select--sm` | Small size variant |
+| `.aural-multi-select--lg` | Large size variant |
+| `.aural-multi-select--disabled` | Disabled state |
+| `.aural-multi-select__trigger` | Clickable trigger area |
+| `.aural-multi-select__tags` | Container for selected tags |
+| `.aural-multi-select__tag` | Individual selected tag |
+| `.aural-multi-select__tag-remove` | Remove button on tag |
+| `.aural-multi-select__placeholder` | Placeholder text |
+| `.aural-multi-select__clear` | Clear all button |
+| `.aural-multi-select__arrow` | Dropdown arrow icon |
+| `.aural-multi-select__dropdown` | Dropdown panel |
+| `.aural-multi-select__search` | Search input container |
+| `.aural-multi-select__search-input` | Search input field |
+| `.aural-multi-select__options` | Options list container |
+| `.aural-multi-select__option` | Individual option button |
+| `.aural-multi-select__option--selected` | Selected option state |
+| `.aural-multi-select__checkbox` | Checkbox visual indicator |
+| `.aural-multi-select__option-label` | Option label text |
+| `.aural-multi-select__group-label` | Group label for grouped options |
+
+### Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `searchable` | boolean | `true` | Enable search functionality |
+| `selectAll` | boolean | `false` | Show "Select All" option |
+| `maxSelections` | number | `null` | Maximum allowed selections |
+| `closeOnSelect` | boolean | `false` | Close dropdown after each selection |
+| `placeholder` | string | `'Select items...'` | Placeholder text |
+| `onChange` | function | `null` | Callback fired when selection changes |
+| `onOpen` | function | `null` | Callback fired when dropdown opens |
+| `onClose` | function | `null` | Callback fired when dropdown closes |
+
+---
+
+## Use Cases
+
+### Skills Selection
+Perfect for job applications, developer profiles, or project requirements where users select their skills or technologies.
+
+### Tag Management
+Categorize content, products, or resources with multiple tags or categories.
+
+### Team Assignment
+Assign tasks or share items with multiple team members or groups.
+
+### Filtering
+Apply multiple filters to data tables, search results, or product listings.
+
+### Permissions
+Assign multiple roles, permissions, or access levels to users.
+
+---
+
+## Related Components
+
+- **Select**: Single selection dropdown
+- **Checkbox**: Simple multiple choice
+- **Combobox**: Autocomplete with single/multiple selection
+- **Tag Input**: Create custom tags

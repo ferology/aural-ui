@@ -1,0 +1,612 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as SliderStories from './Slider.stories';
+
+<Meta of={SliderStories} />
+
+# Slider
+
+An interactive control for selecting a value from a continuous range. Perfect for adjustments like volume, brightness, price filtering, or any value that needs visual feedback and smooth transitions.
+
+## Overview
+
+The Slider component provides an intuitive way for users to select values from a range with immediate visual feedback.
+
+**Key Features:**
+- Multiple sizes (Small, Medium, Large)
+- Color variants (Primary, Success, Warning, Danger)
+- Live value display
+- Min/max labels support
+- Step increments
+- Keyboard navigation (Arrow keys, Home, End)
+- Full ARIA support
+- WCAG AAA compliance
+
+---
+
+## Interactive Demo
+
+<Canvas of={SliderStories.Default} />
+
+---
+
+## Usage
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Slider -->
+<div class="aural-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">Volume</label>
+    <span class="aural-slider__value">50</span>
+  </div>
+  <input type="range" class="aural-slider__input"
+    min="0" max="100" value="50"
+    aria-label="Volume control">
+</div>
+
+<!-- With live value update -->
+<script>
+const slider = document.querySelector('.aural-slider__input');
+const valueDisplay = document.querySelector('.aural-slider__value');
+
+slider.addEventListener('input', (e) => {
+  valueDisplay.textContent = e.target.value;
+});
+</script>
+
+<!-- With steps -->
+<div class="aural-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">Rating</label>
+    <span class="aural-slider__value">3</span>
+  </div>
+  <input type="range" class="aural-slider__input"
+    min="1" max="5" value="3" step="1"
+    aria-label="Rating from 1 to 5">
+</div>
+
+<!-- With min/max labels -->
+<div class="aural-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">Brightness</label>
+    <span class="aural-slider__value">60%</span>
+  </div>
+  <input type="range" class="aural-slider__input"
+    min="0" max="100" value="60"
+    aria-label="Brightness control from 0% to 100%">
+  <div class="slider-range-labels">
+    <span>0% (Dark)</span>
+    <span>100% (Bright)</span>
+  </div>
+</div>
+
+<style>
+.slider-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  margin-top: 0.5rem;
+}
+</style>
+```
+
+### React
+
+```jsx
+import { useState } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+// Basic Slider Component
+function Slider({
+  label,
+  value,
+  onChange,
+  min = 0,
+  max = 100,
+  step = 1,
+  showValue = true,
+  showLabels = false,
+  size = 'md',
+  color = 'primary',
+  disabled = false
+}) {
+  const sizeClass = size !== 'md' ? ` aural-slider--${size}` : '';
+  const colorClass = color !== 'primary' ? ` aural-slider--${color}` : '';
+
+  return (
+    <div className={`aural-slider${sizeClass}${colorClass}`}>
+      <div className="aural-slider__label-row">
+        {label && (
+          <label className="aural-slider__label">{label}</label>
+        )}
+        {showValue && (
+          <span className="aural-slider__value">{value}</span>
+        )}
+      </div>
+      <input
+        type="range"
+        className="aural-slider__input"
+        min={min}
+        max={max}
+        value={value}
+        step={step}
+        disabled={disabled}
+        onChange={(e) => onChange?.(Number(e.target.value))}
+        role="slider"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={value}
+        aria-label={label}
+      />
+      {showLabels && (
+        <div className="slider-range-labels">
+          <span>{min}</span>
+          <span>{max}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Usage Examples
+function MyComponent() {
+  const [volume, setVolume] = useState(50);
+  const [brightness, setBrightness] = useState(75);
+  const [price, setPrice] = useState(500);
+
+  return (
+    <>
+      {/* Basic slider */}
+      <Slider
+        label="Volume"
+        value={volume}
+        onChange={setVolume}
+      />
+
+      {/* With labels */}
+      <Slider
+        label="Brightness"
+        value={brightness}
+        onChange={setBrightness}
+        showLabels
+      />
+
+      {/* Price range with steps */}
+      <Slider
+        label="Maximum Price"
+        value={price}
+        onChange={setPrice}
+        min={0}
+        max={1000}
+        step={50}
+        showLabels
+      />
+    </>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div :class="sliderClasses">
+    <div class="aural-slider__label-row">
+      <label v-if="label" class="aural-slider__label">{{ label }}</label>
+      <span v-if="showValue" class="aural-slider__value">{{ modelValue }}</span>
+    </div>
+    <input
+      type="range"
+      class="aural-slider__input"
+      :min="min"
+      :max="max"
+      :value="modelValue"
+      :step="step"
+      :disabled="disabled"
+      @input="updateValue"
+      role="slider"
+      :aria-valuemin="min"
+      :aria-valuemax="max"
+      :aria-valuenow="modelValue"
+      :aria-label="label"
+    />
+    <div v-if="showLabels" class="slider-range-labels">
+      <span>{{ min }}</span>
+      <span>{{ max }}</span>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  label: String,
+  modelValue: {
+    type: Number,
+    default: 50
+  },
+  min: {
+    type: Number,
+    default: 0
+  },
+  max: {
+    type: Number,
+    default: 100
+  },
+  step: {
+    type: Number,
+    default: 1
+  },
+  showValue: {
+    type: Boolean,
+    default: true
+  },
+  showLabels: {
+    type: Boolean,
+    default: false
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  color: {
+    type: String,
+    default: 'primary',
+    validator: (value) => ['primary', 'success', 'warning', 'danger'].includes(value)
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const sliderClasses = computed(() => [
+  'aural-slider',
+  props.size !== 'md' && `aural-slider--${props.size}`,
+  props.color !== 'primary' && `aural-slider--${props.color}`
+].filter(Boolean).join(' '));
+
+const updateValue = (e) => {
+  emit('update:modelValue', Number(e.target.value));
+};
+</script>
+
+<!-- Usage -->
+<template>
+  <Slider
+    label="Volume"
+    v-model="volume"
+    :min="0"
+    :max="100"
+  />
+
+  <Slider
+    label="Brightness"
+    v-model="brightness"
+    :show-labels="true"
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const volume = ref(50);
+const brightness = ref(75);
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let label = '';
+  export let value = 50;
+  export let min = 0;
+  export let max = 100;
+  export let step = 1;
+  export let showValue = true;
+  export let showLabels = false;
+  export let size = 'md';
+  export let color = 'primary';
+  export let disabled = false;
+
+  $: sliderClass = [
+    'aural-slider',
+    size !== 'md' && `aural-slider--${size}`,
+    color !== 'primary' && `aural-slider--${color}`
+  ].filter(Boolean).join(' ');
+
+  function handleInput(e) {
+    value = Number(e.target.value);
+  }
+</script>
+
+<div class={sliderClass}>
+  <div class="aural-slider__label-row">
+    {#if label}
+      <label class="aural-slider__label">{label}</label>
+    {/if}
+    {#if showValue}
+      <span class="aural-slider__value">{value}</span>
+    {/if}
+  </div>
+  <input
+    type="range"
+    class="aural-slider__input"
+    {min}
+    {max}
+    {step}
+    {disabled}
+    bind:value
+    on:input={handleInput}
+    role="slider"
+    aria-valuemin={min}
+    aria-valuemax={max}
+    aria-valuenow={value}
+    aria-label={label}
+  />
+  {#if showLabels}
+    <div class="slider-range-labels">
+      <span>{min}</span>
+      <span>{max}</span>
+    </div>
+  {/if}
+</div>
+
+<!-- Usage -->
+<script>
+  let volume = 50;
+  let brightness = 75;
+</script>
+
+<Slider
+  label="Volume"
+  bind:value={volume}
+  min={0}
+  max={100}
+/>
+
+<Slider
+  label="Brightness"
+  bind:value={brightness}
+  showLabels={true}
+/>
+```
+
+---
+
+## Variants
+
+### Sizes
+
+<Canvas of={SliderStories.Small} />
+<Canvas of={SliderStories.Large} />
+
+Use different sizes to match your design:
+- **Small (`aural-slider--sm`)**: Compact interfaces, tight spaces
+- **Medium (default)**: Standard use cases
+- **Large (`aural-slider--lg`)**: Emphasis, touch-friendly interfaces
+
+### Colors
+
+<Canvas of={SliderStories.Colors} />
+
+Color variants help convey semantic meaning:
+- **Primary**: Standard controls (volume, brightness)
+- **Success**: Positive metrics (battery, signal strength)
+- **Warning**: Cautionary values (temperature, alerts)
+- **Danger**: Critical thresholds (danger zones, limits)
+
+### With Labels
+
+<Canvas of={SliderStories.WithLabels} />
+
+Min/max labels provide context about the range boundaries.
+
+### With Steps
+
+<Canvas of={SliderStories.WithSteps} />
+
+Use discrete steps for ratings, levels, or quantized values.
+
+---
+
+## Common Use Cases
+
+### Volume Control
+
+<Canvas of={SliderStories.VolumeControl} />
+
+Perfect for audio controls with percentage display and icon.
+
+### Price Range
+
+<Canvas of={SliderStories.PriceRange} />
+
+Ideal for filtering products by price with currency formatting.
+
+---
+
+## Theme Comparison
+
+See how the slider looks across all 9 Aural UI themes:
+
+<Canvas of={SliderStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+✅ **ARIA Attributes**
+- `role="slider"` for proper semantic meaning
+- `aria-valuemin`, `aria-valuemax`, `aria-valuenow` for current state
+- `aria-label` for descriptive labeling
+- `aria-orientation="vertical"` for vertical sliders
+
+✅ **Keyboard Navigation**
+- **Arrow Left/Down**: Decrease value
+- **Arrow Right/Up**: Increase value
+- **Home**: Jump to minimum value
+- **End**: Jump to maximum value
+- **Page Up**: Increase by larger increment
+- **Page Down**: Decrease by larger increment
+
+✅ **Screen Readers**
+- Announces current value and range
+- Updates are announced as user adjusts
+- Labels are properly associated
+
+✅ **Color Contrast**
+- All variants meet WCAG AAA (7:1+ contrast)
+- Works in high contrast mode
+- Colorblind-friendly theme available
+
+✅ **Touch Targets**
+- Minimum 44x44px touch target (WCAG 2.1)
+- Easy to grab and drag on mobile
+- Large size variant for enhanced accessibility
+
+### Best Practices
+
+**Do:**
+- Provide clear labels describing what's being adjusted
+- Show the current value visually
+- Use appropriate step increments (1 for 1-100, larger for wider ranges)
+- Include min/max labels for context
+- Use color variants to convey meaning (success for good, danger for critical)
+- Test with keyboard navigation
+- Provide immediate visual feedback
+
+**Don't:**
+- Use sliders for precise numeric input (use number input instead)
+- Create overly wide ranges without steps (e.g., 1-10000 with step 1)
+- Rely solely on color to convey information
+- Make sliders too small for comfortable interaction
+- Use sliders for binary choices (use toggle/switch instead)
+- Hide the current value from users
+
+---
+
+## Common Patterns
+
+### Volume/Audio Control
+Use horizontal sliders with icons (speaker symbol) and percentage values. Consider muting at 0% and showing different speaker icons based on volume level.
+
+```html
+<div class="aural-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">
+      <svg width="16" height="16"><!-- Volume icon --></svg>
+      Volume
+    </label>
+    <span class="aural-slider__value">70%</span>
+  </div>
+  <input type="range" class="aural-slider__input"
+    min="0" max="100" value="70">
+</div>
+```
+
+### Brightness/Contrast
+Implement with min/max labels (Dark/Bright) and percentage display. Provide immediate visual feedback if controlling visible content.
+
+```html
+<div class="aural-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">Brightness</label>
+    <span class="aural-slider__value">60%</span>
+  </div>
+  <input type="range" class="aural-slider__input"
+    min="0" max="100" value="60">
+  <div class="slider-range-labels">
+    <span>Dark</span>
+    <span>Bright</span>
+  </div>
+</div>
+```
+
+### Price Range Filtering
+Use currency-formatted values with appropriate step increments (e.g., $50 or $100). Consider dual-handle range sliders for min/max price selection.
+
+```html
+<div class="aural-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">Maximum Price</label>
+    <span class="aural-slider__value">$500</span>
+  </div>
+  <input type="range" class="aural-slider__input"
+    min="0" max="1000" value="500" step="50">
+  <div class="slider-range-labels">
+    <span>$0</span>
+    <span>$1000</span>
+  </div>
+</div>
+```
+
+### Rating/Quality Selection
+Discrete steps (1-5 or 1-10) with appropriate labeling. Consider showing star icons or descriptive labels (Poor, Fair, Good, Excellent).
+
+```html
+<div class="aural-slider">
+  <div class="aural-slider__label-row">
+    <label class="aural-slider__label">Rating</label>
+    <span class="aural-slider__value">3</span>
+  </div>
+  <input type="range" class="aural-slider__input"
+    min="1" max="5" value="3" step="1">
+  <div class="slider-range-labels">
+    <span>Poor</span>
+    <span>Excellent</span>
+  </div>
+</div>
+```
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-slider` | Base slider container (required) |
+| `.aural-slider--sm` | Small size variant |
+| `.aural-slider--lg` | Large size variant |
+| `.aural-slider--primary` | Primary color (default) |
+| `.aural-slider--success` | Success/green color |
+| `.aural-slider--warning` | Warning/orange color |
+| `.aural-slider--danger` | Danger/red color |
+| `.aural-slider__label-row` | Container for label and value |
+| `.aural-slider__label` | Label element |
+| `.aural-slider__value` | Current value display |
+| `.aural-slider__input` | Range input element |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `min` | number | Minimum value (default: 0) |
+| `max` | number | Maximum value (default: 100) |
+| `value` | number | Current value |
+| `step` | number | Step increment (default: 1) |
+| `disabled` | boolean | Disables the slider |
+| `aria-label` | string | Accessible label |
+| `aria-valuemin` | number | Minimum value for screen readers |
+| `aria-valuemax` | number | Maximum value for screen readers |
+| `aria-valuenow` | number | Current value for screen readers |
+
+---
+
+## Related Components
+
+- **Range Slider**: Dual-handle slider for min/max selection
+- **Input**: For precise numeric entry
+- **Rating**: Star-based rating component
+- **Toggle**: For binary on/off states
+- **Progress Bar**: For displaying progress/completion

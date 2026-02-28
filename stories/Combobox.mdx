@@ -1,0 +1,918 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as ComboboxStories from './Combobox.stories';
+
+<Meta of={ComboboxStories} />
+
+# Combobox (Autocomplete)
+
+A searchable dropdown component that combines an input field with a filterable list of options. Perfect for large datasets where users need to search and select from many items.
+
+## Overview
+
+The Combobox component provides an accessible, keyboard-friendly way to select from a large list of options with search and autocomplete capabilities.
+
+**Key Features:**
+- Real-time search and filtering
+- Autocomplete suggestions
+- Custom value creation
+- Async data loading support
+- Rich options with descriptions and icons
+- Full keyboard navigation
+- WCAG AAA compliant
+- Screen reader friendly
+
+---
+
+## Usage
+
+<Canvas of={ComboboxStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- HTML Structure -->
+<label for="fruit-combobox-input" class="form-label">Select a Fruit</label>
+<div class="aural-combobox" id="fruit-combobox">
+  <div class="aural-combobox__wrapper">
+    <input
+      type="text"
+      class="aural-combobox__input"
+      id="fruit-combobox-input"
+      placeholder="Search fruits..."
+      role="combobox"
+      aria-expanded="false"
+      aria-autocomplete="list"
+      aria-controls="fruit-combobox-listbox"
+    >
+    <div class="aural-combobox__icons">
+      <button class="aural-combobox__clear" aria-label="Clear selection">
+        <svg><!-- X icon --></svg>
+      </button>
+      <div class="aural-combobox__spinner" role="status"></div>
+      <button class="aural-combobox__arrow" aria-label="Toggle options">
+        <svg><!-- Chevron icon --></svg>
+      </button>
+    </div>
+  </div>
+  <div class="aural-combobox__dropdown">
+    <div class="aural-combobox__options" id="fruit-combobox-listbox" role="listbox">
+      <!-- Options rendered by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript Initialization -->
+<script>
+Aural.initCombobox('fruit-combobox', {
+  options: [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'cherry', label: 'Cherry' },
+    { value: 'grape', label: 'Grape' }
+  ],
+  searchable: true,
+  onChange: (selected) => console.log('Selected:', selected)
+});
+</script>
+```
+
+### React
+
+```jsx
+import { useState, useRef, useEffect } from 'react';
+import './aural-ui.css';
+import './dark.css';
+
+function Combobox({ options, placeholder, onChange, allowCustom = false }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [filteredOptions, setFilteredOptions] = useState(options);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const inputRef = useRef(null);
+  const listboxRef = useRef(null);
+
+  // Filter options based on input
+  useEffect(() => {
+    const filtered = options.filter(option =>
+      option.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setFilteredOptions(filtered);
+    setHighlightedIndex(-1);
+  }, [inputValue, options]);
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+    setIsOpen(true);
+  };
+
+  const handleOptionClick = (option) => {
+    setInputValue(option.label);
+    onChange?.(option.value);
+    setIsOpen(false);
+    inputRef.current?.focus();
+  };
+
+  const handleKeyDown = (e) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setIsOpen(true);
+        setHighlightedIndex(prev =>
+          prev < filteredOptions.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setHighlightedIndex(prev => (prev > 0 ? prev - 1 : -1));
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (highlightedIndex >= 0) {
+          handleOptionClick(filteredOptions[highlightedIndex]);
+        } else if (allowCustom && inputValue) {
+          onChange?.(inputValue);
+          setIsOpen(false);
+        }
+        break;
+      case 'Escape':
+        setIsOpen(false);
+        inputRef.current?.blur();
+        break;
+    }
+  };
+
+  const handleClear = () => {
+    setInputValue('');
+    onChange?.(null);
+    inputRef.current?.focus();
+  };
+
+  return (
+    <div className="aural-combobox">
+      <div className="aural-combobox__wrapper">
+        <input
+          ref={inputRef}
+          type="text"
+          className="aural-combobox__input"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setIsOpen(true)}
+          placeholder={placeholder}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-autocomplete="list"
+          aria-controls="combobox-listbox"
+          aria-activedescendant={
+            highlightedIndex >= 0
+              ? `option-${highlightedIndex}`
+              : undefined
+          }
+        />
+        <div className="aural-combobox__icons">
+          {inputValue && (
+            <button
+              className="aural-combobox__clear"
+              onClick={handleClear}
+              aria-label="Clear selection"
+              tabIndex={-1}
+            >
+              <svg><!-- X icon --></svg>
+            </button>
+          )}
+          <button
+            className="aural-combobox__arrow"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle options"
+            tabIndex={-1}
+          >
+            <svg><!-- Chevron icon --></svg>
+          </button>
+        </div>
+      </div>
+      {isOpen && (
+        <div className="aural-combobox__dropdown">
+          <div
+            ref={listboxRef}
+            className="aural-combobox__options"
+            id="combobox-listbox"
+            role="listbox"
+          >
+            {filteredOptions.map((option, index) => (
+              <div
+                key={option.value}
+                id={`option-${index}`}
+                className={`aural-combobox__option ${
+                  index === highlightedIndex ? 'highlighted' : ''
+                }`}
+                role="option"
+                aria-selected={index === highlightedIndex}
+                onClick={() => handleOptionClick(option)}
+              >
+                <div className="aural-combobox__option-label">
+                  {option.label}
+                </div>
+                {option.description && (
+                  <div className="aural-combobox__option-description">
+                    {option.description}
+                  </div>
+                )}
+              </div>
+            ))}
+            {filteredOptions.length === 0 && (
+              <div className="aural-combobox__no-results">
+                {allowCustom
+                  ? `Press Enter to create "${inputValue}"`
+                  : 'No results found'}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Usage
+<Combobox
+  options={[
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' }
+  ]}
+  placeholder="Search fruits..."
+  onChange={(value) => console.log(value)}
+/>
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div class="aural-combobox">
+    <div class="aural-combobox__wrapper">
+      <input
+        ref="inputRef"
+        type="text"
+        class="aural-combobox__input"
+        v-model="inputValue"
+        @input="handleInput"
+        @keydown="handleKeyDown"
+        @focus="isOpen = true"
+        :placeholder="placeholder"
+        role="combobox"
+        :aria-expanded="isOpen"
+        aria-autocomplete="list"
+        aria-controls="combobox-listbox"
+        :aria-activedescendant="
+          highlightedIndex >= 0 ? `option-${highlightedIndex}` : undefined
+        "
+      />
+      <div class="aural-combobox__icons">
+        <button
+          v-if="inputValue"
+          class="aural-combobox__clear"
+          @click="handleClear"
+          aria-label="Clear selection"
+          tabindex="-1"
+        >
+          <svg><!-- X icon --></svg>
+        </button>
+        <button
+          class="aural-combobox__arrow"
+          @click="isOpen = !isOpen"
+          aria-label="Toggle options"
+          tabindex="-1"
+        >
+          <svg><!-- Chevron icon --></svg>
+        </button>
+      </div>
+    </div>
+    <div v-if="isOpen" class="aural-combobox__dropdown">
+      <div
+        class="aural-combobox__options"
+        id="combobox-listbox"
+        role="listbox"
+      >
+        <div
+          v-for="(option, index) in filteredOptions"
+          :key="option.value"
+          :id="`option-${index}`"
+          :class="[
+            'aural-combobox__option',
+            { highlighted: index === highlightedIndex }
+          ]"
+          role="option"
+          :aria-selected="index === highlightedIndex"
+          @click="handleOptionClick(option)"
+        >
+          <div class="aural-combobox__option-label">
+            {{ option.label }}
+          </div>
+          <div
+            v-if="option.description"
+            class="aural-combobox__option-description"
+          >
+            {{ option.description }}
+          </div>
+        </div>
+        <div
+          v-if="filteredOptions.length === 0"
+          class="aural-combobox__no-results"
+        >
+          {{ allowCustom ? `Press Enter to create "${inputValue}"` : 'No results found' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, watch } from 'vue';
+
+const props = defineProps({
+  options: {
+    type: Array,
+    required: true
+  },
+  placeholder: {
+    type: String,
+    default: 'Search...'
+  },
+  modelValue: {
+    type: String,
+    default: ''
+  },
+  allowCustom: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const inputRef = ref(null);
+const inputValue = ref(props.modelValue);
+const isOpen = ref(false);
+const highlightedIndex = ref(-1);
+
+const filteredOptions = computed(() => {
+  return props.options.filter(option =>
+    option.label.toLowerCase().includes(inputValue.value.toLowerCase())
+  );
+});
+
+const handleInput = () => {
+  isOpen.value = true;
+  highlightedIndex.value = -1;
+};
+
+const handleOptionClick = (option) => {
+  inputValue.value = option.label;
+  emit('update:modelValue', option.value);
+  isOpen.value = false;
+  inputRef.value?.focus();
+};
+
+const handleKeyDown = (e) => {
+  switch (e.key) {
+    case 'ArrowDown':
+      e.preventDefault();
+      isOpen.value = true;
+      highlightedIndex.value = highlightedIndex.value < filteredOptions.value.length - 1
+        ? highlightedIndex.value + 1
+        : highlightedIndex.value;
+      break;
+    case 'ArrowUp':
+      e.preventDefault();
+      highlightedIndex.value = highlightedIndex.value > 0
+        ? highlightedIndex.value - 1
+        : -1;
+      break;
+    case 'Enter':
+      e.preventDefault();
+      if (highlightedIndex.value >= 0) {
+        handleOptionClick(filteredOptions.value[highlightedIndex.value]);
+      } else if (props.allowCustom && inputValue.value) {
+        emit('update:modelValue', inputValue.value);
+        isOpen.value = false;
+      }
+      break;
+    case 'Escape':
+      isOpen.value = false;
+      inputRef.value?.blur();
+      break;
+  }
+};
+
+const handleClear = () => {
+  inputValue.value = '';
+  emit('update:modelValue', null);
+  inputRef.value?.focus();
+};
+</script>
+
+<!-- Usage -->
+<Combobox
+  :options="[
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' }
+  ]"
+  placeholder="Search fruits..."
+  v-model="selectedValue"
+/>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let options = [];
+  export let placeholder = 'Search...';
+  export let value = '';
+  export let allowCustom = false;
+
+  let inputRef;
+  let inputValue = '';
+  let isOpen = false;
+  let highlightedIndex = -1;
+
+  $: filteredOptions = options.filter(option =>
+    option.label.toLowerCase().includes(inputValue.toLowerCase())
+  );
+
+  function handleInput() {
+    isOpen = true;
+    highlightedIndex = -1;
+  }
+
+  function handleOptionClick(option) {
+    inputValue = option.label;
+    value = option.value;
+    isOpen = false;
+    inputRef?.focus();
+  }
+
+  function handleKeyDown(e) {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        isOpen = true;
+        highlightedIndex = highlightedIndex < filteredOptions.length - 1
+          ? highlightedIndex + 1
+          : highlightedIndex;
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        highlightedIndex = highlightedIndex > 0 ? highlightedIndex - 1 : -1;
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (highlightedIndex >= 0) {
+          handleOptionClick(filteredOptions[highlightedIndex]);
+        } else if (allowCustom && inputValue) {
+          value = inputValue;
+          isOpen = false;
+        }
+        break;
+      case 'Escape':
+        isOpen = false;
+        inputRef?.blur();
+        break;
+    }
+  }
+
+  function handleClear() {
+    inputValue = '';
+    value = null;
+    inputRef?.focus();
+  }
+</script>
+
+<div class="aural-combobox">
+  <div class="aural-combobox__wrapper">
+    <input
+      bind:this={inputRef}
+      type="text"
+      class="aural-combobox__input"
+      bind:value={inputValue}
+      on:input={handleInput}
+      on:keydown={handleKeyDown}
+      on:focus={() => isOpen = true}
+      {placeholder}
+      role="combobox"
+      aria-expanded={isOpen}
+      aria-autocomplete="list"
+      aria-controls="combobox-listbox"
+      aria-activedescendant={highlightedIndex >= 0 ? `option-${highlightedIndex}` : undefined}
+    />
+    <div class="aural-combobox__icons">
+      {#if inputValue}
+        <button
+          class="aural-combobox__clear"
+          on:click={handleClear}
+          aria-label="Clear selection"
+          tabindex="-1"
+        >
+          <svg><!-- X icon --></svg>
+        </button>
+      {/if}
+      <button
+        class="aural-combobox__arrow"
+        on:click={() => isOpen = !isOpen}
+        aria-label="Toggle options"
+        tabindex="-1"
+      >
+        <svg><!-- Chevron icon --></svg>
+      </button>
+    </div>
+  </div>
+  {#if isOpen}
+    <div class="aural-combobox__dropdown">
+      <div class="aural-combobox__options" id="combobox-listbox" role="listbox">
+        {#each filteredOptions as option, index}
+          <div
+            id="option-{index}"
+            class="aural-combobox__option"
+            class:highlighted={index === highlightedIndex}
+            role="option"
+            aria-selected={index === highlightedIndex}
+            on:click={() => handleOptionClick(option)}
+          >
+            <div class="aural-combobox__option-label">
+              {option.label}
+            </div>
+            {#if option.description}
+              <div class="aural-combobox__option-description">
+                {option.description}
+              </div>
+            {/if}
+          </div>
+        {/each}
+        {#if filteredOptions.length === 0}
+          <div class="aural-combobox__no-results">
+            {allowCustom ? `Press Enter to create "${inputValue}"` : 'No results found'}
+          </div>
+        {/if}
+      </div>
+    </div>
+  {/if}
+</div>
+
+<!-- Usage -->
+<Combobox
+  options={[
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' }
+  ]}
+  placeholder="Search fruits..."
+  bind:value={selectedValue}
+/>
+```
+
+---
+
+## Examples
+
+### Autocomplete
+
+<Canvas of={ComboboxStories.WithAutocomplete} />
+
+Type to filter through a large list of options with real-time autocomplete.
+
+### Custom Values
+
+<Canvas of={ComboboxStories.AllowCustomValue} />
+
+Allow users to create custom values when no existing option matches.
+
+### Rich Options with Descriptions
+
+<Canvas of={ComboboxStories.WithDescriptions} />
+
+Display additional information alongside each option for better context.
+
+### With Icons
+
+<Canvas of={ComboboxStories.WithIcons} />
+
+Enhance options with icons or emojis for visual recognition.
+
+### Async Loading
+
+<Canvas of={ComboboxStories.AsyncLoading} />
+
+Load options asynchronously with loading indicator.
+
+---
+
+## Sizes
+
+### Small
+
+<Canvas of={ComboboxStories.Small} />
+
+### Large
+
+<Canvas of={ComboboxStories.Large} />
+
+---
+
+## States
+
+### Disabled
+
+<Canvas of={ComboboxStories.Disabled} />
+
+---
+
+## Theme Comparison
+
+See how the combobox looks across all Aural UI themes:
+
+<Canvas of={ComboboxStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+### ARIA Combobox Pattern
+
+The component implements the [WAI-ARIA Combobox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) with proper roles and attributes:
+
+```html
+<!-- Input with combobox role -->
+<input
+  role="combobox"
+  aria-expanded="false"
+  aria-autocomplete="list"
+  aria-controls="listbox-id"
+  aria-activedescendant="option-id"
+/>
+
+<!-- Listbox with options -->
+<div role="listbox" id="listbox-id">
+  <div role="option" id="option-id">Option</div>
+</div>
+```
+
+### Keyboard Navigation
+
+Full keyboard support following WCAG 2.2 guidelines:
+
+- **Arrow Down**: Open dropdown and move to next option
+- **Arrow Up**: Move to previous option
+- **Enter**: Select highlighted option or create custom value
+- **Escape**: Close dropdown and clear focus
+- **Tab**: Move focus to next focusable element
+- **Type**: Filter options in real-time
+
+### Screen Reader Support
+
+- **Input announcements**: "Combobox, Search fruits, autocomplete list"
+- **Option count**: "5 options available"
+- **Selection**: "Apple, selected"
+- **Loading state**: "Loading, please wait"
+- **No results**: "No results found for [query]"
+- **Custom creation**: "Press Enter to create [value]"
+
+### Color Contrast
+
+All variants meet WCAG AAA standards (7:1+ contrast ratio):
+
+- Input text: 14:1+ contrast
+- Placeholder: 7:1+ contrast
+- Options: 12:1+ contrast
+- Disabled state: Clear visual indication
+- Focus indicators: High visibility outlines
+
+### Focus Management
+
+- Clear focus indicators on all interactive elements
+- Logical focus order (input → clear → arrow → options)
+- Focus returns to input after option selection
+- Escape key returns focus and closes dropdown
+
+---
+
+## Autocomplete Behavior
+
+### Client-Side Filtering
+
+```javascript
+Aural.initCombobox('combobox-id', {
+  options: [...],
+  searchable: true,
+  onSearch: (query, filteredResults) => {
+    console.log(`Showing ${filteredResults.length} results for "${query}"`);
+  }
+});
+```
+
+### Server-Side Search
+
+```javascript
+Aural.initCombobox('combobox-id', {
+  options: [],
+  searchable: true,
+  async: true,
+  onSearch: async (query) => {
+    const results = await fetch(`/api/search?q=${query}`);
+    const data = await results.json();
+    return data.items;
+  }
+});
+```
+
+### Debouncing
+
+Prevent excessive API calls during typing:
+
+```javascript
+let debounceTimer;
+
+Aural.initCombobox('combobox-id', {
+  options: [],
+  searchable: true,
+  onSearch: (query) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      fetchResults(query);
+    }, 300); // 300ms delay
+  }
+});
+```
+
+---
+
+## Custom Values
+
+Allow users to create new options:
+
+```javascript
+Aural.initCombobox('tag-combobox', {
+  options: [
+    { value: 'design', label: 'Design' },
+    { value: 'frontend', label: 'Frontend' }
+  ],
+  searchable: true,
+  creatable: true,
+  onCreate: (value) => {
+    console.log('Created:', value);
+    // Add to your data source
+    addNewTag(value);
+  }
+});
+```
+
+---
+
+## Async Data Loading
+
+### Initial Load
+
+```javascript
+async function loadCombobox() {
+  const combobox = document.getElementById('combobox-id');
+  const spinner = combobox.querySelector('.aural-combobox__spinner');
+
+  // Show loading
+  spinner.style.display = 'block';
+
+  try {
+    const response = await fetch('/api/options');
+    const options = await response.json();
+
+    // Initialize with loaded data
+    Aural.initCombobox('combobox-id', {
+      options,
+      searchable: true
+    });
+  } catch (error) {
+    console.error('Failed to load options:', error);
+  } finally {
+    // Hide loading
+    spinner.style.display = 'none';
+  }
+}
+```
+
+### Lazy Loading
+
+```javascript
+Aural.initCombobox('combobox-id', {
+  options: [],
+  searchable: true,
+  onOpen: async () => {
+    // Load options when dropdown opens
+    const options = await fetchOptions();
+    updateComboboxOptions('combobox-id', options);
+  }
+});
+```
+
+---
+
+## API Reference
+
+### JavaScript Initialization
+
+```javascript
+Aural.initCombobox(comboboxId, options)
+```
+
+**Parameters:**
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `comboboxId` | string | required | ID of the combobox container |
+| `options` | object | required | Configuration options |
+
+**Configuration Options:**
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `options` | array | `[]` | Array of option objects |
+| `searchable` | boolean | `true` | Enable search/filter |
+| `creatable` | boolean | `false` | Allow custom values |
+| `placeholder` | string | `'Search...'` | Input placeholder |
+| `defaultValue` | string | `null` | Pre-selected value |
+| `onChange` | function | `null` | Selection callback |
+| `onSearch` | function | `null` | Search callback |
+| `onCreate` | function | `null` | Custom value callback |
+| `async` | boolean | `false` | Async mode |
+
+**Option Object:**
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `value` | string | Yes | Option value |
+| `label` | string | Yes | Display text |
+| `description` | string | No | Additional info |
+| `disabled` | boolean | No | Disabled state |
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-combobox` | Container element |
+| `.aural-combobox--sm` | Small size variant |
+| `.aural-combobox--lg` | Large size variant |
+| `.aural-combobox__wrapper` | Input wrapper |
+| `.aural-combobox__input` | Text input field |
+| `.aural-combobox__icons` | Icon container |
+| `.aural-combobox__clear` | Clear button |
+| `.aural-combobox__spinner` | Loading indicator |
+| `.aural-combobox__arrow` | Toggle button |
+| `.aural-combobox__dropdown` | Dropdown container |
+| `.aural-combobox__options` | Options listbox |
+| `.aural-combobox__option` | Individual option |
+| `.aural-combobox__option-label` | Option primary text |
+| `.aural-combobox__option-description` | Option secondary text |
+| `.aural-combobox__no-results` | No results message |
+
+---
+
+## Best Practices
+
+### When to Use
+
+- **Large datasets**: 20+ options where search is beneficial
+- **User efficiency**: Users know what they're looking for
+- **Autocomplete needed**: Suggest completions as users type
+- **Dynamic data**: Options loaded from API
+- **Custom values**: Allow user-generated options
+
+### When NOT to Use
+
+- **Small lists**: Use regular `<select>` for 5-10 options
+- **Binary choices**: Use radio buttons or switches
+- **Multiple selection**: Use multi-select or checkbox list
+- **Simple navigation**: Use regular dropdown menu
+
+### UX Guidelines
+
+**Do:**
+- Provide clear placeholder text
+- Show option count when helpful
+- Display loading states for async data
+- Use descriptions for complex options
+- Debounce API calls (300ms recommended)
+- Clear invalid selections on blur
+- Preserve case when searching
+
+**Don't:**
+- Require exact matches for autocomplete
+- Hide the clear button when selection exists
+- Use too many options without virtualization (500+)
+- Forget to handle keyboard navigation
+- Ignore loading/error states
+
+---
+
+## Related Components
+
+- **Select**: Simple dropdown without search
+- **Input**: Basic text input
+- **Multi-Select**: Select multiple options
+- **Autocomplete**: Text input with suggestions
+- **Search**: Dedicated search interface
