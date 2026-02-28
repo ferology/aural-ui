@@ -1,0 +1,626 @@
+import { Canvas, Meta, Controls, Story } from '@storybook/blocks';
+import * as ImageGalleryStories from './ImageGallery.stories';
+
+<Meta of={ImageGalleryStories} />
+
+# Image Gallery
+
+Responsive image grid with hover overlays, captions, and keyboard-accessible navigation. Perfect for displaying photo collections, product catalogs, portfolios, and media libraries.
+
+## Overview
+
+The Image Gallery component provides a flexible grid system for displaying images with optional hover overlays. It supports multiple column layouts, keyboard navigation, and can be enhanced with lightbox functionality.
+
+<Canvas of={ImageGalleryStories.Default} />
+<Controls of={ImageGalleryStories.Default} />
+
+## Component Structure
+
+```html
+<div class="aural-gallery aural-gallery--cols-3">
+  <div class="aural-gallery__item" tabindex="0">
+    <img class="aural-gallery__image" src="image.jpg" alt="Description">
+    <div class="aural-gallery__overlay">
+      <div class="aural-gallery__title">Title</div>
+      <div class="aural-gallery__description">Description</div>
+    </div>
+  </div>
+  <!-- More items... -->
+</div>
+```
+
+## Grid Layouts
+
+The gallery supports 2, 3, and 4-column grid layouts using modifier classes.
+
+### Two Columns
+
+<Canvas of={ImageGalleryStories.TwoColumns} />
+
+### Three Columns (Default)
+
+<Canvas of={ImageGalleryStories.ThreeColumns} />
+
+### Four Columns
+
+<Canvas of={ImageGalleryStories.FourColumns} />
+
+## Overlay Variations
+
+### With Overlays
+
+Hover over images to reveal title and description overlays.
+
+<Canvas of={ImageGalleryStories.WithOverlays} />
+
+### Without Overlays
+
+Clean, minimal gallery without hover overlays.
+
+<Canvas of={ImageGalleryStories.WithoutOverlays} />
+
+### Captions Below
+
+Alternative layout with captions always visible below images.
+
+<Canvas of={ImageGalleryStories.WithCaptionsBelow} />
+
+## Common Patterns
+
+### Product Gallery
+
+E-commerce product showcase with pricing in overlays.
+
+<Canvas of={ImageGalleryStories.ProductGallery} />
+
+### Portfolio Gallery
+
+Portfolio layout with project information in overlays.
+
+<Canvas of={ImageGalleryStories.PortfolioGallery} />
+
+### Masonry Layout
+
+Pinterest-style masonry layout with variable height images.
+
+<Canvas of={ImageGalleryStories.MasonryLayout} />
+
+## Advanced Features
+
+### Lightbox with Navigation
+
+Click images to open in lightbox view with keyboard navigation.
+
+<Canvas of={ImageGalleryStories.WithLightbox} />
+
+**Keyboard Controls:**
+- `Escape` - Close lightbox
+- `Arrow Left` - Previous image
+- `Arrow Right` - Next image
+- `Enter/Space` - Open lightbox (when focused)
+
+### Zoom Controls
+
+Lightbox with zoom functionality.
+
+<Canvas of={ImageGalleryStories.WithZoom} />
+
+### Image Counter
+
+Display total image count above the gallery.
+
+<Canvas of={ImageGalleryStories.WithCounter} />
+
+## Accessibility
+
+The Image Gallery component is built with accessibility in mind:
+
+<Canvas of={ImageGalleryStories.AccessibilityFeatures} />
+
+### Best Practices
+
+- **Keyboard Navigation**: Add `tabindex="0"` to gallery items for keyboard focus
+- **Alt Text**: Provide meaningful `alt` attributes for all images
+- **ARIA Labels**: Use `aria-label` for additional context on interactive elements
+- **Focus States**: Ensure focus states are clearly visible
+- **Screen Readers**: Use ARIA live regions to announce gallery interactions
+- **Arrow Keys**: Support arrow key navigation between images
+
+### Required Attributes
+
+```html
+<div class="aural-gallery__item" tabindex="0" role="button" aria-label="Ocean Sunset: Golden hour at the beach">
+  <img class="aural-gallery__image" src="image.jpg" alt="Ocean sunset">
+  <!-- ... -->
+</div>
+```
+
+## CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-gallery` | Base gallery container |
+| `.aural-gallery--cols-2` | 2-column grid layout |
+| `.aural-gallery--cols-3` | 3-column grid layout (default) |
+| `.aural-gallery--cols-4` | 4-column grid layout |
+| `.aural-gallery__item` | Individual gallery item |
+| `.aural-gallery__image` | Image element |
+| `.aural-gallery__overlay` | Hover overlay container |
+| `.aural-gallery__title` | Overlay title text |
+| `.aural-gallery__description` | Overlay description text |
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```javascript
+// Basic lightbox implementation
+class ImageGallery {
+  constructor(element) {
+    this.gallery = element;
+    this.items = this.gallery.querySelectorAll('.aural-gallery__item');
+    this.currentIndex = 0;
+    this.init();
+  }
+
+  init() {
+    this.items.forEach((item, index) => {
+      item.addEventListener('click', () => this.openLightbox(index));
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.openLightbox(index);
+        }
+      });
+    });
+  }
+
+  openLightbox(index) {
+    this.currentIndex = index;
+    const img = this.items[index].querySelector('.aural-gallery__image');
+
+    // Create and show lightbox
+    const lightbox = this.createLightbox(img);
+    document.body.appendChild(lightbox);
+  }
+
+  createLightbox(img) {
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = `
+      <button class="lightbox__close" aria-label="Close">×</button>
+      <button class="lightbox__prev" aria-label="Previous">‹</button>
+      <img src="${img.src}" alt="${img.alt}">
+      <button class="lightbox__next" aria-label="Next">›</button>
+    `;
+
+    // Add event listeners
+    lightbox.querySelector('.lightbox__close').addEventListener('click',
+      () => this.closeLightbox(lightbox)
+    );
+    lightbox.querySelector('.lightbox__prev').addEventListener('click',
+      () => this.navigate(-1, lightbox)
+    );
+    lightbox.querySelector('.lightbox__next').addEventListener('click',
+      () => this.navigate(1, lightbox)
+    );
+
+    return lightbox;
+  }
+
+  navigate(direction, lightbox) {
+    this.currentIndex = (this.currentIndex + direction + this.items.length) % this.items.length;
+    const img = this.items[this.currentIndex].querySelector('.aural-gallery__image');
+    lightbox.querySelector('img').src = img.src;
+    lightbox.querySelector('img').alt = img.alt;
+  }
+
+  closeLightbox(lightbox) {
+    lightbox.remove();
+  }
+}
+
+// Initialize
+document.querySelectorAll('.aural-gallery').forEach(gallery => {
+  new ImageGallery(gallery);
+});
+```
+
+### React
+
+```jsx
+import { useState, useEffect } from 'react';
+
+const ImageGallery = ({ images, columns = 3 }) => {
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const openLightbox = (index) => setLightboxIndex(index);
+  const closeLightbox = () => setLightboxIndex(null);
+
+  const navigate = (direction) => {
+    setLightboxIndex((prev) =>
+      (prev + direction + images.length) % images.length
+    );
+  };
+
+  const handleKeyDown = (e) => {
+    if (lightboxIndex === null) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex]);
+
+  return (
+    <>
+      <div className={`aural-gallery aural-gallery--cols-${columns}`}>
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className="aural-gallery__item"
+            tabIndex={0}
+            onClick={() => openLightbox(index)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openLightbox(index);
+              }
+            }}
+          >
+            <img
+              className="aural-gallery__image"
+              src={image.src}
+              alt={image.alt}
+            />
+            <div className="aural-gallery__overlay">
+              <div className="aural-gallery__title">{image.title}</div>
+              <div className="aural-gallery__description">
+                {image.description}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          image={images[lightboxIndex]}
+          onClose={closeLightbox}
+          onPrev={() => navigate(-1)}
+          onNext={() => navigate(1)}
+          current={lightboxIndex + 1}
+          total={images.length}
+        />
+      )}
+    </>
+  );
+};
+
+const Lightbox = ({ image, onClose, onPrev, onNext, current, total }) => (
+  <div className="lightbox" onClick={onClose}>
+    <button className="lightbox__close" onClick={onClose} aria-label="Close">
+      ×
+    </button>
+    <button
+      className="lightbox__prev"
+      onClick={(e) => { e.stopPropagation(); onPrev(); }}
+      aria-label="Previous"
+    >
+      ‹
+    </button>
+    <img
+      src={image.src}
+      alt={image.alt}
+      onClick={(e) => e.stopPropagation()}
+    />
+    <button
+      className="lightbox__next"
+      onClick={(e) => { e.stopPropagation(); onNext(); }}
+      aria-label="Next"
+    >
+      ›
+    </button>
+    <div className="lightbox__counter">
+      {current} / {total}
+    </div>
+  </div>
+);
+
+export default ImageGallery;
+```
+
+### Vue
+
+```vue
+<template>
+  <div>
+    <div :class="`aural-gallery aural-gallery--cols-${columns}`">
+      <div
+        v-for="(image, index) in images"
+        :key="index"
+        class="aural-gallery__item"
+        tabindex="0"
+        @click="openLightbox(index)"
+        @keydown="handleItemKeydown($event, index)"
+      >
+        <img
+          class="aural-gallery__image"
+          :src="image.src"
+          :alt="image.alt"
+        />
+        <div class="aural-gallery__overlay">
+          <div class="aural-gallery__title">{{ image.title }}</div>
+          <div class="aural-gallery__description">
+            {{ image.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="lightboxIndex !== null" class="lightbox" @click="closeLightbox">
+      <button
+        class="lightbox__close"
+        @click="closeLightbox"
+        aria-label="Close"
+      >
+        ×
+      </button>
+      <button
+        class="lightbox__prev"
+        @click.stop="navigate(-1)"
+        aria-label="Previous"
+      >
+        ‹
+      </button>
+      <img
+        :src="images[lightboxIndex].src"
+        :alt="images[lightboxIndex].alt"
+        @click.stop
+      />
+      <button
+        class="lightbox__next"
+        @click.stop="navigate(1)"
+        aria-label="Next"
+      >
+        ›
+      </button>
+      <div class="lightbox__counter">
+        {{ lightboxIndex + 1 }} / {{ images.length }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    images: { type: Array, required: true },
+    columns: { type: Number, default: 3 }
+  },
+  data() {
+    return {
+      lightboxIndex: null
+    };
+  },
+  methods: {
+    openLightbox(index) {
+      this.lightboxIndex = index;
+    },
+    closeLightbox() {
+      this.lightboxIndex = null;
+    },
+    navigate(direction) {
+      this.lightboxIndex = (this.lightboxIndex + direction + this.images.length)
+        % this.images.length;
+    },
+    handleItemKeydown(e, index) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.openLightbox(index);
+      }
+    },
+    handleKeydown(e) {
+      if (this.lightboxIndex === null) return;
+      if (e.key === 'Escape') this.closeLightbox();
+      if (e.key === 'ArrowLeft') this.navigate(-1);
+      if (e.key === 'ArrowRight') this.navigate(1);
+    }
+  },
+  mounted() {
+    document.addEventListener('keydown', this.handleKeydown);
+  },
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleKeydown);
+  }
+};
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount, onDestroy } from 'svelte';
+
+  export let images = [];
+  export let columns = 3;
+
+  let lightboxIndex = null;
+
+  function openLightbox(index) {
+    lightboxIndex = index;
+  }
+
+  function closeLightbox() {
+    lightboxIndex = null;
+  }
+
+  function navigate(direction) {
+    lightboxIndex = (lightboxIndex + direction + images.length) % images.length;
+  }
+
+  function handleItemKeydown(e, index) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(index);
+    }
+  }
+
+  function handleKeydown(e) {
+    if (lightboxIndex === null) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  }
+
+  onMount(() => {
+    document.addEventListener('keydown', handleKeydown);
+  });
+
+  onDestroy(() => {
+    document.removeEventListener('keydown', handleKeydown);
+  });
+</script>
+
+<div class="aural-gallery aural-gallery--cols-{columns}">
+  {#each images as image, index}
+    <div
+      class="aural-gallery__item"
+      tabindex="0"
+      on:click={() => openLightbox(index)}
+      on:keydown={(e) => handleItemKeydown(e, index)}
+    >
+      <img
+        class="aural-gallery__image"
+        src={image.src}
+        alt={image.alt}
+      />
+      <div class="aural-gallery__overlay">
+        <div class="aural-gallery__title">{image.title}</div>
+        <div class="aural-gallery__description">{image.description}</div>
+      </div>
+    </div>
+  {/each}
+</div>
+
+{#if lightboxIndex !== null}
+  <div class="lightbox" on:click={closeLightbox}>
+    <button
+      class="lightbox__close"
+      on:click={closeLightbox}
+      aria-label="Close"
+    >
+      ×
+    </button>
+    <button
+      class="lightbox__prev"
+      on:click|stopPropagation={() => navigate(-1)}
+      aria-label="Previous"
+    >
+      ‹
+    </button>
+    <img
+      src={images[lightboxIndex].src}
+      alt={images[lightboxIndex].alt}
+      on:click|stopPropagation
+    />
+    <button
+      class="lightbox__next"
+      on:click|stopPropagation={() => navigate(1)}
+      aria-label="Next"
+    >
+      ›
+    </button>
+    <div class="lightbox__counter">
+      {lightboxIndex + 1} / {images.length}
+    </div>
+  </div>
+{/if}
+```
+
+## When to Use
+
+- **Photo Collections**: Display related images in an organized grid
+- **Product Catalogs**: Showcase products with hover information and pricing
+- **Portfolios**: Present work samples with project details
+- **Team Pages**: Display team member photos with names and roles
+- **Media Libraries**: Organize and browse large image collections
+
+## Best Practices
+
+### Grid Layout
+
+- Use appropriate column counts based on content type and screen size
+- Maintain consistent aspect ratios for a clean, professional grid
+- Consider responsive breakpoints for mobile layouts
+- Don't use too many columns on small screens
+
+### Images
+
+- Optimize images for web to ensure fast loading times
+- Use consistent dimensions within a gallery
+- Provide appropriately sized images for different screen sizes
+- Consider lazy loading for galleries with many images
+- Use WebP format with fallbacks for better performance
+
+### Overlays
+
+- Keep overlay content concise and scannable
+- Use consistent overlay styles across all items
+- Ensure text remains readable over varied image backgrounds
+- Don't rely solely on hover states for critical information
+- Consider mobile users who can't hover
+
+### Interaction
+
+- Add click handlers for lightbox or detail views
+- Provide clear hover and focus states
+- Support keyboard navigation through the grid
+- Consider touch-friendly alternatives for mobile devices
+- Add loading states for images
+
+## Common Mistakes to Avoid
+
+- Using images with inconsistent aspect ratios (creates uneven grid)
+- Hiding important information only in hover states (mobile users can't hover)
+- Not providing keyboard accessibility (excludes keyboard users)
+- Using too many columns on small screens (images become too small)
+- Poor contrast between overlay text and images (readability issues)
+- Missing or generic alt text for images (accessibility failure)
+- Not optimizing images for performance (slow page load)
+- Forgetting to add focus states (keyboard navigation unclear)
+
+## Performance Tips
+
+1. **Lazy Loading**: Load images as they come into view
+   ```html
+   <img loading="lazy" src="image.jpg" alt="Description">
+   ```
+
+2. **Responsive Images**: Serve appropriately sized images
+   ```html
+   <img
+     srcset="image-300.jpg 300w, image-600.jpg 600w, image-900.jpg 900w"
+     sizes="(max-width: 768px) 100vw, 33vw"
+     src="image-600.jpg"
+     alt="Description"
+   >
+   ```
+
+3. **Image Formats**: Use modern formats like WebP
+   ```html
+   <picture>
+     <source srcset="image.webp" type="image/webp">
+     <img src="image.jpg" alt="Description">
+   </picture>
+   ```
+
+## Theme Support
+
+<Canvas of={ImageGalleryStories.ThemeComparison} />
+
+The Image Gallery component automatically adapts to all Aural UI themes, with proper color contrast and styling for overlays and interactive states.

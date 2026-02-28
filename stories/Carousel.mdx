@@ -1,0 +1,730 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as CarouselStories from './Carousel.stories';
+
+<Meta of={CarouselStories} />
+
+# Carousel
+
+Image and content carousel with navigation controls, pagination, and smooth transitions. Perfect for showcasing products, images, testimonials, or any sequential content.
+
+## Overview
+
+The Carousel component provides a flexible way to display multiple items in a rotating slideshow. It includes navigation arrows, pagination dots, and optional counter display for enhanced user experience.
+
+**Key Features:**
+- Smooth CSS transitions
+- Navigation arrows with keyboard support
+- Pagination dots for direct slide access
+- Optional slide counter
+- Auto-play mode with pause on hover
+- Infinite loop support
+- Fully accessible with ARIA attributes
+- Responsive design
+- Caption support
+
+---
+
+## Usage
+
+<Canvas of={CarouselStories.BasicCarousel} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Basic Carousel -->
+<div class="aural-carousel">
+  <div class="aural-carousel__track">
+    <div class="aural-carousel__slide">
+      <div class="aural-carousel__slide-content">
+        <h3>Slide Title</h3>
+        <p>Slide description</p>
+      </div>
+    </div>
+    <div class="aural-carousel__slide">
+      <div class="aural-carousel__slide-content">
+        <h3>Slide 2</h3>
+        <p>Another slide</p>
+      </div>
+    </div>
+    <div class="aural-carousel__slide">
+      <div class="aural-carousel__slide-content">
+        <h3>Slide 3</h3>
+        <p>Final slide</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="aural-carousel__arrow aural-carousel__arrow--prev" type="button" aria-label="Previous slide">
+    <i data-lucide="chevron-left"></i>
+  </button>
+  <button class="aural-carousel__arrow aural-carousel__arrow--next" type="button" aria-label="Next slide">
+    <i data-lucide="chevron-right"></i>
+  </button>
+
+  <div class="aural-carousel__pagination">
+    <button class="aural-carousel__dot aural-carousel__dot--active" aria-label="Go to slide 1"></button>
+    <button class="aural-carousel__dot" aria-label="Go to slide 2"></button>
+    <button class="aural-carousel__dot" aria-label="Go to slide 3"></button>
+  </div>
+
+  <div class="aural-carousel__counter">1 / 3</div>
+</div>
+
+<script>
+// Initialize carousel
+const carousel = document.querySelector('.aural-carousel');
+const track = carousel.querySelector('.aural-carousel__track');
+const slides = carousel.querySelectorAll('.aural-carousel__slide');
+const prevBtn = carousel.querySelector('.aural-carousel__arrow--prev');
+const nextBtn = carousel.querySelector('.aural-carousel__arrow--next');
+const dots = carousel.querySelectorAll('.aural-carousel__dot');
+const counter = carousel.querySelector('.aural-carousel__counter');
+
+let currentSlide = 0;
+
+function updateCarousel() {
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  dots.forEach((dot, index) => {
+    dot.classList.toggle('aural-carousel__dot--active', index === currentSlide);
+  });
+
+  if (counter) {
+    counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+  }
+}
+
+prevBtn.addEventListener('click', () => {
+  currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1;
+  updateCarousel();
+});
+
+nextBtn.addEventListener('click', () => {
+  currentSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : 0;
+  updateCarousel();
+});
+
+dots.forEach((dot, index) => {
+  dot.addEventListener('click', () => {
+    currentSlide = index;
+    updateCarousel();
+  });
+});
+
+// Initialize Lucide icons
+lucide.createIcons();
+</script>
+```
+
+### React
+
+```jsx
+import { useState, useEffect } from 'react';
+import './aural-ui.css';
+import './dark.css';
+
+function Carousel({ slides, autoplay = false, interval = 5000 }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (!autoplay || isPaused) return;
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [autoplay, isPaused, slides.length, interval]);
+
+  const goToSlide = (index) => setCurrentSlide(index);
+  const nextSlide = () => setCurrentSlide((prev) =>
+    prev < slides.length - 1 ? prev + 1 : 0
+  );
+  const prevSlide = () => setCurrentSlide((prev) =>
+    prev > 0 ? prev - 1 : slides.length - 1
+  );
+
+  return (
+    <div
+      className="aural-carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div
+        className="aural-carousel__track"
+        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+      >
+        {slides.map((slide, index) => (
+          <div key={index} className="aural-carousel__slide">
+            {slide}
+          </div>
+        ))}
+      </div>
+
+      <button
+        className="aural-carousel__arrow aural-carousel__arrow--prev"
+        onClick={prevSlide}
+        type="button"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft />
+      </button>
+
+      <button
+        className="aural-carousel__arrow aural-carousel__arrow--next"
+        onClick={nextSlide}
+        type="button"
+        aria-label="Next slide"
+      >
+        <ChevronRight />
+      </button>
+
+      <div className="aural-carousel__pagination">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            className={`aural-carousel__dot ${
+              index === currentSlide ? 'aural-carousel__dot--active' : ''
+            }`}
+            onClick={() => goToSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      <div className="aural-carousel__counter">
+        {currentSlide + 1} / {slides.length}
+      </div>
+    </div>
+  );
+}
+
+// Usage
+function App() {
+  const slides = [
+    <div className="aural-carousel__slide-content">
+      <h3>Slide 1</h3>
+      <p>Beautiful carousel</p>
+    </div>,
+    <div className="aural-carousel__slide-content">
+      <h3>Slide 2</h3>
+      <p>Smooth transitions</p>
+    </div>,
+    <div className="aural-carousel__slide-content">
+      <h3>Slide 3</h3>
+      <p>Fully accessible</p>
+    </div>
+  ];
+
+  return <Carousel slides={slides} autoplay={true} interval={3000} />;
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div
+    class="aural-carousel"
+    @mouseenter="isPaused = true"
+    @mouseleave="isPaused = false"
+  >
+    <div
+      class="aural-carousel__track"
+      :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+    >
+      <div
+        v-for="(slide, index) in slides"
+        :key="index"
+        class="aural-carousel__slide"
+      >
+        <slot name="slide" :slide="slide" :index="index">
+          {{ slide }}
+        </slot>
+      </div>
+    </div>
+
+    <button
+      class="aural-carousel__arrow aural-carousel__arrow--prev"
+      @click="prevSlide"
+      type="button"
+      aria-label="Previous slide"
+    >
+      <ChevronLeft />
+    </button>
+
+    <button
+      class="aural-carousel__arrow aural-carousel__arrow--next"
+      @click="nextSlide"
+      type="button"
+      aria-label="Next slide"
+    >
+      <ChevronRight />
+    </button>
+
+    <div class="aural-carousel__pagination">
+      <button
+        v-for="(_, index) in slides"
+        :key="index"
+        :class="[
+          'aural-carousel__dot',
+          { 'aural-carousel__dot--active': index === currentSlide }
+        ]"
+        @click="goToSlide(index)"
+        :aria-label="`Go to slide ${index + 1}`"
+      />
+    </div>
+
+    <div class="aural-carousel__counter">
+      {{ currentSlide + 1 }} / {{ slides.length }}
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    slides: { type: Array, required: true },
+    autoplay: { type: Boolean, default: false },
+    interval: { type: Number, default: 5000 }
+  },
+  data() {
+    return {
+      currentSlide: 0,
+      isPaused: false,
+      timer: null
+    };
+  },
+  watch: {
+    isPaused(paused) {
+      if (this.autoplay) {
+        paused ? this.stopAutoplay() : this.startAutoplay();
+      }
+    }
+  },
+  methods: {
+    goToSlide(index) {
+      this.currentSlide = index;
+    },
+    nextSlide() {
+      this.currentSlide = this.currentSlide < this.slides.length - 1
+        ? this.currentSlide + 1
+        : 0;
+    },
+    prevSlide() {
+      this.currentSlide = this.currentSlide > 0
+        ? this.currentSlide - 1
+        : this.slides.length - 1;
+    },
+    startAutoplay() {
+      this.timer = setInterval(() => {
+        this.nextSlide();
+      }, this.interval);
+    },
+    stopAutoplay() {
+      clearInterval(this.timer);
+    }
+  },
+  mounted() {
+    if (this.autoplay) this.startAutoplay();
+  },
+  beforeUnmount() {
+    this.stopAutoplay();
+  }
+};
+</script>
+
+<!-- Usage -->
+<Carousel :slides="slides" :autoplay="true" :interval="3000">
+  <template #slide="{ slide }">
+    <div class="aural-carousel__slide-content">
+      <h3>{{ slide.title }}</h3>
+      <p>{{ slide.description }}</p>
+    </div>
+  </template>
+</Carousel>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount, onDestroy } from 'svelte';
+
+  export let slides = [];
+  export let autoplay = false;
+  export let interval = 5000;
+
+  let currentSlide = 0;
+  let isPaused = false;
+  let timer;
+
+  function goToSlide(index) {
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    currentSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : 0;
+  }
+
+  function prevSlide() {
+    currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1;
+  }
+
+  function startAutoplay() {
+    if (!autoplay) return;
+    timer = setInterval(() => {
+      nextSlide();
+    }, interval);
+  }
+
+  function stopAutoplay() {
+    clearInterval(timer);
+  }
+
+  $: if (autoplay && !isPaused) {
+    startAutoplay();
+  } else {
+    stopAutoplay();
+  }
+
+  onMount(() => {
+    if (autoplay) startAutoplay();
+  });
+
+  onDestroy(() => {
+    stopAutoplay();
+  });
+</script>
+
+<div
+  class="aural-carousel"
+  on:mouseenter={() => isPaused = true}
+  on:mouseleave={() => isPaused = false}
+>
+  <div
+    class="aural-carousel__track"
+    style="transform: translateX(-{currentSlide * 100}%)"
+  >
+    {#each slides as slide, index}
+      <div class="aural-carousel__slide">
+        <slot name="slide" {slide} {index}>
+          {slide}
+        </slot>
+      </div>
+    {/each}
+  </div>
+
+  <button
+    class="aural-carousel__arrow aural-carousel__arrow--prev"
+    on:click={prevSlide}
+    type="button"
+    aria-label="Previous slide"
+  >
+    <ChevronLeft />
+  </button>
+
+  <button
+    class="aural-carousel__arrow aural-carousel__arrow--next"
+    on:click={nextSlide}
+    type="button"
+    aria-label="Next slide"
+  >
+    <ChevronRight />
+  </button>
+
+  <div class="aural-carousel__pagination">
+    {#each slides as _, index}
+      <button
+        class="aural-carousel__dot"
+        class:aural-carousel__dot--active={index === currentSlide}
+        on:click={() => goToSlide(index)}
+        aria-label="Go to slide {index + 1}"
+      />
+    {/each}
+  </div>
+
+  <div class="aural-carousel__counter">
+    {currentSlide + 1} / {slides.length}
+  </div>
+</div>
+
+<!-- Usage -->
+<Carousel slides={mySlides} autoplay={true} interval={3000}>
+  <div slot="slide" let:slide class="aural-carousel__slide-content">
+    <h3>{slide.title}</h3>
+    <p>{slide.description}</p>
+  </div>
+</Carousel>
+```
+
+---
+
+## Variants
+
+### Image Carousel
+
+Perfect for photo galleries and product images.
+
+<Canvas of={CarouselStories.ImageCarousel} />
+
+```html
+<div class="aural-carousel">
+  <div class="aural-carousel__track">
+    <div class="aural-carousel__slide">
+      <img src="image1.jpg" alt="Description" style="width: 100%; height: 400px; object-fit: cover;">
+    </div>
+    <div class="aural-carousel__slide">
+      <img src="image2.jpg" alt="Description" style="width: 100%; height: 400px; object-fit: cover;">
+    </div>
+  </div>
+  <!-- Navigation controls -->
+</div>
+```
+
+### With Captions
+
+Add descriptive captions to your slides.
+
+<Canvas of={CarouselStories.WithCaptions} />
+
+```html
+<div class="aural-carousel__slide">
+  <div class="aural-carousel__caption">
+    <div class="aural-carousel__caption-title">Product Showcase</div>
+    <div class="aural-carousel__caption-description">Feature your latest products</div>
+  </div>
+</div>
+```
+
+### Pagination Only
+
+Minimal design with dots only.
+
+<Canvas of={CarouselStories.PaginationOnly} />
+
+### Product Cards
+
+Showcase products in a carousel format.
+
+<Canvas of={CarouselStories.ProductCards} />
+
+---
+
+## Auto-Play Mode
+
+Enable auto-advancing slides with pause on hover.
+
+<Canvas of={CarouselStories.AutoPlayExample} />
+
+```javascript
+// Auto-play implementation
+let autoplayInterval;
+
+function startAutoplay() {
+  autoplayInterval = setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateCarousel();
+  }, 5000); // 5 seconds
+}
+
+function stopAutoplay() {
+  clearInterval(autoplayInterval);
+}
+
+// Pause on hover
+carousel.addEventListener('mouseenter', stopAutoplay);
+carousel.addEventListener('mouseleave', startAutoplay);
+
+// Start autoplay
+startAutoplay();
+```
+
+**Important:** Always provide pause controls for auto-advancing carousels to meet WCAG 2.2.2 (Pause, Stop, Hide) requirements.
+
+---
+
+## Responsive Design
+
+The carousel automatically adapts to different screen sizes.
+
+<Canvas of={CarouselStories.ResponsiveCarousel} />
+
+```css
+/* Responsive images */
+.aural-carousel__slide img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .aural-carousel__arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .aural-carousel__slide img {
+    max-height: 300px;
+  }
+}
+```
+
+---
+
+## Theme Comparison
+
+See how the carousel looks across all themes:
+
+<Canvas of={CarouselStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+The Carousel component is built with accessibility in mind:
+
+**Keyboard Navigation**
+- `Tab` - Focus navigation buttons and pagination dots
+- `Enter` / `Space` - Activate focused button
+- `Arrow Left` - Previous slide (custom implementation)
+- `Arrow Right` - Next slide (custom implementation)
+
+**Screen Readers**
+- All navigation buttons have descriptive `aria-label` attributes
+- Add `aria-live="polite"` to announce slide changes
+- Include meaningful alt text for all images
+- Use semantic HTML structure
+
+**ARIA Attributes**
+```html
+<div class="aural-carousel" role="region" aria-label="Image carousel" aria-live="polite">
+  <button class="aural-carousel__arrow aural-carousel__arrow--prev"
+          type="button"
+          aria-label="Previous slide">
+    <!-- Icon -->
+  </button>
+
+  <button class="aural-carousel__dot"
+          aria-label="Go to slide 1"></button>
+</div>
+```
+
+**Color Contrast**
+- Navigation controls meet WCAG AA contrast requirements
+- Visible focus states for all interactive elements
+- High contrast theme available
+
+**Touch Targets**
+- Minimum 44x44px touch target for all controls
+- Adequate spacing between pagination dots
+- Support for swipe gestures (custom implementation)
+
+---
+
+## Best Practices
+
+**Do:**
+- Limit carousels to 5-7 slides maximum
+- Provide multiple navigation methods (arrows, dots, swipe)
+- Use consistent slide dimensions
+- Optimize images for web performance
+- Add pause controls for auto-play
+- Include alt text for all images
+- Respect `prefers-reduced-motion` for animations
+
+**Don't:**
+- Auto-advance without pause controls
+- Use carousels for critical content that might be missed
+- Make navigation controls too small
+- Rely solely on auto-play
+- Use inconsistent slide heights (causes layout shifts)
+- Forget keyboard navigation support
+
+---
+
+## Use Cases
+
+**Hero Sections**
+- Showcase multiple featured content or promotions
+- Display key messaging and call-to-actions
+
+**Product Galleries**
+- Show product images from different angles
+- Display product variations and colors
+
+**Testimonials**
+- Rotate customer reviews and success stories
+- Build trust with social proof
+
+**Image Galleries**
+- Present portfolios and photo collections
+- Create visual storytelling experiences
+
+**Onboarding**
+- Guide users through feature introductions
+- Explain step-by-step processes
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-carousel` | Base carousel container (required) |
+| `.aural-carousel__track` | Slides container with transform animation |
+| `.aural-carousel__slide` | Individual slide |
+| `.aural-carousel__slide-content` | Content wrapper inside slide |
+| `.aural-carousel__arrow` | Navigation arrow button |
+| `.aural-carousel__arrow--prev` | Previous arrow modifier |
+| `.aural-carousel__arrow--next` | Next arrow modifier |
+| `.aural-carousel__pagination` | Pagination dots container |
+| `.aural-carousel__dot` | Individual pagination dot |
+| `.aural-carousel__dot--active` | Active dot state |
+| `.aural-carousel__counter` | Slide counter display |
+| `.aural-carousel__caption` | Caption container |
+| `.aural-carousel__caption-title` | Caption title |
+| `.aural-carousel__caption-description` | Caption description |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `aria-label` | string | Accessible label for carousel and buttons |
+| `aria-live` | string | Announce slide changes ("polite" recommended) |
+| `role` | string | Use "region" for carousel container |
+| `type` | string | Always use "button" for navigation controls |
+
+### JavaScript API
+
+```javascript
+// Basic initialization
+const carousel = new CarouselController(element, {
+  autoplay: false,
+  interval: 5000,
+  loop: true,
+  pauseOnHover: true
+});
+
+// Methods
+carousel.goToSlide(index);  // Jump to specific slide
+carousel.next();            // Go to next slide
+carousel.prev();            // Go to previous slide
+carousel.play();            // Start autoplay
+carousel.pause();           // Pause autoplay
+carousel.destroy();         // Clean up event listeners
+```
+
+---
+
+## Related Components
+
+- **Image Gallery**: Grid-based image display with lightbox
+- **Tabs**: Alternative for organizing related content
+- **Accordion**: Vertical content organization
+- **Card**: Individual content containers

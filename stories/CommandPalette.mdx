@@ -1,0 +1,824 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+import * as CommandPaletteStories from './CommandPalette.stories';
+
+<Meta of={CommandPaletteStories} />
+
+# Command Palette
+
+Quick command launcher with keyboard shortcuts, fuzzy search, and grouped actions for power users.
+
+## Overview
+
+The Command Palette provides a powerful, keyboard-driven interface for accessing application features quickly. It's inspired by popular tools like VS Code's Command Palette and Spotlight on macOS.
+
+### Key Features
+
+- **Keyboard Shortcuts**: Global `⌘K` / `Ctrl+K` shortcut to open
+- **Fuzzy Search**: Real-time filtering as you type
+- **Grouped Commands**: Organize commands by category
+- **Icons**: Visual identifiers using Lucide icons
+- **Keyboard Navigation**: Arrow keys, Enter, and Escape
+- **Accessibility**: Full ARIA support with `role="dialog"`, `role="combobox"`, and `role="listbox"`
+
+## Examples
+
+### Basic Command Palette
+
+<Canvas of={CommandPaletteStories.Basic} />
+
+### With Multiple Groups
+
+Organize commands into logical categories like Navigation, Actions, and Theme.
+
+<Canvas of={CommandPaletteStories.WithMultipleGroups} />
+
+### File Search
+
+Use the command palette for file search with recent files and paths.
+
+<Canvas of={CommandPaletteStories.FileSearch} />
+
+### Navigation Commands
+
+Quick navigation to different sections of your application.
+
+<Canvas of={CommandPaletteStories.NavigationCommands} />
+
+### Quick Actions
+
+Common actions with keyboard shortcuts displayed.
+
+<Canvas of={CommandPaletteStories.QuickActions} />
+
+### Theme Switcher
+
+Allow users to quickly change themes from the command palette.
+
+<Canvas of={CommandPaletteStories.ThemeSwitcher} />
+
+### Theme Comparison
+
+See how the Command Palette looks across all themes.
+
+<Canvas of={CommandPaletteStories.ThemeComparison} />
+
+## HTML Structure
+
+```html
+<div class="aural-command-palette-backdrop is-open" role="dialog" aria-modal="true">
+  <div class="aural-command-palette">
+    <!-- Search Input -->
+    <div class="aural-command-palette__search">
+      <span class="aural-command-palette__search-icon"></span>
+      <input
+        type="text"
+        class="aural-command-palette__input"
+        placeholder="Type a command..."
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded="true"
+        aria-controls="command-results"
+      >
+    </div>
+
+    <!-- Results -->
+    <div class="aural-command-palette__results" id="command-results" role="listbox">
+      <!-- Command Group -->
+      <div class="aural-command-palette__group">
+        <div class="aural-command-palette__group-label">Navigation</div>
+        <div class="aural-command-palette__items">
+          <!-- Command Item -->
+          <button class="aural-command-palette__item" role="option" aria-selected="true">
+            <span class="aural-command-palette__item-icon">
+              <i data-lucide="home"></i>
+            </span>
+            <div class="aural-command-palette__item-content">
+              <div class="aural-command-palette__item-title">Go to Dashboard</div>
+              <div class="aural-command-palette__item-subtitle">View your dashboard overview</div>
+            </div>
+            <kbd class="aural-command-palette__item-kbd">⌘D</kbd>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+## CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-command-palette-backdrop` | Full-screen backdrop overlay |
+| `.aural-command-palette-backdrop.is-open` | Open state for backdrop |
+| `.aural-command-palette` | Main palette container |
+| `.aural-command-palette__search` | Search input wrapper |
+| `.aural-command-palette__search-icon` | Search icon container |
+| `.aural-command-palette__input` | Search input field |
+| `.aural-command-palette__results` | Results container |
+| `.aural-command-palette__group` | Command group wrapper |
+| `.aural-command-palette__group-label` | Group label text |
+| `.aural-command-palette__items` | Items container within group |
+| `.aural-command-palette__item` | Individual command button |
+| `.aural-command-palette__item-icon` | Icon container |
+| `.aural-command-palette__item-content` | Text content wrapper |
+| `.aural-command-palette__item-title` | Command title |
+| `.aural-command-palette__item-subtitle` | Command subtitle/description |
+| `.aural-command-palette__item-kbd` | Keyboard shortcut badge |
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```javascript
+class CommandPalette {
+  constructor(commands) {
+    this.commands = commands;
+    this.filteredCommands = commands;
+    this.selectedIndex = 0;
+    this.isOpen = false;
+    this.init();
+  }
+
+  init() {
+    // Global keyboard shortcut (Cmd/Ctrl + K)
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        this.toggle();
+      }
+    });
+  }
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+    const backdrop = document.querySelector('.aural-command-palette-backdrop');
+
+    if (this.isOpen) {
+      backdrop.classList.add('is-open');
+      const input = backdrop.querySelector('.aural-command-palette__input');
+      input.focus();
+      this.setupEventListeners();
+    } else {
+      backdrop.classList.remove('is-open');
+    }
+  }
+
+  setupEventListeners() {
+    const input = document.querySelector('.aural-command-palette__input');
+
+    // Search input
+    input.addEventListener('input', (e) => this.handleSearch(e.target.value));
+
+    // Keyboard navigation
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        this.navigate(1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        this.navigate(-1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        this.executeCommand(this.filteredCommands[this.selectedIndex]);
+      } else if (e.key === 'Escape') {
+        this.toggle();
+      }
+    });
+
+    // Click backdrop to close
+    const backdrop = document.querySelector('.aural-command-palette-backdrop');
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) {
+        this.toggle();
+      }
+    });
+  }
+
+  handleSearch(query) {
+    this.filteredCommands = this.commands.filter(cmd =>
+      cmd.title.toLowerCase().includes(query.toLowerCase()) ||
+      cmd.subtitle?.toLowerCase().includes(query.toLowerCase())
+    );
+    this.selectedIndex = 0;
+    this.render();
+  }
+
+  navigate(direction) {
+    this.selectedIndex = Math.max(
+      0,
+      Math.min(this.filteredCommands.length - 1, this.selectedIndex + direction)
+    );
+    this.updateSelection();
+  }
+
+  updateSelection() {
+    const items = document.querySelectorAll('.aural-command-palette__item');
+    items.forEach((item, index) => {
+      item.classList.toggle('is-selected', index === this.selectedIndex);
+      item.setAttribute('aria-selected', index === this.selectedIndex ? 'true' : 'false');
+    });
+  }
+
+  executeCommand(command) {
+    if (command && command.action) {
+      command.action();
+      this.toggle();
+    }
+  }
+
+  render() {
+    const container = document.querySelector('.aural-command-palette__results');
+
+    // Group commands by category
+    const groups = this.filteredCommands.reduce((acc, cmd) => {
+      const category = cmd.category || 'General';
+      if (!acc[category]) acc[category] = [];
+      acc[category].push(cmd);
+      return acc;
+    }, {});
+
+    container.innerHTML = Object.entries(groups).map(([category, items]) => `
+      <div class="aural-command-palette__group">
+        <div class="aural-command-palette__group-label">\${category}</div>
+        <div class="aural-command-palette__items">
+          \${items.map((cmd, i) => `
+            <button class="aural-command-palette__item"
+                    role="option"
+                    aria-selected="\${i === 0 ? 'true' : 'false'}">
+              <span class="aural-command-palette__item-icon">
+                <i data-lucide="\${cmd.icon}"></i>
+              </span>
+              <div class="aural-command-palette__item-content">
+                <div class="aural-command-palette__item-title">\${cmd.title}</div>
+                \${cmd.subtitle ? `<div class="aural-command-palette__item-subtitle">\${cmd.subtitle}</div>` : ''}
+              </div>
+              \${cmd.kbd ? `<kbd class="aural-command-palette__item-kbd">\${cmd.kbd}</kbd>` : ''}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    // Re-initialize Lucide icons
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }
+}
+
+// Initialize
+const commands = [
+  {
+    category: 'Navigation',
+    icon: 'home',
+    title: 'Go to Dashboard',
+    subtitle: 'View overview',
+    kbd: '⌘D',
+    action: () => navigate('/dashboard')
+  },
+  {
+    category: 'Navigation',
+    icon: 'folder',
+    title: 'Browse Projects',
+    subtitle: 'All projects',
+    kbd: '⌘P',
+    action: () => navigate('/projects')
+  },
+  {
+    category: 'Actions',
+    icon: 'plus',
+    title: 'Create New',
+    kbd: '⌘N',
+    action: () => createNew()
+  }
+];
+
+const palette = new CommandPalette(commands);
+
+// Or use built-in initialization
+window.Aural?.initCommandPalette();
+```
+
+### React
+
+```jsx
+import { useState, useEffect, useRef } from 'react';
+import { Home, Folder, Settings, Plus, Upload } from 'lucide-react';
+
+const CommandPalette = ({ commands, isOpen, onClose }) => {
+  const [query, setQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const inputRef = useRef(null);
+
+  const filteredCommands = commands.filter(cmd =>
+    cmd.title.toLowerCase().includes(query.toLowerCase()) ||
+    cmd.subtitle?.toLowerCase().includes(query.toLowerCase())
+  );
+
+  // Group commands by category
+  const groupedCommands = filteredCommands.reduce((acc, cmd) => {
+    const category = cmd.category || 'General';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(cmd);
+    return acc;
+  }, {});
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [query]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex(i => Math.min(filteredCommands.length - 1, i + 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex(i => Math.max(0, i - 1));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      executeCommand(filteredCommands[selectedIndex]);
+    } else if (e.key === 'Escape') {
+      onClose();
+    }
+  };
+
+  const executeCommand = (command) => {
+    if (command?.action) {
+      command.action();
+      onClose();
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className="aural-command-palette-backdrop is-open"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="aural-command-palette">
+        <div className="aural-command-palette__search">
+          <span className="aural-command-palette__search-icon">
+            <Search size={20} />
+          </span>
+          <input
+            ref={inputRef}
+            type="text"
+            className="aural-command-palette__input"
+            placeholder="Type a command..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="command-results"
+          />
+        </div>
+
+        <div className="aural-command-palette__results" id="command-results" role="listbox">
+          {Object.entries(groupedCommands).map(([category, items]) => (
+            <div key={category} className="aural-command-palette__group">
+              <div className="aural-command-palette__group-label">
+                {category}
+              </div>
+              <div className="aural-command-palette__items">
+                {items.map((cmd, index) => (
+                  <button
+                    key={cmd.id || index}
+                    className={`aural-command-palette__item ${
+                      index === selectedIndex ? 'is-selected' : ''
+                    }`}
+                    onClick={() => executeCommand(cmd)}
+                    role="option"
+                    aria-selected={index === selectedIndex}
+                  >
+                    <span className="aural-command-palette__item-icon">
+                      {cmd.icon}
+                    </span>
+                    <div className="aural-command-palette__item-content">
+                      <div className="aural-command-palette__item-title">
+                        {cmd.title}
+                      </div>
+                      {cmd.subtitle && (
+                        <div className="aural-command-palette__item-subtitle">
+                          {cmd.subtitle}
+                        </div>
+                      )}
+                    </div>
+                    {cmd.kbd && (
+                      <kbd className="aural-command-palette__item-kbd">
+                        {cmd.kbd}
+                      </kbd>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Usage with global shortcut
+function App() {
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setPaletteOpen(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const commands = [
+    {
+      category: 'Navigation',
+      icon: <Home size={18} />,
+      title: 'Go to Dashboard',
+      subtitle: 'View overview',
+      kbd: '⌘D',
+      action: () => navigate('/dashboard')
+    },
+    {
+      category: 'Navigation',
+      icon: <Folder size={18} />,
+      title: 'Browse Projects',
+      subtitle: 'All projects',
+      kbd: '⌘P',
+      action: () => navigate('/projects')
+    },
+    {
+      category: 'Actions',
+      icon: <Plus size={18} />,
+      title: 'Create New',
+      kbd: '⌘N',
+      action: () => createNew()
+    }
+  ];
+
+  return (
+    <>
+      <CommandPalette
+        commands={commands}
+        isOpen={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+      />
+      {/* App content */}
+    </>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <Teleport to="body">
+    <div
+      v-if="isOpen"
+      class="aural-command-palette-backdrop is-open"
+      @click.self="$emit('close')"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="aural-command-palette">
+        <div class="aural-command-palette__search">
+          <span class="aural-command-palette__search-icon">
+            <Search :size="20" />
+          </span>
+          <input
+            ref="inputRef"
+            type="text"
+            class="aural-command-palette__input"
+            placeholder="Type a command..."
+            v-model="query"
+            @keydown="handleKeyDown"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls="command-results"
+          />
+        </div>
+
+        <div class="aural-command-palette__results" id="command-results" role="listbox">
+          <div
+            v-for="(items, category) in groupedCommands"
+            :key="category"
+            class="aural-command-palette__group"
+          >
+            <div class="aural-command-palette__group-label">
+              {{ category }}
+            </div>
+            <div class="aural-command-palette__items">
+              <button
+                v-for="(cmd, index) in items"
+                :key="cmd.id || index"
+                :class="[
+                  'aural-command-palette__item',
+                  { 'is-selected': index === selectedIndex }
+                ]"
+                @click="executeCommand(cmd)"
+                role="option"
+                :aria-selected="index === selectedIndex"
+              >
+                <span class="aural-command-palette__item-icon">
+                  <component :is="cmd.icon" :size="18" />
+                </span>
+                <div class="aural-command-palette__item-content">
+                  <div class="aural-command-palette__item-title">
+                    {{ cmd.title }}
+                  </div>
+                  <div
+                    v-if="cmd.subtitle"
+                    class="aural-command-palette__item-subtitle"
+                  >
+                    {{ cmd.subtitle }}
+                  </div>
+                </div>
+                <kbd
+                  v-if="cmd.kbd"
+                  class="aural-command-palette__item-kbd"
+                >
+                  {{ cmd.kbd }}
+                </kbd>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Teleport>
+</template>
+
+<script setup>
+import { ref, computed, watch, nextTick } from 'vue';
+import { Search, Home, Folder, Plus } from 'lucide-vue-next';
+
+const props = defineProps({
+  commands: { type: Array, required: true },
+  isOpen: { type: Boolean, default: false }
+});
+
+const emit = defineEmits(['close']);
+
+const query = ref('');
+const selectedIndex = ref(0);
+const inputRef = ref(null);
+
+const filteredCommands = computed(() =>
+  props.commands.filter(cmd =>
+    cmd.title.toLowerCase().includes(query.value.toLowerCase()) ||
+    cmd.subtitle?.toLowerCase().includes(query.value.toLowerCase())
+  )
+);
+
+const groupedCommands = computed(() =>
+  filteredCommands.value.reduce((acc, cmd) => {
+    const category = cmd.category || 'General';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(cmd);
+    return acc;
+  }, {})
+);
+
+watch(() => props.isOpen, async (open) => {
+  if (open) {
+    await nextTick();
+    inputRef.value?.focus();
+  }
+});
+
+watch(query, () => {
+  selectedIndex.value = 0;
+});
+
+const handleKeyDown = (e) => {
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    selectedIndex.value = Math.min(
+      filteredCommands.value.length - 1,
+      selectedIndex.value + 1
+    );
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    selectedIndex.value = Math.max(0, selectedIndex.value - 1);
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    executeCommand(filteredCommands.value[selectedIndex.value]);
+  } else if (e.key === 'Escape') {
+    emit('close');
+  }
+};
+
+const executeCommand = (command) => {
+  if (command?.action) {
+    command.action();
+    emit('close');
+  }
+};
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount, tick } from 'svelte';
+  import { Search, Home, Folder, Plus } from 'lucide-svelte';
+
+  export let commands = [];
+  export let isOpen = false;
+  export let onClose = () => {};
+
+  let query = '';
+  let selectedIndex = 0;
+  let inputRef;
+
+  $: filteredCommands = commands.filter(cmd =>
+    cmd.title.toLowerCase().includes(query.toLowerCase()) ||
+    cmd.subtitle?.toLowerCase().includes(query.toLowerCase())
+  );
+
+  $: groupedCommands = filteredCommands.reduce((acc, cmd) => {
+    const category = cmd.category || 'General';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(cmd);
+    return acc;
+  }, {});
+
+  $: if (isOpen) {
+    tick().then(() => inputRef?.focus());
+  }
+
+  $: if (query) {
+    selectedIndex = 0;
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      selectedIndex = Math.min(filteredCommands.length - 1, selectedIndex + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      selectedIndex = Math.max(0, selectedIndex - 1);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      executeCommand(filteredCommands[selectedIndex]);
+    } else if (e.key === 'Escape') {
+      onClose();
+    }
+  }
+
+  function executeCommand(command) {
+    if (command?.action) {
+      command.action();
+      onClose();
+    }
+  }
+
+  function handleBackdropClick(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+</script>
+
+{#if isOpen}
+  <div
+    class="aural-command-palette-backdrop is-open"
+    on:click={handleBackdropClick}
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="aural-command-palette">
+      <div class="aural-command-palette__search">
+        <span class="aural-command-palette__search-icon">
+          <Search size={20} />
+        </span>
+        <input
+          bind:this={inputRef}
+          type="text"
+          class="aural-command-palette__input"
+          placeholder="Type a command..."
+          bind:value={query}
+          on:keydown={handleKeyDown}
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded="true"
+          aria-controls="command-results"
+        />
+      </div>
+
+      <div class="aural-command-palette__results" id="command-results" role="listbox">
+        {#each Object.entries(groupedCommands) as [category, items]}
+          <div class="aural-command-palette__group">
+            <div class="aural-command-palette__group-label">
+              {category}
+            </div>
+            <div class="aural-command-palette__items">
+              {#each items as cmd, index}
+                <button
+                  class="aural-command-palette__item"
+                  class:is-selected={index === selectedIndex}
+                  on:click={() => executeCommand(cmd)}
+                  role="option"
+                  aria-selected={index === selectedIndex}
+                >
+                  <span class="aural-command-palette__item-icon">
+                    <svelte:component this={cmd.icon} size={18} />
+                  </span>
+                  <div class="aural-command-palette__item-content">
+                    <div class="aural-command-palette__item-title">
+                      {cmd.title}
+                    </div>
+                    {#if cmd.subtitle}
+                      <div class="aural-command-palette__item-subtitle">
+                        {cmd.subtitle}
+                      </div>
+                    {/if}
+                  </div>
+                  {#if cmd.kbd}
+                    <kbd class="aural-command-palette__item-kbd">
+                      {cmd.kbd}
+                    </kbd>
+                  {/if}
+                </button>
+              {/each}
+            </div>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </div>
+{/if}
+```
+
+## Accessibility
+
+### ARIA Attributes
+
+- Use `role="dialog"` and `aria-modal="true"` on the backdrop
+- Use `role="combobox"` on the search input
+- Use `role="listbox"` on the results container
+- Use `role="option"` on each command item
+- Set `aria-selected` on the currently selected item
+- Implement `aria-activedescendant` for better screen reader support
+
+### Keyboard Navigation
+
+- **⌘K / Ctrl+K**: Open command palette
+- **Arrow Up/Down**: Navigate through commands
+- **Enter**: Execute selected command
+- **Escape**: Close palette
+- **Type**: Filter commands in real-time
+
+### Focus Management
+
+- Automatically focus the search input when opened
+- Trap focus within the palette while open
+- Return focus to trigger element when closed
+- Announce search results count to screen readers
+
+## Best Practices
+
+### Do
+
+- Use descriptive command titles that clearly indicate the action
+- Group related commands together by category
+- Display keyboard shortcuts when available
+- Implement fuzzy search for better UX
+- Show recent/frequent commands at the top
+- Limit visible results to avoid overwhelming users
+- Use icons to help users quickly identify command types
+
+### Don't
+
+- Don't show too many commands at once (limit to 5-8 per category)
+- Don't use vague command names
+- Don't forget to close the palette after command execution
+- Don't implement slow search with large command sets
+- Don't skip keyboard navigation support
+- Don't ignore accessibility attributes
+
+## Related Components
+
+- **Modal**: For dialog-based interactions
+- **Dropdown**: For simpler menu selections
+- **Search**: For search-only interfaces

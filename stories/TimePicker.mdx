@@ -1,0 +1,609 @@
+import { Canvas, Meta, Controls, Story } from '@storybook/blocks';
+import * as TimePickerStories from './TimePicker.stories';
+
+<Meta of={TimePickerStories} />
+
+# Time Picker
+
+Select time with hours and minutes. Supports 12-hour and 24-hour formats with intuitive scrollable lists and keyboard input. Perfect for scheduling, appointments, or any time selection needs.
+
+## Features
+
+- **12-hour & 24-hour formats**: Support for both AM/PM and 24-hour time formats
+- **Scrollable lists**: Smooth scrolling for hour and minute selection
+- **Minute intervals**: Configure step intervals (1, 5, 15, 30 minutes)
+- **"Now" button**: Quick selection of current time
+- **Keyboard navigation**: Full keyboard support for accessibility
+- **Size variants**: Small, default, and large sizes
+- **Dropdown & inline modes**: Flexible display options
+- **ARIA compliant**: Proper ARIA attributes for screen readers
+
+## Basic Usage
+
+<Canvas of={TimePickerStories.Basic} />
+
+## 24-Hour Format
+
+<Canvas of={TimePickerStories.TwentyFourHour} />
+
+## Size Variants
+
+<Canvas of={TimePickerStories.SizeComparison} />
+
+## Step Intervals
+
+### 5-Minute Steps
+<Canvas of={TimePickerStories.FiveMinuteStep} />
+
+### 15-Minute Steps
+<Canvas of={TimePickerStories.FifteenMinuteStep} />
+
+### 30-Minute Steps
+<Canvas of={TimePickerStories.ThirtyMinuteStep} />
+
+## Patterns
+
+### Time Range (Meeting Scheduler)
+<Canvas of={TimePickerStories.TimeRange} />
+
+### Alarm Clock
+<Canvas of={TimePickerStories.AlarmClock} />
+
+### Inline Style
+<Canvas of={TimePickerStories.InlineStyle} />
+
+## States
+
+### Disabled
+<Canvas of={TimePickerStories.Disabled} />
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```html
+<div class="aural-time-picker" id="time-picker-1">
+  <label class="aural-time-picker__label">Select Time</label>
+  <div class="aural-time-picker__input-wrapper">
+    <input type="text" class="aural-time-picker__input" placeholder="--:-- --" readonly aria-label="Select time">
+    <button type="button" class="aural-time-picker__toggle" aria-label="Open time picker">
+      <i data-lucide="clock"></i>
+    </button>
+  </div>
+  <div class="aural-time-picker__dropdown">
+    <div class="aural-time-picker__selectors">
+      <div class="aural-time-picker__selector">
+        <div class="aural-time-picker__selector-label">Hour</div>
+        <div class="aural-time-picker__list" data-type="hour"></div>
+      </div>
+      <div class="aural-time-picker__selector">
+        <div class="aural-time-picker__selector-label">Minute</div>
+        <div class="aural-time-picker__list" data-type="minute"></div>
+      </div>
+      <div class="aural-time-picker__selector">
+        <div class="aural-time-picker__selector-label">Period</div>
+        <div class="aural-time-picker__period">
+          <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+          <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+        </div>
+      </div>
+    </div>
+    <div class="aural-time-picker__now">
+      <button type="button" class="aural-time-picker__now-btn">
+        <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+        Now
+      </button>
+    </div>
+    <div class="aural-time-picker__actions">
+      <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+      <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Initialize time picker
+  window.Aural.initTimePicker();
+
+  // Or with custom options
+  Aural.initTimePicker('#time-picker-1', {
+    minuteStep: 15,
+    defaultToNow: false
+  });
+</script>
+```
+
+### React
+
+```jsx
+import { useEffect, useRef, useState } from 'react';
+
+const TimePicker = ({
+  label = 'Select Time',
+  format = '12h',
+  minuteStep = 1,
+  showNowButton = true,
+  onChange,
+  value,
+  disabled = false
+}) => {
+  const pickerRef = useRef(null);
+  const [selectedTime, setSelectedTime] = useState(value || '');
+
+  useEffect(() => {
+    // Initialize time picker
+    if (window.Aural?.initTimePicker && pickerRef.current) {
+      window.Aural.initTimePicker(pickerRef.current, {
+        minuteStep,
+        defaultToNow: false
+      });
+
+      // Listen for changes
+      const input = pickerRef.current.querySelector('.aural-time-picker__input');
+      if (input) {
+        input.addEventListener('change', (e) => {
+          const newTime = e.target.value;
+          setSelectedTime(newTime);
+          onChange?.(newTime);
+        });
+      }
+    }
+  }, [minuteStep, onChange]);
+
+  useEffect(() => {
+    if (pickerRef.current && value !== selectedTime) {
+      const input = pickerRef.current.querySelector('.aural-time-picker__input');
+      if (input) {
+        input.value = value || '';
+        setSelectedTime(value || '');
+      }
+    }
+  }, [value]);
+
+  const is24Hour = format === '24h';
+  const placeholder = is24Hour ? '--:--' : '--:-- --';
+
+  return (
+    <div
+      ref={pickerRef}
+      className={`aural-time-picker${is24Hour ? ' aural-time-picker--24h' : ''}${disabled ? ' aural-time-picker--disabled' : ''}`}
+      data-step={minuteStep}
+    >
+      <label className="aural-time-picker__label">{label}</label>
+      <div className="aural-time-picker__input-wrapper">
+        <input
+          type="text"
+          className="aural-time-picker__input"
+          placeholder={placeholder}
+          readOnly
+          disabled={disabled}
+          aria-label={label}
+        />
+        <button
+          type="button"
+          className="aural-time-picker__toggle"
+          aria-label="Open time picker"
+          disabled={disabled}
+        >
+          <i data-lucide="clock"></i>
+        </button>
+      </div>
+      {!disabled && (
+        <div className="aural-time-picker__dropdown">
+          <div className="aural-time-picker__selectors">
+            <div className="aural-time-picker__selector">
+              <div className="aural-time-picker__selector-label">Hour</div>
+              <div className="aural-time-picker__list" data-type="hour"></div>
+            </div>
+            <div className="aural-time-picker__selector">
+              <div className="aural-time-picker__selector-label">Minute</div>
+              <div className="aural-time-picker__list" data-type="minute"></div>
+            </div>
+            {!is24Hour && (
+              <div className="aural-time-picker__selector">
+                <div className="aural-time-picker__selector-label">Period</div>
+                <div className="aural-time-picker__period">
+                  <button type="button" className="aural-time-picker__period-btn" data-period="AM">AM</button>
+                  <button type="button" className="aural-time-picker__period-btn" data-period="PM">PM</button>
+                </div>
+              </div>
+            )}
+          </div>
+          {showNowButton && (
+            <div className="aural-time-picker__now">
+              <button type="button" className="aural-time-picker__now-btn">
+                <i data-lucide="clock" style={{ width: 16, height: 16 }}></i>
+                Now
+              </button>
+            </div>
+          )}
+          <div className="aural-time-picker__actions">
+            <button type="button" className="aural-time-picker__action-btn" data-action="clear">Clear</button>
+            <button type="button" className="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Usage
+function App() {
+  const [time, setTime] = useState('');
+
+  return (
+    <TimePicker
+      label="Meeting Time"
+      format="12h"
+      minuteStep={15}
+      value={time}
+      onChange={setTime}
+    />
+  );
+}
+```
+
+### Vue
+
+```vue
+<template>
+  <div
+    ref="pickerRef"
+    :class="pickerClasses"
+    :data-step="minuteStep"
+  >
+    <label class="aural-time-picker__label">{{ label }}</label>
+    <div class="aural-time-picker__input-wrapper">
+      <input
+        type="text"
+        class="aural-time-picker__input"
+        :placeholder="placeholder"
+        readonly
+        :disabled="disabled"
+        :aria-label="label"
+      />
+      <button
+        type="button"
+        class="aural-time-picker__toggle"
+        aria-label="Open time picker"
+        :disabled="disabled"
+      >
+        <i data-lucide="clock"></i>
+      </button>
+    </div>
+    <div v-if="!disabled" class="aural-time-picker__dropdown">
+      <div class="aural-time-picker__selectors">
+        <div class="aural-time-picker__selector">
+          <div class="aural-time-picker__selector-label">Hour</div>
+          <div class="aural-time-picker__list" data-type="hour"></div>
+        </div>
+        <div class="aural-time-picker__selector">
+          <div class="aural-time-picker__selector-label">Minute</div>
+          <div class="aural-time-picker__list" data-type="minute"></div>
+        </div>
+        <div v-if="format !== '24h'" class="aural-time-picker__selector">
+          <div class="aural-time-picker__selector-label">Period</div>
+          <div class="aural-time-picker__period">
+            <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+            <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+          </div>
+        </div>
+      </div>
+      <div v-if="showNowButton" class="aural-time-picker__now">
+        <button type="button" class="aural-time-picker__now-btn">
+          <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+          Now
+        </button>
+      </div>
+      <div class="aural-time-picker__actions">
+        <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+        <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue';
+
+const props = defineProps({
+  label: {
+    type: String,
+    default: 'Select Time'
+  },
+  format: {
+    type: String,
+    default: '12h',
+    validator: (value) => ['12h', '24h'].includes(value)
+  },
+  minuteStep: {
+    type: Number,
+    default: 1
+  },
+  showNowButton: {
+    type: Boolean,
+    default: true
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  modelValue: {
+    type: String,
+    default: ''
+  }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const pickerRef = ref(null);
+
+const pickerClasses = computed(() => {
+  let classes = 'aural-time-picker';
+  if (props.format === '24h') classes += ' aural-time-picker--24h';
+  if (props.disabled) classes += ' aural-time-picker--disabled';
+  return classes;
+});
+
+const placeholder = computed(() => {
+  return props.format === '24h' ? '--:--' : '--:-- --';
+});
+
+onMounted(() => {
+  if (window.Aural?.initTimePicker && pickerRef.value) {
+    window.Aural.initTimePicker(pickerRef.value, {
+      minuteStep: props.minuteStep,
+      defaultToNow: false
+    });
+
+    const input = pickerRef.value.querySelector('.aural-time-picker__input');
+    if (input) {
+      input.addEventListener('change', (e) => {
+        emit('update:modelValue', e.target.value);
+      });
+    }
+  }
+});
+
+watch(() => props.modelValue, (newValue) => {
+  if (pickerRef.value) {
+    const input = pickerRef.value.querySelector('.aural-time-picker__input');
+    if (input && input.value !== newValue) {
+      input.value = newValue || '';
+    }
+  }
+});
+</script>
+
+<!-- Usage -->
+<script setup>
+import { ref } from 'vue';
+import TimePicker from './TimePicker.vue';
+
+const meetingTime = ref('');
+</script>
+
+<template>
+  <TimePicker
+    label="Meeting Time"
+    format="12h"
+    :minute-step="15"
+    v-model="meetingTime"
+  />
+</template>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+
+  export let label = 'Select Time';
+  export let format = '12h';
+  export let minuteStep = 1;
+  export let showNowButton = true;
+  export let disabled = false;
+  export let value = '';
+
+  let pickerRef;
+
+  $: is24Hour = format === '24h';
+  $: placeholder = is24Hour ? '--:--' : '--:-- --';
+  $: pickerClasses = `aural-time-picker${is24Hour ? ' aural-time-picker--24h' : ''}${disabled ? ' aural-time-picker--disabled' : ''}`;
+
+  onMount(() => {
+    if (window.Aural?.initTimePicker && pickerRef) {
+      window.Aural.initTimePicker(pickerRef, {
+        minuteStep,
+        defaultToNow: false
+      });
+
+      const input = pickerRef.querySelector('.aural-time-picker__input');
+      if (input) {
+        input.addEventListener('change', (e) => {
+          value = e.target.value;
+        });
+      }
+    }
+  });
+
+  $: if (pickerRef) {
+    const input = pickerRef.querySelector('.aural-time-picker__input');
+    if (input && input.value !== value) {
+      input.value = value || '';
+    }
+  }
+</script>
+
+<div
+  bind:this={pickerRef}
+  class={pickerClasses}
+  data-step={minuteStep}
+>
+  <label class="aural-time-picker__label">{label}</label>
+  <div class="aural-time-picker__input-wrapper">
+    <input
+      type="text"
+      class="aural-time-picker__input"
+      {placeholder}
+      readonly
+      {disabled}
+      aria-label={label}
+    />
+    <button
+      type="button"
+      class="aural-time-picker__toggle"
+      aria-label="Open time picker"
+      {disabled}
+    >
+      <i data-lucide="clock"></i>
+    </button>
+  </div>
+  {#if !disabled}
+    <div class="aural-time-picker__dropdown">
+      <div class="aural-time-picker__selectors">
+        <div class="aural-time-picker__selector">
+          <div class="aural-time-picker__selector-label">Hour</div>
+          <div class="aural-time-picker__list" data-type="hour"></div>
+        </div>
+        <div class="aural-time-picker__selector">
+          <div class="aural-time-picker__selector-label">Minute</div>
+          <div class="aural-time-picker__list" data-type="minute"></div>
+        </div>
+        {#if !is24Hour}
+          <div class="aural-time-picker__selector">
+            <div class="aural-time-picker__selector-label">Period</div>
+            <div class="aural-time-picker__period">
+              <button type="button" class="aural-time-picker__period-btn" data-period="AM">AM</button>
+              <button type="button" class="aural-time-picker__period-btn" data-period="PM">PM</button>
+            </div>
+          </div>
+        {/if}
+      </div>
+      {#if showNowButton}
+        <div class="aural-time-picker__now">
+          <button type="button" class="aural-time-picker__now-btn">
+            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+            Now
+          </button>
+        </div>
+      {/if}
+      <div class="aural-time-picker__actions">
+        <button type="button" class="aural-time-picker__action-btn" data-action="clear">Clear</button>
+        <button type="button" class="aural-time-picker__action-btn aural-time-picker__action-btn--primary" data-action="apply">Apply</button>
+      </div>
+    </div>
+  {/if}
+</div>
+
+<!-- Usage -->
+<script>
+  import TimePicker from './TimePicker.svelte';
+
+  let meetingTime = '';
+</script>
+
+<TimePicker
+  label="Meeting Time"
+  format="12h"
+  minuteStep={15}
+  bind:value={meetingTime}
+/>
+```
+
+## CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-time-picker` | Base time picker container |
+| `.aural-time-picker--12h` | 12-hour format (default) |
+| `.aural-time-picker--24h` | 24-hour format |
+| `.aural-time-picker--sm` | Small size variant |
+| `.aural-time-picker--lg` | Large size variant |
+| `.aural-time-picker--disabled` | Disabled state |
+| `.aural-time-picker--open` | Dropdown is open |
+| `.aural-time-picker__label` | Label text |
+| `.aural-time-picker__input-wrapper` | Input container |
+| `.aural-time-picker__input` | Time input field |
+| `.aural-time-picker__toggle` | Toggle button (clock icon) |
+| `.aural-time-picker__dropdown` | Dropdown container |
+| `.aural-time-picker__selectors` | Hour/minute/period selectors container |
+| `.aural-time-picker__selector` | Individual selector column |
+| `.aural-time-picker__selector-label` | Selector label (Hour, Minute, Period) |
+| `.aural-time-picker__list` | Scrollable list container |
+| `.aural-time-picker__item` | Individual time item button |
+| `.aural-time-picker__item--selected` | Selected time item |
+| `.aural-time-picker__period` | AM/PM selector container |
+| `.aural-time-picker__period-btn` | AM/PM button |
+| `.aural-time-picker__period-btn--selected` | Selected period |
+| `.aural-time-picker__now` | "Now" button container |
+| `.aural-time-picker__now-btn` | "Now" button |
+| `.aural-time-picker__actions` | Action buttons container |
+| `.aural-time-picker__action-btn` | Action button (Clear/Apply) |
+| `.aural-time-picker__action-btn--primary` | Primary action button |
+
+## HTML Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `data-step` | Minute step interval (e.g., `data-step="15"`) |
+| `data-type` | Selector type (`hour`, `minute`) |
+| `data-period` | Period value (`AM`, `PM`) |
+| `data-action` | Action type (`clear`, `apply`) |
+
+## Accessibility
+
+The Time Picker component follows WCAG 2.1 Level AA guidelines:
+
+- **Keyboard Navigation**: Full keyboard support with Tab, Arrow keys, Enter, Space, and Escape
+- **ARIA Labels**: Proper `aria-label` attributes on all interactive elements
+- **Screen Reader Support**: Announces selected time and changes
+- **Focus Management**: Logical focus order and visible focus indicators
+- **Touch Targets**: Minimum 44x44px touch targets for mobile
+- **Color Contrast**: Sufficient contrast ratios for all text and interactive elements
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Move between selectors and buttons |
+| `Arrow Up/Down` | Scroll through hour/minute options |
+| `Enter/Space` | Select time or activate button |
+| `Escape` | Close dropdown without applying |
+
+## Best Practices
+
+### When to Use
+
+- Appointment scheduling and booking systems
+- Time-based settings (alarms, reminders, timers)
+- Form time input requiring structured format
+- Meeting schedulers with start/end times
+- Any scenario requiring precise time selection
+
+### When NOT to Use
+
+- Duration entry (use duration inputs instead)
+- Relative time ("in 5 minutes", use preset buttons)
+- Limited time slots (use dropdown or radio buttons)
+- Quick keyboard entry (consider allowing direct input)
+
+### Design Guidelines
+
+- **Format**: Choose 12h/24h based on user locale
+- **Intervals**: Use appropriate minute steps (1, 5, 15, 30 min)
+- **Now Button**: Include for current time selection
+- **Validation**: Ensure end time is after start time for ranges
+- **Mobile**: Consider native pickers on mobile devices
+- **Defaults**: Set sensible defaults based on context
+
+## Props
+
+<Controls />
+
+## Theme Support
+
+The Time Picker component is fully themeable and supports all Aural UI themes:
+
+<Canvas of={TimePickerStories.ThemeComparison} />

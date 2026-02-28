@@ -1,0 +1,1039 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as ContextMenuStories from './ContextMenu.stories';
+
+<Meta of={ContextMenuStories} />
+
+# Context Menu
+
+Context menus provide quick access to contextual actions through right-click interaction. They are essential for power users and data-rich applications like file managers, editors, and data tables.
+
+## Overview
+
+The Context Menu component displays a menu of actions when users right-click (or long-press on mobile) an element. Context menus should contain actions that are relevant to the clicked element and not available in the primary UI.
+
+**Key Features:**
+- Right-click activation with keyboard support (Shift+F10)
+- Auto-positioning to prevent viewport overflow
+- Support for icons, keyboard shortcuts, and separators
+- Disabled and danger states
+- Section headers for grouping
+- Compact variant for dense interfaces
+- Full ARIA compliance
+- Theme-aware styling across all 9 Aural UI themes
+
+---
+
+## Basic Usage
+
+<Canvas of={ContextMenuStories.Default} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Trigger area -->
+<div id="trigger-area">
+  Right-click here
+</div>
+
+<!-- Context menu (hidden by default) -->
+<div class="aural-context-menu" id="context-menu" role="menu">
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="copy" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Copy</span>
+    <span class="aural-context-menu__item-shortcut">⌘C</span>
+  </button>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="scissors" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Cut</span>
+    <span class="aural-context-menu__item-shortcut">⌘X</span>
+  </button>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="clipboard" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Paste</span>
+    <span class="aural-context-menu__item-shortcut">⌘V</span>
+  </button>
+  <div class="aural-context-menu__separator" role="separator"></div>
+  <button class="aural-context-menu__item aural-context-menu__item--danger" role="menuitem">
+    <i data-lucide="trash-2" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Delete</span>
+  </button>
+</div>
+
+<script>
+// Show context menu on right-click
+const trigger = document.getElementById('trigger-area');
+const menu = document.getElementById('context-menu');
+
+trigger.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+
+  // Position menu at cursor
+  menu.style.left = e.clientX + 'px';
+  menu.style.top = e.clientY + 'px';
+  menu.classList.add('aural-context-menu--open');
+
+  // Adjust if menu goes off screen
+  const rect = menu.getBoundingClientRect();
+  if (rect.right > window.innerWidth) {
+    menu.style.left = (e.clientX - rect.width) + 'px';
+  }
+  if (rect.bottom > window.innerHeight) {
+    menu.style.top = (e.clientY - rect.height) + 'px';
+  }
+});
+
+// Hide on click outside
+document.addEventListener('click', () => {
+  menu.classList.remove('aural-context-menu--open');
+});
+
+// Hide on escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    menu.classList.remove('aural-context-menu--open');
+  }
+});
+
+// Initialize Aural UI context menu
+window.Aural?.initContextMenu();
+</script>
+```
+
+### React
+
+```jsx
+import { useState, useEffect, useRef } from 'react';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function ContextMenu({ items, children }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const menuRef = useRef(null);
+  const triggerRef = useRef(null);
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    setPosition({ x: e.clientX, y: e.clientY });
+    setIsOpen(true);
+  };
+
+  const handleItemClick = (item) => {
+    if (!item.disabled) {
+      item.onClick?.();
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = () => setIsOpen(false);
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+
+    if (isOpen) {
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+
+      // Adjust position if menu goes off screen
+      const menu = menuRef.current;
+      if (menu) {
+        const rect = menu.getBoundingClientRect();
+        let { x, y } = position;
+
+        if (rect.right > window.innerWidth) {
+          x = position.x - rect.width;
+        }
+        if (rect.bottom > window.innerHeight) {
+          y = position.y - rect.height;
+        }
+
+        if (x !== position.x || y !== position.y) {
+          setPosition({ x, y });
+        }
+      }
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, position]);
+
+  return (
+    <>
+      <div ref={triggerRef} onContextMenu={handleContextMenu}>
+        {children}
+      </div>
+
+      {isOpen && (
+        <div
+          ref={menuRef}
+          className="aural-context-menu aural-context-menu--open"
+          role="menu"
+          style={{
+            position: 'fixed',
+            left: `${position.x}px`,
+            top: `${position.y}px`
+          }}
+        >
+          {items.map((item, index) => {
+            if (item.separator) {
+              return (
+                <div
+                  key={index}
+                  className="aural-context-menu__separator"
+                  role="separator"
+                />
+              );
+            }
+
+            if (item.header) {
+              return (
+                <div key={index} className="aural-context-menu__header">
+                  {item.label}
+                </div>
+              );
+            }
+
+            return (
+              <button
+                key={index}
+                className={`aural-context-menu__item ${
+                  item.danger ? 'aural-context-menu__item--danger' : ''
+                } ${item.disabled ? 'aural-context-menu__item--disabled' : ''}`}
+                role="menuitem"
+                disabled={item.disabled}
+                aria-disabled={item.disabled}
+                onClick={() => handleItemClick(item)}
+              >
+                {item.icon && (
+                  <i data-lucide={item.icon} className="aural-context-menu__item-icon" />
+                )}
+                <span className="aural-context-menu__item-label">{item.label}</span>
+                {item.shortcut && (
+                  <span className="aural-context-menu__item-shortcut">{item.shortcut}</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
+}
+
+// Usage
+function App() {
+  const contextMenuItems = [
+    { label: 'Copy', icon: 'copy', shortcut: '⌘C', onClick: () => console.log('Copy') },
+    { label: 'Cut', icon: 'scissors', shortcut: '⌘X', onClick: () => console.log('Cut') },
+    { label: 'Paste', icon: 'clipboard', shortcut: '⌘V', onClick: () => console.log('Paste') },
+    { separator: true },
+    { label: 'Delete', icon: 'trash-2', danger: true, onClick: () => console.log('Delete') }
+  ];
+
+  return (
+    <ContextMenu items={contextMenuItems}>
+      <div className="trigger-area">
+        Right-click here
+      </div>
+    </ContextMenu>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div @contextmenu.prevent="handleContextMenu">
+    <slot />
+  </div>
+
+  <div
+    v-if="isOpen"
+    ref="menuRef"
+    class="aural-context-menu aural-context-menu--open"
+    role="menu"
+    :style="{
+      position: 'fixed',
+      left: position.x + 'px',
+      top: position.y + 'px'
+    }"
+  >
+    <template v-for="(item, index) in items" :key="index">
+      <div
+        v-if="item.separator"
+        class="aural-context-menu__separator"
+        role="separator"
+      />
+
+      <div
+        v-else-if="item.header"
+        class="aural-context-menu__header"
+      >
+        {{ item.label }}
+      </div>
+
+      <button
+        v-else
+        class="aural-context-menu__item"
+        :class="{
+          'aural-context-menu__item--danger': item.danger,
+          'aural-context-menu__item--disabled': item.disabled
+        }"
+        role="menuitem"
+        :disabled="item.disabled"
+        :aria-disabled="item.disabled"
+        @click="handleItemClick(item)"
+      >
+        <i
+          v-if="item.icon"
+          :data-lucide="item.icon"
+          class="aural-context-menu__item-icon"
+        />
+        <span class="aural-context-menu__item-label">{{ item.label }}</span>
+        <span
+          v-if="item.shortcut"
+          class="aural-context-menu__item-shortcut"
+        >
+          {{ item.shortcut }}
+        </span>
+      </button>
+    </template>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch, onMounted, onUnmounted } from 'vue';
+
+const props = defineProps({
+  items: {
+    type: Array,
+    required: true
+  }
+});
+
+const isOpen = ref(false);
+const position = ref({ x: 0, y: 0 });
+const menuRef = ref(null);
+
+const handleContextMenu = (e) => {
+  position.value = { x: e.clientX, y: e.clientY };
+  isOpen.value = true;
+};
+
+const handleItemClick = (item) => {
+  if (!item.disabled) {
+    item.onClick?.();
+    isOpen.value = false;
+  }
+};
+
+const handleClickOutside = () => {
+  isOpen.value = false;
+};
+
+const handleEscape = (e) => {
+  if (e.key === 'Escape') {
+    isOpen.value = false;
+  }
+};
+
+watch(isOpen, (newValue) => {
+  if (newValue) {
+    // Adjust position if menu goes off screen
+    setTimeout(() => {
+      const menu = menuRef.value;
+      if (menu) {
+        const rect = menu.getBoundingClientRect();
+        let { x, y } = position.value;
+
+        if (rect.right > window.innerWidth) {
+          x = position.value.x - rect.width;
+        }
+        if (rect.bottom > window.innerHeight) {
+          y = position.value.y - rect.height;
+        }
+
+        if (x !== position.value.x || y !== position.value.y) {
+          position.value = { x, y };
+        }
+      }
+    }, 0);
+  }
+});
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+  document.addEventListener('keydown', handleEscape);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+  document.removeEventListener('keydown', handleEscape);
+});
+</script>
+
+<!-- Usage -->
+<template>
+  <ContextMenu :items="menuItems">
+    <div class="trigger-area">
+      Right-click here
+    </div>
+  </ContextMenu>
+</template>
+
+<script setup>
+const menuItems = [
+  { label: 'Copy', icon: 'copy', shortcut: '⌘C', onClick: () => console.log('Copy') },
+  { label: 'Cut', icon: 'scissors', shortcut: '⌘X', onClick: () => console.log('Cut') },
+  { label: 'Paste', icon: 'clipboard', shortcut: '⌘V', onClick: () => console.log('Paste') },
+  { separator: true },
+  { label: 'Delete', icon: 'trash-2', danger: true, onClick: () => console.log('Delete') }
+];
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let items = [];
+
+  let isOpen = false;
+  let position = { x: 0, y: 0 };
+  let menuElement;
+
+  function handleContextMenu(e) {
+    e.preventDefault();
+    position = { x: e.clientX, y: e.clientY };
+    isOpen = true;
+
+    // Adjust position if menu goes off screen
+    setTimeout(() => {
+      if (menuElement) {
+        const rect = menuElement.getBoundingClientRect();
+        let { x, y } = position;
+
+        if (rect.right > window.innerWidth) {
+          x = position.x - rect.width;
+        }
+        if (rect.bottom > window.innerHeight) {
+          y = position.y - rect.height;
+        }
+
+        if (x !== position.x || y !== position.y) {
+          position = { x, y };
+        }
+      }
+    }, 0);
+  }
+
+  function handleItemClick(item) {
+    if (!item.disabled) {
+      item.onClick?.();
+      isOpen = false;
+    }
+  }
+
+  function handleClickOutside() {
+    isOpen = false;
+  }
+
+  function handleKeydown(e) {
+    if (e.key === 'Escape') {
+      isOpen = false;
+    }
+  }
+</script>
+
+<svelte:window on:click={handleClickOutside} on:keydown={handleKeydown} />
+
+<div on:contextmenu={handleContextMenu}>
+  <slot />
+</div>
+
+{#if isOpen}
+  <div
+    bind:this={menuElement}
+    class="aural-context-menu aural-context-menu--open"
+    role="menu"
+    style="position: fixed; left: {position.x}px; top: {position.y}px;"
+  >
+    {#each items as item, index}
+      {#if item.separator}
+        <div class="aural-context-menu__separator" role="separator" />
+      {:else if item.header}
+        <div class="aural-context-menu__header">{item.label}</div>
+      {:else}
+        <button
+          class="aural-context-menu__item"
+          class:aural-context-menu__item--danger={item.danger}
+          class:aural-context-menu__item--disabled={item.disabled}
+          role="menuitem"
+          disabled={item.disabled}
+          aria-disabled={item.disabled}
+          on:click={() => handleItemClick(item)}
+        >
+          {#if item.icon}
+            <i data-lucide={item.icon} class="aural-context-menu__item-icon" />
+          {/if}
+          <span class="aural-context-menu__item-label">{item.label}</span>
+          {#if item.shortcut}
+            <span class="aural-context-menu__item-shortcut">{item.shortcut}</span>
+          {/if}
+        </button>
+      {/if}
+    {/each}
+  </div>
+{/if}
+
+<!-- Usage -->
+<script>
+  import ContextMenu from './ContextMenu.svelte';
+
+  const menuItems = [
+    { label: 'Copy', icon: 'copy', shortcut: '⌘C', onClick: () => console.log('Copy') },
+    { label: 'Cut', icon: 'scissors', shortcut: '⌘X', onClick: () => console.log('Cut') },
+    { label: 'Paste', icon: 'clipboard', shortcut: '⌘V', onClick: () => console.log('Paste') },
+    { separator: true },
+    { label: 'Delete', icon: 'trash-2', danger: true, onClick: () => console.log('Delete') }
+  ];
+</script>
+
+<ContextMenu items={menuItems}>
+  <div class="trigger-area">
+    Right-click here
+  </div>
+</ContextMenu>
+```
+
+---
+
+## With Icons
+
+Add icons to menu items for better visual recognition and scannability.
+
+<Canvas of={ContextMenuStories.WithIcons} />
+
+```html
+<button class="aural-context-menu__item" role="menuitem">
+  <i data-lucide="file-plus" class="aural-context-menu__item-icon"></i>
+  <span class="aural-context-menu__item-label">New File</span>
+  <span class="aural-context-menu__item-shortcut">⌘N</span>
+</button>
+```
+
+**Best Practice**: Use consistent icon style (Lucide icons recommended) throughout your context menus.
+
+---
+
+## With Separators
+
+Use separators to group related actions logically.
+
+<Canvas of={ContextMenuStories.WithSeparators} />
+
+```html
+<div class="aural-context-menu" role="menu">
+  <div class="aural-context-menu__header">Edit</div>
+  <button class="aural-context-menu__item" role="menuitem">...</button>
+
+  <div class="aural-context-menu__separator" role="separator"></div>
+
+  <div class="aural-context-menu__header">File</div>
+  <button class="aural-context-menu__item" role="menuitem">...</button>
+</div>
+```
+
+**Guidelines:**
+- Group related actions together
+- Use headers to label sections
+- Don't overuse separators (3-4 sections maximum)
+- Place most common actions at the top
+
+---
+
+## Disabled Items
+
+Show unavailable actions in a disabled state rather than hiding them.
+
+<Canvas of={ContextMenuStories.WithDisabledItems} />
+
+```html
+<button
+  class="aural-context-menu__item aural-context-menu__item--disabled"
+  role="menuitem"
+  disabled
+  aria-disabled="true">
+  <i data-lucide="scissors" class="aural-context-menu__item-icon"></i>
+  <span class="aural-context-menu__item-label">Cut (disabled)</span>
+</button>
+```
+
+**Why show disabled items?**
+- Maintains consistent menu structure
+- Helps users understand available features
+- Provides context about why an action isn't available
+
+---
+
+## Compact Variant
+
+Use the compact variant for dense interfaces like data tables.
+
+<Canvas of={ContextMenuStories.CompactVariant} />
+
+```html
+<div class="aural-context-menu aural-context-menu--compact" role="menu">
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="edit" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Edit</span>
+  </button>
+  <!-- More items -->
+</div>
+```
+
+**When to use:**
+- Data tables with row context menus
+- Compact interfaces with limited space
+- Mobile-first designs
+
+---
+
+## Danger Actions
+
+Highlight destructive actions with the danger modifier.
+
+<Canvas of={ContextMenuStories.DangerActions} />
+
+```html
+<button class="aural-context-menu__item aural-context-menu__item--danger" role="menuitem">
+  <i data-lucide="trash-2" class="aural-context-menu__item-icon"></i>
+  <span class="aural-context-menu__item-label">Delete</span>
+</button>
+```
+
+**Best Practices:**
+- Always place danger actions at the bottom
+- Separate from other actions with a divider
+- Consider confirmation dialogs for irreversible actions
+- Use clear, specific labels ("Delete permanently" vs "Delete")
+
+---
+
+## Common Patterns
+
+### File Manager
+
+A comprehensive file management context menu with all common actions.
+
+<Canvas of={ContextMenuStories.FileManagerPattern} />
+
+**Pattern includes:**
+- Primary actions (Open, Preview)
+- File operations (Rename, Duplicate, Share)
+- Destructive action (Move to Trash)
+- Info action (Get Info)
+- Keyboard shortcuts for power users
+
+### Text Editor
+
+Standard text editing operations.
+
+<Canvas of={ContextMenuStories.TextEditorPattern} />
+
+**Pattern includes:**
+- Clipboard operations (Copy, Cut, Paste)
+- Text-specific actions (Search Web, Format)
+- Keyboard shortcuts
+
+### Table Row Actions
+
+Context menu for data table rows.
+
+<Canvas of={ContextMenuStories.TableRowPattern} />
+
+**Pattern includes:**
+- View/Edit actions
+- Duplicate/Export actions
+- Delete action separated at bottom
+- Compact layout recommended for tables
+
+---
+
+## Theme Comparison
+
+See how context menus look across all 9 Aural UI themes:
+
+<Canvas of={ContextMenuStories.ThemeComparison} />
+
+All context menus maintain WCAG AAA contrast ratios and proper visual hierarchy across all themes.
+
+---
+
+## Accessibility
+
+### WCAG AAA Compliance
+
+Context menus are fully accessible:
+
+- **Color Contrast**: 7:1+ contrast ratio for text and icons
+- **Keyboard Navigation**: Full keyboard support with arrow keys
+- **Screen Readers**: Proper ARIA roles and attributes
+- **Focus Management**: Focus trapped within open menu
+- **Visual Indicators**: Clear hover and focus states
+
+### Keyboard Navigation
+
+**Opening the menu:**
+- **Right-click**: Standard context menu activation
+- **Shift+F10**: Keyboard shortcut to open context menu
+- **Context Menu key**: Opens context menu (if available on keyboard)
+
+**Navigating the menu:**
+- **↑/↓ Arrow keys**: Navigate between menu items
+- **Enter/Space**: Activate focused menu item
+- **Escape**: Close menu
+- **Tab**: Focus next element (closes menu)
+
+### Screen Reader Support
+
+```html
+<div class="aural-context-menu" role="menu" aria-label="File actions">
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="copy" class="aural-context-menu__item-icon" aria-hidden="true"></i>
+    <span class="aural-context-menu__item-label">Copy</span>
+    <span class="aural-context-menu__item-shortcut" aria-label="Command C">⌘C</span>
+  </button>
+
+  <div class="aural-context-menu__separator" role="separator" aria-hidden="true"></div>
+
+  <button
+    class="aural-context-menu__item aural-context-menu__item--disabled"
+    role="menuitem"
+    disabled
+    aria-disabled="true">
+    <span class="aural-context-menu__item-label">Paste</span>
+  </button>
+</div>
+```
+
+**ARIA Attributes:**
+- `role="menu"`: Identifies the context menu container
+- `role="menuitem"`: Identifies individual menu items
+- `role="separator"`: Identifies visual separators
+- `aria-label`: Provides accessible label for menu
+- `aria-disabled`: Indicates disabled state
+- `aria-hidden="true"`: Hides decorative icons from screen readers
+
+### Best Practices
+
+**Do:**
+- Provide keyboard shortcuts for all menu actions
+- Include proper ARIA roles and labels
+- Support both mouse and keyboard interaction
+- Auto-focus first item when menu opens
+- Close menu on Escape key
+- Provide alternative access to actions (not just in context menu)
+- Use semantic button elements for menu items
+
+**Don't:**
+- Hide critical features only in context menus
+- Use context menus as the only way to access features
+- Forget keyboard support (Shift+F10)
+- Nest menus more than one level deep
+- Include more than 12 items without sections
+- Use context menus on touch devices as primary interaction
+
+---
+
+## Mobile Considerations
+
+Context menus have limitations on mobile devices:
+
+**Challenges:**
+- Right-click doesn't exist on touch screens
+- Long-press may conflict with text selection
+- Menus can be difficult to trigger reliably
+
+**Mobile Alternatives:**
+
+1. **Action Sheets**: Use bottom sheets instead of context menus
+2. **Visible Buttons**: Add action buttons directly to cards/rows
+3. **Swipe Actions**: Use swipe gestures for common actions
+4. **Overflow Menus**: Use explicit "..." menu buttons
+
+```html
+<!-- Mobile-friendly: Visible action button -->
+<div class="card">
+  <div class="card-content">...</div>
+  <button class="btn btn-ghost btn-icon" aria-label="Actions">
+    <i data-lucide="more-vertical"></i>
+  </button>
+</div>
+```
+
+---
+
+## API Reference
+
+### HTML Structure
+
+```html
+<div class="aural-context-menu [--compact]" role="menu">
+  <div class="aural-context-menu__header">Section Header</div>
+
+  <button class="aural-context-menu__item [--danger] [--disabled]" role="menuitem">
+    <i data-lucide="icon-name" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Label</span>
+    <span class="aural-context-menu__item-shortcut">⌘K</span>
+  </button>
+
+  <div class="aural-context-menu__separator" role="separator"></div>
+</div>
+```
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.aural-context-menu` | Main container for context menu |
+| `.aural-context-menu--compact` | Compact variant with reduced padding |
+| `.aural-context-menu--open` | Shows the menu (add via JavaScript) |
+| `.aural-context-menu__item` | Menu item button |
+| `.aural-context-menu__item--danger` | Danger/destructive action styling |
+| `.aural-context-menu__item--disabled` | Disabled state |
+| `.aural-context-menu__item-icon` | Icon element |
+| `.aural-context-menu__item-label` | Text label |
+| `.aural-context-menu__item-shortcut` | Keyboard shortcut display |
+| `.aural-context-menu__separator` | Visual separator |
+| `.aural-context-menu__header` | Section header text |
+
+### JavaScript API
+
+```javascript
+// Initialize context menus (Aural UI built-in)
+window.Aural?.initContextMenu();
+
+// Manual implementation
+const trigger = document.getElementById('trigger');
+const menu = document.getElementById('context-menu');
+
+// Show menu
+trigger.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  menu.style.left = e.clientX + 'px';
+  menu.style.top = e.clientY + 'px';
+  menu.classList.add('aural-context-menu--open');
+
+  // Prevent viewport overflow
+  adjustMenuPosition(menu);
+});
+
+// Hide menu
+document.addEventListener('click', () => {
+  menu.classList.remove('aural-context-menu--open');
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    menu.classList.remove('aural-context-menu--open');
+  }
+});
+
+// Prevent viewport overflow
+function adjustMenuPosition(menu) {
+  const rect = menu.getBoundingClientRect();
+
+  if (rect.right > window.innerWidth) {
+    menu.style.left = (window.innerWidth - rect.width - 10) + 'px';
+  }
+
+  if (rect.bottom > window.innerHeight) {
+    menu.style.top = (window.innerHeight - rect.height - 10) + 'px';
+  }
+}
+```
+
+### ARIA Attributes
+
+| Attribute | Element | Description |
+|-----------|---------|-------------|
+| `role="menu"` | Container | Identifies the context menu |
+| `role="menuitem"` | Button | Identifies menu items |
+| `role="separator"` | Separator | Identifies visual separators |
+| `aria-label` | Container | Describes the menu purpose |
+| `aria-disabled` | Button | Indicates disabled state |
+| `aria-hidden` | Icon | Hides decorative icons |
+
+---
+
+## Design Guidelines
+
+### When to Use
+
+**Use context menus when:**
+- Providing quick access to frequently used actions
+- Actions are specific to the clicked element
+- Building data-rich applications (file managers, IDEs, data tables)
+- Power users need keyboard shortcuts
+- You want to save UI space
+
+### When Not to Use
+
+**Don't use context menus when:**
+- The action is critical to the primary workflow
+- Users are primarily on mobile devices
+- Actions require explanation or aren't obvious
+- You're hiding the only way to access a feature
+- The menu would have more than 12 items
+
+### Content Guidelines
+
+**Labels:**
+- Use clear, action-oriented verbs ("Copy", "Delete", "Rename")
+- Keep labels short (1-3 words)
+- Use sentence case
+- Be specific ("Delete permanently" vs "Delete")
+
+**Organization:**
+- Order by frequency of use (most common first)
+- Group related actions with separators
+- Place primary actions at the top
+- Place destructive actions at the bottom
+- Limit to 10-12 items maximum
+
+**Keyboard Shortcuts:**
+- Show platform-appropriate shortcuts (⌘ for Mac, Ctrl for Windows)
+- Right-align shortcuts
+- Use standard shortcuts when possible
+- Test that shortcuts actually work
+
+### Visual Design
+
+**Icons:**
+- Use icons consistently across all menu items
+- Use Lucide icons or similar icon set
+- Ensure 16x16px or larger for clarity
+- Don't mix icon styles
+
+**Spacing:**
+- Use standard variant for most cases
+- Use compact variant only for dense interfaces
+- Ensure 44x44px minimum touch targets on mobile
+
+**Colors:**
+- Use danger color only for destructive actions
+- Maintain high contrast for text and icons
+- Follow theme colors for consistency
+
+---
+
+## Related Components
+
+- **Dropdown Menu**: For click-triggered menus in the UI
+- **Popover**: For richer content with interactive elements
+- **Action Sheet**: Mobile alternative to context menus
+- **Toolbar**: For always-visible actions
+
+---
+
+## Examples in Practice
+
+### File Browser
+
+```html
+<div class="file-item" data-file-id="doc-123">
+  <i data-lucide="file-text"></i>
+  <span>Document.pdf</span>
+</div>
+
+<div class="aural-context-menu" id="file-context-menu" role="menu">
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="folder-open" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Open</span>
+  </button>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="eye" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Preview</span>
+  </button>
+  <div class="aural-context-menu__separator" role="separator"></div>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="edit" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Rename</span>
+    <span class="aural-context-menu__item-shortcut">F2</span>
+  </button>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="copy" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Duplicate</span>
+  </button>
+  <div class="aural-context-menu__separator" role="separator"></div>
+  <button class="aural-context-menu__item aural-context-menu__item--danger" role="menuitem">
+    <i data-lucide="trash-2" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Move to Trash</span>
+  </button>
+</div>
+```
+
+### Data Table
+
+```html
+<table class="table">
+  <tbody>
+    <tr class="table-row" data-row-id="user-456">
+      <td>John Doe</td>
+      <td>john@example.com</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="aural-context-menu aural-context-menu--compact" id="row-context-menu" role="menu">
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="eye" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">View Details</span>
+  </button>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="edit" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Edit</span>
+  </button>
+  <div class="aural-context-menu__separator" role="separator"></div>
+  <button class="aural-context-menu__item aural-context-menu__item--danger" role="menuitem">
+    <i data-lucide="trash-2" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Delete</span>
+  </button>
+</div>
+```
+
+### Text Editor
+
+```html
+<div class="editor-content" contenteditable="true">
+  Select some text and right-click...
+</div>
+
+<div class="aural-context-menu" id="editor-context-menu" role="menu">
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="copy" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Copy</span>
+    <span class="aural-context-menu__item-shortcut">⌘C</span>
+  </button>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="scissors" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Cut</span>
+    <span class="aural-context-menu__item-shortcut">⌘X</span>
+  </button>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="clipboard" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Paste</span>
+    <span class="aural-context-menu__item-shortcut">⌘V</span>
+  </button>
+  <div class="aural-context-menu__separator" role="separator"></div>
+  <button class="aural-context-menu__item" role="menuitem">
+    <i data-lucide="search" class="aural-context-menu__item-icon"></i>
+    <span class="aural-context-menu__item-label">Search Web</span>
+  </button>
+</div>
+```

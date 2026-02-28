@@ -1,0 +1,664 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as SnackbarStories from './Snackbar.stories';
+
+<Meta of={SnackbarStories} />
+
+# Snackbar
+
+Snackbars provide brief messages about app processes at the bottom of the screen. They can contain action buttons to allow users to take immediate action on a notification.
+
+## Overview
+
+The Snackbar component is designed for transient messages that inform users about operations that have been or will be performed. Unlike toasts, snackbars can include interactive action buttons.
+
+**Key Features:**
+- 5 types (default, success, info, warning, error) with semantic icons
+- 6 position variants (top/bottom × left/center/right)
+- Optional action buttons (Undo, Retry, View, etc.)
+- Optional description text for additional context
+- Customizable auto-dismiss duration
+- Persistent mode (no auto-dismiss)
+- Automatic stacking of multiple snackbars
+- Full keyboard accessibility
+- ARIA attributes for screen readers (`role="status"` or `role="alert"`)
+
+---
+
+## Usage
+
+<Canvas of={SnackbarStories.Basic} />
+
+### Vanilla JavaScript / HTML
+
+```javascript
+// Basic snackbar
+Aural.showSnackbar('This is a default snackbar message');
+
+// With type
+Aural.showSnackbar('Operation completed successfully!', {
+  type: 'success'
+});
+
+// With action button
+Aural.showSnackbar('Item deleted', {
+  type: 'error',
+  action: {
+    label: 'Undo',
+    onClick: () => {
+      console.log('Undo clicked');
+      // Restore the deleted item
+    }
+  },
+  duration: 6000
+});
+
+// With description
+Aural.showSnackbar('File uploaded', {
+  description: 'document.pdf has been uploaded successfully',
+  type: 'success',
+  action: {
+    label: 'View',
+    onClick: () => window.open('/files/document.pdf')
+  }
+});
+
+// Custom position
+Aural.showSnackbar('Top right notification', {
+  position: 'top-right',
+  type: 'info'
+});
+
+// Persistent (no auto-dismiss)
+Aural.showSnackbar('Important message', {
+  type: 'warning',
+  duration: 0, // 0 = persistent
+  action: {
+    label: 'Dismiss',
+    onClick: () => {}
+  }
+});
+```
+
+### Options API
+
+The `Aural.showSnackbar(message, options)` method accepts the following options:
+
+```typescript
+interface SnackbarOptions {
+  type?: 'default' | 'success' | 'error' | 'warning' | 'info';
+  description?: string;
+  position?: 'bottom-left' | 'bottom-center' | 'bottom-right' |
+             'top-left' | 'top-center' | 'top-right';
+  duration?: number; // milliseconds, 0 = persistent
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
+  dismissible?: boolean; // show close button
+  showProgress?: boolean; // show progress bar
+  onDismiss?: () => void; // callback when dismissed
+}
+```
+
+---
+
+## React
+
+### Basic Usage
+
+```tsx
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function MyComponent() {
+  const handleDelete = () => {
+    // Perform delete operation
+    deleteItem();
+
+    // Show snackbar with undo
+    window.Aural.showSnackbar('Item deleted', {
+      type: 'error',
+      action: {
+        label: 'Undo',
+        onClick: handleUndo
+      },
+      duration: 6000
+    });
+  };
+
+  const handleUndo = () => {
+    // Restore deleted item
+    restoreItem();
+
+    window.Aural.showSnackbar('Item restored', {
+      type: 'success',
+      duration: 3000
+    });
+  };
+
+  return (
+    <button className="btn btn-error" onClick={handleDelete}>
+      Delete Item
+    </button>
+  );
+}
+```
+
+### Custom Hook
+
+```tsx
+import { useCallback } from 'react';
+
+interface ShowSnackbarOptions {
+  type?: 'default' | 'success' | 'error' | 'warning' | 'info';
+  description?: string;
+  position?: string;
+  duration?: number;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
+}
+
+function useSnackbar() {
+  const showSnackbar = useCallback((
+    message: string,
+    options?: ShowSnackbarOptions
+  ) => {
+    if (typeof window.Aural !== 'undefined') {
+      window.Aural.showSnackbar(message, options);
+    }
+  }, []);
+
+  return { showSnackbar };
+}
+
+// Usage
+function App() {
+  const { showSnackbar } = useSnackbar();
+
+  const handleSave = async () => {
+    try {
+      await saveData();
+      showSnackbar('Changes saved successfully', { type: 'success' });
+    } catch (error) {
+      showSnackbar('Failed to save changes', {
+        type: 'error',
+        action: {
+          label: 'Retry',
+          onClick: handleSave
+        }
+      });
+    }
+  };
+
+  return (
+    <button className="btn btn-primary" onClick={handleSave}>
+      Save
+    </button>
+  );
+}
+```
+
+### Context Provider Pattern
+
+```tsx
+import React, { createContext, useContext, ReactNode } from 'react';
+
+interface SnackbarContextType {
+  showSnackbar: (message: string, options?: any) => void;
+}
+
+const SnackbarContext = createContext<SnackbarContextType | undefined>(undefined);
+
+export function SnackbarProvider({ children }: { children: ReactNode }) {
+  const showSnackbar = (message: string, options?: any) => {
+    if (typeof window.Aural !== 'undefined') {
+      window.Aural.showSnackbar(message, options);
+    }
+  };
+
+  return (
+    <SnackbarContext.Provider value={{ showSnackbar }}>
+      {children}
+    </SnackbarContext.Provider>
+  );
+}
+
+export function useSnackbar() {
+  const context = useContext(SnackbarContext);
+  if (!context) {
+    throw new Error('useSnackbar must be used within SnackbarProvider');
+  }
+  return context;
+}
+
+// Usage
+function App() {
+  return (
+    <SnackbarProvider>
+      <YourComponents />
+    </SnackbarProvider>
+  );
+}
+
+function YourComponent() {
+  const { showSnackbar } = useSnackbar();
+
+  return (
+    <button onClick={() => showSnackbar('Action completed', { type: 'success' })}>
+      Click me
+    </button>
+  );
+}
+```
+
+---
+
+## Vue 3
+
+### Composition API
+
+```vue
+<template>
+  <div>
+    <button class="btn btn-error" @click="handleDelete">
+      Delete Item
+    </button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const items = ref([]);
+
+const handleDelete = () => {
+  const deletedItem = items.value.pop();
+
+  window.Aural.showSnackbar('Item deleted', {
+    type: 'error',
+    action: {
+      label: 'Undo',
+      onClick: () => handleUndo(deletedItem)
+    },
+    duration: 6000
+  });
+};
+
+const handleUndo = (item) => {
+  items.value.push(item);
+  window.Aural.showSnackbar('Item restored', {
+    type: 'success',
+    duration: 3000
+  });
+};
+</script>
+```
+
+### Composable
+
+```typescript
+// composables/useSnackbar.ts
+import { inject, provide } from 'vue';
+
+export interface SnackbarOptions {
+  type?: 'default' | 'success' | 'error' | 'warning' | 'info';
+  description?: string;
+  position?: string;
+  duration?: number;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
+}
+
+const SNACKBAR_KEY = Symbol('snackbar');
+
+export function provideSnackbar() {
+  const showSnackbar = (message: string, options?: SnackbarOptions) => {
+    if (typeof window.Aural !== 'undefined') {
+      window.Aural.showSnackbar(message, options);
+    }
+  };
+
+  provide(SNACKBAR_KEY, { showSnackbar });
+}
+
+export function useSnackbar() {
+  const snackbar = inject(SNACKBAR_KEY);
+  if (!snackbar) {
+    throw new Error('useSnackbar must be used within a component that provides snackbar');
+  }
+  return snackbar;
+}
+```
+
+```vue
+<!-- App.vue -->
+<script setup>
+import { provideSnackbar } from './composables/useSnackbar';
+provideSnackbar();
+</script>
+
+<!-- Any child component -->
+<script setup>
+import { useSnackbar } from './composables/useSnackbar';
+
+const { showSnackbar } = useSnackbar();
+
+const handleSave = async () => {
+  try {
+    await saveData();
+    showSnackbar('Changes saved', { type: 'success' });
+  } catch (error) {
+    showSnackbar('Save failed', {
+      type: 'error',
+      action: {
+        label: 'Retry',
+        onClick: handleSave
+      }
+    });
+  }
+};
+</script>
+```
+
+---
+
+## Svelte
+
+### Basic Usage
+
+```svelte
+<script>
+  let items = [];
+
+  function handleDelete() {
+    const deletedItem = items.pop();
+    items = items; // Trigger reactivity
+
+    window.Aural.showSnackbar('Item deleted', {
+      type: 'error',
+      action: {
+        label: 'Undo',
+        onClick: () => handleUndo(deletedItem)
+      },
+      duration: 6000
+    });
+  }
+
+  function handleUndo(item) {
+    items = [...items, item];
+    window.Aural.showSnackbar('Item restored', {
+      type: 'success',
+      duration: 3000
+    });
+  }
+</script>
+
+<button class="btn btn-error" on:click={handleDelete}>
+  Delete Item
+</button>
+```
+
+### Store-based Pattern
+
+```javascript
+// stores/snackbar.js
+import { writable } from 'svelte/store';
+
+function createSnackbarStore() {
+  const { subscribe } = writable(null);
+
+  return {
+    subscribe,
+    show: (message, options = {}) => {
+      if (typeof window.Aural !== 'undefined') {
+        window.Aural.showSnackbar(message, options);
+      }
+    }
+  };
+}
+
+export const snackbar = createSnackbarStore();
+```
+
+```svelte
+<script>
+  import { snackbar } from './stores/snackbar';
+
+  async function handleSave() {
+    try {
+      await saveData();
+      snackbar.show('Changes saved successfully', { type: 'success' });
+    } catch (error) {
+      snackbar.show('Failed to save changes', {
+        type: 'error',
+        action: {
+          label: 'Retry',
+          onClick: handleSave
+        }
+      });
+    }
+  }
+</script>
+
+<button class="btn btn-primary" on:click={handleSave}>
+  Save
+</button>
+```
+
+---
+
+## Common Patterns
+
+### Delete with Undo
+
+```javascript
+function handleDelete(itemId) {
+  // Store deleted item for potential undo
+  const deletedItem = deleteItem(itemId);
+
+  Aural.showSnackbar('Item deleted', {
+    type: 'error',
+    action: {
+      label: 'UNDO',
+      onClick: () => {
+        restoreItem(deletedItem);
+        Aural.showSnackbar('Item restored', { type: 'success' });
+      }
+    },
+    duration: 6000 // Give user time to undo
+  });
+}
+```
+
+### Network Error with Retry
+
+```javascript
+async function fetchData() {
+  try {
+    const data = await api.getData();
+    return data;
+  } catch (error) {
+    Aural.showSnackbar('Connection failed', {
+      description: 'Unable to reach the server',
+      type: 'error',
+      action: {
+        label: 'Retry',
+        onClick: () => fetchData()
+      },
+      duration: 0 // Persistent until user acts
+    });
+  }
+}
+```
+
+### Upload Progress
+
+```javascript
+async function uploadFile(file) {
+  Aural.showSnackbar('Uploading file...', {
+    type: 'info',
+    duration: 0 // Don't auto-dismiss while uploading
+  });
+
+  try {
+    await upload(file);
+    Aural.showSnackbar('Upload complete', {
+      description: `${file.name} uploaded successfully`,
+      type: 'success',
+      action: {
+        label: 'View',
+        onClick: () => openFile(file)
+      }
+    });
+  } catch (error) {
+    Aural.showSnackbar('Upload failed', {
+      type: 'error',
+      action: {
+        label: 'Retry',
+        onClick: () => uploadFile(file)
+      }
+    });
+  }
+}
+```
+
+### Copy to Clipboard
+
+```javascript
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text);
+
+  Aural.showSnackbar('Link copied to clipboard', {
+    type: 'success',
+    duration: 2000 // Quick dismiss
+  });
+}
+```
+
+---
+
+## Accessibility
+
+### ARIA Attributes
+
+Snackbars automatically include appropriate ARIA attributes:
+
+```html
+<!-- Error snackbars -->
+<div class="aural-snackbar" role="alert">...</div>
+
+<!-- Info/Success/Warning snackbars -->
+<div class="aural-snackbar" role="status">...</div>
+```
+
+### Keyboard Support
+
+- **Tab**: Focus action button
+- **Enter/Space**: Activate action button
+- **Escape**: Close snackbar (when dismissible)
+
+### Screen Reader Announcements
+
+- Error messages use `role="alert"` for immediate announcement
+- Other types use `role="status"` for polite announcement
+- Action buttons are properly labeled with accessible text
+
+### Best Practices
+
+1. **Duration**: Allow sufficient time to read and act
+   - Short messages: 2-3 seconds
+   - Messages with actions: 6-10 seconds
+   - Important actions: Use persistent mode (duration: 0)
+
+2. **Action Labels**: Use clear, action-oriented labels
+   - Good: "Undo", "Retry", "View", "Dismiss"
+   - Avoid: "OK", "Click here", "Yes"
+
+3. **Message Content**: Keep messages concise and actionable
+   - Good: "Item deleted" with "Undo" action
+   - Avoid: "The item has been successfully removed from your list"
+
+4. **Positioning**: Use consistent positions
+   - Mobile: bottom-center (easier to reach)
+   - Desktop: bottom-left or bottom-right
+
+5. **Don't Overuse**: Limit snackbars to important notifications
+   - Use for actions that may need undoing
+   - Use for critical errors requiring user attention
+   - Consider using regular feedback for routine operations
+
+---
+
+## Design Guidelines
+
+### When to Use Snackbar vs Toast
+
+**Use Snackbar when:**
+- User action may need to be undone (Delete, Archive, Move)
+- Error requires retry action
+- Notification has a related action (View, Reply, Open)
+- Important message that shouldn't auto-dismiss immediately
+
+**Use Toast when:**
+- Simple status update (Saved, Copied, Sent)
+- No action needed from user
+- Quick confirmation of routine operations
+- Multiple simultaneous notifications (toasts stack better)
+
+### Snackbar vs Modal
+
+**Use Snackbar for:**
+- Non-critical information
+- Optional actions
+- Temporary notifications
+- Non-blocking feedback
+
+**Use Modal for:**
+- Critical decisions
+- Required user input
+- Complex interactions
+- Blocking operations
+
+---
+
+## Examples
+
+### All Types
+
+<Canvas of={SnackbarStories.AllTypes} />
+
+### All Positions
+
+<Canvas of={SnackbarStories.AllPositions} />
+
+### With Action Buttons
+
+<Canvas of={SnackbarStories.WithAction} />
+
+### With Description
+
+<Canvas of={SnackbarStories.WithDescription} />
+
+### Duration Variants
+
+<Canvas of={SnackbarStories.DurationVariants} />
+
+### Persistent Snackbar
+
+<Canvas of={SnackbarStories.Persistent} />
+
+### Stacking Multiple Snackbars
+
+<Canvas of={SnackbarStories.StackingSnackbars} />
+
+### Common Patterns
+
+<Canvas of={SnackbarStories.CommonPatterns} />
+
+### Theme Comparison
+
+<Canvas of={SnackbarStories.ThemeComparison} />

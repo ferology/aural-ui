@@ -1,0 +1,625 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+import * as DateRangePickerStories from './DateRangePicker.stories';
+
+<Meta of={DateRangePickerStories} />
+
+# Date Range Picker
+
+Select a date range with start and end dates using a visual calendar interface. Perfect for filtering data, booking ranges, or scheduling period selections.
+
+## Features
+
+- 📅 **Dual Input Fields** - Separate inputs for start and end dates
+- 🎨 **Visual Range Highlighting** - Clear visualization of selected date range
+- ⚡ **Quick Presets** - Common ranges like "Last 7 Days", "This Month"
+- 📱 **Responsive Design** - Single or dual calendar view based on screen size
+- ♿ **Accessible** - Full keyboard navigation and ARIA support
+- 🎯 **Date Restrictions** - Min/max dates and max range limits
+- 🌍 **Customizable Format** - Support for different date formats
+
+---
+
+## Examples
+
+### Basic Date Range Picker
+
+<Canvas of={DateRangePickerStories.Basic} />
+
+### With Preselected Range
+
+<Canvas of={DateRangePickerStories.WithPreselectedRange} />
+
+### With Quick Presets
+
+<Canvas of={DateRangePickerStories.WithPresets} />
+
+### Dual Calendar View
+
+<Canvas of={DateRangePickerStories.DualCalendarView} />
+
+### With Date Restrictions
+
+<Canvas of={DateRangePickerStories.WithDateRestrictions} />
+
+### Booking Pattern
+
+<Canvas of={DateRangePickerStories.BookingPattern} />
+
+---
+
+## Framework Examples
+
+### Vanilla JavaScript
+
+```html
+<!-- HTML Structure -->
+<div class="aural-date-range-picker" id="date-range-1">
+  <div class="aural-date-range-picker__input-wrapper">
+    <div class="aural-date-range-picker__inputs">
+      <input type="text" class="aural-date-range-picker__input"
+             placeholder="Start date" readonly aria-label="Start date">
+      <span class="aural-date-range-picker__separator">to</span>
+      <input type="text" class="aural-date-range-picker__input"
+             placeholder="End date" readonly aria-label="End date">
+    </div>
+    <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+  </div>
+  <div class="aural-date-range-picker__dropdown">
+    <div class="aural-date-range-picker__calendars">
+      <div class="aural-date-range-picker__calendar">
+        <div class="aural-date-range-picker__calendar-header">
+          <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <div class="aural-date-range-picker__month-label">January 2026</div>
+          <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+        <div class="aural-date-range-picker__weekdays">
+          <div class="aural-date-range-picker__weekday">Su</div>
+          <div class="aural-date-range-picker__weekday">Mo</div>
+          <div class="aural-date-range-picker__weekday">Tu</div>
+          <div class="aural-date-range-picker__weekday">We</div>
+          <div class="aural-date-range-picker__weekday">Th</div>
+          <div class="aural-date-range-picker__weekday">Fr</div>
+          <div class="aural-date-range-picker__weekday">Sa</div>
+        </div>
+        <div class="aural-date-range-picker__days"></div>
+      </div>
+    </div>
+    <div class="aural-date-range-picker__footer">
+      <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+      <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript Initialization -->
+<script>
+  // Basic initialization
+  window.Aural?.initDateRangePicker('#date-range-1');
+
+  // With options
+  window.Aural?.initDateRangePicker('#date-range-1', {
+    format: 'MM/DD/YYYY',
+    onChange: (range) => {
+      console.log('Start:', range.start);
+      console.log('End:', range.end);
+    }
+  });
+
+  // With preselected range
+  const today = new Date();
+  window.Aural?.initDateRangePicker('#date-range-1', {
+    startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7),
+    endDate: today
+  });
+
+  // With date restrictions
+  window.Aural?.initDateRangePicker('#date-range-1', {
+    minDate: new Date(2026, 0, 1),  // Jan 1, 2026
+    maxDate: new Date(2026, 11, 31) // Dec 31, 2026
+  });
+
+  // With max range limit (30 days)
+  window.Aural?.initDateRangePicker('#date-range-1', {
+    maxRange: 30
+  });
+</script>
+```
+
+### React
+
+```jsx
+import { useEffect, useRef, useState } from 'react';
+
+function DateRangePicker({ onChange, startDate, endDate, minDate, maxDate }) {
+  const pickerRef = useRef(null);
+  const [range, setRange] = useState({ start: startDate, end: endDate });
+
+  useEffect(() => {
+    if (pickerRef.current && window.Aural) {
+      const instance = window.Aural.initDateRangePicker(pickerRef.current, {
+        startDate,
+        endDate,
+        minDate,
+        maxDate,
+        onChange: (newRange) => {
+          setRange(newRange);
+          onChange?.(newRange);
+        }
+      });
+
+      // Initialize Lucide icons
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+
+      return () => {
+        // Cleanup if needed
+        instance?.destroy?.();
+      };
+    }
+  }, [startDate, endDate, minDate, maxDate, onChange]);
+
+  return (
+    <div className="aural-date-range-picker" ref={pickerRef}>
+      <div className="aural-date-range-picker__input-wrapper">
+        <div className="aural-date-range-picker__inputs">
+          <input
+            type="text"
+            className="aural-date-range-picker__input"
+            placeholder="Start date"
+            readOnly
+            aria-label="Start date"
+          />
+          <span className="aural-date-range-picker__separator">to</span>
+          <input
+            type="text"
+            className="aural-date-range-picker__input"
+            placeholder="End date"
+            readOnly
+            aria-label="End date"
+          />
+        </div>
+        <i data-lucide="calendar" className="aural-date-range-picker__icon" aria-hidden="true" />
+      </div>
+      <div className="aural-date-range-picker__dropdown">
+        <div className="aural-date-range-picker__calendars">
+          <div className="aural-date-range-picker__calendar">
+            <div className="aural-date-range-picker__calendar-header">
+              <button className="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month">
+                <i data-lucide="chevron-left" />
+              </button>
+              <div className="aural-date-range-picker__month-label">January 2026</div>
+              <button className="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month">
+                <i data-lucide="chevron-right" />
+              </button>
+            </div>
+            <div className="aural-date-range-picker__weekdays">
+              <div className="aural-date-range-picker__weekday">Su</div>
+              <div className="aural-date-range-picker__weekday">Mo</div>
+              <div className="aural-date-range-picker__weekday">Tu</div>
+              <div className="aural-date-range-picker__weekday">We</div>
+              <div className="aural-date-range-picker__weekday">Th</div>
+              <div className="aural-date-range-picker__weekday">Fr</div>
+              <div className="aural-date-range-picker__weekday">Sa</div>
+            </div>
+            <div className="aural-date-range-picker__days"></div>
+          </div>
+        </div>
+        <div className="aural-date-range-picker__footer">
+          <button className="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+          <button className="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Usage
+function App() {
+  const [dateRange, setDateRange] = useState({ start: null, end: null });
+
+  return (
+    <DateRangePicker
+      onChange={(range) => {
+        setDateRange(range);
+        console.log('Selected range:', range);
+      }}
+    />
+  );
+}
+
+// With presets
+function DateRangeWithPresets() {
+  return (
+    <div className="aural-date-range-picker" ref={pickerRef}>
+      <div className="aural-date-range-picker__input-wrapper">
+        <div className="aural-date-range-picker__inputs">
+          <input type="text" className="aural-date-range-picker__input" placeholder="Start date" readOnly />
+          <span className="aural-date-range-picker__separator">to</span>
+          <input type="text" className="aural-date-range-picker__input" placeholder="End date" readOnly />
+        </div>
+        <i data-lucide="calendar" className="aural-date-range-picker__icon" aria-hidden="true" />
+      </div>
+      <div className="aural-date-range-picker__dropdown">
+        <div style={{ display: 'flex', gap: 'var(--space-4)' }}>
+          <div className="aural-date-range-picker__presets">
+            <div className="aural-date-range-picker__preset-label">Quick Ranges</div>
+            <div className="aural-date-range-picker__preset-list">
+              <button className="aural-date-range-picker__preset-button" data-preset="today">Today</button>
+              <button className="aural-date-range-picker__preset-button" data-preset="last7">Last 7 Days</button>
+              <button className="aural-date-range-picker__preset-button" data-preset="last30">Last 30 Days</button>
+              <button className="aural-date-range-picker__preset-button" data-preset="thisMonth">This Month</button>
+            </div>
+          </div>
+          <div className="aural-date-range-picker__calendars">
+            {/* Calendar content */}
+          </div>
+        </div>
+        <div className="aural-date-range-picker__footer">
+          <button className="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+          <button className="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Vue
+
+```vue
+<template>
+  <div ref="pickerRef" class="aural-date-range-picker">
+    <div class="aural-date-range-picker__input-wrapper">
+      <div class="aural-date-range-picker__inputs">
+        <input
+          type="text"
+          class="aural-date-range-picker__input"
+          placeholder="Start date"
+          readonly
+          aria-label="Start date"
+        >
+        <span class="aural-date-range-picker__separator">to</span>
+        <input
+          type="text"
+          class="aural-date-range-picker__input"
+          placeholder="End date"
+          readonly
+          aria-label="End date"
+        >
+      </div>
+      <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+    </div>
+    <div class="aural-date-range-picker__dropdown">
+      <div class="aural-date-range-picker__calendars">
+        <div class="aural-date-range-picker__calendar">
+          <div class="aural-date-range-picker__calendar-header">
+            <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <div class="aural-date-range-picker__month-label">January 2026</div>
+            <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+          <div class="aural-date-range-picker__weekdays">
+            <div class="aural-date-range-picker__weekday">Su</div>
+            <div class="aural-date-range-picker__weekday">Mo</div>
+            <div class="aural-date-range-picker__weekday">Tu</div>
+            <div class="aural-date-range-picker__weekday">We</div>
+            <div class="aural-date-range-picker__weekday">Th</div>
+            <div class="aural-date-range-picker__weekday">Fr</div>
+            <div class="aural-date-range-picker__weekday">Sa</div>
+          </div>
+          <div class="aural-date-range-picker__days"></div>
+        </div>
+      </div>
+      <div class="aural-date-range-picker__footer">
+        <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+        <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted, watch } from 'vue';
+
+const props = defineProps({
+  startDate: Date,
+  endDate: Date,
+  minDate: Date,
+  maxDate: Date,
+  maxRange: Number
+});
+
+const emit = defineEmits(['update:startDate', 'update:endDate', 'change']);
+
+const pickerRef = ref(null);
+let pickerInstance = null;
+
+onMounted(() => {
+  if (pickerRef.value && window.Aural) {
+    pickerInstance = window.Aural.initDateRangePicker(pickerRef.value, {
+      startDate: props.startDate,
+      endDate: props.endDate,
+      minDate: props.minDate,
+      maxDate: props.maxDate,
+      maxRange: props.maxRange,
+      onChange: (range) => {
+        emit('update:startDate', range.start);
+        emit('update:endDate', range.end);
+        emit('change', range);
+      }
+    });
+
+    // Initialize Lucide icons
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  }
+});
+
+onUnmounted(() => {
+  pickerInstance?.destroy?.();
+});
+
+// Watch for prop changes
+watch(() => props.startDate, (newDate) => {
+  pickerInstance?.setStartDate?.(newDate);
+});
+
+watch(() => props.endDate, (newDate) => {
+  pickerInstance?.setEndDate?.(newDate);
+});
+</script>
+
+<!-- Usage -->
+<template>
+  <div>
+    <DateRangePicker
+      v-model:start-date="startDate"
+      v-model:end-date="endDate"
+      @change="handleRangeChange"
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import DateRangePicker from './DateRangePicker.vue';
+
+const startDate = ref(null);
+const endDate = ref(null);
+
+function handleRangeChange(range) {
+  console.log('Selected range:', range);
+}
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount, onDestroy } from 'svelte';
+
+  export let startDate = null;
+  export let endDate = null;
+  export let minDate = null;
+  export let maxDate = null;
+  export let maxRange = null;
+  export let onChange = (range) => {};
+
+  let pickerRef;
+  let pickerInstance;
+
+  onMount(() => {
+    if (pickerRef && window.Aural) {
+      pickerInstance = window.Aural.initDateRangePicker(pickerRef, {
+        startDate,
+        endDate,
+        minDate,
+        maxDate,
+        maxRange,
+        onChange: (range) => {
+          startDate = range.start;
+          endDate = range.end;
+          onChange(range);
+        }
+      });
+
+      // Initialize Lucide icons
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    }
+  });
+
+  onDestroy(() => {
+    pickerInstance?.destroy?.();
+  });
+
+  $: if (pickerInstance) {
+    if (startDate) pickerInstance.setStartDate?.(startDate);
+    if (endDate) pickerInstance.setEndDate?.(endDate);
+  }
+</script>
+
+<div bind:this={pickerRef} class="aural-date-range-picker">
+  <div class="aural-date-range-picker__input-wrapper">
+    <div class="aural-date-range-picker__inputs">
+      <input
+        type="text"
+        class="aural-date-range-picker__input"
+        placeholder="Start date"
+        readonly
+        aria-label="Start date"
+      />
+      <span class="aural-date-range-picker__separator">to</span>
+      <input
+        type="text"
+        class="aural-date-range-picker__input"
+        placeholder="End date"
+        readonly
+        aria-label="End date"
+      />
+    </div>
+    <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
+  </div>
+  <div class="aural-date-range-picker__dropdown">
+    <div class="aural-date-range-picker__calendars">
+      <div class="aural-date-range-picker__calendar">
+        <div class="aural-date-range-picker__calendar-header">
+          <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <div class="aural-date-range-picker__month-label">January 2026</div>
+          <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+        <div class="aural-date-range-picker__weekdays">
+          <div class="aural-date-range-picker__weekday">Su</div>
+          <div class="aural-date-range-picker__weekday">Mo</div>
+          <div class="aural-date-range-picker__weekday">Tu</div>
+          <div class="aural-date-range-picker__weekday">We</div>
+          <div class="aural-date-range-picker__weekday">Th</div>
+          <div class="aural-date-range-picker__weekday">Fr</div>
+          <div class="aural-date-range-picker__weekday">Sa</div>
+        </div>
+        <div class="aural-date-range-picker__days"></div>
+      </div>
+    </div>
+    <div class="aural-date-range-picker__footer">
+      <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+      <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+    </div>
+  </div>
+</div>
+
+<!-- Usage -->
+<script>
+  import DateRangePicker from './DateRangePicker.svelte';
+
+  let startDate = null;
+  let endDate = null;
+
+  function handleChange(range) {
+    console.log('Selected range:', range);
+  }
+</script>
+
+<DateRangePicker
+  bind:startDate
+  bind:endDate
+  onChange={handleChange}
+/>
+```
+
+---
+
+## API Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `startDate` | `Date` | `null` | Initial start date |
+| `endDate` | `Date` | `null` | Initial end date |
+| `minDate` | `Date` | `null` | Minimum selectable date |
+| `maxDate` | `Date` | `null` | Maximum selectable date |
+| `maxRange` | `number` | `null` | Maximum number of days in range |
+| `format` | `string` | `'MM/DD/YYYY'` | Date display format |
+| `onChange` | `function` | `null` | Callback when range changes |
+
+---
+
+## Quick Preset Ranges
+
+The following presets are available when using the preset buttons:
+
+| Preset | Description |
+|--------|-------------|
+| `today` | Current day |
+| `yesterday` | Previous day |
+| `last7` | Last 7 days (including today) |
+| `last30` | Last 30 days (including today) |
+| `thisMonth` | Current month from 1st to today |
+| `lastMonth` | Previous month (full month) |
+| `thisQuarter` | Current quarter from start to today |
+| `thisYear` | Current year from Jan 1 to today |
+
+---
+
+## Accessibility
+
+The Date Range Picker is fully accessible with:
+
+- **ARIA Labels**: All inputs and buttons have descriptive labels
+- **Keyboard Navigation**:
+  - `Tab` - Move between inputs and buttons
+  - `Arrow Keys` - Navigate calendar days
+  - `Enter/Space` - Select dates
+  - `Escape` - Close dropdown
+- **Screen Reader Support**: Range selections are announced
+- **Focus Management**: Focus returns appropriately after selection
+- **Color Contrast**: Meets WCAG AA standards across all themes
+
+---
+
+## Best Practices
+
+### When to Use
+
+- **Data Filtering**: Filter analytics, reports, or logs by date ranges
+- **Booking Systems**: Hotel bookings, car rentals, vacation planning
+- **Event Scheduling**: Events or activities spanning multiple days
+- **Report Generation**: Financial reports or performance reviews
+- **Historical Analysis**: Comparing data across time periods
+
+### When NOT to Use
+
+- **Single Date Selection**: Use regular DatePicker instead
+- **Fixed Periods Only**: Use dropdown or radio buttons
+- **Real-time Data**: Make it optional for live dashboards
+- **Simple Time Periods**: Use preset buttons instead
+
+### Design Guidelines
+
+1. **Visual Range Indication**: Always highlight the selected range in the calendar
+2. **Clear Labels**: Use descriptive placeholders like "Check-in" and "Check-out"
+3. **Range Validation**: Automatically ensure end date is after start date
+4. **Quick Presets**: Include commonly used ranges for frequent use cases
+5. **Two-Month View**: Show two months side-by-side on desktop
+6. **Mobile Optimization**: Use single month view with swipe gestures
+
+---
+
+## Common Patterns
+
+### Analytics Dashboard
+Combine with quick presets for rapid date range changes. Position prominently at the top of the dashboard.
+
+### Booking System
+Use clear labels like "Check-in" and "Check-out". Show the number of nights selected. Disable unavailable dates.
+
+### Report Generation
+Include presets for common reporting periods (This Quarter, Last Quarter, This Year). Display the selected range clearly.
+
+### Data Filtering
+Allow clearing the filter to show all data. Provide a way to save frequently used date ranges.
+
+---
+
+## Browser Support
+
+Works in all modern browsers:
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+- Opera 76+
+
+Requires JavaScript enabled for functionality.
