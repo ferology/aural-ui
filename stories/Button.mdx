@@ -1,0 +1,331 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Buttons are used to initialize an action. Button labels express what action will occur when the user interacts with it.
+
+## Overview
+
+The Button component provides multiple variants, sizes, and states to accommodate different use cases across your application.
+
+**Key Features:**
+- 6 visual variants (Primary, Secondary, Outline, Ghost, Danger, Success)
+- 3 sizes (Small, Medium, Large)
+- Loading state with spinner
+- Disabled state
+- Icon support
+- Full keyboard accessibility
+
+---
+
+## Usage
+
+<Canvas of={ButtonStories.Primary} />
+
+### Vanilla JavaScript / HTML
+
+```html
+<!-- Primary Button -->
+<button class="btn btn-primary">Primary Button</button>
+
+<!-- With size -->
+<button class="btn btn-primary btn-lg">Large Button</button>
+
+<!-- With icon -->
+<button class="btn btn-primary">
+  <span aria-hidden="true">✓</span>
+  Save
+</button>
+
+<!-- Loading state -->
+<button class="btn btn-primary btn-loading" disabled aria-busy="true">
+  <span class="spinner" aria-hidden="true"></span>
+  Loading...
+</button>
+
+<!-- Disabled -->
+<button class="btn btn-primary" disabled>Disabled</button>
+```
+
+### React
+
+```jsx
+// Basic usage
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function MyComponent() {
+  return (
+    <button className="btn btn-primary">
+      Primary Button
+    </button>
+  );
+}
+
+// With state
+function MyComponent() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  return (
+    <button
+      className={`btn btn-primary ${isLoading ? 'btn-loading' : ''}`}
+      disabled={isLoading}
+      aria-busy={isLoading}
+      onClick={() => setIsLoading(true)}
+    >
+      {isLoading && <span className="spinner" aria-hidden="true" />}
+      {isLoading ? 'Loading...' : 'Submit'}
+    </button>
+  );
+}
+
+// Reusable component
+function Button({
+  variant = 'primary',
+  size = 'md',
+  loading = false,
+  disabled = false,
+  children,
+  ...props
+}) {
+  return (
+    <button
+      className={`btn btn-${variant} btn-${size} ${loading ? 'btn-loading' : ''}`}
+      disabled={disabled || loading}
+      aria-busy={loading}
+      {...props}
+    >
+      {loading && <span className="spinner" aria-hidden="true" />}
+      {children}
+    </button>
+  );
+}
+
+// Usage
+<Button variant="primary" size="lg" onClick={handleClick}>
+  Click me
+</Button>
+```
+
+### Vue 3
+
+```vue
+<template>
+  <button
+    :class="buttonClasses"
+    :disabled="disabled || loading"
+    :aria-busy="loading"
+    @click="$emit('click', $event)"
+  >
+    <span v-if="loading" class="spinner" aria-hidden="true"></span>
+    <slot />
+  </button>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: {
+    type: String,
+    default: 'primary',
+    validator: (value) =>
+      ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success'].includes(value)
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const buttonClasses = computed(() => [
+  'btn',
+  `btn-${props.variant}`,
+  `btn-${props.size}`,
+  { 'btn-loading': props.loading }
+]);
+</script>
+
+<!-- Usage -->
+<Button variant="primary" size="lg" @click="handleClick">
+  Click me
+</Button>
+```
+
+### Svelte
+
+```svelte
+<script>
+  export let variant = 'primary';
+  export let size = 'md';
+  export let loading = false;
+  export let disabled = false;
+
+  $: buttonClass = `btn btn-${variant} btn-${size} ${loading ? 'btn-loading' : ''}`;
+</script>
+
+<button
+  class={buttonClass}
+  disabled={disabled || loading}
+  aria-busy={loading}
+  on:click
+>
+  {#if loading}
+    <span class="spinner" aria-hidden="true"></span>
+  {/if}
+  <slot />
+</button>
+
+<!-- Usage -->
+<Button variant="primary" size="lg" on:click={handleClick}>
+  Click me
+</Button>
+```
+
+---
+
+## Variants
+
+All button variants maintain accessibility standards with proper color contrast.
+
+<Canvas of={ButtonStories.AllVariants} />
+
+### When to use each variant:
+
+- **Primary**: Main call-to-action, highest emphasis
+- **Secondary**: Important but not primary actions
+- **Outline**: Medium emphasis actions, alternative to filled buttons
+- **Ghost**: Low emphasis actions, subtle interactions
+- **Danger**: Destructive actions (delete, remove, cancel)
+- **Success**: Positive confirmation actions (save, submit, confirm)
+
+---
+
+## Sizes
+
+<Canvas of={ButtonStories.AllSizes} />
+
+- **Small (`btn-sm`)**: Compact spaces, inline actions, tables
+- **Medium (`btn-md`)**: Default size for most use cases
+- **Large (`btn-lg`)**: Primary CTAs, hero sections, marketing pages
+
+---
+
+## States
+
+### Loading State
+
+<Canvas of={ButtonStories.Loading} />
+
+Use loading state to provide feedback during asynchronous operations:
+
+```html
+<button class="btn btn-primary btn-loading" disabled aria-busy="true">
+  <span class="spinner" aria-hidden="true"></span>
+  Loading...
+</button>
+```
+
+### Disabled State
+
+<Canvas of={ButtonStories.Disabled} />
+
+Disabled buttons are not interactive and indicate unavailable actions:
+
+```html
+<button class="btn btn-primary" disabled>
+  Disabled Button
+</button>
+```
+
+---
+
+## Theme Comparison
+
+See how the button looks across all 9 Aural UI themes:
+
+<Canvas of={ButtonStories.ThemeComparison} />
+
+---
+
+## Accessibility
+
+✅ **Keyboard Navigation**
+- Focus with `Tab`
+- Activate with `Enter` or `Space`
+
+✅ **Screen Readers**
+- Use `aria-busy="true"` for loading states
+- Use `aria-hidden="true"` for decorative icons
+- Provide descriptive labels
+
+✅ **Color Contrast**
+- All variants meet WCAG AAA (7:1+ contrast)
+- High contrast theme available
+
+✅ **Touch Targets**
+- Minimum 44x44px touch target
+- Adequate spacing between buttons
+
+### Best Practices
+
+**Do:**
+- Use clear, action-oriented labels ("Save", "Submit", "Delete")
+- Use loading state during async operations
+- Disable buttons during processing to prevent double-submission
+- Use appropriate variant for the action's importance
+
+**Don't:**
+- Use vague labels ("Click here", "OK")
+- Rely solely on color to convey meaning
+- Make buttons too small for touch targets
+- Use too many primary buttons on one page
+
+---
+
+## API Reference
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| `.btn` | Base button class (required) |
+| `.btn-primary` | Primary variant |
+| `.btn-secondary` | Secondary variant |
+| `.btn-outline` | Outline variant |
+| `.btn-ghost` | Ghost variant |
+| `.btn-danger` | Danger/destructive variant |
+| `.btn-success` | Success/positive variant |
+| `.btn-sm` | Small size |
+| `.btn-md` | Medium size (default) |
+| `.btn-lg` | Large size |
+| `.btn-loading` | Loading state with spinner |
+
+### HTML Attributes
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `disabled` | boolean | Disables the button |
+| `aria-busy` | boolean | Indicates loading state |
+| `aria-label` | string | Accessible label (for icon-only buttons) |
+
+---
+
+## Related Components
+
+- **Icon Button**: Buttons with only icons
+- **Button Group**: Group related buttons together
+- **Split Button**: Button with dropdown menu
+- **Toggle Button**: Button with on/off state

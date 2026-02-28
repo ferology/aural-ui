@@ -7,7 +7,29 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Versatile button component with multiple variants, sizes, and states.'
+        component: `
+# Button Component
+
+Versatile button component with multiple variants, sizes, and states.
+See the **Documentation** tab for framework-specific code examples (React, Vue, Svelte).
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<button class="btn btn-primary">Click me</button>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+<button className="btn btn-primary">Click me</button>
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<button class="btn btn-primary">Click me</button>
+\`\`\`
+        `.trim()
       }
     }
   },

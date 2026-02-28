@@ -1,0 +1,531 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Framework Guide" />
+
+<div style={{
+  fontFamily: 'var(--font-sans, system-ui, -apple-system, sans-serif)',
+  maxWidth: '900px',
+  margin: '0 auto',
+  padding: '3rem 2rem'
+}}>
+
+# Framework Guide
+
+Aural UI is **framework-agnostic** and works seamlessly with vanilla JavaScript, React, Vue, Svelte, and other modern frameworks.
+
+---
+
+## Vanilla JavaScript / HTML
+
+The simplest way to use Aural UI - just HTML and CSS classes.
+
+### Setup
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="path/to/aural-ui.css">
+  <link rel="stylesheet" href="path/to/dark.css">
+</head>
+<body>
+  <!-- Your components here -->
+</body>
+</html>
+```
+
+### Component Usage
+
+```html
+<!-- Button -->
+<button class="btn btn-primary">Click me</button>
+
+<!-- Card -->
+<div class="card">
+  <h3>Card Title</h3>
+  <p>Card content goes here.</p>
+</div>
+
+<!-- Input -->
+<input type="text" class="input" placeholder="Enter text">
+
+<!-- Modal -->
+<dialog class="modal" id="my-modal">
+  <div class="modal-content">
+    <h2>Modal Title</h2>
+    <p>Modal content.</p>
+    <button class="btn btn-primary" onclick="document.getElementById('my-modal').close()">
+      Close
+    </button>
+  </div>
+</dialog>
+```
+
+---
+
+## React
+
+### Setup
+
+```jsx
+// main.jsx or App.jsx
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function App() {
+  return <YourComponent />;
+}
+```
+
+### Creating Reusable Components
+
+```jsx
+// components/Button.jsx
+function Button({
+  variant = 'primary',
+  size = 'md',
+  loading = false,
+  disabled = false,
+  children,
+  ...props
+}) {
+  const className = [
+    'btn',
+    `btn-${variant}`,
+    `btn-${size}`,
+    loading && 'btn-loading'
+  ].filter(Boolean).join(' ');
+
+  return (
+    <button
+      className={className}
+      disabled={disabled || loading}
+      aria-busy={loading}
+      {...props}
+    >
+      {loading && <span className="spinner" aria-hidden="true" />}
+      {children}
+    </button>
+  );
+}
+
+// Usage
+<Button variant="primary" size="lg" onClick={handleClick}>
+  Save
+</Button>
+```
+
+### With TypeScript
+
+```tsx
+// components/Button.tsx
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success';
+  size?: 'sm' | 'md' | 'lg';
+  loading?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({
+  variant = 'primary',
+  size = 'md',
+  loading = false,
+  disabled = false,
+  children,
+  className,
+  ...props
+}) => {
+  const classes = [
+    'btn',
+    `btn-${variant}`,
+    `btn-${size}`,
+    loading && 'btn-loading',
+    className
+  ].filter(Boolean).join(' ');
+
+  return (
+    <button
+      className={classes}
+      disabled={disabled || loading}
+      aria-busy={loading}
+      {...props}
+    >
+      {loading && <span className="spinner" aria-hidden="true" />}
+      {children}
+    </button>
+  );
+};
+```
+
+### State Management Example
+
+```jsx
+import { useState } from 'react';
+
+function FormExample() {
+  const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await submitForm(value);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        className="input"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter value"
+      />
+
+      <button
+        type="submit"
+        className={`btn btn-primary ${loading ? 'btn-loading' : ''}`}
+        disabled={loading}
+        aria-busy={loading}
+      >
+        {loading && <span className="spinner" aria-hidden="true" />}
+        {loading ? 'Submitting...' : 'Submit'}
+      </button>
+    </form>
+  );
+}
+```
+
+---
+
+## Vue 3
+
+### Setup
+
+```js
+// main.js
+import { createApp } from 'vue';
+import App from './App.vue';
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+createApp(App).mount('#app');
+```
+
+### Creating Reusable Components
+
+```vue
+<!-- components/Button.vue -->
+<template>
+  <button
+    :class="buttonClasses"
+    :disabled="disabled || loading"
+    :aria-busy="loading"
+    v-bind="$attrs"
+  >
+    <span v-if="loading" class="spinner" aria-hidden="true"></span>
+    <slot />
+  </button>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: {
+    type: String,
+    default: 'primary',
+    validator: (value) =>
+      ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success'].includes(value)
+  },
+  size: {
+    type: String,
+    default: 'md',
+    validator: (value) => ['sm', 'md', 'lg'].includes(value)
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const buttonClasses = computed(() => [
+  'btn',
+  `btn-${props.variant}`,
+  `btn-${props.size}`,
+  { 'btn-loading': props.loading }
+]);
+</script>
+
+<!-- Usage -->
+<Button variant="primary" size="lg" @click="handleClick">
+  Save
+</Button>
+```
+
+### With TypeScript
+
+```vue
+<!-- components/Button.vue -->
+<script setup lang="ts">
+import { computed } from 'vue';
+
+type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success';
+type Size = 'sm' | 'md' | 'lg';
+
+interface Props {
+  variant?: Variant;
+  size?: Size;
+  loading?: boolean;
+  disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md',
+  loading: false,
+  disabled: false
+});
+
+const buttonClasses = computed(() => [
+  'btn',
+  `btn-${props.variant}`,
+  `btn-${props.size}`,
+  { 'btn-loading': props.loading }
+]);
+</script>
+```
+
+### Composition Function Example
+
+```js
+// composables/useToast.js
+import { ref } from 'vue';
+
+export function useToast() {
+  const toasts = ref([]);
+
+  function showToast(message, type = 'info') {
+    const id = Date.now();
+    toasts.value.push({ id, message, type });
+
+    setTimeout(() => {
+      removeToast(id);
+    }, 3000);
+  }
+
+  function removeToast(id) {
+    toasts.value = toasts.value.filter(toast => toast.id !== id);
+  }
+
+  return {
+    toasts,
+    showToast,
+    removeToast
+  };
+}
+
+// Usage in component
+<script setup>
+import { useToast } from './composables/useToast';
+
+const { toasts, showToast } = useToast();
+
+function handleSuccess() {
+  showToast('Operation successful!', 'success');
+}
+</script>
+
+<template>
+  <button class="btn btn-primary" @click="handleSuccess">
+    Show Toast
+  </button>
+
+  <div class="toast-container">
+    <div
+      v-for="toast in toasts"
+      :key="toast.id"
+      :class="`toast toast-${toast.type}`"
+    >
+      {{ toast.message }}
+    </div>
+  </div>
+</template>
+```
+
+---
+
+## Svelte
+
+### Setup
+
+```js
+// App.svelte or layout
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+```
+
+### Creating Reusable Components
+
+```svelte
+<!-- components/Button.svelte -->
+<script>
+  export let variant = 'primary';
+  export let size = 'md';
+  export let loading = false;
+  export let disabled = false;
+
+  $: buttonClass = [
+    'btn',
+    `btn-${variant}`,
+    `btn-${size}`,
+    loading && 'btn-loading'
+  ].filter(Boolean).join(' ');
+</script>
+
+<button
+  class={buttonClass}
+  disabled={disabled || loading}
+  aria-busy={loading}
+  on:click
+  {...$$restProps}
+>
+  {#if loading}
+    <span class="spinner" aria-hidden="true"></span>
+  {/if}
+  <slot />
+</button>
+
+<!-- Usage -->
+<Button variant="primary" size="lg" on:click={handleClick}>
+  Save
+</Button>
+```
+
+### With TypeScript
+
+```svelte
+<!-- components/Button.svelte -->
+<script lang="ts">
+  type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success';
+  type Size = 'sm' | 'md' | 'lg';
+
+  export let variant: Variant = 'primary';
+  export let size: Size = 'md';
+  export let loading: boolean = false;
+  export let disabled: boolean = false;
+
+  $: buttonClass = [
+    'btn',
+    `btn-${variant}`,
+    `btn-${size}`,
+    loading && 'btn-loading'
+  ].filter(Boolean).join(' ');
+</script>
+```
+
+### Store Example
+
+```js
+// stores/toast.js
+import { writable } from 'svelte/store';
+
+function createToastStore() {
+  const { subscribe, update } = writable([]);
+
+  return {
+    subscribe,
+    show: (message, type = 'info') => {
+      const id = Date.now();
+      update(toasts => [...toasts, { id, message, type }]);
+
+      setTimeout(() => {
+        update(toasts => toasts.filter(t => t.id !== id));
+      }, 3000);
+    }
+  };
+}
+
+export const toasts = createToastStore();
+
+// Usage in component
+<script>
+  import { toasts } from './stores/toast';
+
+  function handleSuccess() {
+    toasts.show('Operation successful!', 'success');
+  }
+</script>
+
+<button class="btn btn-primary" on:click={handleSuccess}>
+  Show Toast
+</button>
+
+<div class="toast-container">
+  {#each $toasts as toast (toast.id)}
+    <div class="toast toast-{toast.type}">
+      {toast.message}
+    </div>
+  {/each}
+</div>
+```
+
+---
+
+## Key Differences Summary
+
+| Feature | Vanilla | React | Vue | Svelte |
+|---------|---------|-------|-----|--------|
+| **Class Syntax** | `class="btn"` | `className="btn"` | `:class="btn"` | `class="btn"` |
+| **Event Handlers** | `onclick="fn()"` | `onClick={fn}` | `@click="fn"` | `on:click={fn}` |
+| **Dynamic Classes** | Template literals | Template literals | `:class` object | Reactive `$:` |
+| **Props** | HTML attributes | `props` object | `defineProps()` | `export let` |
+| **State** | DOM manipulation | `useState()` | `ref()` / `reactive()` | Reactive variables |
+| **Slots/Children** | HTML content | `{children}` | `<slot />` | `<slot />` |
+
+---
+
+## Best Practices
+
+### All Frameworks
+
+✅ **Import CSS once** at the app root
+✅ **Use semantic HTML** elements when possible
+✅ **Include ARIA attributes** for accessibility
+✅ **Test keyboard navigation** (Tab, Enter, Escape)
+✅ **Respect user preferences** (prefers-reduced-motion, prefers-color-scheme)
+
+### Framework-Specific
+
+**React:**
+- Use `className` instead of `class`
+- Memoize expensive class computations with `useMemo`
+- Use React context for theme switching
+
+**Vue:**
+- Use `:class` for dynamic classes
+- Use `v-bind="$attrs"` to forward attributes
+- Use composables for shared logic
+
+**Svelte:**
+- Use reactive declarations `$:` for computed classes
+- Use stores for global state
+- Leverage Svelte's built-in transitions
+
+---
+
+## Need Help?
+
+- **Component Docs**: Each component page shows framework-specific examples
+- **Live Demo**: [https://ferology.github.io/aural-ui/](https://ferology.github.io/aural-ui/)
+- **GitHub**: [https://github.com/ferology/aural-ui](https://github.com/ferology/aural-ui)
+
+</div>

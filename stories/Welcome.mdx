@@ -1,0 +1,295 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Welcome" />
+
+<div style={{
+  fontFamily: 'var(--font-sans, system-ui, -apple-system, sans-serif)',
+  maxWidth: '900px',
+  margin: '0 auto',
+  padding: '3rem 2rem'
+}}>
+
+# Welcome to Aural UI
+
+**A modern, accessible design system built for flexibility and customization**
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+  gap: '1.5rem',
+  margin: '2rem 0'
+}}>
+  <div style={{
+    padding: '1.5rem',
+    background: 'var(--color-bg-secondary, #1a1a1a)',
+    border: '1px solid var(--color-border-subtle, #333)',
+    borderRadius: '8px'
+  }}>
+    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🎨</div>
+    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>9 Built-in Themes</h3>
+    <p style={{ margin: 0, opacity: 0.8, fontSize: '0.875rem' }}>
+      From Dark & Light to Neon, Kinetic, Prismatic, and accessibility-focused themes
+    </p>
+  </div>
+
+  <div style={{
+    padding: '1.5rem',
+    background: 'var(--color-bg-secondary, #1a1a1a)',
+    border: '1px solid var(--color-border-subtle, #333)',
+    borderRadius: '8px'
+  }}>
+    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📦</div>
+    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>60+ Components</h3>
+    <p style={{ margin: 0, opacity: 0.8, fontSize: '0.875rem' }}>
+      Everything from buttons to notification centers, all production-ready
+    </p>
+  </div>
+
+  <div style={{
+    padding: '1.5rem',
+    background: 'var(--color-bg-secondary, #1a1a1a)',
+    border: '1px solid var(--color-border-subtle, #333)',
+    borderRadius: '8px'
+  }}>
+    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>♿</div>
+    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>Accessibility First</h3>
+    <p style={{ margin: 0, opacity: 0.8, fontSize: '0.875rem' }}>
+      WCAG 2.1 AAA compliant with 7:1+ contrast ratios across all themes
+    </p>
+  </div>
+
+  <div style={{
+    padding: '1.5rem',
+    background: 'var(--color-bg-secondary, #1a1a1a)',
+    border: '1px solid var(--color-border-subtle, #333)',
+    borderRadius: '8px'
+  }}>
+    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🔧</div>
+    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>Framework Agnostic</h3>
+    <p style={{ margin: 0, opacity: 0.8, fontSize: '0.875rem' }}>
+      Works with React, Vue, Svelte, or vanilla JavaScript
+    </p>
+  </div>
+</div>
+
+---
+
+## Quick Start
+
+### Installation
+
+Add Aural UI to your project:
+
+```bash
+# Clone the repository
+git clone https://github.com/ferology/aural-ui.git
+
+# Navigate to your project
+cd your-project
+
+# Include CSS and theme
+```
+
+### HTML Setup
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Aural UI CSS -->
+  <link rel="stylesheet" href="path/to/aural-ui.css">
+
+  <!-- Choose a theme -->
+  <link rel="stylesheet" href="path/to/dark.css">
+  <!-- OR -->
+  <link rel="stylesheet" href="path/to/light.css">
+</head>
+<body>
+  <button class="btn btn-primary">Hello Aural UI</button>
+</body>
+</html>
+```
+
+### React Setup
+
+```jsx
+// Import CSS at the root of your app
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+
+function App() {
+  return (
+    <button className="btn btn-primary">
+      Hello Aural UI
+    </button>
+  );
+}
+```
+
+### Vue Setup
+
+```vue
+<template>
+  <button class="btn btn-primary">
+    Hello Aural UI
+  </button>
+</template>
+
+<script>
+// Import in main.js or App.vue
+import './aural-ui.css';
+import './dark.css'; // or your chosen theme
+</script>
+```
+
+### Svelte Setup
+
+```svelte
+<script>
+  // Import in App.svelte or layout
+  import './aural-ui.css';
+  import './dark.css'; // or your chosen theme
+</script>
+
+<button class="btn btn-primary">
+  Hello Aural UI
+</button>
+```
+
+---
+
+## Framework-Specific Code Examples
+
+Throughout this Storybook, each component includes code examples for:
+
+- **Vanilla JavaScript / HTML** - Pure HTML/CSS/JS implementation
+- **React** - Functional components with hooks
+- **Vue 3** - Composition API with `<script setup>`
+- **Svelte** - Reactive components
+
+Look for these sections in each component's documentation to see framework-specific implementation details.
+
+---
+
+## Browse Components
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+  gap: '1rem',
+  margin: '2rem 0'
+}}>
+  <div style={{
+    padding: '1rem',
+    background: 'var(--color-bg-tertiary, #0a0a0a)',
+    borderRadius: '6px'
+  }}>
+    <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', opacity: 0.7 }}>Forms & Inputs</h4>
+    <ul style={{ margin: 0, padding: '0 0 0 1.25rem', fontSize: '0.875rem' }}>
+      <li>Buttons</li>
+      <li>Inputs</li>
+      <li>Select</li>
+      <li>Checkbox</li>
+      <li>Radio</li>
+      <li>Switch</li>
+    </ul>
+  </div>
+
+  <div style={{
+    padding: '1rem',
+    background: 'var(--color-bg-tertiary, #0a0a0a)',
+    borderRadius: '6px'
+  }}>
+    <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', opacity: 0.7 }}>Data Display</h4>
+    <ul style={{ margin: 0, padding: '0 0 0 1.25rem', fontSize: '0.875rem' }}>
+      <li>Cards</li>
+      <li>Tables</li>
+      <li>Badges</li>
+      <li>Chips</li>
+      <li>Avatars</li>
+      <li>Progress</li>
+    </ul>
+  </div>
+
+  <div style={{
+    padding: '1rem',
+    background: 'var(--color-bg-tertiary, #0a0a0a)',
+    borderRadius: '6px'
+  }}>
+    <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', opacity: 0.7 }}>Navigation</h4>
+    <ul style={{ margin: 0, padding: '0 0 0 1.25rem', fontSize: '0.875rem' }}>
+      <li>Tabs</li>
+      <li>Breadcrumbs</li>
+      <li>Pagination</li>
+      <li>Navbar</li>
+      <li>Dropdown</li>
+      <li>Stepper</li>
+    </ul>
+  </div>
+
+  <div style={{
+    padding: '1rem',
+    background: 'var(--color-bg-tertiary, #0a0a0a)',
+    borderRadius: '6px'
+  }}>
+    <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', opacity: 0.7 }}>Feedback</h4>
+    <ul style={{ margin: 0, padding: '0 0 0 1.25rem', fontSize: '0.875rem' }}>
+      <li>Modal</li>
+      <li>Dialog</li>
+      <li>Toast</li>
+      <li>Alert</li>
+      <li>Drawer</li>
+      <li>Snackbar</li>
+    </ul>
+  </div>
+</div>
+
+---
+
+## Resources
+
+- **[Live Demo](https://ferology.github.io/aural-ui/)** - Full component showcase
+- **[GitHub](https://github.com/ferology/aural-ui)** - Source code
+- **Documentation** - Complete API reference and guides
+
+---
+
+## Design Tokens
+
+Aural UI is built on a powerful token system using CSS custom properties:
+
+```css
+/* Colors */
+--color-primary
+--color-bg-primary
+--color-text-primary
+--color-border-subtle
+
+/* Spacing */
+--space-1 through --space-12
+
+/* Typography */
+--text-xs through --text-4xl
+--font-sans, --font-mono
+
+/* Borders */
+--radius-sm, --radius-md, --radius-lg
+
+/* Shadows */
+--shadow-sm through --shadow-2xl
+```
+
+All themes override these tokens to provide consistent theming across components.
+
+---
+
+## Next Steps
+
+1. **Browse Components** - Explore the component library in the sidebar
+2. **Read Documentation** - Each component has detailed usage examples
+3. **Try Examples** - Interactive stories show all variants and states
+4. **Check Themes** - See how components look in all 9 themes
+
+Happy building! 🚀
+
+</div>
