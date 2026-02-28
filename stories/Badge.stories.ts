@@ -6,7 +6,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Small status indicators and labels with multiple color variants.'
+        component: 'Small, versatile status indicators and labels for displaying counts, statuses, and categories.'
       }
     }
   },
@@ -17,17 +17,13 @@ const meta: Meta = {
     },
     variant: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info'],
+      options: ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral'],
       description: 'Badge color variant'
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'default', 'lg'],
       description: 'Badge size'
-    },
-    pill: {
-      control: 'boolean',
-      description: 'Pill shape with rounded edges'
     }
   }
 };
@@ -38,16 +34,17 @@ type Story = StoryObj;
 export const Default: Story = {
   render: (args) => {
     const badge = document.createElement('span');
-    badge.className = `badge badge-${args.variant} badge-${args.size}`;
-    if (args.pill) badge.classList.add('badge-pill');
+    const classes = ['badge', `badge-${args.variant}`];
+    if (args.size === 'sm') classes.push('badge-sm');
+    if (args.size === 'lg') classes.push('badge-lg');
+    badge.className = classes.join(' ');
     badge.textContent = args.label;
     return badge;
   },
   args: {
     label: 'Badge',
-    variant: 'default',
-    size: 'md',
-    pill: false
+    variant: 'primary',
+    size: 'default'
   }
 };
 
@@ -55,18 +52,19 @@ export const AllVariants: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.display = 'flex';
-    container.style.gap = '0.5rem';
+    container.style.gap = 'var(--space-3)';
     container.style.flexWrap = 'wrap';
     container.style.padding = '2rem';
+    container.style.alignItems = 'center';
 
     const variants = [
-      { name: 'default', label: 'Default' },
       { name: 'primary', label: 'Primary' },
       { name: 'secondary', label: 'Secondary' },
       { name: 'success', label: 'Success' },
-      { name: 'warning', label: 'Warning' },
       { name: 'error', label: 'Error' },
-      { name: 'info', label: 'Info' }
+      { name: 'warning', label: 'Warning' },
+      { name: 'info', label: 'Info' },
+      { name: 'neutral', label: 'Neutral' }
     ];
 
     variants.forEach(({ name, label }) => {
@@ -84,37 +82,20 @@ export const AllSizes: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.display = 'flex';
-    container.style.gap = '0.5rem';
+    container.style.gap = 'var(--space-3)';
     container.style.alignItems = 'center';
     container.style.padding = '2rem';
 
-    const sizes = ['sm', 'md', 'lg'];
+    const sizes = [
+      { class: 'badge-sm', label: 'Small' },
+      { class: '', label: 'Default' },
+      { class: 'badge-lg', label: 'Large' }
+    ];
 
-    sizes.forEach(size => {
+    sizes.forEach(({ class: sizeClass, label }) => {
       const badge = document.createElement('span');
-      badge.className = `badge badge-primary badge-${size}`;
-      badge.textContent = size.toUpperCase();
-      container.appendChild(badge);
-    });
-
-    return container;
-  }
-};
-
-export const Pill: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.gap = '0.5rem';
-    container.style.flexWrap = 'wrap';
-    container.style.padding = '2rem';
-
-    const variants = ['primary', 'success', 'warning', 'error'];
-
-    variants.forEach(variant => {
-      const badge = document.createElement('span');
-      badge.className = `badge badge-${variant} badge-pill`;
-      badge.textContent = variant.charAt(0).toUpperCase() + variant.slice(1);
+      badge.className = sizeClass ? `badge badge-primary ${sizeClass}` : 'badge badge-primary';
+      badge.textContent = label;
       container.appendChild(badge);
     });
 
@@ -126,42 +107,36 @@ export const WithIcons: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.display = 'flex';
-    container.style.gap = '0.5rem';
+    container.style.gap = 'var(--space-3)';
     container.style.flexWrap = 'wrap';
     container.style.padding = '2rem';
 
     const badges = [
-      { variant: 'success', icon: '✓', label: 'Verified' },
-      { variant: 'warning', icon: '⚠', label: 'Warning' },
-      { variant: 'error', icon: '✕', label: 'Error' },
-      { variant: 'info', icon: 'ℹ', label: 'Info' }
+      { variant: 'success', icon: 'check-circle', label: 'Verified' },
+      { variant: 'error', icon: 'x-circle', label: 'Failed' },
+      { variant: 'warning', icon: 'alert-triangle', label: 'Pending' },
+      { variant: 'info', icon: 'info', label: 'New' }
     ];
 
     badges.forEach(({ variant, icon, label }) => {
       const badge = document.createElement('span');
       badge.className = `badge badge-${variant}`;
-      badge.innerHTML = `<span>${icon}</span> ${label}`;
+
+      const iconElement = document.createElement('i');
+      iconElement.setAttribute('data-lucide', icon);
+      iconElement.style.width = '14px';
+      iconElement.style.height = '14px';
+
+      badge.appendChild(iconElement);
+      badge.appendChild(document.createTextNode(' ' + label));
       container.appendChild(badge);
     });
 
-    return container;
-  }
-};
+    // Initialize Lucide icons if available
+    if (typeof lucide !== 'undefined') {
+      setTimeout(() => lucide.createIcons(), 0);
+    }
 
-export const OnButton: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.padding = '2rem';
-
-    const button = document.createElement('button');
-    button.className = 'btn btn-primary';
-    button.style.position = 'relative';
-    button.innerHTML = `
-      Messages
-      <span class="badge badge-error badge-sm" style="margin-left: 0.5rem;">5</span>
-    `;
-
-    container.appendChild(button);
     return container;
   }
 };
@@ -172,27 +147,173 @@ export const StatusIndicators: Story = {
     container.style.padding = '2rem';
     container.style.display = 'flex';
     container.style.flexDirection = 'column';
-    container.style.gap = '1rem';
+    container.style.gap = 'var(--space-6)';
 
     const items = [
-      { status: 'success', label: 'Active', text: 'Service is running' },
-      { status: 'warning', label: 'Pending', text: 'Waiting for approval' },
-      { status: 'error', label: 'Failed', text: 'Build failed' },
-      { status: 'info', label: 'Info', text: 'New update available' }
+      { status: 'success', label: 'Delivered', text: 'Order Status' },
+      { status: 'warning', label: 'In Transit', text: 'Order Status' },
+      { status: 'error', label: 'Cancelled', text: 'Order Status' }
     ];
 
     items.forEach(({ status, label, text }) => {
       const item = document.createElement('div');
-      item.style.display = 'flex';
-      item.style.alignItems = 'center';
-      item.style.gap = '1rem';
       item.innerHTML = `
+        <div style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin-bottom: var(--space-2);">${text}</div>
         <span class="badge badge-${status}">${label}</span>
-        <span>${text}</span>
       `;
       container.appendChild(item);
     });
 
+    return container;
+  }
+};
+
+export const UserRoles: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = 'var(--space-4)';
+
+    const users = [
+      { name: 'John Doe', role: 'Admin', verified: true },
+      { name: 'Jane Smith', role: 'Editor', verified: true },
+      { name: 'Bob Johnson', role: 'Viewer', verified: false }
+    ];
+
+    users.forEach(({ name, role, verified }) => {
+      const item = document.createElement('div');
+      item.style.display = 'flex';
+      item.style.gap = 'var(--space-2)';
+      item.style.alignItems = 'center';
+
+      const nameSpan = document.createElement('span');
+      nameSpan.style.color = 'var(--color-text-primary)';
+      nameSpan.textContent = name;
+
+      const roleBadge = document.createElement('span');
+      roleBadge.className = 'badge badge-primary badge-sm';
+      roleBadge.textContent = role;
+
+      item.appendChild(nameSpan);
+      item.appendChild(roleBadge);
+
+      if (verified) {
+        const verifiedBadge = document.createElement('span');
+        verifiedBadge.className = 'badge badge-success badge-sm';
+
+        const iconElement = document.createElement('i');
+        iconElement.setAttribute('data-lucide', 'check');
+        iconElement.style.width = '12px';
+        iconElement.style.height = '12px';
+
+        verifiedBadge.appendChild(iconElement);
+        verifiedBadge.appendChild(document.createTextNode(' Verified'));
+        item.appendChild(verifiedBadge);
+      }
+
+      container.appendChild(item);
+    });
+
+    // Initialize Lucide icons if available
+    if (typeof lucide !== 'undefined') {
+      setTimeout(() => lucide.createIcons(), 0);
+    }
+
+    return container;
+  }
+};
+
+export const NotificationBadges: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.gap = 'var(--space-6)';
+    container.style.flexWrap = 'wrap';
+    container.style.alignItems = 'center';
+    container.style.padding = '2rem';
+
+    const notifications = [
+      { icon: 'bell', count: '3', variant: 'error', label: 'Notifications, 3 unread' },
+      { icon: 'mail', count: '12', variant: 'primary', label: 'Messages, 12 unread' },
+      { icon: 'shopping-cart', count: '5', variant: 'success', label: 'Shopping cart, 5 items' }
+    ];
+
+    notifications.forEach(({ icon, count, variant, label }) => {
+      const wrapper = document.createElement('div');
+      wrapper.style.position = 'relative';
+      wrapper.style.display = 'inline-flex';
+
+      const button = document.createElement('button');
+      button.className = 'btn btn-ghost btn-icon';
+      button.setAttribute('aria-label', label);
+
+      const iconElement = document.createElement('i');
+      iconElement.setAttribute('data-lucide', icon);
+      button.appendChild(iconElement);
+
+      const badge = document.createElement('span');
+      badge.className = `badge badge-${variant} badge-sm`;
+      badge.setAttribute('aria-hidden', 'true');
+      badge.style.position = 'absolute';
+      badge.style.top = '-4px';
+      badge.style.right = '-4px';
+      badge.style.minWidth = '18px';
+      badge.style.height = '18px';
+      badge.style.borderRadius = '9px';
+      badge.style.padding = '0 4px';
+      badge.style.display = 'flex';
+      badge.style.alignItems = 'center';
+      badge.style.justifyContent = 'center';
+      badge.style.fontSize = '10px';
+      badge.textContent = count;
+
+      wrapper.appendChild(button);
+      wrapper.appendChild(badge);
+      container.appendChild(wrapper);
+    });
+
+    // Initialize Lucide icons if available
+    if (typeof lucide !== 'undefined') {
+      setTimeout(() => lucide.createIcons(), 0);
+    }
+
+    return container;
+  }
+};
+
+export const ContentTags: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+
+    const header = document.createElement('div');
+    header.style.fontSize = 'var(--text-sm)';
+    header.style.color = 'var(--color-text-tertiary)';
+    header.style.marginBottom = 'var(--space-2)';
+    header.textContent = 'Article Tags';
+
+    const tagsContainer = document.createElement('div');
+    tagsContainer.style.display = 'flex';
+    tagsContainer.style.gap = 'var(--space-2)';
+    tagsContainer.style.flexWrap = 'wrap';
+
+    const tags = ['JavaScript', 'React', 'Tutorial'];
+    tags.forEach(tag => {
+      const badge = document.createElement('span');
+      badge.className = 'badge badge-secondary';
+      badge.textContent = tag;
+      tagsContainer.appendChild(badge);
+    });
+
+    const featuredBadge = document.createElement('span');
+    featuredBadge.className = 'badge badge-primary badge-sm';
+    featuredBadge.textContent = 'Featured';
+    tagsContainer.appendChild(featuredBadge);
+
+    container.appendChild(header);
+    container.appendChild(tagsContainer);
     return container;
   }
 };

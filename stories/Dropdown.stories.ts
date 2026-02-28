@@ -6,7 +6,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Dropdown menu with keyboard navigation and click-outside handling.'
+        component: 'Reveal contextual menus and actions on demand. Dropdowns display a list of options when triggered, providing access to secondary functions without cluttering the interface.'
       }
     }
   }
@@ -21,31 +21,84 @@ export const Default: Story = {
     container.style.padding = '2rem';
     container.style.minHeight = '300px';
 
-    const dropdownId = 'dropdown-default';
-
-    const dropdown = document.createElement('div');
-    dropdown.id = dropdownId;
-    dropdown.className = 'dropdown';
-
-    dropdown.innerHTML = `
-      <button class="btn btn-primary dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-        Options
-        <span style="margin-left: 0.5rem;">▼</span>
-      </button>
-      <div class="dropdown-menu" role="menu" hidden>
-        <a href="#" class="dropdown-item" role="menuitem">Edit</a>
-        <a href="#" class="dropdown-item" role="menuitem">Duplicate</a>
-        <a href="#" class="dropdown-item" role="menuitem">Archive</a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">Delete</a>
+    container.innerHTML = `
+      <div class="dropdown" id="dropdown-default">
+        <button class="btn btn-primary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+          Options
+          <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu" role="menu" aria-labelledby="dropdown-default-trigger" hidden>
+          <a href="#" class="dropdown-item" role="menuitem">Profile</a>
+          <a href="#" class="dropdown-item" role="menuitem">Settings</a>
+          <a href="#" class="dropdown-item" role="menuitem">Help Center</a>
+          <div class="dropdown-divider" role="separator"></div>
+          <a href="#" class="dropdown-item" role="menuitem">Sign Out</a>
+        </div>
       </div>
     `;
-
-    container.appendChild(dropdown);
 
     setTimeout(() => {
       if (typeof window.Aural !== 'undefined') {
         window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    }, 100);
+
+    return container;
+  }
+};
+
+export const ButtonVariants: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.minHeight = '300px';
+
+    container.innerHTML = `
+      <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+        <div class="dropdown" id="dropdown-primary">
+          <button class="btn btn-primary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Primary
+            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+          </button>
+          <div class="dropdown-menu" role="menu" hidden>
+            <a href="#" class="dropdown-item" role="menuitem">Action 1</a>
+            <a href="#" class="dropdown-item" role="menuitem">Action 2</a>
+          </div>
+        </div>
+
+        <div class="dropdown" id="dropdown-secondary">
+          <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Secondary
+            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+          </button>
+          <div class="dropdown-menu" role="menu" hidden>
+            <a href="#" class="dropdown-item" role="menuitem">Action 1</a>
+            <a href="#" class="dropdown-item" role="menuitem">Action 2</a>
+          </div>
+        </div>
+
+        <div class="dropdown" id="dropdown-ghost">
+          <button class="btn btn-ghost dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Ghost
+            <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+          </button>
+          <div class="dropdown-menu" role="menu" hidden>
+            <a href="#" class="dropdown-item" role="menuitem">Action 1</a>
+            <a href="#" class="dropdown-item" role="menuitem">Action 2</a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      if (typeof window.Aural !== 'undefined') {
+        window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
       }
     }, 100);
 
@@ -59,38 +112,40 @@ export const WithIcons: Story = {
     container.style.padding = '2rem';
     container.style.minHeight = '300px';
 
-    const dropdownId = 'dropdown-icons';
-
-    const dropdown = document.createElement('div');
-    dropdown.id = dropdownId;
-    dropdown.className = 'dropdown';
-
-    dropdown.innerHTML = `
-      <button class="btn btn-outline dropdown-trigger">
-        Actions ▼
-      </button>
-      <div class="dropdown-menu" role="menu" hidden>
-        <a href="#" class="dropdown-item" role="menuitem">
-          <span>✏️</span> Edit
-        </a>
-        <a href="#" class="dropdown-item" role="menuitem">
-          <span>📋</span> Copy
-        </a>
-        <a href="#" class="dropdown-item" role="menuitem">
-          <span>📤</span> Share
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">
-          <span>🗑️</span> Delete
-        </a>
+    container.innerHTML = `
+      <div class="dropdown" id="dropdown-icons">
+        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+          Actions
+          <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+        </button>
+        <div class="dropdown-menu" role="menu" hidden>
+          <a href="#" class="dropdown-item" role="menuitem">
+            <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+            Edit
+          </a>
+          <a href="#" class="dropdown-item" role="menuitem">
+            <i data-lucide="copy" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+            Duplicate
+          </a>
+          <a href="#" class="dropdown-item" role="menuitem">
+            <i data-lucide="share-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+            Share
+          </a>
+          <div class="dropdown-divider" role="separator"></div>
+          <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">
+            <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+            Delete
+          </a>
+        </div>
       </div>
     `;
-
-    container.appendChild(dropdown);
 
     setTimeout(() => {
       if (typeof window.Aural !== 'undefined') {
         window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
       }
     }, 100);
 
@@ -98,42 +153,117 @@ export const WithIcons: Story = {
   }
 };
 
-export const Positions: Story = {
+export const IconOnlyTrigger: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
-    container.style.display = 'flex';
-    container.style.gap = '1rem';
     container.style.minHeight = '300px';
 
-    const positions = [
-      { id: 'left', label: 'Left', class: 'dropdown-left' },
-      { id: 'center', label: 'Center', class: '' },
-      { id: 'right', label: 'Right', class: 'dropdown-right' }
-    ];
-
-    positions.forEach(({ id, label, class: posClass }) => {
-      const dropdown = document.createElement('div');
-      dropdown.id = `dropdown-${id}`;
-      dropdown.className = `dropdown ${posClass}`;
-
-      dropdown.innerHTML = `
-        <button class="btn btn-outline dropdown-trigger">
-          ${label} ▼
-        </button>
-        <div class="dropdown-menu" hidden>
-          <a href="#" class="dropdown-item">Item 1</a>
-          <a href="#" class="dropdown-item">Item 2</a>
-          <a href="#" class="dropdown-item">Item 3</a>
+    container.innerHTML = `
+      <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+        <div class="dropdown" id="dropdown-icon-only">
+          <button class="btn btn-ghost btn-icon dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="More options">
+            <i data-lucide="more-vertical" style="width: 20px; height: 20px;"></i>
+          </button>
+          <div class="dropdown-menu" role="menu" hidden>
+            <a href="#" class="dropdown-item" role="menuitem">View</a>
+            <a href="#" class="dropdown-item" role="menuitem">Edit</a>
+            <a href="#" class="dropdown-item" role="menuitem">Share</a>
+          </div>
         </div>
-      `;
 
-      container.appendChild(dropdown);
-    });
+        <div class="dropdown" id="dropdown-icon-dots">
+          <button class="btn btn-secondary btn-icon dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="More options">
+            <i data-lucide="more-horizontal" style="width: 20px; height: 20px;"></i>
+          </button>
+          <div class="dropdown-menu" role="menu" hidden>
+            <a href="#" class="dropdown-item" role="menuitem">Option A</a>
+            <a href="#" class="dropdown-item" role="menuitem">Option B</a>
+          </div>
+        </div>
+      </div>
+    `;
 
     setTimeout(() => {
       if (typeof window.Aural !== 'undefined') {
         window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    }, 100);
+
+    return container;
+  }
+};
+
+export const RightAlignedMenu: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.minHeight = '300px';
+    container.style.display = 'flex';
+    container.style.justifyContent = 'flex-end';
+
+    container.innerHTML = `
+      <div class="dropdown dropdown-right" id="dropdown-right">
+        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+          Right Aligned
+          <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+        </button>
+        <div class="dropdown-menu" role="menu" hidden>
+          <a href="#" class="dropdown-item" role="menuitem">Option 1</a>
+          <a href="#" class="dropdown-item" role="menuitem">Option 2</a>
+          <a href="#" class="dropdown-item" role="menuitem">Option 3</a>
+        </div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      if (typeof window.Aural !== 'undefined') {
+        window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    }, 100);
+
+    return container;
+  }
+};
+
+export const WithHeadersAndSections: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.minHeight = '400px';
+
+    container.innerHTML = `
+      <div class="dropdown" id="dropdown-headers">
+        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+          Grouped Menu
+          <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+        </button>
+        <div class="dropdown-menu" role="menu" hidden style="min-width: 200px;">
+          <div class="dropdown-header">Account</div>
+          <a href="#" class="dropdown-item" role="menuitem">Profile</a>
+          <a href="#" class="dropdown-item" role="menuitem">Settings</a>
+          <div class="dropdown-divider" role="separator"></div>
+          <div class="dropdown-header">Team</div>
+          <a href="#" class="dropdown-item" role="menuitem">Members</a>
+          <a href="#" class="dropdown-item" role="menuitem">Invite</a>
+          <div class="dropdown-divider" role="separator"></div>
+          <a href="#" class="dropdown-item" role="menuitem">Sign Out</a>
+        </div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      if (typeof window.Aural !== 'undefined') {
+        window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
       }
     }, 100);
 
@@ -145,46 +275,45 @@ export const UserMenu: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
-    container.style.minHeight = '300px';
+    container.style.minHeight = '400px';
 
-    const dropdown = document.createElement('div');
-    dropdown.id = 'dropdown-user';
-    dropdown.className = 'dropdown dropdown-right';
-
-    dropdown.innerHTML = `
-      <button class="btn btn-ghost dropdown-trigger" style="display: flex; align-items: center; gap: 0.5rem;">
-        <div style="width: 32px; height: 32px; background: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
-          JD
+    container.innerHTML = `
+      <div class="dropdown" id="dropdown-user">
+        <button class="btn btn-ghost dropdown-trigger" aria-expanded="false" aria-haspopup="true" style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); display: flex; align-items: center; justify-content: center; color: white; font-weight: var(--font-semibold); font-size: var(--text-sm);">
+            JD
+          </div>
+          <span>John Doe</span>
+          <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+        </button>
+        <div class="dropdown-menu" role="menu" hidden style="min-width: 220px;">
+          <div style="padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-subtle);">
+            <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">John Doe</div>
+            <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">john.doe@example.com</div>
+          </div>
+          <a href="#" class="dropdown-item" role="menuitem">
+            <i data-lucide="user" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+            Your Profile
+          </a>
+          <a href="#" class="dropdown-item" role="menuitem">
+            <i data-lucide="settings" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+            Settings
+          </a>
+          <div class="dropdown-divider" role="separator"></div>
+          <a href="#" class="dropdown-item" role="menuitem">
+            <i data-lucide="log-out" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+            Sign Out
+          </a>
         </div>
-        <span>John Doe</span>
-        <span>▼</span>
-      </button>
-      <div class="dropdown-menu" hidden>
-        <div style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--color-border);">
-          <div style="font-weight: 500;">John Doe</div>
-          <div style="font-size: 0.875rem; color: var(--color-text-secondary);">john@example.com</div>
-        </div>
-        <a href="#" class="dropdown-item">
-          <span>👤</span> Profile
-        </a>
-        <a href="#" class="dropdown-item">
-          <span>⚙️</span> Settings
-        </a>
-        <a href="#" class="dropdown-item">
-          <span>💳</span> Billing
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <span>🚪</span> Sign out
-        </a>
       </div>
     `;
-
-    container.appendChild(dropdown);
 
     setTimeout(() => {
       if (typeof window.Aural !== 'undefined') {
         window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
       }
     }, 100);
 
@@ -192,51 +321,134 @@ export const UserMenu: Story = {
   }
 };
 
-export const WithCheckboxes: Story = {
+export const TableRowActions: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
-    container.style.minHeight = '300px';
+    container.style.minHeight = '400px';
+    container.style.display = 'block';
 
-    const dropdown = document.createElement('div');
-    dropdown.id = 'dropdown-checkboxes';
-    dropdown.className = 'dropdown';
-
-    dropdown.innerHTML = `
-      <button class="btn btn-outline dropdown-trigger">
-        Filters ▼
-      </button>
-      <div class="dropdown-menu" hidden style="min-width: 200px;">
-        <div style="padding: 0.75rem 1rem;">
-          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-            <input type="checkbox" checked />
-            <span>Active</span>
-          </label>
-        </div>
-        <div style="padding: 0.75rem 1rem;">
-          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-            <input type="checkbox" />
-            <span>Inactive</span>
-          </label>
-        </div>
-        <div style="padding: 0.75rem 1rem;">
-          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-            <input type="checkbox" checked />
-            <span>Pending</span>
-          </label>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div style="padding: 0.75rem 1rem;">
-          <button class="btn btn-primary btn-sm" style="width: 100%;">Apply</button>
-        </div>
-      </div>
+    container.innerHTML = `
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th style="width: 50px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Project Alpha</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td>Jan 26, 2026</td>
+            <td>
+              <div class="dropdown dropdown-right" id="dropdown-table-1">
+                <button class="btn btn-ghost btn-icon btn-sm dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Row actions">
+                  <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
+                </button>
+                <div class="dropdown-menu" role="menu" hidden>
+                  <a href="#" class="dropdown-item" role="menuitem">
+                    <i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                    View
+                  </a>
+                  <a href="#" class="dropdown-item" role="menuitem">
+                    <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                    Edit
+                  </a>
+                  <div class="dropdown-divider" role="separator"></div>
+                  <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">
+                    <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                    Delete
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Project Beta</td>
+            <td><span class="badge badge-warning">Pending</span></td>
+            <td>Jan 25, 2026</td>
+            <td>
+              <div class="dropdown dropdown-right" id="dropdown-table-2">
+                <button class="btn btn-ghost btn-icon btn-sm dropdown-trigger" aria-expanded="false" aria-haspopup="true" aria-label="Row actions">
+                  <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
+                </button>
+                <div class="dropdown-menu" role="menu" hidden>
+                  <a href="#" class="dropdown-item" role="menuitem">
+                    <i data-lucide="eye" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                    View
+                  </a>
+                  <a href="#" class="dropdown-item" role="menuitem">
+                    <i data-lucide="edit" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                    Edit
+                  </a>
+                  <div class="dropdown-divider" role="separator"></div>
+                  <a href="#" class="dropdown-item dropdown-item-danger" role="menuitem">
+                    <i data-lucide="trash-2" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                    Delete
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     `;
-
-    container.appendChild(dropdown);
 
     setTimeout(() => {
       if (typeof window.Aural !== 'undefined') {
         window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    }, 100);
+
+    return container;
+  }
+};
+
+export const WithNotifications: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.minHeight = '400px';
+
+    container.innerHTML = `
+      <div class="dropdown" id="dropdown-notifications">
+        <button class="btn btn-secondary dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+          Notifications
+          <span class="badge badge-error badge-sm" style="margin-left: 8px;">3</span>
+          <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 6px;"></i>
+        </button>
+        <div class="dropdown-menu" role="menu" hidden style="min-width: 280px;">
+          <a href="#" class="dropdown-item" role="menuitem" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>New Messages</span>
+            <span class="badge badge-error badge-sm">2</span>
+          </a>
+          <a href="#" class="dropdown-item" role="menuitem" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>Team Updates</span>
+            <span class="badge badge-warning badge-sm">1</span>
+          </a>
+          <a href="#" class="dropdown-item" role="menuitem">
+            <span>System Alerts</span>
+          </a>
+          <div class="dropdown-divider" role="separator"></div>
+          <a href="#" class="dropdown-item" role="menuitem" style="text-align: center; color: var(--color-primary);">
+            View All Notifications
+          </a>
+        </div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      if (typeof window.Aural !== 'undefined') {
+        window.Aural.initDropdowns();
+      }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
       }
     }, 100);
 

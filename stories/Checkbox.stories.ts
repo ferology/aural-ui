@@ -222,8 +222,8 @@ export const AllStates: Story = {
     container.style.cssText = `
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      padding: 2rem;
+      gap: var(--space-4);
+      padding: var(--space-8);
       max-width: 400px;
     `;
 
@@ -273,8 +273,8 @@ export const AllSizes: Story = {
     container.style.cssText = `
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      padding: 2rem;
+      gap: var(--space-4);
+      padding: var(--space-8);
       align-items: flex-start;
     `;
 
@@ -316,17 +316,17 @@ export const CheckboxGroup: Story = {
     const fieldset = document.createElement('fieldset');
     fieldset.style.cssText = `
       border: none;
-      padding: 2rem;
+      padding: var(--space-8);
       margin: 0;
     `;
 
     const legend = document.createElement('legend');
     legend.textContent = 'Select your interests';
     legend.style.cssText = `
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: var(--text-base);
+      font-weight: var(--font-semibold);
       color: var(--color-text-primary);
-      margin-bottom: 1rem;
+      margin-bottom: var(--space-4);
       padding: 0;
     `;
 
@@ -334,7 +334,7 @@ export const CheckboxGroup: Story = {
     checkboxContainer.style.cssText = `
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: var(--space-3);
     `;
 
     const options = [
@@ -378,8 +378,8 @@ export const SelectAllPattern: Story = {
     container.style.cssText = `
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      padding: 2rem;
+      gap: var(--space-4);
+      padding: var(--space-8);
       max-width: 400px;
     `;
 
@@ -403,10 +403,10 @@ export const SelectAllPattern: Story = {
     // Child checkboxes container
     const childContainer = document.createElement('div');
     childContainer.style.cssText = `
-      padding-left: 1.5rem;
+      padding-left: var(--space-6);
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: var(--space-3);
       border-left: 2px solid var(--color-border-subtle);
     `;
 

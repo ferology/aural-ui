@@ -18,33 +18,45 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 
 **Vanilla HTML:**
 \`\`\`html
-<div class="radio-group" role="radiogroup" aria-labelledby="group-label">
-  <div id="group-label" class="radio-group-label">Select your plan</div>
+<div class="radio-group">
+  <div class="radio-group-label">Select your plan</div>
   <label class="radio">
     <input type="radio" name="plan" value="free" checked>
-    <span>Free</span>
+    <span>Free - $0/month</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="plan" value="pro">
+    <span>Pro - $9/month</span>
   </label>
 </div>
 \`\`\`
 
 **React:**
 \`\`\`jsx
-<div className="radio-group" role="radiogroup" aria-labelledby="group-label">
-  <div id="group-label" className="radio-group-label">Select your plan</div>
+<div className="radio-group">
+  <div className="radio-group-label">Select your plan</div>
   <label className="radio">
     <input type="radio" name="plan" value="free" checked />
-    <span>Free</span>
+    <span>Free - $0/month</span>
+  </label>
+  <label className="radio">
+    <input type="radio" name="plan" value="pro" />
+    <span>Pro - $9/month</span>
   </label>
 </div>
 \`\`\`
 
 **Vue:**
 \`\`\`vue
-<div class="radio-group" role="radiogroup" aria-labelledby="group-label">
-  <div id="group-label" class="radio-group-label">Select your plan</div>
+<div class="radio-group">
+  <div class="radio-group-label">Select your plan</div>
   <label class="radio">
     <input type="radio" name="plan" value="free" :checked="true">
-    <span>Free</span>
+    <span>Free - $0/month</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="plan" value="pro">
+    <span>Pro - $9/month</span>
   </label>
 </div>
 \`\`\`
@@ -93,14 +105,9 @@ export const Default: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.className = 'radio-group';
-    container.setAttribute('role', 'radiogroup');
-
-    const groupLabelId = `radio-group-${Math.random().toString(36).substr(2, 9)}`;
-    container.setAttribute('aria-labelledby', groupLabelId);
 
     if (args.groupLabel) {
       const label = document.createElement('div');
-      label.id = groupLabelId;
       label.className = 'radio-group-label';
       label.textContent = args.groupLabel;
       container.appendChild(label);
@@ -108,7 +115,7 @@ export const Default: Story = {
 
     args.options.forEach((option: any) => {
       const label = document.createElement('label');
-      label.className = `radio ${args.size !== 'md' ? `radio-${args.size}` : ''}`;
+      label.className = `radio${args.size === 'sm' ? ' radio-sm' : args.size === 'lg' ? ' radio-lg' : ''}`;
 
       const input = document.createElement('input');
       input.type = 'radio';
@@ -116,7 +123,6 @@ export const Default: Story = {
       input.value = option.value;
       input.checked = option.value === args.selected;
       input.disabled = args.disabled || option.disabled || false;
-      input.setAttribute('aria-checked', String(option.value === args.selected));
 
       const span = document.createElement('span');
       span.textContent = option.label;
@@ -162,13 +168,8 @@ export const Disabled: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.className = 'radio-group';
-    container.setAttribute('role', 'radiogroup');
-
-    const groupLabelId = `radio-group-${Math.random().toString(36).substr(2, 9)}`;
-    container.setAttribute('aria-labelledby', groupLabelId);
 
     const label = document.createElement('div');
-    label.id = groupLabelId;
     label.className = 'radio-group-label';
     label.textContent = args.groupLabel;
     container.appendChild(label);
@@ -211,27 +212,18 @@ export const Inline: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.className = 'radio-group';
-    container.setAttribute('role', 'radiogroup');
     container.style.display = 'flex';
     container.style.flexDirection = 'row';
     container.style.gap = 'var(--space-6)';
-
-    const groupLabelId = `radio-group-${Math.random().toString(36).substr(2, 9)}`;
-    container.setAttribute('aria-labelledby', groupLabelId);
+    container.style.flexWrap = 'wrap';
 
     if (args.groupLabel) {
       const label = document.createElement('div');
-      label.id = groupLabelId;
       label.className = 'radio-group-label';
       label.textContent = args.groupLabel;
       label.style.width = '100%';
       container.appendChild(label);
     }
-
-    const radioWrapper = document.createElement('div');
-    radioWrapper.style.display = 'flex';
-    radioWrapper.style.gap = 'var(--space-6)';
-    radioWrapper.style.alignItems = 'center';
 
     args.options.forEach((option: any) => {
       const label = document.createElement('label');
@@ -242,17 +234,15 @@ export const Inline: Story = {
       input.name = args.name;
       input.value = option.value;
       input.checked = option.value === args.selected;
-      input.setAttribute('aria-checked', String(option.value === args.selected));
 
       const span = document.createElement('span');
       span.textContent = option.label;
 
       label.appendChild(input);
       label.appendChild(span);
-      radioWrapper.appendChild(label);
+      container.appendChild(label);
     });
 
-    container.appendChild(radioWrapper);
     return container;
   },
   args: {
@@ -287,13 +277,8 @@ export const WithDescription: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.className = 'radio-group';
-    container.setAttribute('role', 'radiogroup');
-
-    const groupLabelId = `radio-group-${Math.random().toString(36).substr(2, 9)}`;
-    container.setAttribute('aria-labelledby', groupLabelId);
 
     const label = document.createElement('div');
-    label.id = groupLabelId;
     label.className = 'radio-group-label';
     label.textContent = args.groupLabel;
     container.appendChild(label);
@@ -307,7 +292,6 @@ export const WithDescription: Story = {
       input.name = args.name;
       input.value = option.value;
       input.checked = option.value === args.selected;
-      input.setAttribute('aria-checked', String(option.value === args.selected));
 
       const textWrapper = document.createElement('span');
       textWrapper.textContent = option.label;
@@ -316,6 +300,7 @@ export const WithDescription: Story = {
         const desc = document.createElement('span');
         desc.className = 'radio-description';
         desc.textContent = option.description;
+        textWrapper.appendChild(document.createTextNode(' '));
         textWrapper.appendChild(desc);
       }
 
@@ -345,7 +330,6 @@ export const Sizes: Story = {
     container.style.display = 'flex';
     container.style.flexDirection = 'column';
     container.style.gap = 'var(--space-6)';
-    container.style.padding = '2rem';
 
     const sizes = [
       { size: 'sm', label: 'Small' },
@@ -358,7 +342,7 @@ export const Sizes: Story = {
       group.className = 'radio-group';
 
       const radioLabel = document.createElement('label');
-      radioLabel.className = `radio ${size !== 'md' ? `radio-${size}` : ''}`;
+      radioLabel.className = `radio${size === 'sm' ? ' radio-sm' : size === 'lg' ? ' radio-lg' : ''}`;
 
       const input = document.createElement('input');
       input.type = 'radio';
@@ -382,10 +366,6 @@ export const ButtonStyle: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.className = 'radio-group radio-group-buttons';
-    container.setAttribute('role', 'radiogroup');
-
-    const groupLabelId = `radio-group-${Math.random().toString(36).substr(2, 9)}`;
-    container.setAttribute('aria-labelledby', groupLabelId);
 
     args.options.forEach((option: any) => {
       const label = document.createElement('label');
@@ -396,7 +376,6 @@ export const ButtonStyle: Story = {
       input.name = args.name;
       input.value = option.value;
       input.checked = option.value === args.selected;
-      input.setAttribute('aria-checked', String(option.value === args.selected));
 
       const span = document.createElement('span');
       span.textContent = option.label;
@@ -423,10 +402,6 @@ export const AttachedButtons: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.className = 'radio-group radio-group-attached';
-    container.setAttribute('role', 'radiogroup');
-
-    const groupLabelId = `radio-group-${Math.random().toString(36).substr(2, 9)}`;
-    container.setAttribute('aria-labelledby', groupLabelId);
 
     args.options.forEach((option: any) => {
       const label = document.createElement('label');
@@ -437,7 +412,6 @@ export const AttachedButtons: Story = {
       input.name = args.name;
       input.value = option.value;
       input.checked = option.value === args.selected;
-      input.setAttribute('aria-checked', String(option.value === args.selected));
 
       const span = document.createElement('span');
       span.textContent = option.label;
@@ -467,7 +441,6 @@ export const CardStyle: Story = {
     container.style.display = 'grid';
     container.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
     container.style.gap = 'var(--space-4)';
-    container.style.padding = '2rem';
 
     args.options.forEach((option: any) => {
       const label = document.createElement('label');
@@ -478,7 +451,6 @@ export const CardStyle: Story = {
       input.name = args.name;
       input.value = option.value;
       input.checked = option.value === args.selected;
-      input.setAttribute('aria-checked', String(option.value === args.selected));
 
       const content = document.createElement('div');
       content.className = 'radio-card-content';
@@ -529,7 +501,6 @@ export const AllStates: Story = {
     container.style.display = 'flex';
     container.style.flexDirection = 'column';
     container.style.gap = 'var(--space-8)';
-    container.style.padding = '2rem';
 
     const states = [
       { label: 'Default (Unchecked)', checked: false, disabled: false },
@@ -556,7 +527,6 @@ export const AllStates: Story = {
       input.value = 'option';
       input.checked = state.checked;
       input.disabled = state.disabled;
-      input.setAttribute('aria-checked', String(state.checked));
 
       const span = document.createElement('span');
       span.textContent = 'Radio option';
@@ -576,22 +546,17 @@ export const ThemeComparison: Story = {
     return createThemeGrid(() => {
       const container = document.createElement('div');
       container.className = 'radio-group';
-      container.setAttribute('role', 'radiogroup');
-
-      const groupLabelId = `radio-group-${Math.random().toString(36).substr(2, 9)}`;
-      container.setAttribute('aria-labelledby', groupLabelId);
 
       if (args.groupLabel) {
         const label = document.createElement('div');
-        label.id = groupLabelId;
         label.className = 'radio-group-label';
         label.textContent = args.groupLabel;
         container.appendChild(label);
       }
 
-      args.options.forEach((option: any, index: number) => {
+      args.options.forEach((option: any) => {
         const label = document.createElement('label');
-        label.className = `radio ${args.size !== 'md' ? `radio-${args.size}` : ''}`;
+        label.className = `radio${args.size === 'sm' ? ' radio-sm' : args.size === 'lg' ? ' radio-lg' : ''}`;
 
         const input = document.createElement('input');
         input.type = 'radio';

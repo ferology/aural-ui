@@ -1,60 +1,225 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
-
 import { fn } from 'storybook/test';
-
 import type { ButtonProps } from './Button';
 import { createButton } from './Button';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Example/Button',
+  title: 'Aural UI/Button',
   tags: ['autodocs'],
   render: (args) => {
-    // You can either use a function to create DOM elements or use a plain html string!
-    // return `<div>${label}</div>`;
-    return createButton(args);
+    const button = createButton(args);
+    // Initialize Lucide icons if needed
+    if (args.icon || args.loading) {
+      setTimeout(() => {
+        if (typeof (window as any).lucide !== 'undefined') {
+          (window as any).lucide.createIcons();
+        }
+      }, 0);
+    }
+    return button;
   },
   argTypes: {
-    backgroundColor: { control: 'color' },
-    label: { control: 'text' },
-    onClick: { action: 'onClick' },
-    primary: { control: 'boolean' },
+    variant: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'danger', 'ghost'],
+      description: 'Button variant type',
+    },
     size: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['sm', 'md', 'lg'],
+      description: 'Button size',
     },
+    label: {
+      control: 'text',
+      description: 'Button label text',
+    },
+    icon: {
+      control: 'text',
+      description: 'Lucide icon name (e.g., "plus", "download")',
+    },
+    iconOnly: {
+      control: 'boolean',
+      description: 'Icon-only button (no text)',
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Loading state with spinner',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disabled state',
+    },
+    onClick: { action: 'onClick' },
   },
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#story-args
-  args: { onClick: fn() },
+  args: {
+    onClick: fn(),
+    variant: 'primary',
+    size: 'md',
+    label: 'Button',
+  },
 } satisfies Meta<ButtonProps>;
 
 export default meta;
 type Story = StoryObj<ButtonProps>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
+// Basic Variants
 export const Primary: Story = {
   args: {
-    primary: true,
-    label: 'Button',
+    variant: 'primary',
+    label: 'Primary Button',
   },
 };
 
 export const Secondary: Story = {
   args: {
-    label: 'Button',
+    variant: 'secondary',
+    label: 'Secondary Button',
+  },
+};
+
+export const Danger: Story = {
+  args: {
+    variant: 'danger',
+    label: 'Danger Button',
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    variant: 'ghost',
+    label: 'Ghost Button',
+  },
+};
+
+// Sizes
+export const Small: Story = {
+  args: {
+    variant: 'primary',
+    size: 'sm',
+    label: 'Small Button',
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+    label: 'Medium Button',
   },
 };
 
 export const Large: Story = {
   args: {
-    size: 'large',
-    label: 'Button',
+    variant: 'primary',
+    size: 'lg',
+    label: 'Large Button',
   },
 };
 
-export const Small: Story = {
+// With Icons
+export const WithIcon: Story = {
   args: {
-    size: 'small',
-    label: 'Button',
+    variant: 'primary',
+    label: 'Add Item',
+    icon: 'plus',
+  },
+};
+
+export const WithDownloadIcon: Story = {
+  args: {
+    variant: 'secondary',
+    label: 'Download',
+    icon: 'download',
+  },
+};
+
+export const WithDeleteIcon: Story = {
+  args: {
+    variant: 'danger',
+    label: 'Delete',
+    icon: 'trash-2',
+  },
+};
+
+// Icon-Only Buttons
+export const IconOnlySmall: Story = {
+  args: {
+    variant: 'primary',
+    size: 'sm',
+    label: 'Search',
+    icon: 'search',
+    iconOnly: true,
+  },
+};
+
+export const IconOnlyMedium: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+    label: 'Heart',
+    icon: 'heart',
+    iconOnly: true,
+  },
+};
+
+export const IconOnlyLarge: Story = {
+  args: {
+    variant: 'primary',
+    size: 'lg',
+    label: 'Star',
+    icon: 'star',
+    iconOnly: true,
+  },
+};
+
+export const IconOnlySettings: Story = {
+  args: {
+    variant: 'secondary',
+    label: 'Settings',
+    icon: 'settings',
+    iconOnly: true,
+  },
+};
+
+export const IconOnlyDelete: Story = {
+  args: {
+    variant: 'danger',
+    label: 'Delete',
+    icon: 'trash-2',
+    iconOnly: true,
+  },
+};
+
+export const IconOnlyMore: Story = {
+  args: {
+    variant: 'ghost',
+    label: 'More',
+    icon: 'more-vertical',
+    iconOnly: true,
+  },
+};
+
+// States
+export const Disabled: Story = {
+  args: {
+    variant: 'primary',
+    label: 'Disabled Button',
+    disabled: true,
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    variant: 'primary',
+    label: 'Loading',
+    loading: true,
+  },
+};
+
+export const LoadingSecondary: Story = {
+  args: {
+    variant: 'secondary',
+    label: 'Processing',
+    loading: true,
   },
 };

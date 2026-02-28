@@ -6,7 +6,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'User profile images or initials with various sizes and shapes.'
+        component: 'User profile images and visual identifiers with support for images, initials, status indicators, and interactive states.'
       }
     }
   },
@@ -24,15 +24,14 @@ const meta: Meta = {
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       description: 'Avatar size'
     },
-    shape: {
-      control: 'select',
-      options: ['circle', 'square', 'rounded'],
-      description: 'Avatar shape'
-    },
     status: {
       control: 'select',
       options: [null, 'online', 'offline', 'busy', 'away'],
       description: 'Status indicator'
+    },
+    clickable: {
+      control: 'boolean',
+      description: 'Make avatar clickable'
     }
   }
 };
@@ -42,27 +41,23 @@ type Story = StoryObj;
 
 export const Default: Story = {
   render: (args) => {
-    const avatar = document.createElement('div');
-    avatar.className = `avatar avatar-${args.size} avatar-${args.shape}${args.status ? ' avatar-with-status' : ''}`;
+    const sizeClass = args.size && args.size !== 'md' ? ` avatar-${args.size}` : '';
+    const statusClass = args.status ? ` avatar-status-${args.status}` : '';
+    const clickableClass = args.clickable ? ' avatar-clickable' : '';
 
-    if (args.src) {
-      avatar.innerHTML = `<img src="${args.src}" alt="Avatar" class="avatar-image" />`;
-    } else if (args.initials) {
-      avatar.innerHTML = `<span class="avatar-initials">${args.initials}</span>`;
-    } else {
-      avatar.innerHTML = `
-        <span class="avatar-placeholder">
-          <svg width="100%" height="100%" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-          </svg>
-        </span>
-      `;
+    const avatar = document.createElement(args.clickable ? 'button' : 'div');
+    avatar.className = `avatar${sizeClass}${statusClass}${clickableClass}`;
+
+    if (args.clickable) {
+      avatar.setAttribute('aria-label', 'View profile');
     }
 
-    if (args.status) {
-      const statusIndicator = document.createElement('span');
-      statusIndicator.className = `avatar-status avatar-status-${args.status}`;
-      avatar.appendChild(statusIndicator);
+    if (args.src) {
+      avatar.innerHTML = `<img src="${args.src}" alt="User avatar">`;
+    } else if (args.initials) {
+      avatar.innerHTML = `<span>${args.initials}</span>`;
+    } else {
+      avatar.innerHTML = `<span>JD</span>`;
     }
 
     return avatar;
@@ -70,18 +65,48 @@ export const Default: Story = {
   args: {
     src: 'https://i.pravatar.cc/150?img=1',
     size: 'md',
-    shape: 'circle',
-    status: null
+    status: null,
+    clickable: false
   }
 };
 
 export const WithInitials: Story = {
-  ...Default,
-  args: {
-    initials: 'JD',
-    size: 'md',
-    shape: 'circle',
-    status: null
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.alignItems = 'center';
+    container.style.gap = 'var(--space-6)';
+    container.style.flexWrap = 'wrap';
+
+    const avatars = ['JD', 'AB', 'CD', 'EF'];
+
+    avatars.forEach(initials => {
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      avatar.innerHTML = `<span>${initials}</span>`;
+      container.appendChild(avatar);
+    });
+
+    return container;
+  }
+};
+
+export const WithImages: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.alignItems = 'center';
+    container.style.gap = 'var(--space-6)';
+    container.style.flexWrap = 'wrap';
+
+    for (let i = 1; i <= 4; i++) {
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=${i}" alt="User ${i}">`;
+      container.appendChild(avatar);
+    }
+
+    return container;
   }
 };
 
@@ -89,92 +114,33 @@ export const AllSizes: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.display = 'flex';
-    container.style.gap = '1rem';
     container.style.alignItems = 'center';
-    container.style.padding = '2rem';
+    container.style.gap = 'var(--space-6)';
+    container.style.flexWrap = 'wrap';
 
-    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
-
-    sizes.forEach(size => {
-      const wrapper = document.createElement('div');
-      wrapper.style.textAlign = 'center';
-
-      const avatar = document.createElement('div');
-      avatar.className = `avatar avatar-${size} avatar-circle`;
-      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=1" alt="Avatar" class="avatar-image" />`;
-
-      const label = document.createElement('div');
-      label.style.marginTop = '0.5rem';
-      label.style.fontSize = '0.75rem';
-      label.textContent = size.toUpperCase();
-
-      wrapper.appendChild(avatar);
-      wrapper.appendChild(label);
-      container.appendChild(wrapper);
-    });
-
-    return container;
-  }
-};
-
-export const AllShapes: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.gap = '2rem';
-    container.style.padding = '2rem';
-
-    const shapes = ['circle', 'rounded', 'square'];
-
-    shapes.forEach(shape => {
-      const wrapper = document.createElement('div');
-      wrapper.style.textAlign = 'center';
-
-      const avatar = document.createElement('div');
-      avatar.className = `avatar avatar-lg avatar-${shape}`;
-      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=2" alt="Avatar" class="avatar-image" />`;
-
-      const label = document.createElement('div');
-      label.style.marginTop = '0.5rem';
-      label.textContent = shape.charAt(0).toUpperCase() + shape.slice(1);
-
-      wrapper.appendChild(avatar);
-      wrapper.appendChild(label);
-      container.appendChild(wrapper);
-    });
-
-    return container;
-  }
-};
-
-export const WithStatus: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.gap = '2rem';
-    container.style.padding = '2rem';
-
-    const statuses = [
-      { status: 'online', label: 'Online' },
-      { status: 'offline', label: 'Offline' },
-      { status: 'busy', label: 'Busy' },
-      { status: 'away', label: 'Away' }
+    const sizes = [
+      { class: 'avatar-xs', label: 'XS' },
+      { class: 'avatar-sm', label: 'SM' },
+      { class: '', label: 'Default' },
+      { class: 'avatar-lg', label: 'LG' },
+      { class: 'avatar-xl', label: 'XL' }
     ];
 
-    statuses.forEach(({ status, label }) => {
+    sizes.forEach(({ class: sizeClass, label }) => {
       const wrapper = document.createElement('div');
-      wrapper.style.textAlign = 'center';
+      wrapper.style.display = 'flex';
+      wrapper.style.flexDirection = 'column';
+      wrapper.style.alignItems = 'center';
+      wrapper.style.gap = 'var(--space-2)';
 
       const avatar = document.createElement('div');
-      avatar.className = `avatar avatar-md avatar-circle avatar-with-status`;
-      avatar.innerHTML = `
-        <img src="https://i.pravatar.cc/150?img=${statuses.indexOf({ status, label }) + 1}" alt="Avatar" class="avatar-image" />
-        <span class="avatar-status avatar-status-${status}"></span>
-      `;
+      avatar.className = sizeClass ? `avatar ${sizeClass}` : 'avatar';
+      avatar.innerHTML = `<span>${label}</span>`;
 
-      const labelEl = document.createElement('div');
-      labelEl.style.marginTop = '0.5rem';
-      labelEl.style.fontSize = '0.875rem';
+      const labelEl = document.createElement('p');
+      labelEl.style.fontSize = 'var(--text-xs)';
+      labelEl.style.color = 'var(--color-text-secondary)';
+      labelEl.style.margin = '0';
       labelEl.textContent = label;
 
       wrapper.appendChild(avatar);
@@ -186,36 +152,75 @@ export const WithStatus: Story = {
   }
 };
 
-export const InitialsOnly: Story = {
+export const WithStatus: Story = {
   render: () => {
     const container = document.createElement('div');
     container.style.display = 'flex';
-    container.style.gap = '1rem';
-    container.style.padding = '2rem';
+    container.style.gap = 'var(--space-6)';
+    container.style.flexWrap = 'wrap';
 
-    const users = [
-      { initials: 'JD', name: 'John Doe' },
-      { initials: 'SA', name: 'Sarah Anderson' },
-      { initials: 'MK', name: 'Mike Kumar' },
-      { initials: 'EW', name: 'Emily Wilson' }
+    const statuses = [
+      { status: 'online', label: 'Online' },
+      { status: 'busy', label: 'Busy' },
+      { status: 'away', label: 'Away' },
+      { status: 'offline', label: 'Offline' }
     ];
 
-    users.forEach(({ initials, name }) => {
+    statuses.forEach(({ status, label }, index) => {
       const wrapper = document.createElement('div');
-      wrapper.style.textAlign = 'center';
+      wrapper.style.display = 'flex';
+      wrapper.style.flexDirection = 'column';
+      wrapper.style.alignItems = 'center';
+      wrapper.style.gap = 'var(--space-2)';
 
       const avatar = document.createElement('div');
-      avatar.className = 'avatar avatar-md avatar-circle';
-      avatar.innerHTML = `<span class="avatar-initials">${initials}</span>`;
+      avatar.className = `avatar avatar-status-${status}`;
+      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=${index + 5}" alt="User ${status}">`;
 
-      const label = document.createElement('div');
-      label.style.marginTop = '0.5rem';
-      label.style.fontSize = '0.875rem';
-      label.textContent = name;
+      const labelEl = document.createElement('p');
+      labelEl.style.fontSize = 'var(--text-sm)';
+      labelEl.style.color = 'var(--color-text-secondary)';
+      labelEl.style.margin = '0';
+      labelEl.textContent = label;
 
       wrapper.appendChild(avatar);
-      wrapper.appendChild(label);
+      wrapper.appendChild(labelEl);
       container.appendChild(wrapper);
+    });
+
+    return container;
+  }
+};
+
+export const Clickable: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.gap = 'var(--space-6)';
+    container.style.flexWrap = 'wrap';
+
+    const examples = [
+      { src: 'https://i.pravatar.cc/150?img=14', alt: 'John Doe' },
+      { src: 'https://i.pravatar.cc/150?img=15', alt: 'Jane Smith' },
+      { src: 'https://i.pravatar.cc/150?img=16', alt: 'Mike Johnson', status: 'online' },
+      { initials: 'SW', alt: 'Sarah Wilson', size: 'lg' }
+    ];
+
+    examples.forEach(({ src, initials, alt, status, size }) => {
+      const avatar = document.createElement('button');
+      const sizeClass = size ? ` avatar-${size}` : '';
+      const statusClass = status ? ` avatar-status-${status}` : '';
+      avatar.className = `avatar avatar-clickable${sizeClass}${statusClass}`;
+      avatar.setAttribute('aria-label', `View profile of ${alt}`);
+      avatar.setAttribute('tabindex', '0');
+
+      if (src) {
+        avatar.innerHTML = `<img src="${src}" alt="">`;
+      } else {
+        avatar.innerHTML = `<span>${initials}</span>`;
+      }
+
+      container.appendChild(avatar);
     });
 
     return container;
@@ -225,29 +230,209 @@ export const InitialsOnly: Story = {
 export const AvatarGroup: Story = {
   render: () => {
     const container = document.createElement('div');
-    container.style.padding = '2rem';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = 'var(--space-6)';
 
-    const group = document.createElement('div');
-    group.style.display = 'flex';
-    group.style.alignItems = 'center';
-
-    for (let i = 1; i <= 4; i++) {
+    // Initials group
+    const group1 = document.createElement('div');
+    group1.className = 'avatar-group';
+    const initials = ['A', 'B', 'C', 'D', '+5'];
+    initials.forEach(initial => {
       const avatar = document.createElement('div');
-      avatar.className = 'avatar avatar-md avatar-circle';
-      avatar.style.marginLeft = i > 1 ? '-0.75rem' : '0';
-      avatar.style.border = '2px solid var(--color-bg-primary)';
-      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=${i}" alt="Avatar" class="avatar-image" />`;
-      group.appendChild(avatar);
+      avatar.className = 'avatar';
+      avatar.innerHTML = `<span>${initial}</span>`;
+      group1.appendChild(avatar);
+    });
+    container.appendChild(group1);
+
+    // Images group
+    const group2 = document.createElement('div');
+    group2.className = 'avatar-group';
+    for (let i = 10; i <= 13; i++) {
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=${i}" alt="User ${i}">`;
+      group2.appendChild(avatar);
     }
+    container.appendChild(group2);
 
-    const more = document.createElement('div');
-    more.className = 'avatar avatar-md avatar-circle';
-    more.style.marginLeft = '-0.75rem';
-    more.style.border = '2px solid var(--color-bg-primary)';
-    more.innerHTML = '<span class="avatar-initials">+5</span>';
-    group.appendChild(more);
+    return container;
+  }
+};
 
-    container.appendChild(group);
+export const UserProfile: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = 'var(--space-6)';
+
+    // Basic user profile
+    const profile1 = document.createElement('div');
+    profile1.style.display = 'flex';
+    profile1.style.alignItems = 'center';
+    profile1.style.gap = 'var(--space-3)';
+
+    const avatar1 = document.createElement('div');
+    avatar1.className = 'avatar';
+    avatar1.innerHTML = `<img src="https://i.pravatar.cc/150?img=20" alt="John Doe">`;
+
+    const info1 = document.createElement('div');
+    info1.innerHTML = `
+      <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">John Doe</div>
+      <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">john.doe@example.com</div>
+    `;
+
+    profile1.appendChild(avatar1);
+    profile1.appendChild(info1);
+    container.appendChild(profile1);
+
+    // Online user
+    const profile2 = document.createElement('div');
+    profile2.style.display = 'flex';
+    profile2.style.alignItems = 'center';
+    profile2.style.gap = 'var(--space-3)';
+
+    const avatar2 = document.createElement('div');
+    avatar2.className = 'avatar avatar-status-online';
+    avatar2.innerHTML = `<img src="https://i.pravatar.cc/150?img=21" alt="Jane Smith">`;
+
+    const info2 = document.createElement('div');
+    info2.innerHTML = `
+      <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Jane Smith</div>
+      <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Active now</div>
+    `;
+
+    profile2.appendChild(avatar2);
+    profile2.appendChild(info2);
+    container.appendChild(profile2);
+
+    return container;
+  }
+};
+
+export const UserList: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = 'var(--space-4)';
+
+    const users = [
+      {
+        src: 'https://i.pravatar.cc/150?img=20',
+        name: 'John Doe',
+        role: 'Product Designer',
+        badge: 'Admin',
+        badgeClass: 'badge-success'
+      },
+      {
+        src: 'https://i.pravatar.cc/150?img=21',
+        name: 'Jane Smith',
+        role: 'Developer',
+        badge: 'Member',
+        badgeClass: 'badge-secondary',
+        status: 'online'
+      },
+      {
+        initials: 'MJ',
+        name: 'Mike Johnson',
+        role: 'Marketing Manager',
+        badge: 'Member',
+        badgeClass: 'badge-secondary',
+        status: 'away'
+      }
+    ];
+
+    users.forEach(({ src, initials, name, role, badge, badgeClass, status }) => {
+      const row = document.createElement('div');
+      row.style.display = 'flex';
+      row.style.alignItems = 'center';
+      row.style.gap = 'var(--space-3)';
+
+      const avatar = document.createElement('div');
+      const statusClass = status ? ` avatar-status-${status}` : '';
+      avatar.className = `avatar avatar-sm${statusClass}`;
+
+      if (src) {
+        avatar.innerHTML = `<img src="${src}" alt="${name}">`;
+      } else {
+        avatar.innerHTML = `<span>${initials}</span>`;
+      }
+
+      const info = document.createElement('div');
+      info.style.flex = '1';
+      info.innerHTML = `
+        <div style="font-weight: var(--font-semibold); color: var(--color-text-primary); font-size: var(--text-sm);">${name}</div>
+        <div style="font-size: var(--text-xs); color: var(--color-text-secondary);">${role}</div>
+      `;
+
+      const badgeEl = document.createElement('span');
+      badgeEl.className = `badge ${badgeClass} badge-sm`;
+      badgeEl.textContent = badge;
+
+      row.appendChild(avatar);
+      row.appendChild(info);
+      row.appendChild(badgeEl);
+      container.appendChild(row);
+    });
+
+    return container;
+  }
+};
+
+export const Comments: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = 'var(--space-6)';
+
+    const comments = [
+      {
+        src: 'https://i.pravatar.cc/150?img=30',
+        name: 'Sarah Wilson',
+        time: '2 hours ago',
+        text: 'Great work on the new design! The color scheme really pops and the layout is much more intuitive.'
+      },
+      {
+        initials: 'TJ',
+        name: 'Tom Jackson',
+        time: '5 hours ago',
+        text: 'Updated the documentation with the latest API changes. Please review when you get a chance.'
+      }
+    ];
+
+    comments.forEach(({ src, initials, name, time, text }) => {
+      const comment = document.createElement('div');
+      comment.style.display = 'flex';
+      comment.style.gap = 'var(--space-3)';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar avatar-sm';
+
+      if (src) {
+        avatar.innerHTML = `<img src="${src}" alt="${name}">`;
+      } else {
+        avatar.innerHTML = `<span>${initials}</span>`;
+      }
+
+      const content = document.createElement('div');
+      content.style.flex = '1';
+      content.innerHTML = `
+        <div>
+          <span style="font-weight: var(--font-semibold); color: var(--color-text-primary);">${name}</span>
+          <span style="font-size: var(--text-sm); color: var(--color-text-tertiary); margin-left: var(--space-2);">${time}</span>
+        </div>
+        <p style="margin: var(--space-2) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">${text}</p>
+      `;
+
+      comment.appendChild(avatar);
+      comment.appendChild(content);
+      container.appendChild(comment);
+    });
+
     return container;
   }
 };
