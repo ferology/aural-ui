@@ -24,14 +24,14 @@ Quick command launcher with keyboard shortcuts, fuzzy search, and grouped action
 
 **Vanilla HTML:**
 \`\`\`html
-<div class="aural-command-palette-backdrop is-open" role="dialog" aria-modal="true">
+<div class="aural-command-palette-backdrop is-open">
   <div class="aural-command-palette">
     <div class="aural-command-palette__search">
-      <span class="aural-command-palette__search-icon"></span>
+      <span class="aural-command-palette__search-icon">
+        <i data-lucide="search"></i>
+      </span>
       <input type="text" class="aural-command-palette__input"
-             placeholder="Type a command..."
-             role="combobox"
-             aria-autocomplete="list">
+             placeholder="Type a command...">
     </div>
     <div class="aural-command-palette__results">
       <div class="aural-command-palette__group">
@@ -54,15 +54,36 @@ Quick command launcher with keyboard shortcuts, fuzzy search, and grouped action
 </div>
 
 <script>
-  // Initialize Command Palette
-  window.Aural?.initCommandPalette();
+  // Initialize Lucide icons
+  lucide.createIcons();
 
   // Global keyboard shortcut
   document.addEventListener('keydown', (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
-      document.querySelector('.aural-command-palette-backdrop').classList.add('is-open');
+      const backdrop = document.querySelector('.aural-command-palette-backdrop');
+      backdrop.classList.add('is-open');
+      // Focus input
+      setTimeout(() => {
+        const input = backdrop.querySelector('.aural-command-palette__input');
+        if (input) input.focus();
+      }, 100);
     }
+    // Escape to close
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.aural-command-palette-backdrop').forEach(el => {
+        el.classList.remove('is-open');
+      });
+    }
+  });
+
+  // Click backdrop to close
+  document.querySelectorAll('.aural-command-palette-backdrop').forEach(backdrop => {
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) {
+        backdrop.classList.remove('is-open');
+      }
+    });
   });
 </script>
 \`\`\`
@@ -81,9 +102,6 @@ type Story = StoryObj;
 function createCommandPalette(groups: any[], placeholder: string = 'Type a command...') {
   const backdrop = document.createElement('div');
   backdrop.className = 'aural-command-palette-backdrop is-open';
-  backdrop.setAttribute('role', 'dialog');
-  backdrop.setAttribute('aria-modal', 'true');
-  backdrop.setAttribute('aria-labelledby', 'command-palette-title');
 
   const palette = document.createElement('div');
   palette.className = 'aural-command-palette';
@@ -94,16 +112,13 @@ function createCommandPalette(groups: any[], placeholder: string = 'Type a comma
 
   const searchIcon = document.createElement('span');
   searchIcon.className = 'aural-command-palette__search-icon';
+  searchIcon.innerHTML = '<i data-lucide="search"></i>';
   search.appendChild(searchIcon);
 
   const input = document.createElement('input');
   input.type = 'text';
   input.className = 'aural-command-palette__input';
   input.placeholder = placeholder;
-  input.setAttribute('role', 'combobox');
-  input.setAttribute('aria-autocomplete', 'list');
-  input.setAttribute('aria-expanded', 'true');
-  input.setAttribute('aria-controls', 'command-results');
   search.appendChild(input);
 
   palette.appendChild(search);
@@ -111,8 +126,6 @@ function createCommandPalette(groups: any[], placeholder: string = 'Type a comma
   // Results section
   const results = document.createElement('div');
   results.className = 'aural-command-palette__results';
-  results.id = 'command-results';
-  results.setAttribute('role', 'listbox');
 
   groups.forEach(group => {
     const groupDiv = document.createElement('div');
@@ -126,11 +139,9 @@ function createCommandPalette(groups: any[], placeholder: string = 'Type a comma
     const itemsDiv = document.createElement('div');
     itemsDiv.className = 'aural-command-palette__items';
 
-    group.items.forEach((item: any, index: number) => {
+    group.items.forEach((item: any) => {
       const button = document.createElement('button');
       button.className = 'aural-command-palette__item';
-      button.setAttribute('role', 'option');
-      button.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
 
       if (item.icon) {
         const icon = document.createElement('span');

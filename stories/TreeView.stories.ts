@@ -70,6 +70,18 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 - \`.aural-tree__badge\` - Badge for counts
 - \`.aural-tree__children\` - Children container (ul)
 
+## Initialization
+
+Tree views require JavaScript initialization for expand/collapse functionality:
+
+\`\`\`javascript
+// Initialize Lucide icons
+lucide.createIcons();
+
+// Initialize tree view interactivity
+Aural.initTreeView();
+\`\`\`
+
 ## Accessibility
 
 - Proper ARIA attributes for tree navigation

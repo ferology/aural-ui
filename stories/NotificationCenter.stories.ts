@@ -97,6 +97,78 @@ export const Default: Story = {
   }
 };
 
+export const DifferentTypes: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '2rem';
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+
+    container.innerHTML = `
+      <div class="aural-notification-center" style="max-width: 400px;">
+        <div class="aural-notification-center__header">
+          <h3 class="aural-notification-center__title">Recent Activity</h3>
+          <span class="badge badge-primary">4 new</span>
+        </div>
+        <div class="aural-notification-center__list">
+          <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--error">
+            <div class="aural-notification-center__item-icon">
+              <i data-lucide="alert-circle" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="aural-notification-center__item-content">
+              <div class="aural-notification-center__item-title">Build Failed</div>
+              <div class="aural-notification-center__item-message">Error in main.js line 42: Unexpected token</div>
+              <div class="aural-notification-center__item-time">Just now</div>
+            </div>
+            <div class="aural-notification-center__item-dot"></div>
+          </button>
+          <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--warning">
+            <div class="aural-notification-center__item-icon">
+              <i data-lucide="alert-triangle" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="aural-notification-center__item-content">
+              <div class="aural-notification-center__item-title">Storage Almost Full</div>
+              <div class="aural-notification-center__item-message">You're using 95% of your storage space</div>
+              <div class="aural-notification-center__item-time">10 minutes ago</div>
+            </div>
+            <div class="aural-notification-center__item-dot"></div>
+          </button>
+          <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--success">
+            <div class="aural-notification-center__item-icon">
+              <i data-lucide="user-check" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="aural-notification-center__item-content">
+              <div class="aural-notification-center__item-title">New Team Member</div>
+              <div class="aural-notification-center__item-message">Sarah Johnson joined your workspace</div>
+              <div class="aural-notification-center__item-time">2 hours ago</div>
+            </div>
+            <div class="aural-notification-center__item-dot"></div>
+          </button>
+          <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--info">
+            <div class="aural-notification-center__item-icon">
+              <i data-lucide="message-square" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="aural-notification-center__item-content">
+              <div class="aural-notification-center__item-title">New Comment</div>
+              <div class="aural-notification-center__item-message">John replied to your comment on "Q4 Planning"</div>
+              <div class="aural-notification-center__item-time">3 hours ago</div>
+            </div>
+            <div class="aural-notification-center__item-dot"></div>
+          </button>
+        </div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    }, 0);
+
+    return container;
+  }
+};
+
 export const WithUnreadIndicator: Story = {
   render: () => {
     const container = document.createElement('div');
@@ -345,81 +417,6 @@ export const GroupedByDate: Story = {
               <div class="aural-notification-center__item-time">Last week</div>
             </div>
           </button>
-        </div>
-      </div>
-    `;
-
-    setTimeout(() => {
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-      }
-    }, 0);
-
-    return container;
-  }
-};
-
-export const DifferentTypes: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.padding = '2rem';
-    container.style.display = 'flex';
-    container.style.justifyContent = 'center';
-
-    container.innerHTML = `
-      <div class="aural-notification-center" style="max-width: 400px;">
-        <div class="aural-notification-center__header">
-          <h3 class="aural-notification-center__title">Recent Activity</h3>
-          <span class="badge badge-primary">4 new</span>
-        </div>
-        <div class="aural-notification-center__list">
-          <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--info">
-            <div class="aural-notification-center__item-icon">
-              <i data-lucide="at-sign" style="width: 20px; height: 20px;"></i>
-            </div>
-            <div class="aural-notification-center__item-content">
-              <div class="aural-notification-center__item-title">Mention</div>
-              <div class="aural-notification-center__item-message">@you mentioned in "Project Discussion"</div>
-              <div class="aural-notification-center__item-time">5 minutes ago</div>
-            </div>
-            <div class="aural-notification-center__item-dot"></div>
-          </button>
-          <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--success">
-            <div class="aural-notification-center__item-icon">
-              <i data-lucide="heart" style="width: 20px; height: 20px;"></i>
-            </div>
-            <div class="aural-notification-center__item-content">
-              <div class="aural-notification-center__item-title">Like</div>
-              <div class="aural-notification-center__item-message">Alex liked your post</div>
-              <div class="aural-notification-center__item-time">1 hour ago</div>
-            </div>
-            <div class="aural-notification-center__item-dot"></div>
-          </button>
-          <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--info">
-            <div class="aural-notification-center__item-icon">
-              <i data-lucide="message-circle" style="width: 20px; height: 20px;"></i>
-            </div>
-            <div class="aural-notification-center__item-content">
-              <div class="aural-notification-center__item-title">Comment</div>
-              <div class="aural-notification-center__item-message">Sarah commented on your issue</div>
-              <div class="aural-notification-center__item-time">3 hours ago</div>
-            </div>
-            <div class="aural-notification-center__item-dot"></div>
-          </button>
-          <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--warning">
-            <div class="aural-notification-center__item-icon">
-              <i data-lucide="settings" style="width: 20px; height: 20px;"></i>
-            </div>
-            <div class="aural-notification-center__item-content">
-              <div class="aural-notification-center__item-title">System Update</div>
-              <div class="aural-notification-center__item-message">Scheduled maintenance tonight at 2 AM</div>
-              <div class="aural-notification-center__item-time">5 hours ago</div>
-            </div>
-            <div class="aural-notification-center__item-dot"></div>
-          </button>
-        </div>
-        <div class="aural-notification-center__footer">
-          <a href="#" class="aural-notification-center__footer-link">View all notifications</a>
         </div>
       </div>
     `;

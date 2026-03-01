@@ -41,7 +41,33 @@ See the **DateRangePicker.mdx** documentation for framework-specific examples (R
     <i data-lucide="calendar" class="aural-date-range-picker__icon" aria-hidden="true"></i>
   </div>
   <div class="aural-date-range-picker__dropdown">
-    <!-- Calendar content -->
+    <div class="aural-date-range-picker__calendars">
+      <div class="aural-date-range-picker__calendar">
+        <div class="aural-date-range-picker__calendar-header">
+          <button class="aural-date-range-picker__nav-button" data-action="prev" aria-label="Previous month">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <div class="aural-date-range-picker__month-label">January 2026</div>
+          <button class="aural-date-range-picker__nav-button" data-action="next" aria-label="Next month">
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+        <div class="aural-date-range-picker__weekdays">
+          <div class="aural-date-range-picker__weekday">Su</div>
+          <div class="aural-date-range-picker__weekday">Mo</div>
+          <div class="aural-date-range-picker__weekday">Tu</div>
+          <div class="aural-date-range-picker__weekday">We</div>
+          <div class="aural-date-range-picker__weekday">Th</div>
+          <div class="aural-date-range-picker__weekday">Fr</div>
+          <div class="aural-date-range-picker__weekday">Sa</div>
+        </div>
+        <div class="aural-date-range-picker__days"></div>
+      </div>
+    </div>
+    <div class="aural-date-range-picker__footer">
+      <button class="aural-date-range-picker__footer-button" data-action="clear">Clear</button>
+      <button class="aural-date-range-picker__footer-button aural-date-range-picker__footer-button--primary" data-action="apply">Apply</button>
+    </div>
   </div>
 </div>
 
@@ -168,7 +194,7 @@ const createDateRangePicker = (args: any) => {
       if (args.maxDate) options.maxDate = new Date(args.maxDate);
       if (args.maxRange) options.maxRange = args.maxRange;
 
-      (window as any).Aural.initDateRangePicker(datePicker.id, options);
+      (window as any).Aural.initDateRangePicker('#' + datePicker.id, options);
     }
   }, 100);
 
@@ -176,9 +202,6 @@ const createDateRangePicker = (args: any) => {
 };
 
 function createCalendar(index: number) {
-  const disabled = index === 0 ? 'disabled' : '';
-  const disabled2 = index === 1 ? 'disabled' : '';
-
   return `
     <div class="aural-date-range-picker__calendar">
       <div class="aural-date-range-picker__calendar-header">
@@ -346,7 +369,7 @@ export const BookingPattern: Story = {
     // Initialize with booking logic
     setTimeout(() => {
       if (typeof (window as any).Aural !== 'undefined' && (window as any).Aural.initDateRangePicker) {
-        (window as any).Aural.initDateRangePicker('date-range-booking', {
+        (window as any).Aural.initDateRangePicker('#date-range-booking', {
           minDate: new Date(),
           onChange: (range: any) => {
             if (range.start && range.end) {
@@ -448,7 +471,7 @@ export const AnalyticsDashboardPattern: Story = {
     // Initialize
     setTimeout(() => {
       if (typeof (window as any).Aural !== 'undefined' && (window as any).Aural.initDateRangePicker) {
-        (window as any).Aural.initDateRangePicker('date-range-analytics', {
+        (window as any).Aural.initDateRangePicker('#date-range-analytics', {
           onChange: (range: any) => console.log('Analytics range:', range)
         });
       }
@@ -554,7 +577,7 @@ export const ReportFilterPattern: Story = {
     // Initialize
     setTimeout(() => {
       if (typeof (window as any).Aural !== 'undefined' && (window as any).Aural.initDateRangePicker) {
-        (window as any).Aural.initDateRangePicker('date-range-report', {
+        (window as any).Aural.initDateRangePicker('#date-range-report', {
           onChange: (range: any) => console.log('Report range:', range)
         });
       }

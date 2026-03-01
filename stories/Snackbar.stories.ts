@@ -23,6 +23,42 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 
 Use snackbars when undo/retry actions are helpful for the user.
 
+## JavaScript API
+
+The Aural UI library provides a convenient API for showing snackbars:
+
+\`\`\`javascript
+// Basic snackbar
+Aural.showSnackbar('This is a default snackbar message');
+
+// Success snackbar
+Aural.showSnackbar('Operation completed successfully!', { type: 'success' });
+
+// Error snackbar
+Aural.showSnackbar('An error occurred!', { type: 'error' });
+
+// With action button
+Aural.showSnackbar('New message received', {
+  description: 'From John Doe',
+  type: 'info',
+  action: { label: 'View', onClick: () => alert('Viewing message') }
+});
+
+// Custom position
+Aural.showSnackbar('Bottom Left', { position: 'bottom-left' });
+
+// Custom duration
+Aural.showSnackbar('Quick message (2s)', { duration: 2000 });
+\`\`\`
+
+## Options
+
+- \`type\` - 'default', 'success', 'error', 'warning', 'info'
+- \`description\` - Additional details
+- \`position\` - 'bottom-left', 'bottom-center', 'bottom-right', 'top-left', 'top-center', 'top-right'
+- \`duration\` - Time in milliseconds (0 = persistent)
+- \`action\` - { label, onClick }
+
 ## Framework Examples
 
 **Vanilla JS:**
@@ -537,7 +573,7 @@ export const ThemeComparison: Story = {
       wrapper.style.minHeight = '120px';
       wrapper.appendChild(button);
 
-      // Create static snackbar preview
+      // Create static snackbar preview using correct Aural UI structure
       const snackbar = document.createElement('div');
       snackbar.className = 'aural-snackbar';
       if (args.type !== 'default') {
@@ -545,6 +581,8 @@ export const ThemeComparison: Story = {
       }
       snackbar.style.position = 'relative';
       snackbar.style.marginTop = '1rem';
+      snackbar.style.opacity = '1';
+      snackbar.style.transform = 'translateY(0)';
       snackbar.setAttribute('role', args.type === 'error' ? 'alert' : 'status');
 
       let html = '';
@@ -564,6 +602,7 @@ export const ThemeComparison: Story = {
         html += '</div>';
       }
 
+      // Content section
       html += '<div class="aural-snackbar__content">';
       html += `<div class="aural-snackbar__message">${args.message}</div>`;
       if (args.description) {
@@ -571,6 +610,7 @@ export const ThemeComparison: Story = {
       }
       html += '</div>';
 
+      // Actions section
       if (args.showAction) {
         html += '<div class="aural-snackbar__actions">';
         html += '<button class="aural-snackbar__action">Undo</button>';

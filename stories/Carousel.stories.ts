@@ -9,7 +9,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Image and content carousel with navigation controls, pagination, and smooth transitions. Supports multiple layouts, auto-play, and infinite loop modes.'
+        component: 'Image and content carousel with navigation controls, pagination, and smooth transitions.'
       }
     }
   }

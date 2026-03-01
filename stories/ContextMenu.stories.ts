@@ -359,6 +359,70 @@ export const WithDisabledItems: Story = {
   }
 };
 
+export const WithCheckableItems: Story = {
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'padding: var(--space-8); display: flex; justify-content: center; min-height: 300px;';
+
+    const trigger = document.createElement('div');
+    trigger.className = 'context-trigger';
+    trigger.id = 'checkable-trigger';
+    trigger.style.cssText = `
+      background: var(--color-bg-secondary);
+      border: 2px dashed var(--color-border-medium);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      text-align: center;
+      cursor: context-menu;
+    `;
+    trigger.innerHTML = `
+      <div style="width: 48px; height: 48px; margin: 0 auto var(--space-3); color: var(--color-text-secondary);">
+        <i data-lucide="layout" style="width: 100%; height: 100%;"></i>
+      </div>
+      <p style="color: var(--color-text-primary); font-weight: var(--font-medium); margin-bottom: var(--space-1);">View Options</p>
+      <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin: 0;">Toggle view settings</p>
+    `;
+
+    const menu = document.createElement('div');
+    menu.className = 'aural-context-menu';
+    menu.id = 'menu-checkable-trigger';
+    menu.setAttribute('role', 'menu');
+    menu.innerHTML = `
+      <div class="aural-context-menu__header">View</div>
+      <label class="aural-context-menu__item checkbox" tabindex="-1">
+        <input type="checkbox" checked>
+        <span>Show Sidebar</span>
+      </label>
+      <label class="aural-context-menu__item checkbox" tabindex="-1">
+        <input type="checkbox">
+        <span>Show Toolbar</span>
+      </label>
+      <label class="aural-context-menu__item checkbox" tabindex="-1">
+        <input type="checkbox" checked>
+        <span>Show Status Bar</span>
+      </label>
+    `;
+
+    wrapper.appendChild(trigger);
+    document.body.appendChild(menu);
+
+    trigger.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.aural-context-menu').forEach(m => m.classList.remove('aural-context-menu--open'));
+      menu.style.left = e.clientX + 'px';
+      menu.style.top = e.clientY + 'px';
+      menu.classList.add('aural-context-menu--open');
+    });
+
+    document.addEventListener('click', () => {
+      menu.classList.remove('aural-context-menu--open');
+    });
+
+    initContextMenu();
+    return wrapper;
+  }
+};
+
 export const CompactVariant: Story = {
   render: () => {
     const wrapper = document.createElement('div');

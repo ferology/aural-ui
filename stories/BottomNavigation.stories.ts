@@ -20,11 +20,32 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 \`\`\`html
 <nav class="aural-bottom-nav" role="navigation" aria-label="Main navigation">
   <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-    <i data-lucide="home" class="aural-bottom-nav__icon"></i>
+    <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
     <span class="aural-bottom-nav__label">Home</span>
   </a>
 </nav>
 \`\`\`
+
+## Component Structure
+
+- \`.aural-bottom-nav\` - Main navigation container
+- \`.aural-bottom-nav__item\` - Navigation item (anchor or button)
+- \`.aural-bottom-nav__item--active\` - Active state modifier
+- \`.aural-bottom-nav__icon\` - Icon element
+- \`.aural-bottom-nav__label\` - Label text
+- \`.aural-bottom-nav__badge\` - Badge for notifications
+- \`.aural-bottom-nav__badge--pulse\` - Pulsing badge animation
+- \`.aural-bottom-nav__badge--dot\` - Dot indicator badge
+- \`.aural-bottom-nav__fab\` - Floating action button
+
+## Variants
+
+- \`.aural-bottom-nav--compact\` - Icon-only compact variant
+- \`.aural-bottom-nav--with-fab\` - With floating action button
+- \`.aural-bottom-nav--primary\` - Primary color variant
+- \`.aural-bottom-nav--dark\` - Dark variant with blur
+- \`.aural-bottom-nav--blur\` - Frosted glass effect
+- \`.aural-bottom-nav--mobile-only\` - Hidden on desktop (1024px+)
         `.trim()
       }
     }
@@ -118,19 +139,19 @@ export const BasicBottomNav: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Home</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="compass" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Explore</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Notifications</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Profile</span>
       </a>
     `;
@@ -171,7 +192,7 @@ export const WithBadges: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Home</span>
       </a>
       <a href="#" class="aural-bottom-nav__item" aria-label="Messages, 12 unread">
@@ -185,7 +206,7 @@ export const WithBadges: Story = {
         <span class="aural-bottom-nav__badge aural-bottom-nav__badge--dot" aria-hidden="true"></span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Profile</span>
       </a>
     `;
@@ -197,7 +218,7 @@ export const WithBadges: Story = {
   }
 };
 
-export const IconsOnly: Story = {
+export const CompactVariant: Story = {
   render: () => {
     const container = createPhoneFrame();
     const phoneScreen = container.querySelector('div') as HTMLElement;
@@ -226,19 +247,19 @@ export const IconsOnly: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page" aria-label="Home">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Home</span>
       </a>
       <a href="#" class="aural-bottom-nav__item" aria-label="Search">
-        <i data-lucide="search" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="search" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Search</span>
       </a>
       <a href="#" class="aural-bottom-nav__item" aria-label="Favorites">
-        <i data-lucide="heart" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="heart" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Favorites</span>
       </a>
       <a href="#" class="aural-bottom-nav__item" aria-label="Settings">
-        <i data-lucide="settings" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="settings" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Settings</span>
       </a>
     `;
@@ -279,22 +300,22 @@ export const WithFAB: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Home</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="search" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="search" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Search</span>
       </a>
       <button class="aural-bottom-nav__fab" aria-label="Create new post">
         <i data-lucide="plus"></i>
       </button>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Notifications</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Profile</span>
       </a>
     `;
@@ -332,19 +353,19 @@ export const PrimaryVariant: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Home</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="compass" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Explore</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Alerts</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Profile</span>
       </a>
     `;
@@ -382,19 +403,19 @@ export const DarkVariant: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Home</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="compass" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Explore</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Alerts</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Profile</span>
       </a>
     `;
@@ -432,19 +453,19 @@ export const BlurVariant: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Home</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="compass" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="compass" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Explore</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Alerts</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Profile</span>
       </a>
     `;
@@ -485,11 +506,11 @@ export const EcommercePattern: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Home</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="grid-3x3" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="grid-3x3" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Categories</span>
       </a>
       <a href="#" class="aural-bottom-nav__item" aria-label="Cart, 2 items">
@@ -498,7 +519,7 @@ export const EcommercePattern: Story = {
         <span class="aural-bottom-nav__badge" aria-hidden="true">2</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user-circle" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="user-circle" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Account</span>
       </a>
     `;
@@ -539,11 +560,11 @@ export const SocialMediaPattern: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="home" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Feed</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="search" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="search" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Discover</span>
       </a>
       <button class="aural-bottom-nav__fab" aria-label="Create new post">
@@ -555,7 +576,7 @@ export const SocialMediaPattern: Story = {
         <span class="aural-bottom-nav__badge aural-bottom-nav__badge--pulse" aria-hidden="true">8</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="user" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Profile</span>
       </a>
     `;
@@ -596,93 +617,24 @@ export const MobileOnlyPattern: Story = {
 
     nav.innerHTML = `
       <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="layout-dashboard" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="layout-dashboard" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Dashboard</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="bar-chart-2" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="bar-chart-2" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Analytics</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="users" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="users" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Team</span>
       </a>
       <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="settings" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+        <i data-lucide="settings" class="aural-bottom-nav__icon"></i>
         <span class="aural-bottom-nav__label">Settings</span>
       </a>
     `;
 
     phoneScreen.appendChild(nav);
-    setTimeout(() => initBottomNav(nav), 0);
-
-    return container;
-  }
-};
-
-export const FixedAtBottom: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.cssText = `
-      position: relative;
-      width: 100%;
-      height: 600px;
-      background: var(--color-bg-primary);
-      border: 1px solid var(--color-border-subtle);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-    `;
-
-    const content = document.createElement('div');
-    content.style.cssText = `
-      padding: var(--space-6);
-      padding-bottom: 100px;
-    `;
-
-    content.innerHTML = `
-      <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0;">
-        Fixed Position Example
-      </h3>
-      <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-4) 0;">
-        This navigation is fixed at the bottom of the viewport. Scroll down to see it stay in place.
-      </p>
-      ${Array.from({ length: 20 }, (_, i) => `
-        <p style="color: var(--color-text-secondary); margin: 0 0 var(--space-3) 0;">
-          Content section ${i + 1} - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
-      `).join('')}
-    `;
-
-    const nav = document.createElement('nav');
-    nav.className = 'aural-bottom-nav';
-    nav.setAttribute('role', 'navigation');
-    nav.setAttribute('aria-label', 'Fixed navigation');
-    nav.style.position = 'fixed';
-    nav.style.bottom = '0';
-    nav.style.left = '0';
-    nav.style.right = '0';
-
-    nav.innerHTML = `
-      <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-        <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
-        <span class="aural-bottom-nav__label">Home</span>
-      </a>
-      <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="compass" class="aural-bottom-nav__icon" aria-hidden="true"></i>
-        <span class="aural-bottom-nav__label">Explore</span>
-      </a>
-      <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
-        <span class="aural-bottom-nav__label">Notifications</span>
-      </a>
-      <a href="#" class="aural-bottom-nav__item">
-        <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
-        <span class="aural-bottom-nav__label">Profile</span>
-      </a>
-    `;
-
-    container.appendChild(content);
-    container.appendChild(nav);
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
@@ -737,7 +689,7 @@ export const ThemeComparison: Story = {
 
       nav.innerHTML = `
         <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
-          <i data-lucide="home" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+          <i data-lucide="home" class="aural-bottom-nav__icon"></i>
           <span class="aural-bottom-nav__label">Home</span>
         </a>
         <a href="#" class="aural-bottom-nav__item" aria-label="Messages, 3 unread">
@@ -746,11 +698,11 @@ export const ThemeComparison: Story = {
           <span class="aural-bottom-nav__badge" aria-hidden="true">3</span>
         </a>
         <a href="#" class="aural-bottom-nav__item">
-          <i data-lucide="bell" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+          <i data-lucide="bell" class="aural-bottom-nav__icon"></i>
           <span class="aural-bottom-nav__label">Alerts</span>
         </a>
         <a href="#" class="aural-bottom-nav__item">
-          <i data-lucide="user" class="aural-bottom-nav__icon" aria-hidden="true"></i>
+          <i data-lucide="user" class="aural-bottom-nav__icon"></i>
           <span class="aural-bottom-nav__label">Profile</span>
         </a>
       `;

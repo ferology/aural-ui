@@ -16,14 +16,30 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 ## Features
 
 - Basic table structure with semantic HTML
-- Striped rows for better readability
-- Hoverable rows to indicate interactivity
-- Compact variant for dense data
+- Striped rows for better readability (\`table-striped\`)
+- Hoverable rows to indicate interactivity (\`table-hover\`)
+- Compact variant for dense data (\`table-compact\`)
 - Expandable rows for additional details
 - Row selection with checkboxes
 - Sortable headers
 - Responsive wrapper for horizontal scrolling
 - Loading states with skeleton
+- Proper ARIA attributes for accessibility
+
+## CSS Classes
+
+- \`.table\` - Base table class (required)
+- \`.table-wrapper\` - Enables horizontal scrolling on smaller screens
+- \`.table-striped\` - Alternating row background colors
+- \`.table-hover\` - Hover effect on rows
+- \`.table-compact\` - Reduced padding for dense layouts
+- \`.expandable\` - Applied to rows that can be expanded
+- \`.expanded\` - Applied when row is expanded
+- \`.expand-cell\` - Column containing expand icons
+- \`.table-expand-icon\` - Chevron icon for expandable rows
+- \`.expanded-content\` - Container for expanded row content
+- \`.table-expanded-content\` - Styled wrapper for expanded details
+- \`.hidden\` - Hides expanded content when collapsed
 
 ## Framework Examples
 
@@ -53,10 +69,10 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 \`\`\`jsx
 const Table = ({ data, columns }) => (
   <div className="table-wrapper">
-    <table className="table">
+    <table className="table table-striped table-hover">
       <thead>
         <tr>
-          {columns.map(col => <th key={col.key}>{col.label}</th>)}
+          {columns.map(col => <th key={col.key} scope="col">{col.label}</th>)}
         </tr>
       </thead>
       <tbody>
@@ -75,10 +91,10 @@ const Table = ({ data, columns }) => (
 \`\`\`vue
 <template>
   <div class="table-wrapper">
-    <table class="table">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th v-for="col in columns" :key="col.key">{{ col.label }}</th>
+          <th v-for="col in columns" :key="col.key" scope="col">{{ col.label }}</th>
         </tr>
       </thead>
       <tbody>
@@ -89,6 +105,30 @@ const Table = ({ data, columns }) => (
     </table>
   </div>
 </template>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<div class="table-wrapper">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        {#each columns as col}
+          <th scope="col">{col.label}</th>
+        {/each}
+      </tr>
+    </thead>
+    <tbody>
+      {#each data as row}
+        <tr>
+          {#each columns as col}
+            <td>{row[col.key]}</td>
+          {/each}
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
 \`\`\`
         `.trim()
       }
@@ -106,10 +146,6 @@ const Table = ({ data, columns }) => (
     compact: {
       control: 'boolean',
       description: 'Use compact spacing for dense data'
-    },
-    bordered: {
-      control: 'boolean',
-      description: 'Add borders to table cells'
     }
   }
 };
@@ -773,7 +809,7 @@ export const ExpandableRows: Story = {
       expandTd.className = 'expand-cell';
       const expandIcon = document.createElement('span');
       expandIcon.className = 'table-expand-icon';
-      expandIcon.textContent = '›';
+      expandIcon.innerHTML = '&rsaquo;'; // Right-pointing chevron (›)
       expandIcon.setAttribute('aria-hidden', 'true');
       expandTd.appendChild(expandIcon);
       row.appendChild(expandTd);
@@ -829,7 +865,7 @@ export const ExpandableRows: Story = {
         expandedRow.classList.toggle('hidden');
         const isExpanded = !expandedRow.classList.contains('hidden');
         row.setAttribute('aria-expanded', isExpanded.toString());
-        expandIcon.textContent = isExpanded ? '⌄' : '›';
+        expandIcon.innerHTML = isExpanded ? '&darr;' : '&rsaquo;'; // Down arrow (↓) when expanded, chevron (›) when collapsed
       };
 
       row.addEventListener('click', toggleRow);
@@ -982,7 +1018,6 @@ export const ThemeComparison: Story = {
   args: {
     striped: true,
     hover: true,
-    compact: false,
-    bordered: false
+    compact: false
   }
 };
