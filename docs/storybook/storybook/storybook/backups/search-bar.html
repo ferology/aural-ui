@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bar - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-10);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* Example Container */
+        .example-container {
+            margin-bottom: var(--space-12);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-4);
+        }
+
+        .example-demo {
+            padding: var(--space-8);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+            min-height: 120px;
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Code Snippet Styles */
+        .code-snippet {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin-top: var(--space-4);
+            border: 1px solid var(--color-border-subtle);
+        }
+
+        .code-snippet pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--color-text-primary);
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Custom Styles for Examples */
+        .recent-searches {
+            margin-top: var(--space-4);
+            padding: var(--space-4);
+            background: var(--color-bg-primary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border-subtle);
+        }
+
+        .recent-searches-title {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-3);
+        }
+
+        .recent-search-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .recent-search-item:hover {
+            background: var(--color-bg-secondary);
+        }
+
+        .recent-search-item svg {
+            width: 14px;
+            height: 14px;
+            color: var(--color-text-tertiary);
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-3);
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .filter-chip:hover {
+            background: var(--color-bg-secondary);
+            border-color: var(--color-border-primary);
+        }
+
+        .filter-chip.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .keyboard-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            padding: var(--space-1) var(--space-2);
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-sm);
+            font-size: var(--text-xs);
+            font-family: monospace;
+            color: var(--color-text-tertiary);
+        }
+
+        .command-palette {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            display: none;
+            z-index: 1000;
+        }
+
+        .command-palette.active {
+            display: block;
+        }
+
+        .command-items {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: var(--space-2);
+        }
+
+        .command-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .command-item:hover {
+            background: var(--color-bg-secondary);
+        }
+
+        .command-item-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--color-text-tertiary);
+        }
+
+        .command-item-content {
+            flex: 1;
+        }
+
+        .command-item-title {
+            font-weight: var(--font-medium);
+            color: var(--color-text-primary);
+        }
+
+        .command-item-description {
+            font-size: var(--text-sm);
+            color: var(--color-text-tertiary);
+        }
+
+        .search-suggestions {
+            margin-top: var(--space-2);
+            padding: var(--space-2);
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .suggestion-item:hover {
+            background: var(--color-bg-secondary);
+        }
+
+        .suggestion-highlight {
+            font-weight: var(--font-semibold);
+            color: var(--color-primary);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+
+            .command-palette {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Search Bar</h1>
+            <p class="page-description">Versatile search input components with autocomplete, filters, keyboard shortcuts, and command palette functionality for enhanced user experience.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+                <div class="content-section" style="margin-bottom: var(--space-8);">
+                    <div class="section-content">
+                        <p>Search bars are essential UI components for navigation and content discovery. They can be simple input fields or sophisticated command palettes with autocomplete, filters, and keyboard shortcuts. This component supports various sizes, styles, and functionality patterns to match your application's needs.</p>
+                    </div>
+                </div>
+
+        <!-- Example 1: Basic Search Bar with Sizes -->
+        <div class="example-container">
+            <div class="example-label">Basic Search Bar with Sizes</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-6); max-width: 600px;">
+                    <div class="aural-search-bar aural-search-bar--sm">
+                        <div class="aural-search-bar__wrapper">
+                            <div class="aural-search-bar__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                            </div>
+                            <input type="text" class="aural-search-bar__input" placeholder="Small search..." aria-label="Small search input">
+                        </div>
+                    </div>
+
+                    <div class="aural-search-bar">
+                        <div class="aural-search-bar__wrapper">
+                            <div class="aural-search-bar__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                            </div>
+                            <input type="text" class="aural-search-bar__input" placeholder="Default search..." aria-label="Default search input">
+                        </div>
+                    </div>
+
+                    <div class="aural-search-bar aural-search-bar--lg">
+                        <div class="aural-search-bar__wrapper">
+                            <div class="aural-search-bar__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                            </div>
+                            <input type="text" class="aural-search-bar__input" placeholder="Large search..." aria-label="Large search input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;!-- Small --&gt;
+&lt;div class="aural-search-bar aural-search-bar--sm"&gt;
+  &lt;div class="aural-search-bar__wrapper"&gt;
+    &lt;div class="aural-search-bar__icon"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;circle cx="11" cy="11" r="8"/&gt;
+        &lt;path d="m21 21-4.35-4.35"/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-search-bar__input" placeholder="Search..." aria-label="Search input"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Default --&gt;
+&lt;div class="aural-search-bar"&gt;...&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+&lt;div class="aural-search-bar aural-search-bar--lg"&gt;...&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Example 2: With Clear Button -->
+        <div class="example-container">
+            <div class="example-label">With Clear Button</div>
+            <div class="example-demo">
+                <div class="aural-search-bar" style="max-width: 600px;">
+                    <div class="aural-search-bar__wrapper">
+                        <div class="aural-search-bar__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </div>
+                        <input type="text" id="search-clear" class="aural-search-bar__input" placeholder="Type to search..." aria-label="Search with clear button">
+                        <button class="aural-search-bar__clear" onclick="document.getElementById('search-clear').value = ''" aria-label="Clear search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-search-bar"&gt;
+  &lt;div class="aural-search-bar__wrapper"&gt;
+    &lt;div class="aural-search-bar__icon"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;circle cx="11" cy="11" r="8"/&gt;
+        &lt;path d="m21 21-4.35-4.35"/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-search-bar__input" placeholder="Type to search..." aria-label="Search with clear button"&gt;
+    &lt;button class="aural-search-bar__clear" aria-label="Clear search"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;line x1="18" y1="6" x2="6" y2="18"/&gt;
+        &lt;line x1="6" y1="6" x2="18" y2="18"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+        <!-- Example 3: With Voice Search -->
+        <div class="example-container">
+            <div class="example-label">With Voice Search</div>
+            <div class="example-demo">
+                <div class="aural-search-bar" style="max-width: 600px;">
+                    <div class="aural-search-bar__wrapper">
+                        <div class="aural-search-bar__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </div>
+                        <input type="text" class="aural-search-bar__input" placeholder="Search or use voice..." aria-label="Search with voice input">
+                        <button class="btn btn-sm btn-ghost" onclick="alert('Voice search activated')" aria-label="Voice search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                <line x1="12" y1="19" x2="12" y2="23"/>
+                                <line x1="8" y1="23" x2="16" y2="23"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-search-bar"&gt;
+  &lt;div class="aural-search-bar__wrapper"&gt;
+    &lt;div class="aural-search-bar__icon"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;circle cx="11" cy="11" r="8"/&gt;
+        &lt;path d="m21 21-4.35-4.35"/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;input type="text" class="aural-search-bar__input" placeholder="Search or use voice..." aria-label="Search with voice input"&gt;
+    &lt;button class="btn btn-sm btn-ghost" aria-label="Voice search"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/&gt;
+        &lt;path d="M19 10v2a7 7 0 0 1-14 0v-2"/&gt;
+        &lt;line x1="12" y1="19" x2="12" y2="23"/&gt;
+        &lt;line x1="8" y1="23" x2="16" y2="23"/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Example 4: With Recent Searches -->
+        <div class="example-container">
+            <div class="example-label">With Recent Searches</div>
+            <div class="example-demo">
+                <div style="max-width: 600px;">
+                    <div class="aural-search-bar">
+                        <div class="aural-search-bar__wrapper">
+                            <div class="aural-search-bar__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                            </div>
+                            <input type="text" class="aural-search-bar__input" placeholder="Search..." aria-label="Search with recent history">
+                        </div>
+                    </div>
+                    <div class="recent-searches">
+                        <div class="recent-searches-title">Recent Searches</div>
+                        <div class="recent-search-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span>Button component</span>
+                        </div>
+                        <div class="recent-search-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span>Modal documentation</span>
+                        </div>
+                        <div class="recent-search-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span>Dark theme setup</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-search-bar"&gt;
+  &lt;div class="aural-search-bar__wrapper"&gt;
+    &lt;div class="aural-search-bar__icon"&gt;...&lt;/div&gt;
+    &lt;input type="text" class="aural-search-bar__input" placeholder="Search..." aria-label="Search with recent history"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="recent-searches"&gt;
+  &lt;div class="recent-searches-title"&gt;Recent Searches&lt;/div&gt;
+  &lt;div class="recent-search-item"&gt;
+    &lt;svg&gt;...&lt;/svg&gt;
+    &lt;span&gt;Button component&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!-- More items --&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Store and retrieve recent searches
+const recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Example 5: With Filters/Categories -->
+        <div class="example-container">
+            <div class="example-label">With Filters/Categories</div>
+            <div class="example-demo">
+                <div style="max-width: 600px;">
+                    <div class="aural-search-bar">
+                        <div class="aural-search-bar__wrapper">
+                            <div class="aural-search-bar__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                            </div>
+                            <input type="text" class="aural-search-bar__input" placeholder="Search with filters..." aria-label="Search with category filters">
+                            <button class="btn btn-sm btn-ghost">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                                </svg>
+                                Filters
+                            </button>
+                        </div>
+                    </div>
+                    <div class="filter-chips">
+                        <span class="filter-chip active" onclick="this.classList.toggle('active')">All</span>
+                        <span class="filter-chip" onclick="this.classList.toggle('active')">Components</span>
+                        <span class="filter-chip" onclick="this.classList.toggle('active')">Documentation</span>
+                        <span class="filter-chip" onclick="this.classList.toggle('active')">Examples</span>
+                        <span class="filter-chip" onclick="this.classList.toggle('active')">Utilities</span>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-search-bar"&gt;
+  &lt;div class="aural-search-bar__wrapper"&gt;
+    &lt;div class="aural-search-bar__icon"&gt;...&lt;/div&gt;
+    &lt;input type="text" class="aural-search-bar__input" placeholder="Search with filters..." aria-label="Search with category filters"&gt;
+    &lt;button class="btn btn-sm btn-ghost"&gt;
+      &lt;svg&gt;...&lt;/svg&gt; Filters
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="filter-chips"&gt;
+  &lt;span class="filter-chip active"&gt;All&lt;/span&gt;
+  &lt;span class="filter-chip"&gt;Components&lt;/span&gt;
+  &lt;span class="filter-chip"&gt;Documentation&lt;/span&gt;
+  &lt;!-- More filters --&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+        <!-- Example 6: With Keyboard Shortcuts -->
+        <div class="example-container">
+            <div class="example-label">With Keyboard Shortcuts (⌘K / Ctrl+K)</div>
+            <div class="example-demo">
+                <div class="aural-search-bar" style="max-width: 600px; position: relative;">
+                    <div class="aural-search-bar__wrapper">
+                        <div class="aural-search-bar__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </div>
+                        <input type="text" id="keyboard-search" class="aural-search-bar__input" placeholder="Search..." aria-label="Search with keyboard shortcut">
+                        <kbd style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); padding: 4px 8px; background: var(--color-bg-tertiary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); font-size: var(--text-xs); color: var(--color-text-tertiary);">⌘K</kbd>
+                    </div>
+                </div>
+                <p style="margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-tertiary);">
+                    Press <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">⌘K</kbd> or
+                    <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">Ctrl+K</kbd> to focus
+                </p>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-search-bar" style="position: relative;"&gt;
+  &lt;div class="aural-search-bar__wrapper"&gt;
+    &lt;div class="aural-search-bar__icon"&gt;
+      &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+        &lt;circle cx="11" cy="11" r="8"/&gt;
+        &lt;path d="m21 21-4.35-4.35"/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;input type="text" id="search-input" class="aural-search-bar__input" placeholder="Search..." aria-label="Search with keyboard shortcut"&gt;
+    &lt;kbd style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);"&gt;⌘K&lt;/kbd&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('search-input').focus();
+  }
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Example 7: Command Palette Style -->
+        <div class="example-container">
+            <div class="example-label">Command Palette Style</div>
+            <div class="example-demo">
+                <button class="btn btn-primary" onclick="document.getElementById('command-palette').classList.add('active')">
+                    Open Command Palette (⌘K)
+                </button>
+
+                <div class="command-palette" id="command-palette">
+                    <div class="aural-search-bar">
+                        <div class="aural-search-bar__wrapper">
+                            <div class="aural-search-bar__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                            </div>
+                            <input type="text" class="aural-search-bar__input" placeholder="Type a command or search..." aria-label="Command palette search">
+                            <button class="btn btn-sm btn-ghost" onclick="document.getElementById('command-palette').classList.remove('active')" aria-label="Close command palette">
+                                <span style="font-size: var(--text-xs);">ESC</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="command-items">
+                        <div class="command-item">
+                            <svg class="command-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            </svg>
+                            <div class="command-item-content">
+                                <div class="command-item-title">Go to Home</div>
+                                <div class="command-item-description">Navigate to homepage</div>
+                            </div>
+                        </div>
+                        <div class="command-item">
+                            <svg class="command-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="9" y1="3" x2="9" y2="21"/>
+                            </svg>
+                            <div class="command-item-content">
+                                <div class="command-item-title">Components</div>
+                                <div class="command-item-description">Browse UI components</div>
+                            </div>
+                        </div>
+                        <div class="command-item">
+                            <svg class="command-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                            <div class="command-item-content">
+                                <div class="command-item-title">Documentation</div>
+                                <div class="command-item-description">Read the docs</div>
+                            </div>
+                        </div>
+                        <div class="command-item">
+                            <svg class="command-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"/>
+                            </svg>
+                            <div class="command-item-content">
+                                <div class="command-item-title">Toggle Theme</div>
+                                <div class="command-item-description">Switch between light and dark mode</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="command-palette" id="command-palette"&gt;
+  &lt;div class="aural-search-bar"&gt;
+    &lt;div class="aural-search-bar__wrapper"&gt;
+      &lt;div class="aural-search-bar__icon"&gt;...&lt;/div&gt;
+      &lt;input type="text" class="aural-search-bar__input" placeholder="Type a command..." aria-label="Command palette search"&gt;
+      &lt;button class="btn btn-sm btn-ghost"&gt;ESC&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="command-items"&gt;
+    &lt;div class="command-item"&gt;
+      &lt;svg class="command-item-icon"&gt;...&lt;/svg&gt;
+      &lt;div class="command-item-content"&gt;
+        &lt;div class="command-item-title"&gt;Go to Home&lt;/div&gt;
+        &lt;div class="command-item-description"&gt;Navigate to homepage&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More command items --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </details>
+        </div>
+
+        <!-- Example 8: With Search Suggestions -->
+        <div class="example-container">
+            <div class="example-label">With Search Suggestions</div>
+            <div class="example-demo">
+                <div style="max-width: 600px;">
+                    <div class="aural-search-bar" id="demo-search-suggestions">
+                        <div class="aural-search-bar__wrapper">
+                            <div class="aural-search-bar__icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                            </div>
+                            <input type="text" class="aural-search-bar__input" placeholder="Search components..." aria-label="Search with suggestions" aria-autocomplete="list">
+                        </div>
+                        <div class="aural-search-bar__suggestions"></div>
+                    </div>
+                </div>
+            </div>
+            <details>
+                <summary>View Code</summary>
+                <pre><code>&lt;div class="aural-search-bar" id="search-with-suggestions"&gt;
+  &lt;div class="aural-search-bar__wrapper"&gt;
+    &lt;div class="aural-search-bar__icon"&gt;...&lt;/div&gt;
+    &lt;input type="text" class="aural-search-bar__input" placeholder="Search..."
+           aria-label="Search with suggestions" aria-autocomplete="list"&gt;
+  &lt;/div&gt;
+  &lt;div class="aural-search-bar__suggestions"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Aural.initSearchBar('search-with-suggestions', {
+  suggestions: [
+    { title: 'Button', description: 'Interactive button component' },
+    { title: 'Modal', description: 'Overlay dialog component' },
+    { title: 'Input', description: 'Form input field' },
+    { title: 'Card', description: 'Content container' }
+  ],
+  onSelect: (item) => console.log('Selected:', item)
+});
+&lt;/script&gt;</code></pre>
+            </details>
+        </div>
+            </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+        <!-- Best Practices Section -->
+        <div class="content-section">
+            <h2 class="section-title">Best Practices</h2>
+            <div class="section-content">
+                <h3>When to Use</h3>
+                <ul>
+                    <li><strong>Site-wide Search:</strong> Use search bars for navigation and content discovery across your application or website</li>
+                    <li><strong>Command Palette:</strong> Implement keyboard-driven interfaces for power users to quickly access features and commands</li>
+                    <li><strong>Filter Search:</strong> Enable users to narrow down large datasets or product catalogs with category filters</li>
+                    <li><strong>Autocomplete:</strong> Provide search suggestions to help users find content faster and reduce typing effort</li>
+                    <li><strong>Recent Searches:</strong> Display search history for frequently accessed content to improve user efficiency</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li><strong>Proper Labels:</strong> Always include <code>aria-label</code> on search inputs to describe their purpose for screen readers</li>
+                    <li><strong>Live Regions:</strong> Use <code>aria-live="polite"</code> on suggestion containers to announce results to screen reader users</li>
+                    <li><strong>Keyboard Navigation:</strong> Ensure full keyboard support with Tab, Enter, Escape, and Arrow keys for navigating suggestions</li>
+                    <li><strong>Focus Management:</strong> Trap focus within command palettes and return focus appropriately when closed</li>
+                    <li><strong>Clear Button:</strong> Provide a visible clear button that's accessible via keyboard with proper <code>aria-label</code></li>
+                    <li><strong>Autocomplete Attributes:</strong> Use <code>aria-autocomplete="list"</code> and <code>aria-expanded</code> to indicate suggestion state</li>
+                    <li><strong>Role Assignment:</strong> Apply <code>role="combobox"</code> to the search wrapper and <code>role="option"</code> to suggestions</li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <ul>
+                    <li><strong>Site Search:</strong> Traditional search bar in the header with autocomplete suggestions based on popular content</li>
+                    <li><strong>Command Palette:</strong> Modal-style search activated by keyboard shortcut (⌘K/Ctrl+K) for quick navigation and actions</li>
+                    <li><strong>Filter Search:</strong> Combine search with category chips or dropdown filters for refined results</li>
+                    <li><strong>E-commerce Search:</strong> Product search with filters, sorting, and image previews in suggestions</li>
+                    <li><strong>Documentation Search:</strong> Code-aware search with syntax highlighting in results and keyboard shortcuts</li>
+                    <li><strong>Multi-function Search:</strong> Support both navigation and actions (e.g., "Go to...", "Create...", "Toggle...")</li>
+                </ul>
+
+                <h3>Keyboard Shortcuts</h3>
+                <ul>
+                    <li><strong>⌘K / Ctrl+K:</strong> Industry standard for opening command palette or focusing search</li>
+                    <li><strong>/:</strong> Alternative shortcut often used for quick search focus (common in forums and documentation)</li>
+                    <li><strong>Escape:</strong> Clear search input or close command palette/suggestions</li>
+                    <li><strong>↑/↓ Arrow Keys:</strong> Navigate through search suggestions or command items</li>
+                    <li><strong>Enter:</strong> Select highlighted suggestion or execute search query</li>
+                    <li><strong>Tab:</strong> Move to next interactive element (clear button, filters, etc.)</li>
+                </ul>
+
+                <h3>Implementation Tips</h3>
+                <ul>
+                    <li>Debounce search input to avoid excessive API calls (300-500ms recommended)</li>
+                    <li>Show loading states while fetching suggestions to provide user feedback</li>
+                    <li>Limit suggestion count to 5-8 items to prevent overwhelming users</li>
+                    <li>Highlight matching text in suggestions to show why results were returned</li>
+                    <li>Store recent searches in localStorage for persistence across sessions</li>
+                    <li>Provide empty state messaging when no results are found</li>
+                    <li>Consider mobile users with larger touch targets and appropriate keyboard behavior</li>
+                </ul>
+            </div>
+        </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=9"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Initialize tabs
+        if (typeof Aural !== 'undefined' && Aural.initTabs) {
+            Aural.initTabs();
+        }
+
+        // Initialize search bar with suggestions
+        if (typeof Aural !== 'undefined' && Aural.initSearchBar) {
+            Aural.initSearchBar('demo-search-suggestions', {
+                suggestions: [
+                    { title: 'Button Component', description: 'Interactive button with variants' },
+                    { title: 'Modal Dialog', description: 'Overlay dialog component' },
+                    { title: 'Input Field', description: 'Form input controls' },
+                    { title: 'Card Container', description: 'Content card component' },
+                    { title: 'Navigation Menu', description: 'Site navigation component' },
+                    { title: 'Dropdown Select', description: 'Selection dropdown menu' },
+                    { title: 'Badge & Tags', description: 'Label and badge components' },
+                    { title: 'Alert Messages', description: 'Notification alerts' }
+                ],
+                onSelect: (item) => console.log('Selected:', item)
+            });
+        }
+
+        // Keyboard shortcut for search
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.getElementById('keyboard-search');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+        });
+
+        // Command palette keyboard shortcut
+        document.addEventListener('keydown', (e) => {
+            const commandPalette = document.getElementById('command-palette');
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k' && commandPalette) {
+                e.preventDefault();
+                commandPalette.classList.toggle('active');
+                if (commandPalette.classList.contains('active')) {
+                    commandPalette.querySelector('input').focus();
+                }
+            }
+            if (e.key === 'Escape' && commandPalette) {
+                commandPalette.classList.remove('active');
+            }
+        });
+
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? '../dark.css' : '../light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+
+            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+            themeLink.href = themePath;
+        } else {
+            console.error('Theme link not found!');
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

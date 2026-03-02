@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Example Container */
+        .example-container {
+            margin-bottom: var(--space-8);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-3);
+        }
+
+        .example-demo {
+            padding: var(--space-6);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Image Gallery</h1>
+            <p class="page-description">Responsive image grid with hover overlays, captions, and keyboard-accessible navigation.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Grid Gallery with Overlays</div>
+                <div class="example-demo">
+                    <div class="aural-gallery aural-gallery--cols-3">
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300&h=300&fit=crop" alt="Ocean sunset">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Ocean Sunset</div>
+                                <div class="aural-gallery__description">Golden hour at the beach</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=300&h=300&fit=crop" alt="Forest trail">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Forest Path</div>
+                                <div class="aural-gallery__description">Peaceful woodland trail</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=300&fit=crop" alt="Northern lights">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Aurora Borealis</div>
+                                <div class="aural-gallery__description">Northern lights display</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-gallery aural-gallery--cols-3"&gt;
+    &lt;div class="aural-gallery__item" tabindex="0"&gt;
+        &lt;img class="aural-gallery__image" src="image.jpg" alt="Description"&gt;
+        &lt;div class="aural-gallery__overlay"&gt;
+            &lt;div class="aural-gallery__title"&gt;Title&lt;/div&gt;
+            &lt;div class="aural-gallery__description"&gt;Description&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More items... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">3-Column Grid</div>
+                <div class="example-demo">
+                    <div class="aural-gallery aural-gallery--cols-3">
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300&h=300&fit=crop" alt="Ocean sunset">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Ocean Sunset</div>
+                                <div class="aural-gallery__description">Golden hour at the beach</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=300&h=300&fit=crop" alt="Forest trail">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Forest Path</div>
+                                <div class="aural-gallery__description">Peaceful woodland trail</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=300&fit=crop" alt="Northern lights">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Aurora Borealis</div>
+                                <div class="aural-gallery__description">Northern lights display</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=300&fit=crop" alt="Desert dunes">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Desert Dunes</div>
+                                <div class="aural-gallery__description">Sand formations at sunrise</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300&h=300&fit=crop" alt="Mountain lake">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Alpine Lake</div>
+                                <div class="aural-gallery__description">Crystal clear mountain water</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=300&fit=crop" alt="Snowy peaks">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Mountain Peak</div>
+                                <div class="aural-gallery__description">Snow-covered summit</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-gallery aural-gallery--cols-3"&gt;
+    &lt;!-- Gallery items... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">4-Column Grid (Simple)</div>
+                <div class="example-demo">
+                    <div class="aural-gallery aural-gallery--cols-4">
+                        <div class="aural-gallery__item">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=300&h=300&fit=crop" alt="Abstract art">
+                        </div>
+                        <div class="aural-gallery__item">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1682687220063-4742bd7fd538?w=300&h=300&fit=crop" alt="Colorful pattern">
+                        </div>
+                        <div class="aural-gallery__item">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1682687221080-5cb261c645cb?w=300&h=300&fit=crop" alt="Modern design">
+                        </div>
+                        <div class="aural-gallery__item">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1682687220199-d0124f48f95b?w=300&h=300&fit=crop" alt="Geometric shapes">
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-gallery aural-gallery--cols-4"&gt;
+    &lt;div class="aural-gallery__item"&gt;
+        &lt;img class="aural-gallery__image" src="image.jpg" alt="Description"&gt;
+    &lt;/div&gt;
+    &lt;!-- More items... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">2-Column Grid</div>
+                <div class="example-demo">
+                    <div class="aural-gallery aural-gallery--cols-2">
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop" alt="Ocean sunset">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Ocean Sunset</div>
+                                <div class="aural-gallery__description">Golden hour at the beach</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=400&h=300&fit=crop" alt="Forest trail">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Forest Path</div>
+                                <div class="aural-gallery__description">Peaceful woodland trail</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-gallery aural-gallery--cols-2"&gt;
+    &lt;!-- Gallery items... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">Product Gallery</div>
+                <div class="example-demo">
+                    <div class="aural-gallery aural-gallery--cols-3">
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop" alt="Product 1">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Premium Watch</div>
+                                <div class="aural-gallery__description">$299.00</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop" alt="Product 2">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Sunglasses</div>
+                                <div class="aural-gallery__description">$149.00</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=300&fit=crop" alt="Product 3">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Running Shoes</div>
+                                <div class="aural-gallery__description">$89.00</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=300&h=300&fit=crop" alt="Product 4">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Sneakers</div>
+                                <div class="aural-gallery__description">$119.00</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop" alt="Product 5">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Backpack</div>
+                                <div class="aural-gallery__description">$79.00</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1545127398-14699f92334b?w=300&h=300&fit=crop" alt="Adidas Headphones">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Headphones</div>
+                                <div class="aural-gallery__description">$199.00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-gallery aural-gallery--cols-3"&gt;
+    &lt;div class="aural-gallery__item" tabindex="0"&gt;
+        &lt;img class="aural-gallery__image" src="product.jpg" alt="Product name"&gt;
+        &lt;div class="aural-gallery__overlay"&gt;
+            &lt;div class="aural-gallery__title"&gt;Product Name&lt;/div&gt;
+            &lt;div class="aural-gallery__description"&gt;$99.00&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More products... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Portfolio Gallery</div>
+                <div class="example-demo">
+                    <div class="aural-gallery aural-gallery--cols-2">
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=350&fit=crop" alt="Web Design Project">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">E-Commerce Redesign</div>
+                                <div class="aural-gallery__description">UI/UX Design • 2024</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=350&fit=crop" alt="Dashboard Project">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Analytics Dashboard</div>
+                                <div class="aural-gallery__description">Data Visualization • 2024</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=500&h=350&fit=crop" alt="Mobile App">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Fitness Mobile App</div>
+                                <div class="aural-gallery__description">Mobile Design • 2024</div>
+                            </div>
+                        </div>
+                        <div class="aural-gallery__item" tabindex="0">
+                            <img class="aural-gallery__image" src="https://images.unsplash.com/photo-1432888622747-4eb9a8f2c1e5?w=500&h=350&fit=crop" alt="Branding Project">
+                            <div class="aural-gallery__overlay">
+                                <div class="aural-gallery__title">Brand Identity</div>
+                                <div class="aural-gallery__description">Branding • 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-gallery aural-gallery--cols-2"&gt;
+    &lt;div class="aural-gallery__item" tabindex="0"&gt;
+        &lt;img class="aural-gallery__image" src="project.jpg" alt="Project title"&gt;
+        &lt;div class="aural-gallery__overlay"&gt;
+            &lt;div class="aural-gallery__title"&gt;Project Name&lt;/div&gt;
+            &lt;div class="aural-gallery__description"&gt;Category • Year&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More projects... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">When to Use</h2>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Photo Collections:</strong> Display related images in an organized grid</li>
+                        <li><strong>Product Catalogs:</strong> Showcase products with hover information</li>
+                        <li><strong>Portfolios:</strong> Present work samples with project details</li>
+                        <li><strong>Team Pages:</strong> Display team member photos with names and roles</li>
+                        <li><strong>Media Libraries:</strong> Organize and browse image collections</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Accessibility</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Include <code>tabindex="0"</code> on gallery items for keyboard navigation</li>
+                        <li>Provide meaningful <code>alt</code> text for all images</li>
+                        <li>Ensure overlay content is accessible via keyboard focus</li>
+                        <li>Use sufficient color contrast for overlay text</li>
+                        <li>Consider adding <code>aria-label</code> for additional context</li>
+                        <li>Ensure focus states are clearly visible</li>
+                        <li>Don't hide essential information only in overlays</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>Grid Layout</h3>
+                    <ul>
+                        <li>Use <code>aural-gallery--cols-2</code>, <code>--cols-3</code>, or <code>--cols-4</code> for different densities</li>
+                        <li>Consider responsive breakpoints for mobile layouts</li>
+                        <li>Maintain consistent aspect ratios for a clean grid</li>
+                        <li>Use appropriate column counts based on content type</li>
+                    </ul>
+
+                    <h3>Images</h3>
+                    <ul>
+                        <li>Optimize images for web to ensure fast loading</li>
+                        <li>Use consistent dimensions within a gallery</li>
+                        <li>Provide appropriately sized images for different screen sizes</li>
+                        <li>Consider lazy loading for large galleries</li>
+                    </ul>
+
+                    <h3>Overlays</h3>
+                    <ul>
+                        <li>Keep overlay content concise and scannable</li>
+                        <li>Use consistent overlay styles across all items</li>
+                        <li>Ensure text remains readable over varied image backgrounds</li>
+                        <li>Don't rely solely on hover for critical information</li>
+                    </ul>
+
+                    <h3>Interaction</h3>
+                    <ul>
+                        <li>Add click handlers for lightbox or detail views</li>
+                        <li>Provide clear hover and focus states</li>
+                        <li>Consider touch-friendly alternatives for mobile</li>
+                        <li>Support keyboard navigation through the grid</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Common Mistakes to Avoid</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Using images with inconsistent aspect ratios</li>
+                        <li>Hiding important information only in hover states</li>
+                        <li>Not providing keyboard accessibility</li>
+                        <li>Using too many columns on small screens</li>
+                        <li>Poor contrast between overlay text and images</li>
+                        <li>Missing or generic alt text for images</li>
+                        <li>Not optimizing images for performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=9"></script>
+
+    <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? '../dark.css' : '../light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+            themeLink.href = themePath;
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>
