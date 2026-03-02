@@ -9,6 +9,8 @@
 
 **[View the complete component showcase →](https://ferology.github.io/aural-ui/)**
 
+**[📖 Storybook Documentation →](https://ferology.github.io/aural-ui/storybook/)** - Interactive component library with live previews
+
 ---
 
 ## 🎯 Overview
@@ -33,6 +35,13 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 ---
 
 ## 📚 Documentation
+
+### Storybook Documentation (NEW! 🎉)
+- **[📖 Storybook](https://ferology.github.io/aural-ui/storybook/)** - Interactive component documentation
+  - Live component previews with all 9 themes
+  - Code examples and usage guidelines
+  - Comprehensive Theme Gallery
+  - Accessibility-compliant components
 
 ### Quick Start
 - **[Navigation Hub](docs/nav.html)** - Central navigation for all documentation
@@ -160,24 +169,29 @@ Aural.showToast('Operation successful!', 'success');
 
 ### Using Pre-built Themes
 
-Aural UI includes 7 professionally designed themes, each showcasing the flexibility of our token system:
+Aural UI includes **9 professionally designed themes**, each showcasing the flexibility of our token system:
 
 | Theme | Description | Use Case |
 |-------|-------------|----------|
-| **Dark** | Professional dark theme with blue accents | Default, general purpose |
+| **Minimal** | Ultra-clean monochrome with subtle grays | Default, maximum clarity |
 | **Light** | Clean light theme with subtle grays | Light mode preference |
+| **Dark** | Professional dark theme with blue accents | Dark mode, general purpose |
 | **Neon** | Cyberpunk aesthetic with vibrant cyan/magenta | Bold, modern applications |
 | **Kinetic** | Brutalist editorial with high contrast | Content-focused, editorial |
 | **Prismatic** | Purple gradients with glass morphism | Colorful, modern design systems |
-| **Minimal** | Ultra-clean monochrome | Maximum clarity, minimal distraction |
+| **High Contrast** | Maximum contrast ratios (WCAG AAA) | Accessibility, visibility |
+| **Colorblind Friendly** | Blue/yellow palette optimized for CVD | Color vision deficiency |
 | **Warm** | Cozy earth tones with amber accents | Long reading sessions, comfort |
 
 ```html
-<!-- Dark theme (default) -->
-<link rel="stylesheet" href="aural-ui/themes/dark.css">
+<!-- Minimal theme (default) -->
+<link rel="stylesheet" href="aural-ui/themes/minimal.css">
 
 <!-- Light theme -->
 <link rel="stylesheet" href="aural-ui/themes/light.css">
+
+<!-- Dark theme -->
+<link rel="stylesheet" href="aural-ui/themes/dark.css">
 
 <!-- Neon theme -->
 <link rel="stylesheet" href="aural-ui/themes/neon.css">
@@ -185,17 +199,20 @@ Aural UI includes 7 professionally designed themes, each showcasing the flexibil
 <!-- Kinetic theme -->
 <link rel="stylesheet" href="aural-ui/themes/kinetic.css">
 
-<!-- Prismatic theme (NEW) -->
+<!-- Prismatic theme -->
 <link rel="stylesheet" href="aural-ui/themes/prismatic.css">
 
-<!-- Minimal theme (NEW) -->
-<link rel="stylesheet" href="aural-ui/themes/minimal.css">
+<!-- High Contrast theme -->
+<link rel="stylesheet" href="aural-ui/themes/high-contrast.css">
 
-<!-- Warm theme (NEW) -->
+<!-- Colorblind Friendly theme -->
+<link rel="stylesheet" href="aural-ui/themes/colorblind-friendly.css">
+
+<!-- Warm theme -->
 <link rel="stylesheet" href="aural-ui/themes/warm.css">
 ```
 
-**All themes are WCAG 2.1 AAA compliant** with 7:1+ contrast ratios for superior accessibility.
+**All 9 themes are WCAG 2.1 AAA compliant** with 7:1+ contrast ratios for superior accessibility.
 
 ### Creating Custom Themes
 
@@ -226,11 +243,12 @@ Then include after Aural UI:
 
 ---
 
-## 📚 Documentation
+## 📚 Additional Documentation
 
 Comprehensive documentation is available with interactive examples:
 
-- **[Component Showcase](https://ferology.github.io/aural-ui/)** - Browse all 49+ components with live demos
+- **[🎉 Storybook](https://ferology.github.io/aural-ui/storybook/)** - Interactive component library with all 9 themes
+- **[Component Showcase](https://ferology.github.io/aural-ui/)** - Browse all 60+ components with live demos
 - **[API Reference](https://ferology.github.io/aural-ui/docs/api.html)** - Complete JavaScript API documentation
 - **[Getting Started Tutorial](https://ferology.github.io/aural-ui/docs/tutorial.html)** - 5-step interactive tutorial
 - **[Design Tokens](https://ferology.github.io/aural-ui/docs/tokens.html)** - Visual token reference with copy functionality

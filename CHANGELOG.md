@@ -9,6 +9,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added - March 1, 2026
+- **🎉 Storybook Deployment**: Full Storybook documentation now live at GitHub Pages
+  - Accessible at https://ferology.github.io/aural-ui/storybook/
+  - Direct link added to demo page sidebar for easy navigation
+  - Interactive component documentation with live preview
+  - Full support for all 9 themes with theme switcher
+- **📖 Storybook Documentation Enhancements**:
+  - Comprehensive Theme Gallery page (Getting Started > Themes)
+    - Visual showcase of all 9 themes with color swatches
+    - Usage instructions and theme switching examples
+    - Theme comparison guide
+  - Switched to Storybook autodocs for cleaner, more maintainable documentation
+  - Minimal theme set as default theme (previously Dark)
+  - Added "Theme Comparison" stories for all components
+  - Light Storybook UI theme for better readability
+
+### Changed - March 1, 2026
+- **♿ Accessibility Improvements**:
+  - Avatar component: Enhanced alt text descriptions
+    - Profile pictures now use descriptive "Profile picture N" format
+    - Status avatars include status in alt text: "User profile, status: online"
+  - Combobox component: Added comprehensive ARIA attributes
+    - Input fields now have proper aria-label, role="combobox", and aria-expanded
+    - Buttons and SVG icons marked with appropriate ARIA attributes
+  - MultiSelect component: Enhanced accessibility
+    - Search inputs now include aria-label="Search options"
+    - All decorative SVG icons marked with aria-hidden="true"
+- **📚 Storybook Configuration**:
+  - Updated .storybook/main.ts with proper base path for GitHub Pages
+  - Updated .storybook/manager.ts from dark to light theme
+  - Updated .storybook/preview.ts with minimal theme as default
+  - Configured toolbar visibility settings for better UX
+
+### Fixed - March 1, 2026
+- **🐛 Storybook Build Issues**:
+  - Fixed StatsCard.stories.ts import error (removed non-existent html util import)
+  - Fixed "Failed to fetch dynamically imported module" error
+    - Added viteFinal configuration with correct base path ('/aural-ui/storybook/')
+    - Rebuilt Storybook with proper asset paths for GitHub Pages deployment
+
+### Removed - March 1, 2026
+- **📝 Documentation Cleanup**:
+  - Removed 36 custom component MDX files in favor of Storybook autodocs
+  - Cleaner, more maintainable documentation structure
+  - Components: Accordion, Alert, Avatar, Badge, BottomNavigation, Breadcrumbs, Button, Card, Carousel, Checkbox, Chip, CodeBlock, ColorPicker, Combobox, CommandPalette, ContextMenu, DatePicker, DateRangePicker, Divider, Drawer, Dropdown, EmptyState, FileUpload, ImageGallery, Input, Modal, MultiSelect, Navbar, NotificationCenter, Pagination, Popover, Progress, Radio, RangeSlider, Rating, SearchBar, Select
+
 ### Added - February 28, 2026
 - **Storybook Integration**: Multi-theme component preview system
   - createThemeGrid utility for side-by-side theme comparison
