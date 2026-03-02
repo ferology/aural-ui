@@ -39,7 +39,7 @@ const preview: Preview = {
         themeLink.rel = 'stylesheet';
         document.head.appendChild(themeLink);
       }
-      themeLink.href = `./${theme}.css`;
+      themeLink.href = `${theme}.css`;
 
       // Apply theme
       document.documentElement.setAttribute('data-theme', theme);
