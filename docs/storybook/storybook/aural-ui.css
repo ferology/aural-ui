@@ -1,0 +1,279 @@
+/**
+ * AURAL UI - Main Entry Point
+ *
+ * Import this file to get the complete design system.
+ * For custom builds, import only what you need from individual files.
+ *
+ * Build: postcss src/aural-ui.css -o dist/aural-ui.css
+ */
+
+/* ========================================
+   ALL IMPORTS MUST BE FIRST
+   ======================================== */
+
+/* Core Tokens (Primitives) */
+@import '../tokens/core/colors.css';
+@import '../tokens/core/spacing.css';
+@import '../tokens/core/typography.css';
+@import '../tokens/core/shadows.css';
+@import '../tokens/core/radius.css';
+@import '../tokens/core/animations.css';
+
+/* Semantic Tokens (System Behavior) */
+@import '../tokens/semantic/colors.css';
+
+/* Components */
+@import '../components/button.css';
+@import '../components/input.css';
+@import '../components/search-bar.css';
+@import '../components/card.css';
+@import '../components/badge.css';
+@import '../components/toast.css';
+@import '../components/snackbar.css';
+@import '../components/alert-banner.css';
+@import '../components/modal.css';
+@import '../components/skeleton.css';
+@import '../components/spinner.css';
+@import '../components/empty-state.css';
+
+/* Form Controls */
+@import '../components/checkbox.css';
+@import '../components/radio.css';
+@import '../components/toggle.css';
+@import '../components/switch.css';
+@import '../components/select.css';
+@import '../components/rating.css';
+@import '../components/color-picker.css';
+@import '../components/range-slider.css';
+@import '../components/multi-select.css';
+@import '../components/combobox.css';
+@import '../components/time-picker.css';
+
+/* Navigation */
+@import '../components/navbar.css';
+@import '../components/tabs.css';
+@import '../components/breadcrumb.css';
+@import '../components/pagination.css';
+@import '../components/stepper.css';
+@import '../components/drawer.css';
+@import '../components/context-menu.css';
+@import '../components/bottom-nav.css';
+
+/* Data Display */
+@import '../components/table.css';
+@import '../components/avatar.css';
+@import '../components/progress.css';
+@import '../components/divider.css';
+@import '../components/timeline.css';
+@import '../components/stats-card.css';
+@import '../components/carousel.css';
+@import '../components/tree-view.css';
+@import '../components/image-gallery.css';
+
+/* Interactive */
+@import '../components/tooltip.css';
+@import '../components/dropdown.css';
+@import '../components/accordion.css';
+@import '../components/popover.css';
+@import '../components/notification-center.css';
+
+/* New Components */
+@import '../components/slider.css';
+@import '../components/chips.css';
+@import '../components/code-block.css';
+@import '../components/dialog.css';
+@import '../components/file-upload.css';
+@import '../components/command-palette.css';
+@import '../components/date-picker.css';
+@import '../components/calendar.css';
+@import '../components/date-range-picker.css';
+
+/* Utilities */
+@import '../utilities/typography.css';
+@import '../utilities/grid.css';
+@import '../utilities/shadows.css';
+@import '../utilities/glows.css';
+@import '../utilities/spacing.css';
+@import '../utilities/display.css';
+@import '../utilities/colors.css';
+@import '../utilities/borders.css';
+@import '../utilities/animations.css';
+@import '../utilities/filters.css';
+@import '../utilities/accessibility.css';
+@import '../utilities/print.css';
+
+/* ========================================
+   BASE STYLES
+   Global resets and defaults
+   ======================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Visually hidden but accessible to screen readers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Skip to main content link */
+.skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    padding: var(--space-2) var(--space-4);
+    text-decoration: none;
+    z-index: 100;
+}
+
+.skip-to-main:focus {
+    top: 0;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Selection color */
+::selection {
+    background: rgba(16, 185, 129, 0.3);
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   UTILITIES
+   Helper classes for common patterns
+   ======================================== */
+
+/* Display */
+.hidden { display: none !important; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+.inline { display: inline; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid { display: grid; }
+
+/* Flex utilities */
+.flex-row { flex-direction: row; }
+.flex-col { flex-direction: column; }
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.flex-1 { flex: 1 1 0%; }
+.flex-shrink-0 { flex-shrink: 0; }
+
+/* Gap */
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* Text alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Font weights */
+.font-normal { font-weight: var(--font-normal); }
+.font-medium { font-weight: var(--font-medium); }
+.font-semibold { font-weight: var(--font-semibold); }
+.font-bold { font-weight: var(--font-bold); }
+
+/* Text sizes */
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg { font-size: var(--text-lg); }
+.text-xl { font-size: var(--text-xl); }
+.text-2xl { font-size: var(--text-2xl); }
+
+/* Text colors */
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-muted { color: var(--color-text-muted); }
+
+/* Spacing (margin & padding) */
+.m-0 { margin: 0; }
+.m-auto { margin: auto; }
+.mt-0 { margin-top: 0; }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+.mb-0 { margin-bottom: 0; }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+
+.p-0 { padding: 0; }
+.p-2 { padding: var(--space-2); }
+.p-4 { padding: var(--space-4); }
+.p-6 { padding: var(--space-6); }
+.p-8 { padding: var(--space-8); }
+
+/* Width */
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+
+/* Border radius */
+.rounded { border-radius: var(--radius); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-full { border-radius: var(--radius-full); }

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Buttons - Aural UI</title>
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { margin: 0; padding: 0; min-height: 100vh; }
+        .main-content { max-width: 900px; margin: 0 auto; padding: var(--space-8); min-height: 100vh; }
+        .page-header { margin-bottom: var(--space-10); }
+        .page-title { font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-text-primary); margin: 0 0 var(--space-4) 0; }
+        .page-description { font-size: var(--text-lg); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
+        .example-container { margin-bottom: var(--space-12); }
+        .example-label { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-4); }
+        .example-demo { padding: var(--space-8); background: var(--color-bg-secondary); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); margin-bottom: var(--space-4); min-height: 120px; }
+        .section-content { font-size: var(--text-base); color: var(--color-text-secondary); line-height: 1.8; }
+        .section-content code { background: var(--color-bg-tertiary); padding: 2px 6px; border-radius: var(--radius-sm); font-size: 0.9em; }
+        .section-content pre { background: var(--color-bg-tertiary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto; margin: var(--space-4) 0; }
+        .section-content pre code { background: none; padding: 0; }
+        .section-content h3 { font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: var(--space-6) 0 var(--space-3) 0; }
+        .section-content p { margin: 0 0 var(--space-4) 0; }
+        .section-content ul { margin: 0 0 var(--space-4) 0; padding-left: var(--space-6); }
+        .section-content li { margin-bottom: var(--space-2); }
+
+        /* Details/Summary styling */
+        details { margin: var(--space-4) 0; }
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+        summary:hover { color: var(--color-primary); }
+        details[open] summary { margin-bottom: var(--space-2); }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Radio Buttons</h1>
+            <p class="page-description">Single-selection radio button groups. Allow users to select exactly one option from a set of mutually exclusive choices.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+        <!-- Basic Radio Group -->
+        <div class="example-container">
+            <div class="example-label">Basic Radio Group</div>
+            <div class="example-demo">
+                <div class="radio-group">
+                    <div class="radio-group-label">Select your plan</div>
+                    <label class="radio">
+                        <input type="radio" name="plan" value="free" checked>
+                        <span>Free - $0/month</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="plan" value="pro">
+                        <span>Pro - $9/month</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="plan" value="enterprise">
+                        <span>Enterprise - $29/month</span>
+                    </label>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Use radio groups when users must select exactly one option. All radios in a group must share the same <code>name</code> attribute.</p>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="radio-group"&gt;
+    &lt;div class="radio-group-label"&gt;Select your plan&lt;/div&gt;
+    &lt;label class="radio"&gt;
+        &lt;input type="radio" name="plan" value="free" checked&gt;
+        &lt;span&gt;Free - $0/month&lt;/span&gt;
+    &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Sizes -->
+        <div class="example-container">
+            <div class="example-label">Sizes</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                    <div class="radio-group">
+                        <label class="radio radio-sm">
+                            <input type="radio" name="size-sm" checked>
+                            <span>Small radio button</span>
+                        </label>
+                    </div>
+                    <div class="radio-group">
+                        <label class="radio">
+                            <input type="radio" name="size-default" checked>
+                            <span>Default radio button</span>
+                        </label>
+                    </div>
+                    <div class="radio-group">
+                        <label class="radio radio-lg">
+                            <input type="radio" name="size-lg" checked>
+                            <span>Large radio button</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Three size variants available: <code>radio-sm</code>, default, and <code>radio-lg</code>.</p>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="radio radio-lg"&gt;
+    &lt;input type="radio" name="size" checked&gt;
+    &lt;span&gt;Large radio button&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+            </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+        <!-- With Description -->
+        <div class="example-container">
+            <div class="example-label">With Description</div>
+            <div class="example-demo">
+                <div class="radio-group">
+                    <div class="radio-group-label">Choose shipping method</div>
+                    <label class="radio radio-with-description">
+                        <input type="radio" name="shipping" value="standard" checked>
+                        <span>
+                            Standard Shipping
+                            <span class="radio-description">Delivery in 5-7 business days</span>
+                        </span>
+                    </label>
+                    <label class="radio radio-with-description">
+                        <input type="radio" name="shipping" value="express">
+                        <span>
+                            Express Shipping
+                            <span class="radio-description">Delivery in 2-3 business days</span>
+                        </span>
+                    </label>
+                    <label class="radio radio-with-description">
+                        <input type="radio" name="shipping" value="overnight">
+                        <span>
+                            Overnight Shipping
+                            <span class="radio-description">Next business day delivery</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Add descriptive text below labels to provide additional context for each option.</p>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="radio radio-with-description"&gt;
+    &lt;input type="radio" name="shipping" value="express"&gt;
+    &lt;span&gt;
+        Express Shipping
+        &lt;span class="radio-description"&gt;Delivery in 2-3 days&lt;/span&gt;
+    &lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Button Style -->
+        <div class="example-container">
+            <div class="example-label">Button Style</div>
+            <div class="example-demo">
+                <div class="radio-group radio-group-buttons">
+                    <label class="radio radio-button">
+                        <input type="radio" name="view" value="grid" checked>
+                        <span>
+                            <i data-lucide="grid-3x3" style="width: 16px; height: 16px;"></i>
+                            Grid
+                        </span>
+                    </label>
+                    <label class="radio radio-button">
+                        <input type="radio" name="view" value="list">
+                        <span>
+                            <i data-lucide="list" style="width: 16px; height: 16px;"></i>
+                            List
+                        </span>
+                    </label>
+                    <label class="radio radio-button">
+                        <input type="radio" name="view" value="table">
+                        <span>
+                            <i data-lucide="table" style="width: 16px; height: 16px;"></i>
+                            Table
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Button-style radios work well for view toggles and toolbar options. Use <code>radio-group-buttons</code> wrapper.</p>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="radio-group radio-group-buttons"&gt;
+    &lt;label class="radio radio-button"&gt;
+        &lt;input type="radio" name="view" value="grid" checked&gt;
+        &lt;span&gt;Grid&lt;/span&gt;
+    &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Attached Buttons -->
+        <div class="example-container">
+            <div class="example-label">Attached Buttons</div>
+            <div class="example-demo">
+                <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+                    <div class="radio-group radio-group-attached">
+                        <label class="radio radio-button">
+                            <input type="radio" name="align" value="left" checked>
+                            <span>
+                                <i data-lucide="align-left" style="width: 16px; height: 16px;"></i>
+                                Left
+                            </span>
+                        </label>
+                        <label class="radio radio-button">
+                            <input type="radio" name="align" value="center">
+                            <span>
+                                <i data-lucide="align-center" style="width: 16px; height: 16px;"></i>
+                                Center
+                            </span>
+                        </label>
+                        <label class="radio radio-button">
+                            <input type="radio" name="align" value="right">
+                            <span>
+                                <i data-lucide="align-right" style="width: 16px; height: 16px;"></i>
+                                Right
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="radio-group radio-group-attached">
+                        <label class="radio radio-button">
+                            <input type="radio" name="period" value="day" checked>
+                            <span>Day</span>
+                        </label>
+                        <label class="radio radio-button">
+                            <input type="radio" name="period" value="week">
+                            <span>Week</span>
+                        </label>
+                        <label class="radio radio-button">
+                            <input type="radio" name="period" value="month">
+                            <span>Month</span>
+                        </label>
+                        <label class="radio radio-button">
+                            <input type="radio" name="period" value="year">
+                            <span>Year</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Attached button radios create a segmented control appearance, ideal for toolbars and filters.</p>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="radio-group radio-group-attached"&gt;
+    &lt;label class="radio radio-button"&gt;
+        &lt;input type="radio" name="align" value="left" checked&gt;
+        &lt;span&gt;Left&lt;/span&gt;
+    &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+            </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+        <!-- Card Style -->
+        <div class="example-container">
+            <div class="example-label">Card Style Selection</div>
+            <div class="example-demo">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                    <label class="radio radio-card">
+                        <input type="radio" name="pricing" value="starter" checked>
+                        <div class="radio-card-content">
+                            <div style="font-weight: var(--font-semibold); font-size: var(--text-lg); margin-bottom: var(--space-2);">Starter</div>
+                            <div style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-2);">$9</div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">Perfect for individuals</div>
+                        </div>
+                    </label>
+                    <label class="radio radio-card">
+                        <input type="radio" name="pricing" value="pro">
+                        <div class="radio-card-content">
+                            <div style="font-weight: var(--font-semibold); font-size: var(--text-lg); margin-bottom: var(--space-2);">Pro</div>
+                            <div style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-2);">$29</div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">For small teams</div>
+                        </div>
+                    </label>
+                    <label class="radio radio-card">
+                        <input type="radio" name="pricing" value="enterprise">
+                        <div class="radio-card-content">
+                            <div style="font-weight: var(--font-semibold); font-size: var(--text-lg); margin-bottom: var(--space-2);">Enterprise</div>
+                            <div style="font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-primary); margin-bottom: var(--space-2);">$99</div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-secondary);">For large organizations</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Card-style radios are excellent for pricing tiers, feature comparisons, or any selection requiring more visual emphasis.</p>
+            </div>
+        </div>
+
+        <!-- Disabled State -->
+        <div class="example-container">
+            <div class="example-label">Disabled State</div>
+            <div class="example-demo">
+                <div class="radio-group">
+                    <div class="radio-group-label">Payment method</div>
+                    <label class="radio">
+                        <input type="radio" name="payment" value="card" checked>
+                        <span>Credit Card</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="payment" value="paypal">
+                        <span>PayPal</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="payment" value="crypto" disabled>
+                        <span>Cryptocurrency (Coming Soon)</span>
+                    </label>
+                </div>
+            </div>
+            <div class="section-content">
+                <p>Disable individual options that aren't currently available. Use descriptive text to explain why.</p>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;label class="radio"&gt;
+    &lt;input type="radio" name="payment" value="crypto" disabled&gt;
+    &lt;span&gt;Cryptocurrency (Coming Soon)&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+            </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+        <!-- Best Practices -->
+        <div class="example-container">
+            <div class="example-label">Best Practices</div>
+            <div class="section-content">
+                <h3>When to Use</h3>
+                <ul>
+                    <li><strong>Mutually exclusive choices</strong> - When users must select exactly one option from a set</li>
+                    <li><strong>Small option sets</strong> - Best with 2-7 options; use dropdowns for longer lists</li>
+                    <li><strong>All options visible</strong> - When it's important for users to see all choices at once</li>
+                    <li><strong>Required selection</strong> - When a choice must be made before proceeding</li>
+                </ul>
+
+                <h3>When NOT to Use</h3>
+                <ul>
+                    <li><strong>Multiple selections</strong> - Use checkboxes when users can select more than one option</li>
+                    <li><strong>Many options</strong> - Use a select dropdown for 8+ options to save space</li>
+                    <li><strong>Binary toggles</strong> - Use a switch or single checkbox for simple on/off choices</li>
+                    <li><strong>Optional selection</strong> - If selecting nothing is valid, consider a different pattern</li>
+                </ul>
+
+                <h3>Organization</h3>
+                <ul>
+                    <li><strong>Use radio-group</strong> - Wrap related radios in a <code>radio-group</code> container</li>
+                    <li><strong>Logical order</strong> - Arrange options by frequency of use, alphabetically, or by value</li>
+                    <li><strong>Pre-select default</strong> - Always have one option selected by default when appropriate</li>
+                    <li><strong>Keep labels concise</strong> - Use short, scannable labels; add descriptions for clarity</li>
+                </ul>
+
+                <h3>Accessibility</h3>
+                <ul>
+                    <li><strong>Same name attribute</strong> - All radios in a group must share the same <code>name</code> attribute</li>
+                    <li><strong>Unique values</strong> - Each radio should have a unique <code>value</code> attribute</li>
+                    <li><strong>Keyboard navigation</strong> - Arrow keys navigate within group, Tab moves between groups</li>
+                    <li><strong>Label association</strong> - Wrap inputs in <code>&lt;label&gt;</code> tags for click targets</li>
+                    <li><strong>Group labels</strong> - Use <code>radio-group-label</code> or <code>&lt;fieldset&gt;/&lt;legend&gt;</code></li>
+                </ul>
+
+                <h3>Common Patterns</h3>
+                <ul>
+                    <li><strong>Pricing tiers</strong> - Use card-style radios with visual hierarchy for plans</li>
+                    <li><strong>Shipping options</strong> - Include descriptions with delivery times and costs</li>
+                    <li><strong>View toggles</strong> - Use button-style or attached radios for UI view switches</li>
+                    <li><strong>Form sections</strong> - Use standard radios for questionnaires and surveys</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../aural-ui.js?v=1769438626"></script>
+    <script>
+        Aural.initTabs();
+    </script>
+    <script>
+        lucide.createIcons();
+    </script>
+    <script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': relativePath + 'dark.css',
+                'light': relativePath + 'light.css',
+                'high-contrast': relativePath + 'high-contrast.css',
+                'colorblind': relativePath + 'colorblind-friendly.css'
+            };
+            themeLink.href = themeFiles[savedTheme] || themeFiles['dark'];
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) themeToggle.style.display = 'none';
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Example Container */
+        .example-container {
+            margin-bottom: var(--space-8);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-3);
+        }
+
+        .example-demo {
+            padding: var(--space-6);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+            overflow: hidden;
+        }
+
+        /* Navbar in demo context needs rounded corners and clipping */
+        .example-demo .aural-navbar {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Navbar</h1>
+            <p class="page-description">Top navigation bar with branding, links, and actions.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Navbar</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar" role="navigation" aria-label="Main navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <span>Aural</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
+                                <a href="#" class="aural-navbar__link">Products</a>
+                                <a href="#" class="aural-navbar__link">Features</a>
+                                <a href="#" class="aural-navbar__link">Pricing</a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <button class="btn btn-ghost btn-sm">Sign In</button>
+                                <button class="btn btn-primary btn-sm">Sign Up</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar" role="navigation" aria-label="Main navigation"&gt;
+    &lt;div class="aural-navbar__inner"&gt;
+        &lt;a href="#" class="aural-navbar__brand"&gt;
+            &lt;span&gt;Aural&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;div class="aural-navbar__nav"&gt;
+            &lt;a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page"&gt;Home&lt;/a&gt;
+            &lt;a href="#" class="aural-navbar__link"&gt;Products&lt;/a&gt;
+            &lt;a href="#" class="aural-navbar__link"&gt;Features&lt;/a&gt;
+            &lt;a href="#" class="aural-navbar__link"&gt;Pricing&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-navbar__actions"&gt;
+            &lt;button class="btn btn-ghost btn-sm"&gt;Sign In&lt;/button&gt;
+            &lt;button class="btn btn-primary btn-sm"&gt;Sign Up&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Icons</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar" role="navigation" aria-label="Navigation with icons">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <i data-lucide="sparkles" style="width: 24px; height: 24px;" aria-hidden="true"></i>
+                                <span>Brand</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">
+                                    <i data-lucide="home" class="aural-navbar__link-icon" aria-hidden="true"></i>
+                                    Home
+                                </a>
+                                <a href="#" class="aural-navbar__link">
+                                    <i data-lucide="briefcase" class="aural-navbar__link-icon" aria-hidden="true"></i>
+                                    Work
+                                </a>
+                                <a href="#" class="aural-navbar__link">
+                                    <i data-lucide="users" class="aural-navbar__link-icon" aria-hidden="true"></i>
+                                    Team
+                                </a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <button class="aural-navbar__action" aria-label="Search">
+                                    <i data-lucide="search" aria-hidden="true"></i>
+                                </button>
+                                <button class="aural-navbar__action" aria-label="Notifications, 3 unread">
+                                    <i data-lucide="bell" aria-hidden="true"></i>
+                                    <span class="aural-navbar__badge aural-navbar__badge--pulse" aria-hidden="true">3</span>
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar"&gt;
+    &lt;div class="aural-navbar__inner"&gt;
+        &lt;a href="#" class="aural-navbar__brand"&gt;
+            &lt;i data-lucide="sparkles"&gt;&lt;/i&gt;
+            &lt;span&gt;Brand&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;div class="aural-navbar__nav"&gt;
+            &lt;a href="#" class="aural-navbar__link aural-navbar__link--active"&gt;
+                &lt;i data-lucide="home"&gt;&lt;/i&gt;
+                Home
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-navbar__actions"&gt;
+            &lt;button class="aural-navbar__action" aria-label="Notifications"&gt;
+                &lt;i data-lucide="bell"&gt;&lt;/i&gt;
+                &lt;span class="aural-navbar__badge aural-navbar__badge--pulse"&gt;3&lt;/span&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Search</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar" role="navigation" aria-label="Navigation with search">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <span>Logo</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Dashboard</a>
+                                <a href="#" class="aural-navbar__link">Projects</a>
+                                <a href="#" class="aural-navbar__link">Team</a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <div class="aural-search-bar" style="max-width: 300px;">
+                                    <div class="aural-search-bar__wrapper">
+                                        <div class="aural-search-bar__icon">
+                                            <i data-lucide="search" aria-hidden="true"></i>
+                                        </div>
+                                        <input type="search" class="aural-search-bar__input" placeholder="Search..." aria-label="Search">
+                                    </div>
+                                </div>
+                                <button class="aural-navbar__action" aria-label="Settings">
+                                    <i data-lucide="settings"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="aural-navbar__actions"&gt;
+    &lt;div class="aural-search-bar" style="max-width: 300px;"&gt;
+        &lt;div class="aural-search-bar__wrapper"&gt;
+            &lt;div class="aural-search-bar__icon"&gt;
+                &lt;i data-lucide="search" aria-hidden="true"&gt;&lt;/i&gt;
+            &lt;/div&gt;
+            &lt;input type="search" class="aural-search-bar__input" placeholder="Search..." aria-label="Search"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Sticky Navbar</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar aural-navbar--sticky" role="navigation" aria-label="Sticky navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <span>Sticky Nav</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
+                                <a href="#" class="aural-navbar__link">About</a>
+                                <a href="#" class="aural-navbar__link">Services</a>
+                                <a href="#" class="aural-navbar__link">Contact</a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <button class="btn btn-primary btn-sm">Get Started</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar aural-navbar--sticky"&gt;
+    &lt;!-- Stays at top when scrolling --&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Use <code>.aural-navbar--sticky</code> to keep the navbar visible at the top of the viewport when scrolling.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Transparent Navbar</div>
+                <div class="example-demo" style="background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover)); padding: var(--space-8);">
+                    <nav class="aural-navbar aural-navbar--transparent" role="navigation" aria-label="Transparent navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand" style="color: white;">
+                                <span>Brand</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link" style="color: rgba(255,255,255,0.8);">Home</a>
+                                <a href="#" class="aural-navbar__link" style="color: rgba(255,255,255,0.8);">About</a>
+                                <a href="#" class="aural-navbar__link" style="color: rgba(255,255,255,0.8);">Contact</a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <button class="btn btn-ghost btn-sm" style="color: white; border-color: white;">Login</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar aural-navbar--transparent"&gt;
+    &lt;!-- Transparent background for hero sections --&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Use <code>.aural-navbar--transparent</code> for hero sections or over background images.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Blur Navbar</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar aural-navbar--blur" role="navigation" aria-label="Blur navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <span>Blur Nav</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
+                                <a href="#" class="aural-navbar__link">Features</a>
+                                <a href="#" class="aural-navbar__link">Pricing</a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <button class="btn btn-primary btn-sm">Sign Up</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar aural-navbar--blur"&gt;
+    &lt;!-- Blurred background with transparency --&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Use <code>.aural-navbar--blur</code> for a modern frosted glass effect.</p>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Size Variants</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar aural-navbar--sm" role="navigation" aria-label="Small navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <span>Small</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
+                                <a href="#" class="aural-navbar__link">About</a>
+                                <a href="#" class="aural-navbar__link">Contact</a>
+                            </div>
+                        </div>
+                    </nav>
+                    <div style="height: var(--space-4);"></div>
+                    <nav class="aural-navbar" role="navigation" aria-label="Default navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <span>Default</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
+                                <a href="#" class="aural-navbar__link">About</a>
+                                <a href="#" class="aural-navbar__link">Contact</a>
+                            </div>
+                        </div>
+                    </nav>
+                    <div style="height: var(--space-4);"></div>
+                    <nav class="aural-navbar aural-navbar--lg" role="navigation" aria-label="Large navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <span>Large</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
+                                <a href="#" class="aural-navbar__link">About</a>
+                                <a href="#" class="aural-navbar__link">Contact</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar aural-navbar--sm"&gt;...&lt;/nav&gt;
+&lt;nav class="aural-navbar"&gt;...&lt;/nav&gt;
+&lt;nav class="aural-navbar aural-navbar--lg"&gt;...&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">E-commerce Header</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar" role="navigation" aria-label="E-commerce navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <i data-lucide="shopping-bag" style="width: 24px; height: 24px;"></i>
+                                <span>Shop</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">New Arrivals</a>
+                                <a href="#" class="aural-navbar__link">Men</a>
+                                <a href="#" class="aural-navbar__link">Women</a>
+                                <a href="#" class="aural-navbar__link">Sale</a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <div class="aural-search-bar" style="max-width: 300px;">
+                                    <div class="aural-search-bar__wrapper">
+                                        <div class="aural-search-bar__icon">
+                                            <i data-lucide="search" aria-hidden="true"></i>
+                                        </div>
+                                        <input type="search" class="aural-search-bar__input" placeholder="Search products..." aria-label="Search products">
+                                    </div>
+                                </div>
+                                <button class="aural-navbar__action" aria-label="Wishlist">
+                                    <i data-lucide="heart"></i>
+                                </button>
+                                <button class="aural-navbar__action" aria-label="Shopping cart">
+                                    <i data-lucide="shopping-cart"></i>
+                                    <span class="aural-navbar__badge">2</span>
+                                </button>
+                                <button class="aural-navbar__action" aria-label="User account">
+                                    <i data-lucide="user"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar"&gt;
+    &lt;div class="aural-navbar__inner"&gt;
+        &lt;a href="#" class="aural-navbar__brand"&gt;
+            &lt;i data-lucide="shopping-bag"&gt;&lt;/i&gt;
+            &lt;span&gt;Shop&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;div class="aural-navbar__nav"&gt;
+            &lt;a href="#" class="aural-navbar__link aural-navbar__link--active"&gt;New Arrivals&lt;/a&gt;
+            &lt;a href="#" class="aural-navbar__link"&gt;Men&lt;/a&gt;
+            &lt;a href="#" class="aural-navbar__link"&gt;Women&lt;/a&gt;
+            &lt;a href="#" class="aural-navbar__link"&gt;Sale&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-navbar__actions"&gt;
+            &lt;div class="aural-search-bar" style="max-width: 300px;"&gt;
+                &lt;div class="aural-search-bar__wrapper"&gt;
+                    &lt;div class="aural-search-bar__icon"&gt;
+                        &lt;i data-lucide="search" aria-hidden="true"&gt;&lt;/i&gt;
+                    &lt;/div&gt;
+                    &lt;input type="search" class="aural-search-bar__input" placeholder="Search..." aria-label="Search"&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;button class="aural-navbar__action" aria-label="Wishlist"&gt;
+                &lt;i data-lucide="heart"&gt;&lt;/i&gt;
+            &lt;/button&gt;
+            &lt;button class="aural-navbar__action" aria-label="Shopping cart"&gt;
+                &lt;i data-lucide="shopping-cart"&gt;&lt;/i&gt;
+                &lt;span class="aural-navbar__badge"&gt;2&lt;/span&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">SaaS Dashboard</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar" role="navigation" aria-label="Dashboard navigation">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <i data-lucide="zap" style="width: 24px; height: 24px; color: var(--color-primary);"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">
+                                    <i data-lucide="layout-dashboard" class="aural-navbar__link-icon"></i>
+                                    Overview
+                                </a>
+                                <a href="#" class="aural-navbar__link">
+                                    <i data-lucide="bar-chart-2" class="aural-navbar__link-icon"></i>
+                                    Analytics
+                                </a>
+                                <a href="#" class="aural-navbar__link">
+                                    <i data-lucide="users" class="aural-navbar__link-icon"></i>
+                                    Customers
+                                </a>
+                                <a href="#" class="aural-navbar__link">
+                                    <i data-lucide="settings" class="aural-navbar__link-icon"></i>
+                                    Settings
+                                </a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <button class="aural-navbar__action" aria-label="Help">
+                                    <i data-lucide="help-circle" aria-hidden="true"></i>
+                                </button>
+                                <button class="aural-navbar__action" aria-label="Notifications, 5 unread">
+                                    <i data-lucide="bell" aria-hidden="true"></i>
+                                    <span class="aural-navbar__badge aural-navbar__badge--pulse" aria-hidden="true">5</span>
+                                </button>
+                                <a href="#" class="aural-navbar__action avatar avatar-sm" aria-label="User profile">
+                                    <img src="https://i.pravatar.cc/150?img=3" alt="User profile picture">
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar"&gt;
+    &lt;div class="aural-navbar__inner"&gt;
+        &lt;a href="#" class="aural-navbar__brand"&gt;
+            &lt;i data-lucide="zap"&gt;&lt;/i&gt;
+            &lt;span&gt;Dashboard&lt;/span&gt;
+        &lt;/a&gt;
+        &lt;div class="aural-navbar__nav"&gt;
+            &lt;a href="#" class="aural-navbar__link aural-navbar__link--active"&gt;
+                &lt;i data-lucide="layout-dashboard"&gt;&lt;/i&gt;
+                Overview
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="aural-navbar__actions"&gt;
+            &lt;a href="#" class="aural-navbar__action avatar avatar-sm" aria-label="User profile"&gt;
+                &lt;img src="avatar.jpg" alt="User"&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Mobile Menu Toggle</div>
+                <div class="example-demo">
+                    <nav class="aural-navbar" role="navigation" aria-label="Responsive navigation" id="mobile-navbar">
+                        <div class="aural-navbar__inner">
+                            <a href="#" class="aural-navbar__brand">
+                                <span>Mobile Nav</span>
+                            </a>
+                            <div class="aural-navbar__nav">
+                                <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
+                                <a href="#" class="aural-navbar__link">Products</a>
+                                <a href="#" class="aural-navbar__link">About</a>
+                                <a href="#" class="aural-navbar__link">Contact</a>
+                            </div>
+                            <div class="aural-navbar__actions">
+                                <button class="btn btn-primary btn-sm">Get Started</button>
+                            </div>
+                            <button class="aural-navbar__toggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileMenu()">
+                                <i data-lucide="menu"></i>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;nav class="aural-navbar"&gt;
+    &lt;div class="aural-navbar__inner"&gt;
+        &lt;a href="#" class="aural-navbar__brand"&gt;Brand&lt;/a&gt;
+        &lt;div class="aural-navbar__nav"&gt;
+            &lt;!-- Links --&gt;
+        &lt;/div&gt;
+        &lt;button class="aural-navbar__toggle" aria-label="Toggle menu"&gt;
+            &lt;i data-lucide="menu"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;script&gt;
+function toggleMobileMenu() {
+    const navbar = document.querySelector('.aural-navbar');
+    const isOpen = navbar.classList.toggle('aural-navbar--menu-open');
+    const toggle = navbar.querySelector('.aural-navbar__toggle');
+    toggle.setAttribute('aria-expanded', isOpen);
+}
+&lt;/script&gt;</code></pre>
+                </details>
+                <div class="section-content" style="margin-top: var(--space-4);">
+                    <p>Resize your browser to mobile width (below 768px) to see the hamburger menu toggle.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Use navbar for primary site navigation accessible from every page</li>
+                        <li>Keep navigation items between 4-7 for optimal scanability</li>
+                        <li>Place the logo/brand on the left for better discoverability</li>
+                        <li>Position primary CTAs (sign up, login) on the right side</li>
+                        <li>Use sticky navbar for long-scrolling pages to maintain access to navigation</li>
+                    </ul>
+
+                    <h3>Logo and Branding</h3>
+                    <ul>
+                        <li>Always link the logo/brand to the homepage</li>
+                        <li>Use <code>.aural-navbar__brand</code> for consistent logo styling</li>
+                        <li>Keep logo height between 28-40px for optimal display</li>
+                        <li>Include both icon and text for better brand recognition</li>
+                    </ul>
+
+                    <h3>Navigation Links</h3>
+                    <ul>
+                        <li>Use <code>.aural-navbar__link--active</code> with <code>aria-current="page"</code> for the current page</li>
+                        <li>Keep link labels concise (1-2 words)</li>
+                        <li>Order links by importance or logical flow</li>
+                        <li>Group related links together</li>
+                        <li>Use icons sparingly - only when they add clarity</li>
+                    </ul>
+
+                    <h3>Action Buttons</h3>
+                    <ul>
+                        <li>Use icon buttons (<code>.aural-navbar__action</code>) for secondary actions</li>
+                        <li>Always include <code>aria-label</code> on icon-only buttons</li>
+                        <li>Use badges (<code>.aural-navbar__badge</code>) to show notification counts</li>
+                        <li>Add <code>.aural-navbar__badge--pulse</code> for important notifications</li>
+                        <li>Limit action buttons to 3-4 to avoid clutter</li>
+                    </ul>
+
+                    <h3>Search Integration</h3>
+                    <ul>
+                        <li>Use <code>.aural-search-bar</code> component for integrated search</li>
+                        <li>Keep search width around 200-300px for desktop</li>
+                        <li>Include search icon for visual clarity</li>
+                        <li>Use placeholder text like "Search..." or "Search products..."</li>
+                        <li>Consider a search modal for mobile instead of inline search</li>
+                    </ul>
+
+                    <h3>Mobile Considerations</h3>
+                    <ul>
+                        <li>Use <code>.aural-navbar__toggle</code> for hamburger menu on mobile</li>
+                        <li>Toggle <code>.aural-navbar--menu-open</code> class to show/hide mobile menu</li>
+                        <li>Ensure toggle button is at least 44x44px for touch targets</li>
+                        <li>Include <code>aria-expanded</code> attribute on toggle button</li>
+                        <li>Consider hiding search bar on mobile or moving it to menu</li>
+                    </ul>
+
+                    <h3>Positioning Variants</h3>
+                    <ul>
+                        <li><code>.aural-navbar--sticky</code> - Stays at top when scrolling</li>
+                        <li><code>.aural-navbar--fixed</code> - Always fixed at top (add <code>.has-navbar-fixed</code> to body)</li>
+                        <li><code>.aural-navbar--transparent</code> - For hero sections or image backgrounds</li>
+                        <li><code>.aural-navbar--blur</code> - Modern frosted glass effect</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Always include <code>role="navigation"</code> on the nav element</li>
+                        <li>Add descriptive <code>aria-label</code> to nav (e.g., "Main navigation")</li>
+                        <li>Use <code>aria-current="page"</code> on the active link</li>
+                        <li>Include <code>aria-label</code> on all icon-only buttons</li>
+                        <li>Add <code>aria-expanded</code> on mobile menu toggle</li>
+                        <li>Ensure sufficient color contrast for all text (4.5:1 minimum)</li>
+                        <li>Support keyboard navigation with proper focus states</li>
+                    </ul>
+
+                    <h3>Performance</h3>
+                    <ul>
+                        <li>Use <code>position: sticky</code> instead of JavaScript scroll listeners</li>
+                        <li>Optimize logo images for web (WebP format recommended)</li>
+                        <li>Lazy load dropdown menus when needed</li>
+                        <li>Avoid heavy animations on scroll for better performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=9"></script>
+
+    <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? '../dark.css' : '../light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navbar = document.getElementById('mobile-navbar');
+            const isOpen = navbar.classList.toggle('aural-navbar--menu-open');
+            const toggle = navbar.querySelector('.aural-navbar__toggle');
+            toggle.setAttribute('aria-expanded', isOpen);
+        }
+    </script>
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+
+            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+            themeLink.href = themePath;
+        } else {
+            console.error('Theme link not found!');
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

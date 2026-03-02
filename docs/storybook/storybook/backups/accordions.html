@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordions - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="../dark.css" id="theme-link">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: var(--space-8);
+        }
+
+        .page-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .page-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* Example Container */
+        .example-container {
+            margin-bottom: var(--space-8);
+        }
+
+        .example-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-3);
+        }
+
+        .example-demo {
+            padding: var(--space-6);
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-4);
+        }
+
+        .content-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .section-content h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            margin: var(--space-6) 0 var(--space-3) 0;
+        }
+
+        .section-content p {
+            margin: 0 0 var(--space-4) 0;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 0 0 var(--space-4) 0;
+            padding-left: var(--space-6);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-2);
+        }
+
+        .section-content code {
+            background: var(--color-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9em;
+        }
+
+        .section-content pre {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .section-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Details/Summary styling */
+        details {
+            margin: var(--space-4) 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            color: var(--color-text-primary);
+            padding: var(--space-2) 0;
+            user-select: none;
+        }
+
+        summary:hover {
+            color: var(--color-primary);
+        }
+
+        details[open] summary {
+            margin-bottom: var(--space-2);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 200;
+        }
+
+        /* Tab Panel Hiding */
+        [role="tabpanel"][hidden] {
+            display: none;
+        }
+
+        /* Tab spacing */
+        [role="tabpanel"] {
+            margin-top: var(--space-8);
+        }
+
+        /* Accordion Base Styles */
+        .accordion {
+            width: 100%;
+            border-radius: var(--radius-md);
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: var(--space-4);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: var(--text-base);
+            font-weight: var(--font-medium);
+            color: var(--color-text-primary);
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background: var(--color-bg-tertiary);
+        }
+
+        .accordion-header:focus {
+            outline: 2px solid var(--color-primary);
+            outline-offset: -2px;
+        }
+
+        .accordion-icon {
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            color: var(--color-text-muted);
+        }
+
+        .accordion-header[aria-expanded="true"] .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Accordion Panel Animations */
+        .accordion-panel {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+
+        .accordion-panel:not([hidden]) {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .accordion-content {
+            padding: 0 var(--space-4) var(--space-4) var(--space-4);
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Bordered Variant */
+        .accordion-bordered {
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+        }
+
+        .accordion-bordered .accordion-item {
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        /* Flush Variant */
+        .accordion-flush {
+            border-radius: 0;
+        }
+
+        .accordion-flush .accordion-item:first-child .accordion-header {
+            padding-top: 0;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-6) var(--space-4);
+            }
+
+            .page-title {
+                font-size: var(--text-2xl);
+            }
+
+            .page-description {
+                font-size: var(--text-base);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .theme-toggle {
+                top: var(--space-4);
+                right: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Accordions</h1>
+            <p class="page-description">Vertically stacked sections that expand and collapse to reveal content.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab tab-active" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+            <button class="tab" role="tab" id="tab-variants" aria-controls="panel-variants" aria-selected="false">Variants</button>
+            <button class="tab" role="tab" id="tab-patterns" aria-controls="panel-patterns" aria-selected="false">Patterns</button>
+            <button class="tab" role="tab" id="tab-guidelines" aria-controls="panel-guidelines" aria-selected="false">Guidelines</button>
+        </div>
+
+        <!-- Overview Panel -->
+        <div id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+            <div class="example-container">
+                <div class="example-label">Basic Accordion</div>
+                <div class="example-demo">
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="true" aria-controls="acc-panel-1">
+                                <span>What is Aural UI?</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-panel-1" class="accordion-panel" role="region">
+                                <div class="accordion-content">
+                                    Aural UI is a modern, accessible component library designed for building beautiful web applications with a focus on audio and music interfaces.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-panel-2">
+                                <span>How do I install it?</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-panel-2" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Simply include the CSS and JavaScript files in your HTML and start using the components.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-panel-3">
+                                <span>Is it accessible?</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-panel-3" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Yes! Aural UI is built with accessibility in mind, following WCAG guidelines and ARIA best practices.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="accordion"&gt;
+    &lt;div class="accordion-item"&gt;
+        &lt;button class="accordion-header" aria-expanded="false" aria-controls="acc-panel-1"&gt;
+            &lt;span&gt;What is Aural UI?&lt;/span&gt;
+            &lt;svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20"&gt;
+                &lt;path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/&gt;
+            &lt;/svg&gt;
+        &lt;/button&gt;
+        &lt;div id="acc-panel-1" class="accordion-panel" role="region" hidden&gt;
+            &lt;div class="accordion-content"&gt;
+                Aural UI is a modern, accessible component library...
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Variants Panel -->
+        <div id="panel-variants" role="tabpanel" aria-labelledby="tab-variants" hidden>
+            <div class="example-container">
+                <div class="example-label">Bordered Accordion</div>
+                <div class="example-demo">
+                    <div class="accordion accordion-bordered">
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-bordered-1">
+                                <span>First Section</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-bordered-1" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Content for the first section goes here. You can add any content you want.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-bordered-2">
+                                <span>Second Section</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-bordered-2" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Content for the second section. The bordered variant adds visible borders between items.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="accordion accordion-bordered"&gt;
+    &lt;div class="accordion-item"&gt;
+        ...
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Flush Accordion</div>
+                <div class="example-demo">
+                    <div class="accordion accordion-flush">
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-flush-1">
+                                <span>Flush Item One</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-flush-1" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Flush accordions remove outer borders for a cleaner look when embedded in cards or sidebars.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-flush-2">
+                                <span>Flush Item Two</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-flush-2" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Perfect for use within cards or other containers where you don't want extra borders.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="accordion accordion-flush"&gt;
+    &lt;div class="accordion-item"&gt;
+        ...
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">Always Open (Multiple)</div>
+                <div class="example-demo">
+                    <div class="accordion accordion-always-open accordion-bordered">
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="true" aria-controls="acc-multi-1">
+                                <span>Section One</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-multi-1" class="accordion-panel" role="region">
+                                <div class="accordion-content">
+                                    This panel stays open when you open another panel. Try clicking the other sections - this one will remain expanded!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="true" aria-controls="acc-multi-2">
+                                <span>Section Two</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-multi-2" class="accordion-panel" role="region">
+                                <div class="accordion-content">
+                                    Multiple panels can be open at the same time. This is useful when users need to compare content across sections.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-multi-3">
+                                <span>Section Three</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-multi-3" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Click to expand this section. Notice how the other sections stay open - they won't collapse automatically.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-multi-4">
+                                <span>Section Four</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-multi-4" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Great for documentation, FAQs, or any content where users might want to view multiple sections at once.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Add <code>.accordion-always-open</code> to allow multiple panels to be expanded simultaneously. By default, accordions close other panels when a new one opens.</p>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;div class="accordion accordion-always-open"&gt;
+    &lt;div class="accordion-item"&gt;
+        &lt;button class="accordion-header" aria-expanded="true"&gt;
+            &lt;span&gt;Section One&lt;/span&gt;
+            &lt;svg class="accordion-icon"&gt;...&lt;/svg&gt;
+        &lt;/button&gt;
+        &lt;div class="accordion-panel" role="region"&gt;
+            &lt;div class="accordion-content"&gt;
+                Content here...
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- More items... --&gt;
+&lt;/div&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Patterns Panel -->
+        <div id="panel-patterns" role="tabpanel" aria-labelledby="tab-patterns" hidden>
+            <div class="example-container">
+                <div class="example-label">FAQ Pattern</div>
+                <div class="example-demo">
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-faq-1">
+                                <span>What payment methods do you accept?</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-faq-1" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers for annual subscriptions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-faq-2">
+                                <span>Can I cancel my subscription anytime?</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-faq-2" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Yes, you can cancel your subscription at any time. Your access will continue until the end of your current billing period.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-faq-3">
+                                <span>Do you offer refunds?</span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-faq-3" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    We offer a 30-day money-back guarantee for all new subscriptions. Contact our support team for assistance.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="example-label">With Icons</div>
+                <div class="example-demo">
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-icon-1">
+                                <span style="display: flex; align-items: center; gap: var(--space-2);">
+                                    <i data-lucide="settings" style="width: 18px; height: 18px;"></i>
+                                    Settings
+                                </span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-icon-1" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Configure your application settings including notifications, privacy, and display preferences.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header" aria-expanded="false" aria-controls="acc-icon-2">
+                                <span style="display: flex; align-items: center; gap: var(--space-2);">
+                                    <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+                                    Account
+                                </span>
+                                <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+                                    <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </button>
+                            <div id="acc-icon-2" class="accordion-panel" role="region" hidden>
+                                <div class="accordion-content">
+                                    Manage your account details, password, and security options.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary>View Code</summary>
+                    <pre><code>&lt;button class="accordion-header"&gt;
+    &lt;span style="display: flex; align-items: center; gap: var(--space-2);"&gt;
+        &lt;i data-lucide="settings"&gt;&lt;/i&gt;
+        Settings
+    &lt;/span&gt;
+    &lt;svg class="accordion-icon"&gt;...&lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <!-- Guidelines Panel -->
+        <div id="panel-guidelines" role="tabpanel" aria-labelledby="tab-guidelines" hidden>
+            <div class="content-section">
+                <h2 class="section-title">Best Practices</h2>
+                <div class="section-content">
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Use accordions to organize content into collapsible sections</li>
+                        <li>Great for FAQs, settings panels, and navigation menus</li>
+                        <li>Useful when you want to reduce visual clutter while keeping content accessible</li>
+                        <li>Best for content that doesn't need to be visible all at once</li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li>Always use <code>aria-expanded</code> to indicate the open/closed state</li>
+                        <li>Link headers to panels with <code>aria-controls</code></li>
+                        <li>Use <code>role="region"</code> on panels for proper semantics</li>
+                        <li>Ensure keyboard navigation works (Enter/Space to toggle)</li>
+                        <li>The accordion icon should rotate to indicate state changes</li>
+                    </ul>
+
+                    <h3>Content Guidelines</h3>
+                    <ul>
+                        <li>Keep header text concise and descriptive</li>
+                        <li>Don't nest accordions more than one level deep</li>
+                        <li>Consider showing the first item expanded by default</li>
+                        <li>Use icons sparingly and only when they add meaning</li>
+                    </ul>
+
+                    <h3>Variants</h3>
+                    <ul>
+                        <li><code>.accordion</code> - Default accordion with subtle styling (only one panel open at a time)</li>
+                        <li><code>.accordion-bordered</code> - Adds visible borders between items</li>
+                        <li><code>.accordion-flush</code> - Removes outer borders for embedded use</li>
+                        <li><code>.accordion-always-open</code> - Allows multiple panels to be expanded simultaneously</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Aural UI JavaScript -->
+    <script src="../aural-ui.js?v=9"></script>
+
+    <script>
+        // Initialize Aural UI components
+        Aural.initTabs();
+
+        // Custom accordion initialization for this page
+        function initPageAccordions() {
+            const accordions = document.querySelectorAll('.accordion');
+
+            accordions.forEach(accordion => {
+                const items = accordion.querySelectorAll('.accordion-item');
+                const allowMultiple = accordion.classList.contains('accordion-always-open');
+
+                items.forEach(item => {
+                    const header = item.querySelector('.accordion-header');
+                    const panel = item.querySelector('.accordion-panel');
+
+                    if (!header || !panel) return;
+
+                    header.addEventListener('click', () => {
+                        const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+                        // If not allowing multiple, close other panels
+                        if (!allowMultiple && !isExpanded) {
+                            items.forEach(otherItem => {
+                                if (otherItem !== item) {
+                                    const otherHeader = otherItem.querySelector('.accordion-header');
+                                    const otherPanel = otherItem.querySelector('.accordion-panel');
+                                    if (otherHeader && otherPanel) {
+                                        otherHeader.setAttribute('aria-expanded', 'false');
+                                        otherPanel.setAttribute('hidden', '');
+                                    }
+                                }
+                            });
+                        }
+
+                        // Toggle current panel
+                        if (isExpanded) {
+                            header.setAttribute('aria-expanded', 'false');
+                            panel.setAttribute('hidden', '');
+                        } else {
+                            header.setAttribute('aria-expanded', 'true');
+                            panel.removeAttribute('hidden');
+                        }
+                    });
+
+                    // Keyboard support
+                    header.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            header.click();
+                        }
+                    });
+                });
+            });
+        }
+
+        // Initialize accordions
+        initPageAccordions();
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme toggle
+        let isDark = true;
+        function toggleTheme() {
+            const themeLink = document.getElementById('theme-link');
+            isDark = !isDark;
+            themeLink.href = isDark ? '../dark.css' : '../light.css';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            isDark = savedTheme === 'dark';
+            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+        }
+    </script>
+    <!-- Unified Theme Sync -->
+    <script>
+    (function() {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+            const isInComponents = window.location.pathname.includes('/components/');
+            const relativePath = isInComponents ? '../' : './';
+            const themeFiles = {
+                'dark': 'dark.css',
+                'light': 'light.css',
+                'high-contrast': 'high-contrast.css',
+                'colorblind': 'colorblind-friendly.css'
+            };
+
+            const themeFile = themeFiles[savedTheme] || 'dark.css';
+            const themePath = relativePath + themeFile;
+
+            console.log('Applying theme:', savedTheme, 'Path:', themePath);
+            themeLink.href = themePath;
+        } else {
+            console.error('Theme link not found!');
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (window.self !== window.top) {
+                    const themeToggle = document.querySelector('.theme-toggle');
+                    if (themeToggle) {
+                        themeToggle.style.display = 'none';
+                    }
+                }
+            } catch (e) {}
+        });
+    })();
+    </script>
+</body>
+</html>

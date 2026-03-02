@@ -1,0 +1,956 @@
+import{c as Ee}from"./createThemeGrid-DWAncU4Q.js";const we={title:"Components/Table",tags:["autodocs"],parameters:{docs:{description:{component:`
+# Table Component
+
+Organized data display in rows and columns with support for sorting, striping, and expandable rows.
+See the **Documentation** tab for framework-specific code examples (React, Vue, Svelte).
+
+## Features
+
+- Basic table structure with semantic HTML
+- Striped rows for better readability (\`table-striped\`)
+- Hoverable rows to indicate interactivity (\`table-hover\`)
+- Compact variant for dense data (\`table-compact\`)
+- Expandable rows for additional details
+- Row selection with checkboxes
+- Sortable headers
+- Responsive wrapper for horizontal scrolling
+- Loading states with skeleton
+- Proper ARIA attributes for accessibility
+
+## CSS Classes
+
+- \`.table\` - Base table class (required)
+- \`.table-wrapper\` - Enables horizontal scrolling on smaller screens
+- \`.table-striped\` - Alternating row background colors
+- \`.table-hover\` - Hover effect on rows
+- \`.table-compact\` - Reduced padding for dense layouts
+- \`.expandable\` - Applied to rows that can be expanded
+- \`.expanded\` - Applied when row is expanded
+- \`.expand-cell\` - Column containing expand icons
+- \`.table-expand-icon\` - Chevron icon for expandable rows
+- \`.expanded-content\` - Container for expanded row content
+- \`.table-expanded-content\` - Styled wrapper for expanded details
+- \`.hidden\` - Hides expanded content when collapsed
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John Doe</td>
+        <td>john@example.com</td>
+        <td><span class="badge badge-success">Active</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+const Table = ({ data, columns }) => (
+  <div className="table-wrapper">
+    <table className="table table-striped table-hover">
+      <thead>
+        <tr>
+          {columns.map(col => <th key={col.key} scope="col">{col.label}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row, idx) => (
+          <tr key={idx}>
+            {columns.map(col => <td key={col.key}>{row[col.key]}</td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div class="table-wrapper">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th v-for="col in columns" :key="col.key" scope="col">{{ col.label }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row, idx) in data" :key="idx">
+          <td v-for="col in columns" :key="col.key">{{ row[col.key] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<div class="table-wrapper">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        {#each columns as col}
+          <th scope="col">{col.label}</th>
+        {/each}
+      </tr>
+    </thead>
+    <tbody>
+      {#each data as row}
+        <tr>
+          {#each columns as col}
+            <td>{row[col.key]}</td>
+          {/each}
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+\`\`\`
+        `.trim()}}},argTypes:{striped:{control:"boolean",description:"Enable striped rows for better readability"},hover:{control:"boolean",description:"Enable hover effect on rows"},compact:{control:"boolean",description:"Use compact spacing for dense data"}}},w={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table";const c=document.createElement("thead"),r=document.createElement("tr");["Name","Email","Status"].forEach(o=>{const t=document.createElement("th");t.textContent=o,t.setAttribute("scope","col"),r.appendChild(t)}),c.appendChild(r),a.appendChild(c);const s=document.createElement("tbody");return[{name:"John Doe",email:"john@example.com",status:"Active",statusVariant:"success"},{name:"Jane Smith",email:"jane@example.com",status:"Active",statusVariant:"success"},{name:"Bob Wilson",email:"bob@example.com",status:"Pending",statusVariant:"warning"}].forEach(o=>{const t=document.createElement("tr"),e=document.createElement("td");e.textContent=o.name,t.appendChild(e);const n=document.createElement("td");n.textContent=o.email,t.appendChild(n);const l=document.createElement("td"),i=document.createElement("span");i.className=`badge badge-${o.statusVariant}`,i.textContent=o.status,l.appendChild(i),t.appendChild(l),s.appendChild(t)}),a.appendChild(s),d.appendChild(a),d}},g={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table table-striped";const c=document.createElement("thead"),r=document.createElement("tr");["Product","Price","Stock"].forEach(o=>{const t=document.createElement("th");t.textContent=o,t.setAttribute("scope","col"),r.appendChild(t)}),c.appendChild(r),a.appendChild(c);const s=document.createElement("tbody");return[{product:"Widget A",price:"$19.99",stock:"45"},{product:"Widget B",price:"$29.99",stock:"12"},{product:"Widget C",price:"$39.99",stock:"8"},{product:"Widget D",price:"$49.99",stock:"23"}].forEach(o=>{const t=document.createElement("tr");Object.values(o).forEach(e=>{const n=document.createElement("td");n.textContent=e,t.appendChild(n)}),s.appendChild(t)}),a.appendChild(s),d.appendChild(a),d}},v={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table table-striped table-hover";const c=document.createElement("thead"),r=document.createElement("tr");["Product","Price","Stock"].forEach(o=>{const t=document.createElement("th");t.textContent=o,t.setAttribute("scope","col"),r.appendChild(t)}),c.appendChild(r),a.appendChild(c);const s=document.createElement("tbody");return[{product:"Widget A",price:"$19.99",stock:"45"},{product:"Widget B",price:"$29.99",stock:"12"},{product:"Widget C",price:"$39.99",stock:"8"},{product:"Widget D",price:"$49.99",stock:"23"}].forEach(o=>{const t=document.createElement("tr");Object.values(o).forEach(e=>{const n=document.createElement("td");n.textContent=e,t.appendChild(n)}),s.appendChild(t)}),a.appendChild(s),d.appendChild(a),d}},y={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table table-compact";const c=document.createElement("thead"),r=document.createElement("tr");["Name","Email","Role"].forEach(o=>{const t=document.createElement("th");t.textContent=o,t.setAttribute("scope","col"),r.appendChild(t)}),c.appendChild(r),a.appendChild(c);const s=document.createElement("tbody");return[{name:"John Doe",email:"john@example.com",role:"Admin"},{name:"Jane Smith",email:"jane@example.com",role:"Editor"},{name:"Bob Wilson",email:"bob@example.com",role:"Viewer"}].forEach(o=>{const t=document.createElement("tr");Object.values(o).forEach(e=>{const n=document.createElement("td");n.textContent=e,t.appendChild(n)}),s.appendChild(t)}),a.appendChild(s),d.appendChild(a),d}},A={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table table-hover";const c=document.createElement("thead"),r=document.createElement("tr"),s=document.createElement("th");s.setAttribute("scope","col"),s.style.width="40px";const p=document.createElement("input");p.type="checkbox",p.className="checkbox",p.setAttribute("aria-label","Select all rows"),p.addEventListener("change",e=>{const n=e.target;d.querySelectorAll('tbody input[type="checkbox"]').forEach(i=>{i.checked=n.checked})}),s.appendChild(p),r.appendChild(s),["Name","Email","Status"].forEach(e=>{const n=document.createElement("th");n.textContent=e,n.setAttribute("scope","col"),r.appendChild(n)}),c.appendChild(r),a.appendChild(c);const o=document.createElement("tbody");return[{name:"John Doe",email:"john@example.com",status:"Active",statusVariant:"success"},{name:"Jane Smith",email:"jane@example.com",status:"Active",statusVariant:"success"},{name:"Bob Wilson",email:"bob@example.com",status:"Pending",statusVariant:"warning"}].forEach(e=>{const n=document.createElement("tr"),l=document.createElement("td"),i=document.createElement("input");i.type="checkbox",i.className="checkbox",i.setAttribute("aria-label",`Select ${e.name}`),l.appendChild(i),n.appendChild(l);const m=document.createElement("td");m.textContent=e.name,n.appendChild(m);const h=document.createElement("td");h.textContent=e.email,n.appendChild(h);const b=document.createElement("td"),u=document.createElement("span");u.className=`badge badge-${e.statusVariant}`,u.textContent=e.status,b.appendChild(u),n.appendChild(b),o.appendChild(n)}),a.appendChild(o),d.appendChild(a),d}},T={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table table-hover";const c=document.createElement("thead"),r=document.createElement("tr");[{key:"name",label:"Name",sortable:!0},{key:"email",label:"Email",sortable:!0},{key:"role",label:"Role",sortable:!0},{key:"actions",label:"Actions",sortable:!1}].forEach(t=>{const e=document.createElement("th");if(e.setAttribute("scope","col"),t.sortable){e.style.cursor="pointer",e.style.userSelect="none",e.setAttribute("role","button"),e.setAttribute("aria-sort","none"),e.setAttribute("tabindex","0");const n=document.createElement("span");n.textContent=t.label,e.appendChild(n);const l=document.createElement("span");l.textContent=" ↕",l.style.opacity="0.3",l.style.fontSize="0.8em",l.setAttribute("aria-hidden","true"),e.appendChild(l),e.addEventListener("click",()=>{l.textContent=l.textContent===" ↑"?" ↓":" ↑",l.style.opacity="1",e.setAttribute("aria-sort",l.textContent===" ↑"?"ascending":"descending")})}else e.textContent=t.label;r.appendChild(e)}),c.appendChild(r),a.appendChild(c);const p=document.createElement("tbody");return[{name:"John Doe",email:"john@example.com",role:"Admin"},{name:"Jane Smith",email:"jane@example.com",role:"Editor"},{name:"Bob Wilson",email:"bob@example.com",role:"Viewer"}].forEach(t=>{const e=document.createElement("tr"),n=document.createElement("td");n.textContent=t.name,e.appendChild(n);const l=document.createElement("td");l.textContent=t.email,e.appendChild(l);const i=document.createElement("td");i.textContent=t.role,e.appendChild(i);const m=document.createElement("td"),h=document.createElement("div");h.style.display="flex",h.style.gap="var(--space-2)";const b=document.createElement("button");b.className="btn btn-ghost btn-sm",b.textContent="Edit",b.setAttribute("aria-label",`Edit ${t.name}`),h.appendChild(b);const u=document.createElement("button");u.className="btn btn-ghost btn-sm",u.textContent="Delete",u.setAttribute("aria-label",`Delete ${t.name}`),h.appendChild(u),m.appendChild(h),e.appendChild(m),p.appendChild(e)}),a.appendChild(p),d.appendChild(a),d}},f={render:()=>{const d=document.createElement("div"),a=document.createElement("div");a.className="table-wrapper";const c=document.createElement("table");c.className="table table-striped table-hover";const r=document.createElement("thead"),s=document.createElement("tr");["ID","Name","Email","Status"].forEach(i=>{const m=document.createElement("th");m.textContent=i,m.setAttribute("scope","col"),s.appendChild(m)}),r.appendChild(s),c.appendChild(r);const p=document.createElement("tbody");[{id:"001",name:"John Doe",email:"john@example.com",status:"Active",statusVariant:"success"},{id:"002",name:"Jane Smith",email:"jane@example.com",status:"Active",statusVariant:"success"},{id:"003",name:"Bob Wilson",email:"bob@example.com",status:"Pending",statusVariant:"warning"},{id:"004",name:"Alice Brown",email:"alice@example.com",status:"Active",statusVariant:"success"},{id:"005",name:"Charlie Davis",email:"charlie@example.com",status:"Inactive",statusVariant:"danger"}].forEach(i=>{const m=document.createElement("tr"),h=document.createElement("td");h.textContent=i.id,m.appendChild(h);const b=document.createElement("td");b.textContent=i.name,m.appendChild(b);const u=document.createElement("td");u.textContent=i.email,m.appendChild(u);const x=document.createElement("td"),E=document.createElement("span");E.className=`badge badge-${i.statusVariant}`,E.textContent=i.status,x.appendChild(E),m.appendChild(x),p.appendChild(m)}),c.appendChild(p),a.appendChild(c),d.appendChild(a);const t=document.createElement("div");t.className="pagination",t.style.marginTop="var(--space-4)",t.setAttribute("role","navigation"),t.setAttribute("aria-label","Pagination");const e=document.createElement("button");e.className="btn btn-outline btn-sm",e.textContent="Previous",e.disabled=!0,e.setAttribute("aria-label","Go to previous page"),t.appendChild(e);const n=document.createElement("span");n.style.margin="0 var(--space-4)",n.textContent="Page 1 of 3",n.setAttribute("aria-live","polite"),n.setAttribute("aria-atomic","true"),t.appendChild(n);const l=document.createElement("button");return l.className="btn btn-outline btn-sm",l.textContent="Next",l.setAttribute("aria-label","Go to next page"),t.appendChild(l),d.appendChild(t),d}},k={render:()=>{const d=document.createElement("div");d.className="table-wrapper",d.style.maxWidth="600px";const a=document.createElement("table");a.className="table table-striped";const c=document.createElement("thead"),r=document.createElement("tr");["ID","Product Name","Category","Price","Stock","Supplier","Last Updated"].forEach(e=>{const n=document.createElement("th");n.textContent=e,n.setAttribute("scope","col"),r.appendChild(n)}),c.appendChild(r),a.appendChild(c);const s=document.createElement("tbody");[{id:"001",product:"Widget A",category:"Electronics",price:"$19.99",stock:"45",supplier:"Acme Corp",updated:"2024-01-15"},{id:"002",product:"Gadget B",category:"Hardware",price:"$29.99",stock:"12",supplier:"Tech Supply",updated:"2024-01-18"},{id:"003",product:"Device C",category:"Electronics",price:"$39.99",stock:"8",supplier:"Acme Corp",updated:"2024-01-20"}].forEach(e=>{const n=document.createElement("tr");Object.values(e).forEach(l=>{const i=document.createElement("td");i.textContent=l,n.appendChild(i)}),s.appendChild(n)}),a.appendChild(s),d.appendChild(a);const o=document.createElement("p");o.style.marginTop="var(--space-2)",o.style.fontSize="var(--text-sm)",o.style.color="var(--color-text-secondary)",o.textContent="Scroll horizontally to view all columns";const t=document.createElement("div");return t.appendChild(d),t.appendChild(o),t}},N={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table";const c=document.createElement("thead"),r=document.createElement("tr");["Name","Email","Status"].forEach(p=>{const o=document.createElement("th");o.textContent=p,o.setAttribute("scope","col"),r.appendChild(o)}),c.appendChild(r),a.appendChild(c);const s=document.createElement("tbody");s.setAttribute("aria-busy","true"),s.setAttribute("aria-label","Loading table data");for(let p=0;p<3;p++){const o=document.createElement("tr");for(let t=0;t<3;t++){const e=document.createElement("td"),n=document.createElement("div");n.className="skeleton",n.style.height="20px",n.style.width=t===2?"60px":"100%",n.setAttribute("aria-hidden","true"),e.appendChild(n),o.appendChild(e)}s.appendChild(o)}return a.appendChild(s),d.appendChild(a),d}},S={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table";const c=document.createElement("thead"),r=document.createElement("tr"),s=document.createElement("th");s.className="expand-cell",s.setAttribute("scope","col"),r.appendChild(s),["Name","Email","Status"].forEach(t=>{const e=document.createElement("th");e.textContent=t,e.setAttribute("scope","col"),r.appendChild(e)}),c.appendChild(r),a.appendChild(c);const p=document.createElement("tbody");return[{name:"John Doe",email:"john@example.com",status:"Active",statusVariant:"success",details:{department:"Engineering",role:"Senior Developer",location:"San Francisco, CA",joined:"January 15, 2023"}},{name:"Jane Smith",email:"jane@example.com",status:"Active",statusVariant:"success",details:{department:"Design",role:"Lead Designer",location:"New York, NY",joined:"March 8, 2022"}},{name:"Bob Wilson",email:"bob@example.com",status:"Pending",statusVariant:"warning",details:{department:"Sales",role:"Account Manager",location:"Chicago, IL",joined:"June 22, 2024"}}].forEach(t=>{const e=document.createElement("tr");e.className="expandable",e.setAttribute("role","button"),e.setAttribute("aria-expanded","false"),e.setAttribute("tabindex","0");const n=document.createElement("td");n.className="expand-cell";const l=document.createElement("span");l.className="table-expand-icon",l.innerHTML="&rsaquo;",l.setAttribute("aria-hidden","true"),n.appendChild(l),e.appendChild(n);const i=document.createElement("td");i.textContent=t.name,e.appendChild(i);const m=document.createElement("td");m.textContent=t.email,e.appendChild(m);const h=document.createElement("td"),b=document.createElement("span");b.className=`badge badge-${t.statusVariant}`,b.textContent=t.status,h.appendChild(b),e.appendChild(h),p.appendChild(e);const u=document.createElement("tr");u.className="expanded-content hidden",u.setAttribute("role","region"),u.setAttribute("aria-label",`Additional details for ${t.name}`);const x=document.createElement("td");x.colSpan=4;const E=document.createElement("div");E.className="table-expanded-content";const B=document.createElement("h4");B.textContent="Additional Details",B.style.marginTop="0",E.appendChild(B),Object.entries(t.details).forEach(([C,Ce])=>{const j=document.createElement("p");j.innerHTML=`<strong>${C.charAt(0).toUpperCase()+C.slice(1)}:</strong> ${Ce}`,j.style.margin="var(--space-2) 0",E.appendChild(j)}),x.appendChild(E),u.appendChild(x),p.appendChild(u);const V=()=>{e.classList.toggle("expanded"),u.classList.toggle("hidden");const C=!u.classList.contains("hidden");e.setAttribute("aria-expanded",C.toString()),l.innerHTML=C?"&darr;":"&rsaquo;"};e.addEventListener("click",V),e.addEventListener("keydown",C=>{(C.key==="Enter"||C.key===" ")&&(C.preventDefault(),V())})}),a.appendChild(p),d.appendChild(a),d}},R={render:()=>{const d=document.createElement("div");d.className="table-wrapper";const a=document.createElement("table");a.className="table table-hover";const c=document.createElement("thead"),r=document.createElement("tr");["Name","Email","Status","Actions"].forEach(o=>{const t=document.createElement("th");t.textContent=o,t.setAttribute("scope","col"),r.appendChild(t)}),c.appendChild(r),a.appendChild(c);const s=document.createElement("tbody");return[{name:"John Doe",email:"john@example.com",status:"Active",statusVariant:"success"},{name:"Jane Smith",email:"jane@example.com",status:"Active",statusVariant:"success"}].forEach(o=>{const t=document.createElement("tr"),e=document.createElement("td");e.textContent=o.name,t.appendChild(e);const n=document.createElement("td");n.textContent=o.email,t.appendChild(n);const l=document.createElement("td"),i=document.createElement("span");i.className=`badge badge-${o.statusVariant}`,i.textContent=o.status,l.appendChild(i),t.appendChild(l);const m=document.createElement("td"),h=document.createElement("div");h.style.display="flex",h.style.gap="var(--space-2)";const b=document.createElement("button");b.className="btn btn-ghost btn-sm",b.textContent="Edit",b.setAttribute("aria-label",`Edit ${o.name}`),h.appendChild(b);const u=document.createElement("button");u.className="btn btn-ghost btn-sm",u.textContent="Delete",u.setAttribute("aria-label",`Delete ${o.name}`),h.appendChild(u),m.appendChild(h),t.appendChild(m),s.appendChild(t)}),a.appendChild(s),d.appendChild(a),d}},D={render:d=>Ee(()=>{const a=document.createElement("div");a.className="table-wrapper";const c=document.createElement("table"),r=["table"];d.striped&&r.push("table-striped"),d.hover&&r.push("table-hover"),d.compact&&r.push("table-compact"),c.className=r.join(" ");const s=document.createElement("thead"),p=document.createElement("tr");["Name","Email","Status"].forEach(e=>{const n=document.createElement("th");n.textContent=e,n.setAttribute("scope","col"),p.appendChild(n)}),s.appendChild(p),c.appendChild(s);const o=document.createElement("tbody");return[{name:"John Doe",email:"john@example.com",status:"Active",statusVariant:"success"},{name:"Jane Smith",email:"jane@example.com",status:"Active",statusVariant:"success"},{name:"Bob Wilson",email:"bob@example.com",status:"Pending",statusVariant:"warning"}].forEach(e=>{const n=document.createElement("tr"),l=document.createElement("td");l.textContent=e.name,n.appendChild(l);const i=document.createElement("td");i.textContent=e.email,n.appendChild(i);const m=document.createElement("td"),h=document.createElement("span");h.className=`badge badge-${e.statusVariant}`,h.textContent=e.status,m.appendChild(h),n.appendChild(m),o.appendChild(n)}),c.appendChild(o),a.appendChild(c),a}),args:{striped:!0,hover:!0,compact:!1}};var $,W,J;w.parameters={...w.parameters,docs:{...($=w.parameters)==null?void 0:$.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table';
+
+    // Create thead
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['Name', 'Email', 'Status'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Create tbody
+    const tbody = document.createElement('tbody');
+    const data = [{
+      name: 'John Doe',
+      email: 'john@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }, {
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }, {
+      name: 'Bob Wilson',
+      email: 'bob@example.com',
+      status: 'Pending',
+      statusVariant: 'warning'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      const nameTd = document.createElement('td');
+      nameTd.textContent = item.name;
+      row.appendChild(nameTd);
+      const emailTd = document.createElement('td');
+      emailTd.textContent = item.email;
+      row.appendChild(emailTd);
+      const statusTd = document.createElement('td');
+      const badge = document.createElement('span');
+      badge.className = \`badge badge-\${item.statusVariant}\`;
+      badge.textContent = item.status;
+      statusTd.appendChild(badge);
+      row.appendChild(statusTd);
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(J=(W=w.parameters)==null?void 0:W.docs)==null?void 0:J.source}}};var L,P,I;g.parameters={...g.parameters,docs:{...(L=g.parameters)==null?void 0:L.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table table-striped';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['Product', 'Price', 'Stock'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      product: 'Widget A',
+      price: '$19.99',
+      stock: '45'
+    }, {
+      product: 'Widget B',
+      price: '$29.99',
+      stock: '12'
+    }, {
+      product: 'Widget C',
+      price: '$39.99',
+      stock: '8'
+    }, {
+      product: 'Widget D',
+      price: '$49.99',
+      stock: '23'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      Object.values(item).forEach(value => {
+        const td = document.createElement('td');
+        td.textContent = value;
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(I=(P=g.parameters)==null?void 0:P.docs)==null?void 0:I.source}}};var H,M,O;v.parameters={...v.parameters,docs:{...(H=v.parameters)==null?void 0:H.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table table-striped table-hover';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['Product', 'Price', 'Stock'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      product: 'Widget A',
+      price: '$19.99',
+      stock: '45'
+    }, {
+      product: 'Widget B',
+      price: '$29.99',
+      stock: '12'
+    }, {
+      product: 'Widget C',
+      price: '$39.99',
+      stock: '8'
+    }, {
+      product: 'Widget D',
+      price: '$49.99',
+      stock: '23'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      Object.values(item).forEach(value => {
+        const td = document.createElement('td');
+        td.textContent = value;
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(O=(M=v.parameters)==null?void 0:M.docs)==null?void 0:O.source}}};var z,G,q;y.parameters={...y.parameters,docs:{...(z=y.parameters)==null?void 0:z.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table table-compact';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['Name', 'Email', 'Role'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      name: 'John Doe',
+      email: 'john@example.com',
+      role: 'Admin'
+    }, {
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      role: 'Editor'
+    }, {
+      name: 'Bob Wilson',
+      email: 'bob@example.com',
+      role: 'Viewer'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      Object.values(item).forEach(value => {
+        const td = document.createElement('td');
+        td.textContent = value;
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(q=(G=y.parameters)==null?void 0:G.docs)==null?void 0:q.source}}};var U,F,Y;A.parameters={...A.parameters,docs:{...(U=A.parameters)==null?void 0:U.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table table-hover';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    // Checkbox header
+    const checkboxTh = document.createElement('th');
+    checkboxTh.setAttribute('scope', 'col');
+    checkboxTh.style.width = '40px';
+    const headerCheckbox = document.createElement('input');
+    headerCheckbox.type = 'checkbox';
+    headerCheckbox.className = 'checkbox';
+    headerCheckbox.setAttribute('aria-label', 'Select all rows');
+    headerCheckbox.addEventListener('change', e => {
+      const target = e.target as HTMLInputElement;
+      const checkboxes = wrapper.querySelectorAll('tbody input[type="checkbox"]');
+      checkboxes.forEach(cb => {
+        (cb as HTMLInputElement).checked = target.checked;
+      });
+    });
+    checkboxTh.appendChild(headerCheckbox);
+    headerRow.appendChild(checkboxTh);
+    ['Name', 'Email', 'Status'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      name: 'John Doe',
+      email: 'john@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }, {
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }, {
+      name: 'Bob Wilson',
+      email: 'bob@example.com',
+      status: 'Pending',
+      statusVariant: 'warning'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+
+      // Checkbox cell
+      const checkboxTd = document.createElement('td');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'checkbox';
+      checkbox.setAttribute('aria-label', \`Select \${item.name}\`);
+      checkboxTd.appendChild(checkbox);
+      row.appendChild(checkboxTd);
+      const nameTd = document.createElement('td');
+      nameTd.textContent = item.name;
+      row.appendChild(nameTd);
+      const emailTd = document.createElement('td');
+      emailTd.textContent = item.email;
+      row.appendChild(emailTd);
+      const statusTd = document.createElement('td');
+      const badge = document.createElement('span');
+      badge.className = \`badge badge-\${item.statusVariant}\`;
+      badge.textContent = item.status;
+      statusTd.appendChild(badge);
+      row.appendChild(statusTd);
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(Y=(F=A.parameters)==null?void 0:F.docs)==null?void 0:Y.source}}};var _,K,Q;T.parameters={...T.parameters,docs:{...(_=T.parameters)==null?void 0:_.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table table-hover';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const headers = [{
+      key: 'name',
+      label: 'Name',
+      sortable: true
+    }, {
+      key: 'email',
+      label: 'Email',
+      sortable: true
+    }, {
+      key: 'role',
+      label: 'Role',
+      sortable: true
+    }, {
+      key: 'actions',
+      label: 'Actions',
+      sortable: false
+    }];
+    headers.forEach(header => {
+      const th = document.createElement('th');
+      th.setAttribute('scope', 'col');
+      if (header.sortable) {
+        th.style.cursor = 'pointer';
+        th.style.userSelect = 'none';
+        th.setAttribute('role', 'button');
+        th.setAttribute('aria-sort', 'none');
+        th.setAttribute('tabindex', '0');
+        const span = document.createElement('span');
+        span.textContent = header.label;
+        th.appendChild(span);
+        const icon = document.createElement('span');
+        icon.textContent = ' ↕';
+        icon.style.opacity = '0.3';
+        icon.style.fontSize = '0.8em';
+        icon.setAttribute('aria-hidden', 'true');
+        th.appendChild(icon);
+        th.addEventListener('click', () => {
+          icon.textContent = icon.textContent === ' ↑' ? ' ↓' : ' ↑';
+          icon.style.opacity = '1';
+          th.setAttribute('aria-sort', icon.textContent === ' ↑' ? 'ascending' : 'descending');
+        });
+      } else {
+        th.textContent = header.label;
+      }
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      name: 'John Doe',
+      email: 'john@example.com',
+      role: 'Admin'
+    }, {
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      role: 'Editor'
+    }, {
+      name: 'Bob Wilson',
+      email: 'bob@example.com',
+      role: 'Viewer'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      const nameTd = document.createElement('td');
+      nameTd.textContent = item.name;
+      row.appendChild(nameTd);
+      const emailTd = document.createElement('td');
+      emailTd.textContent = item.email;
+      row.appendChild(emailTd);
+      const roleTd = document.createElement('td');
+      roleTd.textContent = item.role;
+      row.appendChild(roleTd);
+      const actionsTd = document.createElement('td');
+      const actionsDiv = document.createElement('div');
+      actionsDiv.style.display = 'flex';
+      actionsDiv.style.gap = 'var(--space-2)';
+      const editBtn = document.createElement('button');
+      editBtn.className = 'btn btn-ghost btn-sm';
+      editBtn.textContent = 'Edit';
+      editBtn.setAttribute('aria-label', \`Edit \${item.name}\`);
+      actionsDiv.appendChild(editBtn);
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'btn btn-ghost btn-sm';
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.setAttribute('aria-label', \`Delete \${item.name}\`);
+      actionsDiv.appendChild(deleteBtn);
+      actionsTd.appendChild(actionsDiv);
+      row.appendChild(actionsTd);
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(Q=(K=T.parameters)==null?void 0:K.docs)==null?void 0:Q.source}}};var X,Z,ee;f.parameters={...f.parameters,docs:{...(X=f.parameters)==null?void 0:X.docs,source:{originalSource:`{
+  render: () => {
+    const container = document.createElement('div');
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table table-striped table-hover';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['ID', 'Name', 'Email', 'Status'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      id: '001',
+      name: 'John Doe',
+      email: 'john@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }, {
+      id: '002',
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }, {
+      id: '003',
+      name: 'Bob Wilson',
+      email: 'bob@example.com',
+      status: 'Pending',
+      statusVariant: 'warning'
+    }, {
+      id: '004',
+      name: 'Alice Brown',
+      email: 'alice@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }, {
+      id: '005',
+      name: 'Charlie Davis',
+      email: 'charlie@example.com',
+      status: 'Inactive',
+      statusVariant: 'danger'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      const idTd = document.createElement('td');
+      idTd.textContent = item.id;
+      row.appendChild(idTd);
+      const nameTd = document.createElement('td');
+      nameTd.textContent = item.name;
+      row.appendChild(nameTd);
+      const emailTd = document.createElement('td');
+      emailTd.textContent = item.email;
+      row.appendChild(emailTd);
+      const statusTd = document.createElement('td');
+      const badge = document.createElement('span');
+      badge.className = \`badge badge-\${item.statusVariant}\`;
+      badge.textContent = item.status;
+      statusTd.appendChild(badge);
+      row.appendChild(statusTd);
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    container.appendChild(wrapper);
+
+    // Pagination
+    const paginationDiv = document.createElement('div');
+    paginationDiv.className = 'pagination';
+    paginationDiv.style.marginTop = 'var(--space-4)';
+    paginationDiv.setAttribute('role', 'navigation');
+    paginationDiv.setAttribute('aria-label', 'Pagination');
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'btn btn-outline btn-sm';
+    prevBtn.textContent = 'Previous';
+    prevBtn.disabled = true;
+    prevBtn.setAttribute('aria-label', 'Go to previous page');
+    paginationDiv.appendChild(prevBtn);
+    const pageInfo = document.createElement('span');
+    pageInfo.style.margin = '0 var(--space-4)';
+    pageInfo.textContent = 'Page 1 of 3';
+    pageInfo.setAttribute('aria-live', 'polite');
+    pageInfo.setAttribute('aria-atomic', 'true');
+    paginationDiv.appendChild(pageInfo);
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn btn-outline btn-sm';
+    nextBtn.textContent = 'Next';
+    nextBtn.setAttribute('aria-label', 'Go to next page');
+    paginationDiv.appendChild(nextBtn);
+    container.appendChild(paginationDiv);
+    return container;
+  }
+}`,...(ee=(Z=f.parameters)==null?void 0:Z.docs)==null?void 0:ee.source}}};var te,ne,ae;k.parameters={...k.parameters,docs:{...(te=k.parameters)==null?void 0:te.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    wrapper.style.maxWidth = '600px';
+    const table = document.createElement('table');
+    table.className = 'table table-striped';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['ID', 'Product Name', 'Category', 'Price', 'Stock', 'Supplier', 'Last Updated'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      id: '001',
+      product: 'Widget A',
+      category: 'Electronics',
+      price: '$19.99',
+      stock: '45',
+      supplier: 'Acme Corp',
+      updated: '2024-01-15'
+    }, {
+      id: '002',
+      product: 'Gadget B',
+      category: 'Hardware',
+      price: '$29.99',
+      stock: '12',
+      supplier: 'Tech Supply',
+      updated: '2024-01-18'
+    }, {
+      id: '003',
+      product: 'Device C',
+      category: 'Electronics',
+      price: '$39.99',
+      stock: '8',
+      supplier: 'Acme Corp',
+      updated: '2024-01-20'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      Object.values(item).forEach(value => {
+        const td = document.createElement('td');
+        td.textContent = value;
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    const hint = document.createElement('p');
+    hint.style.marginTop = 'var(--space-2)';
+    hint.style.fontSize = 'var(--text-sm)';
+    hint.style.color = 'var(--color-text-secondary)';
+    hint.textContent = 'Scroll horizontally to view all columns';
+    const container = document.createElement('div');
+    container.appendChild(wrapper);
+    container.appendChild(hint);
+    return container;
+  }
+}`,...(ae=(ne=k.parameters)==null?void 0:ne.docs)==null?void 0:ae.source}}};var de,oe,ce;N.parameters={...N.parameters,docs:{...(de=N.parameters)==null?void 0:de.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['Name', 'Email', 'Status'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    tbody.setAttribute('aria-busy', 'true');
+    tbody.setAttribute('aria-label', 'Loading table data');
+
+    // Create 3 skeleton rows
+    for (let i = 0; i < 3; i++) {
+      const row = document.createElement('tr');
+      for (let j = 0; j < 3; j++) {
+        const td = document.createElement('td');
+        const skeleton = document.createElement('div');
+        skeleton.className = 'skeleton';
+        skeleton.style.height = '20px';
+        skeleton.style.width = j === 2 ? '60px' : '100%';
+        skeleton.setAttribute('aria-hidden', 'true');
+        td.appendChild(skeleton);
+        row.appendChild(td);
+      }
+      tbody.appendChild(row);
+    }
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(ce=(oe=N.parameters)==null?void 0:oe.docs)==null?void 0:ce.source}}};var re,se,le;S.parameters={...S.parameters,docs:{...(re=S.parameters)==null?void 0:re.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const expandTh = document.createElement('th');
+    expandTh.className = 'expand-cell';
+    expandTh.setAttribute('scope', 'col');
+    headerRow.appendChild(expandTh);
+    ['Name', 'Email', 'Status'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      name: 'John Doe',
+      email: 'john@example.com',
+      status: 'Active',
+      statusVariant: 'success',
+      details: {
+        department: 'Engineering',
+        role: 'Senior Developer',
+        location: 'San Francisco, CA',
+        joined: 'January 15, 2023'
+      }
+    }, {
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      status: 'Active',
+      statusVariant: 'success',
+      details: {
+        department: 'Design',
+        role: 'Lead Designer',
+        location: 'New York, NY',
+        joined: 'March 8, 2022'
+      }
+    }, {
+      name: 'Bob Wilson',
+      email: 'bob@example.com',
+      status: 'Pending',
+      statusVariant: 'warning',
+      details: {
+        department: 'Sales',
+        role: 'Account Manager',
+        location: 'Chicago, IL',
+        joined: 'June 22, 2024'
+      }
+    }];
+    data.forEach(item => {
+      // Main row
+      const row = document.createElement('tr');
+      row.className = 'expandable';
+      row.setAttribute('role', 'button');
+      row.setAttribute('aria-expanded', 'false');
+      row.setAttribute('tabindex', '0');
+      const expandTd = document.createElement('td');
+      expandTd.className = 'expand-cell';
+      const expandIcon = document.createElement('span');
+      expandIcon.className = 'table-expand-icon';
+      expandIcon.innerHTML = '&rsaquo;'; // Right-pointing chevron (›)
+      expandIcon.setAttribute('aria-hidden', 'true');
+      expandTd.appendChild(expandIcon);
+      row.appendChild(expandTd);
+      const nameTd = document.createElement('td');
+      nameTd.textContent = item.name;
+      row.appendChild(nameTd);
+      const emailTd = document.createElement('td');
+      emailTd.textContent = item.email;
+      row.appendChild(emailTd);
+      const statusTd = document.createElement('td');
+      const badge = document.createElement('span');
+      badge.className = \`badge badge-\${item.statusVariant}\`;
+      badge.textContent = item.status;
+      statusTd.appendChild(badge);
+      row.appendChild(statusTd);
+      tbody.appendChild(row);
+
+      // Expanded content row
+      const expandedRow = document.createElement('tr');
+      expandedRow.className = 'expanded-content hidden';
+      expandedRow.setAttribute('role', 'region');
+      expandedRow.setAttribute('aria-label', \`Additional details for \${item.name}\`);
+      const expandedTd = document.createElement('td');
+      expandedTd.colSpan = 4;
+      const expandedContent = document.createElement('div');
+      expandedContent.className = 'table-expanded-content';
+      const heading = document.createElement('h4');
+      heading.textContent = 'Additional Details';
+      heading.style.marginTop = '0';
+      expandedContent.appendChild(heading);
+      Object.entries(item.details).forEach(([key, value]) => {
+        const p = document.createElement('p');
+        p.innerHTML = \`<strong>\${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> \${value}\`;
+        p.style.margin = 'var(--space-2) 0';
+        expandedContent.appendChild(p);
+      });
+      expandedTd.appendChild(expandedContent);
+      expandedRow.appendChild(expandedTd);
+      tbody.appendChild(expandedRow);
+
+      // Toggle functionality
+      const toggleRow = () => {
+        row.classList.toggle('expanded');
+        expandedRow.classList.toggle('hidden');
+        const isExpanded = !expandedRow.classList.contains('hidden');
+        row.setAttribute('aria-expanded', isExpanded.toString());
+        expandIcon.innerHTML = isExpanded ? '&darr;' : '&rsaquo;'; // Down arrow (↓) when expanded, chevron (›) when collapsed
+      };
+      row.addEventListener('click', toggleRow);
+      row.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleRow();
+        }
+      });
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(le=(se=S.parameters)==null?void 0:se.docs)==null?void 0:le.source}}};var ie,pe,me;R.parameters={...R.parameters,docs:{...(ie=R.parameters)==null?void 0:ie.docs,source:{originalSource:`{
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    const table = document.createElement('table');
+    table.className = 'table table-hover';
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['Name', 'Email', 'Status', 'Actions'].forEach(header => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      th.setAttribute('scope', 'col');
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    const data = [{
+      name: 'John Doe',
+      email: 'john@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }, {
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      status: 'Active',
+      statusVariant: 'success'
+    }];
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      const nameTd = document.createElement('td');
+      nameTd.textContent = item.name;
+      row.appendChild(nameTd);
+      const emailTd = document.createElement('td');
+      emailTd.textContent = item.email;
+      row.appendChild(emailTd);
+      const statusTd = document.createElement('td');
+      const badge = document.createElement('span');
+      badge.className = \`badge badge-\${item.statusVariant}\`;
+      badge.textContent = item.status;
+      statusTd.appendChild(badge);
+      row.appendChild(statusTd);
+      const actionsTd = document.createElement('td');
+      const actionsDiv = document.createElement('div');
+      actionsDiv.style.display = 'flex';
+      actionsDiv.style.gap = 'var(--space-2)';
+      const editBtn = document.createElement('button');
+      editBtn.className = 'btn btn-ghost btn-sm';
+      editBtn.textContent = 'Edit';
+      editBtn.setAttribute('aria-label', \`Edit \${item.name}\`);
+      actionsDiv.appendChild(editBtn);
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'btn btn-ghost btn-sm';
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.setAttribute('aria-label', \`Delete \${item.name}\`);
+      actionsDiv.appendChild(deleteBtn);
+      actionsTd.appendChild(actionsDiv);
+      row.appendChild(actionsTd);
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+}`,...(me=(pe=R.parameters)==null?void 0:pe.docs)==null?void 0:me.source}}};var he,ue,be;D.parameters={...D.parameters,docs:{...(he=D.parameters)==null?void 0:he.docs,source:{originalSource:`{
+  render: args => {
+    return createThemeGrid(() => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'table-wrapper';
+      const table = document.createElement('table');
+      const classes = ['table'];
+      if (args.striped) classes.push('table-striped');
+      if (args.hover) classes.push('table-hover');
+      if (args.compact) classes.push('table-compact');
+      table.className = classes.join(' ');
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      ['Name', 'Email', 'Status'].forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        th.setAttribute('scope', 'col');
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+      const tbody = document.createElement('tbody');
+      const data = [{
+        name: 'John Doe',
+        email: 'john@example.com',
+        status: 'Active',
+        statusVariant: 'success'
+      }, {
+        name: 'Jane Smith',
+        email: 'jane@example.com',
+        status: 'Active',
+        statusVariant: 'success'
+      }, {
+        name: 'Bob Wilson',
+        email: 'bob@example.com',
+        status: 'Pending',
+        statusVariant: 'warning'
+      }];
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        const nameTd = document.createElement('td');
+        nameTd.textContent = item.name;
+        row.appendChild(nameTd);
+        const emailTd = document.createElement('td');
+        emailTd.textContent = item.email;
+        row.appendChild(emailTd);
+        const statusTd = document.createElement('td');
+        const badge = document.createElement('span');
+        badge.className = \`badge badge-\${item.statusVariant}\`;
+        badge.textContent = item.status;
+        statusTd.appendChild(badge);
+        row.appendChild(statusTd);
+        tbody.appendChild(row);
+      });
+      table.appendChild(tbody);
+      wrapper.appendChild(table);
+      return wrapper;
+    });
+  },
+  args: {
+    striped: true,
+    hover: true,
+    compact: false
+  }
+}`,...(be=(ue=D.parameters)==null?void 0:ue.docs)==null?void 0:be.source}}};const ge=["Basic","Striped","StripedAndHover","Compact","WithSelection","WithSorting","WithPagination","ResponsiveScrollable","LoadingSkeleton","ExpandableRows","WithActions","ThemeComparison"];export{w as Basic,y as Compact,S as ExpandableRows,N as LoadingSkeleton,k as ResponsiveScrollable,g as Striped,v as StripedAndHover,D as ThemeComparison,R as WithActions,f as WithPagination,A as WithSelection,T as WithSorting,ge as __namedExportsOrder,we as default};
