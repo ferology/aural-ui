@@ -18,7 +18,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true
   },
-  staticDirs: ['../docs', '../javascript', '../themes', '../src'],
+  staticDirs: ['../javascript', '../themes', '../src'],
   viteFinal: async (config) => {
     // Set base path for GitHub Pages deployment
     config.base = '/aural-ui/storybook/';
