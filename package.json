@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "npm run dev --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
+    "build:css": "node scripts/build-css.js",
     "test": "npm run test --workspaces --if-present",
     "clean": "rm -rf packages/*/dist",
     "serve": "serve docs -p 3001",
     "demo:react": "cd examples/react-demo && npm run dev",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "npm run build:css && storybook build"
   },
   "keywords": [
     "ui",

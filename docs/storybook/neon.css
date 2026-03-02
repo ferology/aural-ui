@@ -299,6 +299,7 @@ body {
 }
 
 /* Optional: Animated gradient background - Subtle */
+
 body::before {
     content: '';
     position: fixed;
@@ -325,6 +326,13 @@ body::before {
 /* ========================================
    SELECTION STYLING
    ======================================== */
+
+::-moz-selection {
+    background: rgba(0, 255, 255, 0.3);
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
 ::selection {
     background: rgba(0, 255, 255, 0.3);
     color: #ffffff;
@@ -340,6 +348,7 @@ body::before {
 /* ========================================
    SCROLLBAR STYLING - Neon Theme
    ======================================== */
+
 ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -367,6 +376,7 @@ body::before {
 }
 
 /* Firefox scrollbar */
+
 * {
     scrollbar-width: thin;
     scrollbar-color: #00ffff rgba(0, 0, 0, 0.5);
