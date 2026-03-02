@@ -21,25 +21,25 @@ A flexible multi-select component that allows users to select multiple items fro
     <div class="aural-multi-select__tags"></div>
     <span class="aural-multi-select__placeholder">Select items...</span>
     <span class="aural-multi-select__clear" aria-label="Clear all" role="button" tabindex="0">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <line x1="18" y1="6" x2="6" y2="18"/>
         <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </span>
     <span class="aural-multi-select__arrow">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <polyline points="6 9 12 15 18 9"/>
       </svg>
     </span>
   </div>
   <div class="aural-multi-select__dropdown">
     <div class="aural-multi-select__search">
-      <input type="text" class="aural-multi-select__search-input" placeholder="Search...">
+      <input type="text" class="aural-multi-select__search-input" placeholder="Search..." aria-label="Search options">
     </div>
     <div class="aural-multi-select__options">
       <button class="aural-multi-select__option" data-value="option1">
         <span class="aural-multi-select__checkbox">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </span>
@@ -185,6 +185,7 @@ function createMultiSelect(
     searchInput.type = 'text';
     searchInput.className = 'aural-multi-select__search-input';
     searchInput.placeholder = 'Search...';
+    searchInput.setAttribute('aria-label', 'Search options');
 
     searchContainer.appendChild(searchInput);
     dropdown.appendChild(searchContainer);
@@ -222,7 +223,7 @@ function createMultiSelect(
       const checkbox = document.createElement('span');
       checkbox.className = 'aural-multi-select__checkbox';
       checkbox.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
       `;
@@ -443,7 +444,7 @@ export const ThemeComparison: Story = {
             tag.innerHTML = `
               ${option.label}
               <button class="aural-multi-select__tag-remove" aria-label="Remove ${option.label}">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <line x1="18" y1="6" x2="6" y2="18"/>
                   <line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
@@ -467,7 +468,7 @@ export const ThemeComparison: Story = {
       clearBtn.setAttribute('role', 'button');
       clearBtn.setAttribute('tabindex', '0');
       clearBtn.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
@@ -476,7 +477,7 @@ export const ThemeComparison: Story = {
       const arrow = document.createElement('span');
       arrow.className = 'aural-multi-select__arrow';
       arrow.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       `;

@@ -10,15 +10,28 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    // Hide theme toolbar on all docs pages by default
+    // Individual stories in Canvas mode will still show it
+    toolbar: {
+      theme: {
+        hidden: (context: any) => context?.viewMode === 'docs'
+      }
+    },
     docs: {
       toc: true,
+      source: {
+        type: 'code',
+      },
+      canvas: {
+        sourceState: 'shown',
+      }
     },
   },
   decorators: [
     (story, context) => {
-      const theme = context.globals.theme || 'dark';
+      const theme = context.globals.theme || 'minimal';
 
-      // Update or create theme link
+      // Load theme CSS
       let themeLink = document.getElementById('theme-stylesheet') as HTMLLinkElement;
       if (!themeLink) {
         themeLink = document.createElement('link');
@@ -28,12 +41,9 @@ const preview: Preview = {
       }
       themeLink.href = `/themes/${theme}.css`;
 
-      // Set data-theme attribute on html and body
+      // Apply theme
       document.documentElement.setAttribute('data-theme', theme);
       document.body.setAttribute('data-theme', theme);
-
-      // Apply smooth transition
-      document.body.style.transition = 'background-color 0.2s ease, color 0.2s ease';
 
       return story();
     }
@@ -41,19 +51,19 @@ const preview: Preview = {
   globalTypes: {
     theme: {
       name: 'Theme',
-      defaultValue: 'dark',
+      defaultValue: 'minimal',
       toolbar: {
         title: 'Theme',
         icon: 'paintbrush',
         items: [
-          { value: 'dark', title: 'Dark' },
+          { value: 'minimal', title: 'Minimal' },
           { value: 'light', title: 'Light' },
+          { value: 'dark', title: 'Dark' },
           { value: 'neon', title: 'Neon' },
           { value: 'kinetic', title: 'Kinetic' },
           { value: 'prismatic', title: 'Prismatic' },
           { value: 'high-contrast', title: 'High Contrast' },
           { value: 'colorblind-friendly', title: 'Colorblind' },
-          { value: 'minimal', title: 'Minimal' },
           { value: 'warm', title: 'Warm' }
         ],
         dynamicTitle: true

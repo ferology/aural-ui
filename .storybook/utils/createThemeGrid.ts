@@ -21,23 +21,25 @@ export function createThemeGrid(
   options?: { columns?: string; gap?: string }
 ): HTMLElement {
   const themes = [
-    { id: 'dark', label: 'Dark' },
+    { id: 'minimal', label: 'Minimal' },
     { id: 'light', label: 'Light' },
+    { id: 'dark', label: 'Dark' },
     { id: 'neon', label: 'Neon' },
     { id: 'kinetic', label: 'Kinetic' },
     { id: 'prismatic', label: 'Prismatic' },
     { id: 'high-contrast', label: 'High Contrast' },
     { id: 'colorblind-friendly', label: 'Colorblind' },
-    { id: 'minimal', label: 'Minimal' },
     { id: 'warm', label: 'Warm' }
   ];
 
   const grid = document.createElement('div');
   grid.style.cssText = `
     display: grid;
-    grid-template-columns: ${options?.columns || 'repeat(auto-fit, minmax(280px, 1fr))'};
-    gap: ${options?.gap || '2rem'};
-    padding: 2rem;
+    grid-template-columns: ${options?.columns || 'repeat(auto-fit, minmax(400px, 1fr))'};
+    gap: ${options?.gap || '3rem'};
+    padding: 3rem;
+    max-width: 1800px;
+    margin: 0 auto;
   `;
 
   themes.forEach(theme => {
@@ -45,7 +47,8 @@ export function createThemeGrid(
     themeBox.style.cssText = `
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.5rem;
+      width: 100%;
     `;
 
     // Theme label
@@ -57,20 +60,25 @@ export function createThemeGrid(
       text-transform: uppercase;
       letter-spacing: 0.05em;
       opacity: 0.7;
+      text-align: center;
+      padding: 0.5rem;
     `;
 
     // Theme container with data-theme attribute
     const container = document.createElement('div');
     container.setAttribute('data-theme', theme.id);
     container.style.cssText = `
-      padding: 2rem;
+      padding: 2.5rem;
       background: var(--color-bg-primary);
-      border: 1px solid var(--color-border-medium);
-      border-radius: 0.5rem;
+      border: 2px solid var(--color-border-medium);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 120px;
+      min-height: 300px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     `;
 
     // Load theme CSS

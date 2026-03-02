@@ -53,7 +53,7 @@ export const Default: Story = {
     }
 
     if (args.src) {
-      avatar.innerHTML = `<img src="${args.src}" alt="User avatar">`;
+      avatar.innerHTML = `<img src="${args.src}" alt="${args.initials ? args.initials + ' avatar' : 'User avatar'}">`;
     } else if (args.initials) {
       avatar.innerHTML = `<span>${args.initials}</span>`;
     } else {
@@ -102,7 +102,7 @@ export const WithImages: Story = {
     for (let i = 1; i <= 4; i++) {
       const avatar = document.createElement('div');
       avatar.className = 'avatar';
-      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=${i}" alt="User ${i}">`;
+      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=${i}" alt="Profile picture ${i}">`;
       container.appendChild(avatar);
     }
 
@@ -252,7 +252,7 @@ export const AvatarGroup: Story = {
     for (let i = 10; i <= 13; i++) {
       const avatar = document.createElement('div');
       avatar.className = 'avatar';
-      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=${i}" alt="User ${i}">`;
+      avatar.innerHTML = `<img src="https://i.pravatar.cc/150?img=${i}" alt="Profile picture ${i}">`;
       group2.appendChild(avatar);
     }
     container.appendChild(group2);

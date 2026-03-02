@@ -76,6 +76,48 @@ export const Default: Story = {
     }, 100);
 
     return container;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<div class="accordion">
+  <div class="accordion-item" id="acc-item-1">
+    <button class="accordion-header" aria-expanded="true" aria-controls="acc-panel-1">
+      <span>What is Aural UI?</span>
+      <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+        <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+      </svg>
+    </button>
+    <div id="acc-panel-1" class="accordion-panel" role="region">
+      <div class="accordion-content">
+        Aural UI is a modern, accessible component library designed for building beautiful web applications.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item" id="acc-item-2">
+    <button class="accordion-header" aria-expanded="false" aria-controls="acc-panel-2">
+      <span>How do I install it?</span>
+      <svg class="accordion-icon" viewBox="0 0 16 16" fill="currentColor" width="20" height="20">
+        <path d="M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z"/>
+      </svg>
+    </button>
+    <div id="acc-panel-2" class="accordion-panel" role="region" hidden>
+      <div class="accordion-content">
+        Simply include the CSS and JavaScript files in your HTML.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Initialize accordion functionality
+if (window.Aural) {
+  window.Aural.initAccordions();
+}
+</script>`
+      }
+    }
   }
 };
 

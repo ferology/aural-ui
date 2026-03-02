@@ -24,94 +24,62 @@
 <!-- Load base Aural UI CSS (compiled version with all imports resolved) -->
 <link rel="stylesheet" href="/aural-ui.css">
 
+<!-- Detect docs mode and add class to body -->
+<script>
+  (function() {
+    function updateViewMode() {
+      const isDocsMode = window.location.href.includes('viewMode=docs') ||
+                         document.getElementById('storybook-docs') !== null ||
+                         document.querySelector('.sbdocs') !== null;
+
+      if (isDocsMode) {
+        document.body.classList.add('docs-mode');
+        document.body.classList.remove('story-mode');
+      } else {
+        document.body.classList.add('story-mode');
+        document.body.classList.remove('docs-mode');
+      }
+    }
+
+    // Run on load
+    updateViewMode();
+
+    // Run on URL change (Storybook navigation)
+    let lastUrl = location.href;
+    new MutationObserver(() => {
+      const url = location.href;
+      if (url !== lastUrl) {
+        lastUrl = url;
+        updateViewMode();
+      }
+    }).observe(document, { subtree: true, childList: true });
+
+    // Also check periodically as a fallback
+    setInterval(updateViewMode, 500);
+  })();
+</script>
+
 <style>
-  /* Apply theme to entire preview iframe */
-  html,
-  body,
-  #storybook-root,
-  #storybook-docs {
-    margin: 0;
-    padding: 0;
-    background: var(--color-bg-primary, #0a0a0a) !important;
-    color: var(--color-text-primary, #ffffff) !important;
-    font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
-    min-height: 100%;
+  /* Hide Storybook internal CSS class names and artifacts */
+  [class*="css-"]::before,
+  [class*="css-"]::after {
+    content: none !important;
+    display: none !important;
   }
 
-  /* Remove all white backgrounds from Storybook containers */
-  .sb-show-main,
-  .sb-main-padded,
-  #storybook-preview-wrapper,
-  #panel-tab-content {
-    background: var(--color-bg-primary, #0a0a0a) !important;
+  /* Clean docs display - hide empty Storybook UI elements */
+  .sbdocs [class*="css-"]:empty {
+    display: none !important;
   }
 
-  /* Apply theme colors to docs container */
-  .sbdocs,
-  .sbdocs-wrapper,
-  .sbdocs-content {
-    background: var(--color-bg-primary, #0a0a0a) !important;
-    color: var(--color-text-primary, #ffffff) !important;
+  /* Hide any visible class name text */
+  .sbdocs [class*="css-"] {
+    font-size: inherit !important;
   }
 
-  .sbdocs h1, .sbdocs h2, .sbdocs h3, .sbdocs h4, .sbdocs h5, .sbdocs h6 {
-    color: var(--color-text-primary, #ffffff) !important;
-  }
-
-  .sbdocs p, .sbdocs li, .sbdocs td {
-    color: var(--color-text-secondary, #b0b0b0) !important;
-  }
-
-  .sbdocs code {
-    background: var(--color-bg-tertiary, #1a1a1a) !important;
-    color: var(--color-primary, #10b981) !important;
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
-
-  .sbdocs pre,
-  .sbdocs pre code {
-    background: var(--color-bg-secondary, #141414) !important;
-    border: 1px solid var(--color-border-subtle, #2a2a2a);
-  }
-
-  /* Style tables in docs */
-  .sbdocs table {
-    border-color: var(--color-border-subtle, #2a2a2a) !important;
-  }
-
-  .sbdocs th {
-    background: var(--color-bg-secondary, #141414) !important;
-    color: var(--color-text-primary, #ffffff) !important;
-    border-color: var(--color-border-subtle, #2a2a2a) !important;
-  }
-
-  .sbdocs tr {
-    border-color: var(--color-border-subtle, #2a2a2a) !important;
-  }
-
-  /* Style links */
-  .sbdocs a {
-    color: var(--color-primary, #10b981) !important;
-  }
-
-  /* Story canvas background */
-  .sb-story {
-    background: transparent !important;
-  }
-
-  /* Reduce search field text size in Storybook sidebar */
-  [role="search"] input,
-  input[type="search"],
-  .sidebar-search input,
-  form[role="search"] input {
-    font-size: 13px !important;
-  }
-
-  /* Also adjust placeholder text size */
-  [role="search"] input::placeholder,
-  input[type="search"]::placeholder,
-  form[role="search"] input::placeholder {
-    font-size: 13px !important;
+  /* Hide theme switcher in docs mode - will be toggled by script */
+  body.docs-mode button[title="Theme"],
+  body.docs-mode [aria-label*="Theme"] {
+    display: none !important;
   }
 </style>

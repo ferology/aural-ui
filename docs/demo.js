@@ -90,6 +90,7 @@
 
         sidebar.innerHTML = `
             ${renderLogo()}
+            ${renderQuickLinks()}
             ${renderSearchBar()}
             ${sections.map(section => renderSection(section)).join('')}
             ${renderThemeSelector()}
@@ -108,6 +109,20 @@
                 </div>
                 <div class="demo-logo-text">Aural UI</div>
             </a>
+        `;
+    }
+
+    function renderQuickLinks() {
+        return `
+            <div style="padding: 0 var(--space-3); margin-bottom: var(--space-4);">
+                <a href="https://ferology.github.io/aural-ui/storybook/" target="_blank" class="btn btn-primary btn-sm" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: var(--space-2);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                    Storybook Docs
+                </a>
+            </div>
         `;
     }
 
