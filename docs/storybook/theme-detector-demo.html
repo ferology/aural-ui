@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Detector Demo | Aural UI</title>
+    <link rel="stylesheet" href="aural-ui.css">
+    <link rel="stylesheet" href="dark.css" id="theme-link">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            padding: var(--space-8);
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+        }
+
+        .demo-header {
+            max-width: 1200px;
+            margin: 0 auto var(--space-8);
+            text-align: center;
+        }
+
+        .demo-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-4);
+        }
+
+        .demo-description {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-6);
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: var(--space-6);
+        }
+
+        .demo-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+        }
+
+        .demo-card h2 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-4);
+        }
+
+        .button-group {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: var(--space-4);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-3);
+            background: var(--color-bg-tertiary);
+            border-radius: var(--radius-md);
+        }
+
+        .info-label {
+            font-weight: var(--font-medium);
+            color: var(--color-text-primary);
+        }
+
+        .info-value {
+            color: var(--color-primary);
+            font-weight: var(--font-semibold);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-3);
+            background: var(--color-primary-alpha);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            color: var(--color-primary);
+        }
+
+        .color-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-4);
+            margin-top: var(--space-4);
+        }
+
+        .color-swatch {
+            aspect-ratio: 1;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: var(--font-semibold);
+            border: 2px solid var(--color-border-subtle);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: var(--space-4);
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button-group .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1 class="demo-title">Theme Detector Demo</h1>
+        <p class="demo-description">
+            Test the automatic system theme detection and manual theme switching functionality.
+        </p>
+    </div>
+
+    <div class="demo-container">
+        <!-- Theme Controls -->
+        <div class="demo-card">
+            <h2>Theme Controls</h2>
+            <p style="margin-bottom: var(--space-4); color: var(--color-text-secondary);">
+                Manually switch between themes or clear preferences to use system settings.
+            </p>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="switchTheme('dark')">
+                    <i data-lucide="moon"></i>
+                    Dark Theme
+                </button>
+                <button class="btn btn-primary" onclick="switchTheme('light')">
+                    <i data-lucide="sun"></i>
+                    Light Theme
+                </button>
+                <button class="btn btn-primary" onclick="switchTheme('high-contrast')">
+                    <i data-lucide="zap"></i>
+                    High Contrast
+                </button>
+                <button class="btn btn-primary" onclick="switchTheme('colorblind')">
+                    <i data-lucide="palette"></i>
+                    Colorblind
+                </button>
+            </div>
+            <div style="margin-top: var(--space-4); display: flex; gap: var(--space-3);">
+                <button class="btn btn-secondary" onclick="toggleTheme()">
+                    <i data-lucide="repeat"></i>
+                    Toggle Dark/Light
+                </button>
+                <button class="btn btn-secondary" onclick="cycleTheme()">
+                    <i data-lucide="shuffle"></i>
+                    Cycle All Themes
+                </button>
+                <button class="btn btn-ghost" onclick="clearTheme()">
+                    <i data-lucide="x"></i>
+                    Clear Preference
+                </button>
+            </div>
+        </div>
+
+        <!-- Theme Information -->
+        <div class="demo-card">
+            <h2>Current Theme Information</h2>
+            <div class="info-grid">
+                <div class="info-row">
+                    <span class="info-label">Active Theme:</span>
+                    <span class="info-value" id="current-theme">Loading...</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">System Preference:</span>
+                    <span class="info-value" id="system-theme">Loading...</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Saved Preference:</span>
+                    <span class="info-value" id="saved-theme">Loading...</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Auto-Detect Enabled:</span>
+                    <span class="info-value" id="auto-detect">Yes</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Showcase -->
+        <div class="demo-card">
+            <h2>Theme Colors</h2>
+            <p style="margin-bottom: var(--space-4); color: var(--color-text-secondary);">
+                These colors update automatically when you switch themes.
+            </p>
+            <div class="color-showcase">
+                <div class="color-swatch" style="background: var(--color-primary);">
+                    Primary
+                </div>
+                <div class="color-swatch" style="background: var(--color-secondary);">
+                    Secondary
+                </div>
+                <div class="color-swatch" style="background: var(--color-success);">
+                    Success
+                </div>
+                <div class="color-swatch" style="background: var(--color-error);">
+                    Error
+                </div>
+                <div class="color-swatch" style="background: var(--color-warning); color: #000;">
+                    Warning
+                </div>
+                <div class="color-swatch" style="background: var(--color-info);">
+                    Info
+                </div>
+            </div>
+        </div>
+
+        <!-- Component Examples -->
+        <div class="demo-card">
+            <h2>Component Examples</h2>
+            <p style="margin-bottom: var(--space-4); color: var(--color-text-secondary);">
+                Components automatically adapt to the active theme.
+            </p>
+            <div style="display: grid; gap: var(--space-4);">
+                <div class="alert alert-info">
+                    <strong>Info:</strong> This alert uses theme-aware colors.
+                </div>
+                <div class="alert alert-success">
+                    <strong>Success:</strong> Theme colors apply consistently across all components.
+                </div>
+                <div class="alert alert-warning">
+                    <strong>Warning:</strong> High contrast mode increases color intensity.
+                </div>
+                <div class="alert alert-error">
+                    <strong>Error:</strong> Colorblind mode uses blue/orange instead of red/green.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="aural-ui.js"></script>
+    <script src="utilities/theme-detector.js"></script>
+    <script>
+        // Initialize theme detector
+        let detector;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            detector = new ThemeDetector({
+                themeLinkId: 'theme-link',
+                autoDetect: true,
+                onThemeChange: function(theme) {
+                    console.log('Theme changed to:', theme);
+                    updateDisplay();
+
+                    // Show toast notification
+                    if (typeof Aural !== 'undefined') {
+                        Aural.showToast(`Theme switched to ${theme}`, 'success');
+                    }
+                }
+            });
+
+            updateDisplay();
+            initLucideIcons();
+
+            // Watch for system theme changes
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                    updateDisplay();
+                });
+            }
+        });
+
+        function switchTheme(theme) {
+            detector.setTheme(theme, true);
+        }
+
+        function toggleTheme() {
+            detector.toggle();
+        }
+
+        function cycleTheme() {
+            detector.cycle();
+        }
+
+        function clearTheme() {
+            detector.clearSavedTheme();
+            if (typeof Aural !== 'undefined') {
+                Aural.showToast('Theme preference cleared. Using system default.', 'info');
+            }
+            updateDisplay();
+            // Reinitialize to use system theme
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
+        }
+
+        function updateDisplay() {
+            if (!detector) return;
+
+            document.getElementById('current-theme').textContent = detector.getCurrentTheme() || 'None';
+            document.getElementById('system-theme').textContent = detector.getSystemTheme() || 'Not available';
+            document.getElementById('saved-theme').textContent = detector.getSavedTheme() || 'None';
+        }
+
+        function initLucideIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html>

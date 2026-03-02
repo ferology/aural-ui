@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { html } from '../src/utils/html';
+// import { html } from '../src/utils/html'; // Removed - file doesn't exist
 
 /**
  * Stats Cards are used to display key metrics, performance indicators, and statistical data with visual emphasis.

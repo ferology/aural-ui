@@ -1,0 +1,493 @@
+<!--
+    Common Navigation Sidebar for Aural UI
+    Include this in all documentation pages
+-->
+<nav class="doc-sidebar" id="doc-sidebar">
+    <div class="sidebar-header">
+        <h2 class="sidebar-logo">Aural UI</h2>
+        <button type="button" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+            <i data-lucide="menu" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <div class="sidebar-content">
+        <!-- Documentation Section -->
+        <div class="nav-section">
+            <h3 class="nav-section-title">
+                <i data-lucide="book-open" aria-hidden="true"></i>
+                Documentation
+            </h3>
+            <ul class="nav-list">
+                <li><a href="./nav.html" class="nav-link"><i data-lucide="home" aria-hidden="true"></i> Home</a></li>
+                <li><a href="./tutorial.html" class="nav-link"><i data-lucide="graduation-cap" aria-hidden="true"></i> Getting Started</a></li>
+                <li><a href="./api.html" class="nav-link"><i data-lucide="code-2" aria-hidden="true"></i> API Reference</a></li>
+                <li><a href="./tokens.html" class="nav-link"><i data-lucide="palette" aria-hidden="true"></i> Design Tokens</a></li>
+                <li><a href="./themes.html" class="nav-link"><i data-lucide="paintbrush" aria-hidden="true"></i> Themes</a></li>
+                <li><a href="./examples.html" class="nav-link"><i data-lucide="file-code" aria-hidden="true"></i> Examples</a></li>
+            </ul>
+        </div>
+
+        <!-- Components Section -->
+        <div class="nav-section">
+            <h3 class="nav-section-title">
+                <button type="button" class="nav-section-toggle" onclick="" aria-expanded="false" aria-label="Toggle Components section">
+                    <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                    <i data-lucide="layout-grid" aria-hidden="true"></i>
+                    Components
+                </button>
+            </h3>
+            <div class="nav-section-content">
+                <!-- Form Controls -->
+                <div class="nav-category">
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Form Controls
+                        </button>
+                    </h4>
+                    <ul class="nav-list nav-sublist">
+                        <li><a href="./showcase.html#buttons" class="nav-link">Button</a></li>
+                        <li><a href="./showcase.html#inputs" class="nav-link">Input</a></li>
+                        <li><a href="./showcase.html#search-bar" class="nav-link">Search Bar</a></li>
+                        <li><a href="./showcase.html#checkboxes" class="nav-link">Checkbox</a></li>
+                        <li><a href="./showcase.html#radios" class="nav-link">Radio</a></li>
+                        <li><a href="./showcase.html#switches" class="nav-link">Switch / Toggle</a></li>
+                        <li><a href="./showcase.html#selects" class="nav-link">Select</a></li>
+                        <li><a href="./showcase.html#multi-selects" class="nav-link">Multi Select</a></li>
+                        <li><a href="./showcase.html#combobox" class="nav-link">Combobox</a></li>
+                        <li><a href="./showcase.html#rating" class="nav-link">Rating</a></li>
+                        <li><a href="./showcase.html#color-picker" class="nav-link">Color Picker</a></li>
+                        <li><a href="./showcase.html#range-slider" class="nav-link">Range Slider</a></li>
+                        <li><a href="./showcase.html#slider" class="nav-link">Slider</a></li>
+                        <li><a href="./showcase.html#time-picker" class="nav-link">Time Picker</a></li>
+                        <li><a href="./showcase.html#date-picker" class="nav-link">Date Picker</a></li>
+                        <li><a href="./showcase.html#file-upload" class="nav-link">File Upload</a></li>
+                    </ul>
+                </div>
+
+                <!-- Navigation -->
+                <div class="nav-category">
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Navigation
+                        </button>
+                    </h4>
+                    <ul class="nav-list nav-sublist">
+                        <li><a href="./showcase.html#navbar" class="nav-link">Navbar</a></li>
+                        <li><a href="./showcase.html#tabs" class="nav-link">Tabs</a></li>
+                        <li><a href="./showcase.html#breadcrumbs" class="nav-link">Breadcrumb</a></li>
+                        <li><a href="./showcase.html#pagination" class="nav-link">Pagination</a></li>
+                        <li><a href="./showcase.html#stepper" class="nav-link">Stepper</a></li>
+                        <li><a href="./showcase.html#drawer" class="nav-link">Drawer</a></li>
+                        <li><a href="./showcase.html#context-menu" class="nav-link">Context Menu</a></li>
+                        <li><a href="./showcase.html#bottom-nav" class="nav-link">Bottom Nav</a></li>
+                    </ul>
+                </div>
+
+                <!-- Data Display -->
+                <div class="nav-category">
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Data Display
+                        </button>
+                    </h4>
+                    <ul class="nav-list nav-sublist">
+                        <li><a href="./showcase.html#cards" class="nav-link">Card</a></li>
+                        <li><a href="./showcase.html#tables" class="nav-link">Table</a></li>
+                        <li><a href="./showcase.html#avatars" class="nav-link">Avatar</a></li>
+                        <li><a href="./showcase.html#badges" class="nav-link">Badge</a></li>
+                        <li><a href="./showcase.html#chips" class="nav-link">Chips</a></li>
+                        <li><a href="./showcase.html#progress" class="nav-link">Progress</a></li>
+                        <li><a href="./showcase.html#dividers" class="nav-link">Divider</a></li>
+                        <li><a href="./showcase.html#timeline" class="nav-link">Timeline</a></li>
+                        <li><a href="./showcase.html#stats-card" class="nav-link">Stats Card</a></li>
+                        <li><a href="./showcase.html#carousel" class="nav-link">Carousel</a></li>
+                        <li><a href="./showcase.html#tree-view" class="nav-link">Tree View</a></li>
+                        <li><a href="./showcase.html#image-gallery" class="nav-link">Image Gallery</a></li>
+                        <li><a href="./showcase.html#code-block" class="nav-link">Code Block</a></li>
+                    </ul>
+                </div>
+
+                <!-- Interactive -->
+                <div class="nav-category">
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Interactive
+                        </button>
+                    </h4>
+                    <ul class="nav-list nav-sublist">
+                        <li><a href="./showcase.html#tooltips" class="nav-link">Tooltip</a></li>
+                        <li><a href="./showcase.html#dropdowns" class="nav-link">Dropdown</a></li>
+                        <li><a href="./showcase.html#accordions" class="nav-link">Accordion</a></li>
+                        <li><a href="./showcase.html#popovers" class="nav-link">Popover</a></li>
+                        <li><a href="./showcase.html#modals" class="nav-link">Modal</a></li>
+                        <li><a href="./showcase.html#dialogs" class="nav-link">Dialog</a></li>
+                        <li><a href="./showcase.html#command-palette" class="nav-link">Command Palette</a></li>
+                    </ul>
+                </div>
+
+                <!-- Feedback -->
+                <div class="nav-category">
+                    <h4 class="nav-category-header">
+                        <button type="button" class="nav-category-title" onclick="toggleNavCategory(this)" onkeydown="handleNavCategoryKeydown(event, this)" aria-expanded="false">
+                            <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                            Feedback
+                        </button>
+                    </h4>
+                    <ul class="nav-list nav-sublist">
+                        <li><a href="./showcase.html#alert-banner" class="nav-link">Alert Banner</a></li>
+                        <li><a href="./showcase.html#toast" class="nav-link">Toast</a></li>
+                        <li><a href="./showcase.html#snackbar" class="nav-link">Snackbar</a></li>
+                        <li><a href="./showcase.html#skeleton" class="nav-link">Skeleton</a></li>
+                        <li><a href="./showcase.html#spinner" class="nav-link">Spinner</a></li>
+                        <li><a href="./showcase.html#empty-state" class="nav-link">Empty State</a></li>
+                        <li><a href="./showcase.html#notification-center" class="nav-link">Notification Center</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Utilities Section -->
+        <div class="nav-section">
+            <h3 class="nav-section-title">
+                <button type="button" class="nav-section-toggle" onclick="" aria-expanded="false" aria-label="Toggle Utilities section">
+                    <i data-lucide="chevron-right" class="chevron" aria-hidden="true"></i>
+                    <i data-lucide="wrench" aria-hidden="true"></i>
+                    Utilities
+                </button>
+            </h3>
+            <div class="nav-section-content">
+                <ul class="nav-list">
+                    <li><a href="./showcase.html#typography" class="nav-link">Typography</a></li>
+                    <li><a href="./showcase.html#spacing" class="nav-link">Spacing</a></li>
+                    <li><a href="./showcase.html#display" class="nav-link">Display</a></li>
+                    <li><a href="./showcase.html#colors" class="nav-link">Colors</a></li>
+                    <li><a href="./showcase.html#borders" class="nav-link">Borders</a></li>
+                    <li><a href="./showcase.html#grid" class="nav-link">Grid</a></li>
+                    <li><a href="./showcase.html#shadows" class="nav-link">Shadows</a></li>
+                    <li><a href="./showcase.html#glows" class="nav-link">Glows</a></li>
+                    <li><a href="./showcase.html#animations" class="nav-link">Animations</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Resources Section -->
+        <div class="nav-section">
+            <h3 class="nav-section-title">
+                <i data-lucide="external-link" aria-hidden="true"></i>
+                Resources
+            </h3>
+            <ul class="nav-list">
+                <li><a href="https://github.com/ferology/aural-ui" class="nav-link" target="_blank" aria-label="GitHub (opens in new tab)"><i data-lucide="github" aria-hidden="true"></i> GitHub</a></li>
+                <li><a href="https://github.com/ferology/aural-ui/issues" class="nav-link" target="_blank" aria-label="Report Issue (opens in new tab)"><i data-lucide="bug" aria-hidden="true"></i> Report Issue</a></li>
+                <li><a href="../README.md" class="nav-link"><i data-lucide="book-open" aria-hidden="true"></i> README</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* Sidebar Styles */
+    .doc-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        background: var(--color-bg-secondary);
+        border-right: 1px solid var(--color-border-subtle);
+        overflow-y: auto;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+    }
+
+    .doc-sidebar.collapsed {
+        transform: translateX(-280px);
+    }
+
+    .sidebar-header {
+        padding: var(--space-6) var(--space-4);
+        border-bottom: 1px solid var(--color-border-subtle);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .sidebar-logo {
+        font-size: var(--text-xl);
+        font-weight: var(--font-bold);
+        color: var(--color-primary);
+        margin: 0;
+    }
+
+    .sidebar-toggle {
+        background: none;
+        border: none;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        padding: var(--space-2);
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar-toggle:hover {
+        background: var(--color-bg-tertiary);
+        color: var(--color-primary);
+    }
+
+    .sidebar-content {
+        padding: var(--space-4);
+    }
+
+    .nav-section {
+        margin-bottom: var(--space-6);
+    }
+
+    .nav-section-title {
+        font-size: var(--text-xs);
+        font-weight: var(--font-semibold);
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: var(--tracking-wide);
+        margin: 0 0 var(--space-3) 0;
+        padding: var(--space-2);
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+    }
+
+    .nav-section-title i {
+        width: 16px;
+        height: 16px;
+    }
+
+    .nav-section-toggle {
+        background: none;
+        border: none;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-size: var(--text-xs);
+        font-weight: var(--font-semibold);
+        text-transform: uppercase;
+        letter-spacing: var(--tracking-wide);
+        padding: 0;
+        transition: color 0.2s ease;
+    }
+
+    .nav-section-toggle:hover {
+        color: var(--color-primary);
+    }
+
+    .nav-section-toggle .chevron {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.2s ease;
+    }
+
+    .nav-section-toggle.expanded .chevron {
+        transform: rotate(90deg);
+    }
+
+    .nav-section-content {
+        display: none;
+        margin-top: var(--space-3);
+    }
+
+    .nav-section-content.expanded {
+        display: block;
+    }
+
+    .nav-category {
+        margin-bottom: var(--space-4);
+    }
+
+    .nav-category-header {
+        margin: 0;
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+    .nav-category-title {
+        background: none;
+        border: none;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        padding: var(--space-2);
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-size: var(--text-sm);
+        font-weight: var(--font-semibold);
+        width: 100%;
+        border-radius: var(--radius);
+        text-transform: uppercase;
+        letter-spacing: var(--tracking-wide);
+        transition: all 0.2s ease;
+    }
+
+    .nav-category-title:hover {
+        background: var(--color-bg-tertiary);
+        color: var(--color-primary);
+    }
+
+    .nav-category-title.expanded {
+        color: var(--color-primary);
+    }
+
+    .nav-category-title .chevron {
+        width: 16px;
+        height: 10px;
+        transition: transform 0.2s ease;
+    }
+
+    .nav-category-title.expanded .chevron {
+        transform: rotate(90deg);
+    }
+
+    .nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+    }
+
+    .nav-list li {
+        margin: 0;
+    }
+
+    .nav-sublist {
+        display: none;
+        padding-left: var(--space-6);
+        margin-top: var(--space-2);
+    }
+
+    .nav-sublist.expanded {
+        display: block;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-2);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: var(--text-sm);
+        border-radius: var(--radius);
+        transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+        background: var(--color-bg-tertiary);
+        color: var(--color-primary);
+    }
+
+    .nav-link.active {
+        background: var(--color-primary);
+        color: white;
+        font-weight: var(--font-semibold);
+    }
+
+    .nav-link i {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Content adjustment for pages with sidebar */
+    body.has-sidebar {
+        margin-left: 280px;
+    }
+
+    body.has-sidebar.sidebar-collapsed {
+        margin-left: 0;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+        .doc-sidebar {
+            transform: translateX(-280px);
+        }
+
+        .doc-sidebar.mobile-open {
+            transform: translateX(0);
+        }
+
+        body.has-sidebar {
+            margin-left: 0;
+        }
+
+        .sidebar-toggle {
+            display: flex;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .sidebar-toggle {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('doc-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        if (window.innerWidth <= 768) {
+            sidebar.classList.toggle('mobile-open');
+            if (overlay) {
+                overlay.classList.toggle('active');
+            }
+        } else {
+            sidebar.classList.toggle('collapsed');
+            document.body.classList.toggle('sidebar-collapsed');
+        }
+    }
+
+    function toggleNavCategory(button) {
+        const isExpanded = button.classList.toggle('expanded');
+        button.setAttribute('aria-expanded', isExpanded);
+        const sublist = button.parentElement.nextElementSibling;
+        if (sublist) {
+            sublist.classList.toggle('expanded');
+        }
+    }
+
+    function handleNavCategoryKeydown(event, button) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleNavCategory(button);
+        }
+    }
+
+    // Auto-highlight active page in navigation (no auto-expand)
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentPath = window.location.pathname;
+        const currentHash = window.location.hash;
+
+        // Highlight active links
+        const links = document.querySelectorAll('.nav-link');
+        links.forEach(link => {
+            const linkHref = link.getAttribute('href');
+
+            // Check if link matches current page with hash
+            if (currentHash && linkHref === './index.html' + currentHash) {
+                link.classList.add('active');
+            }
+            // Check if link matches current page path
+            else if (linkHref === './' + currentPath.split('/').pop()) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
