@@ -33,6 +33,16 @@
             margin: 0 0 var(--space-6) 0;
         }
 
+        .catalog-stats {
+            display: inline-block;
+            padding: var(--space-2) var(--space-4);
+            background: var(--color-bg-tertiary);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-6);
+        }
+
         .catalog-filters {
             display: flex;
             gap: var(--space-2);
@@ -61,6 +71,11 @@
             border-color: var(--color-primary);
         }
 
+        .filter-count {
+            opacity: 0.7;
+            margin-left: var(--space-1);
+        }
+
         .catalog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -76,6 +91,7 @@
             overflow: hidden;
             text-decoration: none;
             transition: all 0.2s;
+            display: block;
         }
 
         .catalog-item:hover {
@@ -109,6 +125,7 @@
             margin: 0;
             font-size: 13px;
             color: var(--color-text-tertiary);
+            line-height: 1.4;
         }
 
         .catalog-meta {
@@ -127,12 +144,37 @@
             font-weight: 600;
         }
 
+        .badge-interactive {
+            background: var(--color-primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: var(--space-12);
+            color: var(--color-text-tertiary);
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-4);
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body>
     <div class="catalog-header">
         <h1 class="catalog-title">Component Catalog</h1>
-        <p class="catalog-description">Browse all components in the Aural UI design system</p>
+        <p class="catalog-description">Browse all 50 components in the Aural UI design system</p>
+        <div class="catalog-stats">
+            📦 <strong>50 Components</strong> • 9 Themes • 100% Accessible
+        </div>
 
         <div class="aural-search-bar" style="max-width: 600px; margin-bottom: var(--space-6);">
             <div class="aural-search-bar__wrapper">
@@ -147,46 +189,44 @@
         </div>
 
         <div class="catalog-filters">
-            <button class="filter-btn active" data-filter="all">All Components</button>
-            <button class="filter-btn" data-filter="forms">Forms & Inputs</button>
-            <button class="filter-btn" data-filter="data">Data Display</button>
-            <button class="filter-btn" data-filter="navigation">Navigation</button>
-            <button class="filter-btn" data-filter="feedback">Feedback</button>
-            <button class="filter-btn" data-filter="layout">Layout</button>
+            <button class="filter-btn active" data-filter="all">All <span class="filter-count">(50)</span></button>
+            <button class="filter-btn" data-filter="forms">Forms & Inputs <span class="filter-count">(16)</span></button>
+            <button class="filter-btn" data-filter="navigation">Navigation <span class="filter-count">(8)</span></button>
+            <button class="filter-btn" data-filter="feedback">Feedback <span class="filter-count">(8)</span></button>
+            <button class="filter-btn" data-filter="data">Data Display <span class="filter-count">(12)</span></button>
+            <button class="filter-btn" data-filter="interactive">Interactive <span class="filter-count">(6)</span></button>
         </div>
     </div>
 
-    <div class="catalog-grid">
-        <!-- Buttons -->
-        <a href="components/buttons.html" class="catalog-item" data-category="forms">
+    <div class="catalog-grid" id="catalog-grid">
+        <!-- Forms & Inputs -->
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-button--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="button action click primary secondary">
             <div class="catalog-preview">
                 <button class="btn btn-primary">Click Me</button>
             </div>
             <div class="catalog-info">
-                <h3>Buttons</h3>
-                <p>Interactive action buttons with variants</p>
+                <h3>Button</h3>
+                <p>Versatile action buttons with multiple variants, sizes, and states</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Inputs -->
-        <a href="components/inputs.html" class="catalog-item" data-category="forms">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-input--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="input text field form validation">
             <div class="catalog-preview">
-                <input type="text" class="input" placeholder="Enter text...">
+                <input type="text" class="input" placeholder="Enter text..." style="max-width: 200px;">
             </div>
             <div class="catalog-info">
-                <h3>Inputs</h3>
-                <p>Text input fields for user data entry</p>
+                <h3>Input</h3>
+                <p>Text input fields with validation, sizes, and states</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Checkboxes -->
-        <a href="components/checkboxes.html" class="catalog-item" data-category="forms">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-checkbox--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="checkbox check toggle selection">
             <div class="catalog-preview">
                 <label class="checkbox">
                     <input type="checkbox" checked>
@@ -194,16 +234,15 @@
                 </label>
             </div>
             <div class="catalog-info">
-                <h3>Checkboxes</h3>
-                <p>Selection controls for multiple options</p>
+                <h3>Checkbox</h3>
+                <p>Selection controls for multiple options with indeterminate state</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Radio Buttons -->
-        <a href="components/radio-buttons.html" class="catalog-item" data-category="forms">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-radio--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="radio button selection single">
             <div class="catalog-preview">
                 <label class="radio">
                     <input type="radio" name="example" checked>
@@ -211,248 +250,753 @@
                 </label>
             </div>
             <div class="catalog-info">
-                <h3>Radio Buttons</h3>
-                <p>Single selection from multiple options</p>
+                <h3>Radio</h3>
+                <p>Single selection from multiple mutually exclusive options</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Select -->
-        <a href="components/select.html" class="catalog-item" data-category="forms">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-select--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="select dropdown menu options">
             <div class="catalog-preview">
-                <select class="select">
+                <select class="select" style="max-width: 180px;">
                     <option>Choose option...</option>
+                    <option>Option 1</option>
                 </select>
             </div>
             <div class="catalog-info">
                 <h3>Select</h3>
-                <p>Dropdown selection menus</p>
+                <p>Custom dropdown with searchable and grouped options</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-switch--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="switch toggle on off boolean">
+            <div class="catalog-preview">
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+            <div class="catalog-info">
+                <h3>Switch</h3>
+                <p>Toggle control for binary on/off states</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Cards -->
-        <a href="components/cards.html" class="catalog-item" data-category="data">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-slider--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="slider range input number">
             <div class="catalog-preview">
-                <div class="card" style="max-width: 200px;">
-                    <div class="card-header">Card Title</div>
-                    <div class="card-body">Content</div>
+                <input type="range" class="slider" min="0" max="100" value="50" style="max-width: 180px;">
+            </div>
+            <div class="catalog-info">
+                <h3>Slider</h3>
+                <p>Single value slider for numeric input within a range</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-rangeslider--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="range slider dual values">
+            <div class="catalog-preview">
+                <div style="max-width: 180px; color: var(--color-text-secondary); font-size: 12px;">
+                    <i data-lucide="sliders" style="width: 48px; height: 48px;"></i>
                 </div>
             </div>
             <div class="catalog-info">
-                <h3>Cards</h3>
-                <p>Container for related content</p>
+                <h3>Range Slider</h3>
+                <p>Dual-handle slider for selecting a numeric range</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Tables -->
-        <a href="components/tables.html" class="catalog-item" data-category="data">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-colorpicker--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="color picker palette hex rgb">
             <div class="catalog-preview">
-                <table class="table" style="font-size: 11px;">
-                    <thead><tr><th>Column</th></tr></thead>
-                    <tbody><tr><td>Data</td></tr></tbody>
-                </table>
+                <input type="color" value="#5ebd8f" style="width: 60px; height: 60px; border: none; border-radius: var(--radius-md); cursor: pointer;">
             </div>
             <div class="catalog-info">
-                <h3>Tables</h3>
-                <p>Structured data display</p>
+                <h3>Color Picker</h3>
+                <p>Interactive color selection with multiple format support</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-datepicker--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="date picker calendar">
+            <div class="catalog-preview">
+                <i data-lucide="calendar" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Date Picker</h3>
+                <p>Calendar interface for date selection with validation</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-daterangepicker--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="date range picker calendar period">
+            <div class="catalog-preview">
+                <i data-lucide="calendar-range" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Date Range Picker</h3>
+                <p>Select start and end dates with calendar interface</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-fileupload--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="file upload drag drop">
+            <div class="catalog-preview">
+                <i data-lucide="upload" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>File Upload</h3>
+                <p>Drag-and-drop file upload with progress indication</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-rating--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="rating stars review">
+            <div class="catalog-preview">
+                <div style="color: #fbbf24; font-size: 24px;">★★★★☆</div>
+            </div>
+            <div class="catalog-info">
+                <h3>Rating</h3>
+                <p>Star rating input for feedback and reviews</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Tabs -->
-        <a href="components/tabs.html" class="catalog-item" data-category="navigation">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-searchbar--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="search bar input filter">
+            <div class="catalog-preview">
+                <div class="aural-search-bar" style="max-width: 200px;">
+                    <div class="aural-search-bar__wrapper">
+                        <div class="aural-search-bar__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </div>
+                        <input type="text" class="aural-search-bar__input" placeholder="Search...">
+                    </div>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Search Bar</h3>
+                <p>Search input with icon and autocomplete support</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-combobox--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="combobox autocomplete typeahead">
+            <div class="catalog-preview">
+                <i data-lucide="list-filter" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Combobox</h3>
+                <p>Autocomplete input with searchable dropdown options</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-multiselect--docs" target="_blank" class="catalog-item" data-category="forms" data-keywords="multi select multiple tags">
+            <div class="catalog-preview">
+                <i data-lucide="list-checks" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Multi Select</h3>
+                <p>Select multiple options with tag-style display</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Navigation -->
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-tabs--docs" target="_blank" class="catalog-item" data-category="navigation" data-keywords="tabs tabbed navigation panels">
             <div class="catalog-preview">
                 <div class="tabs">
                     <button class="tab tab-active">Tab 1</button>
                     <button class="tab">Tab 2</button>
+                    <button class="tab">Tab 3</button>
                 </div>
             </div>
             <div class="catalog-info">
                 <h3>Tabs</h3>
-                <p>Organize content into panels</p>
+                <p>Organize content into switchable panels with keyboard navigation</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
                 </div>
             </div>
         </a>
 
-        <!-- Breadcrumbs -->
-        <a href="components/breadcrumbs.html" class="catalog-item" data-category="navigation">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-breadcrumbs--docs" target="_blank" class="catalog-item" data-category="navigation" data-keywords="breadcrumbs navigation path hierarchy">
             <div class="catalog-preview">
-                <nav class="breadcrumbs">
-                    <a href="#">Home</a>
-                    <a href="#">Products</a>
+                <nav class="breadcrumbs" style="font-size: 12px;">
+                    <a href="#" style="color: var(--color-text-secondary);">Home</a>
+                    <span style="margin: 0 8px; color: var(--color-text-tertiary);">/</span>
+                    <a href="#" style="color: var(--color-text-secondary);">Products</a>
+                    <span style="margin: 0 8px; color: var(--color-text-tertiary);">/</span>
+                    <span style="color: var(--color-text-primary);">Item</span>
                 </nav>
             </div>
             <div class="catalog-info">
                 <h3>Breadcrumbs</h3>
-                <p>Navigation hierarchy indicator</p>
+                <p>Navigation trail showing current location in hierarchy</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Modals -->
-        <a href="components/modals.html" class="catalog-item" data-category="feedback">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-navbar--docs" target="_blank" class="catalog-item" data-category="navigation" data-keywords="navbar navigation menu header">
             <div class="catalog-preview">
-                <i data-lucide="square" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+                <i data-lucide="menu" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
             </div>
             <div class="catalog-info">
-                <h3>Modals</h3>
-                <p>Dialog windows for focused content</p>
+                <h3>Navbar</h3>
+                <p>Top navigation bar with responsive menu and branding</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-pagination--docs" target="_blank" class="catalog-item" data-category="navigation" data-keywords="pagination pages numbers">
+            <div class="catalog-preview">
+                <div style="display: flex; gap: 4px; font-size: 12px;">
+                    <button class="btn btn-ghost" style="padding: 4px 8px;">«</button>
+                    <button class="btn btn-primary" style="padding: 4px 8px;">1</button>
+                    <button class="btn btn-ghost" style="padding: 4px 8px;">2</button>
+                    <button class="btn btn-ghost" style="padding: 4px 8px;">3</button>
+                    <button class="btn btn-ghost" style="padding: 4px 8px;">»</button>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Pagination</h3>
+                <p>Navigate through pages of content with page numbers</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Alerts -->
-        <a href="components/alerts.html" class="catalog-item" data-category="feedback">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-stepper--docs" target="_blank" class="catalog-item" data-category="navigation" data-keywords="stepper steps progress wizard">
             <div class="catalog-preview">
-                <div class="alert alert-info" style="max-width: 220px; font-size: 12px;">
+                <i data-lucide="list-ordered" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Stepper</h3>
+                <p>Multi-step progress indicator for forms and wizards</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-bottomnavigation--docs" target="_blank" class="catalog-item" data-category="navigation" data-keywords="bottom navigation mobile tabs">
+            <div class="catalog-preview">
+                <i data-lucide="smartphone" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Bottom Navigation</h3>
+                <p>Mobile-optimized navigation bar at bottom of screen</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-commandpalette--docs" target="_blank" class="catalog-item" data-category="navigation" data-keywords="command palette search keyboard shortcuts">
+            <div class="catalog-preview">
+                <i data-lucide="command" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Command Palette</h3>
+                <p>Keyboard-driven command launcher and search interface</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-contextmenu--docs" target="_blank" class="catalog-item" data-category="navigation" data-keywords="context menu right click">
+            <div class="catalog-preview">
+                <i data-lucide="mouse-pointer-click" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Context Menu</h3>
+                <p>Right-click menu with contextual actions and shortcuts</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Feedback -->
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-alert--docs" target="_blank" class="catalog-item" data-category="feedback" data-keywords="alert notification message banner">
+            <div class="catalog-preview">
+                <div class="alert alert-info" style="max-width: 220px; font-size: 11px; padding: var(--space-3);">
+                    <i data-lucide="info" style="width: 16px; height: 16px;"></i>
                     Information message
                 </div>
             </div>
             <div class="catalog-info">
-                <h3>Alerts</h3>
-                <p>Contextual feedback messages</p>
+                <h3>Alert</h3>
+                <p>Contextual feedback messages with icons and actions</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Badges -->
-        <a href="components/badges.html" class="catalog-item" data-category="data">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-toast--docs" target="_blank" class="catalog-item" data-category="feedback" data-keywords="toast notification temporary">
             <div class="catalog-preview">
-                <span class="badge badge-primary">Badge</span>
+                <i data-lucide="message-circle" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
             </div>
             <div class="catalog-info">
-                <h3>Badges</h3>
-                <p>Small status indicators</p>
+                <h3>Toast</h3>
+                <p>Temporary notification messages with auto-dismiss</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
                 </div>
             </div>
         </a>
 
-        <!-- Tooltips -->
-        <a href="components/tooltips.html" class="catalog-item" data-category="feedback">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-snackbar--docs" target="_blank" class="catalog-item" data-category="feedback" data-keywords="snackbar notification action">
             <div class="catalog-preview">
-                <div class="tooltip">Hover me
-                    <span class="tooltip-text">Tooltip text</span>
-                </div>
+                <i data-lucide="message-square" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
             </div>
             <div class="catalog-info">
-                <h3>Tooltips</h3>
-                <p>Contextual help on hover</p>
+                <h3>Snackbar</h3>
+                <p>Bottom notification with optional action button</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
                 </div>
             </div>
         </a>
 
-        <!-- Progress Bars -->
-        <a href="components/progress-bars.html" class="catalog-item" data-category="feedback">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-progress--docs" target="_blank" class="catalog-item" data-category="feedback" data-keywords="progress bar loading percentage">
             <div class="catalog-preview">
-                <div class="progress">
-                    <div class="progress-bar" style="width: 60%;"></div>
+                <div class="progress" style="max-width: 180px;">
+                    <div class="progress-bar" style="width: 60%; background: var(--color-primary);"></div>
                 </div>
             </div>
             <div class="catalog-info">
-                <h3>Progress Bars</h3>
-                <p>Visual progress indicators</p>
+                <h3>Progress</h3>
+                <p>Visual indicator for task completion and loading</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Spinners -->
-        <a href="components/spinners.html" class="catalog-item" data-category="feedback">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-spinner--docs" target="_blank" class="catalog-item" data-category="feedback" data-keywords="spinner loading loader">
             <div class="catalog-preview">
                 <div class="spinner"></div>
             </div>
             <div class="catalog-info">
-                <h3>Spinners</h3>
-                <p>Loading state indicators</p>
+                <h3>Spinner</h3>
+                <p>Animated loading indicator in multiple sizes</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Containers -->
-        <a href="components/containers.html" class="catalog-item" data-category="layout">
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-tooltip--docs" target="_blank" class="catalog-item" data-category="feedback" data-keywords="tooltip hint help">
             <div class="catalog-preview">
-                <div class="container" style="max-width: 200px; font-size: 11px; padding: var(--space-3); border: 1px dashed var(--color-border-medium);">
-                    Container
-                </div>
+                <i data-lucide="info" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
             </div>
             <div class="catalog-info">
-                <h3>Containers</h3>
-                <p>Layout wrapper elements</p>
+                <h3>Tooltip</h3>
+                <p>Contextual help that appears on hover or focus</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-notificationcenter--docs" target="_blank" class="catalog-item" data-category="feedback" data-keywords="notification center inbox">
+            <div class="catalog-preview">
+                <i data-lucide="bell" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Notification Center</h3>
+                <p>Centralized inbox for notifications and messages</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-emptystate--docs" target="_blank" class="catalog-item" data-category="feedback" data-keywords="empty state placeholder no data">
+            <div class="catalog-preview">
+                <i data-lucide="inbox" style="width: 48px; height: 48px; color: var(--color-text-tertiary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Empty State</h3>
+                <p>Placeholder screen for empty data or search results</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
 
-        <!-- Grid -->
-        <a href="components/grid.html" class="catalog-item" data-category="layout">
+        <!-- Data Display -->
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-card--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="card container panel">
             <div class="catalog-preview">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; max-width: 100px;">
-                    <div style="background: var(--color-primary); height: 20px; border-radius: 2px;"></div>
-                    <div style="background: var(--color-primary); height: 20px; border-radius: 2px;"></div>
+                <div class="card" style="max-width: 180px; font-size: 11px;">
+                    <div class="card-header" style="padding: var(--space-3);">Card Title</div>
+                    <div class="card-body" style="padding: var(--space-3);">Content goes here</div>
                 </div>
             </div>
             <div class="catalog-info">
-                <h3>Grid</h3>
-                <p>CSS Grid layout system</p>
+                <h3>Card</h3>
+                <p>Flexible container for grouped content with variants</p>
                 <div class="catalog-meta">
                     <span class="badge-stable">Stable</span>
                 </div>
             </div>
         </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-table--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="table data grid rows columns">
+            <div class="catalog-preview">
+                <table class="table" style="font-size: 10px; width: 180px;">
+                    <thead><tr><th>Name</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td>Item 1</td><td>Active</td></tr>
+                        <tr><td>Item 2</td><td>Pending</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="catalog-info">
+                <h3>Table</h3>
+                <p>Structured data display with sorting and selection</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-badge--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="badge label tag status">
+            <div class="catalog-preview">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span class="badge badge-primary">Primary</span>
+                    <span class="badge badge-success">Success</span>
+                    <span class="badge badge-danger">Error</span>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Badge</h3>
+                <p>Small status indicators and labels in various styles</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-avatar--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="avatar profile picture user">
+            <div class="catalog-preview">
+                <div style="display: flex; gap: 8px;">
+                    <div class="avatar" style="width: 40px; height: 40px; background: var(--color-primary); color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600;">JD</div>
+                    <div class="avatar" style="width: 40px; height: 40px; background: var(--color-secondary); color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 600;">AB</div>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Avatar</h3>
+                <p>User profile images and initials in multiple sizes</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-chip--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="chip tag pill removable">
+            <div class="catalog-preview">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span class="chip">Design</span>
+                    <span class="chip">Development</span>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Chip</h3>
+                <p>Compact elements for tags, filters, and removable items</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-statscard--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="stats card metrics dashboard kpi">
+            <div class="catalog-preview">
+                <div style="text-align: center;">
+                    <div style="font-size: 24px; font-weight: 700; color: var(--color-primary);">1.2k</div>
+                    <div style="font-size: 11px; color: var(--color-text-tertiary); margin-top: 4px;">Total Users</div>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Stats Card</h3>
+                <p>Display key metrics and statistics with trends</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-codeblock--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="code block syntax highlighting">
+            <div class="catalog-preview">
+                <div style="background: var(--color-bg-tertiary); padding: var(--space-3); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 10px; max-width: 180px;">
+                    <code style="color: var(--color-text-secondary);">const x = 42;</code>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Code Block</h3>
+                <p>Syntax-highlighted code display with copy button</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-divider--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="divider separator line">
+            <div class="catalog-preview">
+                <div style="width: 150px;">
+                    <div style="border-top: 1px solid var(--color-border-subtle);"></div>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Divider</h3>
+                <p>Visual separator for content sections</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-skeleton--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="skeleton loading placeholder">
+            <div class="catalog-preview">
+                <div style="width: 180px;">
+                    <div style="height: 12px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm); margin-bottom: 8px;"></div>
+                    <div style="height: 12px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm); width: 60%;"></div>
+                </div>
+            </div>
+            <div class="catalog-info">
+                <h3>Skeleton</h3>
+                <p>Loading placeholder that mimics content structure</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-timeline--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="timeline history events chronological">
+            <div class="catalog-preview">
+                <i data-lucide="git-branch" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Timeline</h3>
+                <p>Chronological display of events and activities</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-treeview--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="tree view hierarchical nested">
+            <div class="catalog-preview">
+                <i data-lucide="folder-tree" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Tree View</h3>
+                <p>Hierarchical data display with expandable nodes</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-imagegallery--docs" target="_blank" class="catalog-item" data-category="data" data-keywords="image gallery lightbox photos">
+            <div class="catalog-preview">
+                <i data-lucide="images" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Image Gallery</h3>
+                <p>Responsive image grid with lightbox viewer</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Interactive -->
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-modal--docs" target="_blank" class="catalog-item" data-category="interactive" data-keywords="modal dialog popup overlay">
+            <div class="catalog-preview">
+                <i data-lucide="square" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Modal</h3>
+                <p>Dialog overlay for focused content and forms</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-drawer--docs" target="_blank" class="catalog-item" data-category="interactive" data-keywords="drawer sidebar panel slide">
+            <div class="catalog-preview">
+                <i data-lucide="panel-right" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Drawer</h3>
+                <p>Slide-out panel from any screen edge with content</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-dropdown--docs" target="_blank" class="catalog-item" data-category="interactive" data-keywords="dropdown menu actions">
+            <div class="catalog-preview">
+                <i data-lucide="chevron-down" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Dropdown</h3>
+                <p>Contextual menu with actions and navigation options</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-popover--docs" target="_blank" class="catalog-item" data-category="interactive" data-keywords="popover popup tooltip overlay">
+            <div class="catalog-preview">
+                <i data-lucide="message-square-more" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Popover</h3>
+                <p>Floating content container with positioning control</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-accordion--docs" target="_blank" class="catalog-item" data-category="interactive" data-keywords="accordion collapse expand faq">
+            <div class="catalog-preview">
+                <i data-lucide="chevrons-down-up" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Accordion</h3>
+                <p>Vertically stacked expandable sections for content</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://ferology.github.io/aural-ui/storybook/?path=/docs/components-carousel--docs" target="_blank" class="catalog-item" data-category="interactive" data-keywords="carousel slider slideshow">
+            <div class="catalog-preview">
+                <i data-lucide="gallery-horizontal" style="width: 48px; height: 48px; color: var(--color-primary);"></i>
+            </div>
+            <div class="catalog-info">
+                <h3>Carousel</h3>
+                <p>Rotating slideshow of images or content panels</p>
+                <div class="catalog-meta">
+                    <span class="badge-stable">Stable</span>
+                    <span class="badge-interactive">Interactive</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- No Results Message -->
+        <div class="no-results" style="display: none;">
+            <div class="no-results-icon">🔍</div>
+            <h3>No components found</h3>
+            <p>Try adjusting your search or filters</p>
+        </div>
     </div>
 
     <script>
         // Search functionality
         const searchInput = document.getElementById('catalog-search-input');
         const catalogItems = document.querySelectorAll('.catalog-item');
+        const noResults = document.querySelector('.no-results');
         let currentCategoryFilter = 'all';
 
         function filterComponents() {
             const searchTerm = searchInput.value.toLowerCase();
+            let visibleCount = 0;
 
             catalogItems.forEach(item => {
                 const title = item.querySelector('h3').textContent.toLowerCase();
                 const description = item.querySelector('p').textContent.toLowerCase();
+                const keywords = item.dataset.keywords || '';
                 const category = item.dataset.category;
 
                 const matchesSearch = searchTerm === '' ||
                                      title.includes(searchTerm) ||
-                                     description.includes(searchTerm);
+                                     description.includes(searchTerm) ||
+                                     keywords.includes(searchTerm);
                 const matchesCategory = currentCategoryFilter === 'all' ||
                                        category === currentCategoryFilter;
 
                 if (matchesSearch && matchesCategory) {
                     item.style.display = '';
+                    visibleCount++;
                 } else {
                     item.style.display = 'none';
                 }
             });
+
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
         }
 
         searchInput.addEventListener('input', filterComponents);
