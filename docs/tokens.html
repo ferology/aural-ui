@@ -229,12 +229,133 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">Design Tokens</h1>
-            <p class="page-description">Aural UI uses design tokens (CSS custom properties) for all design decisions. This ensures consistency and makes theming straightforward.</p>
+            <p class="page-description">Design tokens are the foundation of Aural UI's themeable architecture. They're CSS custom properties (variables) that control every visual aspect of the design system.</p>
         </div>
+
+        <!-- How Tokens Work -->
+        <section class="content-section">
+            <h2 class="section-title">🎯 How Tokens Work</h2>
+            <div class="section-content">
+                <p>Aural UI uses a <strong>two-layer token system</strong>:</p>
+
+                <h3>Layer 1: Primitive Tokens (Foundation)</h3>
+                <p>These are the actual color values that <strong>never change</strong> across themes:</p>
+                <pre><code>:root {
+  /* Color scales: 50 (lightest) → 950 (darkest) */
+  --primary-400: #5ebd8f;     /* Vibrant green */
+  --secondary-500: #06b6d4;    /* Cyan */
+  --neutral-100: #f5f5f5;      /* Light gray */
+  --neutral-900: #171717;      /* Dark gray */
+}</code></pre>
+
+                <h3>Layer 2: Semantic Tokens (Meaning)</h3>
+                <p>These tokens map to <strong>purposes</strong> and <strong>change per theme</strong>:</p>
+                <pre><code>/* Dark Theme */
+:root {
+  --color-bg-primary: #0f0f1a;      /* Dark background */
+  --color-text-primary: #f5f5fa;     /* Light text */
+}
+
+/* Light Theme */
+:root {
+  --color-bg-primary: #ffffff;       /* Light background */
+  --color-text-primary: #111827;     /* Dark text */
+}</code></pre>
+                <p><strong>Same token name, different values per theme!</strong></p>
+
+                <h3>Layer 3: Components Use Semantic Tokens</h3>
+                <pre><code>.btn-primary {
+  background: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+}
+
+.card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border-subtle);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- What Tokens Can Control -->
+        <section class="content-section">
+            <h2 class="section-title">✅ What Tokens Can Control</h2>
+            <div class="section-content">
+                <p>Tokens control ~95% of visual styling - any CSS <strong>value</strong>, but not CSS <strong>structure</strong>.</p>
+
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Property Type</th>
+                                <th>Support</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Colors</td>
+                                <td>✅ Full</td>
+                                <td><code>--color-primary: #5ebd8f</code></td>
+                            </tr>
+                            <tr>
+                                <td>Spacing</td>
+                                <td>✅ Full</td>
+                                <td><code>--space-4: 1rem</code></td>
+                            </tr>
+                            <tr>
+                                <td>Typography</td>
+                                <td>✅ Full</td>
+                                <td><code>--text-lg: 1.125rem</code></td>
+                            </tr>
+                            <tr>
+                                <td>Border Radius</td>
+                                <td>✅ Full</td>
+                                <td><code>--radius-md: 0.75rem</code></td>
+                            </tr>
+                            <tr>
+                                <td>Shadows</td>
+                                <td>✅ Full</td>
+                                <td><code>--shadow-lg: 0 20px 25px...</code></td>
+                            </tr>
+                            <tr>
+                                <td>Transitions</td>
+                                <td>✅ Full</td>
+                                <td><code>--duration-fast: 150ms</code></td>
+                            </tr>
+                            <tr>
+                                <td>Gradients</td>
+                                <td>✅ Full</td>
+                                <td><code>--gradient: linear-gradient(...)</code></td>
+                            </tr>
+                            <tr>
+                                <td>Property Names</td>
+                                <td>❌ No</td>
+                                <td>Can't tokenize property names</td>
+                            </tr>
+                            <tr>
+                                <td>Selectors</td>
+                                <td>❌ No</td>
+                                <td>Can't tokenize CSS selectors</td>
+                            </tr>
+                            <tr>
+                                <td>Media Queries</td>
+                                <td>⚠️ Limited</td>
+                                <td>Can't use directly in @media</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Token Categories -->
+        <section class="content-section">
+            <h2 class="section-title">📚 Token Categories</h2>
+        </section>
 
         <!-- Colors -->
         <section class="content-section">
-            <h2 class="section-title">Colors</h2>
+            <h3 class="section-title" style="font-size: var(--text-xl);">Colors</h3>
             <div class="section-content">
                 <p>Color scales from 50 (lightest) to 950 (darkest). Each scale provides semantic meaning and maintains WCAG AA contrast standards.</p>
 
@@ -658,6 +779,111 @@ margin-top: var(--space-6);</code></pre>
   --radius-md: 1rem;
   --space-4: 1.25rem;
 }</code></pre>
+            </div>
+        </section>
+
+        <!-- Creating Custom Themes -->
+        <section class="content-section">
+            <h2 class="section-title">🎨 Creating Custom Themes</h2>
+            <div class="section-content">
+                <h3>Method 1: Override Individual Tokens</h3>
+                <p>Create a simple style block to customize specific aspects:</p>
+                <pre><code>&lt;style&gt;
+  :root {
+    /* Change primary brand color */
+    --color-primary: #8B5CF6;     /* Purple */
+
+    /* Adjust spacing scale */
+    --space-4: 1.25rem;           /* Increase base spacing */
+
+    /* Rounder corners */
+    --radius-md: 1rem;            /* More rounded */
+  }
+&lt;/style&gt;</code></pre>
+
+                <h3>Method 2: Create a Full Custom Theme</h3>
+                <p>Build a complete theme file matching your brand:</p>
+                <pre><code>/* my-brand.css */
+:root {
+  /* Brand Colors */
+  --color-primary: #8B5CF6;
+  --color-secondary: #EC4899;
+
+  /* Backgrounds (Dark Theme) */
+  --color-bg-primary: #1a1a1a;
+  --color-bg-secondary: #2a2a2a;
+  --color-bg-tertiary: #3a3a3a;
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0a0;
+
+  /* Borders */
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Spacing - Compact Scale */
+  --space-4: 0.875rem;
+  --space-6: 1.25rem;
+}</code></pre>
+
+                <p><strong>Load it:</strong></p>
+                <pre><code>&lt;link rel="stylesheet" href="aural-ui.css"&gt;
+&lt;link rel="stylesheet" href="my-brand.css"&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- Advanced Techniques -->
+        <section class="content-section">
+            <h2 class="section-title">🔧 Advanced Techniques</h2>
+            <div class="section-content">
+                <h3>Token Composition</h3>
+                <p>Combine tokens to create new values:</p>
+                <pre><code>:root {
+  --duration-fast: 150ms;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Compose them */
+  --transition-fast: var(--duration-fast) var(--ease-in-out);
+}</code></pre>
+
+                <h3>Math with Tokens</h3>
+                <p>Use <code>calc()</code> for dynamic values:</p>
+                <pre><code>.double-padding {
+  padding: calc(var(--space-4) * 2);  /* 2rem */
+}
+
+.half-margin {
+  margin: calc(var(--space-4) / 2);   /* 0.5rem */
+}</code></pre>
+
+                <h3>Fallback Values</h3>
+                <p>Provide defaults for missing tokens:</p>
+                <pre><code>.card {
+  /* If --radius-md doesn't exist, use 0.75rem */
+  border-radius: var(--radius-md, 0.75rem);
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Best Practices -->
+        <section class="content-section">
+            <h2 class="section-title">💡 Best Practices</h2>
+            <div class="section-content">
+                <ol>
+                    <li><strong>Use semantic tokens in components</strong> - Reference <code>--color-bg-primary</code>, not <code>--neutral-900</code></li>
+                    <li><strong>Don't hardcode values</strong> - Always use tokens for consistency</li>
+                    <li><strong>Test in multiple themes</strong> - Switch themes to ensure proper contrast</li>
+                    <li><strong>Override sparingly</strong> - Only customize what you need</li>
+                    <li><strong>Document custom tokens</strong> - Comment your customizations</li>
+                </ol>
+
+                <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary); margin-top: var(--space-6);">
+                    <strong style="color: var(--color-text-primary);">💡 Pro Tip:</strong>
+                    <p style="margin: var(--space-2) 0 0 0;">Use the theme switcher (top right) to see how tokens adapt across all 9 themes instantly!</p>
+                </div>
             </div>
         </section>
 
