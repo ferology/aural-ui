@@ -1,0 +1,483 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta
+  title="Getting Started/Design Tokens"
+  parameters={{
+    toolbar: {
+      theme: { hidden: false }
+    }
+  }}
+/>
+
+<div style={{
+  fontFamily: 'var(--font-sans, system-ui, -apple-system, sans-serif)',
+  maxWidth: '1200px',
+  margin: '0 auto',
+  padding: '3rem 2rem'
+}}>
+
+# Design Tokens
+
+**Design tokens** are the foundation of Aural UI's themeable architecture. They're CSS custom properties (variables) that control every visual aspect of the design system.
+
+---
+
+## 🎯 How Tokens Work
+
+Aural UI uses a **two-layer token system**:
+
+### Layer 1: Primitive Tokens (Foundation)
+These are the actual color values that **never change** across themes:
+
+```css
+:root {
+  /* Color scales: 50 (lightest) → 950 (darkest) */
+  --primary-400: #5ebd8f;     /* Vibrant green */
+  --secondary-500: #06b6d4;    /* Cyan */
+  --neutral-100: #f5f5f5;      /* Light gray */
+  --neutral-900: #171717;      /* Dark gray */
+}
+```
+
+### Layer 2: Semantic Tokens (Meaning)
+These tokens map to **purposes** and **change per theme**:
+
+```css
+/* Dark Theme */
+:root {
+  --color-bg-primary: #0f0f1a;      /* Dark background */
+  --color-text-primary: #f5f5fa;     /* Light text */
+}
+
+/* Light Theme */
+:root {
+  --color-bg-primary: #ffffff;       /* Light background */
+  --color-text-primary: #111827;     /* Dark text */
+}
+```
+
+**Same token name, different values per theme!**
+
+### Layer 3: Components Use Semantic Tokens
+```css
+.btn-primary {
+  background: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+}
+
+.card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border-subtle);
+}
+```
+
+---
+
+## 📚 Token Categories
+
+### Colors
+
+<div style={{
+  background: 'var(--color-bg-tertiary)',
+  padding: 'var(--space-4)',
+  borderRadius: 'var(--radius-md)',
+  marginBottom: 'var(--space-4)'
+}}>
+
+**Backgrounds:**
+```css
+--color-bg-primary       /* Main page background */
+--color-bg-secondary     /* Section backgrounds */
+--color-bg-tertiary      /* Card/panel backgrounds */
+--color-bg-hover         /* Hover states */
+```
+
+**Text:**
+```css
+--color-text-primary     /* Headings, main text */
+--color-text-secondary   /* Body text, labels */
+--color-text-tertiary    /* Captions, hints */
+```
+
+**Borders:**
+```css
+--color-border-subtle    /* Light dividers */
+--color-border-medium    /* Input borders */
+--color-border-strong    /* Focused borders */
+```
+
+</div>
+
+### Spacing
+
+<div style={{
+  background: 'var(--color-bg-tertiary)',
+  padding: 'var(--space-4)',
+  borderRadius: 'var(--radius-md)',
+  marginBottom: 'var(--space-4)'
+}}>
+
+```css
+--space-1: 0.25rem;    /* 4px */
+--space-2: 0.5rem;     /* 8px */
+--space-4: 1rem;       /* 16px */
+--space-6: 1.5rem;     /* 24px */
+--space-8: 2rem;       /* 32px */
+--space-12: 3rem;      /* 48px */
+```
+
+**Usage:**
+```css
+.card {
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+  gap: var(--space-3);
+}
+```
+
+</div>
+
+### Typography
+
+<div style={{
+  background: 'var(--color-bg-tertiary)',
+  padding: 'var(--space-4)',
+  borderRadius: 'var(--radius-md)',
+  marginBottom: 'var(--space-4)'
+}}>
+
+**Font Sizes:**
+```css
+--text-xs: 0.75rem;     /* 12px */
+--text-sm: 0.875rem;    /* 14px */
+--text-base: 1rem;      /* 16px */
+--text-lg: 1.125rem;    /* 18px */
+--text-2xl: 1.5rem;     /* 24px */
+--text-4xl: 2.25rem;    /* 36px */
+```
+
+**Font Weights:**
+```css
+--font-normal: 400;
+--font-medium: 500;
+--font-semibold: 600;
+--font-bold: 700;
+```
+
+**Font Families:**
+```css
+--font-sans: system-ui, -apple-system, sans-serif;
+--font-mono: Monaco, "Cascadia Code", monospace;
+```
+
+</div>
+
+### Border Radius
+
+<div style={{
+  background: 'var(--color-bg-tertiary)',
+  padding: 'var(--space-4)',
+  borderRadius: 'var(--radius-md)',
+  marginBottom: 'var(--space-4)',
+  display: 'flex',
+  gap: 'var(--space-3)',
+  flexWrap: 'wrap'
+}}>
+
+<div style={{
+  padding: 'var(--space-3)',
+  background: 'var(--color-primary)',
+  color: 'white',
+  borderRadius: 'var(--radius-sm)'
+}}>
+  `--radius-sm` (4px)
+</div>
+
+<div style={{
+  padding: 'var(--space-3)',
+  background: 'var(--color-primary)',
+  color: 'white',
+  borderRadius: 'var(--radius-md)'
+}}>
+  `--radius-md` (12px)
+</div>
+
+<div style={{
+  padding: 'var(--space-3)',
+  background: 'var(--color-primary)',
+  color: 'white',
+  borderRadius: 'var(--radius-lg)'
+}}>
+  `--radius-lg` (16px)
+</div>
+
+<div style={{
+  padding: 'var(--space-3)',
+  background: 'var(--color-primary)',
+  color: 'white',
+  borderRadius: 'var(--radius-full)'
+}}>
+  `--radius-full` (pill)
+</div>
+
+</div>
+
+### Shadows
+
+<div style={{
+  background: 'var(--color-bg-tertiary)',
+  padding: 'var(--space-4)',
+  borderRadius: 'var(--radius-md)',
+  marginBottom: 'var(--space-4)',
+  display: 'flex',
+  gap: 'var(--space-4)',
+  flexWrap: 'wrap'
+}}>
+
+<div style={{
+  padding: 'var(--space-4)',
+  background: 'var(--color-bg-primary)',
+  boxShadow: 'var(--shadow-sm)',
+  borderRadius: 'var(--radius-md)'
+}}>
+  Small Shadow
+</div>
+
+<div style={{
+  padding: 'var(--space-4)',
+  background: 'var(--color-bg-primary)',
+  boxShadow: 'var(--shadow-md)',
+  borderRadius: 'var(--radius-md)'
+}}>
+  Medium Shadow
+</div>
+
+<div style={{
+  padding: 'var(--space-4)',
+  background: 'var(--color-bg-primary)',
+  boxShadow: 'var(--shadow-lg)',
+  borderRadius: 'var(--radius-md)'
+}}>
+  Large Shadow
+</div>
+
+</div>
+
+### Transitions
+
+<div style={{
+  background: 'var(--color-bg-tertiary)',
+  padding: 'var(--space-4)',
+  borderRadius: 'var(--radius-md)',
+  marginBottom: 'var(--space-4)'
+}}>
+
+```css
+/* Durations */
+--duration-fast: 150ms;
+--duration-normal: 300ms;
+--duration-slow: 500ms;
+
+/* Easing Functions */
+--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+--ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+/* Combined Transitions */
+--transition-fast: 150ms ease-in-out;
+--transition-colors: color 150ms ease-in-out,
+                     background-color 150ms ease-in-out;
+```
+
+**Usage:**
+```css
+.btn {
+  transition: var(--transition-all-fast);
+}
+```
+
+</div>
+
+---
+
+## ✅ What Tokens Can Control
+
+<table style={{
+  width: '100%',
+  borderCollapse: 'collapse',
+  marginBottom: 'var(--space-6)'
+}}>
+  <thead>
+    <tr style={{ background: 'var(--color-bg-tertiary)' }}>
+      <th style={{ padding: 'var(--space-3)', textAlign: 'left', borderBottom: '1px solid var(--color-border-subtle)' }}>Property Type</th>
+      <th style={{ padding: 'var(--space-3)', textAlign: 'left', borderBottom: '1px solid var(--color-border-subtle)' }}>Support</th>
+      <th style={{ padding: 'var(--space-3)', textAlign: 'left', borderBottom: '1px solid var(--color-border-subtle)' }}>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Colors</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>✅ Full</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}><code>--color-primary: #5ebd8f</code></td>
+    </tr>
+    <tr>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Spacing</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>✅ Full</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}><code>--space-4: 1rem</code></td>
+    </tr>
+    <tr>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Typography</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>✅ Full</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}><code>--text-lg: 1.125rem</code></td>
+    </tr>
+    <tr>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Shadows</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>✅ Full</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}><code>--shadow-lg: 0 20px 25px...</code></td>
+    </tr>
+    <tr>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Transitions</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>✅ Full</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}><code>--duration-fast: 150ms</code></td>
+    </tr>
+    <tr>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Gradients</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>✅ Full</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}><code>--gradient: linear-gradient(...)</code></td>
+    </tr>
+    <tr>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Property Names</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>❌ No</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Can't tokenize property names</td>
+    </tr>
+    <tr>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Selectors</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>❌ No</td>
+      <td style={{ padding: 'var(--space-3)', borderBottom: '1px solid var(--color-border-subtle)' }}>Can't tokenize CSS selectors</td>
+    </tr>
+  </tbody>
+</table>
+
+**Summary:** Tokens control ~95% of visual styling (any CSS **value**), but not CSS **structure** (selectors, property names, media queries).
+
+---
+
+## 🎨 Creating Custom Themes
+
+### Method 1: Override Individual Tokens
+
+```html
+<style>
+  :root {
+    /* Change primary brand color */
+    --color-primary: #8B5CF6;     /* Purple */
+
+    /* Adjust spacing scale */
+    --space-4: 1.25rem;           /* Increase base spacing */
+
+    /* Rounder corners */
+    --radius-md: 1rem;            /* More rounded */
+  }
+</style>
+```
+
+### Method 2: Create a Full Custom Theme
+
+```css
+/* my-brand.css */
+:root {
+  /* Brand Colors */
+  --color-primary: #8B5CF6;
+  --color-secondary: #EC4899;
+
+  /* Backgrounds (Dark Theme) */
+  --color-bg-primary: #1a1a1a;
+  --color-bg-secondary: #2a2a2a;
+  --color-bg-tertiary: #3a3a3a;
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0a0;
+
+  /* Borders */
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Spacing - Compact Scale */
+  --space-4: 0.875rem;
+  --space-6: 1.25rem;
+}
+```
+
+**Load it:**
+```html
+<link rel="stylesheet" href="aural-ui.css">
+<link rel="stylesheet" href="my-brand.css">
+```
+
+---
+
+## 🔧 Advanced Techniques
+
+### Token Composition
+Combine tokens to create new values:
+
+```css
+:root {
+  --duration-fast: 150ms;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Compose them */
+  --transition-fast: var(--duration-fast) var(--ease-in-out);
+}
+```
+
+### Math with Tokens
+Use `calc()` for dynamic values:
+
+```css
+.double-padding {
+  padding: calc(var(--space-4) * 2);  /* 2rem */
+}
+
+.half-margin {
+  margin: calc(var(--space-4) / 2);   /* 0.5rem */
+}
+```
+
+### Fallback Values
+Provide defaults for missing tokens:
+
+```css
+.card {
+  /* If --radius-md doesn't exist, use 0.75rem */
+  border-radius: var(--radius-md, 0.75rem);
+}
+```
+
+---
+
+## 💡 Best Practices
+
+1. **Use semantic tokens in components** - Reference `--color-bg-primary`, not `--neutral-900`
+2. **Don't hardcode values** - Always use tokens for consistency
+3. **Test in multiple themes** - Switch themes to ensure proper contrast
+4. **Override sparingly** - Only customize what you need
+5. **Document custom tokens** - Comment your customizations
+
+---
+
+## 🎯 Token Reference
+
+For a complete list of all available tokens, see:
+- [Demo Site Token Reference](https://ferology.github.io/aural-ui/tokens.html)
+- Inspect any theme CSS file in `/themes/` directory
+
+---
+
+## 🚀 Try It Now
+
+**Change the theme using the toolbar above** ↑ and watch how tokens update automatically across all components!
+
+</div>
