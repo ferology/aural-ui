@@ -1,4 +1,4 @@
-import{j as n,M as l}from"./index-CL1AqDkI.js";import{useMDXComponents as r}from"./index-Cn307w12.js";import"./iframe-CtR2uDVl.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return n.jsxs(n.Fragment,{children:[n.jsx(l,{title:"Introduction",parameters:{toolbar:{theme:{hidden:!0}}}}),`
+import{j as n,M as l}from"./index-Dy6WUpcz.js";import{useMDXComponents as r}from"./index-DlfVhzNu.js";import"./iframe-Cs2onHzp.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return n.jsxs(n.Fragment,{children:[n.jsx(l,{title:"Introduction",parameters:{toolbar:{theme:{hidden:!0}}}}),`
 `,n.jsx(e.h1,{id:"aural-ui",children:"Aural UI"}),`
 `,n.jsx(e.p,{children:"A modern, accessible design system with comprehensive components, utilities, and themes."}),`
 `,n.jsx(e.h2,{id:"features",children:"Features"}),`
@@ -88,7 +88,7 @@ import{j as n,M as l}from"./index-CL1AqDkI.js";import{useMDXComponents as r}from
 `,n.jsxs(e.ul,{children:[`
 `,n.jsx(e.li,{children:n.jsx(e.a,{href:"https://github.com/ferology/aural-ui",rel:"nofollow",children:"GitHub Repository"})}),`
 `,n.jsx(e.li,{children:n.jsx(e.a,{href:"https://ferology.github.io/aural-ui/",rel:"nofollow",children:"Documentation"})}),`
-`,n.jsx(e.li,{children:n.jsx(e.a,{href:"https://ferology.github.io/aural-ui/docs/demo.html",rel:"nofollow",children:"Component Demos"})}),`
+`,n.jsx(e.li,{children:n.jsx(e.a,{href:"https://ferology.github.io/aural-ui/demo.html#catalog.html",rel:"nofollow",children:"Component Demos"})}),`
 `]}),`
 `,n.jsx(e.h2,{id:"license",children:"License"}),`
 `,n.jsx(e.p,{children:"MIT License - feel free to use in personal and commercial projects."})]})}function x(i={}){const{wrapper:e}={...r(),...i.components};return e?n.jsx(e,{...i,children:n.jsx(s,{...i})}):s(i)}export{x as default};

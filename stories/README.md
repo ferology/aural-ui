@@ -149,5 +149,5 @@ Remaining components from the design system:
 
 - [Storybook Documentation](https://storybook.js.org/docs)
 - [Aural UI Docs](https://ferology.github.io/aural-ui/)
-- [Component Demos](https://ferology.github.io/aural-ui/docs/demo.html)
+- [Component Demos](https://ferology.github.io/aural-ui/demo.html#catalog.html)
 - [Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
