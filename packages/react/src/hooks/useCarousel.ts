@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 export interface CarouselOptions {
   /** Auto-advance slides */
@@ -34,7 +34,7 @@ export interface UseCarouselReturn {
   /** Carousel controller object */
   controller: CarouselController | null;
   /** Ref to attach to carousel element */
-  carouselRef: React.RefObject<HTMLDivElement>;
+  carouselRef: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -67,24 +67,23 @@ export interface UseCarouselReturn {
  * );
  * ```
  */
-export function useCarousel(
-  id: string,
-  options: CarouselOptions = {}
-): UseCarouselReturn {
+export function useCarousel(id: string, options: CarouselOptions = {}): UseCarouselReturn {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [controller, setController] = useState<CarouselController | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const controllerRef = useRef<any>(null);
 
   useEffect(() => {
-    // @ts-ignore
+    // @ts-expect-error - window.Aural is added by vanilla JS
     if (typeof window.Aural === 'undefined' || !carouselRef.current) return;
 
     // Initialize carousel
-    // @ts-ignore
+    // @ts-expect-error - window.Aural is added by vanilla JS
     const carouselInstance = window.Aural.initCarousel(id, options);
 
     if (carouselInstance) {
       controllerRef.current = carouselInstance;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setController(carouselInstance);
     }
 
@@ -94,10 +93,11 @@ export function useCarousel(
         controllerRef.current.pause();
       }
     };
-  }, [id, options.autoplay, options.autoplayDelay, options.loop, options.perView]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, options]);
 
   return {
     carouselRef,
-    controller
+    controller,
   };
 }

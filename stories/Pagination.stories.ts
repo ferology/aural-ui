@@ -43,46 +43,46 @@ const [page, setPage] = useState(1);
 \`\`\`vue
 <Pagination :currentPage="page" :totalPages="10" @pageChange="page = $event" />
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     currentPage: {
       control: { type: 'number', min: 1, max: 100 },
-      description: 'Current active page number'
+      description: 'Current active page number',
     },
     totalPages: {
       control: { type: 'number', min: 1, max: 100 },
-      description: 'Total number of pages'
+      description: 'Total number of pages',
     },
     siblingCount: {
       control: { type: 'number', min: 0, max: 3 },
-      description: 'Number of page buttons to show before and after current page'
+      description: 'Number of page buttons to show before and after current page',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Pagination size variant'
+      description: 'Pagination size variant',
     },
     variant: {
       control: 'select',
       options: ['default', 'rounded', 'simple', 'compact'],
-      description: 'Pagination visual style'
+      description: 'Pagination visual style',
     },
     showFirstLast: {
       control: 'boolean',
-      description: 'Always show first and last page numbers with ellipsis'
+      description: 'Always show first and last page numbers with ellipsis',
     },
     showPrevNext: {
       control: 'boolean',
-      description: 'Show Previous/Next buttons'
+      description: 'Show Previous/Next buttons',
     },
     showPrevNextText: {
       control: 'boolean',
-      description: 'Show "Previous"/"Next" text in buttons (or just icons)'
-    }
-  }
+      description: 'Show "Previous"/"Next" text in buttons (or just icons)',
+    },
+  },
 };
 
 export default meta;
@@ -153,7 +153,7 @@ function renderPagination(args: any): HTMLElement {
     showFirstLast = true,
     showPrevNext = true,
     showPrevNextText = true,
-    onPageChange
+    onPageChange,
   } = args;
 
   const nav = document.createElement('nav');
@@ -175,7 +175,10 @@ function renderPagination(args: any): HTMLElement {
     const prevBtn = document.createElement('a');
     prevBtn.href = '#';
     prevBtn.className = 'pagination-prev';
-    prevBtn.setAttribute('aria-label', currentPage === 1 ? 'No previous page' : 'Go to previous page');
+    prevBtn.setAttribute(
+      'aria-label',
+      currentPage === 1 ? 'No previous page' : 'Go to previous page'
+    );
 
     if (currentPage === 1) {
       prevBtn.classList.add('pagination-disabled');
@@ -241,7 +244,10 @@ function renderPagination(args: any): HTMLElement {
     const nextBtn = document.createElement('a');
     nextBtn.href = '#';
     nextBtn.className = 'pagination-next';
-    nextBtn.setAttribute('aria-label', currentPage === totalPages ? 'No next page' : 'Go to next page');
+    nextBtn.setAttribute(
+      'aria-label',
+      currentPage === totalPages ? 'No next page' : 'Go to next page'
+    );
 
     if (currentPage === totalPages) {
       nextBtn.classList.add('pagination-disabled');
@@ -282,16 +288,16 @@ export const Default: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
 
-    let pagination = renderPagination({
+    const pagination = renderPagination({
       ...args,
       onPageChange: (newPage: number) => {
         args.currentPage = newPage;
         const newPagination = renderPagination({
           ...args,
-          onPageChange: (p: number) => args.currentPage = p
+          onPageChange: (p: number) => (args.currentPage = p),
         });
         container.replaceChild(newPagination, container.firstChild!);
-      }
+      },
     });
 
     container.appendChild(pagination);
@@ -305,8 +311,8 @@ export const Default: Story = {
     variant: 'default',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: true
-  }
+    showPrevNextText: true,
+  },
 };
 
 export const WithFirstLast: Story = {
@@ -314,16 +320,16 @@ export const WithFirstLast: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
 
-    let pagination = renderPagination({
+    const pagination = renderPagination({
       ...args,
       onPageChange: (newPage: number) => {
         args.currentPage = newPage;
         const newPagination = renderPagination({
           ...args,
-          onPageChange: (p: number) => args.currentPage = p
+          onPageChange: (p: number) => (args.currentPage = p),
         });
         container.replaceChild(newPagination, container.firstChild!);
-      }
+      },
     });
 
     container.appendChild(pagination);
@@ -337,8 +343,8 @@ export const WithFirstLast: Story = {
     variant: 'default',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: true
-  }
+    showPrevNextText: true,
+  },
 };
 
 export const CompactView: Story = {
@@ -346,16 +352,16 @@ export const CompactView: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
 
-    let pagination = renderPagination({
+    const pagination = renderPagination({
       ...args,
       onPageChange: (newPage: number) => {
         args.currentPage = newPage;
         const newPagination = renderPagination({
           ...args,
-          onPageChange: (p: number) => args.currentPage = p
+          onPageChange: (p: number) => (args.currentPage = p),
         });
         container.replaceChild(newPagination, container.firstChild!);
-      }
+      },
     });
 
     container.appendChild(pagination);
@@ -369,8 +375,8 @@ export const CompactView: Story = {
     variant: 'compact',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: false
-  }
+    showPrevNextText: false,
+  },
 };
 
 export const LargeDataset: Story = {
@@ -378,16 +384,16 @@ export const LargeDataset: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
 
-    let pagination = renderPagination({
+    const pagination = renderPagination({
       ...args,
       onPageChange: (newPage: number) => {
         args.currentPage = newPage;
         const newPagination = renderPagination({
           ...args,
-          onPageChange: (p: number) => args.currentPage = p
+          onPageChange: (p: number) => (args.currentPage = p),
         });
         container.replaceChild(newPagination, container.firstChild!);
-      }
+      },
     });
 
     container.appendChild(pagination);
@@ -401,8 +407,8 @@ export const LargeDataset: Story = {
     variant: 'default',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: true
-  }
+    showPrevNextText: true,
+  },
 };
 
 export const Small: Story = {
@@ -410,16 +416,16 @@ export const Small: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
 
-    let pagination = renderPagination({
+    const pagination = renderPagination({
       ...args,
       onPageChange: (newPage: number) => {
         args.currentPage = newPage;
         const newPagination = renderPagination({
           ...args,
-          onPageChange: (p: number) => args.currentPage = p
+          onPageChange: (p: number) => (args.currentPage = p),
         });
         container.replaceChild(newPagination, container.firstChild!);
-      }
+      },
     });
 
     container.appendChild(pagination);
@@ -433,8 +439,8 @@ export const Small: Story = {
     variant: 'default',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: false
-  }
+    showPrevNextText: false,
+  },
 };
 
 export const Large: Story = {
@@ -442,16 +448,16 @@ export const Large: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
 
-    let pagination = renderPagination({
+    const pagination = renderPagination({
       ...args,
       onPageChange: (newPage: number) => {
         args.currentPage = newPage;
         const newPagination = renderPagination({
           ...args,
-          onPageChange: (p: number) => args.currentPage = p
+          onPageChange: (p: number) => (args.currentPage = p),
         });
         container.replaceChild(newPagination, container.firstChild!);
-      }
+      },
     });
 
     container.appendChild(pagination);
@@ -465,8 +471,8 @@ export const Large: Story = {
     variant: 'default',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: true
-  }
+    showPrevNextText: true,
+  },
 };
 
 export const FirstPage: Story = {
@@ -474,16 +480,16 @@ export const FirstPage: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
 
-    let pagination = renderPagination({
+    const pagination = renderPagination({
       ...args,
       onPageChange: (newPage: number) => {
         args.currentPage = newPage;
         const newPagination = renderPagination({
           ...args,
-          onPageChange: (p: number) => args.currentPage = p
+          onPageChange: (p: number) => (args.currentPage = p),
         });
         container.replaceChild(newPagination, container.firstChild!);
-      }
+      },
     });
 
     container.appendChild(pagination);
@@ -497,8 +503,8 @@ export const FirstPage: Story = {
     variant: 'default',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: true
-  }
+    showPrevNextText: true,
+  },
 };
 
 export const LastPage: Story = {
@@ -506,16 +512,16 @@ export const LastPage: Story = {
     const container = document.createElement('div');
     container.style.padding = '2rem';
 
-    let pagination = renderPagination({
+    const pagination = renderPagination({
       ...args,
       onPageChange: (newPage: number) => {
         args.currentPage = newPage;
         const newPagination = renderPagination({
           ...args,
-          onPageChange: (p: number) => args.currentPage = p
+          onPageChange: (p: number) => (args.currentPage = p),
         });
         container.replaceChild(newPagination, container.firstChild!);
-      }
+      },
     });
 
     container.appendChild(pagination);
@@ -529,8 +535,8 @@ export const LastPage: Story = {
     variant: 'default',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: true
-  }
+    showPrevNextText: true,
+  },
 };
 
 export const AllVariants: Story = {
@@ -542,15 +548,16 @@ export const AllVariants: Story = {
       { id: 'default', label: 'Default' },
       { id: 'rounded', label: 'Rounded' },
       { id: 'simple', label: 'Simple' },
-      { id: 'compact', label: 'Compact' }
+      { id: 'compact', label: 'Compact' },
     ];
 
-    variants.forEach(variant => {
+    variants.forEach((variant) => {
       const section = document.createElement('div');
 
       const label = document.createElement('p');
       label.textContent = variant.label;
-      label.style.cssText = 'font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; margin-bottom: 1rem;';
+      label.style.cssText =
+        'font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; margin-bottom: 1rem;';
 
       const pagination = renderPagination({
         currentPage: 2,
@@ -560,7 +567,7 @@ export const AllVariants: Story = {
         variant: variant.id,
         showFirstLast: false,
         showPrevNext: true,
-        showPrevNextText: variant.id !== 'compact'
+        showPrevNextText: variant.id !== 'compact',
       });
 
       section.appendChild(label);
@@ -569,26 +576,28 @@ export const AllVariants: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllSizes: Story = {
   render: () => {
     const container = document.createElement('div');
-    container.style.cssText = 'display: flex; flex-direction: column; gap: 2rem; padding: 2rem; align-items: flex-start;';
+    container.style.cssText =
+      'display: flex; flex-direction: column; gap: 2rem; padding: 2rem; align-items: flex-start;';
 
     const sizes = [
       { id: 'sm', label: 'Small' },
       { id: 'md', label: 'Medium' },
-      { id: 'lg', label: 'Large' }
+      { id: 'lg', label: 'Large' },
     ];
 
-    sizes.forEach(size => {
+    sizes.forEach((size) => {
       const section = document.createElement('div');
 
       const label = document.createElement('p');
       label.textContent = size.label;
-      label.style.cssText = 'font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; margin-bottom: 1rem;';
+      label.style.cssText =
+        'font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; margin-bottom: 1rem;';
 
       const pagination = renderPagination({
         currentPage: 2,
@@ -598,7 +607,7 @@ export const AllSizes: Story = {
         variant: 'default',
         showFirstLast: false,
         showPrevNext: true,
-        showPrevNextText: size.id !== 'sm'
+        showPrevNextText: size.id !== 'sm',
       });
 
       section.appendChild(label);
@@ -607,7 +616,7 @@ export const AllSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -624,42 +633,42 @@ export const ThemeComparison: Story = {
     variant: 'default',
     showFirstLast: true,
     showPrevNext: true,
-    showPrevNextText: true
+    showPrevNextText: true,
   },
   argTypes: {
     variant: {
       control: 'select',
       options: ['default', 'rounded', 'simple', 'compact'],
-      description: 'Pagination style variant'
+      description: 'Pagination style variant',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Pagination size'
+      description: 'Pagination size',
     },
     currentPage: {
       control: { type: 'number', min: 1, max: 10 },
-      description: 'Current page number'
+      description: 'Current page number',
     },
     totalPages: {
       control: { type: 'number', min: 1, max: 100 },
-      description: 'Total number of pages'
+      description: 'Total number of pages',
     },
     siblingCount: {
       control: { type: 'number', min: 0, max: 3 },
-      description: 'Pages shown around current'
+      description: 'Pages shown around current',
     },
     showFirstLast: {
       control: 'boolean',
-      description: 'Show first/last with ellipsis'
+      description: 'Show first/last with ellipsis',
     },
     showPrevNext: {
       control: 'boolean',
-      description: 'Show prev/next buttons'
+      description: 'Show prev/next buttons',
     },
     showPrevNextText: {
       control: 'boolean',
-      description: 'Show text in prev/next'
-    }
-  }
+      description: 'Show text in prev/next',
+    },
+  },
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useId } from 'react';
 
 export interface TooltipProps {
   /** Tooltip content */
@@ -30,27 +30,27 @@ export const Tooltip: React.FC<TooltipProps> = ({
   children,
   position = 'top',
   className = '',
-  delay = 0
+  delay = 0,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [triggerId] = useState(`tooltip-trigger-${Math.random().toString(36).substr(2, 9)}`);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const triggerId = `tooltip-trigger-${useId()}`;
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const showTooltip = () => {
     if (delay > 0) {
       timeoutRef.current = setTimeout(() => {
         setIsVisible(true);
-        // @ts-ignore
+        // @ts-expect-error - window.Aural is added by vanilla JS
         if (typeof window.Aural !== 'undefined') {
-          // @ts-ignore
+          // @ts-expect-error - window.Aural is added by vanilla JS
           window.Aural.showTooltip(triggerId);
         }
       }, delay);
     } else {
       setIsVisible(true);
-      // @ts-ignore
+      // @ts-expect-error - window.Aural is added by vanilla JS
       if (typeof window.Aural !== 'undefined') {
-        // @ts-ignore
+        // @ts-expect-error - window.Aural is added by vanilla JS
         window.Aural.showTooltip(triggerId);
       }
     }
@@ -62,9 +62,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
       timeoutRef.current = null;
     }
     setIsVisible(false);
-    // @ts-ignore
+    // @ts-expect-error - window.Aural is added by vanilla JS
     if (typeof window.Aural !== 'undefined') {
-      // @ts-ignore
+      // @ts-expect-error - window.Aural is added by vanilla JS
       window.Aural.hideTooltip(triggerId);
     }
   };
@@ -78,26 +78,35 @@ export const Tooltip: React.FC<TooltipProps> = ({
   }, []);
 
   // Clone the child element and add event handlers
-  const trigger = React.cloneElement(children, {
-    id: triggerId,
-    'data-tooltip-trigger': true,
-    onMouseEnter: (e: React.MouseEvent) => {
-      showTooltip();
-      children.props.onMouseEnter?.(e);
-    },
-    onMouseLeave: (e: React.MouseEvent) => {
-      hideTooltip();
-      children.props.onMouseLeave?.(e);
-    },
-    onFocus: (e: React.FocusEvent) => {
-      showTooltip();
-      children.props.onFocus?.(e);
-    },
-    onBlur: (e: React.FocusEvent) => {
-      hideTooltip();
-      children.props.onBlur?.(e);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const trigger = React.cloneElement(
+    children as React.ReactElement<any>,
+    // eslint-disable-next-line react-hooks/refs
+    {
+      id: triggerId,
+      'data-tooltip-trigger': true,
+      onMouseEnter: (e: React.MouseEvent) => {
+        showTooltip();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (children.props as any)?.onMouseEnter?.(e);
+      },
+      onMouseLeave: (e: React.MouseEvent) => {
+        hideTooltip();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (children.props as any)?.onMouseLeave?.(e);
+      },
+      onFocus: (e: React.FocusEvent) => {
+        showTooltip();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (children.props as any)?.onFocus?.(e);
+      },
+      onBlur: (e: React.FocusEvent) => {
+        hideTooltip();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (children.props as any)?.onBlur?.(e);
+      },
     }
-  });
+  );
 
   return (
     <div className="tooltip-wrapper">

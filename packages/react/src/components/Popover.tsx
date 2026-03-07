@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 export interface PopoverProps {
   /** Unique identifier */
@@ -43,7 +43,7 @@ export const Popover: React.FC<PopoverProps> = ({
   children,
   position = 'bottom',
   className = '',
-  showCloseButton = true
+  showCloseButton = true,
 }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const isControlled = controlledIsOpen !== undefined;
@@ -59,23 +59,23 @@ export const Popover: React.FC<PopoverProps> = ({
     }
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     if (isControlled) {
       onClose?.();
     } else {
       setInternalIsOpen(false);
     }
-  };
+  }, [isControlled, onClose]);
 
   useEffect(() => {
-    // @ts-ignore
+    // @ts-expect-error - window.Aural is added by vanilla JS
     if (typeof window.Aural === 'undefined') return;
 
     if (isOpen) {
-      // @ts-ignore
+      // @ts-expect-error - window.Aural is added by vanilla JS
       window.Aural.showPopover(triggerId);
     } else {
-      // @ts-ignore
+      // @ts-expect-error - window.Aural is added by vanilla JS
       window.Aural.hidePopover(triggerId);
     }
   }, [isOpen, triggerId]);
@@ -88,7 +88,10 @@ export const Popover: React.FC<PopoverProps> = ({
     };
 
     const handleClickOutside = (e: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.closest('.popover-wrapper')?.contains(e.target as Node)) {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.closest('.popover-wrapper')?.contains(e.target as Node)
+      ) {
         handleClose();
       }
     };
@@ -102,16 +105,18 @@ export const Popover: React.FC<PopoverProps> = ({
       document.removeEventListener('keydown', handleEscape);
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, handleClose]);
 
   // Clone trigger and add click handler
-  const triggerElement = React.cloneElement(trigger, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const triggerElement = React.cloneElement(trigger as React.ReactElement<any>, {
     id: triggerId,
     'data-popover-trigger': true,
     onClick: (e: React.MouseEvent) => {
       handleToggle();
-      trigger.props.onClick?.(e);
-    }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (trigger.props as any)?.onClick?.(e);
+    },
   });
 
   return (
@@ -133,9 +138,7 @@ export const Popover: React.FC<PopoverProps> = ({
             &times;
           </button>
         )}
-        <div className="popover-content">
-          {children}
-        </div>
+        <div className="popover-content">{children}</div>
       </div>
     </div>
   );

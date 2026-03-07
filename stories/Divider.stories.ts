@@ -43,9 +43,9 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 \`\`\`vue
 <hr class="divider">
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     variant: {
@@ -53,38 +53,38 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
       options: ['solid', 'dashed', 'dotted'],
       description: 'Visual style of the divider',
       table: {
-        defaultValue: { summary: 'solid' }
-      }
+        defaultValue: { summary: 'solid' },
+      },
     },
     orientation: {
       control: 'select',
       options: ['horizontal', 'vertical'],
       description: 'Orientation of the divider',
       table: {
-        defaultValue: { summary: 'horizontal' }
-      }
+        defaultValue: { summary: 'horizontal' },
+      },
     },
     spacing: {
       control: 'select',
       options: ['default', 'compact', 'spacious'],
       description: 'Spacing around the divider',
       table: {
-        defaultValue: { summary: 'default' }
-      }
+        defaultValue: { summary: 'default' },
+      },
     },
     withLabel: {
       control: 'boolean',
       description: 'Show divider with text label',
       table: {
-        defaultValue: { summary: false }
-      }
+        defaultValue: { summary: false },
+      },
     },
     label: {
       control: 'text',
       description: 'Text label to display (when withLabel is true)',
-      if: { arg: 'withLabel', truthy: true }
-    }
-  }
+      if: { arg: 'withLabel', truthy: true },
+    },
+  },
 };
 
 export default meta;
@@ -110,7 +110,7 @@ export const Default: Story = {
 
     // Regular divider
     const divider = document.createElement('hr');
-    let classes = ['divider'];
+    const classes = ['divider'];
 
     // Add orientation
     if (args.orientation === 'vertical') {
@@ -179,8 +179,8 @@ export const Default: Story = {
     orientation: 'horizontal',
     spacing: 'default',
     withLabel: false,
-    label: 'OR'
-  }
+    label: 'OR',
+  },
 };
 
 export const Dashed: Story = {
@@ -206,7 +206,7 @@ export const Dashed: Story = {
     wrapper.appendChild(text2);
 
     return wrapper;
-  }
+  },
 };
 
 export const Dotted: Story = {
@@ -232,7 +232,7 @@ export const Dotted: Story = {
     wrapper.appendChild(text2);
 
     return wrapper;
-  }
+  },
 };
 
 export const WithLabel: Story = {
@@ -269,7 +269,7 @@ export const WithLabel: Story = {
     container.appendChild(optionalDivider);
 
     return container;
-  }
+  },
 };
 
 export const Vertical: Story = {
@@ -298,7 +298,7 @@ export const Vertical: Story = {
     });
 
     return wrapper;
-  }
+  },
 };
 
 export const InContent: Story = {
@@ -316,7 +316,8 @@ export const InContent: Story = {
     heading1.style.fontWeight = 'var(--font-semibold)';
 
     const para1 = document.createElement('p');
-    para1.textContent = 'This is the introduction section with some descriptive content that explains the topic.';
+    para1.textContent =
+      'This is the introduction section with some descriptive content that explains the topic.';
     para1.style.color = 'var(--color-text-secondary)';
     para1.style.margin = '0';
     para1.style.lineHeight = '1.6';
@@ -333,7 +334,8 @@ export const InContent: Story = {
     heading2.style.fontWeight = 'var(--font-semibold)';
 
     const para2 = document.createElement('p');
-    para2.textContent = 'The main content section contains the primary information that users need to understand.';
+    para2.textContent =
+      'The main content section contains the primary information that users need to understand.';
     para2.style.color = 'var(--color-text-secondary)';
     para2.style.margin = '0';
     para2.style.lineHeight = '1.6';
@@ -365,7 +367,7 @@ export const InContent: Story = {
     container.appendChild(para3);
 
     return container;
-  }
+  },
 };
 
 export const InList: Story = {
@@ -381,7 +383,7 @@ export const InList: Story = {
       { label: 'Dashboard', shortcut: '⌘D' },
       { label: 'Settings', shortcut: '⌘,' },
       { label: 'Profile', shortcut: '⌘P' },
-      { label: 'Help', shortcut: '⌘H' }
+      { label: 'Help', shortcut: '⌘H' },
     ];
 
     items.forEach((item, index) => {
@@ -412,7 +414,7 @@ export const InList: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const InToolbar: Story = {
@@ -467,7 +469,7 @@ export const InToolbar: Story = {
     toolbar.appendChild(createButton('🖼', 'Insert image'));
 
     return toolbar;
-  }
+  },
 };
 
 export const Spacing: Story = {
@@ -496,12 +498,14 @@ export const Spacing: Story = {
       return section;
     };
 
-    container.appendChild(createSection('Compact spacing (divider-compact)', 'divider divider-compact'));
+    container.appendChild(
+      createSection('Compact spacing (divider-compact)', 'divider divider-compact')
+    );
     container.appendChild(createSection('Default spacing', 'divider'));
     container.appendChild(createSection('Spacious (divider-spacious)', 'divider divider-spacious'));
 
     return container;
-  }
+  },
 };
 
 export const AllVariants: Story = {
@@ -535,7 +539,7 @@ export const AllVariants: Story = {
     container.appendChild(createVariant('Dotted', 'divider divider-dotted'));
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -568,7 +572,7 @@ export const ThemeComparison: Story = {
       text1.style.fontSize = 'var(--text-sm)';
 
       const divider = document.createElement('hr');
-      let classes = ['divider'];
+      const classes = ['divider'];
 
       // Add variant
       if (args.variant && args.variant !== 'solid') {
@@ -599,27 +603,27 @@ export const ThemeComparison: Story = {
     variant: 'solid',
     spacing: 'default',
     withLabel: false,
-    label: 'OR'
+    label: 'OR',
   },
   argTypes: {
     variant: {
       control: 'select',
       options: ['solid', 'dashed', 'dotted'],
-      description: 'Visual style of the divider'
+      description: 'Visual style of the divider',
     },
     spacing: {
       control: 'select',
       options: ['default', 'compact', 'spacious'],
-      description: 'Spacing around the divider'
+      description: 'Spacing around the divider',
     },
     withLabel: {
       control: 'boolean',
-      description: 'Show divider with text label'
+      description: 'Show divider with text label',
     },
     label: {
       control: 'text',
       description: 'Text label to display (when withLabel is true)',
-      if: { arg: 'withLabel', truthy: true }
-    }
-  }
+      if: { arg: 'withLabel', truthy: true },
+    },
+  },
 };

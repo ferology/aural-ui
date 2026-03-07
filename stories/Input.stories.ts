@@ -6,43 +6,44 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Text input fields with validation states, icons, and various sizes. Supports labels, helper text, and error/success feedback.'
-      }
-    }
+        component:
+          'Text input fields with validation states, icons, and various sizes. Supports labels, helper text, and error/success feedback.',
+      },
+    },
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Input label'
+      description: 'Input label',
     },
     placeholder: {
       control: 'text',
-      description: 'Placeholder text'
+      description: 'Placeholder text',
     },
     type: {
       control: 'select',
       options: ['text', 'email', 'password', 'number', 'tel', 'url'],
-      description: 'Input type'
+      description: 'Input type',
     },
     size: {
       control: 'select',
       options: ['sm', 'default', 'lg'],
-      description: 'Input size'
+      description: 'Input size',
     },
     state: {
       control: 'select',
       options: ['default', 'error', 'success'],
-      description: 'Validation state'
+      description: 'Validation state',
     },
     helperText: {
       control: 'text',
-      description: 'Helper or error text'
+      description: 'Helper or error text',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
-    }
-  }
+      description: 'Disabled state',
+    },
+  },
 };
 
 export default meta;
@@ -74,7 +75,7 @@ export const Default: Story = {
     input.type = args.type || 'text';
 
     // Build input classes correctly
-    let inputClasses = ['input'];
+    const inputClasses = ['input'];
     if (args.size === 'sm') {
       inputClasses.push('input-sm');
     } else if (args.size === 'lg') {
@@ -129,8 +130,8 @@ export const Default: Story = {
     placeholder: 'Enter your email',
     type: 'email',
     size: 'default',
-    state: 'default'
-  }
+    state: 'default',
+  },
 };
 
 export const WithError: Story = {
@@ -141,8 +142,8 @@ export const WithError: Story = {
     type: 'email',
     size: 'default',
     state: 'error',
-    helperText: 'Please enter a valid email address'
-  }
+    helperText: 'Please enter a valid email address',
+  },
 };
 
 export const WithSuccess: Story = {
@@ -153,8 +154,8 @@ export const WithSuccess: Story = {
     type: 'email',
     size: 'default',
     state: 'success',
-    helperText: 'Looks good!'
-  }
+    helperText: 'Looks good!',
+  },
 };
 
 export const WithHelper: Story = {
@@ -165,8 +166,8 @@ export const WithHelper: Story = {
     type: 'email',
     size: 'default',
     state: 'default',
-    helperText: "We'll never share your email"
-  }
+    helperText: "We'll never share your email",
+  },
 };
 
 export const Small: Story = {
@@ -174,8 +175,8 @@ export const Small: Story = {
   args: {
     label: 'Small Input',
     placeholder: 'Small size',
-    size: 'sm'
-  }
+    size: 'sm',
+  },
 };
 
 export const Large: Story = {
@@ -183,8 +184,8 @@ export const Large: Story = {
   args: {
     label: 'Large Input',
     placeholder: 'Large size',
-    size: 'lg'
-  }
+    size: 'lg',
+  },
 };
 
 export const Disabled: Story = {
@@ -192,8 +193,8 @@ export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
     placeholder: 'Cannot type here',
-    disabled: true
-  }
+    disabled: true,
+  },
 };
 
 export const Password: Story = {
@@ -201,8 +202,8 @@ export const Password: Story = {
   args: {
     label: 'Password',
     placeholder: 'Enter your password',
-    type: 'password'
-  }
+    type: 'password',
+  },
 };
 
 export const Number: Story = {
@@ -210,8 +211,8 @@ export const Number: Story = {
   args: {
     label: 'Age',
     placeholder: 'Enter your age',
-    type: 'number'
-  }
+    type: 'number',
+  },
 };
 
 export const WithPrefixIcon: Story = {
@@ -233,7 +234,8 @@ export const WithPrefixIcon: Story = {
 
     const iconSpan = document.createElement('span');
     iconSpan.className = 'input-group-icon input-group-icon-left';
-    iconSpan.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>';
+    iconSpan.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>';
 
     const input = document.createElement('input');
     input.type = 'text';
@@ -246,7 +248,7 @@ export const WithPrefixIcon: Story = {
     container.appendChild(formGroup);
 
     return container;
-  }
+  },
 };
 
 export const WithSuffixIcon: Story = {
@@ -273,7 +275,8 @@ export const WithSuffixIcon: Story = {
 
     const iconSpan = document.createElement('span');
     iconSpan.className = 'input-group-icon input-group-icon-right';
-    iconSpan.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"></path></svg>';
+    iconSpan.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"></path></svg>';
 
     inputGroup.appendChild(input);
     inputGroup.appendChild(iconSpan);
@@ -281,7 +284,7 @@ export const WithSuffixIcon: Story = {
     container.appendChild(formGroup);
 
     return container;
-  }
+  },
 };
 
 export const WithBothIcons: Story = {
@@ -303,7 +306,8 @@ export const WithBothIcons: Story = {
 
     const leftIcon = document.createElement('span');
     leftIcon.className = 'input-group-icon input-group-icon-left';
-    leftIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>';
+    leftIcon.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>';
 
     const input = document.createElement('input');
     input.type = 'password';
@@ -312,7 +316,8 @@ export const WithBothIcons: Story = {
 
     const rightIcon = document.createElement('span');
     rightIcon.className = 'input-group-icon input-group-icon-right';
-    rightIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+    rightIcon.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
 
     inputGroup.appendChild(leftIcon);
     inputGroup.appendChild(input);
@@ -321,7 +326,7 @@ export const WithBothIcons: Story = {
     container.appendChild(formGroup);
 
     return container;
-  }
+  },
 };
 
 export const InputSizes: Story = {
@@ -336,7 +341,7 @@ export const InputSizes: Story = {
     const sizes = [
       { label: 'Small', className: 'input input-sm', placeholder: 'Small input' },
       { label: 'Default', className: 'input', placeholder: 'Default input' },
-      { label: 'Large', className: 'input input-lg', placeholder: 'Large input' }
+      { label: 'Large', className: 'input input-lg', placeholder: 'Large input' },
     ];
 
     sizes.forEach(({ label, className, placeholder }) => {
@@ -358,7 +363,7 @@ export const InputSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const InputSizesWithIcons: Story = {
@@ -370,12 +375,28 @@ export const InputSizesWithIcons: Story = {
     container.style.flexDirection = 'column';
     container.style.gap = '1.5rem';
 
-    const searchIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>';
+    const searchIcon =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>';
 
     const sizes = [
-      { label: 'Small', groupClass: 'input-group input-group-prefix input-group-sm', inputClass: 'input input-sm', placeholder: 'Small search...' },
-      { label: 'Default', groupClass: 'input-group input-group-prefix', inputClass: 'input', placeholder: 'Default search...' },
-      { label: 'Large', groupClass: 'input-group input-group-prefix input-group-lg', inputClass: 'input input-lg', placeholder: 'Large search...' }
+      {
+        label: 'Small',
+        groupClass: 'input-group input-group-prefix input-group-sm',
+        inputClass: 'input input-sm',
+        placeholder: 'Small search...',
+      },
+      {
+        label: 'Default',
+        groupClass: 'input-group input-group-prefix',
+        inputClass: 'input',
+        placeholder: 'Default search...',
+      },
+      {
+        label: 'Large',
+        groupClass: 'input-group input-group-prefix input-group-lg',
+        inputClass: 'input input-lg',
+        placeholder: 'Large search...',
+      },
     ];
 
     sizes.forEach(({ label, groupClass, inputClass, placeholder }) => {
@@ -406,7 +427,7 @@ export const InputSizesWithIcons: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllStates: Story = {
@@ -419,9 +440,24 @@ export const AllStates: Story = {
     container.style.gap = '1.5rem';
 
     const states = [
-      { label: 'Default', state: 'default', helperText: 'This is helper text', helperClass: 'form-helper' },
-      { label: 'Error', state: 'error', helperText: 'Please enter a valid email address', helperClass: 'form-error' },
-      { label: 'Success', state: 'success', helperText: 'Looks good!', helperClass: 'form-success' }
+      {
+        label: 'Default',
+        state: 'default',
+        helperText: 'This is helper text',
+        helperClass: 'form-helper',
+      },
+      {
+        label: 'Error',
+        state: 'error',
+        helperText: 'Please enter a valid email address',
+        helperClass: 'form-error',
+      },
+      {
+        label: 'Success',
+        state: 'success',
+        helperText: 'Looks good!',
+        helperClass: 'form-success',
+      },
     ];
 
     states.forEach(({ label, state, helperText, helperClass }) => {
@@ -475,7 +511,7 @@ export const AllStates: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const NumberWithSpinners: Story = {
@@ -510,14 +546,16 @@ export const NumberWithSpinners: Story = {
     incrementBtn.className = 'input-number__button';
     incrementBtn.setAttribute('data-action', 'increment');
     incrementBtn.setAttribute('aria-label', 'Increment');
-    incrementBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+    incrementBtn.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>';
 
     const decrementBtn = document.createElement('button');
     decrementBtn.type = 'button';
     decrementBtn.className = 'input-number__button';
     decrementBtn.setAttribute('data-action', 'decrement');
     decrementBtn.setAttribute('aria-label', 'Decrement');
-    decrementBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+    decrementBtn.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>';
 
     // Add click handlers
     incrementBtn.addEventListener('click', () => {
@@ -545,7 +583,7 @@ export const NumberWithSpinners: Story = {
     container.appendChild(formGroup);
 
     return container;
-  }
+  },
 };
 
 export const NumberSpinnerSizes: Story = {
@@ -557,13 +595,25 @@ export const NumberSpinnerSizes: Story = {
     container.style.gridTemplateColumns = '1fr 1fr 1fr';
     container.style.gap = '1rem';
 
-    const upIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>';
-    const downIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+    const upIcon =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+    const downIcon =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>';
 
     const sizes = [
-      { label: 'Small', numberClass: 'input-number input-number--sm', inputClass: 'input input-sm', value: '10' },
+      {
+        label: 'Small',
+        numberClass: 'input-number input-number--sm',
+        inputClass: 'input input-sm',
+        value: '10',
+      },
       { label: 'Default', numberClass: 'input-number', inputClass: 'input', value: '25' },
-      { label: 'Large', numberClass: 'input-number input-number--lg', inputClass: 'input input-lg', value: '50' }
+      {
+        label: 'Large',
+        numberClass: 'input-number input-number--lg',
+        inputClass: 'input input-lg',
+        value: '50',
+      },
     ];
 
     sizes.forEach(({ label, numberClass, inputClass, value }) => {
@@ -629,5 +679,5 @@ export const NumberSpinnerSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
