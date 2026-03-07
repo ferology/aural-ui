@@ -61,6 +61,55 @@
   })();
 </script>
 
+<script>
+  // FORCE light background via JavaScript - override all CSS
+  (function forceBackground() {
+    function applyBackground() {
+      // Get theme colors or use fallback
+      const bgColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-bg-primary').trim() || '#fafafa';
+      const textColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-text-primary').trim() || '#0a0a0a';
+
+      // Force background on all problematic elements
+      const selectors = [
+        'html', 'body', '.sbdocs', '.sbdocs-content', '.sbdocs-wrapper',
+        '#storybook-docs', '#docs-root', '.docs-story',
+        'div[class*="css-"]', 'div[class^="css-"]'
+      ];
+
+      selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+          el.style.setProperty('background-color', bgColor, 'important');
+          el.style.setProperty('background', bgColor, 'important');
+          el.style.setProperty('color', textColor, 'important');
+        });
+      });
+
+      // Also set on document elements directly
+      document.documentElement.style.backgroundColor = bgColor;
+      document.body.style.backgroundColor = bgColor;
+      document.body.style.color = textColor;
+    }
+
+    // Run immediately
+    applyBackground();
+
+    // Run on DOM changes
+    if (typeof MutationObserver !== 'undefined') {
+      const observer = new MutationObserver(applyBackground);
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    // Run on theme changes
+    document.addEventListener('storybook:story-rendered', applyBackground);
+    window.addEventListener('load', applyBackground);
+
+    // Run periodically as fallback
+    setInterval(applyBackground, 100);
+  })();
+</script>
+
 <style>
   /* CRITICAL: Force light background - override Storybook dark mode */
   html,
