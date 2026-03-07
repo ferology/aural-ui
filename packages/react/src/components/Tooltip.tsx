@@ -40,17 +40,15 @@ export const Tooltip: React.FC<TooltipProps> = ({
     if (delay > 0) {
       timeoutRef.current = setTimeout(() => {
         setIsVisible(true);
-        // @ts-expect-error - window.Aural is added by vanilla JS
+
         if (typeof window.Aural !== 'undefined') {
-          // @ts-expect-error - window.Aural is added by vanilla JS
           window.Aural.showTooltip(triggerId);
         }
       }, delay);
     } else {
       setIsVisible(true);
-      // @ts-expect-error - window.Aural is added by vanilla JS
+
       if (typeof window.Aural !== 'undefined') {
-        // @ts-expect-error - window.Aural is added by vanilla JS
         window.Aural.showTooltip(triggerId);
       }
     }
@@ -62,9 +60,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
       timeoutRef.current = null;
     }
     setIsVisible(false);
-    // @ts-expect-error - window.Aural is added by vanilla JS
+
     if (typeof window.Aural !== 'undefined') {
-      // @ts-expect-error - window.Aural is added by vanilla JS
       window.Aural.hideTooltip(triggerId);
     }
   };

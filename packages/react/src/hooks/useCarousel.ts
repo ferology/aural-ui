@@ -74,11 +74,10 @@ export function useCarousel(id: string, options: CarouselOptions = {}): UseCarou
   const controllerRef = useRef<any>(null);
 
   useEffect(() => {
-    // @ts-expect-error - window.Aural is added by vanilla JS
     if (typeof window.Aural === 'undefined' || !carouselRef.current) return;
 
     // Initialize carousel
-    // @ts-expect-error - window.Aural is added by vanilla JS
+    // @ts-expect-error - window.Aural.initCarousel added by vanilla JS
     const carouselInstance = window.Aural.initCarousel(id, options);
 
     if (carouselInstance) {

@@ -68,14 +68,11 @@ export const Popover: React.FC<PopoverProps> = ({
   }, [isControlled, onClose]);
 
   useEffect(() => {
-    // @ts-expect-error - window.Aural is added by vanilla JS
     if (typeof window.Aural === 'undefined') return;
 
     if (isOpen) {
-      // @ts-expect-error - window.Aural is added by vanilla JS
       window.Aural.showPopover(triggerId);
     } else {
-      // @ts-expect-error - window.Aural is added by vanilla JS
       window.Aural.hidePopover(triggerId);
     }
   }, [isOpen, triggerId]);
