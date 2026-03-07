@@ -14,8 +14,8 @@ const preview: Preview = {
     // Individual stories in Canvas mode will still show it
     toolbar: {
       theme: {
-        hidden: (context: any) => context?.viewMode === 'docs'
-      }
+        hidden: (context: any) => context?.viewMode === 'docs',
+      },
     },
     docs: {
       toc: true,
@@ -24,7 +24,7 @@ const preview: Preview = {
       },
       canvas: {
         sourceState: 'shown',
-      }
+      },
     },
   },
   decorators: [
@@ -45,8 +45,22 @@ const preview: Preview = {
       document.documentElement.setAttribute('data-theme', theme);
       document.body.setAttribute('data-theme', theme);
 
+      // Force canvas background to use theme colors (prevents Storybook dark mode from showing through)
+      let themeOverride = document.getElementById('theme-body-override');
+      if (!themeOverride) {
+        themeOverride = document.createElement('style');
+        themeOverride.id = 'theme-body-override';
+        document.head.appendChild(themeOverride);
+      }
+      themeOverride.textContent = `
+        body {
+          background: var(--color-bg-primary) !important;
+          color: var(--color-text-primary) !important;
+        }
+      `;
+
       return story();
-    }
+    },
   ],
   globalTypes: {
     theme: {
@@ -64,12 +78,12 @@ const preview: Preview = {
           { value: 'prismatic', title: 'Prismatic' },
           { value: 'high-contrast', title: 'High Contrast' },
           { value: 'colorblind-friendly', title: 'Colorblind' },
-          { value: 'warm', title: 'Warm' }
+          { value: 'warm', title: 'Warm' },
         ],
-        dynamicTitle: true
-      }
-    }
-  }
+        dynamicTitle: true,
+      },
+    },
+  },
 };
 
 export default preview;
