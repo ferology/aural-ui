@@ -1,6 +1,0 @@
-const o={parameters:{backgrounds:{disable:!0},layout:"padded",controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}},toolbar:{theme:{hidden:t=>(t==null?void 0:t.viewMode)==="docs"}},docs:{toc:!0,source:{type:"code"},canvas:{sourceState:"shown"}}},decorators:[(t,i)=>{const l=i.globals.theme||"minimal";let e=document.getElementById("theme-stylesheet");e||(e=document.createElement("link"),e.id="theme-stylesheet",e.rel="stylesheet",document.head.appendChild(e)),e.href=`${l}.css`,document.documentElement.setAttribute("data-theme",l),document.body.setAttribute("data-theme",l);let a=document.getElementById("theme-body-override");return a||(a=document.createElement("style"),a.id="theme-body-override",document.head.appendChild(a)),a.textContent=`
-        body {
-          background: var(--color-bg-primary) !important;
-          color: var(--color-text-primary) !important;
-        }
-      `,t()}],globalTypes:{theme:{name:"Theme",defaultValue:"minimal",toolbar:{title:"Theme",icon:"paintbrush",items:[{value:"minimal",title:"Minimal"},{value:"light",title:"Light"},{value:"dark",title:"Dark"},{value:"neon",title:"Neon"},{value:"kinetic",title:"Kinetic"},{value:"prismatic",title:"Prismatic"},{value:"high-contrast",title:"High Contrast"},{value:"colorblind-friendly",title:"Colorblind"},{value:"warm",title:"Warm"}],dynamicTitle:!0}}}};export{o as default};

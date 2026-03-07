@@ -57,6 +57,13 @@ const preview: Preview = {
           background: var(--color-bg-primary) !important;
           color: var(--color-text-primary) !important;
         }
+        .sbdocs,
+        .sbdocs-content,
+        .sbdocs-wrapper,
+        .docs-story {
+          background: var(--color-bg-primary) !important;
+          color: var(--color-text-primary) !important;
+        }
       `;
 
       return story();

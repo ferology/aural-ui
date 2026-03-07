@@ -1,4 +1,4 @@
-import{j as n,M as l}from"./index-e_JkNXdL.js";import{useMDXComponents as r}from"./index-Fl1R5kNz.js";import"./iframe-DTFCXprV.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return n.jsxs(n.Fragment,{children:[n.jsx(l,{title:"Introduction",parameters:{toolbar:{theme:{hidden:!0}}}}),`
+import{j as n,M as l}from"./index-u_cfjGcD.js";import{useMDXComponents as r}from"./index-u_6ULAhj.js";import"./iframe-Cg084Z0K.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return n.jsxs(n.Fragment,{children:[n.jsx(l,{title:"Introduction",parameters:{toolbar:{theme:{hidden:!0}}}}),`
 `,n.jsx(e.h1,{id:"aural-ui",children:"Aural UI"}),`
 `,n.jsx(e.p,{children:"A modern, accessible design system with comprehensive components, utilities, and themes."}),`
 `,n.jsx(e.h2,{id:"features",children:"Features"}),`
