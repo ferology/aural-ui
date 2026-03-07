@@ -18,7 +18,8 @@ const meta: Meta<NavbarArgs> = {
   parameters: {
     docs: {
       description: {
-        component: 'Top navigation bar with branding, links, and actions. Supports responsive design, icons, search, notifications, and multiple variants.',
+        component:
+          'Top navigation bar with branding, links, and actions. Supports responsive design, icons, search, notifications, and multiple variants.',
       },
     },
     layout: 'fullscreen',
@@ -78,19 +79,23 @@ export default meta;
 type Story = StoryObj<NavbarArgs>;
 
 const createNavbar = (args: NavbarArgs) => {
-  const variantClass = args.variant && args.variant !== 'default' ? `aural-navbar--${args.variant}` : '';
+  const variantClass =
+    args.variant && args.variant !== 'default' ? `aural-navbar--${args.variant}` : '';
   const sizeClass = args.size && args.size !== 'default' ? `aural-navbar--${args.size}` : '';
 
+  const navId = `navbar-${Math.random().toString(36).substr(2, 9)}`;
   const wrapper = document.createElement('div');
   wrapper.innerHTML = `
-    <nav class="aural-navbar ${variantClass} ${sizeClass}" role="navigation" aria-label="Main navigation">
+    <nav id="${navId}" class="aural-navbar ${variantClass} ${sizeClass}" role="navigation" aria-label="Main navigation">
       <div class="aural-navbar__inner">
         <a href="#" class="aural-navbar__brand">
           ${args.withIcons ? '<i data-lucide="sparkles" style="width: 24px; height: 24px;" aria-hidden="true"></i>' : ''}
           <span>${args.brand}</span>
         </a>
         <div class="aural-navbar__nav">
-          ${args.withIcons ? `
+          ${
+            args.withIcons
+              ? `
             <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">
               <i data-lucide="home" class="aural-navbar__link-icon" aria-hidden="true"></i>
               Home
@@ -103,15 +108,19 @@ const createNavbar = (args: NavbarArgs) => {
               <i data-lucide="users" class="aural-navbar__link-icon" aria-hidden="true"></i>
               Team
             </a>
-          ` : `
+          `
+              : `
             <a href="#" class="aural-navbar__link aural-navbar__link--active" aria-current="page">Home</a>
             <a href="#" class="aural-navbar__link">Products</a>
             <a href="#" class="aural-navbar__link">Features</a>
             <a href="#" class="aural-navbar__link">Pricing</a>
-          `}
+          `
+          }
         </div>
         <div class="aural-navbar__actions">
-          ${args.withSearch ? `
+          ${
+            args.withSearch
+              ? `
             <div class="aural-search-bar" style="max-width: 300px;">
               <div class="aural-search-bar__wrapper">
                 <div class="aural-search-bar__icon">
@@ -120,22 +129,35 @@ const createNavbar = (args: NavbarArgs) => {
                 <input type="search" class="aural-search-bar__input" placeholder="Search..." aria-label="Search">
               </div>
             </div>
-          ` : ''}
-          ${args.withNotifications ? `
+          `
+              : ''
+          }
+          ${
+            args.withNotifications
+              ? `
             <button class="aural-navbar__action" aria-label="Notifications, ${args.notificationCount || 0} unread">
               <i data-lucide="bell" aria-hidden="true"></i>
               ${args.notificationCount ? `<span class="aural-navbar__badge aural-navbar__badge--pulse" aria-hidden="true">${args.notificationCount}</span>` : ''}
             </button>
-          ` : ''}
-          ${args.withUserMenu ? `
+          `
+              : ''
+          }
+          ${
+            args.withUserMenu
+              ? `
             <a href="#" class="aural-navbar__action avatar avatar-sm" aria-label="User profile">
               <img src="https://i.pravatar.cc/150?img=3" alt="User profile picture">
             </a>
-          ` : `
+          `
+              : `
             <button class="btn btn-ghost btn-sm">Sign In</button>
             <button class="btn btn-primary btn-sm">Sign Up</button>
-          `}
+          `
+          }
         </div>
+        <button class="aural-navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
+          <i data-lucide="menu" aria-hidden="true"></i>
+        </button>
       </div>
     </nav>
   `;
@@ -145,7 +167,7 @@ const createNavbar = (args: NavbarArgs) => {
       window.lucide.createIcons();
     }
     if (window.Aural?.initNavbar) {
-      window.Aural.initNavbar();
+      window.Aural.initNavbar(navId);
     }
   }, 0);
 
@@ -168,7 +190,8 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Navbar with icons in both the brand and navigation links for enhanced visual hierarchy.',
+        story:
+          'Navbar with icons in both the brand and navigation links for enhanced visual hierarchy.',
       },
     },
   },
@@ -199,7 +222,8 @@ export const WithNotifications: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Navbar with notification badge showing unread count. The badge pulses to draw attention.',
+        story:
+          'Navbar with notification badge showing unread count. The badge pulses to draw attention.',
       },
     },
   },
@@ -215,7 +239,8 @@ export const WithUserMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Navbar with user profile avatar instead of sign-in buttons, typical for authenticated views.',
+        story:
+          'Navbar with user profile avatar instead of sign-in buttons, typical for authenticated views.',
       },
     },
   },
@@ -230,7 +255,8 @@ export const StickyNavbar: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Navbar that stays at the top of the viewport when scrolling. Uses position: sticky.',
+        story:
+          'Navbar that stays at the top of the viewport when scrolling. Uses position: sticky.',
       },
     },
   },
@@ -244,7 +270,8 @@ export const TransparentNavbar: Story = {
   render: (args) => {
     const navbar = createNavbar(args);
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover)); padding: var(--space-8); min-height: 400px;';
+    wrapper.style.cssText =
+      'background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover)); padding: var(--space-8); min-height: 400px;';
     wrapper.appendChild(navbar);
 
     // Override text colors for transparent variant
@@ -256,8 +283,8 @@ export const TransparentNavbar: Story = {
         const buttons = navElement.querySelectorAll('.btn');
 
         if (brand) (brand as HTMLElement).style.color = 'white';
-        links.forEach(link => (link as HTMLElement).style.color = 'rgba(255,255,255,0.8)');
-        buttons.forEach(btn => {
+        links.forEach((link) => ((link as HTMLElement).style.color = 'rgba(255,255,255,0.8)'));
+        buttons.forEach((btn) => {
           (btn as HTMLElement).style.color = 'white';
           (btn as HTMLElement).style.borderColor = 'white';
         });
@@ -269,7 +296,8 @@ export const TransparentNavbar: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Transparent navbar perfect for hero sections or background images. Customize text colors as needed.',
+        story:
+          'Transparent navbar perfect for hero sections or background images. Customize text colors as needed.',
       },
     },
   },
@@ -374,7 +402,8 @@ export const EcommerceHeader: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'E-commerce navbar pattern with search, wishlist, shopping cart with item count, and user account.',
+        story:
+          'E-commerce navbar pattern with search, wishlist, shopping cart with item count, and user account.',
       },
     },
   },
@@ -438,7 +467,8 @@ export const SaaSDashboard: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'SaaS dashboard navbar with icon navigation, help button, pulsing notifications, and user avatar.',
+        story:
+          'SaaS dashboard navbar with icon navigation, help button, pulsing notifications, and user avatar.',
       },
     },
   },
@@ -498,7 +528,8 @@ export const MobileResponsive: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Responsive navbar with hamburger menu toggle for mobile devices. The menu automatically shows/hides based on viewport width.',
+        story:
+          'Responsive navbar with hamburger menu toggle for mobile devices. The menu automatically shows/hides based on viewport width.',
       },
     },
   },
@@ -513,7 +544,9 @@ export const ThemeComparison: Story = {
       { name: 'Blur', class: 'aural-navbar--blur' },
     ];
 
-    const navbars = themes.map(theme => `
+    const navbars = themes
+      .map(
+        (theme) => `
       <div style="margin-bottom: var(--space-8);">
         <div style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-3);">
           ${theme.name}
@@ -542,7 +575,9 @@ export const ThemeComparison: Story = {
           </nav>
         </div>
       </div>
-    `).join('');
+    `
+      )
+      .join('');
 
     wrapper.innerHTML = navbars;
 
@@ -560,7 +595,8 @@ export const ThemeComparison: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Side-by-side comparison of different navbar variants to see how they appear in various themes.',
+        story:
+          'Side-by-side comparison of different navbar variants to see how they appear in various themes.',
       },
     },
   },

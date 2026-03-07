@@ -1,5 +1,6 @@
 # Live Storybook Accessibility Audit Report
-**Date:** 2026-03-03
+
+**Date:** 2026-03-07
 **Storybook URL:** http://localhost:6006
 **Tool:** Playwright + axe-core
 **Standard:** WCAG 2.1 AA
@@ -13,6 +14,7 @@
 **Total Violations:** 0
 
 ### Violations by Severity
+
 - 🔴 **Critical:** 0
 - 🟠 **Serious:** 0
 - 🟡 **Moderate:** 0
@@ -25,6 +27,7 @@
 **Found 2 violations in the Storybook interface itself:**
 
 ### 1. color-contrast: Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds
+
 **Impact:** serious
 **WCAG:** wcag2aa, wcag143
 **Affected elements:** 1
@@ -32,11 +35,13 @@
 **Learn more:** https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=playwright
 
 **Example:**
+
 ```html
-<button class="css-18rvurk">
+<button class="css-18rvurk"></button>
 ```
 
 ### 2. meta-viewport: Ensure <meta name="viewport"> does not disable text scaling and zooming
+
 **Impact:** moderate
 **WCAG:** wcag2aa, wcag144
 **Affected elements:** 1
@@ -44,8 +49,9 @@
 **Learn more:** https://dequeuniversity.com/rules/axe/4.11/meta-viewport?application=playwright
 
 **Example:**
+
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 ```
 
 ---
@@ -56,15 +62,15 @@
 
 ## Summary Statistics
 
-| Metric | Count |
-|--------|-------|
-| Stories Scanned | 50 |
-| Components with Violations | 0 |
-| Total Violations | 0 |
-| Critical Issues | 0 |
-| Serious Issues | 0 |
-| Moderate Issues | 0 |
-| Minor Issues | 0 |
+| Metric                     | Count |
+| -------------------------- | ----- |
+| Stories Scanned            | 50    |
+| Components with Violations | 0     |
+| Total Violations           | 0     |
+| Critical Issues            | 0     |
+| Serious Issues             | 0     |
+| Moderate Issues            | 0     |
+| Minor Issues               | 0     |
 
 ---
 
@@ -79,4 +85,4 @@
 
 ---
 
-**Audit completed:** 2026-03-03T15:10:44.721Z
+**Audit completed:** 2026-03-07T13:39:35.548Z

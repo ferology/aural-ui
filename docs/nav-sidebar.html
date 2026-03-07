@@ -4,7 +4,14 @@
 -->
 <nav class="doc-sidebar" id="doc-sidebar">
     <div class="sidebar-header">
-        <h2 class="sidebar-logo">Aural UI</h2>
+        <a href="./nav.html" class="sidebar-brand">
+            <svg class="sidebar-logo-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path d="M4 16C4 16 8 8 16 8C24 8 28 16 28 16C28 16 24 24 16 24C8 24 4 16 4 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                <path d="M10 16H6M26 16H22M16 10V6M16 26V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h2 class="sidebar-logo-text">Aural UI</h2>
+        </a>
         <button type="button" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
             <i data-lucide="menu" aria-hidden="true"></i>
         </button>
@@ -216,11 +223,38 @@
         justify-content: space-between;
     }
 
-    .sidebar-logo {
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        text-decoration: none;
+        color: var(--color-text-primary);
+        transition: color 0.2s ease;
+    }
+
+    .sidebar-brand:hover {
+        color: var(--color-primary);
+    }
+
+    .sidebar-brand:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        border-radius: var(--radius-sm);
+    }
+
+    .sidebar-logo-icon {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        color: var(--color-primary);
+    }
+
+    .sidebar-logo-text {
         font-size: var(--text-xl);
         font-weight: var(--font-bold);
-        color: var(--color-primary);
+        color: currentColor;
         margin: 0;
+        white-space: nowrap;
     }
 
     .sidebar-toggle {
@@ -428,6 +462,19 @@
 
         .sidebar-toggle {
             display: flex;
+        }
+
+        .sidebar-header {
+            padding: var(--space-4) var(--space-3);
+        }
+
+        .sidebar-logo-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        .sidebar-logo-text {
+            font-size: var(--text-lg);
         }
     }
 
