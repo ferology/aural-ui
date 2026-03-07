@@ -53,15 +53,23 @@ const preview: Preview = {
         document.head.appendChild(themeOverride);
       }
       themeOverride.textContent = `
-        body {
+        html,
+        html body,
+        body,
+        body.sb-show-main {
           background: var(--color-bg-primary) !important;
+          background-color: var(--color-bg-primary) !important;
           color: var(--color-text-primary) !important;
         }
+        #storybook-docs,
         .sbdocs,
+        .sbdocs.sbdocs-wrapper,
         .sbdocs-content,
         .sbdocs-wrapper,
-        .docs-story {
+        .docs-story,
+        div[class*="css-"] {
           background: var(--color-bg-primary) !important;
+          background-color: var(--color-bg-primary) !important;
           color: var(--color-text-primary) !important;
         }
       `;
