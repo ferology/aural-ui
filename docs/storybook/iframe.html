@@ -540,6 +540,27 @@
 </script>
 
 <style>
+  /* CRITICAL: Force light background - override Storybook dark mode */
+  html,
+  html body,
+  body,
+  body.sb-show-main,
+  body.docs-mode,
+  #storybook-root,
+  #storybook-docs,
+  #docs-root,
+  .sbdocs,
+  .sbdocs.sbdocs-wrapper,
+  .sbdocs-content,
+  .sbdocs-wrapper,
+  .docs-story,
+  div[class*="css-"],
+  div[class^="css-"] {
+    background: var(--color-bg-primary, #fafafa) !important;
+    background-color: var(--color-bg-primary, #fafafa) !important;
+    color: var(--color-text-primary, #0a0a0a) !important;
+  }
+
   /* Hide Storybook internal CSS class names and artifacts */
   [class*="css-"]::before,
   [class*="css-"]::after {
