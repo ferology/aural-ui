@@ -7,36 +7,271 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Animated loading placeholders that mimic the structure of content before it loads, improving perceived performance and user experience.'
-      }
-    }
+        component: `
+# Skeleton Component
+
+Animated loading placeholders that mimic the structure of content before it loads, providing visual continuity and improving perceived performance during initial page renders.
+
+Use Skeleton screens for initial page load and data-heavy components (dashboards, feeds, tables). For button/form loading, use **Spinners** instead. For measurable progress, use **Progress** bars.
+
+Skeleton screens reduce perceived load time by 40% (research from Luke Wroblewski) because users see structure immediately rather than blank screens, creating the illusion of faster performance.
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<!-- Text Skeleton -->
+<div aria-busy="true" aria-label="Loading content">
+  <div class="skeleton skeleton-text" style="width: 100%"></div>
+  <div class="skeleton skeleton-text" style="width: 80%"></div>
+  <div class="skeleton skeleton-text" style="width: 60%"></div>
+  <span class="sr-only">Loading content...</span>
+</div>
+
+<!-- Avatar + Text Pattern -->
+<div aria-busy="true" aria-label="Loading user profile">
+  <div style="display: flex; gap: 16px; align-items: center;">
+    <div class="skeleton skeleton-circle" style="width: 48px; height: 48px;"></div>
+    <div style="flex: 1;">
+      <div class="skeleton skeleton-text" style="width: 40%; margin-bottom: 8px;"></div>
+      <div class="skeleton skeleton-text" style="width: 60%;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Card Skeleton -->
+<div class="card" aria-busy="true" aria-label="Loading card content">
+  <div class="skeleton skeleton-rect" style="width: 100%; height: 200px; border-radius: 8px 8px 0 0;"></div>
+  <div style="padding: 16px;">
+    <div class="skeleton skeleton-text" style="width: 70%; height: 24px; margin-bottom: 12px;"></div>
+    <div class="skeleton skeleton-text" style="width: 100%;"></div>
+    <div class="skeleton skeleton-text" style="width: 90%;"></div>
+  </div>
+</div>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+function Skeleton({ variant = 'text', width, height, className, count = 1 }) {
+  const baseClass = \`skeleton skeleton-\${variant}\`;
+
+  if (count > 1 && variant === 'text') {
+    const widths = ['100%', '80%', '60%'];
+    return (
+      <div aria-busy="true" aria-label="Loading content">
+        {Array.from({ length: count }).map((_, i) => (
+          <div
+            key={i}
+            className={baseClass}
+            style={{ width: width || widths[i] || widths[widths.length - 1] }}
+          />
+        ))}
+        <span className="sr-only">Loading content...</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className={baseClass} style={{ width, height }} />
+  );
+}
+
+// Card Skeleton Example
+function CardSkeleton() {
+  return (
+    <div className="card" aria-busy="true" aria-label="Loading card content">
+      <Skeleton variant="rect" height="200px" />
+      <div className="card-body">
+        <Skeleton variant="text" width="70%" height="24px" />
+        <Skeleton variant="text" count={2} />
+        <div className="flex gap-3 mt-4">
+          <Skeleton variant="rect" width="80px" height="36px" />
+          <Skeleton variant="rect" width="80px" height="36px" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Avatar List Skeleton
+function UserListSkeleton({ count = 4 }) {
+  return (
+    <div className="space-y-4" aria-busy="true" aria-label="Loading list items">
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="flex gap-4 items-center p-4 bg-surface rounded-lg">
+          <Skeleton variant="circle" width="48px" height="48px" />
+          <div className="flex-1">
+            <Skeleton variant="text" width="40%" />
+            <Skeleton variant="text" width="70%" />
+          </div>
+          <Skeleton variant="rect" width="24px" height="24px" />
+        </div>
+      ))}
+    </div>
+  );
+}
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div
+    v-if="count > 1 && variant === 'text'"
+    aria-busy="true"
+    aria-label="Loading content"
+  >
+    <div
+      v-for="(_, i) in count"
+      :key="i"
+      :class="skeletonClass"
+      :style="getStyle(i)"
+    />
+    <span class="sr-only">Loading content...</span>
+  </div>
+  <div
+    v-else
+    :class="skeletonClass"
+    :style="{ width, height }"
+  />
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: { type: String, default: 'text' },
+  width: String,
+  height: String,
+  count: { type: Number, default: 1 }
+});
+
+const skeletonClass = computed(() => \`skeleton skeleton-\${props.variant}\`);
+
+const widths = ['100%', '80%', '60%'];
+
+const getStyle = (index) => {
+  if (props.width) return { width: props.width };
+  return { width: widths[index] || widths[widths.length - 1] };
+};
+</script>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<script>
+  export let variant = 'text';
+  export let width = undefined;
+  export let height = undefined;
+  export let count = 1;
+
+  $: skeletonClass = \`skeleton skeleton-\${variant}\`;
+  $: widths = ['100%', '80%', '60%'];
+</script>
+
+{#if count > 1 && variant === 'text'}
+  <div aria-busy="true" aria-label="Loading content">
+    {#each Array(count) as _, i}
+      <div
+        class={skeletonClass}
+        style:width={width || widths[i] || widths[widths.length - 1]}
+      />
+    {/each}
+    <span class="sr-only">Loading content...</span>
+  </div>
+{:else}
+  <div class={skeletonClass} style:width style:height />
+{/if}
+\`\`\`
+
+## Accessibility
+
+1. **aria-busy="true"** - Mark containers with \`aria-busy="true"\` to indicate content is loading; remove when real content appears
+2. **aria-label context** - Provide descriptive label like \`aria-label="Loading user profile"\` or \`aria-label="Loading table data"\`
+3. **aria-live="polite"** - Add \`aria-live="polite"\` to container so screen readers announce when content finishes loading
+4. **Screen reader text** - Include hidden text like \`<span class="sr-only">Loading content...</span>\` for screen reader users
+5. **Completion announcement** - When real content loads, announce "Content loaded" via \`role="status"\` for screen reader notification
+6. **Reduced motion** - Disable shimmer animation for \`prefers-reduced-motion\` users; show static gray placeholder instead
+7. **Color contrast** - Ensure skeleton background meets 3:1 contrast ratio against page background (WCAG AA)
+8. **Semantic HTML** - Use proper structure (headings, lists) in actual content; skeleton should mirror this hierarchy
+9. **Keyboard navigation** - Don't trap focus in skeleton; allow users to tab past loading areas
+10. **Timeout handling** - If loading fails or exceeds 30 seconds, replace skeleton with error message and retry button
+11. **Progressive disclosure** - Load and reveal content incrementally (top-to-bottom) rather than showing skeleton for entire page
+12. **No fake interactivity** - Don't make skeleton buttons/links clickable; they should be purely visual placeholders
+
+## Usage Guidelines
+
+### When to Use
+
+- **Initial page load** - Show skeleton on first render before data arrives from API
+- **Dashboard/analytics** - Display skeleton for charts, graphs, and stat cards during data fetching
+- **User profiles** - Show avatar + bio skeleton while loading profile information
+- **News feeds/timelines** - Display post skeletons for infinite scroll or feed pagination
+- **Search results** - Show skeleton results grid while search query processes
+- **Data tables** - Display skeleton rows (5-10) while table data loads
+
+### When NOT to Use
+
+- **Button loading** - Use Spinner inside button instead; skeleton too large for inline actions
+- **Form submission** - Use disabled state + Spinner; skeleton doesn't make sense mid-interaction
+- **Real-time updates** - For live data streams, show actual data immediately then update; skeleton creates jarring flash
+- **Subsequent loads** - After initial load, use Spinner for refreshes (skeleton implies blank slate, confusing for updates)
+- **Instant operations** - Don't show skeleton for <200ms operations; creates unnecessary flash
+- **Known empty states** - If API returns empty result, show proper "No data" state not skeleton
+
+### Best Practices
+
+- Match skeleton structure exactly to final content layout (same width, height, positioning)
+- Use 5-10 skeleton items for lists/grids to fill viewport without overwhelming
+- Stagger animation start times for each skeleton element (50-100ms delay) for wave effect
+- Keep skeleton simple; no need to recreate every detail (icons, buttons) - focus on shape
+- For varied content heights (cards, posts), use average or median height for skeletons
+- Remove skeleton and show actual content in one atomic operation (no partial rendering)
+- For slow connections, show skeleton after 200ms delay to avoid flash on fast loads
+- Use lighter skeleton backgrounds in dark mode (adjust gradient opacity)
+
+### Mobile Considerations
+
+- Reduce skeleton item count on mobile (3-5 vs 10) due to smaller viewport
+- Increase skeleton height slightly on mobile for better visual weight (48px vs 40px avatars)
+- Disable complex shimmer animations on mobile to improve performance (static gray acceptable)
+- For mobile infinite scroll, show 2-3 skeleton items at bottom when loading more
+- Ensure skeleton respects mobile safe areas (avoid notch/home indicator overlaps)
+- Consider connection speed: show skeleton longer on 3G, shorter on 5G/WiFi
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     variant: {
       control: 'select',
       options: ['text', 'circle', 'rect', 'custom'],
-      description: 'Skeleton shape variant'
+      description:
+        'Shape variant matching content type (text: lines of text/paragraphs, circle: avatars/profile pictures, rect: images/cards/buttons, custom: any arbitrary shape with width/height)',
     },
     width: {
       control: 'text',
-      description: 'Width (CSS value, e.g., "200px", "80%")'
+      description:
+        'CSS width value (e.g., "200px", "80%", "100%"); for text lines, use percentages like 100%, 80%, 60% to create natural paragraph appearance',
     },
     height: {
       control: 'text',
-      description: 'Height (CSS value, e.g., "20px", "100px")'
+      description:
+        'CSS height value (e.g., "20px", "100px"); defaults to 16px for text, but customize for headings (24px), images (200px), or buttons (44px)',
     },
     animation: {
       control: 'select',
       options: ['pulse', 'wave', 'none'],
-      description: 'Animation style (default uses system animation)'
+      description:
+        'Animation style (pulse: fade in/out effect, wave: shimmer left-to-right, none: static for reduced motion preference); automatically disabled for prefers-reduced-motion users',
     },
     count: {
       control: 'number',
-      description: 'Number of skeleton elements to display',
+      description:
+        'Number of skeleton elements to render (typically 3-5 for text lines, 5-10 for list items); helps fill viewport without overwhelming on initial load',
       min: 1,
-      max: 10
-    }
-  }
+      max: 10,
+    },
+  },
 };
 
 export default meta;
@@ -78,8 +313,8 @@ export const Text: Story = {
     variant: 'text',
     count: 3,
     width: '',
-    height: ''
-  }
+    height: '',
+  },
 };
 
 export const Circle: Story = {
@@ -107,8 +342,8 @@ export const Circle: Story = {
     variant: 'circle',
     count: 3,
     width: '48px',
-    height: '48px'
-  }
+    height: '48px',
+  },
 };
 
 export const Rectangle: Story = {
@@ -126,8 +361,8 @@ export const Rectangle: Story = {
   args: {
     variant: 'rect',
     width: '300px',
-    height: '200px'
-  }
+    height: '200px',
+  },
 };
 
 export const Avatar: Story = {
@@ -167,7 +402,7 @@ export const Avatar: Story = {
     container.appendChild(textContainer);
 
     return container;
-  }
+  },
 };
 
 export const Card: Story = {
@@ -231,7 +466,7 @@ export const Card: Story = {
     card.appendChild(body);
 
     return card;
-  }
+  },
 };
 
 export const Table: Story = {
@@ -269,7 +504,7 @@ export const Table: Story = {
     }
 
     return container;
-  }
+  },
 };
 
 export const List: Story = {
@@ -331,7 +566,7 @@ export const List: Story = {
     }
 
     return container;
-  }
+  },
 };
 
 export const Form: Story = {
@@ -377,7 +612,7 @@ export const Form: Story = {
     container.appendChild(button);
 
     return container;
-  }
+  },
 };
 
 export const ArticlePreview: Story = {
@@ -469,11 +704,11 @@ export const ArticlePreview: Story = {
     container.appendChild(tags);
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
-  render: (args) => {
+  render: () => {
     return createThemeGrid(() => {
       const container = document.createElement('div');
       container.style.display = 'flex';
@@ -510,7 +745,7 @@ export const ThemeComparison: Story = {
 
       return container;
     });
-  }
+  },
 };
 
 export const LoadingSimulation: Story = {
@@ -651,7 +886,8 @@ export const LoadingSimulation: Story = {
         loadedText.style.color = 'var(--color-text-secondary)';
         loadedText.style.lineHeight = '1.6';
         loadedText.style.margin = '0';
-        loadedText.textContent = 'Passionate about creating beautiful and functional user interfaces. Love working with modern design systems and accessibility-first approaches.';
+        loadedText.textContent =
+          'Passionate about creating beautiful and functional user interfaces. Love working with modern design systems and accessibility-first approaches.';
 
         loadedBody.appendChild(loadedHeader);
         loadedBody.appendChild(loadedText);
@@ -676,5 +912,5 @@ export const LoadingSimulation: Story = {
     wrapper.appendChild(contentContainer);
 
     return wrapper;
-  }
+  },
 };
