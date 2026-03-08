@@ -10,83 +10,288 @@ const meta: Meta = {
         component: `
 # Popover Component
 
-Contextual overlays triggered by user actions with rich content. Popovers display interactive content like forms, menus, and detailed information.
+Contextual overlays anchored to trigger elements that display rich, interactive content like forms, menus, user profiles, or detailed information.
 
-## Usage
+Use Popovers for supplementary content that relates directly to a specific UI element. Unlike Tooltips which show simple text on hover, Popovers support complex layouts with forms, buttons, lists, and images. They're perfect for user account menus, quick-action panels, inline help content, or detailed previews that don't warrant a full Modal.
 
-Wrap your trigger element and popover in a \`.popover-wrapper\`:
+Popovers are dismissible overlays that appear on click (or hover for read-only content), positioned intelligently around their trigger element. They provide rich context without navigating away from the current page or blocking the entire interface like a Modal would.
 
+## Framework Examples
+
+**Vanilla HTML:**
 \`\`\`html
+<!-- Trigger and popover wrapper -->
 <div class="popover-wrapper">
-  <button class="btn btn-primary" id="trigger">Show Popover</button>
-  <div class="popover popover-bottom" id="popover" role="dialog" hidden>
+  <button class="btn btn-primary" id="user-menu-trigger">
+    User Menu
+  </button>
+
+  <div
+    class="popover popover-bottom"
+    id="user-menu-popover"
+    role="dialog"
+    aria-labelledby="popover-title"
+    hidden
+  >
     <div class="popover-header">
-      <h3 class="popover-title">Title</h3>
+      <h3 id="popover-title" class="popover-title">Account</h3>
       <button class="popover-close" aria-label="Close">
-        <i data-lucide="x"></i>
+        <i data-lucide="x" style="width: 16px; height: 16px;"></i>
       </button>
     </div>
+
     <div class="popover-body">
-      <p>Content goes here</p>
+      <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+        <button class="btn btn-ghost btn-sm">
+          <i data-lucide="user"></i>
+          Profile
+        </button>
+        <button class="btn btn-ghost btn-sm">
+          <i data-lucide="settings"></i>
+          Settings
+        </button>
+        <button class="btn btn-ghost btn-sm">
+          <i data-lucide="log-out"></i>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.Aural?.initPopovers();
+</script>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+import { useEffect, useRef } from 'react';
+
+function UserMenuPopover() {
+  const popoverRef = useRef(null);
+
+  useEffect(() => {
+    window.Aural?.initPopovers();
+  }, []);
+
+  return (
+    <div className="popover-wrapper">
+      <button className="btn btn-primary" id="user-menu-trigger">
+        User Menu
+      </button>
+
+      <div
+        ref={popoverRef}
+        className="popover popover-bottom"
+        id="user-menu-popover"
+        role="dialog"
+        aria-labelledby="popover-title"
+        hidden
+      >
+        <div className="popover-header">
+          <h3 id="popover-title" className="popover-title">
+            Account
+          </h3>
+          <button className="popover-close" aria-label="Close">
+            <i data-lucide="x" style={{ width: 16, height: 16 }}></i>
+          </button>
+        </div>
+
+        <div className="popover-body">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <button className="btn btn-ghost btn-sm">
+              <i data-lucide="user"></i>
+              Profile
+            </button>
+            <button className="btn btn-ghost btn-sm">
+              <i data-lucide="settings"></i>
+              Settings
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div class="popover-wrapper">
+    <button class="btn btn-primary" id="user-menu-trigger">
+      User Menu
+    </button>
+
+    <div
+      class="popover popover-bottom"
+      id="user-menu-popover"
+      role="dialog"
+      aria-labelledby="popover-title"
+      hidden
+    >
+      <div class="popover-header">
+        <h3 id="popover-title" class="popover-title">Account</h3>
+        <button class="popover-close" aria-label="Close">
+          <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+
+      <div class="popover-body">
+        <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+          <button class="btn btn-ghost btn-sm">
+            <i data-lucide="user"></i>
+            Profile
+          </button>
+          <button class="btn btn-ghost btn-sm">
+            <i data-lucide="settings"></i>
+            Settings
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  mounted() {
+    window.Aural?.initPopovers();
+  }
+};
+</script>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<script>
+  import { onMount } from 'svelte';
+
+  onMount(() => {
+    window.Aural?.initPopovers();
+  });
+</script>
+
+<div class="popover-wrapper">
+  <button class="btn btn-primary" id="user-menu-trigger">
+    User Menu
+  </button>
+
+  <div
+    class="popover popover-bottom"
+    id="user-menu-popover"
+    role="dialog"
+    aria-labelledby="popover-title"
+    hidden
+  >
+    <div class="popover-header">
+      <h3 id="popover-title" class="popover-title">Account</h3>
+      <button class="popover-close" aria-label="Close">
+        <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+      </button>
+    </div>
+
+    <div class="popover-body">
+      <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+        <button class="btn btn-ghost btn-sm">
+          <i data-lucide="user"></i>
+          Profile
+        </button>
+        <button class="btn btn-ghost btn-sm">
+          <i data-lucide="settings"></i>
+          Settings
+        </button>
+      </div>
     </div>
   </div>
 </div>
 \`\`\`
 
-## Position Classes
-
-- **\`.popover-top\`** - Opens above the trigger
-- **\`.popover-right\`** - Opens to the right
-- **\`.popover-bottom\`** - Opens below (default)
-- **\`.popover-left\`** - Opens to the left
-
-## Structure
-
-- **\`.popover-wrapper\`** - Container for trigger and popover
-- **\`.popover-header\`** - Title and close button
-- **\`.popover-body\`** - Main content area
-- **\`.popover-close\`** - Close button
-
 ## Accessibility
 
-- Use \`role="dialog"\` for the popover
-- Link title with \`aria-labelledby\`
-- Include a visible close button
-- Support keyboard navigation (Escape to close)
+- **Trigger association**: Popover must be wrapped with trigger in \`.popover-wrapper\` for proper positioning
+- **Role and labeling**: Use \`role="dialog"\` with \`aria-labelledby\` pointing to the popover title
+- **Keyboard navigation**: Escape key closes the popover and returns focus to trigger element
+- **Focus management**: Focus moves into popover when opened, returns to trigger when closed
+- **Click outside**: Clicking outside the popover dismisses it (configurable for forms)
+- **Close button**: Always include a visible close button with \`aria-label="Close"\`
+- **Touch targets**: All interactive elements meet 44×44px minimum touch target size
+- **Tab sequence**: All focusable elements in popover are reachable via Tab key
+- **Arrow keys**: Optional arrow key navigation for menu-style popovers
+- **Color contrast**: Text and UI elements meet WCAG AA standards (4.5:1 for text, 3:1 for components)
+- **Animation respect**: Popover animations are disabled when \`prefers-reduced-motion\` is set
+- **Scrollable content**: Long popover content is scrollable with visible scrollbars
 
-## Initialization
+## Usage Guidelines
 
-\`\`\`javascript
-// Initialize all popovers
-window.Aural?.initPopovers();
-\`\`\`
-        `.trim()
-      }
-    }
+- **When to use:**
+  - User account menus with profile, settings, and logout options
+  - Quick action panels with 3-7 related actions
+  - Rich tooltips with formatting, images, or interactive elements
+  - Inline forms for comments, notes, or quick data entry
+  - Detail previews for list items (e.g., contact cards, product info)
+  - Filter panels or sorting options near data tables
+
+- **When NOT to use:**
+  - For simple text hints — use Tooltip instead for plain text on hover
+  - For primary navigation — use Navbar or Drawer for main menu structures
+  - For critical decisions — use Modal for confirmations requiring full attention
+  - For large forms — navigate to dedicated page or use Drawer for better UX
+  - For notifications — use Toast or Snackbar for transient messages
+  - For multi-step processes — use Modal or dedicated page for complex flows
+
+- **Best practices:**
+  - Keep popover content focused (single purpose, 3-7 actions maximum)
+  - Position popovers to avoid covering the trigger element when possible
+  - Use \`popover-top\`, \`popover-bottom\`, \`popover-left\`, or \`popover-right\` classes for positioning
+  - Set max-width between 250-400px for optimal readability
+  - Include header with title for context, especially with complex content
+  - Use close button for popovers with forms or multiple actions
+  - Consider click-outside-to-close vs. requiring explicit close button based on content criticality
+  - Ensure popover doesn't exceed viewport boundaries (auto-positioning recommended)
+  - Use subtle backdrop blur for visual separation from main content
+  - Test popover positioning at all viewport sizes
+
+- **Mobile considerations:**
+  - Popovers automatically adjust position to stay within viewport on small screens
+  - Bottom position often works best on mobile (easier to reach with thumbs)
+  - Consider using Drawer or Modal for complex mobile popovers (better usability)
+  - Ensure touch targets are at least 44×44px for easy tapping
+  - Test popover behavior with on-screen keyboards (may obscure content)
+  - Keep mobile popover content minimal to avoid scrolling
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     title: {
       control: 'text',
-      description: 'Popover title'
+      description:
+        'Popover title shown in the header. Visible when showHeader is true. Should be concise (2-4 words) and describe the popover content or action.',
     },
     content: {
       control: 'text',
-      description: 'Popover content'
+      description:
+        'Main content displayed in the popover body. Can contain text, forms, buttons, lists, or rich HTML. Keep content focused and avoid excessive length to prevent scrolling.',
     },
     position: {
       control: 'select',
       options: ['top', 'bottom', 'left', 'right'],
-      description: 'Popover position relative to trigger'
+      description:
+        'Position relative to the trigger element. **top** — opens above trigger, good for bottom-screen elements. **bottom** (default) — opens below trigger, most common. **left** — opens to left of trigger, for right-edge elements. **right** — opens to right of trigger, for left-edge elements. Position auto-adjusts if popover would exceed viewport boundaries.',
     },
     showClose: {
       control: 'boolean',
-      description: 'Show close button'
+      description:
+        'Whether to show the close button in the header. Recommended true for popovers with forms, actions, or complex content. Can be false for simple info popovers that dismiss on click-outside.',
     },
     showHeader: {
       control: 'boolean',
-      description: 'Show header with title'
-    }
-  }
+      description:
+        'Whether to show the header section with title and optional close button. Set to false for minimal popovers with only body content (e.g., simple menus or info cards).',
+    },
+  },
 };
 
 export default meta;
@@ -161,8 +366,8 @@ export const Default: Story = {
     content: 'This is a basic popover with a title and some content.',
     position: 'bottom',
     showClose: true,
-    showHeader: true
-  }
+    showHeader: true,
+  },
 };
 
 export const Positions: Story = {
@@ -213,7 +418,7 @@ export const Positions: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithCloseButton: Story = {
@@ -262,7 +467,7 @@ export const WithCloseButton: Story = {
     }, 0);
 
     return wrapper;
-  }
+  },
 };
 
 export const MenuPattern: Story = {
@@ -325,7 +530,7 @@ export const MenuPattern: Story = {
     }, 0);
 
     return wrapper;
-  }
+  },
 };
 
 export const FormPattern: Story = {
@@ -382,7 +587,7 @@ export const FormPattern: Story = {
     }, 0);
 
     return wrapper;
-  }
+  },
 };
 
 export const InfoPattern: Story = {
@@ -409,7 +614,8 @@ export const InfoPattern: Story = {
     trigger.id = triggerId;
     trigger.style.cssText = 'padding: var(--space-1); width: 24px; height: 24px;';
     trigger.setAttribute('aria-label', 'More information');
-    trigger.innerHTML = '<i data-lucide="info" style="width: 16px; height: 16px;" aria-hidden="true"></i>';
+    trigger.innerHTML =
+      '<i data-lucide="info" style="width: 16px; height: 16px;" aria-hidden="true"></i>';
 
     const popover = document.createElement('div');
     popover.className = 'popover popover-top';
@@ -438,7 +644,7 @@ export const InfoPattern: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithList: Story = {
@@ -492,7 +698,7 @@ export const WithList: Story = {
     }, 0);
 
     return wrapper;
-  }
+  },
 };
 
 export const WithButtons: Story = {
@@ -554,7 +760,7 @@ export const WithButtons: Story = {
     }, 0);
 
     return wrapper;
-  }
+  },
 };
 
 export const ComplexContent: Story = {
@@ -627,7 +833,7 @@ export const ComplexContent: Story = {
     }, 0);
 
     return wrapper;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -700,29 +906,29 @@ export const ThemeComparison: Story = {
     content: 'This is a popover component.',
     position: 'bottom',
     showClose: true,
-    showHeader: true
+    showHeader: true,
   },
   argTypes: {
     title: {
       control: 'text',
-      description: 'Popover title'
+      description: 'Popover title',
     },
     content: {
       control: 'text',
-      description: 'Popover content'
+      description: 'Popover content',
     },
     position: {
       control: 'select',
       options: ['top', 'bottom', 'left', 'right'],
-      description: 'Popover position'
+      description: 'Popover position',
     },
     showClose: {
       control: 'boolean',
-      description: 'Show close button'
+      description: 'Show close button',
     },
     showHeader: {
       control: 'boolean',
-      description: 'Show header with title'
-    }
-  }
+      description: 'Show header with title',
+    },
+  },
 };
