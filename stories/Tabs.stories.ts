@@ -6,10 +6,321 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Organize content into separate views where only one view is visible at a time. Tabs let users switch between related content groups without leaving the page.'
-      }
-    }
+        component: `
+# Tabs Component
+
+Organize related content into separate views where only one view is visible at a time, allowing users to switch between sections without leaving the page.
+
+Use Tabs to group related information that shares the same hierarchy and context but doesn't need to be viewed simultaneously. Tabs are perfect for settings panels with multiple categories, product details with specifications and reviews, or dashboard sections with different data views. They reduce cognitive load by progressive disclosure while keeping all options visible and accessible.
+
+Tabs maintain context by keeping users on the same page while switching between related content groups. Unlike navigation that takes you to different pages, tabs show different facets of the same object or task. They're ideal when users need to compare information across sections or when switching contexts would be disruptive.
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<!-- Tab buttons -->
+<div class="tabs" role="tablist" aria-orientation="horizontal">
+  <button
+    class="tab tab-active"
+    role="tab"
+    id="tab-profile"
+    aria-controls="panel-profile"
+    aria-selected="true"
+    tabindex="0"
+  >
+    Profile
+  </button>
+  <button
+    class="tab"
+    role="tab"
+    id="tab-settings"
+    aria-controls="panel-settings"
+    aria-selected="false"
+    tabindex="-1"
+  >
+    Settings
+  </button>
+  <button
+    class="tab"
+    role="tab"
+    id="tab-activity"
+    aria-controls="panel-activity"
+    aria-selected="false"
+    tabindex="-1"
+  >
+    Activity
+  </button>
+</div>
+
+<!-- Tab panels -->
+<div id="panel-profile" class="tab-panel" role="tabpanel" aria-labelledby="tab-profile">
+  <h4>Profile Settings</h4>
+  <p>Manage your personal information and public profile.</p>
+</div>
+
+<div id="panel-settings" class="tab-panel" role="tabpanel" aria-labelledby="tab-settings" style="display: none;">
+  <h4>Account Settings</h4>
+  <p>Configure preferences and account options.</p>
+</div>
+
+<div id="panel-activity" class="tab-panel" role="tabpanel" aria-labelledby="tab-activity" style="display: none;">
+  <h4>Recent Activity</h4>
+  <p>View your account activity and login history.</p>
+</div>
+
+<script>
+  window.Aural?.initTabs();
+</script>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+import { useEffect, useState } from 'react';
+
+function ProfileTabs() {
+  const [activeTab, setActiveTab] = useState('profile');
+
+  useEffect(() => {
+    window.Aural?.initTabs();
+  }, []);
+
+  return (
+    <>
+      <div className="tabs" role="tablist" aria-orientation="horizontal">
+        <button
+          className={\`tab \${activeTab === 'profile' ? 'tab-active' : ''}\`}
+          role="tab"
+          id="tab-profile"
+          aria-controls="panel-profile"
+          aria-selected={activeTab === 'profile'}
+          tabIndex={activeTab === 'profile' ? 0 : -1}
+          onClick={() => setActiveTab('profile')}
+        >
+          Profile
+        </button>
+        <button
+          className={\`tab \${activeTab === 'settings' ? 'tab-active' : ''}\`}
+          role="tab"
+          id="tab-settings"
+          aria-controls="panel-settings"
+          aria-selected={activeTab === 'settings'}
+          tabIndex={activeTab === 'settings' ? 0 : -1}
+          onClick={() => setActiveTab('settings')}
+        >
+          Settings
+        </button>
+      </div>
+
+      <div
+        id="panel-profile"
+        className="tab-panel"
+        role="tabpanel"
+        aria-labelledby="tab-profile"
+        style={{ display: activeTab === 'profile' ? 'block' : 'none' }}
+      >
+        <h4>Profile Settings</h4>
+        <p>Manage your personal information.</p>
+      </div>
+
+      <div
+        id="panel-settings"
+        className="tab-panel"
+        role="tabpanel"
+        aria-labelledby="tab-settings"
+        style={{ display: activeTab === 'settings' ? 'block' : 'none' }}
+      >
+        <h4>Account Settings</h4>
+        <p>Configure your preferences.</p>
+      </div>
+    </>
+  );
+}
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div>
+    <div class="tabs" role="tablist" aria-orientation="horizontal">
+      <button
+        :class="['tab', { 'tab-active': activeTab === 'profile' }]"
+        role="tab"
+        id="tab-profile"
+        aria-controls="panel-profile"
+        :aria-selected="activeTab === 'profile'"
+        :tabindex="activeTab === 'profile' ? 0 : -1"
+        @click="activeTab = 'profile'"
+      >
+        Profile
+      </button>
+      <button
+        :class="['tab', { 'tab-active': activeTab === 'settings' }]"
+        role="tab"
+        id="tab-settings"
+        aria-controls="panel-settings"
+        :aria-selected="activeTab === 'settings'"
+        :tabindex="activeTab === 'settings' ? 0 : -1"
+        @click="activeTab = 'settings'"
+      >
+        Settings
+      </button>
+    </div>
+
+    <div
+      id="panel-profile"
+      class="tab-panel"
+      role="tabpanel"
+      aria-labelledby="tab-profile"
+      v-show="activeTab === 'profile'"
+    >
+      <h4>Profile Settings</h4>
+      <p>Manage your personal information.</p>
+    </div>
+
+    <div
+      id="panel-settings"
+      class="tab-panel"
+      role="tabpanel"
+      aria-labelledby="tab-settings"
+      v-show="activeTab === 'settings'"
+    >
+      <h4>Account Settings</h4>
+      <p>Configure your preferences.</p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      activeTab: 'profile'
+    };
+  },
+  mounted() {
+    window.Aural?.initTabs();
   }
+};
+</script>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<script>
+  import { onMount } from 'svelte';
+
+  let activeTab = 'profile';
+
+  onMount(() => {
+    window.Aural?.initTabs();
+  });
+</script>
+
+<div class="tabs" role="tablist" aria-orientation="horizontal">
+  <button
+    class="tab {activeTab === 'profile' ? 'tab-active' : ''}"
+    role="tab"
+    id="tab-profile"
+    aria-controls="panel-profile"
+    aria-selected={activeTab === 'profile'}
+    tabindex={activeTab === 'profile' ? 0 : -1}
+    on:click={() => activeTab = 'profile'}
+  >
+    Profile
+  </button>
+  <button
+    class="tab {activeTab === 'settings' ? 'tab-active' : ''}"
+    role="tab"
+    id="tab-settings"
+    aria-controls="panel-settings"
+    aria-selected={activeTab === 'settings'}
+    tabindex={activeTab === 'settings' ? 0 : -1}
+    on:click={() => activeTab = 'settings'}
+  >
+    Settings
+  </button>
+</div>
+
+<div
+  id="panel-profile"
+  class="tab-panel"
+  role="tabpanel"
+  aria-labelledby="tab-profile"
+  style="display: {activeTab === 'profile' ? 'block' : 'none'}"
+>
+  <h4>Profile Settings</h4>
+  <p>Manage your personal information.</p>
+</div>
+
+<div
+  id="panel-settings"
+  class="tab-panel"
+  role="tabpanel"
+  aria-labelledby="tab-settings"
+  style="display: {activeTab === 'settings' ? 'block' : 'none'}"
+>
+  <h4>Account Settings</h4>
+  <p>Configure your preferences.</p>
+</div>
+\`\`\`
+
+## Accessibility
+
+- **Keyboard navigation**: Left/Right arrow keys move between tabs, Home/End jump to first/last tab
+- **Tab key behavior**: Tab key moves focus out of tab list (not between tabs), per ARIA authoring practices
+- **Active tab indication**: \`aria-selected="true"\` on active tab, \`aria-selected="false"\` on inactive tabs
+- **Tab panel association**: Each tab has \`aria-controls\` pointing to its panel ID, each panel has \`aria-labelledby\` pointing to its tab
+- **Focus management**: Only active tab is in tab sequence (\`tabindex="0"\`), others use \`tabindex="-1"\`
+- **Role attributes**: Use \`role="tablist"\` on container, \`role="tab"\` on buttons, \`role="tabpanel"\` on content areas
+- **Orientation**: Include \`aria-orientation="horizontal"\` or \`aria-orientation="vertical"\` on tablist
+- **Panel visibility**: Hide inactive panels with \`display: none\` or \`hidden\` attribute (not just opacity)
+- **Touch targets**: All tabs meet 44×44px minimum touch target size for mobile usability
+- **Color contrast**: Active tab indicator meets WCAG AA contrast ratio (3:1 minimum for UI components)
+- **Focus indicators**: Visible focus ring on keyboard navigation with 2px outline and offset
+- **Reduced motion**: Tab panel transitions respect \`prefers-reduced-motion\` setting
+
+## Usage Guidelines
+
+- **When to use:**
+  - Settings or preferences organized into categories (Account, Privacy, Notifications)
+  - Product details with different aspects (Overview, Specs, Reviews, Q&A)
+  - Dashboard views with related data (Analytics, Reports, Insights)
+  - Multi-section forms where sections are independent
+  - Documentation with different topics or API references
+  - User profiles with distinct sections (Posts, Photos, About, Friends)
+
+- **When NOT to use:**
+  - For sequential processes — use Stepper or Wizard for multi-step flows
+  - For primary navigation — use Navbar or Drawer for site-wide navigation
+  - For showing/hiding single sections — use Accordion for collapsible content
+  - For timeline or chronological data — use Timeline component
+  - For comparing side-by-side — keep content visible simultaneously
+  - For more than 7 tabs — consider splitting into multiple pages or using different navigation
+
+- **Best practices:**
+  - Limit to 3-7 tabs for optimal usability (5 or fewer is ideal)
+  - Use clear, concise labels (1-2 words when possible)
+  - Make first tab the default/most important one
+  - Keep tab labels at same hierarchy level (all nouns or all verbs)
+  - Show icon + text labels for better scannability when space allows
+  - Use badges/counts to show notifications or item counts in tabs
+  - Maintain tab state when navigating away and returning (use URL parameters or local state)
+  - Ensure all tab panels are equally accessible (don't hide important content in later tabs)
+  - Use pills variant (\`tabs-pills\`) for modern, softer appearance
+  - Use boxed variant (\`tabs-boxed\`) for compact, contained layouts
+
+- **Mobile considerations:**
+  - Tabs automatically become scrollable on mobile when they don't fit
+  - Consider using vertical tabs or Accordion on very small screens
+  - Ensure touch targets are at least 44×44px (tabs component handles this)
+  - Swipe gestures can be added for switching between tabs on mobile
+  - Test tab overflow behavior with many tabs on narrow screens
+  - Pills variant often works better on mobile (larger touch targets, better spacing)
+        `.trim(),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -54,7 +365,7 @@ export const Default: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const PillsStyle: Story = {
@@ -95,7 +406,7 @@ export const PillsStyle: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const BoxedStyle: Story = {
@@ -136,7 +447,7 @@ export const BoxedStyle: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const WithIcons: Story = {
@@ -193,7 +504,7 @@ export const WithIcons: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const WithBadges: Story = {
@@ -245,7 +556,7 @@ export const WithBadges: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const DisabledTabs: Story = {
@@ -278,7 +589,7 @@ export const DisabledTabs: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const InCard: Story = {
@@ -329,5 +640,5 @@ export const InCard: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
