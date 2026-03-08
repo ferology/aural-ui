@@ -13,7 +13,8 @@ import { Meta } from '@storybook/blocks';
   fontFamily: 'var(--font-sans, system-ui, -apple-system, sans-serif)',
   maxWidth: '900px',
   margin: '0 auto',
-  padding: '3rem 2rem'
+  padding: '3rem 2rem',
+  color: '#ffffff'
 }}>
 
 # Framework Guide
@@ -489,6 +490,8 @@ export const toasts = createToastStore();
 
 ## Key Differences Summary
 
+<div style={{ overflowX: 'auto' }}>
+
 | Feature | Vanilla | React | Vue | Svelte |
 |---------|---------|-------|-----|--------|
 | **Class Syntax** | `class="btn"` | `className="btn"` | `:class="btn"` | `class="btn"` |
@@ -497,6 +500,8 @@ export const toasts = createToastStore();
 | **Props** | HTML attributes | `props` object | `defineProps()` | `export let` |
 | **State** | DOM manipulation | `useState()` | `ref()` / `reactive()` | Reactive variables |
 | **Slots/Children** | HTML content | `{children}` | `<slot />` | `<slot />` |
+
+</div>
 
 ---
 
