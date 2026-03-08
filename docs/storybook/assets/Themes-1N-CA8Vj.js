@@ -1,9 +1,14 @@
-import{j as e,M as d}from"./index-8DHXHWaz.js";import{useMDXComponents as t}from"./index-BOyjNAzs.js";import"./iframe-DBqISkp8.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const r={code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...t(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Themes",parameters:{docs:{theme:{base:"light"}}}}),`
+import{j as e,M as d}from"./index-Czm-6HHQ.js";import{useMDXComponents as s}from"./index-0_d5Y5IZ.js";import"./iframe-DOw6SxF5.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(i){const r={code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...s(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Themes",parameters:{docs:{theme:{base:"light"}}}}),`
 `,e.jsx("style",{children:`
+  :root,
   #storybook-docs,
   .sbdocs,
   .sbdocs-wrapper,
   .sbdocs-content {
+    --color-bg-primary: #ffffff !important;
+    --color-bg-secondary: #f5f5f5 !important;
+    --color-text-primary: #1a1a1a !important;
+    --color-text-secondary: #4a4a4a !important;
     background: #ffffff !important;
     background-color: #ffffff !important;
   }
@@ -108,4 +113,4 @@ setTheme('dark');
 --text-xs through --text-4xl
 
 /* And many more... */
-`})}),e.jsx(r.p,{children:"Each theme simply provides different values for these tokens."})]})]})}function p(i={}){const{wrapper:r}={...t(),...i.components};return r?e.jsx(r,{...i,children:e.jsx(s,{...i})}):s(i)}export{p as default};
+`})}),e.jsx(r.p,{children:"Each theme simply provides different values for these tokens."})]})]})}function p(i={}){const{wrapper:r}={...s(),...i.components};return r?e.jsx(r,{...i,children:e.jsx(t,{...i})}):t(i)}export{p as default};

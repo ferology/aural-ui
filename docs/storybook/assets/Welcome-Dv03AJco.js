@@ -1,9 +1,14 @@
-import{j as e,M as o}from"./index-8DHXHWaz.js";import{useMDXComponents as i}from"./index-BOyjNAzs.js";import"./iframe-DBqISkp8.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(n){const r={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...i(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(o,{title:"Getting Started/Welcome",parameters:{docs:{theme:{base:"light"}}}}),`
+import{j as e,M as o}from"./index-Czm-6HHQ.js";import{useMDXComponents as i}from"./index-0_d5Y5IZ.js";import"./iframe-DOw6SxF5.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(n){const r={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...i(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(o,{title:"Getting Started/Welcome",parameters:{docs:{theme:{base:"light"}}}}),`
 `,e.jsx("style",{children:`
+  :root,
   #storybook-docs,
   .sbdocs,
   .sbdocs-wrapper,
   .sbdocs-content {
+    --color-bg-primary: #ffffff !important;
+    --color-bg-secondary: #f5f5f5 !important;
+    --color-text-primary: #1a1a1a !important;
+    --color-text-secondary: #4a4a4a !important;
     background: #ffffff !important;
     background-color: #ffffff !important;
   }
