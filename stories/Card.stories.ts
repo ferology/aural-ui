@@ -6,16 +6,340 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Flexible, composable content containers for organizing and displaying related information.'
-      }
-    }
+        component: `
+# Card Component
+
+Flexible, composable content containers for organizing and displaying related information. Cards group related content and actions into a single container with consistent styling and spacing.
+
+Use cards to display content such as articles, product information, user profiles, statistics, or any grouped set of information that forms a cohesive unit.
+
+## When to Use
+
+- **Content grouping**: Organize related information into scannable, digestible chunks
+- **Product catalogs**: Display product images, titles, descriptions, and pricing
+- **User profiles**: Show avatar, name, bio, and actions in a compact format
+- **Dashboard widgets**: Present stats, charts, and metrics in modular containers
+- **Article previews**: Display blog post summaries with images and metadata
+
+## When NOT to Use
+
+- **Single pieces of information**: Use text or typography components instead
+- **Navigation**: Use Tabs, Navbar, or Sidebar components for navigation
+- **Alerts**: Use Alert component for important messages
+- **Forms**: While cards can contain forms, simple forms don't need card wrappers
+
+## Framework Examples
+
+### Vanilla HTML
+\`\`\`html
+<!-- Basic card -->
+<div class="card">
+  <div class="card-body">
+    <h3>Card Title</h3>
+    <p>Card content goes here.</p>
+  </div>
+</div>
+
+<!-- Card with header and footer -->
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Project Status</h3>
+    <span class="badge badge-success">Active</span>
+  </div>
+  <div class="card-body">
+    <p>Project details and description.</p>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-primary btn-sm">View</button>
+    <button class="btn btn-ghost btn-sm">Edit</button>
+  </div>
+</div>
+
+<!-- Card with image -->
+<div class="card">
+  <div class="card-image">
+    <img src="image.jpg" alt="Product image">
+  </div>
+  <div class="card-body">
+    <h3>Product Name</h3>
+    <p>Product description.</p>
+  </div>
+</div>
+\`\`\`
+
+### React
+\`\`\`jsx
+// Basic card component
+function Card({ children }) {
+  return (
+    <div className="card">
+      <div className="card-body">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Full-featured card with TypeScript
+interface CardProps {
+  title?: string;
+  badge?: React.ReactNode;
+  image?: string;
+  imageAlt?: string;
+  footer?: React.ReactNode;
+  hover?: boolean;
+  children: React.ReactNode;
+}
+
+function Card({
+  title,
+  badge,
+  image,
+  imageAlt = '',
+  footer,
+  hover = false,
+  children
+}: CardProps) {
+  return (
+    <div className={\`card \${hover ? 'card-hover' : ''}\`}>
+      {image && (
+        <div className="card-image">
+          <img src={image} alt={imageAlt} />
+        </div>
+      )}
+      {(title || badge) && (
+        <div className="card-header">
+          {title && <h3 className="card-title">{title}</h3>}
+          {badge}
+        </div>
+      )}
+      <div className="card-body">
+        {children}
+      </div>
+      {footer && (
+        <div className="card-footer">
+          {footer}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Usage
+<Card
+  title="Project Status"
+  badge={<span className="badge badge-success">Active</span>}
+  footer={
+    <>
+      <button className="btn btn-primary btn-sm">View</button>
+      <button className="btn btn-ghost btn-sm">Edit</button>
+    </>
+  }
+>
+  <p>Project details go here.</p>
+</Card>
+\`\`\`
+
+### Vue
+\`\`\`vue
+<template>
+  <!-- Basic card -->
+  <div class="card">
+    <div class="card-body">
+      <slot />
+    </div>
+  </div>
+
+  <!-- Full-featured card -->
+  <div :class="['card', { 'card-hover': hover }]">
+    <div v-if="image" class="card-image">
+      <img :src="image" :alt="imageAlt" />
+    </div>
+    <div v-if="title || badge" class="card-header">
+      <h3 v-if="title" class="card-title">{{ title }}</h3>
+      <slot name="badge" />
+    </div>
+    <div class="card-body">
+      <slot />
+    </div>
+    <div v-if="$slots.footer" class="card-footer">
+      <slot name="footer" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+defineProps({
+  title: String,
+  badge: Boolean,
+  image: String,
+  imageAlt: { type: String, default: '' },
+  hover: { type: Boolean, default: false }
+});
+</script>
+
+<!-- Usage -->
+<Card
+  title="Project Status"
+  :badge="true"
+  :hover="true"
+>
+  <template #badge>
+    <span class="badge badge-success">Active</span>
+  </template>
+
+  <p>Project details go here.</p>
+
+  <template #footer>
+    <button class="btn btn-primary btn-sm">View</button>
+    <button class="btn btn-ghost btn-sm">Edit</button>
+  </template>
+</Card>
+\`\`\`
+
+### Svelte
+\`\`\`svelte
+<script>
+  export let title = '';
+  export let badge = false;
+  export let image = '';
+  export let imageAlt = '';
+  export let footer = false;
+  export let hover = false;
+</script>
+
+<div class="card" class:card-hover={hover}>
+  {#if image}
+    <div class="card-image">
+      <img src={image} alt={imageAlt} />
+    </div>
+  {/if}
+
+  {#if title || badge}
+    <div class="card-header">
+      {#if title}
+        <h3 class="card-title">{title}</h3>
+      {/if}
+      {#if badge}
+        <slot name="badge" />
+      {/if}
+    </div>
+  {/if}
+
+  <div class="card-body">
+    <slot />
+  </div>
+
+  {#if footer}
+    <div class="card-footer">
+      <slot name="footer" />
+    </div>
+  {/if}
+</div>
+
+<!-- Usage -->
+<Card
+  title="Project Status"
+  badge={true}
+  hover={true}
+>
+  <span slot="badge" class="badge badge-success">Active</span>
+
+  <p>Project details go here.</p>
+
+  <div slot="footer">
+    <button class="btn btn-primary btn-sm">View</button>
+    <button class="btn btn-ghost btn-sm">Edit</button>
+  </div>
+</Card>
+\`\`\`
+
+## Accessibility
+
+1. **Semantic HTML structure**: Cards use proper HTML elements (divs for containers, h3 for titles, p for descriptions)
+2. **Heading hierarchy**: Card titles use appropriate heading levels (h3 by default) that fit within page structure
+3. **Landmarks**: When cards contain navigation, use \`<nav>\` elements with \`aria-label\`
+4. **Focus management**: Hoverable/clickable cards should be focusable with visible focus indicators
+5. **Keyboard navigation**: Interactive cards should respond to Enter/Space keys
+6. **Button elements**: Use \`<button>\` for actions, not \`<div>\` with click handlers
+7. **Image alternatives**: All images must have descriptive \`alt\` text
+8. **Color contrast**: Text meets WCAG AA standards (4.5:1 for normal text, 3:1 for large text)
+9. **Touch targets**: Interactive elements meet minimum 44×44px touch target size
+10. **Responsive design**: Cards adapt to mobile screens without horizontal scrolling
+11. **Motion preferences**: Hover animations respect \`prefers-reduced-motion\` setting
+12. **Screen reader text**: Use \`.sr-only\` class for additional context when needed
+13. **ARIA labels**: Add \`aria-label\` or \`aria-labelledby\` when card purpose isn't clear from content
+14. **Link vs button**: Use links (\`<a>\`) for navigation, buttons (\`<button>\`) for actions
+
+## Usage Guidelines
+
+### Best Practices
+
+- **Consistent spacing**: Use card-body, card-header, and card-footer for consistent internal spacing
+- **Content hierarchy**: Place most important information at the top
+- **Action placement**: Primary actions in footer, secondary actions in header
+- **Image aspect ratios**: Maintain consistent aspect ratios in card grids (1:1 or 16:9)
+- **Scannable content**: Keep text concise and easy to scan
+- **Visual balance**: Balance text with whitespace and visual elements
+
+### Grid Layouts
+
+Cards work best in responsive grids:
+\`\`\`css
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-6);
+}
+\`\`\`
+
+### Mobile Considerations
+
+- Cards stack vertically on mobile devices
+- Reduce padding on smaller screens (handled automatically)
+- Ensure touch targets are at least 44×44px
+- Consider horizontal cards for mobile list views
+- Footer buttons may wrap on narrow screens (automatic)
+- Images maintain aspect ratio and don't overflow
+
+### Composition Patterns
+
+**Header patterns**:
+- Title only: Simple identification
+- Title + Badge: Status indicators
+- Title + Icon: Visual categorization
+- Title + Actions: Quick access to common actions
+
+**Body patterns**:
+- Text only: Simple content
+- Text + Image: Rich content with visuals
+- List items: Structured information
+- Mixed content: Combine text, images, lists, metrics
+
+**Footer patterns**:
+- Actions only: Primary and secondary buttons
+- Metadata only: Timestamps, author info
+- Actions + Metadata: Combined information and actions
+- Empty footer: When no footer content is needed
+
+### Variants
+
+- **card-hover**: Add lift effect on hover (for clickable cards)
+- **card-compact**: Reduced padding for denser layouts
+- **card-bordered**: Add colored left border accent
+- **card-active**: Highlight selected/active state
+- **Color variants**: card-primary, card-success, card-warning, card-error (for bordered accent)
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     hover: {
       control: 'boolean',
-      description: 'Add hover effect with card-hover class'
-    }
-  }
+      description:
+        'Enable hover effect with lift animation and shadow. Use for clickable/interactive cards. Automatically includes focus states for keyboard navigation.',
+    },
+  },
 };
 
 export default meta;
@@ -39,7 +363,7 @@ export const BasicCard: Story = {
 
     container.appendChild(card);
     return container;
-  }
+  },
 };
 
 export const WithHeaderAndFooter: Story = {
@@ -67,7 +391,7 @@ export const WithHeaderAndFooter: Story = {
 
     container.appendChild(card);
     return container;
-  }
+  },
 };
 
 export const StatCard: Story = {
@@ -100,7 +424,7 @@ export const StatCard: Story = {
 
     container.appendChild(card);
     return container;
-  }
+  },
 };
 
 export const WithImage: Story = {
@@ -131,7 +455,7 @@ export const WithImage: Story = {
 
     container.appendChild(card);
     return container;
-  }
+  },
 };
 
 export const ProductCard: Story = {
@@ -164,7 +488,7 @@ export const ProductCard: Story = {
 
     container.appendChild(card);
     return container;
-  }
+  },
 };
 
 export const HoverableCard: Story = {
@@ -198,7 +522,7 @@ export const HoverableCard: Story = {
 
     container.appendChild(card);
     return container;
-  }
+  },
 };
 
 export const HorizontalCard: Story = {
@@ -239,7 +563,7 @@ export const HorizontalCard: Story = {
 
     container.appendChild(card);
     return container;
-  }
+  },
 };
 
 export const CardGrid: Story = {
@@ -256,22 +580,22 @@ export const CardGrid: Story = {
         value: '$45,231',
         change: '+12%',
         trend: 'up',
-        icon: `<line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>`
+        icon: `<line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>`,
       },
       {
         title: 'New Users',
         value: '1,429',
         change: '+8%',
         trend: 'up',
-        icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>`
+        icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>`,
       },
       {
         title: 'Conversion Rate',
         value: '3.24%',
         change: '-2%',
         trend: 'down',
-        icon: `<circle cx="12" cy="12" r="10"></circle><polyline points="16 12 12 8 8 12"></polyline><line x1="12" y1="16" x2="12" y2="8"></line>`
-      }
+        icon: `<circle cx="12" cy="12" r="10"></circle><polyline points="16 12 12 8 8 12"></polyline><line x1="12" y1="16" x2="12" y2="8"></line>`,
+      },
     ];
 
     stats.forEach(({ title, value, change, trend, icon }) => {
@@ -301,7 +625,7 @@ export const CardGrid: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const FeatureGrid: Story = {
@@ -318,22 +642,22 @@ export const FeatureGrid: Story = {
         description: 'Lightning-fast load times',
         color: 'var(--color-primary)',
         bgColor: 'var(--color-primary-subtle)',
-        icon: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>`
+        icon: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>`,
       },
       {
         title: 'Secure by Default',
         description: 'Built-in security features',
         color: 'var(--color-success)',
         bgColor: 'var(--color-success-subtle)',
-        icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>`
+        icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>`,
       },
       {
         title: 'Mobile Friendly',
         description: 'Responsive everywhere',
         color: 'var(--color-secondary)',
         bgColor: 'var(--color-secondary-subtle)',
-        icon: `<rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>`
-      }
+        icon: `<rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>`,
+      },
     ];
 
     features.forEach(({ title, description, color, bgColor, icon }) => {
@@ -355,5 +679,5 @@ export const FeatureGrid: Story = {
     });
 
     return container;
-  }
+  },
 };
