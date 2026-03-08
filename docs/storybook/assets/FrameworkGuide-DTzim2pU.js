@@ -1,4 +1,16 @@
-import{j as n,M as i}from"./index-B7UvFiOh.js";import{useMDXComponents as a}from"./index-BvQjUPZn.js";import"./iframe-D_4zppPa.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(s){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...a(),...s.components};return n.jsxs(n.Fragment,{children:[n.jsx(i,{title:"Getting Started/Framework Guide",parameters:{toolbar:{theme:{hidden:!0}}}}),`
+import{j as n,M as o}from"./index-JTf9FKo8.js";import{useMDXComponents as a}from"./index-BdWZuA2l.js";import"./iframe-D8mWHUuz.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(s){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...a(),...s.components};return n.jsxs(n.Fragment,{children:[n.jsx(o,{title:"Getting Started/Framework Guide",parameters:{toolbar:{theme:{hidden:!0}}}}),`
+`,n.jsx("style",{children:`
+  #storybook-docs,
+  .sbdocs,
+  .sbdocs-wrapper,
+  .sbdocs-content {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+  }
+  .sbdocs-content * {
+    color: #1a1a1a !important;
+  }
+`}),`
 `,n.jsxs("div",{style:{fontFamily:"var(--font-sans, system-ui, -apple-system, sans-serif)",maxWidth:"900px",margin:"0 auto",padding:"3rem 2rem",background:"#ffffff !important",backgroundColor:"#ffffff !important",color:"#1a1a1a !important",minHeight:"100vh"},children:[n.jsx(e.h1,{id:"framework-guide",children:"Framework Guide"}),n.jsxs(e.p,{children:["Aural UI is ",n.jsx(e.strong,{children:"framework-agnostic"})," and works seamlessly with vanilla JavaScript, React, Vue, Svelte, and other modern frameworks."]}),n.jsx(e.hr,{}),n.jsx(e.h2,{id:"vanilla-javascript--html",children:"Vanilla JavaScript / HTML"}),n.jsx(e.p,{children:"The simplest way to use Aural UI - just HTML and CSS classes."}),n.jsx(e.h3,{id:"setup",children:"Setup"}),n.jsx(e.pre,{children:n.jsx(e.code,{className:"language-html",children:`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -403,4 +415,4 @@ export const toasts = createToastStore();
 `,n.jsxs(e.li,{children:[n.jsx(e.strong,{children:"Component Docs"}),": Each component page shows framework-specific examples"]}),`
 `,n.jsxs(e.li,{children:[n.jsx(e.strong,{children:"Live Demo"}),": ",n.jsx(e.a,{href:"https://ferology.github.io/aural-ui/",rel:"nofollow",children:"https://ferology.github.io/aural-ui/"})]}),`
 `,n.jsxs(e.li,{children:[n.jsx(e.strong,{children:"GitHub"}),": ",n.jsx(e.a,{href:"https://github.com/ferology/aural-ui",rel:"nofollow",children:"https://github.com/ferology/aural-ui"})]}),`
-`]})]})]})}function h(s={}){const{wrapper:e}={...a(),...s.components};return e?n.jsx(e,{...s,children:n.jsx(t,{...s})}):t(s)}export{h as default};
+`]})]})]})}function u(s={}){const{wrapper:e}={...a(),...s.components};return e?n.jsx(e,{...s,children:n.jsx(t,{...s})}):t(s)}export{u as default};

@@ -1,4 +1,16 @@
-import{j as e,M as d}from"./index-B7UvFiOh.js";import{useMDXComponents as o}from"./index-BvQjUPZn.js";import"./iframe-D_4zppPa.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function n(s){const r={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...o(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Design Tokens",parameters:{toolbar:{theme:{hidden:!1}}}}),`
+import{j as e,M as d}from"./index-JTf9FKo8.js";import{useMDXComponents as o}from"./index-BdWZuA2l.js";import"./iframe-D8mWHUuz.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function n(s){const r={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...o(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Design Tokens",parameters:{toolbar:{theme:{hidden:!1}}}}),`
+`,e.jsx("style",{children:`
+  #storybook-docs,
+  .sbdocs,
+  .sbdocs-wrapper,
+  .sbdocs-content {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+  }
+  .sbdocs-content * {
+    color: #1a1a1a !important;
+  }
+`}),`
 `,e.jsxs("div",{style:{fontFamily:"var(--font-sans, system-ui, -apple-system, sans-serif)",maxWidth:"1200px",margin:"0 auto",padding:"3rem 2rem",background:"#ffffff !important",backgroundColor:"#ffffff !important",color:"#1a1a1a !important",minHeight:"100vh"},children:[e.jsx(r.h1,{id:"design-tokens",children:"Design Tokens"}),e.jsxs(r.p,{children:[e.jsx(r.strong,{children:"Design tokens"})," are the foundation of Aural UI's themeable architecture. They're CSS custom properties (variables) that control every visual aspect of the design system."]}),e.jsx(r.hr,{}),e.jsx(r.h2,{id:"-how-tokens-work",children:"🎯 How Tokens Work"}),e.jsxs(r.p,{children:["Aural UI uses a ",e.jsx(r.strong,{children:"two-layer token system"}),":"]}),e.jsx(r.h3,{id:"layer-1-primitive-tokens-foundation",children:"Layer 1: Primitive Tokens (Foundation)"}),e.jsxs(r.p,{children:["These are the actual color values that ",e.jsx(r.strong,{children:"never change"})," across themes:"]}),e.jsx(r.pre,{children:e.jsx(r.code,{className:"language-css",children:`:root {
   /* Color scales: 50 (lightest) → 950 (darkest) */
   --primary-400: #5ebd8f;     /* Vibrant green */

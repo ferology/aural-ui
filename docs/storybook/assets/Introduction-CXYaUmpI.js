@@ -1,4 +1,16 @@
-import{j as e,M as l}from"./index-B7UvFiOh.js";import{useMDXComponents as r}from"./index-BvQjUPZn.js";import"./iframe-D_4zppPa.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Introduction",parameters:{toolbar:{theme:{hidden:!0}}}}),`
+import{j as e,M as l}from"./index-JTf9FKo8.js";import{useMDXComponents as r}from"./index-BdWZuA2l.js";import"./iframe-D8mWHUuz.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Introduction",parameters:{toolbar:{theme:{hidden:!0}}}}),`
+`,e.jsx("style",{children:`
+  #storybook-docs,
+  .sbdocs,
+  .sbdocs-wrapper,
+  .sbdocs-content {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+  }
+  .sbdocs-content * {
+    color: #1a1a1a !important;
+  }
+`}),`
 `,e.jsxs("div",{style:{background:"#ffffff !important",backgroundColor:"#ffffff !important",color:"#1a1a1a !important",minHeight:"100vh",padding:"2rem"},children:[e.jsx(n.h1,{id:"aural-ui",children:"Aural UI"}),e.jsx(n.p,{children:"A modern, accessible design system with comprehensive components, utilities, and themes."}),e.jsx(n.h2,{id:"features",children:"Features"}),e.jsxs(n.ul,{children:[`
 `,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"🎨 7 Built-in Themes"})," - Dark, Light, Neon, Kinetic, Prismatic, Minimal, and Warm"]}),`
 `,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"♿ Accessibility First"})," - WCAG 2.1 AA compliant with proper ARIA attributes"]}),`
