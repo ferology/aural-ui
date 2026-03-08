@@ -7,7 +7,7 @@
     "dev": "npm run dev --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
     "build:css": "node scripts/build-css.js",
-    "test": "npm run test --workspaces --if-present",
+    "test": "vitest run",
     "test:ci": "vitest run --coverage",
     "test:watch": "vitest watch",
     "test:e2e": "playwright test",
@@ -20,7 +20,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,css,md,json}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,css,md,json}\"",
-    "type-check": "tsc --noEmit && npm run type-check --workspaces --if-present",
+    "type-check": "tsc --noEmit",
     "analyze:bundle": "node scripts/analyze-bundles.js",
     "prepare": "husky"
   },
