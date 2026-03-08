@@ -10,45 +10,45 @@
  */
 
 .btn {
-    /* Layout */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
 
-    /* Spacing */
-    padding: var(--space-3) var(--space-6);
+  /* Spacing */
+  padding: var(--space-3) var(--space-6);
 
-    /* Typography */
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
-    font-weight: var(--font-medium);
-    line-height: var(--leading-none);
-    text-decoration: none;
-    white-space: nowrap;
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-none);
+  text-decoration: none;
+  white-space: nowrap;
 
-    /* Appearance */
-    border: none;
-    border-radius: var(--radius-md);
-    background: transparent;
-    color: var(--color-text-primary);
-    cursor: pointer;
+  /* Appearance */
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
 
-    /* Transitions */
-    transition: var(--transition-all-fast);
+  /* Transitions */
+  transition: var(--transition-all-fast);
 
-    /* Accessibility */
-    min-height: 44px;  /* iOS/Android minimum touch target */
-    outline: none;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
+  /* Accessibility */
+  min-height: 44px; /* iOS/Android minimum touch target */
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 
-    & svg {
-        width: 1em;
-        height: 1em;
-        flex-shrink: 0;
-    }
+  & svg {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+  }
 }
 
 /* ========================================
@@ -56,15 +56,15 @@
    ======================================== */
 
 .btn-sm {
-    padding: var(--space-2) var(--space-4);
-    font-size: var(--text-sm);
-    min-height: 36px;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  min-height: 40px; /* FIXED: Increased from 36px to approach WCAG 44px touch target */
 }
 
 .btn-lg {
-    padding: var(--space-4) var(--space-8);
-    font-size: var(--text-lg);
-    min-height: 52px;
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+  min-height: 52px;
 }
 
 /* ========================================
@@ -73,137 +73,142 @@
 
 /* Primary */
 .btn-primary {
-    background: var(--color-button-primary-bg);
-    color: var(--color-button-primary-text);
-    box-shadow: var(--shadow-primary);
+  background: var(--color-button-primary-bg);
+  color: var(--color-button-primary-text);
+  box-shadow: var(--shadow-primary);
 
-    &:hover:not(:disabled) {
-        background: var(--color-button-primary-hover);
-        box-shadow: var(--shadow-primary-lg);
+  &:hover:not(:disabled) {
+    background: var(--color-button-primary-hover);
+    box-shadow: var(--shadow-primary-lg);
 
-        @media (prefers-reduced-motion: no-preference) {
-            transform: translateY(-2px);
-        }
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(-2px);
     }
+  }
 
-    &:active:not(:disabled) {
-        @media (prefers-reduced-motion: no-preference) {
-            transform: translateY(0);
-        }
+  &:active:not(:disabled) {
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(0);
     }
+  }
 }
 
 /* Secondary */
 .btn-secondary {
-    background: var(--color-button-secondary-bg);
-    color: var(--color-button-secondary-text);
-    border: 1px solid var(--color-button-secondary-border);
+  background: var(--color-button-secondary-bg);
+  color: var(--color-button-secondary-text);
+  border: 1px solid var(--color-button-secondary-border);
 
-    &:hover:not(:disabled) {
-        background: var(--color-button-secondary-hover);
-        border-color: var(--color-border-medium);
+  &:hover:not(:disabled) {
+    background: var(--color-button-secondary-hover);
+    border-color: var(--color-border-medium);
 
-        @media (prefers-reduced-motion: no-preference) {
-            transform: translateY(-2px);
-        }
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(-2px);
     }
+  }
 
-    &:active:not(:disabled) {
-        @media (prefers-reduced-motion: no-preference) {
-            transform: translateY(0);
-        }
+  &:active:not(:disabled) {
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(0);
     }
+  }
 }
 
 /* Danger */
 .btn-danger {
-    background: var(--color-button-danger-bg);
-    color: var(--color-button-danger-text);
-    box-shadow: var(--shadow-error);
+  background: var(--color-button-danger-bg);
+  color: var(--color-button-danger-text);
+  box-shadow: var(--shadow-error);
 
-    &:hover:not(:disabled) {
-        background: var(--color-button-danger-hover);
-        box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+  &:hover:not(:disabled) {
+    background: var(--color-button-danger-hover);
+    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
 
-        @media (prefers-reduced-motion: no-preference) {
-            transform: translateY(-2px);
-        }
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(-2px);
     }
+  }
 
-    &:active:not(:disabled) {
-        @media (prefers-reduced-motion: no-preference) {
-            transform: translateY(0);
-        }
+  &:active:not(:disabled) {
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(0);
     }
+  }
 }
 
 /* Ghost */
 .btn-ghost {
-    background: var(--color-button-ghost-bg);
-    color: var(--color-button-ghost-text);
+  background: var(--color-button-ghost-bg);
+  color: var(--color-button-ghost-text);
 
-    &:hover:not(:disabled) {
-        background: var(--color-button-ghost-hover);
-        color: var(--color-text-primary);
-    }
+  &:hover:not(:disabled) {
+    background: var(--color-button-ghost-hover);
+    color: var(--color-text-primary);
+  }
 }
 
 /* Link (text-only button) */
 .btn-link {
-    background: transparent;
-    color: var(--color-primary);
-    padding: 0;
-    min-height: auto;
-    text-decoration: underline;
+  background: transparent;
+  color: var(--color-primary);
+  padding: 0;
+  min-height: auto;
+  text-decoration: underline;
 
-    &:hover:not(:disabled) {
-        color: var(--color-primary-hover);
-    }
+  &:hover:not(:disabled) {
+    color: var(--color-primary-hover);
+  }
 }
 
 /* ========================================
    STATES
    ======================================== */
 
-/* Disabled */
+/* Disabled - WCAG AA Compliant (4.5:1 contrast) */
 .btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
+  /* FIXED: Removed opacity, using explicit colors for accessibility */
+  background: var(--color-button-disabled-bg);
+  color: var(--color-button-disabled-text);
+  border-color: var(--color-button-disabled-border);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* Loading */
 .btn-loading {
-    position: relative;
-    color: transparent;
-    pointer-events: none;
+  position: relative;
+  color: transparent;
+  pointer-events: none;
 
-    &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 16px;
-        height: 16px;
-        border: 2px solid currentColor;
-        border-top-color: transparent;
-        border-radius: 50%;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
 
-        @media (prefers-reduced-motion: no-preference) {
-            animation: spin 0.6s linear infinite;
-        }
+    @media (prefers-reduced-motion: no-preference) {
+      animation: spin 0.6s linear infinite;
     }
+  }
 }
 
 @keyframes spin {
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 /* Focus (keyboard navigation) */
 .btn:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* ========================================
@@ -211,26 +216,26 @@
    ======================================== */
 
 .btn-group {
-    display: inline-flex;
-    gap: var(--space-2);
+  display: inline-flex;
+  gap: var(--space-2);
 }
 
 .btn-group-attached {
-    display: inline-flex;
+  display: inline-flex;
 
-    & > .btn {
-        border-radius: 0;
-        margin-left: -1px;
-    }
+  & > .btn {
+    border-radius: 0;
+    margin-left: -1px;
+  }
 
-    & > .btn:first-child {
-        border-top-left-radius: var(--radius-md);
-        border-bottom-left-radius: var(--radius-md);
-        margin-left: 0;
-    }
+  & > .btn:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+    margin-left: 0;
+  }
 
-    & > .btn:last-child {
-        border-top-right-radius: var(--radius-md);
-        border-bottom-right-radius: var(--radius-md);
-    }
+  & > .btn:last-child {
+    border-top-right-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+  }
 }

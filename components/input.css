@@ -58,60 +58,62 @@
    ======================================== */
 
 .input {
-    /* Layout */
-    width: 100%;
-    display: block;
+  /* Layout */
+  width: 100%;
+  display: block;
 
-    /* Spacing */
-    padding: var(--space-3) var(--space-4);
+  /* Spacing */
+  padding: var(--space-3) var(--space-4);
 
-    /* Typography */
-    font-family: var(--font-sans);
-    font-size: var(--text-base);
-    line-height: var(--leading-normal);
-    color: var(--color-input-text);
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-input-text);
 
-    /* Appearance */
-    background: var(--color-input-bg);
-    border: 1px solid var(--color-input-border);
-    border-radius: var(--radius-md);
+  /* Appearance */
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-md);
 
-    /* Transitions */
-    transition: var(--transition-all-fast);
+  /* Transitions */
+  transition: var(--transition-all-fast);
 
-    /* Accessibility */
-    min-height: 44px;
-    outline: none;
+  /* Accessibility */
+  min-height: 44px;
+  outline: none;
 
-    &::placeholder {
-        color: var(--color-input-placeholder);
-    }
+  &::placeholder {
+    color: var(--color-input-placeholder);
+  }
 
-    /* Hover state */
-    &:hover:not(:disabled) {
-        border-color: var(--color-primary);
-        background: var(--color-bg-hover);
-    }
+  /* Hover state */
+  &:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    background: var(--color-bg-hover);
+  }
 
-    /* Focus state */
-    &:focus {
-        outline: 2px solid var(--color-primary);
-        outline-offset: 2px;
-        border-color: var(--color-primary);
-    }
+  /* Focus state */
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
 
-    /* Disabled state */
-    &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background: var(--color-bg-tertiary);
-    }
+  /* Disabled state - WCAG AA Compliant */
+  &:disabled {
+    /* FIXED: Removed opacity, using explicit colors for accessibility */
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+    background: var(--color-input-disabled-bg);
+    border-color: var(--color-border-subtle);
+  }
 
-    /* Read-only state */
-    &:read-only {
-        background: var(--color-input-disabled-bg);
-        cursor: default;
-    }
+  /* Read-only state */
+  &:read-only {
+    background: var(--color-input-disabled-bg);
+    cursor: default;
+  }
 }
 
 /* ========================================
@@ -119,126 +121,127 @@
    ======================================== */
 
 /* Hide default browser spinners */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-    margin: 0;
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
 }
 
-input[type="number"] {
-    -moz-appearance: textfield;
-    appearance: textfield;
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /* Number input with custom spinners wrapper */
 .input-number {
-    position: relative;
-    display: inline-flex;
-    width: 100%;
+  position: relative;
+  display: inline-flex;
+  width: 100%;
 }
 
 .input-number .input {
-    padding-right: var(--space-10);
+  padding-right: var(--space-10);
 }
 
 /* Spinner buttons container */
 .input-number__controls {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--color-bg-tertiary);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    overflow: hidden;
-    border-left: 1px solid var(--color-border-medium);
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-tertiary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  overflow: hidden;
+  border-left: 1px solid var(--color-border-medium);
 }
 
 /* Individual spinner button */
 .input-number__button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    padding: 0;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  padding: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  position: relative;
 }
 
 .input-number__button:hover:not(:disabled) {
-    background: var(--color-bg-hover);
-    color: var(--color-primary);
+  background: var(--color-bg-hover);
+  color: var(--color-primary);
 }
 
 .input-number__button:active:not(:disabled) {
-    background: var(--color-primary);
-    color: white;
+  background: var(--color-primary);
+  color: white;
 }
 
 .input-number__button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+  /* FIXED: Removed opacity, using explicit color for accessibility */
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
 }
 
 .input-number__button svg {
-    width: 14px;
-    height: 14px;
-    stroke-width: 2.5;
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.5;
 }
 
 /* Divider between buttons */
 .input-number__button + .input-number__button {
-    border-top: 1px solid var(--color-border-medium);
+  border-top: 1px solid var(--color-border-medium);
 }
 
 /* Size variants */
 .input-number--sm .input {
-    padding-right: var(--space-8);
+  padding-right: var(--space-8);
 }
 
 .input-number--sm .input-number__button {
-    width: 24px;
+  width: 24px;
 }
 
 .input-number--sm .input-number__button svg {
-    width: 12px;
-    height: 12px;
+  width: 12px;
+  height: 12px;
 }
 
 .input-number--lg .input {
-    padding-right: calc(var(--space-10) + 4px);
+  padding-right: calc(var(--space-10) + 4px);
 }
 
 .input-number--lg .input-number__button {
-    width: 32px;
+  width: 32px;
 }
 
 .input-number--lg .input-number__button svg {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 /* Touch device optimizations */
 @media (pointer: coarse) {
-    .input-number__button {
-        width: 44px;
-        min-height: 24px;
-    }
+  .input-number__button {
+    width: 44px;
+    min-height: 24px;
+  }
 
-    .input-number .input {
-        padding-right: var(--space-12);
-        min-height: 48px;
-    }
+  .input-number .input {
+    padding-right: var(--space-12);
+    min-height: 48px;
+  }
 }
 
 /* ========================================
@@ -247,35 +250,35 @@ input[type="number"] {
 
 /* Error state */
 .input.error {
-    border-color: var(--color-border-error);
+  border-color: var(--color-border-error);
 
-    &:focus {
-        outline: 2px solid var(--color-border-error);
-        outline-offset: 2px;
-        border-color: var(--color-border-error);
-    }
+  &:focus {
+    outline: 2px solid var(--color-border-error);
+    outline-offset: 2px;
+    border-color: var(--color-border-error);
+  }
 }
 
 /* Success state */
 .input.success {
-    border-color: var(--color-border-success);
+  border-color: var(--color-border-success);
 
-    &:focus {
-        outline: 2px solid var(--color-border-success);
-        outline-offset: 2px;
-        border-color: var(--color-border-success);
-    }
+  &:focus {
+    outline: 2px solid var(--color-border-success);
+    outline-offset: 2px;
+    border-color: var(--color-border-success);
+  }
 }
 
 /* Warning state */
 .input.warning {
-    border-color: var(--color-border-warning);
+  border-color: var(--color-border-warning);
 
-    &:focus {
-        outline: 2px solid var(--color-border-warning);
-        outline-offset: 2px;
-        border-color: var(--color-border-warning);
-    }
+  &:focus {
+    outline: 2px solid var(--color-border-warning);
+    outline-offset: 2px;
+    border-color: var(--color-border-warning);
+  }
 }
 
 /* ========================================
@@ -283,33 +286,33 @@ input[type="number"] {
    ======================================== */
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .label {
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
 }
 
 .form-helper {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    margin-top: 0.25rem;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
 }
 
 .form-error {
-    font-size: var(--text-xs);
-    color: var(--color-error);
-    margin-top: 0.25rem;
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  margin-top: 0.25rem;
 }
 
 .form-success {
-    font-size: var(--text-xs);
-    color: var(--color-success);
-    margin-top: 0.25rem;
+  font-size: var(--text-xs);
+  color: var(--color-success);
+  margin-top: 0.25rem;
 }
 
 /* ========================================
@@ -318,8 +321,8 @@ input[type="number"] {
 
 textarea.input,
 .textarea {
-    min-height: 100px;
-    resize: vertical;
+  min-height: 100px;
+  resize: vertical;
 }
 
 /* ========================================
@@ -327,15 +330,15 @@ textarea.input,
    ======================================== */
 
 .input-sm {
-    padding: var(--space-2) var(--space-3);
-    font-size: var(--text-sm);
-    min-height: 36px;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  min-height: 36px;
 }
 
 .input-lg {
-    padding: var(--space-4) var(--space-6);
-    font-size: var(--text-lg);
-    min-height: 52px;
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-lg);
+  min-height: 52px;
 }
 
 /* ========================================
@@ -343,46 +346,46 @@ textarea.input,
    ======================================== */
 
 .input-group {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .input-group .input {
-    flex: 1;
+  flex: 1;
 }
 
 /* Input with prefix icon */
 .input-group-prefix .input {
-    padding-left: var(--space-10);
+  padding-left: var(--space-10);
 }
 
 /* Input with suffix icon */
 .input-group-suffix .input {
-    padding-right: var(--space-10);
+  padding-right: var(--space-10);
 }
 
 /* Icon positioning */
 .input-group-icon {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-tertiary);
-    pointer-events: none;
-    z-index: 1;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .input-group-icon svg,
 .input-group-icon i {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 .input-group-icon-left {
-    left: var(--space-3);
+  left: var(--space-3);
 }
 
 .input-group-icon-right {
-    right: var(--space-3);
+  right: var(--space-3);
 }

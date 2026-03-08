@@ -18,9 +18,10 @@
 Aural UI is a comprehensive component library that combines beautiful design with practical functionality. Built on a foundation of design tokens and CSS custom properties, it offers unparalleled customization while maintaining consistency across your entire application.
 
 **Key Features:**
+
 - 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
 - 🌓 **9 Built-in Themes** - Dark, Light, Neon, Kinetic, Prismatic, High Contrast, Colorblind-Friendly, Minimal, and Warm
-- ♿ **Accessibility First** - WCAG 2.1 AAA compliant (7:1+ contrast ratios across all themes)
+- ♿ **Accessibility First** - WCAG 2.1 AA compliant (4.5:1+ contrast ratios); High-Contrast theme achieves AAA (7:1+)
 - 📦 **60+ Components** - Everything from buttons to notification centers
 - 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
 - ✨ **Typography System** - Comprehensive font utilities for all use cases
@@ -37,6 +38,7 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 ## 📚 Documentation
 
 ### Storybook Documentation (NEW! 🎉)
+
 - **[📖 Storybook](https://ferology.github.io/aural-ui/storybook/)** - Interactive component documentation
   - Live component previews with all 9 themes
   - Code examples and usage guidelines
@@ -44,12 +46,14 @@ Aural UI is a comprehensive component library that combines beautiful design wit
   - Accessibility-compliant components
 
 ### Quick Start
+
 - **[Navigation Hub](docs/nav.html)** - Central navigation for all documentation
 - **[Project Structure](docs/project-tree.html)** - Complete component hierarchy (61 components organized by category)
 - **[Getting Started Tutorial](docs/tutorial.html)** - 5-step interactive tutorial
 - **[Component Showcase](docs/index.html)** - All 61 components with live demos
 
 ### Complete Documentation
+
 - **[API Reference](docs/api.html)** - 25+ JavaScript methods with interactive playgrounds
 - **[Design Tokens](docs/tokens.html)** - Visual reference for colors, spacing, typography
 - **[Themes Guide](docs/themes.html)** - Pre-built themes and custom theme creation
@@ -57,7 +61,9 @@ Aural UI is a comprehensive component library that combines beautiful design wit
 - **[Error Pages](docs/error-pages/)** - Accessible, mobile-ready error page templates (404, 403, 500, maintenance, coming soon)
 
 ### Project Organization
+
 For a detailed overview of the project structure, see **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** which includes:
+
 - Complete file hierarchy
 - Component categorization (Form Controls, Navigation, Data Display, Interactive, Feedback)
 - Utility class reference (350+ utility classes)
@@ -73,21 +79,21 @@ For a detailed overview of the project structure, see **[PROJECT_STRUCTURE.md](P
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="aural-ui/dist/aural-ui.css">
+    <link rel="stylesheet" href="aural-ui/dist/aural-ui.css" />
 
     <!-- Choose a theme -->
-    <link rel="stylesheet" href="aural-ui/themes/dark.css">
+    <link rel="stylesheet" href="aural-ui/themes/dark.css" />
     <!-- OR -->
-    <link rel="stylesheet" href="aural-ui/themes/light.css">
-</head>
-<body>
+    <link rel="stylesheet" href="aural-ui/themes/light.css" />
+  </head>
+  <body>
     <button class="btn btn-primary">Click me</button>
 
     <!-- Aural UI JavaScript -->
     <script src="aural-ui/dist/aural-ui.js"></script>
-</body>
+  </body>
 </html>
 ```
 
@@ -125,25 +131,25 @@ npm run dev
 
 <!-- Input with label -->
 <div class="form-group">
-    <label class="label">Email</label>
-    <input type="email" class="input" placeholder="you@example.com">
-    <p class="form-helper">We'll never share your email</p>
+  <label class="label">Email</label>
+  <input type="email" class="input" placeholder="you@example.com" />
+  <p class="form-helper">We'll never share your email</p>
 </div>
 
 <!-- Responsive Grid Layout -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="card">
-        <h3 class="text-lg font-semibold">Card 1</h3>
-        <p class="text-secondary">Card content</p>
-    </div>
-    <div class="card">
-        <h3 class="text-lg font-semibold">Card 2</h3>
-        <p class="text-secondary">Card content</p>
-    </div>
-    <div class="card">
-        <h3 class="text-lg font-semibold">Card 3</h3>
-        <p class="text-secondary">Card content</p>
-    </div>
+  <div class="card">
+    <h3 class="text-lg font-semibold">Card 1</h3>
+    <p class="text-secondary">Card content</p>
+  </div>
+  <div class="card">
+    <h3 class="text-lg font-semibold">Card 2</h3>
+    <p class="text-secondary">Card content</p>
+  </div>
+  <div class="card">
+    <h3 class="text-lg font-semibold">Card 3</h3>
+    <p class="text-secondary">Card content</p>
+  </div>
 </div>
 
 <!-- Typography Utilities -->
@@ -153,13 +159,13 @@ npm run dev
 
 <!-- Modal -->
 <script>
-Aural.openModal('my-modal');
-Aural.closeModal('my-modal');
+  Aural.openModal('my-modal');
+  Aural.closeModal('my-modal');
 </script>
 
 <!-- Toast Notification -->
 <script>
-Aural.showToast('Operation successful!', 'success');
+  Aural.showToast('Operation successful!', 'success');
 </script>
 ```
 
@@ -171,48 +177,48 @@ Aural.showToast('Operation successful!', 'success');
 
 Aural UI includes **9 professionally designed themes**, each showcasing the flexibility of our token system:
 
-| Theme | Description | Use Case |
-|-------|-------------|----------|
-| **Minimal** | Ultra-clean monochrome with subtle grays | Default, maximum clarity |
-| **Light** | Clean light theme with subtle grays | Light mode preference |
-| **Dark** | Professional dark theme with blue accents | Dark mode, general purpose |
-| **Neon** | Cyberpunk aesthetic with vibrant cyan/magenta | Bold, modern applications |
-| **Kinetic** | Brutalist editorial with high contrast | Content-focused, editorial |
-| **Prismatic** | Purple gradients with glass morphism | Colorful, modern design systems |
-| **High Contrast** | Maximum contrast ratios (WCAG AAA) | Accessibility, visibility |
-| **Colorblind Friendly** | Blue/yellow palette optimized for CVD | Color vision deficiency |
-| **Warm** | Cozy earth tones with amber accents | Long reading sessions, comfort |
+| Theme                   | Description                                   | Use Case                        |
+| ----------------------- | --------------------------------------------- | ------------------------------- |
+| **Minimal**             | Ultra-clean monochrome with subtle grays      | Default, maximum clarity        |
+| **Light**               | Clean light theme with subtle grays           | Light mode preference           |
+| **Dark**                | Professional dark theme with blue accents     | Dark mode, general purpose      |
+| **Neon**                | Cyberpunk aesthetic with vibrant cyan/magenta | Bold, modern applications       |
+| **Kinetic**             | Brutalist editorial with high contrast        | Content-focused, editorial      |
+| **Prismatic**           | Purple gradients with glass morphism          | Colorful, modern design systems |
+| **High Contrast**       | Maximum contrast ratios (WCAG AAA)            | Accessibility, visibility       |
+| **Colorblind Friendly** | Blue/yellow palette optimized for CVD         | Color vision deficiency         |
+| **Warm**                | Cozy earth tones with amber accents           | Long reading sessions, comfort  |
 
 ```html
 <!-- Minimal theme (default) -->
-<link rel="stylesheet" href="aural-ui/themes/minimal.css">
+<link rel="stylesheet" href="aural-ui/themes/minimal.css" />
 
 <!-- Light theme -->
-<link rel="stylesheet" href="aural-ui/themes/light.css">
+<link rel="stylesheet" href="aural-ui/themes/light.css" />
 
 <!-- Dark theme -->
-<link rel="stylesheet" href="aural-ui/themes/dark.css">
+<link rel="stylesheet" href="aural-ui/themes/dark.css" />
 
 <!-- Neon theme -->
-<link rel="stylesheet" href="aural-ui/themes/neon.css">
+<link rel="stylesheet" href="aural-ui/themes/neon.css" />
 
 <!-- Kinetic theme -->
-<link rel="stylesheet" href="aural-ui/themes/kinetic.css">
+<link rel="stylesheet" href="aural-ui/themes/kinetic.css" />
 
 <!-- Prismatic theme -->
-<link rel="stylesheet" href="aural-ui/themes/prismatic.css">
+<link rel="stylesheet" href="aural-ui/themes/prismatic.css" />
 
 <!-- High Contrast theme -->
-<link rel="stylesheet" href="aural-ui/themes/high-contrast.css">
+<link rel="stylesheet" href="aural-ui/themes/high-contrast.css" />
 
 <!-- Colorblind Friendly theme -->
-<link rel="stylesheet" href="aural-ui/themes/colorblind-friendly.css">
+<link rel="stylesheet" href="aural-ui/themes/colorblind-friendly.css" />
 
 <!-- Warm theme -->
-<link rel="stylesheet" href="aural-ui/themes/warm.css">
+<link rel="stylesheet" href="aural-ui/themes/warm.css" />
 ```
 
-**All 9 themes are WCAG 2.1 AAA compliant** with 7:1+ contrast ratios for superior accessibility.
+**All themes meet WCAG 2.1 AA standards** (4.5:1+ contrast). The **High-Contrast theme achieves WCAG AAA** (7:1+) for maximum accessibility.
 
 ### Creating Custom Themes
 
@@ -221,24 +227,24 @@ Override semantic tokens to match your brand:
 ```css
 /* my-brand-theme.css */
 :root {
-    /* Brand colors */
-    --color-primary: #ff6b35;
-    --color-primary-hover: #e85d2f;
+  /* Brand colors */
+  --color-primary: #ff6b35;
+  --color-primary-hover: #e85d2f;
 
-    /* Backgrounds */
-    --color-bg-primary: #1a1a2e;
-    --color-bg-secondary: #16213e;
+  /* Backgrounds */
+  --color-bg-primary: #1a1a2e;
+  --color-bg-secondary: #16213e;
 
-    /* Text */
-    --color-text-primary: #eaeaea;
+  /* Text */
+  --color-text-primary: #eaeaea;
 }
 ```
 
 Then include after Aural UI:
 
 ```html
-<link rel="stylesheet" href="aural-ui/dist/aural-ui.css">
-<link rel="stylesheet" href="my-brand-theme.css">
+<link rel="stylesheet" href="aural-ui/dist/aural-ui.css" />
+<link rel="stylesheet" href="my-brand-theme.css" />
 ```
 
 ---
@@ -269,6 +275,7 @@ npm run serve
 ## 🧩 Components & Utilities
 
 ### Form Controls
+
 - **Button** - Primary, secondary, danger, ghost variants with loading states
 - **Input** - Text, email, password, number with validation states
 - **Search Bar** - Autocomplete search with keyboard navigation and suggestions
@@ -291,6 +298,7 @@ npm run serve
 - **Date Range Picker** - Select start and end dates with dual calendars
 
 ### Navigation
+
 - **Navigation Bar** - Horizontal top navigation with logo, links, dropdowns, and mobile menu
 - **Tabs** - Underline, pills, and boxed styles with keyboard navigation
 - **Breadcrumb** - Location hierarchy with customizable separators
@@ -302,6 +310,7 @@ npm run serve
 - **Bottom Navigation** - Mobile-first bottom nav bar with badges and FAB variant
 
 ### Data Display
+
 - **Table** - Striped, bordered, compact, with sticky headers
 - **Avatar** - Images, initials, icons, status badges, stacked groups
 - **Progress Bar** - Determinate/indeterminate with 5 color variants
@@ -317,6 +326,7 @@ npm run serve
 - **Image Gallery** - Responsive grid gallery with lightbox modal
 
 ### Interactive
+
 - **Tooltip** - Contextual information on hover/focus (4 positions)
 - **Dropdown** - Action menus with keyboard navigation and submenus
 - **Accordion** - Collapsible content sections (single/multiple modes)
@@ -325,6 +335,7 @@ npm run serve
 - **Dialog** - Lightweight confirmation dialogs with variants
 
 ### Feedback
+
 - **Toast** - Notification messages (success, error, warning, info)
 - **Snackbar** - Brief messages at screen edge (Material Design style)
 - **Skeleton** - Loading placeholders for content
@@ -335,6 +346,7 @@ npm run serve
 ### Layout Utilities
 
 #### Responsive Grid System
+
 Mobile-first grid system with breakpoints at 640px, 768px, 1024px, and 1280px.
 
 ```html
@@ -354,12 +366,16 @@ Mobile-first grid system with breakpoints at 640px, 768px, 1024px, and 1280px.
 <div class="grid-cards">...</div>
 
 <!-- Common patterns -->
-<div class="grid-2-col">...</div> <!-- 2 columns on tablet+ -->
-<div class="grid-3-col">...</div> <!-- 3 columns on desktop -->
-<div class="grid-4-col">...</div> <!-- 2 on tablet, 4 on desktop -->
+<div class="grid-2-col">...</div>
+<!-- 2 columns on tablet+ -->
+<div class="grid-3-col">...</div>
+<!-- 3 columns on desktop -->
+<div class="grid-4-col">...</div>
+<!-- 2 on tablet, 4 on desktop -->
 ```
 
 **Available Classes:**
+
 - Containers: `.container`, `.container-fluid`
 - Grid columns: `.grid-cols-1` through `.grid-cols-12`
 - Column spans: `.col-span-1` through `.col-span-12`, `.col-span-full`
@@ -368,6 +384,7 @@ Mobile-first grid system with breakpoints at 640px, 768px, 1024px, and 1280px.
 - Responsive modifiers: `sm:`, `md:`, `lg:`, `xl:`
 
 #### Typography Utilities
+
 Comprehensive typography system for all text needs.
 
 ```html
@@ -396,6 +413,7 @@ Comprehensive typography system for all text needs.
 ```
 
 #### Spacing Utilities (NEW)
+
 Tailwind-like spacing utilities for margin and padding.
 
 ```html
@@ -413,6 +431,7 @@ Tailwind-like spacing utilities for margin and padding.
 ```
 
 #### Display & Flexbox Utilities (NEW)
+
 Comprehensive layout utilities for modern CSS.
 
 ```html
@@ -432,6 +451,7 @@ Comprehensive layout utilities for modern CSS.
 ```
 
 #### Color Utilities (NEW)
+
 Quick color application for text, backgrounds, and borders.
 
 ```html
@@ -449,6 +469,7 @@ Quick color application for text, backgrounds, and borders.
 ```
 
 #### Border Utilities (NEW)
+
 Border width, radius, and style utilities.
 
 ```html
@@ -467,6 +488,7 @@ Border width, radius, and style utilities.
 ```
 
 #### Animation Utilities (NEW)
+
 Pre-built animations with accessibility support.
 
 ```html
@@ -488,6 +510,7 @@ Pre-built animations with accessibility support.
 ### Page Templates
 
 #### Error Pages
+
 Production-ready, accessible error page templates included:
 
 - **404 Not Found** - Custom styled page not found
@@ -497,6 +520,7 @@ Production-ready, accessible error page templates included:
 - **Coming Soon** - Launch countdown page
 
 **Features:**
+
 - ✅ WCAG 2.1 AA compliant
 - ✅ Mobile-optimized with responsive breakpoints (768px, 480px)
 - ✅ Touch-friendly buttons (48×48px minimum)
@@ -507,17 +531,18 @@ Production-ready, accessible error page templates included:
 - ✅ Screen reader tested
 
 **Usage:**
+
 ```html
 <!-- Example: 404 Page -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="aural-ui.css">
-    <link rel="stylesheet" href="dark.css">
-</head>
-<body>
+  <head>
+    <link rel="stylesheet" href="aural-ui.css" />
+    <link rel="stylesheet" href="dark.css" />
+  </head>
+  <body>
     <!-- Ready-to-use error page template -->
-</body>
+  </body>
 </html>
 ```
 
@@ -613,16 +638,18 @@ npm run serve
 
 ## ♿ Accessibility
 
-All components follow WCAG 2.1 AAA accessibility guidelines and include:
+All components follow WCAG 2.1 AA accessibility standards (High-Contrast theme achieves AAA) and include:
 
 - ✅ **Keyboard Navigation** - Full support for Tab, Arrow keys, Enter, Escape
 - ✅ **Focus Indicators** - Visible focus outlines with proper contrast (2px solid)
 - ✅ **ARIA Attributes** - Proper roles, states, and relationships
 - ✅ **Screen Reader Support** - Meaningful labels and state announcements
-- ✅ **Touch Targets** - Minimum 44px for all interactive elements
+- ✅ **Touch Targets** - Minimum 44px for all interactive elements (40px for small variants)
 - ✅ **Reduced Motion** - Respects `prefers-reduced-motion` preference
-- ✅ **Color Contrast** - WCAG AAA compliant (7:1+ for all text across all 9 themes)
+- ✅ **Color Contrast** - WCAG AA compliant (4.5:1+ minimum); High-Contrast theme achieves AAA (7:1+)
 - ✅ **Semantic HTML** - Proper use of headings, lists, and landmarks
+
+**Note**: Neon and aesthetic-focused themes prioritize visual impact while maintaining minimum WCAG AA standards where possible. Use High-Contrast theme for maximum accessibility compliance.
 
 ### Testing Recommendations
 
@@ -667,6 +694,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 Built for Bai and future applications.
 
 **Inspired by:**
+
 - Shadcn UI
 - Radix UI
 - Tailwind CSS
