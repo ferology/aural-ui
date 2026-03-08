@@ -6,17 +6,310 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Slide-out panels for navigation, settings, or additional content. Drawers can slide in from any edge of the screen.'
-      }
+        component: `
+# Drawer Component
+
+Slide-out panels that provide secondary navigation, contextual actions, or supplementary content without navigating away from the current page.
+
+Use Drawers for navigation menus, filter panels, settings, shopping carts, or detail views that complement the main content. Unlike Modals which demand immediate attention, Drawers provide optional access to additional features while keeping the main content visible (though typically disabled). They're perfect for responsive navigation on mobile devices and for providing contextual tools in desktop applications.
+
+Drawers can slide from any edge (left, right, top, bottom) and support various sizes. Left drawers typically house navigation, right drawers often contain details or actions, while top/bottom drawers work well for mobile action sheets or supplementary information.
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<!-- Trigger button -->
+<button class="btn btn-primary" onclick="window.Aural.openDrawer('nav-drawer')">
+  Open Navigation
+</button>
+
+<!-- Drawer backdrop -->
+<div class="aural-drawer-backdrop"></div>
+
+<!-- Drawer panel (left position) -->
+<div
+  class="aural-drawer aural-drawer--left"
+  id="nav-drawer"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="drawer-title"
+>
+  <div class="aural-drawer__header">
+    <h2 class="aural-drawer__title" id="drawer-title">Navigation</h2>
+    <button class="aural-drawer__close" aria-label="Close drawer">
+      <i data-lucide="x" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="aural-drawer__body">
+    <nav class="aural-drawer__nav">
+      <a href="#" class="aural-drawer__nav-item">
+        <i data-lucide="home" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
+      <a href="#" class="aural-drawer__nav-item">
+        <i data-lucide="inbox" aria-hidden="true"></i>
+        <span>Messages</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="aural-drawer__footer">
+    <button class="btn btn-primary" style="flex: 1;">
+      <i data-lucide="save" aria-hidden="true"></i>
+      Save Changes
+    </button>
+  </div>
+</div>
+
+<script>
+  window.Aural?.initDrawers();
+</script>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+import { useEffect, useState } from 'react';
+
+function NavigationDrawer() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    window.Aural?.initDrawers();
+  }, []);
+
+  const openDrawer = () => {
+    window.Aural?.openDrawer('nav-drawer');
+    setIsOpen(true);
+  };
+
+  const closeDrawer = () => {
+    window.Aural?.closeDrawer('nav-drawer');
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      <button className="btn btn-primary" onClick={openDrawer}>
+        <i data-lucide="menu" aria-hidden="true"></i>
+        Menu
+      </button>
+
+      <div className="aural-drawer-backdrop"></div>
+
+      <div
+        className="aural-drawer aural-drawer--left"
+        id="nav-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="drawer-title"
+      >
+        <div className="aural-drawer__header">
+          <h2 className="aural-drawer__title" id="drawer-title">
+            Navigation
+          </h2>
+          <button
+            className="aural-drawer__close"
+            aria-label="Close drawer"
+            onClick={closeDrawer}
+          >
+            <i data-lucide="x" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div className="aural-drawer__body">
+          <nav className="aural-drawer__nav">
+            <a href="#" className="aural-drawer__nav-item">
+              <i data-lucide="home" aria-hidden="true"></i>
+              <span>Home</span>
+            </a>
+            <a href="#" className="aural-drawer__nav-item">
+              <i data-lucide="inbox" aria-hidden="true"></i>
+              <span>Messages</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </>
+  );
+}
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div>
+    <button class="btn btn-primary" @click="openDrawer">
+      <i data-lucide="menu" aria-hidden="true"></i>
+      Menu
+    </button>
+
+    <div class="aural-drawer-backdrop"></div>
+
+    <div
+      class="aural-drawer aural-drawer--left"
+      id="nav-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="drawer-title"
+    >
+      <div class="aural-drawer__header">
+        <h2 class="aural-drawer__title" id="drawer-title">Navigation</h2>
+        <button
+          class="aural-drawer__close"
+          aria-label="Close drawer"
+          @click="closeDrawer"
+        >
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="aural-drawer__body">
+        <nav class="aural-drawer__nav">
+          <a href="#" class="aural-drawer__nav-item">
+            <i data-lucide="home" aria-hidden="true"></i>
+            <span>Home</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  mounted() {
+    window.Aural?.initDrawers();
+  },
+  methods: {
+    openDrawer() {
+      window.Aural?.openDrawer('nav-drawer');
+    },
+    closeDrawer() {
+      window.Aural?.closeDrawer('nav-drawer');
     }
+  }
+};
+</script>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<script>
+  import { onMount } from 'svelte';
+
+  onMount(() => {
+    window.Aural?.initDrawers();
+  });
+
+  function openDrawer() {
+    window.Aural?.openDrawer('nav-drawer');
+  }
+
+  function closeDrawer() {
+    window.Aural?.closeDrawer('nav-drawer');
+  }
+</script>
+
+<button class="btn btn-primary" on:click={openDrawer}>
+  <i data-lucide="menu" aria-hidden="true"></i>
+  Menu
+</button>
+
+<div class="aural-drawer-backdrop"></div>
+
+<div
+  class="aural-drawer aural-drawer--left"
+  id="nav-drawer"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="drawer-title"
+>
+  <div class="aural-drawer__header">
+    <h2 class="aural-drawer__title" id="drawer-title">Navigation</h2>
+    <button
+      class="aural-drawer__close"
+      aria-label="Close drawer"
+      on:click={closeDrawer}
+    >
+      <i data-lucide="x" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="aural-drawer__body">
+    <nav class="aural-drawer__nav">
+      <a href="#" class="aural-drawer__nav-item">
+        <i data-lucide="home" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
+    </nav>
+  </div>
+</div>
+\`\`\`
+
+## Accessibility
+
+- **Focus management**: Focus is trapped within the drawer when open and restored to trigger element on close
+- **Escape key**: Pressing Escape closes the drawer and returns focus to the trigger button
+- **Backdrop click**: Clicking outside the drawer closes it (can be disabled for critical actions)
+- **ARIA attributes**: Uses \`role="dialog"\`, \`aria-modal="true"\`, and \`aria-labelledby\` for proper screen reader announcements
+- **Keyboard navigation**: All interactive elements are keyboard accessible with visible focus indicators
+- **Body scroll lock**: Prevents background scrolling when drawer is open to avoid confusing navigation
+- **Close button requirements**: Always include a visible close button with \`aria-label="Close drawer"\`
+- **Touch targets**: All interactive elements meet 44×44px minimum touch target size for mobile usability
+- **Color contrast**: Text and interactive elements meet WCAG AA standards (4.5:1 for text, 3:1 for UI components)
+- **Animation respect**: Drawer animations are disabled when \`prefers-reduced-motion\` is set
+- **Screen reader announcements**: Drawer state changes are announced to assistive technologies
+- **Semantic HTML**: Uses appropriate heading hierarchy (\`h2\` for title) and navigation landmarks where applicable
+
+## Usage Guidelines
+
+- **When to use:**
+  - Primary or secondary navigation menus (especially on mobile)
+  - Filter panels for search results or data tables
+  - Settings or configuration panels that don't need a full page
+  - Shopping cart or checkout flows in e-commerce
+  - Detail views or property inspectors that complement main content
+  - Multi-step forms that benefit from persistent access
+
+- **When NOT to use:**
+  - For critical decisions or confirmations — use Modal instead for alerts requiring immediate attention
+  - For transient messages — use Toast or Snackbar for notifications that auto-dismiss
+  - For full-page content — navigate to a new route instead
+  - For dropdown menus or select options — use Dropdown or Select components
+  - For tooltips or hints — use Tooltip or Popover for contextual help
+
+- **Best practices:**
+  - Use left drawers for navigation (follows common mobile patterns like hamburger menus)
+  - Use right drawers for details, actions, or shopping carts (follows e-commerce conventions)
+  - Keep drawer width between 280-480px on desktop (320px default works for most cases)
+  - Use top/bottom drawers sparingly, primarily for mobile action sheets
+  - Include a clear header with title and close button for wayfinding
+  - Ensure drawer content is scrollable for long lists or forms
+  - Disable backdrop click for drawers containing unsaved form data
+  - Provide visual feedback during drawer transitions (slide animation)
+  - Consider using persistent drawers (always visible) for primary navigation on desktop
+
+- **Mobile considerations:**
+  - Drawers automatically expand to full width (90vw max) on mobile devices
+  - Left/right drawers work well for mobile navigation and filters
+  - Bottom drawers are ideal for mobile action sheets or picker UIs
+  - Ensure touch targets are at least 44×44px for easy tapping
+  - Use swipe gestures to close drawers on touch devices (if implementing custom behavior)
+  - Keep mobile drawer content concise to minimize scrolling
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     position: {
       control: 'select',
       options: ['left', 'right', 'top', 'bottom'],
-      description: 'Drawer position'
-    }
-  }
+      description:
+        'Position from which the drawer slides in. **left** (default, 320px wide) — primary navigation, slide from left edge. **right** (320px wide) — details, actions, shopping cart, slide from right edge. **top** (400px tall) — announcements, notifications, slide down from top. **bottom** (400px tall) — mobile action sheets, pickers, slide up from bottom. Width and height can be customized with size modifiers (--sm: 240/280px, --lg: 480/560px, --xl: 640/720px, --full: 100vw/100vh).',
+    },
+  },
 };
 
 export default meta;
@@ -78,7 +371,7 @@ export const Left: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const Right: Story = {
@@ -136,7 +429,7 @@ export const Right: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const Top: Story = {
@@ -188,7 +481,7 @@ export const Top: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const Bottom: Story = {
@@ -240,7 +533,7 @@ export const Bottom: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const NavigationDrawer: Story = {
@@ -250,7 +543,8 @@ export const NavigationDrawer: Story = {
 
     const openButton = document.createElement('button');
     openButton.className = 'btn btn-primary';
-    openButton.innerHTML = '<i data-lucide="menu" style="width: 16px; height: 16px;" aria-hidden="true"></i> Open Navigation';
+    openButton.innerHTML =
+      '<i data-lucide="menu" style="width: 16px; height: 16px;" aria-hidden="true"></i> Open Navigation';
 
     const drawerId = 'drawer-nav';
 
@@ -318,7 +612,7 @@ export const NavigationDrawer: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const WithForm: Story = {
@@ -403,7 +697,7 @@ export const WithForm: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const SettingsDrawer: Story = {
@@ -413,7 +707,8 @@ export const SettingsDrawer: Story = {
 
     const openButton = document.createElement('button');
     openButton.className = 'btn btn-secondary';
-    openButton.innerHTML = '<i data-lucide="settings" style="width: 16px; height: 16px;" aria-hidden="true"></i> Settings';
+    openButton.innerHTML =
+      '<i data-lucide="settings" style="width: 16px; height: 16px;" aria-hidden="true"></i> Settings';
 
     const drawerId = 'drawer-settings';
 
@@ -550,5 +845,5 @@ export const SettingsDrawer: Story = {
     }, 100);
 
     return container;
-  }
+  },
 };
