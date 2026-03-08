@@ -7,20 +7,397 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Centralized notification management with categorized alerts, read/unread states, and actionable items. See the **Documentation** tab for framework-specific examples (React, Vue, Svelte).'
-      }
-    }
+        component: `
+# Notification Center Component
+
+Centralized notification hub for managing multiple alerts, messages, and updates with categorization, read/unread states, and actionable items in a dropdown panel.
+
+Use Notification Center for persistent, historical notifications users need to review (emails, mentions, system updates). For temporary, single-action feedback, use **Snackbars** instead.
+
+Notification Centers provide a unified inbox for all app notifications, allowing users to triage, act on, or dismiss messages at their own pace rather than being interrupted by individual alerts.
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<div class="aural-notification-center">
+  <div class="aural-notification-center__header">
+    <h3 class="aural-notification-center__title">Notifications</h3>
+    <span class="badge badge-primary">3 new</span>
+  </div>
+
+  <div class="aural-notification-center__list">
+    <!-- Unread Notification -->
+    <button
+      class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--success"
+    >
+      <div class="aural-notification-center__item-icon">
+        <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+      </div>
+      <div class="aural-notification-center__item-content">
+        <div class="aural-notification-center__item-title">Build Successful</div>
+        <div class="aural-notification-center__item-message">
+          Your project built successfully
+        </div>
+        <div class="aural-notification-center__item-time">5 minutes ago</div>
+      </div>
+      <div class="aural-notification-center__item-dot"></div>
+    </button>
+
+    <!-- Read Notification -->
+    <button class="aural-notification-center__item">
+      <div class="aural-notification-center__item-icon">
+        <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
+      </div>
+      <div class="aural-notification-center__item-content">
+        <div class="aural-notification-center__item-title">Welcome</div>
+        <div class="aural-notification-center__item-message">
+          Thanks for joining!
+        </div>
+        <div class="aural-notification-center__item-time">2 days ago</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="aural-notification-center__footer">
+    <a href="#" class="aural-notification-center__footer-link">View all</a>
+  </div>
+</div>
+
+<script>
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+</script>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+import { Bell, CheckCircle, AlertCircle, X } from 'lucide-react';
+import { useState } from 'react';
+
+function NotificationCenter() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: 'Build Successful', message: 'Your project built successfully', time: '5 min ago', type: 'success', unread: true },
+    { id: 2, title: 'New Update', message: 'Version 2.0 is ready', time: '1 hour ago', type: 'info', unread: true },
+    { id: 3, title: 'Welcome', message: 'Thanks for joining!', time: '2 days ago', type: 'default', unread: false }
+  ]);
+
+  const unreadCount = notifications.filter(n => n.unread).length;
+
+  const markAsRead = (id) => {
+    setNotifications(prev =>
+      prev.map(n => n.id === id ? { ...n, unread: false } : n)
+    );
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(prev => prev.map(n => ({ ...n, unread: false })));
+  };
+
+  return (
+    <div className="aural-notification-center">
+      <button
+        className="aural-notification-center__trigger"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label={\`Notifications, \${unreadCount} unread\`}
+      >
+        <Bell className="w-5 h-5" />
+        {unreadCount > 0 && (
+          <span className="aural-notification-center__badge">
+            {unreadCount}
+          </span>
+        )}
+      </button>
+
+      {isOpen && (
+        <div className="aural-notification-center__dropdown aural-notification-center__dropdown--open">
+          <div className="aural-notification-center__header">
+            <h3 className="aural-notification-center__title">Notifications</h3>
+            <button
+              className="btn btn-ghost btn-sm"
+              onClick={markAllAsRead}
+              disabled={unreadCount === 0}
+            >
+              Mark all read
+            </button>
+          </div>
+
+          <div className="aural-notification-center__list">
+            {notifications.map(notif => (
+              <button
+                key={notif.id}
+                className={\`aural-notification-center__item \${notif.unread ? 'aural-notification-center__item--unread' : ''} aural-notification-center__item--\${notif.type}\`}
+                onClick={() => markAsRead(notif.id)}
+              >
+                <div className="aural-notification-center__item-icon">
+                  <CheckCircle className="w-5 h-5" />
+                </div>
+                <div className="aural-notification-center__item-content">
+                  <div className="aural-notification-center__item-title">{notif.title}</div>
+                  <div className="aural-notification-center__item-message">{notif.message}</div>
+                  <div className="aural-notification-center__item-time">{notif.time}</div>
+                </div>
+                {notif.unread && <div className="aural-notification-center__item-dot" />}
+              </button>
+            ))}
+          </div>
+
+          <div className="aural-notification-center__footer">
+            <a href="/notifications" className="aural-notification-center__footer-link">
+              View all notifications
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div class="aural-notification-center">
+    <button
+      class="aural-notification-center__trigger"
+      @click="isOpen = !isOpen"
+      :aria-label="\`Notifications, \${unreadCount} unread\`"
+    >
+      <Bell class="w-5 h-5" />
+      <span v-if="unreadCount > 0" class="aural-notification-center__badge">
+        {{ unreadCount }}
+      </span>
+    </button>
+
+    <div
+      v-if="isOpen"
+      class="aural-notification-center__dropdown aural-notification-center__dropdown--open"
+    >
+      <div class="aural-notification-center__header">
+        <h3 class="aural-notification-center__title">Notifications</h3>
+        <button
+          class="btn btn-ghost btn-sm"
+          @click="markAllAsRead"
+          :disabled="unreadCount === 0"
+        >
+          Mark all read
+        </button>
+      </div>
+
+      <div class="aural-notification-center__list">
+        <button
+          v-for="notif in notifications"
+          :key="notif.id"
+          :class="[
+            'aural-notification-center__item',
+            notif.unread && 'aural-notification-center__item--unread',
+            \`aural-notification-center__item--\${notif.type}\`
+          ]"
+          @click="markAsRead(notif.id)"
+        >
+          <div class="aural-notification-center__item-icon">
+            <CheckCircle class="w-5 h-5" />
+          </div>
+          <div class="aural-notification-center__item-content">
+            <div class="aural-notification-center__item-title">{{ notif.title }}</div>
+            <div class="aural-notification-center__item-message">{{ notif.message }}</div>
+            <div class="aural-notification-center__item-time">{{ notif.time }}</div>
+          </div>
+          <div v-if="notif.unread" class="aural-notification-center__item-dot" />
+        </button>
+      </div>
+
+      <div class="aural-notification-center__footer">
+        <a href="/notifications" class="aural-notification-center__footer-link">
+          View all notifications
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue';
+import { Bell, CheckCircle } from 'lucide-vue-next';
+
+const isOpen = ref(false);
+const notifications = ref([
+  { id: 1, title: 'Build Successful', message: 'Your project built successfully', time: '5 min ago', type: 'success', unread: true },
+  { id: 2, title: 'New Update', message: 'Version 2.0 is ready', time: '1 hour ago', type: 'info', unread: true },
+  { id: 3, title: 'Welcome', message: 'Thanks for joining!', time: '2 days ago', type: 'default', unread: false }
+]);
+
+const unreadCount = computed(() => notifications.value.filter(n => n.unread).length);
+
+const markAsRead = (id) => {
+  const notif = notifications.value.find(n => n.id === id);
+  if (notif) notif.unread = false;
+};
+
+const markAllAsRead = () => {
+  notifications.value.forEach(n => n.unread = false);
+};
+</script>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<script>
+  import { Bell, CheckCircle } from 'lucide-svelte';
+
+  let isOpen = false;
+  let notifications = [
+    { id: 1, title: 'Build Successful', message: 'Your project built successfully', time: '5 min ago', type: 'success', unread: true },
+    { id: 2, title: 'New Update', message: 'Version 2.0 is ready', time: '1 hour ago', type: 'info', unread: true },
+    { id: 3, title: 'Welcome', message: 'Thanks for joining!', time: '2 days ago', type: 'default', unread: false }
+  ];
+
+  $: unreadCount = notifications.filter(n => n.unread).length;
+
+  function markAsRead(id) {
+    notifications = notifications.map(n =>
+      n.id === id ? { ...n, unread: false } : n
+    );
+  }
+
+  function markAllAsRead() {
+    notifications = notifications.map(n => ({ ...n, unread: false }));
+  }
+</script>
+
+<div class="aural-notification-center">
+  <button
+    class="aural-notification-center__trigger"
+    on:click={() => isOpen = !isOpen}
+    aria-label="Notifications, {unreadCount} unread"
+  >
+    <Bell class="w-5 h-5" />
+    {#if unreadCount > 0}
+      <span class="aural-notification-center__badge">{unreadCount}</span>
+    {/if}
+  </button>
+
+  {#if isOpen}
+    <div class="aural-notification-center__dropdown aural-notification-center__dropdown--open">
+      <div class="aural-notification-center__header">
+        <h3 class="aural-notification-center__title">Notifications</h3>
+        <button
+          class="btn btn-ghost btn-sm"
+          on:click={markAllAsRead}
+          disabled={unreadCount === 0}
+        >
+          Mark all read
+        </button>
+      </div>
+
+      <div class="aural-notification-center__list">
+        {#each notifications as notif (notif.id)}
+          <button
+            class="aural-notification-center__item {notif.unread ? 'aural-notification-center__item--unread' : ''} aural-notification-center__item--{notif.type}"
+            on:click={() => markAsRead(notif.id)}
+          >
+            <div class="aural-notification-center__item-icon">
+              <CheckCircle class="w-5 h-5" />
+            </div>
+            <div class="aural-notification-center__item-content">
+              <div class="aural-notification-center__item-title">{notif.title}</div>
+              <div class="aural-notification-center__item-message">{notif.message}</div>
+              <div class="aural-notification-center__item-time">{notif.time}</div>
+            </div>
+            {#if notif.unread}
+              <div class="aural-notification-center__item-dot" />
+            {/if}
+          </button>
+        {/each}
+      </div>
+
+      <div class="aural-notification-center__footer">
+        <a href="/notifications" class="aural-notification-center__footer-link">
+          View all notifications
+        </a>
+      </div>
+    </div>
+  {/if}
+</div>
+\`\`\`
+
+## Accessibility
+
+1. **Badge count announcement** - Add \`aria-label="Notifications, 3 unread"\` to bell button to announce unread count to screen readers
+2. **Dropdown role** - Use \`role="dialog"\` or \`role="menu"\` for notification panel to indicate interactive overlay
+3. **Focus management** - Move focus to first notification when opening panel; return focus to bell button when closing
+4. **Keyboard navigation** - Support Arrow keys to navigate notifications, Enter/Space to select, Escape to close panel
+5. **List semantics** - Wrap notifications in \`<ul>\` with \`<li>\` items for proper screen reader list navigation
+6. **Unread indicators** - Don't rely solely on color/dot; include \`aria-label="Unread:"\` or visually hidden "New" text
+7. **Mark all read button** - Disable when unreadCount === 0 and provide \`aria-live="polite"\` announcement when clicked
+8. **Empty state** - Show "No notifications" message with friendly icon rather than empty panel
+9. **Time stamps** - Use \`<time datetime="2024-03-04T12:00:00">\` for machine-readable timestamps
+10. **Action buttons** - For notifications with "Accept"/"Decline" buttons, ensure keyboard-focusable and labeled
+11. **Close behavior** - Clicking outside or pressing Escape should close panel (focus trap pattern)
+12. **Loading states** - Show skeleton notifications while fetching data (don't show empty panel)
+13. **Badge color contrast** - Ensure badge meets 3:1 contrast ratio against button background
+14. **Mobile drawer** - On mobile, use full-screen drawer instead of dropdown for better accessibility
+
+## Usage Guidelines
+
+### When to Use
+
+- **Email/message notifications** - New emails, chat messages, mentions, replies
+- **System updates** - App updates, maintenance windows, feature announcements
+- **Social activity** - Follows, likes, comments, shares, friend requests
+- **Task/project updates** - Assignments, due dates, status changes, approvals
+- **Transactional events** - Orders, payments, shipments, confirmations
+- **Alerts/warnings** - Security alerts, quota warnings, errors requiring action
+
+### When NOT to Use
+
+- **Single, immediate feedback** - Use Snackbars for one-off confirmations ("Saved!")
+- **Critical errors** - Use Modal dialogs for errors requiring immediate attention
+- **Real-time chat** - Use dedicated chat interface not notification center
+- **Form validation** - Use inline errors not notification center
+- **Transient status** - For temporary states like "Loading...", use Progress/Spinner
+- **Marketing/promotions** - Don't spam notification center with promotional content
+
+### Best Practices
+
+- Show most recent notifications first (reverse chronological order)
+- Limit dropdown to 5-10 notifications; provide "View all" link for full list
+- Group notifications by type/date ("Today", "Yesterday", "Earlier") for scannability
+- Auto-mark as read when user clicks notification (expand content or navigate)
+- Show unread badge count up to 99, then "99+" for higher counts
+- Provide "Mark all as read" button to batch-clear notifications
+- For actionable notifications (invites, requests), embed Accept/Decline buttons
+- Persist notifications across sessions (don't disappear on page reload)
+- Use pulsing badge animation for new notifications (but respect reduced motion)
+- Allow users to configure notification preferences (email, mentions, etc.)
+
+### Mobile Considerations
+
+- Use full-screen drawer (slide from top/bottom) instead of dropdown on mobile
+- Increase touch target size to 48×48px minimum for notification items
+- Stack action buttons vertically on mobile (horizontal on desktop)
+- Show fewer notifications in mobile drawer (3-5 vs 10) to reduce scroll
+- Place bell icon in top-right of navbar (standard mobile pattern)
+- Consider swipe-to-dismiss gesture for individual notifications
+- Test on iOS with Dynamic Island/notch to ensure proper positioning
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     title: {
       control: 'text',
-      description: 'Notification center title'
+      description:
+        'Header title for notification panel (typically "Notifications" or "Activity"); shown at top of dropdown panel alongside unread count',
     },
     showSettings: {
       control: 'boolean',
-      description: 'Show settings button in header'
-    }
-  }
+      description:
+        'Whether to display settings/preferences button in panel header (allows users to configure notification types, email preferences, or mute options)',
+    },
+  },
 };
 
 export default meta;
@@ -37,11 +414,15 @@ export const Default: Story = {
       <div class="aural-notification-center" style="max-width: 400px;">
         <div class="aural-notification-center__header">
           <h3 class="aural-notification-center__title">${args.title || 'Notifications'}</h3>
-          ${args.showSettings ? `
+          ${
+            args.showSettings
+              ? `
             <button class="btn btn-ghost btn-sm" aria-label="Notification settings">
               <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
             </button>
-          ` : ''}
+          `
+              : ''
+          }
         </div>
         <div class="aural-notification-center__list">
           <button class="aural-notification-center__item aural-notification-center__item--unread aural-notification-center__item--success">
@@ -93,8 +474,8 @@ export const Default: Story = {
   },
   args: {
     title: 'Notifications',
-    showSettings: true
-  }
+    showSettings: true,
+  },
 };
 
 export const DifferentTypes: Story = {
@@ -166,7 +547,7 @@ export const DifferentTypes: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithUnreadIndicator: Story = {
@@ -227,7 +608,7 @@ export const WithUnreadIndicator: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithAvatars: Story = {
@@ -290,7 +671,7 @@ export const WithAvatars: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithActionButtons: Story = {
@@ -352,7 +733,7 @@ export const WithActionButtons: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const GroupedByDate: Story = {
@@ -428,7 +809,7 @@ export const GroupedByDate: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const EmptyState: Story = {
@@ -462,7 +843,7 @@ export const EmptyState: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const MarkAllAsRead: Story = {
@@ -523,12 +904,16 @@ export const MarkAllAsRead: Story = {
 
     setTimeout(() => {
       const markAllButton = container.querySelector(`#mark-all-read-${notificationCenterId}`);
-      const notificationList = container.querySelector(`#notification-list-${notificationCenterId}`);
+      const notificationList = container.querySelector(
+        `#notification-list-${notificationCenterId}`
+      );
 
       if (markAllButton && notificationList) {
         markAllButton.addEventListener('click', () => {
-          const unreadItems = notificationList.querySelectorAll('.aural-notification-center__item--unread');
-          unreadItems.forEach(item => {
+          const unreadItems = notificationList.querySelectorAll(
+            '.aural-notification-center__item--unread'
+          );
+          unreadItems.forEach((item) => {
             item.classList.remove('aural-notification-center__item--unread');
             const dot = item.querySelector('.aural-notification-center__item-dot');
             if (dot) {
@@ -537,7 +922,8 @@ export const MarkAllAsRead: Story = {
           });
 
           // Update button text
-          markAllButton.innerHTML = '<i data-lucide="check" style="width: 16px; height: 16px;"></i> All read';
+          markAllButton.innerHTML =
+            '<i data-lucide="check" style="width: 16px; height: 16px;"></i> All read';
           markAllButton.disabled = true;
 
           if (typeof lucide !== 'undefined') {
@@ -552,7 +938,7 @@ export const MarkAllAsRead: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const LoadMorePattern: Story = {
@@ -614,7 +1000,9 @@ export const LoadMorePattern: Story = {
 
     setTimeout(() => {
       const loadMoreButton = container.querySelector(`#load-more-${notificationCenterId}`);
-      const notificationList = container.querySelector(`#notification-list-${notificationCenterId}`);
+      const notificationList = container.querySelector(
+        `#notification-list-${notificationCenterId}`
+      );
 
       if (loadMoreButton && notificationList) {
         let loadCount = 0;
@@ -622,7 +1010,8 @@ export const LoadMorePattern: Story = {
           loadCount++;
 
           // Simulate loading
-          loadMoreButton.innerHTML = '<span class="spinner" style="width: 16px; height: 16px;"></span> Loading...';
+          loadMoreButton.innerHTML =
+            '<span class="spinner" style="width: 16px; height: 16px;"></span> Loading...';
           loadMoreButton.disabled = true;
 
           setTimeout(() => {
@@ -656,7 +1045,8 @@ export const LoadMorePattern: Story = {
               loadMoreButton.innerHTML = 'All notifications loaded';
               loadMoreButton.disabled = true;
             } else {
-              loadMoreButton.innerHTML = '<i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i> Load more notifications';
+              loadMoreButton.innerHTML =
+                '<i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i> Load more notifications';
               loadMoreButton.disabled = false;
             }
 
@@ -673,7 +1063,7 @@ export const LoadMorePattern: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -734,5 +1124,5 @@ export const ThemeComparison: Story = {
 
       return div.firstElementChild as HTMLElement;
     });
-  }
+  },
 };
