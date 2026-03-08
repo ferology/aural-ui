@@ -6,38 +6,321 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Visual indicators for ongoing operations, loading states, and task completion showing progress percentage or indeterminate activity.'
-      }
-    }
+        component: `
+# Progress Component
+
+Visual indicators for ongoing operations, file uploads, task completion, and loading states that show determinate progress (0-100%) or indeterminate activity when duration is unknown.
+
+Use Progress bars for operations with measurable completion (file uploads, multi-step forms, data processing). For instant or unknown-duration loading, use **Spinners** instead. For content placeholders during initial load, use **Skeleton** screens.
+
+Progress components provide real-time visual feedback that reassures users the system is working and helps estimate wait times, reducing perceived latency and abandonment.
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<!-- Determinate Progress (known duration) -->
+<div>
+  <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+    <span style="font-size: 14px; color: var(--color-text-secondary);">
+      Uploading files...
+    </span>
+    <span style="font-size: 14px; font-weight: 600;">65%</span>
+  </div>
+  <div
+    class="progress"
+    role="progressbar"
+    aria-label="File upload progress"
+    aria-valuenow="65"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
+    <div class="progress-bar" style="width: 65%"></div>
+  </div>
+</div>
+
+<!-- Indeterminate Progress (unknown duration) -->
+<div>
+  <div style="margin-bottom: 8px; font-size: 14px; color: var(--color-text-secondary);">
+    Processing data...
+  </div>
+  <div class="progress progress-indeterminate">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+<!-- With Semantic Colors -->
+<div
+  class="progress progress-success"
+  role="progressbar"
+  aria-label="Installation complete"
+  aria-valuenow="100"
+  aria-valuemin="0"
+  aria-valuemax="100"
+>
+  <div class="progress-bar" style="width: 100%"></div>
+</div>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+import { useState, useEffect } from 'react';
+
+function ProgressBar({ value, max = 100, label, variant = 'default', size = 'default', indeterminate = false }) {
+  if (indeterminate) {
+    return (
+      <div>
+        {label && (
+          <div className="text-sm text-secondary mb-2">{label}</div>
+        )}
+        <div className={\`progress progress-indeterminate progress-\${variant}\`}>
+          <div className="progress-bar" />
+        </div>
+      </div>
+    );
+  }
+
+  const percentage = Math.round((value / max) * 100);
+
+  return (
+    <div>
+      {label && (
+        <div className="flex justify-between mb-2">
+          <span className="text-sm text-secondary">{label}</span>
+          <span className="text-sm font-semibold">{percentage}%</span>
+        </div>
+      )}
+      <div
+        className={\`progress progress-\${size} progress-\${variant}\`}
+        role="progressbar"
+        aria-label={label || 'Progress'}
+        aria-valuenow={value}
+        aria-valuemin="0"
+        aria-valuemax={max}
+      >
+        <div className="progress-bar" style={{ width: \`\${percentage}%\` }} />
+      </div>
+    </div>
+  );
+}
+
+// Usage: File Upload Example
+function FileUpload() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <ProgressBar
+      value={progress}
+      label="Uploading annual-report.pdf"
+      variant={progress === 100 ? 'success' : 'default'}
+    />
+  );
+}
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div>
+    <div v-if="label" class="flex justify-between mb-2">
+      <span class="text-sm text-secondary">{{ label }}</span>
+      <span v-if="!indeterminate" class="text-sm font-semibold">
+        {{ percentage }}%
+      </span>
+    </div>
+    <div
+      :class="progressClasses"
+      :role="indeterminate ? undefined : 'progressbar'"
+      :aria-label="label || 'Progress'"
+      :aria-valuenow="indeterminate ? undefined : value"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <div
+        class="progress-bar"
+        :style="{ width: indeterminate ? undefined : \`\${percentage}%\` }"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  value: { type: Number, default: 0 },
+  max: { type: Number, default: 100 },
+  label: String,
+  variant: { type: String, default: 'default' },
+  size: { type: String, default: 'default' },
+  indeterminate: Boolean
+});
+
+const percentage = computed(() => Math.round((props.value / props.max) * 100));
+
+const progressClasses = computed(() => {
+  const classes = ['progress'];
+  if (props.indeterminate) classes.push('progress-indeterminate');
+  if (props.variant !== 'default') classes.push(\`progress-\${props.variant}\`);
+  if (props.size !== 'default') classes.push(\`progress-\${props.size}\`);
+  return classes.join(' ');
+});
+</script>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<script>
+  export let value = 0;
+  export let max = 100;
+  export let label = '';
+  export let variant = 'default';
+  export let size = 'default';
+  export let indeterminate = false;
+
+  $: percentage = Math.round((value / max) * 100);
+  $: progressClasses = [
+    'progress',
+    indeterminate && 'progress-indeterminate',
+    variant !== 'default' && \`progress-\${variant}\`,
+    size !== 'default' && \`progress-\${size}\`
+  ].filter(Boolean).join(' ');
+</script>
+
+<div>
+  {#if label}
+    <div class="flex justify-between mb-2">
+      <span class="text-sm text-secondary">{label}</span>
+      {#if !indeterminate}
+        <span class="text-sm font-semibold">{percentage}%</span>
+      {/if}
+    </div>
+  {/if}
+
+  <div
+    class={progressClasses}
+    role={indeterminate ? undefined : 'progressbar'}
+    aria-label={label || 'Progress'}
+    aria-valuenow={indeterminate ? undefined : value}
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
+    <div
+      class="progress-bar"
+      style={indeterminate ? '' : \`width: \${percentage}%\`}
+    />
+  </div>
+</div>
+\`\`\`
+
+## Accessibility
+
+1. **ARIA progressbar role** - Use \`role="progressbar"\` for determinate progress; omit for indeterminate (no meaningful value to announce)
+2. **aria-valuenow updates** - Update \`aria-valuenow\` attribute in real-time as progress changes for screen reader announcements
+3. **aria-valuemin/valuemax** - Always set \`aria-valuemin="0"\` and \`aria-valuemax="100"\` (or custom max) to establish scale
+4. **Descriptive aria-label** - Provide context like \`aria-label="File upload progress"\` or \`aria-label="Installation step 2 of 4"\`
+5. **Visual percentage display** - Show numeric percentage (e.g., "65%") adjacent to bar for users who can't perceive bar length
+6. **Status text** - Include descriptive text above/below bar ("Uploading files...", "2.4 MB of 3.2 MB") for context
+7. **Color + pattern** - Don't rely solely on color; use striped/animated patterns for indeterminate state
+8. **Reduced motion** - Disable animations (indeterminate sliding, striped movement) for \`prefers-reduced-motion\`
+9. **Completion announcement** - When progress reaches 100%, announce "Upload complete" via \`aria-live="polite"\` region
+10. **Error handling** - If progress fails, change to error variant AND announce error message ("Upload failed at 45%")
+11. **Keyboard focusable** - For interactive progress (pauseable uploads), make controls keyboard-accessible
+12. **Minimum contrast** - Ensure 3:1 contrast ratio between bar fill and background (WCAG AA for graphical objects)
+13. **Size accessibility** - Avoid progress-sm (4px) for critical operations; use progress-md (8px) or larger for visibility
+14. **Tabular numerals** - Use \`font-variant-numeric: tabular-nums\` for percentage labels to prevent layout shift
+
+## Usage Guidelines
+
+### When to Use
+
+- **File uploads** - Show bytes transferred and estimated time remaining
+- **Multi-step forms** - "Step 2 of 4" progress through registration/checkout flows
+- **Data processing** - Long-running operations like imports, exports, batch updates
+- **Installation/setup** - Software installation, database migration, onboarding wizards
+- **Loading with ETA** - Operations where you can calculate % complete and time remaining
+- **Background tasks** - Non-blocking operations user can monitor while doing other work
+
+### When NOT to Use
+
+- **Instant operations** - Don't show progress for <500ms operations; use Spinner instead
+- **Unknown duration** - If you can't estimate %, use indeterminate Spinner rather than fake progress
+- **Page-level loading** - Use Skeleton screens for initial page load placeholders
+- **Inline content loading** - Use Spinner for loading small sections (comments, notifications)
+- **Real-time streaming** - For live data feeds, use activity indicators not progress bars
+- **Downloads in browser** - Browser's native download UI is better; don't duplicate
+
+### Best Practices
+
+- Update progress smoothly (every 100-500ms) to avoid janky animation
+- Show time remaining for operations >10 seconds ("45 seconds remaining")
+- Use success variant (green) when reaching 100% to signal completion
+- For indeterminate progress, add descriptive text ("Analyzing data...") to explain activity
+- Disable cancel/pause buttons when progress >95% (too late to safely interrupt)
+- For multi-step processes, show both current step (3 of 4) and step progress (60%)
+- Use progress-xl with percentage label inside bar for dashboard/monitoring UIs
+- Never fake progress; show actual completion based on backend metrics
+
+### Mobile Considerations
+
+- Use minimum 8px height (progress-md) for touch-friendly visibility
+- Place percentage label above bar (not floating inside) for narrow screens
+- Stack progress with associated text vertically to fit mobile width
+- For file uploads, allow swipe-to-cancel gesture on progress card
+- Use full-width progress bars in mobile cards/panels
+- Reduce animation speed slightly on mobile to improve perceived performance
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
-      description: 'Progress value (0-100)'
+      description:
+        'Current progress value (0-100); updates aria-valuenow for screen reader announcements; animate smoothly by updating every 100-500ms',
     },
     variant: {
       control: 'select',
       options: ['default', 'success', 'warning', 'error', 'info'],
-      description: 'Progress bar semantic color'
+      description:
+        'Semantic color variant indicating progress status (default: primary blue, success: green when complete, warning: yellow for disk usage alerts, error: red for failed operations, info: informational progress)',
     },
     size: {
       control: 'select',
       options: ['sm', 'default', 'lg', 'xl'],
-      description: 'Progress bar size'
+      description:
+        'Visual height of progress bar (sm: 4px for inline/subtle progress, default: 8px for standard UI, lg: 12px for emphasis, xl: 20px for dashboard/monitoring with internal percentage label)',
     },
     showLabel: {
       control: 'boolean',
-      description: 'Show percentage label inside the bar (recommended for xl size)'
+      description:
+        'Display percentage value inside progress bar fill (only visible on xl size due to height constraints); for smaller sizes, show percentage adjacent to bar instead',
     },
     indeterminate: {
       control: 'boolean',
-      description: 'Indeterminate progress (animated when duration is unknown)'
+      description:
+        'Enable indeterminate/unknown-duration mode with sliding animation (use when operation duration cannot be calculated); omits aria-valuenow since no meaningful progress value exists',
     },
     ariaLabel: {
       control: 'text',
-      description: 'Accessibility label for the progress bar'
-    }
-  }
+      description:
+        'Accessible label describing the progress operation (e.g., "File upload progress", "Installation step 2 of 4"); announced to screen readers along with current percentage',
+    },
+  },
 };
 
 export default meta;
@@ -95,8 +378,8 @@ export const Default: Story = {
     size: 'default',
     showLabel: false,
     indeterminate: false,
-    ariaLabel: 'Progress'
-  }
+    ariaLabel: 'Progress',
+  },
 };
 
 export const BasicProgress: Story = {
@@ -143,7 +426,7 @@ export const BasicProgress: Story = {
     container.appendChild(progress);
 
     return container;
-  }
+  },
 };
 
 export const IndeterminateProgress: Story = {
@@ -190,7 +473,7 @@ export const IndeterminateProgress: Story = {
     container.appendChild(wrapper2);
 
     return container;
-  }
+  },
 };
 
 export const Sizes: Story = {
@@ -206,7 +489,7 @@ export const Sizes: Story = {
       { size: 'progress-sm', label: 'Small - Inline progress', value: 60 },
       { size: 'progress', label: 'Default - Standard progress', value: 60 },
       { size: 'progress-lg', label: 'Large - Prominent progress', value: 60 },
-      { size: 'progress-xl', label: 'Extra Large - With label inside', value: 60, showLabel: true }
+      { size: 'progress-xl', label: 'Extra Large - With label inside', value: 60, showLabel: true },
     ];
 
     sizes.forEach(({ size, label, value, showLabel }) => {
@@ -236,7 +519,7 @@ export const Sizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const SemanticColors: Story = {
@@ -250,10 +533,30 @@ export const SemanticColors: Story = {
 
     const variants = [
       { variant: '', label: 'Default Progress', value: 45, ariaLabel: 'Default progress' },
-      { variant: 'progress-success', label: 'Installation Complete', value: 100, ariaLabel: 'Installation complete' },
-      { variant: 'progress-warning', label: 'Disk Space Warning', value: 85, ariaLabel: 'Disk space usage' },
-      { variant: 'progress-error', label: 'Upload Failed', value: 30, ariaLabel: 'Upload failed at 30%' },
-      { variant: 'progress-info', label: 'Download in Progress', value: 70, ariaLabel: 'Download progress' }
+      {
+        variant: 'progress-success',
+        label: 'Installation Complete',
+        value: 100,
+        ariaLabel: 'Installation complete',
+      },
+      {
+        variant: 'progress-warning',
+        label: 'Disk Space Warning',
+        value: 85,
+        ariaLabel: 'Disk space usage',
+      },
+      {
+        variant: 'progress-error',
+        label: 'Upload Failed',
+        value: 30,
+        ariaLabel: 'Upload failed at 30%',
+      },
+      {
+        variant: 'progress-info',
+        label: 'Download in Progress',
+        value: 70,
+        ariaLabel: 'Download progress',
+      },
     ];
 
     variants.forEach(({ variant, label, value, ariaLabel }) => {
@@ -284,7 +587,7 @@ export const SemanticColors: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const FileUploadPattern: Story = {
@@ -316,7 +619,8 @@ export const FileUploadPattern: Story = {
     iconBox.style.alignItems = 'center';
     iconBox.style.justifyContent = 'center';
     iconBox.style.flexShrink = '0';
-    iconBox.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+    iconBox.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
 
     // File details
     const fileDetails = document.createElement('div');
@@ -341,7 +645,8 @@ export const FileUploadPattern: Story = {
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'btn btn-ghost btn-sm';
     cancelBtn.style.flexShrink = '0';
-    cancelBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    cancelBtn.innerHTML =
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
     fileRow.appendChild(iconBox);
     fileRow.appendChild(fileDetails);
@@ -367,7 +672,7 @@ export const FileUploadPattern: Story = {
     container.appendChild(card);
 
     return container;
-  }
+  },
 };
 
 export const MultiStepProgress: Story = {
@@ -427,7 +732,7 @@ export const MultiStepProgress: Story = {
       { icon: '✓', label: 'Account', state: 'complete' },
       { icon: '💳', label: 'Payment', state: 'current' },
       { icon: '🚚', label: 'Shipping', state: 'pending' },
-      { icon: '✓', label: 'Confirm', state: 'pending' }
+      { icon: '✓', label: 'Confirm', state: 'pending' },
     ];
 
     stepData.forEach(({ icon, label, state }) => {
@@ -450,7 +755,8 @@ export const MultiStepProgress: Story = {
 
       const labelEl = document.createElement('div');
       labelEl.style.fontSize = 'var(--text-xs)';
-      labelEl.style.color = state === 'current' ? 'var(--color-text-primary)' : 'var(--color-text-secondary)';
+      labelEl.style.color =
+        state === 'current' ? 'var(--color-text-primary)' : 'var(--color-text-secondary)';
       if (state === 'current') {
         labelEl.style.fontWeight = 'var(--font-semibold)';
       }
@@ -464,7 +770,7 @@ export const MultiStepProgress: Story = {
     container.appendChild(steps);
 
     return container;
-  }
+  },
 };
 
 export const DashboardStats: Story = {
@@ -478,7 +784,13 @@ export const DashboardStats: Story = {
 
     const stats = [
       { title: 'Disk Usage', value: '45.2 GB', total: '100 GB', percentage: 45, variant: '' },
-      { title: 'Memory Usage', value: '13.6 GB', total: '16 GB', percentage: 85, variant: 'progress-warning' }
+      {
+        title: 'Memory Usage',
+        value: '13.6 GB',
+        total: '16 GB',
+        percentage: 85,
+        variant: 'progress-warning',
+      },
     ];
 
     stats.forEach(({ title, value, total, percentage, variant }) => {
@@ -522,7 +834,9 @@ export const DashboardStats: Story = {
       totalLabel.textContent = `${value} of ${total}`;
 
       const percentLabel = document.createElement('span');
-      percentLabel.style.color = variant.includes('warning') ? 'var(--color-warning)' : 'var(--color-text-primary)';
+      percentLabel.style.color = variant.includes('warning')
+        ? 'var(--color-warning)'
+        : 'var(--color-text-primary)';
       percentLabel.style.fontWeight = 'var(--font-semibold)';
       percentLabel.textContent = `${percentage}%`;
 
@@ -547,7 +861,7 @@ export const DashboardStats: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AnimatedUpload: Story = {
@@ -615,5 +929,5 @@ export const AnimatedUpload: Story = {
     }, 500);
 
     return container;
-  }
+  },
 };
