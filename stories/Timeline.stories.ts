@@ -9,10 +9,354 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Display chronological sequences of events with clear visual progression and status indicators. Supports vertical, horizontal, and compact layouts for different use cases.'
-      }
+        component: `
+# Timeline Component
+
+Display chronological sequences of events with clear visual progression and status indicators. Timelines help users understand the order and relationship of events over time.
+
+Use timelines to show project milestones, order tracking, activity history, version history, or any sequence of events that benefits from chronological visualization.
+
+## When to Use
+
+- **Order tracking**: Show shipping status and package delivery progress
+- **Project milestones**: Display project phases, sprints, and completion status
+- **Activity feeds**: Show chronological user actions and system events
+- **Process flows**: Visualize multi-step workflows and approval chains
+- **Version history**: Display changelog or document revision history
+
+## When NOT to Use
+
+- **Non-chronological data**: Use lists or cards for unordered information
+- **Complex workflows**: Use flowcharts for branching or conditional processes
+- **Real-time updates**: Consider activity feeds or notification components
+- **Small datasets**: For 2-3 items, simpler layouts may be more appropriate
+
+## Framework Examples
+
+### Vanilla HTML
+\`\`\`html
+<!-- Vertical timeline -->
+<ol class="aural-timeline timeline-modern" role="list" aria-label="Project timeline">
+  <li class="aural-timeline__item aural-timeline__item--completed" role="listitem">
+    <time class="aural-timeline__time" datetime="2024-01-15">Jan 15, 2024</time>
+    <div class="aural-timeline__content">
+      <h3 class="aural-timeline__title">Project Started</h3>
+      <p class="aural-timeline__description">Initial planning and setup</p>
+      <span class="sr-only">Status: Completed</span>
+    </div>
+  </li>
+  <li class="aural-timeline__item aural-timeline__item--active" role="listitem">
+    <div class="aural-timeline__time">In Progress</div>
+    <div class="aural-timeline__content">
+      <h3 class="aural-timeline__title">Development</h3>
+      <p class="aural-timeline__description">Building core features</p>
+      <span class="sr-only">Status: In Progress</span>
+    </div>
+  </li>
+  <li class="aural-timeline__item" role="listitem">
+    <div class="aural-timeline__time">Pending</div>
+    <div class="aural-timeline__content">
+      <h3 class="aural-timeline__title">Launch</h3>
+      <p class="aural-timeline__description">Public release</p>
+      <span class="sr-only">Status: Pending</span>
+    </div>
+  </li>
+</ol>
+
+<!-- Horizontal timeline -->
+<div class="aural-timeline timeline-horizontal">
+  <div class="aural-timeline__item aural-timeline__item--completed">
+    <div class="aural-timeline__marker">
+      <i data-lucide="check-circle" aria-hidden="true"></i>
+    </div>
+    <div class="aural-timeline__connector"></div>
+    <div class="aural-timeline__content">
+      <div class="aural-timeline__time">Step 1</div>
+      <div class="aural-timeline__title">Setup</div>
+    </div>
+  </div>
+</div>
+\`\`\`
+
+### React
+\`\`\`jsx
+interface TimelineItemProps {
+  time: string;
+  title: string;
+  description?: string;
+  status: 'completed' | 'active' | 'pending' | 'warning' | 'error';
+  datetime?: string;
+}
+
+function TimelineItem({ time, title, description, status, datetime }: TimelineItemProps) {
+  const statusText = {
+    completed: 'Completed',
+    active: 'In Progress',
+    pending: 'Pending',
+    warning: 'Warning',
+    error: 'Error'
+  }[status];
+
+  return (
+    <li className={\`aural-timeline__item aural-timeline__item--\${status}\`} role="listitem">
+      {datetime ? (
+        <time className="aural-timeline__time" dateTime={datetime}>{time}</time>
+      ) : (
+        <div className="aural-timeline__time">{time}</div>
+      )}
+      <div className="aural-timeline__content">
+        <h3 className="aural-timeline__title">{title}</h3>
+        {description && (
+          <p className="aural-timeline__description">{description}</p>
+        )}
+        <span className="sr-only">Status: {statusText}</span>
+      </div>
+    </li>
+  );
+}
+
+// Complete timeline component
+interface TimelineProps {
+  items: TimelineItemProps[];
+  layout?: 'vertical' | 'horizontal' | 'compact';
+  label?: string;
+}
+
+function Timeline({ items, layout = 'vertical', label = 'Timeline' }: TimelineProps) {
+  const className = layout === 'vertical' ? 'timeline-modern' :
+                    layout === 'horizontal' ? 'timeline-horizontal' :
+                    'timeline-compact';
+
+  const Element = layout === 'vertical' ? 'ol' : 'div';
+
+  return (
+    <Element className={\`aural-timeline \${className}\`} role="list" aria-label={label}>
+      {items.map((item, index) => (
+        <TimelineItem key={index} {...item} />
+      ))}
+    </Element>
+  );
+}
+
+// Usage
+<Timeline
+  items={[
+    {
+      time: 'Jan 15, 2024',
+      datetime: '2024-01-15',
+      title: 'Project Started',
+      description: 'Initial planning completed',
+      status: 'completed'
+    },
+    {
+      time: 'Today',
+      title: 'Development',
+      description: 'Building features',
+      status: 'active'
     }
+  ]}
+  layout="vertical"
+  label="Project timeline"
+/>
+\`\`\`
+
+### Vue
+\`\`\`vue
+<template>
+  <component
+    :is="layout === 'vertical' ? 'ol' : 'div'"
+    :class="[\`aural-timeline\`, layoutClass]"
+    role="list"
+    :aria-label="label"
+  >
+    <component
+      v-for="(item, index) in items"
+      :key="index"
+      :is="layout === 'vertical' ? 'li' : 'div'"
+      :class="[\`aural-timeline__item\`, \`aural-timeline__item--\${item.status}\`]"
+      role="listitem"
+    >
+      <time
+        v-if="item.datetime"
+        class="aural-timeline__time"
+        :datetime="item.datetime"
+      >
+        {{ item.time }}
+      </time>
+      <div v-else class="aural-timeline__time">{{ item.time }}</div>
+
+      <div class="aural-timeline__content">
+        <h3 class="aural-timeline__title">{{ item.title }}</h3>
+        <p v-if="item.description" class="aural-timeline__description">
+          {{ item.description }}
+        </p>
+        <span class="sr-only">Status: {{ getStatusText(item.status) }}</span>
+      </div>
+    </component>
+  </component>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  items: { type: Array, required: true },
+  layout: { type: String, default: 'vertical' },
+  label: { type: String, default: 'Timeline' }
+});
+
+const layoutClass = computed(() => {
+  return props.layout === 'vertical' ? 'timeline-modern' :
+         props.layout === 'horizontal' ? 'timeline-horizontal' :
+         'timeline-compact';
+});
+
+function getStatusText(status) {
+  const statusMap = {
+    completed: 'Completed',
+    active: 'In Progress',
+    pending: 'Pending',
+    warning: 'Warning',
+    error: 'Error'
+  };
+  return statusMap[status] || status;
+}
+</script>
+
+<!-- Usage -->
+<Timeline
+  :items="[
+    { time: 'Jan 15', datetime: '2024-01-15', title: 'Started', status: 'completed' },
+    { time: 'Today', title: 'In Progress', status: 'active' }
+  ]"
+  layout="vertical"
+  label="Project timeline"
+/>
+\`\`\`
+
+### Svelte
+\`\`\`svelte
+<script>
+  export let items = [];
+  export let layout = 'vertical';
+  export let label = 'Timeline';
+
+  const layoutClass = layout === 'vertical' ? 'timeline-modern' :
+                       layout === 'horizontal' ? 'timeline-horizontal' :
+                       'timeline-compact';
+
+  const elementTag = layout === 'vertical' ? 'ol' : 'div';
+
+  function getStatusText(status) {
+    const statusMap = {
+      completed: 'Completed',
+      active: 'In Progress',
+      pending: 'Pending',
+      warning: 'Warning',
+      error: 'Error'
+    };
+    return statusMap[status] || status;
   }
+</script>
+
+<svelte:element
+  this={elementTag}
+  class="aural-timeline {layoutClass}"
+  role="list"
+  aria-label={label}
+>
+  {#each items as item}
+    <svelte:element
+      this={layout === 'vertical' ? 'li' : 'div'}
+      class="aural-timeline__item aural-timeline__item--{item.status}"
+      role="listitem"
+    >
+      {#if item.datetime}
+        <time class="aural-timeline__time" datetime={item.datetime}>
+          {item.time}
+        </time>
+      {:else}
+        <div class="aural-timeline__time">{item.time}</div>
+      {/if}
+
+      <div class="aural-timeline__content">
+        <h3 class="aural-timeline__title">{item.title}</h3>
+        {#if item.description}
+          <p class="aural-timeline__description">{item.description}</p>
+        {/if}
+        <span class="sr-only">Status: {getStatusText(item.status)}</span>
+      </div>
+    </svelte:element>
+  {/each}
+</svelte:element>
+\`\`\`
+
+## Accessibility
+
+1. **Semantic HTML**: Use \`<ol>\` (ordered list) for vertical timelines with chronological order
+2. **List semantics**: Timeline items use \`<li>\` elements with \`role="listitem"\`
+3. **ARIA labels**: Timeline container has \`aria-label\` describing its purpose
+4. **Time elements**: Use \`<time>\` with \`datetime\` attribute for machine-readable dates
+5. **Heading hierarchy**: Timeline item titles use appropriate heading levels (h3 by default)
+6. **Screen reader text**: Hidden text announces status (Completed, In Progress, Pending, etc.)
+7. **Color independence**: Status conveyed through text and icons, not color alone
+8. **Focus indicators**: Interactive timeline items have visible focus rings
+9. **Keyboard navigation**: Navigate between items using Tab key
+10. **Text alternatives**: Icons include \`aria-hidden="true"\` as they're decorative
+11. **Responsive text**: Font sizes remain readable at all screen sizes
+12. **Motion preferences**: Animations respect \`prefers-reduced-motion\` setting
+13. **Landmarks**: Consider wrapping in \`<section>\` with descriptive label for long timelines
+14. **Touch targets**: Ensure minimum 44×44px for interactive elements
+15. **Contrast ratios**: Text meets WCAG AA standards (4.5:1 minimum)
+
+## Usage Guidelines
+
+### Best Practices
+
+- **Clear timestamps**: Use consistent date/time formats throughout
+- **Descriptive titles**: Make event titles scannable and descriptive
+- **Status indicators**: Use color and icons together to show status
+- **Chronological order**: Most recent events first (top) or last (bottom) consistently
+- **Appropriate detail**: Balance detail level across all timeline items
+- **Visual hierarchy**: Emphasize active/current events
+
+### Layout Variants
+
+**Vertical (Modern)**:
+- Best for detailed information with descriptions
+- Timestamps on the left, content on the right
+- Ideal for desktop viewports and long timelines
+
+**Horizontal**:
+- Best for step-by-step processes (3-6 steps)
+- Works well for onboarding flows and wizards
+- Converts to vertical on mobile automatically
+
+**Compact**:
+- Best for activity feeds with many items
+- Minimal spacing and smaller text
+- Good for sidebars and narrow containers
+
+### Status Indicators
+
+- **Completed** (green): Successfully finished events
+- **Active** (primary): Currently in progress
+- **Pending** (neutral): Future or scheduled events
+- **Warning** (orange): Needs attention or delayed
+- **Error** (red): Failed or blocked events
+
+### Mobile Considerations
+
+- Vertical layout recommended for mobile devices
+- Horizontal timelines convert to vertical on small screens (< 768px)
+- Reduced padding and font sizes maintain readability
+- Timestamps may stack above titles on narrow screens
+- Touch-friendly spacing between items
+- Icons remain visible but may scale smaller
+        `.trim(),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -71,7 +415,7 @@ export const VerticalTimeline: Story = {
     `;
 
     return container;
-  }
+  },
 };
 
 export const WithTimestamps: Story = {
@@ -118,7 +462,7 @@ export const WithTimestamps: Story = {
     `;
 
     return container;
-  }
+  },
 };
 
 export const StatusVariants: Story = {
@@ -168,7 +512,7 @@ export const StatusVariants: Story = {
     `;
 
     return container;
-  }
+  },
 };
 
 export const HorizontalTimeline: Story = {
@@ -237,7 +581,7 @@ export const HorizontalTimeline: Story = {
 
     initIcons();
     return container;
-  }
+  },
 };
 
 export const CompactTimeline: Story = {
@@ -287,7 +631,7 @@ export const CompactTimeline: Story = {
     `;
 
     return container;
-  }
+  },
 };
 
 export const ActivityFeed: Story = {
@@ -346,7 +690,7 @@ export const ActivityFeed: Story = {
     `;
 
     return container;
-  }
+  },
 };
 
 export const OrderTracking: Story = {
@@ -409,7 +753,7 @@ export const OrderTracking: Story = {
     `;
 
     return container;
-  }
+  },
 };
 
 export const ProjectMilestones: Story = {
@@ -472,7 +816,7 @@ export const ProjectMilestones: Story = {
     `;
 
     return container;
-  }
+  },
 };
 
 export const WithIcons: Story = {
@@ -541,7 +885,7 @@ export const WithIcons: Story = {
 
     initIcons();
     return container;
-  }
+  },
 };
 
 export const MixedStates: Story = {
@@ -600,7 +944,7 @@ export const MixedStates: Story = {
     `;
 
     return container;
-  }
+  },
 };
 
 export const AllLayouts: Story = {
@@ -706,7 +1050,7 @@ export const AllLayouts: Story = {
 
     initIcons();
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -743,5 +1087,5 @@ export const ThemeComparison: Story = {
 
       return container;
     });
-  }
+  },
 };
