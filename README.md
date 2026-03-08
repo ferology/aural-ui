@@ -1,107 +1,260 @@
-# Aural UI
+# 🎨 Aural UI
 
-**A modern, accessible design system built for flexibility and customization**
+> **Framework-agnostic, WCAG AA accessible design system.** Copy-paste components for React, Vue, Svelte, and Vanilla HTML. Perfect for AI-assisted development.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](package.json)
+[![npm version](https://img.shields.io/npm/v/aural-design.svg?style=flat-square)](https://www.npmjs.com/package/aural-design)
+[![npm downloads](https://img.shields.io/npm/dm/aural-design.svg?style=flat-square)](https://www.npmjs.com/package/aural-design)
+[![GitHub stars](https://img.shields.io/github/stars/ferology/aural-ui.svg?style=flat-square)](https://github.com/ferology/aural-ui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
+[![WCAG AA](https://img.shields.io/badge/WCAG-AA-green.svg?style=flat-square)](https://www.w3.org/WAI/WCAG2AA-Conformance)
 
-## 🚀 [Live Demo](https://ferology.github.io/aural-ui/)
-
-**[View the complete component showcase →](https://ferology.github.io/aural-ui/)**
-
-**[📖 Storybook Documentation →](https://ferology.github.io/aural-ui/storybook/)** - Interactive component library with live previews
-
----
-
-## 🎯 Overview
-
-Aural UI is a comprehensive component library that combines beautiful design with practical functionality. Built on a foundation of design tokens and CSS custom properties, it offers unparalleled customization while maintaining consistency across your entire application.
-
-**Key Features:**
-
-- 🎨 **Token-Driven Architecture** - Customize every aspect with CSS custom properties
-- 🌓 **9 Built-in Themes** - Dark, Light, Neon, Kinetic, Prismatic, High Contrast, Colorblind-Friendly, Minimal, and Warm
-- ♿ **Accessibility First** - WCAG 2.1 AA compliant (4.5:1+ contrast ratios); High-Contrast theme achieves AAA (7:1+)
-- 📦 **60+ Components** - Everything from buttons to notification centers
-- 📱 **Responsive Grid System** - Mobile-first, flexible layout utilities
-- ✨ **Typography System** - Comprehensive font utilities for all use cases
-- 💫 **Glow & Shadow Utilities** - 60+ luminous effects and elevation tokens
-- 🎭 **Icon Integration** - Works seamlessly with Lucide Icons (MIT licensed)
-- 🚀 **Lightweight** - Zero dependencies, vanilla JavaScript, optimized CSS
-- 🔧 **Framework-Agnostic** - Works with React, Vue, Svelte, or vanilla JS
-- 💡 **Developer Friendly** - Simple, semantic HTML with intuitive class names
-- ⌨️ **Keyboard Navigation** - Full keyboard support across all components
-- 📖 **Clean Documentation** - Simplified, accessible documentation following consistent patterns
+## 🚀 [Live Demo](https://ferology.github.io/aural-ui/) | [📖 Storybook Docs](https://ferology.github.io/aural-ui/storybook/)
 
 ---
 
-## 📚 Documentation
+## ⚡ Quick Start
 
-### Storybook Documentation (NEW! 🎉)
+### NPM Installation
 
-- **[📖 Storybook](https://ferology.github.io/aural-ui/storybook/)** - Interactive component documentation
+```bash
+npm install aural-design
+```
+
+```javascript
+// Import CSS and JavaScript
+import 'aural-design/dist/aural-ui.css';
+import 'aural-design/dist/aural-ui.js';
+
+// Optional: Choose a theme
+import 'aural-design/themes/dark.css';
+```
+
+### CDN (Zero Installation)
+
+```html
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/aural-design/dist/aural-ui.css" />
+
+<!-- Optional: Choose a theme -->
+<link rel="stylesheet" href="https://unpkg.com/aural-design/themes/dark.css" />
+
+<!-- JavaScript (for interactive components) -->
+<script src="https://unpkg.com/aural-design/dist/aural-ui.js"></script>
+```
+
+### 30-Second Example
+
+```html
+<!DOCTYPE html>
+<html data-theme="dark">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/aural-design/dist/aural-ui.css" />
+  </head>
+  <body>
+    <!-- Accessible by default -->
+    <button class="btn btn-primary">Click Me</button>
+
+    <!-- WCAG AA compliant form -->
+    <div class="form-group">
+      <label class="label" for="email">Email</label>
+      <input type="email" id="email" class="input" placeholder="you@example.com" />
+    </div>
+
+    <!-- Theme switching -->
+    <button class="btn btn-ghost" onclick="document.documentElement.dataset.theme='light'">
+      Toggle Theme
+    </button>
+
+    <script src="https://unpkg.com/aural-design/dist/aural-ui.js"></script>
+  </body>
+</html>
+```
+
+[**→ See all 60+ components in action**](https://ferology.github.io/aural-ui/storybook/)
+
+---
+
+## 💡 Why Aural UI?
+
+### Truly Accessible (Not Just ARIA-Labeled)
+
+- ✅ **WCAG 2.1 AA compliant** - 4.5:1+ contrast ratios, tested with real screen readers
+- ✅ **High-Contrast theme achieves AAA** - 7:1+ contrast for maximum accessibility
+- ✅ **Full keyboard navigation** - Tab, Enter, Escape, Arrow keys all work correctly
+- ✅ **44px touch targets** - Meets mobile accessibility requirements
+- ✅ **Proper ARIA patterns** - Not just slapping aria-label on divs
+
+### Framework-Agnostic (Works Everywhere)
+
+Every component has **documented examples** for:
+
+- 🟦 **React** (with hooks and TypeScript)
+- 🟩 **Vue 3** (Composition API)
+- 🟧 **Svelte** (with stores)
+- ⬜ **Vanilla HTML** (zero dependencies)
+
+### AI-Optimized Documentation
+
+**Perfect for AI-assisted development:**
+
+- 🤖 **Comprehensive docs** - Claude, ChatGPT, Cursor can copy-paste working code
+- 📖 **Usage guidelines** - Every component explains "when to use" vs alternatives
+- ♿ **Accessibility built-in** - AI doesn't have to guess ARIA attributes
+- 🎨 **Theme examples** - AI can switch vibes instantly
+
+### Zero Dependencies & Customizable
+
+- **Pure CSS** - No PostCSS, no Sass, no build step required
+- **Optional vanilla JS** - For interactive components (modals, dropdowns)
+- **Token-driven architecture** - Customize with 350+ CSS custom properties
+- **No framework lock-in** - Works with any stack
+
+---
+
+## 🎨 Features
+
+### 60+ Production-Ready Components
+
+**Form Controls:** Button, Input, Checkbox, Radio, Select, Textarea, Toggle, Range Slider, Color Picker
+
+**Navigation:** Navbar, Breadcrumbs, Tabs, Pagination, Steps, Sidebar
+
+**Data Display:** Card, Table, Badge, Avatar, Timeline, Stats Card, Image Gallery
+
+**Feedback:** Alert, Toast, Modal, Drawer, Progress, Spinner, Skeleton, Snackbar
+
+**Interactive:** Dropdown, Popover, Tooltip, Accordion, Carousel, Context Menu
+
+[**→ Browse all components**](https://ferology.github.io/aural-ui/storybook/)
+
+### 9 Built-In Themes
+
+- 🌙 **Dark** - Modern dark theme (default)
+- ☀️ **Light** - Clean light theme
+- 🌟 **Neon** - Vibrant cyberpunk aesthetic
+- ⚡ **Kinetic** - Energetic, dynamic colors
+- 🌈 **Prismatic** - Rich, saturated palette
+- 👁️ **High-Contrast** - WCAG AAA (7:1+ contrast)
+- 🎨 **Colorblind-Friendly** - Optimized for color vision deficiency
+- 🤍 **Minimal** - Subtle, understated design
+- 🧡 **Warm** - Cozy, inviting tones
+
+**Switch themes instantly:**
+
+```html
+<html data-theme="neon-dark"></html>
+```
+
+[**→ Explore theme gallery**](https://ferology.github.io/aural-ui/storybook/?path=/docs/themes--docs)
+
+---
+
+## 📊 Comparison
+
+| Feature                   | Aural UI           | shadcn/ui     | Bootstrap           | Tailwind UI          |
+| ------------------------- | ------------------ | ------------- | ------------------- | -------------------- |
+| **Framework-agnostic**    | ✅ Yes             | ❌ React only | ✅ Yes              | ❌ Tailwind only     |
+| **Copy-paste components** | ✅ Yes             | ✅ Yes        | ❌ Install required | ❌ Build required    |
+| **WCAG AA compliant**     | ✅ Built-in        | ⚠️ Manual     | ⚠️ Manual           | ❌ DIY               |
+| **Built-in themes**       | ✅ 9 themes        | ❌ 0          | ⚠️ 2 themes         | ❌ 0                 |
+| **AI-friendly docs**      | ✅ Yes             | ✅ Yes        | ❌ Dated            | ⚠️ Partial           |
+| **Zero dependencies**     | ✅ Yes             | ❌ Radix UI   | ✅ Yes              | ❌ PostCSS           |
+| **NPM package**           | ✅ `aural-design`  | ❌ N/A        | ✅ `bootstrap`      | ✅ `@tailwindcss/ui` |
+| **CDN available**         | ✅ unpkg, jsdelivr | ❌ N/A        | ✅ Yes              | ❌ No                |
+| **Touch targets**         | ✅ 44px            | ⚠️ Manual     | ⚠️ Manual           | ❌ DIY               |
+
+---
+
+## 🎯 Perfect For
+
+### ✅ Use Aural UI When You Need:
+
+- ♿ **Accessibility-first projects** - Government, healthcare, education, finance
+- 🤖 **AI-assisted development** - Works great with Claude Code, ChatGPT, Cursor, Copilot
+- 🚀 **Rapid prototyping** - Copy-paste components, ship faster
+- 📱 **Multi-framework teams** - Same design system across React, Vue, Svelte
+- 🎨 **White-label SaaS** - Built-in theme system makes branding easy
+- 🌍 **Inclusive apps** - Colorblind-friendly and high-contrast themes
+- 📦 **Zero build step** - Just include CSS and go
+
+### ⚠️ Consider Alternatives If:
+
+- You need **highly customized, unique designs** (use headless UI like Radix)
+- You're **already deep in Tailwind** (use shadcn/ui)
+- You need **Material Design** specifically (use Material UI)
+- You want **component logic only** (use Headless UI)
+
+---
+
+## 📖 Documentation
+
+### Interactive Documentation
+
+- **[📖 Storybook](https://ferology.github.io/aural-ui/storybook/)** - Interactive component library
   - Live component previews with all 9 themes
-  - Code examples and usage guidelines
-  - Comprehensive Theme Gallery
-  - Accessibility-compliant components
+  - Framework examples (React, Vue, Svelte, HTML)
+  - Accessibility guidelines for every component
+  - Copy-paste ready code
 
-### Quick Start
+### Comprehensive Guides
 
-- **[Navigation Hub](docs/nav.html)** - Central navigation for all documentation
-- **[Project Structure](docs/project-tree.html)** - Complete component hierarchy (61 components organized by category)
-- **[Getting Started Tutorial](docs/tutorial.html)** - 5-step interactive tutorial
-- **[Component Showcase](docs/index.html)** - All 61 components with live demos
-
-### Complete Documentation
-
-- **[API Reference](docs/api.html)** - 25+ JavaScript methods with interactive playgrounds
-- **[Design Tokens](docs/tokens.html)** - Visual reference for colors, spacing, typography
-- **[Themes Guide](docs/themes.html)** - Pre-built themes and custom theme creation
-- **[Examples](docs/examples.html)** - Production-ready templates
-- **[Error Pages](docs/error-pages/)** - Accessible, mobile-ready error page templates (404, 403, 500, maintenance, coming soon)
+- **[Getting Started Tutorial](https://ferology.github.io/aural-ui/docs/tutorial.html)** - 5-step interactive tutorial
+- **[Component Showcase](https://ferology.github.io/aural-ui/docs/index.html)** - All 60+ components with live demos
+- **[Design Tokens](https://ferology.github.io/aural-ui/docs/tokens.html)** - Visual reference for customization
+- **[Themes Guide](https://ferology.github.io/aural-ui/docs/themes.html)** - Pre-built themes and custom theme creation
+- **[API Reference](https://ferology.github.io/aural-ui/docs/api.html)** - JavaScript methods with examples
+- **[Error Pages](https://ferology.github.io/aural-ui/docs/error-pages/)** - Accessible error page templates
 
 ### Project Organization
 
-For a detailed overview of the project structure, see **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** which includes:
-
-- Complete file hierarchy
-- Component categorization (Form Controls, Navigation, Data Display, Interactive, Feedback)
-- Utility class reference (350+ utility classes)
-- JavaScript API method listing
-- Quick navigation links
+- **[Project Structure](https://ferology.github.io/aural-ui/docs/project-tree.html)** - Complete component hierarchy
+- **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** - File organization, utility classes (350+), API methods
 
 ---
 
 ## 📦 Installation
 
-### Option 1: Direct Include
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="aural-ui/dist/aural-ui.css" />
-
-    <!-- Choose a theme -->
-    <link rel="stylesheet" href="aural-ui/themes/dark.css" />
-    <!-- OR -->
-    <link rel="stylesheet" href="aural-ui/themes/light.css" />
-  </head>
-  <body>
-    <button class="btn btn-primary">Click me</button>
-
-    <!-- Aural UI JavaScript -->
-    <script src="aural-ui/dist/aural-ui.js"></script>
-  </body>
-</html>
-```
-
-### Option 2: Build from Source
+### Option 1: NPM (Recommended)
 
 ```bash
-# Clone the repository
-cd /path/to/aural-ui
+npm install aural-design
+```
+
+Then import in your project:
+
+```javascript
+// CSS
+import 'aural-design/dist/aural-ui.css';
+
+// Optional: Choose a theme
+import 'aural-design/themes/dark.css';
+
+// JavaScript (for interactive components)
+import 'aural-design/dist/aural-ui.js';
+```
+
+### Option 2: CDN (No Installation)
+
+```html
+<!-- Latest version (auto-updates) -->
+<link rel="stylesheet" href="https://unpkg.com/aural-design/dist/aural-ui.css" />
+
+<!-- Or specific version -->
+<link rel="stylesheet" href="https://unpkg.com/aural-design@1.0.0/dist/aural-ui.css" />
+
+<!-- jsdelivr (faster CDN) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aural-design/dist/aural-ui.css" />
+
+<!-- JavaScript -->
+<script src="https://unpkg.com/aural-design/dist/aural-ui.js"></script>
+```
+
+### Option 3: Download & Self-Host
+
+```bash
+# Clone repository
+git clone https://github.com/ferology/aural-ui.git
+cd aural-ui
 
 # Install dependencies
 npm install
@@ -112,6 +265,97 @@ npm run build
 # Development with watch mode
 npm run dev
 ```
+
+---
+
+## 🚀 Framework Examples
+
+### React
+
+```jsx
+import 'aural-design/dist/aural-ui.css';
+import { useEffect } from 'react';
+
+function LoginForm() {
+  useEffect(() => {
+    window.Aural?.init(); // Initialize interactive components
+  }, []);
+
+  return (
+    <div className="form-group">
+      <label className="label" htmlFor="email">
+        Email
+      </label>
+      <input type="email" id="email" className="input" aria-required="true" />
+      <button className="btn btn-primary">Log In</button>
+    </div>
+  );
+}
+```
+
+### Vue 3
+
+```vue
+<template>
+  <div class="form-group">
+    <label class="label" for="email">Email</label>
+    <input type="email" id="email" class="input" v-model="email" aria-required="true" />
+    <button class="btn btn-primary">Log In</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import 'aural-design/dist/aural-ui.css';
+
+const email = ref('');
+onMounted(() => window.Aural?.init());
+</script>
+```
+
+### Svelte
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+  import 'aural-design/dist/aural-ui.css';
+
+  let email = '';
+  onMount(() => window.Aural?.init());
+</script>
+
+<div class="form-group">
+  <label class="label" for="email">Email</label>
+  <input
+    type="email"
+    id="email"
+    class="input"
+    bind:value={email}
+    aria-required="true"
+  />
+  <button class="btn btn-primary">Log In</button>
+</div>
+```
+
+[**→ See more examples in Storybook**](https://ferology.github.io/aural-ui/storybook/)
+
+---
+
+## ♿ Accessibility
+
+**All components follow WCAG 2.1 AA standards** (High-Contrast theme achieves AAA)
+
+- ✅ **Color Contrast** - 4.5:1+ minimum (7:1+ in High-Contrast theme)
+- ✅ **Touch Targets** - 44px minimum for interactive elements (40px for small variants)
+- ✅ **Keyboard Navigation** - Full support with visible focus indicators
+- ✅ **Screen Reader** - Tested with NVDA, JAWS, VoiceOver
+- ✅ **ARIA Patterns** - Proper roles, states, and properties
+- ✅ **Motion** - Respects `prefers-reduced-motion`
+- ✅ **Color Vision** - Colorblind-friendly theme available
+
+**Note**: Neon and aesthetic-focused themes prioritize visual impact while maintaining minimum WCAG AA standards where possible.
+
+[**→ Read full accessibility guidelines**](https://ferology.github.io/aural-ui/storybook/?path=/docs/accessibility--docs)
 
 ---
 
