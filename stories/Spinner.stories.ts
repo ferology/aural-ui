@@ -6,27 +6,239 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Loading indicators for asynchronous operations and processing states.'
-      }
-    }
+        component: `
+# Spinner Component
+
+Animated loading indicators for asynchronous operations, processing states, and instant feedback when content is loading or actions are being performed.
+
+Use Spinners for operations with unknown duration or instant loading (<2 seconds). For measurable progress (file uploads, multi-step processes), use **Progress** bars instead. For initial page load, use **Skeleton** screens.
+
+Spinners provide immediate visual feedback that the system is working, preventing users from thinking the interface is frozen or repeatedly clicking buttons.
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<!-- Basic Spinner -->
+<div class="aural-spinner aural-spinner--primary" role="status" aria-label="Loading">
+  <div class="aural-spinner__circle"></div>
+</div>
+
+<!-- Spinner with Text -->
+<div class="aural-spinner aural-spinner--with-text aural-spinner--primary">
+  <div class="aural-spinner__circle"></div>
+  <span class="aural-spinner__text">Loading...</span>
+</div>
+
+<!-- In Button -->
+<button class="btn btn-primary" disabled aria-busy="true">
+  <span class="aural-spinner aural-spinner--xs aural-spinner--white" role="status" aria-label="Loading">
+    <span class="aural-spinner__circle"></span>
+  </span>
+  <span>Loading...</span>
+</button>
+
+<!-- Dots Variant -->
+<div class="aural-spinner aural-spinner--dots aural-spinner--primary" role="status" aria-label="Loading">
+  <div class="aural-spinner__dot"></div>
+  <div class="aural-spinner__dot"></div>
+  <div class="aural-spinner__dot"></div>
+</div>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+import { Loader2 } from 'lucide-react';
+
+function Spinner({ size = 'md', variant = 'primary', label = 'Loading', withText = false }) {
+  const sizeClasses = {
+    xs: 'aural-spinner--xs',
+    sm: 'aural-spinner--sm',
+    md: '',
+    lg: 'aural-spinner--lg',
+    xl: 'aural-spinner--xl'
+  };
+
+  return (
+    <div
+      className={\`aural-spinner \${sizeClasses[size]} aural-spinner--\${variant} \${withText ? 'aural-spinner--with-text' : ''}\`}
+      role="status"
+      aria-label={label}
+    >
+      <div className="aural-spinner__circle" />
+      {withText && <span className="aural-spinner__text">{label}</span>}
+    </div>
+  );
+}
+
+// Loading Button Example
+function LoadingButton({ loading, children, onClick }) {
+  return (
+    <button
+      className="btn btn-primary"
+      disabled={loading}
+      aria-busy={loading}
+      onClick={onClick}
+    >
+      {loading && (
+        <span className="aural-spinner aural-spinner--xs aural-spinner--white" role="status">
+          <span className="aural-spinner__circle" />
+        </span>
+      )}
+      <span>{children}</span>
+    </button>
+  );
+}
+
+// Full Page Overlay
+function LoadingOverlay({ message = 'Loading...' }) {
+  return (
+    <div className="aural-spinner-overlay">
+      <div className="aural-spinner aural-spinner--lg aural-spinner--primary aural-spinner--with-text">
+        <div className="aural-spinner__circle" />
+        <span className="aural-spinner__text">{message}</span>
+      </div>
+    </div>
+  );
+}
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div
+    :class="spinnerClasses"
+    role="status"
+    :aria-label="label"
+  >
+    <div class="aural-spinner__circle" />
+    <span v-if="withText" class="aural-spinner__text">{{ label }}</span>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  size: { type: String, default: 'md' },
+  variant: { type: String, default: 'primary' },
+  label: { type: String, default: 'Loading' },
+  withText: Boolean
+});
+
+const spinnerClasses = computed(() => {
+  const classes = ['aural-spinner'];
+
+  if (props.size !== 'md') classes.push(\`aural-spinner--\${props.size}\`);
+  if (props.variant) classes.push(\`aural-spinner--\${props.variant}\`);
+  if (props.withText) classes.push('aural-spinner--with-text');
+
+  return classes.join(' ');
+});
+</script>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<script>
+  export let size = 'md';
+  export let variant = 'primary';
+  export let label = 'Loading';
+  export let withText = false;
+
+  $: spinnerClasses = [
+    'aural-spinner',
+    size !== 'md' && \`aural-spinner--\${size}\`,
+    \`aural-spinner--\${variant}\`,
+    withText && 'aural-spinner--with-text'
+  ].filter(Boolean).join(' ');
+</script>
+
+<div class={spinnerClasses} role="status" aria-label={label}>
+  <div class="aural-spinner__circle" />
+  {#if withText}
+    <span class="aural-spinner__text">{label}</span>
+  {/if}
+</div>
+\`\`\`
+
+## Accessibility
+
+1. **role="status"** - Use \`role="status"\` for non-intrusive loading announcements via implicit \`aria-live="polite"\`
+2. **aria-label** - Provide descriptive label like \`aria-label="Loading content"\` or \`aria-label="Processing payment"\`
+3. **Screen reader text** - For spinners without visible text, aria-label ensures screen readers announce the loading state
+4. **Focus management** - Don't move focus to spinner; maintain focus on triggering element (button, input)
+5. **Button states** - Set \`disabled\` and \`aria-busy="true"\` on buttons containing spinners during loading
+6. **Reduced motion** - Slow down animations for users with \`prefers-reduced-motion\` preference (2s vs 0.8s)
+7. **Color contrast** - Ensure spinner color meets 3:1 contrast ratio against background (WCAG AA)
+8. **Size accessibility** - Use minimum md size (40px) for standalone spinners; xs (16px) only in buttons
+9. **Timeout warnings** - For operations >30 seconds, announce "Still loading..." updates every 15 seconds
+10. **Error recovery** - If loading fails, announce error via \`role="alert"\` and provide retry action
+11. **Skip links** - For full-page overlays, offer "Cancel" button to abort long operations
+12. **Multiple spinners** - When showing multiple spinners (list items), throttle announcements to avoid spam
+
+## Usage Guidelines
+
+### When to Use
+
+- **Form submissions** - Show spinner in submit button during API call
+- **Data fetching** - Display spinner while loading initial data or refreshing
+- **Search/filtering** - Show inline spinner during live search or filter operations
+- **Background tasks** - Indicate processing happening behind the scenes (calculations, exports)
+- **Modal actions** - Show spinner during modal actions like saving or deleting
+- **Infinite scroll** - Display spinner at bottom of list while loading more items
+
+### When NOT to Use
+
+- **Measurable progress** - Use Progress bars for file uploads, multi-step forms, or operations with known duration
+- **Initial page load** - Use Skeleton screens to show content structure during first render
+- **Long operations** - For tasks >30 seconds, use Progress bars with time estimates instead
+- **Static placeholder** - Don't use spinner as permanent placeholder; show actual content or "No data" state
+- **Multiple simultaneous actions** - Showing too many spinners creates anxiety; batch operations or show single global spinner
+
+### Best Practices
+
+- Use xs/sm spinners (16-24px) inside buttons; md+ (40px+) for standalone loading states
+- Place spinner to the left of button text for better visual balance
+- For full-page loading, use overlay with backdrop blur to indicate UI is temporarily disabled
+- Match spinner color to button variant (white spinner in primary button, primary spinner in secondary button)
+- Use dots/pulse variants for subtle loading (inline content), circle variant for prominent loading
+- Auto-hide spinner after 30 seconds and show error/timeout message with retry option
+- For data grids/lists, show skeleton rows instead of full-page spinner for better UX
+- Avoid "spinner hell" - if >3 spinners visible simultaneously, reconsider loading strategy
+
+### Mobile Considerations
+
+- Use minimum 40px spinner size for standalone indicators on mobile (easier to perceive)
+- For button spinners, ensure 44x44px minimum touch target remains during loading state
+- Consider vibration feedback (200ms) when starting async action to confirm button press
+- Use backdrop overlay spinners sparingly; prefer inline spinners to maintain context
+- For slow connections, show spinner after 500ms delay to avoid flashing for fast operations
+- Provide "Cancel" option for operations >10 seconds on mobile (users more impatient)
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     size: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Spinner size'
+      description:
+        'Visual size of spinner (xs: 16px for inline/button use, sm: 24px for compact areas, md: 40px default standalone, lg: 56px for emphasis, xl: 72px for full-page overlays)',
     },
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'success', 'warning', 'error', 'white'],
-      description: 'Spinner color variant'
+      description:
+        'Color variant matching semantic state or button style (primary: brand color, white: for colored buttons, success: successful operations, error: error recovery, warning: cautionary processing)',
     },
     type: {
       control: 'select',
       options: ['default', 'dual', 'dots', 'pulse', 'bars'],
-      description: 'Spinner animation type'
-    }
-  }
+      description:
+        'Animation style (default: spinning circle for standard loading, dual: double ring for modern look, dots: bouncing dots for subtle loading, pulse: pulsing circle for background tasks, bars: vertical bars for audio/media processing)',
+    },
+  },
 };
 
 export default meta;
@@ -58,8 +270,8 @@ export const Default: Story = {
   args: {
     size: 'md',
     variant: 'primary',
-    type: 'default'
-  }
+    type: 'default',
+  },
 };
 
 export const AllVariants: Story = {
@@ -76,7 +288,7 @@ export const AllVariants: Story = {
       { type: 'dual', label: 'Dual Ring' },
       { type: 'dots', label: 'Dots' },
       { type: 'pulse', label: 'Pulse' },
-      { type: 'bars', label: 'Bars' }
+      { type: 'bars', label: 'Bars' },
     ];
 
     variants.forEach(({ type, label }) => {
@@ -125,7 +337,7 @@ export const AllVariants: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllSizes: Story = {
@@ -142,7 +354,7 @@ export const AllSizes: Story = {
       { class: 'sm', label: 'Small' },
       { class: '', label: 'Medium' },
       { class: 'lg', label: 'Large' },
-      { class: 'xl', label: 'Extra Large' }
+      { class: 'xl', label: 'Extra Large' },
     ];
 
     sizes.forEach(({ class: sizeClass, label }) => {
@@ -174,7 +386,7 @@ export const AllSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllColors: Story = {
@@ -191,7 +403,7 @@ export const AllColors: Story = {
       { class: 'secondary', label: 'Secondary' },
       { class: 'success', label: 'Success' },
       { class: 'warning', label: 'Warning' },
-      { class: 'error', label: 'Error' }
+      { class: 'error', label: 'Error' },
     ];
 
     colors.forEach(({ class: colorClass, label }) => {
@@ -217,7 +429,7 @@ export const AllColors: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const InButtons: Story = {
@@ -296,7 +508,7 @@ export const InButtons: Story = {
     container.appendChild(button3);
 
     return container;
-  }
+  },
 };
 
 export const WithText: Story = {
@@ -336,7 +548,8 @@ export const WithText: Story = {
 
     // Dots spinner with text
     const spinner3 = document.createElement('div');
-    spinner3.className = 'aural-spinner aural-spinner--with-text aural-spinner--dots aural-spinner--primary';
+    spinner3.className =
+      'aural-spinner aural-spinner--with-text aural-spinner--dots aural-spinner--primary';
 
     for (let i = 0; i < 3; i++) {
       const dot = document.createElement('div');
@@ -354,7 +567,7 @@ export const WithText: Story = {
     container.appendChild(spinner3);
 
     return container;
-  }
+  },
 };
 
 export const LoadingCard: Story = {
@@ -388,7 +601,7 @@ export const LoadingCard: Story = {
     card.appendChild(cardContent);
 
     return card;
-  }
+  },
 };
 
 export const InlineLoading: Story = {
@@ -414,7 +627,7 @@ export const InlineLoading: Story = {
     container.appendChild(text);
 
     return container;
-  }
+  },
 };
 
 export const FullPageOverlay: Story = {
@@ -436,7 +649,8 @@ export const FullPageOverlay: Story = {
     overlay.style.backdropFilter = 'blur(2px)';
 
     const spinner = document.createElement('div');
-    spinner.className = 'aural-spinner aural-spinner--with-text aural-spinner--xl aural-spinner--white';
+    spinner.className =
+      'aural-spinner aural-spinner--with-text aural-spinner--xl aural-spinner--white';
 
     const circle = document.createElement('div');
     circle.className = 'aural-spinner__circle';
@@ -451,7 +665,7 @@ export const FullPageOverlay: Story = {
     container.appendChild(overlay);
 
     return container;
-  }
+  },
 };
 
 export const FormSubmission: Story = {
@@ -521,5 +735,5 @@ export const FormSubmission: Story = {
     form.appendChild(button);
 
     return form;
-  }
+  },
 };
