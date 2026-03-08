@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { expect, within, userEvent } from '@storybook/test';
+import { expect } from '@storybook/test';
 
 interface ImageGalleryArgs {
   columns: '2' | '3' | '4';
@@ -46,7 +46,316 @@ const meta: Meta<ImageGalleryArgs> = {
   parameters: {
     docs: {
       description: {
-        component: 'Responsive image grid with hover overlays, captions, and keyboard-accessible navigation. Perfect for photo collections, product catalogs, portfolios, and media libraries.',
+        component: `
+# Image Gallery Component
+
+Responsive image grid with hover overlays, captions, lightbox modal, and keyboard-accessible navigation. Perfect for photo collections, product catalogs, portfolios, and media libraries.
+
+Image galleries provide an organized way to display multiple images with optional metadata, interactive previews, and full-screen viewing capabilities.
+
+## When to Use
+
+- **Photo portfolios**: Showcase photography or design work in organized grids
+- **Product catalogs**: Display product images with prices and details
+- **Media libraries**: Organize and browse image collections
+- **Before/after galleries**: Show transformations or comparisons
+- **Team photos**: Display staff or team member images with information
+
+## When NOT to Use
+
+- **Single images**: Use standalone `<img>` or Card with image instead
+- **Hero images**: Use dedicated hero/banner components for large feature images
+- **Icons or small graphics**: Use inline images or icon components
+- **Slideshows**: Use Carousel component for sequential viewing
+
+## Framework Examples
+
+### Vanilla HTML
+\`\`\`html
+<!-- Basic 3-column gallery -->
+<div class="aural-gallery aural-gallery--cols-3">
+  <div class="aural-gallery__item" tabindex="0">
+    <img class="aural-gallery__image" src="image1.jpg" alt="Ocean sunset">
+    <div class="aural-gallery__overlay">
+      <div class="aural-gallery__title">Ocean Sunset</div>
+      <div class="aural-gallery__description">Golden hour at the beach</div>
+    </div>
+  </div>
+
+  <div class="aural-gallery__item" tabindex="0">
+    <img class="aural-gallery__image" src="image2.jpg" alt="Mountain landscape">
+    <div class="aural-gallery__overlay">
+      <div class="aural-gallery__title">Alpine View</div>
+      <div class="aural-gallery__description">Snow-capped peaks</div>
+    </div>
+  </div>
+</div>
+
+<!-- With lightbox integration -->
+<script>
+// Initialize lightbox on click
+document.querySelectorAll('.aural-gallery__item').forEach((item, index) => {
+  item.addEventListener('click', () => openLightbox(index));
+  item.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(index);
+    }
+  });
+});
+</script>
+\`\`\`
+
+### React
+\`\`\`jsx
+import { useState } from 'react';
+
+interface GalleryImage {
+  src: string;
+  alt: string;
+  title?: string;
+  description?: string;
+}
+
+interface ImageGalleryProps {
+  images: GalleryImage[];
+  columns?: 2 | 3 | 4;
+  showOverlay?: boolean;
+  onImageClick?: (index: number) => void;
+}
+
+function ImageGallery({
+  images,
+  columns = 3,
+  showOverlay = true,
+  onImageClick
+}: ImageGalleryProps) {
+  return (
+    <div className={\`aural-gallery aural-gallery--cols-\${columns}\`}>
+      {images.map((image, index) => (
+        <div
+          key={index}
+          className="aural-gallery__item"
+          tabIndex={0}
+          role="button"
+          aria-label={\`\${image.title}: \${image.description}\`}
+          onClick={() => onImageClick?.(index)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onImageClick?.(index);
+            }
+          }}
+        >
+          <img
+            className="aural-gallery__image"
+            src={image.src}
+            alt={image.alt}
+          />
+          {showOverlay && (image.title || image.description) && (
+            <div className="aural-gallery__overlay">
+              {image.title && (
+                <div className="aural-gallery__title">{image.title}</div>
+              )}
+              {image.description && (
+                <div className="aural-gallery__description">
+                  {image.description}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// With lightbox state management
+function GalleryWithLightbox({ images }: { images: GalleryImage[] }) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  return (
+    <>
+      <ImageGallery
+        images={images}
+        columns={3}
+        onImageClick={setLightboxIndex}
+      />
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={images}
+          currentIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onNavigate={setLightboxIndex}
+        />
+      )}
+    </>
+  );
+}
+\`\`\`
+
+### Vue
+\`\`\`vue
+<template>
+  <div :class="[\`aural-gallery\`, \`aural-gallery--cols-\${columns}\`]">
+    <div
+      v-for="(image, index) in images"
+      :key="index"
+      class="aural-gallery__item"
+      tabindex="0"
+      role="button"
+      :aria-label="\`\${image.title}: \${image.description}\`"
+      @click="handleImageClick(index)"
+      @keydown="handleKeydown($event, index)"
+    >
+      <img
+        class="aural-gallery__image"
+        :src="image.src"
+        :alt="image.alt"
+      />
+      <div
+        v-if="showOverlay && (image.title || image.description)"
+        class="aural-gallery__overlay"
+      >
+        <div v-if="image.title" class="aural-gallery__title">
+          {{ image.title }}
+        </div>
+        <div v-if="image.description" class="aural-gallery__description">
+          {{ image.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+const props = defineProps({
+  images: { type: Array, required: true },
+  columns: { type: Number, default: 3 },
+  showOverlay: { type: Boolean, default: true }
+});
+
+const emit = defineEmits(['image-click']);
+
+function handleImageClick(index) {
+  emit('image-click', index);
+}
+
+function handleKeydown(event, index) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    emit('image-click', index);
+  }
+}
+</script>
+\`\`\`
+
+### Svelte
+\`\`\`svelte
+<script>
+  export let images = [];
+  export let columns = 3;
+  export let showOverlay = true;
+
+  function handleImageClick(index) {
+    // Dispatch custom event
+    dispatch('imageClick', { index });
+  }
+
+  function handleKeydown(event, index) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleImageClick(index);
+    }
+  }
+</script>
+
+<div class="aural-gallery aural-gallery--cols-{columns}">
+  {#each images as image, index}
+    <div
+      class="aural-gallery__item"
+      tabindex="0"
+      role="button"
+      aria-label="{image.title}: {image.description}"
+      on:click={() => handleImageClick(index)}
+      on:keydown={(e) => handleKeydown(e, index)}
+    >
+      <img
+        class="aural-gallery__image"
+        src={image.src}
+        alt={image.alt}
+      />
+      {#if showOverlay && (image.title || image.description)}
+        <div class="aural-gallery__overlay">
+          {#if image.title}
+            <div class="aural-gallery__title">{image.title}</div>
+          {/if}
+          {#if image.description}
+            <div class="aural-gallery__description">{image.description}</div>
+          {/if}
+        </div>
+      {/if}
+    </div>
+  {/each}
+</div>
+\`\`\`
+
+## Accessibility
+
+1. **Descriptive alt text**: All images must have meaningful alt attributes describing image content
+2. **Keyboard focusable**: Gallery items have \`tabindex="0"\` for keyboard navigation
+3. **Keyboard activation**: Enter and Space keys open lightbox or perform actions
+4. **Arrow key navigation**: Left/Right arrows navigate between images in lightbox
+5. **Escape key**: Closes lightbox and returns focus to gallery item
+6. **ARIA labels**: Comprehensive labels describe image and overlay content
+7. **Focus management**: Focus returns to clicked item when lightbox closes
+8. **Role attributes**: Gallery items use \`role="button"\` when clickable
+9. **Screen reader announcements**: Image counter announced (e.g., "Image 1 of 6")
+10. **Hidden decorative icons**: Icons use \`aria-hidden="true"\` when decorative
+11. **Touch targets**: Minimum 44×44px tap targets on mobile devices
+12. **Color contrast**: Overlay text meets WCAG AA standards (4.5:1 minimum)
+13. **Motion preferences**: Animations respect \`prefers-reduced-motion\` setting
+14. **Zoom controls**: Keyboard shortcuts for zoom in/out in lightbox (+ and - keys)
+15. **Image loading states**: Show loading indicators while images load
+
+## Usage Guidelines
+
+### Best Practices
+
+- **Consistent aspect ratios**: Use same aspect ratio for all images in a grid (1:1 or 16:9)
+- **Image optimization**: Compress and resize images appropriately (use WebP format)
+- **Lazy loading**: Load images as they scroll into view for better performance
+- **Responsive images**: Provide multiple sizes using srcset for different screen sizes
+- **Alt text quality**: Write descriptive, meaningful alt text (not just filenames)
+- **Grid spacing**: Use consistent gap between images (var(--space-4) recommended)
+
+### Column Options
+
+- **2 columns** (\`aural-gallery--cols-2\`): Large images, detailed viewing
+- **3 columns** (\`aural-gallery--cols-3\`): Standard grid layout (default)
+- **4 columns** (\`aural-gallery--cols-4\`): Compact thumbnail grid
+- **Auto-responsive** (\`aural-gallery--auto\`): Automatic column calculation based on width
+
+### Lightbox/Modal Behavior
+
+- **Click to expand**: Clicking an image opens full-screen lightbox
+- **Navigation controls**: Previous/Next buttons for browsing
+- **Zoom functionality**: Click or double-tap to zoom in on image
+- **Image counter**: Display "Image 3 of 12" for context
+- **Caption display**: Show title and description below image
+- **Close methods**: X button, Escape key, or click outside image
+
+### Mobile Considerations
+
+- Galleries automatically collapse to 2 columns on tablets (< 768px)
+- Single column on mobile phones (< 640px) for better readability
+- Reduced gap spacing on smaller screens
+- Touch gestures supported (swipe to navigate, pinch to zoom)
+- Full-screen lightbox on mobile for immersive viewing
+- Overlay text remains readable with proper contrast
+- Images maintain aspect ratio without distortion
+        `.trim(),
       },
     },
   },
@@ -182,23 +491,26 @@ const abstractImages = [
 
 // Template function
 const createGallery = (args: ImageGalleryArgs): string => {
-  const items = args.images.map((image) => {
-    const overlay = args.withOverlay && image.title
-      ? `
+  const items = args.images
+    .map((image) => {
+      const overlay =
+        args.withOverlay && image.title
+          ? `
         <div class="aural-gallery__overlay">
           <div class="aural-gallery__title">${image.title}</div>
           ${image.description ? `<div class="aural-gallery__description">${image.description}</div>` : ''}
         </div>
       `
-      : '';
+          : '';
 
-    return `
+      return `
       <div class="aural-gallery__item"${args.withTabindex ? ' tabindex="0"' : ''}>
         <img class="aural-gallery__image" src="${image.src}" alt="${image.alt}">
         ${overlay}
       </div>
     `;
-  }).join('');
+    })
+    .join('');
 
   return `
     <div class="aural-gallery aural-gallery--cols-${args.columns}">
@@ -222,7 +534,6 @@ export const Default: Story = {
   },
   render: createGallery,
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
     const gallery = canvasElement.querySelector('.aural-gallery');
 
     // Verify gallery exists
@@ -288,7 +599,8 @@ export const FourColumns: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Four-column grid for compact display. Often used without overlays for simple thumbnail grids.',
+        story:
+          'Four-column grid for compact display. Often used without overlays for simple thumbnail grids.',
       },
     },
   },
@@ -310,7 +622,8 @@ export const WithOverlays: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Hover over images to reveal overlay content. Overlays include titles and descriptions.',
+        story:
+          'Hover over images to reveal overlay content. Overlays include titles and descriptions.',
       },
     },
   },
@@ -326,13 +639,14 @@ export const WithoutOverlays: Story = {
     columns: '3',
     withOverlay: false,
     withTabindex: false,
-    images: natureImages.map(img => ({ src: img.src, alt: img.alt })),
+    images: natureImages.map((img) => ({ src: img.src, alt: img.alt })),
   },
   render: createGallery,
   parameters: {
     docs: {
       description: {
-        story: 'Clean gallery without overlays. Best for pure image display without additional context.',
+        story:
+          'Clean gallery without overlays. Best for pure image display without additional context.',
       },
     },
   },
@@ -354,7 +668,8 @@ export const ProductGallery: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Product showcase with pricing information in overlays. Perfect for e-commerce catalogs.',
+        story:
+          'Product showcase with pricing information in overlays. Perfect for e-commerce catalogs.',
       },
     },
   },
@@ -614,7 +929,8 @@ export const WithLightbox: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Click any image to open the lightbox. Navigate with arrow keys or buttons. Shows image counter and captions.',
+        story:
+          'Click any image to open the lightbox. Navigate with arrow keys or buttons. Shows image counter and captions.',
       },
     },
   },
@@ -670,8 +986,9 @@ export const WithCaptionsBelow: Story = {
     images: natureImages.slice(0, 3),
   },
   render: (args) => {
-    const items = args.images.map((image) => {
-      return `
+    const items = args.images
+      .map((image) => {
+        return `
         <div>
           <div class="aural-gallery__item" tabindex="0">
             <img class="aural-gallery__image" src="${image.src}" alt="${image.alt}">
@@ -686,7 +1003,8 @@ export const WithCaptionsBelow: Story = {
           </div>
         </div>
       `;
-    }).join('');
+      })
+      .join('');
 
     return `
       <div class="aural-gallery aural-gallery--cols-${args.columns}">
@@ -753,8 +1071,9 @@ export const MasonryLayout: Story = {
     ],
   },
   render: (args) => {
-    const items = args.images.map((image) => {
-      return `
+    const items = args.images
+      .map((image) => {
+        return `
         <div class="aural-gallery__item" tabindex="0">
           <img class="aural-gallery__image" src="${image.src}" alt="${image.alt}" style="height: auto;">
           <div class="aural-gallery__overlay">
@@ -763,7 +1082,8 @@ export const MasonryLayout: Story = {
           </div>
         </div>
       `;
-    }).join('');
+      })
+      .join('');
 
     return `
       <style>
@@ -1014,8 +1334,9 @@ export const AccessibilityFeatures: Story = {
     images: natureImages.slice(0, 3),
   },
   render: (args) => {
-    const items = args.images.map((image, index) => {
-      return `
+    const items = args.images
+      .map((image, index) => {
+        return `
         <div
           class="aural-gallery__item"
           tabindex="0"
@@ -1030,7 +1351,8 @@ export const AccessibilityFeatures: Story = {
           </div>
         </div>
       `;
-    }).join('');
+      })
+      .join('');
 
     return `
       <div
@@ -1085,7 +1407,8 @@ export const AccessibilityFeatures: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Full accessibility support with ARIA labels, keyboard navigation (arrow keys), and screen reader announcements.',
+        story:
+          'Full accessibility support with ARIA labels, keyboard navigation (arrow keys), and screen reader announcements.',
       },
     },
   },
@@ -1104,15 +1427,7 @@ export const ThemeComparison: Story = {
     images: natureImages.slice(0, 6),
   },
   render: (args) => {
-    const themes = [
-      'dark',
-      'light',
-      'neon',
-      'prismatic',
-      'minimal',
-      'warm',
-      'kinetic',
-    ];
+    const themes = ['dark', 'light', 'neon', 'prismatic', 'minimal', 'warm', 'kinetic'];
 
     const gallery = createGallery(args);
 
@@ -1140,19 +1455,24 @@ export const ThemeComparison: Story = {
       </style>
 
       <div class="theme-grid">
-        ${themes.map(theme => `
+        ${themes
+          .map(
+            (theme) => `
           <div class="theme-example" data-theme="${theme}">
             <div class="theme-label">${theme} Theme</div>
             ${gallery}
           </div>
-        `).join('')}
+        `
+          )
+          .join('')}
       </div>
     `;
   },
   parameters: {
     docs: {
       description: {
-        story: 'Compare how the Image Gallery component appears across all available Aural UI themes.',
+        story:
+          'Compare how the Image Gallery component appears across all available Aural UI themes.',
       },
     },
   },
