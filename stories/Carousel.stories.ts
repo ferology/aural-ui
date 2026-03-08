@@ -9,10 +9,341 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Image and content carousel with navigation controls, pagination, and smooth transitions.'
-      }
+        component: `
+# Carousel Component
+
+Slideshow component for cycling through images, cards, or content panels with navigation controls, pagination dots, and smooth transitions.
+
+Use Carousels to showcase featured content, product galleries, testimonials, or hero sections in a space-efficient way. They're perfect for highlighting multiple items of equal importance when you have limited vertical space. Carousels work well for image galleries, promotional banners, portfolio pieces, or customer reviews where users can browse at their own pace.
+
+Carousels include arrow navigation, dot pagination, and optional auto-play functionality. They support touch gestures on mobile devices and keyboard navigation for accessibility. While often debated in UX, carousels remain effective for image galleries, product showcases, and situations where users explicitly expect to browse through content.
+
+## Framework Examples
+
+**Vanilla HTML:**
+\`\`\`html
+<div class="aural-carousel" id="image-carousel">
+  <!-- Slides track -->
+  <div class="aural-carousel__track">
+    <div class="aural-carousel__slide">
+      <img src="image1.jpg" alt="Slide 1 description" style="width: 100%; height: 400px; object-fit: cover;">
+    </div>
+    <div class="aural-carousel__slide">
+      <img src="image2.jpg" alt="Slide 2 description" style="width: 100%; height: 400px; object-fit: cover;">
+    </div>
+    <div class="aural-carousel__slide">
+      <img src="image3.jpg" alt="Slide 3 description" style="width: 100%; height: 400px; object-fit: cover;">
+    </div>
+  </div>
+
+  <!-- Navigation arrows -->
+  <button class="aural-carousel__arrow aural-carousel__arrow--prev" type="button" aria-label="Previous slide">
+    <i data-lucide="chevron-left"></i>
+  </button>
+  <button class="aural-carousel__arrow aural-carousel__arrow--next" type="button" aria-label="Next slide">
+    <i data-lucide="chevron-right"></i>
+  </button>
+
+  <!-- Pagination dots -->
+  <div class="aural-carousel__pagination">
+    <button class="aural-carousel__dot aural-carousel__dot--active" aria-label="Go to slide 1"></button>
+    <button class="aural-carousel__dot" aria-label="Go to slide 2"></button>
+    <button class="aural-carousel__dot" aria-label="Go to slide 3"></button>
+  </div>
+
+  <!-- Optional counter -->
+  <div class="aural-carousel__counter">1 / 3</div>
+</div>
+
+<script>
+  // Initialize carousel with custom controls
+  const carousel = document.querySelector('#image-carousel');
+  const track = carousel.querySelector('.aural-carousel__track');
+  const slides = carousel.querySelectorAll('.aural-carousel__slide');
+  const prevBtn = carousel.querySelector('.aural-carousel__arrow--prev');
+  const nextBtn = carousel.querySelector('.aural-carousel__arrow--next');
+  const dots = carousel.querySelectorAll('.aural-carousel__dot');
+
+  let currentSlide = 0;
+
+  function updateCarousel() {
+    track.style.transform = \`translateX(-\${currentSlide * 100}%)\`;
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('aural-carousel__dot--active', index === currentSlide);
+    });
+  }
+
+  prevBtn.addEventListener('click', () => {
+    currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    currentSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : 0;
+    updateCarousel();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      currentSlide = index;
+      updateCarousel();
+    });
+  });
+</script>
+\`\`\`
+
+**React:**
+\`\`\`jsx
+import { useState, useEffect } from 'react';
+
+function ImageCarousel({ images }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  return (
+    <div className="aural-carousel">
+      <div className="aural-carousel__track" style={{ transform: \`translateX(-\${currentSlide * 100}%)\` }}>
+        {images.map((img, index) => (
+          <div key={index} className="aural-carousel__slide">
+            <img src={img.src} alt={img.alt} style={{ width: '100%', height: 400, objectFit: 'cover' }} />
+          </div>
+        ))}
+      </div>
+
+      <button
+        className="aural-carousel__arrow aural-carousel__arrow--prev"
+        type="button"
+        aria-label="Previous slide"
+        onClick={prevSlide}
+      >
+        <i data-lucide="chevron-left"></i>
+      </button>
+
+      <button
+        className="aural-carousel__arrow aural-carousel__arrow--next"
+        type="button"
+        aria-label="Next slide"
+        onClick={nextSlide}
+      >
+        <i data-lucide="chevron-right"></i>
+      </button>
+
+      <div className="aural-carousel__pagination">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            className={\`aural-carousel__dot \${index === currentSlide ? 'aural-carousel__dot--active' : ''}\`}
+            aria-label={\`Go to slide \${index + 1}\`}
+            onClick={() => goToSlide(index)}
+          ></button>
+        ))}
+      </div>
+
+      <div className="aural-carousel__counter">
+        {currentSlide + 1} / {images.length}
+      </div>
+    </div>
+  );
+}
+\`\`\`
+
+**Vue:**
+\`\`\`vue
+<template>
+  <div class="aural-carousel">
+    <div class="aural-carousel__track" :style="{ transform: \`translateX(-\${currentSlide * 100}%)\` }">
+      <div v-for="(img, index) in images" :key="index" class="aural-carousel__slide">
+        <img :src="img.src" :alt="img.alt" style="width: 100%; height: 400px; object-fit: cover;">
+      </div>
+    </div>
+
+    <button
+      class="aural-carousel__arrow aural-carousel__arrow--prev"
+      type="button"
+      aria-label="Previous slide"
+      @click="prevSlide"
+    >
+      <i data-lucide="chevron-left"></i>
+    </button>
+
+    <button
+      class="aural-carousel__arrow aural-carousel__arrow--next"
+      type="button"
+      aria-label="Next slide"
+      @click="nextSlide"
+    >
+      <i data-lucide="chevron-right"></i>
+    </button>
+
+    <div class="aural-carousel__pagination">
+      <button
+        v-for="(img, index) in images"
+        :key="index"
+        :class="['aural-carousel__dot', { 'aural-carousel__dot--active': index === currentSlide }]"
+        :aria-label="\`Go to slide \${index + 1}\`"
+        @click="goToSlide(index)"
+      ></button>
+    </div>
+
+    <div class="aural-carousel__counter">{{ currentSlide + 1 }} / {{ images.length }}</div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    images: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return {
+      currentSlide: 0
+    };
+  },
+  methods: {
+    nextSlide() {
+      this.currentSlide = this.currentSlide < this.images.length - 1 ? this.currentSlide + 1 : 0;
+    },
+    prevSlide() {
+      this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : this.images.length - 1;
+    },
+    goToSlide(index) {
+      this.currentSlide = index;
     }
   }
+};
+</script>
+\`\`\`
+
+**Svelte:**
+\`\`\`svelte
+<script>
+  export let images = [];
+  let currentSlide = 0;
+
+  function nextSlide() {
+    currentSlide = currentSlide < images.length - 1 ? currentSlide + 1 : 0;
+  }
+
+  function prevSlide() {
+    currentSlide = currentSlide > 0 ? currentSlide - 1 : images.length - 1;
+  }
+
+  function goToSlide(index) {
+    currentSlide = index;
+  }
+</script>
+
+<div class="aural-carousel">
+  <div class="aural-carousel__track" style="transform: translateX(-{currentSlide * 100}%)">
+    {#each images as img, index}
+      <div class="aural-carousel__slide">
+        <img src={img.src} alt={img.alt} style="width: 100%; height: 400px; object-fit: cover;">
+      </div>
+    {/each}
+  </div>
+
+  <button
+    class="aural-carousel__arrow aural-carousel__arrow--prev"
+    type="button"
+    aria-label="Previous slide"
+    on:click={prevSlide}
+  >
+    <i data-lucide="chevron-left"></i>
+  </button>
+
+  <button
+    class="aural-carousel__arrow aural-carousel__arrow--next"
+    type="button"
+    aria-label="Next slide"
+    on:click={nextSlide}
+  >
+    <i data-lucide="chevron-left"></i>
+  </button>
+
+  <div class="aural-carousel__pagination">
+    {#each images as _, index}
+      <button
+        class="aural-carousel__dot {index === currentSlide ? 'aural-carousel__dot--active' : ''}"
+        aria-label="Go to slide {index + 1}"
+        on:click={() => goToSlide(index)}
+      ></button>
+    {/each}
+  </div>
+
+  <div class="aural-carousel__counter">{currentSlide + 1} / {images.length}</div>
+</div>
+\`\`\`
+
+## Accessibility
+
+- **Keyboard navigation**: Left/Right arrow keys navigate between slides, Tab key moves focus through controls
+- **ARIA live region**: Use \`aria-live="polite"\` on carousel for auto-play to announce slide changes to screen readers
+- **Descriptive labels**: Arrow buttons have \`aria-label="Previous slide"\` and \`aria-label="Next slide"\`
+- **Dot pagination**: Each dot has \`aria-label="Go to slide N"\` for screen reader context
+- **Image alt text**: All carousel images must have descriptive alt text explaining content
+- **Pause auto-play**: Auto-play carousels pause on hover, focus, or user interaction (critical for accessibility)
+- **Play/pause control**: Provide visible pause button for auto-play carousels
+- **Touch targets**: All interactive elements (arrows, dots) meet 44×44px minimum size
+- **Focus indicators**: Visible focus rings on all interactive controls with 2px outline
+- **Reduced motion**: Carousel animations respect \`prefers-reduced-motion\` setting (no auto-play, instant transitions)
+- **Skip carousel**: Consider "Skip to content" link before carousel for keyboard users
+- **Slide counter**: Visible counter (e.g., "1 / 5") provides context on current position and total slides
+
+## Usage Guidelines
+
+- **When to use:**
+  - Image galleries or product photo sets (3-10 images)
+  - Featured content or promotional banners on homepage
+  - Customer testimonials or success stories (3-7 items)
+  - Portfolio showcases or case study highlights
+  - Before/after comparisons or sequential progress images
+  - Hero sections with multiple value propositions
+
+- **When NOT to use:**
+  - For critical information that all users must see — use static layout
+  - For primary navigation — use Navbar or Tabs instead
+  - For more than 10 slides — consider image grid or separate gallery page
+  - For text-heavy content — users won't read through many slides
+  - For SEO-critical content — carousels often have poor engagement and search visibility
+  - For mobile-first designs — swipeable cards or vertical scrolling often performs better
+
+- **Best practices:**
+  - Limit to 3-7 slides for optimal engagement (users rarely click past 3)
+  - Make first slide your strongest/most important content
+  - Use high-quality, fast-loading images (optimize for web)
+  - Provide clear navigation arrows visible on hover
+  - Include pagination dots for position awareness
+  - Auto-advance at 5-7 second intervals maximum (if using auto-play)
+  - Pause auto-play on hover or focus (required for accessibility)
+  - Ensure slides have consistent heights to prevent layout shift
+  - Add captions or titles to provide context for images
+  - Test carousel performance on mobile (touch gestures, responsiveness)
+
+- **Mobile considerations:**
+  - Carousels automatically support touch/swipe gestures on mobile devices
+  - Navigation arrows remain visible on mobile (don't rely on hover)
+  - Pagination dots provide visual feedback for swipe progress
+  - Ensure images are optimized for mobile bandwidth (use responsive images)
+  - Test carousel height on small screens (avoid excessive vertical space)
+  - Consider vertical scrolling cards as alternative to carousel on mobile
+        `.trim(),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -121,7 +452,7 @@ export const BasicCarousel: Story = {
 
     initCarousel();
     return container;
-  }
+  },
 };
 
 export const ImageCarousel: Story = {
@@ -164,7 +495,7 @@ export const ImageCarousel: Story = {
 
     initCarousel();
     return container;
-  }
+  },
 };
 
 export const WithCaptions: Story = {
@@ -211,7 +542,7 @@ export const WithCaptions: Story = {
 
     initCarousel();
     return container;
-  }
+  },
 };
 
 export const PaginationOnly: Story = {
@@ -249,7 +580,7 @@ export const PaginationOnly: Story = {
 
     initCarousel();
     return container;
-  }
+  },
 };
 
 export const WithArrowsOnly: Story = {
@@ -292,7 +623,7 @@ export const WithArrowsOnly: Story = {
 
     initCarousel();
     return container;
-  }
+  },
 };
 
 export const ProductCards: Story = {
@@ -357,7 +688,7 @@ export const ProductCards: Story = {
 
     initCarousel();
     return container;
-  }
+  },
 };
 
 export const AutoPlayExample: Story = {
@@ -480,7 +811,7 @@ export const AutoPlayExample: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const ResponsiveCarousel: Story = {
@@ -519,7 +850,7 @@ export const ResponsiveCarousel: Story = {
 
     initCarousel();
     return container;
-  }
+  },
 };
 
 export const MinimalCarousel: Story = {
@@ -569,7 +900,7 @@ export const MinimalCarousel: Story = {
 
     initCarousel();
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -665,5 +996,5 @@ export const ThemeComparison: Story = {
 
       return wrapper;
     });
-  }
+  },
 };
