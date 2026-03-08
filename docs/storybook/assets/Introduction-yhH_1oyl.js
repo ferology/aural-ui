@@ -1,4 +1,4 @@
-import{j as e,M as l}from"./index-JTf9FKo8.js";import{useMDXComponents as r}from"./index-BdWZuA2l.js";import"./iframe-D8mWHUuz.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Introduction",parameters:{toolbar:{theme:{hidden:!0}}}}),`
+import{j as e,M as l}from"./index-8DHXHWaz.js";import{useMDXComponents as r}from"./index-BOyjNAzs.js";import"./iframe-DBqISkp8.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Introduction",parameters:{docs:{theme:{base:"light"}}}}),`
 `,e.jsx("style",{children:`
   #storybook-docs,
   .sbdocs,

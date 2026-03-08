@@ -1,4 +1,4 @@
-import{j as e,M as d}from"./index-JTf9FKo8.js";import{useMDXComponents as o}from"./index-BdWZuA2l.js";import"./iframe-D8mWHUuz.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function n(s){const r={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...o(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Design Tokens",parameters:{toolbar:{theme:{hidden:!1}}}}),`
+import{j as e,M as d}from"./index-8DHXHWaz.js";import{useMDXComponents as o}from"./index-BOyjNAzs.js";import"./iframe-DBqISkp8.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function n(s){const r={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...o(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Design Tokens",parameters:{docs:{theme:{base:"light"}}}}),`
 `,e.jsx("style",{children:`
   #storybook-docs,
   .sbdocs,

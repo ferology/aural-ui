@@ -1,4 +1,4 @@
-import{j as n,M as o}from"./index-JTf9FKo8.js";import{useMDXComponents as a}from"./index-BdWZuA2l.js";import"./iframe-D8mWHUuz.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(s){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...a(),...s.components};return n.jsxs(n.Fragment,{children:[n.jsx(o,{title:"Getting Started/Framework Guide",parameters:{toolbar:{theme:{hidden:!0}}}}),`
+import{j as n,M as o}from"./index-8DHXHWaz.js";import{useMDXComponents as a}from"./index-BOyjNAzs.js";import"./iframe-DBqISkp8.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(s){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...a(),...s.components};return n.jsxs(n.Fragment,{children:[n.jsx(o,{title:"Getting Started/Framework Guide",parameters:{docs:{theme:{base:"light"}}}}),`
 `,n.jsx("style",{children:`
   #storybook-docs,
   .sbdocs,
@@ -415,4 +415,4 @@ export const toasts = createToastStore();
 `,n.jsxs(e.li,{children:[n.jsx(e.strong,{children:"Component Docs"}),": Each component page shows framework-specific examples"]}),`
 `,n.jsxs(e.li,{children:[n.jsx(e.strong,{children:"Live Demo"}),": ",n.jsx(e.a,{href:"https://ferology.github.io/aural-ui/",rel:"nofollow",children:"https://ferology.github.io/aural-ui/"})]}),`
 `,n.jsxs(e.li,{children:[n.jsx(e.strong,{children:"GitHub"}),": ",n.jsx(e.a,{href:"https://github.com/ferology/aural-ui",rel:"nofollow",children:"https://github.com/ferology/aural-ui"})]}),`
-`]})]})]})}function u(s={}){const{wrapper:e}={...a(),...s.components};return e?n.jsx(e,{...s,children:n.jsx(t,{...s})}):t(s)}export{u as default};
+`]})]})]})}function h(s={}){const{wrapper:e}={...a(),...s.components};return e?n.jsx(e,{...s,children:n.jsx(t,{...s})}):t(s)}export{h as default};
