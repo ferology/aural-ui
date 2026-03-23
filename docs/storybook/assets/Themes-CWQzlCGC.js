@@ -1,4 +1,4 @@
-import{j as e,M as d}from"./index-C8u13IX6.js";import{useMDXComponents as s}from"./index-B-FP1PxX.js";import"./iframe-amq7yxG9.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(i){const r={code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...s(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Themes",parameters:{docs:{theme:{base:"light"}}}}),`
+import{j as e,M as d}from"./index-Ds2mFczo.js";import{useMDXComponents as s}from"./index-BqA52EEF.js";import"./iframe-Bhkkw4Qr.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(i){const r={code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...s(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(d,{title:"Getting Started/Themes",parameters:{docs:{theme:{base:"light"}}}}),`
 `,e.jsx("style",{children:`
   :root,
   #storybook-docs,
