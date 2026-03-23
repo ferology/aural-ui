@@ -66,26 +66,58 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 \`\`\`
 
 **React:**
-\`\`\`jsx
-const Table = ({ data, columns }) => (
-  <div className="table-wrapper">
-    <table className="table table-striped table-hover">
-      <thead>
-        <tr>
-          {columns.map(col => <th key={col.key} scope="col">{col.label}</th>)}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((row, idx) => (
-          <tr key={idx}>
-            {columns.map(col => <td key={col.key}>{row[col.key]}</td>)}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-);
+\`\`\`tsx
+import { Table } from '@aural-ui/react';
+
+const columns = [
+  { key: 'name', label: 'Name' },
+  { key: 'email', label: 'Email' },
+  {
+    key: 'status',
+    label: 'Status',
+    render: (value) => (
+      <span className={\`badge badge-\${value === 'Active' ? 'success' : 'warning'}\`}>
+        {value}
+      </span>
+    ),
+  },
+];
+
+const data = [
+  { name: 'Alice Johnson', email: 'alice@example.com', status: 'Active' },
+  { name: 'Bob Smith', email: 'bob@example.com', status: 'Pending' },
+];
+
+// Basic usage
+<Table columns={columns} data={data} />
+
+// With striped rows and hover effect
+<Table columns={columns} data={data} striped hover />
+
+// Compact variant for dense data
+<Table columns={columns} data={data} compact />
+
+// With row click handler
+<Table
+  columns={columns}
+  data={data}
+  striped
+  hover
+  onRowClick={(row, index) => console.log('Clicked row', index, row)}
+/>
 \`\`\`
+
+**Props:**
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| \`columns\` | \`TableColumn[]\` | required | Column definitions (key, label, optional render) |
+| \`data\` | \`T[]\` | required | Array of row data objects |
+| \`striped\` | \`boolean\` | \`false\` | Alternating row background colors |
+| \`hover\` | \`boolean\` | \`false\` | Hover highlight on rows |
+| \`compact\` | \`boolean\` | \`false\` | Reduced cell padding for dense layouts |
+| \`caption\` | \`string\` | — | Accessible table caption |
+| \`className\` | \`string\` | \`''\` | Additional CSS classes on the \`<table>\` element |
+| \`onRowClick\` | \`(row, index) => void\` | — | Callback fired when a row is clicked |
 
 **Vue:**
 \`\`\`vue
@@ -130,24 +162,24 @@ const Table = ({ data, columns }) => (
   </table>
 </div>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     striped: {
       control: 'boolean',
-      description: 'Enable striped rows for better readability'
+      description: 'Enable striped rows for better readability',
     },
     hover: {
       control: 'boolean',
-      description: 'Enable hover effect on rows'
+      description: 'Enable hover effect on rows',
     },
     compact: {
       control: 'boolean',
-      description: 'Use compact spacing for dense data'
-    }
-  }
+      description: 'Use compact spacing for dense data',
+    },
+  },
 };
 
 export default meta;
@@ -164,7 +196,7 @@ export const Basic: Story = {
     // Create thead
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    ['Name', 'Email', 'Status'].forEach(header => {
+    ['Name', 'Email', 'Status'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -178,10 +210,10 @@ export const Basic: Story = {
     const data = [
       { name: 'John Doe', email: 'john@example.com', status: 'Active', statusVariant: 'success' },
       { name: 'Jane Smith', email: 'jane@example.com', status: 'Active', statusVariant: 'success' },
-      { name: 'Bob Wilson', email: 'bob@example.com', status: 'Pending', statusVariant: 'warning' }
+      { name: 'Bob Wilson', email: 'bob@example.com', status: 'Pending', statusVariant: 'warning' },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
       const nameTd = document.createElement('td');
@@ -206,7 +238,7 @@ export const Basic: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const Striped: Story = {
@@ -219,7 +251,7 @@ export const Striped: Story = {
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    ['Product', 'Price', 'Stock'].forEach(header => {
+    ['Product', 'Price', 'Stock'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -233,13 +265,13 @@ export const Striped: Story = {
       { product: 'Widget A', price: '$19.99', stock: '45' },
       { product: 'Widget B', price: '$29.99', stock: '12' },
       { product: 'Widget C', price: '$39.99', stock: '8' },
-      { product: 'Widget D', price: '$49.99', stock: '23' }
+      { product: 'Widget D', price: '$49.99', stock: '23' },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
-      Object.values(item).forEach(value => {
+      Object.values(item).forEach((value) => {
         const td = document.createElement('td');
         td.textContent = value;
         row.appendChild(td);
@@ -252,7 +284,7 @@ export const Striped: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const StripedAndHover: Story = {
@@ -265,7 +297,7 @@ export const StripedAndHover: Story = {
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    ['Product', 'Price', 'Stock'].forEach(header => {
+    ['Product', 'Price', 'Stock'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -279,13 +311,13 @@ export const StripedAndHover: Story = {
       { product: 'Widget A', price: '$19.99', stock: '45' },
       { product: 'Widget B', price: '$29.99', stock: '12' },
       { product: 'Widget C', price: '$39.99', stock: '8' },
-      { product: 'Widget D', price: '$49.99', stock: '23' }
+      { product: 'Widget D', price: '$49.99', stock: '23' },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
-      Object.values(item).forEach(value => {
+      Object.values(item).forEach((value) => {
         const td = document.createElement('td');
         td.textContent = value;
         row.appendChild(td);
@@ -298,7 +330,7 @@ export const StripedAndHover: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const Compact: Story = {
@@ -311,7 +343,7 @@ export const Compact: Story = {
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    ['Name', 'Email', 'Role'].forEach(header => {
+    ['Name', 'Email', 'Role'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -324,13 +356,13 @@ export const Compact: Story = {
     const data = [
       { name: 'John Doe', email: 'john@example.com', role: 'Admin' },
       { name: 'Jane Smith', email: 'jane@example.com', role: 'Editor' },
-      { name: 'Bob Wilson', email: 'bob@example.com', role: 'Viewer' }
+      { name: 'Bob Wilson', email: 'bob@example.com', role: 'Viewer' },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
-      Object.values(item).forEach(value => {
+      Object.values(item).forEach((value) => {
         const td = document.createElement('td');
         td.textContent = value;
         row.appendChild(td);
@@ -343,7 +375,7 @@ export const Compact: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const WithSelection: Story = {
@@ -375,7 +407,7 @@ export const WithSelection: Story = {
     checkboxTh.appendChild(headerCheckbox);
     headerRow.appendChild(checkboxTh);
 
-    ['Name', 'Email', 'Status'].forEach(header => {
+    ['Name', 'Email', 'Status'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -388,10 +420,10 @@ export const WithSelection: Story = {
     const data = [
       { name: 'John Doe', email: 'john@example.com', status: 'Active', statusVariant: 'success' },
       { name: 'Jane Smith', email: 'jane@example.com', status: 'Active', statusVariant: 'success' },
-      { name: 'Bob Wilson', email: 'bob@example.com', status: 'Pending', statusVariant: 'warning' }
+      { name: 'Bob Wilson', email: 'bob@example.com', status: 'Pending', statusVariant: 'warning' },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
       // Checkbox cell
@@ -425,7 +457,7 @@ export const WithSelection: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const WithSorting: Story = {
@@ -443,10 +475,10 @@ export const WithSorting: Story = {
       { key: 'name', label: 'Name', sortable: true },
       { key: 'email', label: 'Email', sortable: true },
       { key: 'role', label: 'Role', sortable: true },
-      { key: 'actions', label: 'Actions', sortable: false }
+      { key: 'actions', label: 'Actions', sortable: false },
     ];
 
-    headers.forEach(header => {
+    headers.forEach((header) => {
       const th = document.createElement('th');
       th.setAttribute('scope', 'col');
 
@@ -487,10 +519,10 @@ export const WithSorting: Story = {
     const data = [
       { name: 'John Doe', email: 'john@example.com', role: 'Admin' },
       { name: 'Jane Smith', email: 'jane@example.com', role: 'Editor' },
-      { name: 'Bob Wilson', email: 'bob@example.com', role: 'Viewer' }
+      { name: 'Bob Wilson', email: 'bob@example.com', role: 'Viewer' },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
       const nameTd = document.createElement('td');
@@ -532,7 +564,7 @@ export const WithSorting: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const WithPagination: Story = {
@@ -547,7 +579,7 @@ export const WithPagination: Story = {
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    ['ID', 'Name', 'Email', 'Status'].forEach(header => {
+    ['ID', 'Name', 'Email', 'Status'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -558,14 +590,44 @@ export const WithPagination: Story = {
 
     const tbody = document.createElement('tbody');
     const data = [
-      { id: '001', name: 'John Doe', email: 'john@example.com', status: 'Active', statusVariant: 'success' },
-      { id: '002', name: 'Jane Smith', email: 'jane@example.com', status: 'Active', statusVariant: 'success' },
-      { id: '003', name: 'Bob Wilson', email: 'bob@example.com', status: 'Pending', statusVariant: 'warning' },
-      { id: '004', name: 'Alice Brown', email: 'alice@example.com', status: 'Active', statusVariant: 'success' },
-      { id: '005', name: 'Charlie Davis', email: 'charlie@example.com', status: 'Inactive', statusVariant: 'danger' }
+      {
+        id: '001',
+        name: 'John Doe',
+        email: 'john@example.com',
+        status: 'Active',
+        statusVariant: 'success',
+      },
+      {
+        id: '002',
+        name: 'Jane Smith',
+        email: 'jane@example.com',
+        status: 'Active',
+        statusVariant: 'success',
+      },
+      {
+        id: '003',
+        name: 'Bob Wilson',
+        email: 'bob@example.com',
+        status: 'Pending',
+        statusVariant: 'warning',
+      },
+      {
+        id: '004',
+        name: 'Alice Brown',
+        email: 'alice@example.com',
+        status: 'Active',
+        statusVariant: 'success',
+      },
+      {
+        id: '005',
+        name: 'Charlie Davis',
+        email: 'charlie@example.com',
+        status: 'Inactive',
+        statusVariant: 'danger',
+      },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
       const idTd = document.createElement('td');
@@ -624,7 +686,7 @@ export const WithPagination: Story = {
     container.appendChild(paginationDiv);
 
     return container;
-  }
+  },
 };
 
 export const ResponsiveScrollable: Story = {
@@ -638,26 +700,52 @@ export const ResponsiveScrollable: Story = {
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    ['ID', 'Product Name', 'Category', 'Price', 'Stock', 'Supplier', 'Last Updated'].forEach(header => {
-      const th = document.createElement('th');
-      th.textContent = header;
-      th.setAttribute('scope', 'col');
-      headerRow.appendChild(th);
-    });
+    ['ID', 'Product Name', 'Category', 'Price', 'Stock', 'Supplier', 'Last Updated'].forEach(
+      (header) => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        th.setAttribute('scope', 'col');
+        headerRow.appendChild(th);
+      }
+    );
     thead.appendChild(headerRow);
     table.appendChild(thead);
 
     const tbody = document.createElement('tbody');
     const data = [
-      { id: '001', product: 'Widget A', category: 'Electronics', price: '$19.99', stock: '45', supplier: 'Acme Corp', updated: '2024-01-15' },
-      { id: '002', product: 'Gadget B', category: 'Hardware', price: '$29.99', stock: '12', supplier: 'Tech Supply', updated: '2024-01-18' },
-      { id: '003', product: 'Device C', category: 'Electronics', price: '$39.99', stock: '8', supplier: 'Acme Corp', updated: '2024-01-20' }
+      {
+        id: '001',
+        product: 'Widget A',
+        category: 'Electronics',
+        price: '$19.99',
+        stock: '45',
+        supplier: 'Acme Corp',
+        updated: '2024-01-15',
+      },
+      {
+        id: '002',
+        product: 'Gadget B',
+        category: 'Hardware',
+        price: '$29.99',
+        stock: '12',
+        supplier: 'Tech Supply',
+        updated: '2024-01-18',
+      },
+      {
+        id: '003',
+        product: 'Device C',
+        category: 'Electronics',
+        price: '$39.99',
+        stock: '8',
+        supplier: 'Acme Corp',
+        updated: '2024-01-20',
+      },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
-      Object.values(item).forEach(value => {
+      Object.values(item).forEach((value) => {
         const td = document.createElement('td');
         td.textContent = value;
         row.appendChild(td);
@@ -680,7 +768,7 @@ export const ResponsiveScrollable: Story = {
     container.appendChild(hint);
 
     return container;
-  }
+  },
 };
 
 export const LoadingSkeleton: Story = {
@@ -693,7 +781,7 @@ export const LoadingSkeleton: Story = {
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    ['Name', 'Email', 'Status'].forEach(header => {
+    ['Name', 'Email', 'Status'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -728,7 +816,7 @@ export const LoadingSkeleton: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const ExpandableRows: Story = {
@@ -747,7 +835,7 @@ export const ExpandableRows: Story = {
     expandTh.setAttribute('scope', 'col');
     headerRow.appendChild(expandTh);
 
-    ['Name', 'Email', 'Status'].forEach(header => {
+    ['Name', 'Email', 'Status'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -768,8 +856,8 @@ export const ExpandableRows: Story = {
           department: 'Engineering',
           role: 'Senior Developer',
           location: 'San Francisco, CA',
-          joined: 'January 15, 2023'
-        }
+          joined: 'January 15, 2023',
+        },
       },
       {
         name: 'Jane Smith',
@@ -780,8 +868,8 @@ export const ExpandableRows: Story = {
           department: 'Design',
           role: 'Lead Designer',
           location: 'New York, NY',
-          joined: 'March 8, 2022'
-        }
+          joined: 'March 8, 2022',
+        },
       },
       {
         name: 'Bob Wilson',
@@ -792,12 +880,12 @@ export const ExpandableRows: Story = {
           department: 'Sales',
           role: 'Account Manager',
           location: 'Chicago, IL',
-          joined: 'June 22, 2024'
-        }
-      }
+          joined: 'June 22, 2024',
+        },
+      },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       // Main row
       const row = document.createElement('tr');
       row.className = 'expandable';
@@ -881,7 +969,7 @@ export const ExpandableRows: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const WithActions: Story = {
@@ -894,7 +982,7 @@ export const WithActions: Story = {
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    ['Name', 'Email', 'Status', 'Actions'].forEach(header => {
+    ['Name', 'Email', 'Status', 'Actions'].forEach((header) => {
       const th = document.createElement('th');
       th.textContent = header;
       th.setAttribute('scope', 'col');
@@ -906,10 +994,10 @@ export const WithActions: Story = {
     const tbody = document.createElement('tbody');
     const data = [
       { name: 'John Doe', email: 'john@example.com', status: 'Active', statusVariant: 'success' },
-      { name: 'Jane Smith', email: 'jane@example.com', status: 'Active', statusVariant: 'success' }
+      { name: 'Jane Smith', email: 'jane@example.com', status: 'Active', statusVariant: 'success' },
     ];
 
-    data.forEach(item => {
+    data.forEach((item) => {
       const row = document.createElement('tr');
 
       const nameTd = document.createElement('td');
@@ -954,7 +1042,7 @@ export const WithActions: Story = {
     wrapper.appendChild(table);
 
     return wrapper;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -972,7 +1060,7 @@ export const ThemeComparison: Story = {
 
       const thead = document.createElement('thead');
       const headerRow = document.createElement('tr');
-      ['Name', 'Email', 'Status'].forEach(header => {
+      ['Name', 'Email', 'Status'].forEach((header) => {
         const th = document.createElement('th');
         th.textContent = header;
         th.setAttribute('scope', 'col');
@@ -984,11 +1072,21 @@ export const ThemeComparison: Story = {
       const tbody = document.createElement('tbody');
       const data = [
         { name: 'John Doe', email: 'john@example.com', status: 'Active', statusVariant: 'success' },
-        { name: 'Jane Smith', email: 'jane@example.com', status: 'Active', statusVariant: 'success' },
-        { name: 'Bob Wilson', email: 'bob@example.com', status: 'Pending', statusVariant: 'warning' }
+        {
+          name: 'Jane Smith',
+          email: 'jane@example.com',
+          status: 'Active',
+          statusVariant: 'success',
+        },
+        {
+          name: 'Bob Wilson',
+          email: 'bob@example.com',
+          status: 'Pending',
+          statusVariant: 'warning',
+        },
       ];
 
-      data.forEach(item => {
+      data.forEach((item) => {
         const row = document.createElement('tr');
 
         const nameTd = document.createElement('td');
@@ -1018,6 +1116,6 @@ export const ThemeComparison: Story = {
   args: {
     striped: true,
     hover: true,
-    compact: false
-  }
+    compact: false,
+  },
 };

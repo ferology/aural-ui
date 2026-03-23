@@ -57,6 +57,9 @@ export type { ProgressProps } from './components/Progress';
 export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 
+export { Table } from './components/Table';
+export type { TableProps, TableColumn } from './components/Table';
+
 // Hooks
 export { useModal } from './hooks/useModal';
 export type { UseModalReturn } from './hooks/useModal';
