@@ -164,7 +164,7 @@ const Q={title:"Components/DatePicker",tags:["autodocs"],parameters:{docs:{descr
     placeholder: 'Select weekday...',
     disableWeekends: true
   }
-}`,...(A=(E=p.parameters)==null?void 0:E.docs)==null?void 0:A.source}}};var N,F,I;k.parameters={...k.parameters,docs:{...(N=k.parameters)==null?void 0:N.docs,source:{originalSource:`{
+}`,...(A=(E=p.parameters)==null?void 0:E.docs)==null?void 0:A.source}}};var N,F,J;k.parameters={...k.parameters,docs:{...(N=k.parameters)==null?void 0:N.docs,source:{originalSource:`{
   render: createDatePicker,
   args: {
     id: 'date-picker-iso',
@@ -172,7 +172,7 @@ const Q={title:"Components/DatePicker",tags:["autodocs"],parameters:{docs:{descr
     format: 'YYYY-MM-DD',
     defaultDate: new Date(2026, 0, 26)
   }
-}`,...(I=(F=k.parameters)==null?void 0:F.docs)==null?void 0:I.source}}};var J,H,R;v.parameters={...v.parameters,docs:{...(J=v.parameters)==null?void 0:J.docs,source:{originalSource:`{
+}`,...(J=(F=k.parameters)==null?void 0:F.docs)==null?void 0:J.source}}};var I,H,R;v.parameters={...v.parameters,docs:{...(I=v.parameters)==null?void 0:I.docs,source:{originalSource:`{
   render: createDatePicker,
   args: {
     id: 'date-picker-eu',
@@ -365,7 +365,7 @@ const Q={title:"Components/DatePicker",tags:["autodocs"],parameters:{docs:{descr
     setTimeout(() => {
       if (typeof window.Aural !== 'undefined' && window.Aural.initDatePicker) {
         let checkinDate: Date | null = null;
-        const checkinPickerInstance = window.Aural.initDatePicker('date-picker-checkin', {
+        window.Aural.initDatePicker('date-picker-checkin', {
           minDate: new Date(),
           format: 'MM/DD/YYYY',
           onChange: (date: Date) => {

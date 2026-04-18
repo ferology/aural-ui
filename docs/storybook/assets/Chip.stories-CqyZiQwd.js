@@ -460,7 +460,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     tags.forEach(({
       label,
       variant,
-      active
+      active: _active
     }) => {
       const chip = createChip({
         label,
