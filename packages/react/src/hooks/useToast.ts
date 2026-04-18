@@ -61,8 +61,8 @@ export function useToast(): UseToastReturn {
     if (typeof options === 'string') {
       window.Aural.showToast(options);
     } else {
-      const { message, type = 'info', title = null, duration = 5000 } = options;
-      window.Aural.showToast(message, type, title, duration);
+      const { message, type = 'info', title, duration = 5000 } = options;
+      window.Aural.showToast(message, type, title ?? undefined, duration);
     }
   }, []);
 
