@@ -99,10 +99,8 @@ export const Accordion: React.FC<AccordionProps> = ({
 
       if (domItem) {
         if (isExpanded) {
-          // @ts-expect-error - Aural global not typed
           window.Aural.openAccordion(item.id);
         } else {
-          // @ts-expect-error - Aural global not typed
           window.Aural.closeAccordion(item.id);
         }
       }

@@ -74,17 +74,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   // Sync isOpen prop with Aural dropdown state
   useEffect(() => {
-    // @ts-expect-error - Aural is loaded globally
     if (typeof window.Aural === 'undefined') {
       console.warn('Aural is not loaded. Dropdown will not function correctly.');
       return;
     }
 
     if (isOpen) {
-      // @ts-expect-error - Aural global not typed
       window.Aural.openDropdown(id);
     } else {
-      // @ts-expect-error - Aural global not typed
       window.Aural.closeDropdown(id);
     }
   }, [isOpen, id]);

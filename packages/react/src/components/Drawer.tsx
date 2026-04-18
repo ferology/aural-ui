@@ -55,14 +55,11 @@ export const Drawer: React.FC<DrawerProps> = ({
   const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // @ts-expect-error - Aural global not typed
     if (typeof window.Aural === 'undefined') return;
 
     if (isOpen) {
-      // @ts-expect-error - Aural global not typed
       window.Aural.openDrawer(id);
     } else {
-      // @ts-expect-error - Aural global not typed
       window.Aural.closeDrawer(id);
     }
   }, [isOpen, id]);

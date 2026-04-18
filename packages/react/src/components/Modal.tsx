@@ -59,17 +59,14 @@ export const Modal: React.FC<ModalProps> = ({
 
   // Sync isOpen prop with Aural modal state
   useEffect(() => {
-    // @ts-expect-error - Aural is loaded globally
     if (typeof window.Aural === 'undefined') {
       console.warn('Aural is not loaded. Modal will not function correctly.');
       return;
     }
 
     if (isOpen) {
-      // @ts-expect-error - Aural global not typed
       window.Aural.openModal(id);
     } else {
-      // @ts-expect-error - Aural global not typed
       window.Aural.closeModal(id);
     }
   }, [isOpen, id]);

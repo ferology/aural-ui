@@ -53,18 +53,15 @@ export interface UseToastReturn {
  */
 export function useToast(): UseToastReturn {
   const showToast = useCallback((options: ShowToastOptions | string) => {
-    // @ts-expect-error - Aural is loaded globally
     if (typeof window.Aural === 'undefined') {
       console.warn('Aural is not loaded. Toast will not function correctly.');
       return;
     }
 
     if (typeof options === 'string') {
-      // @ts-expect-error - Aural global not typed
       window.Aural.showToast(options);
     } else {
       const { message, type = 'info', title = null, duration = 5000 } = options;
-      // @ts-expect-error - Aural global not typed
       window.Aural.showToast(message, type, title, duration);
     }
   }, []);
