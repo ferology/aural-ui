@@ -170,6 +170,10 @@
           "64": 256
         },
         typography: {
+          fontFamilies: {
+            "sans": "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
+            "mono": "SF Mono, Monaco, Cascadia Code, Roboto Mono, Consolas, Courier New, monospace"
+          },
           fontSizes: {
             "xs": 12,
             "sm": 14,
@@ -180,24 +184,97 @@
             "3xl": 30,
             "4xl": 36,
             "5xl": 48,
-            "6xl": 60
+            "6xl": 60,
+            "7xl": 72
           },
           fontWeights: {
+            "thin": 100,
+            "extralight": 200,
+            "light": 300,
             "normal": 400,
             "medium": 500,
             "semibold": 600,
-            "bold": 700
+            "bold": 700,
+            "extrabold": 800,
+            "black": 900
+          },
+          lineHeights: {
+            "none": 1,
+            "tight": 1.25,
+            "snug": 1.375,
+            "normal": 1.5,
+            "relaxed": 1.625,
+            "loose": 2
+          },
+          letterSpacing: {
+            "tighter": -0.8,
+            "tight": -0.4,
+            "normal": 0,
+            "wide": 0.4,
+            "wider": 0.8,
+            "widest": 1.6
           }
         },
         radii: {
+          // Matches tokens/core/radius.css exactly (px equivalents of rem values)
           "none": 0,
           "sm": 4,
-          "md": 6,
-          "lg": 8,
-          "xl": 12,
-          "2xl": 16,
-          "3xl": 24,
+          // 0.25rem
+          "default": 8,
+          // 0.5rem  — base/unnamed radius in CSS
+          "md": 12,
+          // 0.75rem
+          "lg": 16,
+          // 1rem
+          "xl": 20,
+          // 1.25rem
+          "2xl": 24,
+          // 1.5rem
+          "3xl": 32,
+          // 2rem
           "full": 9999
+        },
+        animations: {
+          durations: {
+            "instant": 0,
+            "fast": 150,
+            "normal": 300,
+            "slow": 500,
+            "slower": 750,
+            "slowest": 1e3
+          },
+          easings: {
+            "linear": "linear",
+            "in": "cubic-bezier(0.4, 0, 1, 1)",
+            "out": "cubic-bezier(0, 0, 0.2, 1)",
+            "in-out": "cubic-bezier(0.4, 0, 0.2, 1)",
+            "bounce": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+            "spring": "cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+          }
+        },
+        components: {
+          button: {
+            sm: { height: 32, paddingX: 12, fontSize: 14, radius: 6 },
+            md: { height: 40, paddingX: 16, fontSize: 14, radius: 6 },
+            lg: { height: 48, paddingX: 24, fontSize: 16, radius: 8 }
+          },
+          input: {
+            sm: { height: 32, paddingX: 12, fontSize: 14 },
+            md: { height: 40, paddingX: 12, fontSize: 14 },
+            lg: { height: 48, paddingX: 16, fontSize: 16 }
+          },
+          card: {
+            paddingSm: 16,
+            paddingMd: 24,
+            paddingLg: 32,
+            radius: 12
+          },
+          badge: {
+            height: 24,
+            paddingX: 8,
+            fontSize: 12,
+            radius: 9999
+          }
         }
       };
       function hexToRgb(hex) {
@@ -270,6 +347,161 @@
             }
           }
           figma.notify(`Created ${count} color styles!`);
+        });
+      }
+      function generateVariables() {
+        return __async(this, null, function* () {
+          figma.notify("Generating Figma Variables...");
+          const primitivesCol = figma.variables.createVariableCollection("Aural/Color Primitives");
+          primitivesCol.renameMode(primitivesCol.modes[0].modeId, "Value");
+          const primModeId = primitivesCol.modes[0].modeId;
+          const primMap = {};
+          for (const [colorName, shades] of Object.entries(tokens.colors)) {
+            for (const [shade, hex] of Object.entries(shades)) {
+              const name = `${colorName}/${shade}`;
+              const v = figma.variables.createVariable(name, primitivesCol, "COLOR");
+              const { r, g, b } = hexToRgb(hex);
+              v.setValueForMode(primModeId, { r, g, b, a: 1 });
+              primMap[name] = v;
+            }
+          }
+          const semanticCol = figma.variables.createVariableCollection("Aural/Semantic Colors");
+          semanticCol.renameMode(semanticCol.modes[0].modeId, "Light");
+          const lightId = semanticCol.modes[0].modeId;
+          const darkId = semanticCol.addMode("Dark");
+          const alias = (key) => ({ type: "VARIABLE_ALIAS", id: primMap[key].id });
+          const semanticMap = {
+            // Backgrounds
+            "background/page": { light: "neutral/50", dark: "neutral/950" },
+            "background/surface": { light: "neutral/100", dark: "neutral/900" },
+            "background/overlay": { light: "neutral/200", dark: "neutral/800" },
+            "background/inverted": { light: "neutral/900", dark: "neutral/50" },
+            // Text
+            "text/primary": { light: "neutral/900", dark: "neutral/50" },
+            "text/secondary": { light: "neutral/600", dark: "neutral/400" },
+            "text/disabled": { light: "neutral/400", dark: "neutral/600" },
+            "text/inverse": { light: "neutral/50", dark: "neutral/900" },
+            "text/link": { light: "primary/600", dark: "primary/400" },
+            "text/on-accent": { light: "neutral/50", dark: "neutral/900" },
+            // Borders
+            "border/default": { light: "neutral/200", dark: "neutral/700" },
+            "border/strong": { light: "neutral/400", dark: "neutral/500" },
+            "border/focus": { light: "primary/500", dark: "primary/400" },
+            // Interactive – Primary
+            "interactive/primary": { light: "primary/500", dark: "primary/400" },
+            "interactive/primary-hover": { light: "primary/600", dark: "primary/300" },
+            "interactive/primary-active": { light: "primary/700", dark: "primary/200" },
+            "interactive/primary-subtle": { light: "primary/50", dark: "primary/950" },
+            // Interactive – Secondary
+            "interactive/secondary": { light: "secondary/500", dark: "secondary/400" },
+            "interactive/secondary-hover": { light: "secondary/600", dark: "secondary/300" },
+            "interactive/secondary-subtle": { light: "secondary/50", dark: "secondary/950" },
+            // Status
+            "status/success": { light: "success/500", dark: "success/400" },
+            "status/success-bg": { light: "success/50", dark: "success/950" },
+            "status/success-text": { light: "success/700", dark: "success/300" },
+            "status/warning": { light: "warning/500", dark: "warning/400" },
+            "status/warning-bg": { light: "warning/50", dark: "warning/950" },
+            "status/warning-text": { light: "warning/700", dark: "warning/300" },
+            "status/error": { light: "error/500", dark: "error/400" },
+            "status/error-bg": { light: "error/50", dark: "error/950" },
+            "status/error-text": { light: "error/700", dark: "error/300" },
+            "status/info": { light: "info/500", dark: "info/400" },
+            "status/info-bg": { light: "info/50", dark: "info/950" },
+            "status/info-text": { light: "info/700", dark: "info/300" }
+          };
+          for (const [name, modes] of Object.entries(semanticMap)) {
+            const v = figma.variables.createVariable(name, semanticCol, "COLOR");
+            v.setValueForMode(lightId, alias(modes.light));
+            v.setValueForMode(darkId, alias(modes.dark));
+          }
+          const spacingCol = figma.variables.createVariableCollection("Aural/Spacing");
+          spacingCol.renameMode(spacingCol.modes[0].modeId, "Value");
+          const spaceModeId = spacingCol.modes[0].modeId;
+          for (const [scale, value] of Object.entries(tokens.spacing)) {
+            const v = figma.variables.createVariable(`space/${scale}`, spacingCol, "FLOAT");
+            v.scopes = ["WIDTH_HEIGHT", "GAP", "STROKE_FLOAT"];
+            v.setValueForMode(spaceModeId, value);
+          }
+          const radiusCol = figma.variables.createVariableCollection("Aural/Radius");
+          radiusCol.renameMode(radiusCol.modes[0].modeId, "Value");
+          const radModeId = radiusCol.modes[0].modeId;
+          for (const [scale, value] of Object.entries(tokens.radii)) {
+            const v = figma.variables.createVariable(`radius/${scale}`, radiusCol, "FLOAT");
+            v.scopes = ["CORNER_RADIUS"];
+            v.setValueForMode(radModeId, value);
+          }
+          const typCol = figma.variables.createVariableCollection("Aural/Typography");
+          typCol.renameMode(typCol.modes[0].modeId, "Value");
+          const typModeId = typCol.modes[0].modeId;
+          for (const [name, value] of Object.entries(tokens.typography.fontFamilies)) {
+            const v = figma.variables.createVariable(`font-family/${name}`, typCol, "STRING");
+            v.scopes = ["FONT_FAMILY"];
+            v.setValueForMode(typModeId, value);
+          }
+          for (const [scale, value] of Object.entries(tokens.typography.fontSizes)) {
+            const v = figma.variables.createVariable(`font-size/${scale}`, typCol, "FLOAT");
+            v.scopes = ["FONT_SIZE"];
+            v.setValueForMode(typModeId, value);
+          }
+          for (const [weight, value] of Object.entries(tokens.typography.fontWeights)) {
+            const v = figma.variables.createVariable(`font-weight/${weight}`, typCol, "FLOAT");
+            v.scopes = ["FONT_WEIGHT"];
+            v.setValueForMode(typModeId, value);
+          }
+          for (const [name, value] of Object.entries(tokens.typography.lineHeights)) {
+            const v = figma.variables.createVariable(`line-height/${name}`, typCol, "FLOAT");
+            v.scopes = ["LINE_HEIGHT"];
+            v.setValueForMode(typModeId, value);
+          }
+          for (const [name, value] of Object.entries(tokens.typography.letterSpacing)) {
+            const v = figma.variables.createVariable(`letter-spacing/${name}`, typCol, "FLOAT");
+            v.scopes = ["LETTER_SPACING"];
+            v.setValueForMode(typModeId, value);
+          }
+          const compCol = figma.variables.createVariableCollection("Aural/Components");
+          compCol.renameMode(compCol.modes[0].modeId, "Value");
+          const compModeId = compCol.modes[0].modeId;
+          for (const [size, vals] of Object.entries(tokens.components.button)) {
+            for (const [prop, value] of Object.entries(vals)) {
+              const v = figma.variables.createVariable(`button/${size}/${prop}`, compCol, "FLOAT");
+              v.scopes = prop === "radius" ? ["CORNER_RADIUS"] : prop === "fontSize" ? ["FONT_SIZE"] : ["WIDTH_HEIGHT", "GAP"];
+              v.setValueForMode(compModeId, value);
+            }
+          }
+          for (const [size, vals] of Object.entries(tokens.components.input)) {
+            for (const [prop, value] of Object.entries(vals)) {
+              const v = figma.variables.createVariable(`input/${size}/${prop}`, compCol, "FLOAT");
+              v.scopes = prop === "fontSize" ? ["FONT_SIZE"] : ["WIDTH_HEIGHT", "GAP"];
+              v.setValueForMode(compModeId, value);
+            }
+          }
+          for (const [prop, value] of Object.entries(tokens.components.card)) {
+            const v = figma.variables.createVariable(`card/${prop}`, compCol, "FLOAT");
+            v.scopes = prop === "radius" ? ["CORNER_RADIUS"] : ["WIDTH_HEIGHT", "GAP"];
+            v.setValueForMode(compModeId, value);
+          }
+          for (const [prop, value] of Object.entries(tokens.components.badge)) {
+            if (typeof value !== "number")
+              continue;
+            const v = figma.variables.createVariable(`badge/${prop}`, compCol, "FLOAT");
+            v.scopes = prop === "radius" ? ["CORNER_RADIUS"] : prop === "fontSize" ? ["FONT_SIZE"] : ["WIDTH_HEIGHT", "GAP"];
+            v.setValueForMode(compModeId, value);
+          }
+          const animCol = figma.variables.createVariableCollection("Aural/Animation");
+          animCol.renameMode(animCol.modes[0].modeId, "Value");
+          const animModeId = animCol.modes[0].modeId;
+          for (const [name, ms] of Object.entries(tokens.animations.durations)) {
+            const v = figma.variables.createVariable(`duration/${name}`, animCol, "FLOAT");
+            v.scopes = ["ALL_SCOPES"];
+            v.setValueForMode(animModeId, ms);
+          }
+          for (const [name, curve] of Object.entries(tokens.animations.easings)) {
+            const v = figma.variables.createVariable(`easing/${name}`, animCol, "STRING");
+            v.scopes = ["ALL_SCOPES"];
+            v.setValueForMode(animModeId, curve);
+          }
+          figma.notify("\u2705 Variables ready \u2014 Color (Light/Dark), Spacing, Radius, Typography, Components, Animation!");
         });
       }
       function generateColorSwatches() {
@@ -687,6 +919,60 @@
           }
           finalizeFrame(frame);
           figma.notify("Switches generated!");
+        });
+      }
+      function generateToggle() {
+        return __async(this, null, function* () {
+          yield loadFonts();
+          const frame = createComponentFrame("Aural UI Toggle");
+          addTitle(frame, "Toggle");
+          addSubtitle(frame, "On/off button that retains active state");
+          const variants = [
+            { label: "Default Off", active: false, disabled: false },
+            { label: "Default On", active: true, disabled: false },
+            { label: "Sm Off", active: false, disabled: false, small: true },
+            { label: "Sm On", active: true, disabled: false, small: true },
+            { label: "Disabled Off", active: false, disabled: true },
+            { label: "Disabled On", active: true, disabled: true }
+          ];
+          const grid = figma.createFrame();
+          grid.layoutMode = "HORIZONTAL";
+          grid.itemSpacing = 24;
+          grid.fills = [];
+          grid.layoutWrap = "WRAP";
+          grid.counterAxisSpacing = 16;
+          for (const v of variants) {
+            const cell = figma.createFrame();
+            cell.layoutMode = "VERTICAL";
+            cell.itemSpacing = 8;
+            cell.fills = [];
+            cell.counterAxisAlignItems = "CENTER";
+            const h = v.small ? 28 : 36;
+            const w = v.small ? 56 : 72;
+            const pill = figma.createFrame();
+            pill.resize(w, h);
+            pill.cornerRadius = h / 2;
+            const bgColor = v.disabled ? v.active ? tokens.colors.primary["300"] : "#e5e7eb" : v.active ? tokens.colors.primary["500"] : "#d1d5db";
+            pill.fills = [{ type: "SOLID", color: hexToRgb(bgColor) }];
+            const knobSize = h - 8;
+            const knob = figma.createEllipse();
+            knob.resize(knobSize, knobSize);
+            knob.x = v.active ? w - knobSize - 4 : 4;
+            knob.y = 4;
+            knob.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];
+            pill.appendChild(knob);
+            const lbl = figma.createText();
+            lbl.characters = v.label;
+            lbl.fontSize = 11;
+            lbl.fontName = { family: "Inter", style: "Regular" };
+            lbl.fills = [{ type: "SOLID", color: hexToRgb("#6b7280") }];
+            cell.appendChild(pill);
+            cell.appendChild(lbl);
+            grid.appendChild(cell);
+          }
+          frame.appendChild(grid);
+          finalizeFrame(frame);
+          figma.notify("Toggle generated!");
         });
       }
       function generateSelects() {
@@ -4035,6 +4321,7 @@
       function generateAllComponents() {
         return __async(this, null, function* () {
           figma.notify("Generating all components...");
+          yield generateVariables();
           yield generateColors();
           yield generateColorSwatches();
           yield generateTypography();
@@ -4049,6 +4336,7 @@
           yield generateCheckboxes();
           yield generateRadioButtons();
           yield generateSwitches();
+          yield generateToggle();
           yield generateSelects();
           yield generateCombobox();
           yield generateMultiSelect();
@@ -4113,6 +4401,9 @@
           case "generate-all":
             yield generateAllComponents();
             break;
+          case "generate-variables":
+            yield generateVariables();
+            break;
           case "generate-colors":
             yield generateColors();
             yield generateColorSwatches();
@@ -4150,6 +4441,9 @@
             break;
           case "generate-switches":
             yield generateSwitches();
+            break;
+          case "generate-toggle":
+            yield generateToggle();
             break;
           case "generate-selects":
             yield generateSelects();

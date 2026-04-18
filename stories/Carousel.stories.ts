@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html';
 import { createThemeGrid } from '../.storybook/utils/createThemeGrid';
 

@@ -3,180 +3,307 @@
 <head>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0f0f13;
+      --surface: #18181f;
+      --surface-2: #222230;
+      --border: rgba(255,255,255,0.07);
+      --border-strong: rgba(255,255,255,0.12);
+      --text: #f0f0f5;
+      --text-muted: #8888a0;
+      --text-dim: #55556a;
+      --accent: #7c6af7;
+      --accent-hover: #9585fa;
+      --accent-light: rgba(124,106,247,0.15);
+      --green: #4da77a;
+      --green-light: rgba(77,167,122,0.15);
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #1a1a2e;
-      color: #f5f5fa;
-      padding: 16px;
+      background: var(--bg);
+      color: var(--text);
+      padding: 14px;
       font-size: 12px;
+      line-height: 1.4;
     }
-    .header { text-align: center; margin-bottom: 16px; }
-    .logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px; }
-    .logo-icon {
-      width: 32px; height: 32px;
-      background: linear-gradient(135deg, #5ebd8f, #4da77a);
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo-mark {
+      width: 30px; height: 30px; flex-shrink: 0;
+      background: linear-gradient(135deg, #7c6af7, #4da77a);
       border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
     }
-    .logo-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 2; }
-    .logo-text { font-size: 20px; font-weight: 700; }
-    .subtitle { color: #a0a0b8; font-size: 11px; }
-    .section { margin-bottom: 14px; }
-    .section-title {
-      font-size: 10px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.5px; color: #707080; margin-bottom: 8px;
+    .logo-mark svg { width: 18px; height: 18px; stroke: white; fill: none; stroke-width: 2; }
+    .header-text { flex: 1; }
+    .header-title { font-size: 14px; font-weight: 700; letter-spacing: -0.2px; }
+    .header-sub { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+    .pill {
+      background: var(--accent-light); color: var(--accent);
+      font-size: 9px; font-weight: 600; padding: 2px 7px;
+      border-radius: 20px; border: 1px solid rgba(124,106,247,0.25);
     }
-    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-    .btn-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
-    .btn-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 5px; }
-    .btn {
-      display: flex; align-items: center; justify-content: center; gap: 4px;
-      padding: 8px 6px; border: none; border-radius: 6px;
-      font-size: 10px; font-weight: 500; cursor: pointer; transition: all 0.15s;
+
+    /* ── Generate All CTA ── */
+    .cta-wrap { margin-bottom: 10px; display: flex; gap: 6px; }
+    .btn-cta {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px; border: none; border-radius: 8px; cursor: pointer;
+      font-size: 11px; font-weight: 600; transition: all 0.15s;
+      background: linear-gradient(135deg, #7c6af7, #5a4fd4);
+      color: white; box-shadow: 0 2px 12px rgba(124,106,247,0.35);
     }
-    .btn-primary {
-      background: linear-gradient(135deg, #5ebd8f, #4da77a);
-      color: white; grid-column: span 2;
+    .btn-cta:hover { background: linear-gradient(135deg, #9585fa, #7c6af7); transform: translateY(-1px); }
+    .btn-cta:active { transform: translateY(0); }
+    .btn-cta svg { width: 14px; height: 14px; }
+
+    .btn-vars {
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+      padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: 8px;
+      cursor: pointer; font-size: 11px; font-weight: 600; transition: all 0.15s;
+      background: var(--surface); color: var(--accent);
     }
-    .btn-primary:hover { background: linear-gradient(135deg, #71e9bb, #5ebd8f); }
-    .btn-secondary {
-      background: #252540; color: #f5f5fa;
-      border: 1px solid rgba(255,255,255,0.08);
+    .btn-vars:hover { background: var(--accent-light); border-color: rgba(124,106,247,0.4); }
+    .btn-vars svg { width: 13px; height: 13px; }
+
+    /* ── Scroll area ── */
+    .scroll-area {
+      max-height: 560px; overflow-y: auto; padding-right: 2px;
     }
-    .btn-secondary:hover { background: #35355a; }
-    .btn svg { width: 14px; height: 14px; }
-    .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
-    .scroll-area { max-height: 620px; overflow-y: auto; padding-right: 4px; }
-    .scroll-area::-webkit-scrollbar { width: 4px; }
+    .scroll-area::-webkit-scrollbar { width: 3px; }
     .scroll-area::-webkit-scrollbar-track { background: transparent; }
-    .scroll-area::-webkit-scrollbar-thumb { background: #404060; border-radius: 2px; }
-    .version { text-align: center; color: #50505f; font-size: 10px; margin-top: 12px; }
-    .badge {
-      background: #5ebd8f; color: #1a1a2e; font-size: 9px;
-      padding: 2px 6px; border-radius: 4px; margin-left: 4px;
+    .scroll-area::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 2px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 12px; }
+    .section-header {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--text-dim);
+      margin-bottom: 6px; padding: 0 1px;
+    }
+    .section-header .dot {
+      width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ── Button grid ── */
+    .grid { display: grid; gap: 4px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 3px;
+      padding: 7px 4px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 10px; font-weight: 500; cursor: pointer; transition: all 0.12s;
+      background: var(--surface); color: var(--text-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .btn:hover {
+      background: var(--surface-2); color: var(--text);
+      border-color: var(--border-strong);
+    }
+    .btn:active { transform: scale(0.97); }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+    /* ── Toast notification ── */
+    .toast {
+      position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--surface-2); border: 1px solid var(--border-strong);
+      color: var(--text); font-size: 11px; padding: 8px 14px;
+      border-radius: 8px; opacity: 0; transition: all 0.25s;
+      pointer-events: none; white-space: nowrap; z-index: 99;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center; font-size: 9px; color: var(--text-dim);
+      padding-top: 10px; margin-top: 2px;
     }
   </style>
 </head>
 <body>
+
+  <!-- Header -->
   <div class="header">
-    <div class="logo">
-      <div class="logo-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 3v18M6 7v10M18 7v10M3 10v4M21 10v4M9 5v14M15 5v14"/></svg>
-      </div>
-      <span class="logo-text">Aural UI</span>
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3v18M6 7v10M18 7v10M3 10v4M21 10v4"/>
+      </svg>
     </div>
-    <p class="subtitle">Complete Design System Generator <span class="badge">60+</span></p>
+    <div class="header-text">
+      <div class="header-title">Aural UI</div>
+      <div class="header-sub">Design System Generator</div>
+    </div>
+    <div class="pill">61+ components</div>
   </div>
 
-  <div class="section">
-    <button class="btn btn-primary" onclick="generate('all')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <!-- CTAs -->
+  <div class="cta-wrap">
+    <button class="btn-cta" onclick="generate('all')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
       </svg>
-      Generate Complete Design System
+      Generate Everything
+    </button>
+    <button class="btn-vars" onclick="generate('variables')" title="Create Figma Variables with Light/Dark mode support">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/><path d="M3 12h3m12 0h3M12 3v3m0 12v3"/>
+      </svg>
+      Variables
     </button>
   </div>
 
   <div class="divider"></div>
 
+  <!-- Scrollable sections -->
   <div class="scroll-area">
+
+    <!-- Foundations -->
     <div class="section">
-      <div class="section-title">🎨 Foundations</div>
-      <div class="btn-grid">
-        <button class="btn btn-secondary" onclick="generate('colors')">Colors</button>
-        <button class="btn btn-secondary" onclick="generate('typography')">Typography</button>
-        <button class="btn btn-secondary" onclick="generate('spacing')">Spacing</button>
-        <button class="btn btn-secondary" onclick="generate('effects')">Effects</button>
+      <div class="section-header">
+        <span class="dot" style="background:#7c6af7"></span>
+        Foundations
+      </div>
+      <div class="grid grid-4">
+        <button class="btn" onclick="generate('colors')">Colors</button>
+        <button class="btn" onclick="generate('typography')">Type</button>
+        <button class="btn" onclick="generate('spacing')">Spacing</button>
+        <button class="btn" onclick="generate('effects')">Effects</button>
       </div>
     </div>
 
+    <!-- Forms & Inputs -->
     <div class="section">
-      <div class="section-title">📝 Forms & Inputs</div>
-      <div class="btn-grid-4">
-        <button class="btn btn-secondary" onclick="generate('buttons')">Buttons</button>
-        <button class="btn btn-secondary" onclick="generate('icon-buttons')">Icon Btns</button>
-        <button class="btn btn-secondary" onclick="generate('loading-buttons')">Loading</button>
-        <button class="btn btn-secondary" onclick="generate('inputs')">Inputs</button>
-        <button class="btn btn-secondary" onclick="generate('textareas')">Textareas</button>
-        <button class="btn btn-secondary" onclick="generate('checkboxes')">Checkbox</button>
-        <button class="btn btn-secondary" onclick="generate('radio')">Radio</button>
-        <button class="btn btn-secondary" onclick="generate('switches')">Switch</button>
-        <button class="btn btn-secondary" onclick="generate('selects')">Select</button>
-        <button class="btn btn-secondary" onclick="generate('combobox')">Combobox</button>
-        <button class="btn btn-secondary" onclick="generate('multiselect')">Multi Select</button>
-        <button class="btn btn-secondary" onclick="generate('sliders')">Slider</button>
-        <button class="btn btn-secondary" onclick="generate('range-slider')">Range Slider</button>
-        <button class="btn btn-secondary" onclick="generate('rating')">Rating</button>
-        <button class="btn btn-secondary" onclick="generate('search')">Search</button>
-        <button class="btn btn-secondary" onclick="generate('file-upload')">File Upload</button>
-        <button class="btn btn-secondary" onclick="generate('datepicker')">Date Picker</button>
-        <button class="btn btn-secondary" onclick="generate('timepicker')">Time Picker</button>
-        <button class="btn btn-secondary" onclick="generate('colorpicker')">Color Picker</button>
-        <button class="btn btn-secondary" onclick="generate('togglegroup')">Toggle Group</button>
+      <div class="section-header">
+        <span class="dot" style="background:#4da77a"></span>
+        Forms &amp; Inputs
+      </div>
+      <div class="grid grid-4">
+        <button class="btn" onclick="generate('buttons')">Buttons</button>
+        <button class="btn" onclick="generate('icon-buttons')">Icon Btn</button>
+        <button class="btn" onclick="generate('loading-buttons')">Loading</button>
+        <button class="btn" onclick="generate('inputs')">Inputs</button>
+        <button class="btn" onclick="generate('textareas')">Textarea</button>
+        <button class="btn" onclick="generate('checkboxes')">Check</button>
+        <button class="btn" onclick="generate('radio')">Radio</button>
+        <button class="btn" onclick="generate('switches')">Switch</button>
+        <button class="btn" onclick="generate('toggle')">Toggle</button>
+        <button class="btn" onclick="generate('togglegroup')">Tgl Group</button>
+        <button class="btn" onclick="generate('selects')">Select</button>
+        <button class="btn" onclick="generate('combobox')">Combobox</button>
+        <button class="btn" onclick="generate('multiselect')">Multi Sel</button>
+        <button class="btn" onclick="generate('sliders')">Slider</button>
+        <button class="btn" onclick="generate('range-slider')">Range</button>
+        <button class="btn" onclick="generate('rating')">Rating</button>
+        <button class="btn" onclick="generate('search')">Search</button>
+        <button class="btn" onclick="generate('file-upload')">File Up</button>
+        <button class="btn" onclick="generate('datepicker')">Date</button>
+        <button class="btn" onclick="generate('timepicker')">Time</button>
+        <button class="btn" onclick="generate('colorpicker')">Color</button>
       </div>
     </div>
 
+    <!-- Data Display -->
     <div class="section">
-      <div class="section-title">📊 Data Display</div>
-      <div class="btn-grid-4">
-        <button class="btn btn-secondary" onclick="generate('badges')">Badges</button>
-        <button class="btn btn-secondary" onclick="generate('cards')">Cards</button>
-        <button class="btn btn-secondary" onclick="generate('tables')">Tables</button>
-        <button class="btn btn-secondary" onclick="generate('progress')">Progress</button>
-        <button class="btn btn-secondary" onclick="generate('avatars')">Avatars</button>
-        <button class="btn btn-secondary" onclick="generate('avatar-groups')">Av Groups</button>
-        <button class="btn btn-secondary" onclick="generate('tooltips')">Tooltips</button>
-        <button class="btn btn-secondary" onclick="generate('chips')">Chips</button>
-        <button class="btn btn-secondary" onclick="generate('spinner')">Spinner</button>
-        <button class="btn btn-secondary" onclick="generate('skeleton')">Skeleton</button>
-        <button class="btn btn-secondary" onclick="generate('timeline')">Timeline</button>
-        <button class="btn btn-secondary" onclick="generate('stats')">Stats</button>
-        <button class="btn btn-secondary" onclick="generate('calendar')">Calendar</button>
-        <button class="btn btn-secondary" onclick="generate('dividers')">Dividers</button>
-        <button class="btn btn-secondary" onclick="generate('codeblock')">Code Block</button>
-        <button class="btn btn-secondary" onclick="generate('emptystate')">Empty State</button>
-        <button class="btn btn-secondary" onclick="generate('imagegallery')">Gallery</button>
-        <button class="btn btn-secondary" onclick="generate('carousel')">Carousel</button>
+      <div class="section-header">
+        <span class="dot" style="background:#06b6d4"></span>
+        Data Display
+      </div>
+      <div class="grid grid-4">
+        <button class="btn" onclick="generate('badges')">Badges</button>
+        <button class="btn" onclick="generate('cards')">Cards</button>
+        <button class="btn" onclick="generate('tables')">Tables</button>
+        <button class="btn" onclick="generate('progress')">Progress</button>
+        <button class="btn" onclick="generate('avatars')">Avatars</button>
+        <button class="btn" onclick="generate('avatar-groups')">Av Groups</button>
+        <button class="btn" onclick="generate('tooltips')">Tooltips</button>
+        <button class="btn" onclick="generate('chips')">Chips</button>
+        <button class="btn" onclick="generate('spinner')">Spinner</button>
+        <button class="btn" onclick="generate('skeleton')">Skeleton</button>
+        <button class="btn" onclick="generate('timeline')">Timeline</button>
+        <button class="btn" onclick="generate('stats')">Stats</button>
+        <button class="btn" onclick="generate('calendar')">Calendar</button>
+        <button class="btn" onclick="generate('dividers')">Dividers</button>
+        <button class="btn" onclick="generate('codeblock')">Code</button>
+        <button class="btn" onclick="generate('emptystate')">Empty</button>
+        <button class="btn" onclick="generate('imagegallery')">Gallery</button>
+        <button class="btn" onclick="generate('carousel')">Carousel</button>
       </div>
     </div>
 
+    <!-- Navigation -->
     <div class="section">
-      <div class="section-title">🧭 Navigation</div>
-      <div class="btn-grid-3">
-        <button class="btn btn-secondary" onclick="generate('navbar')">Navbar</button>
-        <button class="btn btn-secondary" onclick="generate('bottomnav')">Bottom Nav</button>
-        <button class="btn btn-secondary" onclick="generate('tabs')">Tabs</button>
-        <button class="btn btn-secondary" onclick="generate('breadcrumbs')">Breadcrumbs</button>
-        <button class="btn btn-secondary" onclick="generate('pagination')">Pagination</button>
-        <button class="btn btn-secondary" onclick="generate('accordion')">Accordion</button>
-        <button class="btn btn-secondary" onclick="generate('stepper')">Stepper</button>
-        <button class="btn btn-secondary" onclick="generate('treeview')">Tree View</button>
+      <div class="section-header">
+        <span class="dot" style="background:#f59e0b"></span>
+        Navigation
+      </div>
+      <div class="grid grid-4">
+        <button class="btn" onclick="generate('navbar')">Navbar</button>
+        <button class="btn" onclick="generate('bottomnav')">Bot Nav</button>
+        <button class="btn" onclick="generate('tabs')">Tabs</button>
+        <button class="btn" onclick="generate('breadcrumbs')">Breadcrumb</button>
+        <button class="btn" onclick="generate('pagination')">Pagination</button>
+        <button class="btn" onclick="generate('accordion')">Accordion</button>
+        <button class="btn" onclick="generate('stepper')">Stepper</button>
+        <button class="btn" onclick="generate('treeview')">Tree View</button>
       </div>
     </div>
 
+    <!-- Overlays & Feedback -->
     <div class="section">
-      <div class="section-title">💬 Overlays & Feedback</div>
-      <div class="btn-grid-3">
-        <button class="btn btn-secondary" onclick="generate('modals')">Modals</button>
-        <button class="btn btn-secondary" onclick="generate('dialog')">Dialog</button>
-        <button class="btn btn-secondary" onclick="generate('toasts')">Toasts</button>
-        <button class="btn btn-secondary" onclick="generate('snackbar')">Snackbar</button>
-        <button class="btn btn-secondary" onclick="generate('drawer')">Drawer</button>
-        <button class="btn btn-secondary" onclick="generate('alerts')">Alerts</button>
-        <button class="btn btn-secondary" onclick="generate('popovers')">Popovers</button>
-        <button class="btn btn-secondary" onclick="generate('dropdowns')">Dropdowns</button>
-        <button class="btn btn-secondary" onclick="generate('contextmenu')">Context Menu</button>
-        <button class="btn btn-secondary" onclick="generate('commandpalette')">Cmd Palette</button>
-        <button class="btn btn-secondary" onclick="generate('notifications')">Notif Center</button>
+      <div class="section-header">
+        <span class="dot" style="background:#ef4444"></span>
+        Overlays &amp; Feedback
+      </div>
+      <div class="grid grid-4">
+        <button class="btn" onclick="generate('modals')">Modals</button>
+        <button class="btn" onclick="generate('dialog')">Dialog</button>
+        <button class="btn" onclick="generate('toasts')">Toasts</button>
+        <button class="btn" onclick="generate('snackbar')">Snackbar</button>
+        <button class="btn" onclick="generate('drawer')">Drawer</button>
+        <button class="btn" onclick="generate('alerts')">Alerts</button>
+        <button class="btn" onclick="generate('popovers')">Popovers</button>
+        <button class="btn" onclick="generate('dropdowns')">Dropdowns</button>
+        <button class="btn" onclick="generate('contextmenu')">Ctx Menu</button>
+        <button class="btn" onclick="generate('commandpalette')">Cmd Palet</button>
+        <button class="btn" onclick="generate('notifications')">Notif Ctr</button>
       </div>
     </div>
-  </div>
 
-  <p class="version">Aural UI v1.0.0 • Matches CSS Library</p>
+  </div><!-- end scroll-area -->
+
+  <div class="footer">Aural UI v1.0.0 &nbsp;·&nbsp; 61+ components &nbsp;·&nbsp; Light / Dark Variables</div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
 
   <script>
     function generate(type) {
       parent.postMessage({ pluginMessage: { type: `generate-${type}` } }, '*');
+      showToast('Running: ' + type + '…');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2500);
     }
   </script>
 </body>

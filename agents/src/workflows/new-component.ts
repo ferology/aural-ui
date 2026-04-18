@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { AgentManager } from '../agents/agent-manager.js';
 import { OllamaClient } from '../config/ollama-client.js';
-import type { WorkflowContext, AgentTask } from '../types/agent.js';
+import type { WorkflowContext } from '../types/agent.js';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
@@ -95,7 +95,7 @@ async function main() {
   console.log(chalk.white(`Type: ${answers.type}`));
   console.log(chalk.white(`Description: ${answers.description}`));
   console.log(chalk.white(`Variants: ${answers.variants}`));
-  console.log(chalk.white(`Interactive: ${answers.interactive ? 'Yes' : 'No'}\n'));
+  console.log(chalk.white(`Interactive: ${answers.interactive ? 'Yes' : 'No'}\n`));
 
   const proceed = await inquirer.prompt([
     {

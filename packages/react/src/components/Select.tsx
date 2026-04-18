@@ -67,14 +67,14 @@ export const Select: React.FC<SelectProps> = ({
     : options;
 
   useEffect(() => {
-    // @ts-ignore
+    // @ts-expect-error - Aural global not typed
     if (typeof window.Aural === 'undefined') return;
 
     if (isOpen) {
-      // @ts-ignore
+      // @ts-expect-error - Aural global not typed
       window.Aural.openSelect(id);
     } else {
-      // @ts-ignore
+      // @ts-expect-error - Aural global not typed
       window.Aural.closeSelect(id);
     }
   }, [isOpen, id]);
@@ -110,9 +110,9 @@ export const Select: React.FC<SelectProps> = ({
   };
 
   const handleSelect = (optionValue: string) => {
-    // @ts-ignore
+    // @ts-expect-error - Aural global not typed
     if (typeof window.Aural !== 'undefined') {
-      // @ts-ignore
+      // @ts-expect-error - Aural global not typed
       window.Aural.selectOption(id, optionValue);
     }
     onChange?.(optionValue);

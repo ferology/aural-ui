@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html';
 import { createThemeGrid } from '../.storybook/utils/createThemeGrid';
 
@@ -100,7 +101,7 @@ type Story = StoryObj;
 /**
  * Helper function to initialize Lucide icons
  */
-function initializeLucideIcons(container: HTMLElement) {
+function initializeLucideIcons(_container: HTMLElement) {
   setTimeout(() => {
     if (typeof (window as any).lucide !== 'undefined') {
       (window as any).lucide.createIcons();
@@ -111,7 +112,7 @@ function initializeLucideIcons(container: HTMLElement) {
 /**
  * Helper function to initialize tree view
  */
-function initializeTreeView(container: HTMLElement) {
+function initializeTreeView(_container: HTMLElement) {
   setTimeout(() => {
     if (typeof (window as any).Aural !== 'undefined') {
       (window as any).Aural.initTreeView();

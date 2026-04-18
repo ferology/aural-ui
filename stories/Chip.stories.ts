@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html';
 import { createThemeGrid } from '../.storybook/utils/createThemeGrid';
 
@@ -159,7 +160,7 @@ function createChip(args: any): HTMLElement {
 /**
  * Initialize Lucide icons after rendering
  */
-function initializeLucideIcons(container: HTMLElement) {
+function initializeLucideIcons(_container: HTMLElement) {
   // Wait for next tick to ensure DOM is ready
   setTimeout(() => {
     if (typeof (window as any).lucide !== 'undefined') {
@@ -561,7 +562,7 @@ export const TagFilters: Story = {
       { label: 'Marketing', variant: 'default', active: false }
     ];
 
-    tags.forEach(({ label, variant, active }) => {
+    tags.forEach(({ label, variant, active: _active }) => {
       const chip = createChip({
         label,
         variant,

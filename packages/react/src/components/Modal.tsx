@@ -59,17 +59,17 @@ export const Modal: React.FC<ModalProps> = ({
 
   // Sync isOpen prop with Aural modal state
   useEffect(() => {
-    // @ts-ignore - Aural is loaded globally
+    // @ts-expect-error - Aural is loaded globally
     if (typeof window.Aural === 'undefined') {
       console.warn('Aural is not loaded. Modal will not function correctly.');
       return;
     }
 
     if (isOpen) {
-      // @ts-ignore
+      // @ts-expect-error - Aural global not typed
       window.Aural.openModal(id);
     } else {
-      // @ts-ignore
+      // @ts-expect-error - Aural global not typed
       window.Aural.closeModal(id);
     }
   }, [isOpen, id]);
@@ -91,14 +91,15 @@ export const Modal: React.FC<ModalProps> = ({
       }
     };
 
+    const modalEl = modalRef.current;
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
-      modalRef.current?.addEventListener('click', handleBackdropClick);
+      modalEl?.addEventListener('click', handleBackdropClick);
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      modalRef.current?.removeEventListener('click', handleBackdropClick);
+      modalEl?.removeEventListener('click', handleBackdropClick);
     };
   }, [isOpen, onClose, disableBackdropClose]);
 

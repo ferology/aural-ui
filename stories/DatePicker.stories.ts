@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html';
 
 const meta: Meta = {
@@ -394,7 +395,7 @@ export const BookingPattern: Story = {
       if (typeof window.Aural !== 'undefined' && window.Aural.initDatePicker) {
         let checkinDate: Date | null = null;
 
-        const checkinPickerInstance = window.Aural.initDatePicker('date-picker-checkin', {
+        window.Aural.initDatePicker('date-picker-checkin', {
           minDate: new Date(),
           format: 'MM/DD/YYYY',
           onChange: (date: Date) => {

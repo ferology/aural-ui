@@ -760,6 +760,252 @@ margin-top: var(--space-6);</code></pre>
             </div>
         </section>
 
+        <!-- Animation & Transitions -->
+        <section class="content-section" id="animation">
+            <h2 class="section-title">⚡ Animation & Transitions</h2>
+            <div class="section-content">
+                <p>Motion tokens give every animated component a consistent timing vocabulary. There are three layers: <strong>durations</strong> (how long), <strong>easing functions</strong> (the acceleration curve), and <strong>composite transitions</strong> (ready-to-use shorthands). All are available as Figma Variables in the <code>Aural/Animation</code> collection.</p>
+
+                <!-- Duration scale -->
+                <h3>Duration Scale</h3>
+                <p>Six steps from instant to one second. Click <strong>▶</strong> on any row to preview it.</p>
+
+                <style>
+                    .anim-track {
+                        position: relative;
+                        height: 28px;
+                        background: rgba(255,255,255,0.06);
+                        border-radius: 14px;
+                        overflow: visible;
+                        flex: 1;
+                    }
+                    .anim-ball {
+                        position: absolute;
+                        top: 50%; transform: translateY(-50%);
+                        left: 5px;
+                        width: 18px; height: 18px; border-radius: 50%;
+                        background: var(--color-primary, #4da77a);
+                        box-shadow: 0 0 10px rgba(77,167,122,0.5);
+                        will-change: left;
+                    }
+                    .anim-play-btn {
+                        background: rgba(77,167,122,0.15);
+                        color: var(--color-primary, #4da77a);
+                        border: 1px solid rgba(77,167,122,0.3);
+                        border-radius: 6px;
+                        padding: 4px 10px;
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        white-space: nowrap;
+                        font-family: inherit;
+                    }
+                    .anim-play-btn:hover { background: rgba(77,167,122,0.25); }
+                    .anim-row {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        padding: 10px 0;
+                        border-bottom: 1px solid rgba(255,255,255,0.05);
+                    }
+                    .anim-row:last-child { border-bottom: none; }
+                    .anim-label { width: 110px; flex-shrink: 0; }
+                    .anim-label code { font-size: 0.8rem; color: var(--color-primary, #4da77a); }
+                    .anim-ms { font-size: 0.75rem; color: var(--color-text-secondary, #8888a0); }
+                    .anim-use { font-size: 0.75rem; color: var(--color-text-secondary, #8888a0); width: 220px; flex-shrink: 0; }
+                </style>
+
+                <div class="table-wrapper" style="padding: 1rem 1.25rem; border-radius: 8px;">
+                    <div id="duration-demo">
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--duration-instant</code><br><span class="anim-ms">0ms</span></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="0" data-easing="linear"></div></div>
+                            <span class="anim-use">Toggles, focus rings — no visible motion</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--duration-fast</code><br><span class="anim-ms">150ms</span></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="150" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
+                            <span class="anim-use">Hover, button press, micro-interactions</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--duration-normal</code><br><span class="anim-ms">300ms</span></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="300" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
+                            <span class="anim-use">Menus, tooltips, modals appearing</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--duration-slow</code><br><span class="anim-ms">500ms</span></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="500" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
+                            <span class="anim-use">Drawers, page transitions</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--duration-slower</code><br><span class="anim-ms">750ms</span></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="750" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
+                            <span class="anim-use">Emphasis, onboarding moments</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--duration-slowest</code><br><span class="anim-ms">1000ms</span></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="1000" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
+                            <span class="anim-use">Skeleton loaders, looping animations</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Easing functions -->
+                <h3 style="margin-top: 2rem;">Easing Functions</h3>
+                <p>Six named curves. Click <strong>▶</strong> to see each one animate — notice how acceleration differs.</p>
+
+                <div class="table-wrapper" style="padding: 1rem 1.25rem; border-radius: 8px;">
+                    <div id="easing-demo">
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--ease-linear</code></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="linear"></div></div>
+                            <span class="anim-use">Spinners, looping, progress bars</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--ease-in</code></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.4,0,1,1)"></div></div>
+                            <span class="anim-use">Elements leaving the screen</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--ease-out</code></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0,0,0.2,1)"></div></div>
+                            <span class="anim-use">Elements entering the screen</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--ease-in-out</code></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
+                            <span class="anim-use">Default — most UI interactions</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--ease-bounce</code></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.68,-0.55,0.265,1.55)"></div></div>
+                            <span class="anim-use">Playful confirmations, emphasis</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                        <div class="anim-row">
+                            <div class="anim-label"><code>--ease-spring</code></div>
+                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.175,0.885,0.32,1.275)"></div></div>
+                            <span class="anim-use">Modals, drawers, natural snap</span>
+                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Composite transitions -->
+                <h3 style="margin-top: 2rem;">Composite Transitions</h3>
+                <p>Pre-built shorthands combining duration + easing. Use these to keep motion consistent across components without repeating yourself.</p>
+
+                <div class="table-wrapper">
+                    <table class="token-table">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Value</th>
+                                <th>Best for</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="token-name">--transition-fast</code></td>
+                                <td><code>150ms ease-in-out</code></td>
+                                <td>Generic fast shorthand</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--transition-normal</code></td>
+                                <td><code>300ms ease-in-out</code></td>
+                                <td>Generic normal shorthand</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--transition-slow</code></td>
+                                <td><code>500ms ease-in-out</code></td>
+                                <td>Generic slow shorthand</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--transition-all-fast</code></td>
+                                <td><code>all 150ms ease-in-out</code></td>
+                                <td>All properties, fast — most buttons/links</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--transition-all-normal</code></td>
+                                <td><code>all 300ms ease-in-out</code></td>
+                                <td>All properties, standard speed</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--transition-colors</code></td>
+                                <td><code>color, bg, border 150ms</code></td>
+                                <td>Color-only — no layout shift</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--transition-transform</code></td>
+                                <td><code>transform 150ms ease-in-out</code></td>
+                                <td>GPU-composited — smooth on mobile</td>
+                            </tr>
+                            <tr>
+                                <td><code class="token-name">--transition-opacity</code></td>
+                                <td><code>opacity 300ms ease-in-out</code></td>
+                                <td>GPU-composited — fades and overlays</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Usage -->
+                <h3 style="margin-top: 2rem;">Usage</h3>
+<pre><code>/* Use a composite token for the common case */
+.btn {
+  transition: var(--transition-all-fast);
+}
+
+/* Compose duration + easing yourself for precise control */
+.drawer {
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+/* Prefer GPU-composited props for performance */
+.modal-overlay {
+  transition: var(--transition-opacity);
+}
+</code></pre>
+
+                <!-- Figma note -->
+                <div style="background: rgba(124,106,247,0.1); border: 1px solid rgba(124,106,247,0.25); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1.5rem; font-size: 0.875rem; line-height: 1.6;">
+                    <strong style="color: #9585fa;">📐 Figma Variables</strong><br>
+                    Duration tokens are <strong>FLOAT</strong> variables and easing tokens are <strong>STRING</strong> variables in the <code>Aural/Animation</code> collection. Composite transitions are not Figma Variables — they're CSS-only shorthands. Figma does not yet support binding animation variables to layer properties directly, but they serve as accurate handoff spec values.
+                </div>
+            </div>
+        </section>
+
+        <script>
+        function playBall(btn) {
+            const row = btn.closest('.anim-row');
+            const ball = row.querySelector('.anim-ball');
+            const track = row.querySelector('.anim-track');
+            const ms = parseInt(ball.dataset.ms, 10);
+            const easing = ball.dataset.easing;
+            if (ball._playing) return;
+            ball._playing = true;
+            btn.textContent = '●';
+            const trackW = track.offsetWidth;
+            ball.style.transition = `left ${ms}ms ${easing}`;
+            ball.style.left = (trackW - 23) + 'px';
+            const travel = Math.max(ms, 100);
+            setTimeout(() => {
+                ball.style.left = '5px';
+                setTimeout(() => { ball._playing = false; btn.textContent = '▶'; }, travel + 50);
+            }, travel + 80);
+        }
+        </script>
+
         <!-- Usage -->
         <section class="content-section">
             <h2 class="section-title">Using Design Tokens</h2>

@@ -295,41 +295,95 @@ These tokens map to **purposes** and **change per theme**:
 
 </div>
 
-### Transitions
+### Transitions & Animation
 
-<div style={{
-  background: '#f5f5f5',
-  border: '1px solid #e0e0e0',
-  padding: '1rem',
-  borderRadius: '8px',
-  marginBottom: '1rem',
-  color: '#1a1a1a'
-}}>
+Aural UI ships a full motion token system with three layers: **durations**, **easing functions**, and **composite transitions**. Every animated component uses these tokens, so motion is always consistent and easy to override per theme.
+
+> 📖 **See the live interactive demos** in [Design System → Animation & Transitions](?path=/docs/design-system-animation-transitions--docs) — including an easing playground, duration comparison, and per-token reference table.
+
+#### Duration scale
+
+All six steps are available as both CSS custom properties and Figma Variables (`Aural/Animation / duration/*`, type **FLOAT** in ms):
+
+<div style={{ background: '#f5f5f5', border: '1px solid #e0e0e0', padding: '1rem 1.25rem', borderRadius: '8px', marginBottom: '1rem', color: '#1a1a1a' }}>
 
 ```css
-/* Durations */
---duration-fast: 150ms;
---duration-normal: 300ms;
---duration-slow: 500ms;
-
-/* Easing Functions */
---ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
---ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-/* Combined Transitions */
---transition-fast: 150ms ease-in-out;
---transition-colors: color 150ms ease-in-out,
-                     background-color 150ms ease-in-out;
-```
-
-**Usage:**
-```css
-.btn {
-  transition: var(--transition-all-fast);
-}
+--duration-instant:  0ms;    /* No visible motion — toggles, focus rings */
+--duration-fast:     150ms;  /* Micro-interactions: hover, button press */
+--duration-normal:   300ms;  /* Menus, tooltips, modals */
+--duration-slow:     500ms;  /* Drawers, page transitions */
+--duration-slower:   750ms;  /* Emphasis, onboarding */
+--duration-slowest:  1000ms; /* Skeleton loaders, looping animations */
 ```
 
 </div>
+
+#### Easing functions
+
+Six named curves available as CSS properties and Figma Variables (`Aural/Animation / easing/*`, type **STRING**):
+
+<div style={{ background: '#f5f5f5', border: '1px solid #e0e0e0', padding: '1rem 1.25rem', borderRadius: '8px', marginBottom: '1rem', color: '#1a1a1a' }}>
+
+```css
+--ease-linear:   linear;                              /* Spinners, looping */
+--ease-in:       cubic-bezier(0.4, 0, 1, 1);          /* Elements leaving */
+--ease-out:      cubic-bezier(0, 0, 0.2, 1);          /* Elements entering */
+--ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);        /* Default — most UI */
+--ease-bounce:   cubic-bezier(0.68, -0.55, 0.265, 1.55);  /* Playful emphasis */
+--ease-spring:   cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Organic snap */
+```
+
+</div>
+
+#### Composite transitions (ready to use)
+
+Pre-built shorthand tokens that combine a duration + easing in one variable:
+
+<div style={{ background: '#f5f5f5', border: '1px solid #e0e0e0', padding: '1rem 1.25rem', borderRadius: '8px', marginBottom: '1rem', color: '#1a1a1a' }}>
+
+```css
+--transition-fast:        150ms ease-in-out;
+--transition-normal:      300ms ease-in-out;
+--transition-slow:        500ms ease-in-out;
+--transition-all-fast:    all 150ms ease-in-out;
+--transition-all-normal:  all 300ms ease-in-out;
+--transition-colors:      color 150ms, background-color 150ms, border-color 150ms;
+--transition-transform:   transform 150ms ease-in-out;   /* GPU composited */
+--transition-opacity:     opacity 300ms ease-in-out;     /* GPU composited */
+```
+
+</div>
+
+**Usage:**
+```css
+/* Use a composite token for the common case */
+.btn {
+  transition: var(--transition-all-fast);
+}
+
+/* Or compose duration + easing yourself */
+.drawer {
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+/* Prefer GPU-composited properties for performance */
+.modal-overlay {
+  transition: var(--transition-opacity);
+}
+```
+
+**When to use which easing:**
+
+| Easing | Token | Best for |
+|--------|-------|----------|
+| ease-out | `--ease-out` | Things appearing on screen |
+| ease-in  | `--ease-in`  | Things disappearing off screen |
+| ease-in-out | `--ease-in-out` | Default — moving within the screen |
+| linear | `--ease-linear` | Spinners and progress bars |
+| bounce | `--ease-bounce` | Playful confirmations |
+| spring | `--ease-spring` | Modals, drawers, natural snapping |
+
+**Figma Variables:** All duration values are `FLOAT` variables and all easing strings are `STRING` variables in the `Aural/Animation` collection. Figma does not yet support binding animation variables to layer properties directly, but they serve as accurate spec references for handoff.
 
 ---
 

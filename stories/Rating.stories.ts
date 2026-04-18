@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html';
 import { createThemeGrid } from '../.storybook/utils/createThemeGrid';
 
@@ -298,7 +299,7 @@ function createRating(args: any) {
       updateStars(currentValue);
     });
 
-    function updateStars(hoverValue: number) {
+    const updateStars = (hoverValue: number) => {
       stars.forEach((star, index) => {
         star.classList.remove('aural-rating__star--filled', 'aural-rating__star--empty');
         if (index < hoverValue) {
@@ -307,7 +308,7 @@ function createRating(args: any) {
           star.classList.add('aural-rating__star--empty');
         }
       });
-    }
+    };
   }
 
   return container;

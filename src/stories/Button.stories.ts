@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { fn } from 'storybook/test';
 import type { ButtonProps } from './Button';

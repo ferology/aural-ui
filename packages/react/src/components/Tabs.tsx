@@ -85,7 +85,7 @@ export const Tabs: React.FC<TabsProps> = ({
     const activePanelId = `panel-${activeTab}`;
 
     if (activeTabElement && typeof window.Aural !== 'undefined') {
-      // @ts-ignore
+      // @ts-expect-error - Aural global not typed
       window.Aural.switchTab(`tab-${activeTab}`, activePanelId);
     }
   }, [activeTab]);

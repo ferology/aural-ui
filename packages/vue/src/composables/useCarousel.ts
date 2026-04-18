@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ref, onMounted, onUnmounted, Ref } from 'vue';
 
 export interface CarouselOptions {
@@ -76,11 +77,11 @@ export function useCarousel(
   const controller = ref<CarouselController | null>(null);
 
   onMounted(() => {
-    // @ts-ignore
+    // @ts-expect-error - Aural global not typed
     if (typeof window.Aural === 'undefined') return;
 
     // Initialize carousel
-    // @ts-ignore
+    // @ts-expect-error - Aural global not typed
     const carouselInstance = window.Aural.initCarousel(id, options);
 
     if (carouselInstance) {

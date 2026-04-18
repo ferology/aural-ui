@@ -68,23 +68,23 @@ export const Dropdown: React.FC<DropdownProps> = ({
   children,
   align = 'left',
   className = '',
-  triggerVariant = 'secondary'
+  triggerVariant: _triggerVariant = 'secondary'
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Sync isOpen prop with Aural dropdown state
   useEffect(() => {
-    // @ts-ignore - Aural is loaded globally
+    // @ts-expect-error - Aural is loaded globally
     if (typeof window.Aural === 'undefined') {
       console.warn('Aural is not loaded. Dropdown will not function correctly.');
       return;
     }
 
     if (isOpen) {
-      // @ts-ignore
+      // @ts-expect-error - Aural global not typed
       window.Aural.openDropdown(id);
     } else {
-      // @ts-ignore
+      // @ts-expect-error - Aural global not typed
       window.Aural.closeDropdown(id);
     }
   }, [isOpen, id]);

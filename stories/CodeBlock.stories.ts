@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Meta, StoryObj } from '@storybook/html';
 import { createThemeGrid } from '../.storybook/utils/createThemeGrid';
 
@@ -93,7 +94,7 @@ export default meta;
 type Story = StoryObj;
 
 // Helper function to initialize Lucide icons
-function initLucideIcons(container: HTMLElement) {
+function initLucideIcons(_container: HTMLElement) {
   setTimeout(() => {
     if (typeof (window as any).lucide !== 'undefined') {
       (window as any).lucide.createIcons({ nameAttr: 'data-lucide' });

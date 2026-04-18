@@ -126,6 +126,7 @@ export class OllamaClient {
     }
 
     const data = await response.json();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return data.models?.map((m: any) => m.name) || [];
   }
 
