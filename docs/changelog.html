@@ -180,11 +180,32 @@
             <p class="page-description">Track all updates, new features, and improvements to Aural UI. Each version documents what's new, what's changed, and what's been fixed.</p>
         </div>
 
+        <!-- Version 1.5.1 - April 23, 2026 -->
+        <div class="version-section">
+            <div class="version-header">
+                <span class="version-number">v1.5.1</span>
+                <span class="version-badge badge-latest">Latest</span>
+                <span class="version-date">April 23, 2026</span>
+            </div>
+
+            <!-- Fixed -->
+            <div class="change-category">
+                <h3 class="category-title">
+                    <i data-lucide="bug" class="category-icon"></i>
+                    Fixed
+                </h3>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <strong>Invalid <code>:not(::before)</code> selectors in Checkbox, Radio, and Toggle:</strong> the <code>.checkbox-only</code>, <code>.radio-only</code>, and <code>.toggle-only</code> label-less variants used <code>:not()</code> with a pseudo-element argument, which is not valid CSS. Browsers silently dropped the rule, so these variants never actually hid their label text. Replaced with a valid technique (<code>font-size: 0</code> on the span, with explicit width/height for radio/toggle since their pseudo-elements are absolutely positioned). Label text remains in the accessibility tree for screen readers.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <!-- Version 1.5.0 - February 28, 2026 -->
         <div class="version-section">
             <div class="version-header">
                 <span class="version-number">v1.5.0</span>
-                <span class="version-badge badge-latest">Latest</span>
                 <span class="version-date">February 28, 2026</span>
             </div>
 
