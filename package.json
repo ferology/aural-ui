@@ -1,19 +1,33 @@
 {
-  "name": "aural-ui",
+  "name": "aural-design",
   "version": "1.5.1",
   "description": "A modern, accessible design system with comprehensive components, utilities, and themes",
-  "private": true,
+  "main": "dist/aural-ui.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
+  "style": "dist/aural-ui.css",
+  "files": [
+    "dist/",
+    "themes/",
+    "types/",
+    "utilities/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "dev": "npm run dev --workspaces --if-present",
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm-run-all build:css build:js build:js:esm build:js:min build:css:min",
     "build:css": "node scripts/build-css.js",
+    "build:css:min": "postcss src/aural-ui.css -o dist/aural-ui.min.css --env production",
+    "build:js": "esbuild javascript/index.js --bundle --outfile=dist/aural-ui.js",
+    "build:js:esm": "esbuild javascript/index.js --bundle --format=esm --outfile=dist/esm/index.js",
+    "build:js:min": "esbuild javascript/index.js --bundle --minify --outfile=dist/aural-ui.min.js",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:ci": "vitest run --coverage",
     "test:watch": "vitest watch",
     "test:e2e": "playwright test",
-    "clean": "rm -rf packages/*/dist",
     "serve": "serve docs -p 3001",
-    "demo:react": "cd examples/react-demo && npm run dev",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "npm run build:css && storybook build",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0",
@@ -50,7 +64,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ferology/aural-ui.git"
+    "url": "git+https://github.com/ferology/aural-ui.git"
   },
   "homepage": "https://ferology.github.io/aural-ui/",
   "bugs": {
