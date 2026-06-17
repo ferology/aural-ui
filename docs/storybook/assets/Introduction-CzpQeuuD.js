@@ -1,4 +1,4 @@
-import{j as e,M as l}from"./index-Dd1tOUWA.js";import{useMDXComponents as r}from"./index-D07d6PwH.js";import"./iframe-DaaNqE6k.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Introduction",parameters:{docs:{theme:{base:"light"}}}}),`
+import{j as e,M as l}from"./index-BgFxNVjY.js";import{useMDXComponents as r}from"./index-jBZDW5N7.js";import"./iframe-DVTddcFI.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function s(i){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...r(),...i.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{title:"Introduction",parameters:{docs:{theme:{base:"light"}}}}),`
 `,e.jsx("style",{children:`
   :root,
   #storybook-docs,
@@ -24,6 +24,7 @@ import{j as e,M as l}from"./index-Dd1tOUWA.js";import{useMDXComponents as r}from
 `,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"📱 Fully Responsive"})," - Mobile-first design with breakpoint utilities"]}),`
 `,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"⚡ Performance Optimized"})," - Minimal CSS and JS footprint"]}),`
 `,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"🎭 Design Tokens"})," - CSS custom properties for easy customization"]}),`
+`,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"🖌️ Figma UI Kit"})," - Matching ",e.jsx(n.a,{href:"https://www.figma.com/community/file/1649056373718832084/aural-ai",rel:"nofollow",children:"Figma Community library"})," with variant components and all 9 theme modes via Figma Variables"]}),`
 `]}),e.jsx(n.h2,{id:"getting-started",children:"Getting Started"}),e.jsx(n.h3,{id:"installation",children:"Installation"}),e.jsx(n.pre,{children:e.jsx(n.code,{className:"language-bash",children:`npm install aural-design
 `})}),e.jsx(n.h3,{id:"basic-usage",children:"Basic Usage"}),e.jsx(n.pre,{children:e.jsx(n.code,{className:"language-html",children:`<link rel="stylesheet" href="path/to/aural-ui.css">
 <link rel="stylesheet" href="path/to/themes/dark.css">
@@ -77,4 +78,5 @@ import{j as e,M as l}from"./index-Dd1tOUWA.js";import{useMDXComponents as r}from
 `,e.jsx(n.li,{children:e.jsx(n.a,{href:"https://github.com/ferology/aural-ui",rel:"nofollow",children:"GitHub Repository"})}),`
 `,e.jsx(n.li,{children:e.jsx(n.a,{href:"https://ferology.github.io/aural-ui/",rel:"nofollow",children:"Documentation"})}),`
 `,e.jsx(n.li,{children:e.jsx(n.a,{href:"https://ferology.github.io/aural-ui/demo.html#catalog.html",rel:"nofollow",children:"Component Demos"})}),`
-`]}),e.jsx(n.h2,{id:"license",children:"License"}),e.jsx(n.p,{children:"MIT License - feel free to use in personal and commercial projects."})]})]})}function x(i={}){const{wrapper:n}={...r(),...i.components};return n?e.jsx(n,{...i,children:e.jsx(s,{...i})}):s(i)}export{x as default};
+`,e.jsx(n.li,{children:e.jsx(n.a,{href:"https://www.figma.com/community/file/1649056373718832084/aural-ai",rel:"nofollow",children:"Figma UI Kit (Community)"})}),`
+`]}),e.jsx(n.h2,{id:"license",children:"License"}),e.jsx(n.p,{children:"MIT License - feel free to use in personal and commercial projects."})]})]})}function m(i={}){const{wrapper:n}={...r(),...i.components};return n?e.jsx(n,{...i,children:e.jsx(s,{...i})}):s(i)}export{m as default};
