@@ -9,7 +9,7 @@ canonical_url: https://yourblog.com/reusable-css-components
 
 # How to Create Reusable UI Components with Pure CSS
 
-When building [Aural UI](https://github.com/yourusername/aural-ui), I had a choice: use a CSS-in-JS solution or stick with pure CSS. I chose **pure CSS**, and it turned out to be one of the best decisions I made.
+When building [Aural UI](https://github.com/ferology/aural-ui), I had a choice: use a CSS-in-JS solution or stick with pure CSS. I chose **pure CSS**, and it turned out to be one of the best decisions I made.
 
 Here's how I built 60+ production-ready components using modern CSS techniques that work with any framework (or no framework at all).
 
@@ -64,36 +64,36 @@ Every great component library starts with a solid design system.
   --color-primary-active: var(--primary-600);
 
   /* === Spacing === */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px */
-  --space-16: 4rem;     /* 64px */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
 
   /* === Typography === */
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
 
-  --text-xs: 0.75rem;    /* 12px */
-  --text-sm: 0.875rem;   /* 14px */
-  --text-base: 1rem;     /* 16px */
-  --text-lg: 1.125rem;   /* 18px */
-  --text-xl: 1.25rem;    /* 20px */
-  --text-2xl: 1.5rem;    /* 24px */
-  --text-3xl: 1.875rem;  /* 30px */
-  --text-4xl: 2.25rem;   /* 36px */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
 
   /* === Border Radius === */
-  --radius-sm: 0.25rem;   /* 4px */
-  --radius-md: 0.375rem;  /* 6px */
-  --radius-lg: 0.5rem;    /* 8px */
-  --radius-xl: 0.75rem;   /* 12px */
-  --radius-2xl: 1rem;     /* 16px */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.375rem; /* 6px */
+  --radius-lg: 0.5rem; /* 8px */
+  --radius-xl: 0.75rem; /* 12px */
+  --radius-2xl: 1rem; /* 16px */
   --radius-full: 9999px;
 
   /* === Shadows === */
@@ -202,12 +202,12 @@ Each component follows a consistent pattern:
   --btn-padding-y: var(--space-1);
   --btn-padding-x: var(--space-3);
   --btn-font-size: var(--text-xs);
-  min-height: 44px;  /* Mobile WCAG */
+  min-height: 44px; /* Mobile WCAG */
 }
 
 @media (min-width: 768px) and (pointer: fine) {
   .btn-sm {
-    min-height: 36px;  /* Desktop can be smaller */
+    min-height: 36px; /* Desktop can be smaller */
   }
 }
 
@@ -418,11 +418,11 @@ What do we want the component to do?
 }
 
 .card-footer {
-  flex-direction: column;  /* Stack buttons on mobile */
+  flex-direction: column; /* Stack buttons on mobile */
 }
 
 .card-footer .btn {
-  width: 100%;  /* Full-width buttons on mobile */
+  width: 100%; /* Full-width buttons on mobile */
 }
 
 /* Desktop improvements */
@@ -432,11 +432,11 @@ What do we want the component to do?
   }
 
   .card-footer {
-    flex-direction: row;  /* Row layout on desktop */
+    flex-direction: row; /* Row layout on desktop */
   }
 
   .card-footer .btn {
-    width: auto;  /* Auto-width on desktop */
+    width: auto; /* Auto-width on desktop */
   }
 }
 ```
@@ -470,7 +470,7 @@ Components that work together:
   transition: all var(--transition-fast);
 }
 
-.tabs-trigger[aria-selected="true"] {
+.tabs-trigger[aria-selected='true'] {
   color: var(--color-primary);
   border-bottom-color: var(--color-primary);
 }
@@ -502,11 +502,11 @@ Handle different states cleanly:
 }
 
 /* Error state */
-.input[aria-invalid="true"] {
+.input[aria-invalid='true'] {
   border-color: var(--color-danger);
 }
 
-.input[aria-invalid="true"]:focus {
+.input[aria-invalid='true']:focus {
   box-shadow: 0 0 0 3px var(--danger-alpha-20);
 }
 
@@ -526,9 +526,9 @@ Make text scale smoothly:
 /* Fluid typography using clamp() */
 h1 {
   font-size: clamp(
-    var(--text-2xl),  /* Minimum size (mobile) */
-    5vw,              /* Preferred size (scales) */
-    var(--text-4xl)   /* Maximum size (desktop) */
+    var(--text-2xl),
+    /* Minimum size (mobile) */ 5vw,
+    /* Preferred size (scales) */ var(--text-4xl) /* Maximum size (desktop) */
   );
 }
 
@@ -598,16 +598,22 @@ I use a simplified BEM naming:
 
 ```css
 /* Block - The component */
-.component { }
+.component {
+}
 
 /* Element - Parts of the component (single dash) */
-.component-header { }
-.component-body { }
-.component-footer { }
+.component-header {
+}
+.component-body {
+}
+.component-footer {
+}
 
 /* Modifier - Variations (double dash or second class) */
-.component--large { }
-.component-variant { }
+.component--large {
+}
+.component-variant {
+}
 ```
 
 **Example:**
@@ -626,10 +632,14 @@ For JavaScript-driven states:
 
 ```css
 /* Use is- or has- prefixes for states */
-.modal.is-open { }
-.dropdown.is-active { }
-.input.has-error { }
-.form.is-loading { }
+.modal.is-open {
+}
+.dropdown.is-active {
+}
+.input.has-error {
+}
+.form.is-loading {
+}
 ```
 
 ## File Organization
@@ -688,41 +698,91 @@ Create commonly-needed utilities:
 /* utilities.css */
 
 /* Display */
-.hidden { display: none !important; }
-.block { display: block !important; }
-.flex { display: flex !important; }
-.grid { display: grid !important; }
+.hidden {
+  display: none !important;
+}
+.block {
+  display: block !important;
+}
+.flex {
+  display: flex !important;
+}
+.grid {
+  display: grid !important;
+}
 
 /* Flex utilities */
-.flex-row { flex-direction: row; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.gap-2 { gap: var(--space-2); }
-.gap-4 { gap: var(--space-4); }
+.flex-row {
+  flex-direction: row;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-2 {
+  gap: var(--space-2);
+}
+.gap-4 {
+  gap: var(--space-4);
+}
 
 /* Spacing */
-.p-2 { padding: var(--space-2); }
-.p-4 { padding: var(--space-4); }
-.m-2 { margin: var(--space-2); }
-.m-4 { margin: var(--space-4); }
+.p-2 {
+  padding: var(--space-2);
+}
+.p-4 {
+  padding: var(--space-4);
+}
+.m-2 {
+  margin: var(--space-2);
+}
+.m-4 {
+  margin: var(--space-4);
+}
 
 /* Text */
-.text-sm { font-size: var(--text-sm); }
-.text-lg { font-size: var(--text-lg); }
-.font-bold { font-weight: 700; }
-.text-center { text-align: center; }
+.text-sm {
+  font-size: var(--text-sm);
+}
+.text-lg {
+  font-size: var(--text-lg);
+}
+.font-bold {
+  font-weight: 700;
+}
+.text-center {
+  text-align: center;
+}
 
 /* Colors */
-.text-primary { color: var(--color-primary); }
-.text-muted { color: var(--color-text-muted); }
-.bg-primary { background: var(--color-primary); }
+.text-primary {
+  color: var(--color-primary);
+}
+.text-muted {
+  color: var(--color-text-muted);
+}
+.bg-primary {
+  background: var(--color-primary);
+}
 
 /* Borders */
-.border { border: 1px solid var(--color-border-medium); }
-.border-t { border-top: 1px solid var(--color-border-medium); }
-.rounded { border-radius: var(--radius-md); }
-.rounded-full { border-radius: 9999px; }
+.border {
+  border: 1px solid var(--color-border-medium);
+}
+.border-t {
+  border-top: 1px solid var(--color-border-medium);
+}
+.rounded {
+  border-radius: var(--radius-md);
+}
+.rounded-full {
+  border-radius: 9999px;
+}
 
 /* Accessibility */
 .sr-only {
@@ -755,13 +815,13 @@ Create commonly-needed utilities:
 /* Provide alternatives for unsupported features */
 @supports not (backdrop-filter: blur(10px)) {
   .modal-backdrop {
-    background: rgba(0, 0, 0, 0.8);  /* Solid fallback */
+    background: rgba(0, 0, 0, 0.8); /* Solid fallback */
   }
 }
 
 @supports (backdrop-filter: blur(10px)) {
   .modal-backdrop {
-    backdrop-filter: blur(10px);     /* Blur effect */
+    backdrop-filter: blur(10px); /* Blur effect */
     background: rgba(0, 0, 0, 0.5);
   }
 }
@@ -785,7 +845,7 @@ Create commonly-needed utilities:
 .btn-primary {
   /* Light on dark OR dark on light */
   background: var(--color-primary);
-  color: white;  /* 4.5:1 contrast minimum */
+  color: white; /* 4.5:1 contrast minimum */
 }
 
 /* High contrast mode support */
@@ -811,13 +871,19 @@ Extract above-the-fold styles:
   <!-- Inline critical CSS -->
   <style>
     /* Only the CSS needed for initial render */
-    :root { /* design tokens */ }
-    body { /* base styles */ }
-    .btn { /* button styles */ }
+    :root {
+      /* design tokens */
+    }
+    body {
+      /* base styles */
+    }
+    .btn {
+      /* button styles */
+    }
   </style>
 
   <!-- Load full CSS asynchronously -->
-  <link rel="preload" href="main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="main.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 </head>
 ```
 
@@ -860,9 +926,7 @@ Every component needs:
 
 ````markdown
 ```html
-<button class="btn btn-primary" type="button">
-  Click me
-</button>
+<button class="btn btn-primary" type="button">Click me</button>
 ```
 ````
 
@@ -871,12 +935,9 @@ Every component needs:
 ```css
 /* Available CSS variables */
 .btn {
-  --btn-padding-x: /* horizontal padding */
-  --btn-padding-y: /* vertical padding */
-  --btn-bg: /* background color */
-  --btn-color: /* text color */
-  --btn-border-color: /* border color */
-  --btn-border-radius: /* corner rounding */
+  --btn-padding-x: /* horizontal padding */ --btn-padding-y: /* vertical padding */
+    --btn-bg: /* background color */ --btn-color: /* text color */
+    --btn-border-color: /* border color */ --btn-border-radius: /* corner rounding */;
 }
 ```
 
@@ -923,9 +984,9 @@ Tools and references I used:
 
 See these patterns in action with 60+ production-ready components:
 
-- 🌟 [GitHub Repository](https://github.com/yourusername/aural-ui)
-- 🎨 [Live Demo](https://yourusername.github.io/aural-ui)
-- 📚 [Documentation](https://yourusername.github.io/aural-ui/docs)
+- 🌟 [GitHub Repository](https://github.com/ferology/aural-ui)
+- 🎨 [Live Demo](https://ferology.github.io/aural-ui)
+- 📚 [Documentation](https://ferology.github.io/aural-ui/docs)
 
 ```bash
 # Install
@@ -933,22 +994,25 @@ npm install aural-ui
 ```
 
 Or use CDN:
+
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aural-ui/aural-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aural-ui/dark.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aural-ui/aural-ui.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aural-ui/dark.css" />
 ```
 
 ---
 
 **What's your CSS architecture?** Do you use CSS-in-JS or pure CSS? 👇
 
-If you found this helpful, give [Aural UI a star on GitHub](https://github.com/yourusername/aural-ui) ⭐
+If you found this helpful, give [Aural UI a star on GitHub](https://github.com/ferology/aural-ui) ⭐
 
 ---
 
-*This article is part of a series about building Aural UI:*
-1. Building an Accessible Design System
+_This article is part of a series about building Aural UI:_
+
+1. Building an Accessible Design System from Scratch
 2. 7 Unique Themes: How I Designed Beyond Bootstrap
-3. Cross-Browser Compatibility: A Complete Guide
-4. 60+ Accessible Components: A Library Showcase
+3. The Day Aural UI Broke on an iPhone: A Cross-Browser Reckoning
+4. 60+ Components, 7 Themes, Zero Dependencies: The Library
 5. **How to Create Reusable UI Components with Pure CSS** (you are here)
+6. Claude Design + Aural UI: Shipping Interfaces at the Speed of Thought

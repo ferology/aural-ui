@@ -1,14 +1,28 @@
 # 🎨 Aural UI
 
-> **Framework-agnostic, WCAG AA accessible design system.** Copy-paste components for React, Vue, Svelte, and Vanilla HTML. Perfect for AI-assisted development.
+> **Free · Open Source · Accessible by default.**
+> A theme-first, framework-agnostic design system. MIT-licensed, WCAG AA out of the box, copy-paste components for React, Vue, Svelte, and Vanilla HTML.
 
 [![npm version](https://img.shields.io/npm/v/aural-design.svg?style=flat-square)](https://www.npmjs.com/package/aural-design)
 [![npm downloads](https://img.shields.io/npm/dm/aural-design.svg?style=flat-square)](https://www.npmjs.com/package/aural-design)
 [![GitHub stars](https://img.shields.io/github/stars/ferology/aural-ui.svg?style=flat-square)](https://github.com/ferology/aural-ui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 [![WCAG AA](https://img.shields.io/badge/WCAG-AA-green.svg?style=flat-square)](https://www.w3.org/WAI/WCAG2AA-Conformance)
+[![Figma Community](https://img.shields.io/badge/Figma-UI%20Kit-F24E1E.svg?style=flat-square&logo=figma&logoColor=white)](https://www.figma.com/community/file/1649056373718832084/aural-ai)
 
-## 🚀 [Live Demo](https://ferology.github.io/aural-ui/) | [📖 Storybook Docs](https://ferology.github.io/aural-ui/storybook/)
+## 🚀 [Live Demo](https://ferology.github.io/aural-ui/) | [📖 Storybook Docs](https://ferology.github.io/aural-ui/storybook/) | [🎨 Figma UI Kit](https://www.figma.com/community/file/1649056373718832084/aural-ai)
+
+---
+
+## 🎨 Figma UI Kit
+
+Design with Aural UI in Figma. The official UI kit mirrors this library 1:1 — every component is a reusable variant set, bound to the same token architecture (Primitives → Semantic), with all **9 theme modes** switchable via Figma Variables.
+
+**[→ Get the Aural UI Figma kit (free, Figma Community)](https://www.figma.com/community/file/1649056373718832084/aural-ai)**
+
+- 51 components as variant sets, organized by category
+- 148 primitive + 46 semantic tokens, WCAG AA
+- Switch any page between Dark, Light, Neon, Kinetic, Prismatic, Minimal, Warm, Colorblind-friendly, and High-contrast
 
 ---
 

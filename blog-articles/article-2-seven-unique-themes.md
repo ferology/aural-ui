@@ -1,7 +1,7 @@
 ---
 title: 7 Unique Themes: How I Designed Beyond Bootstrap's Generic Look
 published: false
-description: Building distinct design aesthetics while maintaining accessibility - from brutalist Kinetic to cyberpunk Neon
+description: From a night-and-weekend frustration with same-looking AI prototypes to seven fully accessible design languages sharing one token system.
 tags: design, css, webdev, ui
 cover_image: https://dev-to-uploads.s3.amazonaws.com/uploads/articles/your-cover-image.png
 canonical_url: https://yourblog.com/seven-unique-themes
@@ -9,47 +9,64 @@ canonical_url: https://yourblog.com/seven-unique-themes
 
 # 7 Unique Themes: How I Designed Beyond Bootstrap's Generic Look
 
-Let's be honest: **we can all spot a Bootstrap site from a mile away.** There's nothing wrong with Bootstrap (I've used it for years), but when every app looks the same, design becomes invisible.
+Every AI prototype I opened in 2024 had the same dashboard.
 
-When building [Aural UI](https://github.com/yourusername/aural-ui), I wanted to prove you could have **distinctive design** AND **accessibility**. The result? 7 themes that look nothing like each other—from brutalist Kinetic to cyberpunk Neon—all WCAG AA compliant.
+Blue hero. Card grid. Soft gradient button. A Lovable output sat next to a v0 output sat next to a Bolt output, and if you covered the logos you could not tell them apart. The "infinite variety" the tools promised on their landing pages collapsed, in practice, into a single mid Tailwind aesthetic, repeated forever.
 
-Here's how I did it.
+Figma, meanwhile, was on a sort of permanent keynote tour about AI. Every few weeks there was a new reel, a new onstage demo, a new "we're thinking deeply about" thread. The tool under it all was still — mostly — nudging rectangles. You could feel the pressure: a mature product that had to have an AI answer, whether the answer was ready or not.
 
-## The Problem with Most Design Systems
+I was not in any of those meetings. I had a day job, a laptop, and weekends.
 
-Most CSS frameworks give you one aesthetic:
-- Bootstrap → Clean, corporate
-- Material Design → Google's style
-- Tailwind → Whatever you build (powerful, but no opinion)
+So I started building [Aural UI](https://github.com/ferology/aural-ui). No client, no sprint, no deliverable. That last part is the whole reason this article exists. The only way I was going to end up with **seven** distinct aesthetics — brutalist Kinetic, cyberpunk Neon, a Light theme I actually trusted on white — all WCAG AA compliant, sharing the same components, was to have the one thing working designers never get:
 
-But what if you want:
-- 🏗️ Brutalist design for a tech startup?
-- 🌃 Cyberpunk neon for a gaming site?
-- ♿ High contrast for accessibility-first apps?
+Permission to take it too seriously.
 
-You'd rebuild everything from scratch. Or use Aural UI.
+Here's how those seven themes came to be.
 
-## Design Philosophy: Themes as Aesthetics
+## The Problem I Was Actually Solving
 
-Each Aural UI theme isn't just **colors**—it's a complete **design language**:
+Most CSS frameworks ship with one aesthetic:
 
-| Theme | Aesthetic | Use Case |
-|-------|-----------|----------|
-| **Dark** | Modern, professional | SaaS dashboards, admin panels |
-| **Light** | Clean, accessible | Marketing sites, documentation |
-| **Neon** | Cyberpunk, edgy | Gaming, crypto, nightlife |
-| **Neon Refined** | Sophisticated neon | E-commerce, creative portfolios |
-| **Kinetic** | Brutalist, bold | Startups, art projects |
-| **High Contrast** | Maximum accessibility | Government, healthcare, elderly users |
-| **Colorblind Friendly** | Safe colors | Inclusive apps, education |
+- Bootstrap → clean, corporate
+- Material Design → Google's house style
+- Tailwind → whatever you build, which, see above, is usually the same gradient card grid
 
-Let's dive into each.
+And most AI UI generators inherit whichever of those their training skewed toward. If your product is supposed to feel like anything in particular — brutalist, neon, high-contrast, inclusive-by-default — you are either rebuilding from scratch or fighting the tool.
+
+I wanted the opposite stack:
+
+- 🏗️ Brutalist for the startup that actually has a voice
+- 🌃 Cyberpunk for the gaming/crypto/nightlife thing that deserves the energy
+- ♿ High-contrast for the healthcare app where "subtle" is a bug
+
+One component library. Seven personalities. No contrast failures anywhere.
+
+## Design Philosophy: Themes as Full Aesthetics
+
+Each Aural UI theme isn't just a color swap — it's a complete **design language**. Spacing, weight, radius, shadow character, typographic tone. Kinetic isn't Dark with different variables. It's its own answer to the question "what should a button feel like?"
+
+| Theme                   | Aesthetic             | The question it answers                                |
+| ----------------------- | --------------------- | ------------------------------------------------------ |
+| **Dark**                | Modern, professional  | What's the default I already live in?                  |
+| **Light**               | Clean, accessible     | Does the system survive outside my preferences?        |
+| **Neon**                | Cyberpunk, edgy       | Can "glowing" actually be readable?                    |
+| **Neon Refined**        | Sophisticated neon    | What happens when cyberpunk grows up?                  |
+| **Kinetic**             | Brutalist, bold       | Can the token system handle a truly different _shape_? |
+| **High Contrast**       | Maximum accessibility | Does "a11y-first" actually mean anything?              |
+| **Colorblind Friendly** | Safe palette          | Who did I forget?                                      |
+
+Each section below is that question, answered.
 
 ---
 
-## 1. Dark Theme - The Modern Standard
+## 1. Dark Theme — The Starting Point
+
+### Why it came first
+
+Dark was never a decision. It was the room I was already in. Every editor, every terminal, every late-night browsing session — dark. If I was going to do this as a night-and-weekend project, dark was the one theme I owed nothing to justify.
 
 ### Design Language
+
 ```
 ✦ Modern professionalism
 ✦ Reduced eye strain
@@ -58,30 +75,33 @@ Let's dive into each.
 ```
 
 ### Color Palette
+
 ```css
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   /* Backgrounds */
-  --color-bg-primary: #0f0f1a;    /* Deep space blue */
-  --color-bg-secondary: #1a1a2e;   /* Card surfaces */
-  --color-bg-tertiary: #252540;    /* Inputs, hovers */
+  --color-bg-primary: #0f0f1a; /* Deep space blue */
+  --color-bg-secondary: #1a1a2e; /* Card surfaces */
+  --color-bg-tertiary: #252540; /* Inputs, hovers */
 
   /* Text */
-  --color-text-primary: #f5f5fa;   /* High contrast white */
+  --color-text-primary: #f5f5fa; /* High contrast white */
   --color-text-secondary: #a0a0b8; /* Muted descriptions */
 
   /* Brand */
-  --color-primary: #5ebd8f;        /* Vibrant green */
-  --color-secondary: #4da77a;       /* Deeper green */
+  --color-primary: #5ebd8f; /* Vibrant green */
+  --color-secondary: #4da77a; /* Deeper green */
 }
 ```
 
 ### Why It Works
+
 - **17.51:1 contrast** on primary text (WCAG AAA)
 - **8.29:1 contrast** on primary color (excellent readability)
 - **Blue-tinted blacks** are gentler than pure black
 - **Green accent** provides energy without harshness
 
 ### Best For
+
 ```
 ✓ SaaS dashboards
 ✓ Developer tools
@@ -92,48 +112,45 @@ Let's dive into each.
 
 ---
 
-## 2. Light Theme - The Accessible Classic
+## 2. Light Theme — The Test
 
-### Design Language
-```
-✦ Clean and professional
-✦ Traditional and trustworthy
-✦ Print-friendly
-✦ Broad compatibility
-```
+### Why it came next
+
+Dark was easy because it flattered me. Light was the test: would the system still feel like itself outside my personal taste? It's also the theme where my very first "this is obviously fine" assumption broke. My favorite green on dark (`#5ebd8f`) landed on white at **2.29:1**. WCAG wants 4.5. I had a theme that failed contrast on the second palette I tried.
+
+That was the day I wrote the contrast checker into my workflow and stopped trusting my eyes.
 
 ### Color Palette
+
 ```css
-:root[data-theme="light"] {
+:root[data-theme='light'] {
   /* Backgrounds */
-  --color-bg-primary: #ffffff;     /* Pure white */
-  --color-bg-secondary: #f9fafb;   /* Off-white surfaces */
-  --color-bg-tertiary: #f3f4f6;    /* Hover states */
+  --color-bg-primary: #ffffff; /* Pure white */
+  --color-bg-secondary: #f9fafb; /* Off-white surfaces */
+  --color-bg-tertiary: #f3f4f6; /* Hover states */
 
   /* Text */
-  --color-text-primary: #111827;   /* Near-black */
+  --color-text-primary: #111827; /* Near-black */
   --color-text-secondary: #4b5563; /* Medium gray */
 
   /* Brand */
-  --color-primary: #3d8a64;        /* Darker green for contrast */
-  --color-secondary: #326d51;       /* Even darker */
+  --color-primary: #3d8a64; /* Darker green for contrast */
+  --color-secondary: #326d51; /* Even darker */
 }
 ```
 
-### The Challenge: Contrast on White
+### The Contrast Reality
 
-The green that looks perfect on dark (`#5ebd8f`) **fails** on white:
 ```
 #5ebd8f on white = 2.29:1 ❌ (needs 4.5:1)
-```
-
-Solution? Use darker variants:
-```
 #3d8a64 on white = 4.5:1 ✅
 #326d51 on white = 7.2:1 ✅
 ```
 
+Same "green." Different theme. Different shade. This is why every theme has its own palette, not a single palette inverted.
+
 ### Best For
+
 ```
 ✓ Marketing websites
 ✓ Documentation
@@ -144,11 +161,16 @@ Solution? Use darker variants:
 
 ---
 
-## 3. Neon Theme - Accessible Cyberpunk
+## 3. Neon — The Experiment
 
-This was the hardest theme. **How do you make glowing neon accessible?**
+### Why it exists
+
+Neon started as a joke and survived because it was the most fun theme to ship. _What if cyberpunk, but readable?_ Most "neon" design kits fail the instant you put body text on a glowing card. You can squint your way through a landing hero; you cannot squint your way through a settings page.
+
+The rule I ended up with: **glow lives on containers. Text never glows.**
 
 ### Design Language
+
 ```
 ✦ Cyberpunk aesthetic
 ✦ High energy, edgy
@@ -157,33 +179,35 @@ This was the hardest theme. **How do you make glowing neon accessible?**
 ```
 
 ### Color Palette
+
 ```css
-:root[data-theme="neon"] {
+:root[data-theme='neon'] {
   /* Backgrounds - Dark for contrast */
-  --color-bg-primary: #0a0a0f;     /* Nearly black */
-  --color-bg-secondary: #1a1a24;    /* Subtle lift */
+  --color-bg-primary: #0a0a0f; /* Nearly black */
+  --color-bg-secondary: #1a1a24; /* Subtle lift */
 
   /* Neon Colors */
-  --color-primary: #00ffff;         /* Cyan glow */
-  --color-secondary: #ff00ff;       /* Magenta glow */
-  --color-accent: #ffff00;          /* Yellow highlights */
+  --color-primary: #00ffff; /* Cyan glow */
+  --color-secondary: #ff00ff; /* Magenta glow */
+  --color-accent: #ffff00; /* Yellow highlights */
 
   /* Text */
-  --color-text-primary: #ffffff;    /* Pure white */
-  --color-text-secondary: #b0b0c8;  /* Muted */
+  --color-text-primary: #ffffff; /* Pure white */
+  --color-text-secondary: #b0b0c8; /* Muted */
 }
 ```
 
 ### The Glow Effect
+
 ```css
 .btn-primary {
   background: #00ffff;
-  color: #000000;              /* Black text on cyan = 16.75:1 ✅ */
+  color: #000000; /* Black text on cyan = 16.75:1 ✅ */
   box-shadow:
     0 0 20px rgba(0, 255, 255, 0.5),
     0 0 40px rgba(0, 255, 255, 0.3),
     0 4px 12px rgba(0, 0, 0, 0.5);
-  text-shadow: none;           /* NO glow on text! */
+  text-shadow: none; /* NO glow on text! */
 }
 
 .btn-primary:hover {
@@ -194,18 +218,16 @@ This was the hardest theme. **How do you make glowing neon accessible?**
 }
 ```
 
-### Key Accessibility Trick
-
-**Don't use text-shadow for accessibility-critical text.** The glow should be on the **container**, not the text itself.
+### The Rule Baked In
 
 ```css
-/* ❌ Hard to read */
+/* ❌ Hard to read — the glow *is* the text */
 .heading {
   color: #00ffff;
   text-shadow: 0 0 20px #00ffff;
 }
 
-/* ✅ Readable with glow effect */
+/* ✅ Readable. Vibe survives. */
 .heading {
   color: #00ffff;
   text-shadow: 0 2px 8px rgba(0, 255, 255, 0.3); /* Subtle only */
@@ -213,6 +235,7 @@ This was the hardest theme. **How do you make glowing neon accessible?**
 ```
 
 ### Best For
+
 ```
 ✓ Gaming sites
 ✓ Crypto/Web3 apps
@@ -223,29 +246,24 @@ This was the hardest theme. **How do you make glowing neon accessible?**
 
 ---
 
-## 4. Neon Refined - Sophisticated Glow
+## 4. Neon Refined — Cyberpunk, Grown Up
 
-Taking the cyberpunk energy and making it **elegant**.
+### Why it exists
 
-### Design Language
-```
-✦ Refined neon aesthetic
-✦ Less aggressive, more sophisticated
-✦ Luxury meets technology
-✦ Suitable for e-commerce
-```
+Once Neon worked, I wanted to see if the same energy could read as _premium_ instead of _arcade_. Neon Refined is the answer — same DNA, softer glow, purple instead of magenta, gold instead of yellow. Turns out most "luxury tech" brands want exactly this and don't know how to ask for it.
 
 ### Color Palette
+
 ```css
-:root[data-theme="neon-refined"] {
+:root[data-theme='neon-refined'] {
   /* Softer backgrounds */
   --color-bg-primary: #0f0f1a;
   --color-bg-secondary: #1a1a2e;
 
   /* Refined neon colors */
-  --color-primary: #4be1ff;         /* Lighter cyan */
-  --color-secondary: #9b87f5;       /* Purple instead of magenta */
-  --color-accent: #ffd700;          /* Gold instead of yellow */
+  --color-primary: #4be1ff; /* Lighter cyan */
+  --color-secondary: #9b87f5; /* Purple instead of magenta */
+  --color-accent: #ffd700; /* Gold instead of yellow */
 
   /* Softer text */
   --color-text-primary: #f0f0f8;
@@ -254,6 +272,7 @@ Taking the cyberpunk energy and making it **elegant**.
 ```
 
 ### The Refinement
+
 ```css
 /* Softer glows */
 .card {
@@ -270,6 +289,7 @@ Taking the cyberpunk energy and making it **elegant**.
 ```
 
 ### Best For
+
 ```
 ✓ E-commerce (tech products)
 ✓ SaaS landing pages
@@ -280,11 +300,16 @@ Taking the cyberpunk energy and making it **elegant**.
 
 ---
 
-## 5. Kinetic Theme - Brutalist Energy
+## 5. Kinetic — The Shape Test
 
-Inspired by Swiss design and modern brutalism.
+### Why it exists
+
+Kinetic is the theme that stress-tested the entire token architecture. Everything else was _Dark with different colors_. Kinetic is `border-radius: 0`, `font-weight: 900`, `text-transform: uppercase`, chunky offset shadows, zero apologies. If one component library could ship both Neon Refined **and** Kinetic, I'd know the token system held.
+
+It held.
 
 ### Design Language
+
 ```
 ✦ Brutalist/Neo-brutalist
 ✦ Bold, unapologetic
@@ -293,29 +318,31 @@ Inspired by Swiss design and modern brutalism.
 ```
 
 ### Color Palette
+
 ```css
-:root[data-theme="kinetic"] {
+:root[data-theme='kinetic'] {
   /* High contrast */
-  --color-bg-primary: #000000;      /* Pure black */
-  --color-bg-secondary: #1a1a1a;    /* Dark gray */
+  --color-bg-primary: #000000; /* Pure black */
+  --color-bg-secondary: #1a1a1a; /* Dark gray */
 
   /* Bold accents */
-  --color-primary: #cdff00;         /* Neon lime */
-  --color-secondary: #ffff00;       /* Electric yellow */
+  --color-primary: #cdff00; /* Neon lime */
+  --color-secondary: #ffff00; /* Electric yellow */
 
   /* Stark text */
-  --color-text-primary: #ffffff;    /* Pure white */
-  --color-text-secondary: #cccccc;  /* Light gray */
+  --color-text-primary: #ffffff; /* Pure white */
+  --color-text-secondary: #cccccc; /* Light gray */
 }
 ```
 
 ### Design Elements
+
 ```css
 /* Sharp, no-nonsense buttons */
 .btn {
-  border-radius: 0;                 /* No curves */
+  border-radius: 0; /* No curves */
   border: 2px solid currentColor;
-  font-weight: 900;                 /* Extra bold */
+  font-weight: 900; /* Extra bold */
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 16px 32px;
@@ -325,7 +352,7 @@ Inspired by Swiss design and modern brutalism.
   background: #cdff00;
   color: #000000;
   border-color: #000000;
-  box-shadow: 8px 8px 0 #000000;   /* Offset shadow */
+  box-shadow: 8px 8px 0 #000000; /* Offset shadow */
 }
 
 .btn-primary:hover {
@@ -342,6 +369,7 @@ Inspired by Swiss design and modern brutalism.
 ```
 
 ### Typography
+
 ```css
 /* Brutalist type hierarchy */
 h1 {
@@ -360,6 +388,7 @@ h1 {
 ```
 
 ### Best For
+
 ```
 ✓ Tech startups (bold brand)
 ✓ Art/music projects
@@ -370,29 +399,24 @@ h1 {
 
 ---
 
-## 6. High Contrast Theme - Maximum Accessibility
+## 6. High Contrast — The a11y Proof
 
-Built for users with low vision or color blindness.
+### Why it exists
 
-### Design Language
-```
-✦ Maximum contrast everywhere
-✦ WCAG AAA compliance (7:1)
-✦ Strong visual hierarchy
-✦ No reliance on color alone
-```
+High-contrast is the theme I added because I felt guilty. Aural UI was being sold as accessibility-first; making "accessibility-first" mean something concrete required a theme that existed _only_ to prove it — 21:1 contrast, 3px borders, no subtle states, every disabled element obvious at a glance. The one theme where "subtle" is not a compliment.
 
 ### Color Palette
+
 ```css
-:root[data-theme="high-contrast"] {
+:root[data-theme='high-contrast'] {
   /* Extreme contrast */
-  --color-bg-primary: #000000;      /* Pure black */
-  --color-bg-secondary: #000000;    /* Also black */
+  --color-bg-primary: #000000; /* Pure black */
+  --color-bg-secondary: #000000; /* Also black */
 
   /* Maximum contrast colors */
-  --color-text-primary: #ffffff;    /* 21:1 contrast ✅ */
-  --color-primary: #ffffff;         /* White on black */
-  --color-secondary: #0096ff;       /* Bright blue */
+  --color-text-primary: #ffffff; /* 21:1 contrast ✅ */
+  --color-primary: #ffffff; /* White on black */
+  --color-secondary: #0096ff; /* Bright blue */
 
   /* Thicker borders */
   --border-width: 3px;
@@ -402,6 +426,7 @@ Built for users with low vision or color blindness.
 ### Design Rules
 
 1. **Never rely on color alone**
+
 ```css
 /* ❌ Color only */
 .error {
@@ -414,16 +439,17 @@ Built for users with low vision or color blindness.
   border-left: 4px solid currentColor;
 }
 .error::before {
-  content: "⚠ ";
+  content: '⚠ ';
 }
 ```
 
 2. **Thicker everything**
+
 ```css
 /* Inputs */
 input {
   border: 3px solid #ffffff;
-  font-size: 18px;  /* Larger text */
+  font-size: 18px; /* Larger text */
 }
 
 /* Focus indicators */
@@ -434,6 +460,7 @@ input {
 ```
 
 3. **No subtle states**
+
 ```css
 /* Disabled = obvious */
 .btn:disabled {
@@ -444,6 +471,7 @@ input {
 ```
 
 ### Best For
+
 ```
 ✓ Government websites
 ✓ Healthcare apps
@@ -454,30 +482,27 @@ input {
 
 ---
 
-## 7. Colorblind-Friendly Theme - Inclusive Design
+## 7. Colorblind-Friendly — The Missing One
 
-8% of males have color vision deficiency. This theme uses **colorblind-safe** palettes.
+### Why it exists
 
-### Design Language
-```
-✦ No red-green combinations
-✦ Blue and orange primary colors
-✦ Pattern and shape emphasis
-✦ Inclusive by design
-```
+8% of men have some form of color vision deficiency. I kept meaning to build a safe palette "soon." Then I sat next to someone using red/green status badges on a data dashboard and realized my "inclusive by default" design system was not, in fact, inclusive by default. Colorblind-friendly is the theme that exists because I got caught.
+
+No red-green pairs. Blue and orange primaries. Icons and patterns carrying every signal that color carries elsewhere.
 
 ### Color Palette
+
 ```css
-:root[data-theme="colorblind"] {
+:root[data-theme='colorblind'] {
   /* Safe color choices */
-  --color-primary: #1a8cff;         /* Blue (safe) */
-  --color-secondary: #ffa31a;       /* Orange (safe) */
+  --color-primary: #1a8cff; /* Blue (safe) */
+  --color-secondary: #ffa31a; /* Orange (safe) */
 
   /* Status colors (no red/green) */
-  --color-success: #1a8cff;         /* Blue instead of green */
-  --color-warning: #ffa31a;         /* Orange instead of yellow */
-  --color-danger: #ff6b35;          /* Red-orange instead of red */
-  --color-info: #4ecdc4;            /* Teal */
+  --color-success: #1a8cff; /* Blue instead of green */
+  --color-warning: #ffa31a; /* Orange instead of yellow */
+  --color-danger: #ff6b35; /* Red-orange instead of red */
+  --color-info: #4ecdc4; /* Teal */
 }
 ```
 
@@ -492,7 +517,7 @@ Don't rely on color alone:
   color: white;
 }
 .badge-success::before {
-  content: "✓ ";  /* Checkmark */
+  content: '✓ '; /* Checkmark */
 }
 
 .badge-warning {
@@ -500,21 +525,23 @@ Don't rely on color alone:
   color: black;
 }
 .badge-warning::before {
-  content: "⚠ ";  /* Warning symbol */
+  content: '⚠ '; /* Warning symbol */
 }
 ```
 
 ### Chart Colors (Colorblind Safe)
+
 ```css
 /* Safe data viz palette */
---chart-1: #1a8cff;  /* Blue */
---chart-2: #ffa31a;  /* Orange */
---chart-3: #4ecdc4;  /* Teal */
---chart-4: #ff6b35;  /* Red-orange */
---chart-5: #95e1d3;  /* Mint */
+--chart-1: #1a8cff; /* Blue */
+--chart-2: #ffa31a; /* Orange */
+--chart-3: #4ecdc4; /* Teal */
+--chart-4: #ff6b35; /* Red-orange */
+--chart-5: #95e1d3; /* Mint */
 ```
 
 ### Best For
+
 ```
 ✓ Educational platforms
 ✓ Data visualization
@@ -527,9 +554,9 @@ Don't rely on color alone:
 
 ## The Technical Magic: CSS Variables
 
-All 7 themes share the **same components** but look completely different. How?
+Seven themes. One set of components. How?
 
-### Theme Architecture
+The whole thing hinges on the idea that a component like `.btn` should know _what it is_ but not _what it looks like_. The theme tells it what it looks like.
 
 ```css
 /* Base structure (aural-ui.css) */
@@ -544,7 +571,7 @@ All 7 themes share the **same components** but look completely different. How?
 }
 
 /* Dark theme (dark.css) */
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   --btn-radius: 8px;
   --btn-weight: 500;
   --btn-transform: none;
@@ -552,160 +579,117 @@ All 7 themes share the **same components** but look completely different. How?
 }
 
 /* Kinetic theme (kinetic.css) */
-:root[data-theme="kinetic"] {
-  --btn-radius: 0;               /* Sharp corners */
-  --btn-weight: 900;             /* Extra bold */
-  --btn-transform: uppercase;    /* All caps */
-  --btn-shadow: 8px 8px 0 #000;  /* Brutalist shadow */
+:root[data-theme='kinetic'] {
+  --btn-radius: 0; /* Sharp corners */
+  --btn-weight: 900; /* Extra bold */
+  --btn-transform: uppercase; /* All caps */
+  --btn-shadow: 8px 8px 0 #000; /* Brutalist shadow */
 }
 ```
 
-### Theme Switching
+Switching themes is one attribute:
 
 ```javascript
-// Simple theme switching
 function setTheme(themeName) {
-  // Update theme link
   document.getElementById('theme-link').href = `${themeName}.css`;
-
-  // Update data attribute
   document.documentElement.setAttribute('data-theme', themeName);
-
-  // Save preference
   localStorage.setItem('theme', themeName);
 }
 ```
 
-Or even simpler - just change the CSS file:
-```html
-<!-- Switch themes by changing one file -->
-<link rel="stylesheet" href="aural-ui.css">
-<link rel="stylesheet" href="dark.css" id="theme-link">
-```
+---
+
+## How I Actually Built Each One
+
+Every theme went through the same four-step loop. Nothing special — just done properly, because I had the time.
+
+**1. Mood board.** Screenshots, Coolors palettes, Dribbble/Behance pulls until the _feeling_ was specific enough to name.
+
+**2. Define the color system.** Primary, secondary, three or four backgrounds, three or four text shades, status colors, border scale.
+
+**3. Test contrast for every pair.** Not just "the main one." Every text-on-background, every icon-on-button, every focus ring on every surface. WebAIM, then Chrome DevTools, then a screen reader just to be sure. Minimums: 4.5:1 for text, 3:1 for UI.
+
+**4. Build a full page in the theme.** Landing. Dashboard. Form. Table. If any of those made me wince, something was off in the palette and I'd go back to step 2.
+
+The night-and-weekend part is what made this possible. There was no sprint to defer "re-test on Colorblind." If I noticed something wrong, I fixed it, because the only person I was disappointing was me.
 
 ---
 
-## Design Process: How I Built Each Theme
+## What I Actually Learned
 
-### 1. Start with Mood Boards
+### 1. Constraints Breed Creativity
 
-For each theme, I collected:
-- 📸 Screenshots from apps/sites with that aesthetic
-- 🎨 Color palettes from Coolors and Adobe Color
-- 🖼️ Design inspiration from Dribbble/Behance
+Forcing myself to maintain accessibility while creating seven distinct aesthetics made me a better designer than any single "beautiful, accessible" project would have.
 
-### 2. Define the Color System
+### 2. Test in Context
 
-For every theme:
-```
-✓ Primary color (brand)
-✓ Secondary color (accents)
-✓ Background colors (3-4 shades)
-✓ Text colors (3-4 shades)
-✓ Status colors (success, warning, error)
-✓ Border colors (subtle, medium, strong)
-```
+A color that's perfect in Figma fails in a browser with real content. Every time.
 
-### 3. Test Contrast Ratios
+### 3. Dark Mode ≠ Inverting Colors
 
-Use WebAIM's Contrast Checker for **every** text/background combination:
-```
-✓ Primary on background = ?:1
-✓ Secondary on background = ?:1
-✓ Text colors on all backgrounds
-✓ Button text on button colors
-```
+Each theme needs thoughtful consideration of depth, shadows, and hierarchy. Kinetic and High-Contrast both have black backgrounds and look nothing alike.
 
-Minimum requirements:
-- Normal text: **4.5:1** (WCAG AA)
-- Large text: **3:1** (WCAG AA)
-- UI components: **3:1** (WCAG AA)
+### 4. Users Appreciate Options
 
-### 4. Build the Component Variants
+Different users have different needs. Seven themes means a real chance that _something_ fits.
 
-For each theme, customize:
-- Button shadows and borders
-- Card styles and depth
-- Input field appearance
-- Typography scale and weights
-- Spacing adjustments
+### 5. CSS Variables Are Powerful
 
-### 5. Real-World Testing
-
-Build a complete page in each theme:
-- Landing page
-- Dashboard
-- Form
-- Data table
-
-If something feels off, adjust.
+One component library, seven personalities, one tokens file to rule them all.
 
 ---
 
-## Lessons Learned
+## The Part I Wasn't Ready For
 
-### 1. **Constraints Breed Creativity**
-Forcing myself to maintain accessibility while creating unique aesthetics made me a better designer.
+I thought the hard part was already behind me. Seven themes, all contrast-tested, all sharing one set of components. I shipped the first multi-theme demo to a friend. They opened it on their iPhone.
 
-### 2. **Test in Context**
-A color might look perfect in Figma but fail in a real browser with real content.
+Buttons stuck on hover. The Neon header disappeared behind the notch. Kinetic's offset shadow snapped weirdly when the address bar collapsed. Private-mode Safari threw a localStorage error the first time the theme switcher tried to save a preference.
 
-### 3. **Dark Mode ≠ Just Inverting Colors**
-Each theme needs thoughtful consideration of depth, shadows, and hierarchy.
+The themes were the _fun_ part. Making them work on every browser anyone actually uses is where the real design system starts.
 
-### 4. **Users Appreciate Options**
-Different users have different needs. Offering 7 themes means everyone finds something they like.
-
-### 5. **CSS Variables Are Powerful**
-One component library, infinite possibilities.
+That's the next article.
 
 ---
 
 ## Try All 7 Themes
 
-Experience the difference yourself:
-
-🎨 **[Live Demo with Theme Switcher](https://yourusername.github.io/aural-ui)**
+🎨 **[Live Demo with Theme Switcher](https://ferology.github.io/aural-ui)**
 
 ```bash
-# Install Aural UI
 npm install aural-ui
 ```
 
 ```html
-<!-- Use any theme -->
-<link rel="stylesheet" href="aural-ui.css">
-<link rel="stylesheet" href="kinetic.css"> <!-- or dark, neon, etc. -->
+<link rel="stylesheet" href="aural-ui.css" /> <link rel="stylesheet" href="kinetic.css" />
+<!-- or dark, neon, etc. -->
 ```
 
 ---
 
 ## What's Your Aesthetic?
 
-Which theme resonates with your brand?
-- 🌙 **Dark** - Professional and modern
-- ☀️ **Light** - Clean and classic
-- 🌃 **Neon** - Edgy and bold
-- ✨ **Neon Refined** - Sophisticated glow
-- ⚡ **Kinetic** - Brutalist energy
-- 🔍 **High Contrast** - Maximum accessibility
-- 👁️ **Colorblind** - Inclusive design
+- 🌙 **Dark** — professional and modern
+- ☀️ **Light** — clean and classic
+- 🌃 **Neon** — edgy and bold
+- ✨ **Neon Refined** — sophisticated glow
+- ⚡ **Kinetic** — brutalist energy
+- 🔍 **High Contrast** — maximum accessibility
+- 👁️ **Colorblind** — inclusive design
 
-Drop a comment below! 👇
-
----
-
-**Enjoyed this deep dive?**
-
-⭐ [Star Aural UI on GitHub](https://github.com/yourusername/aural-ui)
-📚 [Read the Documentation](https://yourusername.github.io/aural-ui/docs)
-🐦 [Follow for updates](https://twitter.com/yourusername)
+Drop a comment below. 👇
 
 ---
 
-*Part 2 of the Aural UI series:*
+⭐ [Star Aural UI on GitHub](https://github.com/ferology/aural-ui)
+📚 [Read the Documentation](https://ferology.github.io/aural-ui/docs)
+
+---
+
+_This article is part of a series about building Aural UI:_
+
 1. Building an Accessible Design System from Scratch
 2. **7 Unique Themes: How I Designed Beyond Bootstrap** (you are here)
-3. Cross-Browser Compatibility: A Complete Guide
-4. 60+ Accessible Components: A Library Showcase
+3. The Day Aural UI Broke on an iPhone: A Cross-Browser Reckoning
+4. 60+ Components, 7 Themes, Zero Dependencies: The Library
 5. How to Create Reusable UI Components with Pure CSS
+6. Claude Design + Aural UI: Shipping Interfaces at the Speed of Thought
