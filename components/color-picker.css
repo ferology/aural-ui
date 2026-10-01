@@ -10,15 +10,15 @@
    ======================================== */
 
 .aural-color-picker {
-    display: inline-flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    padding: var(--space-4);
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    width: 280px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 280px; /* aural-ignore: one-off container width, not a design token */
 }
 
 /* ========================================
@@ -26,71 +26,79 @@
    ======================================== */
 
 .aural-color-picker__preview {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .aural-color-picker__swatch {
-    position: relative;
-    width: 56px;
-    height: 56px;
-    border-radius: var(--radius-md);
-    border: 2px solid var(--color-border-medium);
-    overflow: hidden;
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  position: relative;
+  width: var(--size-56);
+  height: var(--size-56);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--color-border-medium);
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-color-picker__swatch:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-md);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
 }
 
 .aural-color-picker__swatch-color {
-    width: 100%;
-    height: 100%;
-    background: var(--color-value, #000);
+  width: 100%;
+  height: 100%;
+  background: var(
+    --color-value,
+    #000
+  ); /* aural-ignore: fallback baked into the custom-property default, not a shared token */
 }
 
 /* Checkerboard pattern for transparency */
 .aural-color-picker__swatch::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(45deg, #ccc 25%, transparent 25%),
-        linear-gradient(-45deg, #ccc 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #ccc 75%),
-        linear-gradient(-45deg, transparent 75%, #ccc 75%);
-    background-size: 8px 8px;
-    background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
-    z-index: -1;
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* aural-ignore: bespoke transparency checkerboard (light/dark neutral squares), not a shared color or size token */
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 8px 8px;
+  background-position:
+    0 0,
+    0 4px,
+    4px -4px,
+    -4px 0px;
+  z-index: -1;
 }
 
 .aural-color-picker__value {
-    flex: 1;
-    max-width: 140px;
-    padding: var(--space-2) var(--space-3);
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-family: var(--font-mono);
-    color: var(--color-text-primary);
-    text-transform: uppercase;
-    text-align: center;
+  flex: 1;
+  max-width: 140px; /* aural-ignore: one-off field width, not a design token */
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .aural-color-picker__value:hover {
-    border-color: var(--color-primary);
-    background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+  background: var(--color-bg-hover);
 }
 
 .aural-color-picker__value:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
 }
 
 /* ========================================
@@ -98,35 +106,45 @@
    ======================================== */
 
 .aural-color-picker__canvas {
-    position: relative;
-    width: 100%;
-    height: 160px;
-    border-radius: var(--radius-md);
-    cursor: crosshair;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: var(--space-40);
+  border-radius: var(--radius-md);
+  cursor: crosshair;
+  overflow: hidden;
 }
 
 .aural-color-picker__saturation {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, #fff, transparent);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #fff,
+    transparent
+  ); /* aural-ignore: HSL saturation gradient overlay, white is the mathematical endpoint, not a text/bg color */
 }
 
 .aural-color-picker__lightness {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent, #000);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #000
+  ); /* aural-ignore: HSL lightness gradient overlay, black is the mathematical endpoint, not a text/bg color */
 }
 
 .aural-color-picker__cursor {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border: 2px solid white;
-    border-radius: 50%;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.3);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
+  position: absolute;
+  width: var(--size-16);
+  height: var(--size-16);
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.3); /* aural-ignore: bespoke cursor ring + drop shadow, not a shared shadow token */
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 /* ========================================
@@ -134,37 +152,40 @@
    ======================================== */
 
 .aural-color-picker__hue {
-    position: relative;
-    width: 100%;
-    height: 12px;
-    border-radius: var(--radius-full);
-    background: linear-gradient(to right,
-        #ff0000 0%,
-        #ffff00 17%,
-        #00ff00 33%,
-        #00ffff 50%,
-        #0000ff 67%,
-        #ff00ff 83%,
-        #ff0000 100%);
-    cursor: pointer;
+  position: relative;
+  width: 100%;
+  height: var(--size-12);
+  border-radius: var(--radius-full);
+  /* aural-ignore: full-spectrum HSL hue gradient, the 7 stops ARE the hue value (0-360deg), not a shared palette color */
+  background: linear-gradient(
+    to right,
+    #ff0000 0%,
+    #ffff00 17%,
+    #00ff00 33%,
+    #00ffff 50%,
+    #0000ff 67%,
+    #ff00ff 83%,
+    #ff0000 100%
+  );
+  cursor: pointer;
 }
 
 .aural-color-picker__hue-handle {
-    position: absolute;
-    top: 50%;
-    width: 18px;
-    height: 18px;
-    background: white;
-    border: 2px solid var(--color-border-medium);
-    border-radius: 50%;
-    box-shadow: var(--shadow-md);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: transform 0.1s ease;
+  position: absolute;
+  top: 50%;
+  width: var(--size-18);
+  height: var(--size-18);
+  background: white;
+  border: 2px solid var(--color-border-medium);
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: transform 0.1s ease; /* aural-ignore: one-off handle-scale timing, snappier than --duration-fast on purpose */
 }
 
 .aural-color-picker__hue:active .aural-color-picker__hue-handle {
-    transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(1.2);
 }
 
 /* ========================================
@@ -172,49 +193,58 @@
    ======================================== */
 
 .aural-color-picker__alpha {
-    position: relative;
-    width: 100%;
-    height: 12px;
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: var(--size-12);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .aural-color-picker__alpha::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(45deg, #ccc 25%, transparent 25%),
-        linear-gradient(-45deg, #ccc 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #ccc 75%),
-        linear-gradient(-45deg, transparent 75%, #ccc 75%);
-    background-size: 8px 8px;
-    background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* aural-ignore: bespoke transparency checkerboard (light/dark neutral squares), not a shared color or size token */
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 8px 8px;
+  background-position:
+    0 0,
+    0 4px,
+    4px -4px,
+    -4px 0px;
 }
 
 .aural-color-picker__alpha-gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, transparent, var(--color-value, #000));
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-value, #000)
+  ); /* aural-ignore: fallback baked into the custom-property default, not a shared token */
 }
 
 .aural-color-picker__alpha-handle {
-    position: absolute;
-    top: 50%;
-    width: 18px;
-    height: 18px;
-    background: white;
-    border: 2px solid var(--color-border-medium);
-    border-radius: 50%;
-    box-shadow: var(--shadow-md);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: transform 0.1s ease;
+  position: absolute;
+  top: 50%;
+  width: var(--size-18);
+  height: var(--size-18);
+  background: white;
+  border: 2px solid var(--color-border-medium);
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: transform 0.1s ease; /* aural-ignore: one-off handle-scale timing, snappier than --duration-fast on purpose */
 }
 
 .aural-color-picker__alpha:active .aural-color-picker__alpha-handle {
-    transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(1.2);
 }
 
 /* ========================================
@@ -222,35 +252,35 @@
    ======================================== */
 
 .aural-color-picker__modes {
-    display: flex;
-    gap: var(--space-1);
-    padding: 2px;
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-md);
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-0-5);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
 }
 
 .aural-color-picker__mode {
-    flex: 1;
-    padding: var(--space-1) var(--space-2);
-    background: transparent;
-    color: var(--color-text-secondary);
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: var(--text-xs);
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  flex: 1;
+  padding: var(--space-1) var(--space-2);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-color-picker__mode:hover {
-    background: var(--color-bg-hover);
-    color: var(--color-text-primary);
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
 }
 
 .aural-color-picker__mode--active {
-    background: var(--color-bg-primary);
-    color: var(--color-primary);
-    font-weight: var(--font-semibold);
+  background: var(--color-bg-primary);
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
 }
 
 /* ========================================
@@ -258,49 +288,49 @@
    ======================================== */
 
 .aural-color-picker__inputs {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
 }
 
 .aural-color-picker__inputs--rgba,
 .aural-color-picker__inputs--hsla {
-    grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .aural-color-picker__input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 .aural-color-picker__input-label {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    text-transform: uppercase;
-    font-weight: var(--font-semibold);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  font-weight: var(--font-semibold);
 }
 
 .aural-color-picker__input {
-    padding: var(--space-1) var(--space-2);
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-    font-family: var(--font-mono);
-    color: var(--color-text-primary);
-    text-align: center;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  text-align: center;
 }
 
 .aural-color-picker__input:hover {
-    border-color: var(--color-primary);
-    background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+  background: var(--color-bg-hover);
 }
 
 .aural-color-picker__input:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
 }
 
 /* ========================================
@@ -308,63 +338,68 @@
    ======================================== */
 
 .aural-color-picker__presets {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .aural-color-picker__preset-label {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    text-transform: uppercase;
-    font-weight: var(--font-semibold);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  font-weight: var(--font-semibold);
 }
 
 .aural-color-picker__preset-grid {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: var(--space-2);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: var(--space-2);
 }
 
 .aural-color-picker__preset {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1;
-    border: 2px solid transparent;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  overflow: hidden;
 }
 
 .aural-color-picker__preset::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(45deg, #ccc 25%, transparent 25%),
-        linear-gradient(-45deg, #ccc 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #ccc 75%),
-        linear-gradient(-45deg, transparent 75%, #ccc 75%);
-    background-size: 4px 4px;
-    background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
-    z-index: -1;
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* aural-ignore: bespoke transparency checkerboard (light/dark neutral squares), not a shared color or size token */
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 4px 4px;
+  background-position:
+    0 0,
+    0 2px,
+    2px -2px,
+    -2px 0px;
+  z-index: -1;
 }
 
 .aural-color-picker__preset-color {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .aural-color-picker__preset:hover {
-    transform: scale(1.1);
-    box-shadow: var(--shadow-md);
-    border-color: var(--color-primary);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
 }
 
 .aural-color-picker__preset--active {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px var(--primary-alpha-20);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--primary-alpha-20);
 }
 
 /* ========================================
@@ -372,22 +407,22 @@
    ======================================== */
 
 .aural-color-picker__recent {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .aural-color-picker__recent-label {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    text-transform: uppercase;
-    font-weight: var(--font-semibold);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  font-weight: var(--font-semibold);
 }
 
 .aural-color-picker__recent-grid {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: var(--space-2);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: var(--space-2);
 }
 
 /* ========================================
@@ -395,35 +430,35 @@
    ======================================== */
 
 .aural-color-picker__eyedropper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    background: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-color-picker__eyedropper:hover {
-    background: var(--color-bg-hover);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+  background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .aural-color-picker__eyedropper:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .aural-color-picker__eyedropper svg {
-    width: 16px;
-    height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 /* ========================================
@@ -431,29 +466,29 @@
    ======================================== */
 
 .aural-color-picker--compact {
-    width: 240px;
-    padding: var(--space-3);
-    gap: var(--space-3);
+  width: var(--space-60);
+  padding: var(--space-3);
+  gap: var(--space-3);
 }
 
 .aural-color-picker--compact .aural-color-picker__canvas {
-    height: 120px;
+  height: 120px; /* aural-ignore: one-off compact canvas height, not a design token */
 }
 
 .aural-color-picker--compact .aural-color-picker__swatch {
-    width: 48px;
-    height: 48px;
+  width: var(--size-48);
+  height: var(--size-48);
 }
 
 .aural-color-picker--compact .aural-color-picker__value {
-    max-width: 120px;
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-2);
+  max-width: 120px; /* aural-ignore: one-off compact field width, not a design token */
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-2);
 }
 
 .aural-color-picker--compact .aural-color-picker__preset-grid,
 .aural-color-picker--compact .aural-color-picker__recent-grid {
-    grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }
 
 /* ========================================
@@ -461,10 +496,10 @@
    ======================================== */
 
 .aural-color-picker--inline {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 /* ========================================
@@ -472,54 +507,60 @@
    ======================================== */
 
 .aural-color-picker-trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-color-picker-trigger:hover {
-    border-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .aural-color-picker-trigger:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .aural-color-picker-trigger__swatch {
-    width: 24px;
-    height: 24px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border-medium);
-    background: var(--color-value, #000);
+  width: var(--size-24);
+  height: var(--size-24);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-medium);
+  background: var(
+    --color-value,
+    #000
+  ); /* aural-ignore: fallback baked into the custom-property default, not a shared token */
 }
 
 .aural-color-picker-trigger__label {
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
 }
 
 .aural-color-picker-popover {
-    position: absolute;
-    z-index: 1000;
-    margin-top: var(--space-2);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  position: absolute;
+  z-index: var(--z-dropdown);
+  margin-top: var(--space-2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--duration-moderate) ease,
+    transform var(--duration-moderate) ease,
+    visibility var(--duration-moderate);
 }
 
 .aural-color-picker-popover--open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 /* ========================================
@@ -527,32 +568,32 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-color-picker__swatch,
-    .aural-color-picker__preset,
-    .aural-color-picker__mode,
-    .aural-color-picker__eyedropper,
-    .aural-color-picker-trigger,
-    .aural-color-picker-popover {
-        transition: none;
-    }
+  .aural-color-picker__swatch,
+  .aural-color-picker__preset,
+  .aural-color-picker__mode,
+  .aural-color-picker__eyedropper,
+  .aural-color-picker-trigger,
+  .aural-color-picker-popover {
+    transition: none;
+  }
 
-    .aural-color-picker__hue-handle,
-    .aural-color-picker__alpha-handle {
-        transition: none;
-    }
+  .aural-color-picker__hue-handle,
+  .aural-color-picker__alpha-handle {
+    transition: none;
+  }
 }
 
 /* Screen reader only */
 .aural-color-picker__sr-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px; /* aural-ignore: standard visually-hidden-but-focusable recipe, matches other components' sr-only pattern */
+  height: 1px; /* aural-ignore: standard visually-hidden-but-focusable recipe */
+  padding: 0;
+  margin: -1px; /* aural-ignore: standard visually-hidden-but-focusable recipe */
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ========================================
@@ -560,15 +601,15 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    .aural-color-picker {
-        width: 100%;
-        max-width: 320px;
-    }
+  .aural-color-picker {
+    width: 100%;
+    max-width: var(--space-80);
+  }
 
-    .aural-color-picker__preset-grid,
-    .aural-color-picker__recent-grid {
-        grid-template-columns: repeat(6, 1fr);
-    }
+  .aural-color-picker__preset-grid,
+  .aural-color-picker__recent-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 /* ========================================
@@ -576,45 +617,45 @@
    ======================================== */
 
 @media (pointer: coarse) {
-    /* Larger touch targets for hue/alpha sliders */
-    .aural-color-picker__hue {
-        height: 44px;
-        padding: 16px 0;
-    }
+  /* Larger touch targets for hue/alpha sliders */
+  .aural-color-picker__hue {
+    height: var(--size-44);
+    padding: var(--space-4) 0;
+  }
 
-    .aural-color-picker__alpha {
-        height: 44px;
-        padding: 16px 0;
-    }
+  .aural-color-picker__alpha {
+    height: var(--size-44);
+    padding: var(--space-4) 0;
+  }
 
-    /* Larger handles for touch devices */
-    .aural-color-picker__hue-handle,
-    .aural-color-picker__alpha-handle {
-        width: 28px;
-        height: 28px;
-    }
+  /* Larger handles for touch devices */
+  .aural-color-picker__hue-handle,
+  .aural-color-picker__alpha-handle {
+    width: var(--size-28);
+    height: var(--size-28);
+  }
 
-    /* Larger cursor for canvas */
-    .aural-color-picker__cursor {
-        width: 24px;
-        height: 24px;
-        border-width: 3px;
-    }
+  /* Larger cursor for canvas */
+  .aural-color-picker__cursor {
+    width: var(--size-24);
+    height: var(--size-24);
+    border-width: 3px;
+  }
 
-    /* Ensure preset buttons are touch-friendly */
-    .aural-color-picker__preset {
-        min-width: 44px;
-        min-height: 44px;
-    }
+  /* Ensure preset buttons are touch-friendly */
+  .aural-color-picker__preset {
+    min-width: var(--size-44);
+    min-height: var(--size-44);
+  }
 
-    /* Larger mode buttons for touch */
-    .aural-color-picker__mode {
-        min-height: 44px;
-        padding: var(--space-2) var(--space-3);
-    }
+  /* Larger mode buttons for touch */
+  .aural-color-picker__mode {
+    min-height: var(--size-44);
+    padding: var(--space-2) var(--space-3);
+  }
 
-    /* More comfortable canvas height on touch devices */
-    .aural-color-picker__canvas {
-        height: 180px;
-    }
+  /* More comfortable canvas height on touch devices */
+  .aural-color-picker__canvas {
+    height: 180px; /* aural-ignore: one-off touch-device canvas height, not a design token */
+  }
 }

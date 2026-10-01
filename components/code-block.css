@@ -9,13 +9,13 @@
    ======================================== */
 
 .aural-code-block {
-    position: relative;
-    background: var(--color-bg-tertiary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
-    font-size: var(--text-sm);
+  position: relative;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: var(--text-sm);
 }
 
 /* ========================================
@@ -23,63 +23,63 @@
    ======================================== */
 
 .aural-code-block__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-bg-secondary);
-    border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .aural-code-block__language {
-    font-size: var(--text-xs);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .aural-code-block__copy {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    color: var(--color-text-secondary);
-    font-size: var(--text-xs);
-    cursor: pointer;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .aural-code-block__copy:hover {
-    background: var(--color-bg-tertiary);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .aural-code-block__copy:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .aural-code-block__copy:active {
-    transform: scale(0.98);
+  transform: scale(0.98);
 }
 
 .aural-code-block__copy--copied {
-    background: var(--color-success);
-    border-color: var(--color-success);
-    color: white;
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
 }
 
 .aural-code-block__copy-icon::before {
-    content: '📋';
+  content: '📋';
 }
 
 .aural-code-block__copy--copied .aural-code-block__copy-icon::before {
-    content: '✓';
+  content: '✓';
 }
 
 /* ========================================
@@ -87,23 +87,23 @@
    ======================================== */
 
 .aural-code-block__content {
-    position: relative;
-    overflow-x: auto;
-    max-height: 500px;
-    overflow-y: auto;
+  position: relative;
+  overflow-x: auto;
+  max-height: 500px; /* aural-ignore: one-off scroll-container cap, not a layout size token */
+  overflow-y: auto;
 }
 
 .aural-code-block__pre {
-    margin: 0;
-    padding: var(--space-4);
+  margin: 0;
+  padding: var(--space-4);
 }
 
 .aural-code-block__code {
-    display: block;
-    color: var(--color-text-primary);
-    line-height: 1.6;
-    white-space: pre;
-    word-wrap: normal;
+  display: block;
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  white-space: pre;
+  word-wrap: normal;
 }
 
 /* ========================================
@@ -111,26 +111,26 @@
    ======================================== */
 
 .aural-code-block--with-line-numbers .aural-code-block__content {
-    display: flex;
+  display: flex;
 }
 
 .aural-code-block__line-numbers {
-    padding: var(--space-4) var(--space-3);
-    padding-right: var(--space-2);
-    background: var(--color-bg-secondary);
-    border-right: 1px solid var(--color-border);
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
-    line-height: 1.6;
-    text-align: right;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
-    flex-shrink: 0;
+  padding: var(--space-4) var(--space-3);
+  padding-right: var(--space-2);
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  text-align: right;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  flex-shrink: 0;
 }
 
 .aural-code-block__line-number {
-    display: block;
+  display: block;
 }
 
 /* ========================================
@@ -138,29 +138,29 @@
    ======================================== */
 
 .aural-code-block__line {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .aural-code-block__line--highlight {
-    background: rgba(16, 185, 129, 0.1);
-    border-left: 3px solid var(--color-primary);
-    padding-left: var(--space-2);
-    margin-left: calc(-1 * var(--space-2));
+  background: var(--color-code-line-highlight-bg);
+  border-left: 3px solid var(--color-primary);
+  padding-left: var(--space-2);
+  margin-left: calc(-1 * var(--space-2));
 }
 
 .aural-code-block__line--success {
-    background: rgba(34, 197, 94, 0.1);
-    border-left: 3px solid var(--color-success);
-    padding-left: var(--space-2);
-    margin-left: calc(-1 * var(--space-2));
+  background: var(--color-code-line-success-bg);
+  border-left: 3px solid var(--color-success);
+  padding-left: var(--space-2);
+  margin-left: calc(-1 * var(--space-2));
 }
 
 .aural-code-block__line--error {
-    background: rgba(239, 68, 68, 0.1);
-    border-left: 3px solid var(--color-error);
-    padding-left: var(--space-2);
-    margin-left: calc(-1 * var(--space-2));
+  background: var(--color-code-line-error-bg);
+  border-left: 3px solid var(--color-error);
+  padding-left: var(--space-2);
+  margin-left: calc(-1 * var(--space-2));
 }
 
 /* ========================================
@@ -168,27 +168,27 @@
    ======================================== */
 
 .aural-code-block--terminal {
-    background: #1a1a1a;
-    border-color: #333;
+  background: var(--color-code-terminal-bg);
+  border-color: var(--color-code-terminal-border);
 }
 
 .aural-code-block--terminal .aural-code-block__header {
-    background: #2a2a2a;
-    border-bottom-color: #333;
+  background: var(--color-code-terminal-header-bg);
+  border-bottom-color: var(--color-code-terminal-border);
 }
 
 .aural-code-block--terminal .aural-code-block__code {
-    color: #00ff00;
+  color: var(--color-code-terminal-text);
 }
 
 .aural-code-block--terminal::before {
-    content: '';
-    position: absolute;
-    top: 0.75rem;
-    left: 1rem;
-    display: flex;
-    gap: 0.5rem;
-    z-index: 1;
+  content: '';
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-4);
+  display: flex;
+  gap: var(--space-2);
+  z-index: 1;
 }
 
 /* ========================================
@@ -197,30 +197,30 @@
 
 /* Small */
 .aural-code-block--sm {
-    font-size: var(--text-xs);
+  font-size: var(--text-xs);
 }
 
 .aural-code-block--sm .aural-code-block__pre {
-    padding: var(--space-3);
+  padding: var(--space-3);
 }
 
 .aural-code-block--sm .aural-code-block__line-numbers {
-    padding: var(--space-3) var(--space-2);
-    font-size: var(--text-xs);
+  padding: var(--space-3) var(--space-2);
+  font-size: var(--text-xs);
 }
 
 /* Large */
 .aural-code-block--lg {
-    font-size: var(--text-base);
+  font-size: var(--text-base);
 }
 
 .aural-code-block--lg .aural-code-block__pre {
-    padding: var(--space-6);
+  padding: var(--space-6);
 }
 
 .aural-code-block--lg .aural-code-block__line-numbers {
-    padding: var(--space-6) var(--space-4);
-    font-size: var(--text-base);
+  padding: var(--space-6) var(--space-4);
+  font-size: var(--text-base);
 }
 
 /* ========================================
@@ -228,14 +228,14 @@
    ======================================== */
 
 .aural-code-inline {
-    display: inline-block;
-    padding: 0.125rem 0.375rem;
-    background: var(--color-bg-tertiary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
-    font-size: 0.875em;
-    color: var(--color-primary);
+  display: inline-block;
+  padding: var(--space-0-5) var(--size-6);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 0.875em;
+  color: var(--color-primary);
 }
 
 /* ========================================
@@ -243,21 +243,21 @@
    ======================================== */
 
 .aural-code-block__content::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: var(--space-2);
+  height: var(--space-2);
 }
 
 .aural-code-block__content::-webkit-scrollbar-track {
-    background: var(--color-bg-secondary);
+  background: var(--color-bg-secondary);
 }
 
 .aural-code-block__content::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border-radius: var(--radius-sm);
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
 }
 
 .aural-code-block__content::-webkit-scrollbar-thumb:hover {
-    background: var(--color-text-muted);
+  background: var(--color-text-muted);
 }
 
 /* ========================================
@@ -265,46 +265,46 @@
    ======================================== */
 
 .aural-code-block__code .token-comment {
-    color: #6a737d;
-    font-style: italic;
+  color: var(--color-code-token-comment);
+  font-style: italic;
 }
 
 .aural-code-block__code .token-string {
-    color: #22c55e;
+  color: var(--color-code-token-string);
 }
 
 .aural-code-block__code .token-number {
-    color: #f59e0b;
+  color: var(--color-code-token-number);
 }
 
 .aural-code-block__code .token-keyword {
-    color: #8b5cf6;
-    font-weight: var(--font-semibold);
+  color: var(--color-code-token-keyword);
+  font-weight: var(--font-semibold);
 }
 
 .aural-code-block__code .token-function {
-    color: #06b6d4;
+  color: var(--color-code-token-function);
 }
 
 .aural-code-block__code .token-operator {
-    color: #ef4444;
+  color: var(--color-code-token-operator);
 }
 
 .aural-code-block__code .token-variable {
-    color: #ec4899;
+  color: var(--color-code-token-variable);
 }
 
 .aural-code-block__code .token-class {
-    color: #f59e0b;
-    font-weight: var(--font-semibold);
+  color: var(--color-code-token-class);
+  font-weight: var(--font-semibold);
 }
 
 .aural-code-block__code .token-property {
-    color: #10b981;
+  color: var(--color-code-token-property);
 }
 
 .aural-code-block__code .token-punctuation {
-    color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
 }
 
 /* ========================================
@@ -312,12 +312,12 @@
    ======================================== */
 
 .aural-code-block--loading {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .aural-code-block--loading .aural-code-block__copy {
-    cursor: not-allowed;
-    pointer-events: none;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -325,20 +325,20 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-code-block__copy {
-        transition: none;
-    }
+  .aural-code-block__copy {
+    transition: none;
+  }
 }
 
 /* High contrast support */
 @media (prefers-contrast: high) {
-    .aural-code-block {
-        border-width: 2px;
-    }
+  .aural-code-block {
+    border-width: 2px;
+  }
 
-    .aural-code-block__line--highlight,
-    .aural-code-block__line--success,
-    .aural-code-block__line--error {
-        border-left-width: 4px;
-    }
+  .aural-code-block__line--highlight,
+  .aural-code-block__line--success,
+  .aural-code-block__line--error {
+    border-left-width: 4px;
+  }
 }

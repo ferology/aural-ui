@@ -80,7 +80,7 @@
   transition: var(--transition-all-fast);
 
   /* Accessibility */
-  min-height: 44px;
+  min-height: var(--size-44);
   outline: none;
 
   &::placeholder {
@@ -163,7 +163,7 @@ input[type='number'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
+  width: var(--size-28);
   flex: 1;
   background: transparent;
   border: none;
@@ -194,8 +194,8 @@ input[type='number'] {
 }
 
 .input-number__button svg {
-  width: 14px;
-  height: 14px;
+  width: var(--size-14);
+  height: var(--size-14);
   stroke-width: 2.5;
 }
 
@@ -210,12 +210,12 @@ input[type='number'] {
 }
 
 .input-number--sm .input-number__button {
-  width: 24px;
+  width: var(--size-24);
 }
 
 .input-number--sm .input-number__button svg {
-  width: 12px;
-  height: 12px;
+  width: var(--size-12);
+  height: var(--size-12);
 }
 
 .input-number--lg .input {
@@ -223,24 +223,24 @@ input[type='number'] {
 }
 
 .input-number--lg .input-number__button {
-  width: 32px;
+  width: var(--size-32);
 }
 
 .input-number--lg .input-number__button svg {
-  width: 16px;
-  height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 /* Touch device optimizations */
 @media (pointer: coarse) {
   .input-number__button {
-    width: 44px;
-    min-height: 24px;
+    width: var(--size-44);
+    min-height: var(--size-24);
   }
 
   .input-number .input {
     padding-right: var(--space-12);
-    min-height: 48px;
+    min-height: var(--size-48);
   }
 }
 
@@ -300,19 +300,19 @@ input[type='number'] {
 .form-helper {
   font-size: var(--text-xs);
   color: var(--color-text-muted);
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
 }
 
 .form-error {
   font-size: var(--text-xs);
   color: var(--color-error);
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
 }
 
 .form-success {
   font-size: var(--text-xs);
   color: var(--color-success);
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
 }
 
 /* ========================================
@@ -321,7 +321,7 @@ input[type='number'] {
 
 textarea.input,
 .textarea {
-  min-height: 100px;
+  min-height: 100px; /* aural-ignore: default textarea height, not on the spacing/size grid */
   resize: vertical;
 }
 
@@ -332,13 +332,13 @@ textarea.input,
 .input-sm {
   padding: var(--space-2) var(--space-3);
   font-size: var(--text-sm);
-  min-height: 36px;
+  min-height: var(--size-36);
 }
 
 .input-lg {
   padding: var(--space-4) var(--space-6);
   font-size: var(--text-lg);
-  min-height: 52px;
+  min-height: var(--size-52);
 }
 
 /* ========================================
@@ -378,8 +378,8 @@ textarea.input,
 
 .input-group-icon svg,
 .input-group-icon i {
-  width: 18px;
-  height: 18px;
+  width: var(--size-18);
+  height: var(--size-18);
 }
 
 .input-group-icon-left {

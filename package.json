@@ -36,6 +36,8 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,css,md,json}\"",
     "type-check": "tsc --noEmit",
     "analyze:bundle": "node scripts/analyze-bundles.js",
+    "audit:tokens": "node scripts/token-audit.js",
+    "generate:token-docs": "node scripts/generate-token-reference.js",
     "prepare": "husky"
   },
   "keywords": [
@@ -73,6 +75,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
     "@chromatic-com/storybook": "^3.2.2",
+    "@playwright/test": "^1.63.0",
     "@storybook/addon-a11y": "^8.6.17",
     "@storybook/addon-docs": "^8.6.17",
     "@storybook/addon-essentials": "^8.6.17",
@@ -122,6 +125,9 @@
     ],
     "*.{css,md,json}": [
       "prettier --write"
+    ],
+    "components/*.css": [
+      "node scripts/token-audit.js"
     ]
   }
 }

@@ -12,17 +12,17 @@
  */
 
 .divider {
-    /* Layout */
-    display: block;
-    border: none;
-    margin: var(--space-6) 0;
+  /* Layout */
+  display: block;
+  border: none;
+  margin: var(--space-6) 0;
 
-    /* Appearance */
-    height: 1px;
-    background: var(--color-divider);
+  /* Appearance */
+  height: 1px; /* aural-ignore: hairline thickness, not a spacing/size token */
+  background: var(--color-divider);
 
-    /* Accessibility */
-    overflow: visible;
+  /* Accessibility */
+  overflow: visible;
 }
 
 /* ========================================
@@ -31,39 +31,39 @@
 
 /* Vertical */
 .divider-vertical {
-    display: inline-block;
-    width: 1px;
-    height: auto;
-    min-height: 1em;
-    margin: 0 var(--space-4);
-    vertical-align: middle;
-    align-self: stretch;
+  display: inline-block;
+  width: 1px; /* aural-ignore: hairline thickness, not a spacing/size token */
+  height: auto;
+  min-height: 1em;
+  margin: 0 var(--space-4);
+  vertical-align: middle;
+  align-self: stretch;
 }
 
 /* With Text */
 .divider-with-text {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    background: transparent;
-    height: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: transparent;
+  height: auto;
 
-    &::before,
-    &::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: var(--color-divider);
-    }
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px; /* aural-ignore: hairline thickness, not a spacing/size token */
+    background: var(--color-divider);
+  }
 
-    & > * {
-        flex-shrink: 0;
-        color: var(--color-divider-text);
-        font-size: var(--text-sm);
-        font-weight: var(--font-medium);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
+  & > * {
+    flex-shrink: 0;
+    color: var(--color-divider-text);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 }
 
 /* ========================================
@@ -71,28 +71,28 @@
    ======================================== */
 
 .divider-sm {
-    margin: var(--space-4) 0;
+  margin: var(--space-4) 0;
 }
 
 .divider-lg {
-    margin: var(--space-8) 0;
+  margin: var(--space-8) 0;
 }
 
 .divider-xl {
-    margin: var(--space-12) 0;
+  margin: var(--space-12) 0;
 }
 
 /* Vertical spacing */
 .divider-vertical.divider-sm {
-    margin: 0 var(--space-2);
+  margin: 0 var(--space-2);
 }
 
 .divider-vertical.divider-lg {
-    margin: 0 var(--space-6);
+  margin: 0 var(--space-6);
 }
 
 .divider-vertical.divider-xl {
-    margin: 0 var(--space-8);
+  margin: 0 var(--space-8);
 }
 
 /* ========================================
@@ -100,21 +100,21 @@
    ======================================== */
 
 .divider-dashed {
-    background: none;
-    border-top: 1px dashed var(--color-divider);
+  background: none;
+  border-top: 1px dashed var(--color-divider);
 }
 
 .divider-vertical.divider-dashed {
-    border-top: none;
-    border-left: 1px dashed var(--color-divider);
+  border-top: none;
+  border-left: 1px dashed var(--color-divider);
 }
 
 .divider-dotted {
-    background: none;
-    border-top: 1px dotted var(--color-divider);
+  background: none;
+  border-top: 1px dotted var(--color-divider);
 }
 
 .divider-vertical.divider-dotted {
-    border-top: none;
-    border-left: 1px dotted var(--color-divider);
+  border-top: none;
+  border-left: 1px dotted var(--color-divider);
 }

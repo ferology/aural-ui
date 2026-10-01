@@ -9,26 +9,26 @@
    ======================================== */
 
 .aural-command-palette-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    z-index: 10000;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 15vh;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+  position: fixed;
+  inset: 0;
+  background: var(--color-palette-backdrop);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-max);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+  opacity: 0;
+  transition: opacity var(--duration-moderate) ease;
 }
 
 .aural-command-palette-backdrop.is-open {
-    opacity: 1;
+  opacity: 1;
 }
 
 .aural-command-palette-backdrop:not(.is-open) {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -36,23 +36,23 @@
    ======================================== */
 
 .aural-command-palette {
-    position: relative;
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-2xl), var(--glow-primary-sm);
-    max-width: 40rem;
-    width: 100%;
-    max-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    transform: scale(0.95) translateY(-10px);
-    transition: transform 0.2s ease;
-    overflow: hidden;
+  position: relative;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2xl), var(--glow-primary-sm);
+  max-width: var(--size-640);
+  width: 100%;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95) translateY(-10px);
+  transition: transform var(--duration-moderate) ease;
+  overflow: hidden;
 }
 
 .aural-command-palette-backdrop.is-open .aural-command-palette {
-    transform: scale(1) translateY(0);
+  transform: scale(1) translateY(0);
 }
 
 /* ========================================
@@ -60,36 +60,36 @@
    ======================================== */
 
 .aural-command-palette__search {
-    position: relative;
-    border-bottom: 1px solid var(--color-border);
+  position: relative;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .aural-command-palette__search-icon {
-    position: absolute;
-    left: var(--space-4);
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.25rem;
-    color: var(--color-text-muted);
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
 }
 
 .aural-command-palette__search-icon::before {
-    content: '🔍';
+  content: '🔍';
 }
 
 .aural-command-palette__input {
-    width: 100%;
-    padding: var(--space-4);
-    padding-left: calc(var(--space-4) + 2rem);
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: var(--text-base);
-    color: var(--color-text-primary);
+  width: 100%;
+  padding: var(--space-4);
+  padding-left: calc(var(--space-4) + var(--size-32));
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
 }
 
 .aural-command-palette__input::placeholder {
-    color: var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 
 /* ========================================
@@ -97,9 +97,9 @@
    ======================================== */
 
 .aural-command-palette__results {
-    overflow-y: auto;
-    max-height: calc(70vh - 4rem - 3rem);
-    padding: var(--space-2);
+  overflow-y: auto;
+  max-height: calc(70vh - var(--size-64) - var(--size-48));
+  padding: var(--space-2);
 }
 
 /* ========================================
@@ -107,20 +107,20 @@
    ======================================== */
 
 .aural-command-palette__group {
-    margin-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .aural-command-palette__group:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .aural-command-palette__group-label {
-    padding: var(--space-2) var(--space-3);
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ========================================
@@ -128,39 +128,39 @@
    ======================================== */
 
 .aural-command-palette__items {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 .aural-command-palette__item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-3);
-    background: transparent;
-    border: none;
-    border-radius: var(--radius-md);
-    color: var(--color-text-primary);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    text-align: left;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+  text-align: left;
+  width: 100%;
 }
 
 .aural-command-palette__item:hover {
-    background: var(--color-bg-secondary);
+  background: var(--color-bg-secondary);
 }
 
 .aural-command-palette__item--selected {
-    background: var(--color-primary);
-    color: white;
-    box-shadow: var(--glow-primary-sm);
+  background: var(--color-primary);
+  color: white;
+  box-shadow: var(--glow-primary-sm);
 }
 
 .aural-command-palette__item--selected .aural-command-palette__item-icon,
 .aural-command-palette__item--selected .aural-command-palette__item-description {
-    color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-on-dark);
 }
 
 /* ========================================
@@ -168,35 +168,35 @@
    ======================================== */
 
 .aural-command-palette__item-icon {
-    font-size: 1.25rem;
-    flex-shrink: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-size: var(--text-xl);
+  flex-shrink: 0;
+  width: var(--size-24);
+  height: var(--size-24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .aural-command-palette__item-content {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .aural-command-palette__item-title {
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .aural-command-palette__item-description {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    margin-top: var(--space-1);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ========================================
@@ -204,31 +204,31 @@
    ======================================== */
 
 .aural-command-palette__shortcut {
-    display: flex;
-    gap: var(--space-1);
-    flex-shrink: 0;
+  display: flex;
+  gap: var(--space-1);
+  flex-shrink: 0;
 }
 
 .aural-command-palette__key {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.5rem;
-    height: 1.5rem;
-    padding: 0 var(--space-2);
-    background: var(--color-bg-tertiary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-xs);
-    font-family: var(--font-mono);
-    color: var(--color-text-secondary);
-    box-shadow: var(--shadow-xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-24);
+  height: var(--size-24);
+  padding: 0 var(--space-2);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-xs);
 }
 
 .aural-command-palette__item--selected .aural-command-palette__key {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: white;
+  background: var(--color-tab-badge-bg);
+  border-color: var(--color-media-track-bg);
+  color: white;
 }
 
 /* ========================================
@@ -236,27 +236,27 @@
    ======================================== */
 
 .aural-command-palette__empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-8);
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  text-align: center;
 }
 
 .aural-command-palette__empty-icon {
-    font-size: 3rem;
-    opacity: 0.3;
-    margin-bottom: var(--space-3);
+  font-size: var(--text-5xl);
+  opacity: 0.3;
+  margin-bottom: var(--space-3);
 }
 
 .aural-command-palette__empty-icon::before {
-    content: '🔍';
+  content: '🔍';
 }
 
 .aural-command-palette__empty-text {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
 
 /* ========================================
@@ -264,25 +264,25 @@
    ======================================== */
 
 .aural-command-palette__footer {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-bg-secondary);
-    border-top: 1px solid var(--color-border);
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }
 
 .aural-command-palette__hint {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .aural-command-palette__hint-keys {
-    display: flex;
-    gap: var(--space-1);
+  display: flex;
+  gap: var(--space-1);
 }
 
 /* ========================================
@@ -290,25 +290,25 @@
    ======================================== */
 
 .aural-command-palette__loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
 }
 
 .aural-command-palette__spinner {
-    width: 2rem;
-    height: 2rem;
-    border: 3px solid var(--color-border);
-    border-top-color: var(--color-primary);
-    border-radius: var(--radius-full);
-    animation: spin 0.8s linear infinite;
+  width: var(--size-32);
+  height: var(--size-32);
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========================================
@@ -316,19 +316,19 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    .aural-command-palette-backdrop {
-        padding-top: 10vh;
-        padding-left: var(--space-4);
-        padding-right: var(--space-4);
-    }
+  .aural-command-palette-backdrop {
+    padding-top: 10vh;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
 
-    .aural-command-palette {
-        max-width: 100%;
-    }
+  .aural-command-palette {
+    max-width: 100%;
+  }
 
-    .aural-command-palette__footer {
-        flex-wrap: wrap;
-    }
+  .aural-command-palette__footer {
+    flex-wrap: wrap;
+  }
 }
 
 /* ========================================
@@ -337,49 +337,49 @@
 
 /* Prevent body scroll when palette is open */
 body.aural-command-palette-open {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /* Focus visible indicator */
 .aural-command-palette__item:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .aural-command-palette-backdrop,
-    .aural-command-palette,
-    .aural-command-palette__item {
-        transition: none;
-    }
+  .aural-command-palette-backdrop,
+  .aural-command-palette,
+  .aural-command-palette__item {
+    transition: none;
+  }
 
-    .aural-command-palette__spinner {
-        animation: none;
-        border-top-color: var(--color-border);
-    }
+  .aural-command-palette__spinner {
+    animation: none;
+    border-top-color: var(--color-border);
+  }
 
-    .aural-command-palette-backdrop.is-open .aural-command-palette {
-        transform: scale(1) translateY(0);
-    }
+  .aural-command-palette-backdrop.is-open .aural-command-palette {
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Custom Scrollbar */
 .aural-command-palette__results::-webkit-scrollbar {
-    width: 8px;
+  width: var(--space-2);
 }
 
 .aural-command-palette__results::-webkit-scrollbar-track {
-    background: var(--color-bg-secondary);
+  background: var(--color-bg-secondary);
 }
 
 .aural-command-palette__results::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border-radius: var(--radius-sm);
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
 }
 
 .aural-command-palette__results::-webkit-scrollbar-thumb:hover {
-    background: var(--color-text-muted);
+  background: var(--color-text-muted);
 }
 
 /* ========================================
@@ -387,11 +387,11 @@ body.aural-command-palette-open {
    ======================================== */
 
 .aural-command-palette__match {
-    color: var(--color-primary);
-    font-weight: var(--font-semibold);
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
 }
 
 .aural-command-palette__item--selected .aural-command-palette__match {
-    color: white;
-    text-decoration: underline;
+  color: white;
+  text-decoration: underline;
 }

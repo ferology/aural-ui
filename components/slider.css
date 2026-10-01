@@ -9,31 +9,31 @@
    ======================================== */
 
 .aural-slider {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .aural-slider__label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .aural-slider__label {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-medium);
 }
 
 .aural-slider__value {
-    font-size: var(--text-sm);
-    color: var(--color-primary);
-    font-weight: var(--font-semibold);
-    min-width: 2.5rem;
-    text-align: right;
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
+  min-width: var(--size-40);
+  text-align: right;
 }
 
 /* ========================================
@@ -41,45 +41,45 @@
    ======================================== */
 
 .aural-slider__track {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .aural-slider__input {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 44px;
-    background: linear-gradient(to right, var(--color-primary) 50%, var(--color-bg-tertiary) 50%);
-    background-size: 100% 6px;
-    background-position: center;
-    background-repeat: no-repeat;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: var(--size-44);
+  background: linear-gradient(to right, var(--color-primary) 50%, var(--color-bg-tertiary) 50%);
+  background-size: 100% 6px;
+  background-position: center;
+  background-repeat: no-repeat;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease; /* aural-ignore: one-off track fill transition, not a shared duration token */
 }
 
 /* Track - Webkit/Blink */
 .aural-slider__input::-webkit-slider-track {
-    width: 100%;
-    height: 6px;
-    background: transparent;
-    border-radius: var(--radius-full);
+  width: 100%;
+  height: var(--size-6);
+  background: transparent;
+  border-radius: var(--radius-full);
 }
 
 /* Track - Firefox */
 .aural-slider__input::-moz-range-track {
-    width: 100%;
-    height: 6px;
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-full);
+  width: 100%;
+  height: var(--size-6);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
 }
 
 /* Filled portion - Firefox */
 .aural-slider__input::-moz-range-progress {
-    height: 6px;
-    background: var(--color-primary);
-    border-radius: var(--radius-full);
+  height: var(--size-6);
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
 }
 
 /* ========================================
@@ -88,28 +88,28 @@
 
 /* Thumb - Webkit/Blink */
 .aural-slider__input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 1.25rem;
-    height: 1.25rem;
-    background: var(--color-primary);
-    border: 3px solid var(--color-bg-primary);
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: var(--shadow-sm);
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--size-20);
+  height: var(--size-20);
+  background: var(--color-primary);
+  border: 3px solid var(--color-bg-primary);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s ease; /* aural-ignore: one-off thumb hover/focus transition, not a shared duration token */
+  box-shadow: var(--shadow-sm);
 }
 
 /* Thumb - Firefox */
 .aural-slider__input::-moz-range-thumb {
-    width: 1.25rem;
-    height: 1.25rem;
-    background: var(--color-primary);
-    border: 3px solid var(--color-bg-primary);
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: var(--shadow-sm);
+  width: var(--size-20);
+  height: var(--size-20);
+  background: var(--color-primary);
+  border: 3px solid var(--color-bg-primary);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s ease; /* aural-ignore: one-off thumb hover/focus transition, not a shared duration token */
+  box-shadow: var(--shadow-sm);
 }
 
 /* ========================================
@@ -117,30 +117,30 @@
    ======================================== */
 
 .aural-slider__input:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .aural-slider__input:hover::-webkit-slider-thumb {
-    box-shadow: var(--glow-primary-sm), var(--shadow-md);
-    transform: scale(1.1);
+  box-shadow: var(--glow-primary-sm), var(--shadow-md);
+  transform: scale(1.1);
 }
 
 .aural-slider__input:hover::-moz-range-thumb {
-    box-shadow: var(--glow-primary-sm), var(--shadow-md);
-    transform: scale(1.1);
+  box-shadow: var(--glow-primary-sm), var(--shadow-md);
+  transform: scale(1.1);
 }
 
 .aural-slider__input:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .aural-slider__input:focus-visible::-webkit-slider-thumb {
-    box-shadow: var(--glow-primary-md), var(--shadow-lg);
+  box-shadow: var(--glow-primary-md), var(--shadow-lg);
 }
 
 .aural-slider__input:focus-visible::-moz-range-thumb {
-    box-shadow: var(--glow-primary-md), var(--shadow-lg);
+  box-shadow: var(--glow-primary-md), var(--shadow-lg);
 }
 
 /* ========================================
@@ -148,11 +148,11 @@
    ======================================== */
 
 .aural-slider__input:active::-webkit-slider-thumb {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 .aural-slider__input:active::-moz-range-thumb {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 /* ========================================
@@ -161,56 +161,56 @@
 
 /* Small */
 .aural-slider--sm .aural-slider__input {
-    background-size: 100% 4px;
+  background-size: 100% 4px;
 }
 
 .aural-slider--sm .aural-slider__input::-webkit-slider-track {
-    height: 4px;
+  height: var(--space-1);
 }
 
 .aural-slider--sm .aural-slider__input::-moz-range-track {
-    height: 4px;
+  height: var(--space-1);
 }
 
 .aural-slider--sm .aural-slider__input::-moz-range-progress {
-    height: 4px;
+  height: var(--space-1);
 }
 
 .aural-slider--sm .aural-slider__input::-webkit-slider-thumb {
-    width: 1rem;
-    height: 1rem;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 .aural-slider--sm .aural-slider__input::-moz-range-thumb {
-    width: 1rem;
-    height: 1rem;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 /* Large */
 .aural-slider--lg .aural-slider__input {
-    background-size: 100% 8px;
+  background-size: 100% 8px;
 }
 
 .aural-slider--lg .aural-slider__input::-webkit-slider-track {
-    height: 8px;
+  height: var(--space-2);
 }
 
 .aural-slider--lg .aural-slider__input::-moz-range-track {
-    height: 8px;
+  height: var(--space-2);
 }
 
 .aural-slider--lg .aural-slider__input::-moz-range-progress {
-    height: 8px;
+  height: var(--space-2);
 }
 
 .aural-slider--lg .aural-slider__input::-webkit-slider-thumb {
-    width: 1.5rem;
-    height: 1.5rem;
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 .aural-slider--lg .aural-slider__input::-moz-range-thumb {
-    width: 1.5rem;
-    height: 1.5rem;
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 /* ========================================
@@ -219,71 +219,71 @@
 
 /* Success */
 .aural-slider--success .aural-slider__input::-webkit-slider-thumb {
-    background: var(--color-success);
+  background: var(--color-success);
 }
 
 .aural-slider--success .aural-slider__input::-moz-range-thumb {
-    background: var(--color-success);
+  background: var(--color-success);
 }
 
 .aural-slider--success .aural-slider__value {
-    color: var(--color-success);
+  color: var(--color-success);
 }
 
 .aural-slider--success .aural-slider__input:hover::-webkit-slider-thumb,
 .aural-slider--success .aural-slider__input:focus-visible::-webkit-slider-thumb {
-    box-shadow: var(--glow-success-md), var(--shadow-md);
+  box-shadow: var(--glow-success-md), var(--shadow-md);
 }
 
 .aural-slider--success .aural-slider__input:hover::-moz-range-thumb,
 .aural-slider--success .aural-slider__input:focus-visible::-moz-range-thumb {
-    box-shadow: var(--glow-success-md), var(--shadow-md);
+  box-shadow: var(--glow-success-md), var(--shadow-md);
 }
 
 /* Warning */
 .aural-slider--warning .aural-slider__input::-webkit-slider-thumb {
-    background: var(--color-warning);
+  background: var(--color-warning);
 }
 
 .aural-slider--warning .aural-slider__input::-moz-range-thumb {
-    background: var(--color-warning);
+  background: var(--color-warning);
 }
 
 .aural-slider--warning .aural-slider__value {
-    color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .aural-slider--warning .aural-slider__input:hover::-webkit-slider-thumb,
 .aural-slider--warning .aural-slider__input:focus-visible::-webkit-slider-thumb {
-    box-shadow: var(--glow-warning-md), var(--shadow-md);
+  box-shadow: var(--glow-warning-md), var(--shadow-md);
 }
 
 .aural-slider--warning .aural-slider__input:hover::-moz-range-thumb,
 .aural-slider--warning .aural-slider__input:focus-visible::-moz-range-thumb {
-    box-shadow: var(--glow-warning-md), var(--shadow-md);
+  box-shadow: var(--glow-warning-md), var(--shadow-md);
 }
 
 /* Error */
 .aural-slider--error .aural-slider__input::-webkit-slider-thumb {
-    background: var(--color-error);
+  background: var(--color-error);
 }
 
 .aural-slider--error .aural-slider__input::-moz-range-thumb {
-    background: var(--color-error);
+  background: var(--color-error);
 }
 
 .aural-slider--error .aural-slider__value {
-    color: var(--color-error);
+  color: var(--color-error);
 }
 
 .aural-slider--error .aural-slider__input:hover::-webkit-slider-thumb,
 .aural-slider--error .aural-slider__input:focus-visible::-webkit-slider-thumb {
-    box-shadow: var(--glow-error-md), var(--shadow-md);
+  box-shadow: var(--glow-error-md), var(--shadow-md);
 }
 
 .aural-slider--error .aural-slider__input:hover::-moz-range-thumb,
 .aural-slider--error .aural-slider__input:focus-visible::-moz-range-thumb {
-    box-shadow: var(--glow-error-md), var(--shadow-md);
+  box-shadow: var(--glow-error-md), var(--shadow-md);
 }
 
 /* ========================================
@@ -291,17 +291,17 @@
    ======================================== */
 
 .aural-slider--stepped .aural-slider__ticks {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 0.625rem;
-    margin-top: var(--space-1);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.625rem; /* aural-ignore: half the 1.25rem thumb width, centers ticks under the thumb travel, not a spacing token */
+  margin-top: var(--space-1);
 }
 
 .aural-slider__tick {
-    width: 2px;
-    height: 0.5rem;
-    background: var(--color-border);
-    border-radius: var(--radius-sm);
+  width: var(--space-0-5);
+  height: var(--space-2);
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
 }
 
 /* ========================================
@@ -309,15 +309,15 @@
    ======================================== */
 
 .aural-slider__minmax {
-    display: flex;
-    justify-content: space-between;
-    margin-top: var(--space-1);
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-1);
 }
 
 .aural-slider__min,
 .aural-slider__max {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }
 
 /* ========================================
@@ -325,16 +325,16 @@
    ======================================== */
 
 .aural-slider__input:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .aural-slider__input:disabled::-webkit-slider-thumb {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .aural-slider__input:disabled::-moz-range-thumb {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 /* ========================================
@@ -342,86 +342,85 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-slider__input,
-    .aural-slider__input::-webkit-slider-thumb,
-    .aural-slider__input::-moz-range-thumb {
-        transition: none;
-    }
+  .aural-slider__input,
+  .aural-slider__input::-webkit-slider-thumb,
+  .aural-slider__input::-moz-range-thumb {
+    transition: none;
+  }
 }
-
 
 /* ========================================
    Vertical Slider
    ======================================== */
 
 .aural-slider--vertical {
-    width: auto;
-    height: 250px;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-4);
+  width: auto;
+  height: 250px; /* aural-ignore: one-off vertical slider length, not a design token */
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .aural-slider--vertical .aural-slider__label-row {
-    flex-direction: column;
-    gap: var(--space-2);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
+  flex-direction: column;
+  gap: var(--space-2);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 .aural-slider--vertical .aural-slider__label {
-    writing-mode: horizontal-tb;
+  writing-mode: horizontal-tb;
 }
 
 .aural-slider--vertical .aural-slider__value {
-    writing-mode: horizontal-tb;
-    min-width: auto;
-    text-align: center;
+  writing-mode: horizontal-tb;
+  min-width: auto;
+  text-align: center;
 }
 
 .aural-slider--vertical .aural-slider__input {
-    writing-mode: vertical-lr;
-    direction: rtl;
-    width: 44px;
-    height: 100%;
-    min-height: 200px;
-    margin: 0;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: var(--size-44);
+  height: 100%;
+  min-height: 200px; /* aural-ignore: one-off vertical slider minimum length, not a design token */
+  margin: 0;
 }
 
 .aural-slider--vertical .aural-slider__input::-webkit-slider-track {
-    width: 6px;
-    height: 100%;
+  width: var(--size-6);
+  height: 100%;
 }
 
 .aural-slider--vertical .aural-slider__input::-moz-range-track {
-    width: 6px;
-    height: 100%;
+  width: var(--size-6);
+  height: 100%;
 }
 
 .aural-slider--vertical .aural-slider__input::-moz-range-progress {
-    width: 6px;
+  width: var(--size-6);
 }
 
 .aural-slider--vertical.aural-slider--sm .aural-slider__input::-webkit-slider-track {
-    width: 4px;
+  width: var(--space-1);
 }
 
 .aural-slider--vertical.aural-slider--sm .aural-slider__input::-moz-range-track {
-    width: 4px;
+  width: var(--space-1);
 }
 
 .aural-slider--vertical.aural-slider--sm .aural-slider__input::-moz-range-progress {
-    width: 4px;
+  width: var(--space-1);
 }
 
 .aural-slider--vertical.aural-slider--lg .aural-slider__input::-webkit-slider-track {
-    width: 8px;
+  width: var(--space-2);
 }
 
 .aural-slider--vertical.aural-slider--lg .aural-slider__input::-moz-range-track {
-    width: 8px;
+  width: var(--space-2);
 }
 
 .aural-slider--vertical.aural-slider--lg .aural-slider__input::-moz-range-progress {
-    width: 8px;
+  width: var(--space-2);
 }

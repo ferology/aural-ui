@@ -10,23 +10,23 @@
    ======================================== */
 
 .aural-range-slider {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .aural-range-slider__label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .aural-range-slider__label {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-medium);
 }
 
 /* ========================================
@@ -34,31 +34,31 @@
    ======================================== */
 
 .aural-range-slider__wrapper {
-    position: relative;
-    width: 100%;
-    height: 44px;
-    display: flex;
-    align-items: center;
+  position: relative;
+  width: 100%;
+  height: var(--size-44);
+  display: flex;
+  align-items: center;
 }
 
 .aural-range-slider__track-bg {
-    position: absolute;
-    width: 100%;
-    height: 6px;
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-full);
-    top: 50%;
-    transform: translateY(-50%);
+  position: absolute;
+  width: 100%;
+  height: var(--size-6);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .aural-range-slider__track-fill {
-    position: absolute;
-    height: 6px;
-    background: var(--color-primary);
-    border-radius: var(--radius-full);
-    top: 50%;
-    transform: translateY(-50%);
-    transition: background-color 0.2s ease;
+  position: absolute;
+  height: var(--size-6);
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color 0.2s ease; /* aural-ignore: one-off track fill color transition, not a shared duration token */
 }
 
 /* ========================================
@@ -66,50 +66,50 @@
    ======================================== */
 
 .aural-range-slider__handle {
-    position: absolute;
-    top: 50%;
-    width: 1.25rem;
-    height: 1.25rem;
-    background: var(--color-primary);
-    border: 3px solid var(--color-bg-primary);
-    border-radius: var(--radius-full);
-    box-shadow: var(--shadow-sm);
-    cursor: pointer;
-    transform: translate(-50%, -50%);
-    transition: all 0.2s ease;
-    z-index: 2;
+  position: absolute;
+  top: 50%;
+  width: var(--size-20);
+  height: var(--size-20);
+  background: var(--color-primary);
+  border: 3px solid var(--color-bg-primary);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s ease; /* aural-ignore: one-off handle hover/active transition, not a shared duration token */
+  z-index: 2;
 }
 
 .aural-range-slider__handle:hover {
-    box-shadow: var(--glow-primary-sm), var(--shadow-md);
-    transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: var(--glow-primary-sm), var(--shadow-md);
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .aural-range-slider__handle:active {
-    transform: translate(-50%, -50%) scale(0.95);
+  transform: translate(-50%, -50%) scale(0.95);
 }
 
 .aural-range-slider__handle:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* Handle label (value inside the handle) - hidden by default */
 .aural-range-slider__handle .aural-range-slider__label {
-    display: none;
+  display: none;
 }
 
 .aural-range-slider__handle--min {
-    z-index: 3;
+  z-index: 3;
 }
 
 .aural-range-slider__handle--max {
-    z-index: 3;
+  z-index: 3;
 }
 
 /* Active handle has higher z-index */
 .aural-range-slider__handle--active {
-    z-index: 4;
+  z-index: 4;
 }
 
 /* ========================================
@@ -117,32 +117,32 @@
    ======================================== */
 
 .aural-range-slider__values {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .aural-range-slider__value {
-    font-size: var(--text-sm);
-    color: var(--color-primary);
-    font-weight: var(--font-semibold);
-    min-width: 2.5rem;
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
+  min-width: var(--size-40);
 }
 
 .aural-range-slider__value--min {
-    text-align: left;
+  text-align: left;
 }
 
 .aural-range-slider__value--max {
-    text-align: right;
+  text-align: right;
 }
 
 .aural-range-slider__value-label {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    font-weight: var(--font-medium);
-    margin-right: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-medium);
+  margin-right: var(--space-1);
 }
 
 /* ========================================
@@ -150,50 +150,50 @@
    ======================================== */
 
 .aural-range-slider__inputs {
-    display: flex;
-    gap: var(--space-3);
-    margin-bottom: var(--space-3);
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .aural-range-slider__input-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
 }
 
 .aural-range-slider__input-label {
-    font-size: var(--text-xs);
-    color: var(--color-text-secondary);
-    font-weight: var(--font-medium);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-medium);
 }
 
 .aural-range-slider__input {
-    width: 100%;
-    min-height: 36px;
-    padding: var(--space-2) var(--space-3);
-    background: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-family: inherit;
-    transition: var(--transition-all-fast);
+  width: 100%;
+  min-height: var(--size-36);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  transition: var(--transition-all-fast);
 }
 
 .aural-range-slider__input:hover {
-    border-color: var(--color-primary);
-    background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+  background: var(--color-bg-hover);
 }
 
 .aural-range-slider__input:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
 }
 
 .aural-range-slider__input::placeholder {
-    color: var(--color-text-tertiary);
+  color: var(--color-text-tertiary);
 }
 
 /* ========================================
@@ -201,11 +201,11 @@
    ======================================== */
 
 .aural-range-slider__limits {
-    display: flex;
-    justify-content: space-between;
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    margin-top: var(--space-1);
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
 }
 
 /* ========================================
@@ -215,23 +215,23 @@
 /* Small */
 .aural-range-slider--sm .aural-range-slider__track-bg,
 .aural-range-slider--sm .aural-range-slider__track-fill {
-    height: 4px;
+  height: var(--space-1);
 }
 
 .aural-range-slider--sm .aural-range-slider__handle {
-    width: 1rem;
-    height: 1rem;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 /* Large */
 .aural-range-slider--lg .aural-range-slider__track-bg,
 .aural-range-slider--lg .aural-range-slider__track-fill {
-    height: 8px;
+  height: var(--space-2);
 }
 
 .aural-range-slider--lg .aural-range-slider__handle {
-    width: 1.5rem;
-    height: 1.5rem;
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 /* ========================================
@@ -240,53 +240,53 @@
 
 /* Success */
 .aural-range-slider--success .aural-range-slider__track-fill {
-    background: var(--color-success);
+  background: var(--color-success);
 }
 
 .aural-range-slider--success .aural-range-slider__handle {
-    background: var(--color-success);
+  background: var(--color-success);
 }
 
 .aural-range-slider--success .aural-range-slider__value {
-    color: var(--color-success);
+  color: var(--color-success);
 }
 
 .aural-range-slider--success .aural-range-slider__handle:hover {
-    box-shadow: var(--glow-success-md), var(--shadow-md);
+  box-shadow: var(--glow-success-md), var(--shadow-md);
 }
 
 /* Warning */
 .aural-range-slider--warning .aural-range-slider__track-fill {
-    background: var(--color-warning);
+  background: var(--color-warning);
 }
 
 .aural-range-slider--warning .aural-range-slider__handle {
-    background: var(--color-warning);
+  background: var(--color-warning);
 }
 
 .aural-range-slider--warning .aural-range-slider__value {
-    color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .aural-range-slider--warning .aural-range-slider__handle:hover {
-    box-shadow: var(--glow-warning-md), var(--shadow-md);
+  box-shadow: var(--glow-warning-md), var(--shadow-md);
 }
 
 /* Error */
 .aural-range-slider--error .aural-range-slider__track-fill {
-    background: var(--color-error);
+  background: var(--color-error);
 }
 
 .aural-range-slider--error .aural-range-slider__handle {
-    background: var(--color-error);
+  background: var(--color-error);
 }
 
 .aural-range-slider--error .aural-range-slider__value {
-    color: var(--color-error);
+  color: var(--color-error);
 }
 
 .aural-range-slider--error .aural-range-slider__handle:hover {
-    box-shadow: var(--glow-error-md), var(--shadow-md);
+  box-shadow: var(--glow-error-md), var(--shadow-md);
 }
 
 /* ========================================
@@ -294,82 +294,82 @@
    ======================================== */
 
 .aural-range-slider--vertical {
-    width: auto;
-    height: 250px;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-4);
+  width: auto;
+  height: 250px; /* aural-ignore: one-off vertical range slider length, not a design token */
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .aural-range-slider--vertical .aural-range-slider__label-row {
-    flex-direction: column;
-    gap: var(--space-2);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
+  flex-direction: column;
+  gap: var(--space-2);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 .aural-range-slider--vertical .aural-range-slider__label {
-    writing-mode: horizontal-tb;
+  writing-mode: horizontal-tb;
 }
 
 .aural-range-slider--vertical .aural-range-slider__wrapper {
-    height: 100%;
-    width: 44px;
-    min-height: 200px;
-    flex-direction: column;
+  height: 100%;
+  width: var(--size-44);
+  min-height: 200px; /* aural-ignore: one-off vertical range slider minimum length, not a design token */
+  flex-direction: column;
 }
 
 .aural-range-slider--vertical .aural-range-slider__track-bg,
 .aural-range-slider--vertical .aural-range-slider__track-fill {
-    width: 6px;
-    height: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    top: auto;
+  width: var(--size-6);
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  top: auto;
 }
 
 .aural-range-slider--vertical .aural-range-slider__track-bg {
-    height: 100%;
+  height: 100%;
 }
 
 .aural-range-slider--vertical .aural-range-slider__handle {
-    left: 50%;
-    top: auto;
-    transform: translate(-50%, 50%);
+  left: 50%;
+  top: auto;
+  transform: translate(-50%, 50%);
 }
 
 .aural-range-slider--vertical .aural-range-slider__handle:hover {
-    transform: translate(-50%, 50%) scale(1.1);
+  transform: translate(-50%, 50%) scale(1.1);
 }
 
 .aural-range-slider--vertical .aural-range-slider__handle:active {
-    transform: translate(-50%, 50%) scale(0.95);
+  transform: translate(-50%, 50%) scale(0.95);
 }
 
 .aural-range-slider--vertical .aural-range-slider__values {
-    flex-direction: column;
-    align-items: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .aural-range-slider--vertical .aural-range-slider__value {
-    writing-mode: horizontal-tb;
-    text-align: center;
+  writing-mode: horizontal-tb;
+  text-align: center;
 }
 
 .aural-range-slider--vertical .aural-range-slider__limits {
-    flex-direction: column-reverse;
-    margin-top: 0;
-    margin-left: var(--space-1);
+  flex-direction: column-reverse;
+  margin-top: 0;
+  margin-left: var(--space-1);
 }
 
 .aural-range-slider--vertical.aural-range-slider--sm .aural-range-slider__track-bg,
 .aural-range-slider--vertical.aural-range-slider--sm .aural-range-slider__track-fill {
-    width: 4px;
+  width: var(--space-1);
 }
 
 .aural-range-slider--vertical.aural-range-slider--lg .aural-range-slider__track-bg,
 .aural-range-slider--vertical.aural-range-slider--lg .aural-range-slider__track-fill {
-    width: 8px;
+  width: var(--space-2);
 }
 
 /* ========================================
@@ -377,12 +377,12 @@
    ======================================== */
 
 .aural-range-slider--disabled {
-    opacity: 0.5;
-    pointer-events: none;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .aural-range-slider--disabled .aural-range-slider__handle {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 /* ========================================
@@ -390,32 +390,32 @@
    ======================================== */
 
 .aural-range-slider__steps {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
 }
 
 .aural-range-slider__step {
-    width: 2px;
-    height: 0.5rem;
-    background: var(--color-border);
-    border-radius: var(--radius-sm);
+  width: var(--space-0-5);
+  height: var(--space-2);
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
 }
 
 .aural-range-slider__step--in-range {
-    background: var(--primary-alpha-50);
+  background: var(--primary-alpha-50);
 }
 
 .aural-range-slider--vertical .aural-range-slider__steps {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .aural-range-slider--vertical .aural-range-slider__step {
-    width: 0.5rem;
-    height: 2px;
+  width: var(--space-2);
+  height: var(--space-0-5);
 }
 
 /* ========================================
@@ -423,23 +423,23 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-range-slider__handle,
-    .aural-range-slider__track-fill {
-        transition: none;
-    }
+  .aural-range-slider__handle,
+  .aural-range-slider__track-fill {
+    transition: none;
+  }
 }
 
 /* Screen reader only */
 .aural-range-slider__sr-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  height: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  padding: 0;
+  margin: -1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ========================================
@@ -447,15 +447,15 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    .aural-range-slider__handle {
-        width: 1.5rem;
-        height: 1.5rem;
-    }
+  .aural-range-slider__handle {
+    width: var(--size-24);
+    height: var(--size-24);
+  }
 
-    .aural-range-slider--sm .aural-range-slider__handle {
-        width: 1.25rem;
-        height: 1.25rem;
-    }
+  .aural-range-slider--sm .aural-range-slider__handle {
+    width: var(--size-20);
+    height: var(--size-20);
+  }
 }
 
 /* ========================================
@@ -463,26 +463,26 @@
    ======================================== */
 
 @media (pointer: coarse) {
-    .aural-range-slider__handle {
-        width: 44px;
-        height: 44px;
-    }
+  .aural-range-slider__handle {
+    width: var(--size-44);
+    height: var(--size-44);
+  }
 
-    .aural-range-slider__wrapper {
-        height: 48px;
-    }
+  .aural-range-slider__wrapper {
+    height: var(--size-48);
+  }
 
-    .aural-range-slider__track-bg,
-    .aural-range-slider__track-fill {
-        height: 8px;
-    }
+  .aural-range-slider__track-bg,
+  .aural-range-slider__track-fill {
+    height: var(--space-2);
+  }
 
-    .aural-range-slider--vertical .aural-range-slider__wrapper {
-        width: 48px;
-    }
+  .aural-range-slider--vertical .aural-range-slider__wrapper {
+    width: var(--size-48);
+  }
 
-    .aural-range-slider--vertical .aural-range-slider__track-bg,
-    .aural-range-slider--vertical .aural-range-slider__track-fill {
-        width: 8px;
-    }
+  .aural-range-slider--vertical .aural-range-slider__track-bg,
+  .aural-range-slider--vertical .aural-range-slider__track-fill {
+    width: var(--space-2);
+  }
 }

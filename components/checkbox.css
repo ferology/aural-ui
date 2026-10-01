@@ -34,7 +34,7 @@
   user-select: none;
 
   /* Accessibility */
-  min-height: 44px;
+  min-height: var(--size-44);
 
   & > input[type='checkbox'] {
     /* Hide native checkbox */
@@ -58,8 +58,8 @@
     flex-shrink: 0;
 
     /* Size (default: medium) */
-    width: 20px;
-    height: 20px;
+    width: var(--size-20);
+    height: var(--size-20);
 
     /* Appearance */
     background: var(--color-checkbox-bg);
@@ -73,7 +73,7 @@
   /* Hover state */
   &:hover > input[type='checkbox']:not(:disabled) + span::before {
     border-color: var(--color-checkbox-border-hover);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-bg-glass-light);
   }
 
   /* Checked state */
@@ -119,15 +119,15 @@
 
 .checkbox-sm {
   font-size: var(--text-sm);
-  min-height: 36px;
+  min-height: var(--size-36);
 
   & > input[type='checkbox'] + span {
     gap: var(--space-2);
   }
 
   & > input[type='checkbox'] + span::before {
-    width: 16px;
-    height: 16px;
+    width: var(--size-16);
+    height: var(--size-16);
   }
 
   & > input[type='checkbox']:checked + span::before,
@@ -138,15 +138,15 @@
 
 .checkbox-lg {
   font-size: var(--text-lg);
-  min-height: 52px;
+  min-height: var(--size-52);
 
   & > input[type='checkbox'] + span {
     gap: var(--space-4);
   }
 
   & > input[type='checkbox'] + span::before {
-    width: 24px;
-    height: 24px;
+    width: var(--size-24);
+    height: var(--size-24);
   }
 
   & > input[type='checkbox']:checked + span::before,
@@ -166,7 +166,7 @@
   & > input[type='checkbox'] + span {
     gap: 0;
     /* Collapse label text visually; span sizes to ::before (20×20). Text remains in the a11y tree. */
-    font-size: 0;
+    font-size: 0; /* aural-ignore: visually hides the label text node, not a type-scale value */
   }
 }
 
@@ -179,7 +179,7 @@
   }
 
   & > input[type='checkbox'] + span::before {
-    margin-top: 2px;
+    margin-top: var(--space-0-5);
   }
 
   & > span {

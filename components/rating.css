@@ -10,9 +10,9 @@
    ======================================== */
 
 .aural-rating {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
 }
 
 /* ========================================
@@ -20,70 +20,70 @@
    ======================================== */
 
 .aural-rating__stars {
-    display: inline-flex;
-    gap: 4px;
+  display: inline-flex;
+  gap: var(--space-1);
 }
 
 .aural-rating__star {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
-    padding: var(--space-2);
-    background: transparent;
-    color: var(--color-border-medium);
-    border: none;
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-44);
+  min-height: var(--size-44);
+  padding: var(--space-2);
+  background: transparent;
+  color: var(--color-border-medium);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  position: relative;
 }
 
 .aural-rating__star:hover {
-    color: var(--color-warning);
-    transform: scale(1.1);
+  color: var(--color-warning);
+  transform: scale(1.1);
 }
 
 .aural-rating__star:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 .aural-rating__star-icon {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
+  width: var(--size-24);
+  height: var(--size-24);
+  fill: currentColor;
 }
 
 /* Star States */
 .aural-rating__star--filled {
-    color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .aural-rating__star--half {
-    color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .aural-rating__star--empty {
-    color: var(--color-border-medium);
+  color: var(--color-border-medium);
 }
 
 /* Half Star Implementation */
 .aural-rating__star--half .aural-rating__star-icon {
-    position: relative;
+  position: relative;
 }
 
 .aural-rating__star--half .aural-rating__star-icon::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: var(--color-warning);
-    -webkit-clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
-    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: var(--color-warning);
+  -webkit-clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
 }
 
 /* ========================================
@@ -91,16 +91,16 @@
    ======================================== */
 
 .aural-rating__value {
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
-    margin-left: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  margin-left: var(--space-2);
 }
 
 .aural-rating__count {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    margin-left: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-left: var(--space-1);
 }
 
 /* ========================================
@@ -108,12 +108,12 @@
    ======================================== */
 
 .aural-rating--readonly .aural-rating__star {
-    cursor: default;
-    pointer-events: none;
+  cursor: default;
+  pointer-events: none;
 }
 
 .aural-rating--readonly .aural-rating__star:hover {
-    transform: none;
+  transform: none;
 }
 
 /* ========================================
@@ -121,13 +121,13 @@
    ======================================== */
 
 .aural-rating--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .aural-rating--disabled .aural-rating__star {
-    cursor: not-allowed;
-    pointer-events: none;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -136,72 +136,72 @@
 
 /* Extra Small */
 .aural-rating--xs .aural-rating__star {
-    min-width: 24px;
-    min-height: 24px;
-    padding: var(--space-1);
+  min-width: var(--size-24);
+  min-height: var(--size-24);
+  padding: var(--space-1);
 }
 
 .aural-rating--xs .aural-rating__star-icon {
-    width: 12px;
-    height: 12px;
+  width: var(--size-12);
+  height: var(--size-12);
 }
 
 .aural-rating--xs .aural-rating__value,
 .aural-rating--xs .aural-rating__count {
-    font-size: var(--text-xs);
+  font-size: var(--text-xs);
 }
 
 /* Small */
 .aural-rating--sm .aural-rating__star {
-    min-width: 32px;
-    min-height: 32px;
-    padding: var(--space-1);
+  min-width: var(--size-32);
+  min-height: var(--size-32);
+  padding: var(--space-1);
 }
 
 .aural-rating--sm .aural-rating__star-icon {
-    width: 16px;
-    height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 .aural-rating--sm .aural-rating__value,
 .aural-rating--sm .aural-rating__count {
-    font-size: var(--text-xs);
+  font-size: var(--text-xs);
 }
 
 /* Medium (default is already 24px) */
 
 /* Large */
 .aural-rating--lg .aural-rating__star {
-    min-width: 56px;
-    min-height: 56px;
-    padding: var(--space-3);
+  min-width: var(--size-56);
+  min-height: var(--size-56);
+  padding: var(--space-3);
 }
 
 .aural-rating--lg .aural-rating__star-icon {
-    width: 32px;
-    height: 32px;
+  width: var(--size-32);
+  height: var(--size-32);
 }
 
 .aural-rating--lg .aural-rating__value,
 .aural-rating--lg .aural-rating__count {
-    font-size: var(--text-base);
+  font-size: var(--text-base);
 }
 
 /* Extra Large */
 .aural-rating--xl .aural-rating__star {
-    min-width: 64px;
-    min-height: 64px;
-    padding: var(--space-4);
+  min-width: var(--size-64);
+  min-height: var(--size-64);
+  padding: var(--space-4);
 }
 
 .aural-rating--xl .aural-rating__star-icon {
-    width: 40px;
-    height: 40px;
+  width: var(--size-40);
+  height: var(--size-40);
 }
 
 .aural-rating--xl .aural-rating__value,
 .aural-rating--xl .aural-rating__count {
-    font-size: var(--text-lg);
+  font-size: var(--text-lg);
 }
 
 /* ========================================
@@ -211,25 +211,25 @@
 .aural-rating--primary .aural-rating__star--filled,
 .aural-rating--primary .aural-rating__star--half,
 .aural-rating--primary .aural-rating__star:hover {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .aural-rating--success .aural-rating__star--filled,
 .aural-rating--success .aural-rating__star--half,
 .aural-rating--success .aural-rating__star:hover {
-    color: var(--color-success);
+  color: var(--color-success);
 }
 
 .aural-rating--error .aural-rating__star--filled,
 .aural-rating--error .aural-rating__star--half,
 .aural-rating--error .aural-rating__star:hover {
-    color: var(--color-error);
+  color: var(--color-error);
 }
 
 .aural-rating--info .aural-rating__star--filled,
 .aural-rating--info .aural-rating__star--half,
 .aural-rating--info .aural-rating__star:hover {
-    color: var(--color-info);
+  color: var(--color-info);
 }
 
 /* ========================================
@@ -238,7 +238,7 @@
 
 .aural-rating--heart .aural-rating__star--filled,
 .aural-rating--heart .aural-rating__star:hover {
-    color: var(--color-error);
+  color: var(--color-error);
 }
 
 /* ========================================
@@ -246,14 +246,14 @@
    ======================================== */
 
 .aural-rating__label {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    margin-left: var(--space-2);
-    font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-left: var(--space-2);
+  font-weight: var(--font-medium);
 }
 
 .aural-rating:hover .aural-rating__label {
-    color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
 /* ========================================
@@ -261,36 +261,38 @@
    ======================================== */
 
 .aural-rating--compact {
-    gap: 0;
+  gap: 0;
 }
 
 .aural-rating--compact .aural-rating__stars {
-    gap: 0;
+  gap: 0;
 }
 
 .aural-rating--compact .aural-rating__star {
-    min-width: 32px;
-    min-height: 32px;
-    padding: var(--space-1);
+  min-width: var(--size-32);
+  min-height: var(--size-32);
+  padding: var(--space-1);
 }
 
 .aural-rating--compact .aural-rating__star-icon {
-    width: 16px;
-    height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 /* ========================================
    Hover Effects
    ======================================== */
 
-.aural-rating:not(.aural-rating--readonly):not(.aural-rating--disabled) .aural-rating__star:hover ~ .aural-rating__star {
-    color: var(--color-border-medium);
+.aural-rating:not(.aural-rating--readonly):not(.aural-rating--disabled)
+  .aural-rating__star:hover
+  ~ .aural-rating__star {
+  color: var(--color-border-medium);
 }
 
 /* Glow Effect on Hover */
 .aural-rating--glow .aural-rating__star:hover,
 .aural-rating--glow .aural-rating__star--filled {
-    filter: drop-shadow(0 0 8px currentColor);
+  filter: drop-shadow(0 0 8px currentColor);
 }
 
 /* ========================================
@@ -298,47 +300,65 @@
    ======================================== */
 
 .aural-rating__star--fractional {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .aural-rating__star--fractional::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background: var(--color-warning);
-    z-index: 1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--color-warning);
+  z-index: 1;
 }
 
-.aural-rating__star--fractional[data-fill="0.1"]::after { width: 10%; }
-.aural-rating__star--fractional[data-fill="0.2"]::after { width: 20%; }
-.aural-rating__star--fractional[data-fill="0.3"]::after { width: 30%; }
-.aural-rating__star--fractional[data-fill="0.4"]::after { width: 40%; }
-.aural-rating__star--fractional[data-fill="0.5"]::after { width: 50%; }
-.aural-rating__star--fractional[data-fill="0.6"]::after { width: 60%; }
-.aural-rating__star--fractional[data-fill="0.7"]::after { width: 70%; }
-.aural-rating__star--fractional[data-fill="0.8"]::after { width: 80%; }
-.aural-rating__star--fractional[data-fill="0.9"]::after { width: 90%; }
+.aural-rating__star--fractional[data-fill='0.1']::after {
+  width: 10%;
+}
+.aural-rating__star--fractional[data-fill='0.2']::after {
+  width: 20%;
+}
+.aural-rating__star--fractional[data-fill='0.3']::after {
+  width: 30%;
+}
+.aural-rating__star--fractional[data-fill='0.4']::after {
+  width: 40%;
+}
+.aural-rating__star--fractional[data-fill='0.5']::after {
+  width: 50%;
+}
+.aural-rating__star--fractional[data-fill='0.6']::after {
+  width: 60%;
+}
+.aural-rating__star--fractional[data-fill='0.7']::after {
+  width: 70%;
+}
+.aural-rating__star--fractional[data-fill='0.8']::after {
+  width: 80%;
+}
+.aural-rating__star--fractional[data-fill='0.9']::after {
+  width: 90%;
+}
 
 /* ========================================
    Accessibility
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-rating__star {
-        transition: none;
-    }
+  .aural-rating__star {
+    transition: none;
+  }
 
-    .aural-rating__star:hover {
-        transform: none;
-    }
+  .aural-rating__star:hover {
+    transform: none;
+  }
 
-    .aural-rating--glow .aural-rating__star:hover,
-    .aural-rating--glow .aural-rating__star--filled {
-        filter: none;
-    }
+  .aural-rating--glow .aural-rating__star:hover,
+  .aural-rating--glow .aural-rating__star--filled {
+    filter: none;
+  }
 }
 
 /* ========================================
@@ -346,13 +366,13 @@
    ======================================== */
 
 @media print {
-    .aural-rating__star {
-        color: #000;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
+  .aural-rating__star {
+    color: #000; /* aural-ignore: print output must stay black regardless of active theme, intentionally bypasses semantic color tokens */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 
-    .aural-rating__star--filled {
-        color: #FFB800;
-    }
+  .aural-rating__star--filled {
+    color: #ffb800; /* aural-ignore: fixed print amber for filled stars, independent of theme's --color-warning so printed ratings stay legible on paper */
+  }
 }

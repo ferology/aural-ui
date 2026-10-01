@@ -13,55 +13,55 @@
  */
 
 .empty-state {
-    /* Layout */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
-    /* Spacing */
-    padding: var(--space-12);
+  /* Spacing */
+  padding: var(--space-12);
 
-    /* Typography */
-    color: var(--color-text-secondary);
+  /* Typography */
+  color: var(--color-text-secondary);
 }
 
 .empty-state-icon {
-    /* Size */
-    width: 64px;
-    height: 64px;
+  /* Size */
+  width: var(--size-64);
+  height: var(--size-64);
 
-    /* Spacing */
-    margin-bottom: var(--space-6);
+  /* Spacing */
+  margin-bottom: var(--space-6);
 
-    /* Appearance */
-    opacity: 0.4;
-    stroke-width: 1.5;
+  /* Appearance */
+  opacity: 0.4;
+  stroke-width: 1.5;
 }
 
 .empty-state-title {
-    /* Typography */
-    font-size: var(--text-lg);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-primary);
+  /* Typography */
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
 
-    /* Spacing */
-    margin-bottom: var(--space-2);
+  /* Spacing */
+  margin-bottom: var(--space-2);
 }
 
 .empty-state-description {
-    /* Typography */
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
+  /* Typography */
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 
-    /* Spacing */
-    margin-bottom: var(--space-6);
-    max-width: 400px;
+  /* Spacing */
+  margin-bottom: var(--space-6);
+  max-width: 400px; /* aural-ignore: one-off text measure, between --size-360 and --size-480 */
 }
 
 .empty-state .btn {
-    margin-top: var(--space-2);
+  margin-top: var(--space-2);
 }
 
 /* ========================================
@@ -69,17 +69,17 @@
    ======================================== */
 
 .empty-state-compact {
-    padding: var(--space-8);
+  padding: var(--space-8);
 
-    & .empty-state-icon {
-        width: 48px;
-        height: 48px;
-        margin-bottom: var(--space-4);
-    }
+  & .empty-state-icon {
+    width: var(--size-48);
+    height: var(--size-48);
+    margin-bottom: var(--space-4);
+  }
 
-    & .empty-state-title {
-        font-size: var(--text-base);
-    }
+  & .empty-state-title {
+    font-size: var(--text-base);
+  }
 }
 
 /* ========================================
@@ -87,26 +87,26 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    .empty-state {
-        padding: var(--space-8) var(--space-4);
-    }
+  .empty-state {
+    padding: var(--space-8) var(--space-4);
+  }
 
-    .empty-state-icon {
-        width: 56px;
-        height: 56px;
-        margin-bottom: var(--space-5);
-    }
+  .empty-state-icon {
+    width: var(--size-56);
+    height: var(--size-56);
+    margin-bottom: var(--space-5);
+  }
 
-    .empty-state-title {
-        font-size: var(--text-base);
-    }
+  .empty-state-title {
+    font-size: var(--text-base);
+  }
 
-    .empty-state-description {
-        font-size: var(--text-sm);
-        max-width: 100%;
-    }
+  .empty-state-description {
+    font-size: var(--text-sm);
+    max-width: 100%;
+  }
 
-    .empty-state-compact {
-        padding: var(--space-6) var(--space-4);
-    }
+  .empty-state-compact {
+    padding: var(--space-6) var(--space-4);
+  }
 }

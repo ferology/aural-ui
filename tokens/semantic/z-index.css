@@ -1,0 +1,41 @@
+/**
+ * AURAL UI - Semantic Z-Index Tokens
+ *
+ * Intent-based names for the core z-index scale (tokens/core/z-index.css).
+ * Component code should reference these, not the numeric --z-N rungs
+ * directly, so the meaning of a layer is visible at the call site.
+ *
+ * Note: z-index values of 20 or smaller inside a single component
+ * (e.g. layering a badge dot above its own container, or ordering
+ * ::before/::after) are local stacking tricks, not global layers —
+ * they intentionally stay as plain small integers and are not part
+ * of this scale.
+ */
+
+:root {
+  /* ========================================
+       Global Stacking Layers
+       ======================================== */
+
+  /* Sticky in-flow elements (e.g. a sticky navbar) */
+  --z-sticky: var(--z-40);
+
+  /* Floating panels anchored to a trigger (dropdown, select, combobox,
+       date/time pickers, suggestions, notification panel) */
+  --z-dropdown: var(--z-50);
+
+  /* App-level modal backdrop and content */
+  --z-modal: var(--z-60);
+
+  /* Secondary overlay layer above a modal (e.g. a drawer backdrop) */
+  --z-overlay: var(--z-70);
+
+  /* Content that must float above everything in normal flow
+       (popover, tooltip, toast, dialog, alert banner, context menu) */
+  --z-popover: var(--z-80);
+  --z-tooltip: var(--z-80);
+  --z-toast: var(--z-80);
+
+  /* Absolute top layer (command palette, snackbar, lightbox, submenus) */
+  --z-max: var(--z-90);
+}
