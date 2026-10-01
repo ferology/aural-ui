@@ -9,31 +9,31 @@
    ======================================== */
 
 .aural-chips {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .aural-chips__container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    min-height: 2.75rem;
-    transition: all 0.2s ease;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-height: var(--size-44);
+  transition: all 0.2s ease;
 }
 
 .aural-chips__container:hover {
-    border-color: var(--color-primary);
-    background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+  background: var(--color-bg-hover);
 }
 
 .aural-chips__container:focus-within {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
 }
 
 /* ========================================
@@ -41,57 +41,62 @@
    ======================================== */
 
 .aural-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-1) var(--space-3);
-    background: var(--color-bg-secondary);
-    color: var(--color-text-primary);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    transition: all 0.2s ease;
-    max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  transition: all 0.2s ease;
+  max-width: 100%;
 }
 
 .aural-chip__text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .aural-chip__remove {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0;
-    background: transparent;
-    border: none;
-    border-radius: var(--radius-full);
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-    /* Visual icon size remains small */
-    font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-44);
+  min-height: var(--size-44);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  /* Visual icon size remains small */
+  font-size: var(--text-base);
 }
 
 .aural-chip__remove:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: var(--color-text-primary);
+  background: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* aural-ignore: one-off neutral hover scrim, not tied to the primary color ramp */
+  color: var(--color-text-primary);
 }
 
 .aural-chip__remove:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 1px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
 }
 
 .aural-chip__remove::before {
-    content: '×';
-    font-size: 1.125rem;
-    line-height: 1;
+  content: '×';
+  font-size: var(--text-lg);
+  line-height: 1;
 }
 
 /* ========================================
@@ -99,18 +104,18 @@
    ======================================== */
 
 .aural-chips__input {
-    flex: 1;
-    min-width: 8rem;
-    border: none;
-    outline: none;
-    background: transparent;
-    padding: var(--space-1) var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-text-primary);
+  flex: 1;
+  min-width: var(--space-32);
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
 }
 
 .aural-chips__input::placeholder {
-    color: var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 
 /* ========================================
@@ -119,77 +124,77 @@
 
 /* Primary */
 .aural-chip--primary {
-    background: var(--color-primary);
-    color: white;
+  background: var(--color-primary);
+  color: white;
 }
 
 .aural-chip--primary .aural-chip__remove {
-    color: rgba(255, 255, 255, 0.8);
+  color: var(--color-chip-remove-on-color);
 }
 
 .aural-chip--primary .aural-chip__remove:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+  background: var(--color-tab-badge-bg);
+  color: white;
 }
 
 /* Success */
 .aural-chip--success {
-    background: var(--color-success);
-    color: white;
+  background: var(--color-success);
+  color: white;
 }
 
 .aural-chip--success .aural-chip__remove {
-    color: rgba(255, 255, 255, 0.8);
+  color: var(--color-chip-remove-on-color);
 }
 
 .aural-chip--success .aural-chip__remove:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+  background: var(--color-tab-badge-bg);
+  color: white;
 }
 
 /* Error */
 .aural-chip--error {
-    background: var(--color-error);
-    color: white;
+  background: var(--color-error);
+  color: white;
 }
 
 .aural-chip--error .aural-chip__remove {
-    color: rgba(255, 255, 255, 0.8);
+  color: var(--color-chip-remove-on-color);
 }
 
 .aural-chip--error .aural-chip__remove:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+  background: var(--color-tab-badge-bg);
+  color: white;
 }
 
 /* Warning */
 .aural-chip--warning {
-    background: var(--color-warning);
-    color: white;
+  background: var(--color-warning);
+  color: white;
 }
 
 .aural-chip--warning .aural-chip__remove {
-    color: rgba(255, 255, 255, 0.8);
+  color: var(--color-chip-remove-on-color);
 }
 
 .aural-chip--warning .aural-chip__remove:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+  background: var(--color-tab-badge-bg);
+  color: white;
 }
 
 /* Info */
 .aural-chip--info {
-    background: var(--color-info);
-    color: white;
+  background: var(--color-info);
+  color: white;
 }
 
 .aural-chip--info .aural-chip__remove {
-    color: rgba(255, 255, 255, 0.8);
+  color: var(--color-chip-remove-on-color);
 }
 
 .aural-chip--info .aural-chip__remove:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+  background: var(--color-tab-badge-bg);
+  color: white;
 }
 
 /* ========================================
@@ -198,36 +203,52 @@
 
 /* Small */
 .aural-chip--sm {
-    padding: var(--space-1) var(--space-2);
-    font-size: var(--text-xs);
-    gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  gap: var(--space-1);
 }
 
 .aural-chip--sm .aural-chip__remove {
-    /* Maintain minimum 44×44px touch target */
-    min-width: 44px;
-    min-height: 44px;
-    font-size: 0.875rem;
+  /* Maintain minimum 44×44px touch target */
+  min-width: var(--size-44);
+  min-height: var(--size-44);
+  font-size: var(--text-sm);
 }
 
 .aural-chip--sm .aural-chip__remove::before {
-    font-size: 1rem;
+  font-size: var(--text-base);
 }
 
 /* Large */
 .aural-chip--lg {
-    padding: var(--space-2) var(--space-4);
-    font-size: var(--text-base);
-    gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-base);
+  gap: var(--space-3);
 }
 
 .aural-chip--lg .aural-chip__remove {
-    width: 1.25rem;
-    height: 1.25rem;
+  width: var(--size-20);
+  height: var(--size-20);
 }
 
 .aural-chip--lg .aural-chip__remove::before {
-    font-size: 1.375rem;
+  font-size: 1.375rem; /* aural-ignore: one-off glyph size between --text-xl (20px) and --text-2xl (24px) */
+}
+
+/* Extra Large */
+.aural-chip--xl {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-lg);
+  gap: var(--space-4);
+}
+
+.aural-chip--xl .aural-chip__remove {
+  width: var(--space-6);
+  height: var(--space-6);
+}
+
+.aural-chip--xl .aural-chip__remove::before {
+  font-size: var(--text-2xl);
 }
 
 /* ========================================
@@ -235,24 +256,24 @@
    ======================================== */
 
 .aural-chip--with-avatar {
-    padding-left: var(--space-1);
+  padding-left: var(--space-1);
 }
 
 .aural-chip__avatar {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: var(--radius-full);
-    object-fit: cover;
-    flex-shrink: 0;
+  width: var(--size-24);
+  height: var(--size-24);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .aural-chip__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1rem;
-    height: 1rem;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-16);
+  height: var(--size-16);
+  flex-shrink: 0;
 }
 
 /* ========================================
@@ -260,20 +281,20 @@
    ======================================== */
 
 .aural-chip--standalone {
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .aural-chip--clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .aural-chip--clickable:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .aural-chip--clickable:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 /* ========================================
@@ -281,9 +302,9 @@
    ======================================== */
 
 .aural-chips-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 /* ========================================
@@ -291,18 +312,18 @@
    ======================================== */
 
 .aural-chips__container--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    background: var(--color-bg-tertiary);
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--color-bg-tertiary);
 }
 
 .aural-chips__container--disabled .aural-chip__remove {
-    cursor: not-allowed;
-    pointer-events: none;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .aural-chips__container--disabled .aural-chips__input {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 /* ========================================
@@ -310,18 +331,18 @@
    ======================================== */
 
 .aural-chips__container--error {
-    border-color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 .aural-chips__container--error:focus-within {
-    border-color: var(--color-error);
-    box-shadow: var(--glow-error-sm);
+  border-color: var(--color-error);
+  box-shadow: var(--glow-error-sm);
 }
 
 .aural-chips__error-message {
-    margin-top: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-error);
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-error);
 }
 
 /* ========================================
@@ -329,18 +350,18 @@
    ======================================== */
 
 .aural-chips__limit {
-    margin-top: var(--space-2);
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    text-align: right;
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: right;
 }
 
 .aural-chips__limit--warning {
-    color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .aural-chips__limit--max {
-    color: var(--color-error);
+  color: var(--color-error);
 }
 
 /* ========================================
@@ -348,23 +369,23 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-chip,
-    .aural-chip__remove,
-    .aural-chips__container,
-    .aural-chip--clickable {
-        transition: none;
-    }
+  .aural-chip,
+  .aural-chip__remove,
+  .aural-chips__container,
+  .aural-chip--clickable {
+    transition: none;
+  }
 }
 
 /* Screen reader only text */
 .aural-chip__sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  height: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  padding: 0;
+  margin: -1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

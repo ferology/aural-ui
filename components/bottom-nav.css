@@ -10,23 +10,23 @@
    ======================================== */
 
 .aural-bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: var(--color-bg-primary);
-    border-top: 1px solid var(--color-border-medium);
-    padding: var(--space-2) var(--space-1);
-    box-shadow: var(--shadow-xl);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-dropdown);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: var(--color-bg-primary);
+  border-top: 1px solid var(--color-border-medium);
+  padding: var(--space-2) var(--space-1);
+  box-shadow: var(--shadow-xl);
 }
 
 /* Ensure content doesn't get hidden behind bottom nav */
 body.has-bottom-nav {
-    padding-bottom: 72px;
+  padding-bottom: var(--size-72);
 }
 
 /* ========================================
@@ -34,35 +34,35 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav__item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: var(--space-2) var(--space-3);
-    min-width: 64px;
-    min-height: 56px;
-    background: transparent;
-    color: var(--color-text-secondary);
-    border: none;
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    position: relative;
-    flex: 1;
-    max-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  min-width: var(--size-64);
+  min-height: var(--size-56);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: none;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  position: relative;
+  flex: 1;
+  max-width: 120px; /* aural-ignore: one-off nav item max-width, not a design token */
 }
 
 .aural-bottom-nav__item:hover {
-    background: var(--color-bg-hover);
-    color: var(--color-text-primary);
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
 }
 
 .aural-bottom-nav__item:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: -2px;
-    background: var(--color-bg-hover);
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+  background: var(--color-bg-hover);
 }
 
 /* ========================================
@@ -70,13 +70,13 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav__item--active {
-    color: var(--color-primary);
-    font-weight: var(--font-semibold);
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
 }
 
 .aural-bottom-nav__item--active .aural-bottom-nav__icon {
-    color: var(--color-primary);
-    transform: scale(1.1);
+  color: var(--color-primary);
+  transform: scale(1.1);
 }
 
 /* ========================================
@@ -84,18 +84,18 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav__icon {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    transition: var(--transition-all-fast);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-24);
+  height: var(--size-24);
+  transition: var(--transition-all-fast);
 }
 
 .aural-bottom-nav__icon svg {
-    width: 24px;
-    height: 24px;
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 /* ========================================
@@ -103,9 +103,9 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav__label {
-    font-size: var(--text-xs);
-    line-height: 1;
-    text-align: center;
+  font-size: var(--text-xs);
+  line-height: 1;
+  text-align: center;
 }
 
 /* ========================================
@@ -113,45 +113,46 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav__badge {
-    position: absolute;
-    top: 4px;
-    right: calc(50% - 20px);
-    min-width: 18px;
-    height: 18px;
-    padding: 0 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-error);
-    color: white;
-    border: 2px solid var(--color-bg-primary);
-    border-radius: var(--radius-full);
-    font-size: 0.65rem;
-    font-weight: var(--font-bold);
-    line-height: 1;
+  position: absolute;
+  top: var(--space-1);
+  right: calc(50% - 20px);
+  min-width: var(--size-18);
+  height: var(--size-18);
+  padding: 0 var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-error);
+  color: white;
+  border: 2px solid var(--color-bg-primary);
+  border-radius: var(--radius-full);
+  font-size: 0.65rem; /* aural-ignore: established notification-badge count size (reused verbatim in navbar.css, notification-center.css, multi-select.css), slightly off the --text-2xs rung */
+  font-weight: var(--font-bold);
+  line-height: 1;
 }
 
 .aural-bottom-nav__badge--pulse {
-    animation: aural-bottom-nav-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: aural-bottom-nav-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; /* aural-ignore: one-off pulse animation speed, not a shared duration token */
 }
 
 @keyframes aural-bottom-nav-pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.7;
-    }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 /* Badge dot variant (no number) */
 .aural-bottom-nav__badge--dot {
-    min-width: 8px;
-    width: 8px;
-    height: 8px;
-    padding: 0;
-    top: 6px;
-    right: calc(50% - 16px);
+  min-width: var(--space-2);
+  width: var(--space-2);
+  height: var(--space-2);
+  padding: 0;
+  top: var(--size-6);
+  right: calc(50% - 16px);
 }
 
 /* ========================================
@@ -159,56 +160,56 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav--with-fab {
-    padding-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
 }
 
 .aural-bottom-nav__fab {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 56px;
-    min-height: 56px;
-    padding: var(--space-3);
-    background: var(--color-primary);
-    color: white;
-    border: none;
-    border-radius: var(--radius-full);
-    box-shadow: var(--shadow-xl);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    z-index: 10;
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-56);
+  min-height: var(--size-56);
+  padding: var(--space-3);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-xl);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  z-index: 10;
 }
 
 .aural-bottom-nav__fab:hover {
-    background: var(--color-primary-hover);
-    transform: translateX(-50%) scale(1.1);
+  background: var(--color-primary-hover);
+  transform: translateX(-50%) scale(1.1);
 }
 
 .aural-bottom-nav__fab:focus-visible {
-    outline: 2px solid white;
-    outline-offset: 2px;
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 
 .aural-bottom-nav__fab:active {
-    transform: translateX(-50%) scale(0.95);
+  transform: translateX(-50%) scale(0.95);
 }
 
 .aural-bottom-nav__fab svg {
-    width: 24px;
-    height: 24px;
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 /* Adjust items spacing for FAB */
 .aural-bottom-nav--with-fab .aural-bottom-nav__item:nth-child(2) {
-    margin-right: 48px;
+  margin-right: var(--size-48);
 }
 
 .aural-bottom-nav--with-fab .aural-bottom-nav__item:nth-child(3) {
-    margin-left: 48px;
+  margin-left: var(--size-48);
 }
 
 /* ========================================
@@ -216,22 +217,22 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav--compact .aural-bottom-nav__item {
-    min-height: 48px;
-    gap: 0;
+  min-height: var(--size-48);
+  gap: 0;
 }
 
 .aural-bottom-nav--compact .aural-bottom-nav__label {
-    display: none;
+  display: none;
 }
 
 .aural-bottom-nav--compact .aural-bottom-nav__icon {
-    width: 28px;
-    height: 28px;
+  width: var(--size-28);
+  height: var(--size-28);
 }
 
 .aural-bottom-nav--compact .aural-bottom-nav__icon svg {
-    width: 28px;
-    height: 28px;
+  width: var(--size-28);
+  height: var(--size-28);
 }
 
 /* ========================================
@@ -239,15 +240,17 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav--labeled-active .aural-bottom-nav__label {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.2s ease, opacity 0.2s ease;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.2s ease,
+    opacity 0.2s ease; /* aural-ignore: one-off label reveal timing, not a shared duration token */
 }
 
 .aural-bottom-nav--labeled-active .aural-bottom-nav__item--active .aural-bottom-nav__label {
-    max-height: 20px;
-    opacity: 1;
+  max-height: var(--size-20);
+  opacity: 1;
 }
 
 /* ========================================
@@ -255,35 +258,35 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav--primary {
-    background: var(--color-primary);
-    border-top-color: var(--color-primary);
+  background: var(--color-primary);
+  border-top-color: var(--color-primary);
 }
 
 .aural-bottom-nav--primary .aural-bottom-nav__item {
-    color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-on-dark-muted);
 }
 
 .aural-bottom-nav--primary .aural-bottom-nav__item:hover,
 .aural-bottom-nav--primary .aural-bottom-nav__item--active {
-    color: white;
-    background: rgba(255, 255, 255, 0.1);
+  color: white;
+  background: var(--color-badge-neutral-bg);
 }
 
 .aural-bottom-nav--dark {
-    background: rgba(0, 0, 0, 0.9);
-    border-top-color: rgba(255, 255, 255, 0.1);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+  background: var(--color-bg-dark-overlay);
+  border-top-color: var(--color-badge-neutral-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .aural-bottom-nav--dark .aural-bottom-nav__item {
-    color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-on-dark-muted);
 }
 
 .aural-bottom-nav--dark .aural-bottom-nav__item:hover,
 .aural-bottom-nav--dark .aural-bottom-nav__item--active {
-    color: white;
-    background: rgba(255, 255, 255, 0.1);
+  color: white;
+  background: var(--color-badge-neutral-bg);
 }
 
 /* ========================================
@@ -291,9 +294,9 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav--blur {
-    background: rgba(var(--color-bg-primary-rgb), 0.8);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+  background: rgba(var(--color-bg-primary-rgb), 0.8);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 /* ========================================
@@ -301,14 +304,14 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav--divided .aural-bottom-nav__item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 24px;
-    background: var(--color-border-subtle);
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px; /* aural-ignore: hairline thickness, not a spacing/size token */
+  height: var(--size-24);
+  background: var(--color-border-subtle);
 }
 
 /* ========================================
@@ -316,21 +319,21 @@ body.has-bottom-nav {
    ======================================== */
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .aural-bottom-nav {
-        padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom));
-    }
+  .aural-bottom-nav {
+    padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom));
+  }
 
-    .aural-bottom-nav--with-fab {
-        padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
-    }
+  .aural-bottom-nav--with-fab {
+    padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  }
 
-    .aural-bottom-nav__fab {
-        bottom: calc(24px + env(safe-area-inset-bottom));
-    }
+  .aural-bottom-nav__fab {
+    bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
+  }
 
-    body.has-bottom-nav {
-        padding-bottom: calc(72px + env(safe-area-inset-bottom));
-    }
+  body.has-bottom-nav {
+    padding-bottom: calc(var(--size-72) + env(safe-area-inset-bottom));
+  }
 }
 
 /* ========================================
@@ -338,13 +341,13 @@ body.has-bottom-nav {
    ======================================== */
 
 .aural-bottom-nav--slide-out {
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
+  transform: translateY(100%);
+  transition: transform var(--duration-normal) ease;
 }
 
 .aural-bottom-nav--slide-in {
-    transform: translateY(0);
-    transition: transform 0.3s ease;
+  transform: translateY(0);
+  transition: transform var(--duration-normal) ease;
 }
 
 /* ========================================
@@ -352,29 +355,29 @@ body.has-bottom-nav {
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-bottom-nav,
-    .aural-bottom-nav__item,
-    .aural-bottom-nav__icon,
-    .aural-bottom-nav__fab {
-        transition: none;
-    }
+  .aural-bottom-nav,
+  .aural-bottom-nav__item,
+  .aural-bottom-nav__icon,
+  .aural-bottom-nav__fab {
+    transition: none;
+  }
 
-    .aural-bottom-nav__badge--pulse {
-        animation: none;
-    }
+  .aural-bottom-nav__badge--pulse {
+    animation: none;
+  }
 }
 
 /* Screen reader only */
 .aural-bottom-nav__sr-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  height: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  padding: 0;
+  margin: -1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ========================================
@@ -382,36 +385,38 @@ body.has-bottom-nav {
    ======================================== */
 
 @media (min-width: 1024px) {
-    .aural-bottom-nav--mobile-only {
-        display: none;
-    }
+  .aural-bottom-nav--mobile-only {
+    display: none;
+  }
 
-    body.has-bottom-nav.has-bottom-nav--mobile-only {
-        padding-bottom: 0;
-    }
+  body.has-bottom-nav.has-bottom-nav--mobile-only {
+    padding-bottom: 0;
+  }
 }
 
 /* ========================================
    Tablet Adjustments
    ======================================== */
 
+/* aural-ignore: deliberately 1px above the 640 breakpoint to make a non-overlapping tablet range together with the max-width:768px query, not a standard breakpoint */
 @media (max-width: 768px) and (min-width: 641px) {
-    .aural-bottom-nav__item {
-        max-width: 100px;
-    }
+  .aural-bottom-nav__item {
+    max-width: 100px; /* aural-ignore: one-off tablet nav-item max-width, not a design token */
+  }
 }
 
 /* ========================================
    Small Mobile
    ======================================== */
 
+/* aural-ignore: small-mobile (iPhone SE class) viewport breakpoint for tighter layout, intentionally finer-grained than the standard scale */
 @media (max-width: 360px) {
-    .aural-bottom-nav__item {
-        padding: var(--space-2) var(--space-1);
-        min-width: 56px;
-    }
+  .aural-bottom-nav__item {
+    padding: var(--space-2) var(--space-1);
+    min-width: var(--size-56);
+  }
 
-    .aural-bottom-nav__label {
-        font-size: 0.65rem;
-    }
+  .aural-bottom-nav__label {
+    font-size: 0.65rem; /* aural-ignore: established notification-badge/small-label font-size, reused verbatim elsewhere in this file and other components, slightly off the --text-2xs rung */
+  }
 }

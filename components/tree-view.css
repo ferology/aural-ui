@@ -10,20 +10,20 @@
    ======================================== */
 
 .aural-tree {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
 .aural-tree ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* ========================================
@@ -31,36 +31,36 @@
    ======================================== */
 
 .aural-tree__item {
-    position: relative;
+  position: relative;
 }
 
 .aural-tree__content {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    min-height: 40px;
-    background: transparent;
-    color: var(--color-text-primary);
-    border: none;
-    text-align: left;
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    width: 100%;
-    border-bottom: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--size-40);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: none;
+  text-align: left;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  width: 100%;
+  border-bottom: 1px solid transparent;
 }
 
 .aural-tree__content:hover {
-    background: var(--color-bg-hover);
-    color: var(--color-primary);
+  background: var(--color-bg-hover);
+  color: var(--color-primary);
 }
 
 .aural-tree__content:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: -2px;
-    background: var(--color-bg-hover);
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+  background: var(--color-bg-hover);
 }
 
 /* ========================================
@@ -68,15 +68,15 @@
    ======================================== */
 
 .aural-tree__item--selected > .aural-tree__content {
-    background: var(--primary-alpha-10);
-    color: var(--color-primary);
-    font-weight: var(--font-semibold);
+  background: var(--primary-alpha-10);
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
 }
 
 .aural-tree__item--disabled > .aural-tree__content {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -84,28 +84,28 @@
    ======================================== */
 
 .aural-tree__toggle {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    color: var(--color-text-secondary);
-    transition: var(--transition-all-fast);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-20);
+  height: var(--size-20);
+  color: var(--color-text-secondary);
+  transition: var(--transition-all-fast);
 }
 
 .aural-tree__toggle svg {
-    width: 16px;
-    height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 .aural-tree__item--expanded > .aural-tree__content .aural-tree__toggle {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .aural-tree__item--leaf .aural-tree__toggle {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -113,43 +113,43 @@
    ======================================== */
 
 .aural-tree__icon {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    color: var(--color-text-secondary);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-20);
+  height: var(--size-20);
+  color: var(--color-text-secondary);
 }
 
 .aural-tree__icon svg {
-    width: 16px;
-    height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 .aural-tree__item--expanded > .aural-tree__content .aural-tree__icon {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 /* Color variants for icons */
 .aural-tree__icon--primary {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .aural-tree__icon--success {
-    color: var(--color-success);
+  color: var(--color-success);
 }
 
 .aural-tree__icon--warning {
-    color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .aural-tree__icon--error {
-    color: var(--color-error);
+  color: var(--color-error);
 }
 
 .aural-tree__icon--info {
-    color: var(--color-info);
+  color: var(--color-info);
 }
 
 /* ========================================
@@ -157,8 +157,8 @@
    ======================================== */
 
 .aural-tree__label {
-    flex: 1;
-    line-height: var(--leading-tight);
+  flex: 1;
+  line-height: var(--leading-tight);
 }
 
 /* ========================================
@@ -166,19 +166,19 @@
    ======================================== */
 
 .aural-tree__badge {
-    flex-shrink: 0;
-    padding: 2px 6px;
-    background: var(--color-bg-tertiary);
-    color: var(--color-text-tertiary);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    line-height: 1;
+  flex-shrink: 0;
+  padding: var(--space-0-5) var(--size-6);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-tertiary);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  line-height: 1;
 }
 
 .aural-tree__item--selected .aural-tree__badge {
-    background: var(--primary-alpha-20);
-    color: var(--color-primary);
+  background: var(--primary-alpha-20);
+  color: var(--color-primary);
 }
 
 /* ========================================
@@ -186,40 +186,40 @@
    ======================================== */
 
 .aural-tree__actions {
-    display: none;
-    align-items: center;
-    gap: var(--space-1);
-    margin-left: auto;
+  display: none;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: auto;
 }
 
 .aural-tree__content:hover .aural-tree__actions,
 .aural-tree__content:focus-visible .aural-tree__actions {
-    display: flex;
+  display: flex;
 }
 
 .aural-tree__action {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 28px;
-    min-height: 28px;
-    padding: var(--space-1);
-    background: transparent;
-    color: var(--color-text-secondary);
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-28);
+  min-height: var(--size-28);
+  padding: var(--space-1);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-tree__action:hover {
-    background: var(--color-bg-tertiary);
-    color: var(--color-primary);
+  background: var(--color-bg-tertiary);
+  color: var(--color-primary);
 }
 
 .aural-tree__action svg {
-    width: 14px;
-    height: 14px;
+  width: var(--size-14);
+  height: var(--size-14);
 }
 
 /* ========================================
@@ -227,23 +227,23 @@
    ======================================== */
 
 .aural-tree__children {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    padding-left: var(--space-6);
-    background: var(--color-bg-secondary);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: var(--space-6);
+  background: var(--color-bg-secondary);
 }
 
 .aural-tree__item--expanded > .aural-tree__children {
-    max-height: 2000px;
+  max-height: 2000px; /* aural-ignore: deliberately-oversized expand-animation ceiling, not a real dimension */
 }
 
 .aural-tree__children .aural-tree__content {
-    border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .aural-tree__children .aural-tree__item:last-child .aural-tree__content {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 /* ========================================
@@ -251,52 +251,52 @@
    ======================================== */
 
 .aural-tree--with-checkboxes .aural-tree__content {
-    padding-left: var(--space-2);
+  padding-left: var(--space-2);
 }
 
 .aural-tree__checkbox {
-    flex-shrink: 0;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    background: var(--color-bg-secondary);
-    border: 2px solid var(--color-border-medium);
-    border-radius: var(--radius-sm);
-    transition: var(--transition-all-fast);
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-18);
+  height: var(--size-18);
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-all-fast);
 }
 
 .aural-tree__checkbox svg {
-    width: 12px;
-    height: 12px;
-    opacity: 0;
-    color: white;
-    transition: var(--transition-all-fast);
+  width: var(--size-12);
+  height: var(--size-12);
+  opacity: 0;
+  color: white;
+  transition: var(--transition-all-fast);
 }
 
 .aural-tree__item--checked .aural-tree__checkbox {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .aural-tree__item--checked .aural-tree__checkbox svg {
-    opacity: 1;
+  opacity: 1;
 }
 
 .aural-tree__item--indeterminate .aural-tree__checkbox {
-    background: var(--primary-alpha-20);
-    border-color: var(--color-primary);
+  background: var(--primary-alpha-20);
+  border-color: var(--color-primary);
 }
 
 .aural-tree__item--indeterminate .aural-tree__checkbox::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 2px;
-    background: var(--color-primary);
-    border-radius: 1px;
+  content: '';
+  position: absolute;
+  width: var(--space-2);
+  height: var(--space-0-5);
+  background: var(--color-primary);
+  border-radius: 1px; /* aural-ignore: hairline rounding on a 2px-tall dash, smaller than --radius-sm */
 }
 
 /* ========================================
@@ -304,37 +304,37 @@
    ======================================== */
 
 .aural-tree--with-lines .aural-tree__item {
-    position: relative;
+  position: relative;
 }
 
 .aural-tree--with-lines .aural-tree__item::before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--color-border-subtle);
+  content: '';
+  position: absolute;
+  left: 10px; /* aural-ignore: connector-line offset centered on the 20px toggle, no token at this step */
+  top: 0;
+  bottom: 0;
+  width: 1px; /* aural-ignore: hairline connector rule, thinner than any spacing/size token */
+  background: var(--color-border-subtle);
 }
 
 .aural-tree--with-lines .aural-tree__item::after {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 20px;
-    width: 16px;
-    height: 1px;
-    background: var(--color-border-subtle);
+  content: '';
+  position: absolute;
+  left: 10px; /* aural-ignore: connector-line offset centered on the 20px toggle, no token at this step */
+  top: var(--size-20);
+  width: var(--size-16);
+  height: 1px; /* aural-ignore: hairline connector rule, thinner than any spacing/size token */
+  background: var(--color-border-subtle);
 }
 
 .aural-tree--with-lines .aural-tree__item:last-child::before {
-    bottom: auto;
-    height: 20px;
+  bottom: auto;
+  height: var(--size-20);
 }
 
 .aural-tree--with-lines > .aural-tree__item::before,
 .aural-tree--with-lines > .aural-tree__item::after {
-    display: none;
+  display: none;
 }
 
 /* ========================================
@@ -342,25 +342,25 @@
    ======================================== */
 
 .aural-tree--compact .aural-tree__content {
-    padding: var(--space-1) var(--space-2);
-    min-height: 32px;
-    font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-2);
+  min-height: var(--size-32);
+  font-size: var(--text-xs);
 }
 
 .aural-tree--compact .aural-tree__icon,
 .aural-tree--compact .aural-tree__toggle {
-    width: 16px;
-    height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 .aural-tree--compact .aural-tree__icon svg,
 .aural-tree--compact .aural-tree__toggle svg {
-    width: 12px;
-    height: 12px;
+  width: var(--size-12);
+  height: var(--size-12);
 }
 
 .aural-tree--compact .aural-tree__children {
-    padding-left: var(--space-4);
+  padding-left: var(--space-4);
 }
 
 /* ========================================
@@ -368,25 +368,25 @@
    ======================================== */
 
 .aural-tree--large .aural-tree__content {
-    padding: var(--space-3) var(--space-4);
-    min-height: 48px;
-    font-size: var(--text-base);
+  padding: var(--space-3) var(--space-4);
+  min-height: var(--size-48);
+  font-size: var(--text-base);
 }
 
 .aural-tree--large .aural-tree__icon,
 .aural-tree--large .aural-tree__toggle {
-    width: 24px;
-    height: 24px;
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 .aural-tree--large .aural-tree__icon svg,
 .aural-tree--large .aural-tree__toggle svg {
-    width: 20px;
-    height: 20px;
+  width: var(--size-20);
+  height: var(--size-20);
 }
 
 .aural-tree--large .aural-tree__children {
-    padding-left: var(--space-8);
+  padding-left: var(--space-8);
 }
 
 /* ========================================
@@ -394,17 +394,17 @@
    ======================================== */
 
 .aural-tree__item--loading > .aural-tree__content {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .aural-tree__item--loading .aural-tree__toggle {
-    animation: aural-tree-spin 1s linear infinite;
+  animation: aural-tree-spin 1s linear infinite;
 }
 
 @keyframes aural-tree-spin {
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========================================
@@ -412,17 +412,17 @@
    ======================================== */
 
 .aural-tree--draggable .aural-tree__content {
-    cursor: grab;
+  cursor: grab;
 }
 
 .aural-tree__item--dragging > .aural-tree__content {
-    opacity: 0.5;
-    cursor: grabbing;
+  opacity: 0.5;
+  cursor: grabbing;
 }
 
 .aural-tree__item--drop-target > .aural-tree__content {
-    background: var(--primary-alpha-10);
-    border: 2px dashed var(--color-primary);
+  background: var(--primary-alpha-10);
+  border: 2px dashed var(--color-primary);
 }
 
 /* ========================================
@@ -430,10 +430,10 @@
    ======================================== */
 
 .aural-tree__label mark {
-    background: var(--color-warning-bg);
-    color: var(--color-warning);
-    padding: 0 2px;
-    border-radius: var(--radius-sm);
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  padding: 0 var(--space-0-5);
+  border-radius: var(--radius-sm);
 }
 
 /* ========================================
@@ -441,17 +441,17 @@
    ======================================== */
 
 .aural-tree__empty {
-    padding: var(--space-8) var(--space-4);
-    text-align: center;
-    color: var(--color-text-tertiary);
-    font-size: var(--text-sm);
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
 }
 
 .aural-tree__empty-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto var(--space-3);
-    color: var(--color-text-muted);
+  width: var(--size-48);
+  height: var(--size-48);
+  margin: 0 auto var(--space-3);
+  color: var(--color-text-muted);
 }
 
 /* ========================================
@@ -459,29 +459,29 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-tree__content,
-    .aural-tree__toggle,
-    .aural-tree__children,
-    .aural-tree__checkbox {
-        transition: none;
-    }
+  .aural-tree__content,
+  .aural-tree__toggle,
+  .aural-tree__children,
+  .aural-tree__checkbox {
+    transition: none;
+  }
 
-    .aural-tree__item--loading .aural-tree__toggle {
-        animation: none;
-    }
+  .aural-tree__item--loading .aural-tree__toggle {
+    animation: none;
+  }
 }
 
 /* Screen reader only */
 .aural-tree__sr-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  height: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  padding: 0;
+  margin: -1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ========================================
@@ -489,7 +489,7 @@
    ======================================== */
 
 .aural-tree--highlight-hover .aural-tree__content:hover {
-    box-shadow: inset 4px 0 0 var(--color-primary);
+  box-shadow: inset 4px 0 0 var(--color-primary);
 }
 
 /* ========================================
@@ -497,16 +497,16 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    .aural-tree__content {
-        padding: var(--space-2);
-        min-height: 44px;
-    }
+  .aural-tree__content {
+    padding: var(--space-2);
+    min-height: var(--size-44);
+  }
 
-    .aural-tree__actions {
-        display: flex;
-    }
+  .aural-tree__actions {
+    display: flex;
+  }
 
-    .aural-tree__children {
-        padding-left: var(--space-4);
-    }
+  .aural-tree__children {
+    padding-left: var(--space-4);
+  }
 }

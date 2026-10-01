@@ -329,6 +329,10 @@ Cards work best in responsive grids:
 - **card-bordered**: Add colored left border accent
 - **card-active**: Highlight selected/active state
 - **Color variants**: card-primary, card-success, card-warning, card-error (for bordered accent)
+
+## Theme Variants
+
+The docs site's theme switcher applies a decorative reskin on top of \`.card\` for the Kinetic theme (\`.card-kinetic\` and its variants, \`kinetic-cards.css\`) — demo-site-only CSS, not a separate component and not part of the published npm package. A second reskin, Neon-Refined (\`.card-prismatic\`, \`cards-refined.css\`), exists in the repo but currently isn't reachable from the live theme switcher.
         `.trim(),
       },
     },

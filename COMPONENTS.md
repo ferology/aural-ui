@@ -47,7 +47,7 @@ Custom styled checkboxes with indeterminate state support.
 
 ```html
 <label class="checkbox">
-  <input type="checkbox">
+  <input type="checkbox" />
   <span>Accept terms and conditions</span>
 </label>
 ```
@@ -56,12 +56,12 @@ Custom styled checkboxes with indeterminate state support.
 
 ```html
 <label class="checkbox checkbox-sm">
-  <input type="checkbox">
+  <input type="checkbox" />
   <span>Small checkbox</span>
 </label>
 
 <label class="checkbox checkbox-lg">
-  <input type="checkbox">
+  <input type="checkbox" />
   <span>Large checkbox</span>
 </label>
 ```
@@ -70,7 +70,7 @@ Custom styled checkboxes with indeterminate state support.
 
 ```html
 <label class="checkbox checkbox-with-description">
-  <input type="checkbox">
+  <input type="checkbox" />
   <span>
     Enable notifications
     <span class="checkbox-description">You'll receive email notifications</span>
@@ -85,6 +85,7 @@ Aural.setIndeterminate('my-checkbox', true);
 ```
 
 **States:**
+
 - Default, Checked, Indeterminate, Disabled
 
 ---
@@ -98,11 +99,11 @@ Custom styled radio buttons for single selection.
 ```html
 <div class="radio-group">
   <label class="radio">
-    <input type="radio" name="option">
+    <input type="radio" name="option" />
     <span>Option 1</span>
   </label>
   <label class="radio">
-    <input type="radio" name="option">
+    <input type="radio" name="option" />
     <span>Option 2</span>
   </label>
 </div>
@@ -113,11 +114,11 @@ Custom styled radio buttons for single selection.
 ```html
 <div class="radio-group radio-group-buttons">
   <label class="radio radio-button">
-    <input type="radio" name="view">
+    <input type="radio" name="view" />
     <span>Grid</span>
   </label>
   <label class="radio radio-button">
-    <input type="radio" name="view">
+    <input type="radio" name="view" />
     <span>List</span>
   </label>
 </div>
@@ -128,15 +129,15 @@ Custom styled radio buttons for single selection.
 ```html
 <div class="radio-group radio-group-attached">
   <label class="radio radio-button">
-    <input type="radio" name="align">
+    <input type="radio" name="align" />
     <span>Left</span>
   </label>
   <label class="radio radio-button">
-    <input type="radio" name="align">
+    <input type="radio" name="align" />
     <span>Center</span>
   </label>
   <label class="radio radio-button">
-    <input type="radio" name="align">
+    <input type="radio" name="align" />
     <span>Right</span>
   </label>
 </div>
@@ -152,7 +153,7 @@ Animated on/off switch controls.
 
 ```html
 <label class="toggle">
-  <input type="checkbox" role="switch">
+  <input type="checkbox" role="switch" />
   <span>Enable dark mode</span>
 </label>
 ```
@@ -161,12 +162,12 @@ Animated on/off switch controls.
 
 ```html
 <label class="toggle toggle-sm">
-  <input type="checkbox" role="switch">
+  <input type="checkbox" role="switch" />
   <span>Small toggle</span>
 </label>
 
 <label class="toggle toggle-lg">
-  <input type="checkbox" role="switch">
+  <input type="checkbox" role="switch" />
   <span>Large toggle</span>
 </label>
 ```
@@ -175,12 +176,12 @@ Animated on/off switch controls.
 
 ```html
 <label class="toggle toggle-success">
-  <input type="checkbox" role="switch" checked>
+  <input type="checkbox" role="switch" checked />
   <span>Active</span>
 </label>
 
 <label class="toggle toggle-error">
-  <input type="checkbox" role="switch" checked>
+  <input type="checkbox" role="switch" checked />
   <span>Danger zone</span>
 </label>
 ```
@@ -189,7 +190,7 @@ Animated on/off switch controls.
 
 ```html
 <label class="toggle toggle-label-left">
-  <input type="checkbox" role="switch">
+  <input type="checkbox" role="switch" />
   <span>Label on left</span>
 </label>
 ```
@@ -269,12 +270,8 @@ Tabbed navigation for organizing content.
   </button>
 </div>
 
-<div id="panel-1" class="tab-panel" role="tabpanel" tabindex="0">
-  Content 1
-</div>
-<div id="panel-2" class="tab-panel" role="tabpanel" tabindex="0" hidden>
-  Content 2
-</div>
+<div id="panel-1" class="tab-panel" role="tabpanel" tabindex="0">Content 1</div>
+<div id="panel-2" class="tab-panel" role="tabpanel" tabindex="0" hidden>Content 2</div>
 ```
 
 **Variants:**
@@ -436,20 +433,30 @@ Structured data display with various styles.
 
 ```html
 <!-- Striped rows -->
-<table class="table table-striped">...</table>
+<table class="table table-striped">
+  ...
+</table>
 
 <!-- Bordered -->
-<table class="table table-bordered">...</table>
+<table class="table table-bordered">
+  ...
+</table>
 
 <!-- Hoverable -->
-<table class="table table-hover">...</table>
+<table class="table table-hover">
+  ...
+</table>
 ```
 
 **Sizes:**
 
 ```html
-<table class="table table-sm">...</table>
-<table class="table table-lg">...</table>
+<table class="table table-sm">
+  ...
+</table>
+<table class="table table-lg">
+  ...
+</table>
 ```
 
 **Sortable Columns:**
@@ -463,7 +470,9 @@ Structured data display with various styles.
 **Sticky Header:**
 
 ```html
-<table class="table table-sticky">...</table>
+<table class="table table-sticky">
+  ...
+</table>
 ```
 
 ---
@@ -477,7 +486,7 @@ User profile images with initials fallback and status indicators.
 ```html
 <!-- With image -->
 <div class="avatar">
-  <img src="user.jpg" alt="User Name">
+  <img src="user.jpg" alt="User Name" />
 </div>
 
 <!-- With initials -->
@@ -519,9 +528,9 @@ User profile images with initials fallback and status indicators.
 
 ```html
 <div class="avatar-group">
-  <div class="avatar"><img src="user1.jpg" alt="User 1"></div>
-  <div class="avatar"><img src="user2.jpg" alt="User 2"></div>
-  <div class="avatar"><img src="user3.jpg" alt="User 3"></div>
+  <div class="avatar"><img src="user1.jpg" alt="User 1" /></div>
+  <div class="avatar"><img src="user2.jpg" alt="User 2" /></div>
+  <div class="avatar"><img src="user3.jpg" alt="User 3" /></div>
 </div>
 ```
 
@@ -590,7 +599,7 @@ Simple separator for visually dividing content.
 **Basic Usage:**
 
 ```html
-<hr class="divider">
+<hr class="divider" />
 ```
 
 **With Text:**
@@ -606,7 +615,7 @@ Simple separator for visually dividing content.
 ```html
 <div style="display: flex; align-items: center;">
   <span>Item 1</span>
-  <hr class="divider divider-vertical">
+  <hr class="divider divider-vertical" />
   <span>Item 2</span>
 </div>
 ```
@@ -614,16 +623,16 @@ Simple separator for visually dividing content.
 **Spacing:**
 
 ```html
-<hr class="divider divider-sm">
-<hr class="divider divider-lg">
-<hr class="divider divider-xl">
+<hr class="divider divider-sm" />
+<hr class="divider divider-lg" />
+<hr class="divider divider-xl" />
 ```
 
 **Styles:**
 
 ```html
-<hr class="divider divider-dashed">
-<hr class="divider divider-dotted">
+<hr class="divider divider-dashed" />
+<hr class="divider divider-dotted" />
 ```
 
 ---
@@ -637,13 +646,9 @@ Contextual information on hover/focus.
 **Data Attribute Method:**
 
 ```html
-<button class="btn" data-tooltip="This is a tooltip">
-  Hover me
-</button>
+<button class="btn" data-tooltip="This is a tooltip">Hover me</button>
 
-<button class="btn" data-tooltip="Bottom tooltip" data-tooltip-position="bottom">
-  Bottom
-</button>
+<button class="btn" data-tooltip="Bottom tooltip" data-tooltip-position="bottom">Bottom</button>
 ```
 
 **Custom Tooltip:**
@@ -651,9 +656,7 @@ Contextual information on hover/focus.
 ```html
 <div class="tooltip-wrapper">
   <button id="trigger" data-tooltip-trigger>Hover me</button>
-  <div class="tooltip tooltip-top" role="tooltip">
-    Tooltip content
-  </div>
+  <div class="tooltip tooltip-top" role="tooltip">Tooltip content</div>
 </div>
 ```
 
@@ -677,7 +680,12 @@ Contextual information on hover/focus.
 ```html
 <div class="tooltip tooltip-sm">...</div>
 <div class="tooltip tooltip-lg">...</div>
+<div class="tooltip tooltip-xl">...</div>
 ```
+
+`tooltip-xl` (480px max-width, `--text-lg` font-size) is intended for cases
+that need a larger, more readable bubble than `tooltip-lg` — e.g. onboarding
+tour callouts — not for general-purpose contextual help.
 
 **JavaScript API:**
 
@@ -696,9 +704,7 @@ Action menus and dropdown panels.
 
 ```html
 <div class="dropdown" id="my-dropdown">
-  <button class="dropdown-trigger btn" aria-haspopup="true" aria-expanded="false">
-    Menu
-  </button>
+  <button class="dropdown-trigger btn" aria-haspopup="true" aria-expanded="false">Menu</button>
   <div class="dropdown-menu" role="menu" hidden>
     <a href="#" class="dropdown-item" role="menuitem">Action</a>
     <a href="#" class="dropdown-item" role="menuitem">Another action</a>
@@ -749,9 +755,7 @@ Collapsible sections for organizing content.
       <svg class="accordion-icon">...</svg>
     </button>
     <div id="panel-1" class="accordion-panel" role="region" hidden>
-      <div class="accordion-content">
-        Content for section 1
-      </div>
+      <div class="accordion-content">Content for section 1</div>
     </div>
   </div>
 </div>
@@ -797,9 +801,7 @@ Rich content overlays with positioning.
       <h3>Popover Title</h3>
       <button class="popover-close" aria-label="Close">×</button>
     </div>
-    <div class="popover-body">
-      Popover content goes here
-    </div>
+    <div class="popover-body">Popover content goes here</div>
     <div class="popover-footer">
       <button class="btn btn-secondary">Cancel</button>
       <button class="btn btn-primary">Confirm</button>
@@ -854,7 +856,7 @@ Custom-styled range inputs with real-time value display and glow effects.
     <span class="aural-slider__value">50</span>
   </div>
   <div class="aural-slider__track">
-    <input type="range" class="aural-slider__input" min="0" max="100" value="50">
+    <input type="range" class="aural-slider__input" min="0" max="100" value="50" />
   </div>
 </div>
 ```
@@ -910,6 +912,7 @@ Aural.setSliderValue('my-slider', 75);
 ```
 
 **Features:**
+
 - Real-time value display
 - Glow effects on hover/focus
 - ARIA attributes for screen readers
@@ -931,7 +934,7 @@ Tag input component with add/remove functionality and multiple variants.
       <span class="aural-chip__text">JavaScript</span>
       <button class="aural-chip__remove" aria-label="Remove JavaScript"></button>
     </div>
-    <input type="text" class="aural-chips__input" placeholder="Add tag...">
+    <input type="text" class="aural-chips__input" placeholder="Add tag..." />
   </div>
 </div>
 ```
@@ -951,13 +954,16 @@ Tag input component with add/remove functionality and multiple variants.
 ```html
 <div class="aural-chip aural-chip--sm">...</div>
 <div class="aural-chip aural-chip--lg">...</div>
+<div class="aural-chip aural-chip--xl">...</div>
 ```
+
+`aural-chip--xl` extends the same scale one step past `lg` — useful for prominent tag displays such as filter bars where chips need to stay legible and easy to tap at a glance.
 
 **With Avatar:**
 
 ```html
 <div class="aural-chip aural-chip--with-avatar">
-  <img class="aural-chip__avatar" src="user.jpg" alt="User">
+  <img class="aural-chip__avatar" src="user.jpg" alt="User" />
   <span class="aural-chip__text">John Doe</span>
   <button class="aural-chip__remove"></button>
 </div>
@@ -981,7 +987,7 @@ const chips = Aural.initChips('my-chips', {
   maxTags: 10,
   allowDuplicates: false,
   onAdd: (tag) => console.log('Added:', tag),
-  onRemove: (tag) => console.log('Removed:', tag)
+  onRemove: (tag) => console.log('Removed:', tag),
 });
 
 // Get all tags
@@ -995,6 +1001,7 @@ chips.clearTags();
 ```
 
 **Features:**
+
 - Add tags on Enter or comma key
 - Remove on click or Backspace
 - Screen reader announcements
@@ -1016,8 +1023,7 @@ Keyboard-driven search interface with CMD/CTRL+K shortcut.
   <div class="aural-command-palette">
     <div class="aural-command-palette__search">
       <span class="aural-command-palette__search-icon"></span>
-      <input type="text" class="aural-command-palette__input"
-             placeholder="Search commands...">
+      <input type="text" class="aural-command-palette__input" placeholder="Search commands..." />
     </div>
     <div class="aural-command-palette__results"></div>
     <div class="aural-command-palette__footer">
@@ -1045,7 +1051,7 @@ const commands = [
     icon: '📄',
     group: 'File',
     shortcut: 'Ctrl+N',
-    action: () => console.log('New file')
+    action: () => console.log('New file'),
   },
   {
     id: 'save',
@@ -1054,8 +1060,8 @@ const commands = [
     icon: '💾',
     group: 'File',
     shortcut: 'Ctrl+S',
-    action: () => console.log('Save')
-  }
+    action: () => console.log('Save'),
+  },
 ];
 
 // Initialize palette
@@ -1070,6 +1076,7 @@ Aural.renderCommandResults('my-palette', filteredCommands);
 ```
 
 **Features:**
+
 - CMD/CTRL+K global shortcut
 - Search filtering
 - Grouped results
@@ -1163,6 +1170,7 @@ Aural.highlightCodeBlock('my-code', 'javascript');
 ```
 
 **Features:**
+
 - Copy to clipboard with feedback
 - Line numbers support
 - Syntax highlighting tokens
@@ -1194,9 +1202,7 @@ Lightweight confirmation dialogs with multiple variants.
       <p class="aural-dialog__message">Are you sure you want to continue?</p>
     </div>
     <div class="aural-dialog__footer">
-      <button class="btn btn-secondary" onclick="Aural.closeDialog('my-dialog')">
-        Cancel
-      </button>
+      <button class="btn btn-secondary" onclick="Aural.closeDialog('my-dialog')">Cancel</button>
       <button class="btn btn-primary">Confirm</button>
     </div>
   </div>
@@ -1229,8 +1235,7 @@ Lightweight confirmation dialogs with multiple variants.
 
 ```html
 <div class="aural-dialog">
-  <button class="aural-dialog__close" onclick="Aural.closeDialog('my-dialog')">
-  </button>
+  <button class="aural-dialog__close" onclick="Aural.closeDialog('my-dialog')"></button>
   ...
 </div>
 ```
@@ -1254,6 +1259,7 @@ Aural.showConfirm(
 ```
 
 **Features:**
+
 - Multiple visual variants
 - ESC key to close
 - Focus trap
@@ -1279,11 +1285,9 @@ Drag-and-drop file upload with validation and progress tracking.
         <span class="aural-file-upload__browse">Click to browse</span>
         or drag and drop
       </div>
-      <div class="aural-file-upload__secondary-text">
-        PNG, JPG, GIF up to 10MB
-      </div>
+      <div class="aural-file-upload__secondary-text">PNG, JPG, GIF up to 10MB</div>
     </div>
-    <input type="file" class="aural-file-upload__input" accept="image/*" multiple>
+    <input type="file" class="aural-file-upload__input" accept="image/*" multiple />
   </div>
   <div class="aural-file-upload__files"></div>
 </div>
@@ -1300,7 +1304,7 @@ Drag-and-drop file upload with validation and progress tracking.
 ```html
 <div class="aural-file-upload__file aural-file-upload__file--uploading">
   <div class="aural-file-upload__preview aural-file-upload__preview--image">
-    <img src="preview.jpg" alt="File">
+    <img src="preview.jpg" alt="File" />
   </div>
   <div class="aural-file-upload__info">
     <div class="aural-file-upload__filename">document.pdf</div>
@@ -1335,11 +1339,12 @@ Aural.initFileUpload('my-upload', {
   multiple: true,
   onUpload: (file) => {
     console.log('Uploaded:', file.name);
-  }
+  },
 });
 ```
 
 **Features:**
+
 - Drag-and-drop support
 - Click to browse
 - File type validation
@@ -1508,6 +1513,7 @@ Luminous effects with glow utility classes and animations.
 ```
 
 **Accessibility:**
+
 - All animations respect `prefers-reduced-motion`
 - No animation when user prefers reduced motion
 

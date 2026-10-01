@@ -5,9 +5,9 @@ import { Meta } from '@storybook/blocks';
   parameters={{
     docs: {
       theme: {
-        base: 'light'
-      }
-    }
+        base: 'light',
+      },
+    },
   }}
 />
 
@@ -53,38 +53,41 @@ import { Meta } from '@storybook/blocks';
 Aural UI uses a **two-layer token system**:
 
 ### Layer 1: Primitive Tokens (Foundation)
+
 These are the actual color values that **never change** across themes:
 
 ```css
 :root {
   /* Color scales: 50 (lightest) → 950 (darkest) */
-  --primary-400: #5ebd8f;     /* Vibrant green */
-  --secondary-500: #06b6d4;    /* Cyan */
-  --neutral-100: #f5f5f5;      /* Light gray */
-  --neutral-900: #171717;      /* Dark gray */
+  --primary-400: #5ebd8f; /* Vibrant green */
+  --secondary-500: #06b6d4; /* Cyan */
+  --neutral-100: #f5f5f5; /* Light gray */
+  --neutral-900: #171717; /* Dark gray */
 }
 ```
 
 ### Layer 2: Semantic Tokens (Meaning)
+
 These tokens map to **purposes** and **change per theme**:
 
 ```css
 /* Dark Theme */
 :root {
-  --color-bg-primary: #0f0f1a;      /* Dark background */
-  --color-text-primary: #f5f5fa;     /* Light text */
+  --color-bg-primary: #0f0f1a; /* Dark background */
+  --color-text-primary: #f5f5fa; /* Light text */
 }
 
 /* Light Theme */
 :root {
-  --color-bg-primary: #ffffff;       /* Light background */
-  --color-text-primary: #111827;     /* Dark text */
+  --color-bg-primary: #ffffff; /* Light background */
+  --color-text-primary: #111827; /* Dark text */
 }
 ```
 
 **Same token name, different values per theme!**
 
 ### Layer 3: Components Use Semantic Tokens
+
 ```css
 .btn-primary {
   background: var(--color-button-primary-bg);
@@ -113,6 +116,7 @@ These tokens map to **purposes** and **change per theme**:
 }}>
 
 **Backgrounds:**
+
 ```css
 --color-bg-primary       /* Main page background */
 --color-bg-secondary     /* Section backgrounds */
@@ -121,6 +125,7 @@ These tokens map to **purposes** and **change per theme**:
 ```
 
 **Text:**
+
 ```css
 --color-text-primary     /* Headings, main text */
 --color-text-secondary   /* Body text, labels */
@@ -128,6 +133,7 @@ These tokens map to **purposes** and **change per theme**:
 ```
 
 **Borders:**
+
 ```css
 --color-border-subtle    /* Light dividers */
 --color-border-medium    /* Input borders */
@@ -148,15 +154,16 @@ These tokens map to **purposes** and **change per theme**:
 }}>
 
 ```css
---space-1: 0.25rem;    /* 4px */
---space-2: 0.5rem;     /* 8px */
---space-4: 1rem;       /* 16px */
---space-6: 1.5rem;     /* 24px */
---space-8: 2rem;       /* 32px */
---space-12: 3rem;      /* 48px */
+--space-1: 0.25rem; /* 4px */
+--space-2: 0.5rem; /* 8px */
+--space-4: 1rem; /* 16px */
+--space-6: 1.5rem; /* 24px */
+--space-8: 2rem; /* 32px */
+--space-12: 3rem; /* 48px */
 ```
 
 **Usage:**
+
 ```css
 .card {
   padding: var(--space-6);
@@ -166,6 +173,201 @@ These tokens map to **purposes** and **change per theme**:
 ```
 
 </div>
+
+### Size
+
+<div style={{
+  background: '#f5f5f5',
+  border: '1px solid #e0e0e0',
+  padding: '1rem',
+  borderRadius: '8px',
+  marginBottom: '1rem',
+  color: '#1a1a1a'
+}}>
+
+`--size-N` sizes a UI element's **own box** — icon dimensions, avatar diameter, status-dot size, toggle track/thumb — as opposed to `--space-N`, which sizes the **gap between** elements.
+
+> ⚠️ **Not the same convention as `--space-N`.** `--size-N`'s `N` is the **literal pixel value** — `--size-14` is 14px, `--size-44` is 44px. `--space-N` uses `N` = px ÷ 4, so `--space-14` is **56px**. Never assume `--size-N` and `--space-N` with the same `N` are interchangeable — always check the actual value.
+
+Where a size value coincides with an existing `--space-N` value, `--size-N` aliases it instead of duplicating the literal (e.g. `--size-16: var(--space-4)`), so the two scales stay numerically consistent even though their naming conventions differ.
+
+```css
+--size-6: 0.375rem; /* 6px  — status dot */
+--size-14: 0.875rem; /* 14px — small icon */
+--size-18: 1.125rem; /* 18px — medium icon */
+--size-24: var(--space-6); /* 24px — large icon */
+--size-36: 2.25rem; /* 36px — small toggle track */
+--size-40: var(--space-10); /* 40px — avatar */
+--size-44: 2.75rem; /* 44px — touch target */
+```
+
+</div>
+
+**Size Scale** — rendered at actual token size:
+
+<div style={{
+  background: 'var(--color-bg-tertiary)',
+  padding: 'var(--space-4)',
+  borderRadius: 'var(--radius-md)',
+  marginBottom: 'var(--space-4)',
+  display: 'flex',
+  alignItems: 'flex-end',
+  gap: 'var(--space-6)',
+  flexWrap: 'wrap'
+}}>
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+  <div
+    style={{
+      width: 'var(--size-6)',
+      height: 'var(--size-6)',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-full)',
+    }}
+  ></div>
+  <code style={{ fontSize: '0.7rem' }}>--size-6</code>
+</div>
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+  <div
+    style={{
+      width: 'var(--size-14)',
+      height: 'var(--size-14)',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-sm)',
+    }}
+  ></div>
+  <code style={{ fontSize: '0.7rem' }}>--size-14</code>
+</div>
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+  <div
+    style={{
+      width: 'var(--size-18)',
+      height: 'var(--size-18)',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-sm)',
+    }}
+  ></div>
+  <code style={{ fontSize: '0.7rem' }}>--size-18</code>
+</div>
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+  <div
+    style={{
+      width: 'var(--size-24)',
+      height: 'var(--size-24)',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-sm)',
+    }}
+  ></div>
+  <code style={{ fontSize: '0.7rem' }}>--size-24</code>
+</div>
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+  <div
+    style={{
+      width: 'var(--size-36)',
+      height: 'var(--size-36)',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-md)',
+    }}
+  ></div>
+  <code style={{ fontSize: '0.7rem' }}>--size-36</code>
+</div>
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+  <div
+    style={{
+      width: 'var(--size-44)',
+      height: 'var(--size-44)',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-md)',
+    }}
+  ></div>
+  <code style={{ fontSize: '0.7rem' }}>--size-44</code>
+</div>
+
+</div>
+
+**Full icon/control scale** (`N` = literal px):
+
+| Token       | Value             | Pixels |
+| ----------- | ----------------- | ------ |
+| `--size-6`  | `0.375rem`        | 6px    |
+| `--size-12` | `var(--space-3)`  | 12px   |
+| `--size-14` | `0.875rem`        | 14px   |
+| `--size-16` | `var(--space-4)`  | 16px   |
+| `--size-18` | `1.125rem`        | 18px   |
+| `--size-20` | `var(--space-5)`  | 20px   |
+| `--size-24` | `var(--space-6)`  | 24px   |
+| `--size-28` | `var(--space-7)`  | 28px   |
+| `--size-32` | `var(--space-8)`  | 32px   |
+| `--size-36` | `2.25rem`         | 36px   |
+| `--size-40` | `var(--space-10)` | 40px   |
+| `--size-44` | `2.75rem`         | 44px   |
+| `--size-48` | `var(--space-12)` | 48px   |
+| `--size-52` | `3.25rem`         | 52px   |
+| `--size-56` | `var(--space-14)` | 56px   |
+| `--size-64` | `var(--space-16)` | 64px   |
+| `--size-80` | `var(--space-20)` | 80px   |
+| `--size-96` | `var(--space-24)` | 96px   |
+
+**Container / overlay width scale** — larger steps for dialog, drawer, and overlay `max-width`, same literal-pixel convention:
+
+| Token        | Value     | Pixels |
+| ------------ | --------- | ------ |
+| `--size-360` | `22.5rem` | 360px  |
+| `--size-480` | `30rem`   | 480px  |
+| `--size-640` | `40rem`   | 640px  |
+| `--size-800` | `50rem`   | 800px  |
+
+**Usage:**
+
+```css
+.icon-sm {
+  width: var(--size-14);
+  height: var(--size-14);
+} /* 14px small icon */
+
+.avatar {
+  width: var(--size-40);
+  height: var(--size-40);
+} /* 40px avatar */
+
+.toggle-track {
+  width: var(--size-44);
+  height: var(--size-24);
+} /* 44px touch target */
+
+.dialog {
+  max-width: var(--size-480);
+} /* 480px dialog */
+```
+
+**Do / don't:**
+
+```css
+/* Don't — raw px for a control dimension */
+.status-dot {
+  width: 6px;
+  height: 6px;
+}
+
+/* Don't — reaching for the wrong scale by number-matching intuition */
+.icon-md {
+  width: var(--space-14);
+} /* this is 56px, not 14px! */
+
+/* Do */
+.status-dot {
+  width: var(--size-6);
+  height: var(--size-6);
+}
+.icon-md {
+  width: var(--size-18);
+}
+```
 
 ### Typography
 
@@ -179,16 +381,18 @@ These tokens map to **purposes** and **change per theme**:
 }}>
 
 **Font Sizes:**
+
 ```css
---text-xs: 0.75rem;     /* 12px */
---text-sm: 0.875rem;    /* 14px */
---text-base: 1rem;      /* 16px */
---text-lg: 1.125rem;    /* 18px */
---text-2xl: 1.5rem;     /* 24px */
---text-4xl: 2.25rem;    /* 36px */
+--text-xs: 0.75rem; /* 12px */
+--text-sm: 0.875rem; /* 14px */
+--text-base: 1rem; /* 16px */
+--text-lg: 1.125rem; /* 18px */
+--text-2xl: 1.5rem; /* 24px */
+--text-4xl: 2.25rem; /* 36px */
 ```
 
 **Font Weights:**
+
 ```css
 --font-normal: 400;
 --font-medium: 500;
@@ -197,9 +401,10 @@ These tokens map to **purposes** and **change per theme**:
 ```
 
 **Font Families:**
+
 ```css
 --font-sans: system-ui, -apple-system, sans-serif;
---font-mono: Monaco, "Cascadia Code", monospace;
+--font-mono: Monaco, 'Cascadia Code', monospace;
 ```
 
 </div>
@@ -218,39 +423,47 @@ These tokens map to **purposes** and **change per theme**:
   color: 'var(--color-text-primary)'
 }}>
 
-<div style={{
-  padding: 'var(--space-3)',
-  background: 'var(--color-primary)',
-  color: 'white',
-  borderRadius: 'var(--radius-sm)'
-}}>
+<div
+  style={{
+    padding: 'var(--space-3)',
+    background: 'var(--color-primary)',
+    color: 'white',
+    borderRadius: 'var(--radius-sm)',
+  }}
+>
   `--radius-sm` (4px)
 </div>
 
-<div style={{
-  padding: 'var(--space-3)',
-  background: 'var(--color-primary)',
-  color: 'white',
-  borderRadius: 'var(--radius-md)'
-}}>
+<div
+  style={{
+    padding: 'var(--space-3)',
+    background: 'var(--color-primary)',
+    color: 'white',
+    borderRadius: 'var(--radius-md)',
+  }}
+>
   `--radius-md` (12px)
 </div>
 
-<div style={{
-  padding: 'var(--space-3)',
-  background: 'var(--color-primary)',
-  color: 'white',
-  borderRadius: 'var(--radius-lg)'
-}}>
+<div
+  style={{
+    padding: 'var(--space-3)',
+    background: 'var(--color-primary)',
+    color: 'white',
+    borderRadius: 'var(--radius-lg)',
+  }}
+>
   `--radius-lg` (16px)
 </div>
 
-<div style={{
-  padding: 'var(--space-3)',
-  background: 'var(--color-primary)',
-  color: 'white',
-  borderRadius: 'var(--radius-full)'
-}}>
+<div
+  style={{
+    padding: 'var(--space-3)',
+    background: 'var(--color-primary)',
+    color: 'white',
+    borderRadius: 'var(--radius-full)',
+  }}
+>
   `--radius-full` (pill)
 </div>
 
@@ -268,34 +481,266 @@ These tokens map to **purposes** and **change per theme**:
   flexWrap: 'wrap'
 }}>
 
-<div style={{
-  padding: 'var(--space-4)',
-  background: 'var(--color-bg-primary)',
-  boxShadow: 'var(--shadow-sm)',
-  borderRadius: 'var(--radius-md)'
-}}>
+<div
+  style={{
+    padding: 'var(--space-4)',
+    background: 'var(--color-bg-primary)',
+    boxShadow: 'var(--shadow-sm)',
+    borderRadius: 'var(--radius-md)',
+  }}
+>
   Small Shadow
 </div>
 
-<div style={{
-  padding: 'var(--space-4)',
-  background: 'var(--color-bg-primary)',
-  boxShadow: 'var(--shadow-md)',
-  borderRadius: 'var(--radius-md)'
-}}>
+<div
+  style={{
+    padding: 'var(--space-4)',
+    background: 'var(--color-bg-primary)',
+    boxShadow: 'var(--shadow-md)',
+    borderRadius: 'var(--radius-md)',
+  }}
+>
   Medium Shadow
 </div>
 
-<div style={{
-  padding: 'var(--space-4)',
-  background: 'var(--color-bg-primary)',
-  boxShadow: 'var(--shadow-lg)',
-  borderRadius: 'var(--radius-md)'
-}}>
+<div
+  style={{
+    padding: 'var(--space-4)',
+    background: 'var(--color-bg-primary)',
+    boxShadow: 'var(--shadow-lg)',
+    borderRadius: 'var(--radius-md)',
+  }}
+>
   Large Shadow
 </div>
 
 </div>
+
+### Z-Index
+
+Two layers, same pattern as color: a **core scale** of raw, meaningless rungs (`--z-0` through `--z-90`), and a **semantic scale** of intent-named aliases onto those rungs (`--z-dropdown`, `--z-modal`, `--z-popover`, and so on). The jumps between rungs are deliberately uneven — they were set to match stacking values already in use across components (dropdowns at 1000, overlays near 9999, etc.), so introducing the token scale didn't change any existing stacking behavior.
+
+**Stacking order** — each panel below is rendered at its real semantic z-index:
+
+<div style={{
+  background: 'var(--color-bg-tertiary)',
+  padding: 'var(--space-4)',
+  borderRadius: 'var(--radius-md)',
+  marginBottom: 'var(--space-4)',
+  position: 'relative',
+  height: '190px'
+}}>
+
+<div
+  style={{
+    position: 'absolute',
+    top: '20px',
+    left: '0px',
+    width: '150px',
+    height: '80px',
+    borderRadius: '8px',
+    background: '#525252',
+    color: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '0.7rem',
+    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+    zIndex: 'var(--z-sticky)',
+  }}
+>
+  <strong>sticky navbar</strong>
+  <code style={{ color: '#fff', opacity: 0.85 }}>--z-sticky (100)</code>
+</div>
+
+<div
+  style={{
+    position: 'absolute',
+    top: '20px',
+    left: '60px',
+    width: '150px',
+    height: '80px',
+    borderRadius: '8px',
+    background: '#3d8a64',
+    color: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '0.7rem',
+    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+    zIndex: 'var(--z-dropdown)',
+  }}
+>
+  <strong>dropdown panel</strong>
+  <code style={{ color: '#fff', opacity: 0.85 }}>--z-dropdown (1000)</code>
+</div>
+
+<div
+  style={{
+    position: 'absolute',
+    top: '20px',
+    left: '120px',
+    width: '150px',
+    height: '80px',
+    borderRadius: '8px',
+    background: '#0891b2',
+    color: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '0.7rem',
+    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+    zIndex: 'var(--z-modal)',
+  }}
+>
+  <strong>modal</strong>
+  <code style={{ color: '#fff', opacity: 0.85 }}>--z-modal (2000)</code>
+</div>
+
+<div
+  style={{
+    position: 'absolute',
+    top: '20px',
+    left: '180px',
+    width: '150px',
+    height: '80px',
+    borderRadius: '8px',
+    background: '#b45309',
+    color: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '0.7rem',
+    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+    zIndex: 'var(--z-overlay)',
+  }}
+>
+  <strong>drawer overlay</strong>
+  <code style={{ color: '#fff', opacity: 0.85 }}>--z-overlay (9998)</code>
+</div>
+
+<div
+  style={{
+    position: 'absolute',
+    top: '20px',
+    left: '240px',
+    width: '150px',
+    height: '80px',
+    borderRadius: '8px',
+    background: '#9333ea',
+    color: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '0.7rem',
+    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+    zIndex: 'var(--z-popover)',
+  }}
+>
+  <strong>tooltip / toast</strong>
+  <code style={{ color: '#fff', opacity: 0.85 }}>--z-popover (9999)</code>
+</div>
+
+<div
+  style={{
+    position: 'absolute',
+    top: '20px',
+    left: '300px',
+    width: '150px',
+    height: '80px',
+    borderRadius: '8px',
+    background: '#dc2626',
+    color: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '0.7rem',
+    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+    zIndex: 'var(--z-max)',
+  }}
+>
+  <strong>command palette</strong>
+  <code style={{ color: '#fff', opacity: 0.85 }}>--z-max (10000)</code>
+</div>
+
+</div>
+
+**Core scale:**
+
+```css
+--z-0: 0;
+--z-40: 100;
+--z-70: 9998;
+--z-10: 10;
+--z-50: 1000;
+--z-80: 9999;
+--z-20: 20;
+--z-60: 2000;
+--z-90: 10000;
+--z-30: 30;
+```
+
+**Semantic scale:**
+
+| Token          | Resolves to           | Use for                                                                                           |
+| -------------- | --------------------- | ------------------------------------------------------------------------------------------------- |
+| `--z-sticky`   | `var(--z-40)` · 100   | Sticky in-flow elements, e.g. a sticky navbar                                                     |
+| `--z-dropdown` | `var(--z-50)` · 1000  | Floating panels anchored to a trigger: dropdown, select, combobox, date/time pickers, suggestions |
+| `--z-modal`    | `var(--z-60)` · 2000  | App-level modal backdrop + content                                                                |
+| `--z-overlay`  | `var(--z-70)` · 9998  | A secondary overlay above a modal, e.g. a drawer backdrop                                         |
+| `--z-popover`  | `var(--z-80)` · 9999  | Content that must float above everything in normal flow                                           |
+| `--z-tooltip`  | `var(--z-80)` · 9999  | Same layer as popover — tooltips                                                                  |
+| `--z-toast`    | `var(--z-80)` · 9999  | Same layer as popover — toast notifications                                                       |
+| `--z-max`      | `var(--z-90)` · 10000 | Absolute top layer: command palette, snackbar, lightbox, submenus                                 |
+
+**When to use it — and when not to:**
+
+Component code should reference the **semantic tokens** (`var(--z-dropdown)`), not the raw `--z-N` rungs, so the meaning of a layer is visible at the call site.
+
+Small z-index values used purely for local stacking tricks inside a single component are **not** part of this scale and don't need a token. If you're layering a decorative pseudo-element above its own container, ordering a badge dot over an avatar, or doing any z-index trick where everything being stacked lives inside one component's own DOM subtree — and the value is 20 or smaller — leave it as a plain integer. Reach for a global token only when the element needs to stack above or below content belonging to a **different** component.
+
+```css
+/* Local stacking trick — stays a plain small integer, no token needed */
+.avatar-status-dot {
+  position: absolute;
+  z-index: 1;
+}
+
+/* Cross-component global layer — use the semantic token */
+.dropdown-menu {
+  position: absolute;
+  z-index: var(--z-dropdown);
+}
+.modal-backdrop {
+  position: fixed;
+  z-index: var(--z-modal);
+}
+```
+
+**Do / don't:**
+
+```css
+/* Don't — raw global-scale number, meaning not visible at the call site */
+.toast {
+  z-index: 9999;
+}
+
+/* Don't — reaching past the semantic layer for no reason */
+.toast {
+  z-index: var(--z-80);
+}
+
+/* Do */
+.toast {
+  z-index: var(--z-toast);
+}
+```
 
 ### Transitions & Animation
 
@@ -310,12 +755,12 @@ All six steps are available as both CSS custom properties and Figma Variables (`
 <div style={{ background: '#f5f5f5', border: '1px solid #e0e0e0', padding: '1rem 1.25rem', borderRadius: '8px', marginBottom: '1rem', color: '#1a1a1a' }}>
 
 ```css
---duration-instant:  0ms;    /* No visible motion — toggles, focus rings */
---duration-fast:     150ms;  /* Micro-interactions: hover, button press */
---duration-normal:   300ms;  /* Menus, tooltips, modals */
---duration-slow:     500ms;  /* Drawers, page transitions */
---duration-slower:   750ms;  /* Emphasis, onboarding */
---duration-slowest:  1000ms; /* Skeleton loaders, looping animations */
+--duration-instant: 0ms; /* No visible motion — toggles, focus rings */
+--duration-fast: 150ms; /* Micro-interactions: hover, button press */
+--duration-normal: 300ms; /* Menus, tooltips, modals */
+--duration-slow: 500ms; /* Drawers, page transitions */
+--duration-slower: 750ms; /* Emphasis, onboarding */
+--duration-slowest: 1000ms; /* Skeleton loaders, looping animations */
 ```
 
 </div>
@@ -327,12 +772,12 @@ Six named curves available as CSS properties and Figma Variables (`Aural/Animati
 <div style={{ background: '#f5f5f5', border: '1px solid #e0e0e0', padding: '1rem 1.25rem', borderRadius: '8px', marginBottom: '1rem', color: '#1a1a1a' }}>
 
 ```css
---ease-linear:   linear;                              /* Spinners, looping */
---ease-in:       cubic-bezier(0.4, 0, 1, 1);          /* Elements leaving */
---ease-out:      cubic-bezier(0, 0, 0.2, 1);          /* Elements entering */
---ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);        /* Default — most UI */
---ease-bounce:   cubic-bezier(0.68, -0.55, 0.265, 1.55);  /* Playful emphasis */
---ease-spring:   cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Organic snap */
+--ease-linear: linear; /* Spinners, looping */
+--ease-in: cubic-bezier(0.4, 0, 1, 1); /* Elements leaving */
+--ease-out: cubic-bezier(0, 0, 0.2, 1); /* Elements entering */
+--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1); /* Default — most UI */
+--ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Playful emphasis */
+--ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Organic snap */
 ```
 
 </div>
@@ -344,19 +789,20 @@ Pre-built shorthand tokens that combine a duration + easing in one variable:
 <div style={{ background: '#f5f5f5', border: '1px solid #e0e0e0', padding: '1rem 1.25rem', borderRadius: '8px', marginBottom: '1rem', color: '#1a1a1a' }}>
 
 ```css
---transition-fast:        150ms ease-in-out;
---transition-normal:      300ms ease-in-out;
---transition-slow:        500ms ease-in-out;
---transition-all-fast:    all 150ms ease-in-out;
---transition-all-normal:  all 300ms ease-in-out;
---transition-colors:      color 150ms, background-color 150ms, border-color 150ms;
---transition-transform:   transform 150ms ease-in-out;   /* GPU composited */
---transition-opacity:     opacity 300ms ease-in-out;     /* GPU composited */
+--transition-fast: 150ms ease-in-out;
+--transition-normal: 300ms ease-in-out;
+--transition-slow: 500ms ease-in-out;
+--transition-all-fast: all 150ms ease-in-out;
+--transition-all-normal: all 300ms ease-in-out;
+--transition-colors: color 150ms, background-color 150ms, border-color 150ms;
+--transition-transform: transform 150ms ease-in-out; /* GPU composited */
+--transition-opacity: opacity 300ms ease-in-out; /* GPU composited */
 ```
 
 </div>
 
 **Usage:**
+
 ```css
 /* Use a composite token for the common case */
 .btn {
@@ -376,14 +822,14 @@ Pre-built shorthand tokens that combine a duration + easing in one variable:
 
 **When to use which easing:**
 
-| Easing | Token | Best for |
-|--------|-------|----------|
-| ease-out | `--ease-out` | Things appearing on screen |
-| ease-in  | `--ease-in`  | Things disappearing off screen |
+| Easing      | Token           | Best for                           |
+| ----------- | --------------- | ---------------------------------- |
+| ease-out    | `--ease-out`    | Things appearing on screen         |
+| ease-in     | `--ease-in`     | Things disappearing off screen     |
 | ease-in-out | `--ease-in-out` | Default — moving within the screen |
-| linear | `--ease-linear` | Spinners and progress bars |
-| bounce | `--ease-bounce` | Playful confirmations |
-| spring | `--ease-spring` | Modals, drawers, natural snapping |
+| linear      | `--ease-linear` | Spinners and progress bars         |
+| bounce      | `--ease-bounce` | Playful confirmations              |
+| spring      | `--ease-spring` | Modals, drawers, natural snapping  |
 
 **Figma Variables:** All duration values are `FLOAT` variables and all easing strings are `STRING` variables in the `Aural/Animation` collection. Figma does not yet support binding animation variables to layer properties directly, but they serve as accurate spec references for handoff.
 
@@ -391,58 +837,135 @@ Pre-built shorthand tokens that combine a duration + easing in one variable:
 
 ## ✅ What Tokens Can Control
 
-<table style={{
-  width: '100%',
-  borderCollapse: 'collapse',
-  marginBottom: 'var(--space-6)'
-}}>
+<table
+  style={{
+    width: '100%',
+    borderCollapse: 'collapse',
+    marginBottom: 'var(--space-6)',
+  }}
+>
   <thead>
     <tr style={{ background: 'rgba(255, 255, 255, 0.05)', color: '#ffffff' }}>
-      <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', color: '#ffffff' }}>Property Type</th>
-      <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', color: '#ffffff' }}>Support</th>
-      <th style={{ padding: '0.75rem', textAlign: 'left', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', color: '#ffffff' }}>Example</th>
+      <th
+        style={{
+          padding: '0.75rem',
+          textAlign: 'left',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          color: '#ffffff',
+        }}
+      >
+        Property Type
+      </th>
+      <th
+        style={{
+          padding: '0.75rem',
+          textAlign: 'left',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          color: '#ffffff',
+        }}
+      >
+        Support
+      </th>
+      <th
+        style={{
+          padding: '0.75rem',
+          textAlign: 'left',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          color: '#ffffff',
+        }}
+      >
+        Example
+      </th>
     </tr>
   </thead>
   <tbody style={{ color: '#e5e5e5' }}>
     <tr>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Colors</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>✅ Full</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}><code>--color-primary: #5ebd8f</code></td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Colors
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        ✅ Full
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <code>--color-primary: #5ebd8f</code>
+      </td>
     </tr>
     <tr>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Spacing</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>✅ Full</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}><code>--space-4: 1rem</code></td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Spacing
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        ✅ Full
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <code>--space-4: 1rem</code>
+      </td>
     </tr>
     <tr>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Typography</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>✅ Full</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}><code>--text-lg: 1.125rem</code></td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Typography
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        ✅ Full
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <code>--text-lg: 1.125rem</code>
+      </td>
     </tr>
     <tr>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Shadows</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>✅ Full</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}><code>--shadow-lg: 0 20px 25px...</code></td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Shadows
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        ✅ Full
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <code>--shadow-lg: 0 20px 25px...</code>
+      </td>
     </tr>
     <tr>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Transitions</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>✅ Full</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}><code>--duration-fast: 150ms</code></td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Transitions
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        ✅ Full
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <code>--duration-fast: 150ms</code>
+      </td>
     </tr>
     <tr>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Gradients</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>✅ Full</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}><code>--gradient: linear-gradient(...)</code></td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Gradients
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        ✅ Full
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <code>--gradient: linear-gradient(...)</code>
+      </td>
     </tr>
     <tr>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Property Names</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>❌ No</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Can't tokenize property names</td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Property Names
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        ❌ No
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Can't tokenize property names
+      </td>
     </tr>
     <tr>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Selectors</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>❌ No</td>
-      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>Can't tokenize CSS selectors</td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Selectors
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        ❌ No
+      </td>
+      <td style={{ padding: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        Can't tokenize CSS selectors
+      </td>
     </tr>
   </tbody>
 </table>
@@ -459,13 +982,13 @@ Pre-built shorthand tokens that combine a duration + easing in one variable:
 <style>
   :root {
     /* Change primary brand color */
-    --color-primary: #8B5CF6;     /* Purple */
+    --color-primary: #8b5cf6; /* Purple */
 
     /* Adjust spacing scale */
-    --space-4: 1.25rem;           /* Increase base spacing */
+    --space-4: 1.25rem; /* Increase base spacing */
 
     /* Rounder corners */
-    --radius-md: 1rem;            /* More rounded */
+    --radius-md: 1rem; /* More rounded */
   }
 </style>
 ```
@@ -476,8 +999,8 @@ Pre-built shorthand tokens that combine a duration + easing in one variable:
 /* my-brand.css */
 :root {
   /* Brand Colors */
-  --color-primary: #8B5CF6;
-  --color-secondary: #EC4899;
+  --color-primary: #8b5cf6;
+  --color-secondary: #ec4899;
 
   /* Backgrounds (Dark Theme) */
   --color-bg-primary: #1a1a1a;
@@ -492,7 +1015,7 @@ Pre-built shorthand tokens that combine a duration + easing in one variable:
   --color-border-subtle: rgba(255, 255, 255, 0.1);
 
   /* Typography */
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
 
   /* Spacing - Compact Scale */
   --space-4: 0.875rem;
@@ -501,9 +1024,9 @@ Pre-built shorthand tokens that combine a duration + easing in one variable:
 ```
 
 **Load it:**
+
 ```html
-<link rel="stylesheet" href="aural-ui.css">
-<link rel="stylesheet" href="my-brand.css">
+<link rel="stylesheet" href="aural-ui.css" /> <link rel="stylesheet" href="my-brand.css" />
 ```
 
 ---
@@ -511,6 +1034,7 @@ Pre-built shorthand tokens that combine a duration + easing in one variable:
 ## 🔧 Advanced Techniques
 
 ### Token Composition
+
 Combine tokens to create new values:
 
 ```css
@@ -524,19 +1048,21 @@ Combine tokens to create new values:
 ```
 
 ### Math with Tokens
+
 Use `calc()` for dynamic values:
 
 ```css
 .double-padding {
-  padding: calc(var(--space-4) * 2);  /* 2rem */
+  padding: calc(var(--space-4) * 2); /* 2rem */
 }
 
 .half-margin {
-  margin: calc(var(--space-4) / 2);   /* 0.5rem */
+  margin: calc(var(--space-4) / 2); /* 0.5rem */
 }
 ```
 
 ### Fallback Values
+
 Provide defaults for missing tokens:
 
 ```css
@@ -561,6 +1087,7 @@ Provide defaults for missing tokens:
 ## 🎯 Token Reference
 
 For a complete list of all available tokens, see:
+
 - [Demo Site Token Reference](https://ferology.github.io/aural-ui/tokens.html)
 - Inspect any theme CSS file in `/themes/` directory
 

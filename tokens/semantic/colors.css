@@ -28,18 +28,22 @@
   --color-success: var(--success-500);
   --color-success-hover: var(--success-600);
   --color-success-muted: var(--success-100);
+  --color-success-bg: rgba(34, 197, 94, 0.1);
 
   --color-warning: var(--warning-500);
   --color-warning-hover: var(--warning-600);
   --color-warning-muted: var(--warning-100);
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
 
   --color-error: var(--error-500);
   --color-error-hover: var(--error-600);
   --color-error-muted: var(--error-100);
+  --color-error-bg: rgba(239, 68, 68, 0.1);
 
   --color-info: var(--info-500);
   --color-info-hover: var(--info-600);
   --color-info-muted: var(--info-100);
+  --color-info-bg: rgba(59, 130, 246, 0.1);
 
   /* ========================================
        Background Colors
@@ -57,6 +61,9 @@
   --color-bg-glass: rgba(10, 10, 18, 0.7);
   --color-bg-glass-light: rgba(255, 255, 255, 0.05);
 
+  /* Opaque dark surface (e.g. a `--dark` component variant on a light page) */
+  --color-bg-dark-overlay: rgba(0, 0, 0, 0.9);
+
   /* ========================================
        Text Colors
        ======================================== */
@@ -73,6 +80,8 @@
   --color-text-on-warning: var(--neutral-950);
   --color-text-on-error: white;
   --color-text-on-info: white;
+  --color-text-on-dark: rgba(255, 255, 255, 0.9);
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.7);
 
   /* ========================================
        Border Colors
@@ -132,6 +141,7 @@
   --color-card-bg: var(--color-bg-secondary);
   --color-card-border: var(--color-border-subtle);
   --color-card-hover-border: var(--primary-alpha-30);
+  --color-card-active-bg: rgba(16, 185, 129, 0.05);
 
   /* Badges */
   --color-badge-primary-bg: rgba(16, 185, 129, 0.15);
@@ -144,6 +154,7 @@
   --color-badge-error-text: var(--error-400);
   --color-badge-info-bg: rgba(59, 130, 246, 0.15);
   --color-badge-info-text: var(--info-400);
+  --color-badge-neutral-bg: rgba(255, 255, 255, 0.1);
 
   /* Toast */
   --color-toast-bg: var(--color-bg-elevated);
@@ -157,6 +168,8 @@
   --color-modal-bg: var(--color-bg-primary);
   --color-modal-overlay: var(--color-bg-overlay);
   --color-modal-border: var(--color-border-subtle);
+  --color-modal-icon-gradient-start: rgba(16, 185, 129, 0.2);
+  --color-modal-icon-gradient-end: rgba(6, 182, 212, 0.2);
 
   /* Skeleton */
   --color-skeleton-from: rgba(255, 255, 255, 0.03);
@@ -247,6 +260,8 @@
   --color-tabs-hover-bg: var(--primary-alpha-8);
   --color-tabs-pill-bg: var(--color-bg-tertiary);
   --color-tabs-pill-active-bg: var(--color-primary);
+  --color-tab-badge-bg: rgba(255, 255, 255, 0.2);
+  --color-tab-badge-contrast-bg: rgba(255, 255, 255, 0.25);
 
   /* Tooltip */
   --color-tooltip-bg: var(--color-bg-elevated);
@@ -305,6 +320,12 @@
   --color-chip-text: var(--color-text-primary);
   --color-chip-remove: var(--color-text-secondary);
   --color-chip-remove-hover: var(--color-primary);
+  --color-chip-remove-on-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* remove-icon color on a solid variant chip (primary/success/warning/error/info) */
   --color-chip-input-bg: var(--color-bg-primary);
   --color-chip-input-border: var(--color-border-subtle);
   --color-chip-input-border-focus: var(--color-primary);
@@ -320,6 +341,32 @@
   --color-code-scrollbar-thumb: var(--color-border-subtle);
   --color-code-inline-bg: var(--color-bg-tertiary);
   --color-code-inline-text: var(--color-primary);
+  --color-code-line-highlight-bg: rgba(
+    16,
+    185,
+    129,
+    0.1
+  ); /* same RGB family as --shadow-primary/--glow-primary-*, new alpha step for a highlighted code line */
+  --color-code-line-success-bg: rgba(
+    34,
+    197,
+    94,
+    0.1
+  ); /* same RGB as --color-success (success-500), new alpha step for a highlighted code line */
+  --color-code-line-error-bg: var(--color-error-bg);
+  --color-code-terminal-bg: #1a1a1a; /* terminal-variant surface, deliberately outside the neutral scale */
+  --color-code-terminal-border: #333; /* terminal-variant border/divider */
+  --color-code-terminal-header-bg: #2a2a2a; /* terminal-variant header surface */
+  --color-code-terminal-text: #00ff00; /* terminal-variant monospace text, classic green-on-black */
+  --color-code-token-comment: #6a737d; /* syntax token: comment */
+  --color-code-token-string: var(--color-success); /* syntax token: string */
+  --color-code-token-number: var(--color-warning); /* syntax token: number */
+  --color-code-token-keyword: #8b5cf6; /* syntax token: keyword */
+  --color-code-token-function: var(--color-secondary); /* syntax token: function */
+  --color-code-token-operator: var(--color-error); /* syntax token: operator */
+  --color-code-token-variable: var(--pink-500); /* syntax token: variable */
+  --color-code-token-class: var(--color-warning); /* syntax token: class */
+  --color-code-token-property: #10b981; /* syntax token: property */
 
   /* Dialog */
   --color-dialog-bg: var(--color-bg-primary);
@@ -330,6 +377,41 @@
   --color-dialog-close: var(--color-text-muted);
   --color-dialog-close-hover: var(--color-primary);
   --color-dialog-footer-border: var(--color-border-subtle);
+
+  /* Drawer */
+  --color-drawer-backdrop: rgba(0, 0, 0, 0.5);
+  --color-drawer-backdrop-dark: rgba(0, 0, 0, 0.75);
+  --color-drawer-backdrop-light: rgba(0, 0, 0, 0.3);
+
+  /* Carousel / Image Gallery (shared dark-glass media overlay chrome) */
+  --color-media-overlay-bg: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* arrows, dots strip, counter, play/zoom buttons, lightbox nav/close/counter */
+  --color-media-overlay-bg-strong: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* hover states, captions, badges, gallery item overlay gradient end-stop */
+  --color-media-dot-bg: rgba(
+    255,
+    255,
+    255,
+    0.5
+  ); /* carousel pagination dot (inactive) / lightbox thumbnail hover border */
+  --color-media-dot-bg-hover: rgba(255, 255, 255, 0.8); /* carousel pagination dot hover */
+  --color-media-track-bg: rgba(
+    255,
+    255,
+    255,
+    0.3
+  ); /* autoplay progress track, lightbox thumbnails scrollbar thumb, command-palette selected-key border */
+
+  /* Image Gallery Lightbox */
+  --color-lightbox-backdrop: rgba(0, 0, 0, 0.95);
 
   /* File Upload */
   --color-upload-dropzone-bg: var(--color-bg-primary);

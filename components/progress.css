@@ -13,21 +13,21 @@
  */
 
 .progress {
-    /* Layout */
-    display: flex;
-    position: relative;
-    overflow: hidden;
-    width: 100%;
+  /* Layout */
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 
-    /* Size (default: medium) */
-    height: 8px;
+  /* Size (default: medium) */
+  height: var(--space-2);
 
-    /* Appearance */
-    background: var(--color-progress-bg);
-    border-radius: var(--radius-full);
+  /* Appearance */
+  background: var(--color-progress-bg);
+  border-radius: var(--radius-full);
 
-    /* Accessibility */
-    outline: none;
+  /* Accessibility */
+  outline: none;
 }
 
 /* ========================================
@@ -35,26 +35,26 @@
    ======================================== */
 
 .progress-bar {
-    /* Layout */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100%;
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
 
-    /* Appearance */
-    background: var(--color-progress-fill);
-    border-radius: var(--radius-full);
-    color: white;
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    white-space: nowrap;
+  /* Appearance */
+  background: var(--color-progress-fill);
+  border-radius: var(--radius-full);
+  color: white;
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  white-space: nowrap;
 
-    /* Transitions */
-    transition: width 0.3s ease;
+  /* Transitions */
+  transition: width var(--duration-normal) ease;
 
-    /* Accessibility */
-    overflow: hidden;
+  /* Accessibility */
+  overflow: hidden;
 }
 
 /* ========================================
@@ -62,31 +62,31 @@
    ======================================== */
 
 .progress-sm {
-    height: 4px;
+  height: var(--space-1);
 
-    & > .progress-bar {
-        font-size: 0;
-    }
+  & > .progress-bar {
+    font-size: 0; /* aural-ignore: intentionally hides the fill label at this height, not a missing token */
+  }
 }
 
 .progress-md {
-    height: 8px;
+  height: var(--space-2);
 
-    & > .progress-bar {
-        font-size: 0;
-    }
+  & > .progress-bar {
+    font-size: 0; /* aural-ignore: intentionally hides the fill label at this height, not a missing token */
+  }
 }
 
 .progress-lg {
-    height: 12px;
+  height: var(--size-12);
 }
 
 .progress-xl {
-    height: 20px;
+  height: var(--size-20);
 
-    & > .progress-bar {
-        font-size: var(--text-sm);
-    }
+  & > .progress-bar {
+    font-size: var(--text-sm);
+  }
 }
 
 /* ========================================
@@ -94,23 +94,23 @@
    ======================================== */
 
 .progress-primary > .progress-bar {
-    background: var(--color-progress-fill);
+  background: var(--color-progress-fill);
 }
 
 .progress-success > .progress-bar {
-    background: var(--color-progress-fill-success);
+  background: var(--color-progress-fill-success);
 }
 
 .progress-warning > .progress-bar {
-    background: var(--color-progress-fill-warning);
+  background: var(--color-progress-fill-warning);
 }
 
 .progress-error > .progress-bar {
-    background: var(--color-progress-fill-error);
+  background: var(--color-progress-fill-error);
 }
 
 .progress-info > .progress-bar {
-    background: var(--color-progress-fill-info);
+  background: var(--color-progress-fill-info);
 }
 
 /* ========================================
@@ -118,65 +118,65 @@
    ======================================== */
 
 .progress-indeterminate > .progress-bar {
-    width: 100% !important;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--color-progress-fill) 50%,
-        transparent 100%
-    );
-    background-size: 200% 100%;
-    animation: progress-indeterminate 1.5s ease-in-out infinite;
+  width: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-progress-fill) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: progress-indeterminate 1.5s ease-in-out infinite; /* aural-ignore: decorative indeterminate sweep speed, not an interaction-timing value */
 }
 
 @keyframes progress-indeterminate {
-    0% {
-        background-position: 200% 0;
-    }
-    100% {
-        background-position: -200% 0;
-    }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Color variants for indeterminate */
 .progress-indeterminate.progress-success > .progress-bar {
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--color-progress-fill-success) 50%,
-        transparent 100%
-    );
-    background-size: 200% 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-progress-fill-success) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
 }
 
 .progress-indeterminate.progress-warning > .progress-bar {
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--color-progress-fill-warning) 50%,
-        transparent 100%
-    );
-    background-size: 200% 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-progress-fill-warning) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
 }
 
 .progress-indeterminate.progress-error > .progress-bar {
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--color-progress-fill-error) 50%,
-        transparent 100%
-    );
-    background-size: 200% 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-progress-fill-error) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
 }
 
 .progress-indeterminate.progress-info > .progress-bar {
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        var(--color-progress-fill-info) 50%,
-        transparent 100%
-    );
-    background-size: 200% 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-progress-fill-info) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
 }
 
 /* ========================================
@@ -184,30 +184,31 @@
    ======================================== */
 
 .progress-striped > .progress-bar {
-    background-image: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.15) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.15) 50%,
-        rgba(255, 255, 255, 0.15) 75%,
-        transparent 75%,
-        transparent
-    );
-    background-size: 1rem 1rem;
+  /* aural-ignore: decorative diagonal-stripe overlay, independent of the fill's brand color, not a design token */
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
 }
 
 .progress-striped.progress-animated > .progress-bar {
-    animation: progress-striped 1s linear infinite;
+  animation: progress-striped var(--duration-slowest) linear infinite;
 }
 
 @keyframes progress-striped {
-    0% {
-        background-position: 1rem 0;
-    }
-    100% {
-        background-position: 0 0;
-    }
+  0% {
+    background-position: 1rem 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 
 /* ========================================
@@ -215,23 +216,23 @@
    ======================================== */
 
 .progress-with-label {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 
-    & > .progress {
-        flex: 1;
-    }
+  & > .progress {
+    flex: 1;
+  }
 
-    & > .progress-label {
-        flex-shrink: 0;
-        color: var(--color-progress-text);
-        font-size: var(--text-sm);
-        font-weight: var(--font-medium);
-        font-variant-numeric: tabular-nums;
-        min-width: 3ch;
-        text-align: right;
-    }
+  & > .progress-label {
+    flex-shrink: 0;
+    color: var(--color-progress-text);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    font-variant-numeric: tabular-nums;
+    min-width: 3ch;
+    text-align: right;
+  }
 }
 
 /* ========================================
@@ -240,12 +241,12 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .progress-bar {
-        transition: none;
-    }
+  .progress-bar {
+    transition: none;
+  }
 
-    .progress-indeterminate > .progress-bar,
-    .progress-striped.progress-animated > .progress-bar {
-        animation: none;
-    }
+  .progress-indeterminate > .progress-bar,
+  .progress-striped.progress-animated > .progress-bar {
+    animation: none;
+  }
 }

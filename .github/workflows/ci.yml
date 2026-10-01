@@ -20,6 +20,8 @@ jobs:
       - run: npm run lint
       - run: npm run format:check
       - run: npm run type-check
+      - name: Token audit
+        run: npm run audit:tokens
 
   test:
     name: Tests

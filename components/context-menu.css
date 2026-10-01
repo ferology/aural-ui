@@ -10,26 +10,29 @@
    ======================================== */
 
 .aural-context-menu {
-    position: fixed;
-    z-index: 9999;
-    min-width: 200px;
-    max-width: 320px;
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-xl);
-    padding: var(--space-2) 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.95);
-    transform-origin: top left;
-    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  position: fixed;
+  z-index: var(--z-popover);
+  min-width: var(--size-200);
+  max-width: var(--space-80);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-2) 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
+  transform-origin: top left;
+  transition:
+    opacity var(--duration-fast) ease,
+    transform var(--duration-fast) ease,
+    visibility var(--duration-fast);
 }
 
 .aural-context-menu--open {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
 }
 
 /* ========================================
@@ -37,67 +40,67 @@
    ======================================== */
 
 .aural-context-menu__item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-2) var(--space-4);
-    min-height: 36px;
-    background: transparent;
-    color: var(--color-text-primary);
-    border: none;
-    text-align: left;
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    width: 100%;
-    position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  min-height: var(--size-36);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: none;
+  text-align: left;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  width: 100%;
+  position: relative;
 }
 
 .aural-context-menu__item:hover:not(.aural-context-menu__item--disabled) {
-    background: var(--color-bg-hover);
-    color: var(--color-primary);
+  background: var(--color-bg-hover);
+  color: var(--color-primary);
 }
 
 .aural-context-menu__item:focus-visible {
-    outline: none;
-    background: var(--color-bg-hover);
-    color: var(--color-primary);
+  outline: none;
+  background: var(--color-bg-hover);
+  color: var(--color-primary);
 }
 
 /* Item Icon */
 .aural-context-menu__item-icon {
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-    color: var(--color-text-secondary);
+  flex-shrink: 0;
+  width: var(--size-16);
+  height: var(--size-16);
+  color: var(--color-text-secondary);
 }
 
 .aural-context-menu__item:hover .aural-context-menu__item-icon,
 .aural-context-menu__item:focus-visible .aural-context-menu__item-icon {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 /* Item Label */
 .aural-context-menu__item-label {
-    flex: 1;
+  flex: 1;
 }
 
 /* Item Shortcut */
 .aural-context-menu__item-shortcut {
-    flex-shrink: 0;
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    font-family: var(--font-mono);
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
 }
 
 /* Submenu Arrow */
 .aural-context-menu__item-arrow {
-    flex-shrink: 0;
-    width: 12px;
-    height: 12px;
-    color: var(--color-text-tertiary);
-    margin-left: auto;
+  flex-shrink: 0;
+  width: var(--size-12);
+  height: var(--size-12);
+  color: var(--color-text-tertiary);
+  margin-left: auto;
 }
 
 /* ========================================
@@ -105,23 +108,23 @@
    ======================================== */
 
 .aural-context-menu__item--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .aural-context-menu__item--danger {
-    color: var(--color-error);
+  color: var(--color-error);
 }
 
 .aural-context-menu__item--danger:hover {
-    background: var(--color-error-bg);
-    color: var(--color-error);
+  background: var(--color-error-bg);
+  color: var(--color-error);
 }
 
 .aural-context-menu__item--active {
-    background: var(--primary-alpha-10);
-    color: var(--color-primary);
+  background: var(--primary-alpha-10);
+  color: var(--color-primary);
 }
 
 /* ========================================
@@ -129,22 +132,22 @@
    ======================================== */
 
 .aural-context-menu__item--checkable {
-    padding-left: var(--space-8);
-    position: relative;
+  padding-left: var(--space-8);
+  position: relative;
 }
 
 .aural-context-menu__item-check {
-    position: absolute;
-    left: var(--space-4);
-    width: 16px;
-    height: 16px;
-    color: var(--color-primary);
-    opacity: 0;
-    transition: var(--transition-all-fast);
+  position: absolute;
+  left: var(--space-4);
+  width: var(--size-16);
+  height: var(--size-16);
+  color: var(--color-primary);
+  opacity: 0;
+  transition: var(--transition-all-fast);
 }
 
 .aural-context-menu__item--checked .aural-context-menu__item-check {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* ========================================
@@ -152,9 +155,9 @@
    ======================================== */
 
 .aural-context-menu__separator {
-    height: 1px;
-    background: var(--color-border-subtle);
-    margin: var(--space-2) var(--space-4);
+  height: 1px; /* aural-ignore: hairline thickness, not a spacing/size token */
+  background: var(--color-border-subtle);
+  margin: var(--space-2) var(--space-4);
 }
 
 /* ========================================
@@ -162,12 +165,12 @@
    ======================================== */
 
 .aural-context-menu__header {
-    padding: var(--space-2) var(--space-4);
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ========================================
@@ -175,26 +178,26 @@
    ======================================== */
 
 .aural-context-menu__submenu {
-    position: absolute;
-    left: 100%;
-    top: -var(--space-2);
-    margin-left: 4px;
-    z-index: 10000;
+  position: absolute;
+  left: 100%;
+  top: -var(--space-2);
+  margin-left: var(--space-1);
+  z-index: var(--z-max);
 }
 
 .aural-context-menu__item:hover > .aural-context-menu__submenu,
 .aural-context-menu__item:focus-visible > .aural-context-menu__submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
 }
 
 /* Submenu positioning when near edge */
 .aural-context-menu__submenu--left {
-    left: auto;
-    right: 100%;
-    margin-left: 0;
-    margin-right: 4px;
+  left: auto;
+  right: 100%;
+  margin-left: 0;
+  margin-right: var(--space-1);
 }
 
 /* ========================================
@@ -202,14 +205,14 @@
    ======================================== */
 
 .aural-context-menu--compact .aural-context-menu__item {
-    padding: var(--space-1) var(--space-3);
-    min-height: 28px;
-    font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-3);
+  min-height: var(--size-28);
+  font-size: var(--text-xs);
 }
 
 .aural-context-menu--compact .aural-context-menu__item-icon {
-    width: 14px;
-    height: 14px;
+  width: var(--size-14);
+  height: var(--size-14);
 }
 
 /* ========================================
@@ -217,17 +220,17 @@
    ======================================== */
 
 .aural-context-menu--icons-only {
-    min-width: auto;
+  min-width: auto;
 }
 
 .aural-context-menu--icons-only .aural-context-menu__item {
-    justify-content: center;
-    padding: var(--space-2);
+  justify-content: center;
+  padding: var(--space-2);
 }
 
 .aural-context-menu--icons-only .aural-context-menu__item-label,
 .aural-context-menu--icons-only .aural-context-menu__item-shortcut {
-    display: none;
+  display: none;
 }
 
 /* ========================================
@@ -235,22 +238,22 @@
    ======================================== */
 
 .aural-context-menu--dark {
-    background: rgba(0, 0, 0, 0.9);
-    border-color: rgba(255, 255, 255, 0.1);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+  background: var(--color-bg-dark-overlay);
+  border-color: var(--color-badge-neutral-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .aural-context-menu--dark .aural-context-menu__item {
-    color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-on-dark);
 }
 
 .aural-context-menu--dark .aural-context-menu__item:hover {
-    background: rgba(255, 255, 255, 0.1);
+  background: var(--color-badge-neutral-bg);
 }
 
 .aural-context-menu--dark .aural-context-menu__separator {
-    background: rgba(255, 255, 255, 0.1);
+  background: var(--color-badge-neutral-bg);
 }
 
 /* ========================================
@@ -258,7 +261,7 @@
    ======================================== */
 
 .aural-context-menu-trigger {
-    position: relative;
+  position: relative;
 }
 
 /* ========================================
@@ -266,25 +269,25 @@
    ======================================== */
 
 .aural-context-menu__item--loading {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .aural-context-menu__item--loading::after {
-    content: '';
-    position: absolute;
-    right: var(--space-4);
-    width: 12px;
-    height: 12px;
-    border: 2px solid var(--color-border-subtle);
-    border-top-color: var(--color-primary);
-    border-radius: 50%;
-    animation: aural-context-menu-spin 0.8s linear infinite;
+  content: '';
+  position: absolute;
+  right: var(--space-4);
+  width: var(--size-12);
+  height: var(--size-12);
+  border: 2px solid var(--color-border-subtle);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: aural-context-menu-spin 0.8s linear infinite; /* aural-ignore: one-off spinner speed, not a shared duration token */
 }
 
 @keyframes aural-context-menu-spin {
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========================================
@@ -292,7 +295,7 @@
    ======================================== */
 
 .aural-context-menu__item--has-submenu {
-    position: relative;
+  position: relative;
 }
 
 /* ========================================
@@ -300,31 +303,31 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-context-menu {
-        transition: none;
-    }
+  .aural-context-menu {
+    transition: none;
+  }
 
-    .aural-context-menu__item {
-        transition: none;
-    }
+  .aural-context-menu__item {
+    transition: none;
+  }
 
-    .aural-context-menu__item--loading::after {
-        animation: none;
-        border-top-color: var(--color-border-subtle);
-    }
+  .aural-context-menu__item--loading::after {
+    animation: none;
+    border-top-color: var(--color-border-subtle);
+  }
 }
 
 /* Screen reader only text */
 .aural-context-menu__sr-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  height: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  padding: 0;
+  margin: -1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ========================================
@@ -332,50 +335,50 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    .aural-context-menu {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        top: auto;
-        max-width: 100%;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-        transform-origin: bottom center;
-        max-height: 80vh;
-        overflow-y: auto;
-    }
+  .aural-context-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    transform-origin: bottom center;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
 
-    .aural-context-menu--open {
-        transform: translateY(0);
-    }
+  .aural-context-menu--open {
+    transform: translateY(0);
+  }
 
-    .aural-context-menu:not(.aural-context-menu--open) {
-        transform: translateY(100%);
-    }
+  .aural-context-menu:not(.aural-context-menu--open) {
+    transform: translateY(100%);
+  }
 
-    /* Mobile submenu behavior - stack instead of fly out */
-    .aural-context-menu__submenu {
-        position: static;
-        margin: 0;
-        padding-left: var(--space-4);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-    }
+  /* Mobile submenu behavior - stack instead of fly out */
+  .aural-context-menu__submenu {
+    position: static;
+    margin: 0;
+    padding-left: var(--space-4);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-normal) ease;
+  }
 
-    .aural-context-menu__item:hover > .aural-context-menu__submenu,
-    .aural-context-menu__item:focus-visible > .aural-context-menu__submenu {
-        max-height: 500px;
-    }
+  .aural-context-menu__item:hover > .aural-context-menu__submenu,
+  .aural-context-menu__item:focus-visible > .aural-context-menu__submenu {
+    max-height: 500px; /* aural-ignore: generous open-state max-height ceiling, not a design token */
+  }
 
-    .aural-context-menu__item-arrow {
-        transform: rotate(90deg);
-    }
+  .aural-context-menu__item-arrow {
+    transform: rotate(90deg);
+  }
 
-    .aural-context-menu__item:hover .aural-context-menu__item-arrow,
-    .aural-context-menu__item:focus-visible .aural-context-menu__item-arrow {
-        transform: rotate(90deg) rotate(180deg);
-    }
+  .aural-context-menu__item:hover .aural-context-menu__item-arrow,
+  .aural-context-menu__item:focus-visible .aural-context-menu__item-arrow {
+    transform: rotate(90deg) rotate(180deg);
+  }
 }
 
 /* ========================================
@@ -383,8 +386,8 @@
    ======================================== */
 
 @media (pointer: coarse) {
-    .aural-context-menu__item {
-        min-height: 44px;
-        padding: var(--space-3) var(--space-4);
-    }
+  .aural-context-menu__item {
+    min-height: var(--size-44);
+    padding: var(--space-3) var(--space-4);
+  }
 }

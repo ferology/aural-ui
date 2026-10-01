@@ -18,7 +18,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 ## Key Features
 
 - Multiple color variants (default, primary, success, warning, error, info)
-- 3 sizes (small, medium, large)
+- 4 sizes (small, medium, large, extra large)
 - Removable with close button
 - Optional Lucide icons
 - Standalone or input mode
@@ -62,45 +62,45 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 - \`.aural-chip\` - Base chip class
 - \`.aural-chip--standalone\` - Use when chip is NOT inside \`.aural-chips\` input container
 - \`.aural-chip--primary\`, \`.aural-chip--success\`, etc. - Color variants
-- \`.aural-chip--sm\`, \`.aural-chip--lg\` - Size variants (default is medium)
+- \`.aural-chip--sm\`, \`.aural-chip--lg\`, \`.aural-chip--xl\` - Size variants (default is medium)
 - \`.aural-chip__text\` - Text wrapper (required)
 - \`.aural-chip__remove\` - Remove button
 - \`.aural-chips\` - Chip input container
 - \`.aural-chips__container\` - Inner container for chips and input
 - \`.aural-chips__input\` - Input field within chip container
 - \`.aural-chips-list\` - Container for displaying multiple standalone chips
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Chip text content'
+      description: 'Chip text content',
     },
     variant: {
       control: 'select',
       options: ['default', 'primary', 'success', 'warning', 'error', 'info'],
-      description: 'Chip color variant'
+      description: 'Chip color variant',
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Chip size'
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Chip size',
     },
     closeable: {
       control: 'boolean',
-      description: 'Show remove button'
+      description: 'Show remove button',
     },
     icon: {
       control: 'text',
-      description: 'Lucide icon name (e.g., "star", "tag", "x")'
+      description: 'Lucide icon name (e.g., "star", "tag", "x")',
     },
     standalone: {
       control: 'boolean',
-      description: 'Use standalone styling (outside of chip input)'
-    }
-  }
+      description: 'Use standalone styling (outside of chip input)',
+    },
+  },
 };
 
 export default meta;
@@ -191,8 +191,8 @@ export const Default: Story = {
     size: 'md',
     closeable: false,
     icon: '',
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const Primary: Story = {
@@ -202,8 +202,8 @@ export const Primary: Story = {
     variant: 'primary',
     size: 'md',
     closeable: false,
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const Success: Story = {
@@ -213,8 +213,8 @@ export const Success: Story = {
     variant: 'success',
     size: 'md',
     closeable: false,
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const Warning: Story = {
@@ -224,8 +224,8 @@ export const Warning: Story = {
     variant: 'warning',
     size: 'md',
     closeable: false,
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const Error: Story = {
@@ -235,8 +235,8 @@ export const Error: Story = {
     variant: 'error',
     size: 'md',
     closeable: false,
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const Info: Story = {
@@ -246,8 +246,8 @@ export const Info: Story = {
     variant: 'info',
     size: 'md',
     closeable: false,
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const WithIcon: Story = {
@@ -258,8 +258,8 @@ export const WithIcon: Story = {
     size: 'md',
     closeable: false,
     icon: 'star',
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const Closeable: Story = {
@@ -269,8 +269,8 @@ export const Closeable: Story = {
     variant: 'default',
     size: 'md',
     closeable: true,
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const Small: Story = {
@@ -280,8 +280,8 @@ export const Small: Story = {
     variant: 'primary',
     size: 'sm',
     closeable: true,
-    standalone: true
-  }
+    standalone: true,
+  },
 };
 
 export const Large: Story = {
@@ -291,8 +291,19 @@ export const Large: Story = {
     variant: 'primary',
     size: 'lg',
     closeable: true,
-    standalone: true
-  }
+    standalone: true,
+  },
+};
+
+export const ExtraLarge: Story = {
+  ...Default,
+  args: {
+    label: 'Extra Large',
+    variant: 'primary',
+    size: 'xl',
+    closeable: true,
+    standalone: true,
+  },
 };
 
 export const AllVariants: Story = {
@@ -310,7 +321,7 @@ export const AllVariants: Story = {
       { variant: 'success', label: 'Success' },
       { variant: 'warning', label: 'Warning' },
       { variant: 'error', label: 'Error' },
-      { variant: 'info', label: 'Info' }
+      { variant: 'info', label: 'Info' },
     ];
 
     variants.forEach(({ variant, label }) => {
@@ -319,7 +330,7 @@ export const AllVariants: Story = {
         variant,
         size: 'md',
         closeable: true,
-        standalone: true
+        standalone: true,
       });
       chipsList.appendChild(chip);
     });
@@ -327,7 +338,7 @@ export const AllVariants: Story = {
     container.appendChild(chipsList);
     initializeLucideIcons(container);
     return container;
-  }
+  },
 };
 
 export const AllSizes: Story = {
@@ -343,7 +354,8 @@ export const AllSizes: Story = {
     const sizes = [
       { size: 'sm', label: 'Small' },
       { size: 'md', label: 'Medium' },
-      { size: 'lg', label: 'Large' }
+      { size: 'lg', label: 'Large' },
+      { size: 'xl', label: 'Extra Large' },
     ];
 
     sizes.forEach(({ size, label }) => {
@@ -352,7 +364,7 @@ export const AllSizes: Story = {
         variant: 'primary',
         size,
         closeable: true,
-        standalone: true
+        standalone: true,
       });
       chipsList.appendChild(chip);
     });
@@ -360,7 +372,7 @@ export const AllSizes: Story = {
     container.appendChild(chipsList);
     initializeLucideIcons(container);
     return container;
-  }
+  },
 };
 
 export const WithIcons: Story = {
@@ -376,7 +388,7 @@ export const WithIcons: Story = {
       { label: 'JavaScript', icon: 'zap', variant: 'primary' },
       { label: 'TypeScript', icon: 'code', variant: 'info' },
       { label: 'React', icon: 'atom', variant: 'success' },
-      { label: 'Vue', icon: 'triangle', variant: 'success' }
+      { label: 'Vue', icon: 'triangle', variant: 'success' },
     ];
 
     chips.forEach(({ label, icon, variant }) => {
@@ -386,7 +398,7 @@ export const WithIcons: Story = {
         variant,
         size: 'md',
         closeable: true,
-        standalone: true
+        standalone: true,
       });
       chipsList.appendChild(chip);
     });
@@ -394,7 +406,7 @@ export const WithIcons: Story = {
     container.appendChild(chipsList);
     initializeLucideIcons(container);
     return container;
-  }
+  },
 };
 
 export const StatusTags: Story = {
@@ -411,7 +423,7 @@ export const StatusTags: Story = {
       { label: 'In Progress', variant: 'warning' },
       { label: 'Blocked', variant: 'error' },
       { label: 'Review', variant: 'info' },
-      { label: 'Draft', variant: 'default' }
+      { label: 'Draft', variant: 'default' },
     ];
 
     statuses.forEach(({ label, variant }) => {
@@ -420,7 +432,7 @@ export const StatusTags: Story = {
         variant,
         size: 'md',
         closeable: false,
-        standalone: true
+        standalone: true,
       });
       chipsList.appendChild(chip);
     });
@@ -428,7 +440,7 @@ export const StatusTags: Story = {
     container.appendChild(chipsList);
     initializeLucideIcons(container);
     return container;
-  }
+  },
 };
 
 export const FilterChips: Story = {
@@ -455,7 +467,7 @@ export const FilterChips: Story = {
     const filters = [
       { label: 'Status: Active', variant: 'primary' },
       { label: 'Category: Design', variant: 'success' },
-      { label: 'Priority: High', variant: 'info' }
+      { label: 'Priority: High', variant: 'info' },
     ];
 
     filters.forEach(({ label, variant }) => {
@@ -464,7 +476,7 @@ export const FilterChips: Story = {
         variant,
         size: 'md',
         closeable: true,
-        standalone: true
+        standalone: true,
       });
       chipsList.appendChild(chip);
     });
@@ -485,7 +497,7 @@ export const FilterChips: Story = {
 
     initializeLucideIcons(container);
     return container;
-  }
+  },
 };
 
 export const ChipInput: Story = {
@@ -501,13 +513,13 @@ export const ChipInput: Story = {
 
     // Add initial chips
     const initialChips = ['HTML', 'CSS', 'JavaScript'];
-    initialChips.forEach(label => {
+    initialChips.forEach((label) => {
       const chip = createChip({
         label,
         variant: 'default',
         size: 'md',
         closeable: true,
-        standalone: false
+        standalone: false,
       });
       chip.classList.remove('aural-chip--standalone');
       chipsInnerContainer.appendChild(chip);
@@ -528,7 +540,7 @@ export const ChipInput: Story = {
           variant: 'default',
           size: 'md',
           closeable: true,
-          standalone: false
+          standalone: false,
         });
         newChip.classList.remove('aural-chip--standalone');
         chipsInnerContainer.insertBefore(newChip, input);
@@ -543,7 +555,7 @@ export const ChipInput: Story = {
 
     initializeLucideIcons(container);
     return container;
-  }
+  },
 };
 
 export const TagFilters: Story = {
@@ -559,7 +571,7 @@ export const TagFilters: Story = {
       { label: 'All', variant: 'primary', active: true },
       { label: 'Design', variant: 'default', active: false },
       { label: 'Development', variant: 'default', active: false },
-      { label: 'Marketing', variant: 'default', active: false }
+      { label: 'Marketing', variant: 'default', active: false },
     ];
 
     tags.forEach(({ label, variant, active: _active }) => {
@@ -568,14 +580,14 @@ export const TagFilters: Story = {
         variant,
         size: 'md',
         closeable: false,
-        standalone: true
+        standalone: true,
       });
 
       // Make clickable for filtering
       chip.style.cursor = 'pointer';
       chip.onclick = () => {
         // Remove primary from all chips
-        chipsList.querySelectorAll('.aural-chip').forEach(c => {
+        chipsList.querySelectorAll('.aural-chip').forEach((c) => {
           c.classList.remove('aural-chip--primary');
         });
         // Add primary to clicked chip
@@ -588,7 +600,7 @@ export const TagFilters: Story = {
     container.appendChild(chipsList);
     initializeLucideIcons(container);
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -604,7 +616,7 @@ export const ThemeComparison: Story = {
         size: args.size,
         closeable: args.closeable,
         icon: args.icon,
-        standalone: true
+        standalone: true,
       });
 
       chipsList.appendChild(chip);
@@ -624,30 +636,30 @@ export const ThemeComparison: Story = {
     variant: 'primary',
     size: 'md',
     closeable: true,
-    icon: ''
+    icon: '',
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Chip text content'
+      description: 'Chip text content',
     },
     variant: {
       control: 'select',
       options: ['default', 'primary', 'success', 'warning', 'error', 'info'],
-      description: 'Chip color variant'
+      description: 'Chip color variant',
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Chip size'
+      options: ['sm', 'md', 'lg', 'xl'],
+      description: 'Chip size',
     },
     closeable: {
       control: 'boolean',
-      description: 'Show remove button'
+      description: 'Show remove button',
     },
     icon: {
       control: 'text',
-      description: 'Lucide icon name (e.g., "star", "tag", "x")'
-    }
-  }
+      description: 'Lucide icon name (e.g., "star", "tag", "x")',
+    },
+  },
 };

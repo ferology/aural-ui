@@ -10,18 +10,18 @@
    ======================================== */
 
 .aural-stepper {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .aural-stepper--horizontal {
-    flex-direction: row;
-    align-items: flex-start;
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 .aural-stepper--vertical {
-    flex-direction: column;
-    align-items: stretch;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 /* ========================================
@@ -29,25 +29,25 @@
    ======================================== */
 
 .aural-step {
-    display: flex;
-    flex: 1;
-    position: relative;
+  display: flex;
+  flex: 1;
+  position: relative;
 }
 
 .aural-stepper--horizontal .aural-step {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .aural-stepper--vertical .aural-step {
-    flex-direction: row;
-    align-items: flex-start;
-    padding-bottom: var(--space-6);
+  flex-direction: row;
+  align-items: flex-start;
+  padding-bottom: var(--space-6);
 }
 
 .aural-stepper--vertical .aural-step:last-child {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 /* ========================================
@@ -55,65 +55,66 @@
    ======================================== */
 
 .aural-step__indicator {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
-    width: 44px;
-    height: 44px;
-    background: var(--color-bg-secondary);
-    color: var(--color-text-secondary);
-    border: 2px solid var(--color-border-medium);
-    border-radius: 50%;
-    font-size: var(--text-base);
-    font-weight: var(--font-semibold);
-    transition: var(--transition-all-fast);
-    z-index: 2;
-    flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-44);
+  min-height: var(--size-44);
+  width: var(--size-44);
+  height: var(--size-44);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: 2px solid var(--color-border-medium);
+  border-radius: 50%;
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  transition: var(--transition-all-fast);
+  z-index: 2;
+  flex-shrink: 0;
 }
 
 /* Step States */
 .aural-step--active .aural-step__indicator {
-    background: var(--color-primary);
-    color: white;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px var(--primary-alpha-20);
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--primary-alpha-20);
 }
 
 .aural-step--completed .aural-step__indicator {
-    background: var(--color-success);
-    color: white;
-    border-color: var(--color-success);
+  background: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
 }
 
 .aural-step--error .aural-step__indicator {
-    background: var(--color-error);
-    color: white;
-    border-color: var(--color-error);
+  background: var(--color-error);
+  color: white;
+  border-color: var(--color-error);
 }
 
 .aural-step--disabled .aural-step__indicator {
-    background: var(--color-bg-tertiary);
-    color: var(--color-text-disabled);
-    border-color: var(--color-border-subtle);
-    opacity: 0.5;
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-disabled);
+  border-color: var(--color-border-subtle);
+  opacity: 0.5;
 }
 
 /* Clickable Steps */
 .aural-step--clickable .aural-step__indicator {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.aural-step--clickable .aural-step__indicator:hover:not(.aural-step--disabled .aural-step__indicator) {
-    border-color: var(--color-primary);
-    transform: scale(1.05);
+.aural-step--clickable
+  .aural-step__indicator:hover:not(.aural-step--disabled .aural-step__indicator) {
+  border-color: var(--color-primary);
+  transform: scale(1.05);
 }
 
 .aural-step--clickable .aural-step__indicator:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* ========================================
@@ -121,57 +122,53 @@
    ======================================== */
 
 .aural-step__connector {
-    position: absolute;
-    background: var(--color-border-medium);
-    transition: var(--transition-all-fast);
-    z-index: 1;
+  position: absolute;
+  background: var(--color-border-medium);
+  transition: var(--transition-all-fast);
+  z-index: 1;
 }
 
 /* Horizontal Connector */
 .aural-stepper--horizontal .aural-step__connector {
-    top: 22px;
-    left: 50%;
-    right: -50%;
-    height: 2px;
-    width: 100%;
+  top: calc(
+    var(--size-44) / 2
+  ); /* vertically centers the line through the default 44px indicator */
+  left: 50%;
+  right: -50%;
+  height: var(--space-0-5);
+  width: 100%;
 }
 
 .aural-stepper--horizontal .aural-step:last-child .aural-step__connector {
-    display: none;
+  display: none;
 }
 
 /* Vertical Connector */
 .aural-stepper--vertical .aural-step__connector {
-    top: 44px;
-    left: 22px;
-    bottom: 0;
-    width: 2px;
-    height: calc(100% - 44px);
+  top: var(--size-44);
+  left: calc(
+    var(--size-44) / 2
+  ); /* horizontally centers the line through the default 44px indicator */
+  bottom: 0;
+  width: var(--space-0-5);
+  height: calc(100% - var(--size-44));
 }
 
 .aural-stepper--vertical .aural-step:last-child .aural-step__connector {
-    display: none;
+  display: none;
 }
 
 /* Connector States */
 .aural-step--completed .aural-step__connector {
-    background: var(--color-success);
+  background: var(--color-success);
 }
 
 .aural-step--active .aural-step__connector {
-    background: linear-gradient(
-        to right,
-        var(--color-primary) 0%,
-        var(--color-border-medium) 100%
-    );
+  background: linear-gradient(to right, var(--color-primary) 0%, var(--color-border-medium) 100%);
 }
 
 .aural-stepper--vertical .aural-step--active .aural-step__connector {
-    background: linear-gradient(
-        to bottom,
-        var(--color-primary) 0%,
-        var(--color-border-medium) 100%
-    );
+  background: linear-gradient(to bottom, var(--color-primary) 0%, var(--color-border-medium) 100%);
 }
 
 /* ========================================
@@ -179,50 +176,50 @@
    ======================================== */
 
 .aural-step__content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 .aural-stepper--horizontal .aural-step__content {
-    margin-top: var(--space-3);
-    align-items: center;
+  margin-top: var(--space-3);
+  align-items: center;
 }
 
 .aural-stepper--vertical .aural-step__content {
-    margin-left: var(--space-4);
-    flex: 1;
+  margin-left: var(--space-4);
+  flex: 1;
 }
 
 .aural-step__title {
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-secondary);
-    transition: var(--transition-all-fast);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-secondary);
+  transition: var(--transition-all-fast);
 }
 
 .aural-step--active .aural-step__title {
-    color: var(--color-primary);
-    font-weight: var(--font-bold);
+  color: var(--color-primary);
+  font-weight: var(--font-bold);
 }
 
 .aural-step--completed .aural-step__title {
-    color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
 .aural-step--disabled .aural-step__title {
-    color: var(--color-text-disabled);
-    opacity: 0.5;
+  color: var(--color-text-disabled);
+  opacity: 0.5;
 }
 
 .aural-step__description {
-    font-size: var(--text-xs);
-    color: var(--color-text-tertiary);
-    line-height: var(--leading-relaxed);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  line-height: var(--leading-relaxed);
 }
 
 .aural-step--active .aural-step__description {
-    color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
 }
 
 /* ========================================
@@ -230,13 +227,13 @@
    ======================================== */
 
 .aural-step__indicator-icon {
-    width: 20px;
-    height: 20px;
+  width: var(--size-20);
+  height: var(--size-20);
 }
 
 /* Hide number when icon is present */
 .aural-step__indicator:has(.aural-step__indicator-icon) .aural-step__number {
-    display: none;
+  display: none;
 }
 
 /* ========================================
@@ -244,55 +241,55 @@
    ======================================== */
 
 .aural-stepper--sm .aural-step__indicator {
-    min-width: 36px;
-    min-height: 36px;
-    width: 36px;
-    height: 36px;
-    font-size: var(--text-sm);
+  min-width: var(--size-36);
+  min-height: var(--size-36);
+  width: var(--size-36);
+  height: var(--size-36);
+  font-size: var(--text-sm);
 }
 
 .aural-stepper--sm.aural-stepper--horizontal .aural-step__connector {
-    top: 18px;
+  top: calc(var(--size-36) / 2);
 }
 
 .aural-stepper--sm.aural-stepper--vertical .aural-step__connector {
-    left: 18px;
-    top: 36px;
-    height: calc(100% - 36px);
+  left: calc(var(--size-36) / 2);
+  top: var(--size-36);
+  height: calc(100% - var(--size-36));
 }
 
 .aural-stepper--sm .aural-step__title {
-    font-size: var(--text-xs);
+  font-size: var(--text-xs);
 }
 
 .aural-stepper--sm .aural-step__description {
-    font-size: 0.7rem;
+  font-size: 0.7rem; /* aural-ignore: one-off small-stepper description size, not on the --text-* scale (also used verbatim by search-bar.css) */
 }
 
 .aural-stepper--lg .aural-step__indicator {
-    min-width: 56px;
-    min-height: 56px;
-    width: 56px;
-    height: 56px;
-    font-size: var(--text-lg);
+  min-width: var(--size-56);
+  min-height: var(--size-56);
+  width: var(--size-56);
+  height: var(--size-56);
+  font-size: var(--text-lg);
 }
 
 .aural-stepper--lg.aural-stepper--horizontal .aural-step__connector {
-    top: 28px;
+  top: var(--size-28);
 }
 
 .aural-stepper--lg.aural-stepper--vertical .aural-step__connector {
-    left: 28px;
-    top: 56px;
-    height: calc(100% - 56px);
+  left: var(--size-28);
+  top: var(--size-56);
+  height: calc(100% - var(--size-56));
 }
 
 .aural-stepper--lg .aural-step__title {
-    font-size: var(--text-base);
+  font-size: var(--text-base);
 }
 
 .aural-stepper--lg .aural-step__description {
-    font-size: var(--text-sm);
+  font-size: var(--text-sm);
 }
 
 /* ========================================
@@ -300,7 +297,7 @@
    ======================================== */
 
 .aural-stepper--numbered .aural-step__indicator::before {
-    content: attr(data-step);
+  content: attr(data-step);
 }
 
 /* ========================================
@@ -308,16 +305,17 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-step__indicator,
-    .aural-step__connector,
-    .aural-step__title {
-        transition: none;
-    }
+  .aural-step__indicator,
+  .aural-step__connector,
+  .aural-step__title {
+    transition: none;
+  }
 
-    /* Disable hover transform effects */
-    .aural-step--clickable .aural-step__indicator:hover:not(.aural-step--disabled .aural-step__indicator) {
-        transform: none;
-    }
+  /* Disable hover transform effects */
+  .aural-step--clickable
+    .aural-step__indicator:hover:not(.aural-step--disabled .aural-step__indicator) {
+    transform: none;
+  }
 }
 
 /* ========================================
@@ -326,59 +324,59 @@
 
 /* Ensure clickable step indicators meet touch target size of 44x44px */
 @media (pointer: coarse) {
-    .aural-step__indicator {
-        min-width: 48px;
-        min-height: 48px;
-        width: 48px;
-        height: 48px;
-    }
+  .aural-step__indicator {
+    min-width: var(--size-48);
+    min-height: var(--size-48);
+    width: var(--size-48);
+    height: var(--size-48);
+  }
 
-    /* Adjust connectors for larger indicators */
-    .aural-stepper--horizontal .aural-step__connector {
-        top: 24px;
-    }
+  /* Adjust connectors for larger indicators */
+  .aural-stepper--horizontal .aural-step__connector {
+    top: var(--size-24);
+  }
 
-    .aural-stepper--vertical .aural-step__connector {
-        left: 24px;
-        top: 48px;
-        height: calc(100% - 48px);
-    }
+  .aural-stepper--vertical .aural-step__connector {
+    left: var(--size-24);
+    top: var(--size-48);
+    height: calc(100% - var(--size-48));
+  }
 
-    /* Small size still needs to meet minimum touch target */
-    .aural-stepper--sm .aural-step__indicator {
-        min-width: 44px;
-        min-height: 44px;
-        width: 44px;
-        height: 44px;
-    }
+  /* Small size still needs to meet minimum touch target */
+  .aural-stepper--sm .aural-step__indicator {
+    min-width: var(--size-44);
+    min-height: var(--size-44);
+    width: var(--size-44);
+    height: var(--size-44);
+  }
 
-    .aural-stepper--sm.aural-stepper--horizontal .aural-step__connector {
-        top: 22px;
-    }
+  .aural-stepper--sm.aural-stepper--horizontal .aural-step__connector {
+    top: calc(var(--size-44) / 2);
+  }
 
-    .aural-stepper--sm.aural-stepper--vertical .aural-step__connector {
-        left: 22px;
-        top: 44px;
-        height: calc(100% - 44px);
-    }
+  .aural-stepper--sm.aural-stepper--vertical .aural-step__connector {
+    left: calc(var(--size-44) / 2);
+    top: var(--size-44);
+    height: calc(100% - var(--size-44));
+  }
 
-    /* Larger touch areas for clickable steps */
-    .aural-step--clickable {
-        cursor: pointer;
-    }
+  /* Larger touch areas for clickable steps */
+  .aural-step--clickable {
+    cursor: pointer;
+  }
 
-    .aural-step--clickable .aural-step__indicator {
-        cursor: pointer;
-    }
+  .aural-step--clickable .aural-step__indicator {
+    cursor: pointer;
+  }
 
-    /* Increase content spacing on touch devices */
-    .aural-stepper--horizontal .aural-step__content {
-        margin-top: var(--space-4);
-    }
+  /* Increase content spacing on touch devices */
+  .aural-stepper--horizontal .aural-step__content {
+    margin-top: var(--space-4);
+  }
 
-    .aural-stepper--vertical .aural-step__content {
-        margin-left: var(--space-5);
-    }
+  .aural-stepper--vertical .aural-step__content {
+    margin-left: var(--space-5);
+  }
 }
 
 /* ========================================
@@ -386,34 +384,34 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    /* Stack horizontally on mobile if too many steps */
-    .aural-stepper--horizontal.aural-stepper--responsive {
-        flex-direction: column;
-    }
+  /* Stack horizontally on mobile if too many steps */
+  .aural-stepper--horizontal.aural-stepper--responsive {
+    flex-direction: column;
+  }
 
-    .aural-stepper--horizontal.aural-stepper--responsive .aural-step {
-        flex-direction: row;
-        align-items: flex-start;
-        text-align: left;
-        padding-bottom: var(--space-6);
-    }
+  .aural-stepper--horizontal.aural-stepper--responsive .aural-step {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    padding-bottom: var(--space-6);
+  }
 
-    .aural-stepper--horizontal.aural-stepper--responsive .aural-step__content {
-        margin-top: 0;
-        margin-left: var(--space-4);
-        align-items: flex-start;
-    }
+  .aural-stepper--horizontal.aural-stepper--responsive .aural-step__content {
+    margin-top: 0;
+    margin-left: var(--space-4);
+    align-items: flex-start;
+  }
 
-    .aural-stepper--horizontal.aural-stepper--responsive .aural-step__connector {
-        top: 44px;
-        left: 22px;
-        right: auto;
-        bottom: 0;
-        width: 2px;
-        height: calc(100% - 44px);
-    }
+  .aural-stepper--horizontal.aural-stepper--responsive .aural-step__connector {
+    top: var(--size-44);
+    left: calc(var(--size-44) / 2);
+    right: auto;
+    bottom: 0;
+    width: var(--space-0-5);
+    height: calc(100% - var(--size-44));
+  }
 
-    .aural-stepper--horizontal.aural-stepper--responsive .aural-step:last-child {
-        padding-bottom: 0;
-    }
+  .aural-stepper--horizontal.aural-stepper--responsive .aural-step:last-child {
+    padding-bottom: 0;
+  }
 }

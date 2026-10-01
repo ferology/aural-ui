@@ -1,251 +1,265 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Design Tokens - Aural UI</title>
 
     <!-- Aural UI CSS -->
-    <link rel="stylesheet" href="./aural-ui.css?v=9">
+    <link rel="stylesheet" href="./aural-ui.css?v=9" />
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="./dark.css" id="theme-link">
+    <link rel="stylesheet" href="./dark.css" id="theme-link" />
 
     <!-- Enhanced Documentation Styles -->
-    <link rel="stylesheet" href="./styles/doc-enhanced.css">
+    <link rel="stylesheet" href="./styles/doc-enhanced.css" />
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
 
-        /* Main Content */
+      /* Main Content */
+      .main-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: var(--space-8);
+        min-height: 100vh;
+      }
+
+      .page-header {
+        margin-bottom: var(--space-8);
+      }
+
+      .page-title {
+        font-size: var(--text-3xl);
+        font-weight: var(--font-bold);
+        color: var(--color-text-primary);
+        margin: 0 0 var(--space-4) 0;
+      }
+
+      .page-description {
+        font-size: var(--text-lg);
+        color: var(--color-text-secondary);
+        line-height: 1.8;
+        margin: 0;
+      }
+
+      .content-section {
+        margin-bottom: var(--space-8);
+      }
+
+      .section-title {
+        font-size: var(--text-2xl);
+        font-weight: var(--font-semibold);
+        color: var(--color-text-primary);
+        margin: 0 0 var(--space-4) 0;
+      }
+
+      .section-content {
+        font-size: var(--text-base);
+        color: var(--color-text-secondary);
+        line-height: 1.8;
+      }
+
+      .section-content h3 {
+        font-size: var(--text-xl);
+        font-weight: var(--font-semibold);
+        color: var(--color-text-primary);
+        margin: var(--space-6) 0 var(--space-3) 0;
+      }
+
+      .section-content p {
+        margin: 0 0 var(--space-4) 0;
+      }
+
+      .section-content ul,
+      .section-content ol {
+        margin: 0 0 var(--space-4) 0;
+        padding-left: var(--space-6);
+      }
+
+      .section-content li {
+        margin-bottom: var(--space-2);
+      }
+
+      .section-content code {
+        background: var(--color-bg-primary);
+        border: 1px solid var(--color-border-subtle);
+        padding: 2px 6px;
+        border-radius: var(--radius-sm);
+        font-size: 0.9em;
+        font-family: var(--font-mono);
+        color: var(--color-text-primary);
+      }
+
+      .section-content pre {
+        background: var(--color-bg-primary);
+        border: 1px solid var(--color-border-subtle);
+        padding: var(--space-4);
+        border-radius: var(--radius-md);
+        overflow-x: auto;
+        margin: var(--space-4) 0;
+        color: var(--color-text-primary);
+      }
+
+      .section-content pre code {
+        background: none;
+        padding: 0;
+      }
+
+      .token-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: var(--space-4) 0;
+      }
+
+      .token-table th {
+        background: var(--color-bg-secondary);
+        padding: var(--space-3);
+        text-align: left;
+        font-weight: var(--font-semibold);
+        color: var(--color-text-primary);
+        border-bottom: 1px solid var(--color-border-subtle);
+      }
+
+      .token-table td {
+        padding: var(--space-3);
+        border-bottom: 1px solid var(--color-border-subtle);
+      }
+
+      .token-name {
+        font-family: var(--font-mono);
+        color: var(--color-primary);
+        font-weight: var(--font-medium);
+      }
+
+      .token-value {
+        font-family: var(--font-mono);
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        position: fixed;
+        top: var(--space-6);
+        right: var(--space-6);
+        z-index: 200;
+      }
+
+      /* Table Wrapper for Horizontal Scroll */
+      .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: var(--space-4) 0;
+      }
+
+      .table-wrapper .token-table {
+        margin: 0;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 768px) {
         .main-content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: var(--space-8);
-            min-height: 100vh;
-        }
-
-        .page-header {
-            margin-bottom: var(--space-8);
+          padding: var(--space-6) var(--space-4);
         }
 
         .page-title {
-            font-size: var(--text-3xl);
-            font-weight: var(--font-bold);
-            color: var(--color-text-primary);
-            margin: 0 0 var(--space-4) 0;
+          font-size: var(--text-2xl);
         }
 
         .page-description {
-            font-size: var(--text-lg);
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-            margin: 0;
-        }
-
-        .content-section {
-            margin-bottom: var(--space-8);
+          font-size: var(--text-base);
         }
 
         .section-title {
-            font-size: var(--text-2xl);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-primary);
-            margin: 0 0 var(--space-4) 0;
+          font-size: var(--text-xl);
         }
 
-        .section-content {
-            font-size: var(--text-base);
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-        }
-
-        .section-content h3 {
-            font-size: var(--text-xl);
-            font-weight: var(--font-semibold);
-            color: var(--color-text-primary);
-            margin: var(--space-6) 0 var(--space-3) 0;
-        }
-
-        .section-content p {
-            margin: 0 0 var(--space-4) 0;
-        }
-
-        .section-content ul, .section-content ol {
-            margin: 0 0 var(--space-4) 0;
-            padding-left: var(--space-6);
-        }
-
-        .section-content li {
-            margin-bottom: var(--space-2);
-        }
-
-        .section-content code {
-            background: var(--color-bg-primary);
-            border: 1px solid var(--color-border-subtle);
-            padding: 2px 6px;
-            border-radius: var(--radius-sm);
-            font-size: 0.9em;
-            font-family: var(--font-mono);
-            color: var(--color-text-primary);
-        }
-
-        .section-content pre {
-            background: var(--color-bg-primary);
-            border: 1px solid var(--color-border-subtle);
-            padding: var(--space-4);
-            border-radius: var(--radius-md);
-            overflow-x: auto;
-            margin: var(--space-4) 0;
-            color: var(--color-text-primary);
-        }
-
-        .section-content pre code {
-            background: none;
-            padding: 0;
+        .theme-toggle {
+          top: var(--space-4);
+          right: var(--space-4);
         }
 
         .token-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: var(--space-4) 0;
+          font-size: var(--text-sm);
         }
 
-        .token-table th {
-            background: var(--color-bg-secondary);
-            padding: var(--space-3);
-            text-align: left;
-            font-weight: var(--font-semibold);
-            color: var(--color-text-primary);
-            border-bottom: 1px solid var(--color-border-subtle);
-        }
-
+        .token-table th,
         .token-table td {
-            padding: var(--space-3);
-            border-bottom: 1px solid var(--color-border-subtle);
+          padding: var(--space-2);
+        }
+
+        /* Ensure tables are scrollable on small screens */
+        .table-wrapper {
+          margin-left: calc(-1 * var(--space-4));
+          margin-right: calc(-1 * var(--space-4));
+          padding: 0 var(--space-4);
+          border-radius: 0;
+        }
+      }
+
+      /* Extra small screens - additional table optimizations */
+      @media (max-width: 360px) {
+        .token-table {
+          font-size: 0.75rem;
+          min-width: 320px; /* Prevent table from becoming too narrow */
+        }
+
+        .token-table th,
+        .token-table td {
+          padding: var(--space-1) var(--space-2);
+          white-space: nowrap;
         }
 
         .token-name {
-            font-family: var(--font-mono);
-            color: var(--color-primary);
-            font-weight: var(--font-medium);
+          font-size: 0.7rem;
         }
 
         .token-value {
-            font-family: var(--font-mono);
-            color: var(--color-text-secondary);
-            font-size: var(--text-sm);
+          font-size: 0.65rem;
         }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: var(--space-6);
-            right: var(--space-6);
-            z-index: 200;
-        }
-
-        /* Table Wrapper for Horizontal Scroll */
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin: var(--space-4) 0;
-        }
-
-        .table-wrapper .token-table {
-            margin: 0;
-        }
-
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .main-content {
-                padding: var(--space-6) var(--space-4);
-            }
-
-            .page-title {
-                font-size: var(--text-2xl);
-            }
-
-            .page-description {
-                font-size: var(--text-base);
-            }
-
-            .section-title {
-                font-size: var(--text-xl);
-            }
-
-            .theme-toggle {
-                top: var(--space-4);
-                right: var(--space-4);
-            }
-
-            .token-table {
-                font-size: var(--text-sm);
-            }
-
-            .token-table th,
-            .token-table td {
-                padding: var(--space-2);
-            }
-
-            /* Ensure tables are scrollable on small screens */
-            .table-wrapper {
-                margin-left: calc(-1 * var(--space-4));
-                margin-right: calc(-1 * var(--space-4));
-                padding: 0 var(--space-4);
-                border-radius: 0;
-            }
-        }
-
-        /* Extra small screens - additional table optimizations */
-        @media (max-width: 360px) {
-            .token-table {
-                font-size: 0.75rem;
-                min-width: 320px; /* Prevent table from becoming too narrow */
-            }
-
-            .token-table th,
-            .token-table td {
-                padding: var(--space-1) var(--space-2);
-                white-space: nowrap;
-            }
-
-            .token-name {
-                font-size: 0.7rem;
-            }
-
-            .token-value {
-                font-size: 0.65rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Main Content -->
     <main class="main-content">
-        <div class="page-header">
-            <h1 class="page-title">Design Tokens</h1>
-            <p class="page-description">Design tokens are the foundation of Aural UI's themeable architecture. They're CSS custom properties (variables) that control every visual aspect of the design system.</p>
-            <p class="page-description" style="margin-top: var(--space-3);">🎨 Designing in Figma? The same tokens ship as Figma Variables in the <a href="https://www.figma.com/community/file/1649056373718832084/aural-ai" target="_blank" rel="noopener" style="color: var(--color-primary);">Aural UI Figma kit</a> — primitives feed semantic tokens, switchable across all 9 theme modes.</p>
-        </div>
+      <div class="page-header">
+        <h1 class="page-title">Design Tokens</h1>
+        <p class="page-description">
+          Design tokens are the foundation of Aural UI's themeable architecture. They're CSS custom
+          properties (variables) that control every visual aspect of the design system.
+        </p>
+        <p class="page-description" style="margin-top: var(--space-3)">
+          🎨 Designing in Figma? The same tokens ship as Figma Variables in the
+          <a
+            href="https://www.figma.com/community/file/1649056373718832084/aural-ai"
+            target="_blank"
+            rel="noopener"
+            style="color: var(--color-primary)"
+            >Aural UI Figma kit</a
+          >
+          — primitives feed semantic tokens, switchable across all 9 theme modes.
+        </p>
+      </div>
 
-        <!-- How Tokens Work -->
-        <section class="content-section">
-            <h2 class="section-title">🎯 How Tokens Work</h2>
-            <div class="section-content">
-                <p>Aural UI uses a <strong>two-layer token system</strong>:</p>
+      <!-- How Tokens Work -->
+      <section class="content-section">
+        <h2 class="section-title">🎯 How Tokens Work</h2>
+        <div class="section-content">
+          <p>Aural UI uses a <strong>two-layer token system</strong>:</p>
 
-                <h3>Layer 1: Primitive Tokens (Foundation)</h3>
-                <p>These are the actual color values that <strong>never change</strong> across themes:</p>
-                <pre><code>:root {
+          <h3>Layer 1: Primitive Tokens (Foundation)</h3>
+          <p>These are the actual color values that <strong>never change</strong> across themes:</p>
+          <pre><code>:root {
   /* Color scales: 50 (lightest) → 950 (darkest) */
   --primary-400: #5ebd8f;     /* Vibrant green */
   --secondary-500: #06b6d4;    /* Cyan */
@@ -253,9 +267,11 @@
   --neutral-900: #171717;      /* Dark gray */
 }</code></pre>
 
-                <h3>Layer 2: Semantic Tokens (Meaning)</h3>
-                <p>These tokens map to <strong>purposes</strong> and <strong>change per theme</strong>:</p>
-                <pre><code>/* Dark Theme */
+          <h3>Layer 2: Semantic Tokens (Meaning)</h3>
+          <p>
+            These tokens map to <strong>purposes</strong> and <strong>change per theme</strong>:
+          </p>
+          <pre><code>/* Dark Theme */
 :root {
   --color-bg-primary: #0f0f1a;      /* Dark background */
   --color-text-primary: #f5f5fa;     /* Light text */
@@ -266,10 +282,10 @@
   --color-bg-primary: #ffffff;       /* Light background */
   --color-text-primary: #111827;     /* Dark text */
 }</code></pre>
-                <p><strong>Same token name, different values per theme!</strong></p>
+          <p><strong>Same token name, different values per theme!</strong></p>
 
-                <h3>Layer 3: Components Use Semantic Tokens</h3>
-                <pre><code>.btn-primary {
+          <h3>Layer 3: Components Use Semantic Tokens</h3>
+          <pre><code>.btn-primary {
   background: var(--color-button-primary-bg);
   color: var(--color-button-primary-text);
 }
@@ -278,691 +294,1376 @@
   background: var(--color-card-bg);
   border: 1px solid var(--color-border-subtle);
 }</code></pre>
-            </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- What Tokens Can Control -->
-        <section class="content-section">
-            <h2 class="section-title">✅ What Tokens Can Control</h2>
-            <div class="section-content">
-                <p>Tokens control ~95% of visual styling - any CSS <strong>value</strong>, but not CSS <strong>structure</strong>.</p>
+      <!-- What Tokens Can Control -->
+      <section class="content-section">
+        <h2 class="section-title">✅ What Tokens Can Control</h2>
+        <div class="section-content">
+          <p>
+            Tokens control ~95% of visual styling - any CSS <strong>value</strong>, but not CSS
+            <strong>structure</strong>.
+          </p>
 
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Property Type</th>
-                                <th>Support</th>
-                                <th>Example</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Colors</td>
-                                <td>✅ Full</td>
-                                <td><code>--color-primary: #5ebd8f</code></td>
-                            </tr>
-                            <tr>
-                                <td>Spacing</td>
-                                <td>✅ Full</td>
-                                <td><code>--space-4: 1rem</code></td>
-                            </tr>
-                            <tr>
-                                <td>Typography</td>
-                                <td>✅ Full</td>
-                                <td><code>--text-lg: 1.125rem</code></td>
-                            </tr>
-                            <tr>
-                                <td>Border Radius</td>
-                                <td>✅ Full</td>
-                                <td><code>--radius-md: 0.75rem</code></td>
-                            </tr>
-                            <tr>
-                                <td>Shadows</td>
-                                <td>✅ Full</td>
-                                <td><code>--shadow-lg: 0 20px 25px...</code></td>
-                            </tr>
-                            <tr>
-                                <td>Transitions</td>
-                                <td>✅ Full</td>
-                                <td><code>--duration-fast: 150ms</code></td>
-                            </tr>
-                            <tr>
-                                <td>Gradients</td>
-                                <td>✅ Full</td>
-                                <td><code>--gradient: linear-gradient(...)</code></td>
-                            </tr>
-                            <tr>
-                                <td>Property Names</td>
-                                <td>❌ No</td>
-                                <td>Can't tokenize property names</td>
-                            </tr>
-                            <tr>
-                                <td>Selectors</td>
-                                <td>❌ No</td>
-                                <td>Can't tokenize CSS selectors</td>
-                            </tr>
-                            <tr>
-                                <td>Media Queries</td>
-                                <td>⚠️ Limited</td>
-                                <td>Can't use directly in @media</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Property Type</th>
+                  <th>Support</th>
+                  <th>Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Colors</td>
+                  <td>✅ Full</td>
+                  <td><code>--color-primary: #5ebd8f</code></td>
+                </tr>
+                <tr>
+                  <td>Spacing</td>
+                  <td>✅ Full</td>
+                  <td><code>--space-4: 1rem</code></td>
+                </tr>
+                <tr>
+                  <td>Typography</td>
+                  <td>✅ Full</td>
+                  <td><code>--text-lg: 1.125rem</code></td>
+                </tr>
+                <tr>
+                  <td>Border Radius</td>
+                  <td>✅ Full</td>
+                  <td><code>--radius-md: 0.75rem</code></td>
+                </tr>
+                <tr>
+                  <td>Shadows</td>
+                  <td>✅ Full</td>
+                  <td><code>--shadow-lg: 0 20px 25px...</code></td>
+                </tr>
+                <tr>
+                  <td>Transitions</td>
+                  <td>✅ Full</td>
+                  <td><code>--duration-fast: 150ms</code></td>
+                </tr>
+                <tr>
+                  <td>Gradients</td>
+                  <td>✅ Full</td>
+                  <td><code>--gradient: linear-gradient(...)</code></td>
+                </tr>
+                <tr>
+                  <td>Property Names</td>
+                  <td>❌ No</td>
+                  <td>Can't tokenize property names</td>
+                </tr>
+                <tr>
+                  <td>Selectors</td>
+                  <td>❌ No</td>
+                  <td>Can't tokenize CSS selectors</td>
+                </tr>
+                <tr>
+                  <td>Media Queries</td>
+                  <td>⚠️ Limited</td>
+                  <td>Can't use directly in @media</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
-        <!-- Token Categories -->
-        <section class="content-section">
-            <h2 class="section-title">📚 Token Categories</h2>
-        </section>
+      <!-- Token Categories -->
+      <section class="content-section">
+        <h2 class="section-title">📚 Token Categories</h2>
+      </section>
 
-        <!-- Colors -->
-        <section class="content-section">
-            <h3 class="section-title" style="font-size: var(--text-xl);">Colors</h3>
-            <div class="section-content">
-                <p>Color scales from 50 (lightest) to 950 (darkest). Each scale provides semantic meaning and maintains WCAG AA contrast standards.</p>
+      <!-- Colors -->
+      <section class="content-section">
+        <h3 class="section-title" style="font-size: var(--text-xl)">Colors</h3>
+        <div class="section-content">
+          <p>
+            Color scales from 50 (lightest) to 950 (darkest). Each scale provides semantic meaning
+            and maintains WCAG AA contrast standards.
+          </p>
 
-                <h3>Primary Colors</h3>
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Usage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--primary-50</code></td>
-                                <td>Lightest shade</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--primary-100</code></td>
-                                <td>Very light shade</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--primary-500</code></td>
-                                <td>Main brand color</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--primary-700</code></td>
-                                <td>Dark shade</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--primary-900</code></td>
-                                <td>Darkest shade</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+          <h3>Primary Colors</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--primary-50</code></td>
+                  <td>Lightest shade</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--primary-100</code></td>
+                  <td>Very light shade</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--primary-500</code></td>
+                  <td>Main brand color</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--primary-700</code></td>
+                  <td>Dark shade</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--primary-900</code></td>
+                  <td>Darkest shade</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-                <h3>Semantic Colors</h3>
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Usage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--color-success</code></td>
-                                <td>Success states and positive actions</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--color-error</code></td>
-                                <td>Error states and destructive actions</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--color-warning</code></td>
-                                <td>Warning states and caution</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--color-info</code></td>
-                                <td>Informational states</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+          <h3>Semantic Colors</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--color-success</code></td>
+                  <td>Success states and positive actions</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--color-error</code></td>
+                  <td>Error states and destructive actions</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--color-warning</code></td>
+                  <td>Warning states and caution</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--color-info</code></td>
+                  <td>Informational states</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-                <h3>Text Colors</h3>
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Usage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--color-text-primary</code></td>
-                                <td>Main text color</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--color-text-secondary</code></td>
-                                <td>Secondary text, less prominent</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--color-text-tertiary</code></td>
-                                <td>Tertiary text, least prominent</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+          <h3>Text Colors</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--color-text-primary</code></td>
+                  <td>Main text color</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--color-text-secondary</code></td>
+                  <td>Secondary text, less prominent</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--color-text-tertiary</code></td>
+                  <td>Tertiary text, least prominent</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
-        <!-- Spacing -->
-        <section class="content-section">
-            <h2 class="section-title">Spacing</h2>
-            <div class="section-content">
-                <p>Spacing scale based on a 4px (0.25rem) unit for consistent layouts. Use these tokens for margin, padding, and gap properties.</p>
+      <!-- Spacing -->
+      <section class="content-section">
+        <h2 class="section-title">Spacing</h2>
+        <div class="section-content">
+          <p>
+            Spacing scale based on a 4px (0.25rem) unit for consistent layouts. Use these tokens for
+            margin, padding, and gap properties.
+          </p>
 
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Value</th>
-                                <th>Pixels</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--space-1</code></td>
-                                <td><code class="token-value">0.25rem</code></td>
-                                <td>4px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--space-2</code></td>
-                                <td><code class="token-value">0.5rem</code></td>
-                                <td>8px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--space-3</code></td>
-                                <td><code class="token-value">0.75rem</code></td>
-                                <td>12px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--space-4</code></td>
-                                <td><code class="token-value">1rem</code></td>
-                                <td>16px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--space-6</code></td>
-                                <td><code class="token-value">1.5rem</code></td>
-                                <td>24px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--space-8</code></td>
-                                <td><code class="token-value">2rem</code></td>
-                                <td>32px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--space-12</code></td>
-                                <td><code class="token-value">3rem</code></td>
-                                <td>48px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--space-16</code></td>
-                                <td><code class="token-value">4rem</code></td>
-                                <td>64px</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                  <th>Pixels</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--space-1</code></td>
+                  <td><code class="token-value">0.25rem</code></td>
+                  <td>4px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--space-2</code></td>
+                  <td><code class="token-value">0.5rem</code></td>
+                  <td>8px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--space-3</code></td>
+                  <td><code class="token-value">0.75rem</code></td>
+                  <td>12px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--space-4</code></td>
+                  <td><code class="token-value">1rem</code></td>
+                  <td>16px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--space-6</code></td>
+                  <td><code class="token-value">1.5rem</code></td>
+                  <td>24px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--space-8</code></td>
+                  <td><code class="token-value">2rem</code></td>
+                  <td>32px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--space-12</code></td>
+                  <td><code class="token-value">3rem</code></td>
+                  <td>48px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--space-16</code></td>
+                  <td><code class="token-value">4rem</code></td>
+                  <td>64px</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-                <p><strong>Usage Example:</strong></p>
-                <pre><code>padding: var(--space-4);
+          <p><strong>Usage Example:</strong></p>
+          <pre><code>padding: var(--space-4);
 margin-top: var(--space-6);</code></pre>
+        </div>
+      </section>
+
+      <!-- Size -->
+      <section class="content-section">
+        <h2 class="section-title">Size</h2>
+        <div class="section-content">
+          <p>
+            <code>--size-N</code> sizes a UI element's <strong>own box</strong> — icon dimensions,
+            avatar diameter, status-dot size, toggle track/thumb — as opposed to
+            <code>--space-N</code>, which sizes the <strong>gap between</strong> elements (see the
+            Spacing section above).
+          </p>
+
+          <div
+            style="
+              background: rgba(245, 158, 11, 0.1);
+              border: 1px solid rgba(245, 158, 11, 0.3);
+              border-radius: 8px;
+              padding: 1rem 1.25rem;
+              margin: 1rem 0;
+              font-size: 0.875rem;
+              line-height: 1.6;
+            "
+          >
+            <strong style="color: #d97706">⚠️ Not the same convention as --space-N</strong><br />
+            <code>--size-N</code>'s <code>N</code> is the <strong>literal pixel value</strong> —
+            <code>--size-14</code> is 14px, <code>--size-44</code> is 44px.
+            <code>--space-N</code> uses <code>N</code> = px ÷ 4, so <code>--space-14</code> is
+            <strong>56px</strong>. The same number means two different things in the two scales —
+            never assume <code>--size-N</code> and <code>--space-N</code> with the same
+            <code>N</code> are interchangeable. Always check the actual value in the table below
+            rather than inferring it from the name.
+          </div>
+
+          <p>
+            Where a size value coincides with an existing <code>--space-N</code> value,
+            <code>--size-N</code> aliases it instead of duplicating the literal (e.g.
+            <code>--size-16: var(--space-4)</code>), so the two scales stay numerically consistent
+            even though their naming conventions differ.
+          </p>
+
+          <h3>Size Scale</h3>
+          <p>Boxes below are rendered at their real token size, smallest to largest.</p>
+
+          <div
+            class="table-wrapper"
+            style="
+              padding: 1.25rem;
+              border-radius: 8px;
+              display: flex;
+              align-items: flex-end;
+              gap: 1.5rem;
+              flex-wrap: wrap;
+            "
+          >
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem">
+              <div
+                style="
+                  width: var(--size-6);
+                  height: var(--size-6);
+                  background: var(--color-primary);
+                  border-radius: var(--radius-full);
+                "
+              ></div>
+              <code style="font-size: 0.7rem">--size-6</code>
             </div>
-        </section>
-
-        <!-- Typography -->
-        <section class="content-section">
-            <h2 class="section-title">Typography</h2>
-            <div class="section-content">
-                <p>Typography tokens for font sizes, weights, line heights, and letter spacing. All sizes are responsive and accessible.</p>
-
-                <h3>Font Sizes</h3>
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Value</th>
-                                <th>Pixels</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--text-xs</code></td>
-                                <td><code class="token-value">0.75rem</code></td>
-                                <td>12px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--text-sm</code></td>
-                                <td><code class="token-value">0.875rem</code></td>
-                                <td>14px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--text-base</code></td>
-                                <td><code class="token-value">1rem</code></td>
-                                <td>16px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--text-lg</code></td>
-                                <td><code class="token-value">1.125rem</code></td>
-                                <td>18px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--text-xl</code></td>
-                                <td><code class="token-value">1.25rem</code></td>
-                                <td>20px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--text-2xl</code></td>
-                                <td><code class="token-value">1.5rem</code></td>
-                                <td>24px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--text-3xl</code></td>
-                                <td><code class="token-value">1.875rem</code></td>
-                                <td>30px</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--text-4xl</code></td>
-                                <td><code class="token-value">2.25rem</code></td>
-                                <td>36px</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>Font Weights</h3>
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--font-light</code></td>
-                                <td>300</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--font-normal</code></td>
-                                <td>400</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--font-medium</code></td>
-                                <td>500</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--font-semibold</code></td>
-                                <td>600</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--font-bold</code></td>
-                                <td>700</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--font-extrabold</code></td>
-                                <td>800</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem">
+              <div
+                style="
+                  width: var(--size-14);
+                  height: var(--size-14);
+                  background: var(--color-primary);
+                  border-radius: var(--radius-sm);
+                "
+              ></div>
+              <code style="font-size: 0.7rem">--size-14</code>
             </div>
-        </section>
-
-        <!-- Border Radius -->
-        <section class="content-section">
-            <h2 class="section-title">Border Radius</h2>
-            <div class="section-content">
-                <p>Border radius tokens for consistent component rounding. From sharp corners to fully circular elements.</p>
-
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Value</th>
-                                <th>Usage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--radius-none</code></td>
-                                <td><code class="token-value">0</code></td>
-                                <td>No rounding</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--radius-sm</code></td>
-                                <td><code class="token-value">0.25rem</code></td>
-                                <td>Subtle rounding</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--radius</code></td>
-                                <td><code class="token-value">0.5rem</code></td>
-                                <td>Default rounding</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--radius-md</code></td>
-                                <td><code class="token-value">0.75rem</code></td>
-                                <td>Medium rounding</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--radius-lg</code></td>
-                                <td><code class="token-value">1rem</code></td>
-                                <td>Large rounding</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--radius-xl</code></td>
-                                <td><code class="token-value">1.25rem</code></td>
-                                <td>Extra large rounding</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--radius-2xl</code></td>
-                                <td><code class="token-value">1.5rem</code></td>
-                                <td>Very large rounding</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--radius-full</code></td>
-                                <td><code class="token-value">9999px</code></td>
-                                <td>Fully circular/pill shape</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem">
+              <div
+                style="
+                  width: var(--size-18);
+                  height: var(--size-18);
+                  background: var(--color-primary);
+                  border-radius: var(--radius-sm);
+                "
+              ></div>
+              <code style="font-size: 0.7rem">--size-18</code>
             </div>
-        </section>
-
-        <!-- Shadows -->
-        <section class="content-section">
-            <h2 class="section-title">Shadows & Elevation</h2>
-            <div class="section-content">
-                <p>Shadow tokens provide depth and elevation. Use these to create visual hierarchy in your interfaces.</p>
-
-                <h3>Standard Shadows</h3>
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Usage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--shadow-xs</code></td>
-                                <td>Extra subtle shadow</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--shadow-sm</code></td>
-                                <td>Small shadow</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--shadow</code></td>
-                                <td>Default shadow</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--shadow-md</code></td>
-                                <td>Medium shadow</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--shadow-lg</code></td>
-                                <td>Large shadow</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--shadow-xl</code></td>
-                                <td>Extra large shadow</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>Colored Shadows</h3>
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Usage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--shadow-primary</code></td>
-                                <td>Primary color shadow</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--shadow-success</code></td>
-                                <td>Success color shadow</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--shadow-warning</code></td>
-                                <td>Warning color shadow</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--shadow-error</code></td>
-                                <td>Error color shadow</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem">
+              <div
+                style="
+                  width: var(--size-24);
+                  height: var(--size-24);
+                  background: var(--color-primary);
+                  border-radius: var(--radius-sm);
+                "
+              ></div>
+              <code style="font-size: 0.7rem">--size-24</code>
             </div>
-        </section>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem">
+              <div
+                style="
+                  width: var(--size-36);
+                  height: var(--size-36);
+                  background: var(--color-primary);
+                  border-radius: var(--radius-md);
+                "
+              ></div>
+              <code style="font-size: 0.7rem">--size-36</code>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem">
+              <div
+                style="
+                  width: var(--size-44);
+                  height: var(--size-44);
+                  background: var(--color-primary);
+                  border-radius: var(--radius-md);
+                "
+              ></div>
+              <code style="font-size: 0.7rem">--size-44</code>
+            </div>
+          </div>
 
-        <!-- Animation & Transitions -->
-        <section class="content-section" id="animation">
-            <h2 class="section-title">⚡ Animation & Transitions</h2>
-            <div class="section-content">
-                <p>Motion tokens give every animated component a consistent timing vocabulary. There are three layers: <strong>durations</strong> (how long), <strong>easing functions</strong> (the acceleration curve), and <strong>composite transitions</strong> (ready-to-use shorthands). All are available as Figma Variables in the <code>Aural/Animation</code> collection.</p>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                  <th>Pixels</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--size-6</code></td>
+                  <td><code class="token-value">0.375rem</code></td>
+                  <td>6px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-12</code></td>
+                  <td><code class="token-value">var(--space-3)</code></td>
+                  <td>12px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-14</code></td>
+                  <td><code class="token-value">0.875rem</code></td>
+                  <td>14px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-16</code></td>
+                  <td><code class="token-value">var(--space-4)</code></td>
+                  <td>16px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-18</code></td>
+                  <td><code class="token-value">1.125rem</code></td>
+                  <td>18px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-20</code></td>
+                  <td><code class="token-value">var(--space-5)</code></td>
+                  <td>20px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-24</code></td>
+                  <td><code class="token-value">var(--space-6)</code></td>
+                  <td>24px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-28</code></td>
+                  <td><code class="token-value">var(--space-7)</code></td>
+                  <td>28px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-32</code></td>
+                  <td><code class="token-value">var(--space-8)</code></td>
+                  <td>32px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-36</code></td>
+                  <td><code class="token-value">2.25rem</code></td>
+                  <td>36px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-40</code></td>
+                  <td><code class="token-value">var(--space-10)</code></td>
+                  <td>40px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-44</code></td>
+                  <td><code class="token-value">2.75rem</code></td>
+                  <td>44px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-48</code></td>
+                  <td><code class="token-value">var(--space-12)</code></td>
+                  <td>48px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-52</code></td>
+                  <td><code class="token-value">3.25rem</code></td>
+                  <td>52px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-56</code></td>
+                  <td><code class="token-value">var(--space-14)</code></td>
+                  <td>56px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-64</code></td>
+                  <td><code class="token-value">var(--space-16)</code></td>
+                  <td>64px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-80</code></td>
+                  <td><code class="token-value">var(--space-20)</code></td>
+                  <td>80px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-96</code></td>
+                  <td><code class="token-value">var(--space-24)</code></td>
+                  <td>96px</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-                <!-- Duration scale -->
-                <h3>Duration Scale</h3>
-                <p>Six steps from instant to one second. Click <strong>▶</strong> on any row to preview it.</p>
+          <h3>Container / Overlay Width Scale</h3>
+          <p>
+            Larger steps for dialog, drawer, and overlay <code>max-width</code> — same literal-pixel
+            convention as the icon/control scale above, just bigger numbers.
+          </p>
 
-                <style>
-                    .anim-track {
-                        position: relative;
-                        height: 28px;
-                        background: rgba(255,255,255,0.06);
-                        border-radius: 14px;
-                        overflow: visible;
-                        flex: 1;
-                    }
-                    .anim-ball {
-                        position: absolute;
-                        top: 50%; transform: translateY(-50%);
-                        left: 5px;
-                        width: 18px; height: 18px; border-radius: 50%;
-                        background: var(--color-primary, #4da77a);
-                        box-shadow: 0 0 10px rgba(77,167,122,0.5);
-                        will-change: left;
-                    }
-                    .anim-play-btn {
-                        background: rgba(77,167,122,0.15);
-                        color: var(--color-primary, #4da77a);
-                        border: 1px solid rgba(77,167,122,0.3);
-                        border-radius: 6px;
-                        padding: 4px 10px;
-                        font-size: 0.75rem;
-                        font-weight: 600;
-                        cursor: pointer;
-                        white-space: nowrap;
-                        font-family: inherit;
-                    }
-                    .anim-play-btn:hover { background: rgba(77,167,122,0.25); }
-                    .anim-row {
-                        display: flex;
-                        align-items: center;
-                        gap: 12px;
-                        padding: 10px 0;
-                        border-bottom: 1px solid rgba(255,255,255,0.05);
-                    }
-                    .anim-row:last-child { border-bottom: none; }
-                    .anim-label { width: 110px; flex-shrink: 0; }
-                    .anim-label code { font-size: 0.8rem; color: var(--color-primary, #4da77a); }
-                    .anim-ms { font-size: 0.75rem; color: var(--color-text-secondary, #8888a0); }
-                    .anim-use { font-size: 0.75rem; color: var(--color-text-secondary, #8888a0); width: 220px; flex-shrink: 0; }
-                </style>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                  <th>Pixels</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--size-360</code></td>
+                  <td><code class="token-value">22.5rem</code></td>
+                  <td>360px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-480</code></td>
+                  <td><code class="token-value">30rem</code></td>
+                  <td>480px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-640</code></td>
+                  <td><code class="token-value">40rem</code></td>
+                  <td>640px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--size-800</code></td>
+                  <td><code class="token-value">50rem</code></td>
+                  <td>800px</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-                <div class="table-wrapper" style="padding: 1rem 1.25rem; border-radius: 8px;">
-                    <div id="duration-demo">
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--duration-instant</code><br><span class="anim-ms">0ms</span></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="0" data-easing="linear"></div></div>
-                            <span class="anim-use">Toggles, focus rings — no visible motion</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--duration-fast</code><br><span class="anim-ms">150ms</span></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="150" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
-                            <span class="anim-use">Hover, button press, micro-interactions</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--duration-normal</code><br><span class="anim-ms">300ms</span></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="300" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
-                            <span class="anim-use">Menus, tooltips, modals appearing</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--duration-slow</code><br><span class="anim-ms">500ms</span></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="500" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
-                            <span class="anim-use">Drawers, page transitions</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--duration-slower</code><br><span class="anim-ms">750ms</span></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="750" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
-                            <span class="anim-use">Emphasis, onboarding moments</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--duration-slowest</code><br><span class="anim-ms">1000ms</span></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="1000" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
-                            <span class="anim-use">Skeleton loaders, looping animations</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                    </div>
+          <h3>Usage</h3>
+          <pre><code>.icon-sm {
+  width: var(--size-14);
+  height: var(--size-14);
+} /* 14px small icon */
+
+.avatar {
+  width: var(--size-40);
+  height: var(--size-40);
+} /* 40px avatar */
+
+.toggle-track {
+  width: var(--size-44);
+  height: var(--size-24);
+} /* 44px touch target */
+
+.dialog {
+  max-width: var(--size-480);
+} /* 480px dialog */</code></pre>
+
+          <h3>Do / Don't</h3>
+          <pre><code>/* Don't — raw px for a control dimension */
+.status-dot {
+  width: 6px;
+  height: 6px;
+}
+
+/* Don't — reaching for the wrong scale by number-matching intuition */
+.icon-md {
+  width: var(--space-14);
+} /* this is 56px, not 14px! */
+
+/* Do */
+.status-dot {
+  width: var(--size-6);
+  height: var(--size-6);
+}
+.icon-md {
+  width: var(--size-18);
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- Typography -->
+      <section class="content-section">
+        <h2 class="section-title">Typography</h2>
+        <div class="section-content">
+          <p>
+            Typography tokens for font sizes, weights, line heights, and letter spacing. All sizes
+            are responsive and accessible.
+          </p>
+
+          <h3>Font Sizes</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                  <th>Pixels</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--text-xs</code></td>
+                  <td><code class="token-value">0.75rem</code></td>
+                  <td>12px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--text-sm</code></td>
+                  <td><code class="token-value">0.875rem</code></td>
+                  <td>14px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--text-base</code></td>
+                  <td><code class="token-value">1rem</code></td>
+                  <td>16px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--text-lg</code></td>
+                  <td><code class="token-value">1.125rem</code></td>
+                  <td>18px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--text-xl</code></td>
+                  <td><code class="token-value">1.25rem</code></td>
+                  <td>20px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--text-2xl</code></td>
+                  <td><code class="token-value">1.5rem</code></td>
+                  <td>24px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--text-3xl</code></td>
+                  <td><code class="token-value">1.875rem</code></td>
+                  <td>30px</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--text-4xl</code></td>
+                  <td><code class="token-value">2.25rem</code></td>
+                  <td>36px</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Font Weights</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--font-light</code></td>
+                  <td>300</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--font-normal</code></td>
+                  <td>400</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--font-medium</code></td>
+                  <td>500</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--font-semibold</code></td>
+                  <td>600</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--font-bold</code></td>
+                  <td>700</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--font-extrabold</code></td>
+                  <td>800</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Border Radius -->
+      <section class="content-section">
+        <h2 class="section-title">Border Radius</h2>
+        <div class="section-content">
+          <p>
+            Border radius tokens for consistent component rounding. From sharp corners to fully
+            circular elements.
+          </p>
+
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--radius-none</code></td>
+                  <td><code class="token-value">0</code></td>
+                  <td>No rounding</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--radius-sm</code></td>
+                  <td><code class="token-value">0.25rem</code></td>
+                  <td>Subtle rounding</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--radius</code></td>
+                  <td><code class="token-value">0.5rem</code></td>
+                  <td>Default rounding</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--radius-md</code></td>
+                  <td><code class="token-value">0.75rem</code></td>
+                  <td>Medium rounding</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--radius-lg</code></td>
+                  <td><code class="token-value">1rem</code></td>
+                  <td>Large rounding</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--radius-xl</code></td>
+                  <td><code class="token-value">1.25rem</code></td>
+                  <td>Extra large rounding</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--radius-2xl</code></td>
+                  <td><code class="token-value">1.5rem</code></td>
+                  <td>Very large rounding</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--radius-full</code></td>
+                  <td><code class="token-value">9999px</code></td>
+                  <td>Fully circular/pill shape</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shadows -->
+      <section class="content-section">
+        <h2 class="section-title">Shadows & Elevation</h2>
+        <div class="section-content">
+          <p>
+            Shadow tokens provide depth and elevation. Use these to create visual hierarchy in your
+            interfaces.
+          </p>
+
+          <h3>Standard Shadows</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--shadow-xs</code></td>
+                  <td>Extra subtle shadow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--shadow-sm</code></td>
+                  <td>Small shadow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--shadow</code></td>
+                  <td>Default shadow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--shadow-md</code></td>
+                  <td>Medium shadow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--shadow-lg</code></td>
+                  <td>Large shadow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--shadow-xl</code></td>
+                  <td>Extra large shadow</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Colored Shadows</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--shadow-primary</code></td>
+                  <td>Primary color shadow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--shadow-success</code></td>
+                  <td>Success color shadow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--shadow-warning</code></td>
+                  <td>Warning color shadow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--shadow-error</code></td>
+                  <td>Error color shadow</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Z-Index -->
+      <section class="content-section">
+        <h2 class="section-title">Z-Index</h2>
+        <div class="section-content">
+          <p>
+            Two layers, same pattern as color: a <strong>core scale</strong> of raw, meaningless
+            rungs (<code>--z-0</code> through <code>--z-90</code>), and a
+            <strong>semantic scale</strong> of intent-named aliases onto those rungs
+            (<code>--z-dropdown</code>, <code>--z-modal</code>, <code>--z-popover</code>, and so
+            on). The jumps between rungs are deliberately uneven — they were set to match stacking
+            values already in use across components (dropdowns at 1000, overlays near 9999, etc.),
+            so introducing the token scale didn't change any existing stacking behavior.
+          </p>
+
+          <h3>Stacking Order</h3>
+          <p>
+            Each panel below is rendered at its real semantic z-index, so you can see what sits
+            above what.
+          </p>
+
+          <style>
+            .zidx-stage {
+              position: relative;
+              height: 190px;
+            }
+            .zidx-box {
+              position: absolute;
+              top: 20px;
+              width: 150px;
+              height: 80px;
+              border-radius: 8px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              gap: 2px;
+              color: #ffffff;
+              font-size: 0.7rem;
+              text-align: center;
+              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+              border: 1px solid rgba(255, 255, 255, 0.15);
+            }
+            .zidx-box code {
+              color: #ffffff;
+              font-size: 0.7rem;
+              opacity: 0.85;
+            }
+          </style>
+
+          <div class="table-wrapper" style="padding: 1.25rem; border-radius: 8px">
+            <div class="zidx-stage">
+              <div class="zidx-box" style="left: 0; background: #525252; z-index: var(--z-sticky)">
+                <strong>sticky navbar</strong>
+                <code>--z-sticky (100)</code>
+              </div>
+              <div
+                class="zidx-box"
+                style="left: 60px; background: #3d8a64; z-index: var(--z-dropdown)"
+              >
+                <strong>dropdown panel</strong>
+                <code>--z-dropdown (1000)</code>
+              </div>
+              <div
+                class="zidx-box"
+                style="left: 120px; background: #0891b2; z-index: var(--z-modal)"
+              >
+                <strong>modal</strong>
+                <code>--z-modal (2000)</code>
+              </div>
+              <div
+                class="zidx-box"
+                style="left: 180px; background: #b45309; z-index: var(--z-overlay)"
+              >
+                <strong>drawer overlay</strong>
+                <code>--z-overlay (9998)</code>
+              </div>
+              <div
+                class="zidx-box"
+                style="left: 240px; background: #9333ea; z-index: var(--z-popover)"
+              >
+                <strong>tooltip / toast</strong>
+                <code>--z-popover (9999)</code>
+              </div>
+              <div class="zidx-box" style="left: 300px; background: #dc2626; z-index: var(--z-max)">
+                <strong>command palette</strong>
+                <code>--z-max (10000)</code>
+              </div>
+            </div>
+          </div>
+
+          <h3>Core Scale</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--z-0</code></td>
+                  <td><code class="token-value">0</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-10</code></td>
+                  <td><code class="token-value">10</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-20</code></td>
+                  <td><code class="token-value">20</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-30</code></td>
+                  <td><code class="token-value">30</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-40</code></td>
+                  <td><code class="token-value">100</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-50</code></td>
+                  <td><code class="token-value">1000</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-60</code></td>
+                  <td><code class="token-value">2000</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-70</code></td>
+                  <td><code class="token-value">9998</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-80</code></td>
+                  <td><code class="token-value">9999</code></td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-90</code></td>
+                  <td><code class="token-value">10000</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Semantic Scale</h3>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Resolves to</th>
+                  <th>Use for</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--z-sticky</code></td>
+                  <td><code class="token-value">var(--z-40)</code> · 100</td>
+                  <td>Sticky in-flow elements, e.g. a sticky navbar</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-dropdown</code></td>
+                  <td><code class="token-value">var(--z-50)</code> · 1000</td>
+                  <td>
+                    Floating panels anchored to a trigger: dropdown, select, combobox, date/time
+                    pickers, suggestions
+                  </td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-modal</code></td>
+                  <td><code class="token-value">var(--z-60)</code> · 2000</td>
+                  <td>App-level modal backdrop + content</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-overlay</code></td>
+                  <td><code class="token-value">var(--z-70)</code> · 9998</td>
+                  <td>A secondary overlay above a modal, e.g. a drawer backdrop</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-popover</code></td>
+                  <td><code class="token-value">var(--z-80)</code> · 9999</td>
+                  <td>Content that must float above everything in normal flow</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-tooltip</code></td>
+                  <td><code class="token-value">var(--z-80)</code> · 9999</td>
+                  <td>Same layer as popover — tooltips</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-toast</code></td>
+                  <td><code class="token-value">var(--z-80)</code> · 9999</td>
+                  <td>Same layer as popover — toast notifications</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--z-max</code></td>
+                  <td><code class="token-value">var(--z-90)</code> · 10000</td>
+                  <td>Absolute top layer: command palette, snackbar, lightbox, submenus</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>When to Use It — and When Not To</h3>
+          <p>
+            <strong>Component code should reference the semantic tokens</strong>
+            (<code>var(--z-dropdown)</code>), not the raw <code>--z-N</code> rungs, so the
+            <em>meaning</em> of a layer is visible at the call site.
+          </p>
+          <p>
+            <strong
+              >Small z-index values used purely for local stacking tricks inside a single component
+              are not part of this scale and don't need a token.</strong
+            >
+            If you're layering a decorative pseudo-element above its own container, ordering a badge
+            dot over an avatar, or doing any z-index trick where everything being stacked lives
+            inside one component's own DOM subtree — and the value is 20 or smaller — leave it as a
+            plain integer. These values never interact with another component's stacking context, so
+            giving them a global name would be noise, not clarity. Reach for a global token only
+            when the element needs to stack above or below content belonging to a
+            <strong>different</strong> component.
+          </p>
+
+          <pre><code>/* Local stacking trick — stays a plain small integer, no token needed */
+.avatar-status-dot {
+  position: absolute;
+  z-index: 1;
+}
+
+/* Cross-component global layer — use the semantic token */
+.dropdown-menu {
+  position: absolute;
+  z-index: var(--z-dropdown);
+}
+.modal-backdrop {
+  position: fixed;
+  z-index: var(--z-modal);
+}</code></pre>
+
+          <h3>Do / Don't</h3>
+          <pre><code>/* Don't — raw global-scale number, meaning not visible at the call site */
+.toast {
+  z-index: 9999;
+}
+
+/* Don't — reaching past the semantic layer for no reason */
+.toast {
+  z-index: var(--z-80);
+}
+
+/* Do */
+.toast {
+  z-index: var(--z-toast);
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- Animation & Transitions -->
+      <section class="content-section" id="animation">
+        <h2 class="section-title">⚡ Animation & Transitions</h2>
+        <div class="section-content">
+          <p>
+            Motion tokens give every animated component a consistent timing vocabulary. There are
+            three layers: <strong>durations</strong> (how long),
+            <strong>easing functions</strong> (the acceleration curve), and
+            <strong>composite transitions</strong> (ready-to-use shorthands). All are available as
+            Figma Variables in the <code>Aural/Animation</code> collection.
+          </p>
+
+          <!-- Duration scale -->
+          <h3>Duration Scale</h3>
+          <p>
+            Six steps from instant to one second. Click <strong>▶</strong> on any row to preview it.
+          </p>
+
+          <style>
+            .anim-track {
+              position: relative;
+              height: 28px;
+              background: rgba(255, 255, 255, 0.06);
+              border-radius: 14px;
+              overflow: visible;
+              flex: 1;
+            }
+            .anim-ball {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              left: 5px;
+              width: 18px;
+              height: 18px;
+              border-radius: 50%;
+              background: var(--color-primary, #4da77a);
+              box-shadow: 0 0 10px rgba(77, 167, 122, 0.5);
+              will-change: left;
+            }
+            .anim-play-btn {
+              background: rgba(77, 167, 122, 0.15);
+              color: var(--color-primary, #4da77a);
+              border: 1px solid rgba(77, 167, 122, 0.3);
+              border-radius: 6px;
+              padding: 4px 10px;
+              font-size: 0.75rem;
+              font-weight: 600;
+              cursor: pointer;
+              white-space: nowrap;
+              font-family: inherit;
+            }
+            .anim-play-btn:hover {
+              background: rgba(77, 167, 122, 0.25);
+            }
+            .anim-row {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 10px 0;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .anim-row:last-child {
+              border-bottom: none;
+            }
+            .anim-label {
+              width: 110px;
+              flex-shrink: 0;
+            }
+            .anim-label code {
+              font-size: 0.8rem;
+              color: var(--color-primary, #4da77a);
+            }
+            .anim-ms {
+              font-size: 0.75rem;
+              color: var(--color-text-secondary, #8888a0);
+            }
+            .anim-use {
+              font-size: 0.75rem;
+              color: var(--color-text-secondary, #8888a0);
+              width: 220px;
+              flex-shrink: 0;
+            }
+          </style>
+
+          <div class="table-wrapper" style="padding: 1rem 1.25rem; border-radius: 8px">
+            <div id="duration-demo">
+              <div class="anim-row">
+                <div class="anim-label">
+                  <code>--duration-instant</code><br /><span class="anim-ms">0ms</span>
                 </div>
-
-                <!-- Easing functions -->
-                <h3 style="margin-top: 2rem;">Easing Functions</h3>
-                <p>Six named curves. Click <strong>▶</strong> to see each one animate — notice how acceleration differs.</p>
-
-                <div class="table-wrapper" style="padding: 1rem 1.25rem; border-radius: 8px;">
-                    <div id="easing-demo">
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--ease-linear</code></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="linear"></div></div>
-                            <span class="anim-use">Spinners, looping, progress bars</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--ease-in</code></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.4,0,1,1)"></div></div>
-                            <span class="anim-use">Elements leaving the screen</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--ease-out</code></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0,0,0.2,1)"></div></div>
-                            <span class="anim-use">Elements entering the screen</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--ease-in-out</code></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.4,0,0.2,1)"></div></div>
-                            <span class="anim-use">Default — most UI interactions</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--ease-bounce</code></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.68,-0.55,0.265,1.55)"></div></div>
-                            <span class="anim-use">Playful confirmations, emphasis</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                        <div class="anim-row">
-                            <div class="anim-label"><code>--ease-spring</code></div>
-                            <div class="anim-track"><div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.175,0.885,0.32,1.275)"></div></div>
-                            <span class="anim-use">Modals, drawers, natural snap</span>
-                            <button class="anim-play-btn" onclick="playBall(this)">▶</button>
-                        </div>
-                    </div>
+                <div class="anim-track">
+                  <div class="anim-ball" data-ms="0" data-easing="linear"></div>
                 </div>
-
-                <!-- Composite transitions -->
-                <h3 style="margin-top: 2rem;">Composite Transitions</h3>
-                <p>Pre-built shorthands combining duration + easing. Use these to keep motion consistent across components without repeating yourself.</p>
-
-                <div class="table-wrapper">
-                    <table class="token-table">
-                        <thead>
-                            <tr>
-                                <th>Token</th>
-                                <th>Value</th>
-                                <th>Best for</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code class="token-name">--transition-fast</code></td>
-                                <td><code>150ms ease-in-out</code></td>
-                                <td>Generic fast shorthand</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--transition-normal</code></td>
-                                <td><code>300ms ease-in-out</code></td>
-                                <td>Generic normal shorthand</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--transition-slow</code></td>
-                                <td><code>500ms ease-in-out</code></td>
-                                <td>Generic slow shorthand</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--transition-all-fast</code></td>
-                                <td><code>all 150ms ease-in-out</code></td>
-                                <td>All properties, fast — most buttons/links</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--transition-all-normal</code></td>
-                                <td><code>all 300ms ease-in-out</code></td>
-                                <td>All properties, standard speed</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--transition-colors</code></td>
-                                <td><code>color, bg, border 150ms</code></td>
-                                <td>Color-only — no layout shift</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--transition-transform</code></td>
-                                <td><code>transform 150ms ease-in-out</code></td>
-                                <td>GPU-composited — smooth on mobile</td>
-                            </tr>
-                            <tr>
-                                <td><code class="token-name">--transition-opacity</code></td>
-                                <td><code>opacity 300ms ease-in-out</code></td>
-                                <td>GPU-composited — fades and overlays</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <span class="anim-use">Toggles, focus rings — no visible motion</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label">
+                  <code>--duration-fast</code><br /><span class="anim-ms">150ms</span>
                 </div>
+                <div class="anim-track">
+                  <div
+                    class="anim-ball"
+                    data-ms="150"
+                    data-easing="cubic-bezier(0.4,0,0.2,1)"
+                  ></div>
+                </div>
+                <span class="anim-use">Hover, button press, micro-interactions</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label">
+                  <code>--duration-normal</code><br /><span class="anim-ms">300ms</span>
+                </div>
+                <div class="anim-track">
+                  <div
+                    class="anim-ball"
+                    data-ms="300"
+                    data-easing="cubic-bezier(0.4,0,0.2,1)"
+                  ></div>
+                </div>
+                <span class="anim-use">Menus, tooltips, modals appearing</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label">
+                  <code>--duration-slow</code><br /><span class="anim-ms">500ms</span>
+                </div>
+                <div class="anim-track">
+                  <div
+                    class="anim-ball"
+                    data-ms="500"
+                    data-easing="cubic-bezier(0.4,0,0.2,1)"
+                  ></div>
+                </div>
+                <span class="anim-use">Drawers, page transitions</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label">
+                  <code>--duration-slower</code><br /><span class="anim-ms">750ms</span>
+                </div>
+                <div class="anim-track">
+                  <div
+                    class="anim-ball"
+                    data-ms="750"
+                    data-easing="cubic-bezier(0.4,0,0.2,1)"
+                  ></div>
+                </div>
+                <span class="anim-use">Emphasis, onboarding moments</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label">
+                  <code>--duration-slowest</code><br /><span class="anim-ms">1000ms</span>
+                </div>
+                <div class="anim-track">
+                  <div
+                    class="anim-ball"
+                    data-ms="1000"
+                    data-easing="cubic-bezier(0.4,0,0.2,1)"
+                  ></div>
+                </div>
+                <span class="anim-use">Skeleton loaders, looping animations</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+            </div>
+          </div>
 
-                <!-- Usage -->
-                <h3 style="margin-top: 2rem;">Usage</h3>
-<pre><code>/* Use a composite token for the common case */
+          <!-- Easing functions -->
+          <h3 style="margin-top: 2rem">Easing Functions</h3>
+          <p>
+            Six named curves. Click <strong>▶</strong> to see each one animate — notice how
+            acceleration differs.
+          </p>
+
+          <div class="table-wrapper" style="padding: 1rem 1.25rem; border-radius: 8px">
+            <div id="easing-demo">
+              <div class="anim-row">
+                <div class="anim-label"><code>--ease-linear</code></div>
+                <div class="anim-track">
+                  <div class="anim-ball" data-ms="600" data-easing="linear"></div>
+                </div>
+                <span class="anim-use">Spinners, looping, progress bars</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label"><code>--ease-in</code></div>
+                <div class="anim-track">
+                  <div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0.4,0,1,1)"></div>
+                </div>
+                <span class="anim-use">Elements leaving the screen</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label"><code>--ease-out</code></div>
+                <div class="anim-track">
+                  <div class="anim-ball" data-ms="600" data-easing="cubic-bezier(0,0,0.2,1)"></div>
+                </div>
+                <span class="anim-use">Elements entering the screen</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label"><code>--ease-in-out</code></div>
+                <div class="anim-track">
+                  <div
+                    class="anim-ball"
+                    data-ms="600"
+                    data-easing="cubic-bezier(0.4,0,0.2,1)"
+                  ></div>
+                </div>
+                <span class="anim-use">Default — most UI interactions</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label"><code>--ease-bounce</code></div>
+                <div class="anim-track">
+                  <div
+                    class="anim-ball"
+                    data-ms="600"
+                    data-easing="cubic-bezier(0.68,-0.55,0.265,1.55)"
+                  ></div>
+                </div>
+                <span class="anim-use">Playful confirmations, emphasis</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+              <div class="anim-row">
+                <div class="anim-label"><code>--ease-spring</code></div>
+                <div class="anim-track">
+                  <div
+                    class="anim-ball"
+                    data-ms="600"
+                    data-easing="cubic-bezier(0.175,0.885,0.32,1.275)"
+                  ></div>
+                </div>
+                <span class="anim-use">Modals, drawers, natural snap</span>
+                <button class="anim-play-btn" onclick="playBall(this)">▶</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Composite transitions -->
+          <h3 style="margin-top: 2rem">Composite Transitions</h3>
+          <p>
+            Pre-built shorthands combining duration + easing. Use these to keep motion consistent
+            across components without repeating yourself.
+          </p>
+
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                  <th>Best for</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="token-name">--transition-fast</code></td>
+                  <td><code>150ms ease-in-out</code></td>
+                  <td>Generic fast shorthand</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--transition-normal</code></td>
+                  <td><code>300ms ease-in-out</code></td>
+                  <td>Generic normal shorthand</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--transition-slow</code></td>
+                  <td><code>500ms ease-in-out</code></td>
+                  <td>Generic slow shorthand</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--transition-all-fast</code></td>
+                  <td><code>all 150ms ease-in-out</code></td>
+                  <td>All properties, fast — most buttons/links</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--transition-all-normal</code></td>
+                  <td><code>all 300ms ease-in-out</code></td>
+                  <td>All properties, standard speed</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--transition-colors</code></td>
+                  <td><code>color, bg, border 150ms</code></td>
+                  <td>Color-only — no layout shift</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--transition-transform</code></td>
+                  <td><code>transform 150ms ease-in-out</code></td>
+                  <td>GPU-composited — smooth on mobile</td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--transition-opacity</code></td>
+                  <td><code>opacity 300ms ease-in-out</code></td>
+                  <td>GPU-composited — fades and overlays</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Usage -->
+          <h3 style="margin-top: 2rem">Usage</h3>
+          <pre><code>/* Use a composite token for the common case */
 .btn {
   transition: var(--transition-all-fast);
 }
@@ -978,43 +1679,63 @@ margin-top: var(--space-6);</code></pre>
 }
 </code></pre>
 
-                <!-- Figma note -->
-                <div style="background: rgba(124,106,247,0.1); border: 1px solid rgba(124,106,247,0.25); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1.5rem; font-size: 0.875rem; line-height: 1.6;">
-                    <strong style="color: #9585fa;">📐 Figma Variables</strong><br>
-                    Duration tokens are <strong>FLOAT</strong> variables and easing tokens are <strong>STRING</strong> variables in the <code>Aural/Animation</code> collection. Composite transitions are not Figma Variables — they're CSS-only shorthands. Figma does not yet support binding animation variables to layer properties directly, but they serve as accurate handoff spec values.
-                </div>
-            </div>
-        </section>
+          <!-- Figma note -->
+          <div
+            style="
+              background: rgba(124, 106, 247, 0.1);
+              border: 1px solid rgba(124, 106, 247, 0.25);
+              border-radius: 8px;
+              padding: 1rem 1.25rem;
+              margin-top: 1.5rem;
+              font-size: 0.875rem;
+              line-height: 1.6;
+            "
+          >
+            <strong style="color: #9585fa">📐 Figma Variables</strong><br />
+            Duration tokens are <strong>FLOAT</strong> variables and easing tokens are
+            <strong>STRING</strong> variables in the <code>Aural/Animation</code> collection.
+            Composite transitions are not Figma Variables — they're CSS-only shorthands. Figma does
+            not yet support binding animation variables to layer properties directly, but they serve
+            as accurate handoff spec values.
+          </div>
+        </div>
+      </section>
 
-        <script>
+      <script>
         function playBall(btn) {
-            const row = btn.closest('.anim-row');
-            const ball = row.querySelector('.anim-ball');
-            const track = row.querySelector('.anim-track');
-            const ms = parseInt(ball.dataset.ms, 10);
-            const easing = ball.dataset.easing;
-            if (ball._playing) return;
-            ball._playing = true;
-            btn.textContent = '●';
-            const trackW = track.offsetWidth;
-            ball.style.transition = `left ${ms}ms ${easing}`;
-            ball.style.left = (trackW - 23) + 'px';
-            const travel = Math.max(ms, 100);
+          const row = btn.closest('.anim-row');
+          const ball = row.querySelector('.anim-ball');
+          const track = row.querySelector('.anim-track');
+          const ms = parseInt(ball.dataset.ms, 10);
+          const easing = ball.dataset.easing;
+          if (ball._playing) return;
+          ball._playing = true;
+          btn.textContent = '●';
+          const trackW = track.offsetWidth;
+          ball.style.transition = `left ${ms}ms ${easing}`;
+          ball.style.left = trackW - 23 + 'px';
+          const travel = Math.max(ms, 100);
+          setTimeout(() => {
+            ball.style.left = '5px';
             setTimeout(() => {
-                ball.style.left = '5px';
-                setTimeout(() => { ball._playing = false; btn.textContent = '▶'; }, travel + 50);
-            }, travel + 80);
+              ball._playing = false;
+              btn.textContent = '▶';
+            }, travel + 50);
+          }, travel + 80);
         }
-        </script>
+      </script>
 
-        <!-- Usage -->
-        <section class="content-section">
-            <h2 class="section-title">Using Design Tokens</h2>
-            <div class="section-content">
-                <p>Design tokens can be used in your CSS to ensure consistency with the Aural UI design system.</p>
+      <!-- Usage -->
+      <section class="content-section">
+        <h2 class="section-title">Using Design Tokens</h2>
+        <div class="section-content">
+          <p>
+            Design tokens can be used in your CSS to ensure consistency with the Aural UI design
+            system.
+          </p>
 
-                <h3>In Your CSS</h3>
-                <pre><code>.my-component {
+          <h3>In Your CSS</h3>
+          <pre><code>.my-component {
   color: var(--color-text-primary);
   background: var(--color-bg-secondary);
   padding: var(--space-4);
@@ -1023,23 +1744,23 @@ margin-top: var(--space-6);</code></pre>
   font-size: var(--text-base);
 }</code></pre>
 
-                <h3>Customizing Tokens</h3>
-                <p>You can override any token to customize the design system:</p>
-                <pre><code>:root {
+          <h3>Customizing Tokens</h3>
+          <p>You can override any token to customize the design system:</p>
+          <pre><code>:root {
   --color-primary: #8B5CF6;
   --radius-md: 1rem;
   --space-4: 1.25rem;
 }</code></pre>
-            </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Creating Custom Themes -->
-        <section class="content-section">
-            <h2 class="section-title">🎨 Creating Custom Themes</h2>
-            <div class="section-content">
-                <h3>Method 1: Override Individual Tokens</h3>
-                <p>Create a simple style block to customize specific aspects:</p>
-                <pre><code>&lt;style&gt;
+      <!-- Creating Custom Themes -->
+      <section class="content-section">
+        <h2 class="section-title">🎨 Creating Custom Themes</h2>
+        <div class="section-content">
+          <h3>Method 1: Override Individual Tokens</h3>
+          <p>Create a simple style block to customize specific aspects:</p>
+          <pre><code>&lt;style&gt;
   :root {
     /* Change primary brand color */
     --color-primary: #8B5CF6;     /* Purple */
@@ -1052,9 +1773,9 @@ margin-top: var(--space-6);</code></pre>
   }
 &lt;/style&gt;</code></pre>
 
-                <h3>Method 2: Create a Full Custom Theme</h3>
-                <p>Build a complete theme file matching your brand:</p>
-                <pre><code>/* my-brand.css */
+          <h3>Method 2: Create a Full Custom Theme</h3>
+          <p>Build a complete theme file matching your brand:</p>
+          <pre><code>/* my-brand.css */
 :root {
   /* Brand Colors */
   --color-primary: #8B5CF6;
@@ -1080,19 +1801,19 @@ margin-top: var(--space-6);</code></pre>
   --space-6: 1.25rem;
 }</code></pre>
 
-                <p><strong>Load it:</strong></p>
-                <pre><code>&lt;link rel="stylesheet" href="aural-ui.css"&gt;
+          <p><strong>Load it:</strong></p>
+          <pre><code>&lt;link rel="stylesheet" href="aural-ui.css"&gt;
 &lt;link rel="stylesheet" href="my-brand.css"&gt;</code></pre>
-            </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Advanced Techniques -->
-        <section class="content-section">
-            <h2 class="section-title">🔧 Advanced Techniques</h2>
-            <div class="section-content">
-                <h3>Token Composition</h3>
-                <p>Combine tokens to create new values:</p>
-                <pre><code>:root {
+      <!-- Advanced Techniques -->
+      <section class="content-section">
+        <h2 class="section-title">🔧 Advanced Techniques</h2>
+        <div class="section-content">
+          <h3>Token Composition</h3>
+          <p>Combine tokens to create new values:</p>
+          <pre><code>:root {
   --duration-fast: 150ms;
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -1100,9 +1821,9 @@ margin-top: var(--space-6);</code></pre>
   --transition-fast: var(--duration-fast) var(--ease-in-out);
 }</code></pre>
 
-                <h3>Math with Tokens</h3>
-                <p>Use <code>calc()</code> for dynamic values:</p>
-                <pre><code>.double-padding {
+          <h3>Math with Tokens</h3>
+          <p>Use <code>calc()</code> for dynamic values:</p>
+          <pre><code>.double-padding {
   padding: calc(var(--space-4) * 2);  /* 2rem */
 }
 
@@ -1110,124 +1831,146 @@ margin-top: var(--space-6);</code></pre>
   margin: calc(var(--space-4) / 2);   /* 0.5rem */
 }</code></pre>
 
-                <h3>Fallback Values</h3>
-                <p>Provide defaults for missing tokens:</p>
-                <pre><code>.card {
+          <h3>Fallback Values</h3>
+          <p>Provide defaults for missing tokens:</p>
+          <pre><code>.card {
   /* If --radius-md doesn't exist, use 0.75rem */
   border-radius: var(--radius-md, 0.75rem);
 }</code></pre>
-            </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Best Practices -->
-        <section class="content-section">
-            <h2 class="section-title">💡 Best Practices</h2>
-            <div class="section-content">
-                <ol>
-                    <li><strong>Use semantic tokens in components</strong> - Reference <code>--color-bg-primary</code>, not <code>--neutral-900</code></li>
-                    <li><strong>Don't hardcode values</strong> - Always use tokens for consistency</li>
-                    <li><strong>Test in multiple themes</strong> - Switch themes to ensure proper contrast</li>
-                    <li><strong>Override sparingly</strong> - Only customize what you need</li>
-                    <li><strong>Document custom tokens</strong> - Comment your customizations</li>
-                </ol>
+      <!-- Best Practices -->
+      <section class="content-section">
+        <h2 class="section-title">💡 Best Practices</h2>
+        <div class="section-content">
+          <ol>
+            <li>
+              <strong>Use semantic tokens in components</strong> - Reference
+              <code>--color-bg-primary</code>, not <code>--neutral-900</code>
+            </li>
+            <li><strong>Don't hardcode values</strong> - Always use tokens for consistency</li>
+            <li>
+              <strong>Test in multiple themes</strong> - Switch themes to ensure proper contrast
+            </li>
+            <li><strong>Override sparingly</strong> - Only customize what you need</li>
+            <li><strong>Document custom tokens</strong> - Comment your customizations</li>
+          </ol>
 
-                <div style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); border-left: 4px solid var(--color-primary); margin-top: var(--space-6);">
-                    <strong style="color: var(--color-text-primary);">💡 Pro Tip:</strong>
-                    <p style="margin: var(--space-2) 0 0 0;">Use the theme switcher (top right) to see how tokens adapt across all 9 themes instantly!</p>
-                </div>
-            </div>
-        </section>
-
+          <div
+            style="
+              background: var(--color-bg-secondary);
+              padding: var(--space-4);
+              border-radius: var(--radius-md);
+              border-left: 4px solid var(--color-primary);
+              margin-top: var(--space-6);
+            "
+          >
+            <strong style="color: var(--color-text-primary)">💡 Pro Tip:</strong>
+            <p style="margin: var(--space-2) 0 0 0">
+              Use the theme switcher (top right) to see how tokens adapt across all 9 themes
+              instantly!
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle">
-        <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"/>
-                <line x1="12" y1="1" x2="12" y2="3"/>
-                <line x1="12" y1="21" x2="12" y2="23"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                <line x1="1" y1="12" x2="3" y2="12"/>
-                <line x1="21" y1="12" x2="23" y2="12"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-        </button>
+      <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      </button>
     </div>
 
     <!-- Aural UI JavaScript -->
     <script src="./aural-ui.js"></script>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+      // Initialize Lucide icons
+      lucide.createIcons();
 
-        // Theme toggle
-        let isDark = true;
-        function toggleTheme() {
-            const themeLink = document.getElementById('theme-link');
-            isDark = !isDark;
-            themeLink.href = isDark ? './dark.css' : './light.css';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
+      // Theme toggle
+      let isDark = true;
+      function toggleTheme() {
+        const themeLink = document.getElementById('theme-link');
+        isDark = !isDark;
+        themeLink.href = isDark ? './dark.css' : './light.css';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      }
 
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            isDark = savedTheme === 'dark';
-            document.getElementById('theme-link').href = isDark ? './dark.css' : './light.css';
-        }
-    </script>    <!-- Unified Theme Sync -->
+      // Load saved theme
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        isDark = savedTheme === 'dark';
+        document.getElementById('theme-link').href = isDark ? './dark.css' : './light.css';
+      }
+    </script>
+    <!-- Unified Theme Sync -->
     <script>
-    (function() {
+      (function () {
         // Sync theme from localStorage IMMEDIATELY
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const themeLink = document.getElementById('theme-link');
-        
+
         if (themeLink) {
-            const isInComponents = window.location.pathname.includes('/components/');
-            const relativePath = isInComponents ? '../' : './';
-            const themeFiles = {
-                'dark': 'dark.css',
-                'light': 'light.css',
-                'neon': 'neon.css',
-                'prismatic': 'prismatic.css',
-                'minimal': 'minimal.css',
-                'warm': 'warm.css',
-                'kinetic': 'kinetic.css',
-                'high-contrast': 'high-contrast.css',
-                'colorblind': 'colorblind-friendly.css'
-            };
+          const isInComponents = window.location.pathname.includes('/components/');
+          const relativePath = isInComponents ? '../' : './';
+          const themeFiles = {
+            dark: 'dark.css',
+            light: 'light.css',
+            neon: 'neon.css',
+            prismatic: 'prismatic.css',
+            minimal: 'minimal.css',
+            warm: 'warm.css',
+            kinetic: 'kinetic.css',
+            'high-contrast': 'high-contrast.css',
+            colorblind: 'colorblind-friendly.css',
+          };
 
-            const themeFile = themeFiles[savedTheme] || 'dark.css';
-            const themePath = relativePath + themeFile;
+          const themeFile = themeFiles[savedTheme] || 'dark.css';
+          const themePath = relativePath + themeFile;
 
-            console.log('Applying theme:', savedTheme, 'Path:', themePath);
-            themeLink.href = themePath;
+          console.log('Applying theme:', savedTheme, 'Path:', themePath);
+          themeLink.href = themePath;
         } else {
-            console.error('Theme link not found!');
+          console.error('Theme link not found!');
         }
 
         // Hide theme toggle in iframe (demo.html controls theme)
-        window.addEventListener('DOMContentLoaded', function() {
-            try {
-                if (window.self !== window.top) {
-                    const themeToggle = document.querySelector('.theme-toggle');
-                    if (themeToggle) {
-                        themeToggle.style.display = 'none';
-                    }
-                }
-            } catch (e) {}
+        window.addEventListener('DOMContentLoaded', function () {
+          try {
+            if (window.self !== window.top) {
+              const themeToggle = document.querySelector('.theme-toggle');
+              if (themeToggle) {
+                themeToggle.style.display = 'none';
+              }
+            }
+          } catch (e) {}
         });
-    })();
+      })();
     </script>
     <!-- Theme Manager -->
     <script src="js/theme-manager.js"></script>
 
     <!-- Enhanced Documentation JavaScript -->
     <script src="js/doc-enhanced.js"></script>
-
-</body>
+  </body>
 </html>

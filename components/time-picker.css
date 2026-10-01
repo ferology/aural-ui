@@ -10,12 +10,12 @@
    ======================================== */
 
 .aural-time-picker {
-    position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    width: 100%;
-    max-width: 300px;
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 300px; /* aural-ignore: one-off container width, not a design token */
 }
 
 /* ========================================
@@ -23,11 +23,11 @@
    ======================================== */
 
 .aural-time-picker__label {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-1);
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
 }
 
 /* ========================================
@@ -35,42 +35,42 @@
    ======================================== */
 
 .aural-time-picker__input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .aural-time-picker__input {
-    flex: 1;
-    min-height: 44px;
-    padding: var(--space-2) var(--space-3);
-    padding-right: var(--space-10);
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    color: var(--color-text-primary);
-    font-family: var(--font-mono);
-    letter-spacing: 0.05em;
-    transition: var(--transition-all-fast);
+  flex: 1;
+  min-height: var(--size-44);
+  padding: var(--space-2) var(--space-3);
+  padding-right: var(--space-10);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  transition: var(--transition-all-fast);
 }
 
 .aural-time-picker__input:hover {
-    border-color: var(--color-primary);
-    background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+  background: var(--color-bg-hover);
 }
 
 .aural-time-picker__input:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
 }
 
 .aural-time-picker__input::placeholder {
-    color: var(--color-text-muted);
-    font-family: var(--font-sans);
-    letter-spacing: normal;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  letter-spacing: normal;
 }
 
 /* ========================================
@@ -78,19 +78,19 @@
    ======================================== */
 
 .aural-time-picker__icon {
-    position: absolute;
-    right: var(--space-3);
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    color: var(--color-text-secondary);
-    pointer-events: none;
-    transition: var(--transition-all-fast);
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--size-20);
+  height: var(--size-20);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+  transition: var(--transition-all-fast);
 }
 
 .aural-time-picker__input:focus ~ .aural-time-picker__icon {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 /* ========================================
@@ -98,32 +98,32 @@
    ======================================== */
 
 .aural-time-picker__toggle {
-    position: absolute;
-    right: var(--space-3);
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 32px;
-    min-height: 32px;
-    padding: var(--space-1);
-    background: transparent;
-    color: var(--color-text-secondary);
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-32);
+  min-height: var(--size-32);
+  padding: var(--space-1);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-time-picker__toggle:hover {
-    background: var(--color-bg-hover);
-    color: var(--color-primary);
+  background: var(--color-bg-hover);
+  color: var(--color-primary);
 }
 
 .aural-time-picker__toggle svg {
-    width: 18px;
-    height: 18px;
+  width: var(--size-18);
+  height: var(--size-18);
 }
 
 /* ========================================
@@ -131,25 +131,28 @@
    ======================================== */
 
 .aural-time-picker__dropdown {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    z-index: 1000;
-    min-width: 240px;
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-xl);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: var(--z-dropdown);
+  min-width: var(--space-60);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--duration-moderate) ease,
+    transform var(--duration-moderate) ease,
+    visibility var(--duration-moderate);
 }
 
 .aural-time-picker--open .aural-time-picker__dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 /* ========================================
@@ -157,25 +160,25 @@
    ======================================== */
 
 .aural-time-picker__selectors {
-    display: flex;
-    gap: var(--space-2);
-    padding: var(--space-3);
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
 }
 
 .aural-time-picker__selector {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 .aural-time-picker__selector-label {
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-align: center;
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
 }
 
 /* ========================================
@@ -183,28 +186,28 @@
    ======================================== */
 
 .aural-time-picker__list {
-    height: 160px;
-    overflow-y: auto;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    background: var(--color-bg-primary);
+  height: var(--space-40);
+  overflow-y: auto;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-primary);
 }
 
 .aural-time-picker__list::-webkit-scrollbar {
-    width: 6px;
+  width: var(--size-6);
 }
 
 .aural-time-picker__list::-webkit-scrollbar-track {
-    background: var(--color-bg-tertiary);
+  background: var(--color-bg-tertiary);
 }
 
 .aural-time-picker__list::-webkit-scrollbar-thumb {
-    background: var(--color-border-medium);
-    border-radius: var(--radius-sm);
+  background: var(--color-border-medium);
+  border-radius: var(--radius-sm);
 }
 
 .aural-time-picker__list::-webkit-scrollbar-thumb:hover {
-    background: var(--color-border-strong);
+  background: var(--color-border-strong);
 }
 
 /* ========================================
@@ -212,43 +215,43 @@
    ======================================== */
 
 .aural-time-picker__item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 36px;
-    padding: var(--space-2);
-    background: transparent;
-    color: var(--color-text-primary);
-    border: none;
-    text-align: center;
-    font-size: var(--text-sm);
-    font-family: var(--font-mono);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--size-36);
+  padding: var(--space-2);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: none;
+  text-align: center;
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  width: 100%;
 }
 
 .aural-time-picker__item:hover {
-    background: var(--color-bg-hover);
-    color: var(--color-primary);
+  background: var(--color-bg-hover);
+  color: var(--color-primary);
 }
 
 .aural-time-picker__item:focus-visible {
-    outline: none;
-    background: var(--color-bg-hover);
-    box-shadow: inset 0 0 0 2px var(--color-primary);
+  outline: none;
+  background: var(--color-bg-hover);
+  box-shadow: inset 0 0 0 2px var(--color-primary);
 }
 
 .aural-time-picker__item--selected {
-    background: var(--primary-alpha-10);
-    color: var(--color-primary);
-    font-weight: var(--font-semibold);
+  background: var(--primary-alpha-10);
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
 }
 
 .aural-time-picker__item--disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    pointer-events: none;
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -256,44 +259,44 @@
    ======================================== */
 
 .aural-time-picker__period {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 .aural-time-picker__period-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 36px;
-    padding: var(--space-2);
-    background: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--size-36);
+  padding: var(--space-2);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-time-picker__period-btn:hover {
-    background: var(--color-bg-hover);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+  background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .aural-time-picker__period-btn:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-primary);
 }
 
 .aural-time-picker__period-btn--selected {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: white;
-    font-weight: var(--font-semibold);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  font-weight: var(--font-semibold);
 }
 
 /* ========================================
@@ -301,46 +304,46 @@
    ======================================== */
 
 .aural-time-picker__actions {
-    display: flex;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .aural-time-picker__action-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    min-height: 36px;
-    padding: var(--space-2) var(--space-3);
-    background: transparent;
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border-medium);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--size-36);
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-time-picker__action-btn:hover {
-    background: var(--color-bg-hover);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+  background: var(--color-bg-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .aural-time-picker__action-btn--primary {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: white;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
 }
 
 .aural-time-picker__action-btn--primary:hover {
-    background: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
-    color: white;
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  color: white;
 }
 
 /* ========================================
@@ -348,37 +351,37 @@
    ======================================== */
 
 .aural-time-picker__now {
-    padding: var(--space-2) var(--space-3);
-    border-top: 1px solid var(--color-border-subtle);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .aural-time-picker__now-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    width: 100%;
-    min-height: 36px;
-    padding: var(--space-2);
-    background: transparent;
-    color: var(--color-primary);
-    border: 1px dashed var(--color-border-medium);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--size-36);
+  padding: var(--space-2);
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px dashed var(--color-border-medium);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-time-picker__now-btn:hover {
-    background: var(--primary-alpha-10);
-    border-color: var(--color-primary);
-    border-style: solid;
+  background: var(--primary-alpha-10);
+  border-color: var(--color-primary);
+  border-style: solid;
 }
 
 .aural-time-picker__now-btn svg {
-    width: 16px;
-    height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 /* ========================================
@@ -386,26 +389,26 @@
    ======================================== */
 
 .aural-time-picker--error .aural-time-picker__input {
-    border-color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 .aural-time-picker--error .aural-time-picker__input:focus {
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 .aural-time-picker__error {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
-    margin-top: var(--space-1);
-    font-size: var(--text-xs);
-    color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-error);
 }
 
 .aural-time-picker__error svg {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
+  width: var(--size-14);
+  height: var(--size-14);
+  flex-shrink: 0;
 }
 
 /* ========================================
@@ -413,7 +416,7 @@
    ======================================== */
 
 .aural-time-picker--success .aural-time-picker__input {
-    border-color: var(--color-success);
+  border-color: var(--color-success);
 }
 
 /* ========================================
@@ -421,13 +424,13 @@
    ======================================== */
 
 .aural-time-picker--disabled {
-    opacity: 0.5;
-    pointer-events: none;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .aural-time-picker--disabled .aural-time-picker__input {
-    background: var(--color-bg-tertiary);
-    cursor: not-allowed;
+  background: var(--color-bg-tertiary);
+  cursor: not-allowed;
 }
 
 /* ========================================
@@ -435,31 +438,31 @@
    ======================================== */
 
 .aural-time-picker--sm .aural-time-picker__input {
-    min-height: 36px;
-    padding: var(--space-1) var(--space-2);
-    font-size: var(--text-xs);
+  min-height: var(--size-36);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
 }
 
 .aural-time-picker--sm .aural-time-picker__dropdown {
-    min-width: 200px;
+  min-width: var(--size-200);
 }
 
 .aural-time-picker--sm .aural-time-picker__list {
-    height: 120px;
+  height: 120px; /* aural-ignore: one-off small-variant list height, not a design token */
 }
 
 .aural-time-picker--lg .aural-time-picker__input {
-    min-height: 52px;
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--text-base);
+  min-height: var(--size-52);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
 }
 
 .aural-time-picker--lg .aural-time-picker__dropdown {
-    min-width: 280px;
+  min-width: 280px; /* aural-ignore: one-off large-variant dropdown min-width, not a design token */
 }
 
 .aural-time-picker--lg .aural-time-picker__list {
-    height: 200px;
+  height: var(--size-200);
 }
 
 /* ========================================
@@ -467,11 +470,11 @@
    ======================================== */
 
 .aural-time-picker--24h .aural-time-picker__period {
-    display: none;
+  display: none;
 }
 
 .aural-time-picker--24h .aural-time-picker__selectors {
-    gap: var(--space-3);
+  gap: var(--space-3);
 }
 
 /* ========================================
@@ -479,15 +482,15 @@
    ======================================== */
 
 .aural-time-picker--inline .aural-time-picker__dropdown {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    margin-top: var(--space-2);
+  position: static;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  margin-top: var(--space-2);
 }
 
 .aural-time-picker--inline .aural-time-picker__toggle {
-    display: none;
+  display: none;
 }
 
 /* ========================================
@@ -495,25 +498,25 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-time-picker__dropdown,
-    .aural-time-picker__item,
-    .aural-time-picker__period-btn,
-    .aural-time-picker__action-btn {
-        transition: none;
-    }
+  .aural-time-picker__dropdown,
+  .aural-time-picker__item,
+  .aural-time-picker__period-btn,
+  .aural-time-picker__action-btn {
+    transition: none;
+  }
 }
 
 /* Screen reader only */
 .aural-time-picker__sr-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px; /* aural-ignore: standard visually-hidden-but-focusable recipe, matches other components' sr-only pattern */
+  height: 1px; /* aural-ignore: standard visually-hidden-but-focusable recipe */
+  padding: 0;
+  margin: -1px; /* aural-ignore: standard visually-hidden-but-focusable recipe */
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ========================================
@@ -521,26 +524,26 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    .aural-time-picker__dropdown {
-        position: fixed;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        min-width: 100%;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-        border-bottom: none;
-    }
+  .aural-time-picker__dropdown {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border-bottom: none;
+  }
 
-    .aural-time-picker--open .aural-time-picker__dropdown {
-        transform: translateY(0);
-    }
+  .aural-time-picker--open .aural-time-picker__dropdown {
+    transform: translateY(0);
+  }
 
-    .aural-time-picker__selectors {
-        padding: var(--space-4);
-    }
+  .aural-time-picker__selectors {
+    padding: var(--space-4);
+  }
 
-    .aural-time-picker__list {
-        height: 180px;
-    }
+  .aural-time-picker__list {
+    height: 180px; /* aural-ignore: one-off mobile list height, not a design token */
+  }
 }

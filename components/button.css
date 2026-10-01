@@ -38,7 +38,7 @@
   transition: var(--transition-all-fast);
 
   /* Accessibility */
-  min-height: 44px; /* iOS/Android minimum touch target */
+  min-height: var(--size-44); /* iOS/Android minimum touch target */
   outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -58,13 +58,13 @@
 .btn-sm {
   padding: var(--space-2) var(--space-4);
   font-size: var(--text-sm);
-  min-height: 40px; /* FIXED: Increased from 36px to approach WCAG 44px touch target */
+  min-height: var(--size-40); /* FIXED: Increased from 36px to approach WCAG 44px touch target */
 }
 
 .btn-lg {
   padding: var(--space-4) var(--space-8);
   font-size: var(--text-lg);
-  min-height: 52px;
+  min-height: var(--size-52);
 }
 
 /* ========================================
@@ -123,7 +123,7 @@
 
   &:hover:not(:disabled) {
     background: var(--color-button-danger-hover);
-    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+    box-shadow: var(--shadow-error-lg);
 
     @media (prefers-reduced-motion: no-preference) {
       transform: translateY(-2px);
@@ -187,14 +187,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
+    width: var(--size-16);
+    height: var(--size-16);
     border: 2px solid currentColor;
     border-top-color: transparent;
     border-radius: 50%;
 
     @media (prefers-reduced-motion: no-preference) {
-      animation: spin 0.6s linear infinite;
+      animation: spin 0.6s linear infinite; /* aural-ignore: one-off spinner speed, not a shared duration token */
     }
   }
 }
@@ -225,7 +225,7 @@
 
   & > .btn {
     border-radius: 0;
-    margin-left: -1px;
+    margin-left: -1px; /* aural-ignore: 1px border-overlap hack, not a spacing token */
   }
 
   & > .btn:first-child {

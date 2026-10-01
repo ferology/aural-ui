@@ -14,7 +14,7 @@
   width: 100%;
   background: var(--color-bg-primary);
   border-bottom: 1px solid var(--color-border-medium);
-  z-index: 100;
+  z-index: var(--z-sticky);
 }
 
 .aural-navbar__inner {
@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  max-width: 1280px;
+  max-width: 1280px; /* aural-ignore: one-off navbar inner content max-width, not a design token */
   margin: 0 auto;
   padding: var(--space-3) var(--space-4);
 }
@@ -35,7 +35,7 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: var(--z-dropdown);
 }
 
 /* ========================================
@@ -47,12 +47,12 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: var(--z-dropdown);
 }
 
 /* Add padding to body when fixed navbar is used */
 body.has-navbar-fixed {
-  padding-top: 64px;
+  padding-top: var(--size-64);
 }
 
 /* ========================================
@@ -83,7 +83,7 @@ body.has-navbar-fixed {
 }
 
 .aural-navbar__logo {
-  height: 32px;
+  height: var(--size-32);
   width: auto;
 }
 
@@ -130,8 +130,8 @@ body.has-navbar-fixed {
 }
 
 .aural-navbar__link-icon {
-  width: 18px;
-  height: 18px;
+  width: var(--size-18);
+  height: var(--size-18);
 }
 
 /* ========================================
@@ -148,8 +148,8 @@ body.has-navbar-fixed {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
-  min-height: 40px;
+  min-width: var(--size-40);
+  min-height: var(--size-40);
   padding: var(--space-2);
   background: transparent;
   color: var(--color-text-secondary);
@@ -171,31 +171,31 @@ body.has-navbar-fixed {
 }
 
 .aural-navbar__action svg {
-  width: 20px;
-  height: 20px;
+  width: var(--size-20);
+  height: var(--size-20);
 }
 
 /* Avatar as action button - ensure proper containment */
 .aural-navbar__action.avatar {
   padding: 0;
-  min-width: 32px;
-  min-height: 32px;
-  width: 32px;
-  height: 32px;
+  min-width: var(--size-32);
+  min-height: var(--size-32);
+  width: var(--size-32);
+  height: var(--size-32);
 }
 
 .aural-navbar__action.avatar.avatar-sm {
-  min-width: 28px;
-  min-height: 28px;
-  width: 28px;
-  height: 28px;
+  min-width: var(--size-28);
+  min-height: var(--size-28);
+  width: var(--size-28);
+  height: var(--size-28);
 }
 
 .aural-navbar__action.avatar.avatar-xs {
-  min-width: 24px;
-  min-height: 24px;
-  width: 24px;
-  height: 24px;
+  min-width: var(--size-24);
+  min-height: var(--size-24);
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 /* ========================================
@@ -204,11 +204,11 @@ body.has-navbar-fixed {
 
 .aural-navbar__badge {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
+  top: var(--space-1);
+  right: var(--space-1);
+  min-width: var(--size-18);
+  height: var(--size-18);
+  padding: 0 var(--space-1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,13 +216,13 @@ body.has-navbar-fixed {
   color: white;
   border: 2px solid var(--color-bg-primary);
   border-radius: var(--radius-full);
-  font-size: 0.65rem;
+  font-size: 0.65rem; /* aural-ignore: established notification-badge count size (reused verbatim in bottom-nav.css, notification-center.css, multi-select.css), slightly off the --text-2xs rung */
   font-weight: var(--font-bold);
   line-height: 1;
 }
 
 .aural-navbar__badge--pulse {
-  animation: aural-navbar-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: aural-navbar-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; /* aural-ignore: one-off pulse animation speed, not a shared duration token */
 }
 
 @keyframes aural-navbar-pulse {
@@ -241,7 +241,7 @@ body.has-navbar-fixed {
 
 .aural-navbar__search {
   position: relative;
-  width: 240px;
+  width: var(--space-60);
 }
 
 .aural-navbar__search-input {
@@ -270,8 +270,8 @@ body.has-navbar-fixed {
   left: var(--space-3);
   top: 50%;
   transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
   color: var(--color-text-tertiary);
   pointer-events: none;
 }
@@ -284,8 +284,8 @@ body.has-navbar-fixed {
   display: none;
   align-items: center;
   justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: var(--size-44);
+  min-height: var(--size-44);
   padding: var(--space-2);
   background: transparent;
   color: var(--color-text-primary);
@@ -305,8 +305,8 @@ body.has-navbar-fixed {
 }
 
 .aural-navbar__toggle svg {
-  width: 24px;
-  height: 24px;
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 /* ========================================
@@ -324,9 +324,9 @@ body.has-navbar-fixed {
 }
 
 .aural-navbar__dropdown-arrow {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.2s ease;
+  width: var(--size-12);
+  height: var(--size-12);
+  transition: transform 0.2s ease; /* aural-ignore: one-off icon-rotate transition, not a shared duration token */
 }
 
 .aural-navbar__dropdown--open .aural-navbar__dropdown-arrow {
@@ -335,9 +335,9 @@ body.has-navbar-fixed {
 
 .aural-navbar__dropdown-menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + var(--space-2));
   left: 0;
-  min-width: 200px;
+  min-width: var(--size-200);
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-md);
@@ -349,8 +349,8 @@ body.has-navbar-fixed {
   transition:
     opacity 0.2s ease,
     transform 0.2s ease,
-    visibility 0.2s;
-  z-index: 1000;
+    visibility 0.2s; /* aural-ignore: one-off dropdown-panel fade/slide timing, not a shared duration token */
+  z-index: var(--z-dropdown);
 }
 
 .aural-navbar__dropdown--open .aural-navbar__dropdown-menu {
@@ -376,7 +376,7 @@ body.has-navbar-fixed {
 }
 
 .aural-navbar__dropdown-divider {
-  height: 1px;
+  height: 1px; /* aural-ignore: hairline thickness, not a spacing/size token */
   background: var(--color-border-subtle);
   margin: var(--space-2) 0;
 }
@@ -397,18 +397,18 @@ body.has-navbar-fixed {
 }
 
 .aural-navbar--dark {
-  background: rgba(0, 0, 0, 0.9);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-dark-overlay);
+  border-bottom-color: var(--color-badge-neutral-bg);
 }
 
 .aural-navbar--dark .aural-navbar__link {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-on-dark-muted);
 }
 
 .aural-navbar--dark .aural-navbar__link:hover,
 .aural-navbar--dark .aural-navbar__link--active {
   color: white;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-badge-neutral-bg);
 }
 
 /* ========================================
@@ -476,30 +476,30 @@ body.has-navbar-fixed {
 /* Ensure navbar interactive elements meet touch target size of 44x44px */
 @media (pointer: coarse) {
   .aural-navbar__link {
-    min-height: 44px;
+    min-height: var(--size-44);
     padding: var(--space-3) var(--space-4);
   }
 
   .aural-navbar__action {
-    min-width: 44px;
-    min-height: 44px;
+    min-width: var(--size-44);
+    min-height: var(--size-44);
     padding: var(--space-3);
   }
 
   .aural-navbar__brand {
-    min-height: 44px;
+    min-height: var(--size-44);
     padding: var(--space-2) 0;
   }
 
   /* Touch-friendly dropdown items */
   .aural-navbar__dropdown-item {
-    min-height: 44px;
+    min-height: var(--size-44);
     padding: var(--space-3) var(--space-4);
   }
 
   /* Search input should also meet touch targets */
   .aural-navbar__search-input {
-    min-height: 44px;
+    min-height: var(--size-44);
     padding: var(--space-3) var(--space-4) var(--space-3) var(--space-10);
   }
 
@@ -514,13 +514,13 @@ body.has-navbar-fixed {
 
   /* Size variants on touch devices */
   .aural-navbar--sm .aural-navbar__link {
-    min-height: 44px;
+    min-height: var(--size-44);
     padding: var(--space-2) var(--space-3);
   }
 
   .aural-navbar--sm .aural-navbar__action {
-    min-width: 44px;
-    min-height: 44px;
+    min-width: var(--size-44);
+    min-height: var(--size-44);
   }
 }
 
@@ -550,12 +550,12 @@ body.has-navbar-fixed {
     gap: var(--space-2);
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height var(--duration-normal) ease;
     box-shadow: var(--shadow-xl);
   }
 
   .aural-navbar--menu-open .aural-navbar__nav {
-    max-height: calc(100vh - 64px);
+    max-height: calc(100vh - var(--size-64));
     overflow-y: auto;
   }
 
@@ -581,11 +581,11 @@ body.has-navbar-fixed {
     visibility: visible;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height var(--duration-normal) ease;
   }
 
   .aural-navbar__dropdown--open .aural-navbar__dropdown-menu {
-    max-height: 500px;
+    max-height: 500px; /* aural-ignore: generous open-state max-height ceiling, not a design token */
   }
 
   .aural-navbar__actions {
@@ -627,7 +627,7 @@ body.has-navbar-fixed {
   }
 
   .aural-navbar__logo {
-    height: 28px;
+    height: var(--size-28);
     width: auto;
     flex-shrink: 0;
   }

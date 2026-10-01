@@ -10,13 +10,13 @@
    ======================================== */
 
 .aural-snackbar-container {
-    position: fixed;
-    z-index: 10000;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-4);
-    pointer-events: none;
+  position: fixed;
+  z-index: var(--z-max);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  pointer-events: none;
 }
 
 /* ========================================
@@ -24,35 +24,35 @@
    ======================================== */
 
 .aural-snackbar-container--bottom-left {
-    bottom: 0;
-    left: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .aural-snackbar-container--bottom-center {
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .aural-snackbar-container--bottom-right {
-    bottom: 0;
-    right: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .aural-snackbar-container--top-left {
-    top: 0;
-    left: 0;
+  top: 0;
+  left: 0;
 }
 
 .aural-snackbar-container--top-center {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .aural-snackbar-container--top-right {
-    top: 0;
-    right: 0;
+  top: 0;
+  right: 0;
 }
 
 /* ========================================
@@ -60,50 +60,52 @@
    ======================================== */
 
 .aural-snackbar {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    min-height: 48px;
-    min-width: 320px;
-    max-width: 560px;
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-bg-inverse);
-    color: var(--color-text-inverse);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-xl);
-    opacity: 0;
-    transform: translateY(100%);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--size-48);
+  min-width: var(--space-80);
+  max-width: var(--size-560);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-inverse);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    opacity var(--duration-normal) ease,
+    transform var(--duration-normal) ease;
+  pointer-events: auto;
 }
 
 .aural-snackbar--show {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .aural-snackbar--hide {
-    opacity: 0;
-    transform: translateY(100%);
+  opacity: 0;
+  transform: translateY(100%);
 }
 
 /* Top position animations */
 .aural-snackbar-container--top-left .aural-snackbar,
 .aural-snackbar-container--top-center .aural-snackbar,
 .aural-snackbar-container--top-right .aural-snackbar {
-    transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 .aural-snackbar-container--top-left .aural-snackbar--show,
 .aural-snackbar-container--top-center .aural-snackbar--show,
 .aural-snackbar-container--top-right .aural-snackbar--show {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .aural-snackbar-container--top-left .aural-snackbar--hide,
 .aural-snackbar-container--top-center .aural-snackbar--hide,
 .aural-snackbar-container--top-right .aural-snackbar--hide {
-    transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 /* ========================================
@@ -111,10 +113,10 @@
    ======================================== */
 
 .aural-snackbar__icon {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    color: currentColor;
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  color: currentColor;
 }
 
 /* ========================================
@@ -122,23 +124,23 @@
    ======================================== */
 
 .aural-snackbar__content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
 }
 
 .aural-snackbar__message {
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    line-height: 1.5;
-    color: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: 1.5;
+  color: inherit;
 }
 
 .aural-snackbar__description {
-    font-size: var(--text-xs);
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.8);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  color: var(--color-chip-remove-on-color);
 }
 
 /* ========================================
@@ -146,37 +148,37 @@
    ======================================== */
 
 .aural-snackbar__actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
 }
 
 .aural-snackbar__action {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 32px;
-    padding: var(--space-1) var(--space-3);
-    background: transparent;
-    color: var(--color-primary-light);
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: var(--transition-all-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--size-32);
+  padding: var(--space-1) var(--space-3);
+  background: transparent;
+  color: var(--color-primary-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition-all-fast);
 }
 
 .aural-snackbar__action:hover {
-    background: rgba(255, 255, 255, 0.1);
+  background: var(--color-badge-neutral-bg);
 }
 
 .aural-snackbar__action:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* ========================================
@@ -184,34 +186,39 @@
    ======================================== */
 
 .aural-snackbar__close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 32px;
-    min-height: 32px;
-    padding: var(--space-1);
-    background: transparent;
-    color: var(--color-text-inverse);
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: var(--transition-all-fast);
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-32);
+  min-height: var(--size-32);
+  padding: var(--space-1);
+  background: transparent;
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-all-fast);
+  flex-shrink: 0;
 }
 
 .aural-snackbar__close:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: var(--color-bg-primary);
+  background: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* aural-ignore: black overlay for the default (light) snackbar surface only, not a theme color */
+  color: var(--color-bg-primary);
 }
 
 .aural-snackbar__close:focus-visible {
-    outline: 2px solid white;
-    outline-offset: 2px;
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 
 .aural-snackbar__close svg {
-    width: 18px;
-    height: 18px;
+  width: var(--size-18);
+  height: var(--size-18);
 }
 
 /* ========================================
@@ -219,31 +226,31 @@
    ======================================== */
 
 .aural-snackbar__progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 0 0 var(--radius-md) var(--radius-md);
-    overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px; /* aural-ignore: hairline progress-bar thickness, not a spacing value */
+  background: var(--color-tab-badge-bg);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  overflow: hidden;
 }
 
 .aural-snackbar__progress-bar {
-    height: 100%;
-    background: var(--color-primary-light);
-    width: 100%;
-    transform-origin: left;
-    animation: aural-snackbar-progress linear;
+  height: 100%;
+  background: var(--color-primary-light);
+  width: 100%;
+  transform-origin: left;
+  animation: aural-snackbar-progress linear;
 }
 
 @keyframes aural-snackbar-progress {
-    from {
-        transform: scaleX(1);
-    }
-    to {
-        transform: scaleX(0);
-    }
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
 }
 
 /* ========================================
@@ -251,90 +258,100 @@
    ======================================== */
 
 .aural-snackbar--success {
-    background: var(--color-success);
-    color: white;
+  background: var(--color-success);
+  color: white;
 }
 
 .aural-snackbar--success .aural-snackbar__action {
-    color: white;
+  color: white;
 }
 
 .aural-snackbar--success .aural-snackbar__close {
-    color: rgba(255, 255, 255, 0.8);
+  color: var(--color-chip-remove-on-color);
 }
 
 .aural-snackbar--success .aural-snackbar__close:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+  background: var(--color-badge-neutral-bg);
+  color: white;
 }
 
 .aural-snackbar--success .aural-snackbar__progress-bar {
-    background: rgba(255, 255, 255, 0.9);
+  background: var(--color-text-on-dark);
 }
 
 .aural-snackbar--error {
-    background: var(--color-error);
-    color: white;
+  background: var(--color-error);
+  color: white;
 }
 
 .aural-snackbar--error .aural-snackbar__action {
-    color: white;
+  color: white;
 }
 
 .aural-snackbar--error .aural-snackbar__close {
-    color: rgba(255, 255, 255, 0.8);
+  color: var(--color-chip-remove-on-color);
 }
 
 .aural-snackbar--error .aural-snackbar__close:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+  background: var(--color-badge-neutral-bg);
+  color: white;
 }
 
 .aural-snackbar--error .aural-snackbar__progress-bar {
-    background: rgba(255, 255, 255, 0.9);
+  background: var(--color-text-on-dark);
 }
 
 .aural-snackbar--warning {
-    background: var(--color-warning);
-    color: var(--color-bg-primary);
+  background: var(--color-warning);
+  color: var(--color-bg-primary);
 }
 
 .aural-snackbar--warning .aural-snackbar__action {
-    color: var(--color-bg-primary);
+  color: var(--color-bg-primary);
 }
 
 .aural-snackbar--warning .aural-snackbar__close {
-    color: rgba(0, 0, 0, 0.7);
+  color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* aural-ignore: black overlay for contrast on the warning variant's light-colored background, not a theme color */
 }
 
 .aural-snackbar--warning .aural-snackbar__close:hover {
-    color: black;
+  color: black;
 }
 
 .aural-snackbar--warning .aural-snackbar__progress-bar {
-    background: rgba(0, 0, 0, 0.3);
+  background: rgba(
+    0,
+    0,
+    0,
+    0.3
+  ); /* aural-ignore: black overlay for contrast on the warning variant's light-colored background, not a theme color */
 }
 
 .aural-snackbar--info {
-    background: var(--color-info);
-    color: white;
+  background: var(--color-info);
+  color: white;
 }
 
 .aural-snackbar--info .aural-snackbar__action {
-    color: white;
+  color: white;
 }
 
 .aural-snackbar--info .aural-snackbar__close {
-    color: rgba(255, 255, 255, 0.8);
+  color: var(--color-chip-remove-on-color);
 }
 
 .aural-snackbar--info .aural-snackbar__close:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+  background: var(--color-badge-neutral-bg);
+  color: white;
 }
 
 .aural-snackbar--info .aural-snackbar__progress-bar {
-    background: rgba(255, 255, 255, 0.9);
+  background: var(--color-text-on-dark);
 }
 
 /* ========================================
@@ -342,33 +359,33 @@
    ======================================== */
 
 .aural-snackbar--sm {
-    min-height: 40px;
-    min-width: 280px;
-    padding: var(--space-2) var(--space-3);
+  min-height: var(--size-40);
+  min-width: var(--size-280);
+  padding: var(--space-2) var(--space-3);
 }
 
 .aural-snackbar--sm .aural-snackbar__message {
-    font-size: var(--text-xs);
+  font-size: var(--text-xs);
 }
 
 .aural-snackbar--sm .aural-snackbar__icon {
-    width: 16px;
-    height: 16px;
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 .aural-snackbar--lg {
-    min-height: 56px;
-    min-width: 400px;
-    padding: var(--space-4) var(--space-6);
+  min-height: var(--size-56);
+  min-width: var(--size-400);
+  padding: var(--space-4) var(--space-6);
 }
 
 .aural-snackbar--lg .aural-snackbar__message {
-    font-size: var(--text-base);
+  font-size: var(--text-base);
 }
 
 .aural-snackbar--lg .aural-snackbar__icon {
-    width: 24px;
-    height: 24px;
+  width: var(--size-24);
+  height: var(--size-24);
 }
 
 /* ========================================
@@ -376,21 +393,21 @@
    ======================================== */
 
 .aural-snackbar--full-width {
-    width: 100vw;
-    max-width: none;
-    border-radius: 0;
+  width: 100vw;
+  max-width: none;
+  border-radius: 0;
 }
 
 .aural-snackbar-container--bottom-center .aural-snackbar--full-width,
 .aural-snackbar-container--top-center .aural-snackbar--full-width {
-    transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .aural-snackbar-container--bottom-left .aural-snackbar--full-width,
 .aural-snackbar-container--bottom-right .aural-snackbar--full-width,
 .aural-snackbar-container--top-left .aural-snackbar--full-width,
 .aural-snackbar-container--top-right .aural-snackbar--full-width {
-    transform: translateX(0);
+  transform: translateX(0);
 }
 
 /* ========================================
@@ -398,25 +415,25 @@
    ======================================== */
 
 .aural-snackbar--elevated {
-    background: var(--color-bg-secondary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border-medium);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-medium);
 }
 
 .aural-snackbar--elevated .aural-snackbar__description {
-    color: var(--color-text-tertiary);
+  color: var(--color-text-tertiary);
 }
 
 .aural-snackbar--elevated .aural-snackbar__action {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .aural-snackbar--elevated .aural-snackbar__close {
-    color: var(--color-text-secondary);
+  color: var(--color-text-secondary);
 }
 
 .aural-snackbar--elevated .aural-snackbar__close:hover {
-    color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
 /* ========================================
@@ -424,20 +441,20 @@
    ======================================== */
 
 .aural-snackbar__avatar {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  width: var(--size-36);
+  height: var(--size-36);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-tab-badge-bg);
 }
 
 .aural-snackbar__image {
-    flex-shrink: 0;
-    width: 56px;
-    height: 56px;
-    border-radius: var(--radius-sm);
-    object-fit: cover;
+  flex-shrink: 0;
+  width: var(--size-56);
+  height: var(--size-56);
+  border-radius: var(--radius-sm);
+  object-fit: cover;
 }
 
 /* ========================================
@@ -445,13 +462,13 @@
    ======================================== */
 
 .aural-snackbar--loading .aural-snackbar__icon {
-    animation: aural-snackbar-spin 1s linear infinite;
+  animation: aural-snackbar-spin var(--duration-slowest) linear infinite;
 }
 
 @keyframes aural-snackbar-spin {
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========================================
@@ -459,16 +476,16 @@
    ======================================== */
 
 .aural-snackbar--compact {
-    min-width: auto;
-    padding: var(--space-2);
+  min-width: auto;
+  padding: var(--space-2);
 }
 
 .aural-snackbar--compact .aural-snackbar__content {
-    display: none;
+  display: none;
 }
 
 .aural-snackbar--compact .aural-snackbar__actions {
-    display: none;
+  display: none;
 }
 
 /* ========================================
@@ -476,18 +493,18 @@
    ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .aural-snackbar,
-    .aural-snackbar__progress-bar,
-    .aural-snackbar__icon {
-        transition: none;
-        animation: none;
-    }
+  .aural-snackbar,
+  .aural-snackbar__progress-bar,
+  .aural-snackbar__icon {
+    transition: none;
+    animation: none;
+  }
 }
 
 /* Screen reader announcements */
-.aural-snackbar[role="alert"],
-.aural-snackbar[role="status"] {
-    /* Automatically announced by screen readers */
+.aural-snackbar[role='alert'],
+.aural-snackbar[role='status'] {
+  /* Automatically announced by screen readers */
 }
 
 /* ========================================
@@ -495,60 +512,60 @@
    ======================================== */
 
 @media (max-width: 640px) {
-    .aural-snackbar-container {
-        padding: var(--space-2);
-    }
+  .aural-snackbar-container {
+    padding: var(--space-2);
+  }
 
-    .aural-snackbar {
-        min-width: auto;
-        max-width: calc(100vw - var(--space-4));
-    }
+  .aural-snackbar {
+    min-width: auto;
+    max-width: calc(100vw - var(--space-4));
+  }
 
-    .aural-snackbar--sm {
-        min-width: auto;
-    }
+  .aural-snackbar--sm {
+    min-width: auto;
+  }
 
-    .aural-snackbar--lg {
-        min-width: auto;
-        padding: var(--space-3) var(--space-4);
-    }
+  .aural-snackbar--lg {
+    min-width: auto;
+    padding: var(--space-3) var(--space-4);
+  }
 
-    /* Stack actions vertically on mobile */
-    .aural-snackbar--mobile-stack .aural-snackbar__actions {
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-    }
+  /* Stack actions vertically on mobile */
+  .aural-snackbar--mobile-stack .aural-snackbar__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
 
-    .aural-snackbar--mobile-stack .aural-snackbar__action {
-        width: 100%;
-    }
+  .aural-snackbar--mobile-stack .aural-snackbar__action {
+    width: 100%;
+  }
 
-    /* Full width on mobile by default */
-    .aural-snackbar-container--bottom-center,
-    .aural-snackbar-container--bottom-left,
-    .aural-snackbar-container--bottom-right {
-        left: 0;
-        right: 0;
-        transform: none;
-        padding: 0;
-    }
+  /* Full width on mobile by default */
+  .aural-snackbar-container--bottom-center,
+  .aural-snackbar-container--bottom-left,
+  .aural-snackbar-container--bottom-right {
+    left: 0;
+    right: 0;
+    transform: none;
+    padding: 0;
+  }
 
-    .aural-snackbar-container--bottom-center .aural-snackbar,
-    .aural-snackbar-container--bottom-left .aural-snackbar,
-    .aural-snackbar-container--bottom-right .aural-snackbar {
-        width: 100%;
-        max-width: none;
-        border-radius: 0;
-        border-bottom: none;
-    }
+  .aural-snackbar-container--bottom-center .aural-snackbar,
+  .aural-snackbar-container--bottom-left .aural-snackbar,
+  .aural-snackbar-container--bottom-right .aural-snackbar {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    border-bottom: none;
+  }
 }
 
 /* iOS safe area support */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .aural-snackbar-container--bottom-left,
-    .aural-snackbar-container--bottom-center,
-    .aural-snackbar-container--bottom-right {
-        padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
-    }
+  .aural-snackbar-container--bottom-left,
+  .aural-snackbar-container--bottom-center,
+  .aural-snackbar-container--bottom-right {
+    padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  }
 }

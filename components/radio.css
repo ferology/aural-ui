@@ -34,7 +34,7 @@
   user-select: none;
 
   /* Accessibility */
-  min-height: 44px;
+  min-height: var(--size-44);
 
   & > input[type='radio'] {
     /* Hide native radio */
@@ -46,7 +46,7 @@
 
   & > input[type='radio'] + span {
     position: relative;
-    padding-left: calc(20px + var(--space-3));
+    padding-left: calc(var(--size-20) + var(--space-3));
   }
 
   & > input[type='radio'] + span::before {
@@ -57,8 +57,8 @@
     transform: translateY(-50%);
 
     /* Size (default: medium) */
-    width: 20px;
-    height: 20px;
+    width: var(--size-20);
+    height: var(--size-20);
 
     /* Appearance */
     background: var(--color-radio-bg);
@@ -72,7 +72,7 @@
   /* Hover state */
   &:hover > input[type='radio']:not(:disabled) + span::before {
     border-color: var(--color-radio-border-hover);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-bg-glass-light);
   }
 
   /* Checked state - outer ring */
@@ -85,12 +85,12 @@
   & > input[type='radio']:checked + span::after {
     content: '';
     position: absolute;
-    left: 6px;
+    left: var(--size-6);
     top: 50%;
 
     /* Size - inner dot is 50% of outer circle */
-    width: 8px;
-    height: 8px;
+    width: var(--space-2);
+    height: var(--space-2);
 
     /* Appearance */
     background: var(--color-radio-dot);
@@ -98,7 +98,7 @@
 
     /* Animation */
     transform: translateY(-50%) scale(0);
-    animation: radio-pop 0.2s ease forwards;
+    animation: radio-pop 0.2s ease forwards; /* aural-ignore: one-off checked-dot pop timing, not a shared duration token */
   }
 
   /* Focus state */
@@ -136,41 +136,41 @@
 
 .radio-sm {
   font-size: var(--text-sm);
-  min-height: 36px;
+  min-height: var(--size-36);
 
   & > input[type='radio'] + span {
-    padding-left: calc(16px + var(--space-2));
+    padding-left: calc(var(--size-16) + var(--space-2));
   }
 
   & > input[type='radio'] + span::before {
-    width: 16px;
-    height: 16px;
+    width: var(--size-16);
+    height: var(--size-16);
   }
 
   & > input[type='radio']:checked + span::after {
-    width: 6px;
-    height: 6px;
-    left: 5px;
+    width: var(--size-6);
+    height: var(--size-6);
+    left: 5px; /* aural-ignore: centers the 6px dot inside the 16px sm circle, derived from circle geometry not a token */
   }
 }
 
 .radio-lg {
   font-size: var(--text-lg);
-  min-height: 52px;
+  min-height: var(--size-52);
 
   & > input[type='radio'] + span {
-    padding-left: calc(24px + var(--space-4));
+    padding-left: calc(var(--size-24) + var(--space-4));
   }
 
   & > input[type='radio'] + span::before {
-    width: 24px;
-    height: 24px;
+    width: var(--size-24);
+    height: var(--size-24);
   }
 
   & > input[type='radio']:checked + span::after {
-    width: 10px;
-    height: 10px;
-    left: 7px;
+    width: 10px; /* aural-ignore: inner dot is 50% of the 24px lg circle, derived from circle geometry not a token */
+    height: 10px; /* aural-ignore: inner dot is 50% of the 24px lg circle, derived from circle geometry not a token */
+    left: 7px; /* aural-ignore: centers the 10px dot inside the 24px lg circle, derived from circle geometry not a token */
   }
 }
 
@@ -185,9 +185,9 @@
   & > input[type='radio'] + span {
     /* ::before/::after are absolutely positioned, so size the span explicitly to match the 20×20 circle. */
     padding-left: 0;
-    width: 20px;
-    height: 20px;
-    font-size: 0;
+    width: var(--size-20);
+    height: var(--size-20);
+    font-size: 0; /* aural-ignore: visually hides the label text node, not a type-scale value */
   }
 }
 
@@ -214,7 +214,7 @@
   padding: var(--space-3) var(--space-6);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--color-radio-bg);
   transition: var(--transition-all-fast);
   justify-content: center;
   text-align: center;
@@ -230,7 +230,7 @@
 
   &:hover {
     border-color: var(--color-border-medium);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-bg-glass-light);
   }
 
   & > input[type='radio']:checked + span {
@@ -305,7 +305,7 @@
 
   & > .radio-button {
     border-radius: 0 !important;
-    margin-left: -1px;
+    margin-left: -1px; /* aural-ignore: overlaps the adjacent button's 1px border for a seamless attached group, not a spacing value */
   }
 
   & > .radio-button:first-of-type {

@@ -14,18 +14,18 @@
  */
 
 .pagination {
-    /* Layout */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
 
-    /* Typography */
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
 
-    /* Accessibility */
-    outline: none;
+  /* Accessibility */
+  outline: none;
 }
 
 /* ========================================
@@ -35,61 +35,61 @@
 .pagination-item,
 .pagination-prev,
 .pagination-next {
-    /* Layout */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
 
-    /* Spacing */
-    padding: var(--space-2) var(--space-3);
-    min-width: 40px;
+  /* Spacing */
+  padding: var(--space-2) var(--space-3);
+  min-width: var(--size-40);
 
-    /* Typography */
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--color-text-primary);
-    text-decoration: none;
-    line-height: var(--leading-none);
+  /* Typography */
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  line-height: var(--leading-none);
 
-    /* Appearance */
-    background: var(--color-pagination-bg);
-    border: 1px solid var(--color-pagination-border);
-    border-radius: var(--radius-md);
+  /* Appearance */
+  background: var(--color-pagination-bg);
+  border: 1px solid var(--color-pagination-border);
+  border-radius: var(--radius-md);
 
-    /* Transitions */
-    transition: var(--transition-all-fast);
+  /* Transitions */
+  transition: var(--transition-all-fast);
 
-    /* Accessibility */
-    outline: none;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
-    cursor: pointer;
+  /* Accessibility */
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  cursor: pointer;
 
-    &:hover:not(.pagination-active):not([disabled]):not(.pagination-disabled) {
-        background: var(--color-pagination-hover-bg);
-        border-color: var(--color-pagination-hover-border);
-    }
+  &:hover:not(.pagination-active):not([disabled]):not(.pagination-disabled) {
+    background: var(--color-pagination-hover-bg);
+    border-color: var(--color-pagination-hover-border);
+  }
 
-    &:focus-visible {
-        outline: 2px solid var(--color-primary);
-        outline-offset: 2px;
-    }
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 
-    & > svg {
-        width: 16px;
-        height: 16px;
-        flex-shrink: 0;
-    }
+  & > svg {
+    width: var(--size-16);
+    height: var(--size-16);
+    flex-shrink: 0;
+  }
 }
 
 /* Active page */
 .pagination-active {
-    background: var(--color-pagination-active-bg);
-    border-color: var(--color-pagination-active-border);
-    color: var(--color-pagination-active-text);
-    pointer-events: none;
+  background: var(--color-pagination-active-bg);
+  border-color: var(--color-pagination-active-border);
+  color: var(--color-pagination-active-text);
+  pointer-events: none;
 }
 
 /* Disabled state */
@@ -97,24 +97,24 @@
 .pagination-item[disabled],
 .pagination-prev[disabled],
 .pagination-next[disabled] {
-    color: var(--color-pagination-disabled-text);
-    cursor: not-allowed;
-    pointer-events: none;
-    opacity: 0.5;
+  color: var(--color-pagination-disabled-text);
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 /* Ellipsis */
 .pagination-ellipsis {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-2) var(--space-1);
-    min-width: 40px;
-    color: var(--color-text-muted);
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
-    pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-1);
+  min-width: var(--size-40);
+  color: var(--color-text-muted);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  pointer-events: none;
 }
 
 /* ========================================
@@ -122,45 +122,45 @@
    ======================================== */
 
 .pagination-sm {
+  font-size: var(--text-xs);
+
+  & .pagination-item,
+  & .pagination-prev,
+  & .pagination-next {
+    padding: var(--space-1) var(--space-2);
+    min-width: var(--size-32);
     font-size: var(--text-xs);
+  }
 
-    & .pagination-item,
-    & .pagination-prev,
-    & .pagination-next {
-        padding: var(--space-1) var(--space-2);
-        min-width: 32px;
-        font-size: var(--text-xs);
-    }
+  & .pagination-ellipsis {
+    min-width: var(--size-32);
+  }
 
-    & .pagination-ellipsis {
-        min-width: 32px;
-    }
-
-    & svg {
-        width: 14px !important;
-        height: 14px !important;
-    }
+  & svg {
+    width: var(--size-14) !important;
+    height: var(--size-14) !important;
+  }
 }
 
 .pagination-lg {
+  font-size: var(--text-base);
+
+  & .pagination-item,
+  & .pagination-prev,
+  & .pagination-next {
+    padding: var(--space-3) var(--space-4);
+    min-width: var(--size-48);
     font-size: var(--text-base);
+  }
 
-    & .pagination-item,
-    & .pagination-prev,
-    & .pagination-next {
-        padding: var(--space-3) var(--space-4);
-        min-width: 48px;
-        font-size: var(--text-base);
-    }
+  & .pagination-ellipsis {
+    min-width: var(--size-48);
+  }
 
-    & .pagination-ellipsis {
-        min-width: 48px;
-    }
-
-    & svg {
-        width: 20px !important;
-        height: 20px !important;
-    }
+  & svg {
+    width: var(--size-20) !important;
+    height: var(--size-20) !important;
+  }
 }
 
 /* ========================================
@@ -169,55 +169,55 @@
 
 /* Simple variant (no borders) */
 .pagination-simple {
-    & .pagination-item,
-    & .pagination-prev,
-    & .pagination-next {
-        border: none;
-    }
+  & .pagination-item,
+  & .pagination-prev,
+  & .pagination-next {
+    border: none;
+  }
 
-    & .pagination-active {
-        background: var(--color-pagination-active-bg);
-    }
+  & .pagination-active {
+    background: var(--color-pagination-active-bg);
+  }
 }
 
 /* Rounded variant */
 .pagination-rounded {
-    & .pagination-item,
-    & .pagination-prev,
-    & .pagination-next {
-        border-radius: var(--radius-full);
-    }
+  & .pagination-item,
+  & .pagination-prev,
+  & .pagination-next {
+    border-radius: var(--radius-full);
+  }
 }
 
 /* Compact variant (attached buttons) */
 .pagination-compact {
-    gap: 0;
+  gap: 0;
 
-    & .pagination-item,
-    & .pagination-prev,
-    & .pagination-next {
-        border-radius: 0;
-        margin-left: -1px;
-    }
+  & .pagination-item,
+  & .pagination-prev,
+  & .pagination-next {
+    border-radius: 0;
+    margin-left: -1px; /* aural-ignore: overlaps the previous item's 1px border for a seamless attached-button look, not a spacing value */
+  }
 
-    & .pagination-prev,
-    & > a:first-child,
-    & > button:first-child {
-        border-top-left-radius: var(--radius-md);
-        border-bottom-left-radius: var(--radius-md);
-        margin-left: 0;
-    }
+  & .pagination-prev,
+  & > a:first-child,
+  & > button:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+    margin-left: 0;
+  }
 
-    & .pagination-next,
-    & > a:last-child,
-    & > button:last-child {
-        border-top-right-radius: var(--radius-md);
-        border-bottom-right-radius: var(--radius-md);
-    }
+  & .pagination-next,
+  & > a:last-child,
+  & > button:last-child {
+    border-top-right-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+  }
 
-    & .pagination-active {
-        z-index: 1;
-    }
+  & .pagination-active {
+    z-index: 1;
+  }
 }
 
 /* ========================================
@@ -226,22 +226,22 @@
 
 /* Left aligned */
 .pagination-left {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 /* Right aligned */
 .pagination-right {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 /* Space between */
 .pagination-between {
-    justify-content: space-between;
+  justify-content: space-between;
 
-    & .pagination-list {
-        display: flex;
-        gap: var(--space-2);
-    }
+  & .pagination-list {
+    display: flex;
+    gap: var(--space-2);
+  }
 }
 
 /* ========================================
@@ -249,15 +249,15 @@
    ======================================== */
 
 .pagination-with-info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
 
-    & > .pagination-info {
-        color: var(--color-text-secondary);
-        font-size: var(--text-sm);
-    }
+  & > .pagination-info {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+  }
 }
 
 /* ========================================
@@ -266,15 +266,15 @@
 
 /* Hide page numbers on small screens */
 @media (max-width: 640px) {
-    .pagination-responsive {
-        & .pagination-item:not(.pagination-active) {
-            display: none;
-        }
-
-        & .pagination-ellipsis {
-            display: none;
-        }
+  .pagination-responsive {
+    & .pagination-item:not(.pagination-active) {
+      display: none;
     }
+
+    & .pagination-ellipsis {
+      display: none;
+    }
+  }
 }
 
 /* ========================================
@@ -282,38 +282,38 @@
    ======================================== */
 
 .pagination-with-jumper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+
+  & .pagination-jumper {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
 
-    & .pagination-jumper {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2);
-        font-size: var(--text-sm);
-        color: var(--color-text-secondary);
+    & input {
+      width: 60px; /* aural-ignore: jump-to-page number input width, not on the standard size scale */
+      padding: var(--space-2);
+      font-size: var(--text-sm);
+      text-align: center;
+      background: var(--color-input-bg);
+      border: 1px solid var(--color-input-border);
+      border-radius: var(--radius-md);
+      color: var(--color-text-primary);
+      outline: none;
 
-        & input {
-            width: 60px;
-            padding: var(--space-2);
-            font-size: var(--text-sm);
-            text-align: center;
-            background: var(--color-input-bg);
-            border: 1px solid var(--color-input-border);
-            border-radius: var(--radius-md);
-            color: var(--color-text-primary);
-            outline: none;
+      &:focus {
+        border-color: var(--color-primary);
+      }
 
-            &:focus {
-                border-color: var(--color-primary);
-            }
-
-            &:focus-visible {
-                outline: 2px solid var(--color-primary);
-                outline-offset: 2px;
-            }
-        }
+      &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
     }
+  }
 }
 
 /* ========================================
@@ -322,24 +322,24 @@
 
 /* Screen reader only text */
 .pagination-sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+  position: absolute;
+  width: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  height: 1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  padding: 0;
+  margin: -1px; /* aural-ignore: standard WAI visually-hidden clip-rect idiom, reused verbatim across the codebase */
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .pagination-item,
-    .pagination-prev,
-    .pagination-next {
-        transition: none;
-    }
+  .pagination-item,
+  .pagination-prev,
+  .pagination-next {
+    transition: none;
+  }
 }
 
 /* ========================================
@@ -348,36 +348,36 @@
 
 /* Ensure pagination buttons meet touch target size of 44x44px */
 @media (pointer: coarse) {
-    .pagination-item,
-    .pagination-prev,
-    .pagination-next {
-        min-width: 44px;
-        min-height: 44px;
-        padding: var(--space-3) var(--space-4);
-    }
+  .pagination-item,
+  .pagination-prev,
+  .pagination-next {
+    min-width: var(--size-44);
+    min-height: var(--size-44);
+    padding: var(--space-3) var(--space-4);
+  }
 
-    /* Small size adjustment for touch - still meet minimum size */
-    .pagination-sm .pagination-item,
-    .pagination-sm .pagination-prev,
-    .pagination-sm .pagination-next {
-        min-width: 44px;
-        min-height: 44px;
-        padding: var(--space-2) var(--space-3);
-    }
+  /* Small size adjustment for touch - still meet minimum size */
+  .pagination-sm .pagination-item,
+  .pagination-sm .pagination-prev,
+  .pagination-sm .pagination-next {
+    min-width: var(--size-44);
+    min-height: var(--size-44);
+    padding: var(--space-2) var(--space-3);
+  }
 
-    /* Increase gap between pagination items for easier tapping */
-    .pagination {
-        gap: var(--space-3);
-    }
+  /* Increase gap between pagination items for easier tapping */
+  .pagination {
+    gap: var(--space-3);
+  }
 
-    .pagination-sm {
-        gap: var(--space-2);
-    }
+  .pagination-sm {
+    gap: var(--space-2);
+  }
 
-    /* Input field in jumper should also meet touch targets */
-    .pagination-with-jumper .pagination-jumper input {
-        min-width: 80px;
-        min-height: 44px;
-        padding: var(--space-3);
-    }
+  /* Input field in jumper should also meet touch targets */
+  .pagination-with-jumper .pagination-jumper input {
+    min-width: var(--size-80);
+    min-height: var(--size-44);
+    padding: var(--space-3);
+  }
 }

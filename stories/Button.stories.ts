@@ -29,38 +29,42 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 \`\`\`vue
 <button class="btn btn-primary">Click me</button>
 \`\`\`
-        `.trim()
-      }
-    }
+
+## Theme Variants
+
+The docs site's theme switcher applies decorative reskins on top of \`.btn\` for the Kinetic (\`.btn-kinetic*\`, \`kinetic-buttons.css\`) and Neon (\`.btn-neon*\`, \`deluxe-neon.css\`) themes. These are demo-site-only CSS, not separate components and not part of the published npm package. A third reskin, Neon-Refined (\`.btn-prismatic*\`, \`buttons-refined.css\`), exists in the repo but currently isn't reachable from the live theme switcher.
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Button text'
+      description: 'Button text',
     },
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success'],
-      description: 'Button visual style'
+      description: 'Button visual style',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Button size'
+      description: 'Button size',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     loading: {
       control: 'boolean',
-      description: 'Loading state with spinner'
+      description: 'Loading state with spinner',
     },
     icon: {
       control: 'text',
-      description: 'Icon (emoji or text)'
-    }
-  }
+      description: 'Icon (emoji or text)',
+    },
+  },
 };
 
 export default meta;
@@ -107,8 +111,8 @@ export const Primary: Story = {
     variant: 'primary',
     size: 'md',
     disabled: false,
-    loading: false
-  }
+    loading: false,
+  },
 };
 
 export const Secondary: Story = {
@@ -116,8 +120,8 @@ export const Secondary: Story = {
   args: {
     label: 'Secondary Button',
     variant: 'secondary',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Outline: Story = {
@@ -125,8 +129,8 @@ export const Outline: Story = {
   args: {
     label: 'Outline Button',
     variant: 'outline',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Ghost: Story = {
@@ -134,8 +138,8 @@ export const Ghost: Story = {
   args: {
     label: 'Ghost Button',
     variant: 'ghost',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Danger: Story = {
@@ -144,8 +148,8 @@ export const Danger: Story = {
     label: 'Delete',
     variant: 'danger',
     size: 'md',
-    icon: '🗑️'
-  }
+    icon: '🗑️',
+  },
 };
 
 export const Success: Story = {
@@ -154,8 +158,8 @@ export const Success: Story = {
     label: 'Save',
     variant: 'success',
     size: 'md',
-    icon: '✓'
-  }
+    icon: '✓',
+  },
 };
 
 export const Small: Story = {
@@ -163,8 +167,8 @@ export const Small: Story = {
   args: {
     label: 'Small Button',
     variant: 'primary',
-    size: 'sm'
-  }
+    size: 'sm',
+  },
 };
 
 export const Large: Story = {
@@ -172,8 +176,8 @@ export const Large: Story = {
   args: {
     label: 'Large Button',
     variant: 'primary',
-    size: 'lg'
-  }
+    size: 'lg',
+  },
 };
 
 export const Disabled: Story = {
@@ -182,8 +186,8 @@ export const Disabled: Story = {
     label: 'Disabled Button',
     variant: 'primary',
     size: 'md',
-    disabled: true
-  }
+    disabled: true,
+  },
 };
 
 export const Loading: Story = {
@@ -192,8 +196,8 @@ export const Loading: Story = {
     label: 'Loading...',
     variant: 'primary',
     size: 'md',
-    loading: true
-  }
+    loading: true,
+  },
 };
 
 export const AllVariants: Story = {
@@ -206,7 +210,7 @@ export const AllVariants: Story = {
 
     const variants = ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success'];
 
-    variants.forEach(variant => {
+    variants.forEach((variant) => {
       const button = document.createElement('button');
       button.className = `btn btn-${variant}`;
       button.textContent = variant.charAt(0).toUpperCase() + variant.slice(1);
@@ -214,7 +218,7 @@ export const AllVariants: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllSizes: Story = {
@@ -227,7 +231,7 @@ export const AllSizes: Story = {
 
     const sizes = ['sm', 'md', 'lg'];
 
-    sizes.forEach(size => {
+    sizes.forEach((size) => {
       const button = document.createElement('button');
       button.className = `btn btn-primary btn-${size}`;
       button.textContent = size.toUpperCase();
@@ -235,7 +239,7 @@ export const AllSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllThemes: Story = {
@@ -246,7 +250,7 @@ export const AllThemes: Story = {
       button.textContent = 'Primary Button';
       return button;
     });
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -288,34 +292,34 @@ export const ThemeComparison: Story = {
     size: 'md',
     loading: false,
     disabled: false,
-    icon: ''
+    icon: '',
   },
   argTypes: {
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success'],
-      description: 'Button style variant'
+      description: 'Button style variant',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Button size'
+      description: 'Button size',
     },
     label: {
       control: 'text',
-      description: 'Button text'
+      description: 'Button text',
     },
     loading: {
       control: 'boolean',
-      description: 'Loading state with spinner'
+      description: 'Loading state with spinner',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     icon: {
       control: 'text',
-      description: 'Icon (emoji or text)'
-    }
-  }
+      description: 'Icon (emoji or text)',
+    },
+  },
 };
