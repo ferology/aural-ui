@@ -21,6 +21,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added - October 2, 2026
+
+- **🤖 LLM-readable design system**: structured specs, a closed token layer, and an automated audit so an AI coding session stays consistent instead of fabricating CSS values or drifting across sessions ([hvpandya.com/llm-design-systems](https://hvpandya.com/llm-design-systems) pattern)
+  - `CLAUDE.md`: the rules an AI session reads before touching `components/`, `themes/`, or `tokens/`
+  - `specs/components/*.md`: one 8-section spec (Metadata, Overview, Anatomy, Tokens used, Props/API, States, Code example, Cross-references) for all 54 real components; the 5 theme-reskin CSS files (kinetic/neon/prismatic decorations) are documented as "Theme variants" inside `button.md`/`card.md` instead of getting standalone specs
+  - `specs/foundations/*.md`: one doc per token category (color, spacing, size, typography, radius, elevation, motion, z-index, breakpoints, accessibility)
+  - `specs/patterns/`: composition patterns
+  - `specs/tokens/token-reference.md`: generated master table of every token, regenerated from source via `npm run generate:token-docs` so it can't drift
+  - `scripts/token-audit.js` (`npm run audit:tokens`): a postcss-based scanner that flags hardcoded colors, spacing, radius, z-index, font-size, font-weight, and duration values in `components/*.css` and suggests the matching token; wired into the pre-commit hook (staged files) and a **blocking** step in CI
+  - Two new token categories: `tokens/core/z-index.css` + `tokens/semantic/z-index.css` (a stacking scale — `--z-dropdown`, `--z-modal`, `--z-popover`, etc.) and `tokens/core/size.css` (a dimension scale for icon/avatar/control sizing, distinct from the spacing scale)
+- **Validation**: a fresh Claude Code agent with no knowledge of this system, given a bare feature ticket ("add an xl size variant to X"), was run three separate times (Badge, Chips, Tooltip) — each time it discovered `CLAUDE.md` and the relevant spec on its own, used only real tokens, and ran the audit itself before finishing
+
+### Fixed - October 2, 2026
+
+- All 59 `components/*.css` files went from 1,044 hardcoded-value errors to 0, with every substitution verified value-preserving (resolves to the identical literal it replaced)
+- A few components referenced custom properties that were never defined anywhere (e.g. `var(--color-primary-alpha-20)` instead of the real `--primary-alpha-20`), silently breaking hover states and search highlights
+- A stray unbalanced parenthesis in `utilities/filters.css` (`filter: none);`) — a genuine CSS syntax error
+
 ### Added - March 1, 2026
 
 - **🎉 Storybook Deployment**: Full Storybook documentation now live at GitHub Pages

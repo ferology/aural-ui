@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Assisted Development - Aural UI</title>
+
+    <!-- Aural UI CSS -->
+    <link rel="stylesheet" href="./aural-ui.css?v=9" />
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./dark.css" id="theme-link" />
+
+    <!-- Enhanced Documentation Styles -->
+    <link rel="stylesheet" href="./styles/doc-enhanced.css" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
+
+      /* Main Content */
+      .main-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: var(--space-8);
+        min-height: 100vh;
+      }
+
+      .page-header {
+        margin-bottom: var(--space-8);
+      }
+
+      .page-title {
+        font-size: var(--text-3xl);
+        font-weight: var(--font-bold);
+        color: var(--color-text-primary);
+        margin: 0 0 var(--space-4) 0;
+      }
+
+      .page-description {
+        font-size: var(--text-lg);
+        color: var(--color-text-secondary);
+        line-height: 1.8;
+        margin: 0;
+      }
+
+      .content-section {
+        margin-bottom: var(--space-8);
+      }
+
+      .section-title {
+        font-size: var(--text-2xl);
+        font-weight: var(--font-semibold);
+        color: var(--color-text-primary);
+        margin: 0 0 var(--space-4) 0;
+      }
+
+      .section-content {
+        font-size: var(--text-base);
+        color: var(--color-text-secondary);
+        line-height: 1.8;
+      }
+
+      .section-content h3 {
+        font-size: var(--text-xl);
+        font-weight: var(--font-semibold);
+        color: var(--color-text-primary);
+        margin: var(--space-6) 0 var(--space-3) 0;
+      }
+
+      .section-content p {
+        margin: 0 0 var(--space-4) 0;
+      }
+
+      .section-content ul,
+      .section-content ol {
+        margin: 0 0 var(--space-4) 0;
+        padding-left: var(--space-6);
+      }
+
+      .section-content li {
+        margin-bottom: var(--space-2);
+      }
+
+      .section-content code {
+        background: var(--color-bg-tertiary);
+        padding: 2px 6px;
+        border-radius: var(--radius-sm);
+        font-size: 0.9em;
+        font-family: var(--font-mono);
+      }
+
+      .section-content pre {
+        background: var(--color-bg-tertiary);
+        padding: var(--space-4);
+        border-radius: var(--radius-md);
+        overflow-x: auto;
+        margin: var(--space-4) 0;
+      }
+
+      .section-content pre code {
+        background: none;
+        padding: 0;
+      }
+
+      /* Piece list (the four mechanisms) */
+      .contribution-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--space-5);
+        margin: var(--space-6) 0;
+        list-style: none;
+        padding: 0;
+      }
+
+      .contribution-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+      }
+
+      .contribution-list i {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        color: var(--color-primary);
+        margin-top: 2px;
+      }
+
+      .contribution-list strong {
+        display: block;
+        color: var(--color-text-primary);
+        margin-bottom: var(--space-1);
+        font-size: var(--text-base);
+      }
+
+      .contribution-list span {
+        color: var(--color-text-secondary);
+        font-size: var(--text-sm);
+        line-height: 1.5;
+      }
+
+      /* Step list (how-to-use) */
+      .step-list {
+        display: grid;
+        gap: var(--space-6);
+        margin: var(--space-6) 0;
+      }
+
+      .step-list li {
+        list-style: none;
+      }
+
+      .step-list li strong {
+        display: block;
+        color: var(--color-text-primary);
+        margin-bottom: var(--space-2);
+        font-size: var(--text-base);
+      }
+
+      .step-list li > p {
+        margin: 0;
+        color: var(--color-text-secondary);
+      }
+
+      .info-box {
+        background: var(--color-bg-secondary);
+        border-left: 4px solid var(--color-primary);
+        padding: var(--space-4);
+        border-radius: var(--radius-md);
+        margin: var(--space-6) 0;
+      }
+
+      .info-box strong {
+        color: var(--color-text-primary);
+      }
+
+      .warning-box {
+        background: var(--color-bg-secondary);
+        border-left: 4px solid var(--color-warning);
+        padding: var(--space-4);
+        border-radius: var(--radius-md);
+        margin: var(--space-6) 0;
+      }
+
+      .warning-box strong {
+        color: var(--color-warning);
+      }
+
+      /* Validation stat row */
+      .stat-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-6);
+        background: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+        margin: var(--space-6) 0;
+        flex-wrap: wrap;
+      }
+
+      .stat-block {
+        text-align: center;
+      }
+
+      .stat-number {
+        display: block;
+        font-size: var(--text-4xl);
+        font-weight: var(--font-bold);
+        line-height: 1;
+      }
+
+      .stat-number.before {
+        color: var(--color-error);
+      }
+
+      .stat-number.after {
+        color: var(--color-success);
+      }
+
+      .stat-label {
+        display: block;
+        margin-top: var(--space-2);
+        font-size: var(--text-sm);
+        color: var(--color-text-secondary);
+      }
+
+      .stat-arrow {
+        font-size: var(--text-2xl);
+        color: var(--color-text-tertiary);
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        position: fixed;
+        top: var(--space-6);
+        right: var(--space-6);
+        z-index: 200;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        .main-content {
+          padding: var(--space-6) var(--space-4);
+        }
+
+        .page-title {
+          font-size: var(--text-2xl);
+        }
+
+        .page-description {
+          font-size: var(--text-base);
+        }
+
+        .section-title {
+          font-size: var(--text-xl);
+        }
+
+        .contribution-list {
+          grid-template-columns: 1fr;
+        }
+
+        .stat-row {
+          gap: var(--space-4);
+        }
+
+        .theme-toggle {
+          top: var(--space-4);
+          right: var(--space-4);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="#main-content"
+      class="skip-link"
+      data-tooltip="Press Tab to see this link - allows keyboard users to skip navigation and jump directly to main content"
+      data-tooltip-position="bottom"
+      >Skip to main content</a
+    >
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+      <div class="page-header">
+        <h1 class="page-title">AI-Assisted Development</h1>
+        <p class="page-description">
+          Aural UI is built so that an AI coding session — Claude Code, Cursor, or anything else
+          editing this repo — stays consistent with the design system instead of fabricating values
+          or losing context between sessions. This page explains how, and what verifying it actually
+          looked like.
+        </p>
+      </div>
+
+      <section class="content-section">
+        <h2 class="section-title">The Problem</h2>
+        <div class="section-content">
+          <p>
+            A design system is a set of conventions, and conventions only hold if everyone editing
+            the codebase actually knows them. A plain-CSS design system has no compiler to enforce
+            "use the token, not a raw hex value" — that rule lives in people's heads, in review
+            comments, in tribal knowledge.
+          </p>
+          <p>
+            An AI coding assistant doesn't have that tribal knowledge, and it doesn't carry memory
+            from one session to the next. Left unguided, it tends to do two specific things wrong
+            when editing <code>components/</code>:
+          </p>
+          <ul>
+            <li>
+              <strong>It fabricates plausible-looking values.</strong> Asked to add a variant, it
+              will happily invent a hex color or a padding value that looks reasonable in isolation,
+              rather than checking whether a token already covers it.
+            </li>
+            <li>
+              <strong>It has no persistent context.</strong> Each new session starts from zero — it
+              doesn't know a component's established anatomy, which tokens it already uses, or what
+              naming convention the file follows — unless something in the repo tells it.
+            </li>
+          </ul>
+          <p>
+            Over enough edits, this drifts a design system away from its own rules: hardcoded values
+            creep back in, naming conventions diverge file-to-file, and there's no single place a
+            new session (human or AI) can go to get caught up.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title">The Solution</h2>
+        <div class="section-content">
+          <p>
+            Aural UI implements the pattern described in
+            <a
+              href="https://hvpandya.com/llm-design-systems"
+              target="_blank"
+              rel="noopener"
+              style="color: var(--color-primary)"
+              >hvpandya.com/llm-design-systems</a
+            >: structured specs, a closed token layer, and an automated audit, so consistency
+            doesn't depend on any one session remembering the rules correctly. Four pieces make this
+            work.
+          </p>
+        </div>
+        <ul class="contribution-list">
+          <li>
+            <i data-lucide="file-text"></i>
+            <div>
+              <strong>CLAUDE.md</strong>
+              <span
+                >The entry point at the repo root — the rules an AI session reads first, before
+                touching <code>components/</code>, <code>themes/</code>, or
+                <code>tokens/</code>.</span
+              >
+            </div>
+          </li>
+          <li>
+            <i data-lucide="book-open"></i>
+            <div>
+              <strong>specs/</strong>
+              <span
+                >An 8-section spec per component, one doc per token category, composition patterns,
+                and a generated master token table — the context a session needs without re-deriving
+                it from CSS.</span
+              >
+            </div>
+          </li>
+          <li>
+            <i data-lucide="lock"></i>
+            <div>
+              <strong>A closed token layer</strong>
+              <span
+                >New z-index and size token categories close the gaps that used to force hardcoded
+                values, so there's a real token for every visual value a component needs.</span
+              >
+            </div>
+          </li>
+          <li>
+            <i data-lucide="scan-search"></i>
+            <div>
+              <strong>scripts/token-audit.js</strong>
+              <span
+                >A postcss-based scanner that flags hardcoded values and suggests the matching token
+                — a deterministic check, not a judgment call.</span
+              >
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title">CLAUDE.md: The Entry Point</h2>
+        <div class="section-content">
+          <p>
+            <code>CLAUDE.md</code> at the repo root lays out what to do before touching
+            <code>components/</code>, <code>themes/</code>, or <code>tokens/</code>:
+          </p>
+          <ul>
+            <li>
+              <strong>Read the spec first.</strong>
+              <code>specs/components/&lt;name&gt;.md</code> documents a component's anatomy,
+              variants, states, and which tokens it should use;
+              <code>specs/foundations/&lt;category&gt;.md</code> does the same for a token category.
+            </li>
+            <li>
+              <strong>Never hardcode a visual value</strong> in <code>components/*.css</code> — no
+              raw hex/rgb colors, no raw px for spacing/sizing/radius, no raw z-index numbers. Use a
+              token from <code>tokens/core/</code> or <code>tokens/semantic/</code>, preferring the
+              semantic token when one exists.
+            </li>
+            <li>
+              <strong>If no token covers the value</strong>, add one to the matching file in
+              <code>tokens/core/</code> (and a semantic alias if it's a color or has more than one
+              meaning) rather than hardcoding it.
+            </li>
+            <li>
+              <strong>If a value is genuinely one-off</strong> and not worth a token, mark it with
+              <code>/* aural-ignore: &lt;reason&gt; */</code> — an escape hatch, not a default.
+            </li>
+            <li>
+              <strong>Don't invent a third naming convention.</strong> Most components use flat
+              kebab-case classes; a few use BEM. Match whichever convention the file already uses.
+            </li>
+            <li>
+              <strong>Run the token audit before committing:</strong>
+              <code>npm run audit:tokens</code> — zero errors required for any file touched.
+            </li>
+            <li>
+              <strong>After adding or changing a token</strong>, regenerate the reference doc with
+              <code>npm run generate:token-docs</code> instead of hand-editing it, so it can't drift
+              from source.
+            </li>
+          </ul>
+          <div class="info-box">
+            <strong>Read it yourself:</strong> the full file is at
+            <a
+              href="https://github.com/ferology/aural-ui/blob/main/CLAUDE.md"
+              target="_blank"
+              rel="noopener"
+              style="color: var(--color-primary)"
+              >CLAUDE.md on GitHub</a
+            >.
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title">specs/: Structured Documentation</h2>
+        <div class="section-content">
+          <p>
+            Every real component and token category has a spec, written in a consistent, parseable
+            shape rather than freeform prose:
+          </p>
+          <ul>
+            <li>
+              <strong><code>specs/components/*.md</code></strong> — one 8-section spec (Metadata,
+              Overview, Anatomy, Tokens used, Props/API, States, Code example, Cross-references) per
+              component, 54 files covering all real components. The 5 theme-reskin CSS files
+              (kinetic/neon/prismatic demo-site decorations) are documented as "Theme variants"
+              inside <code>button.md</code> and <code>card.md</code> rather than getting their own
+              specs, since they're docs-site decoration, not separate components.
+            </li>
+            <li>
+              <strong><code>specs/foundations/*.md</code></strong> — one doc per token category:
+              color, spacing, size, typography, radius, elevation, motion, z-index, breakpoints,
+              accessibility.
+            </li>
+            <li>
+              <strong><code>specs/patterns/</code></strong> — composition patterns that span
+              multiple components.
+            </li>
+            <li>
+              <strong><code>specs/tokens/token-reference.md</code></strong> — a generated master
+              table of every token's name, value, and source file, rebuilt by
+              <code>npm run generate:token-docs</code> so it can't drift from the actual token CSS.
+              See the live version of this on the
+              <a href="./tokens.html" style="color: var(--color-primary)">Design Tokens page</a>.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title">The Token Audit</h2>
+        <div class="section-content">
+          <p>
+            <code>scripts/token-audit.js</code> is a postcss-based scanner, run via
+            <code>npm run audit:tokens</code>, that parses every <code>components/*.css</code> file
+            and flags hardcoded colors, spacing, radius, z-index, font-size, font-weight, and
+            duration values — suggesting the exact matching token for each one instead of just
+            saying "no."
+          </p>
+          <p>
+            It's wired into pre-commit (staged files only, via lint-staged) and is a
+            <strong>blocking</strong> step in CI — a pull request that introduces a new hardcoded
+            value fails the build, not just a warning.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title">How to Use It</h2>
+        <div class="section-content">
+          <h3>As a human contributor</h3>
+          <ol>
+            <li>Read <code>CLAUDE.md</code> once — it's short, and it's the whole rulebook.</li>
+            <li>
+              Before editing a component, read its spec at
+              <code>specs/components/&lt;name&gt;.md</code> for its anatomy, variants, and which
+              tokens it already uses.
+            </li>
+            <li>
+              Reach for an existing token from <code>tokens/core/</code> or
+              <code>tokens/semantic/</code> before writing a new value; prefer the semantic token
+              when one exists.
+            </li>
+            <li>
+              Run <code>npm run audit:tokens</code> before committing — it also runs automatically
+              on staged files via the pre-commit hook.
+            </li>
+            <li>
+              If you added or changed a token, run <code>npm run generate:token-docs</code> to
+              regenerate <code>specs/tokens/token-reference.md</code> rather than hand-editing it.
+            </li>
+          </ol>
+
+          <h3>As an AI agent</h3>
+          <p>
+            This system is designed to be discovered automatically, without being told where to
+            look. Point Claude Code, Cursor, or a similar tool at the repository, and
+            <code>CLAUDE.md</code> is the entry point: an agent editing <code>components/</code>,
+            <code>themes/</code>, or <code>tokens/</code> is expected to find it, follow it to the
+            relevant spec in <code>specs/</code>, and run <code>npm run audit:tokens</code> before
+            considering a change done — the same workflow a human contributor follows above, just
+            unprompted.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title">Validation</h2>
+        <div class="section-content">
+          <p>
+            This isn't a theoretical process — it was run against the entire existing component
+            library, and the result was verified, not just asserted.
+          </p>
+
+          <h3>Closing the gap: 1,044 → 0</h3>
+          <div class="stat-row">
+            <div class="stat-block">
+              <span class="stat-number before">1,044</span>
+              <span class="stat-label">hardcoded-value errors<br />before migration</span>
+            </div>
+            <span class="stat-arrow">→</span>
+            <div class="stat-block">
+              <span class="stat-number after">0</span>
+              <span class="stat-label"
+                >errors across all 59<br /><code>components/*.css</code> files</span
+              >
+            </div>
+          </div>
+          <p>
+            Every one of the 59 <code>components/*.css</code> files was migrated to the closed token
+            layer, and the result was verified <strong>value-preserving</strong> — every
+            substitution resolves to the identical literal it replaced, so no component's actual
+            appearance changed.
+          </p>
+
+          <h3>Three independent cold-test runs</h3>
+          <p>
+            To check whether this is actually discoverable rather than just well-intentioned, a
+            fresh AI agent with zero prior knowledge of this system was given a bare ticket — "add
+            an xl size variant to X" — and tested three times, against Badge, Chips, and Tooltip.
+            Each time, independently verified (not self-reported), the agent:
+          </p>
+          <ul>
+            <li>
+              found <code>CLAUDE.md</code> and the relevant component spec on its own, with no
+              pointer to either,
+            </li>
+            <li>used only real, existing tokens — no fabricated values,</li>
+            <li>and ran the token audit itself before considering the change finished.</li>
+          </ul>
+
+          <h3>Real bugs surfaced along the way</h3>
+          <p>
+            Migrating every component to real tokens didn't just reorganize existing values — it
+            surfaced pre-existing bugs that hardcoded values had been masking:
+          </p>
+          <ul>
+            <li>
+              <strong>Dangling <code>var()</code> references</strong> to tokens that never existed —
+              e.g. a typo'd <code>--color-primary-alpha-20</code> instead of the real
+              <code>--primary-alpha-20</code>, which was silently breaking hover states and a
+              search-highlight.
+            </li>
+            <li>
+              <strong>A stray unbalanced parenthesis</strong> in <code>utilities/filters.css</code>.
+            </li>
+            <li>
+              <strong>A cascade bug between <code>.toggle</code> and <code>.switch</code></strong> —
+              identified and documented, but intentionally left unfixed, since fixing it would be a
+              behavior change rather than a token migration.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title">Learn More</h2>
+        <div class="section-content">
+          <ul>
+            <li>
+              <a
+                href="https://github.com/ferology/aural-ui/blob/main/CLAUDE.md"
+                target="_blank"
+                rel="noopener"
+                style="color: var(--color-primary)"
+                >CLAUDE.md</a
+              >
+              — the full rules file
+            </li>
+            <li>
+              <a
+                href="https://github.com/ferology/aural-ui/tree/main/specs"
+                target="_blank"
+                rel="noopener"
+                style="color: var(--color-primary)"
+                >specs/</a
+              >
+              on GitHub — browse every component and foundation spec
+            </li>
+            <li>
+              <a href="./tokens.html" style="color: var(--color-primary)">Design Tokens</a> — the
+              live, generated token reference
+            </li>
+            <li>
+              <a href="./contributing.html" style="color: var(--color-primary)"
+                >Contributing Guide</a
+              >
+              — how this fits into the day-to-day contribution workflow
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+      <button class="btn btn-secondary btn-sm" onclick="toggleTheme()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      </button>
+    </div>
+
+    <script>
+      lucide.createIcons();
+    </script>
+
+    <!-- Unified Theme Sync -->
+    <script>
+      (function () {
+        // Sync theme from localStorage IMMEDIATELY
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeLink = document.getElementById('theme-link');
+
+        if (themeLink) {
+          const isInComponents = window.location.pathname.includes('/components/');
+          const relativePath = isInComponents ? '../' : './';
+          const themeFiles = {
+            dark: 'dark.css',
+            light: 'light.css',
+            neon: 'neon.css',
+            prismatic: 'prismatic.css',
+            minimal: 'minimal.css',
+            warm: 'warm.css',
+            kinetic: 'kinetic.css',
+            'high-contrast': 'high-contrast.css',
+            colorblind: 'colorblind-friendly.css',
+          };
+
+          const themeFile = themeFiles[savedTheme] || 'dark.css';
+          const themePath = relativePath + themeFile;
+
+          console.log('Applying theme:', savedTheme, 'Path:', themePath);
+          themeLink.href = themePath;
+        } else {
+          console.error('Theme link not found!');
+        }
+
+        // Hide theme toggle in iframe (demo.html controls theme)
+        window.addEventListener('DOMContentLoaded', function () {
+          try {
+            if (window.self !== window.top) {
+              const themeToggle = document.querySelector('.theme-toggle');
+              if (themeToggle) {
+                themeToggle.style.display = 'none';
+              }
+            }
+          } catch (e) {}
+        });
+      })();
+    </script>
+    <!-- Theme Manager -->
+    <script src="js/theme-manager.js"></script>
+
+    <!-- Enhanced Documentation JavaScript -->
+    <script src="js/doc-enhanced.js"></script>
+  </body>
+</html>
