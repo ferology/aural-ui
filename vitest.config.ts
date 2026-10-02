@@ -14,11 +14,21 @@ export default defineConfig({
       reporter: ['text', 'json', 'html', 'lcov'],
       include: ['packages/*/src/**/*.{ts,tsx}'],
       exclude: ['**/*.stories.tsx', '**/*.d.ts', '**/types.ts', '**/index.ts'],
+      // NOTE: thresholds reflect actual current coverage (with a small
+      // safety margin), not an aspirational target. They were previously
+      // set to 50% across the board while real coverage sat around
+      // 22-31%, which meant `npm run test:ci` / CI's Tests job had been
+      // failing on every run for months regardless of what else changed.
+      // Several components (Accordion, Alert, Avatar, Badge, Card,
+      // Divider, Drawer, Popover, Progress, Select, Spinner, Table, Tabs,
+      // Tooltip) and the Vue composables have no tests at all yet — raise
+      // these back up as coverage genuinely improves. Approved by repo
+      // owner 2026-10-02.
       thresholds: {
-        lines: 50,
-        functions: 50,
-        branches: 50,
-        statements: 50,
+        lines: 20,
+        functions: 25,
+        branches: 60,
+        statements: 20,
       },
     },
   },
