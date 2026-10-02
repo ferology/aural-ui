@@ -42,8 +42,12 @@
 /* Form Controls */
 @import '../components/checkbox.css';
 @import '../components/radio.css';
-@import '../components/toggle.css';
+/* switch.css loads first: it carries a legacy .toggle backwards-compat
+   block, and importing toggle.css after it lets .toggle's own rules (and
+   its dedicated --color-toggle-track-* tokens) win the cascade instead of
+   switch's generic duplicate. See specs/components/toggle.md. */
 @import '../components/switch.css';
+@import '../components/toggle.css';
 @import '../components/select.css';
 @import '../components/rating.css';
 @import '../components/color-picker.css';

@@ -73,18 +73,18 @@ labels.
 | `--shadow-sm` / `--shadow-md` / `--shadow-lg`                                                             | Thumb resting/hover/focus shadow                                                                                                                                                       |
 | `--glow-primary-sm` / `--glow-primary-md` / `--glow-success-md` / `--glow-warning-md` / `--glow-error-md` | Thumb hover/focus glow, per color variant                                                                                                                                              |
 
-**Pre-existing bug noted, not fixed in this pass:** `.aural-slider__tick`
-uses `var(--color-border)`, which is not defined anywhere in
+**Bug fix (not a token addition):** `.aural-slider__tick` uses
+`var(--color-border)`, which was not defined anywhere in
 `tokens/semantic/colors.css` (only the non-default `themes/kinetic.css`
-theme defines it) — in the default theme it resolves to nothing. The
-same pattern exists in several other, unmigrated components
-(`chips.css`, `code-block.css`, `command-palette.css`,
-`file-upload.css`, `kinetic-cards.css`, `dialog.css`) and in
-`range-slider.css` (see `specs/components/range-slider.md`). Left as-is
-because it's a pre-existing cross-file issue outside this migration's
-value-preserving scope, not something `token-audit.js` flags (it only
-catches raw literals, not unresolved `var()` references) — flagging here
-for whoever picks up a wider token-health pass.
+theme defined it) — in every other theme it resolved to nothing. The same
+pattern existed in several other components (`chips.css`, `code-block.css`,
+`command-palette.css`, `file-upload.css`, `kinetic-cards.css`,
+`dialog.css`) and in `range-slider.css` (see
+`specs/components/range-slider.md`). This wasn't something `token-audit.js`
+flags (it only catches raw literals, not unresolved `var()` references) —
+it's now fixed by adding `--color-border: var(--color-border-subtle)` as a
+semantic alias in `tokens/semantic/colors.css`, so every one of those
+components' borders render correctly in every theme, not just kinetic.
 
 Several other values are left as `/* aural-ignore */`: all `0.2s`
 transition durations (track-fill, thumb hover/focus — not on the shared

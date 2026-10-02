@@ -604,9 +604,23 @@
               <strong>A stray unbalanced parenthesis</strong> in <code>utilities/filters.css</code>.
             </li>
             <li>
+              <strong>Several more dangling <code>var()</code> references</strong> found in a later
+              pass — <code>--color-border</code> (used by seven components, undefined outside the
+              Kinetic theme), <code>--primary-alpha-50</code>, <code>--color-primary-light</code>,
+              and the <code>-border</code> half of Alert Banner's info/success/warning tints — all
+              fixed by adding the missing token rather than guessing at a replacement value.
+            </li>
+            <li>
               <strong>A cascade bug between <code>.toggle</code> and <code>.switch</code></strong> —
-              identified and documented, but intentionally left unfixed, since fixing it would be a
-              behavior change rather than a token migration.
+              a backwards-compatibility block in <code>switch.css</code> was silently overriding
+              <code>.toggle</code>'s own color tokens because of import order. Fixed by reordering
+              the imports (confirmed by reading the rendered track color before and after), safe to
+              do because <code>.toggle</code> has no real-world consumers to regress.
+            </li>
+            <li>
+              <strong>A broken public JS API</strong> — <code>Aural.initFileUpload()</code> queried
+              class names that didn't exist in File Upload's actual markup, making it a complete
+              no-op. Fixed to match the real classes, verified by simulating a file drop end-to-end.
             </li>
           </ul>
         </div>

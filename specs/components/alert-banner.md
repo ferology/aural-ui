@@ -85,17 +85,20 @@ an exact existing match (`--size-800`, `--size-24`, `--space-0-5`,
 `--size-44`, `--size-20`, `--size-28`, `--color-tab-badge-bg`,
 `--z-toast`, `--duration-normal`).
 
-**Known pre-existing gap (not introduced by this migration):**
-`--color-info-bg`, `--color-success-bg`, `--color-warning-bg` and the four
-`--color-*-border` tokens referenced by the variant rules
-(`.aural-alert-banner--info/success/warning/error`) are **not defined** in
-`tokens/semantic/colors.css` — only `--color-error-bg` currently exists
-there. They only resolve in the `colorblind-friendly` and `high-contrast`
-theme overrides. In the default theme these `var()` calls fall back to
-nothing, so the tinted background/border currently only render under
-those two themes. This is a pre-existing gap (not a hardcoded value, so
-the token audit doesn't catch it) — flagged here for whoever adds the
-remaining semantic tokens, rather than guessed at and silently "fixed".
+**Bug fix (not a token addition):** `--color-info-bg`, `--color-success-bg`,
+`--color-warning-bg`, and the four `--color-*-border` tokens referenced by
+the variant rules (`.aural-alert-banner--info/success/warning/error`) were
+**not defined** in `tokens/semantic/colors.css` — only `--color-error-bg`
+existed there, and none of the four `-border` tokens existed anywhere,
+even in theme overrides. In the default theme these `var()` calls fell
+back to nothing, so the tinted background/border only rendered under the
+`colorblind-friendly`/`high-contrast` themes. This was a pre-existing gap
+(not a hardcoded value, so the token audit doesn't catch it) — it's now
+fixed: the three missing `-bg` tokens were added by a later migration pass
+(same `rgba(..., 0.1)` pattern as `--color-error-bg`), and the four
+`-border` tokens were added at `rgba(..., 0.3)` — one step more opaque
+than their `-bg` sibling — so the tinted background and border now render
+in every theme, not just two of them.
 
 **White-on-solid-color overlays:** the `--solid` variant's action border
 (`rgba(255, 255, 255, 0.3)`) and hover states (`0.3`/`0.5` alpha white)
