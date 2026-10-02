@@ -83,7 +83,7 @@ lucide.createIcons();
     container.appendChild(createStep({
       number: 2,
       title: 'Processing',
-      description: 'We\\'re preparing your order',
+      description: "We're preparing your order",
       state: 'active'
     }));
     container.appendChild(createStep({

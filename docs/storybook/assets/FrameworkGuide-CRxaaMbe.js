@@ -1,4 +1,4 @@
-import{j as n,M as o}from"./index-BgFxNVjY.js";import{useMDXComponents as a}from"./index-jBZDW5N7.js";import"./iframe-DVTddcFI.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(s){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...a(),...s.components};return n.jsxs(n.Fragment,{children:[n.jsx(o,{title:"Getting Started/Framework Guide",parameters:{docs:{theme:{base:"light"}}}}),`
+import{j as n,M as o}from"./index-BxCYlGOW.js";import{useMDXComponents as a}from"./index-9JdgMxtl.js";import"./iframe-DL67_EpE.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-D1c3tIrF.js";import"./index-DrFu-skq.js";function t(s){const e={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...a(),...s.components};return n.jsxs(n.Fragment,{children:[n.jsx(o,{title:"Getting Started/Framework Guide",parameters:{docs:{theme:{base:"light"}}}}),`
 `,n.jsx("style",{children:`
   :root,
   #storybook-docs,

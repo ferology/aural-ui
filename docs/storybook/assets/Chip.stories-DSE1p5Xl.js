@@ -1,4 +1,4 @@
-import{c as _e}from"./createThemeGrid-DWAncU4Q.js";const De={title:"Components/Data Display/Chip",tags:["autodocs"],parameters:{docs:{description:{component:`
+import{c as ke}from"./createThemeGrid-DWAncU4Q.js";const Be={title:"Components/Data Display/Chip",tags:["autodocs"],parameters:{docs:{description:{component:`
 # Chip Component
 
 Compact elements for tags, filters, and selections. Also known as tags or pills.
@@ -8,7 +8,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 ## Key Features
 
 - Multiple color variants (default, primary, success, warning, error, info)
-- 3 sizes (small, medium, large)
+- 4 sizes (small, medium, large, extra large)
 - Removable with close button
 - Optional Lucide icons
 - Standalone or input mode
@@ -52,14 +52,14 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 - \`.aural-chip\` - Base chip class
 - \`.aural-chip--standalone\` - Use when chip is NOT inside \`.aural-chips\` input container
 - \`.aural-chip--primary\`, \`.aural-chip--success\`, etc. - Color variants
-- \`.aural-chip--sm\`, \`.aural-chip--lg\` - Size variants (default is medium)
+- \`.aural-chip--sm\`, \`.aural-chip--lg\`, \`.aural-chip--xl\` - Size variants (default is medium)
 - \`.aural-chip__text\` - Text wrapper (required)
 - \`.aural-chip__remove\` - Remove button
 - \`.aural-chips\` - Chip input container
 - \`.aural-chips__container\` - Inner container for chips and input
 - \`.aural-chips__input\` - Input field within chip container
 - \`.aural-chips-list\` - Container for displaying multiple standalone chips
-        `.trim()}}},argTypes:{label:{control:"text",description:"Chip text content"},variant:{control:"select",options:["default","primary","success","warning","error","info"],description:"Chip color variant"},size:{control:"select",options:["sm","md","lg"],description:"Chip size"},closeable:{control:"boolean",description:"Show remove button"},icon:{control:"text",description:'Lucide icon name (e.g., "star", "tag", "x")'},standalone:{control:"boolean",description:"Use standalone styling (outside of chip input)"}}};function c(e){const n=document.createElement("div"),t=["aural-chip"];if(e.variant&&e.variant!=="default"&&t.push(`aural-chip--${e.variant}`),e.size&&e.size!=="md"&&t.push(`aural-chip--${e.size}`),e.standalone&&t.push("aural-chip--standalone"),n.className=t.join(" "),n.setAttribute("role","listitem"),e.icon){const a=document.createElement("i");a.setAttribute("data-lucide",e.icon),a.setAttribute("aria-hidden","true"),n.appendChild(a)}const i=document.createElement("span");if(i.className="aural-chip__text",i.textContent=e.label,n.appendChild(i),e.closeable){const a=document.createElement("button");a.className="aural-chip__remove",a.setAttribute("aria-label",`Remove ${e.label}`),a.setAttribute("type","button"),a.onclick=()=>{n.remove()},n.appendChild(a)}return n}function o(e){setTimeout(()=>{typeof window.lucide<"u"&&window.lucide.createIcons()},0)}const l={render:e=>{const n=document.createElement("div");n.style.padding="2rem";const t=document.createElement("div");t.className="aural-chips-list",t.setAttribute("role","list");const i=c(e);return t.appendChild(i),n.appendChild(t),o(),n},args:{label:"Design",variant:"default",size:"md",closeable:!1,icon:"",standalone:!0}},p={...l,args:{label:"Primary",variant:"primary",size:"md",closeable:!1,standalone:!0}},d={...l,args:{label:"Completed",variant:"success",size:"md",closeable:!1,standalone:!0}},u={...l,args:{label:"In Progress",variant:"warning",size:"md",closeable:!1,standalone:!0}},m={...l,args:{label:"Blocked",variant:"error",size:"md",closeable:!1,standalone:!0}},h={...l,args:{label:"Review",variant:"info",size:"md",closeable:!1,standalone:!0}},v={...l,args:{label:"Featured",variant:"primary",size:"md",closeable:!1,icon:"star",standalone:!0}},b={...l,args:{label:"Removable",variant:"default",size:"md",closeable:!0,standalone:!0}},f={...l,args:{label:"Small",variant:"primary",size:"sm",closeable:!0,standalone:!0}},C={...l,args:{label:"Large",variant:"primary",size:"lg",closeable:!0,standalone:!0}},g={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.setAttribute("role","list"),[{variant:"default",label:"Default"},{variant:"primary",label:"Primary"},{variant:"success",label:"Success"},{variant:"warning",label:"Warning"},{variant:"error",label:"Error"},{variant:"info",label:"Info"}].forEach(({variant:i,label:a})=>{const r=c({label:a,variant:i,size:"md",closeable:!0,standalone:!0});n.appendChild(r)}),e.appendChild(n),o(),e}},y={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.style.alignItems="center",n.setAttribute("role","list"),[{size:"sm",label:"Small"},{size:"md",label:"Medium"},{size:"lg",label:"Large"}].forEach(({size:i,label:a})=>{const r=c({label:a,variant:"primary",size:i,closeable:!0,standalone:!0});n.appendChild(r)}),e.appendChild(n),o(),e}},L={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.setAttribute("role","list"),[{label:"JavaScript",icon:"zap",variant:"primary"},{label:"TypeScript",icon:"code",variant:"info"},{label:"React",icon:"atom",variant:"success"},{label:"Vue",icon:"triangle",variant:"success"}].forEach(({label:i,icon:a,variant:r})=>{const s=c({label:i,icon:a,variant:r,size:"md",closeable:!0,standalone:!0});n.appendChild(s)}),e.appendChild(n),o(),e}},z={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.setAttribute("role","list"),[{label:"Completed",variant:"success"},{label:"In Progress",variant:"warning"},{label:"Blocked",variant:"error"},{label:"Review",variant:"info"},{label:"Draft",variant:"default"}].forEach(({label:i,variant:a})=>{const r=c({label:i,variant:a,size:"md",closeable:!1,standalone:!0});n.appendChild(r)}),e.appendChild(n),o(),e}},E={render:()=>{const e=document.createElement("div");e.style.padding="2rem",e.style.display="flex",e.style.flexDirection="column",e.style.gap="1rem";const n=document.createElement("p");n.textContent="Active Filters (3)",n.style.fontSize="0.875rem",n.style.fontWeight="600",n.style.margin="0",e.appendChild(n);const t=document.createElement("div");t.className="aural-chips-list",t.setAttribute("role","list"),[{label:"Status: Active",variant:"primary"},{label:"Category: Design",variant:"success"},{label:"Priority: High",variant:"info"}].forEach(({label:r,variant:s})=>{const I=c({label:r,variant:s,size:"md",closeable:!0,standalone:!0});t.appendChild(I)}),e.appendChild(t);const a=document.createElement("button");return a.className="btn btn-ghost btn-sm",a.textContent="Clear All Filters",a.style.alignSelf="flex-start",a.onclick=()=>{for(;t.firstChild;)t.removeChild(t.firstChild)},e.appendChild(a),o(),e}},S={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");n.className="aural-chips";const t=document.createElement("div");t.className="aural-chips__container",["HTML","CSS","JavaScript"].forEach(r=>{const s=c({label:r,variant:"default",size:"md",closeable:!0,standalone:!1});s.classList.remove("aural-chip--standalone"),t.appendChild(s)});const a=document.createElement("input");return a.type="text",a.className="aural-chips__input",a.placeholder="Add skill...",a.setAttribute("aria-label","Add new chip"),a.addEventListener("keypress",r=>{if(r.key==="Enter"&&a.value.trim()){r.preventDefault();const s=c({label:a.value.trim(),variant:"default",size:"md",closeable:!0,standalone:!1});s.classList.remove("aural-chip--standalone"),t.insertBefore(s,a),a.value="",o()}}),t.appendChild(a),n.appendChild(t),e.appendChild(n),o(),e}},A={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.setAttribute("role","list"),[{label:"All",variant:"primary",active:!0},{label:"Design",variant:"default",active:!1},{label:"Development",variant:"default",active:!1},{label:"Marketing",variant:"default",active:!1}].forEach(({label:i,variant:a,active:r})=>{const s=c({label:i,variant:a,size:"md",closeable:!1,standalone:!0});s.style.cursor="pointer",s.onclick=()=>{n.querySelectorAll(".aural-chip").forEach(I=>{I.classList.remove("aural-chip--primary")}),s.classList.add("aural-chip--primary")},n.appendChild(s)}),e.appendChild(n),o(),e}},w={render:e=>_e(()=>{const n=document.createElement("div");n.className="aural-chips-list",n.setAttribute("role","list");const t=c({label:e.label,variant:e.variant,size:e.size,closeable:e.closeable,icon:e.icon,standalone:!0});return n.appendChild(t),setTimeout(()=>{typeof window.lucide<"u"&&window.lucide.createIcons()},100),n}),args:{label:"Chip",variant:"primary",size:"md",closeable:!0,icon:""},argTypes:{label:{control:"text",description:"Chip text content"},variant:{control:"select",options:["default","primary","success","warning","error","info"],description:"Chip color variant"},size:{control:"select",options:["sm","md","lg"],description:"Chip size"},closeable:{control:"boolean",description:"Show remove button"},icon:{control:"text",description:'Lucide icon name (e.g., "star", "tag", "x")'}}};var _,x,D;l.parameters={...l.parameters,docs:{...(_=l.parameters)==null?void 0:_.docs,source:{originalSource:`{
+        `.trim()}}},argTypes:{label:{control:"text",description:"Chip text content"},variant:{control:"select",options:["default","primary","success","warning","error","info"],description:"Chip color variant"},size:{control:"select",options:["sm","md","lg","xl"],description:"Chip size"},closeable:{control:"boolean",description:"Show remove button"},icon:{control:"text",description:'Lucide icon name (e.g., "star", "tag", "x")'},standalone:{control:"boolean",description:"Use standalone styling (outside of chip input)"}}};function c(e){const n=document.createElement("div"),t=["aural-chip"];if(e.variant&&e.variant!=="default"&&t.push(`aural-chip--${e.variant}`),e.size&&e.size!=="md"&&t.push(`aural-chip--${e.size}`),e.standalone&&t.push("aural-chip--standalone"),n.className=t.join(" "),n.setAttribute("role","listitem"),e.icon){const a=document.createElement("i");a.setAttribute("data-lucide",e.icon),a.setAttribute("aria-hidden","true"),n.appendChild(a)}const i=document.createElement("span");if(i.className="aural-chip__text",i.textContent=e.label,n.appendChild(i),e.closeable){const a=document.createElement("button");a.className="aural-chip__remove",a.setAttribute("aria-label",`Remove ${e.label}`),a.setAttribute("type","button"),a.onclick=()=>{n.remove()},n.appendChild(a)}return n}function o(e){setTimeout(()=>{typeof window.lucide<"u"&&window.lucide.createIcons()},0)}const l={render:e=>{const n=document.createElement("div");n.style.padding="2rem";const t=document.createElement("div");t.className="aural-chips-list",t.setAttribute("role","list");const i=c(e);return t.appendChild(i),n.appendChild(t),o(),n},args:{label:"Design",variant:"default",size:"md",closeable:!1,icon:"",standalone:!0}},p={...l,args:{label:"Primary",variant:"primary",size:"md",closeable:!1,standalone:!0}},d={...l,args:{label:"Completed",variant:"success",size:"md",closeable:!1,standalone:!0}},u={...l,args:{label:"In Progress",variant:"warning",size:"md",closeable:!1,standalone:!0}},m={...l,args:{label:"Blocked",variant:"error",size:"md",closeable:!1,standalone:!0}},h={...l,args:{label:"Review",variant:"info",size:"md",closeable:!1,standalone:!0}},v={...l,args:{label:"Featured",variant:"primary",size:"md",closeable:!1,icon:"star",standalone:!0}},b={...l,args:{label:"Removable",variant:"default",size:"md",closeable:!0,standalone:!0}},f={...l,args:{label:"Small",variant:"primary",size:"sm",closeable:!0,standalone:!0}},g={...l,args:{label:"Large",variant:"primary",size:"lg",closeable:!0,standalone:!0}},C={...l,args:{label:"Extra Large",variant:"primary",size:"xl",closeable:!0,standalone:!0}},y={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.setAttribute("role","list"),[{variant:"default",label:"Default"},{variant:"primary",label:"Primary"},{variant:"success",label:"Success"},{variant:"warning",label:"Warning"},{variant:"error",label:"Error"},{variant:"info",label:"Info"}].forEach(({variant:i,label:a})=>{const r=c({label:a,variant:i,size:"md",closeable:!0,standalone:!0});n.appendChild(r)}),e.appendChild(n),o(),e}},L={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.style.alignItems="center",n.setAttribute("role","list"),[{size:"sm",label:"Small"},{size:"md",label:"Medium"},{size:"lg",label:"Large"},{size:"xl",label:"Extra Large"}].forEach(({size:i,label:a})=>{const r=c({label:a,variant:"primary",size:i,closeable:!0,standalone:!0});n.appendChild(r)}),e.appendChild(n),o(),e}},z={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.setAttribute("role","list"),[{label:"JavaScript",icon:"zap",variant:"primary"},{label:"TypeScript",icon:"code",variant:"info"},{label:"React",icon:"atom",variant:"success"},{label:"Vue",icon:"triangle",variant:"success"}].forEach(({label:i,icon:a,variant:r})=>{const s=c({label:i,icon:a,variant:r,size:"md",closeable:!0,standalone:!0});n.appendChild(s)}),e.appendChild(n),o(),e}},E={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.setAttribute("role","list"),[{label:"Completed",variant:"success"},{label:"In Progress",variant:"warning"},{label:"Blocked",variant:"error"},{label:"Review",variant:"info"},{label:"Draft",variant:"default"}].forEach(({label:i,variant:a})=>{const r=c({label:i,variant:a,size:"md",closeable:!1,standalone:!0});n.appendChild(r)}),e.appendChild(n),o(),e}},S={render:()=>{const e=document.createElement("div");e.style.padding="2rem",e.style.display="flex",e.style.flexDirection="column",e.style.gap="1rem";const n=document.createElement("p");n.textContent="Active Filters (3)",n.style.fontSize="0.875rem",n.style.fontWeight="600",n.style.margin="0",e.appendChild(n);const t=document.createElement("div");t.className="aural-chips-list",t.setAttribute("role","list"),[{label:"Status: Active",variant:"primary"},{label:"Category: Design",variant:"success"},{label:"Priority: High",variant:"info"}].forEach(({label:r,variant:s})=>{const I=c({label:r,variant:s,size:"md",closeable:!0,standalone:!0});t.appendChild(I)}),e.appendChild(t);const a=document.createElement("button");return a.className="btn btn-ghost btn-sm",a.textContent="Clear All Filters",a.style.alignSelf="flex-start",a.onclick=()=>{for(;t.firstChild;)t.removeChild(t.firstChild)},e.appendChild(a),o(),e}},x={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");n.className="aural-chips";const t=document.createElement("div");t.className="aural-chips__container",["HTML","CSS","JavaScript"].forEach(r=>{const s=c({label:r,variant:"default",size:"md",closeable:!0,standalone:!1});s.classList.remove("aural-chip--standalone"),t.appendChild(s)});const a=document.createElement("input");return a.type="text",a.className="aural-chips__input",a.placeholder="Add skill...",a.setAttribute("aria-label","Add new chip"),a.addEventListener("keypress",r=>{if(r.key==="Enter"&&a.value.trim()){r.preventDefault();const s=c({label:a.value.trim(),variant:"default",size:"md",closeable:!0,standalone:!1});s.classList.remove("aural-chip--standalone"),t.insertBefore(s,a),a.value="",o()}}),t.appendChild(a),n.appendChild(t),e.appendChild(n),o(),e}},A={render:()=>{const e=document.createElement("div");e.style.padding="2rem";const n=document.createElement("div");return n.className="aural-chips-list",n.setAttribute("role","list"),[{label:"All",variant:"primary",active:!0},{label:"Design",variant:"default",active:!1},{label:"Development",variant:"default",active:!1},{label:"Marketing",variant:"default",active:!1}].forEach(({label:i,variant:a,active:r})=>{const s=c({label:i,variant:a,size:"md",closeable:!1,standalone:!0});s.style.cursor="pointer",s.onclick=()=>{n.querySelectorAll(".aural-chip").forEach(I=>{I.classList.remove("aural-chip--primary")}),s.classList.add("aural-chip--primary")},n.appendChild(s)}),e.appendChild(n),o(),e}},w={render:e=>ke(()=>{const n=document.createElement("div");n.className="aural-chips-list",n.setAttribute("role","list");const t=c({label:e.label,variant:e.variant,size:e.size,closeable:e.closeable,icon:e.icon,standalone:!0});return n.appendChild(t),setTimeout(()=>{typeof window.lucide<"u"&&window.lucide.createIcons()},100),n}),args:{label:"Chip",variant:"primary",size:"md",closeable:!0,icon:""},argTypes:{label:{control:"text",description:"Chip text content"},variant:{control:"select",options:["default","primary","success","warning","error","info"],description:"Chip color variant"},size:{control:"select",options:["sm","md","lg","xl"],description:"Chip size"},closeable:{control:"boolean",description:"Show remove button"},icon:{control:"text",description:'Lucide icon name (e.g., "star", "tag", "x")'}}};var _,D,N;l.parameters={...l.parameters,docs:{...(_=l.parameters)==null?void 0:_.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -80,7 +80,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     icon: '',
     standalone: true
   }
-}`,...(D=(x=l.parameters)==null?void 0:x.docs)==null?void 0:D.source}}};var N,k,T;p.parameters={...p.parameters,docs:{...(N=p.parameters)==null?void 0:N.docs,source:{originalSource:`{
+}`,...(N=(D=l.parameters)==null?void 0:D.docs)==null?void 0:N.source}}};var k,T,B;p.parameters={...p.parameters,docs:{...(k=p.parameters)==null?void 0:k.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'Primary',
@@ -89,7 +89,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     closeable: false,
     standalone: true
   }
-}`,...(T=(k=p.parameters)==null?void 0:k.docs)==null?void 0:T.source}}};var B,R,F;d.parameters={...d.parameters,docs:{...(B=d.parameters)==null?void 0:B.docs,source:{originalSource:`{
+}`,...(B=(T=p.parameters)==null?void 0:T.docs)==null?void 0:B.source}}};var R,F,P;d.parameters={...d.parameters,docs:{...(R=d.parameters)==null?void 0:R.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'Completed',
@@ -98,7 +98,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     closeable: false,
     standalone: true
   }
-}`,...(F=(R=d.parameters)==null?void 0:R.docs)==null?void 0:F.source}}};var P,W,M;u.parameters={...u.parameters,docs:{...(P=u.parameters)==null?void 0:P.docs,source:{originalSource:`{
+}`,...(P=(F=d.parameters)==null?void 0:F.docs)==null?void 0:P.source}}};var W,M,H;u.parameters={...u.parameters,docs:{...(W=u.parameters)==null?void 0:W.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'In Progress',
@@ -107,7 +107,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     closeable: false,
     standalone: true
   }
-}`,...(M=(W=u.parameters)==null?void 0:W.docs)==null?void 0:M.source}}};var H,J,V;m.parameters={...m.parameters,docs:{...(H=m.parameters)==null?void 0:H.docs,source:{originalSource:`{
+}`,...(H=(M=u.parameters)==null?void 0:M.docs)==null?void 0:H.source}}};var J,V,q;m.parameters={...m.parameters,docs:{...(J=m.parameters)==null?void 0:J.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'Blocked',
@@ -116,7 +116,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     closeable: false,
     standalone: true
   }
-}`,...(V=(J=m.parameters)==null?void 0:J.docs)==null?void 0:V.source}}};var q,G,O;h.parameters={...h.parameters,docs:{...(q=h.parameters)==null?void 0:q.docs,source:{originalSource:`{
+}`,...(q=(V=m.parameters)==null?void 0:V.docs)==null?void 0:q.source}}};var G,O,$;h.parameters={...h.parameters,docs:{...(G=h.parameters)==null?void 0:G.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'Review',
@@ -125,7 +125,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     closeable: false,
     standalone: true
   }
-}`,...(O=(G=h.parameters)==null?void 0:G.docs)==null?void 0:O.source}}};var $,U,j;v.parameters={...v.parameters,docs:{...($=v.parameters)==null?void 0:$.docs,source:{originalSource:`{
+}`,...($=(O=h.parameters)==null?void 0:O.docs)==null?void 0:$.source}}};var U,j,K;v.parameters={...v.parameters,docs:{...(U=v.parameters)==null?void 0:U.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'Featured',
@@ -135,7 +135,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     icon: 'star',
     standalone: true
   }
-}`,...(j=(U=v.parameters)==null?void 0:U.docs)==null?void 0:j.source}}};var K,Q,X;b.parameters={...b.parameters,docs:{...(K=b.parameters)==null?void 0:K.docs,source:{originalSource:`{
+}`,...(K=(j=v.parameters)==null?void 0:j.docs)==null?void 0:K.source}}};var Q,X,Y;b.parameters={...b.parameters,docs:{...(Q=b.parameters)==null?void 0:Q.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'Removable',
@@ -144,7 +144,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     closeable: true,
     standalone: true
   }
-}`,...(X=(Q=b.parameters)==null?void 0:Q.docs)==null?void 0:X.source}}};var Y,Z,ee;f.parameters={...f.parameters,docs:{...(Y=f.parameters)==null?void 0:Y.docs,source:{originalSource:`{
+}`,...(Y=(X=b.parameters)==null?void 0:X.docs)==null?void 0:Y.source}}};var Z,ee,ne;f.parameters={...f.parameters,docs:{...(Z=f.parameters)==null?void 0:Z.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'Small',
@@ -153,7 +153,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     closeable: true,
     standalone: true
   }
-}`,...(ee=(Z=f.parameters)==null?void 0:Z.docs)==null?void 0:ee.source}}};var ne,ae,te;C.parameters={...C.parameters,docs:{...(ne=C.parameters)==null?void 0:ne.docs,source:{originalSource:`{
+}`,...(ne=(ee=f.parameters)==null?void 0:ee.docs)==null?void 0:ne.source}}};var ae,te,ie;g.parameters={...g.parameters,docs:{...(ae=g.parameters)==null?void 0:ae.docs,source:{originalSource:`{
   ...Default,
   args: {
     label: 'Large',
@@ -162,7 +162,16 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     closeable: true,
     standalone: true
   }
-}`,...(te=(ae=C.parameters)==null?void 0:ae.docs)==null?void 0:te.source}}};var ie,re,se;g.parameters={...g.parameters,docs:{...(ie=g.parameters)==null?void 0:ie.docs,source:{originalSource:`{
+}`,...(ie=(te=g.parameters)==null?void 0:te.docs)==null?void 0:ie.source}}};var re,se,le;C.parameters={...C.parameters,docs:{...(re=C.parameters)==null?void 0:re.docs,source:{originalSource:`{
+  ...Default,
+  args: {
+    label: 'Extra Large',
+    variant: 'primary',
+    size: 'xl',
+    closeable: true,
+    standalone: true
+  }
+}`,...(le=(se=C.parameters)==null?void 0:se.docs)==null?void 0:le.source}}};var ce,oe,pe;y.parameters={...y.parameters,docs:{...(ce=y.parameters)==null?void 0:ce.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -205,7 +214,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     initializeLucideIcons(container);
     return container;
   }
-}`,...(se=(re=g.parameters)==null?void 0:re.docs)==null?void 0:se.source}}};var le,ce,oe;y.parameters={...y.parameters,docs:{...(le=y.parameters)==null?void 0:le.docs,source:{originalSource:`{
+}`,...(pe=(oe=y.parameters)==null?void 0:oe.docs)==null?void 0:pe.source}}};var de,ue,me;L.parameters={...L.parameters,docs:{...(de=L.parameters)==null?void 0:de.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -222,6 +231,9 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     }, {
       size: 'lg',
       label: 'Large'
+    }, {
+      size: 'xl',
+      label: 'Extra Large'
     }];
     sizes.forEach(({
       size,
@@ -240,7 +252,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     initializeLucideIcons(container);
     return container;
   }
-}`,...(oe=(ce=y.parameters)==null?void 0:ce.docs)==null?void 0:oe.source}}};var pe,de,ue;L.parameters={...L.parameters,docs:{...(pe=L.parameters)==null?void 0:pe.docs,source:{originalSource:`{
+}`,...(me=(ue=L.parameters)==null?void 0:ue.docs)==null?void 0:me.source}}};var he,ve,be;z.parameters={...z.parameters,docs:{...(he=z.parameters)==null?void 0:he.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -283,7 +295,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     initializeLucideIcons(container);
     return container;
   }
-}`,...(ue=(de=L.parameters)==null?void 0:de.docs)==null?void 0:ue.source}}};var me,he,ve;z.parameters={...z.parameters,docs:{...(me=z.parameters)==null?void 0:me.docs,source:{originalSource:`{
+}`,...(be=(ve=z.parameters)==null?void 0:ve.docs)==null?void 0:be.source}}};var fe,ge,Ce;E.parameters={...E.parameters,docs:{...(fe=E.parameters)==null?void 0:fe.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -323,7 +335,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     initializeLucideIcons(container);
     return container;
   }
-}`,...(ve=(he=z.parameters)==null?void 0:he.docs)==null?void 0:ve.source}}};var be,fe,Ce;E.parameters={...E.parameters,docs:{...(be=E.parameters)==null?void 0:be.docs,source:{originalSource:`{
+}`,...(Ce=(ge=E.parameters)==null?void 0:ge.docs)==null?void 0:Ce.source}}};var ye,Le,ze;S.parameters={...S.parameters,docs:{...(ye=S.parameters)==null?void 0:ye.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -382,7 +394,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     initializeLucideIcons(container);
     return container;
   }
-}`,...(Ce=(fe=E.parameters)==null?void 0:fe.docs)==null?void 0:Ce.source}}};var ge,ye,Le;S.parameters={...S.parameters,docs:{...(ge=S.parameters)==null?void 0:ge.docs,source:{originalSource:`{
+}`,...(ze=(Le=S.parameters)==null?void 0:Le.docs)==null?void 0:ze.source}}};var Ee,Se,xe;x.parameters={...x.parameters,docs:{...(Ee=x.parameters)==null?void 0:Ee.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -433,7 +445,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     initializeLucideIcons(container);
     return container;
   }
-}`,...(Le=(ye=S.parameters)==null?void 0:ye.docs)==null?void 0:Le.source}}};var ze,Ee,Se;A.parameters={...A.parameters,docs:{...(ze=A.parameters)==null?void 0:ze.docs,source:{originalSource:`{
+}`,...(xe=(Se=x.parameters)==null?void 0:Se.docs)==null?void 0:xe.source}}};var Ae,we,Ie;A.parameters={...A.parameters,docs:{...(Ae=A.parameters)==null?void 0:Ae.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -486,7 +498,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     initializeLucideIcons(container);
     return container;
   }
-}`,...(Se=(Ee=A.parameters)==null?void 0:Ee.docs)==null?void 0:Se.source}}};var Ae,we,Ie;w.parameters={...w.parameters,docs:{...(Ae=w.parameters)==null?void 0:Ae.docs,source:{originalSource:`{
+}`,...(Ie=(we=A.parameters)==null?void 0:we.docs)==null?void 0:Ie.source}}};var _e,De,Ne;w.parameters={...w.parameters,docs:{...(_e=w.parameters)==null?void 0:_e.docs,source:{originalSource:`{
   render: args => {
     return createThemeGrid(() => {
       const chipsList = document.createElement('div');
@@ -530,7 +542,7 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Chip size'
     },
     closeable: {
@@ -542,4 +554,4 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
       description: 'Lucide icon name (e.g., "star", "tag", "x")'
     }
   }
-}`,...(Ie=(we=w.parameters)==null?void 0:we.docs)==null?void 0:Ie.source}}};const Ne=["Default","Primary","Success","Warning","Error","Info","WithIcon","Closeable","Small","Large","AllVariants","AllSizes","WithIcons","StatusTags","FilterChips","ChipInput","TagFilters","ThemeComparison"];export{y as AllSizes,g as AllVariants,S as ChipInput,b as Closeable,l as Default,m as Error,E as FilterChips,h as Info,C as Large,p as Primary,f as Small,z as StatusTags,d as Success,A as TagFilters,w as ThemeComparison,u as Warning,v as WithIcon,L as WithIcons,Ne as __namedExportsOrder,De as default};
+}`,...(Ne=(De=w.parameters)==null?void 0:De.docs)==null?void 0:Ne.source}}};const Re=["Default","Primary","Success","Warning","Error","Info","WithIcon","Closeable","Small","Large","ExtraLarge","AllVariants","AllSizes","WithIcons","StatusTags","FilterChips","ChipInput","TagFilters","ThemeComparison"];export{L as AllSizes,y as AllVariants,x as ChipInput,b as Closeable,l as Default,m as Error,C as ExtraLarge,S as FilterChips,h as Info,g as Large,p as Primary,f as Small,E as StatusTags,d as Success,A as TagFilters,w as ThemeComparison,u as Warning,v as WithIcon,z as WithIcons,Re as __namedExportsOrder,Be as default};

@@ -1,4 +1,4 @@
-const q={title:"Components/Card",tags:["autodocs"],parameters:{docs:{description:{component:`
+const O={title:"Components/Card",tags:["autodocs"],parameters:{docs:{description:{component:`
 # Card Component
 
 Flexible, composable content containers for organizing and displaying related information. Cards group related content and actions into a single container with consistent styling and spacing.
@@ -321,6 +321,10 @@ Cards work best in responsive grids:
 - **card-bordered**: Add colored left border accent
 - **card-active**: Highlight selected/active state
 - **Color variants**: card-primary, card-success, card-warning, card-error (for bordered accent)
+
+## Theme Variants
+
+The docs site's theme switcher applies a decorative reskin on top of \`.card\` for the Kinetic theme (\`.card-kinetic\` and its variants, \`kinetic-cards.css\`) — demo-site-only CSS, not a separate component and not part of the published npm package. A second reskin, Neon-Refined (\`.card-prismatic\`, \`cards-refined.css\`), exists in the repo but currently isn't reachable from the live theme switcher.
         `.trim()}}},argTypes:{hover:{control:"boolean",description:"Enable hover effect with lift animation and shadow. Use for clickable/interactive cards. Automatically includes focus states for keyboard navigation."}}},i={render:()=>{const e=document.createElement("div");e.style.padding="2rem",e.style.maxWidth="400px";const t=document.createElement("div");return t.className="card",t.innerHTML=`
       <div class="card-body">
         <h3 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">Simple Card</h3>
@@ -423,33 +427,33 @@ Cards work best in responsive grids:
           </div>
         </div>
       </div>
-    `,e.appendChild(t),e}},p={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.display="grid",e.style.gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))",e.style.gap="var(--space-6)",[{title:"Total Revenue",value:"$45,231",change:"+12%",trend:"up",icon:'<line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>'},{title:"New Users",value:"1,429",change:"+8%",trend:"up",icon:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>'},{title:"Conversion Rate",value:"3.24%",change:"-2%",trend:"down",icon:'<circle cx="12" cy="12" r="10"></circle><polyline points="16 12 12 8 8 12"></polyline><line x1="12" y1="16" x2="12" y2="8"></line>'}].forEach(({title:v,value:g,change:y,trend:r,icon:h})=>{const a=document.createElement("div");a.className="card";const G=r==="up"?"badge-success":"badge-error",O=r==="up"?"var(--color-success)":"var(--color-error)";a.innerHTML=`
+    `,e.appendChild(t),e}},p={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.display="grid",e.style.gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))",e.style.gap="var(--space-6)",[{title:"Total Revenue",value:"$45,231",change:"+12%",trend:"up",icon:'<line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>'},{title:"New Users",value:"1,429",change:"+8%",trend:"up",icon:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>'},{title:"Conversion Rate",value:"3.24%",change:"-2%",trend:"down",icon:'<circle cx="12" cy="12" r="10"></circle><polyline points="16 12 12 8 8 12"></polyline><line x1="12" y1="16" x2="12" y2="8"></line>'}].forEach(({title:v,value:g,change:h,trend:r,icon:y})=>{const a=document.createElement("div");a.className="card";const G=r==="up"?"badge-success":"badge-error",K=r==="up"?"var(--color-success)":"var(--color-error)";a.innerHTML=`
         <div class="card-body">
           <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
             <h4 style="margin: 0; color: var(--color-text-primary);">${v}</h4>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${O}" stroke-width="2">
-              ${h}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${K}" stroke-width="2">
+              ${y}
             </svg>
           </div>
           <div style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--color-text-primary); margin-bottom: var(--space-2);">${g}</div>
           <div style="display: flex; align-items: center; gap: var(--space-2);">
             <span class="badge ${G} badge-sm">
-              ${y}
+              ${h}
             </span>
             <span style="font-size: var(--text-sm); color: var(--color-text-tertiary);">vs last month</span>
           </div>
         </div>
-      `,e.appendChild(a)}),e}},m={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.display="grid",e.style.gridTemplateColumns="repeat(auto-fit, minmax(200px, 1fr))",e.style.gap="var(--space-6)",[{title:"Fast Performance",description:"Lightning-fast load times",color:"var(--color-primary)",bgColor:"var(--color-primary-subtle)",icon:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>'},{title:"Secure by Default",description:"Built-in security features",color:"var(--color-success)",bgColor:"var(--color-success-subtle)",icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>'},{title:"Mobile Friendly",description:"Responsive everywhere",color:"var(--color-secondary)",bgColor:"var(--color-secondary-subtle)",icon:'<rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>'}].forEach(({title:v,description:g,color:y,bgColor:r,icon:h})=>{const a=document.createElement("div");a.className="card",a.innerHTML=`
+      `,e.appendChild(a)}),e}},m={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.display="grid",e.style.gridTemplateColumns="repeat(auto-fit, minmax(200px, 1fr))",e.style.gap="var(--space-6)",[{title:"Fast Performance",description:"Lightning-fast load times",color:"var(--color-primary)",bgColor:"var(--color-primary-subtle)",icon:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>'},{title:"Secure by Default",description:"Built-in security features",color:"var(--color-success)",bgColor:"var(--color-success-subtle)",icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>'},{title:"Mobile Friendly",description:"Responsive everywhere",color:"var(--color-secondary)",bgColor:"var(--color-secondary-subtle)",icon:'<rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line>'}].forEach(({title:v,description:g,color:h,bgColor:r,icon:y})=>{const a=document.createElement("div");a.className="card",a.innerHTML=`
         <div class="card-body" style="text-align: center;">
-          <div style="width: 48px; height: 48px; margin: 0 auto var(--space-3); background: ${r}; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: ${y};">
+          <div style="width: 48px; height: 48px; margin: 0 auto var(--space-3); background: ${r}; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: ${h};">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              ${h}
+              ${y}
             </svg>
           </div>
           <h4 style="margin: 0 0 var(--space-2) 0; color: var(--color-text-primary);">${v}</h4>
           <p style="margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm);">${g}</p>
         </div>
-      `,e.appendChild(a)}),e}};var u,b,x;i.parameters={...i.parameters,docs:{...(u=i.parameters)==null?void 0:u.docs,source:{originalSource:`{
+      `,e.appendChild(a)}),e}};var u,b,f;i.parameters={...i.parameters,docs:{...(u=i.parameters)==null?void 0:u.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -465,7 +469,7 @@ Cards work best in responsive grids:
     container.appendChild(card);
     return container;
   }
-}`,...(x=(b=i.parameters)==null?void 0:b.docs)==null?void 0:x.source}}};var f,w,C;o.parameters={...o.parameters,docs:{...(f=o.parameters)==null?void 0:f.docs,source:{originalSource:`{
+}`,...(f=(b=i.parameters)==null?void 0:b.docs)==null?void 0:f.source}}};var x,w,C;o.parameters={...o.parameters,docs:{...(x=o.parameters)==null?void 0:x.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -488,7 +492,7 @@ Cards work best in responsive grids:
     container.appendChild(card);
     return container;
   }
-}`,...(C=(w=o.parameters)==null?void 0:w.docs)==null?void 0:C.source}}};var k,M,E;s.parameters={...s.parameters,docs:{...(k=s.parameters)==null?void 0:k.docs,source:{originalSource:`{
+}`,...(C=(w=o.parameters)==null?void 0:w.docs)==null?void 0:C.source}}};var k,M,A;s.parameters={...s.parameters,docs:{...(k=s.parameters)==null?void 0:k.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -516,7 +520,7 @@ Cards work best in responsive grids:
     container.appendChild(card);
     return container;
   }
-}`,...(E=(M=s.parameters)==null?void 0:M.docs)==null?void 0:E.source}}};var A,T,z;n.parameters={...n.parameters,docs:{...(A=n.parameters)==null?void 0:A.docs,source:{originalSource:`{
+}`,...(A=(M=s.parameters)==null?void 0:M.docs)==null?void 0:A.source}}};var E,T,z;n.parameters={...n.parameters,docs:{...(E=n.parameters)==null?void 0:E.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -743,4 +747,4 @@ Cards work best in responsive grids:
     });
     return container;
   }
-}`,...(D=(I=m.parameters)==null?void 0:I.docs)==null?void 0:D.source}}};const K=["BasicCard","WithHeaderAndFooter","StatCard","WithImage","ProductCard","HoverableCard","HorizontalCard","CardGrid","FeatureGrid"];export{i as BasicCard,p as CardGrid,m as FeatureGrid,l as HorizontalCard,d as HoverableCard,c as ProductCard,s as StatCard,o as WithHeaderAndFooter,n as WithImage,K as __namedExportsOrder,q as default};
+}`,...(D=(I=m.parameters)==null?void 0:I.docs)==null?void 0:D.source}}};const q=["BasicCard","WithHeaderAndFooter","StatCard","WithImage","ProductCard","HoverableCard","HorizontalCard","CardGrid","FeatureGrid"];export{i as BasicCard,p as CardGrid,m as FeatureGrid,l as HorizontalCard,d as HoverableCard,c as ProductCard,s as StatCard,o as WithHeaderAndFooter,n as WithImage,q as __namedExportsOrder,O as default};

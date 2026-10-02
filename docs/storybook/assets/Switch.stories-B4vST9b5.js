@@ -446,7 +446,7 @@ const [enabled, setEnabled] = useState(false);
       checked: true
     }, {
       label: 'Show online status',
-      description: 'Display when you\\'re active',
+      description: "Display when you're active",
       checked: false
     }];
     const privacyContainer = document.createElement('div');

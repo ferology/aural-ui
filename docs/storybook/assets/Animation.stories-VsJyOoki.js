@@ -952,20 +952,20 @@ These can be inspected in the Variables panel and referenced in your design spec
       'slowest (1000ms)': 1000
     };
     const easingCurves: Record<string, string> = {
-      'linear': 'linear',
+      linear: 'linear',
       'ease-in': 'cubic-bezier(0.4, 0, 1, 1)',
       'ease-out': 'cubic-bezier(0, 0, 0.2, 1)',
       'ease-in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',
-      'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-      'spring': 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+      bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      spring: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
     };
     const easingTokens: Record<string, string> = {
-      'linear': '--ease-linear',
+      linear: '--ease-linear',
       'ease-in': '--ease-in',
       'ease-out': '--ease-out',
       'ease-in-out': '--ease-in-out',
-      'bounce': '--ease-bounce',
-      'spring': '--ease-spring'
+      bounce: '--ease-bounce',
+      spring: '--ease-spring'
     };
     const durationTokens: Record<string, string> = {
       'instant (0ms)': '--duration-instant',
