@@ -10,7 +10,7 @@ Add this button to the `tabs-list`:
 
 ```html
 <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
-    Svelte
+  Svelte
 </button>
 ```
 
@@ -20,7 +20,7 @@ Add this panel after the Vue panel:
 
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte"><!-- CONTENT HERE --></code></pre>
+  <pre><code class="language-svelte"><!-- CONTENT HERE --></code></pre>
 </div>
 ```
 
@@ -761,6 +761,7 @@ When writing code in HTML `<pre><code>` blocks, remember to encode:
 - `&` becomes `&amp;`
 
 Example:
+
 ```html
 <pre><code class="language-svelte">&lt;script&gt;
   import { Button } from '@aural-ui/svelte';

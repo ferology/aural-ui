@@ -60,13 +60,11 @@ export const Tabs: React.FC<TabsProps> = ({
   onChange,
   defaultActiveTab,
   variant = 'underline',
-  className = ''
+  className = '',
 }) => {
   // Determine if controlled or uncontrolled
   const isControlled = controlledActiveTab !== undefined;
-  const [internalActiveTab, setInternalActiveTab] = useState(
-    defaultActiveTab || tabs[0]?.id || ''
-  );
+  const [internalActiveTab, setInternalActiveTab] = useState(defaultActiveTab || tabs[0]?.id || '');
 
   const activeTab = isControlled ? controlledActiveTab : internalActiveTab;
 
@@ -133,11 +131,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
   return (
     <div className={`tabs ${className}`}>
-      <div
-        className={`tabs-list ${variantClass}`}
-        role="tablist"
-        aria-label="Tabs"
-      >
+      <div className={`tabs-list ${variantClass}`} role="tablist" aria-label="Tabs">
         {tabs.map((tab, index) => (
           <button
             key={tab.id}

@@ -5,6 +5,7 @@ Pre-built error page templates for common HTTP status codes and states.
 ## Available Templates
 
 ### 404 - Page Not Found
+
 - **File:** `404.html`
 - **Use case:** When a requested page doesn't exist
 - **Features:**
@@ -13,6 +14,7 @@ Pre-built error page templates for common HTTP status codes and states.
   - Theme-aware styling
 
 ### 500 - Internal Server Error
+
 - **File:** `500.html`
 - **Use case:** Server-side errors
 - **Features:**
@@ -21,6 +23,7 @@ Pre-built error page templates for common HTTP status codes and states.
   - Error gradient styling
 
 ### 403 - Access Forbidden
+
 - **File:** `403.html`
 - **Use case:** Permission denied scenarios
 - **Features:**
@@ -29,6 +32,7 @@ Pre-built error page templates for common HTTP status codes and states.
   - Navigation options
 
 ### Maintenance Mode
+
 - **File:** `maintenance.html`
 - **Use case:** Scheduled maintenance or updates
 - **Features:**
@@ -37,6 +41,7 @@ Pre-built error page templates for common HTTP status codes and states.
   - Friendly messaging
 
 ### Coming Soon
+
 - **File:** `coming-soon.html`
 - **Use case:** Pre-launch pages, unreleased features
 - **Features:**
@@ -59,6 +64,7 @@ Pre-built error page templates for common HTTP status codes and states.
 ### Server Configuration
 
 #### Apache (.htaccess)
+
 ```apache
 ErrorDocument 404 /error-pages/404.html
 ErrorDocument 403 /error-pages/403.html
@@ -66,6 +72,7 @@ ErrorDocument 500 /error-pages/500.html
 ```
 
 #### Nginx
+
 ```nginx
 error_page 404 /error-pages/404.html;
 error_page 403 /error-pages/403.html;
@@ -77,6 +84,7 @@ location = /error-pages/404.html {
 ```
 
 #### Node.js/Express
+
 ```javascript
 app.use((req, res) => {
   res.status(404).sendFile(__dirname + '/error-pages/404.html');
@@ -99,6 +107,7 @@ All error pages support theme customization through the Aural UI theme system:
 ### Modifying Content
 
 Each page can be customized by editing:
+
 - **Title** - `.error-title` class
 - **Description** - `.error-description` class
 - **Icon** - Lucide icon (`data-lucide` attribute)
@@ -109,9 +118,7 @@ Each page can be customized by editing:
 ```html
 <!-- 404.html -->
 <h2 class="error-title">Oops! Lost in Space</h2>
-<p class="error-description">
-  This page took a wrong turn at the asteroid belt.
-</p>
+<p class="error-description">This page took a wrong turn at the asteroid belt.</p>
 ```
 
 ## Features
@@ -126,6 +133,7 @@ Each page can be customized by editing:
 ## Preview
 
 View all error pages live:
+
 - [404 Example](./404.html)
 - [500 Example](./500.html)
 - [403 Example](./403.html)
@@ -157,6 +165,7 @@ View all error pages live:
 ## Integration with Aural UI
 
 Error pages use the complete Aural UI design system:
+
 - CSS variables for theming
 - Component classes (btn, input, etc.)
 - Responsive utilities

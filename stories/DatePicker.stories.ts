@@ -7,41 +7,42 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'A comprehensive calendar-based date selection component with month/year navigation, keyboard support, date restrictions, and customizable formats. Perfect for booking systems, forms, scheduling applications, and any interface requiring date input.'
-      }
-    }
+        component:
+          'A comprehensive calendar-based date selection component with month/year navigation, keyboard support, date restrictions, and customizable formats. Perfect for booking systems, forms, scheduling applications, and any interface requiring date input.',
+      },
+    },
   },
   argTypes: {
     id: {
       control: 'text',
-      description: 'Unique identifier for the date picker'
+      description: 'Unique identifier for the date picker',
     },
     placeholder: {
       control: 'text',
-      description: 'Placeholder text for the input'
+      description: 'Placeholder text for the input',
     },
     defaultDate: {
       control: 'date',
-      description: 'Default selected date'
+      description: 'Default selected date',
     },
     minDate: {
       control: 'date',
-      description: 'Minimum selectable date'
+      description: 'Minimum selectable date',
     },
     maxDate: {
       control: 'date',
-      description: 'Maximum selectable date'
+      description: 'Maximum selectable date',
     },
     format: {
       control: 'select',
       options: ['MM/DD/YYYY', 'DD/MM/YYYY', 'YYYY-MM-DD', 'MMMM DD, YYYY'],
-      description: 'Date format'
+      description: 'Date format',
     },
     disableWeekends: {
       control: 'boolean',
-      description: 'Disable weekend selection'
-    }
-  }
+      description: 'Disable weekend selection',
+    },
+  },
 };
 
 export default meta;
@@ -68,9 +69,13 @@ const createDatePicker = (args: any) => {
   datePicker.id = args.id || 'date-picker-default';
   datePicker.className = 'aural-date-picker';
 
-  const inputValue = args.defaultDate ?
-    new Date(args.defaultDate).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }) :
-    '';
+  const inputValue = args.defaultDate
+    ? new Date(args.defaultDate).toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+      })
+    : '';
 
   datePicker.innerHTML = `
     <div class="aural-date-picker__input-wrapper">
@@ -115,7 +120,7 @@ const createDatePicker = (args: any) => {
     if (typeof window.Aural !== 'undefined' && window.Aural.initDatePicker) {
       const options: any = {
         format: args.format || 'MM/DD/YYYY',
-        onChange: (date: Date) => console.log('Selected date:', date)
+        onChange: (date: Date) => console.log('Selected date:', date),
       };
 
       if (args.defaultDate) {
@@ -142,8 +147,8 @@ export const Default: Story = {
   render: createDatePicker,
   args: {
     id: 'date-picker-default',
-    placeholder: 'Select date...'
-  }
+    placeholder: 'Select date...',
+  },
 };
 
 export const WithPreselectedDate: Story = {
@@ -151,8 +156,8 @@ export const WithPreselectedDate: Story = {
   args: {
     id: 'date-picker-preselected',
     placeholder: 'Select date...',
-    defaultDate: new Date(2026, 0, 26) // January 26, 2026
-  }
+    defaultDate: new Date(2026, 0, 26), // January 26, 2026
+  },
 };
 
 export const WithDateRestrictions: Story = {
@@ -161,8 +166,8 @@ export const WithDateRestrictions: Story = {
     id: 'date-picker-restricted',
     placeholder: 'Select date (Jan 15 - Feb 15, 2026)...',
     minDate: new Date(2026, 0, 15), // January 15, 2026
-    maxDate: new Date(2026, 1, 15)  // February 15, 2026
-  }
+    maxDate: new Date(2026, 1, 15), // February 15, 2026
+  },
 };
 
 export const WithDisabledWeekends: Story = {
@@ -170,8 +175,8 @@ export const WithDisabledWeekends: Story = {
   args: {
     id: 'date-picker-no-weekends',
     placeholder: 'Select weekday...',
-    disableWeekends: true
-  }
+    disableWeekends: true,
+  },
 };
 
 export const ISOFormat: Story = {
@@ -180,8 +185,8 @@ export const ISOFormat: Story = {
     id: 'date-picker-iso',
     placeholder: 'YYYY-MM-DD',
     format: 'YYYY-MM-DD',
-    defaultDate: new Date(2026, 0, 26)
-  }
+    defaultDate: new Date(2026, 0, 26),
+  },
 };
 
 export const EuropeanFormat: Story = {
@@ -190,8 +195,8 @@ export const EuropeanFormat: Story = {
     id: 'date-picker-eu',
     placeholder: 'DD/MM/YYYY',
     format: 'DD/MM/YYYY',
-    defaultDate: new Date(2026, 0, 26)
-  }
+    defaultDate: new Date(2026, 0, 26),
+  },
 };
 
 export const LongFormat: Story = {
@@ -200,8 +205,8 @@ export const LongFormat: Story = {
     id: 'date-picker-long',
     placeholder: 'Month DD, YYYY',
     format: 'MMMM DD, YYYY',
-    defaultDate: new Date(2026, 0, 26)
-  }
+    defaultDate: new Date(2026, 0, 26),
+  },
 };
 
 export const DateRangePicker: Story = {
@@ -259,7 +264,7 @@ export const DateRangePicker: Story = {
         window.Aural.initDateRangePicker(datePicker.id, {
           format: 'MM/DD/YYYY',
           separator: ' - ',
-          onChange: (range: any) => console.log('Selected range:', range)
+          onChange: (range: any) => console.log('Selected range:', range),
         });
       }
     }, 100);
@@ -267,8 +272,8 @@ export const DateRangePicker: Story = {
     return container;
   },
   args: {
-    id: 'date-range-picker'
-  }
+    id: 'date-range-picker',
+  },
 };
 
 export const BookingPattern: Story = {
@@ -406,7 +411,7 @@ export const BookingPattern: Story = {
               checkoutPickerInstance.setMinDate(nextDay);
             }
             console.log('Check-in selected:', date);
-          }
+          },
         });
 
         const checkoutPickerInstance = window.Aural.initDatePicker('date-picker-checkout', {
@@ -418,11 +423,11 @@ export const BookingPattern: Story = {
               const duration = Math.ceil((date.getTime() - checkinDate.getTime()) / 86400000);
               console.log('Booking duration:', duration, 'days');
             }
-          }
+          },
         });
       }
     }, 100);
 
     return container;
-  }
+  },
 };

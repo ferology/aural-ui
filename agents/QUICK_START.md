@@ -7,6 +7,7 @@ Get started with the Aural UI agent system in 5 minutes! 🚀
 ## 1️⃣ Install Ollama
 
 **macOS/Linux:**
+
 ```bash
 curl -fsSL https://ollama.ai/install.sh | sh
 ```
@@ -29,11 +30,13 @@ Leave this terminal running.
 ## 3️⃣ Pull a Model (in new terminal)
 
 **Recommended starter model (fast & good quality):**
+
 ```bash
 ollama pull llama3.2
 ```
 
 **Alternative models:**
+
 ```bash
 # Smaller/faster (1GB)
 ollama pull llama3.2:1b
@@ -63,6 +66,7 @@ npm run dev
 ```
 
 You should see:
+
 ```
 ╔═══════════════════════════════════════╗
 ║   Aural UI - Enterprise Agent Team   ║
@@ -76,21 +80,27 @@ You should see:
 ## 🎯 Available Workflows
 
 ### Review Design System
+
 ```bash
 npm run review-system
 ```
+
 Comprehensive review of components and demo pages for quality and accessibility.
 
 ### Create New Component
+
 ```bash
 npm run new-component
 ```
+
 Interactive workflow to generate a new component with AI assistance.
 
 ### Audit Accessibility
+
 ```bash
 npm run audit-accessibility
 ```
+
 WCAG 2.1 AA compliance audit for existing components.
 
 ---
@@ -120,6 +130,7 @@ DEFAULT_MAX_TOKENS=4096
 ### "Cannot connect to Ollama"
 
 1. Check Ollama is running:
+
    ```bash
    ollama list
    ```
@@ -132,6 +143,7 @@ DEFAULT_MAX_TOKENS=4096
 ### "Model not found"
 
 Pull the model first:
+
 ```bash
 ollama pull llama3.2
 ```
@@ -139,11 +151,13 @@ ollama pull llama3.2
 ### Slow Performance
 
 Use a smaller model:
+
 ```bash
 ollama pull llama3.2:1b
 ```
 
 Update `.env`:
+
 ```bash
 OLLAMA_MODEL=llama3.2:1b
 ```
@@ -152,13 +166,13 @@ OLLAMA_MODEL=llama3.2:1b
 
 ## 📊 Model Comparison
 
-| Model | Size | Speed | Quality | Best For |
-|-------|------|-------|---------|----------|
-| llama3.2:1b | 1GB | ⚡⚡⚡ | ⭐⭐ | Testing |
-| llama3.2 | 2GB | ⚡⚡ | ⭐⭐⭐ | General use |
-| llama3.3 | 5GB | ⚡ | ⭐⭐⭐⭐ | Quality |
-| qwen2.5-coder | 4GB | ⚡⚡ | ⭐⭐⭐⭐ | Code generation |
-| mixtral | 26GB | 🐌 | ⭐⭐⭐⭐⭐ | Highest quality |
+| Model         | Size | Speed  | Quality    | Best For        |
+| ------------- | ---- | ------ | ---------- | --------------- |
+| llama3.2:1b   | 1GB  | ⚡⚡⚡ | ⭐⭐       | Testing         |
+| llama3.2      | 2GB  | ⚡⚡   | ⭐⭐⭐     | General use     |
+| llama3.3      | 5GB  | ⚡     | ⭐⭐⭐⭐   | Quality         |
+| qwen2.5-coder | 4GB  | ⚡⚡   | ⭐⭐⭐⭐   | Code generation |
+| mixtral       | 26GB | 🐌     | ⭐⭐⭐⭐⭐ | Highest quality |
 
 ---
 
@@ -183,6 +197,7 @@ ollama ps
 ## 📚 Full Documentation
 
 For detailed setup, troubleshooting, and advanced configuration:
+
 - **Setup Guide:** `OLLAMA_SETUP_GUIDE.md`
 - **Migration Details:** `MIGRATION_SUMMARY.md`
 

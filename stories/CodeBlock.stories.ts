@@ -48,46 +48,58 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 \`\`\`vue
 <CodeBlock :code="code" language="javascript" :copyable="true" />
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     code: {
       control: 'text',
-      description: 'Code content to display'
+      description: 'Code content to display',
     },
     language: {
       control: 'select',
-      options: ['javascript', 'html', 'css', 'python', 'bash', 'json', 'typescript', 'jsx', 'vue', 'go', 'rust'],
-      description: 'Programming language for syntax context'
+      options: [
+        'javascript',
+        'html',
+        'css',
+        'python',
+        'bash',
+        'json',
+        'typescript',
+        'jsx',
+        'vue',
+        'go',
+        'rust',
+      ],
+      description: 'Programming language for syntax context',
     },
     showLineNumbers: {
       control: 'boolean',
-      description: 'Display line numbers'
+      description: 'Display line numbers',
     },
     highlightLines: {
       control: 'object',
-      description: 'Array of line numbers to highlight'
+      description: 'Array of line numbers to highlight',
     },
     fileName: {
       control: 'text',
-      description: 'Optional filename to display'
+      description: 'Optional filename to display',
     },
     copyable: {
       control: 'boolean',
-      description: 'Show copy button'
+      description: 'Show copy button',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Code block size'
+      description: 'Code block size',
     },
     terminal: {
       control: 'boolean',
-      description: 'Terminal style variant'
-    }
-  }
+      description: 'Terminal style variant',
+    },
+  },
 };
 
 export default meta;
@@ -169,8 +181,8 @@ console.log(greet('World'));`,
     showLineNumbers: false,
     copyable: true,
     size: 'md',
-    terminal: false
-  }
+    terminal: false,
+  },
 };
 
 export const HTML: Story = {
@@ -189,8 +201,8 @@ export const HTML: Story = {
 </html>`,
     language: 'html',
     copyable: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const CSS: Story = {
@@ -210,8 +222,8 @@ export const CSS: Story = {
     language: 'css',
     fileName: 'button.css',
     copyable: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Bash: Story = {
@@ -230,8 +242,8 @@ $ npm run dev
     language: 'bash',
     copyable: true,
     terminal: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const JSON: Story = {
@@ -252,8 +264,8 @@ export const JSON: Story = {
     language: 'json',
     fileName: 'package.json',
     copyable: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Python: Story = {
@@ -270,8 +282,8 @@ for i in range(10):
     language: 'python',
     fileName: 'fibonacci.py',
     copyable: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const WithLineNumbers: Story = {
@@ -289,8 +301,8 @@ function updateUser(updates) {
     language: 'javascript',
     showLineNumbers: true,
     copyable: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const WithHighlightedLines: Story = {
@@ -344,7 +356,7 @@ export const WithHighlightedLines: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithFileName: Story = {
@@ -364,8 +376,8 @@ export default function App() {
     fileName: 'App.jsx',
     copyable: true,
     showLineNumbers: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const WithCopyButton: Story = {
@@ -375,8 +387,8 @@ export const WithCopyButton: Story = {
     language: 'bash',
     copyable: true,
     terminal: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const WithoutHeader: Story = {
@@ -410,8 +422,8 @@ export const WithoutHeader: Story = {
   },
   args: {
     code: `npm install aural-ui
-npm run dev`
-  }
+npm run dev`,
+  },
 };
 
 export const InlineCode: Story = {
@@ -428,7 +440,7 @@ Variables can be declared with <code class="aural-code-inline">const</code>,
 
     container.appendChild(paragraph);
     return container;
-  }
+  },
 };
 
 export const MultiLanguageDemo: Story = {
@@ -437,7 +449,8 @@ export const MultiLanguageDemo: Story = {
     container.style.cssText = 'display: flex; flex-direction: column; gap: 1.5rem; padding: 2rem;';
 
     const title = document.createElement('p');
-    title.style.cssText = 'color: var(--color-text-secondary); margin: 0 0 1rem 0; font-weight: 600;';
+    title.style.cssText =
+      'color: var(--color-text-secondary); margin: 0 0 1rem 0; font-weight: 600;';
     title.textContent = 'The same function in different languages:';
     container.appendChild(title);
 
@@ -445,7 +458,7 @@ export const MultiLanguageDemo: Story = {
       { lang: 'JavaScript', code: 'function sum(a, b) {\n  return a + b;\n}' },
       { lang: 'Python', code: 'def sum(a, b):\n    return a + b' },
       { lang: 'Go', code: 'func sum(a, b int) int {\n    return a + b\n}' },
-      { lang: 'Rust', code: 'fn sum(a: i32, b: i32) -> i32 {\n    a + b\n}' }
+      { lang: 'Rust', code: 'fn sum(a: i32, b: i32) -> i32 {\n    a + b\n}' },
     ];
 
     languages.forEach(({ lang, code }) => {
@@ -486,7 +499,7 @@ export const MultiLanguageDemo: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const SizeVariants: Story = {
@@ -497,14 +510,15 @@ export const SizeVariants: Story = {
     const sizes = [
       { size: 'sm', label: 'Small' },
       { size: 'md', label: 'Medium (Default)' },
-      { size: 'lg', label: 'Large' }
+      { size: 'lg', label: 'Large' },
     ];
 
     sizes.forEach(({ size, label }) => {
       const wrapper = document.createElement('div');
 
       const labelEl = document.createElement('p');
-      labelEl.style.cssText = 'color: var(--color-text-secondary); font-size: 0.875rem; margin: 0 0 0.5rem 0; font-weight: 600;';
+      labelEl.style.cssText =
+        'color: var(--color-text-secondary); font-size: 0.875rem; margin: 0 0 0.5rem 0; font-weight: 600;';
       labelEl.textContent = label;
       wrapper.appendChild(labelEl);
 
@@ -535,7 +549,7 @@ export const SizeVariants: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const APIDocumentation: Story = {
@@ -554,7 +568,8 @@ export const APIDocumentation: Story = {
     container.appendChild(description);
 
     const requestLabel = document.createElement('p');
-    requestLabel.style.cssText = 'color: var(--color-text-primary); font-weight: 600; margin: 1.5rem 0 0.5rem 0;';
+    requestLabel.style.cssText =
+      'color: var(--color-text-primary); font-weight: 600; margin: 1.5rem 0 0.5rem 0;';
     requestLabel.textContent = 'Request Body:';
     container.appendChild(requestLabel);
 
@@ -599,7 +614,8 @@ export const APIDocumentation: Story = {
     container.appendChild(requestBlock);
 
     const responseLabel = document.createElement('p');
-    responseLabel.style.cssText = 'color: var(--color-text-primary); font-weight: 600; margin: 1.5rem 0 0.5rem 0;';
+    responseLabel.style.cssText =
+      'color: var(--color-text-primary); font-weight: 600; margin: 1.5rem 0 0.5rem 0;';
     responseLabel.textContent = 'Response:';
     container.appendChild(responseLabel);
 
@@ -653,7 +669,7 @@ export const APIDocumentation: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -712,21 +728,21 @@ export const ThemeComparison: Story = {
   return \`Hello, \${name}!\`;
 }`,
     language: 'JavaScript',
-    copyable: true
+    copyable: true,
   },
   argTypes: {
     code: {
       control: 'text',
-      description: 'Code content to display'
+      description: 'Code content to display',
     },
     language: {
       control: 'select',
       options: ['JavaScript', 'HTML', 'CSS', 'Python', 'Bash', 'JSON'],
-      description: 'Programming language label'
+      description: 'Programming language label',
     },
     copyable: {
       control: 'boolean',
-      description: 'Show copy button'
-    }
-  }
+      description: 'Show copy button',
+    },
+  },
 };

@@ -121,33 +121,33 @@ const SearchBar = ({ placeholder = 'Search...', value, onChange }) => (
   </div>
 </div>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     placeholder: {
       control: 'text',
-      description: 'Placeholder text'
+      description: 'Placeholder text',
     },
     value: {
       control: 'text',
-      description: 'Input value'
+      description: 'Input value',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     showClearButton: {
       control: 'boolean',
-      description: 'Show clear button'
+      description: 'Show clear button',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Search bar size'
-    }
-  }
+      description: 'Search bar size',
+    },
+  },
 };
 
 export default meta;
@@ -244,9 +244,12 @@ export const Default: Story = {
 
     const searchBar = document.createElement('div');
     // Apply size class correctly per docs
-    searchBar.className = args.size === 'sm' ? 'aural-search-bar aural-search-bar--sm' :
-                          args.size === 'lg' ? 'aural-search-bar aural-search-bar--lg' :
-                          'aural-search-bar';
+    searchBar.className =
+      args.size === 'sm'
+        ? 'aural-search-bar aural-search-bar--sm'
+        : args.size === 'lg'
+          ? 'aural-search-bar aural-search-bar--lg'
+          : 'aural-search-bar';
 
     const wrapper = document.createElement('div');
     wrapper.className = 'aural-search-bar__wrapper';
@@ -291,8 +294,8 @@ export const Default: Story = {
     value: '',
     disabled: false,
     showClearButton: false,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Small: Story = {
@@ -322,7 +325,7 @@ export const Small: Story = {
     container.appendChild(searchBar);
 
     return container;
-  }
+  },
 };
 
 export const Large: Story = {
@@ -352,7 +355,7 @@ export const Large: Story = {
     container.appendChild(searchBar);
 
     return container;
-  }
+  },
 };
 
 export const WithClearButton: Story = {
@@ -394,7 +397,7 @@ export const WithClearButton: Story = {
     container.appendChild(searchBar);
 
     return container;
-  }
+  },
 };
 
 export const WithVoiceSearch: Story = {
@@ -431,7 +434,7 @@ export const WithVoiceSearch: Story = {
     container.appendChild(searchBar);
 
     return container;
-  }
+  },
 };
 
 export const WithKeyboardShortcut: Story = {
@@ -480,12 +483,14 @@ export const WithKeyboardShortcut: Story = {
     container.appendChild(searchBar);
 
     const hint = document.createElement('p');
-    hint.style.cssText = 'margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-tertiary);';
-    hint.innerHTML = 'Press <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">⌘K</kbd> or <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">Ctrl+K</kbd> to focus';
+    hint.style.cssText =
+      'margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-tertiary);';
+    hint.innerHTML =
+      'Press <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">⌘K</kbd> or <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">Ctrl+K</kbd> to focus';
     container.appendChild(hint);
 
     return container;
-  }
+  },
 };
 
 export const WithSearchSuggestions: Story = {
@@ -539,7 +544,7 @@ export const WithSearchSuggestions: Story = {
     const items = [
       { title: 'Button Component', description: 'Interactive button with variants' },
       { title: 'Button Group', description: 'Group related buttons together' },
-      { title: 'Toggle Button', description: 'Button with on/off state' }
+      { title: 'Toggle Button', description: 'Button with on/off state' },
     ];
 
     items.forEach((item) => {
@@ -560,7 +565,10 @@ export const WithSearchSuggestions: Story = {
 
       const title = document.createElement('div');
       title.style.cssText = 'font-weight: var(--font-medium); color: var(--color-text-primary);';
-      title.innerHTML = item.title.replace(/button/gi, '<span class="suggestion-highlight" style="font-weight: var(--font-semibold); color: var(--color-primary);">$&</span>');
+      title.innerHTML = item.title.replace(
+        /button/gi,
+        '<span class="suggestion-highlight" style="font-weight: var(--font-semibold); color: var(--color-primary);">$&</span>'
+      );
 
       const description = document.createElement('div');
       description.style.cssText = 'font-size: var(--text-sm); color: var(--color-text-tertiary);';
@@ -575,18 +583,27 @@ export const WithSearchSuggestions: Story = {
     container.appendChild(suggestions);
 
     return container;
-  }
+  },
 };
 
 export const AllSizes: Story = {
   render: () => {
     const container = document.createElement('div');
-    container.style.cssText = 'padding: 2rem; display: flex; flex-direction: column; gap: var(--space-6); max-width: 600px;';
+    container.style.cssText =
+      'padding: 2rem; display: flex; flex-direction: column; gap: var(--space-6); max-width: 600px;';
 
     const sizes = [
-      { className: 'aural-search-bar aural-search-bar--sm', placeholder: 'Small search...', label: 'Small' },
+      {
+        className: 'aural-search-bar aural-search-bar--sm',
+        placeholder: 'Small search...',
+        label: 'Small',
+      },
       { className: 'aural-search-bar', placeholder: 'Default search...', label: 'Default' },
-      { className: 'aural-search-bar aural-search-bar--lg', placeholder: 'Large search...', label: 'Large' }
+      {
+        className: 'aural-search-bar aural-search-bar--lg',
+        placeholder: 'Large search...',
+        label: 'Large',
+      },
     ];
 
     sizes.forEach(({ className, placeholder, label }) => {
@@ -594,7 +611,8 @@ export const AllSizes: Story = {
 
       const labelEl = document.createElement('div');
       labelEl.textContent = label;
-      labelEl.style.cssText = 'font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-4);';
+      labelEl.style.cssText =
+        'font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-wide); margin-bottom: var(--space-4);';
       wrapper.appendChild(labelEl);
 
       const searchBar = document.createElement('div');
@@ -621,16 +639,19 @@ export const AllSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
   render: (args) => {
     return createThemeGrid(() => {
       const searchBar = document.createElement('div');
-      searchBar.className = args.size === 'sm' ? 'aural-search-bar aural-search-bar--sm' :
-                            args.size === 'lg' ? 'aural-search-bar aural-search-bar--lg' :
-                            'aural-search-bar';
+      searchBar.className =
+        args.size === 'sm'
+          ? 'aural-search-bar aural-search-bar--sm'
+          : args.size === 'lg'
+            ? 'aural-search-bar aural-search-bar--lg'
+            : 'aural-search-bar';
 
       const wrapper = document.createElement('div');
       wrapper.className = 'aural-search-bar__wrapper';
@@ -668,6 +689,6 @@ export const ThemeComparison: Story = {
     value: '',
     disabled: false,
     showClearButton: false,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };

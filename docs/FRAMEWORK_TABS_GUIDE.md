@@ -7,18 +7,21 @@ The framework tabs have been redesigned with inspiration from IBM's Carbon Desig
 ## Visual Design Features
 
 ### 1. Clean Underline Active Indicator
+
 - **3px solid underline** in the primary theme color
 - Appears below the active tab with a smooth slide-in animation
 - Uses `cubic-bezier(0.2, 0, 0.38, 0.9)` timing function (Carbon standard)
 - Animation duration: 240ms
 
 ### 2. Hover States
+
 - Subtle background color on hover (`rgba(255, 255, 255, 0.05)`)
 - Text color brightens to primary text color
 - Framework icons increase opacity to 100%
 - Smooth 110ms transition
 
 ### 3. Typography & Spacing
+
 - Font size: 14px (--text-sm)
 - Font weight: 500 (medium)
 - Letter spacing: 0.16px
@@ -26,7 +29,9 @@ The framework tabs have been redesigned with inspiration from IBM's Carbon Desig
 - No gaps between tabs (clean, connected look)
 
 ### 4. Framework Icons
+
 Each tab includes a visual indicator:
+
 - **Vanilla JS**: "JS" badge with subtle background
 - **React**: ⚛ atom symbol
 - **Vue**: "V" badge with subtle background
@@ -34,6 +39,7 @@ Each tab includes a visual indicator:
 - Icons fade to 70% opacity on inactive tabs, 100% on active/hover
 
 ### 5. Responsive Design
+
 - Horizontal scrolling on mobile devices
 - Hidden scrollbars for clean appearance
 - Touch-friendly with `-webkit-overflow-scrolling: touch`
@@ -45,36 +51,48 @@ Each tab includes a visual indicator:
 
 ```html
 <div class="framework-tabs">
-    <div role="tablist" class="tabs-list">
-        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
-            Vanilla JS
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
-            React
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
-            Vue
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
-            Svelte
-        </button>
-    </div>
+  <div role="tablist" class="tabs-list">
+    <button
+      role="tab"
+      aria-selected="true"
+      aria-controls="vanilla-panel"
+      id="vanilla-tab"
+      class="tab active"
+    >
+      Vanilla JS
+    </button>
+    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+      React
+    </button>
+    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+      Vue
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="svelte-panel"
+      id="svelte-tab"
+      class="tab"
+    >
+      Svelte
+    </button>
+  </div>
 
-    <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
-        <!-- Vanilla JS code example -->
-    </div>
+  <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
+    <!-- Vanilla JS code example -->
+  </div>
 
-    <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
-        <!-- React code example -->
-    </div>
+  <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
+    <!-- React code example -->
+  </div>
 
-    <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
-        <!-- Vue code example -->
-    </div>
+  <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
+    <!-- Vue code example -->
+  </div>
 
-    <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-        <!-- Svelte code example -->
-    </div>
+  <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+    <!-- Svelte code example -->
+  </div>
 </div>
 ```
 
@@ -103,12 +121,14 @@ No changes needed to the JavaScript - it works seamlessly with the new CSS.
 ## Accessibility Features
 
 ### Keyboard Navigation
+
 - **Tab**: Move focus to next tab
 - **Shift+Tab**: Move focus to previous tab
 - **Enter/Space**: Activate focused tab
 - Clear focus indicators (2px outline in primary color)
 
 ### ARIA Attributes
+
 - `role="tablist"` on tab container
 - `role="tab"` on tab buttons
 - `role="tabpanel"` on content panels
@@ -117,12 +137,15 @@ No changes needed to the JavaScript - it works seamlessly with the new CSS.
 - `aria-labelledby` links panels to tabs
 
 ### Screen Readers
+
 - Proper semantic HTML structure
 - Descriptive labels for all interactive elements
 - Hidden attribute on inactive panels
 
 ### Reduced Motion
+
 Users with `prefers-reduced-motion` setting enabled will experience:
+
 - Instant transitions instead of animations
 - No sliding or fading effects
 - Immediate state changes
@@ -130,34 +153,36 @@ Users with `prefers-reduced-motion` setting enabled will experience:
 ## Animation Details
 
 ### Tab Activation
+
 ```css
 /* Active indicator slide-in */
 @keyframes slideIn {
-    from {
-        transform: scaleX(0);
-        opacity: 0;
-    }
-    to {
-        transform: scaleX(1);
-        opacity: 1;
-    }
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 /* Duration: 240ms */
 /* Timing: cubic-bezier(0.2, 0, 0.38, 0.9) */
 ```
 
 ### Panel Transitions
+
 ```css
 /* Content fade-in with upward motion */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 /* Duration: 240ms */
 /* Timing: cubic-bezier(0.2, 0, 0.38, 0.9) */
@@ -167,26 +192,13 @@ Users with `prefers-reduced-motion` setting enabled will experience:
 
 ```css
 /* Colors */
---color-text-primary: Primary text color
---color-text-secondary: Secondary/inactive text
---color-text-tertiary: Tertiary/muted text
---color-primary: Theme primary color (active indicator)
---color-border-subtle: Bottom border
---color-bg-tertiary: Hover background
---color-bg-hover: Alternative hover background
-
-/* Spacing */
---space-2: 8px (icon margins)
---space-3: 12px (vertical padding)
---space-6: 24px (horizontal padding, margins)
-
-/* Typography */
---text-sm: 14px (font size)
---font-medium: 500 (font weight)
---font-bold: 700 (icon badges)
-
-/* Border Radius */
---radius-sm: 4px (icon badges)
+--color-text-primary: Primary text color --color-text-secondary: Secondary/inactive text
+  --color-text-tertiary: Tertiary/muted text --color-primary: Theme primary color (active indicator)
+  --color-border-subtle: Bottom border --color-bg-tertiary: Hover background
+  --color-bg-hover: Alternative hover background /* Spacing */ --space-2: 8px (icon margins)
+  --space-3: 12px (vertical padding) --space-6: 24px (horizontal padding, margins) /* Typography */
+  --text-sm: 14px (font size) --font-medium: 500 (font weight) --font-bold: 700 (icon badges)
+  /* Border Radius */ --radius-sm: 4px (icon badges);
 ```
 
 ## Carbon Design System Inspiration
@@ -218,29 +230,32 @@ The design draws from Carbon's principles:
 ## Customization
 
 ### Changing Colors
+
 Override the CSS custom properties:
 
 ```css
 .framework-tabs {
-    --color-primary: #your-color;
+  --color-primary: #your-color;
 }
 ```
 
 ### Adjusting Timing
+
 Modify the transition duration:
 
 ```css
 .tab {
-    transition: all 0.2s cubic-bezier(0.2, 0, 0.38, 0.9);
+  transition: all 0.2s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 ```
 
 ### Removing Icons
+
 Hide the framework icons:
 
 ```css
 .tab::before {
-    display: none;
+  display: none;
 }
 ```
 
@@ -285,6 +300,7 @@ View the interactive demo: `/docs/framework-tabs-demo.html`
 ## Support
 
 For issues or questions about the framework tabs:
+
 1. Check this guide first
 2. Review the demo file
 3. Verify CSS is properly loaded

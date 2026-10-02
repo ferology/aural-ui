@@ -32,7 +32,7 @@ export const Badge: React.FC<BadgeProps> = ({
   size = 'md',
   className = '',
   pill = false,
-  dot = false
+  dot = false,
 }) => {
   const badgeClasses = [
     'badge',
@@ -40,14 +40,10 @@ export const Badge: React.FC<BadgeProps> = ({
     size !== 'md' ? `badge-${size}` : '',
     pill ? 'badge-pill' : '',
     dot ? 'badge-dot' : '',
-    className
+    className,
   ]
     .filter(Boolean)
     .join(' ');
 
-  return (
-    <span className={badgeClasses}>
-      {!dot && children}
-    </span>
-  );
+  return <span className={badgeClasses}>{!dot && children}</span>;
 };

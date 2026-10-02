@@ -1,4 +1,3 @@
-
 export interface AgentConfig {
   name: string;
   role: string;

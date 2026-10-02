@@ -43,10 +43,10 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 // Initialize Lucide icons for check/error icons
 lucide.createIcons();
 \`\`\`
-        `.trim()
-      }
-    }
-  }
+        `.trim(),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -161,37 +161,45 @@ export const Default: Story = {
     container.setAttribute('role', 'navigation');
     container.setAttribute('aria-label', 'Registration progress');
 
-    container.appendChild(createStep({
-      number: 1,
-      title: 'Account',
-      description: 'Create your account',
-      state: 'completed'
-    }));
+    container.appendChild(
+      createStep({
+        number: 1,
+        title: 'Account',
+        description: 'Create your account',
+        state: 'completed',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 2,
-      title: 'Profile',
-      description: 'Add your details',
-      state: 'active'
-    }));
+    container.appendChild(
+      createStep({
+        number: 2,
+        title: 'Profile',
+        description: 'Add your details',
+        state: 'active',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 3,
-      title: 'Preferences',
-      description: 'Set preferences',
-      state: 'pending'
-    }));
+    container.appendChild(
+      createStep({
+        number: 3,
+        title: 'Preferences',
+        description: 'Set preferences',
+        state: 'pending',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 4,
-      title: 'Complete',
-      description: 'Review and finish',
-      state: 'pending',
-      isLast: true
-    }));
+    container.appendChild(
+      createStep({
+        number: 4,
+        title: 'Complete',
+        description: 'Review and finish',
+        state: 'pending',
+        isLast: true,
+      })
+    );
 
     return initializeIcons(container);
-  }
+  },
 };
 
 export const Vertical: Story = {
@@ -202,37 +210,45 @@ export const Vertical: Story = {
     container.setAttribute('aria-label', 'Order status');
     container.style.maxWidth = '400px';
 
-    container.appendChild(createStep({
-      number: 1,
-      title: 'Order Placed',
-      description: 'Your order has been confirmed',
-      state: 'completed'
-    }));
+    container.appendChild(
+      createStep({
+        number: 1,
+        title: 'Order Placed',
+        description: 'Your order has been confirmed',
+        state: 'completed',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 2,
-      title: 'Processing',
-      description: 'We\'re preparing your order',
-      state: 'active'
-    }));
+    container.appendChild(
+      createStep({
+        number: 2,
+        title: 'Processing',
+        description: "We're preparing your order",
+        state: 'active',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 3,
-      title: 'Shipped',
-      description: 'On its way to you',
-      state: 'pending'
-    }));
+    container.appendChild(
+      createStep({
+        number: 3,
+        title: 'Shipped',
+        description: 'On its way to you',
+        state: 'pending',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 4,
-      title: 'Delivered',
-      description: 'Package delivered',
-      state: 'pending',
-      isLast: true
-    }));
+    container.appendChild(
+      createStep({
+        number: 4,
+        title: 'Delivered',
+        description: 'Package delivered',
+        state: 'pending',
+        isLast: true,
+      })
+    );
 
     return initializeIcons(container);
-  }
+  },
 };
 
 export const WithNumbers: Story = {
@@ -242,33 +258,41 @@ export const WithNumbers: Story = {
     container.setAttribute('role', 'navigation');
     container.setAttribute('aria-label', 'Checkout steps');
 
-    container.appendChild(createStep({
-      number: 1,
-      title: 'Cart',
-      state: 'completed'
-    }));
+    container.appendChild(
+      createStep({
+        number: 1,
+        title: 'Cart',
+        state: 'completed',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 2,
-      title: 'Address',
-      state: 'completed'
-    }));
+    container.appendChild(
+      createStep({
+        number: 2,
+        title: 'Address',
+        state: 'completed',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 3,
-      title: 'Payment',
-      state: 'active'
-    }));
+    container.appendChild(
+      createStep({
+        number: 3,
+        title: 'Payment',
+        state: 'active',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 4,
-      title: 'Confirm',
-      state: 'pending',
-      isLast: true
-    }));
+    container.appendChild(
+      createStep({
+        number: 4,
+        title: 'Confirm',
+        state: 'pending',
+        isLast: true,
+      })
+    );
 
     return initializeIcons(container);
-  }
+  },
 };
 
 export const WithIcons: Story = {
@@ -282,21 +306,23 @@ export const WithIcons: Story = {
       { icon: 'user', title: 'Sign Up', state: 'completed' as const },
       { icon: 'mail', title: 'Verify', state: 'active' as const },
       { icon: 'settings', title: 'Setup', state: 'pending' as const },
-      { icon: 'check-circle', title: 'Done', state: 'pending' as const, isLast: true }
+      { icon: 'check-circle', title: 'Done', state: 'pending' as const, isLast: true },
     ];
 
     steps.forEach((step, index) => {
-      container.appendChild(createStep({
-        number: index + 1,
-        title: step.title,
-        state: step.state,
-        icon: step.icon,
-        isLast: step.isLast
-      }));
+      container.appendChild(
+        createStep({
+          number: index + 1,
+          title: step.title,
+          state: step.state,
+          icon: step.icon,
+          isLast: step.isLast,
+        })
+      );
     });
 
     return initializeIcons(container);
-  }
+  },
 };
 
 export const ErrorState: Story = {
@@ -306,28 +332,34 @@ export const ErrorState: Story = {
     container.setAttribute('role', 'navigation');
     container.setAttribute('aria-label', 'Payment process');
 
-    container.appendChild(createStep({
-      number: 1,
-      title: 'Information',
-      state: 'completed'
-    }));
+    container.appendChild(
+      createStep({
+        number: 1,
+        title: 'Information',
+        state: 'completed',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 2,
-      title: 'Payment',
-      description: 'Card declined',
-      state: 'error'
-    }));
+    container.appendChild(
+      createStep({
+        number: 2,
+        title: 'Payment',
+        description: 'Card declined',
+        state: 'error',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 3,
-      title: 'Confirmation',
-      state: 'pending',
-      isLast: true
-    }));
+    container.appendChild(
+      createStep({
+        number: 3,
+        title: 'Confirmation',
+        state: 'pending',
+        isLast: true,
+      })
+    );
 
     return initializeIcons(container);
-  }
+  },
 };
 
 export const AllStates: Story = {
@@ -337,33 +369,41 @@ export const AllStates: Story = {
     container.setAttribute('role', 'navigation');
     container.setAttribute('aria-label', 'Step states example');
 
-    container.appendChild(createStep({
-      number: 1,
-      title: 'Completed',
-      state: 'completed'
-    }));
+    container.appendChild(
+      createStep({
+        number: 1,
+        title: 'Completed',
+        state: 'completed',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 2,
-      title: 'Active',
-      state: 'active'
-    }));
+    container.appendChild(
+      createStep({
+        number: 2,
+        title: 'Active',
+        state: 'active',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 3,
-      title: 'Error',
-      state: 'error'
-    }));
+    container.appendChild(
+      createStep({
+        number: 3,
+        title: 'Error',
+        state: 'error',
+      })
+    );
 
-    container.appendChild(createStep({
-      number: 4,
-      title: 'Pending',
-      state: 'pending',
-      isLast: true
-    }));
+    container.appendChild(
+      createStep({
+        number: 4,
+        title: 'Pending',
+        state: 'pending',
+        isLast: true,
+      })
+    );
 
     return initializeIcons(container);
-  }
+  },
 };
 
 export const FormWizard: Story = {
@@ -377,34 +417,42 @@ export const FormWizard: Story = {
     stepper.setAttribute('aria-label', 'Form wizard');
     stepper.style.marginBottom = 'var(--space-6)';
 
-    stepper.appendChild(createStep({
-      number: 1,
-      title: 'Personal',
-      description: 'Basic info',
-      state: 'completed'
-    }));
+    stepper.appendChild(
+      createStep({
+        number: 1,
+        title: 'Personal',
+        description: 'Basic info',
+        state: 'completed',
+      })
+    );
 
-    stepper.appendChild(createStep({
-      number: 2,
-      title: 'Contact',
-      description: 'Email & phone',
-      state: 'active'
-    }));
+    stepper.appendChild(
+      createStep({
+        number: 2,
+        title: 'Contact',
+        description: 'Email & phone',
+        state: 'active',
+      })
+    );
 
-    stepper.appendChild(createStep({
-      number: 3,
-      title: 'Address',
-      description: 'Location',
-      state: 'pending'
-    }));
+    stepper.appendChild(
+      createStep({
+        number: 3,
+        title: 'Address',
+        description: 'Location',
+        state: 'pending',
+      })
+    );
 
-    stepper.appendChild(createStep({
-      number: 4,
-      title: 'Review',
-      description: 'Confirm',
-      state: 'pending',
-      isLast: true
-    }));
+    stepper.appendChild(
+      createStep({
+        number: 4,
+        title: 'Review',
+        description: 'Confirm',
+        state: 'pending',
+        isLast: true,
+      })
+    );
 
     wrapper.appendChild(stepper);
 
@@ -477,7 +525,7 @@ export const FormWizard: Story = {
     wrapper.appendChild(card);
 
     return initializeIcons(wrapper);
-  }
+  },
 };
 
 export const OrderTracking: Story = {
@@ -524,26 +572,30 @@ export const OrderTracking: Story = {
     stepper.setAttribute('role', 'navigation');
     stepper.setAttribute('aria-label', 'Order tracking');
 
-    stepper.appendChild(createStep({
-      number: 1,
-      title: 'Order Confirmed',
-      description: 'Jan 25, 2026 at 10:30 AM',
-      state: 'completed'
-    }));
+    stepper.appendChild(
+      createStep({
+        number: 1,
+        title: 'Order Confirmed',
+        description: 'Jan 25, 2026 at 10:30 AM',
+        state: 'completed',
+      })
+    );
 
-    stepper.appendChild(createStep({
-      number: 2,
-      title: 'Processing',
-      description: 'Jan 26, 2026 at 9:15 AM',
-      state: 'completed'
-    }));
+    stepper.appendChild(
+      createStep({
+        number: 2,
+        title: 'Processing',
+        description: 'Jan 26, 2026 at 9:15 AM',
+        state: 'completed',
+      })
+    );
 
     const shippedStep = createStep({
       number: 3,
       title: 'Shipped',
       description: 'In transit - arriving soon',
       state: 'active',
-      icon: 'truck'
+      icon: 'truck',
     });
     stepper.appendChild(shippedStep);
 
@@ -553,14 +605,14 @@ export const OrderTracking: Story = {
       description: 'Expected Jan 30',
       state: 'pending',
       icon: 'home',
-      isLast: true
+      isLast: true,
     });
     stepper.appendChild(deliveredStep);
 
     card.appendChild(stepper);
 
     return initializeIcons(card);
-  }
+  },
 };
 
 export const OnboardingFlow: Story = {
@@ -574,21 +626,23 @@ export const OnboardingFlow: Story = {
       { icon: 'user-plus', title: 'Welcome', state: 'completed' as const },
       { icon: 'shield-check', title: 'Verify', state: 'completed' as const },
       { icon: 'sliders', title: 'Preferences', state: 'active' as const },
-      { icon: 'rocket', title: 'Launch', state: 'pending' as const, isLast: true }
+      { icon: 'rocket', title: 'Launch', state: 'pending' as const, isLast: true },
     ];
 
     steps.forEach((step, index) => {
-      container.appendChild(createStep({
-        number: index + 1,
-        title: step.title,
-        state: step.state,
-        icon: step.icon,
-        isLast: step.isLast
-      }));
+      container.appendChild(
+        createStep({
+          number: index + 1,
+          title: step.title,
+          state: step.state,
+          icon: step.icon,
+          isLast: step.isLast,
+        })
+      );
     });
 
     return initializeIcons(container);
-  }
+  },
 };
 
 export const CompactStepper: Story = {
@@ -603,16 +657,18 @@ export const CompactStepper: Story = {
       if (i < 4) state = 'completed';
       if (i === 4) state = 'active';
 
-      container.appendChild(createStep({
-        number: i,
-        title: `Step ${i}`,
-        state: state,
-        isLast: i === 5
-      }));
+      container.appendChild(
+        createStep({
+          number: i,
+          title: `Step ${i}`,
+          state: state,
+          isLast: i === 5,
+        })
+      );
     }
 
     return initializeIcons(container);
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -623,27 +679,33 @@ export const ThemeComparison: Story = {
       container.setAttribute('role', 'navigation');
       container.setAttribute('aria-label', 'Progress');
 
-      container.appendChild(createStep({
-        number: 1,
-        title: 'Complete',
-        state: 'completed'
-      }));
+      container.appendChild(
+        createStep({
+          number: 1,
+          title: 'Complete',
+          state: 'completed',
+        })
+      );
 
-      container.appendChild(createStep({
-        number: 2,
-        title: 'Active',
-        state: 'active'
-      }));
+      container.appendChild(
+        createStep({
+          number: 2,
+          title: 'Active',
+          state: 'active',
+        })
+      );
 
-      container.appendChild(createStep({
-        number: 3,
-        title: 'Pending',
-        state: 'pending',
-        isLast: true
-      }));
+      container.appendChild(
+        createStep({
+          number: 3,
+          title: 'Pending',
+          state: 'pending',
+          isLast: true,
+        })
+      );
 
       const result = initializeIcons(container);
       return result;
     });
-  }
+  },
 };

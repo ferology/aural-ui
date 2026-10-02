@@ -17,6 +17,7 @@ Aural UI uses a **token-based theming system** powered by CSS custom properties 
 ## Available Themes
 
 ### 1. Dark (Default)
+
 **Purpose:** Default theme optimized for low-light conditions
 **Colors:** Dark navy backgrounds, vibrant green accent
 **Best For:** Night time use, reducing eye strain, professional interfaces
@@ -28,6 +29,7 @@ Aural UI uses a **token-based theming system** powered by CSS custom properties 
 ```
 
 ### 2. Light
+
 **Purpose:** Clean theme for daytime use
 **Colors:** White backgrounds, vibrant green accent
 **Best For:** Bright environments, documentation, public-facing sites
@@ -39,6 +41,7 @@ Aural UI uses a **token-based theming system** powered by CSS custom properties 
 ```
 
 ### 3. Neon
+
 **Purpose:** Cyberpunk-inspired with electric colors
 **Colors:** Dark backgrounds, electric cyan/magenta/green
 **Best For:** Creative projects, music apps, gaming interfaces
@@ -50,6 +53,7 @@ Aural UI uses a **token-based theming system** powered by CSS custom properties 
 ```
 
 ### 4. Kinetic
+
 **Purpose:** Dynamic gradients and motion-inspired
 **Colors:** Purple/blue gradients, energetic vibes
 **Best For:** Modern apps, dashboards, creative tools
@@ -61,6 +65,7 @@ Aural UI uses a **token-based theming system** powered by CSS custom properties 
 ```
 
 ### 5. Prismatic
+
 **Purpose:** Colorful rainbow theme
 **Colors:** Full spectrum colors, vibrant and playful
 **Best For:** Creative apps, children's apps, portfolio sites
@@ -71,6 +76,7 @@ Aural UI uses a **token-based theming system** powered by CSS custom properties 
 ```
 
 ### 6. Minimal
+
 **Purpose:** Clean grayscale minimalist design
 **Colors:** Grayscale only, no color accents
 **Best For:** Professional tools, documentation, clean aesthetic
@@ -83,6 +89,7 @@ Aural UI uses a **token-based theming system** powered by CSS custom properties 
 ```
 
 ### 7. Warm
+
 **Purpose:** Inviting warm color palette
 **Colors:** Warm oranges, browns, and earth tones
 **Best For:** Content-heavy sites, blogs, community platforms
@@ -102,16 +109,16 @@ Aural UI uses a **token-based theming system** powered by CSS custom properties 
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- Base styles -->
-  <link rel="stylesheet" href="path/to/aural-ui.css">
+  <head>
+    <!-- Base styles -->
+    <link rel="stylesheet" href="path/to/aural-ui.css" />
 
-  <!-- Theme -->
-  <link rel="stylesheet" href="path/to/themes/dark.css">
-</head>
-<body>
-  <!-- Your content -->
-</body>
+    <!-- Theme -->
+    <link rel="stylesheet" href="path/to/themes/dark.css" />
+  </head>
+  <body>
+    <!-- Your content -->
+  </body>
 </html>
 ```
 
@@ -135,9 +142,9 @@ function switchTheme(themeName) {
 }
 
 // Usage
-switchTheme('dark');    // Dark theme
-switchTheme('light');   // Light theme
-switchTheme('neon');    // Neon theme
+switchTheme('dark'); // Dark theme
+switchTheme('light'); // Light theme
+switchTheme('neon'); // Neon theme
 ```
 
 ### Method 3: Theme Selector Component
@@ -157,24 +164,24 @@ switchTheme('neon');    // Neon theme
 </div>
 
 <script>
-function switchTheme(theme) {
-  const existing = document.getElementById('theme-stylesheet');
-  if (existing) existing.remove();
+  function switchTheme(theme) {
+    const existing = document.getElementById('theme-stylesheet');
+    if (existing) existing.remove();
 
-  const link = document.createElement('link');
-  link.id = 'theme-stylesheet';
-  link.rel = 'stylesheet';
-  link.href = `themes/${theme}.css`;
-  document.head.appendChild(link);
+    const link = document.createElement('link');
+    link.id = 'theme-stylesheet';
+    link.rel = 'stylesheet';
+    link.href = `themes/${theme}.css`;
+    document.head.appendChild(link);
 
-  // Save preference
-  localStorage.setItem('theme', theme);
-}
+    // Save preference
+    localStorage.setItem('theme', theme);
+  }
 
-// Load saved theme on page load
-const savedTheme = localStorage.getItem('theme') || 'dark';
-switchTheme(savedTheme);
-document.getElementById('theme-select').value = savedTheme;
+  // Load saved theme on page load
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  switchTheme(savedTheme);
+  document.getElementById('theme-select').value = savedTheme;
 </script>
 ```
 
@@ -187,6 +194,7 @@ All themes use the same token names with different values. This ensures componen
 ### Color Tokens
 
 #### Primary Color Scale (Brand Color)
+
 ```css
 --primary-50   /* Lightest tint */
 --primary-100
@@ -202,6 +210,7 @@ All themes use the same token names with different values. This ensures componen
 ```
 
 #### Secondary Color Scale
+
 ```css
 --secondary-50
 --secondary-100
@@ -210,6 +219,7 @@ All themes use the same token names with different values. This ensures componen
 ```
 
 #### Semantic Colors
+
 ```css
 /* Success (green) */
 --success-50 through --success-950
@@ -225,6 +235,7 @@ All themes use the same token names with different values. This ensures componen
 ```
 
 ### Background Colors
+
 ```css
 --color-bg-primary       /* Main page background */
 --color-bg-secondary     /* Subtle contrast (cards, panels) */
@@ -238,6 +249,7 @@ All themes use the same token names with different values. This ensures componen
 ```
 
 ### Text Colors
+
 ```css
 --color-text-primary     /* High contrast - body text, headings */
 --color-text-secondary   /* Medium contrast - secondary text */
@@ -248,6 +260,7 @@ All themes use the same token names with different values. This ensures componen
 ```
 
 ### Border Colors
+
 ```css
 --color-border-subtle    /* Barely visible borders */
 --color-border-medium    /* Standard borders */
@@ -257,6 +270,7 @@ All themes use the same token names with different values. This ensures componen
 ### Component-Specific Colors
 
 #### Buttons
+
 ```css
 --color-button-secondary-bg
 --color-button-secondary-hover
@@ -267,6 +281,7 @@ All themes use the same token names with different values. This ensures componen
 ```
 
 #### Inputs
+
 ```css
 --color-input-bg
 --color-input-border
@@ -276,6 +291,7 @@ All themes use the same token names with different values. This ensures componen
 ```
 
 #### Cards
+
 ```css
 --color-card-bg
 --color-card-border
@@ -283,17 +299,20 @@ All themes use the same token names with different values. This ensures componen
 ```
 
 #### Modal
+
 ```css
 --color-modal-bg
 --color-modal-border
 ```
 
 #### Toast
+
 ```css
 --color-toast-bg
 ```
 
 #### Skeleton
+
 ```css
 --color-skeleton-from   /* Shimmer animation start */
 --color-skeleton-via    /* Shimmer animation middle */
@@ -329,20 +348,16 @@ Modify the CSS custom properties:
 
 ```css
 :root {
-    /* Primary Brand Color - your company color */
-    --primary-400: #your-brand-color;
+  /* Primary Brand Color - your company color */
+  --primary-400: #your-brand-color;
 
-    /* Adjust the scale around your brand color */
-    --primary-50: #lightest-tint;
-    --primary-100: ...
-    --primary-900: #darkest-shade;
-    --primary-950: ...
+  /* Adjust the scale around your brand color */
+  --primary-50: #lightest-tint;
+  --primary-100: ... --primary-900: #darkest-shade;
+  --primary-950: ... /* Background Colors */ --color-bg-primary: #your-background;
+  --color-text-primary: #your-text-color;
 
-    /* Background Colors */
-    --color-bg-primary: #your-background;
-    --color-text-primary: #your-text-color;
-
-    /* Continue for all tokens... */
+  /* Continue for all tokens... */
 }
 ```
 
@@ -355,14 +370,15 @@ Ensure WCAG AA compliance:
 - **Interactive components:** Minimum 3:1 contrast ratio
 
 Use tools like:
+
 - [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
 - [Coolors Contrast Checker](https://coolors.co/contrast-checker)
 
 ### Step 5: Test Your Theme
 
 ```html
-<link rel="stylesheet" href="aural-ui.css">
-<link rel="stylesheet" href="themes/my-custom-theme.css">
+<link rel="stylesheet" href="aural-ui.css" />
+<link rel="stylesheet" href="themes/my-custom-theme.css" />
 ```
 
 Test all components to ensure they look good and are readable.
@@ -374,6 +390,7 @@ Test all components to ensure they look good and are readable.
 ### 1. Always Use Semantic Tokens
 
 ❌ **Don't:**
+
 ```css
 .my-component {
   background: #1a1a2e;
@@ -382,6 +399,7 @@ Test all components to ensure they look good and are readable.
 ```
 
 ✅ **Do:**
+
 ```css
 .my-component {
   background: var(--color-bg-secondary);
@@ -404,14 +422,15 @@ Test all components to ensure they look good and are readable.
 Only load **one theme at a time**. Multiple themes will conflict since they all define `:root` variables.
 
 ❌ **Don't:**
+
 ```html
-<link rel="stylesheet" href="themes/dark.css">
-<link rel="stylesheet" href="themes/light.css">
+<link rel="stylesheet" href="themes/dark.css" /> <link rel="stylesheet" href="themes/light.css" />
 ```
 
 ✅ **Do:**
+
 ```html
-<link rel="stylesheet" href="themes/dark.css">
+<link rel="stylesheet" href="themes/dark.css" />
 ```
 
 ### 4. Test in All Themes
@@ -454,12 +473,11 @@ const defaultTheme = prefersDark ? 'dark' : 'light';
 loadTheme(localStorage.getItem('theme') || defaultTheme);
 
 // Listen for system changes
-window.matchMedia('(prefers-color-scheme: dark)')
-  .addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-      loadTheme(e.matches ? 'dark' : 'light');
-    }
-  });
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  if (!localStorage.getItem('theme')) {
+    loadTheme(e.matches ? 'dark' : 'light');
+  }
+});
 ```
 
 ### Pattern 3: Time-Based Auto-Switching
@@ -468,7 +486,7 @@ window.matchMedia('(prefers-color-scheme: dark)')
 function getAutoTheme() {
   const hour = new Date().getHours();
   // Dark theme: 6 PM to 6 AM
-  return (hour < 6 || hour >= 18) ? 'dark' : 'light';
+  return hour < 6 || hour >= 18 ? 'dark' : 'light';
 }
 
 // Auto-switch every hour
@@ -546,36 +564,43 @@ setInterval(() => {
 ## Color Psychology by Theme
 
 ### Dark Theme
+
 - **Feeling:** Professional, modern, relaxed
 - **Use Cases:** Developer tools, night mode, streaming apps
 - **Advantage:** Reduces eye strain in low light
 
 ### Light Theme
+
 - **Feeling:** Clean, fresh, traditional
 - **Use Cases:** Documentation, business apps, public websites
 - **Advantage:** Familiar, better readability in bright light
 
 ### Neon Theme
+
 - **Feeling:** Bold, energetic, futuristic
 - **Use Cases:** Music apps, gaming, creative tools
 - **Advantage:** Memorable, stands out
 
 ### Kinetic Theme
+
 - **Feeling:** Dynamic, modern, elegant
 - **Use Cases:** Dashboards, analytics, modern apps
 - **Advantage:** Gradient depth adds visual interest
 
 ### Prismatic Theme
+
 - **Feeling:** Playful, colorful, creative
 - **Use Cases:** Art apps, children's apps, portfolios
 - **Advantage:** Each element has unique color
 
 ### Minimal Theme
+
 - **Feeling:** Clean, focused, professional
 - **Use Cases:** Professional tools, writing apps, docs
 - **Advantage:** Zero distraction from color
 
 ### Warm Theme
+
 - **Feeling:** Inviting, cozy, comfortable
 - **Use Cases:** Blogs, communities, content platforms
 - **Advantage:** Welcoming, easier on eyes
@@ -588,16 +613,17 @@ setInterval(() => {
 
 All themes meet WCAG AA standards:
 
-| Element Type | Minimum Ratio | Aural UI Compliance |
-|-------------|---------------|---------------------|
-| Normal Text | 4.5:1 | ✅ All themes |
-| Large Text | 3:1 | ✅ All themes |
-| UI Components | 3:1 | ✅ All themes |
-| Graphics | 3:1 | ✅ All themes |
+| Element Type  | Minimum Ratio | Aural UI Compliance |
+| ------------- | ------------- | ------------------- |
+| Normal Text   | 4.5:1         | ✅ All themes       |
+| Large Text    | 3:1           | ✅ All themes       |
+| UI Components | 3:1           | ✅ All themes       |
+| Graphics      | 3:1           | ✅ All themes       |
 
 ### Testing Your Theme
 
 1. **Automated Testing:**
+
    ```bash
    # Use axe-core or similar
    npm install @axe-core/cli
@@ -640,8 +666,8 @@ document.body.style.fontSize = '18px';
 For faster switching:
 
 ```html
-<link rel="preload" href="themes/dark.css" as="style">
-<link rel="preload" href="themes/light.css" as="style">
+<link rel="preload" href="themes/dark.css" as="style" />
+<link rel="preload" href="themes/light.css" as="style" />
 ```
 
 ---
@@ -661,7 +687,7 @@ For faster switching:
 
 ```css
 /* Apply only in dark themes */
-[data-theme="dark"] .component {
+[data-theme='dark'] .component {
   /* dark-specific styles */
 }
 ```
@@ -670,11 +696,7 @@ For faster switching:
 
 ```css
 .gradient-bg {
-  background: linear-gradient(
-    135deg,
-    var(--primary-400),
-    var(--secondary-400)
-  );
+  background: linear-gradient(135deg, var(--primary-400), var(--secondary-400));
 }
 ```
 
@@ -682,9 +704,10 @@ For faster switching:
 
 ```css
 * {
-  transition: background-color 0.3s ease,
-              color 0.3s ease,
-              border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 ```
 
@@ -695,6 +718,7 @@ For faster switching:
 ### Issue: Theme Not Applying
 
 **Check:**
+
 1. Is the theme CSS loaded? (Check browser Network tab)
 2. Is it loaded **after** base CSS?
 3. Is there only **one** theme loaded at a time?
@@ -702,6 +726,7 @@ For faster switching:
 ### Issue: Colors Look Wrong
 
 **Check:**
+
 1. CSS custom property names match exactly
 2. Fallback values provided where critical
 3. Browser supports CSS custom properties (IE11 doesn't)
@@ -709,6 +734,7 @@ For faster switching:
 ### Issue: WCAG Contrast Failures
 
 **Fix:**
+
 1. Use a contrast checker tool
 2. Adjust `--color-text-secondary` or `--color-text-muted`
 3. Ensure minimum 4.5:1 for body text
@@ -716,6 +742,7 @@ For faster switching:
 ### Issue: Theme Flicker on Load
 
 **Fix:**
+
 ```html
 <!-- Inline critical theme CSS -->
 <style>
@@ -754,22 +781,26 @@ npm install aural-design
 ## Quick Reference
 
 ### Load a Theme
+
 ```html
-<link rel="stylesheet" href="themes/dark.css">
+<link rel="stylesheet" href="themes/dark.css" />
 ```
 
 ### Switch Theme via JavaScript
+
 ```javascript
 switchTheme('neon');
 ```
 
 ### Use Tokens in CSS
+
 ```css
 background: var(--color-bg-primary);
 color: var(--primary-400);
 ```
 
 ### Create Custom Theme
+
 1. Copy existing theme
 2. Modify color values
 3. Test contrast ratios
@@ -777,4 +808,4 @@ color: var(--primary-400);
 
 ---
 
-*For questions or issues, see: https://github.com/ferology/aural-ui/issues*
+_For questions or issues, see: https://github.com/ferology/aural-ui/issues_

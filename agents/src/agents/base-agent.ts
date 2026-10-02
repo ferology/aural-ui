@@ -1,10 +1,5 @@
 import { OllamaClient, OllamaMessage } from '../config/ollama-client.js';
-import type {
-  Agent,
-  AgentConfig,
-  AgentTask,
-  WorkflowContext,
-} from '../types/agent.js';
+import type { Agent, AgentConfig, AgentTask, WorkflowContext } from '../types/agent.js';
 import { v4 as uuidv4 } from 'uuid';
 
 /**

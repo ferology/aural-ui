@@ -9,12 +9,15 @@
 ## What Was Fixed
 
 ### Problem
+
 When opening `demo.html` directly in a browser (double-clicking the file), the navigation sidebar appeared empty with only the logo and search bar visible. No component links were showing.
 
 ### Root Cause
+
 Modern browsers block fetch requests to local files (like `navigation.json`) when the page is opened with the `file://` protocol due to CORS (Cross-Origin Resource Sharing) security restrictions.
 
 The original code tried to load:
+
 ```javascript
 const response = await fetch('./data/navigation.json');
 ```
@@ -22,23 +25,26 @@ const response = await fetch('./data/navigation.json');
 This fails silently when using `file://` protocol, causing the navigation to fall back to an empty structure.
 
 ### Solution Applied
+
 Embedded the complete navigation data directly in `demo.js` as a fallback. Now the code:
 
 1. **First tries** to load `navigation.json` (works with local server or HTTP)
 2. **Falls back** to embedded data if fetch fails (works with `file://` protocol)
 
 ```javascript
-const FALLBACK_NAVIGATION = { /* complete navigation data embedded */ };
+const FALLBACK_NAVIGATION = {
+  /* complete navigation data embedded */
+};
 
 async function loadNavigationData() {
-    try {
-        const response = await fetch('./data/navigation.json');
-        navigationData = await response.json();
-        console.log('Navigation data loaded from JSON file');
-    } catch (error) {
-        console.warn('Could not load navigation.json, using embedded fallback data');
-        navigationData = FALLBACK_NAVIGATION;
-    }
+  try {
+    const response = await fetch('./data/navigation.json');
+    navigationData = await response.json();
+    console.log('Navigation data loaded from JSON file');
+  } catch (error) {
+    console.warn('Could not load navigation.json, using embedded fallback data');
+    navigationData = FALLBACK_NAVIGATION;
+  }
 }
 ```
 
@@ -47,18 +53,23 @@ async function loadNavigationData() {
 ## How to Use
 
 ### Option 1: Quick Start (No Server Required) ✅ **RECOMMENDED**
+
 Simply open `demo.html` in your browser:
+
 ```bash
 open /Users/feraf/Projects/aural-ui/docs/demo.html
 ```
+
 or double-click `demo.html` in Finder
 
 **Navigation will now load automatically using the embedded fallback data!**
 
 ### Option 2: With Local Server (Better for Development)
+
 For the best experience, use a local server:
 
 **Using Python:**
+
 ```bash
 cd /Users/feraf/Projects/aural-ui/docs
 python3 -m http.server 8000
@@ -66,6 +77,7 @@ python3 -m http.server 8000
 ```
 
 **Using Node.js (npx):**
+
 ```bash
 cd /Users/feraf/Projects/aural-ui/docs
 npx http-server -p 8000
@@ -73,6 +85,7 @@ npx http-server -p 8000
 ```
 
 **Using VS Code:**
+
 - Install "Live Server" extension
 - Right-click `demo.html` → "Open with Live Server"
 
@@ -81,14 +94,17 @@ npx http-server -p 8000
 ## What You Should See Now
 
 ### Navigation Sidebar
+
 After opening `demo.html`, you should see:
 
 **Getting Started** (expanded)
+
 - Overview
 - Themes
 - Component Catalog
 
 **Components** (expanded with subsections)
+
 - **Forms & Inputs** (17 items)
   - Buttons, Inputs, Checkboxes, Radio Buttons, Switch/Toggle, etc.
 - **Data Display** (13 items)
@@ -103,15 +119,17 @@ After opening `demo.html`, you should see:
   - Command Palette, Notification Center, Tree View
 
 **Theme Showcases** (collapsed)
+
 - Neon Theme
 - Kinetic Theme
 - Prismatic Theme
 
 ### Total Navigation Items
+
 - 3 Getting Started pages
 - 50 Component pages
 - 3 Theme demo pages
-= **56 total navigation items**
+  = **56 total navigation items**
 
 ---
 
@@ -135,20 +153,23 @@ Open `demo.html` and verify:
 ## Component Files Location
 
 All component files are in:
+
 ```
 /Users/feraf/Projects/aural-ui/docs/components/
 ```
 
 When you click a component in the navigation, demo.js loads it in the iframe:
+
 ```javascript
 // Navigation link clicked
 loadPage('components/buttons.html');
 
 // Loads in iframe
-<iframe src="components/buttons.html"></iframe>
+<iframe src="components/buttons.html"></iframe>;
 ```
 
 If a component doesn't load, check:
+
 1. File exists at `docs/components/[name].html`
 2. Browser console for errors (F12)
 3. Correct file name in navigation.json
@@ -158,17 +179,20 @@ If a component doesn't load, check:
 ## Troubleshooting
 
 ### Navigation Still Empty?
+
 1. **Hard refresh**: Cmd/Ctrl + Shift + R
 2. **Clear cache**: Browser Settings → Clear browsing data
 3. **Check console**: F12 → Console tab, look for errors
 4. **Verify file**: Make sure you're opening the correct `demo.html`
 
 ### Components Not Loading?
+
 1. **Check path**: Components should be in `docs/components/` directory
 2. **Check console**: Look for 404 errors
 3. **File names**: Ensure file names match exactly (case-sensitive on some systems)
 
 ### Themes Not Working?
+
 1. **Verify theme-manager.js** is loaded
 2. **Check CSS files** exist (dark.css, light.css, neon.css, etc.)
 3. **Clear localStorage**: `localStorage.clear()` in console
@@ -186,18 +210,22 @@ No other files were changed. The fix is completely backward compatible.
 ## Additional Notes
 
 ### Why Embedded Data?
+
 - **Works everywhere**: File protocol, HTTP, HTTPS
 - **No dependencies**: No server required for testing
 - **Fallback only**: Still tries to load JSON first
 - **Easy updates**: Update navigation.json, it will be used when served via HTTP
 
 ### Performance Impact
+
 - **Minimal**: ~3KB of embedded JSON data
 - **One-time load**: Parsed once on page load
 - **Compressed**: Minified JSON (no whitespace)
 
 ### Maintenance
+
 When adding new components:
+
 1. Add to `data/navigation.json`
 2. Update the embedded FALLBACK_NAVIGATION in demo.js
 3. Or regenerate from JSON using a build script

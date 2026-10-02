@@ -33,7 +33,7 @@ class PreviewManager {
       showCode: options.showCode !== false,
       editable: options.editable || false,
       autoHeight: options.autoHeight !== false,
-      ...options
+      ...options,
     };
 
     this.activeFramework = this.options.defaultFramework;
@@ -88,8 +88,8 @@ class PreviewManager {
    */
   hasFramework(framework) {
     const containers = document.querySelectorAll('[data-frameworks]');
-    return Array.from(containers).some(container => {
-      const frameworks = container.dataset.frameworks.split(',').map(f => f.trim());
+    return Array.from(containers).some((container) => {
+      const frameworks = container.dataset.frameworks.split(',').map((f) => f.trim());
       return frameworks.includes(framework);
     });
   }
@@ -100,7 +100,7 @@ class PreviewManager {
   initializePreviews() {
     const containers = document.querySelectorAll('[data-component]');
 
-    containers.forEach(container => {
+    containers.forEach((container) => {
       this.createPreview(container);
     });
 
@@ -114,7 +114,7 @@ class PreviewManager {
     const componentName = container.dataset.component;
     const exampleId = container.dataset.example;
     const frameworksStr = container.dataset.frameworks || 'vanilla';
-    const frameworks = frameworksStr.split(',').map(f => f.trim());
+    const frameworks = frameworksStr.split(',').map((f) => f.trim());
 
     // Load example data
     const example = await this.loadExample(componentName, exampleId);
@@ -237,7 +237,7 @@ class PreviewManager {
 
       tab.addEventListener('click', async () => {
         // Update active tab
-        tabContainer.querySelectorAll('.preview-tab').forEach(t => {
+        tabContainer.querySelectorAll('.preview-tab').forEach((t) => {
           t.classList.remove('active');
           t.setAttribute('aria-selected', 'false');
         });
@@ -281,7 +281,7 @@ class PreviewManager {
       // Render preview
       await renderer.render(previewDisplay, exampleCode, {
         theme: this.theme,
-        componentName: container.dataset.component
+        componentName: container.dataset.component,
       });
 
       // Update code display
@@ -329,7 +329,7 @@ class PreviewManager {
       vanilla: 'Vanilla JS',
       react: 'React',
       vue: 'Vue',
-      svelte: 'Svelte'
+      svelte: 'Svelte',
     };
     return labels[framework] || framework;
   }
@@ -350,7 +350,8 @@ class PreviewManager {
       const copyBtn = container.querySelector('[data-preview-copy]');
       if (copyBtn) {
         const originalText = copyBtn.innerHTML;
-        copyBtn.innerHTML = '<i data-lucide="check" style="width: 14px; height: 14px;"></i> Copied!';
+        copyBtn.innerHTML =
+          '<i data-lucide="check" style="width: 14px; height: 14px;"></i> Copied!';
         copyBtn.classList.add('success');
 
         setTimeout(() => {

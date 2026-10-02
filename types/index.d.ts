@@ -258,10 +258,7 @@ declare namespace Aural {
    * @param options - Configuration options
    * @returns An object with methods to interact with the chips
    */
-  function initChips(
-    containerId: string,
-    options?: ChipsOptions
-  ): ChipsInstance;
+  function initChips(containerId: string, options?: ChipsOptions): ChipsInstance;
 
   // ========================================
   // Code Blocks

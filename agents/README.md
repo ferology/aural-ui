@@ -99,6 +99,7 @@ npm run new-component
 ```
 
 **What it does:**
+
 1. Asks for component details (name, type, variants, etc.)
 2. Orchestrator plans the workflow
 3. Component Builder generates CSS/JS code
@@ -124,6 +125,7 @@ npm run audit-accessibility
 ```
 
 **What it does:**
+
 1. Lists all components
 2. Audits selected component(s) for accessibility
 3. Generates detailed report with:
@@ -152,6 +154,7 @@ npm run new-component
 ```
 
 The agents will:
+
 - Validate design token usage
 - Generate responsive CSS with all variants
 - Add JavaScript for interactivity
@@ -171,6 +174,7 @@ Get a comprehensive accessibility report for your entire design system.
 ### Maintain Consistency
 
 Agents ensure all components follow:
+
 - Token architecture (semantic tokens only)
 - BEM-inspired naming conventions
 - Accessibility standards (WCAG AA)
@@ -282,11 +286,12 @@ interface WorkflowContext {
   componentName?: string;
   componentType?: string;
   requirements?: string;
-  tasks: AgentTask[];  // Results from previous agents
+  tasks: AgentTask[]; // Results from previous agents
 }
 ```
 
 Each agent:
+
 1. Receives context with previous agent results
 2. Executes its specialized task
 3. Adds result to context
@@ -296,7 +301,7 @@ Each agent:
 
 Agents are trained on your design system rules:
 
-- **Tokens:** Use semantic tokens only (--color-*, --space-*, etc.)
+- **Tokens:** Use semantic tokens only (--color-_, --space-_, etc.)
 - **Structure:** BEM-inspired class naming
 - **Accessibility:** WCAG 2.1 AA compliance
 - **Responsive:** Mobile-first approach
@@ -353,6 +358,7 @@ MIT - Same as Aural UI design system
 ## 🙏 Credits
 
 Built with:
+
 - **Claude 4.5 Sonnet** (Anthropic)
 - **Anthropic SDK** (@anthropic-ai/sdk)
 - **TypeScript**

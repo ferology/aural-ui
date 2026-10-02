@@ -35,14 +35,14 @@ export const Avatar: React.FC<AvatarProps> = ({
   size = 'md',
   shape = 'circle',
   className = '',
-  status
+  status,
 }) => {
   const avatarClasses = [
     'avatar',
     `avatar-${size}`,
     `avatar-${shape}`,
     status ? 'avatar-with-status' : '',
-    className
+    className,
   ]
     .filter(Boolean)
     .join(' ');

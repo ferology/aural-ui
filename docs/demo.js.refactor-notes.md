@@ -10,11 +10,13 @@
 ## Key Changes
 
 ### 1. Dynamic Navigation Loading
+
 - **Removed:** Hardcoded `COMPONENTS` object (lines 20-85)
 - **Added:** `loadNavigationData()` function that loads from `/docs/data/navigation.json`
 - **Benefit:** Navigation structure is now data-driven and easier to maintain
 
 ### 2. ThemeManager Integration
+
 - **Removed:** Duplicate theme configuration objects
 - **Added:** `initThemeSelector()` that integrates with `AuralThemeManager`
 - **Changed:** `selectTheme()` now uses `AuralThemeManager.applyTheme()` instead of manual theme switching
@@ -22,6 +24,7 @@
 - **Benefit:** Single source of truth for theme management, no code duplication
 
 ### 3. Simplified Sidebar Generation
+
 - **Refactored:** `generateSidebar()` function (was lines 100-203, now 61-76)
 - **Added:** Helper functions:
   - `renderLogo()` - Clean logo template
@@ -34,11 +37,13 @@
 - **Benefit:** More maintainable, testable, and follows best practices
 
 ### 4. Expanded State by Default
+
 - **Changed:** "Getting Started" and "Components" sections now respect `expanded: true` from JSON
 - **Logic:** `const isExpanded = section.expanded !== false;`
 - **Benefit:** User-friendly default state controlled by data
 
 ### 5. Cleaner Code Organization
+
 - **Added:** Clear section comments with visual separators
 - **Organized:** Functions grouped by responsibility:
   - INITIALIZATION
@@ -52,6 +57,7 @@
   - EVENT LISTENERS
 
 ### 6. Improved Search Functions
+
 - **Refactored:** Search initialization split into smaller functions:
   - `buildSearchIndex()` - Creates search index
   - `performSearch()` - Executes search with term
@@ -59,6 +65,7 @@
 - **Benefit:** More testable and easier to understand
 
 ### 7. Theme Synchronization
+
 - **Kept:** iframe theme sync functionality (essential)
 - **Improved:** Now leverages ThemeManager's theme configuration
 - **Simplified:** Removed redundant theme metadata objects
@@ -85,6 +92,7 @@ The refactored `demo.js` now depends on:
 ## Breaking Changes
 
 **None** - All public APIs remain the same:
+
 - `window.toggleThemeSelector()`
 - `window.selectTheme(themeName)`
 - `window.toggleDemoMenu()`
@@ -95,6 +103,7 @@ The refactored `demo.js` now depends on:
 ## CSS Requirements
 
 All generated HTML uses CSS variables (no hardcoded colors). Required CSS classes:
+
 - `.demo-logo`, `.demo-logo-icon`, `.demo-logo-text`
 - `.demo-soundwave`, `.demo-wave-bar`
 - `.demo-search`, `.demo-search-icon`

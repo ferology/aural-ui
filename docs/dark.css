@@ -6,109 +6,111 @@
  */
 
 :root {
-    /* ========================================
+  /* ========================================
        Primary Color Override (Green Brand)
        ======================================== */
-    --primary-50: #edfdf7;
-    --primary-100: #d3fae8;
-    --primary-200: #aaf4d5;
-    --primary-300: #71e9bb;
-    --primary-400: #5ebd8f;  /* Main brand color - vibrant green */
-    --primary-500: #4da77a;
-    --primary-600: #3d8a64;
-    --primary-700: #326d51;
-    --primary-800: #2a5842;
-    --primary-900: #244837;
-    --primary-950: #11281f;
+  --primary-50: #edfdf7;
+  --primary-100: #d3fae8;
+  --primary-200: #aaf4d5;
+  --primary-300: #71e9bb;
+  --primary-400: #5ebd8f; /* Main brand color - vibrant green */
+  --primary-500: #4da77a;
+  --primary-600: #3d8a64;
+  --primary-700: #326d51;
+  --primary-800: #2a5842;
+  --primary-900: #244837;
+  --primary-950: #11281f;
 
-    /* ========================================
+  /* ========================================
        Background Colors (Dark Mode)
        ======================================== */
-    --color-bg-primary: #0f0f1a;          /* Slightly lighter than pure black */
-    --color-bg-secondary: #1a1a2e;
-    --color-bg-tertiary: #252540;
-    --color-bg-elevated: #2a2a45;
-    --color-bg-overlay: rgba(0, 0, 0, 0.85);
-    --color-bg-hover: #35355a;
-    --color-bg-active: #40406f;
+  --color-bg-primary: #0f0f1a; /* Slightly lighter than pure black */
+  --color-bg-secondary: #1a1a2e;
+  --color-bg-tertiary: #252540;
+  --color-bg-elevated: #2a2a45;
+  --color-bg-overlay: rgba(0, 0, 0, 0.85);
+  --color-bg-hover: #35355a;
+  --color-bg-active: #40406f;
 
-    --color-bg-glass: rgba(10, 10, 18, 0.7);
-    --color-bg-glass-light: rgba(255, 255, 255, 0.05);
+  --color-bg-glass: rgba(10, 10, 18, 0.7);
+  --color-bg-glass-light: rgba(255, 255, 255, 0.05);
 
-    /* ========================================
+  /* ========================================
        Text Colors (Dark Mode)
        ======================================== */
-    --color-text-primary: #f5f5fa;        /* High contrast */
-    --color-text-secondary: #a0a0b8;      /* 5.2:1 contrast (WCAG AA+) */
-    --color-text-tertiary: #8a8aa0;
-    --color-text-muted: #7a7a8a;          /* 4.5:1+ contrast (WCAG AA) */
-    --color-text-disabled: #50505f;
-    --color-text-inverse: #0f0f1a;
+  --color-text-primary: #f5f5fa; /* High contrast */
+  --color-text-secondary: #a0a0b8; /* 5.2:1 contrast (WCAG AA+) */
+  --color-text-tertiary: #8a8aa0;
+  --color-text-muted: #7a7a8a; /* 4.5:1+ contrast (WCAG AA) */
+  --color-text-disabled: #50505f;
+  --color-text-inverse: #0f0f1a;
 
-    /* ========================================
+  /* ========================================
        Border Colors (Dark Mode)
        ======================================== */
-    --color-border-subtle: rgba(255, 255, 255, 0.08);
-    --color-border-medium: rgba(255, 255, 255, 0.12);
-    --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-medium: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
 
-    /* ========================================
+  /* ========================================
        Component Overrides (Dark Mode)
        ======================================== */
 
-    /* Buttons */
-    --color-button-primary-text: var(--color-text-inverse);  /* Dark text on green (#0f0f1a on #5ebd8f = 7.5:1 contrast) */
+  /* Buttons */
+  --color-button-primary-text: var(
+    --color-text-inverse
+  ); /* Dark text on green (#0f0f1a on #5ebd8f = 7.5:1 contrast) */
 
-    /* Inputs */
-    --color-input-bg: rgba(255, 255, 255, 0.03);
-    --color-input-border: var(--color-border-subtle);
-    --color-input-border-hover: var(--color-border-medium);
-    --color-input-disabled-bg: rgba(255, 255, 255, 0.01);
+  /* Inputs */
+  --color-input-bg: rgba(255, 255, 255, 0.03);
+  --color-input-border: var(--color-border-subtle);
+  --color-input-border-hover: var(--color-border-medium);
+  --color-input-disabled-bg: rgba(255, 255, 255, 0.01);
 
-    /* Cards */
-    --color-card-bg: rgba(26, 26, 37, 0.7);
-    --color-card-border: var(--color-border-subtle);
+  /* Cards */
+  --color-card-bg: rgba(26, 26, 37, 0.7);
+  --color-card-border: var(--color-border-subtle);
 
-    /* Modal */
-    --color-modal-bg: #0f0f1a;
+  /* Modal */
+  --color-modal-bg: #0f0f1a;
 
-    /* Toast */
-    --color-toast-bg: #2a2a45;
+  /* Toast */
+  --color-toast-bg: #2a2a45;
 
-    /* Skeleton */
-    --color-skeleton-from: rgba(255, 255, 255, 0.03);
-    --color-skeleton-via: rgba(255, 255, 255, 0.06);
-    --color-skeleton-to: rgba(255, 255, 255, 0.03);
+  /* Skeleton */
+  --color-skeleton-from: rgba(255, 255, 255, 0.03);
+  --color-skeleton-via: rgba(255, 255, 255, 0.06);
+  --color-skeleton-to: rgba(255, 255, 255, 0.03);
 
-    /* ========================================
+  /* ========================================
        Navigation (Demo Sidebar)
        ======================================== */
-    --color-nav-active-bg: #3d8a64;        /* Medium green for active nav - 7:1 contrast */
-    --color-nav-active-text: #f5f5fa;      /* Light text on green background */
+  --color-nav-active-bg: #3d8a64; /* Medium green for active nav - 7:1 contrast */
+  --color-nav-active-text: #f5f5fa; /* Light text on green background */
 }
 
 /* Dark mode body styles */
 body {
-    background: var(--color-bg-primary);
-    color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 /* Dark mode body and html styles */
-html[data-theme="dark"],
-html[data-theme="dark"] body,
+html[data-theme='dark'],
+html[data-theme='dark'] body,
 body {
-    background: var(--color-bg-primary) !important;
-    color: var(--color-text-primary) !important;
+  background: var(--color-bg-primary) !important;
+  color: var(--color-text-primary) !important;
 }
 
-html[data-theme="dark"] .demo-sidebar {
-    background: var(--color-bg-secondary) !important;
-    color: var(--color-text-primary) !important;
+html[data-theme='dark'] .demo-sidebar {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text-primary) !important;
 }
 
-html[data-theme="dark"] .demo-mobile-header {
-    background: var(--color-bg-secondary) !important;
-    color: var(--color-text-primary) !important;
+html[data-theme='dark'] .demo-mobile-header {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text-primary) !important;
 }
 
 /* ========================================
@@ -117,123 +119,129 @@ html[data-theme="dark"] .demo-mobile-header {
 
 /* Logo - Elegant with teal glow */
 .demo-logo {
-    padding: var(--space-5) var(--space-4) !important;
-    border-bottom: 1px solid rgba(94, 189, 143, 0.2);
-    background: linear-gradient(135deg, rgba(94, 189, 143, 0.05) 0%, transparent 100%);
+  padding: var(--space-5) var(--space-4) !important;
+  border-bottom: 1px solid rgba(94, 189, 143, 0.2);
+  background: linear-gradient(135deg, rgba(94, 189, 143, 0.05) 0%, transparent 100%);
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .demo-logo:hover {
-        background: linear-gradient(135deg, rgba(94, 189, 143, 0.1) 0%, transparent 100%);
-    }
+  .demo-logo:hover {
+    background: linear-gradient(135deg, rgba(94, 189, 143, 0.1) 0%, transparent 100%);
+  }
 }
 
 .demo-logo:active {
-    background: linear-gradient(135deg, rgba(94, 189, 143, 0.1) 0%, transparent 100%);
+  background: linear-gradient(135deg, rgba(94, 189, 143, 0.1) 0%, transparent 100%);
 }
 
 .demo-soundwave {
-    filter: drop-shadow(0 0 8px rgba(94, 189, 143, 0.5)) !important;
+  filter: drop-shadow(0 0 8px rgba(94, 189, 143, 0.5)) !important;
 }
 
 .demo-wave-bar {
-    background: linear-gradient(180deg, var(--primary-400), var(--primary-600)) !important;
+  background: linear-gradient(180deg, var(--primary-400), var(--primary-600)) !important;
 }
 
 .demo-logo-text {
-    background: linear-gradient(135deg, var(--primary-400), var(--primary-600)) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-    /* Fallback color in case gradient fails */
-    color: var(--primary-400) !important;
+  background: linear-gradient(135deg, var(--primary-400), var(--primary-600)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  /* Fallback color in case gradient fails */
+  color: var(--primary-400) !important;
 }
 
 /* Theme Selector */
 .theme-selector-section {
-    padding: 0 var(--space-3);
-    margin-bottom: var(--space-5) !important;
+  padding: 0 var(--space-3);
+  margin-bottom: var(--space-5) !important;
 }
 
 .theme-selector-section .demo-nav-title {
-    color: var(--color-text-secondary) !important;
+  color: var(--color-text-secondary) !important;
 }
 
 .theme-select {
-    background: var(--color-bg-tertiary) !important;
-    border: 1px solid var(--color-border-subtle) !important;
-    transition: all 0.2s ease;
+  background: var(--color-bg-tertiary) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  transition: all 0.2s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .theme-select:hover {
-        border-color: var(--color-border-medium) !important;
-    }
+  .theme-select:hover {
+    border-color: var(--color-border-medium) !important;
+  }
 }
 
 .theme-select:active {
-    border-color: var(--color-border-medium) !important;
+  border-color: var(--color-border-medium) !important;
 }
 
 .theme-select:focus {
-    border-color: var(--primary-400) !important;
-    box-shadow: 0 0 0 3px rgba(94, 189, 143, 0.5);  /* Increased opacity to 50% for better visibility */
+  border-color: var(--primary-400) !important;
+  box-shadow: 0 0 0 3px rgba(94, 189, 143, 0.5); /* Increased opacity to 50% for better visibility */
 }
 
 /* Navigation Sections */
 .demo-nav-title {
-    color: var(--color-text-secondary) !important;
-    transition: color 0.2s ease;
+  color: var(--color-text-secondary) !important;
+  transition: color 0.2s ease;
 }
 
 .demo-nav-title.collapsible:hover {
-    color: var(--primary-300) !important;  /* Lighter green for better contrast */
+  color: var(--primary-300) !important; /* Lighter green for better contrast */
 }
 
 .demo-nav-title.collapsible:not(.collapsed) {
-    color: var(--primary-300) !important;  /* Lighter green for better contrast */
+  color: var(--primary-300) !important; /* Lighter green for better contrast */
 }
 
 /* Navigation Links - Elegant hover */
 .demo-nav-link {
-    transition: all 0.2s ease !important;
+  transition: all 0.2s ease !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .demo-nav-link:hover {
-        background: var(--color-bg-hover) !important;
-        color: var(--primary-300) !important;  /* Lighter green for better contrast: #71e9bb on #35355a = 4.8:1 (WCAG AA) */
-    }
+  .demo-nav-link:hover {
+    background: var(--color-bg-hover) !important;
+    color: var(
+      --primary-300
+    ) !important; /* Lighter green for better contrast: #71e9bb on #35355a = 4.8:1 (WCAG AA) */
+  }
 }
 
 .demo-nav-link:active {
-    background: var(--color-bg-hover) !important;
-    color: var(--primary-300) !important;  /* Lighter green for better contrast */
+  background: var(--color-bg-hover) !important;
+  color: var(--primary-300) !important; /* Lighter green for better contrast */
 }
 
 .demo-nav-link.active,
 .demo-nav-link.active:link,
 .demo-nav-link.active:visited,
 .demo-nav-link.active:target {
-    background: linear-gradient(90deg, var(--primary-400) 0%, rgba(94, 189, 143, 0.8) 100%) !important;
-    color: var(--color-bg-primary) !important;
-    font-weight: 600 !important;
-    box-shadow: 0 2px 8px rgba(94, 189, 143, 0.3);
+  background: linear-gradient(
+    90deg,
+    var(--primary-400) 0%,
+    rgba(94, 189, 143, 0.8) 100%
+  ) !important;
+  color: var(--color-bg-primary) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(94, 189, 143, 0.3);
 }
 
 /* Sidebar */
 .demo-sidebar {
-    background: var(--color-bg-primary) !important;
-    border-right: 1px solid var(--color-border-subtle) !important;
+  background: var(--color-bg-primary) !important;
+  border-right: 1px solid var(--color-border-subtle) !important;
 }
 
 /* Scrollbar */
 .demo-sidebar::-webkit-scrollbar-thumb {
-    background: var(--primary-400);
+  background: var(--primary-400);
 }
 
 .demo-sidebar::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-300);
+  background: var(--primary-300);
 }
 
 /* ========================================

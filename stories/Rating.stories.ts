@@ -90,67 +90,69 @@ const hover = ref(0);
   </div>
 </template>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     value: {
       control: { type: 'number', min: 0, max: 5, step: 0.5 },
-      description: 'Current rating value'
+      description: 'Current rating value',
     },
     max: {
       control: { type: 'number', min: 3, max: 10, step: 1 },
-      description: 'Maximum rating value'
+      description: 'Maximum rating value',
     },
     readonly: {
       control: 'boolean',
-      description: 'Read-only display mode'
+      description: 'Read-only display mode',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     allowHalf: {
       control: 'boolean',
-      description: 'Allow half-star ratings'
+      description: 'Allow half-star ratings',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Rating size'
+      description: 'Rating size',
     },
     showValue: {
       control: 'boolean',
-      description: 'Show numeric value'
+      description: 'Show numeric value',
     },
     showCount: {
       control: 'boolean',
-      description: 'Show review count'
+      description: 'Show review count',
     },
     count: {
       control: { type: 'number', min: 0 },
-      description: 'Number of reviews'
+      description: 'Number of reviews',
     },
     icon: {
       control: 'select',
       options: ['star', 'heart'],
-      description: 'Icon type'
+      description: 'Icon type',
     },
     color: {
       control: 'select',
       options: ['default', 'primary', 'success', 'error'],
-      description: 'Color variant'
-    }
-  }
+      description: 'Color variant',
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj;
 
 // Star SVG path - using polygon points from docs
-const STAR_POINTS = '12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2';
-const HEART_PATH = 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z';
+const STAR_POINTS =
+  '12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2';
+const HEART_PATH =
+  'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z';
 
 // Helper function to create rating component
 function createRating(args: any) {
@@ -176,7 +178,9 @@ function createRating(args: any) {
 
   // Create stars
   for (let i = 1; i <= max; i++) {
-    const starElement = args.readonly ? document.createElement('span') : document.createElement('button');
+    const starElement = args.readonly
+      ? document.createElement('span')
+      : document.createElement('button');
 
     // Determine star state
     let starClass = 'aural-rating__star';
@@ -327,8 +331,8 @@ export const Default: Story = {
     showCount: false,
     count: 0,
     icon: 'star',
-    color: 'default'
-  }
+    color: 'default',
+  },
 };
 
 export const HalfStars: Story = {
@@ -340,14 +344,16 @@ export const HalfStars: Story = {
     container.style.padding = 'var(--space-4)';
 
     const ratings = [3.5, 4.5];
-    ratings.forEach(rating => {
-      container.appendChild(createRating({
-        ...args,
-        value: rating,
-        readonly: true,
-        allowHalf: true,
-        showValue: true
-      }));
+    ratings.forEach((rating) => {
+      container.appendChild(
+        createRating({
+          ...args,
+          value: rating,
+          readonly: true,
+          allowHalf: true,
+          showValue: true,
+        })
+      );
     });
 
     return container;
@@ -355,8 +361,8 @@ export const HalfStars: Story = {
   args: {
     max: 5,
     icon: 'star',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const ReadOnly: Story = {
@@ -371,8 +377,8 @@ export const ReadOnly: Story = {
     showCount: true,
     count: 1234,
     icon: 'star',
-    color: 'default'
-  }
+    color: 'default',
+  },
 };
 
 export const Disabled: Story = {
@@ -385,8 +391,8 @@ export const Disabled: Story = {
     size: 'md',
     showValue: true,
     icon: 'star',
-    color: 'default'
-  }
+    color: 'default',
+  },
 };
 
 export const CustomIcon: Story = {
@@ -403,7 +409,7 @@ export const CustomIcon: Story = {
       value: 4,
       icon: 'star',
       readonly: true,
-      showValue: true
+      showValue: true,
     });
     const starLabel = document.createElement('div');
     starLabel.style.fontSize = 'var(--text-sm)';
@@ -421,7 +427,7 @@ export const CustomIcon: Story = {
       value: 5,
       icon: 'heart',
       readonly: true,
-      showValue: false
+      showValue: false,
     });
     const heartLabel = document.createElement('div');
     heartLabel.style.fontSize = 'var(--text-sm)';
@@ -437,8 +443,8 @@ export const CustomIcon: Story = {
   },
   args: {
     max: 5,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const WithCount: Story = {
@@ -453,8 +459,8 @@ export const WithCount: Story = {
     showCount: true,
     count: 12845,
     icon: 'star',
-    color: 'default'
-  }
+    color: 'default',
+  },
 };
 
 export const Sizes: Story = {
@@ -468,10 +474,10 @@ export const Sizes: Story = {
     const sizes = [
       { size: 'sm', label: 'Small', value: 3, count: 45 },
       { size: 'md', label: 'Default', value: 4, count: 256 },
-      { size: 'lg', label: 'Large', value: 5, count: 1845 }
+      { size: 'lg', label: 'Large', value: 5, count: 1845 },
     ];
 
-    sizes.forEach(item => {
+    sizes.forEach((item) => {
       const wrapper = document.createElement('div');
 
       const label = document.createElement('div');
@@ -490,7 +496,7 @@ export const Sizes: Story = {
         showCount: true,
         count: item.count,
         icon: 'star',
-        color: 'default'
+        color: 'default',
       });
       wrapper.appendChild(rating);
 
@@ -498,7 +504,7 @@ export const Sizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ColorVariants: Story = {
@@ -513,10 +519,10 @@ export const ColorVariants: Story = {
       { color: 'default', label: 'Default (Warning)', value: 4 },
       { color: 'primary', label: 'Primary', value: 4 },
       { color: 'success', label: 'Success', value: 5 },
-      { color: 'error', label: 'Error', value: 2 }
+      { color: 'error', label: 'Error', value: 2 },
     ];
 
-    variants.forEach(variant => {
+    variants.forEach((variant) => {
       const wrapper = document.createElement('div');
 
       const label = document.createElement('div');
@@ -533,7 +539,7 @@ export const ColorVariants: Story = {
         size: 'md',
         showValue: true,
         icon: 'star',
-        color: variant.color
+        color: variant.color,
       });
       wrapper.appendChild(rating);
 
@@ -541,7 +547,7 @@ export const ColorVariants: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ReviewForm: Story = {
@@ -577,7 +583,7 @@ export const ReviewForm: Story = {
       size: 'lg',
       showValue: true,
       icon: 'star',
-      color: 'default'
+      color: 'default',
     });
     container.appendChild(rating);
 
@@ -602,7 +608,7 @@ export const ReviewForm: Story = {
     container.appendChild(button);
 
     return container;
-  }
+  },
 };
 
 export const ProductRating: Story = {
@@ -637,7 +643,7 @@ export const ProductRating: Story = {
       showCount: true,
       count: 1234,
       icon: 'star',
-      color: 'default'
+      color: 'default',
     });
     header.appendChild(overallRating);
 
@@ -649,10 +655,10 @@ export const ProductRating: Story = {
       { stars: 4, count: 234, percentage: 19 },
       { stars: 3, count: 98, percentage: 8 },
       { stars: 2, count: 37, percentage: 3 },
-      { stars: 1, count: 15, percentage: 1 }
+      { stars: 1, count: 15, percentage: 1 },
     ];
 
-    breakdown.forEach(item => {
+    breakdown.forEach((item) => {
       const row = document.createElement('div');
       row.style.display = 'flex';
       row.style.alignItems = 'center';
@@ -692,7 +698,7 @@ export const ProductRating: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -708,47 +714,47 @@ export const ThemeComparison: Story = {
     showValue: true,
     showCount: false,
     icon: 'star',
-    color: 'default'
+    color: 'default',
   },
   argTypes: {
     value: {
       control: { type: 'number', min: 0, max: 5, step: 0.5 },
-      description: 'Current rating value'
+      description: 'Current rating value',
     },
     max: {
       control: { type: 'number', min: 3, max: 10, step: 1 },
-      description: 'Maximum rating value'
+      description: 'Maximum rating value',
     },
     readonly: {
       control: 'boolean',
-      description: 'Read-only display mode'
+      description: 'Read-only display mode',
     },
     allowHalf: {
       control: 'boolean',
-      description: 'Allow half-star ratings'
+      description: 'Allow half-star ratings',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Rating size'
+      description: 'Rating size',
     },
     showValue: {
       control: 'boolean',
-      description: 'Show numeric value'
+      description: 'Show numeric value',
     },
     showCount: {
       control: 'boolean',
-      description: 'Show review count'
+      description: 'Show review count',
     },
     icon: {
       control: 'select',
       options: ['star', 'heart'],
-      description: 'Icon type'
+      description: 'Icon type',
     },
     color: {
       control: 'select',
       options: ['default', 'primary', 'success', 'error'],
-      description: 'Color variant'
-    }
-  }
+      description: 'Color variant',
+    },
+  },
 };

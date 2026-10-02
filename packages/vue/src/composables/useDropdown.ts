@@ -56,6 +56,6 @@ export function useDropdown(initialOpen = false): UseDropdownReturn {
     isOpen,
     open,
     close,
-    toggle
+    toggle,
   };
 }

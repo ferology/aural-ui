@@ -138,82 +138,82 @@ const fillStyle = computed(() => {
 });
 </script>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     minValue: {
       control: { type: 'number', min: 0, max: 100, step: 1 },
-      description: 'Current minimum value'
+      description: 'Current minimum value',
     },
     maxValue: {
       control: { type: 'number', min: 0, max: 100, step: 1 },
-      description: 'Current maximum value'
+      description: 'Current maximum value',
     },
     min: {
       control: { type: 'number' },
-      description: 'Minimum possible value'
+      description: 'Minimum possible value',
     },
     max: {
       control: { type: 'number' },
-      description: 'Maximum possible value'
+      description: 'Maximum possible value',
     },
     step: {
       control: { type: 'number', min: 1, max: 10 },
-      description: 'Step increment'
+      description: 'Step increment',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     showValues: {
       control: 'boolean',
-      description: 'Show current values below slider'
+      description: 'Show current values below slider',
     },
     showLabels: {
       control: 'boolean',
-      description: 'Show labels on handles'
+      description: 'Show labels on handles',
     },
     showLimits: {
       control: 'boolean',
-      description: 'Show min/max limit labels'
+      description: 'Show min/max limit labels',
     },
     showInputs: {
       control: 'boolean',
-      description: 'Show number input fields'
+      description: 'Show number input fields',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Slider size'
+      description: 'Slider size',
     },
     variant: {
       control: 'select',
       options: ['primary', 'success', 'warning', 'error'],
-      description: 'Color variant'
+      description: 'Color variant',
     },
     minLabel: {
       control: 'text',
-      description: 'Label for minimum value'
+      description: 'Label for minimum value',
     },
     maxLabel: {
       control: 'text',
-      description: 'Label for maximum value'
+      description: 'Label for maximum value',
     },
     valuePrefix: {
       control: 'text',
-      description: 'Prefix for values (e.g., "$")'
+      description: 'Prefix for values (e.g., "$")',
     },
     valueSuffix: {
       control: 'text',
-      description: 'Suffix for values (e.g., "°C")'
+      description: 'Suffix for values (e.g., "°C")',
     },
     vertical: {
       control: 'boolean',
-      description: 'Vertical orientation'
-    }
-  }
+      description: 'Vertical orientation',
+    },
+  },
 };
 
 export default meta;
@@ -223,7 +223,8 @@ type Story = StoryObj<RangeSliderArgs>;
 const createRangeSlider = (args: Partial<RangeSliderArgs>) => {
   const container = document.createElement('div');
   const sizeClass = args.size && args.size !== 'md' ? `aural-range-slider--${args.size}` : '';
-  const variantClass = args.variant && args.variant !== 'primary' ? `aural-range-slider--${args.variant}` : '';
+  const variantClass =
+    args.variant && args.variant !== 'primary' ? `aural-range-slider--${args.variant}` : '';
   const verticalClass = args.vertical ? 'aural-range-slider--vertical' : '';
 
   container.className = `aural-range-slider ${sizeClass} ${variantClass} ${verticalClass}`.trim();
@@ -380,8 +381,10 @@ const createRangeSlider = (args: Partial<RangeSliderArgs>) => {
   container.appendChild(wrapper);
 
   // Update positions
-  const minPercent = ((args.minValue || 25) - (args.min || 0)) / ((args.max || 100) - (args.min || 0)) * 100;
-  const maxPercent = ((args.maxValue || 75) - (args.min || 0)) / ((args.max || 100) - (args.min || 0)) * 100;
+  const minPercent =
+    (((args.minValue || 25) - (args.min || 0)) / ((args.max || 100) - (args.min || 0))) * 100;
+  const maxPercent =
+    (((args.maxValue || 75) - (args.min || 0)) / ((args.max || 100) - (args.min || 0))) * 100;
 
   if (args.vertical) {
     minHandle.style.bottom = `${minPercent}%`;
@@ -452,8 +455,8 @@ export const Default: Story = {
     maxLabel: 'Maximum value',
     valuePrefix: '',
     valueSuffix: '',
-    vertical: false
-  }
+    vertical: false,
+  },
 };
 
 export const WithInputFields: Story = {
@@ -475,15 +478,16 @@ export const WithInputFields: Story = {
     maxLabel: 'Maximum value',
     valuePrefix: '',
     valueSuffix: '',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Range slider with number input fields for precise value entry. Includes increment/decrement controls.'
-      }
-    }
-  }
+        story:
+          'Range slider with number input fields for precise value entry. Includes increment/decrement controls.',
+      },
+    },
+  },
 };
 
 export const PriceRange: Story = {
@@ -505,15 +509,16 @@ export const PriceRange: Story = {
     maxLabel: 'Maximum price',
     valuePrefix: '$',
     valueSuffix: '',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Price range filter commonly used in e-commerce applications. Shows currency formatting, input fields, and limit labels.'
-      }
-    }
-  }
+        story:
+          'Price range filter commonly used in e-commerce applications. Shows currency formatting, input fields, and limit labels.',
+      },
+    },
+  },
 };
 
 export const AgeRange: Story = {
@@ -535,15 +540,16 @@ export const AgeRange: Story = {
     maxLabel: 'Maximum age',
     valuePrefix: '',
     valueSuffix: ' years',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Age range selector with minimum age constraint. Useful for filtering content or search results.'
-      }
-    }
-  }
+        story:
+          'Age range selector with minimum age constraint. Useful for filtering content or search results.',
+      },
+    },
+  },
 };
 
 export const TimeRange: Story = {
@@ -565,15 +571,16 @@ export const TimeRange: Story = {
     maxLabel: 'End time',
     valuePrefix: '',
     valueSuffix: ':00',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Time range selector for scheduling or filtering by time of day. Shows hours in 24-hour format.'
-      }
-    }
-  }
+        story:
+          'Time range selector for scheduling or filtering by time of day. Shows hours in 24-hour format.',
+      },
+    },
+  },
 };
 
 export const TemperatureRange: Story = {
@@ -595,15 +602,15 @@ export const TemperatureRange: Story = {
     maxLabel: 'Maximum temperature',
     valuePrefix: '',
     valueSuffix: '°C',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Temperature range selector using success variant. Shows unit suffix formatting.'
-      }
-    }
-  }
+        story: 'Temperature range selector using success variant. Shows unit suffix formatting.',
+      },
+    },
+  },
 };
 
 export const WithSteps: Story = {
@@ -625,15 +632,15 @@ export const WithSteps: Story = {
     maxLabel: 'Maximum',
     valuePrefix: '',
     valueSuffix: '%',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Range slider with step increments of 10. Useful for percentage-based selections.'
-      }
-    }
-  }
+        story: 'Range slider with step increments of 10. Useful for percentage-based selections.',
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
@@ -655,15 +662,15 @@ export const Disabled: Story = {
     maxLabel: 'Maximum value',
     valuePrefix: '',
     valueSuffix: '',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Disabled state prevents user interaction and reduces visual prominence.'
-      }
-    }
-  }
+        story: 'Disabled state prevents user interaction and reduces visual prominence.',
+      },
+    },
+  },
 };
 
 export const WithLabels: Story = {
@@ -685,15 +692,15 @@ export const WithLabels: Story = {
     maxLabel: 'Maximum',
     valuePrefix: '',
     valueSuffix: '',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Range slider with labels on handles and min/max limit labels for better context.'
-      }
-    }
-  }
+        story: 'Range slider with labels on handles and min/max limit labels for better context.',
+      },
+    },
+  },
 };
 
 export const Small: Story = {
@@ -715,15 +722,15 @@ export const Small: Story = {
     maxLabel: 'Maximum',
     valuePrefix: '',
     valueSuffix: '',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Small size variant for compact spaces or inline usage.'
-      }
-    }
-  }
+        story: 'Small size variant for compact spaces or inline usage.',
+      },
+    },
+  },
 };
 
 export const Large: Story = {
@@ -745,21 +752,22 @@ export const Large: Story = {
     maxLabel: 'Maximum',
     valuePrefix: '',
     valueSuffix: '',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Large size variant for emphasis or improved touch targets on mobile.'
-      }
-    }
-  }
+        story: 'Large size variant for emphasis or improved touch targets on mobile.',
+      },
+    },
+  },
 };
 
 export const Vertical: Story = {
   render: (args) => {
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'display: flex; justify-content: center; align-items: center; min-height: 300px; padding: 2rem;';
+    wrapper.style.cssText =
+      'display: flex; justify-content: center; align-items: center; min-height: 300px; padding: 2rem;';
     wrapper.appendChild(createRangeSlider(args));
     return wrapper;
   },
@@ -780,15 +788,16 @@ export const Vertical: Story = {
     maxLabel: 'Maximum',
     valuePrefix: '',
     valueSuffix: '',
-    vertical: true
+    vertical: true,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Vertical orientation for height, elevation, or other naturally vertical measurements. Includes proper aria-orientation attribute.'
-      }
-    }
-  }
+        story:
+          'Vertical orientation for height, elevation, or other naturally vertical measurements. Includes proper aria-orientation attribute.',
+      },
+    },
+  },
 };
 
 export const ColorVariants: Story = {
@@ -796,18 +805,20 @@ export const ColorVariants: Story = {
     const container = document.createElement('div');
     container.style.cssText = 'display: flex; flex-direction: column; gap: 2rem; padding: 2rem;';
 
-    const variants: Array<{ variant: 'primary' | 'success' | 'warning' | 'error'; label: string }> = [
-      { variant: 'primary', label: 'Primary' },
-      { variant: 'success', label: 'Success' },
-      { variant: 'warning', label: 'Warning' },
-      { variant: 'error', label: 'Error' }
-    ];
+    const variants: Array<{ variant: 'primary' | 'success' | 'warning' | 'error'; label: string }> =
+      [
+        { variant: 'primary', label: 'Primary' },
+        { variant: 'success', label: 'Success' },
+        { variant: 'warning', label: 'Warning' },
+        { variant: 'error', label: 'Error' },
+      ];
 
     variants.forEach(({ variant, label }) => {
       const wrapper = document.createElement('div');
 
       const heading = document.createElement('div');
-      heading.style.cssText = 'font-size: var(--text-sm); color: var(--color-text-tertiary); margin-bottom: 0.5rem; text-transform: capitalize;';
+      heading.style.cssText =
+        'font-size: var(--text-sm); color: var(--color-text-tertiary); margin-bottom: 0.5rem; text-transform: capitalize;';
       heading.textContent = label;
       wrapper.appendChild(heading);
 
@@ -818,7 +829,7 @@ export const ColorVariants: Story = {
         max: 100,
         showValues: true,
         variant,
-        size: 'md'
+        size: 'md',
       });
       wrapper.appendChild(slider);
 
@@ -830,10 +841,11 @@ export const ColorVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All color variants: Primary (default), Success (positive), Warning (caution), and Error (danger).'
-      }
-    }
-  }
+        story:
+          'All color variants: Primary (default), Success (positive), Warning (caution), and Error (danger).',
+      },
+    },
+  },
 };
 
 export const SizeComparison: Story = {
@@ -844,14 +856,15 @@ export const SizeComparison: Story = {
     const sizes: Array<{ size: 'sm' | 'md' | 'lg'; label: string }> = [
       { size: 'sm', label: 'Small' },
       { size: 'md', label: 'Medium (Default)' },
-      { size: 'lg', label: 'Large' }
+      { size: 'lg', label: 'Large' },
     ];
 
     sizes.forEach(({ size, label }) => {
       const wrapper = document.createElement('div');
 
       const heading = document.createElement('div');
-      heading.style.cssText = 'font-size: var(--text-sm); color: var(--color-text-tertiary); margin-bottom: 0.5rem;';
+      heading.style.cssText =
+        'font-size: var(--text-sm); color: var(--color-text-tertiary); margin-bottom: 0.5rem;';
       heading.textContent = label;
       wrapper.appendChild(heading);
 
@@ -862,7 +875,7 @@ export const SizeComparison: Story = {
         max: 100,
         showValues: true,
         showLabels: true,
-        size
+        size,
       });
       wrapper.appendChild(slider);
 
@@ -874,10 +887,10 @@ export const SizeComparison: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comparison of all size variants: Small, Medium (default), and Large.'
-      }
-    }
-  }
+        story: 'Comparison of all size variants: Small, Medium (default), and Large.',
+      },
+    },
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -901,13 +914,14 @@ export const ThemeComparison: Story = {
     maxLabel: 'Maximum',
     valuePrefix: '',
     valueSuffix: '',
-    vertical: false
+    vertical: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'See how the Range Slider appears across all Aural UI themes. Use the controls to customize the slider and observe theme variations.'
-      }
-    }
-  }
+        story:
+          'See how the Range Slider appears across all Aural UI themes. Use the controls to customize the slider and observe theme variations.',
+      },
+    },
+  },
 };

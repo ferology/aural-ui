@@ -85,8 +85,8 @@ All tokens are available as Figma Variables in the \`Aural/Animation\` collectio
 - \`easing/*\` — **STRING** variables (cubic-bezier expressions)
 
 These can be inspected in the Variables panel and referenced in your design specs.
-        `.trim()
-      }
+        `.trim(),
+      },
     },
     layout: 'fullscreen',
   },
@@ -103,20 +103,51 @@ export const EasingFunctions: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Click **▶ Play** to watch each easing curve animate a ball across the track. Notice how acceleration differs: ease-out starts fast and decelerates, ease-in-out has a smooth ramp, and spring/bounce overshoot slightly before settling.'
-      }
-    }
+        story:
+          'Click **▶ Play** to watch each easing curve animate a ball across the track. Notice how acceleration differs: ease-out starts fast and decelerates, ease-in-out has a smooth ramp, and spring/bounce overshoot slightly before settling.',
+      },
+    },
   },
   render: () => {
     injectTokens();
 
     const easings: { name: string; token: string; curve: string; desc: string }[] = [
-      { name: 'linear',   token: '--ease-linear',  curve: 'linear',                               desc: 'Constant speed. Use for spinners, looping animations.' },
-      { name: 'ease-in',  token: '--ease-in',       curve: 'cubic-bezier(0.4, 0, 1, 1)',          desc: 'Starts slow, ends fast. Use for elements leaving the screen.' },
-      { name: 'ease-out', token: '--ease-out',      curve: 'cubic-bezier(0, 0, 0.2, 1)',          desc: 'Starts fast, ends slow. Use for elements entering the screen.' },
-      { name: 'ease-in-out', token: '--ease-in-out', curve: 'cubic-bezier(0.4, 0, 0.2, 1)',      desc: 'Smooth ramp both ways. Default for most UI interactions.' },
-      { name: 'bounce',   token: '--ease-bounce',   curve: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', desc: 'Overshoots and bounces back. Use for playful confirmations.' },
-      { name: 'spring',   token: '--ease-spring',   curve: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', desc: 'Organic snap. Use for modals, drawers, or emphasis.' },
+      {
+        name: 'linear',
+        token: '--ease-linear',
+        curve: 'linear',
+        desc: 'Constant speed. Use for spinners, looping animations.',
+      },
+      {
+        name: 'ease-in',
+        token: '--ease-in',
+        curve: 'cubic-bezier(0.4, 0, 1, 1)',
+        desc: 'Starts slow, ends fast. Use for elements leaving the screen.',
+      },
+      {
+        name: 'ease-out',
+        token: '--ease-out',
+        curve: 'cubic-bezier(0, 0, 0.2, 1)',
+        desc: 'Starts fast, ends slow. Use for elements entering the screen.',
+      },
+      {
+        name: 'ease-in-out',
+        token: '--ease-in-out',
+        curve: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        desc: 'Smooth ramp both ways. Default for most UI interactions.',
+      },
+      {
+        name: 'bounce',
+        token: '--ease-bounce',
+        curve: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        desc: 'Overshoots and bounces back. Use for playful confirmations.',
+      },
+      {
+        name: 'spring',
+        token: '--ease-spring',
+        curve: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        desc: 'Organic snap. Use for modals, drawers, or emphasis.',
+      },
     ];
 
     const wrapper = document.createElement('div');
@@ -243,7 +274,7 @@ export const EasingFunctions: Story = {
 
     wrapper.appendChild(grid);
     return wrapper;
-  }
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -254,20 +285,51 @@ export const DurationScale: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All six duration tokens side-by-side. Press **▶ Play All** to see them animate simultaneously — the relative difference in speed becomes immediately clear.'
-      }
-    }
+        story:
+          'All six duration tokens side-by-side. Press **▶ Play All** to see them animate simultaneously — the relative difference in speed becomes immediately clear.',
+      },
+    },
   },
   render: () => {
     injectTokens();
 
     const durations: { name: string; token: string; ms: number; use: string }[] = [
-      { name: 'instant', token: '--duration-instant', ms: 0,    use: 'State changes with no perceived motion (toggles, focus rings)' },
-      { name: 'fast',    token: '--duration-fast',    ms: 150,  use: 'Micro-interactions: hover, focus, button press' },
-      { name: 'normal',  token: '--duration-normal',  ms: 300,  use: 'Standard UI transitions: menus, tooltips, modals appearing' },
-      { name: 'slow',    token: '--duration-slow',    ms: 500,  use: 'Large layout shifts: drawers, page transitions' },
-      { name: 'slower',  token: '--duration-slower',  ms: 750,  use: 'Emphasis animations: onboarding, celebrations' },
-      { name: 'slowest', token: '--duration-slowest', ms: 1000, use: 'Skeleton loaders, looping background animations' },
+      {
+        name: 'instant',
+        token: '--duration-instant',
+        ms: 0,
+        use: 'State changes with no perceived motion (toggles, focus rings)',
+      },
+      {
+        name: 'fast',
+        token: '--duration-fast',
+        ms: 150,
+        use: 'Micro-interactions: hover, focus, button press',
+      },
+      {
+        name: 'normal',
+        token: '--duration-normal',
+        ms: 300,
+        use: 'Standard UI transitions: menus, tooltips, modals appearing',
+      },
+      {
+        name: 'slow',
+        token: '--duration-slow',
+        ms: 500,
+        use: 'Large layout shifts: drawers, page transitions',
+      },
+      {
+        name: 'slower',
+        token: '--duration-slower',
+        ms: 750,
+        use: 'Emphasis animations: onboarding, celebrations',
+      },
+      {
+        name: 'slowest',
+        token: '--duration-slowest',
+        ms: 1000,
+        use: 'Skeleton loaders, looping background animations',
+      },
     ];
 
     const wrapper = document.createElement('div');
@@ -280,7 +342,8 @@ export const DurationScale: Story = {
     `;
 
     const header = document.createElement('div');
-    header.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;';
+    header.style.cssText =
+      'display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;';
     header.innerHTML = `
       <div>
         <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Duration Scale</h2>
@@ -379,7 +442,9 @@ export const DurationScale: Story = {
 
       const maxMs = 1000;
       setTimeout(() => {
-        balls.forEach(ball => { ball.style.left = '6px'; });
+        balls.forEach((ball) => {
+          ball.style.left = '6px';
+        });
         setTimeout(() => {
           allPlaying = false;
           playAllBtn.textContent = '▶ Play All';
@@ -388,7 +453,7 @@ export const DurationScale: Story = {
     });
 
     return wrapper;
-  }
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -399,19 +464,45 @@ export const CompositeTransitions: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'These pre-built composite tokens combine duration + easing into a single variable. Hover or interact with each card to see the transition in action.'
-      }
-    }
+        story:
+          'These pre-built composite tokens combine duration + easing into a single variable. Hover or interact with each card to see the transition in action.',
+      },
+    },
   },
   render: () => {
     injectTokens();
 
     const composites: { token: string; value: string; demo: string; prop: string }[] = [
-      { token: '--transition-all-fast',   value: 'all 150ms ease-in-out',    demo: 'Hover me — all properties',   prop: 'all' },
-      { token: '--transition-all-normal', value: 'all 300ms ease-in-out',    demo: 'Hover me — all properties',   prop: 'all' },
-      { token: '--transition-colors',     value: 'color, background, border 150ms', demo: 'Hover me — colors only', prop: 'colors' },
-      { token: '--transition-transform',  value: 'transform 150ms ease-in-out',    demo: 'Hover me — transform',   prop: 'transform' },
-      { token: '--transition-opacity',    value: 'opacity 300ms ease-in-out',      demo: 'Hover me — opacity',     prop: 'opacity' },
+      {
+        token: '--transition-all-fast',
+        value: 'all 150ms ease-in-out',
+        demo: 'Hover me — all properties',
+        prop: 'all',
+      },
+      {
+        token: '--transition-all-normal',
+        value: 'all 300ms ease-in-out',
+        demo: 'Hover me — all properties',
+        prop: 'all',
+      },
+      {
+        token: '--transition-colors',
+        value: 'color, background, border 150ms',
+        demo: 'Hover me — colors only',
+        prop: 'colors',
+      },
+      {
+        token: '--transition-transform',
+        value: 'transform 150ms ease-in-out',
+        demo: 'Hover me — transform',
+        prop: 'transform',
+      },
+      {
+        token: '--transition-opacity',
+        value: 'opacity 300ms ease-in-out',
+        demo: 'Hover me — opacity',
+        prop: 'opacity',
+      },
     ];
 
     const wrapper = document.createElement('div');
@@ -429,7 +520,8 @@ export const CompositeTransitions: Story = {
     `;
 
     const grid = document.createElement('div');
-    grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;';
+    grid.style.cssText =
+      'display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;';
 
     composites.forEach(({ token, value, demo, prop }) => {
       const card = document.createElement('div');
@@ -455,9 +547,13 @@ export const CompositeTransitions: Story = {
           font-weight: 600;
           font-size: 0.875rem;
           margin-bottom: 1rem;
-          transition: ${token === '--transition-all-fast' ? 'all 150ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))' :
-                        token === '--transition-all-normal' ? 'all 300ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))' :
-                        'color 150ms, background-color 150ms, border-color 150ms'};
+          transition: ${
+            token === '--transition-all-fast'
+              ? 'all 150ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))'
+              : token === '--transition-all-normal'
+                ? 'all 300ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))'
+                : 'color 150ms, background-color 150ms, border-color 150ms'
+          };
         `;
         demoBox.textContent = demo;
         card.addEventListener('mouseenter', () => {
@@ -487,8 +583,12 @@ export const CompositeTransitions: Story = {
           width: 100%;
         `;
         demoBox.textContent = demo;
-        card.addEventListener('mouseenter', () => { demoBox.style.transform = 'translateY(-4px) scale(1.02)'; });
-        card.addEventListener('mouseleave', () => { demoBox.style.transform = ''; });
+        card.addEventListener('mouseenter', () => {
+          demoBox.style.transform = 'translateY(-4px) scale(1.02)';
+        });
+        card.addEventListener('mouseleave', () => {
+          demoBox.style.transform = '';
+        });
       } else if (prop === 'opacity') {
         demoBox.style.cssText = `
           background: rgba(77,167,122,0.15);
@@ -504,8 +604,12 @@ export const CompositeTransitions: Story = {
           width: 100%;
         `;
         demoBox.textContent = demo;
-        card.addEventListener('mouseenter', () => { demoBox.style.opacity = '0.3'; });
-        card.addEventListener('mouseleave', () => { demoBox.style.opacity = '1'; });
+        card.addEventListener('mouseenter', () => {
+          demoBox.style.opacity = '0.3';
+        });
+        card.addEventListener('mouseleave', () => {
+          demoBox.style.opacity = '1';
+        });
       }
 
       const info = document.createElement('div');
@@ -535,7 +639,7 @@ export const CompositeTransitions: Story = {
 
     wrapper.appendChild(grid);
     return wrapper;
-  }
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -546,9 +650,10 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Build your own transition by selecting a duration and easing function. The live preview shows the result immediately, and the generated CSS token combination is shown below.'
-      }
-    }
+        story:
+          'Build your own transition by selecting a duration and easing function. The live preview shows the result immediately, and the generated CSS token combination is shown below.',
+      },
+    },
   },
   render: () => {
     injectTokens();
@@ -576,11 +681,15 @@ export const Playground: Story = {
       align-items:end;
     `;
 
-    const makeSelect = (label: string, opts: string[]): { wrap: HTMLElement; select: HTMLSelectElement } => {
+    const makeSelect = (
+      label: string,
+      opts: string[]
+    ): { wrap: HTMLElement; select: HTMLSelectElement } => {
       const wrap = document.createElement('div');
       const lbl = document.createElement('label');
       lbl.textContent = label;
-      lbl.style.cssText = 'display:block;font-size:0.8rem;color:#8888a0;margin-bottom:6px;font-weight:600;';
+      lbl.style.cssText =
+        'display:block;font-size:0.8rem;color:#8888a0;margin-bottom:6px;font-weight:600;';
       const select = document.createElement('select');
       select.style.cssText = `
         width:100%;
@@ -593,7 +702,7 @@ export const Playground: Story = {
         cursor:pointer;
         appearance:none;
       `;
-      opts.forEach(o => {
+      opts.forEach((o) => {
         const opt = document.createElement('option');
         opt.value = o;
         opt.textContent = o;
@@ -604,8 +713,22 @@ export const Playground: Story = {
       return { wrap, select };
     };
 
-    const { wrap: dWrap, select: dSel } = makeSelect('Duration', ['instant (0ms)', 'fast (150ms)', 'normal (300ms)', 'slow (500ms)', 'slower (750ms)', 'slowest (1000ms)']);
-    const { wrap: eWrap, select: eSel } = makeSelect('Easing', ['linear', 'ease-in', 'ease-out', 'ease-in-out', 'bounce', 'spring']);
+    const { wrap: dWrap, select: dSel } = makeSelect('Duration', [
+      'instant (0ms)',
+      'fast (150ms)',
+      'normal (300ms)',
+      'slow (500ms)',
+      'slower (750ms)',
+      'slowest (1000ms)',
+    ]);
+    const { wrap: eWrap, select: eSel } = makeSelect('Easing', [
+      'linear',
+      'ease-in',
+      'ease-out',
+      'ease-in-out',
+      'bounce',
+      'spring',
+    ]);
     dSel.value = 'normal (300ms)';
     eSel.value = 'ease-in-out';
 
@@ -667,23 +790,37 @@ export const Playground: Story = {
       line-height:1.6;
     `;
 
-    const durationMs: Record<string, number> = { 'instant (0ms)': 0, 'fast (150ms)': 150, 'normal (300ms)': 300, 'slow (500ms)': 500, 'slower (750ms)': 750, 'slowest (1000ms)': 1000 };
+    const durationMs: Record<string, number> = {
+      'instant (0ms)': 0,
+      'fast (150ms)': 150,
+      'normal (300ms)': 300,
+      'slow (500ms)': 500,
+      'slower (750ms)': 750,
+      'slowest (1000ms)': 1000,
+    };
     const easingCurves: Record<string, string> = {
-      'linear': 'linear',
+      linear: 'linear',
       'ease-in': 'cubic-bezier(0.4, 0, 1, 1)',
       'ease-out': 'cubic-bezier(0, 0, 0.2, 1)',
       'ease-in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',
-      'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-      'spring': 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+      bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      spring: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
     };
     const easingTokens: Record<string, string> = {
-      'linear': '--ease-linear', 'ease-in': '--ease-in', 'ease-out': '--ease-out',
-      'ease-in-out': '--ease-in-out', 'bounce': '--ease-bounce', 'spring': '--ease-spring',
+      linear: '--ease-linear',
+      'ease-in': '--ease-in',
+      'ease-out': '--ease-out',
+      'ease-in-out': '--ease-in-out',
+      bounce: '--ease-bounce',
+      spring: '--ease-spring',
     };
     const durationTokens: Record<string, string> = {
-      'instant (0ms)': '--duration-instant', 'fast (150ms)': '--duration-fast',
-      'normal (300ms)': '--duration-normal', 'slow (500ms)': '--duration-slow',
-      'slower (750ms)': '--duration-slower', 'slowest (1000ms)': '--duration-slowest',
+      'instant (0ms)': '--duration-instant',
+      'fast (150ms)': '--duration-fast',
+      'normal (300ms)': '--duration-normal',
+      'slow (500ms)': '--duration-slow',
+      'slower (750ms)': '--duration-slower',
+      'slowest (1000ms)': '--duration-slowest',
     };
 
     function updateOutput() {
@@ -691,8 +828,7 @@ export const Playground: Story = {
       const eToken = easingTokens[eSel.value];
       const ms = durationMs[dSel.value];
       const curve = easingCurves[eSel.value];
-      output.textContent =
-`.my-element {
+      output.textContent = `.my-element {
   /* Using tokens */
   transition: all var(${dToken}) var(${eToken});
 
@@ -732,7 +868,7 @@ export const Playground: Story = {
     wrapper.appendChild(controls);
     wrapper.appendChild(previewCard);
     return wrapper;
-  }
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -743,9 +879,10 @@ export const TokenReference: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Complete reference table for every animation and transition token, including Figma Variable names and recommended CSS scopes.'
-      }
-    }
+        story:
+          'Complete reference table for every animation and transition token, including Figma Variable names and recommended CSS scopes.',
+      },
+    },
   },
   render: () => {
     injectTokens();
@@ -761,39 +898,77 @@ export const TokenReference: Story = {
 
     const sections: { title: string; color: string; rows: [string, string, string, string][] }[] = [
       {
-        title: 'Durations', color: BRAND,
+        title: 'Durations',
+        color: BRAND,
         rows: [
-          ['--duration-instant',  '0ms',    'duration/instant',  'State changes; no visible motion'],
-          ['--duration-fast',     '150ms',  'duration/fast',     'Hover, focus, button press'],
-          ['--duration-normal',   '300ms',  'duration/normal',   'Menus, tooltips, modals'],
-          ['--duration-slow',     '500ms',  'duration/slow',     'Drawers, page transitions'],
-          ['--duration-slower',   '750ms',  'duration/slower',   'Emphasis, onboarding'],
-          ['--duration-slowest',  '1000ms', 'duration/slowest',  'Skeleton loaders, looping'],
-        ]
+          ['--duration-instant', '0ms', 'duration/instant', 'State changes; no visible motion'],
+          ['--duration-fast', '150ms', 'duration/fast', 'Hover, focus, button press'],
+          ['--duration-normal', '300ms', 'duration/normal', 'Menus, tooltips, modals'],
+          ['--duration-slow', '500ms', 'duration/slow', 'Drawers, page transitions'],
+          ['--duration-slower', '750ms', 'duration/slower', 'Emphasis, onboarding'],
+          ['--duration-slowest', '1000ms', 'duration/slowest', 'Skeleton loaders, looping'],
+        ],
       },
       {
-        title: 'Easing Functions', color: '#7c6af7',
+        title: 'Easing Functions',
+        color: '#7c6af7',
         rows: [
-          ['--ease-linear',   'linear',                              'easing/linear',   'Spinners, progress bars, looping'],
-          ['--ease-in',       'cubic-bezier(0.4, 0, 1, 1)',          'easing/in',       'Elements leaving the viewport'],
-          ['--ease-out',      'cubic-bezier(0, 0, 0.2, 1)',          'easing/out',      'Elements entering the viewport'],
-          ['--ease-in-out',   'cubic-bezier(0.4, 0, 0.2, 1)',        'easing/in-out',   'Default — most UI interactions'],
-          ['--ease-bounce',   'cubic-bezier(0.68, -0.55, 0.265, 1.55)', 'easing/bounce', 'Confirmations, playful emphasis'],
-          ['--ease-spring',   'cubic-bezier(0.175, 0.885, 0.32, 1.275)', 'easing/spring', 'Modals, drawers, natural snap'],
-        ]
+          ['--ease-linear', 'linear', 'easing/linear', 'Spinners, progress bars, looping'],
+          ['--ease-in', 'cubic-bezier(0.4, 0, 1, 1)', 'easing/in', 'Elements leaving the viewport'],
+          [
+            '--ease-out',
+            'cubic-bezier(0, 0, 0.2, 1)',
+            'easing/out',
+            'Elements entering the viewport',
+          ],
+          [
+            '--ease-in-out',
+            'cubic-bezier(0.4, 0, 0.2, 1)',
+            'easing/in-out',
+            'Default — most UI interactions',
+          ],
+          [
+            '--ease-bounce',
+            'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+            'easing/bounce',
+            'Confirmations, playful emphasis',
+          ],
+          [
+            '--ease-spring',
+            'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+            'easing/spring',
+            'Modals, drawers, natural snap',
+          ],
+        ],
       },
       {
-        title: 'Composite Transitions', color: '#06b6d4',
+        title: 'Composite Transitions',
+        color: '#06b6d4',
         rows: [
-          ['--transition-fast',       '150ms ease-in-out',                '—', 'Generic fast transition shorthand'],
-          ['--transition-normal',     '300ms ease-in-out',                '—', 'Generic normal transition shorthand'],
-          ['--transition-slow',       '500ms ease-in-out',                '—', 'Generic slow transition shorthand'],
-          ['--transition-all-fast',   'all 150ms ease-in-out',            '—', 'All properties, fast'],
-          ['--transition-all-normal', 'all 300ms ease-in-out',            '—', 'All properties, normal'],
-          ['--transition-colors',     'color/bg/border 150ms ease-in-out','—', 'Color-only transition (no layout)'],
-          ['--transition-transform',  'transform 150ms ease-in-out',      '—', 'Transform-only (GPU composited)'],
-          ['--transition-opacity',    'opacity 300ms ease-in-out',        '—', 'Opacity-only (GPU composited)'],
-        ]
+          ['--transition-fast', '150ms ease-in-out', '—', 'Generic fast transition shorthand'],
+          ['--transition-normal', '300ms ease-in-out', '—', 'Generic normal transition shorthand'],
+          ['--transition-slow', '500ms ease-in-out', '—', 'Generic slow transition shorthand'],
+          ['--transition-all-fast', 'all 150ms ease-in-out', '—', 'All properties, fast'],
+          ['--transition-all-normal', 'all 300ms ease-in-out', '—', 'All properties, normal'],
+          [
+            '--transition-colors',
+            'color/bg/border 150ms ease-in-out',
+            '—',
+            'Color-only transition (no layout)',
+          ],
+          [
+            '--transition-transform',
+            'transform 150ms ease-in-out',
+            '—',
+            'Transform-only (GPU composited)',
+          ],
+          [
+            '--transition-opacity',
+            'opacity 300ms ease-in-out',
+            '—',
+            'Opacity-only (GPU composited)',
+          ],
+        ],
       },
     ];
 
@@ -827,7 +1002,7 @@ export const TokenReference: Story = {
         color:#8888a0;
         border-bottom:1px solid rgba(255,255,255,0.07);
       `;
-      ['CSS Token', 'Value', 'Figma Variable', 'When to use'].forEach(h => {
+      ['CSS Token', 'Value', 'Figma Variable', 'When to use'].forEach((h) => {
         const th = document.createElement('div');
         th.textContent = h;
         headerRow.appendChild(th);
@@ -848,9 +1023,11 @@ export const TokenReference: Story = {
         [
           `<code style="color:${color};font-size:0.75rem">${token}</code>`,
           `<span style="color:#a0a0b8;font-family:monospace;font-size:0.75rem">${value}</span>`,
-          figma !== '—' ? `<code style="color:#8888a0;font-size:0.72rem">${figma}</code>` : `<span style="color:#404050">—</span>`,
+          figma !== '—'
+            ? `<code style="color:#8888a0;font-size:0.72rem">${figma}</code>`
+            : `<span style="color:#404050">—</span>`,
           `<span style="color:#8888a0">${use}</span>`,
-        ].forEach(html => {
+        ].forEach((html) => {
           const cell = document.createElement('div');
           cell.innerHTML = html;
           row.appendChild(cell);
@@ -884,5 +1061,5 @@ export const TokenReference: Story = {
     wrapper.appendChild(note);
 
     return wrapper;
-  }
+  },
 };

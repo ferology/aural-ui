@@ -69,46 +69,46 @@ const FileUpload = ({ onUpload, accept, multiple = false }) => {
   );
 };
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     accept: {
       control: 'text',
-      description: 'Accepted file types (e.g., "image/*", ".pdf,.doc")'
+      description: 'Accepted file types (e.g., "image/*", ".pdf,.doc")',
     },
     multiple: {
       control: 'boolean',
-      description: 'Allow multiple file selection'
+      description: 'Allow multiple file selection',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     maxSize: {
       control: 'text',
-      description: 'Maximum file size (e.g., "10MB")'
+      description: 'Maximum file size (e.g., "10MB")',
     },
     dragDrop: {
       control: 'boolean',
-      description: 'Enable drag and drop functionality'
+      description: 'Enable drag and drop functionality',
     },
     showPreview: {
       control: 'boolean',
-      description: 'Show file preview thumbnails'
+      description: 'Show file preview thumbnails',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Upload zone size'
+      description: 'Upload zone size',
     },
     variant: {
       control: 'select',
       options: ['default', 'button', 'image-grid'],
-      description: 'Upload zone style variant'
-    }
-  }
+      description: 'Upload zone style variant',
+    },
+  },
 };
 
 export default meta;
@@ -349,7 +349,7 @@ function initFileUpload(container: HTMLElement) {
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
   }
 }
 
@@ -424,8 +424,8 @@ export const Default: Story = {
     dragDrop: true,
     showPreview: true,
     size: 'md',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const ImageUploadWithPreview: Story = {
@@ -486,7 +486,7 @@ export const ImageUploadWithPreview: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const SmallSize: Story = {
@@ -535,7 +535,7 @@ export const SmallSize: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const LargeSize: Story = {
@@ -589,7 +589,7 @@ export const LargeSize: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const ButtonStyle: Story = {
@@ -638,7 +638,7 @@ export const ButtonStyle: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const ImageGrid: Story = {
@@ -693,7 +693,7 @@ export const ImageGrid: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const SingleFileUpload: Story = {
@@ -747,7 +747,7 @@ export const SingleFileUpload: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithFileTypeRestrictions: Story = {
@@ -807,7 +807,7 @@ export const WithFileTypeRestrictions: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithUploadProgress: Story = {
@@ -861,7 +861,7 @@ export const WithUploadProgress: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const AvatarUpload: Story = {
@@ -940,7 +940,7 @@ export const AvatarUpload: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const FormIntegration: Story = {
@@ -1038,7 +1038,7 @@ export const FormIntegration: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -1083,21 +1083,21 @@ export const ThemeComparison: Story = {
   args: {
     accept: '',
     multiple: true,
-    size: 'md'
+    size: 'md',
   },
   argTypes: {
     accept: {
       control: 'text',
-      description: 'Accepted file types'
+      description: 'Accepted file types',
     },
     multiple: {
       control: 'boolean',
-      description: 'Allow multiple files'
+      description: 'Allow multiple files',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Upload zone size'
-    }
-  }
+      description: 'Upload zone size',
+    },
+  },
 };

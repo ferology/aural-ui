@@ -14,15 +14,21 @@ Search for this code block (usually around line 460-475):
 
 ```html
 <div role="tablist" class="tabs-list">
-    <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
-        Vanilla JS
-    </button>
-    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
-        React
-    </button>
-    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
-        Vue
-    </button>
+  <button
+    role="tab"
+    aria-selected="true"
+    aria-controls="vanilla-panel"
+    id="vanilla-tab"
+    class="tab active"
+  >
+    Vanilla JS
+  </button>
+  <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+    React
+  </button>
+  <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+    Vue
+  </button>
 </div>
 ```
 
@@ -32,7 +38,7 @@ Add this button before the closing `</div>`:
 
 ```html
 <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
-    Svelte
+  Svelte
 </button>
 ```
 
@@ -42,7 +48,7 @@ Look for the Vue panel (search for `id="vue-panel"`):
 
 ```html
 <div role="tabpanel" id="vue-panel" aria-labelledby="vue-tab" hidden>
-    <!-- Vue code here -->
+  <!-- Vue code here -->
 </div>
 ```
 
@@ -52,7 +58,7 @@ Insert this AFTER the Vue panel closing `</div>` but BEFORE the framework-tabs c
 
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte"><!-- YOUR CODE HERE --></code></pre>
+  <pre><code class="language-svelte"><!-- YOUR CODE HERE --></code></pre>
 </div>
 ```
 
@@ -61,15 +67,17 @@ Insert this AFTER the Vue panel closing `</div>` but BEFORE the framework-tabs c
 Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAMPLES_TEMPLATE.md`.
 
 **Remember to HTML encode:**
+
 - `<` becomes `&lt;`
 - `>` becomes `&gt;`
 
 ## Component-Specific Examples
 
 ### Buttons
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Button } from '@aural-ui/svelte';
 &lt;/script&gt;
 
@@ -80,9 +88,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Inputs
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Input } from '@aural-ui/svelte';
 
   let value = '';
@@ -97,9 +106,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Checkboxes
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Checkbox } from '@aural-ui/svelte';
 
   let checked = false;
@@ -112,9 +122,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Radio Buttons
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Radio } from '@aural-ui/svelte';
 
   let selected = 'option1';
@@ -126,9 +137,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Select
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Select } from '@aural-ui/svelte';
 
   let value = '';
@@ -143,9 +155,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Switch
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Switch } from '@aural-ui/svelte';
 
   let enabled = false;
@@ -158,9 +171,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Modal
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Modal, Button } from '@aural-ui/svelte';
 
   let isOpen = false;
@@ -177,9 +191,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Tabs
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Tabs } from '@aural-ui/svelte';
 
   let activeTab = 'tab1';
@@ -194,9 +209,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Cards
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Card } from '@aural-ui/svelte';
 &lt;/script&gt;
 
@@ -208,9 +224,10 @@ Replace `<!-- YOUR CODE HERE -->` with the appropriate example from `SVELTE_EXAM
 ```
 
 ### Badges
+
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { Badge } from '@aural-ui/svelte';
 &lt;/script&gt;
 
@@ -244,14 +261,17 @@ Use this checklist for each component page:
 ## Common Issues
 
 ### Tab doesn't switch
+
 - Check that `aria-controls` matches panel `id`
 - Verify `id="svelte-tab"` and `id="svelte-panel"`
 
 ### Code not displaying
+
 - Ensure HTML encoding is correct (`&lt;` not `<`)
 - Check closing tags match opening tags
 
 ### Panel always visible
+
 - Verify `hidden` attribute on panel
 - Check that only vanilla-tab has `aria-selected="true"`
 
@@ -267,36 +287,20 @@ Use this checklist for each component page:
 Complete components in this order for maximum impact:
 
 **Phase 1: Form Components** (Most Used)
+
 1. checkboxes.html
 2. radio-buttons.html
 3. select.html
 4. switch.html
 5. slider.html
 
-**Phase 2: Common UI** (High Visibility)
-6. modals.html
-7. tabs.html
-8. cards.html
-9. badges.html
-10. accordions.html
+**Phase 2: Common UI** (High Visibility) 6. modals.html 7. tabs.html 8. cards.html 9. badges.html 10. accordions.html
 
-**Phase 3: Navigation** (User Flow)
-11. breadcrumbs.html
-12. pagination.html
-13. navbar.html
-14. bottom-navigation.html
+**Phase 3: Navigation** (User Flow) 11. breadcrumbs.html 12. pagination.html 13. navbar.html 14. bottom-navigation.html
 
-**Phase 4: Feedback** (User Experience)
-15. progress.html
-16. spinner.html
-17. toast.html
-18. alert-banner.html
+**Phase 4: Feedback** (User Experience) 15. progress.html 16. spinner.html 17. toast.html 18. alert-banner.html
 
-**Phase 5: Advanced** (Power Users)
-19. tables.html
-20. drawer.html
-21. date-picker.html
-22. And remaining components...
+**Phase 5: Advanced** (Power Users) 19. tables.html 20. drawer.html 21. date-picker.html 22. And remaining components...
 
 ## Time Estimate
 

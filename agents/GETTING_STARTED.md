@@ -25,6 +25,7 @@ nano .env
 ```
 
 Add this line to `.env`:
+
 ```
 ANTHROPIC_API_KEY=your_actual_api_key_here
 ```
@@ -67,6 +68,7 @@ Select: **Interactive**
 ```
 
 Example:
+
 ```
 A tooltip that appears on hover or focus with multiple positioning options (top, right, bottom, left). Supports rich HTML content and keyboard accessibility.
 ```
@@ -134,6 +136,7 @@ npm run dev
 ```
 
 This gives you a menu of all workflows:
+
 - ✨ Create New Component
 - ♿ Audit Accessibility
 - 📚 Generate Documentation (coming soon)
@@ -147,36 +150,43 @@ This gives you a menu of all workflows:
 Each agent has a specific expertise:
 
 **Orchestrator** 🎯
+
 - Coordinates the workflow
 - Breaks down complex tasks
 - Ensures quality gates pass
 
 **Component Builder** 🏗️
+
 - Generates CSS and JavaScript code
 - Follows design system rules
 - Implements all variants and states
 
 **Accessibility Auditor** ♿
+
 - Checks WCAG 2.1 AA compliance
 - Validates keyboard navigation
 - Ensures proper ARIA attributes
 
 **Design Architect** 🎨 (coming soon)
+
 - Validates token usage
 - Ensures design consistency
 - Reviews component architecture
 
 **Documentation Writer** 📚 (coming soon)
+
 - Generates component docs
 - Creates usage examples
 - Maintains API reference
 
 **Testing Engineer** 🧪 (coming soon)
+
 - Creates test cases
 - Validates functionality
 - Runs visual regression tests
 
 **QA Agent** ✅ (coming soon)
+
 - Final quality review
 - Standards enforcement
 - Bundle size validation
@@ -209,6 +219,7 @@ npm run new-component
 ```
 
 **Input:**
+
 - Name: `data-table-advanced`
 - Type: Data Display
 - Description: "Full-featured data table with column sorting, search filter, pagination, row selection, and responsive mobile layout"
@@ -216,6 +227,7 @@ npm run new-component
 - Interactive: Yes
 
 **Result:** Production-ready component with:
+
 - ✅ Complete CSS with all variants
 - ✅ JavaScript for interactivity
 - ✅ Keyboard navigation
@@ -234,6 +246,7 @@ npm run audit-accessibility
 Select: **Audit All Components**
 
 **Result:**
+
 - Accessibility scores for each component
 - List of issues with severity
 - Specific fixes with code examples
@@ -244,6 +257,7 @@ Select: **Audit All Components**
 **Scenario:** A designer asks "Does our card component support all the color variants?"
 
 **Solution:** Agents ensure consistency:
+
 - All components use semantic tokens
 - Consistent variant naming
 - Standardized state handling
@@ -274,8 +288,8 @@ Edit `src/config/agent-config.ts` to change:
 ```typescript
 export const AGENT_CONFIGS = {
   componentBuilder: {
-    temperature: 0.4,  // Lower = more consistent
-    maxTokens: 8192,   // Adjust output length
+    temperature: 0.4, // Lower = more consistent
+    maxTokens: 8192, // Adjust output length
     // ... customize prompts
   },
 };
@@ -286,6 +300,7 @@ export const AGENT_CONFIGS = {
 ### 1. Be Specific in Requirements
 
 **Good:**
+
 ```
 Create a modal component with:
 - Overlay that dims background
@@ -297,6 +312,7 @@ Create a modal component with:
 ```
 
 **Less Good:**
+
 ```
 Create a modal
 ```
@@ -304,6 +320,7 @@ Create a modal
 ### 2. Review Generated Code
 
 Agents are smart assistants, not replacements:
+
 - ✅ Review all generated code
 - ✅ Test in your browser
 - ✅ Adjust as needed
@@ -312,6 +329,7 @@ Agents are smart assistants, not replacements:
 ### 3. Iterate with Agents
 
 Use the conversation history:
+
 ```bash
 # First run generates component
 npm run new-component
@@ -323,6 +341,7 @@ npm run update-component
 ### 4. Validate Accessibility
 
 Agents check programmatically, but always:
+
 - Test with keyboard only
 - Use a screen reader
 - Check color contrast manually
@@ -331,6 +350,7 @@ Agents check programmatically, but always:
 ### 5. Keep Design System Rules Updated
 
 As your design system evolves:
+
 - Update `design-system-rules.ts`
 - Agents will follow new patterns
 - Maintains consistency
@@ -344,6 +364,7 @@ As your design system evolves:
 ```
 
 **Solution:**
+
 1. Check `.env` file exists
 2. Verify API key is correct
 3. No quotes around the key
@@ -356,6 +377,7 @@ Cannot find module '@anthropic-ai/sdk'
 ```
 
 **Solution:**
+
 ```bash
 npm install
 ```
@@ -367,6 +389,7 @@ Type error in src/...
 ```
 
 **Solution:**
+
 ```bash
 npm run build
 ```

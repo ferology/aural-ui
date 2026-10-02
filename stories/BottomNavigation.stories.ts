@@ -47,10 +47,10 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
 - \`.aural-bottom-nav--dark\` - Dark variant with blur
 - \`.aural-bottom-nav--blur\` - Frosted glass effect
 - \`.aural-bottom-nav--mobile-only\` - Hidden on desktop (1024px+)
-        `.trim()
-      }
-    }
-  }
+        `.trim(),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -106,10 +106,10 @@ function createPhoneFrame(): HTMLElement {
 // Helper function to initialize interactive navigation
 function initBottomNav(nav: HTMLElement): void {
   const items = nav.querySelectorAll('.aural-bottom-nav__item:not(.aural-bottom-nav__fab)');
-  items.forEach(item => {
+  items.forEach((item) => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
-      items.forEach(i => {
+      items.forEach((i) => {
         i.classList.remove('aural-bottom-nav__item--active');
         i.removeAttribute('aria-current');
       });
@@ -161,7 +161,7 @@ export const BasicBottomNav: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const WithBadges: Story = {
@@ -216,7 +216,7 @@ export const WithBadges: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const CompactVariant: Story = {
@@ -269,7 +269,7 @@ export const CompactVariant: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const WithFAB: Story = {
@@ -325,7 +325,7 @@ export const WithFAB: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const PrimaryVariant: Story = {
@@ -375,7 +375,7 @@ export const PrimaryVariant: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const DarkVariant: Story = {
@@ -425,7 +425,7 @@ export const DarkVariant: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const BlurVariant: Story = {
@@ -475,7 +475,7 @@ export const BlurVariant: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const EcommercePattern: Story = {
@@ -529,7 +529,7 @@ export const EcommercePattern: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const SocialMediaPattern: Story = {
@@ -586,7 +586,7 @@ export const SocialMediaPattern: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const MobileOnlyPattern: Story = {
@@ -639,14 +639,15 @@ export const MobileOnlyPattern: Story = {
     setTimeout(() => initBottomNav(nav), 0);
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
   render: () => {
-    return createThemeGrid((theme) => {
-      const phoneFrame = document.createElement('div');
-      phoneFrame.style.cssText = `
+    return createThemeGrid(
+      (theme) => {
+        const phoneFrame = document.createElement('div');
+        phoneFrame.style.cssText = `
         max-width: 280px;
         margin: 0 auto;
         border: 4px solid var(--color-border-medium);
@@ -656,21 +657,21 @@ export const ThemeComparison: Story = {
         position: relative;
       `;
 
-      const phoneScreen = document.createElement('div');
-      phoneScreen.style.cssText = `
+        const phoneScreen = document.createElement('div');
+        phoneScreen.style.cssText = `
         position: relative;
         aspect-ratio: 9 / 16;
         background: var(--color-bg-primary);
         overflow: hidden;
       `;
 
-      const content = document.createElement('div');
-      content.style.cssText = `
+        const content = document.createElement('div');
+        content.style.cssText = `
         padding: var(--space-4);
         padding-bottom: 80px;
       `;
 
-      content.innerHTML = `
+        content.innerHTML = `
         <h4 style="font-size: var(--text-base); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">
           ${theme.charAt(0).toUpperCase() + theme.slice(1)} Theme
         </h4>
@@ -679,16 +680,16 @@ export const ThemeComparison: Story = {
         </p>
       `;
 
-      const nav = document.createElement('nav');
-      nav.className = 'aural-bottom-nav';
-      nav.setAttribute('role', 'navigation');
-      nav.setAttribute('aria-label', 'Theme navigation');
-      nav.style.position = 'absolute';
-      nav.style.bottom = '0';
-      nav.style.left = '0';
-      nav.style.right = '0';
+        const nav = document.createElement('nav');
+        nav.className = 'aural-bottom-nav';
+        nav.setAttribute('role', 'navigation');
+        nav.setAttribute('aria-label', 'Theme navigation');
+        nav.style.position = 'absolute';
+        nav.style.bottom = '0';
+        nav.style.left = '0';
+        nav.style.right = '0';
 
-      nav.innerHTML = `
+        nav.innerHTML = `
         <a href="#" class="aural-bottom-nav__item aural-bottom-nav__item--active" aria-current="page">
           <i data-lucide="home" class="aural-bottom-nav__icon"></i>
           <span class="aural-bottom-nav__label">Home</span>
@@ -708,17 +709,19 @@ export const ThemeComparison: Story = {
         </a>
       `;
 
-      phoneScreen.appendChild(content);
-      phoneScreen.appendChild(nav);
-      phoneFrame.appendChild(phoneScreen);
+        phoneScreen.appendChild(content);
+        phoneScreen.appendChild(nav);
+        phoneFrame.appendChild(phoneScreen);
 
-      setTimeout(() => {
-        if (typeof (window as any).lucide !== 'undefined') {
-          (window as any).lucide.createIcons();
-        }
-      }, 0);
+        setTimeout(() => {
+          if (typeof (window as any).lucide !== 'undefined') {
+            (window as any).lucide.createIcons();
+          }
+        }, 0);
 
-      return phoneFrame;
-    }, { columns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' });
-  }
+        return phoneFrame;
+      },
+      { columns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }
+    );
+  },
 };

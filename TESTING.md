@@ -16,6 +16,7 @@ This will start a Vite dev server at **http://localhost:3000** with a live demo 
 ## What's Included
 
 The demo showcases:
+
 - ✅ Modal, Toast, Button
 - ✅ Dropdown, Tabs, Accordion
 - ✅ Tooltip, Popover
@@ -47,14 +48,16 @@ import { Modal, Button } from '@aural-ui/react';
 ## Testing Other Frameworks
 
 ### Vue
+
 ```bash
 cd examples
 # Create vue-demo following same pattern as react-demo
 ```
 
 ### Svelte
+
 ```bash
-cd examples  
+cd examples
 # Create svelte-demo following same pattern as react-demo
 ```
 
@@ -72,6 +75,7 @@ cd examples
 ## Browser Testing
 
 Open http://localhost:3000 and test:
+
 - Click interactions
 - Keyboard navigation
 - Escape key behavior

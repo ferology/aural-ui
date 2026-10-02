@@ -11,7 +11,7 @@
    ================================================================== */
 
 .framework-tabs {
-    margin: var(--space-6, 24px) 0;
+  margin: var(--space-6, 24px) 0;
 }
 
 /* ==================================================================
@@ -19,18 +19,18 @@
    ================================================================== */
 
 .tabs-list {
-    display: flex;
-    gap: 0; /* No gaps - clean, connected appearance */
-    border-bottom: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
-    margin-bottom: var(--space-6, 24px);
-    position: relative;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
+  display: flex;
+  gap: 0; /* No gaps - clean, connected appearance */
+  border-bottom: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1));
+  margin-bottom: var(--space-6, 24px);
+  position: relative;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
 }
 
 .tabs-list::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+  display: none; /* Chrome, Safari, Edge */
 }
 
 /* ==================================================================
@@ -38,34 +38,34 @@
    ================================================================== */
 
 .tab {
-    position: relative;
-    padding: var(--space-3, 12px) var(--space-6, 24px);
-    background: transparent;
-    border: none;
-    border-bottom: 3px solid transparent;
-    color: var(--color-text-tertiary, rgba(255, 255, 255, 0.5));
-    font-size: var(--text-sm, 14px);
-    font-weight: var(--font-medium, 500);
-    letter-spacing: 0.16px; /* Carbon standard */
-    cursor: pointer;
-    transition: all 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
-    margin-bottom: -1px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    outline: none;
+  position: relative;
+  padding: var(--space-3, 12px) var(--space-6, 24px);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--color-text-tertiary, rgba(255, 255, 255, 0.5));
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-medium, 500);
+  letter-spacing: 0.16px; /* Carbon standard */
+  cursor: pointer;
+  transition: all 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
+  margin-bottom: -1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  outline: none;
 }
 
 /* Hover state */
 .tab:hover:not(.active) {
-    color: var(--color-text-primary, #ffffff);
-    background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.05));
+  color: var(--color-text-primary, #ffffff);
+  background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.05));
 }
 
 /* Active state */
 .tab.active {
-    color: var(--color-text-primary, #ffffff);
-    border-bottom-color: var(--color-primary, #5ebd8f);
-    background: transparent;
+  color: var(--color-text-primary, #ffffff);
+  border-bottom-color: var(--color-primary, #5ebd8f);
+  background: transparent;
 }
 
 /* ==================================================================
@@ -73,25 +73,25 @@
    ================================================================== */
 
 .tab.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--color-primary, #5ebd8f);
-    animation: slideIn 0.24s cubic-bezier(0.2, 0, 0.38, 0.9);
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-primary, #5ebd8f);
+  animation: slideIn 0.24s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
 @keyframes slideIn {
-    from {
-        transform: scaleX(0);
-        opacity: 0;
-    }
-    to {
-        transform: scaleX(1);
-        opacity: 1;
-    }
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 /* ==================================================================
@@ -99,82 +99,82 @@
    ================================================================== */
 
 /* Vanilla JS */
-.tab[id*="vanilla"]::before {
-    content: "JS";
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: var(--space-2, 8px);
-    font-size: 10px;
-    font-weight: var(--font-bold, 700);
-    line-height: 20px;
-    text-align: center;
-    background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.1));
-    border-radius: var(--radius-sm, 4px);
-    opacity: 0.7;
-    transition: opacity 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
+.tab[id*='vanilla']::before {
+  content: 'JS';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: var(--space-2, 8px);
+  font-size: 10px;
+  font-weight: var(--font-bold, 700);
+  line-height: 20px;
+  text-align: center;
+  background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-sm, 4px);
+  opacity: 0.7;
+  transition: opacity 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
 /* React */
-.tab[id*="react"]::before {
-    content: "⚛";
-    display: inline-block;
-    margin-right: var(--space-2, 8px);
-    font-size: 16px;
-    opacity: 0.7;
-    transition: opacity 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
+.tab[id*='react']::before {
+  content: '⚛';
+  display: inline-block;
+  margin-right: var(--space-2, 8px);
+  font-size: 16px;
+  opacity: 0.7;
+  transition: opacity 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
 /* Vue */
-.tab[id*="vue"]::before {
-    content: "V";
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: var(--space-2, 8px);
-    font-size: 12px;
-    font-weight: var(--font-bold, 700);
-    line-height: 20px;
-    text-align: center;
-    background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.1));
-    border-radius: var(--radius-sm, 4px);
-    opacity: 0.7;
-    transition: opacity 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
+.tab[id*='vue']::before {
+  content: 'V';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: var(--space-2, 8px);
+  font-size: 12px;
+  font-weight: var(--font-bold, 700);
+  line-height: 20px;
+  text-align: center;
+  background: var(--color-bg-tertiary, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius-sm, 4px);
+  opacity: 0.7;
+  transition: opacity 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
 /* Svelte */
-.tab[id*="svelte"]::before {
-    content: "🔥";
-    display: inline-block;
-    margin-right: var(--space-2, 8px);
-    font-size: 14px;
-    opacity: 0.7;
-    transition: opacity 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
+.tab[id*='svelte']::before {
+  content: '🔥';
+  display: inline-block;
+  margin-right: var(--space-2, 8px);
+  font-size: 14px;
+  opacity: 0.7;
+  transition: opacity 0.11s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
 /* Icon hover/active state */
 .tab:hover::before,
 .tab.active::before {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* ==================================================================
    TAB PANELS
    ================================================================== */
 
-[role="tabpanel"] {
-    animation: fadeInUp 0.24s cubic-bezier(0.2, 0, 0.38, 0.9);
+[role='tabpanel'] {
+  animation: fadeInUp 0.24s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==================================================================
@@ -183,20 +183,20 @@
 
 /* Focus state for keyboard navigation */
 .tab:focus-visible {
-    outline: 2px solid var(--color-primary, #5ebd8f);
-    outline-offset: -2px;
-    z-index: 1;
+  outline: 2px solid var(--color-primary, #5ebd8f);
+  outline-offset: -2px;
+  z-index: 1;
 }
 
 /* Disabled state */
 .tab:disabled {
-    color: var(--color-text-disabled, rgba(255, 255, 255, 0.25));
-    cursor: not-allowed;
-    pointer-events: none;
+  color: var(--color-text-disabled, rgba(255, 255, 255, 0.25));
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .tab:disabled::before {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
 /* ==================================================================
@@ -204,9 +204,9 @@
    ================================================================== */
 
 @media (max-width: 768px) {
-    .tab {
-        padding: var(--space-2, 8px) var(--space-4, 16px);
-    }
+  .tab {
+    padding: var(--space-2, 8px) var(--space-4, 16px);
+  }
 }
 
 /* ==================================================================
@@ -214,13 +214,13 @@
    ================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .tab,
-    .tab::before,
-    .tab.active::after,
-    [role="tabpanel"] {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-    }
+  .tab,
+  .tab::before,
+  .tab.active::after,
+  [role='tabpanel'] {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ==================================================================
@@ -228,17 +228,17 @@
    ================================================================== */
 
 @media (prefers-contrast: high) {
-    .tab {
-        border-width: 2px;
-    }
+  .tab {
+    border-width: 2px;
+  }
 
-    .tab.active {
-        border-bottom-width: 4px;
-    }
+  .tab.active {
+    border-bottom-width: 4px;
+  }
 
-    .tab:focus-visible {
-        outline-width: 3px;
-    }
+  .tab:focus-visible {
+    outline-width: 3px;
+  }
 }
 
 /* ==================================================================

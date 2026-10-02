@@ -40,14 +40,14 @@ export const Card: React.FC<CardProps> = ({
   className = '',
   variant = 'default',
   hoverable = false,
-  onClick
+  onClick,
 }) => {
   const cardClasses = [
     'card',
     variant !== 'default' ? `card-${variant}` : '',
     hoverable ? 'card-hoverable' : '',
     onClick ? 'cursor-pointer' : '',
-    className
+    className,
   ]
     .filter(Boolean)
     .join(' ');

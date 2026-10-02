@@ -96,12 +96,7 @@ async function main() {
       });
 
       // Run audit
-      const auditTask = await auditor.auditComponent(
-        componentName,
-        cssCode,
-        htmlExample,
-        context
-      );
+      const auditTask = await auditor.auditComponent(componentName, cssCode, htmlExample, context);
 
       if (auditTask.status === 'completed') {
         spinner.succeed(chalk.green(`✓ ${componentName}`));
@@ -151,10 +146,7 @@ async function main() {
  */
 function extractComponentExample(docsContent: string, componentName: string): string | null {
   // Try to find component section in docs
-  const sectionRegex = new RegExp(
-    `<!-- ${componentName} -->(.*?)<!-- /${componentName} -->`,
-    'is'
-  );
+  const sectionRegex = new RegExp(`<!-- ${componentName} -->(.*?)<!-- /${componentName} -->`, 'is');
   const match = docsContent.match(sectionRegex);
   return match ? match[1].trim() : null;
 }

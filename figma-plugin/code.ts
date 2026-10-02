@@ -30,144 +30,263 @@
 const tokens = {
   colors: {
     neutral: {
-      "50": "#fafafa", "100": "#f5f5f5", "200": "#e5e5e5", "300": "#d4d4d4",
-      "400": "#a3a3a3", "500": "#737373", "600": "#525252", "700": "#404040",
-      "800": "#262626", "900": "#171717", "950": "#0a0a0a"
+      '50': '#fafafa',
+      '100': '#f5f5f5',
+      '200': '#e5e5e5',
+      '300': '#d4d4d4',
+      '400': '#a3a3a3',
+      '500': '#737373',
+      '600': '#525252',
+      '700': '#404040',
+      '800': '#262626',
+      '900': '#171717',
+      '950': '#0a0a0a',
     },
     primary: {
-      "50": "#edfdf7", "100": "#d3fae8", "200": "#aaf4d5", "300": "#71e9bb",
-      "400": "#5ebd8f", "500": "#4da77a", "600": "#3d8a64", "700": "#326d51",
-      "800": "#2a5842", "900": "#244837", "950": "#11281f"
+      '50': '#edfdf7',
+      '100': '#d3fae8',
+      '200': '#aaf4d5',
+      '300': '#71e9bb',
+      '400': '#5ebd8f',
+      '500': '#4da77a',
+      '600': '#3d8a64',
+      '700': '#326d51',
+      '800': '#2a5842',
+      '900': '#244837',
+      '950': '#11281f',
     },
     secondary: {
-      "50": "#ecfeff", "100": "#cffafe", "200": "#a5f3fc", "300": "#67e8f9",
-      "400": "#22d3ee", "500": "#06b6d4", "600": "#0891b2", "700": "#0e7490",
-      "800": "#155e75", "900": "#164e63", "950": "#083344"
+      '50': '#ecfeff',
+      '100': '#cffafe',
+      '200': '#a5f3fc',
+      '300': '#67e8f9',
+      '400': '#22d3ee',
+      '500': '#06b6d4',
+      '600': '#0891b2',
+      '700': '#0e7490',
+      '800': '#155e75',
+      '900': '#164e63',
+      '950': '#083344',
     },
     success: {
-      "50": "#f0fdf4", "100": "#dcfce7", "200": "#bbf7d0", "300": "#86efac",
-      "400": "#4ade80", "500": "#22c55e", "600": "#16a34a", "700": "#15803d",
-      "800": "#166534", "900": "#14532d", "950": "#052e16"
+      '50': '#f0fdf4',
+      '100': '#dcfce7',
+      '200': '#bbf7d0',
+      '300': '#86efac',
+      '400': '#4ade80',
+      '500': '#22c55e',
+      '600': '#16a34a',
+      '700': '#15803d',
+      '800': '#166534',
+      '900': '#14532d',
+      '950': '#052e16',
     },
     warning: {
-      "50": "#fffbeb", "100": "#fef3c7", "200": "#fde68a", "300": "#fcd34d",
-      "400": "#fbbf24", "500": "#f59e0b", "600": "#d97706", "700": "#b45309",
-      "800": "#92400e", "900": "#78350f", "950": "#451a03"
+      '50': '#fffbeb',
+      '100': '#fef3c7',
+      '200': '#fde68a',
+      '300': '#fcd34d',
+      '400': '#fbbf24',
+      '500': '#f59e0b',
+      '600': '#d97706',
+      '700': '#b45309',
+      '800': '#92400e',
+      '900': '#78350f',
+      '950': '#451a03',
     },
     error: {
-      "50": "#fef2f2", "100": "#fee2e2", "200": "#fecaca", "300": "#fca5a5",
-      "400": "#f87171", "500": "#ef4444", "600": "#dc2626", "700": "#b91c1c",
-      "800": "#991b1b", "900": "#7f1d1d", "950": "#450a0a"
+      '50': '#fef2f2',
+      '100': '#fee2e2',
+      '200': '#fecaca',
+      '300': '#fca5a5',
+      '400': '#f87171',
+      '500': '#ef4444',
+      '600': '#dc2626',
+      '700': '#b91c1c',
+      '800': '#991b1b',
+      '900': '#7f1d1d',
+      '950': '#450a0a',
     },
     info: {
-      "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd",
-      "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8",
-      "800": "#1e40af", "900": "#1e3a8a", "950": "#172554"
+      '50': '#eff6ff',
+      '100': '#dbeafe',
+      '200': '#bfdbfe',
+      '300': '#93c5fd',
+      '400': '#60a5fa',
+      '500': '#3b82f6',
+      '600': '#2563eb',
+      '700': '#1d4ed8',
+      '800': '#1e40af',
+      '900': '#1e3a8a',
+      '950': '#172554',
     },
     purple: {
-      "50": "#faf5ff", "100": "#f3e8ff", "200": "#e9d5ff", "300": "#d8b4fe",
-      "400": "#c084fc", "500": "#a855f7", "600": "#9333ea", "700": "#7e22ce",
-      "800": "#6b21a8", "900": "#581c87", "950": "#3b0764"
+      '50': '#faf5ff',
+      '100': '#f3e8ff',
+      '200': '#e9d5ff',
+      '300': '#d8b4fe',
+      '400': '#c084fc',
+      '500': '#a855f7',
+      '600': '#9333ea',
+      '700': '#7e22ce',
+      '800': '#6b21a8',
+      '900': '#581c87',
+      '950': '#3b0764',
     },
     pink: {
-      "50": "#fdf2f8", "100": "#fce7f3", "200": "#fbcfe8", "300": "#f9a8d4",
-      "400": "#f472b6", "500": "#ec4899", "600": "#db2777", "700": "#be185d",
-      "800": "#9d174d", "900": "#831843", "950": "#500724"
-    }
+      '50': '#fdf2f8',
+      '100': '#fce7f3',
+      '200': '#fbcfe8',
+      '300': '#f9a8d4',
+      '400': '#f472b6',
+      '500': '#ec4899',
+      '600': '#db2777',
+      '700': '#be185d',
+      '800': '#9d174d',
+      '900': '#831843',
+      '950': '#500724',
+    },
   },
   spacing: {
-    "0": 0, "1": 4, "2": 8, "3": 12, "4": 16, "5": 20, "6": 24, "7": 28,
-    "8": 32, "10": 40, "12": 48, "14": 56, "16": 64, "20": 80, "24": 96,
-    "32": 128, "40": 160, "48": 192, "64": 256
+    '0': 0,
+    '1': 4,
+    '2': 8,
+    '3': 12,
+    '4': 16,
+    '5': 20,
+    '6': 24,
+    '7': 28,
+    '8': 32,
+    '10': 40,
+    '12': 48,
+    '14': 56,
+    '16': 64,
+    '20': 80,
+    '24': 96,
+    '32': 128,
+    '40': 160,
+    '48': 192,
+    '64': 256,
   },
   typography: {
     fontFamilies: {
-      "sans": "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
-      "mono": "SF Mono, Monaco, Cascadia Code, Roboto Mono, Consolas, Courier New, monospace"
+      sans: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+      mono: 'SF Mono, Monaco, Cascadia Code, Roboto Mono, Consolas, Courier New, monospace',
     },
     fontSizes: {
-      "xs": 12, "sm": 14, "base": 16, "lg": 18, "xl": 20,
-      "2xl": 24, "3xl": 30, "4xl": 36, "5xl": 48, "6xl": 60, "7xl": 72
+      xs: 12,
+      sm: 14,
+      base: 16,
+      lg: 18,
+      xl: 20,
+      '2xl': 24,
+      '3xl': 30,
+      '4xl': 36,
+      '5xl': 48,
+      '6xl': 60,
+      '7xl': 72,
     },
     fontWeights: {
-      "thin": 100, "extralight": 200, "light": 300,
-      "normal": 400, "medium": 500, "semibold": 600,
-      "bold": 700, "extrabold": 800, "black": 900
+      thin: 100,
+      extralight: 200,
+      light: 300,
+      normal: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700,
+      extrabold: 800,
+      black: 900,
     },
     lineHeights: {
-      "none": 1, "tight": 1.25, "snug": 1.375,
-      "normal": 1.5, "relaxed": 1.625, "loose": 2
+      none: 1,
+      tight: 1.25,
+      snug: 1.375,
+      normal: 1.5,
+      relaxed: 1.625,
+      loose: 2,
     },
     letterSpacing: {
-      "tighter": -0.8, "tight": -0.4, "normal": 0,
-      "wide": 0.4, "wider": 0.8, "widest": 1.6
-    }
+      tighter: -0.8,
+      tight: -0.4,
+      normal: 0,
+      wide: 0.4,
+      wider: 0.8,
+      widest: 1.6,
+    },
   },
   radii: {
     // Matches tokens/core/radius.css exactly (px equivalents of rem values)
-    "none": 0,
-    "sm": 4,       // 0.25rem
-    "default": 8,  // 0.5rem  — base/unnamed radius in CSS
-    "md": 12,      // 0.75rem
-    "lg": 16,      // 1rem
-    "xl": 20,      // 1.25rem
-    "2xl": 24,     // 1.5rem
-    "3xl": 32,     // 2rem
-    "full": 9999
+    none: 0,
+    sm: 4, // 0.25rem
+    default: 8, // 0.5rem  — base/unnamed radius in CSS
+    md: 12, // 0.75rem
+    lg: 16, // 1rem
+    xl: 20, // 1.25rem
+    '2xl': 24, // 1.5rem
+    '3xl': 32, // 2rem
+    full: 9999,
   },
   animations: {
     durations: {
-      "instant": 0,
-      "fast": 150,
-      "normal": 300,
-      "slow": 500,
-      "slower": 750,
-      "slowest": 1000
+      instant: 0,
+      fast: 150,
+      normal: 300,
+      slow: 500,
+      slower: 750,
+      slowest: 1000,
     },
     easings: {
-      "linear":   "linear",
-      "in":       "cubic-bezier(0.4, 0, 1, 1)",
-      "out":      "cubic-bezier(0, 0, 0.2, 1)",
-      "in-out":   "cubic-bezier(0.4, 0, 0.2, 1)",
-      "bounce":   "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
-      "spring":   "cubic-bezier(0.175, 0.885, 0.32, 1.275)"
-    }
+      linear: 'linear',
+      in: 'cubic-bezier(0.4, 0, 1, 1)',
+      out: 'cubic-bezier(0, 0, 0.2, 1)',
+      'in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      spring: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+    },
   },
   components: {
     button: {
-      sm:  { height: 32, paddingX: 12, fontSize: 14, radius: 6 },
-      md:  { height: 40, paddingX: 16, fontSize: 14, radius: 6 },
-      lg:  { height: 48, paddingX: 24, fontSize: 16, radius: 8 }
+      sm: { height: 32, paddingX: 12, fontSize: 14, radius: 6 },
+      md: { height: 40, paddingX: 16, fontSize: 14, radius: 6 },
+      lg: { height: 48, paddingX: 24, fontSize: 16, radius: 8 },
     },
     input: {
-      sm:  { height: 32, paddingX: 12, fontSize: 14 },
-      md:  { height: 40, paddingX: 12, fontSize: 14 },
-      lg:  { height: 48, paddingX: 16, fontSize: 16 }
+      sm: { height: 32, paddingX: 12, fontSize: 14 },
+      md: { height: 40, paddingX: 12, fontSize: 14 },
+      lg: { height: 48, paddingX: 16, fontSize: 16 },
     },
     card: {
-      paddingSm: 16, paddingMd: 24, paddingLg: 32, radius: 12
+      paddingSm: 16,
+      paddingMd: 24,
+      paddingLg: 32,
+      radius: 12,
     },
     badge: {
-      height: 24, paddingX: 8, fontSize: 12, radius: 9999
-    }
-  }
+      height: 24,
+      paddingX: 8,
+      fontSize: 12,
+      radius: 9999,
+    },
+  },
 };
 
 // Helpers
 function hexToRgb(hex: string): RGB {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16) / 255,
-    g: parseInt(result[2], 16) / 255,
-    b: parseInt(result[3], 16) / 255
-  } : { r: 0, g: 0, b: 0 };
+  return result
+    ? {
+        r: parseInt(result[1], 16) / 255,
+        g: parseInt(result[2], 16) / 255,
+        b: parseInt(result[3], 16) / 255,
+      }
+    : { r: 0, g: 0, b: 0 };
 }
 
 async function loadFonts(): Promise<void> {
-  await figma.loadFontAsync({ family: "Inter", style: "Bold" });
-  await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
-  await figma.loadFontAsync({ family: "Inter", style: "Medium" });
-  await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+  await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
+  await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
+  await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
+  await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
 }
 
 function createComponentFrame(name: string, bgColor: string = '#ffffff'): FrameNode {
@@ -187,7 +306,7 @@ function addTitle(frame: FrameNode, text: string): void {
   const title = figma.createText();
   title.characters = text;
   title.fontSize = 32;
-  title.fontName = { family: "Inter", style: "Bold" };
+  title.fontName = { family: 'Inter', style: 'Bold' };
   frame.appendChild(title);
 }
 
@@ -195,7 +314,7 @@ function addSubtitle(frame: FrameNode, text: string): void {
   const subtitle = figma.createText();
   subtitle.characters = text;
   subtitle.fontSize = 14;
-  subtitle.fontName = { family: "Inter", style: "Regular" };
+  subtitle.fontName = { family: 'Inter', style: 'Regular' };
   subtitle.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   frame.appendChild(subtitle);
 }
@@ -263,56 +382,55 @@ async function generateVariables(): Promise<void> {
   const semanticCol = figma.variables.createVariableCollection('Aural/Semantic Colors');
   semanticCol.renameMode(semanticCol.modes[0].modeId, 'Light');
   const lightId = semanticCol.modes[0].modeId;
-  const darkId  = semanticCol.addMode('Dark');
+  const darkId = semanticCol.addMode('Dark');
 
-  const alias = (key: string): VariableAlias =>
-    ({ type: 'VARIABLE_ALIAS', id: primMap[key].id });
+  const alias = (key: string): VariableAlias => ({ type: 'VARIABLE_ALIAS', id: primMap[key].id });
 
   const semanticMap: Record<string, { light: string; dark: string }> = {
     // Backgrounds
-    'background/page':              { light: 'neutral/50',    dark: 'neutral/950'   },
-    'background/surface':           { light: 'neutral/100',   dark: 'neutral/900'   },
-    'background/overlay':           { light: 'neutral/200',   dark: 'neutral/800'   },
-    'background/inverted':          { light: 'neutral/900',   dark: 'neutral/50'    },
+    'background/page': { light: 'neutral/50', dark: 'neutral/950' },
+    'background/surface': { light: 'neutral/100', dark: 'neutral/900' },
+    'background/overlay': { light: 'neutral/200', dark: 'neutral/800' },
+    'background/inverted': { light: 'neutral/900', dark: 'neutral/50' },
     // Text
-    'text/primary':                 { light: 'neutral/900',   dark: 'neutral/50'    },
-    'text/secondary':               { light: 'neutral/600',   dark: 'neutral/400'   },
-    'text/disabled':                { light: 'neutral/400',   dark: 'neutral/600'   },
-    'text/inverse':                 { light: 'neutral/50',    dark: 'neutral/900'   },
-    'text/link':                    { light: 'primary/600',   dark: 'primary/400'   },
-    'text/on-accent':               { light: 'neutral/50',    dark: 'neutral/900'   },
+    'text/primary': { light: 'neutral/900', dark: 'neutral/50' },
+    'text/secondary': { light: 'neutral/600', dark: 'neutral/400' },
+    'text/disabled': { light: 'neutral/400', dark: 'neutral/600' },
+    'text/inverse': { light: 'neutral/50', dark: 'neutral/900' },
+    'text/link': { light: 'primary/600', dark: 'primary/400' },
+    'text/on-accent': { light: 'neutral/50', dark: 'neutral/900' },
     // Borders
-    'border/default':               { light: 'neutral/200',   dark: 'neutral/700'   },
-    'border/strong':                { light: 'neutral/400',   dark: 'neutral/500'   },
-    'border/focus':                 { light: 'primary/500',   dark: 'primary/400'   },
+    'border/default': { light: 'neutral/200', dark: 'neutral/700' },
+    'border/strong': { light: 'neutral/400', dark: 'neutral/500' },
+    'border/focus': { light: 'primary/500', dark: 'primary/400' },
     // Interactive – Primary
-    'interactive/primary':          { light: 'primary/500',   dark: 'primary/400'   },
-    'interactive/primary-hover':    { light: 'primary/600',   dark: 'primary/300'   },
-    'interactive/primary-active':   { light: 'primary/700',   dark: 'primary/200'   },
-    'interactive/primary-subtle':   { light: 'primary/50',    dark: 'primary/950'   },
+    'interactive/primary': { light: 'primary/500', dark: 'primary/400' },
+    'interactive/primary-hover': { light: 'primary/600', dark: 'primary/300' },
+    'interactive/primary-active': { light: 'primary/700', dark: 'primary/200' },
+    'interactive/primary-subtle': { light: 'primary/50', dark: 'primary/950' },
     // Interactive – Secondary
-    'interactive/secondary':        { light: 'secondary/500', dark: 'secondary/400' },
-    'interactive/secondary-hover':  { light: 'secondary/600', dark: 'secondary/300' },
-    'interactive/secondary-subtle': { light: 'secondary/50',  dark: 'secondary/950' },
+    'interactive/secondary': { light: 'secondary/500', dark: 'secondary/400' },
+    'interactive/secondary-hover': { light: 'secondary/600', dark: 'secondary/300' },
+    'interactive/secondary-subtle': { light: 'secondary/50', dark: 'secondary/950' },
     // Status
-    'status/success':               { light: 'success/500',   dark: 'success/400'   },
-    'status/success-bg':            { light: 'success/50',    dark: 'success/950'   },
-    'status/success-text':          { light: 'success/700',   dark: 'success/300'   },
-    'status/warning':               { light: 'warning/500',   dark: 'warning/400'   },
-    'status/warning-bg':            { light: 'warning/50',    dark: 'warning/950'   },
-    'status/warning-text':          { light: 'warning/700',   dark: 'warning/300'   },
-    'status/error':                 { light: 'error/500',     dark: 'error/400'     },
-    'status/error-bg':              { light: 'error/50',      dark: 'error/950'     },
-    'status/error-text':            { light: 'error/700',     dark: 'error/300'     },
-    'status/info':                  { light: 'info/500',      dark: 'info/400'      },
-    'status/info-bg':               { light: 'info/50',       dark: 'info/950'      },
-    'status/info-text':             { light: 'info/700',      dark: 'info/300'      },
+    'status/success': { light: 'success/500', dark: 'success/400' },
+    'status/success-bg': { light: 'success/50', dark: 'success/950' },
+    'status/success-text': { light: 'success/700', dark: 'success/300' },
+    'status/warning': { light: 'warning/500', dark: 'warning/400' },
+    'status/warning-bg': { light: 'warning/50', dark: 'warning/950' },
+    'status/warning-text': { light: 'warning/700', dark: 'warning/300' },
+    'status/error': { light: 'error/500', dark: 'error/400' },
+    'status/error-bg': { light: 'error/50', dark: 'error/950' },
+    'status/error-text': { light: 'error/700', dark: 'error/300' },
+    'status/info': { light: 'info/500', dark: 'info/400' },
+    'status/info-bg': { light: 'info/50', dark: 'info/950' },
+    'status/info-text': { light: 'info/700', dark: 'info/300' },
   };
 
   for (const [name, modes] of Object.entries(semanticMap)) {
     const v = figma.variables.createVariable(name, semanticCol, 'COLOR');
     v.setValueForMode(lightId, alias(modes.light));
-    v.setValueForMode(darkId,  alias(modes.dark));
+    v.setValueForMode(darkId, alias(modes.dark));
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -393,9 +511,12 @@ async function generateVariables(): Promise<void> {
   for (const [size, vals] of Object.entries(tokens.components.button)) {
     for (const [prop, value] of Object.entries(vals as Record<string, number>)) {
       const v = figma.variables.createVariable(`button/${size}/${prop}`, compCol, 'FLOAT');
-      v.scopes = prop === 'radius' ? ['CORNER_RADIUS']
-               : prop === 'fontSize' ? ['FONT_SIZE']
-               : ['WIDTH_HEIGHT', 'GAP'];
+      v.scopes =
+        prop === 'radius'
+          ? ['CORNER_RADIUS']
+          : prop === 'fontSize'
+            ? ['FONT_SIZE']
+            : ['WIDTH_HEIGHT', 'GAP'];
       v.setValueForMode(compModeId, value as number);
     }
   }
@@ -417,9 +538,12 @@ async function generateVariables(): Promise<void> {
   for (const [prop, value] of Object.entries(tokens.components.badge)) {
     if (typeof value !== 'number') continue; // skip 'variants' array
     const v = figma.variables.createVariable(`badge/${prop}`, compCol, 'FLOAT');
-    v.scopes = prop === 'radius' ? ['CORNER_RADIUS']
-             : prop === 'fontSize' ? ['FONT_SIZE']
-             : ['WIDTH_HEIGHT', 'GAP'];
+    v.scopes =
+      prop === 'radius'
+        ? ['CORNER_RADIUS']
+        : prop === 'fontSize'
+          ? ['FONT_SIZE']
+          : ['WIDTH_HEIGHT', 'GAP'];
     v.setValueForMode(compModeId, value as number);
   }
 
@@ -447,7 +571,9 @@ async function generateVariables(): Promise<void> {
     v.setValueForMode(animModeId, curve as string);
   }
 
-  figma.notify('✅ Variables ready — Color (Light/Dark), Spacing, Radius, Typography, Components, Animation!');
+  figma.notify(
+    '✅ Variables ready — Color (Light/Dark), Spacing, Radius, Typography, Components, Animation!'
+  );
 }
 
 async function generateColorSwatches(): Promise<void> {
@@ -465,7 +591,7 @@ async function generateColorSwatches(): Promise<void> {
     const label = figma.createText();
     label.characters = colorName.charAt(0).toUpperCase() + colorName.slice(1);
     label.fontSize = 18;
-    label.fontName = { family: "Inter", style: "Semi Bold" };
+    label.fontName = { family: 'Inter', style: 'Semi Bold' };
     paletteFrame.appendChild(label);
 
     const swatchesRow = figma.createFrame();
@@ -484,8 +610,13 @@ async function generateColorSwatches(): Promise<void> {
       const shadeLabel = figma.createText();
       shadeLabel.characters = shade;
       shadeLabel.fontSize = 10;
-      shadeLabel.fontName = { family: "Inter", style: "Regular" };
-      shadeLabel.fills = [{ type: 'SOLID', color: parseInt(shade) >= 500 ? { r: 1, g: 1, b: 1 } : { r: 0, g: 0, b: 0 } }];
+      shadeLabel.fontName = { family: 'Inter', style: 'Regular' };
+      shadeLabel.fills = [
+        {
+          type: 'SOLID',
+          color: parseInt(shade) >= 500 ? { r: 1, g: 1, b: 1 } : { r: 0, g: 0, b: 0 },
+        },
+      ];
       shadeLabel.x = 8;
       shadeLabel.y = 8;
       swatch.appendChild(shadeLabel);
@@ -508,10 +639,20 @@ async function generateTypography(): Promise<void> {
       const style = figma.createTextStyle();
       style.name = `Aural/text-${sizeName}/${weightName}`;
       style.fontSize = size;
-      await figma.loadFontAsync({ family: "Inter", style: weight >= 600 ? "Semi Bold" : "Regular" });
+      await figma.loadFontAsync({
+        family: 'Inter',
+        style: weight >= 600 ? 'Semi Bold' : 'Regular',
+      });
       style.fontName = {
-        family: "Inter",
-        style: weight >= 700 ? "Bold" : weight >= 600 ? "Semi Bold" : weight >= 500 ? "Medium" : "Regular"
+        family: 'Inter',
+        style:
+          weight >= 700
+            ? 'Bold'
+            : weight >= 600
+              ? 'Semi Bold'
+              : weight >= 500
+                ? 'Medium'
+                : 'Regular',
       };
       count++;
     }
@@ -535,7 +676,7 @@ async function generateTypographyShowcase(): Promise<void> {
     const label = figma.createText();
     label.characters = `text-${sizeName} (${size}px)`;
     label.fontSize = 12;
-    label.fontName = { family: "Inter", style: "Regular" };
+    label.fontName = { family: 'Inter', style: 'Regular' };
     label.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
     label.resize(120, label.height);
     row.appendChild(label);
@@ -543,7 +684,7 @@ async function generateTypographyShowcase(): Promise<void> {
     const sample = figma.createText();
     sample.characters = 'The quick brown fox jumps over the lazy dog';
     sample.fontSize = size;
-    sample.fontName = { family: "Inter", style: "Regular" };
+    sample.fontName = { family: 'Inter', style: 'Regular' };
     row.appendChild(sample);
     frame.appendChild(row);
   }
@@ -568,7 +709,7 @@ async function generateSpacing(): Promise<void> {
     const label = figma.createText();
     label.characters = `space-${name} (${value}px)`;
     label.fontSize = 12;
-    label.fontName = { family: "Inter", style: "Regular" };
+    label.fontName = { family: 'Inter', style: 'Regular' };
     label.resize(120, label.height);
     row.appendChild(label);
 
@@ -592,21 +733,23 @@ async function generateEffects(): Promise<void> {
     { name: 'shadow-md', y: 4, blur: 6, opacity: 0.1 },
     { name: 'shadow-lg', y: 10, blur: 15, opacity: 0.1 },
     { name: 'shadow-xl', y: 20, blur: 25, opacity: 0.1 },
-    { name: 'shadow-2xl', y: 25, blur: 50, opacity: 0.25 }
+    { name: 'shadow-2xl', y: 25, blur: 50, opacity: 0.25 },
   ];
 
   for (const s of shadows) {
     const style = figma.createEffectStyle();
     style.name = `Aural/${s.name}`;
-    style.effects = [{
-      type: 'DROP_SHADOW',
-      color: { r: 0, g: 0, b: 0, a: s.opacity },
-      offset: { x: 0, y: s.y },
-      radius: s.blur,
-      spread: 0,
-      visible: true,
-      blendMode: 'NORMAL'
-    }];
+    style.effects = [
+      {
+        type: 'DROP_SHADOW',
+        color: { r: 0, g: 0, b: 0, a: s.opacity },
+        offset: { x: 0, y: s.y },
+        radius: s.blur,
+        spread: 0,
+        visible: true,
+        blendMode: 'NORMAL',
+      },
+    ];
   }
 
   figma.notify('Created 6 effect styles!');
@@ -631,16 +774,21 @@ async function generateButtons(): Promise<void> {
   const variants = [
     { name: 'Primary', bg: tokens.colors.primary['500'], text: '#ffffff' },
     { name: 'Secondary', bg: '#f3f4f6', text: '#374151' },
-    { name: 'Ghost', bg: 'transparent', text: tokens.colors.primary['500'], border: tokens.colors.primary['500'] },
+    {
+      name: 'Ghost',
+      bg: 'transparent',
+      text: tokens.colors.primary['500'],
+      border: tokens.colors.primary['500'],
+    },
     { name: 'Success', bg: tokens.colors.success['500'], text: '#ffffff' },
     { name: 'Warning', bg: tokens.colors.warning['500'], text: '#ffffff' },
-    { name: 'Error', bg: tokens.colors.error['500'], text: '#ffffff' }
+    { name: 'Error', bg: tokens.colors.error['500'], text: '#ffffff' },
   ];
 
   const sizes = [
     { name: 'sm', height: 32, paddingX: 12, fontSize: 14 },
     { name: 'md', height: 40, paddingX: 16, fontSize: 14 },
-    { name: 'lg', height: 48, paddingX: 24, fontSize: 16 }
+    { name: 'lg', height: 48, paddingX: 24, fontSize: 16 },
   ];
 
   for (const variant of variants) {
@@ -652,7 +800,7 @@ async function generateButtons(): Promise<void> {
     const label = figma.createText();
     label.characters = variant.name;
     label.fontSize = 16;
-    label.fontName = { family: "Inter", style: "Semi Bold" };
+    label.fontName = { family: 'Inter', style: 'Semi Bold' };
     section.appendChild(label);
 
     const row = figma.createFrame();
@@ -683,7 +831,7 @@ async function generateButtons(): Promise<void> {
       const text = figma.createText();
       text.characters = `Button ${size.name.toUpperCase()}`;
       text.fontSize = size.fontSize;
-      text.fontName = { family: "Inter", style: "Medium" };
+      text.fontName = { family: 'Inter', style: 'Medium' };
       text.fills = [{ type: 'SOLID', color: hexToRgb(variant.text) }];
       btn.appendChild(text);
       btn.primaryAxisSizingMode = 'AUTO';
@@ -708,7 +856,7 @@ async function generateInputs(): Promise<void> {
     { name: 'Default', borderColor: '#d1d5db' },
     { name: 'Focus', borderColor: tokens.colors.primary['500'] },
     { name: 'Error', borderColor: tokens.colors.error['500'] },
-    { name: 'Disabled', borderColor: '#e5e7eb', bg: '#f9fafb' }
+    { name: 'Disabled', borderColor: '#e5e7eb', bg: '#f9fafb' },
   ];
 
   for (const state of states) {
@@ -720,7 +868,7 @@ async function generateInputs(): Promise<void> {
     const label = figma.createText();
     label.characters = state.name;
     label.fontSize = 14;
-    label.fontName = { family: "Inter", style: "Medium" };
+    label.fontName = { family: 'Inter', style: 'Medium' };
     section.appendChild(label);
 
     const input = figma.createFrame();
@@ -737,7 +885,7 @@ async function generateInputs(): Promise<void> {
     const placeholder = figma.createText();
     placeholder.characters = state.name === 'Disabled' ? 'Disabled input' : 'Enter text...';
     placeholder.fontSize = 14;
-    placeholder.fontName = { family: "Inter", style: "Regular" };
+    placeholder.fontName = { family: 'Inter', style: 'Regular' };
     placeholder.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
     input.appendChild(placeholder);
     section.appendChild(input);
@@ -758,7 +906,7 @@ async function generateCheckboxes(): Promise<void> {
     { name: 'Unchecked', checked: false },
     { name: 'Checked', checked: true },
     { name: 'Indeterminate', indeterminate: true },
-    { name: 'Disabled', checked: false, disabled: true }
+    { name: 'Disabled', checked: false, disabled: true },
   ];
 
   for (const state of states) {
@@ -779,7 +927,7 @@ async function generateCheckboxes(): Promise<void> {
         const check = figma.createText();
         check.characters = '✓';
         check.fontSize = 14;
-        check.fontName = { family: "Inter", style: "Bold" };
+        check.fontName = { family: 'Inter', style: 'Bold' };
         check.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
         check.x = 3;
         check.y = 1;
@@ -794,7 +942,9 @@ async function generateCheckboxes(): Promise<void> {
       }
     } else {
       checkbox.fills = [{ type: 'SOLID', color: hexToRgb(state.disabled ? '#f3f4f6' : '#ffffff') }];
-      checkbox.strokes = [{ type: 'SOLID', color: hexToRgb(state.disabled ? '#d1d5db' : '#9ca3af') }];
+      checkbox.strokes = [
+        { type: 'SOLID', color: hexToRgb(state.disabled ? '#d1d5db' : '#9ca3af') },
+      ];
       checkbox.strokeWeight = 2;
     }
 
@@ -803,7 +953,7 @@ async function generateCheckboxes(): Promise<void> {
     const label = figma.createText();
     label.characters = state.name;
     label.fontSize = 14;
-    label.fontName = { family: "Inter", style: "Regular" };
+    label.fontName = { family: 'Inter', style: 'Regular' };
     label.fills = [{ type: 'SOLID', color: hexToRgb(state.disabled ? '#9ca3af' : '#374151') }];
     row.appendChild(label);
     frame.appendChild(row);
@@ -830,8 +980,12 @@ async function generateRadioButtons(): Promise<void> {
 
     const radio = figma.createEllipse();
     radio.resize(20, 20);
-    radio.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['500'] : '#ffffff') }];
-    radio.strokes = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['500'] : '#9ca3af') }];
+    radio.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['500'] : '#ffffff') },
+    ];
+    radio.strokes = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['500'] : '#9ca3af') },
+    ];
     radio.strokeWeight = 2;
 
     if (i === 0) {
@@ -854,7 +1008,7 @@ async function generateRadioButtons(): Promise<void> {
     const label = figma.createText();
     label.characters = options[i];
     label.fontSize = 14;
-    label.fontName = { family: "Inter", style: "Regular" };
+    label.fontName = { family: 'Inter', style: 'Regular' };
     row.appendChild(label);
     frame.appendChild(row);
   }
@@ -873,7 +1027,7 @@ async function generateSwitches(): Promise<void> {
     { name: 'Off', on: false },
     { name: 'On', on: true },
     { name: 'Disabled Off', on: false, disabled: true },
-    { name: 'Disabled On', on: true, disabled: true }
+    { name: 'Disabled On', on: true, disabled: true },
   ];
 
   for (const state of states) {
@@ -886,31 +1040,38 @@ async function generateSwitches(): Promise<void> {
     const toggle = figma.createFrame();
     toggle.resize(44, 24);
     toggle.cornerRadius = 12;
-    toggle.fills = [{ type: 'SOLID', color: hexToRgb(
-      state.disabled ? '#e5e7eb' : (state.on ? tokens.colors.primary['500'] : '#d1d5db')
-    )}];
+    toggle.fills = [
+      {
+        type: 'SOLID',
+        color: hexToRgb(
+          state.disabled ? '#e5e7eb' : state.on ? tokens.colors.primary['500'] : '#d1d5db'
+        ),
+      },
+    ];
 
     const knob = figma.createEllipse();
     knob.resize(20, 20);
     knob.x = state.on ? 22 : 2;
     knob.y = 2;
     knob.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-    knob.effects = [{
-      type: 'DROP_SHADOW',
-      color: { r: 0, g: 0, b: 0, a: 0.1 },
-      offset: { x: 0, y: 1 },
-      radius: 2,
-      spread: 0,
-      visible: true,
-      blendMode: 'NORMAL'
-    }];
+    knob.effects = [
+      {
+        type: 'DROP_SHADOW',
+        color: { r: 0, g: 0, b: 0, a: 0.1 },
+        offset: { x: 0, y: 1 },
+        radius: 2,
+        spread: 0,
+        visible: true,
+        blendMode: 'NORMAL',
+      },
+    ];
     toggle.appendChild(knob);
     row.appendChild(toggle);
 
     const label = figma.createText();
     label.characters = state.name;
     label.fontSize = 14;
-    label.fontName = { family: "Inter", style: "Regular" };
+    label.fontName = { family: 'Inter', style: 'Regular' };
     label.fills = [{ type: 'SOLID', color: hexToRgb(state.disabled ? '#9ca3af' : '#374151') }];
     row.appendChild(label);
     frame.appendChild(row);
@@ -955,8 +1116,12 @@ async function generateToggle(): Promise<void> {
     pill.resize(w, h);
     pill.cornerRadius = h / 2;
     const bgColor = v.disabled
-      ? (v.active ? tokens.colors.primary['300'] : '#e5e7eb')
-      : (v.active ? tokens.colors.primary['500'] : '#d1d5db');
+      ? v.active
+        ? tokens.colors.primary['300']
+        : '#e5e7eb'
+      : v.active
+        ? tokens.colors.primary['500']
+        : '#d1d5db';
     pill.fills = [{ type: 'SOLID', color: hexToRgb(bgColor) }];
 
     const knobSize = h - 8;
@@ -970,7 +1135,7 @@ async function generateToggle(): Promise<void> {
     const lbl = figma.createText();
     lbl.characters = v.label;
     lbl.fontSize = 11;
-    lbl.fontName = { family: "Inter", style: "Regular" };
+    lbl.fontName = { family: 'Inter', style: 'Regular' };
     lbl.fills = [{ type: 'SOLID', color: hexToRgb('#6b7280') }];
 
     cell.appendChild(pill);
@@ -1004,14 +1169,14 @@ async function generateSelects(): Promise<void> {
   const text = figma.createText();
   text.characters = 'Select an option...';
   text.fontSize = 14;
-  text.fontName = { family: "Inter", style: "Regular" };
+  text.fontName = { family: 'Inter', style: 'Regular' };
   text.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
   select.appendChild(text);
 
   const arrow = figma.createText();
   arrow.characters = '▼';
   arrow.fontSize = 10;
-  arrow.fontName = { family: "Inter", style: "Regular" };
+  arrow.fontName = { family: 'Inter', style: 'Regular' };
   arrow.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   select.appendChild(arrow);
 
@@ -1024,15 +1189,17 @@ async function generateSelects(): Promise<void> {
   dropdown.cornerRadius = 6;
   dropdown.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   dropdown.strokes = [{ type: 'SOLID', color: hexToRgb('#e5e7eb') }];
-  dropdown.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.1 },
-    offset: { x: 0, y: 4 },
-    radius: 6,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  dropdown.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.1 },
+      offset: { x: 0, y: 4 },
+      radius: 6,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const options = ['Option 1', 'Option 2 (selected)', 'Option 3'];
   for (let i = 0; i < options.length; i++) {
@@ -1044,13 +1211,17 @@ async function generateSelects(): Promise<void> {
     option.paddingTop = 10;
     option.paddingBottom = 10;
     option.resize(280, option.height);
-    option.fills = [{ type: 'SOLID', color: hexToRgb(i === 1 ? tokens.colors.primary['50'] : '#ffffff') }];
+    option.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 1 ? tokens.colors.primary['50'] : '#ffffff') },
+    ];
 
     const optText = figma.createText();
     optText.characters = options[i];
     optText.fontSize = 14;
-    optText.fontName = { family: "Inter", style: i === 1 ? "Medium" : "Regular" };
-    optText.fills = [{ type: 'SOLID', color: hexToRgb(i === 1 ? tokens.colors.primary['700'] : '#374151') }];
+    optText.fontName = { family: 'Inter', style: i === 1 ? 'Medium' : 'Regular' };
+    optText.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 1 ? tokens.colors.primary['700'] : '#374151') },
+    ];
     option.appendChild(optText);
     option.primaryAxisSizingMode = 'AUTO';
     dropdown.appendChild(option);
@@ -1077,7 +1248,7 @@ async function generateSliders(): Promise<void> {
   const sliderLabel = figma.createText();
   sliderLabel.characters = 'Volume: 60%';
   sliderLabel.fontSize = 14;
-  sliderLabel.fontName = { family: "Inter", style: "Medium" };
+  sliderLabel.fontName = { family: 'Inter', style: 'Medium' };
   sliderContainer.appendChild(sliderLabel);
 
   const track = figma.createFrame();
@@ -1098,15 +1269,17 @@ async function generateSliders(): Promise<void> {
   thumb.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   thumb.strokes = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['500']) }];
   thumb.strokeWeight = 2;
-  thumb.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.1 },
-    offset: { x: 0, y: 2 },
-    radius: 4,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  thumb.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.1 },
+      offset: { x: 0, y: 2 },
+      radius: 4,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
   track.appendChild(thumb);
 
   sliderContainer.appendChild(track);
@@ -1131,15 +1304,17 @@ async function generateRating(): Promise<void> {
     const star = figma.createText();
     star.characters = '★';
     star.fontSize = 24;
-    star.fontName = { family: "Inter", style: "Regular" };
-    star.fills = [{ type: 'SOLID', color: hexToRgb(i < 3 ? tokens.colors.warning['400'] : '#d1d5db') }];
+    star.fontName = { family: 'Inter', style: 'Regular' };
+    star.fills = [
+      { type: 'SOLID', color: hexToRgb(i < 3 ? tokens.colors.warning['400'] : '#d1d5db') },
+    ];
     ratingRow.appendChild(star);
   }
 
   const ratingText = figma.createText();
   ratingText.characters = '  3.0 / 5.0';
   ratingText.fontSize = 14;
-  ratingText.fontName = { family: "Inter", style: "Medium" };
+  ratingText.fontName = { family: 'Inter', style: 'Medium' };
   ratingText.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
   ratingRow.appendChild(ratingText);
 
@@ -1169,7 +1344,7 @@ async function generateBadges(): Promise<void> {
     { name: 'Success', bg: tokens.colors.success['100'], text: tokens.colors.success['700'] },
     { name: 'Warning', bg: tokens.colors.warning['100'], text: tokens.colors.warning['700'] },
     { name: 'Error', bg: tokens.colors.error['100'], text: tokens.colors.error['700'] },
-    { name: 'Info', bg: tokens.colors.info['100'], text: tokens.colors.info['700'] }
+    { name: 'Info', bg: tokens.colors.info['100'], text: tokens.colors.info['700'] },
   ];
 
   const row = figma.createFrame();
@@ -1192,7 +1367,7 @@ async function generateBadges(): Promise<void> {
     const text = figma.createText();
     text.characters = variant.name;
     text.fontSize = 12;
-    text.fontName = { family: "Inter", style: "Medium" };
+    text.fontName = { family: 'Inter', style: 'Medium' };
     text.fills = [{ type: 'SOLID', color: hexToRgb(variant.text) }];
     badge.appendChild(text);
     badge.primaryAxisSizingMode = 'AUTO';
@@ -1219,7 +1394,7 @@ async function generateCards(): Promise<void> {
   const sizes = [
     { name: 'sm', padding: 16, width: 240 },
     { name: 'md', padding: 24, width: 320 },
-    { name: 'lg', padding: 32, width: 400 }
+    { name: 'lg', padding: 32, width: 400 },
   ];
 
   for (const size of sizes) {
@@ -1233,26 +1408,28 @@ async function generateCards(): Promise<void> {
     card.resize(size.width, 180);
     card.cornerRadius = 12;
     card.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-    card.effects = [{
-      type: 'DROP_SHADOW',
-      color: { r: 0, g: 0, b: 0, a: 0.1 },
-      offset: { x: 0, y: 4 },
-      radius: 6,
-      spread: 0,
-      visible: true,
-      blendMode: 'NORMAL'
-    }];
+    card.effects = [
+      {
+        type: 'DROP_SHADOW',
+        color: { r: 0, g: 0, b: 0, a: 0.1 },
+        offset: { x: 0, y: 4 },
+        radius: 6,
+        spread: 0,
+        visible: true,
+        blendMode: 'NORMAL',
+      },
+    ];
 
     const title = figma.createText();
     title.characters = `Card ${size.name.toUpperCase()}`;
     title.fontSize = 18;
-    title.fontName = { family: "Inter", style: "Semi Bold" };
+    title.fontName = { family: 'Inter', style: 'Semi Bold' };
     card.appendChild(title);
 
     const desc = figma.createText();
     desc.characters = 'This is a sample card with configurable padding.';
     desc.fontSize = 14;
-    desc.fontName = { family: "Inter", style: "Regular" };
+    desc.fontName = { family: 'Inter', style: 'Regular' };
     desc.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
     desc.resize(size.width - size.padding * 2, desc.height);
     desc.textAutoResize = 'HEIGHT';
@@ -1283,7 +1460,7 @@ async function generateTables(): Promise<void> {
   const rows = [
     ['John Doe', 'john@example.com', 'Admin', 'Active'],
     ['Jane Smith', 'jane@example.com', 'User', 'Active'],
-    ['Bob Wilson', 'bob@example.com', 'User', 'Inactive']
+    ['Bob Wilson', 'bob@example.com', 'User', 'Inactive'],
   ];
 
   // Header row
@@ -1304,7 +1481,7 @@ async function generateTables(): Promise<void> {
     const text = figma.createText();
     text.characters = header;
     text.fontSize = 12;
-    text.fontName = { family: "Inter", style: "Semi Bold" };
+    text.fontName = { family: 'Inter', style: 'Semi Bold' };
     text.fills = [{ type: 'SOLID', color: hexToRgb('#6b7280') }];
     cell.appendChild(text);
     cell.primaryAxisSizingMode = 'AUTO';
@@ -1338,13 +1515,27 @@ async function generateTables(): Promise<void> {
         badge.paddingTop = 2;
         badge.paddingBottom = 2;
         badge.cornerRadius = 9999;
-        badge.fills = [{ type: 'SOLID', color: hexToRgb(row[i] === 'Active' ? tokens.colors.success['100'] : tokens.colors.neutral['100']) }];
+        badge.fills = [
+          {
+            type: 'SOLID',
+            color: hexToRgb(
+              row[i] === 'Active' ? tokens.colors.success['100'] : tokens.colors.neutral['100']
+            ),
+          },
+        ];
 
         const badgeText = figma.createText();
         badgeText.characters = row[i];
         badgeText.fontSize = 12;
-        badgeText.fontName = { family: "Inter", style: "Medium" };
-        badgeText.fills = [{ type: 'SOLID', color: hexToRgb(row[i] === 'Active' ? tokens.colors.success['700'] : tokens.colors.neutral['600']) }];
+        badgeText.fontName = { family: 'Inter', style: 'Medium' };
+        badgeText.fills = [
+          {
+            type: 'SOLID',
+            color: hexToRgb(
+              row[i] === 'Active' ? tokens.colors.success['700'] : tokens.colors.neutral['600']
+            ),
+          },
+        ];
         badge.appendChild(badgeText);
         badge.primaryAxisSizingMode = 'AUTO';
         badge.counterAxisSizingMode = 'AUTO';
@@ -1353,7 +1544,7 @@ async function generateTables(): Promise<void> {
         const text = figma.createText();
         text.characters = row[i];
         text.fontSize = 14;
-        text.fontName = { family: "Inter", style: i === 0 ? "Medium" : "Regular" };
+        text.fontName = { family: 'Inter', style: i === 0 ? 'Medium' : 'Regular' };
         text.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? '#111827' : '#6b7280') }];
         cell.appendChild(text);
       }
@@ -1387,7 +1578,7 @@ async function generateProgress(): Promise<void> {
     const label = figma.createText();
     label.characters = `${pct}%`;
     label.fontSize = 12;
-    label.fontName = { family: "Inter", style: "Medium" };
+    label.fontName = { family: 'Inter', style: 'Medium' };
     container.appendChild(label);
 
     const track = figma.createFrame();
@@ -1396,7 +1587,7 @@ async function generateProgress(): Promise<void> {
     track.fills = [{ type: 'SOLID', color: hexToRgb('#e5e7eb') }];
 
     const fill = figma.createRectangle();
-    fill.resize(280 * pct / 100, 8);
+    fill.resize((280 * pct) / 100, 8);
     fill.cornerRadius = 4;
     fill.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['500']) }];
     track.appendChild(fill);
@@ -1424,7 +1615,7 @@ async function generateAvatars(): Promise<void> {
     { name: 'sm', size: 32, fontSize: 12 },
     { name: 'md', size: 40, fontSize: 14 },
     { name: 'lg', size: 48, fontSize: 16 },
-    { name: 'xl', size: 64, fontSize: 20 }
+    { name: 'xl', size: 64, fontSize: 20 },
   ];
 
   for (const s of sizes) {
@@ -1436,7 +1627,7 @@ async function generateAvatars(): Promise<void> {
     const initials = figma.createText();
     initials.characters = 'JD';
     initials.fontSize = s.fontSize;
-    initials.fontName = { family: "Inter", style: "Semi Bold" };
+    initials.fontName = { family: 'Inter', style: 'Semi Bold' };
     initials.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
     initials.x = (s.size - initials.width) / 2;
     initials.y = (s.size - initials.height) / 2;
@@ -1470,7 +1661,7 @@ async function generateTooltips(): Promise<void> {
     const text = figma.createText();
     text.characters = `Tooltip ${pos}`;
     text.fontSize = 12;
-    text.fontName = { family: "Inter", style: "Medium" };
+    text.fontName = { family: 'Inter', style: 'Medium' };
     text.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
     tooltip.appendChild(text);
     tooltip.primaryAxisSizingMode = 'AUTO';
@@ -1509,14 +1700,14 @@ async function generateChips(): Promise<void> {
     const text = figma.createText();
     text.characters = label;
     text.fontSize = 13;
-    text.fontName = { family: "Inter", style: "Medium" };
+    text.fontName = { family: 'Inter', style: 'Medium' };
     text.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['700']) }];
     chip.appendChild(text);
 
     const close = figma.createText();
     close.characters = '×';
     close.fontSize = 14;
-    close.fontName = { family: "Inter", style: "Medium" };
+    close.fontName = { family: 'Inter', style: 'Medium' };
     close.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['500']) }];
     chip.appendChild(close);
 
@@ -1613,7 +1804,7 @@ async function generateTimeline(): Promise<void> {
   const events = [
     { title: 'Order placed', desc: 'Your order has been confirmed', time: '2 hours ago' },
     { title: 'Processing', desc: 'Order is being prepared', time: '1 hour ago' },
-    { title: 'Shipped', desc: 'Package is on its way', time: '30 min ago' }
+    { title: 'Shipped', desc: 'Package is on its way', time: '30 min ago' },
   ];
 
   for (let i = 0; i < events.length; i++) {
@@ -1655,20 +1846,20 @@ async function generateTimeline(): Promise<void> {
     const title = figma.createText();
     title.characters = events[i].title;
     title.fontSize = 14;
-    title.fontName = { family: "Inter", style: "Semi Bold" };
+    title.fontName = { family: 'Inter', style: 'Semi Bold' };
     content.appendChild(title);
 
     const desc = figma.createText();
     desc.characters = events[i].desc;
     desc.fontSize = 13;
-    desc.fontName = { family: "Inter", style: "Regular" };
+    desc.fontName = { family: 'Inter', style: 'Regular' };
     desc.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
     content.appendChild(desc);
 
     const time = figma.createText();
     time.characters = events[i].time;
     time.fontSize = 12;
-    time.fontName = { family: "Inter", style: "Regular" };
+    time.fontName = { family: 'Inter', style: 'Regular' };
     time.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
     content.appendChild(time);
 
@@ -1694,7 +1885,7 @@ async function generateStatsCards(): Promise<void> {
   const stats = [
     { label: 'Total Revenue', value: '$45,231', change: '+12.5%', up: true },
     { label: 'Active Users', value: '2,345', change: '+8.2%', up: true },
-    { label: 'Bounce Rate', value: '24.5%', change: '-3.1%', up: false }
+    { label: 'Bounce Rate', value: '24.5%', change: '-3.1%', up: false },
   ];
 
   for (const stat of stats) {
@@ -1708,34 +1899,41 @@ async function generateStatsCards(): Promise<void> {
     card.cornerRadius = 12;
     card.resize(180, card.height);
     card.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-    card.effects = [{
-      type: 'DROP_SHADOW',
-      color: { r: 0, g: 0, b: 0, a: 0.05 },
-      offset: { x: 0, y: 2 },
-      radius: 4,
-      spread: 0,
-      visible: true,
-      blendMode: 'NORMAL'
-    }];
+    card.effects = [
+      {
+        type: 'DROP_SHADOW',
+        color: { r: 0, g: 0, b: 0, a: 0.05 },
+        offset: { x: 0, y: 2 },
+        radius: 4,
+        spread: 0,
+        visible: true,
+        blendMode: 'NORMAL',
+      },
+    ];
 
     const label = figma.createText();
     label.characters = stat.label;
     label.fontSize = 13;
-    label.fontName = { family: "Inter", style: "Medium" };
+    label.fontName = { family: 'Inter', style: 'Medium' };
     label.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
     card.appendChild(label);
 
     const value = figma.createText();
     value.characters = stat.value;
     value.fontSize = 28;
-    value.fontName = { family: "Inter", style: "Bold" };
+    value.fontName = { family: 'Inter', style: 'Bold' };
     card.appendChild(value);
 
     const change = figma.createText();
     change.characters = `${stat.up ? '↑' : '↓'} ${stat.change}`;
     change.fontSize = 13;
-    change.fontName = { family: "Inter", style: "Medium" };
-    change.fills = [{ type: 'SOLID', color: hexToRgb(stat.up ? tokens.colors.success['500'] : tokens.colors.error['500']) }];
+    change.fontName = { family: 'Inter', style: 'Medium' };
+    change.fills = [
+      {
+        type: 'SOLID',
+        color: hexToRgb(stat.up ? tokens.colors.success['500'] : tokens.colors.error['500']),
+      },
+    ];
     card.appendChild(change);
 
     card.primaryAxisSizingMode = 'AUTO';
@@ -1776,8 +1974,10 @@ async function generateTabs(): Promise<void> {
     const text = figma.createText();
     text.characters = tabs[i];
     text.fontSize = 14;
-    text.fontName = { family: "Inter", style: i === 0 ? "Semi Bold" : "Medium" };
-    text.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['600'] : '#6b7280') }];
+    text.fontName = { family: 'Inter', style: i === 0 ? 'Semi Bold' : 'Medium' };
+    text.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['600'] : '#6b7280') },
+    ];
     tab.appendChild(text);
 
     if (i === 0) {
@@ -1812,15 +2012,20 @@ async function generateBreadcrumbs(): Promise<void> {
     const item = figma.createText();
     item.characters = items[i];
     item.fontSize = 14;
-    item.fontName = { family: "Inter", style: i === items.length - 1 ? "Medium" : "Regular" };
-    item.fills = [{ type: 'SOLID', color: hexToRgb(i === items.length - 1 ? '#111827' : tokens.colors.primary['600']) }];
+    item.fontName = { family: 'Inter', style: i === items.length - 1 ? 'Medium' : 'Regular' };
+    item.fills = [
+      {
+        type: 'SOLID',
+        color: hexToRgb(i === items.length - 1 ? '#111827' : tokens.colors.primary['600']),
+      },
+    ];
     breadcrumbs.appendChild(item);
 
     if (i < items.length - 1) {
       const separator = figma.createText();
       separator.characters = '/';
       separator.fontSize = 14;
-      separator.fontName = { family: "Inter", style: "Regular" };
+      separator.fontName = { family: 'Inter', style: 'Regular' };
       separator.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
       breadcrumbs.appendChild(separator);
     }
@@ -1853,7 +2058,9 @@ async function generatePagination(): Promise<void> {
     page.cornerRadius = 6;
 
     const isActive = pages[i] === '2';
-    page.fills = [{ type: 'SOLID', color: hexToRgb(isActive ? tokens.colors.primary['500'] : '#ffffff') }];
+    page.fills = [
+      { type: 'SOLID', color: hexToRgb(isActive ? tokens.colors.primary['500'] : '#ffffff') },
+    ];
     if (!isActive) {
       page.strokes = [{ type: 'SOLID', color: hexToRgb('#e5e7eb') }];
       page.strokeWeight = 1;
@@ -1862,7 +2069,7 @@ async function generatePagination(): Promise<void> {
     const text = figma.createText();
     text.characters = pages[i];
     text.fontSize = 14;
-    text.fontName = { family: "Inter", style: "Medium" };
+    text.fontName = { family: 'Inter', style: 'Medium' };
     text.fills = [{ type: 'SOLID', color: hexToRgb(isActive ? '#ffffff' : '#374151') }];
     page.appendChild(text);
 
@@ -1883,7 +2090,7 @@ async function generateAccordion(): Promise<void> {
   const items = [
     { title: 'What is Aural UI?', content: 'Aural UI is a modern design system...', open: true },
     { title: 'How do I install it?', content: 'npm install aural-design', open: false },
-    { title: 'Is it accessible?', content: 'Yes, all components are WCAG compliant.', open: false }
+    { title: 'Is it accessible?', content: 'Yes, all components are WCAG compliant.', open: false },
   ];
 
   for (const item of items) {
@@ -1909,13 +2116,13 @@ async function generateAccordion(): Promise<void> {
     const title = figma.createText();
     title.characters = item.title;
     title.fontSize = 14;
-    title.fontName = { family: "Inter", style: "Semi Bold" };
+    title.fontName = { family: 'Inter', style: 'Semi Bold' };
     header.appendChild(title);
 
     const arrow = figma.createText();
     arrow.characters = item.open ? '▲' : '▼';
     arrow.fontSize = 10;
-    arrow.fontName = { family: "Inter", style: "Regular" };
+    arrow.fontName = { family: 'Inter', style: 'Regular' };
     arrow.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
     header.appendChild(arrow);
 
@@ -1934,7 +2141,7 @@ async function generateAccordion(): Promise<void> {
       const contentText = figma.createText();
       contentText.characters = item.content;
       contentText.fontSize = 14;
-      contentText.fontName = { family: "Inter", style: "Regular" };
+      contentText.fontName = { family: 'Inter', style: 'Regular' };
       contentText.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
       content.appendChild(contentText);
       content.primaryAxisSizingMode = 'AUTO';
@@ -1974,17 +2181,31 @@ async function generateStepper(): Promise<void> {
     const circle = figma.createFrame();
     circle.resize(32, 32);
     circle.cornerRadius = 16;
-    circle.fills = [{ type: 'SOLID', color: hexToRgb(
-      i < currentStep ? tokens.colors.primary['500'] : (i === currentStep ? tokens.colors.primary['100'] : '#e5e7eb')
-    )}];
+    circle.fills = [
+      {
+        type: 'SOLID',
+        color: hexToRgb(
+          i < currentStep
+            ? tokens.colors.primary['500']
+            : i === currentStep
+              ? tokens.colors.primary['100']
+              : '#e5e7eb'
+        ),
+      },
+    ];
 
     const number = figma.createText();
     number.characters = i < currentStep ? '✓' : String(i + 1);
     number.fontSize = i < currentStep ? 14 : 12;
-    number.fontName = { family: "Inter", style: "Semi Bold" };
-    number.fills = [{ type: 'SOLID', color: hexToRgb(
-      i < currentStep ? '#ffffff' : (i === currentStep ? tokens.colors.primary['600'] : '#9ca3af')
-    )}];
+    number.fontName = { family: 'Inter', style: 'Semi Bold' };
+    number.fills = [
+      {
+        type: 'SOLID',
+        color: hexToRgb(
+          i < currentStep ? '#ffffff' : i === currentStep ? tokens.colors.primary['600'] : '#9ca3af'
+        ),
+      },
+    ];
     number.x = i < currentStep ? 9 : 11;
     number.y = 8;
     circle.appendChild(number);
@@ -1994,7 +2215,7 @@ async function generateStepper(): Promise<void> {
     const label = figma.createText();
     label.characters = steps[i];
     label.fontSize = 14;
-    label.fontName = { family: "Inter", style: i <= currentStep ? "Semi Bold" : "Regular" };
+    label.fontName = { family: 'Inter', style: i <= currentStep ? 'Semi Bold' : 'Regular' };
     label.fills = [{ type: 'SOLID', color: hexToRgb(i <= currentStep ? '#111827' : '#9ca3af') }];
     stepContainer.appendChild(label);
 
@@ -2004,7 +2225,12 @@ async function generateStepper(): Promise<void> {
     if (i < steps.length - 1) {
       const line = figma.createRectangle();
       line.resize(40, 2);
-      line.fills = [{ type: 'SOLID', color: hexToRgb(i < currentStep ? tokens.colors.primary['500'] : '#e5e7eb') }];
+      line.fills = [
+        {
+          type: 'SOLID',
+          color: hexToRgb(i < currentStep ? tokens.colors.primary['500'] : '#e5e7eb'),
+        },
+      ];
 
       const lineContainer = figma.createFrame();
       lineContainer.layoutMode = 'HORIZONTAL';
@@ -2041,15 +2267,17 @@ async function generateModals(): Promise<void> {
   modal.resize(400, modal.height);
   modal.cornerRadius = 12;
   modal.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  modal.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.25 },
-    offset: { x: 0, y: 25 },
-    radius: 50,
-    spread: -12,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  modal.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.25 },
+      offset: { x: 0, y: 25 },
+      radius: 50,
+      spread: -12,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   // Header
   const header = figma.createFrame();
@@ -2061,13 +2289,13 @@ async function generateModals(): Promise<void> {
   const title = figma.createText();
   title.characters = 'Confirm Action';
   title.fontSize = 18;
-  title.fontName = { family: "Inter", style: "Semi Bold" };
+  title.fontName = { family: 'Inter', style: 'Semi Bold' };
   header.appendChild(title);
 
   const closeBtn = figma.createText();
   closeBtn.characters = '×';
   closeBtn.fontSize = 24;
-  closeBtn.fontName = { family: "Inter", style: "Regular" };
+  closeBtn.fontName = { family: 'Inter', style: 'Regular' };
   closeBtn.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   header.appendChild(closeBtn);
   header.primaryAxisSizingMode = 'AUTO';
@@ -2077,7 +2305,7 @@ async function generateModals(): Promise<void> {
   const content = figma.createText();
   content.characters = 'Are you sure you want to proceed with this action? This cannot be undone.';
   content.fontSize = 14;
-  content.fontName = { family: "Inter", style: "Regular" };
+  content.fontName = { family: 'Inter', style: 'Regular' };
   content.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
   content.resize(352, content.height);
   content.textAutoResize = 'HEIGHT';
@@ -2104,7 +2332,7 @@ async function generateModals(): Promise<void> {
   const cancelText = figma.createText();
   cancelText.characters = 'Cancel';
   cancelText.fontSize = 14;
-  cancelText.fontName = { family: "Inter", style: "Medium" };
+  cancelText.fontName = { family: 'Inter', style: 'Medium' };
   cancelBtn.appendChild(cancelText);
   cancelBtn.primaryAxisSizingMode = 'AUTO';
   actions.appendChild(cancelBtn);
@@ -2122,7 +2350,7 @@ async function generateModals(): Promise<void> {
   const confirmText = figma.createText();
   confirmText.characters = 'Confirm';
   confirmText.fontSize = 14;
-  confirmText.fontName = { family: "Inter", style: "Medium" };
+  confirmText.fontName = { family: 'Inter', style: 'Medium' };
   confirmText.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   confirmBtn.appendChild(confirmText);
   confirmBtn.primaryAxisSizingMode = 'AUTO';
@@ -2144,10 +2372,34 @@ async function generateToasts(): Promise<void> {
   addSubtitle(frame, 'Brief feedback messages');
 
   const variants = [
-    { type: 'Success', icon: '✓', bg: tokens.colors.success['50'], border: tokens.colors.success['200'], text: tokens.colors.success['800'] },
-    { type: 'Error', icon: '✕', bg: tokens.colors.error['50'], border: tokens.colors.error['200'], text: tokens.colors.error['800'] },
-    { type: 'Warning', icon: '!', bg: tokens.colors.warning['50'], border: tokens.colors.warning['200'], text: tokens.colors.warning['800'] },
-    { type: 'Info', icon: 'i', bg: tokens.colors.info['50'], border: tokens.colors.info['200'], text: tokens.colors.info['800'] }
+    {
+      type: 'Success',
+      icon: '✓',
+      bg: tokens.colors.success['50'],
+      border: tokens.colors.success['200'],
+      text: tokens.colors.success['800'],
+    },
+    {
+      type: 'Error',
+      icon: '✕',
+      bg: tokens.colors.error['50'],
+      border: tokens.colors.error['200'],
+      text: tokens.colors.error['800'],
+    },
+    {
+      type: 'Warning',
+      icon: '!',
+      bg: tokens.colors.warning['50'],
+      border: tokens.colors.warning['200'],
+      text: tokens.colors.warning['800'],
+    },
+    {
+      type: 'Info',
+      icon: 'i',
+      bg: tokens.colors.info['50'],
+      border: tokens.colors.info['200'],
+      text: tokens.colors.info['800'],
+    },
   ];
 
   for (const v of variants) {
@@ -2166,14 +2418,14 @@ async function generateToasts(): Promise<void> {
     const icon = figma.createText();
     icon.characters = v.icon;
     icon.fontSize = 14;
-    icon.fontName = { family: "Inter", style: "Bold" };
+    icon.fontName = { family: 'Inter', style: 'Bold' };
     icon.fills = [{ type: 'SOLID', color: hexToRgb(v.text) }];
     toast.appendChild(icon);
 
     const text = figma.createText();
     text.characters = `${v.type} message goes here`;
     text.fontSize = 14;
-    text.fontName = { family: "Inter", style: "Medium" };
+    text.fontName = { family: 'Inter', style: 'Medium' };
     text.fills = [{ type: 'SOLID', color: hexToRgb(v.text) }];
     toast.appendChild(text);
 
@@ -2201,15 +2453,17 @@ async function generateDrawer(): Promise<void> {
   drawer.paddingRight = 24;
   drawer.resize(320, 400);
   drawer.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  drawer.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: -4, y: 0 },
-    radius: 12,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  drawer.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: -4, y: 0 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const header = figma.createFrame();
   header.layoutMode = 'HORIZONTAL';
@@ -2220,13 +2474,13 @@ async function generateDrawer(): Promise<void> {
   const title = figma.createText();
   title.characters = 'Settings';
   title.fontSize = 20;
-  title.fontName = { family: "Inter", style: "Semi Bold" };
+  title.fontName = { family: 'Inter', style: 'Semi Bold' };
   header.appendChild(title);
 
   const close = figma.createText();
   close.characters = '×';
   close.fontSize = 24;
-  close.fontName = { family: "Inter", style: "Regular" };
+  close.fontName = { family: 'Inter', style: 'Regular' };
   close.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   header.appendChild(close);
   header.primaryAxisSizingMode = 'AUTO';
@@ -2245,7 +2499,7 @@ async function generateDrawer(): Promise<void> {
     const text = figma.createText();
     text.characters = item;
     text.fontSize = 14;
-    text.fontName = { family: "Inter", style: "Medium" };
+    text.fontName = { family: 'Inter', style: 'Medium' };
     text.fills = [{ type: 'SOLID', color: { r: 0.3, g: 0.3, b: 0.3 } }];
     menuItem.appendChild(text);
     menuItem.primaryAxisSizingMode = 'AUTO';
@@ -2264,10 +2518,34 @@ async function generateAlertBanner(): Promise<void> {
   addSubtitle(frame, 'Page-level notifications');
 
   const variants = [
-    { type: 'Info', bg: tokens.colors.info['50'], border: tokens.colors.info['200'], text: tokens.colors.info['800'], icon: 'ℹ' },
-    { type: 'Success', bg: tokens.colors.success['50'], border: tokens.colors.success['200'], text: tokens.colors.success['800'], icon: '✓' },
-    { type: 'Warning', bg: tokens.colors.warning['50'], border: tokens.colors.warning['200'], text: tokens.colors.warning['800'], icon: '⚠' },
-    { type: 'Error', bg: tokens.colors.error['50'], border: tokens.colors.error['200'], text: tokens.colors.error['800'], icon: '✕' }
+    {
+      type: 'Info',
+      bg: tokens.colors.info['50'],
+      border: tokens.colors.info['200'],
+      text: tokens.colors.info['800'],
+      icon: 'ℹ',
+    },
+    {
+      type: 'Success',
+      bg: tokens.colors.success['50'],
+      border: tokens.colors.success['200'],
+      text: tokens.colors.success['800'],
+      icon: '✓',
+    },
+    {
+      type: 'Warning',
+      bg: tokens.colors.warning['50'],
+      border: tokens.colors.warning['200'],
+      text: tokens.colors.warning['800'],
+      icon: '⚠',
+    },
+    {
+      type: 'Error',
+      bg: tokens.colors.error['50'],
+      border: tokens.colors.error['200'],
+      text: tokens.colors.error['800'],
+      icon: '✕',
+    },
   ];
 
   for (const v of variants) {
@@ -2287,7 +2565,7 @@ async function generateAlertBanner(): Promise<void> {
     const icon = figma.createText();
     icon.characters = v.icon;
     icon.fontSize = 16;
-    icon.fontName = { family: "Inter", style: "Bold" };
+    icon.fontName = { family: 'Inter', style: 'Bold' };
     icon.fills = [{ type: 'SOLID', color: hexToRgb(v.text) }];
     alert.appendChild(icon);
 
@@ -2299,14 +2577,14 @@ async function generateAlertBanner(): Promise<void> {
     const title = figma.createText();
     title.characters = `${v.type} Alert`;
     title.fontSize = 14;
-    title.fontName = { family: "Inter", style: "Semi Bold" };
+    title.fontName = { family: 'Inter', style: 'Semi Bold' };
     title.fills = [{ type: 'SOLID', color: hexToRgb(v.text) }];
     content.appendChild(title);
 
     const desc = figma.createText();
     desc.characters = 'This is an important message that requires your attention.';
     desc.fontSize = 13;
-    desc.fontName = { family: "Inter", style: "Regular" };
+    desc.fontName = { family: 'Inter', style: 'Regular' };
     desc.fills = [{ type: 'SOLID', color: hexToRgb(v.text) }];
     content.appendChild(desc);
 
@@ -2335,26 +2613,28 @@ async function generatePopovers(): Promise<void> {
   popover.resize(280, popover.height);
   popover.cornerRadius = 8;
   popover.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  popover.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 },
-    radius: 12,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  popover.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const title = figma.createText();
   title.characters = 'Popover Title';
   title.fontSize = 14;
-  title.fontName = { family: "Inter", style: "Semi Bold" };
+  title.fontName = { family: 'Inter', style: 'Semi Bold' };
   popover.appendChild(title);
 
   const content = figma.createText();
   content.characters = 'This is a popover with additional content and context.';
   content.fontSize = 13;
-  content.fontName = { family: "Inter", style: "Regular" };
+  content.fontName = { family: 'Inter', style: 'Regular' };
   content.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   content.resize(248, content.height);
   content.textAutoResize = 'HEIGHT';
@@ -2377,22 +2657,24 @@ async function generateDropdowns(): Promise<void> {
   dropdown.resize(200, dropdown.height);
   dropdown.cornerRadius = 8;
   dropdown.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  dropdown.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 },
-    radius: 12,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  dropdown.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const items = [
     { label: 'Edit', icon: '✎' },
     { label: 'Duplicate', icon: '❐' },
     { label: 'Archive', icon: '📁' },
     { divider: true },
-    { label: 'Delete', icon: '🗑', danger: true }
+    { label: 'Delete', icon: '🗑', danger: true },
   ];
 
   for (const item of items) {
@@ -2417,15 +2699,19 @@ async function generateDropdowns(): Promise<void> {
     const icon = figma.createText();
     icon.characters = item.icon!;
     icon.fontSize = 14;
-    icon.fontName = { family: "Inter", style: "Regular" };
-    icon.fills = [{ type: 'SOLID', color: hexToRgb(item.danger ? tokens.colors.error['500'] : '#6b7280') }];
+    icon.fontName = { family: 'Inter', style: 'Regular' };
+    icon.fills = [
+      { type: 'SOLID', color: hexToRgb(item.danger ? tokens.colors.error['500'] : '#6b7280') },
+    ];
     menuItem.appendChild(icon);
 
     const label = figma.createText();
     label.characters = item.label!;
     label.fontSize = 14;
-    label.fontName = { family: "Inter", style: "Medium" };
-    label.fills = [{ type: 'SOLID', color: hexToRgb(item.danger ? tokens.colors.error['600'] : '#374151') }];
+    label.fontName = { family: 'Inter', style: 'Medium' };
+    label.fills = [
+      { type: 'SOLID', color: hexToRgb(item.danger ? tokens.colors.error['600'] : '#374151') },
+    ];
     menuItem.appendChild(label);
 
     menuItem.primaryAxisSizingMode = 'AUTO';
@@ -2467,7 +2753,7 @@ async function generateDatePicker(): Promise<void> {
   const dateText = figma.createText();
   dateText.characters = 'Jan 28, 2026';
   dateText.fontSize = 14;
-  dateText.fontName = { family: "Inter", style: "Regular" };
+  dateText.fontName = { family: 'Inter', style: 'Regular' };
   dateInput.appendChild(dateText);
 
   const calIcon = figma.createText();
@@ -2488,15 +2774,17 @@ async function generateDatePicker(): Promise<void> {
   calendar.paddingRight = 16;
   calendar.cornerRadius = 8;
   calendar.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  calendar.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 },
-    radius: 12,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  calendar.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   // Header
   const header = figma.createFrame();
@@ -2509,19 +2797,19 @@ async function generateDatePicker(): Promise<void> {
   const prevBtn = figma.createText();
   prevBtn.characters = '←';
   prevBtn.fontSize = 16;
-  prevBtn.fontName = { family: "Inter", style: "Medium" };
+  prevBtn.fontName = { family: 'Inter', style: 'Medium' };
   header.appendChild(prevBtn);
 
   const monthYear = figma.createText();
   monthYear.characters = 'January 2026';
   monthYear.fontSize = 16;
-  monthYear.fontName = { family: "Inter", style: "Semi Bold" };
+  monthYear.fontName = { family: 'Inter', style: 'Semi Bold' };
   header.appendChild(monthYear);
 
   const nextBtn = figma.createText();
   nextBtn.characters = '→';
   nextBtn.fontSize = 16;
-  nextBtn.fontName = { family: "Inter", style: "Medium" };
+  nextBtn.fontName = { family: 'Inter', style: 'Medium' };
   header.appendChild(nextBtn);
 
   header.primaryAxisSizingMode = 'AUTO';
@@ -2545,7 +2833,7 @@ async function generateDatePicker(): Promise<void> {
     const dayText = figma.createText();
     dayText.characters = day;
     dayText.fontSize = 12;
-    dayText.fontName = { family: "Inter", style: "Medium" };
+    dayText.fontName = { family: 'Inter', style: 'Medium' };
     dayText.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
     dayCell.appendChild(dayText);
     daysHeader.appendChild(dayCell);
@@ -2586,8 +2874,10 @@ async function generateDatePicker(): Promise<void> {
         const dayText = figma.createText();
         dayText.characters = String(dayNum);
         dayText.fontSize = 14;
-        dayText.fontName = { family: "Inter", style: isSelected || isToday ? "Medium" : "Regular" };
-        dayText.fills = [{ type: 'SOLID', color: isSelected ? { r: 1, g: 1, b: 1 } : hexToRgb('#374151') }];
+        dayText.fontName = { family: 'Inter', style: isSelected || isToday ? 'Medium' : 'Regular' };
+        dayText.fills = [
+          { type: 'SOLID', color: isSelected ? { r: 1, g: 1, b: 1 } : hexToRgb('#374151') },
+        ];
         dayCell.appendChild(dayText);
       }
       weekRow.appendChild(dayCell);
@@ -2630,7 +2920,7 @@ async function generateCalendar(): Promise<void> {
   const monthYear = figma.createText();
   monthYear.characters = 'January 2026';
   monthYear.fontSize = 20;
-  monthYear.fontName = { family: "Inter", style: "Bold" };
+  monthYear.fontName = { family: 'Inter', style: 'Bold' };
   header.appendChild(monthYear);
 
   const navBtns = figma.createFrame();
@@ -2650,7 +2940,7 @@ async function generateCalendar(): Promise<void> {
     const arrowText = figma.createText();
     arrowText.characters = arrow;
     arrowText.fontSize = 14;
-    arrowText.fontName = { family: "Inter", style: "Medium" };
+    arrowText.fontName = { family: 'Inter', style: 'Medium' };
     btn.appendChild(arrowText);
     navBtns.appendChild(btn);
   }
@@ -2676,7 +2966,7 @@ async function generateCalendar(): Promise<void> {
     const dayText = figma.createText();
     dayText.characters = day.substring(0, 3);
     dayText.fontSize = 12;
-    dayText.fontName = { family: "Inter", style: "Semi Bold" };
+    dayText.fontName = { family: 'Inter', style: 'Semi Bold' };
     dayText.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
     dayHeader.appendChild(dayText);
     dayHeader.primaryAxisSizingMode = 'AUTO';
@@ -2708,8 +2998,13 @@ async function generateCalendar(): Promise<void> {
     const dayNum = figma.createText();
     dayNum.characters = String(sampleDays[i]);
     dayNum.fontSize = 14;
-    dayNum.fontName = { family: "Inter", style: sampleDays[i] === 28 ? "Bold" : "Regular" };
-    dayNum.fills = [{ type: 'SOLID', color: hexToRgb(sampleDays[i] < 26 || sampleDays[i] === 1 ? '#9ca3af' : '#111827') }];
+    dayNum.fontName = { family: 'Inter', style: sampleDays[i] === 28 ? 'Bold' : 'Regular' };
+    dayNum.fills = [
+      {
+        type: 'SOLID',
+        color: hexToRgb(sampleDays[i] < 26 || sampleDays[i] === 1 ? '#9ca3af' : '#111827'),
+      },
+    ];
     dayCell.appendChild(dayNum);
 
     const dayKey = sampleDays[i] as keyof typeof events;
@@ -2726,7 +3021,7 @@ async function generateCalendar(): Promise<void> {
       const eventText = figma.createText();
       eventText.characters = events[dayKey];
       eventText.fontSize = 10;
-      eventText.fontName = { family: "Inter", style: "Medium" };
+      eventText.fontName = { family: 'Inter', style: 'Medium' };
       eventText.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['700']) }];
       event.appendChild(eventText);
       event.primaryAxisSizingMode = 'AUTO';
@@ -2775,20 +3070,20 @@ async function generateFileUpload(): Promise<void> {
   const mainText = figma.createText();
   mainText.characters = 'Drag and drop files here';
   mainText.fontSize = 16;
-  mainText.fontName = { family: "Inter", style: "Semi Bold" };
+  mainText.fontName = { family: 'Inter', style: 'Semi Bold' };
   dropzone.appendChild(mainText);
 
   const subText = figma.createText();
   subText.characters = 'or click to browse';
   subText.fontSize = 14;
-  subText.fontName = { family: "Inter", style: "Regular" };
+  subText.fontName = { family: 'Inter', style: 'Regular' };
   subText.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['600']) }];
   dropzone.appendChild(subText);
 
   const hint = figma.createText();
   hint.characters = 'PNG, JPG, GIF up to 10MB';
   hint.fontSize = 12;
-  hint.fontName = { family: "Inter", style: "Regular" };
+  hint.fontName = { family: 'Inter', style: 'Regular' };
   hint.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   dropzone.appendChild(hint);
 
@@ -2829,13 +3124,13 @@ async function generateFileUpload(): Promise<void> {
   const fileName = figma.createText();
   fileName.characters = 'document.pdf';
   fileName.fontSize = 14;
-  fileName.fontName = { family: "Inter", style: "Medium" };
+  fileName.fontName = { family: 'Inter', style: 'Medium' };
   fileDetails.appendChild(fileName);
 
   const fileSize = figma.createText();
   fileSize.characters = '2.4 MB';
   fileSize.fontSize = 12;
-  fileSize.fontName = { family: "Inter", style: "Regular" };
+  fileSize.fontName = { family: 'Inter', style: 'Regular' };
   fileSize.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   fileDetails.appendChild(fileSize);
 
@@ -2845,7 +3140,7 @@ async function generateFileUpload(): Promise<void> {
   const removeBtn = figma.createText();
   removeBtn.characters = '×';
   removeBtn.fontSize = 20;
-  removeBtn.fontName = { family: "Inter", style: "Regular" };
+  removeBtn.fontName = { family: 'Inter', style: 'Regular' };
   removeBtn.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   fileItem.appendChild(removeBtn);
 
@@ -2887,7 +3182,7 @@ async function generateSearchInput(): Promise<void> {
   const searchText = figma.createText();
   searchText.characters = 'Search components...';
   searchText.fontSize = 14;
-  searchText.fontName = { family: "Inter", style: "Regular" };
+  searchText.fontName = { family: 'Inter', style: 'Regular' };
   searchText.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   searchInput.appendChild(searchText);
 
@@ -2903,7 +3198,7 @@ async function generateSearchInput(): Promise<void> {
   const shortcutText = figma.createText();
   shortcutText.characters = '⌘K';
   shortcutText.fontSize = 12;
-  shortcutText.fontName = { family: "Inter", style: "Medium" };
+  shortcutText.fontName = { family: 'Inter', style: 'Medium' };
   shortcutText.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   shortcut.appendChild(shortcutText);
   shortcut.primaryAxisSizingMode = 'AUTO';
@@ -2918,15 +3213,17 @@ async function generateSearchInput(): Promise<void> {
   dropdown.resize(320, dropdown.height);
   dropdown.cornerRadius = 8;
   dropdown.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  dropdown.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 },
-    radius: 12,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  dropdown.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const suggestions = ['Button Component', 'Badge Component', 'Breadcrumbs'];
   for (let i = 0; i < suggestions.length; i++) {
@@ -2939,7 +3236,9 @@ async function generateSearchInput(): Promise<void> {
     item.paddingTop = 12;
     item.paddingBottom = 12;
     item.resize(320, item.height);
-    item.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['50'] : '#ffffff') }];
+    item.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['50'] : '#ffffff') },
+    ];
 
     const icon = figma.createText();
     icon.characters = '📦';
@@ -2949,8 +3248,10 @@ async function generateSearchInput(): Promise<void> {
     const text = figma.createText();
     text.characters = suggestions[i];
     text.fontSize = 14;
-    text.fontName = { family: "Inter", style: i === 0 ? "Medium" : "Regular" };
-    text.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['700'] : '#374151') }];
+    text.fontName = { family: 'Inter', style: i === 0 ? 'Medium' : 'Regular' };
+    text.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['700'] : '#374151') },
+    ];
     item.appendChild(text);
 
     item.primaryAxisSizingMode = 'AUTO';
@@ -2976,15 +3277,17 @@ async function generateNotificationCenter(): Promise<void> {
   panel.resize(360, panel.height);
   panel.cornerRadius = 12;
   panel.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  panel.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 },
-    radius: 16,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  panel.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 16,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   // Header
   const header = figma.createFrame();
@@ -3001,13 +3304,13 @@ async function generateNotificationCenter(): Promise<void> {
   const headerTitle = figma.createText();
   headerTitle.characters = 'Notifications';
   headerTitle.fontSize = 18;
-  headerTitle.fontName = { family: "Inter", style: "Semi Bold" };
+  headerTitle.fontName = { family: 'Inter', style: 'Semi Bold' };
   header.appendChild(headerTitle);
 
   const markRead = figma.createText();
   markRead.characters = 'Mark all read';
   markRead.fontSize = 13;
-  markRead.fontName = { family: "Inter", style: "Medium" };
+  markRead.fontName = { family: 'Inter', style: 'Medium' };
   markRead.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['600']) }];
   header.appendChild(markRead);
   header.primaryAxisSizingMode = 'AUTO';
@@ -3021,9 +3324,27 @@ async function generateNotificationCenter(): Promise<void> {
 
   // Notifications
   const notifications = [
-    { icon: '🔔', title: 'New message', desc: 'John sent you a message', time: '2m ago', unread: true },
-    { icon: '✅', title: 'Task completed', desc: 'Design review is done', time: '1h ago', unread: true },
-    { icon: '📦', title: 'Order shipped', desc: 'Your order is on the way', time: '3h ago', unread: false }
+    {
+      icon: '🔔',
+      title: 'New message',
+      desc: 'John sent you a message',
+      time: '2m ago',
+      unread: true,
+    },
+    {
+      icon: '✅',
+      title: 'Task completed',
+      desc: 'Design review is done',
+      time: '1h ago',
+      unread: true,
+    },
+    {
+      icon: '📦',
+      title: 'Order shipped',
+      desc: 'Your order is on the way',
+      time: '3h ago',
+      unread: false,
+    },
   ];
 
   for (const n of notifications) {
@@ -3035,7 +3356,9 @@ async function generateNotificationCenter(): Promise<void> {
     item.paddingTop = 14;
     item.paddingBottom = 14;
     item.resize(360, item.height);
-    item.fills = [{ type: 'SOLID', color: hexToRgb(n.unread ? tokens.colors.primary['50'] : '#ffffff') }];
+    item.fills = [
+      { type: 'SOLID', color: hexToRgb(n.unread ? tokens.colors.primary['50'] : '#ffffff') },
+    ];
 
     const icon = figma.createText();
     icon.characters = n.icon;
@@ -3056,13 +3379,13 @@ async function generateNotificationCenter(): Promise<void> {
     const title = figma.createText();
     title.characters = n.title;
     title.fontSize = 14;
-    title.fontName = { family: "Inter", style: "Semi Bold" };
+    title.fontName = { family: 'Inter', style: 'Semi Bold' };
     titleRow.appendChild(title);
 
     const time = figma.createText();
     time.characters = n.time;
     time.fontSize = 12;
-    time.fontName = { family: "Inter", style: "Regular" };
+    time.fontName = { family: 'Inter', style: 'Regular' };
     time.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
     titleRow.appendChild(time);
     titleRow.primaryAxisSizingMode = 'AUTO';
@@ -3071,7 +3394,7 @@ async function generateNotificationCenter(): Promise<void> {
     const desc = figma.createText();
     desc.characters = n.desc;
     desc.fontSize = 13;
-    desc.fontName = { family: "Inter", style: "Regular" };
+    desc.fontName = { family: 'Inter', style: 'Regular' };
     desc.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
     content.appendChild(desc);
 
@@ -3136,7 +3459,7 @@ async function generateIconButtons(): Promise<void> {
     { icon: '❤', bg: tokens.colors.error['500'] },
     { icon: '✓', bg: tokens.colors.success['500'] },
     { icon: '!', bg: tokens.colors.warning['500'] },
-    { icon: 'i', bg: tokens.colors.info['500'] }
+    { icon: 'i', bg: tokens.colors.info['500'] },
   ];
 
   for (const btn of coloredBtns) {
@@ -3151,7 +3474,7 @@ async function generateIconButtons(): Promise<void> {
     const iconText = figma.createText();
     iconText.characters = btn.icon;
     iconText.fontSize = 16;
-    iconText.fontName = { family: "Inter", style: "Bold" };
+    iconText.fontName = { family: 'Inter', style: 'Bold' };
     iconText.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
     iconBtn.appendChild(iconText);
     coloredRow.appendChild(iconBtn);
@@ -3176,7 +3499,7 @@ async function generateLoadingButtons(): Promise<void> {
   const variants = [
     { label: 'Loading...', bg: tokens.colors.primary['500'], text: '#ffffff' },
     { label: 'Saving...', bg: '#f3f4f6', text: '#374151' },
-    { label: 'Processing...', bg: tokens.colors.success['500'], text: '#ffffff' }
+    { label: 'Processing...', bg: tokens.colors.success['500'], text: '#ffffff' },
   ];
 
   for (const v of variants) {
@@ -3203,7 +3526,7 @@ async function generateLoadingButtons(): Promise<void> {
     const text = figma.createText();
     text.characters = v.label;
     text.fontSize = 14;
-    text.fontName = { family: "Inter", style: "Medium" };
+    text.fontName = { family: 'Inter', style: 'Medium' };
     text.fills = [{ type: 'SOLID', color: hexToRgb(v.text) }];
     btn.appendChild(text);
 
@@ -3225,7 +3548,7 @@ async function generateTextareas(): Promise<void> {
   const states = [
     { name: 'Default', borderColor: '#d1d5db' },
     { name: 'Focus', borderColor: tokens.colors.primary['500'] },
-    { name: 'Error', borderColor: tokens.colors.error['500'] }
+    { name: 'Error', borderColor: tokens.colors.error['500'] },
   ];
 
   for (const state of states) {
@@ -3237,7 +3560,7 @@ async function generateTextareas(): Promise<void> {
     const label = figma.createText();
     label.characters = state.name;
     label.fontSize = 14;
-    label.fontName = { family: "Inter", style: "Medium" };
+    label.fontName = { family: 'Inter', style: 'Medium' };
     container.appendChild(label);
 
     const textarea = figma.createFrame();
@@ -3255,7 +3578,7 @@ async function generateTextareas(): Promise<void> {
     const placeholder = figma.createText();
     placeholder.characters = 'Enter your message here...';
     placeholder.fontSize = 14;
-    placeholder.fontName = { family: "Inter", style: "Regular" };
+    placeholder.fontName = { family: 'Inter', style: 'Regular' };
     placeholder.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
     textarea.appendChild(placeholder);
 
@@ -3265,7 +3588,7 @@ async function generateTextareas(): Promise<void> {
       const error = figma.createText();
       error.characters = 'This field is required';
       error.fontSize = 12;
-      error.fontName = { family: "Inter", style: "Regular" };
+      error.fontName = { family: 'Inter', style: 'Regular' };
       error.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.error['500']) }];
       container.appendChild(error);
     }
@@ -3292,7 +3615,7 @@ async function generateAvatarGroups(): Promise<void> {
     tokens.colors.primary['500'],
     tokens.colors.secondary['500'],
     tokens.colors.success['500'],
-    tokens.colors.warning['500']
+    tokens.colors.warning['500'],
   ];
   const initials = ['JD', 'AS', 'MK', 'BW'];
 
@@ -3307,7 +3630,7 @@ async function generateAvatarGroups(): Promise<void> {
     const init = figma.createText();
     init.characters = initials[i];
     init.fontSize = 14;
-    init.fontName = { family: "Inter", style: "Semi Bold" };
+    init.fontName = { family: 'Inter', style: 'Semi Bold' };
     init.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
     init.x = 9;
     init.y = 10;
@@ -3326,7 +3649,7 @@ async function generateAvatarGroups(): Promise<void> {
   const moreText = figma.createText();
   moreText.characters = '+5';
   moreText.fontSize = 12;
-  moreText.fontName = { family: "Inter", style: "Semi Bold" };
+  moreText.fontName = { family: 'Inter', style: 'Semi Bold' };
   moreText.fills = [{ type: 'SOLID', color: hexToRgb('#6b7280') }];
   moreText.x = 9;
   moreText.y = 12;
@@ -3365,7 +3688,7 @@ async function generateDividers(): Promise<void> {
   const orText = figma.createText();
   orText.characters = 'or';
   orText.fontSize = 14;
-  orText.fontName = { family: "Inter", style: "Medium" };
+  orText.fontName = { family: 'Inter', style: 'Medium' };
   orText.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   textDivider.appendChild(orText);
 
@@ -3406,22 +3729,24 @@ async function generateBottomNavigation(): Promise<void> {
   nav.paddingRight = 24;
   nav.resize(375, nav.height);
   nav.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  nav.effects = [{
-    type: 'DROP_SHADOW',
-    color: { r: 0, g: 0, b: 0, a: 0.1 },
-    offset: { x: 0, y: -2 },
-    radius: 8,
-    spread: 0,
-    visible: true,
-    blendMode: 'NORMAL'
-  }];
+  nav.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.1 },
+      offset: { x: 0, y: -2 },
+      radius: 8,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const items = [
     { icon: '🏠', label: 'Home', active: true },
     { icon: '🔍', label: 'Search', active: false },
     { icon: '➕', label: 'Add', active: false },
     { icon: '❤️', label: 'Favorites', active: false },
-    { icon: '👤', label: 'Profile', active: false }
+    { icon: '👤', label: 'Profile', active: false },
   ];
 
   for (const item of items) {
@@ -3440,8 +3765,10 @@ async function generateBottomNavigation(): Promise<void> {
     const label = figma.createText();
     label.characters = item.label;
     label.fontSize = 10;
-    label.fontName = { family: "Inter", style: item.active ? "Semi Bold" : "Regular" };
-    label.fills = [{ type: 'SOLID', color: hexToRgb(item.active ? tokens.colors.primary['600'] : '#6b7280') }];
+    label.fontName = { family: 'Inter', style: item.active ? 'Semi Bold' : 'Regular' };
+    label.fills = [
+      { type: 'SOLID', color: hexToRgb(item.active ? tokens.colors.primary['600'] : '#6b7280') },
+    ];
     navItem.appendChild(label);
     nav.appendChild(navItem);
   }
@@ -3481,15 +3808,22 @@ async function generateCarousel(): Promise<void> {
   leftArrow.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   leftArrow.x = 16;
   leftArrow.y = 120;
-  leftArrow.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.1 },
-    offset: { x: 0, y: 2 }, radius: 4, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  leftArrow.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.1 },
+      offset: { x: 0, y: 2 },
+      radius: 4,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const leftText = figma.createText();
   leftText.characters = '←';
   leftText.fontSize = 18;
-  leftText.fontName = { family: "Inter", style: "Medium" };
+  leftText.fontName = { family: 'Inter', style: 'Medium' };
   leftArrow.appendChild(leftText);
   slideArea.appendChild(leftArrow);
 
@@ -3506,13 +3840,13 @@ async function generateCarousel(): Promise<void> {
   const slideTitle = figma.createText();
   slideTitle.characters = 'Slide 1 of 4';
   slideTitle.fontSize = 24;
-  slideTitle.fontName = { family: "Inter", style: "Bold" };
+  slideTitle.fontName = { family: 'Inter', style: 'Bold' };
   slideContent.appendChild(slideTitle);
 
   const slideDesc = figma.createText();
   slideDesc.characters = 'Carousel slide content goes here';
   slideDesc.fontSize = 14;
-  slideDesc.fontName = { family: "Inter", style: "Regular" };
+  slideDesc.fontName = { family: 'Inter', style: 'Regular' };
   slideDesc.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   slideContent.appendChild(slideDesc);
   slideArea.appendChild(slideContent);
@@ -3527,15 +3861,22 @@ async function generateCarousel(): Promise<void> {
   rightArrow.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   rightArrow.x = 424;
   rightArrow.y = 120;
-  rightArrow.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.1 },
-    offset: { x: 0, y: 2 }, radius: 4, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  rightArrow.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.1 },
+      offset: { x: 0, y: 2 },
+      radius: 4,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const rightText = figma.createText();
   rightText.characters = '→';
   rightText.fontSize = 18;
-  rightText.fontName = { family: "Inter", style: "Medium" };
+  rightText.fontName = { family: 'Inter', style: 'Medium' };
   rightArrow.appendChild(rightText);
   slideArea.appendChild(rightArrow);
 
@@ -3555,7 +3896,9 @@ async function generateCarousel(): Promise<void> {
     if (i === 0) {
       dot.cornerRadius = 4;
     }
-    dot.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['500'] : '#d1d5db') }];
+    dot.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['500'] : '#d1d5db') },
+    ];
     dots.appendChild(dot);
   }
   dots.primaryAxisSizingMode = 'AUTO';
@@ -3593,14 +3936,14 @@ async function generateCodeBlock(): Promise<void> {
   const filename = figma.createText();
   filename.characters = 'example.tsx';
   filename.fontSize = 12;
-  filename.fontName = { family: "Inter", style: "Medium" };
+  filename.fontName = { family: 'Inter', style: 'Medium' };
   filename.fills = [{ type: 'SOLID', color: { r: 0.7, g: 0.7, b: 0.7 } }];
   header.appendChild(filename);
 
   const copyBtn = figma.createText();
   copyBtn.characters = '📋 Copy';
   copyBtn.fontSize = 12;
-  copyBtn.fontName = { family: "Inter", style: "Medium" };
+  copyBtn.fontName = { family: 'Inter', style: 'Medium' };
   copyBtn.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['400']) }];
   header.appendChild(copyBtn);
   header.primaryAxisSizingMode = 'AUTO';
@@ -3626,14 +3969,14 @@ async function generateCodeBlock(): Promise<void> {
     { text: '      Click me', color: '#c3e88d' },
     { text: '    </Button>', color: '#89ddff' },
     { text: '  );', color: '#ffffff' },
-    { text: '}', color: '#82aaff' }
+    { text: '}', color: '#82aaff' },
   ];
 
   for (const line of lines) {
     const codeLine = figma.createText();
     codeLine.characters = line.text || ' ';
     codeLine.fontSize = 13;
-    codeLine.fontName = { family: "Inter", style: "Regular" };
+    codeLine.fontName = { family: 'Inter', style: 'Regular' };
     codeLine.fills = [{ type: 'SOLID', color: hexToRgb(line.color) }];
     code.appendChild(codeLine);
   }
@@ -3662,10 +4005,17 @@ async function generateColorPicker(): Promise<void> {
   picker.paddingRight = 16;
   picker.cornerRadius = 12;
   picker.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  picker.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 }, radius: 12, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  picker.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   // Color gradient area
   const gradientArea = figma.createFrame();
@@ -3678,19 +4028,24 @@ async function generateColorPicker(): Promise<void> {
   const hueSlider = figma.createFrame();
   hueSlider.resize(220, 16);
   hueSlider.cornerRadius = 8;
-  hueSlider.fills = [{
-    type: 'GRADIENT_LINEAR',
-    gradientStops: [
-      { position: 0, color: { r: 1, g: 0, b: 0, a: 1 } },
-      { position: 0.17, color: { r: 1, g: 1, b: 0, a: 1 } },
-      { position: 0.33, color: { r: 0, g: 1, b: 0, a: 1 } },
-      { position: 0.5, color: { r: 0, g: 1, b: 1, a: 1 } },
-      { position: 0.67, color: { r: 0, g: 0, b: 1, a: 1 } },
-      { position: 0.83, color: { r: 1, g: 0, b: 1, a: 1 } },
-      { position: 1, color: { r: 1, g: 0, b: 0, a: 1 } }
-    ],
-    gradientTransform: [[1, 0, 0], [0, 1, 0]]
-  }];
+  hueSlider.fills = [
+    {
+      type: 'GRADIENT_LINEAR',
+      gradientStops: [
+        { position: 0, color: { r: 1, g: 0, b: 0, a: 1 } },
+        { position: 0.17, color: { r: 1, g: 1, b: 0, a: 1 } },
+        { position: 0.33, color: { r: 0, g: 1, b: 0, a: 1 } },
+        { position: 0.5, color: { r: 0, g: 1, b: 1, a: 1 } },
+        { position: 0.67, color: { r: 0, g: 0, b: 1, a: 1 } },
+        { position: 0.83, color: { r: 1, g: 0, b: 1, a: 1 } },
+        { position: 1, color: { r: 1, g: 0, b: 0, a: 1 } },
+      ],
+      gradientTransform: [
+        [1, 0, 0],
+        [0, 1, 0],
+      ],
+    },
+  ];
   picker.appendChild(hueSlider);
 
   // Color value input
@@ -3717,7 +4072,7 @@ async function generateColorPicker(): Promise<void> {
   const hexText = figma.createText();
   hexText.characters = '#5EBD8F';
   hexText.fontSize = 14;
-  hexText.fontName = { family: "Inter", style: "Medium" };
+  hexText.fontName = { family: 'Inter', style: 'Medium' };
   hexInput.appendChild(hexText);
   inputRow.appendChild(hexInput);
 
@@ -3754,7 +4109,7 @@ async function generateCombobox(): Promise<void> {
   const inputText = figma.createText();
   inputText.characters = 'React';
   inputText.fontSize = 14;
-  inputText.fontName = { family: "Inter", style: "Regular" };
+  inputText.fontName = { family: 'Inter', style: 'Regular' };
   input.appendChild(inputText);
 
   const arrow = figma.createText();
@@ -3771,10 +4126,17 @@ async function generateCombobox(): Promise<void> {
   dropdown.resize(280, dropdown.height);
   dropdown.cornerRadius = 8;
   dropdown.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  dropdown.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 }, radius: 12, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  dropdown.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const options = ['React', 'Vue', 'Angular', 'Svelte', 'Solid'];
   for (let i = 0; i < options.length; i++) {
@@ -3786,13 +4148,15 @@ async function generateCombobox(): Promise<void> {
     option.paddingTop = 10;
     option.paddingBottom = 10;
     option.resize(280, option.height);
-    option.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['50'] : '#ffffff') }];
+    option.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['50'] : '#ffffff') },
+    ];
 
     if (i === 0) {
       const check = figma.createText();
       check.characters = '✓ ';
       check.fontSize = 14;
-      check.fontName = { family: "Inter", style: "Bold" };
+      check.fontName = { family: 'Inter', style: 'Bold' };
       check.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['600']) }];
       option.appendChild(check);
     }
@@ -3800,8 +4164,10 @@ async function generateCombobox(): Promise<void> {
     const optText = figma.createText();
     optText.characters = options[i];
     optText.fontSize = 14;
-    optText.fontName = { family: "Inter", style: i === 0 ? "Medium" : "Regular" };
-    optText.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['700'] : '#374151') }];
+    optText.fontName = { family: 'Inter', style: i === 0 ? 'Medium' : 'Regular' };
+    optText.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['700'] : '#374151') },
+    ];
     option.appendChild(optText);
     option.primaryAxisSizingMode = 'AUTO';
     dropdown.appendChild(option);
@@ -3825,10 +4191,17 @@ async function generateCommandPalette(): Promise<void> {
   palette.resize(480, palette.height);
   palette.cornerRadius = 12;
   palette.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  palette.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.25 },
-    offset: { x: 0, y: 25 }, radius: 50, spread: -12, visible: true, blendMode: 'NORMAL'
-  }];
+  palette.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.25 },
+      offset: { x: 0, y: 25 },
+      radius: 50,
+      spread: -12,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   // Search input
   const searchBar = figma.createFrame();
@@ -3850,7 +4223,7 @@ async function generateCommandPalette(): Promise<void> {
   const searchText = figma.createText();
   searchText.characters = 'Type a command or search...';
   searchText.fontSize = 16;
-  searchText.fontName = { family: "Inter", style: "Regular" };
+  searchText.fontName = { family: 'Inter', style: 'Regular' };
   searchText.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   searchBar.appendChild(searchText);
 
@@ -3868,7 +4241,7 @@ async function generateCommandPalette(): Promise<void> {
     { icon: '📄', label: 'New File', shortcut: '⌘N' },
     { icon: '📁', label: 'Open Folder', shortcut: '⌘O' },
     { icon: '💾', label: 'Save', shortcut: '⌘S' },
-    { icon: '⚙️', label: 'Settings', shortcut: '⌘,' }
+    { icon: '⚙️', label: 'Settings', shortcut: '⌘,' },
   ];
 
   for (let i = 0; i < commands.length; i++) {
@@ -3881,7 +4254,9 @@ async function generateCommandPalette(): Promise<void> {
     cmd.paddingTop = 12;
     cmd.paddingBottom = 12;
     cmd.resize(480, cmd.height);
-    cmd.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['50'] : '#ffffff') }];
+    cmd.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['50'] : '#ffffff') },
+    ];
 
     const left = figma.createFrame();
     left.layoutMode = 'HORIZONTAL';
@@ -3896,7 +4271,7 @@ async function generateCommandPalette(): Promise<void> {
     const label = figma.createText();
     label.characters = commands[i].label;
     label.fontSize = 14;
-    label.fontName = { family: "Inter", style: "Medium" };
+    label.fontName = { family: 'Inter', style: 'Medium' };
     left.appendChild(label);
     cmd.appendChild(left);
 
@@ -3912,7 +4287,7 @@ async function generateCommandPalette(): Promise<void> {
     const shortcutText = figma.createText();
     shortcutText.characters = commands[i].shortcut;
     shortcutText.fontSize = 12;
-    shortcutText.fontName = { family: "Inter", style: "Medium" };
+    shortcutText.fontName = { family: 'Inter', style: 'Medium' };
     shortcutText.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
     shortcut.appendChild(shortcutText);
     shortcut.primaryAxisSizingMode = 'AUTO';
@@ -3940,10 +4315,17 @@ async function generateContextMenu(): Promise<void> {
   menu.resize(200, menu.height);
   menu.cornerRadius = 8;
   menu.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  menu.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 }, radius: 12, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  menu.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const items = [
     { icon: '↩️', label: 'Undo', shortcut: '⌘Z' },
@@ -3953,7 +4335,7 @@ async function generateContextMenu(): Promise<void> {
     { icon: '📋', label: 'Copy', shortcut: '⌘C' },
     { icon: '📝', label: 'Paste', shortcut: '⌘V' },
     { divider: true },
-    { icon: '🗑️', label: 'Delete', danger: true }
+    { icon: '🗑️', label: 'Delete', danger: true },
   ];
 
   for (const item of items) {
@@ -3989,8 +4371,10 @@ async function generateContextMenu(): Promise<void> {
     const label = figma.createText();
     label.characters = item.label!;
     label.fontSize = 13;
-    label.fontName = { family: "Inter", style: "Medium" };
-    label.fills = [{ type: 'SOLID', color: hexToRgb(item.danger ? tokens.colors.error['600'] : '#374151') }];
+    label.fontName = { family: 'Inter', style: 'Medium' };
+    label.fills = [
+      { type: 'SOLID', color: hexToRgb(item.danger ? tokens.colors.error['600'] : '#374151') },
+    ];
     left.appendChild(label);
     menuItem.appendChild(left);
 
@@ -3998,7 +4382,7 @@ async function generateContextMenu(): Promise<void> {
       const shortcut = figma.createText();
       shortcut.characters = item.shortcut;
       shortcut.fontSize = 11;
-      shortcut.fontName = { family: "Inter", style: "Regular" };
+      shortcut.fontName = { family: 'Inter', style: 'Regular' };
       shortcut.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
       menuItem.appendChild(shortcut);
     }
@@ -4029,10 +4413,17 @@ async function generateDialog(): Promise<void> {
   dialog.resize(380, dialog.height);
   dialog.cornerRadius = 16;
   dialog.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  dialog.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.25 },
-    offset: { x: 0, y: 25 }, radius: 50, spread: -12, visible: true, blendMode: 'NORMAL'
-  }];
+  dialog.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.25 },
+      offset: { x: 0, y: 25 },
+      radius: 50,
+      spread: -12,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   // Icon
   const iconContainer = figma.createFrame();
@@ -4053,14 +4444,15 @@ async function generateDialog(): Promise<void> {
   const title = figma.createText();
   title.characters = 'Delete Item?';
   title.fontSize = 20;
-  title.fontName = { family: "Inter", style: "Bold" };
+  title.fontName = { family: 'Inter', style: 'Bold' };
   dialog.appendChild(title);
 
   // Description
   const desc = figma.createText();
-  desc.characters = 'This action cannot be undone. Are you sure you want to permanently delete this item?';
+  desc.characters =
+    'This action cannot be undone. Are you sure you want to permanently delete this item?';
   desc.fontSize = 14;
-  desc.fontName = { family: "Inter", style: "Regular" };
+  desc.fontName = { family: 'Inter', style: 'Regular' };
   desc.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
   desc.resize(332, desc.height);
   desc.textAutoResize = 'HEIGHT';
@@ -4085,7 +4477,7 @@ async function generateDialog(): Promise<void> {
   const cancelText = figma.createText();
   cancelText.characters = 'Cancel';
   cancelText.fontSize = 14;
-  cancelText.fontName = { family: "Inter", style: "Medium" };
+  cancelText.fontName = { family: 'Inter', style: 'Medium' };
   cancelBtn.appendChild(cancelText);
   cancelBtn.primaryAxisSizingMode = 'AUTO';
   buttons.appendChild(cancelBtn);
@@ -4103,7 +4495,7 @@ async function generateDialog(): Promise<void> {
   const deleteText = figma.createText();
   deleteText.characters = 'Delete';
   deleteText.fontSize = 14;
-  deleteText.fontName = { family: "Inter", style: "Medium" };
+  deleteText.fontName = { family: 'Inter', style: 'Medium' };
   deleteText.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   deleteBtn.appendChild(deleteText);
   deleteBtn.primaryAxisSizingMode = 'AUTO';
@@ -4144,13 +4536,13 @@ async function generateEmptyState(): Promise<void> {
   const title = figma.createText();
   title.characters = 'No items yet';
   title.fontSize = 20;
-  title.fontName = { family: "Inter", style: "Semi Bold" };
+  title.fontName = { family: 'Inter', style: 'Semi Bold' };
   emptyState.appendChild(title);
 
   const desc = figma.createText();
   desc.characters = 'Get started by creating your first item.\nIt only takes a few seconds.';
   desc.fontSize = 14;
-  desc.fontName = { family: "Inter", style: "Regular" };
+  desc.fontName = { family: 'Inter', style: 'Regular' };
   desc.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   desc.textAlignHorizontal = 'CENTER';
   emptyState.appendChild(desc);
@@ -4169,14 +4561,14 @@ async function generateEmptyState(): Promise<void> {
   const btnIcon = figma.createText();
   btnIcon.characters = '+';
   btnIcon.fontSize = 18;
-  btnIcon.fontName = { family: "Inter", style: "Bold" };
+  btnIcon.fontName = { family: 'Inter', style: 'Bold' };
   btnIcon.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   btn.appendChild(btnIcon);
 
   const btnText = figma.createText();
   btnText.characters = 'Create Item';
   btnText.fontSize = 14;
-  btnText.fontName = { family: "Inter", style: "Medium" };
+  btnText.fontName = { family: 'Inter', style: 'Medium' };
   btnText.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   btn.appendChild(btnText);
   btn.primaryAxisSizingMode = 'AUTO';
@@ -4206,7 +4598,12 @@ async function generateImageGallery(): Promise<void> {
     const img = figma.createFrame();
     img.resize(124, 124);
     img.cornerRadius = 8;
-    img.fills = [{ type: 'SOLID', color: hexToRgb(['#e0f2fe', '#fce7f3', '#d1fae5', '#fef3c7', '#e0e7ff', '#f3e8ff'][i]) }];
+    img.fills = [
+      {
+        type: 'SOLID',
+        color: hexToRgb(['#e0f2fe', '#fce7f3', '#d1fae5', '#fef3c7', '#e0e7ff', '#f3e8ff'][i]),
+      },
+    ];
 
     const icon = figma.createText();
     icon.characters = ['🖼️', '🌅', '🏔️', '🌊', '🌺', '🌳'][i];
@@ -4266,14 +4663,14 @@ async function generateMultiSelect(): Promise<void> {
     const chipText = figma.createText();
     chipText.characters = item;
     chipText.fontSize = 12;
-    chipText.fontName = { family: "Inter", style: "Medium" };
+    chipText.fontName = { family: 'Inter', style: 'Medium' };
     chipText.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['700']) }];
     chip.appendChild(chipText);
 
     const close = figma.createText();
     close.characters = '×';
     close.fontSize = 14;
-    close.fontName = { family: "Inter", style: "Medium" };
+    close.fontName = { family: 'Inter', style: 'Medium' };
     close.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['500']) }];
     chip.appendChild(close);
 
@@ -4304,10 +4701,17 @@ async function generateNavbar(): Promise<void> {
   navbar.paddingRight = 24;
   navbar.resize(800, 64);
   navbar.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  navbar.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.05 },
-    offset: { x: 0, y: 1 }, radius: 3, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  navbar.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.05 },
+      offset: { x: 0, y: 1 },
+      radius: 3,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   // Logo
   const logo = figma.createFrame();
@@ -4325,7 +4729,7 @@ async function generateNavbar(): Promise<void> {
   const logoText = figma.createText();
   logoText.characters = 'Aural UI';
   logoText.fontSize = 18;
-  logoText.fontName = { family: "Inter", style: "Bold" };
+  logoText.fontName = { family: 'Inter', style: 'Bold' };
   logo.appendChild(logoText);
   navbar.appendChild(logo);
 
@@ -4340,8 +4744,10 @@ async function generateNavbar(): Promise<void> {
     const link = figma.createText();
     link.characters = links[i];
     link.fontSize = 14;
-    link.fontName = { family: "Inter", style: i === 0 ? "Semi Bold" : "Medium" };
-    link.fills = [{ type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['600'] : '#6b7280') }];
+    link.fontName = { family: 'Inter', style: i === 0 ? 'Semi Bold' : 'Medium' };
+    link.fills = [
+      { type: 'SOLID', color: hexToRgb(i === 0 ? tokens.colors.primary['600'] : '#6b7280') },
+    ];
     navLinks.appendChild(link);
   }
   navbar.appendChild(navLinks);
@@ -4355,7 +4761,7 @@ async function generateNavbar(): Promise<void> {
   const loginBtn = figma.createText();
   loginBtn.characters = 'Log in';
   loginBtn.fontSize = 14;
-  loginBtn.fontName = { family: "Inter", style: "Medium" };
+  loginBtn.fontName = { family: 'Inter', style: 'Medium' };
   actions.appendChild(loginBtn);
 
   const signupBtn = figma.createFrame();
@@ -4371,7 +4777,7 @@ async function generateNavbar(): Promise<void> {
   const signupText = figma.createText();
   signupText.characters = 'Sign up';
   signupText.fontSize = 14;
-  signupText.fontName = { family: "Inter", style: "Medium" };
+  signupText.fontName = { family: 'Inter', style: 'Medium' };
   signupText.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   signupBtn.appendChild(signupText);
   signupBtn.primaryAxisSizingMode = 'AUTO';
@@ -4398,7 +4804,7 @@ async function generateRangeSlider(): Promise<void> {
   const label = figma.createText();
   label.characters = 'Price Range: $200 - $800';
   label.fontSize = 14;
-  label.fontName = { family: "Inter", style: "Medium" };
+  label.fontName = { family: 'Inter', style: 'Medium' };
   container.appendChild(label);
 
   const track = figma.createFrame();
@@ -4422,10 +4828,17 @@ async function generateRangeSlider(): Promise<void> {
   leftThumb.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   leftThumb.strokes = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['500']) }];
   leftThumb.strokeWeight = 2;
-  leftThumb.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.1 },
-    offset: { x: 0, y: 2 }, radius: 4, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  leftThumb.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.1 },
+      offset: { x: 0, y: 2 },
+      radius: 4,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
   track.appendChild(leftThumb);
 
   // Right thumb
@@ -4436,10 +4849,17 @@ async function generateRangeSlider(): Promise<void> {
   rightThumb.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   rightThumb.strokes = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['500']) }];
   rightThumb.strokeWeight = 2;
-  rightThumb.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.1 },
-    offset: { x: 0, y: 2 }, radius: 4, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  rightThumb.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.1 },
+      offset: { x: 0, y: 2 },
+      radius: 4,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
   track.appendChild(rightThumb);
 
   container.appendChild(track);
@@ -4454,14 +4874,14 @@ async function generateRangeSlider(): Promise<void> {
   const minLabel = figma.createText();
   minLabel.characters = '$0';
   minLabel.fontSize = 12;
-  minLabel.fontName = { family: "Inter", style: "Regular" };
+  minLabel.fontName = { family: 'Inter', style: 'Regular' };
   minLabel.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   labels.appendChild(minLabel);
 
   const maxLabel = figma.createText();
   maxLabel.characters = '$1000';
   maxLabel.fontSize = 12;
-  maxLabel.fontName = { family: "Inter", style: "Regular" };
+  maxLabel.fontName = { family: 'Inter', style: 'Regular' };
   maxLabel.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   labels.appendChild(maxLabel);
 
@@ -4490,15 +4910,22 @@ async function generateSnackbar(): Promise<void> {
   snackbar.resize(400, snackbar.height);
   snackbar.cornerRadius = 8;
   snackbar.fills = [{ type: 'SOLID', color: hexToRgb('#1f2937') }];
-  snackbar.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.2 },
-    offset: { x: 0, y: 4 }, radius: 12, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  snackbar.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.2 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   const message = figma.createText();
   message.characters = 'Your changes have been saved';
   message.fontSize = 14;
-  message.fontName = { family: "Inter", style: "Medium" };
+  message.fontName = { family: 'Inter', style: 'Medium' };
   message.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
   snackbar.appendChild(message);
 
@@ -4510,14 +4937,14 @@ async function generateSnackbar(): Promise<void> {
   const undoBtn = figma.createText();
   undoBtn.characters = 'UNDO';
   undoBtn.fontSize = 13;
-  undoBtn.fontName = { family: "Inter", style: "Bold" };
+  undoBtn.fontName = { family: 'Inter', style: 'Bold' };
   undoBtn.fills = [{ type: 'SOLID', color: hexToRgb(tokens.colors.primary['400']) }];
   actions.appendChild(undoBtn);
 
   const closeBtn = figma.createText();
   closeBtn.characters = '×';
   closeBtn.fontSize = 20;
-  closeBtn.fontName = { family: "Inter", style: "Regular" };
+  closeBtn.fontName = { family: 'Inter', style: 'Regular' };
   closeBtn.fills = [{ type: 'SOLID', color: { r: 0.6, g: 0.6, b: 0.6 } }];
   actions.appendChild(closeBtn);
 
@@ -4556,7 +4983,7 @@ async function generateTimePicker(): Promise<void> {
   const timeText = figma.createText();
   timeText.characters = '09:30 AM';
   timeText.fontSize = 14;
-  timeText.fontName = { family: "Inter", style: "Medium" };
+  timeText.fontName = { family: 'Inter', style: 'Medium' };
   input.appendChild(timeText);
 
   const clockIcon = figma.createText();
@@ -4576,10 +5003,17 @@ async function generateTimePicker(): Promise<void> {
   dropdown.paddingRight = 12;
   dropdown.cornerRadius = 8;
   dropdown.fills = [{ type: 'SOLID', color: { r: 1, g: 1, b: 1 } }];
-  dropdown.effects = [{
-    type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.15 },
-    offset: { x: 0, y: 4 }, radius: 12, spread: 0, visible: true, blendMode: 'NORMAL'
-  }];
+  dropdown.effects = [
+    {
+      type: 'DROP_SHADOW',
+      color: { r: 0, g: 0, b: 0, a: 0.15 },
+      offset: { x: 0, y: 4 },
+      radius: 12,
+      spread: 0,
+      visible: true,
+      blendMode: 'NORMAL',
+    },
+  ];
 
   // Hours column
   const hoursCol = figma.createFrame();
@@ -4594,13 +5028,17 @@ async function generateTimePicker(): Promise<void> {
     hourItem.counterAxisAlignItems = 'CENTER';
     hourItem.resize(48, 32);
     hourItem.cornerRadius = 6;
-    hourItem.fills = [{ type: 'SOLID', color: hexToRgb(h === 9 ? tokens.colors.primary['500'] : 'transparent') }];
+    hourItem.fills = [
+      { type: 'SOLID', color: hexToRgb(h === 9 ? tokens.colors.primary['500'] : 'transparent') },
+    ];
 
     const hourText = figma.createText();
     hourText.characters = String(h).padStart(2, '0');
     hourText.fontSize = 14;
-    hourText.fontName = { family: "Inter", style: "Medium" };
-    hourText.fills = [{ type: 'SOLID', color: h === 9 ? { r: 1, g: 1, b: 1 } : hexToRgb('#374151') }];
+    hourText.fontName = { family: 'Inter', style: 'Medium' };
+    hourText.fills = [
+      { type: 'SOLID', color: h === 9 ? { r: 1, g: 1, b: 1 } : hexToRgb('#374151') },
+    ];
     hourItem.appendChild(hourText);
     hoursCol.appendChild(hourItem);
   }
@@ -4610,7 +5048,7 @@ async function generateTimePicker(): Promise<void> {
   const sep = figma.createText();
   sep.characters = ':';
   sep.fontSize = 20;
-  sep.fontName = { family: "Inter", style: "Bold" };
+  sep.fontName = { family: 'Inter', style: 'Bold' };
   sep.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
   dropdown.appendChild(sep);
 
@@ -4627,13 +5065,17 @@ async function generateTimePicker(): Promise<void> {
     minItem.counterAxisAlignItems = 'CENTER';
     minItem.resize(48, 32);
     minItem.cornerRadius = 6;
-    minItem.fills = [{ type: 'SOLID', color: hexToRgb(m === 30 ? tokens.colors.primary['500'] : 'transparent') }];
+    minItem.fills = [
+      { type: 'SOLID', color: hexToRgb(m === 30 ? tokens.colors.primary['500'] : 'transparent') },
+    ];
 
     const minText = figma.createText();
     minText.characters = String(m).padStart(2, '0');
     minText.fontSize = 14;
-    minText.fontName = { family: "Inter", style: "Medium" };
-    minText.fills = [{ type: 'SOLID', color: m === 30 ? { r: 1, g: 1, b: 1 } : hexToRgb('#374151') }];
+    minText.fontName = { family: 'Inter', style: 'Medium' };
+    minText.fills = [
+      { type: 'SOLID', color: m === 30 ? { r: 1, g: 1, b: 1 } : hexToRgb('#374151') },
+    ];
     minItem.appendChild(minText);
     minsCol.appendChild(minItem);
   }
@@ -4669,16 +5111,23 @@ async function generateToggleGroup(): Promise<void> {
     opt.cornerRadius = i === 1 ? 6 : 0;
     opt.fills = [{ type: 'SOLID', color: hexToRgb(i === 1 ? '#ffffff' : 'transparent') }];
     if (i === 1) {
-      opt.effects = [{
-        type: 'DROP_SHADOW', color: { r: 0, g: 0, b: 0, a: 0.05 },
-        offset: { x: 0, y: 1 }, radius: 2, spread: 0, visible: true, blendMode: 'NORMAL'
-      }];
+      opt.effects = [
+        {
+          type: 'DROP_SHADOW',
+          color: { r: 0, g: 0, b: 0, a: 0.05 },
+          offset: { x: 0, y: 1 },
+          radius: 2,
+          spread: 0,
+          visible: true,
+          blendMode: 'NORMAL',
+        },
+      ];
     }
 
     const optText = figma.createText();
     optText.characters = options[i];
     optText.fontSize = 14;
-    optText.fontName = { family: "Inter", style: i === 1 ? "Semi Bold" : "Medium" };
+    optText.fontName = { family: 'Inter', style: i === 1 ? 'Semi Bold' : 'Medium' };
     optText.fills = [{ type: 'SOLID', color: hexToRgb(i === 1 ? '#111827' : '#6b7280') }];
     opt.appendChild(optText);
     opt.primaryAxisSizingMode = 'AUTO';
@@ -4710,7 +5159,7 @@ async function generateTreeView(): Promise<void> {
     { icon: '📁', label: 'utils', level: 1, expanded: false },
     { icon: '📄', label: 'index.ts', level: 1 },
     { icon: '📁', label: 'public', level: 0, expanded: false },
-    { icon: '📄', label: 'package.json', level: 0 }
+    { icon: '📄', label: 'package.json', level: 0 },
   ];
 
   for (const item of items) {
@@ -4744,7 +5193,7 @@ async function generateTreeView(): Promise<void> {
     const label = figma.createText();
     label.characters = item.label;
     label.fontSize = 13;
-    label.fontName = { family: "Inter", style: "Regular" };
+    label.fontName = { family: 'Inter', style: 'Regular' };
     row.appendChild(label);
 
     tree.appendChild(row);
@@ -4848,70 +5297,202 @@ figma.on('run', async ({ command }: RunEvent) => {
 
 figma.ui.onmessage = async (msg: { type: string }) => {
   switch (msg.type) {
-    case 'generate-all': await generateAllComponents(); break;
-    case 'generate-variables': await generateVariables(); break;
-    case 'generate-colors': await generateColors(); await generateColorSwatches(); break;
-    case 'generate-typography': await generateTypography(); await generateTypographyShowcase(); break;
-    case 'generate-spacing': await generateSpacing(); break;
-    case 'generate-effects': await generateEffects(); break;
-    case 'generate-buttons': await generateButtons(); break;
-    case 'generate-icon-buttons': await generateIconButtons(); break;
-    case 'generate-loading-buttons': await generateLoadingButtons(); break;
-    case 'generate-inputs': await generateInputs(); break;
-    case 'generate-textareas': await generateTextareas(); break;
-    case 'generate-checkboxes': await generateCheckboxes(); break;
-    case 'generate-radio': await generateRadioButtons(); break;
-    case 'generate-switches': await generateSwitches(); break;
-    case 'generate-toggle': await generateToggle(); break;
-    case 'generate-selects': await generateSelects(); break;
-    case 'generate-combobox': await generateCombobox(); break;
-    case 'generate-multiselect': await generateMultiSelect(); break;
-    case 'generate-sliders': await generateSliders(); break;
-    case 'generate-range-slider': await generateRangeSlider(); break;
-    case 'generate-rating': await generateRating(); break;
-    case 'generate-search': await generateSearchInput(); break;
-    case 'generate-file-upload': await generateFileUpload(); break;
-    case 'generate-datepicker': await generateDatePicker(); break;
-    case 'generate-timepicker': await generateTimePicker(); break;
-    case 'generate-colorpicker': await generateColorPicker(); break;
-    case 'generate-badges': await generateBadges(); break;
-    case 'generate-cards': await generateCards(); break;
-    case 'generate-tables': await generateTables(); break;
-    case 'generate-progress': await generateProgress(); break;
-    case 'generate-avatars': await generateAvatars(); break;
-    case 'generate-avatar-groups': await generateAvatarGroups(); break;
-    case 'generate-tooltips': await generateTooltips(); break;
-    case 'generate-chips': await generateChips(); break;
-    case 'generate-spinner': await generateSpinner(); break;
-    case 'generate-skeleton': await generateSkeleton(); break;
-    case 'generate-timeline': await generateTimeline(); break;
-    case 'generate-stats': await generateStatsCards(); break;
-    case 'generate-calendar': await generateCalendar(); break;
-    case 'generate-dividers': await generateDividers(); break;
-    case 'generate-codeblock': await generateCodeBlock(); break;
-    case 'generate-emptystate': await generateEmptyState(); break;
-    case 'generate-imagegallery': await generateImageGallery(); break;
-    case 'generate-carousel': await generateCarousel(); break;
-    case 'generate-tabs': await generateTabs(); break;
-    case 'generate-breadcrumbs': await generateBreadcrumbs(); break;
-    case 'generate-pagination': await generatePagination(); break;
-    case 'generate-accordion': await generateAccordion(); break;
-    case 'generate-stepper': await generateStepper(); break;
-    case 'generate-navbar': await generateNavbar(); break;
-    case 'generate-bottomnav': await generateBottomNavigation(); break;
-    case 'generate-treeview': await generateTreeView(); break;
-    case 'generate-modals': await generateModals(); break;
-    case 'generate-dialog': await generateDialog(); break;
-    case 'generate-toasts': await generateToasts(); break;
-    case 'generate-snackbar': await generateSnackbar(); break;
-    case 'generate-drawer': await generateDrawer(); break;
-    case 'generate-alerts': await generateAlertBanner(); break;
-    case 'generate-popovers': await generatePopovers(); break;
-    case 'generate-dropdowns': await generateDropdowns(); break;
-    case 'generate-contextmenu': await generateContextMenu(); break;
-    case 'generate-commandpalette': await generateCommandPalette(); break;
-    case 'generate-notifications': await generateNotificationCenter(); break;
-    case 'generate-togglegroup': await generateToggleGroup(); break;
-    case 'close': figma.closePlugin(); break;
+    case 'generate-all':
+      await generateAllComponents();
+      break;
+    case 'generate-variables':
+      await generateVariables();
+      break;
+    case 'generate-colors':
+      await generateColors();
+      await generateColorSwatches();
+      break;
+    case 'generate-typography':
+      await generateTypography();
+      await generateTypographyShowcase();
+      break;
+    case 'generate-spacing':
+      await generateSpacing();
+      break;
+    case 'generate-effects':
+      await generateEffects();
+      break;
+    case 'generate-buttons':
+      await generateButtons();
+      break;
+    case 'generate-icon-buttons':
+      await generateIconButtons();
+      break;
+    case 'generate-loading-buttons':
+      await generateLoadingButtons();
+      break;
+    case 'generate-inputs':
+      await generateInputs();
+      break;
+    case 'generate-textareas':
+      await generateTextareas();
+      break;
+    case 'generate-checkboxes':
+      await generateCheckboxes();
+      break;
+    case 'generate-radio':
+      await generateRadioButtons();
+      break;
+    case 'generate-switches':
+      await generateSwitches();
+      break;
+    case 'generate-toggle':
+      await generateToggle();
+      break;
+    case 'generate-selects':
+      await generateSelects();
+      break;
+    case 'generate-combobox':
+      await generateCombobox();
+      break;
+    case 'generate-multiselect':
+      await generateMultiSelect();
+      break;
+    case 'generate-sliders':
+      await generateSliders();
+      break;
+    case 'generate-range-slider':
+      await generateRangeSlider();
+      break;
+    case 'generate-rating':
+      await generateRating();
+      break;
+    case 'generate-search':
+      await generateSearchInput();
+      break;
+    case 'generate-file-upload':
+      await generateFileUpload();
+      break;
+    case 'generate-datepicker':
+      await generateDatePicker();
+      break;
+    case 'generate-timepicker':
+      await generateTimePicker();
+      break;
+    case 'generate-colorpicker':
+      await generateColorPicker();
+      break;
+    case 'generate-badges':
+      await generateBadges();
+      break;
+    case 'generate-cards':
+      await generateCards();
+      break;
+    case 'generate-tables':
+      await generateTables();
+      break;
+    case 'generate-progress':
+      await generateProgress();
+      break;
+    case 'generate-avatars':
+      await generateAvatars();
+      break;
+    case 'generate-avatar-groups':
+      await generateAvatarGroups();
+      break;
+    case 'generate-tooltips':
+      await generateTooltips();
+      break;
+    case 'generate-chips':
+      await generateChips();
+      break;
+    case 'generate-spinner':
+      await generateSpinner();
+      break;
+    case 'generate-skeleton':
+      await generateSkeleton();
+      break;
+    case 'generate-timeline':
+      await generateTimeline();
+      break;
+    case 'generate-stats':
+      await generateStatsCards();
+      break;
+    case 'generate-calendar':
+      await generateCalendar();
+      break;
+    case 'generate-dividers':
+      await generateDividers();
+      break;
+    case 'generate-codeblock':
+      await generateCodeBlock();
+      break;
+    case 'generate-emptystate':
+      await generateEmptyState();
+      break;
+    case 'generate-imagegallery':
+      await generateImageGallery();
+      break;
+    case 'generate-carousel':
+      await generateCarousel();
+      break;
+    case 'generate-tabs':
+      await generateTabs();
+      break;
+    case 'generate-breadcrumbs':
+      await generateBreadcrumbs();
+      break;
+    case 'generate-pagination':
+      await generatePagination();
+      break;
+    case 'generate-accordion':
+      await generateAccordion();
+      break;
+    case 'generate-stepper':
+      await generateStepper();
+      break;
+    case 'generate-navbar':
+      await generateNavbar();
+      break;
+    case 'generate-bottomnav':
+      await generateBottomNavigation();
+      break;
+    case 'generate-treeview':
+      await generateTreeView();
+      break;
+    case 'generate-modals':
+      await generateModals();
+      break;
+    case 'generate-dialog':
+      await generateDialog();
+      break;
+    case 'generate-toasts':
+      await generateToasts();
+      break;
+    case 'generate-snackbar':
+      await generateSnackbar();
+      break;
+    case 'generate-drawer':
+      await generateDrawer();
+      break;
+    case 'generate-alerts':
+      await generateAlertBanner();
+      break;
+    case 'generate-popovers':
+      await generatePopovers();
+      break;
+    case 'generate-dropdowns':
+      await generateDropdowns();
+      break;
+    case 'generate-contextmenu':
+      await generateContextMenu();
+      break;
+    case 'generate-commandpalette':
+      await generateCommandPalette();
+      break;
+    case 'generate-notifications':
+      await generateNotificationCenter();
+      break;
+    case 'generate-togglegroup':
+      await generateToggleGroup();
+      break;
+    case 'close':
+      figma.closePlugin();
+      break;
   }
 };

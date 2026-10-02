@@ -7,6 +7,7 @@ This document outlines the design and implementation strategy for adding live, i
 ## Current State Analysis
 
 ### Existing Documentation Structure
+
 - **Location**: `/Users/feraf/Projects/aural-ui/docs/`
 - **Architecture**: Iframe-based navigation with persistent sidebar (`demo.html` + `demo.js`)
 - **Component Pages**: Static HTML with code examples (e.g., `components/buttons.html`)
@@ -14,6 +15,7 @@ This document outlines the design and implementation strategy for adding live, i
 - **Styling**: Uses Aural UI CSS with theme switching via `theme-manager.js`
 
 ### Existing Framework Packages
+
 - **React**: `/Users/feraf/Projects/aural-ui/packages/react/`
 - **Vue**: `/Users/feraf/Projects/aural-ui/packages/vue/`
 - **Svelte**: `/Users/feraf/Projects/aural-ui/packages/svelte/`
@@ -36,16 +38,16 @@ After evaluating the options, I recommend **Option 3: Custom Preview System with
 
 ### Comparison of Options
 
-| Feature | CodeSandbox/StackBlitz | Simple Iframes | Custom Bundler (Recommended) |
-|---------|----------------------|----------------|------------------------------|
-| Setup Complexity | Low | Low | Medium |
-| Performance | Medium (network) | High | High |
-| Offline Support | No | Yes | Yes |
-| Customization | Limited | Limited | Full |
-| Framework Support | All | All | All |
-| Bundle Size Impact | None | Minimal | Medium (~50KB) |
-| Real-time Editing | Yes | No | Yes (optional) |
-| Theme Integration | Manual | Native | Native |
+| Feature            | CodeSandbox/StackBlitz | Simple Iframes | Custom Bundler (Recommended) |
+| ------------------ | ---------------------- | -------------- | ---------------------------- |
+| Setup Complexity   | Low                    | Low            | Medium                       |
+| Performance        | Medium (network)       | High           | High                         |
+| Offline Support    | No                     | Yes            | Yes                          |
+| Customization      | Limited                | Limited        | Full                         |
+| Framework Support  | All                    | All            | All                          |
+| Bundle Size Impact | None                   | Minimal        | Medium (~50KB)               |
+| Real-time Editing  | Yes                    | No             | Yes (optional)               |
+| Theme Integration  | Manual                 | Native         | Native                       |
 
 ## Architecture Design
 
@@ -130,7 +132,7 @@ export const examples = {
         <button class="btn btn-danger">Danger</button>
       `,
       css: '',
-      js: ''
+      js: '',
     },
     react: {
       code: `
@@ -146,7 +148,7 @@ function Example() {
   );
 }
       `,
-      dependencies: ['react', 'react-dom', '@aural-ui/react']
+      dependencies: ['react', 'react-dom', '@aural-ui/react'],
     },
     vue: {
       code: `
@@ -160,7 +162,7 @@ function Example() {
 import { AuralButton } from '@aural-ui/vue';
 </script>
       `,
-      dependencies: ['vue', '@aural-ui/vue']
+      dependencies: ['vue', '@aural-ui/vue'],
     },
     svelte: {
       code: `
@@ -172,15 +174,16 @@ import { AuralButton } from '@aural-ui/vue';
 <Button variant="secondary">Secondary</Button>
 <Button variant="danger">Danger</Button>
       `,
-      dependencies: ['svelte', '@aural-ui/svelte']
-    }
-  }
+      dependencies: ['svelte', '@aural-ui/svelte'],
+    },
+  },
 };
 ```
 
 ## Implementation Phases
 
 ### Phase 1: Core Infrastructure (Week 1)
+
 - [ ] Create `PreviewManager.js` - main orchestrator
 - [ ] Create `PreviewSandbox.js` - iframe management
 - [ ] Create `VanillaRenderer.js` - HTML/CSS/JS renderer
@@ -188,6 +191,7 @@ import { AuralButton } from '@aural-ui/vue';
 - [ ] Add error handling and loading states
 
 ### Phase 2: Framework Renderers (Week 2)
+
 - [ ] Implement `ReactRenderer.js` using React 18 ESM CDN
 - [ ] Implement `VueRenderer.js` using Vue 3 ESM CDN
 - [ ] Implement `SvelteRenderer.js` using Svelte compiler
@@ -195,6 +199,7 @@ import { AuralButton } from '@aural-ui/vue';
 - [ ] Add framework-specific error boundaries
 
 ### Phase 3: Example Library (Week 2)
+
 - [ ] Create example definitions for Button component
 - [ ] Create example definitions for Input component
 - [ ] Create example definitions for 5+ other components
@@ -202,6 +207,7 @@ import { AuralButton } from '@aural-ui/vue';
 - [ ] Document example format and guidelines
 
 ### Phase 4: Integration (Week 3)
+
 - [ ] Update `buttons.html` with live previews
 - [ ] Add preview system to 3-5 other component pages
 - [ ] Integrate with existing theme system
@@ -209,6 +215,7 @@ import { AuralButton } from '@aural-ui/vue';
 - [ ] Mobile responsive design
 
 ### Phase 5: Advanced Features (Week 3-4)
+
 - [ ] Add code editing capability (optional)
 - [ ] Add "Open in CodeSandbox" export
 - [ ] Add component playground page
@@ -220,11 +227,13 @@ import { AuralButton } from '@aural-ui/vue';
 ### Framework Rendering Strategies
 
 #### Vanilla JS
+
 - Direct HTML injection into iframe
 - Safest and fastest option
 - No bundling required
 
 #### React
+
 ```javascript
 // Use React ESM from CDN
 import React from 'https://esm.sh/react@18';
@@ -236,6 +245,7 @@ import { Button } from './local-react-build.js';
 ```
 
 #### Vue
+
 ```javascript
 // Use Vue 3 ESM from CDN
 import { createApp } from 'https://esm.sh/vue@3';
@@ -243,12 +253,13 @@ import { AuralButton } from './local-vue-build.js';
 
 const app = createApp({
   template: `<AuralButton>Click me</AuralButton>`,
-  components: { AuralButton }
+  components: { AuralButton },
 });
 app.mount('#app');
 ```
 
 #### Svelte
+
 ```javascript
 // Pre-compile Svelte components to JS
 // Or use Svelte REPL compiler API
@@ -317,11 +328,12 @@ See `docs/components/buttons-preview.html` for a working proof-of-concept implem
 
 <!-- NEW: Live Preview Section -->
 <section class="live-preview-section">
-  <div class="live-preview"
-       data-component="Button"
-       data-example="variants"
-       data-frameworks="vanilla,react,vue,svelte">
-  </div>
+  <div
+    class="live-preview"
+    data-component="Button"
+    data-example="variants"
+    data-frameworks="vanilla,react,vue,svelte"
+  ></div>
 </section>
 
 <!-- Existing content continues -->
@@ -339,18 +351,22 @@ See `docs/components/buttons-preview.html` for a working proof-of-concept implem
 ## Alternative Approaches Considered
 
 ### 1. CodeSandbox Embeds
+
 **Pros**: Full dev environment, collaborative editing
 **Cons**: Network dependent, slower, less control, not self-hosted
 
 ### 2. StackBlitz WebContainers
+
 **Pros**: Full Node.js in browser, modern tech
 **Cons**: Large bundle size, browser compatibility, complexity
 
 ### 3. Simple Static Iframes
+
 **Pros**: Simple, fast, reliable
 **Cons**: No framework support, limited interactivity
 
 ### 4. Server-Side Rendering
+
 **Pros**: SEO friendly, fast initial load
 **Cons**: Complex build process, server dependency, no editing
 
@@ -381,13 +397,13 @@ See `docs/components/buttons-preview.html` for a working proof-of-concept implem
 
 ## Risks and Mitigations
 
-| Risk | Impact | Likelihood | Mitigation |
-|------|--------|-----------|------------|
-| Browser compatibility | High | Medium | Polyfills, fallback to static examples |
-| Performance on mobile | Medium | Medium | Lazy loading, simplified mobile view |
-| Framework CDN downtime | High | Low | Local fallback copies |
-| Complex state examples | Medium | High | Simplify examples, add playground page |
-| Maintenance burden | Medium | Medium | Good documentation, automated tests |
+| Risk                   | Impact | Likelihood | Mitigation                             |
+| ---------------------- | ------ | ---------- | -------------------------------------- |
+| Browser compatibility  | High   | Medium     | Polyfills, fallback to static examples |
+| Performance on mobile  | Medium | Medium     | Lazy loading, simplified mobile view   |
+| Framework CDN downtime | High   | Low        | Local fallback copies                  |
+| Complex state examples | Medium | High       | Simplify examples, add playground page |
+| Maintenance burden     | Medium | Medium     | Good documentation, automated tests    |
 
 ## Conclusion
 

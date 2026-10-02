@@ -7,7 +7,9 @@ Reorganized the documentation navigation to follow a logical information archite
 ## New Structure
 
 ### INTRO Section
+
 Top-level introduction and getting started content:
+
 - **What it is** - Introduction to Aural UI
 - **Changelog** - Version history and updates
 - **Accessibility** - Accessibility features and guidelines
@@ -15,7 +17,9 @@ Top-level introduction and getting started content:
 - **Contributing** - How to contribute
 
 ### DOCUMENTATION Section
+
 Reference documentation and guides:
+
 - **API Reference** - Complete API documentation
 - **Design Tokens** - CSS custom properties reference
 - **Utility Classes** - Utility CSS classes
@@ -24,7 +28,9 @@ Reference documentation and guides:
 - **Common Patterns** - UI patterns and best practices
 
 ### COMPONENTS Section
+
 Component catalog and all component demos:
+
 - **Component Catalog** - Landing page with visual grid of all components ✨
 - **Forms & Inputs** (17 components) - Collapsible subsection
 - **Data Display** (13 components) - Collapsible subsection
@@ -34,7 +40,9 @@ Component catalog and all component demos:
 - **Advanced** (3 components) - Collapsible subsection
 
 ### THEME SHOWCASES Section
+
 Special theme demonstrations:
+
 - **Neon Theme** - Cyberpunk aesthetic demo
 - **Kinetic Theme** - Brutalist design demo
 - **Prismatic Theme** - Colorful prismatic demo
@@ -42,20 +50,26 @@ Special theme demonstrations:
 ## Key Features
 
 ### 1. Component Catalog as Landing Page
+
 The catalog.html page now serves as the entry point for the Components section. Users can:
+
 - Browse all components visually
 - See component categories
 - Click to navigate to specific component demos
 
 ### 2. Collapsible Sections
+
 All major sections are collapsible:
+
 - **Intro** - Expanded by default
 - **Documentation** - Expanded by default
 - **Components** - Collapsed by default (click to expand subsections)
 - **Theme Showcases** - Collapsed by default
 
 ### 3. Logical Grouping
+
 Content is organized by purpose:
+
 - **Intro** = Getting oriented
 - **Documentation** = Reference material
 - **Components** = Interactive demos
@@ -64,6 +78,7 @@ Content is organized by purpose:
 ## Technical Implementation
 
 ### Navigation JSON Structure
+
 ```json
 {
   "sections": [
@@ -98,11 +113,14 @@ Content is organized by purpose:
 ```
 
 ### Hybrid Section Support
+
 The Components section now supports BOTH:
+
 - **items** - Direct links (Component Catalog)
 - **subsections** - Nested groups (Forms & Inputs, Data Display, etc.)
 
 This is rendered as:
+
 ```
 COMPONENTS                    ▼
   Component Catalog
@@ -137,15 +155,18 @@ COMPONENTS                    ▼
 The following pages are now accessible in the navigation:
 
 ### From Intro Section:
+
 - ✅ `what-it-is.html` - Introduction page
 - ✅ `changelog.html` - Version history
 - ✅ `tutorial.html` - Getting started guide
 
 ### From Documentation Section:
+
 - ✅ `themes.html` - Theme documentation
 - ✅ `patterns.html` - Common UI patterns
 
 ### Existing Pages:
+
 - ✅ `catalog.html` - Component catalog (now prominent)
 - ✅ All 53 component demos
 - ✅ Theme showcase demos
@@ -153,6 +174,7 @@ The following pages are now accessible in the navigation:
 ## Navigation Behavior
 
 ### Default State on Load:
+
 ```
 ┌─────────────────────────┐
 │ INTRO                ▼ │ ← Expanded
@@ -177,6 +199,7 @@ The following pages are now accessible in the navigation:
 ```
 
 ### After Expanding Components:
+
 ```
 ┌─────────────────────────┐
 │ COMPONENTS           ▼ │
@@ -195,6 +218,7 @@ The following pages are now accessible in the navigation:
 ## User Flow
 
 ### For New Users:
+
 1. See **Intro** section → "What it is"
 2. Read **Getting started** guide
 3. Click **Components** → See **Component Catalog**
@@ -202,11 +226,13 @@ The following pages are now accessible in the navigation:
 5. Click specific component for demo
 
 ### For Returning Users:
+
 1. Expand **Components** section
 2. Navigate directly to specific component
 3. Or use search to find components quickly
 
 ### For Developers:
+
 1. **Documentation** section always expanded
 2. Quick access to API Reference, Design Tokens
 3. **Themes** for customization
@@ -215,22 +241,27 @@ The following pages are now accessible in the navigation:
 ## Benefits
 
 ### 1. Better Information Scent
+
 Users can immediately see:
+
 - Where to start (Intro)
 - Where to find docs (Documentation)
 - Where components are (Components)
 
 ### 2. Reduced Visual Noise
+
 - Components section collapsed by default
 - Only relevant content visible initially
 - Users expand what they need
 
 ### 3. Catalog Prominence
+
 - Component Catalog is now first item in Components
 - Clear entry point for component exploration
 - Maintains access to individual demos
 
 ### 4. Logical Hierarchy
+
 ```
 Intro → Learn what it is
 Documentation → Understand how it works

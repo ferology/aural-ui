@@ -123,22 +123,8 @@ export const DESIGN_SYSTEM_RULES = {
       'empty-state',
       'divider',
     ],
-    interactive: [
-      'modal',
-      'dialog',
-      'tooltip',
-      'popover',
-      'dropdown',
-      'accordion',
-    ],
-    feedback: [
-      'toast',
-      'snackbar',
-      'alert',
-      'skeleton',
-      'spinner',
-      'notification-center',
-    ],
+    interactive: ['modal', 'dialog', 'tooltip', 'popover', 'dropdown', 'accordion'],
+    feedback: ['toast', 'snackbar', 'alert', 'skeleton', 'spinner', 'notification-center'],
   },
 
   /**

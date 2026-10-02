@@ -38,37 +38,37 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
   <span>Accept terms</span>
 </label>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Checkbox label text'
+      description: 'Checkbox label text',
     },
     checked: {
       control: 'boolean',
-      description: 'Checked state'
+      description: 'Checked state',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     indeterminate: {
       control: 'boolean',
-      description: 'Indeterminate state (for "select all" scenarios)'
+      description: 'Indeterminate state (for "select all" scenarios)',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Checkbox size'
+      description: 'Checkbox size',
     },
     description: {
       control: 'text',
-      description: 'Optional description text below the label'
-    }
-  }
+      description: 'Optional description text below the label',
+    },
+  },
 };
 
 export default meta;
@@ -106,7 +106,10 @@ export const Default: Story = {
     }
 
     // Add ARIA attributes
-    input.setAttribute('aria-checked', args.indeterminate ? 'mixed' : (args.checked ? 'true' : 'false'));
+    input.setAttribute(
+      'aria-checked',
+      args.indeterminate ? 'mixed' : args.checked ? 'true' : 'false'
+    );
     if (args.description) {
       const descId = `${id}-desc`;
       input.setAttribute('aria-describedby', descId);
@@ -134,8 +137,8 @@ export const Default: Story = {
     disabled: false,
     indeterminate: false,
     size: 'md',
-    description: ''
-  }
+    description: '',
+  },
 };
 
 export const Checked: Story = {
@@ -145,8 +148,8 @@ export const Checked: Story = {
     checked: true,
     disabled: false,
     indeterminate: false,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Disabled: Story = {
@@ -156,8 +159,8 @@ export const Disabled: Story = {
     checked: false,
     disabled: true,
     indeterminate: false,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const DisabledChecked: Story = {
@@ -167,8 +170,8 @@ export const DisabledChecked: Story = {
     checked: true,
     disabled: true,
     indeterminate: false,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Indeterminate: Story = {
@@ -178,8 +181,8 @@ export const Indeterminate: Story = {
     checked: false,
     disabled: false,
     indeterminate: true,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Small: Story = {
@@ -189,8 +192,8 @@ export const Small: Story = {
     checked: true,
     disabled: false,
     indeterminate: false,
-    size: 'sm'
-  }
+    size: 'sm',
+  },
 };
 
 export const Large: Story = {
@@ -200,8 +203,8 @@ export const Large: Story = {
     checked: true,
     disabled: false,
     indeterminate: false,
-    size: 'lg'
-  }
+    size: 'lg',
+  },
 };
 
 export const WithDescription: Story = {
@@ -212,8 +215,8 @@ export const WithDescription: Story = {
     disabled: false,
     indeterminate: false,
     size: 'md',
-    description: 'Receive email updates about your account'
-  }
+    description: 'Receive email updates about your account',
+  },
 };
 
 export const AllStates: Story = {
@@ -233,10 +236,10 @@ export const AllStates: Story = {
       { label: 'Indeterminate', checked: false, disabled: false, indeterminate: true },
       { label: 'Disabled unchecked', checked: false, disabled: true, indeterminate: false },
       { label: 'Disabled checked', checked: true, disabled: true, indeterminate: false },
-      { label: 'Disabled indeterminate', checked: false, disabled: true, indeterminate: true }
+      { label: 'Disabled indeterminate', checked: false, disabled: true, indeterminate: true },
     ];
 
-    states.forEach(state => {
+    states.forEach((state) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'checkbox';
@@ -253,7 +256,10 @@ export const AllStates: Story = {
         }, 0);
       }
 
-      input.setAttribute('aria-checked', state.indeterminate ? 'mixed' : (state.checked ? 'true' : 'false'));
+      input.setAttribute(
+        'aria-checked',
+        state.indeterminate ? 'mixed' : state.checked ? 'true' : 'false'
+      );
 
       const span = document.createElement('span');
       span.textContent = state.label;
@@ -264,7 +270,7 @@ export const AllStates: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllSizes: Story = {
@@ -281,10 +287,10 @@ export const AllSizes: Story = {
     const sizes = [
       { size: 'sm', label: 'Small checkbox' },
       { size: 'md', label: 'Medium checkbox (default)' },
-      { size: 'lg', label: 'Large checkbox' }
+      { size: 'lg', label: 'Large checkbox' },
     ];
 
-    sizes.forEach(item => {
+    sizes.forEach((item) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'checkbox';
@@ -308,7 +314,7 @@ export const AllSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const CheckboxGroup: Story = {
@@ -341,10 +347,10 @@ export const CheckboxGroup: Story = {
       { value: 'design', label: 'Design', checked: true },
       { value: 'development', label: 'Development', checked: true },
       { value: 'marketing', label: 'Marketing', checked: false },
-      { value: 'sales', label: 'Sales', checked: false }
+      { value: 'sales', label: 'Sales', checked: false },
     ];
 
-    options.forEach(option => {
+    options.forEach((option) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'checkbox';
@@ -369,7 +375,7 @@ export const CheckboxGroup: Story = {
     fieldset.appendChild(checkboxContainer);
 
     return fieldset;
-  }
+  },
 };
 
 export const SelectAllPattern: Story = {
@@ -413,12 +419,12 @@ export const SelectAllPattern: Story = {
     const children = [
       { label: 'Option 1', checked: true },
       { label: 'Option 2', checked: false },
-      { label: 'Option 3', checked: false }
+      { label: 'Option 3', checked: false },
     ];
 
     const childInputs: HTMLInputElement[] = [];
 
-    children.forEach(child => {
+    children.forEach((child) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'checkbox';
@@ -442,24 +448,25 @@ export const SelectAllPattern: Story = {
 
     // Update parent based on children
     const updateParent = () => {
-      const checkedCount = childInputs.filter(cb => cb.checked).length;
+      const checkedCount = childInputs.filter((cb) => cb.checked).length;
       parentInput.checked = checkedCount === childInputs.length;
       parentInput.indeterminate = checkedCount > 0 && checkedCount < childInputs.length;
-      parentInput.setAttribute('aria-checked',
-        parentInput.indeterminate ? 'mixed' : (parentInput.checked ? 'true' : 'false')
+      parentInput.setAttribute(
+        'aria-checked',
+        parentInput.indeterminate ? 'mixed' : parentInput.checked ? 'true' : 'false'
       );
     };
 
     // Parent click handler
     parentInput.addEventListener('change', () => {
-      childInputs.forEach(cb => {
+      childInputs.forEach((cb) => {
         cb.checked = parentInput.checked;
         cb.setAttribute('aria-checked', parentInput.checked ? 'true' : 'false');
       });
     });
 
     // Child click handlers
-    childInputs.forEach(cb => {
+    childInputs.forEach((cb) => {
       cb.addEventListener('change', () => {
         cb.setAttribute('aria-checked', cb.checked ? 'true' : 'false');
         updateParent();
@@ -470,7 +477,7 @@ export const SelectAllPattern: Story = {
     updateParent();
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -500,7 +507,10 @@ export const ThemeComparison: Story = {
         }, 0);
       }
 
-      input.setAttribute('aria-checked', args.indeterminate ? 'mixed' : (args.checked ? 'true' : 'false'));
+      input.setAttribute(
+        'aria-checked',
+        args.indeterminate ? 'mixed' : args.checked ? 'true' : 'false'
+      );
 
       if (args.description) {
         const descId = `${id}-desc`;
@@ -530,33 +540,33 @@ export const ThemeComparison: Story = {
     disabled: false,
     indeterminate: false,
     size: 'md',
-    description: ''
+    description: '',
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Checkbox label text'
+      description: 'Checkbox label text',
     },
     checked: {
       control: 'boolean',
-      description: 'Checked state'
+      description: 'Checked state',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     indeterminate: {
       control: 'boolean',
-      description: 'Indeterminate state'
+      description: 'Indeterminate state',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Checkbox size'
+      description: 'Checkbox size',
     },
     description: {
       control: 'text',
-      description: 'Optional description text'
-    }
-  }
+      description: 'Optional description text',
+    },
+  },
 };

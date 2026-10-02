@@ -5,6 +5,7 @@ This guide explains how to add Svelte code examples to Aural UI component docume
 ## Overview
 
 Component documentation pages at `/Users/feraf/Projects/aural-ui/docs/components/` now include framework tabs showing examples for:
+
 - Vanilla JS
 - React
 - Vue
@@ -13,6 +14,7 @@ Component documentation pages at `/Users/feraf/Projects/aural-ui/docs/components
 ## What Has Been Updated
 
 ### Completed
+
 - ✅ `/Users/feraf/Projects/aural-ui/docs/components/buttons.html` - Svelte tab added
 - ✅ `/Users/feraf/Projects/aural-ui/docs/components/inputs.html` - Svelte tab added
 
@@ -24,21 +26,34 @@ Find the framework tabs section (usually under "Framework Examples"):
 
 ```html
 <div class="framework-tabs">
-    <div role="tablist" class="tabs-list">
-        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
-            Vanilla JS
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
-            React
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
-            Vue
-        </button>
-        <!-- ADD THIS BUTTON -->
-        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
-            Svelte
-        </button>
-    </div>
+  <div role="tablist" class="tabs-list">
+    <button
+      role="tab"
+      aria-selected="true"
+      aria-controls="vanilla-panel"
+      id="vanilla-tab"
+      class="tab active"
+    >
+      Vanilla JS
+    </button>
+    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+      React
+    </button>
+    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+      Vue
+    </button>
+    <!-- ADD THIS BUTTON -->
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="svelte-panel"
+      id="svelte-tab"
+      class="tab"
+    >
+      Svelte
+    </button>
+  </div>
+</div>
 ```
 
 ### Step 2: Add the Svelte Panel Content
@@ -47,7 +62,7 @@ After the Vue panel (before the closing `</div>` of `.framework-tabs`), add:
 
 ```html
 <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
-    <pre><code class="language-svelte">&lt;script&gt;
+  <pre><code class="language-svelte">&lt;script&gt;
   import { ComponentName } from '@aural-ui/svelte';
 &lt;/script&gt;
 
@@ -64,6 +79,7 @@ After the Vue panel (before the closing `</div>` of `.framework-tabs`), add:
 Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/src/components/`:
 
 ### Form Components
+
 - **Button.svelte** - Props: `variant`, `size`, `loading`, `disabled`, `type`, `fullWidth`, `icon`
 - **Input.svelte** - Props: `value`, `type`, `placeholder`, `label`, `disabled`, `error`, `helperText`, `size`, `fullWidth`
 - **Checkbox.svelte** - Props: `checked`, `label`, `disabled`, `indeterminate`
@@ -84,12 +100,14 @@ Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/s
 - **DateRangePicker.svelte** - Props: `startDate`, `endDate`, `min`, `max`
 
 ### Layout Components
+
 - **Card.svelte** - Props: `variant`, `padding`, `hoverable`
 - **Divider.svelte** - Props: `orientation`, `text`
 - **Accordion.svelte** - Props: `items`, `multiple`, `defaultOpen`
 - **Tabs.svelte** - Props: `tabs`, `activeTab`
 
 ### Feedback Components
+
 - **Spinner.svelte** - Props: `size`, `variant`
 - **Progress.svelte** - Props: `value`, `max`, `variant`, `showLabel`
 - **Skeleton.svelte** - Props: `width`, `height`, `variant`, `count`
@@ -99,6 +117,7 @@ Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/s
 - **Snackbar.svelte** - Props: `message`, `action`, `duration`
 
 ### Overlay Components
+
 - **Modal.svelte** - Props: `open`, `title`, `size`, `closeOnOverlayClick`, `closeOnEscape`
 - **Dialog.svelte** - Props: `open`, `title`, `message`, `confirmText`, `cancelText`
 - **Drawer.svelte** - Props: `open`, `position`, `title`
@@ -106,12 +125,14 @@ Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/s
 - **ContextMenu.svelte** - Props: `items`, `x`, `y`
 
 ### Navigation Components
+
 - **Breadcrumb.svelte** - Props: `items`, `separator`
 - **Pagination.svelte** - Props: `currentPage`, `totalPages`, `onPageChange`
 - **Navbar.svelte** - Props: `items`, `logo`, `variant`
 - **BottomNav.svelte** - Props: `items`, `activeItem`
 
 ### Data Display Components
+
 - **Table.svelte** - Props: `data`, `columns`, `sortable`, `selectable`
 - **Timeline.svelte** - Props: `items`, `variant`
 - **TreeView.svelte** - Props: `data`, `expandable`, `selectable`
@@ -125,6 +146,7 @@ Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/s
 - **CodeBlock.svelte** - Props: `code`, `language`, `showLineNumbers`, `theme`
 
 ### Interactive Components
+
 - **Carousel.svelte** - Props: `items`, `autoplay`, `interval`, `showControls`
 - **Stepper.svelte** - Props: `steps`, `currentStep`, `orientation`
 - **CommandPalette.svelte** - Props: `open`, `commands`, `placeholder`
@@ -133,6 +155,7 @@ Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/s
 ## Example Patterns
 
 ### Simple Component (Button)
+
 ```svelte
 <script>
   import { Button } from '@aural-ui/svelte';
@@ -154,6 +177,7 @@ Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/s
 ```
 
 ### Form Component with Binding (Input)
+
 ```svelte
 <script>
   import { Input } from '@aural-ui/svelte';
@@ -187,6 +211,7 @@ Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/s
 ```
 
 ### Component with Event Handlers (Modal)
+
 ```svelte
 <script>
   import { Modal, Button } from '@aural-ui/svelte';
@@ -218,6 +243,7 @@ Available Svelte components in `/Users/feraf/Projects/aural-ui/packages/svelte/s
 ```
 
 ### Complex Component with Multiple Props (Table)
+
 ```svelte
 <script>
   import { Table } from '@aural-ui/svelte';

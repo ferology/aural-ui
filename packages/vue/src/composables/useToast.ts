@@ -83,6 +83,6 @@ export function useToast(): UseToastReturn {
     success,
     error,
     warning,
-    info
+    info,
   };
 }

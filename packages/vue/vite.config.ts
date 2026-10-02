@@ -8,23 +8,23 @@ export default defineConfig({
     vue(),
     dts({
       include: ['src'],
-      outDir: 'dist'
-    })
+      outDir: 'dist',
+    }),
   ],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
     },
     rollupOptions: {
       external: ['vue', '@aural-ui/core'],
       output: {
         globals: {
-          vue: 'Vue'
-        }
-      }
+          vue: 'Vue',
+        },
+      },
     },
-    sourcemap: true
-  }
+    sourcemap: true,
+  },
 });

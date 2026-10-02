@@ -27,6 +27,7 @@ npm run review-system
 ```
 
 This will:
+
 - ✅ Review 8 priority components (button, input, modal, dropdown, tabs, card, navigation-bar, form-group)
 - ✅ Audit accessibility (WCAG 2.1 AA)
 - ✅ Analyze your main demo page
@@ -36,6 +37,7 @@ This will:
 ## What the Agents Will Check
 
 ### Component Quality
+
 - Token usage (semantic tokens only)
 - BEM naming conventions
 - All interactive states (hover, focus, active, disabled)
@@ -43,6 +45,7 @@ This will:
 - Performance (CSS size, specificity)
 
 ### Accessibility (WCAG 2.1 AA)
+
 - Keyboard navigation (Tab, Enter, Escape, Arrows)
 - Touch targets (≥ 44x44px)
 - Color contrast (≥ 4.5:1 text, ≥ 3:1 UI)
@@ -51,6 +54,7 @@ This will:
 - Screen reader compatibility
 
 ### Demo Page
+
 - Overall UX and navigation
 - Visual hierarchy
 - Mobile responsiveness
@@ -60,6 +64,7 @@ This will:
 ### Output
 
 You'll get a comprehensive report with:
+
 - **Overall health score** (0-100%)
 - **Issues by severity** (Critical, High, Medium, Low)
 - **Specific fixes** with code examples

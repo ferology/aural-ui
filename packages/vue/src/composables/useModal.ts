@@ -54,6 +54,6 @@ export function useModal(initialOpen = false): UseModalReturn {
     isOpen,
     open,
     close,
-    toggle
+    toggle,
   };
 }

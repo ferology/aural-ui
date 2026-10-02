@@ -53,7 +53,7 @@ export const Modal: React.FC<ModalProps> = ({
   size = 'md',
   showCloseButton = true,
   disableBackdropClose = false,
-  footer
+  footer,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -128,15 +128,9 @@ export const Modal: React.FC<ModalProps> = ({
           </div>
         )}
 
-        <div className="modal-body">
-          {children}
-        </div>
+        <div className="modal-body">{children}</div>
 
-        {footer && (
-          <div className="modal-footer">
-            {footer}
-          </div>
-        )}
+        {footer && <div className="modal-footer">{footer}</div>}
       </div>
     </div>
   );

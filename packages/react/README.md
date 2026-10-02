@@ -79,19 +79,19 @@ function App() {
 
   return (
     <>
-      <button onClick={() => toast.success('Saved successfully!')}>
-        Save
-      </button>
+      <button onClick={() => toast.success('Saved successfully!')}>Save</button>
 
-      <button onClick={() => toast.error('Failed to save', 'Error')}>
-        Error
-      </button>
+      <button onClick={() => toast.error('Failed to save', 'Error')}>Error</button>
 
-      <button onClick={() => toast.showToast({
-        message: 'Custom notification',
-        type: 'warning',
-        duration: 3000
-      })}>
+      <button
+        onClick={() =>
+          toast.showToast({
+            message: 'Custom notification',
+            type: 'warning',
+            duration: 3000,
+          })
+        }
+      >
         Custom Toast
       </button>
     </>

@@ -9,9 +9,11 @@ Successfully added Svelte code examples to the Aural UI component documentation,
 ### 1. Updated Component Documentation Pages
 
 #### ✅ Buttons Component
+
 **File:** `/Users/feraf/Projects/aural-ui/docs/components/buttons.html`
 
 **Changes:**
+
 - Added Svelte tab to framework tabs section
 - Added comprehensive Svelte examples showing:
   - Basic button variants (primary, secondary, danger, ghost)
@@ -20,6 +22,7 @@ Successfully added Svelte code examples to the Aural UI component documentation,
   - Usage with @aural-ui/svelte package
 
 **Example Code Added:**
+
 ```svelte
 <script>
   import { Button } from '@aural-ui/svelte';
@@ -38,9 +41,11 @@ Successfully added Svelte code examples to the Aural UI component documentation,
 ```
 
 #### ✅ Inputs Component
+
 **File:** `/Users/feraf/Projects/aural-ui/docs/components/inputs.html`
 
 **Changes:**
+
 - Added Svelte tab to framework tabs section
 - Added comprehensive Svelte examples showing:
   - Basic text input with two-way binding
@@ -50,6 +55,7 @@ Successfully added Svelte code examples to the Aural UI component documentation,
   - Usage of bind:value for reactive state
 
 **Example Code Added:**
+
 ```svelte
 <script>
   import { Input } from '@aural-ui/svelte';
@@ -86,9 +92,11 @@ Successfully added Svelte code examples to the Aural UI component documentation,
 ### 2. Created Documentation Resources
 
 #### ✅ Comprehensive Guide
+
 **File:** `/Users/feraf/Projects/aural-ui/docs/SVELTE_DOCUMENTATION_GUIDE.md`
 
 A detailed guide containing:
+
 - Overview of the Svelte documentation initiative
 - Step-by-step instructions for adding Svelte examples to other components
 - Complete reference of all 50+ available Svelte components
@@ -98,6 +106,7 @@ A detailed guide containing:
 - Testing guidelines
 
 **Component Categories Documented:**
+
 - **Form Components** (16): Button, Input, Checkbox, Radio, Switch, Select, Toggle, Slider, RangeSlider, Rating, FileUpload, ColorPicker, SearchBar, Combobox, MultiSelect, TimePicker, DatePicker, DateRangePicker
 - **Layout Components** (4): Card, Divider, Accordion, Tabs
 - **Feedback Components** (8): Spinner, Progress, Skeleton, AlertBanner, Badge, Toast, Snackbar
@@ -107,9 +116,11 @@ A detailed guide containing:
 - **Interactive Components** (4): Carousel, Stepper, CommandPalette, Dropdown
 
 #### ✅ Quick Reference Template
+
 **File:** `/Users/feraf/Projects/aural-ui/docs/SVELTE_EXAMPLES_TEMPLATE.md`
 
 A practical template with ready-to-use code examples for:
+
 - 30+ component examples with complete code snippets
 - Copy-paste ready Svelte examples
 - Common usage patterns (basic, with props, with events, with slots)
@@ -118,6 +129,7 @@ A practical template with ready-to-use code examples for:
 - HTML encoding reference for documentation
 
 **Components with Complete Examples:**
+
 - Button, Input, Checkbox, Radio, Select, Switch
 - Modal, Tabs, Accordion, Card
 - Badge, Progress, Spinner, Toast, AlertBanner
@@ -131,29 +143,43 @@ The Svelte tab follows the same pattern as React and Vue tabs:
 
 ```html
 <div class="framework-tabs">
-    <div role="tablist" class="tabs-list">
-        <button role="tab" aria-selected="true" aria-controls="vanilla-panel" id="vanilla-tab" class="tab active">
-            Vanilla JS
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
-            React
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
-            Vue
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
-            Svelte
-        </button>
-    </div>
+  <div role="tablist" class="tabs-list">
+    <button
+      role="tab"
+      aria-selected="true"
+      aria-controls="vanilla-panel"
+      id="vanilla-tab"
+      class="tab active"
+    >
+      Vanilla JS
+    </button>
+    <button role="tab" aria-selected="false" aria-controls="react-panel" id="react-tab" class="tab">
+      React
+    </button>
+    <button role="tab" aria-selected="false" aria-controls="vue-panel" id="vue-tab" class="tab">
+      Vue
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="svelte-panel"
+      id="svelte-tab"
+      class="tab"
+    >
+      Svelte
+    </button>
+  </div>
 
-    <!-- Panel content for each framework -->
+  <!-- Panel content for each framework -->
 </div>
 ```
 
 ## Key Features of Svelte Examples
 
 ### 1. Import Pattern
+
 All examples show the standard import from `@aural-ui/svelte`:
+
 ```svelte
 <script>
   import { ComponentName } from '@aural-ui/svelte';
@@ -161,7 +187,9 @@ All examples show the standard import from `@aural-ui/svelte`:
 ```
 
 ### 2. Two-Way Binding
+
 Examples demonstrate Svelte's reactive binding:
+
 ```svelte
 <script>
   let value = '';
@@ -171,7 +199,9 @@ Examples demonstrate Svelte's reactive binding:
 ```
 
 ### 3. Event Handling
+
 Shows Svelte's event forwarding:
+
 ```svelte
 <Button on:click={() => console.log('Clicked')}>
   Click me
@@ -179,7 +209,9 @@ Shows Svelte's event forwarding:
 ```
 
 ### 4. Slots
+
 Demonstrates named slots when applicable:
+
 ```svelte
 <Modal bind:open={isOpen}>
   <p>Content</p>
@@ -191,7 +223,9 @@ Demonstrates named slots when applicable:
 ```
 
 ### 5. Props
+
 Shows all major props for each component:
+
 ```svelte
 <Button
   variant="primary"
@@ -206,13 +240,16 @@ Shows all major props for each component:
 ## Svelte Component Features
 
 ### Component Props
+
 All Svelte components support:
+
 - Standard HTML attributes via `{...$$restProps}`
 - Event forwarding via `on:eventName`
 - TypeScript types for better IDE support
 - Reactive state updates with Svelte stores
 
 ### Component Architecture
+
 - **Script Section**: TypeScript-enabled with type-safe props
 - **Template Section**: Reactive template with conditional rendering
 - **Style Section**: Inherits from Aural UI core CSS
@@ -221,6 +258,7 @@ All Svelte components support:
 ## Implementation Details
 
 ### Files Modified
+
 1. `/Users/feraf/Projects/aural-ui/docs/components/buttons.html`
    - Added Svelte tab button
    - Added Svelte panel with code examples
@@ -230,6 +268,7 @@ All Svelte components support:
    - Added Svelte panel with code examples
 
 ### Files Created
+
 1. `/Users/feraf/Projects/aural-ui/docs/SVELTE_DOCUMENTATION_GUIDE.md`
    - Comprehensive guide for documentation authors
    - Complete component reference
@@ -248,6 +287,7 @@ All Svelte components support:
 To complete the Svelte documentation across all component pages:
 
 ### High Priority Components (Form Controls)
+
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/checkboxes.html`
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/radio-buttons.html`
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/select.html`
@@ -255,6 +295,7 @@ To complete the Svelte documentation across all component pages:
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/slider.html`
 
 ### Medium Priority Components (Common UI)
+
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/modals.html`
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/tabs.html`
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/accordions.html`
@@ -262,6 +303,7 @@ To complete the Svelte documentation across all component pages:
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/badges.html`
 
 ### Lower Priority Components (Advanced)
+
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/tables.html`
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/pagination.html`
 - [ ] `/Users/feraf/Projects/aural-ui/docs/components/breadcrumbs.html`
@@ -292,12 +334,15 @@ And 40+ more component pages...
 ## Technical Notes
 
 ### Svelte Component Location
+
 All Svelte components are located in:
+
 ```
 /Users/feraf/Projects/aural-ui/packages/svelte/src/components/
 ```
 
 Each component is a `.svelte` file with:
+
 - TypeScript script section
 - Reactive template
 - Event dispatchers
@@ -315,11 +360,13 @@ Each component is a `.svelte` file with:
 ### HTML Encoding in Documentation
 
 When adding code to HTML files, encode special characters:
+
 - `<` → `&lt;`
 - `>` → `&gt;`
 - `&` → `&amp;`
 
 Example:
+
 ```html
 <pre><code class="language-svelte">&lt;Button&gt;Click&lt;/Button&gt;</code></pre>
 ```
@@ -327,18 +374,21 @@ Example:
 ## Benefits
 
 ### For Developers
+
 - Clear, framework-specific examples
 - Copy-paste ready code snippets
 - Consistent patterns across all components
 - Better understanding of component APIs
 
 ### For the Project
+
 - Complete framework coverage (Vanilla, React, Vue, Svelte)
 - Professional documentation quality
 - Better developer experience
 - Increased adoption potential
 
 ### For Maintainers
+
 - Structured documentation process
 - Easy to update and maintain
 - Consistent patterns across all pages
