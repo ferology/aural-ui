@@ -843,7 +843,7 @@ aural-ui/
 │   ├── dark.css           # Dark theme
 │   ├── light.css          # Light theme
 │   └── custom-template.css
-├── components/            # Component styles (20+ components)
+├── components/            # Component styles (59 components)
 │   ├── button.css
 │   ├── input.css
 │   ├── modal.css
