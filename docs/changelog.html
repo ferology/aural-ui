@@ -89,6 +89,11 @@
         color: var(--color-primary);
       }
 
+      .badge-unreleased {
+        background: var(--color-bg-tertiary);
+        color: var(--color-text-secondary);
+      }
+
       .change-category {
         margin-bottom: var(--space-5);
       }
@@ -189,12 +194,12 @@
         </p>
       </div>
 
-      <!-- Version 1.5.1 - April 23, 2026 -->
+      <!-- Unreleased - October 2, 2026 -->
       <div class="version-section">
         <div class="version-header">
-          <span class="version-number">v1.5.1</span>
-          <span class="version-badge badge-latest">Latest</span>
-          <span class="version-date">April 23, 2026</span>
+          <span class="version-number">Unreleased</span>
+          <span class="version-badge badge-unreleased">Not yet published</span>
+          <span class="version-date">October 2, 2026</span>
         </div>
 
         <!-- New Features -->
@@ -232,19 +237,6 @@
           </h3>
           <ul class="change-list">
             <li class="change-item">
-              <strong
-                >Invalid <code>:not(::before)</code> selectors in Checkbox, Radio, and
-                Toggle:</strong
-              >
-              the <code>.checkbox-only</code>, <code>.radio-only</code>, and
-              <code>.toggle-only</code> label-less variants used <code>:not()</code> with a
-              pseudo-element argument, which is not valid CSS. Browsers silently dropped the rule,
-              so these variants never actually hid their label text. Replaced with a valid technique
-              (<code>font-size: 0</code> on the span, with explicit width/height for radio/toggle
-              since their pseudo-elements are absolutely positioned). Label text remains in the
-              accessibility tree for screen readers.
-            </li>
-            <li class="change-item">
               <strong>1,044 hardcoded CSS values closed to zero</strong> across all 59 components,
               every substitution verified value-preserving. Migrating every component also surfaced
               several genuine, previously-invisible bugs: dangling <code>var()</code> references to
@@ -258,6 +250,49 @@
               <code>Aural.initFileUpload()</code> that queried class names File Upload's markup
               doesn't use, making it a complete no-op. All fixed and verified in-browser, not just
               re-audited.
+            </li>
+            <li class="change-item">
+              <strong>CI fixed</strong> after failing on every push for months: the installed
+              dependency tree needed Node ≥20 while CI pinned Node 18 (crashing
+              <code>vitest run --coverage</code> outright), 165 pre-existing files across the repo
+              weren't Prettier-clean, and the test-coverage threshold was set to 50% while real
+              coverage sat around 22-31%. All addressed — see
+              <a href="https://github.com/ferology/aural-ui/blob/main/CHANGELOG.md"
+                >the repo CHANGELOG</a
+              >
+              for detail.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Version 1.5.1 - April 23, 2026 -->
+      <div class="version-section">
+        <div class="version-header">
+          <span class="version-number">v1.5.1</span>
+          <span class="version-badge badge-latest">Latest</span>
+          <span class="version-date">April 23, 2026</span>
+        </div>
+
+        <!-- Fixed -->
+        <div class="change-category">
+          <h3 class="category-title">
+            <i data-lucide="bug" class="category-icon"></i>
+            Fixed
+          </h3>
+          <ul class="change-list">
+            <li class="change-item">
+              <strong
+                >Invalid <code>:not(::before)</code> selectors in Checkbox, Radio, and
+                Toggle:</strong
+              >
+              the <code>.checkbox-only</code>, <code>.radio-only</code>, and
+              <code>.toggle-only</code> label-less variants used <code>:not()</code> with a
+              pseudo-element argument, which is not valid CSS. Browsers silently dropped the rule,
+              so these variants never actually hid their label text. Replaced with a valid technique
+              (<code>font-size: 0</code> on the span, with explicit width/height for radio/toggle
+              since their pseudo-elements are absolutely positioned). Label text remains in the
+              accessibility tree for screen readers.
             </li>
           </ul>
         </div>
