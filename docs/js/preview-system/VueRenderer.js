@@ -189,12 +189,14 @@ class VueRenderer {
     script = script.replace(/export\s+default\s+{[\s\S]*}/, '');
 
     // Extract refs and reactive declarations
-    const lines = script.split('\n').filter(line => {
+    const lines = script.split('\n').filter((line) => {
       const trimmed = line.trim();
-      return trimmed.startsWith('const') ||
-             trimmed.startsWith('let') ||
-             trimmed.startsWith('function') ||
-             trimmed.startsWith('const') && (trimmed.includes('ref(') || trimmed.includes('reactive('));
+      return (
+        trimmed.startsWith('const') ||
+        trimmed.startsWith('let') ||
+        trimmed.startsWith('function') ||
+        (trimmed.startsWith('const') && (trimmed.includes('ref(') || trimmed.includes('reactive(')))
+      );
     });
 
     // Return as setup function body

@@ -57,10 +57,8 @@ class SvelteRenderer {
     // TODO: Load Svelte compiler
     // Option 1: From CDN
     // import * as svelte from 'https://esm.sh/@sveltejs/compiler';
-
     // Option 2: Pre-compiled at build time
     // Load pre-compiled JS modules
-
     // Option 3: REPL API
     // Use Svelte's online compiler API
   }

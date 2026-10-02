@@ -153,10 +153,11 @@ class ReactRenderer {
     transformed = transformed.replace(/import\s+\w+\s+from\s+['"][^'"]+['"]\s*;?/g, '');
 
     // Extract function body if it's a function component
-    const functionMatch = transformed.match(/function\s+\w+\s*\([^)]*\)\s*{([\s\S]*)}/) ||
-                         transformed.match(/const\s+\w+\s*=\s*\([^)]*\)\s*=>\s*{([\s\S]*)}/) ||
-                         transformed.match(/\([^)]*\)\s*=>\s*{([\s\S]*)}/) ||
-                         transformed.match(/\(\)\s*=>\s*\(([\s\S]*)\)/);
+    const functionMatch =
+      transformed.match(/function\s+\w+\s*\([^)]*\)\s*{([\s\S]*)}/) ||
+      transformed.match(/const\s+\w+\s*=\s*\([^)]*\)\s*=>\s*{([\s\S]*)}/) ||
+      transformed.match(/\([^)]*\)\s*=>\s*{([\s\S]*)}/) ||
+      transformed.match(/\(\)\s*=>\s*\(([\s\S]*)\)/);
 
     if (functionMatch) {
       transformed = functionMatch[1] || functionMatch[0];
@@ -164,13 +165,10 @@ class ReactRenderer {
 
     // Simple JSX to React.createElement transformation
     // Handle self-closing tags like <Button variant="primary" />
-    transformed = transformed.replace(
-      /<(\w+)([^>]*?)\/>/g,
-      (match, tag, attrs) => {
-        const props = this.parseAttributes(attrs);
-        return `React.createElement(${tag}, ${props})`;
-      }
-    );
+    transformed = transformed.replace(/<(\w+)([^>]*?)\/>/g, (match, tag, attrs) => {
+      const props = this.parseAttributes(attrs);
+      return `React.createElement(${tag}, ${props})`;
+    });
 
     // Handle opening/closing tags like <Button>text</Button>
     transformed = transformed.replace(

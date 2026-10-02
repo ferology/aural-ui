@@ -15,10 +15,7 @@ export class OrchestratorAgent extends BaseAgent {
   /**
    * Plan a workflow for a user request
    */
-  async planWorkflow(
-    userRequest: string,
-    context: WorkflowContext
-  ): Promise<AgentTask> {
+  async planWorkflow(userRequest: string, context: WorkflowContext): Promise<AgentTask> {
     const taskDescription = `Analyze this user request and create a workflow plan:
 
 **User Request:**
@@ -68,10 +65,7 @@ Example JSON structure:
   /**
    * Coordinate agent execution
    */
-  async coordinateAgents(
-    workflowPlan: string,
-    context: WorkflowContext
-  ): Promise<AgentTask> {
+  async coordinateAgents(workflowPlan: string, context: WorkflowContext): Promise<AgentTask> {
     const taskDescription = `Coordinate the execution of this workflow plan:
 
 ${workflowPlan}

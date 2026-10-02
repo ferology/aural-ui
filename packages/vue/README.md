@@ -33,18 +33,12 @@ const isOpen = ref(false);
 <template>
   <button @click="isOpen = true">Open Modal</button>
 
-  <AuralModal
-    id="my-modal"
-    v-model="isOpen"
-    title="Confirm Action"
-  >
+  <AuralModal id="my-modal" v-model="isOpen" title="Confirm Action">
     <p>Are you sure you want to continue?</p>
 
     <template #footer>
       <button @click="isOpen = false">Cancel</button>
-      <button class="btn btn-primary" @click="handleConfirm">
-        Confirm
-      </button>
+      <button class="btn btn-primary" @click="handleConfirm">Confirm</button>
     </template>
   </AuralModal>
 </template>
@@ -58,13 +52,9 @@ import { AuralButton } from '@aural-ui/vue';
 </script>
 
 <template>
-  <AuralButton variant="primary" @click="handleClick">
-    Click Me
-  </AuralButton>
+  <AuralButton variant="primary" @click="handleClick"> Click Me </AuralButton>
 
-  <AuralButton variant="secondary" size="lg" :loading="true">
-    Loading...
-  </AuralButton>
+  <AuralButton variant="secondary" size="lg" :loading="true"> Loading... </AuralButton>
 </template>
 ```
 
@@ -82,9 +72,7 @@ const modal = useModal();
 <template>
   <button @click="modal.open">Open Modal</button>
 
-  <AuralModal v-model="modal.isOpen.value" id="my-modal">
-    Content
-  </AuralModal>
+  <AuralModal v-model="modal.isOpen.value" id="my-modal"> Content </AuralModal>
 </template>
 ```
 
@@ -98,19 +86,19 @@ const toast = useToast();
 </script>
 
 <template>
-  <button @click="toast.success('Saved successfully!')">
-    Save
-  </button>
+  <button @click="toast.success('Saved successfully!')">Save</button>
 
-  <button @click="toast.error('Failed to save', 'Error')">
-    Error
-  </button>
+  <button @click="toast.error('Failed to save', 'Error')">Error</button>
 
-  <button @click="toast.showToast({
-    message: 'Custom notification',
-    type: 'warning',
-    duration: 3000
-  })">
+  <button
+    @click="
+      toast.showToast({
+        message: 'Custom notification',
+        type: 'warning',
+        duration: 3000,
+      })
+    "
+  >
     Custom Toast
   </button>
 </template>

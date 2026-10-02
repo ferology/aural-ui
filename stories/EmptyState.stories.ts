@@ -79,41 +79,41 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
   <button class="btn btn-primary">Create Item</button>
 </div>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     title: {
       control: 'text',
-      description: 'Empty state heading'
+      description: 'Empty state heading',
     },
     description: {
       control: 'text',
-      description: 'Helpful message explaining the empty state'
+      description: 'Helpful message explaining the empty state',
     },
     icon: {
       control: 'text',
-      description: 'Lucide icon name (e.g., "inbox", "search", "alert-circle")'
+      description: 'Lucide icon name (e.g., "inbox", "search", "alert-circle")',
     },
     iconColor: {
       control: 'color',
-      description: 'Custom icon color (use CSS variable or hex)'
+      description: 'Custom icon color (use CSS variable or hex)',
     },
     variant: {
       control: 'select',
       options: ['default', 'error', 'success', 'search'],
-      description: 'Empty state variant'
+      description: 'Empty state variant',
     },
     primaryAction: {
       control: 'text',
-      description: 'Primary action button text'
+      description: 'Primary action button text',
     },
     secondaryAction: {
       control: 'text',
-      description: 'Secondary action button text'
-    }
-  }
+      description: 'Secondary action button text',
+    },
+  },
 };
 
 export default meta;
@@ -234,18 +234,19 @@ export const Default: Story = {
     description: 'Get started by creating your first item. It only takes a few seconds!',
     icon: 'inbox',
     primaryAction: 'Create Item',
-    primaryIcon: 'plus'
-  }
+    primaryIcon: 'plus',
+  },
 };
 
 export const NoResults: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'No results found',
-    description: 'We couldn\'t find any results matching your search. Try adjusting your filters or search terms.',
+    description:
+      "We couldn't find any results matching your search. Try adjusting your filters or search terms.",
     icon: 'search',
-    primaryAction: 'Clear Filters'
-  }
+    primaryAction: 'Clear Filters',
+  },
 };
 
 export const NoSearchResults: Story = {
@@ -254,8 +255,8 @@ export const NoSearchResults: Story = {
     title: 'No results found',
     description: 'Try adjusting your filters or search terms.',
     icon: 'search',
-    primaryAction: 'Clear Filters'
-  }
+    primaryAction: 'Clear Filters',
+  },
 };
 
 export const NoData: Story = {
@@ -265,34 +266,36 @@ export const NoData: Story = {
     description: 'There is no data to display at this time. Check back later or refresh the page.',
     icon: 'inbox',
     primaryAction: 'Refresh',
-    primaryIcon: 'refresh-cw'
-  }
+    primaryIcon: 'refresh-cw',
+  },
 };
 
 export const Error: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'Something went wrong',
-    description: 'We\'re having trouble loading your data. Please check your connection and try again.',
+    description:
+      "We're having trouble loading your data. Please check your connection and try again.",
     icon: 'alert-circle',
     iconColor: 'var(--color-error)',
     primaryAction: 'Try Again',
     primaryIcon: 'refresh-cw',
-    secondaryAction: 'Go Back'
-  }
+    secondaryAction: 'Go Back',
+  },
 };
 
 export const ErrorRecovery: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'Something went wrong',
-    description: 'We\'re having trouble loading your data. Please check your connection and try again.',
+    description:
+      "We're having trouble loading your data. Please check your connection and try again.",
     icon: 'alert-circle',
     iconColor: 'var(--color-error)',
     primaryAction: 'Try Again',
     primaryIcon: 'refresh-cw',
-    secondaryAction: 'Go Back'
-  }
+    secondaryAction: 'Go Back',
+  },
 };
 
 export const NoMessages: Story = {
@@ -300,17 +303,17 @@ export const NoMessages: Story = {
   args: {
     title: 'No messages',
     description: 'Your inbox is empty. Check back later for new messages.',
-    icon: 'inbox'
-  }
+    icon: 'inbox',
+  },
 };
 
 export const NoNotifications: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'No notifications',
-    description: 'You\'re all caught up! We\'ll notify you when something new happens.',
-    icon: 'bell-off'
-  }
+    description: "You're all caught up! We'll notify you when something new happens.",
+    icon: 'bell-off',
+  },
 };
 
 export const NoConnections: Story = {
@@ -318,32 +321,33 @@ export const NoConnections: Story = {
   args: {
     title: 'No connections yet',
     description: 'Start building your network by connecting with people.',
-    icon: 'users'
-  }
+    icon: 'users',
+  },
 };
 
 export const Welcome: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'Welcome to Aural UI!',
-    description: 'Let\'s get you started with a quick tour of the platform. It will only take a minute to set up your workspace.',
+    description:
+      "Let's get you started with a quick tour of the platform. It will only take a minute to set up your workspace.",
     icon: 'rocket',
     iconColor: 'var(--color-primary)',
     primaryAction: 'Start Tour',
-    primaryIcon: 'play'
-  }
+    primaryIcon: 'play',
+  },
 };
 
 export const Onboarding: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'Welcome to Aural UI!',
-    description: 'Let\'s get you started with a quick tour of the platform.',
+    description: "Let's get you started with a quick tour of the platform.",
     icon: 'rocket',
     iconColor: 'var(--color-primary)',
     primaryAction: 'Start Tour',
-    primaryIcon: 'play'
-  }
+    primaryIcon: 'play',
+  },
 };
 
 export const EmptyFolder: Story = {
@@ -355,65 +359,68 @@ export const EmptyFolder: Story = {
     primaryAction: 'Upload Files',
     primaryIcon: 'upload',
     secondaryAction: 'New Folder',
-    secondaryIcon: 'folder-plus'
-  }
+    secondaryIcon: 'folder-plus',
+  },
 };
 
 export const NetworkBuilding: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'No connections yet',
-    description: 'Start building your network by connecting with people you know or discovering new connections.',
+    description:
+      'Start building your network by connecting with people you know or discovering new connections.',
     icon: 'users',
     primaryAction: 'Invite Friends',
     primaryIcon: 'user-plus',
     secondaryAction: 'Browse People',
-    secondaryIcon: 'search'
-  }
+    secondaryIcon: 'search',
+  },
 };
 
 export const Permissions: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'Access restricted',
-    description: 'You don\'t have permission to view this content. Contact your administrator for access.',
+    description:
+      "You don't have permission to view this content. Contact your administrator for access.",
     icon: 'lock',
     iconColor: 'var(--color-warning)',
     primaryAction: 'Request Access',
-    secondaryAction: 'Go Back'
-  }
+    secondaryAction: 'Go Back',
+  },
 };
 
 export const Offline: Story = {
   render: (args) => createEmptyState(args),
   args: {
-    title: 'You\'re offline',
+    title: "You're offline",
     description: 'Please check your internet connection and try again.',
     icon: 'wifi-off',
     iconColor: 'var(--color-error)',
     primaryAction: 'Retry',
-    primaryIcon: 'refresh-cw'
-  }
+    primaryIcon: 'refresh-cw',
+  },
 };
 
 export const Completed: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'All caught up!',
-    description: 'You\'ve completed all your tasks. Great work! We\'ll notify you when new items arrive.',
+    description:
+      "You've completed all your tasks. Great work! We'll notify you when new items arrive.",
     icon: 'check-circle',
-    iconColor: 'var(--color-success)'
-  }
+    iconColor: 'var(--color-success)',
+  },
 };
 
 export const AllCaughtUp: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'All caught up!',
-    description: 'You\'re all caught up! We\'ll notify you when something new happens.',
+    description: "You're all caught up! We'll notify you when something new happens.",
     icon: 'check-circle',
-    iconColor: 'var(--color-success)'
-  }
+    iconColor: 'var(--color-success)',
+  },
 };
 
 export const WithMultipleActions: Story = {
@@ -486,19 +493,19 @@ export const WithMultipleActions: Story = {
     }, 0);
 
     return container;
-  }
+  },
 };
 
 export const WithColoredIcon: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'Welcome to Aural UI!',
-    description: 'Let\'s get you started with a quick tour of the platform.',
+    description: "Let's get you started with a quick tour of the platform.",
     icon: 'rocket',
     iconColor: 'var(--color-primary)',
     primaryAction: 'Start Tour',
-    primaryIcon: 'play'
-  }
+    primaryIcon: 'play',
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -566,32 +573,32 @@ export const ThemeComparison: Story = {
     icon: 'inbox',
     primaryAction: 'Create Item',
     primaryIcon: 'plus',
-    iconColor: ''
+    iconColor: '',
   },
   argTypes: {
     title: {
       control: 'text',
-      description: 'Empty state heading'
+      description: 'Empty state heading',
     },
     description: {
       control: 'text',
-      description: 'Helpful message'
+      description: 'Helpful message',
     },
     icon: {
       control: 'text',
-      description: 'Lucide icon name'
+      description: 'Lucide icon name',
     },
     iconColor: {
       control: 'color',
-      description: 'Custom icon color'
+      description: 'Custom icon color',
     },
     primaryAction: {
       control: 'text',
-      description: 'Primary button text'
+      description: 'Primary button text',
     },
     primaryIcon: {
       control: 'text',
-      description: 'Primary button icon'
-    }
-  }
+      description: 'Primary button icon',
+    },
+  },
 };

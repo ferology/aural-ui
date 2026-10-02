@@ -15,7 +15,7 @@ export const examples = {
 <button class="btn btn-ghost">Ghost</button>
       `,
       css: ``,
-      js: ``
+      js: ``,
     },
     react: {
       code: `
@@ -31,7 +31,7 @@ function Example() {
     </>
   );
 }
-      `
+      `,
     },
     vue: {
       code: `
@@ -45,7 +45,7 @@ function Example() {
 <script setup>
 import { AuralButton } from '@aural-ui/vue';
 </script>
-      `
+      `,
     },
     svelte: {
       code: `
@@ -57,8 +57,8 @@ import { AuralButton } from '@aural-ui/vue';
 <Button variant="secondary">Secondary</Button>
 <Button variant="danger">Danger</Button>
 <Button variant="ghost">Ghost</Button>
-      `
-    }
+      `,
+    },
   },
 
   'button-sizes': {
@@ -71,7 +71,7 @@ import { AuralButton } from '@aural-ui/vue';
 <button class="btn btn-primary btn-lg">Large</button>
       `,
       css: ``,
-      js: ``
+      js: ``,
     },
     react: {
       code: `
@@ -86,7 +86,7 @@ function Example() {
     </>
   );
 }
-      `
+      `,
     },
     vue: {
       code: `
@@ -99,7 +99,7 @@ function Example() {
 <script setup>
 import { AuralButton } from '@aural-ui/vue';
 </script>
-      `
+      `,
     },
     svelte: {
       code: `
@@ -110,8 +110,8 @@ import { AuralButton } from '@aural-ui/vue';
 <Button variant="primary" size="small">Small</Button>
 <Button variant="primary" size="medium">Medium</Button>
 <Button variant="primary" size="large">Large</Button>
-      `
-    }
+      `,
+    },
   },
 
   'button-states': {
@@ -126,7 +126,7 @@ import { AuralButton } from '@aural-ui/vue';
 </button>
       `,
       css: ``,
-      js: ``
+      js: ``,
     },
     react: {
       code: `
@@ -140,7 +140,7 @@ function Example() {
     </>
   );
 }
-      `
+      `,
     },
     vue: {
       code: `
@@ -152,7 +152,7 @@ function Example() {
 <script setup>
 import { AuralButton } from '@aural-ui/vue';
 </script>
-      `
+      `,
     },
     svelte: {
       code: `
@@ -162,8 +162,8 @@ import { AuralButton } from '@aural-ui/vue';
 
 <Button variant="primary" disabled>Disabled</Button>
 <Button variant="primary" loading>Loading</Button>
-      `
-    }
+      `,
+    },
   },
 
   'button-icons': {
@@ -187,7 +187,7 @@ import { AuralButton } from '@aural-ui/vue';
       css: ``,
       js: `
 // Icons will be automatically initialized
-      `
+      `,
     },
     react: {
       code: `
@@ -211,7 +211,7 @@ function Example() {
     </>
   );
 }
-      `
+      `,
     },
     vue: {
       code: `
@@ -233,7 +233,7 @@ function Example() {
 <script setup>
 import { AuralButton } from '@aural-ui/vue';
 </script>
-      `
+      `,
     },
     svelte: {
       code: `
@@ -253,8 +253,8 @@ import { AuralButton } from '@aural-ui/vue';
   <i data-lucide="trash-2"></i>
   Delete
 </Button>
-      `
-    }
+      `,
+    },
   },
 
   'icon-only-buttons': {
@@ -273,7 +273,7 @@ import { AuralButton } from '@aural-ui/vue';
 </button>
       `,
       css: ``,
-      js: ``
+      js: ``,
     },
     react: {
       code: `
@@ -294,7 +294,7 @@ function Example() {
     </>
   );
 }
-      `
+      `,
     },
     vue: {
       code: `
@@ -313,7 +313,7 @@ function Example() {
 <script setup>
 import { AuralButton } from '@aural-ui/vue';
 </script>
-      `
+      `,
     },
     svelte: {
       code: `
@@ -330,8 +330,8 @@ import { AuralButton } from '@aural-ui/vue';
 <Button variant="primary" size="large" class="btn-icon" title="Star">
   <i data-lucide="star"></i>
 </Button>
-      `
-    }
+      `,
+    },
   },
 
   'interactive-example': {
@@ -367,7 +367,7 @@ function handleClick() {
     btn.disabled = false;
   }, 500);
 }
-      `
+      `,
     },
     react: {
       code: `
@@ -395,7 +395,7 @@ function Example() {
     </>
   );
 }
-      `
+      `,
     },
     vue: {
       code: `
@@ -421,7 +421,7 @@ const handleClick = () => {
   setTimeout(() => loading.value = false, 500);
 };
 </script>
-      `
+      `,
     },
     svelte: {
       code: `
@@ -444,7 +444,7 @@ const handleClick = () => {
 <p style="margin-top: 12px; color: var(--color-text-secondary);">
   Clicks: <strong>{count}</strong>
 </p>
-      `
-    }
-  }
+      `,
+    },
+  },
 };

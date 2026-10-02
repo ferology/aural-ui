@@ -70,10 +70,7 @@ export interface UseCarouselReturn {
  * </template>
  * ```
  */
-export function useCarousel(
-  id: string,
-  options: CarouselOptions = {}
-): UseCarouselReturn {
+export function useCarousel(id: string, options: CarouselOptions = {}): UseCarouselReturn {
   const controller = ref<CarouselController | null>(null);
 
   onMounted(() => {
@@ -97,6 +94,6 @@ export function useCarousel(
   });
 
   return {
-    controller
+    controller,
   };
 }

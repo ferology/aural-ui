@@ -66,27 +66,39 @@ export function useToast(): UseToastReturn {
     }
   }, []);
 
-  const success = useCallback((message: string, title?: string) => {
-    showToast({ message, type: 'success', title });
-  }, [showToast]);
+  const success = useCallback(
+    (message: string, title?: string) => {
+      showToast({ message, type: 'success', title });
+    },
+    [showToast]
+  );
 
-  const error = useCallback((message: string, title?: string) => {
-    showToast({ message, type: 'error', title });
-  }, [showToast]);
+  const error = useCallback(
+    (message: string, title?: string) => {
+      showToast({ message, type: 'error', title });
+    },
+    [showToast]
+  );
 
-  const warning = useCallback((message: string, title?: string) => {
-    showToast({ message, type: 'warning', title });
-  }, [showToast]);
+  const warning = useCallback(
+    (message: string, title?: string) => {
+      showToast({ message, type: 'warning', title });
+    },
+    [showToast]
+  );
 
-  const info = useCallback((message: string, title?: string) => {
-    showToast({ message, type: 'info', title });
-  }, [showToast]);
+  const info = useCallback(
+    (message: string, title?: string) => {
+      showToast({ message, type: 'info', title });
+    },
+    [showToast]
+  );
 
   return {
     showToast,
     success,
     error,
     warning,
-    info
+    info,
   };
 }

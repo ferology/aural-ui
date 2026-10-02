@@ -54,24 +54,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const fullWidthClass = fullWidth ? 'btn-block' : '';
     const loadingClass = loading ? 'btn-loading' : '';
 
-    const classes = [
-      baseClass,
-      variantClass,
-      sizeClass,
-      fullWidthClass,
-      loadingClass,
-      className
-    ]
+    const classes = [baseClass, variantClass, sizeClass, fullWidthClass, loadingClass, className]
       .filter(Boolean)
       .join(' ');
 
     return (
-      <button
-        ref={ref}
-        className={classes}
-        disabled={disabled || loading}
-        {...props}
-      >
+      <button ref={ref} className={classes} disabled={disabled || loading} {...props}>
         {loading && (
           <span className="btn-spinner" aria-hidden="true">
             <span className="spinner-dot"></span>
@@ -79,13 +67,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <span className="spinner-dot"></span>
           </span>
         )}
-        {!loading && iconBefore && (
-          <span className="btn-icon-before">{iconBefore}</span>
-        )}
+        {!loading && iconBefore && <span className="btn-icon-before">{iconBefore}</span>}
         {children}
-        {!loading && iconAfter && (
-          <span className="btn-icon-after">{iconAfter}</span>
-        )}
+        {!loading && iconAfter && <span className="btn-icon-after">{iconAfter}</span>}
       </button>
     );
   }

@@ -41,13 +41,13 @@ export function useModal(initialOpen = false): UseModalReturn {
   }, []);
 
   const toggle = useCallback(() => {
-    setIsOpen(prev => !prev);
+    setIsOpen((prev) => !prev);
   }, []);
 
   return {
     isOpen,
     open,
     close,
-    toggle
+    toggle,
   };
 }

@@ -29,7 +29,7 @@ export function createThemeGrid(
     { id: 'prismatic', label: 'Prismatic' },
     { id: 'high-contrast', label: 'High Contrast' },
     { id: 'colorblind-friendly', label: 'Colorblind' },
-    { id: 'warm', label: 'Warm' }
+    { id: 'warm', label: 'Warm' },
   ];
 
   const grid = document.createElement('div');
@@ -42,7 +42,7 @@ export function createThemeGrid(
     margin: 0 auto;
   `;
 
-  themes.forEach(theme => {
+  themes.forEach((theme) => {
     const themeBox = document.createElement('div');
     themeBox.style.cssText = `
       display: flex;

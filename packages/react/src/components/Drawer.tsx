@@ -50,7 +50,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   children,
   className = '',
   showCloseButton = true,
-  footer
+  footer,
 }) => {
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -112,15 +112,9 @@ export const Drawer: React.FC<DrawerProps> = ({
           </div>
         )}
 
-        <div className="aural-drawer__body">
-          {children}
-        </div>
+        <div className="aural-drawer__body">{children}</div>
 
-        {footer && (
-          <div className="aural-drawer__footer">
-            {footer}
-          </div>
-        )}
+        {footer && <div className="aural-drawer__footer">{footer}</div>}
       </div>
     </>
   );

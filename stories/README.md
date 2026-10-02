@@ -5,6 +5,7 @@ This directory contains all component stories for Aural UI's interactive documen
 ## 📚 Component Stories Created (17 total)
 
 ### Interactive Components
+
 - **Button** - All variants, sizes, states, and loading indicators
 - **Modal** - Multiple sizes, form example, full-screen
 - **Tabs** - Horizontal/vertical, with icons, keyboard navigation
@@ -14,26 +15,31 @@ This directory contains all component stories for Aural UI's interactive documen
 - **DatePicker** - Calendar navigation, date selection, disabled dates
 
 ### Form Components
+
 - **Input** - All states, validation, sizes, types
 - **Select** - Custom dropdown, searchable, grouped options, disabled items
 
 ### Feedback Components
+
 - **Toast** - All types (success/error/warning/info), persistent, long messages
 - **Alert** - All variants, with icons, actions, banners
 - **Progress** - All variants, sizes, striped, animated, with labels
 - **Spinner** - All sizes, variants, in buttons, centered
 
 ### Display Components
+
 - **Card** - Variants (bordered/elevated), hoverable, with images, grid layout
 - **Badge** - All variants, sizes, pill shape, with icons, status indicators
 - **Avatar** - All sizes, shapes, with status, initials, groups
 
 ### Documentation
+
 - **Introduction** - Getting started guide and feature overview
 
 ## 🎨 Features
 
 Each story includes:
+
 - **Interactive Controls** - Modify props in real-time
 - **Multiple Variants** - See all variations of each component
 - **Accessibility Testing** - Automatic a11y violation detection
@@ -44,6 +50,7 @@ Each story includes:
 ## 🎯 Theme Support
 
 All stories work with these themes:
+
 - Dark (default)
 - Light
 - Neon
@@ -92,9 +99,9 @@ const meta: Meta = {
   argTypes: {
     propName: {
       control: 'text',
-      description: 'Prop description'
-    }
-  }
+      description: 'Prop description',
+    },
+  },
 };
 
 export default meta;
@@ -107,8 +114,8 @@ export const Default: Story = {
     return element;
   },
   args: {
-    propName: 'default value'
-  }
+    propName: 'default value',
+  },
 };
 ```
 
@@ -130,6 +137,7 @@ export const Default: Story = {
 ## 📦 Next Components to Add
 
 Remaining components from the design system:
+
 - Tooltip
 - Popover
 - Carousel

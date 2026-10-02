@@ -77,32 +77,32 @@ See the **DateRangePicker.mdx** documentation for framework-specific examples (R
   window.Aural?.initDateRangePicker('#date-range-1');
 </script>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     id: {
       control: 'text',
-      description: 'Unique identifier for the date range picker'
+      description: 'Unique identifier for the date range picker',
     },
     startPlaceholder: {
       control: 'text',
-      description: 'Placeholder text for start date input'
+      description: 'Placeholder text for start date input',
     },
     endPlaceholder: {
       control: 'text',
-      description: 'Placeholder text for end date input'
+      description: 'Placeholder text for end date input',
     },
     showPresets: {
       control: 'boolean',
-      description: 'Show quick preset ranges'
+      description: 'Show quick preset ranges',
     },
     dualCalendar: {
       control: 'boolean',
-      description: 'Show two calendars side by side'
-    }
-  }
+      description: 'Show two calendars side by side',
+    },
+  },
 };
 
 export default meta;
@@ -186,7 +186,7 @@ const createDateRangePicker = (args: any) => {
   setTimeout(() => {
     if (typeof (window as any).Aural !== 'undefined' && (window as any).Aural.initDateRangePicker) {
       const options: any = {
-        onChange: (range: any) => console.log('Selected range:', range)
+        onChange: (range: any) => console.log('Selected range:', range),
       };
 
       if (args.startDate) options.startDate = new Date(args.startDate);
@@ -234,8 +234,8 @@ export const Basic: Story = {
     startPlaceholder: 'Start date',
     endPlaceholder: 'End date',
     showPresets: false,
-    dualCalendar: false
-  }
+    dualCalendar: false,
+  },
 };
 
 export const WithPreselectedRange: Story = {
@@ -247,8 +247,8 @@ export const WithPreselectedRange: Story = {
     showPresets: false,
     dualCalendar: false,
     startDate: new Date(2026, 0, 20), // January 20, 2026
-    endDate: new Date(2026, 0, 27)    // January 27, 2026
-  }
+    endDate: new Date(2026, 0, 27), // January 27, 2026
+  },
 };
 
 export const WithPresets: Story = {
@@ -258,8 +258,8 @@ export const WithPresets: Story = {
     startPlaceholder: 'Start date',
     endPlaceholder: 'End date',
     showPresets: true,
-    dualCalendar: false
-  }
+    dualCalendar: false,
+  },
 };
 
 export const DualCalendarView: Story = {
@@ -269,8 +269,8 @@ export const DualCalendarView: Story = {
     startPlaceholder: 'Start date',
     endPlaceholder: 'End date',
     showPresets: false,
-    dualCalendar: true
-  }
+    dualCalendar: true,
+  },
 };
 
 export const WithDateRestrictions: Story = {
@@ -281,9 +281,9 @@ export const WithDateRestrictions: Story = {
     endPlaceholder: 'End date',
     showPresets: false,
     dualCalendar: false,
-    minDate: new Date(2026, 0, 1),  // January 1, 2026
-    maxDate: new Date(2026, 2, 31)  // March 31, 2026
-  }
+    minDate: new Date(2026, 0, 1), // January 1, 2026
+    maxDate: new Date(2026, 2, 31), // March 31, 2026
+  },
 };
 
 export const WithMaxRangeLimit: Story = {
@@ -294,8 +294,8 @@ export const WithMaxRangeLimit: Story = {
     endPlaceholder: 'End date',
     showPresets: false,
     dualCalendar: false,
-    maxRange: 30 // Maximum 30 days
-  }
+    maxRange: 30, // Maximum 30 days
+  },
 };
 
 export const BookingPattern: Story = {
@@ -369,24 +369,29 @@ export const BookingPattern: Story = {
 
     // Initialize with booking logic
     setTimeout(() => {
-      if (typeof (window as any).Aural !== 'undefined' && (window as any).Aural.initDateRangePicker) {
+      if (
+        typeof (window as any).Aural !== 'undefined' &&
+        (window as any).Aural.initDateRangePicker
+      ) {
         (window as any).Aural.initDateRangePicker('#date-range-booking', {
           minDate: new Date(),
           onChange: (range: any) => {
             if (range.start && range.end) {
-              const days = Math.ceil((range.end.getTime() - range.start.getTime()) / (1000 * 60 * 60 * 24));
+              const days = Math.ceil(
+                (range.end.getTime() - range.start.getTime()) / (1000 * 60 * 60 * 24)
+              );
               const durationEl = document.getElementById('duration-booking');
               if (durationEl) {
                 durationEl.textContent = `${days} night${days !== 1 ? 's' : ''}`;
               }
             }
-          }
+          },
         });
       }
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const AnalyticsDashboardPattern: Story = {
@@ -471,15 +476,18 @@ export const AnalyticsDashboardPattern: Story = {
 
     // Initialize
     setTimeout(() => {
-      if (typeof (window as any).Aural !== 'undefined' && (window as any).Aural.initDateRangePicker) {
+      if (
+        typeof (window as any).Aural !== 'undefined' &&
+        (window as any).Aural.initDateRangePicker
+      ) {
         (window as any).Aural.initDateRangePicker('#date-range-analytics', {
-          onChange: (range: any) => console.log('Analytics range:', range)
+          onChange: (range: any) => console.log('Analytics range:', range),
         });
       }
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const ReportFilterPattern: Story = {
@@ -577,15 +585,18 @@ export const ReportFilterPattern: Story = {
 
     // Initialize
     setTimeout(() => {
-      if (typeof (window as any).Aural !== 'undefined' && (window as any).Aural.initDateRangePicker) {
+      if (
+        typeof (window as any).Aural !== 'undefined' &&
+        (window as any).Aural.initDateRangePicker
+      ) {
         (window as any).Aural.initDateRangePicker('#date-range-report', {
-          onChange: (range: any) => console.log('Report range:', range)
+          onChange: (range: any) => console.log('Report range:', range),
         });
       }
     }, 100);
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -623,16 +634,16 @@ export const ThemeComparison: Story = {
   },
   args: {
     startPlaceholder: 'Start date',
-    endPlaceholder: 'End date'
+    endPlaceholder: 'End date',
   },
   argTypes: {
     startPlaceholder: {
       control: 'text',
-      description: 'Placeholder text for start date input'
+      description: 'Placeholder text for start date input',
     },
     endPlaceholder: {
       control: 'text',
-      description: 'Placeholder text for end date input'
-    }
-  }
+      description: 'Placeholder text for end date input',
+    },
+  },
 };

@@ -18,7 +18,7 @@ const cssFiles = [
   'high-contrast.css',
   'colorblind-friendly.css',
   'neon-refined.css',
-  'warm.css'
+  'warm.css',
 ];
 
 const srcDir = path.join(__dirname, '../src');
@@ -33,13 +33,9 @@ if (!fs.existsSync(distDir)) {
 async function compileCSS(inputFile, outputFile) {
   try {
     const css = fs.readFileSync(inputFile, 'utf8');
-    const result = await postcss([
-      postcssImport(),
-      postcssNesting(),
-      autoprefixer()
-    ]).process(css, {
+    const result = await postcss([postcssImport(), postcssNesting(), autoprefixer()]).process(css, {
       from: inputFile,
-      to: outputFile
+      to: outputFile,
     });
 
     fs.writeFileSync(outputFile, result.css);
@@ -76,7 +72,7 @@ async function build() {
   console.log('\n✓ All CSS files compiled successfully!');
 }
 
-build().catch(error => {
+build().catch((error) => {
   console.error('Build failed:', error);
   process.exit(1);
 });

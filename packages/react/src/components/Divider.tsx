@@ -30,14 +30,14 @@ export const Divider: React.FC<DividerProps> = ({
   variant = 'solid',
   children,
   align = 'center',
-  className = ''
+  className = '',
 }) => {
   const dividerClasses = [
     'divider',
     `divider-${orientation}`,
     `divider-${variant}`,
     children ? `divider-with-text divider-text-${align}` : '',
-    className
+    className,
   ]
     .filter(Boolean)
     .join(' ');

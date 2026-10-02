@@ -168,7 +168,7 @@ class VanillaRenderer {
       observer.observe(iframeDoc.body, {
         childList: true,
         subtree: true,
-        attributes: true
+        attributes: true,
       });
     } catch (error) {
       // Can't observe, fallback to fixed height

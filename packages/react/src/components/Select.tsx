@@ -54,17 +54,18 @@ export const Select: React.FC<SelectProps> = ({
   placeholder = 'Select an option',
   className = '',
   disabled = false,
-  searchable = false
+  searchable = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const selectRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const selectedOption = options.find(opt => opt.value === value);
-  const filteredOptions = searchable && searchTerm
-    ? options.filter(opt => opt.label.toLowerCase().includes(searchTerm.toLowerCase()))
-    : options;
+  const selectedOption = options.find((opt) => opt.value === value);
+  const filteredOptions =
+    searchable && searchTerm
+      ? options.filter((opt) => opt.label.toLowerCase().includes(searchTerm.toLowerCase()))
+      : options;
 
   useEffect(() => {
     if (typeof window.Aural === 'undefined') return;
@@ -123,12 +124,7 @@ export const Select: React.FC<SelectProps> = ({
   };
 
   return (
-    <div
-      id={id}
-      ref={selectRef}
-      className={`select-custom ${className}`}
-      onKeyDown={handleKeyDown}
-    >
+    <div id={id} ref={selectRef} className={`select-custom ${className}`} onKeyDown={handleKeyDown}>
       <button
         type="button"
         className="select-trigger"
@@ -149,11 +145,7 @@ export const Select: React.FC<SelectProps> = ({
         </svg>
       </button>
 
-      <div
-        className="select-dropdown"
-        role="listbox"
-        hidden={!isOpen}
-      >
+      <div className="select-dropdown" role="listbox" hidden={!isOpen}>
         {searchable && (
           <div className="select-search">
             <input

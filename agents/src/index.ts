@@ -77,7 +77,9 @@ async function main() {
     console.log(chalk.white('2. Start Ollama: ollama serve'));
     console.log(chalk.white(`3. Pull a model: ollama pull ${ollamaModel}`));
     console.log(chalk.white('4. Run this command again\n'));
-    console.log(chalk.gray(`Alternatively, update OLLAMA_BASE_URL in .env if using a remote instance.\n`));
+    console.log(
+      chalk.gray(`Alternatively, update OLLAMA_BASE_URL in .env if using a remote instance.\n`)
+    );
     process.exit(1);
   }
 

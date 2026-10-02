@@ -29,7 +29,7 @@ Quick reference for implementing or verifying the new Carbon Design System-inspi
 
 - [ ] Check `<head>` section for this link:
   ```html
-  <link rel="stylesheet" href="../styles/page-common.css">
+  <link rel="stylesheet" href="../styles/page-common.css" />
   ```
 - [ ] Verify path is correct relative to your file location
 - [ ] Save file
@@ -40,10 +40,10 @@ Quick reference for implementing or verifying the new Carbon Design System-inspi
 - [ ] Verify this structure exists:
   ```html
   <div class="framework-tabs">
-      <div role="tablist" class="tabs-list">
-          <!-- Tab buttons here -->
-      </div>
-      <!-- Tab panels here -->
+    <div role="tablist" class="tabs-list">
+      <!-- Tab buttons here -->
+    </div>
+    <!-- Tab panels here -->
   </div>
   ```
 - [ ] Check all four tabs are present:
@@ -56,18 +56,14 @@ Quick reference for implementing or verifying the new Carbon Design System-inspi
 
 - [ ] Copy this button into the `tabs-list`:
   ```html
-  <button role="tab" aria-selected="false"
-          aria-controls="svelte-panel"
-          id="svelte-tab"
-          class="tab">
-      Svelte
+  <button role="tab" aria-selected="false" aria-controls="svelte-panel" id="svelte-tab" class="tab">
+    Svelte
   </button>
   ```
 - [ ] Add corresponding panel:
   ```html
-  <div role="tabpanel" id="svelte-panel"
-       aria-labelledby="svelte-tab" hidden>
-      <pre><code class="language-svelte">
+  <div role="tabpanel" id="svelte-panel" aria-labelledby="svelte-tab" hidden>
+    <pre><code class="language-svelte">
       <!-- Svelte code example -->
       </code></pre>
   </div>
@@ -290,18 +286,18 @@ Test in multiple browsers:
 
 ## Testing Matrix
 
-| Feature | Chrome | Firefox | Safari | Mobile |
-|---------|--------|---------|--------|--------|
-| Visual rendering | [ ] | [ ] | [ ] | [ ] |
-| Tab switching | [ ] | [ ] | [ ] | [ ] |
-| Hover states | [ ] | [ ] | [ ] | [ ] |
-| Animations | [ ] | [ ] | [ ] | [ ] |
-| Keyboard nav | [ ] | [ ] | [ ] | [ ] |
-| Focus indicators | [ ] | [ ] | [ ] | [ ] |
-| Icons display | [ ] | [ ] | [ ] | [ ] |
-| Mobile scroll | N/A | N/A | N/A | [ ] |
-| Performance | [ ] | [ ] | [ ] | [ ] |
-| Accessibility | [ ] | [ ] | [ ] | [ ] |
+| Feature          | Chrome | Firefox | Safari | Mobile |
+| ---------------- | ------ | ------- | ------ | ------ |
+| Visual rendering | [ ]    | [ ]     | [ ]    | [ ]    |
+| Tab switching    | [ ]    | [ ]     | [ ]    | [ ]    |
+| Hover states     | [ ]    | [ ]     | [ ]    | [ ]    |
+| Animations       | [ ]    | [ ]     | [ ]    | [ ]    |
+| Keyboard nav     | [ ]    | [ ]     | [ ]    | [ ]    |
+| Focus indicators | [ ]    | [ ]     | [ ]    | [ ]    |
+| Icons display    | [ ]    | [ ]     | [ ]    | [ ]    |
+| Mobile scroll    | N/A    | N/A     | N/A    | [ ]    |
+| Performance      | [ ]    | [ ]     | [ ]    | [ ]    |
+| Accessibility    | [ ]    | [ ]     | [ ]    | [ ]    |
 
 ## Final Sign-Off
 
@@ -334,22 +330,26 @@ Test in multiple browsers:
 ## Quick Reference Commands
 
 ### Open Demo Page
+
 ```bash
 cd /Users/feraf/Projects/aural-ui/docs
 open framework-tabs-demo.html
 ```
 
 ### Check for Framework Tabs
+
 ```bash
 grep -r "framework-tabs" docs/components/*.html
 ```
 
 ### Verify CSS Link
+
 ```bash
 grep "page-common.css" docs/components/*.html
 ```
 
 ### Git Status
+
 ```bash
 git status
 ```
@@ -357,6 +357,7 @@ git status
 ## Support Resources
 
 ### Documentation Files
+
 - `FRAMEWORK_TABS_GUIDE.md` - Complete implementation guide
 - `TABS_DESIGN_COMPARISON.md` - Before/after comparison
 - `VISUAL_REFERENCE.md` - Visual specifications
@@ -364,15 +365,18 @@ git status
 - `framework-tabs-snippet.css` - CSS reference
 
 ### Example Files
+
 - `framework-tabs-demo.html` - Interactive demo
 - `components/buttons.html` - Implementation example
 - `components/inputs.html` - Implementation example
 
 ### Style Files
+
 - `styles/page-common.css` - Main tab styles (lines 283-430)
 - `framework-tabs-snippet.css` - Standalone CSS
 
 ### Carbon Design System
+
 - [Carbon Tabs](https://carbondesignsystem.com/components/tabs/usage/)
 - [Carbon Motion](https://carbondesignsystem.com/guidelines/motion/overview/)
 

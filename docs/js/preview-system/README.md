@@ -31,9 +31,9 @@ Preview UI
 
 ```html
 <!-- CSS -->
-<link rel="stylesheet" href="../aural-ui.css">
-<link rel="stylesheet" href="../dark.css" id="theme-link">
-<link rel="stylesheet" href="../styles/preview-system.css">
+<link rel="stylesheet" href="../aural-ui.css" />
+<link rel="stylesheet" href="../dark.css" id="theme-link" />
+<link rel="stylesheet" href="../styles/preview-system.css" />
 
 <!-- JavaScript -->
 <script src="../aural-ui.js"></script>
@@ -43,11 +43,12 @@ Preview UI
 ### 2. Add Preview Containers
 
 ```html
-<div class="live-preview"
-     data-component="Button"
-     data-example="primary-buttons"
-     data-frameworks="vanilla,react,vue,svelte">
-</div>
+<div
+  class="live-preview"
+  data-component="Button"
+  data-example="primary-buttons"
+  data-frameworks="vanilla,react,vue,svelte"
+></div>
 ```
 
 ### 3. Initialize Preview System
@@ -59,7 +60,7 @@ Preview UI
   PreviewManager.init({
     defaultFramework: 'vanilla',
     theme: 'dark',
-    showCode: true
+    showCode: true,
   });
 </script>
 ```
@@ -78,7 +79,7 @@ export const examples = {
     vanilla: {
       html: '<button class="btn btn-primary">Click me</button>',
       css: '',
-      js: ''
+      js: '',
     },
 
     // React
@@ -89,7 +90,7 @@ import { Button } from '@aural-ui/react';
 function Example() {
   return <Button variant="primary">Click me</Button>;
 }
-      `
+      `,
     },
 
     // Vue
@@ -102,7 +103,7 @@ function Example() {
 <script setup>
 import { AuralButton } from '@aural-ui/vue';
 </script>
-      `
+      `,
     },
 
     // Svelte
@@ -113,9 +114,9 @@ import { AuralButton } from '@aural-ui/vue';
 </script>
 
 <Button variant="primary">Click me</Button>
-      `
-    }
-  }
+      `,
+    },
+  },
 };
 ```
 
@@ -126,6 +127,7 @@ import { AuralButton } from '@aural-ui/vue';
 Initialize the preview system.
 
 **Options:**
+
 - `defaultFramework` (string): Initial framework to display (`'vanilla'`, `'react'`, `'vue'`, `'svelte'`)
 - `theme` (string): Initial theme (`'dark'`, `'light'`, etc.)
 - `showCode` (boolean): Show code display section (default: `true`)
@@ -181,13 +183,14 @@ function Example() {
     </Button>
   );
 }
-  `
+  `;
 }
 ```
 
 ### Code Copying
 
 Built-in clipboard functionality with visual feedback:
+
 - Click "Copy" button
 - Shows "Copied!" confirmation
 - Automatically reverts after 2 seconds
@@ -212,6 +215,7 @@ Requires ES modules support and `import` statements.
 ## Performance
 
 ### Bundle Sizes
+
 - PreviewManager: ~8 KB (gzipped)
 - VanillaRenderer: ~2 KB (gzipped)
 - ReactRenderer: ~4 KB (gzipped)
@@ -219,6 +223,7 @@ Requires ES modules support and `import` statements.
 - CSS: ~3 KB (gzipped)
 
 ### Optimization Strategies
+
 - Lazy loading of framework renderers
 - Example caching in memory
 - Debounced iframe resizing
@@ -229,6 +234,7 @@ Requires ES modules support and `import` statements.
 ### Preview not rendering
 
 Check browser console for errors. Common issues:
+
 1. Missing example definition file
 2. Incorrect component or example ID
 3. Framework not included in data-frameworks
@@ -237,6 +243,7 @@ Check browser console for errors. Common issues:
 ### Iframe sizing issues
 
 The auto-resize feature requires same-origin access. If using `file://` protocol:
+
 1. Use a local server (`python -m http.server`)
 2. Or set manual height with CSS
 
@@ -252,6 +259,7 @@ Ensure `theme-manager.js` is loaded before preview system:
 ### Code not copying
 
 Check browser permissions:
+
 - Clipboard API requires HTTPS or localhost
 - Some browsers block clipboard access in iframes
 
@@ -344,6 +352,7 @@ npm run test:visual
 ## Contributing
 
 When adding examples:
+
 1. Keep code simple and focused
 2. Follow framework best practices
 3. Test with all supported themes
@@ -358,6 +367,7 @@ Part of Aural UI - same license applies.
 ## Support
 
 For issues or questions:
+
 - GitHub Issues: [link]
 - Documentation: [link]
 - Discord: [link]

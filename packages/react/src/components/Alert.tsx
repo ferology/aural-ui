@@ -39,7 +39,7 @@ export const Alert: React.FC<AlertProps> = ({
   className = '',
   closable = false,
   onClose,
-  icon
+  icon,
 }) => {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -50,13 +50,7 @@ export const Alert: React.FC<AlertProps> = ({
 
   if (!isVisible) return null;
 
-  const alertClasses = [
-    'alert',
-    `alert-${variant}`,
-    className
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const alertClasses = ['alert', `alert-${variant}`, className].filter(Boolean).join(' ');
 
   return (
     <div className={alertClasses} role="alert">

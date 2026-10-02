@@ -38,23 +38,17 @@ export const Progress: React.FC<ProgressProps> = ({
   className = '',
   showLabel = false,
   striped = false,
-  animated = false
+  animated = false,
 }) => {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
-  const progressClasses = [
-    'progress',
-    `progress-${size}`,
-    className
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const progressClasses = ['progress', `progress-${size}`, className].filter(Boolean).join(' ');
 
   const barClasses = [
     'progress-bar',
     variant !== 'default' ? `progress-bar-${variant}` : '',
     striped ? 'progress-bar-striped' : '',
-    animated ? 'progress-bar-animated' : ''
+    animated ? 'progress-bar-animated' : '',
   ]
     .filter(Boolean)
     .join(' ');

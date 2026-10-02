@@ -60,43 +60,43 @@ const [enabled, setEnabled] = useState(false);
   <span class="switch__label">Enable notifications</span>
 </label>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Switch label text'
+      description: 'Switch label text',
     },
     checked: {
       control: 'boolean',
-      description: 'Checked state (on/off)'
+      description: 'Checked state (on/off)',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Switch size'
+      description: 'Switch size',
     },
     labelPosition: {
       control: 'select',
       options: ['left', 'right'],
-      description: 'Label position relative to switch'
+      description: 'Label position relative to switch',
     },
     description: {
       control: 'text',
-      description: 'Optional description text below the label'
+      description: 'Optional description text below the label',
     },
     variant: {
       control: 'select',
       options: ['default', 'primary', 'success', 'warning', 'error', 'info'],
-      description: 'Color variant for semantic meaning'
-    }
-  }
+      description: 'Color variant for semantic meaning',
+    },
+  },
 };
 
 export default meta;
@@ -192,8 +192,8 @@ export const Default: Story = {
     size: 'md',
     labelPosition: 'right',
     description: '',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const Checked: Story = {
@@ -204,8 +204,8 @@ export const Checked: Story = {
     disabled: false,
     size: 'md',
     labelPosition: 'right',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const Disabled: Story = {
@@ -216,8 +216,8 @@ export const Disabled: Story = {
     disabled: true,
     size: 'md',
     labelPosition: 'right',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const DisabledChecked: Story = {
@@ -228,8 +228,8 @@ export const DisabledChecked: Story = {
     disabled: true,
     size: 'md',
     labelPosition: 'right',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const WithLabel: Story = {
@@ -240,8 +240,8 @@ export const WithLabel: Story = {
     disabled: false,
     size: 'md',
     labelPosition: 'right',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const WithDescription: Story = {
@@ -253,8 +253,8 @@ export const WithDescription: Story = {
     disabled: false,
     size: 'md',
     labelPosition: 'right',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const LabelLeft: Story = {
@@ -265,8 +265,8 @@ export const LabelLeft: Story = {
     disabled: false,
     size: 'md',
     labelPosition: 'left',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const Small: Story = {
@@ -277,8 +277,8 @@ export const Small: Story = {
     disabled: false,
     size: 'sm',
     labelPosition: 'right',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const Large: Story = {
@@ -289,8 +289,8 @@ export const Large: Story = {
     disabled: false,
     size: 'lg',
     labelPosition: 'right',
-    variant: 'default'
-  }
+    variant: 'default',
+  },
 };
 
 export const AllStates: Story = {
@@ -308,10 +308,10 @@ export const AllStates: Story = {
       { label: 'Off (unchecked)', checked: false, disabled: false },
       { label: 'On (checked)', checked: true, disabled: false },
       { label: 'Disabled off', checked: false, disabled: true },
-      { label: 'Disabled on', checked: true, disabled: true }
+      { label: 'Disabled on', checked: true, disabled: true },
     ];
 
-    states.forEach(state => {
+    states.forEach((state) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'switch';
@@ -349,7 +349,7 @@ export const AllStates: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllSizes: Story = {
@@ -366,10 +366,10 @@ export const AllSizes: Story = {
     const sizes = [
       { size: 'sm', label: 'Small switch' },
       { size: 'md', label: 'Medium switch (default)' },
-      { size: 'lg', label: 'Large switch' }
+      { size: 'lg', label: 'Large switch' },
     ];
 
-    sizes.forEach(item => {
+    sizes.forEach((item) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'switch';
@@ -410,7 +410,7 @@ export const AllSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ColorVariants: Story = {
@@ -429,10 +429,10 @@ export const ColorVariants: Story = {
       { variant: 'success', label: 'Success' },
       { variant: 'warning', label: 'Warning' },
       { variant: 'error', label: 'Error' },
-      { variant: 'info', label: 'Info' }
+      { variant: 'info', label: 'Info' },
     ];
 
-    variants.forEach(item => {
+    variants.forEach((item) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'switch';
@@ -473,7 +473,7 @@ export const ColorVariants: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const SettingsPanel: Story = {
@@ -501,13 +501,13 @@ export const SettingsPanel: Story = {
 
     const privacyOptions = [
       { label: 'Public profile', description: 'Allow others to view your profile', checked: true },
-      { label: 'Show online status', description: 'Display when you\'re active', checked: false }
+      { label: 'Show online status', description: "Display when you're active", checked: false },
     ];
 
     const privacyContainer = document.createElement('div');
     privacyContainer.style.cssText = 'display: flex; flex-direction: column; gap: 1rem;';
 
-    privacyOptions.forEach(option => {
+    privacyOptions.forEach((option) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'switch switch-with-description';
@@ -572,13 +572,13 @@ export const SettingsPanel: Story = {
 
     const featuresOptions = [
       { label: 'Dark mode', description: 'Use dark theme across the app', checked: true },
-      { label: 'Auto-play videos', description: 'Videos start automatically', checked: false }
+      { label: 'Auto-play videos', description: 'Videos start automatically', checked: false },
     ];
 
     const featuresContainer = document.createElement('div');
     featuresContainer.style.cssText = 'display: flex; flex-direction: column; gap: 1rem;';
 
-    featuresOptions.forEach(option => {
+    featuresOptions.forEach((option) => {
       const id = generateId();
       const label = document.createElement('label');
       label.className = 'switch switch-with-description';
@@ -625,7 +625,7 @@ export const SettingsPanel: Story = {
     container.appendChild(featuresSection);
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -708,39 +708,39 @@ export const ThemeComparison: Story = {
     size: 'md',
     labelPosition: 'right',
     description: '',
-    variant: 'default'
+    variant: 'default',
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Switch label text'
+      description: 'Switch label text',
     },
     checked: {
       control: 'boolean',
-      description: 'Checked state'
+      description: 'Checked state',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Switch size'
+      description: 'Switch size',
     },
     labelPosition: {
       control: 'select',
       options: ['left', 'right'],
-      description: 'Label position'
+      description: 'Label position',
     },
     description: {
       control: 'text',
-      description: 'Optional description text'
+      description: 'Optional description text',
     },
     variant: {
       control: 'select',
       options: ['default', 'primary', 'success', 'warning', 'error', 'info'],
-      description: 'Color variant'
-    }
-  }
+      description: 'Color variant',
+    },
+  },
 };

@@ -72,17 +72,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       success ? 'input-success' : '',
       iconBefore ? 'input-icon-before' : '',
       iconAfter ? 'input-icon-after' : '',
-      className
+      className,
     ]
       .filter(Boolean)
       .join(' ');
 
-    const wrapperClasses = [
-      'form-group',
-      fullWidth ? 'w-full' : ''
-    ]
-      .filter(Boolean)
-      .join(' ');
+    const wrapperClasses = ['form-group', fullWidth ? 'w-full' : ''].filter(Boolean).join(' ');
 
     return (
       <div className={wrapperClasses}>
@@ -104,9 +99,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             className={inputClasses}
             aria-invalid={error ? 'true' : 'false'}
-            aria-describedby={
-              error ? errorId : helperText ? helperTextId : undefined
-            }
+            aria-describedby={error ? errorId : helperText ? helperTextId : undefined}
             {...props}
           />
 

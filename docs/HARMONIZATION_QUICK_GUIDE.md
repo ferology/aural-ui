@@ -11,20 +11,22 @@ This guide shows exactly what to change in each component page to harmonize it w
 **Location:** In the `<head>` section, right after the theme-link
 
 **Find:**
+
 ```html
 <!-- Theme CSS -->
-<link rel="stylesheet" href="../dark.css" id="theme-link">
+<link rel="stylesheet" href="../dark.css" id="theme-link" />
 
 <!-- Lucide Icons -->
 ```
 
 **Replace with:**
+
 ```html
 <!-- Theme CSS -->
-<link rel="stylesheet" href="../dark.css" id="theme-link">
+<link rel="stylesheet" href="../dark.css" id="theme-link" />
 
 <!-- Common Page Styles -->
-<link rel="stylesheet" href="../styles/page-common.css">
+<link rel="stylesheet" href="../styles/page-common.css" />
 
 <!-- Lucide Icons -->
 ```
@@ -38,25 +40,27 @@ This guide shows exactly what to change in each component page to harmonize it w
 ### Find and DELETE ALL of these patterns:
 
 #### Pattern A: Simple Theme Toggle (20-30 lines)
+
 ```javascript
 // Theme toggle
 let isDark = true;
 function toggleTheme() {
-    const themeLink = document.getElementById('theme-link');
-    isDark = !isDark;
-    themeLink.href = isDark ? '../dark.css' : '../light.css';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  const themeLink = document.getElementById('theme-link');
+  isDark = !isDark;
+  themeLink.href = isDark ? '../dark.css' : '../light.css';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
 // Load saved theme
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
-    isDark = savedTheme === 'dark';
-    document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+  isDark = savedTheme === 'dark';
+  document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
 }
 ```
 
 #### Pattern B: Unified Theme Sync Block (80-100 lines)
+
 ```javascript
 <!-- Unified Theme Sync -->
 <script>
@@ -85,20 +89,20 @@ if (savedTheme) {
 <script src="../js/theme-manager.js"></script>
 
 <script>
-    // Initialize Aural UI components
-    Aural.initTabs(); // or other initialization as needed
+  // Initialize Aural UI components
+  Aural.initTabs(); // or other initialization as needed
 
-    // Initialize Lucide icons
-    lucide.createIcons();
+  // Initialize Lucide icons
+  lucide.createIcons();
 
-    // Theme toggle (uses centralized theme manager)
-    function toggleTheme() {
-        if (window.AuralThemeManager) {
-            window.AuralThemeManager.cycleTheme();
-        }
+  // Theme toggle (uses centralized theme manager)
+  function toggleTheme() {
+    if (window.AuralThemeManager) {
+      window.AuralThemeManager.cycleTheme();
     }
+  }
 
-    // ... keep any page-specific logic below ...
+  // ... keep any page-specific logic below ...
 </script>
 
 <!-- Documentation Utilities -->
@@ -114,29 +118,36 @@ if (savedTheme) {
 ### Examples of Logic to KEEP:
 
 ✅ **Character Counter (inputs.html):**
+
 ```javascript
 function updateCounter() {
-    const input = document.getElementById('bio-input');
-    const counter = document.getElementById('bio-counter');
-    // ... keep all this ...
+  const input = document.getElementById('bio-input');
+  const counter = document.getElementById('bio-counter');
+  // ... keep all this ...
 }
 ```
 
 ✅ **Tab Switching (tabs.html):**
+
 ```javascript
 function switchTab(event, panelId) {
-    // ... keep all this ...
+  // ... keep all this ...
 }
 
 function initMainTabs() {
-    // ... keep all this ...
+  // ... keep all this ...
 }
 ```
 
 ✅ **Modal Functions:**
+
 ```javascript
-function openModal(id) { /* ... */ }
-function closeModal(id) { /* ... */ }
+function openModal(id) {
+  /* ... */
+}
+function closeModal(id) {
+  /* ... */
+}
 ```
 
 ### Examples of Code to DELETE:
@@ -157,6 +168,7 @@ function closeModal(id) { /* ... */ }
 Check that custom inline styles use CSS variables, NOT hardcoded values.
 
 ### ✅ Correct (Use CSS Variables):
+
 ```css
 color: var(--color-text-primary);
 background: var(--color-bg-secondary);
@@ -167,6 +179,7 @@ font-size: var(--text-lg);
 ```
 
 ### ❌ Incorrect (Hardcoded Values):
+
 ```css
 color: #ffffff;
 background: #2a2a2a;
@@ -183,78 +196,84 @@ font-size: 18px;
 ## Complete Example
 
 ### Before (OLD):
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Example - Aural UI</title>
 
-    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
-    <link rel="stylesheet" href="../dark.css" id="theme-link">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626" />
+    <link rel="stylesheet" href="../dark.css" id="theme-link" />
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <style>/* custom styles */</style>
-</head>
-<body>
+    <style>
+      /* custom styles */
+    </style>
+  </head>
+  <body>
     <!-- content -->
 
     <script src="../aural-ui.js?v=9"></script>
 
     <script>
-        Aural.initTabs();
-        lucide.createIcons();
+      Aural.initTabs();
+      lucide.createIcons();
 
-        // OLD theme toggle - DELETE THIS
-        let isDark = true;
-        function toggleTheme() {
-            const themeLink = document.getElementById('theme-link');
-            isDark = !isDark;
-            themeLink.href = isDark ? '../dark.css' : '../light.css';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
+      // OLD theme toggle - DELETE THIS
+      let isDark = true;
+      function toggleTheme() {
+        const themeLink = document.getElementById('theme-link');
+        isDark = !isDark;
+        themeLink.href = isDark ? '../dark.css' : '../light.css';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      }
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            isDark = savedTheme === 'dark';
-            document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
-        }
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        isDark = savedTheme === 'dark';
+        document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+      }
     </script>
 
     <!-- DELETE THIS ENTIRE BLOCK -->
     <script>
-    (function() {
+      (function () {
         const savedTheme = localStorage.getItem('theme') || 'dark';
         // ... 88 lines of theme sync code ...
-    })();
+      })();
     </script>
 
     <script src="../doc-utils.js"></script>
-</body>
+  </body>
 </html>
 ```
 
 ### After (NEW):
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Example - Aural UI</title>
 
-    <link rel="stylesheet" href="../aural-ui.css?v=1769438626">
-    <link rel="stylesheet" href="../dark.css" id="theme-link">
+    <link rel="stylesheet" href="../aural-ui.css?v=1769438626" />
+    <link rel="stylesheet" href="../dark.css" id="theme-link" />
 
     <!-- ✅ ADD THIS -->
-    <link rel="stylesheet" href="../styles/page-common.css">
+    <link rel="stylesheet" href="../styles/page-common.css" />
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <style>/* custom styles */</style>
-</head>
-<body>
+    <style>
+      /* custom styles */
+    </style>
+  </head>
+  <body>
     <!-- content -->
 
     <script src="../aural-ui.js?v=9"></script>
@@ -263,19 +282,19 @@ font-size: 18px;
     <script src="../js/theme-manager.js"></script>
 
     <script>
-        Aural.initTabs();
-        lucide.createIcons();
+      Aural.initTabs();
+      lucide.createIcons();
 
-        // ✅ NEW simple theme toggle
-        function toggleTheme() {
-            if (window.AuralThemeManager) {
-                window.AuralThemeManager.cycleTheme();
-            }
+      // ✅ NEW simple theme toggle
+      function toggleTheme() {
+        if (window.AuralThemeManager) {
+          window.AuralThemeManager.cycleTheme();
         }
+      }
     </script>
 
     <script src="../doc-utils.js"></script>
-</body>
+  </body>
 </html>
 ```
 
@@ -315,18 +334,23 @@ After making changes, test each page:
 ## Common Mistakes to Avoid
 
 ❌ **Don't delete page-specific functions**
+
 - Keep modal handlers, tab switchers, character counters, etc.
 
 ❌ **Don't forget the page-common.css link**
+
 - Pages will look broken without it
 
 ❌ **Don't modify theme-manager.js**
+
 - All changes should be in individual page files only
 
 ❌ **Don't keep old theme code**
+
 - Delete ALL old theme-related code completely
 
 ❌ **Don't hardcode paths**
+
 - Use `../` relative paths for component pages
 
 ---
@@ -334,6 +358,7 @@ After making changes, test each page:
 ## Need Help?
 
 **Reference the pilot implementation:**
+
 - `/docs/components/buttons.html`
 - `/docs/components/inputs.html`
 - `/docs/components/cards.html`
@@ -341,9 +366,11 @@ After making changes, test each page:
 - `/docs/components/tabs.html`
 
 **See the full report:**
+
 - `/docs/COMPONENT_HARMONIZATION_REPORT.md`
 
 **Centralized resources:**
+
 - `/docs/styles/page-common.css` - Common page styles
 - `/docs/js/theme-manager.js` - Theme management system
 
@@ -352,21 +379,25 @@ After making changes, test each page:
 ## Quick Commands
 
 **Count theme code lines in a file:**
+
 ```bash
 grep -n "theme" components/yourfile.html | wc -l
 ```
 
 **Find old theme toggle pattern:**
+
 ```bash
 grep -l "let isDark = true" components/*.html
 ```
 
 **Find unified theme sync blocks:**
+
 ```bash
 grep -l "Unified Theme Sync" components/*.html
 ```
 
 **Verify page-common.css is linked:**
+
 ```bash
 grep "page-common.css" components/*.html
 ```

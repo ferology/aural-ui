@@ -16,6 +16,7 @@ This agent system has been migrated from Anthropic's Claude API to **Ollama** fo
 Download and install Ollama for your operating system:
 
 **macOS & Linux:**
+
 ```bash
 curl -fsSL https://ollama.ai/install.sh | sh
 ```
@@ -24,6 +25,7 @@ curl -fsSL https://ollama.ai/install.sh | sh
 Download from https://ollama.ai/download
 
 **Verify installation:**
+
 ```bash
 ollama --version
 ```
@@ -45,23 +47,27 @@ The server will start on `http://localhost:11434` by default.
 The agent system works best with instruction-following models. Here are some recommended options:
 
 **Small & Fast (Recommended for testing):**
+
 ```bash
 ollama pull llama3.2
 ```
 
 **Medium Quality & Speed:**
+
 ```bash
 ollama pull llama3.3
 ollama pull mistral
 ```
 
 **Large & High Quality:**
+
 ```bash
 ollama pull mixtral
 ollama pull qwen2.5:14b
 ```
 
 **Code-Specialized:**
+
 ```bash
 ollama pull codellama
 ollama pull qwen2.5-coder
@@ -108,6 +114,7 @@ npm run dev
 ```
 
 You should see:
+
 ```
 ╔═══════════════════════════════════════╗
 ║   Aural UI - Enterprise Agent Team   ║
@@ -159,21 +166,25 @@ npm run generate-docs
 ### "Cannot connect to Ollama"
 
 **Solution 1:** Ensure Ollama is running
+
 ```bash
 ollama serve
 ```
 
 **Solution 2:** Check if another process is using port 11434
+
 ```bash
 lsof -i :11434
 ```
 
 **Solution 3:** Use a different port
+
 ```bash
 OLLAMA_HOST=0.0.0.0:11435 ollama serve
 ```
 
 Then update `.env`:
+
 ```bash
 OLLAMA_BASE_URL=http://localhost:11435
 ```
@@ -181,11 +192,13 @@ OLLAMA_BASE_URL=http://localhost:11435
 ### "Model not found"
 
 Pull the model first:
+
 ```bash
 ollama pull llama3.2
 ```
 
 List available models:
+
 ```bash
 ollama list
 ```
@@ -193,11 +206,13 @@ ollama list
 ### Slow Performance
 
 **Use a smaller model:**
+
 ```bash
 ollama pull llama3.2:1b
 ```
 
 Update `.env`:
+
 ```bash
 OLLAMA_MODEL=llama3.2:1b
 ```
@@ -206,6 +221,7 @@ OLLAMA_MODEL=llama3.2:1b
 Ollama automatically uses GPU if available (CUDA, Metal, ROCm).
 
 **Check GPU usage:**
+
 ```bash
 ollama ps
 ```
@@ -213,11 +229,13 @@ ollama ps
 ### Out of Memory
 
 **Reduce context size in `.env`:**
+
 ```bash
 DEFAULT_MAX_TOKENS=2048
 ```
 
 **Use a smaller model:**
+
 ```bash
 ollama pull llama3.2:1b
 ```
@@ -227,19 +245,23 @@ ollama pull llama3.2:1b
 ## Recommended Models
 
 ### Best Overall (Balanced)
+
 - **llama3.2** (3B params) - Fast, good quality
 - **llama3.3** (7B params) - Higher quality, moderate speed
 - **mistral** (7B params) - Excellent instruction following
 
 ### Best for Code
+
 - **qwen2.5-coder** (7B params) - Specialized for code generation
 - **codellama** (7B params) - Meta's code-focused model
 
 ### Best for Quality
+
 - **mixtral** (8x7B params) - Highest quality, slower
 - **qwen2.5:14b** (14B params) - Very strong reasoning
 
 ### Best for Speed
+
 - **llama3.2:1b** (1B params) - Extremely fast
 - **phi3** (3B params) - Microsoft's efficient model
 
@@ -279,11 +301,13 @@ sudo firewall-cmd --reload
 ### 1. Use GPU Acceleration
 
 Ollama automatically uses:
+
 - **NVIDIA GPUs**: CUDA
 - **Apple Silicon**: Metal
 - **AMD GPUs**: ROCm
 
 Verify GPU is being used:
+
 ```bash
 ollama ps
 ```
@@ -291,6 +315,7 @@ ollama ps
 ### 2. Adjust Context Window
 
 For faster responses, reduce token limit:
+
 ```bash
 DEFAULT_MAX_TOKENS=2048
 ```
@@ -298,6 +323,7 @@ DEFAULT_MAX_TOKENS=2048
 ### 3. Use Quantized Models
 
 Smaller quantized models are faster:
+
 ```bash
 ollama pull llama3.2:1b-q4_0
 ```
@@ -305,6 +331,7 @@ ollama pull llama3.2:1b-q4_0
 ### 4. Warm Up the Model
 
 Pull and run the model once before using agents:
+
 ```bash
 ollama run llama3.2 "Hello"
 ```
@@ -339,6 +366,7 @@ This system was previously using `@anthropic-ai/sdk`. The migration involved:
 The agent interfaces remain the same. If you want to switch back to Anthropic:
 
 1. Reinstall the Anthropic SDK:
+
    ```bash
    npm install @anthropic-ai/sdk
    ```

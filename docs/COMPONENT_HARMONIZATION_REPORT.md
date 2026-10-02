@@ -12,6 +12,7 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 ## Pages Updated (Pilot Batch)
 
 ### 1. buttons.html
+
 - ✅ Added `page-common.css` stylesheet
 - ✅ Added `theme-manager.js` script
 - ✅ Removed 111 lines of duplicate theme sync code
@@ -19,6 +20,7 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 - ✅ All custom styles use CSS variables
 
 ### 2. inputs.html
+
 - ✅ Added `page-common.css` stylesheet
 - ✅ Added `theme-manager.js` script
 - ✅ Removed 88 lines of duplicate theme sync code
@@ -27,6 +29,7 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 - ✅ All custom styles use CSS variables
 
 ### 3. cards.html
+
 - ✅ Added `page-common.css` stylesheet
 - ✅ Added `theme-manager.js` script
 - ✅ Removed 88 lines of duplicate theme sync code
@@ -34,6 +37,7 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 - ✅ All custom styles use CSS variables
 
 ### 4. modals.html
+
 - ✅ Added `page-common.css` stylesheet
 - ✅ Added `theme-manager.js` script
 - ✅ Removed 88 lines of duplicate theme sync code
@@ -41,6 +45,7 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 - ✅ All custom styles use CSS variables
 
 ### 5. tabs.html
+
 - ✅ Added `page-common.css` stylesheet
 - ✅ Added `theme-manager.js` script
 - ✅ Removed 88 lines of duplicate theme sync code
@@ -55,12 +60,14 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 ### 1. Added Centralized Resources
 
 #### In `<head>` section (after theme-link):
+
 ```html
 <!-- Common Page Styles -->
-<link rel="stylesheet" href="../styles/page-common.css">
+<link rel="stylesheet" href="../styles/page-common.css" />
 ```
 
 #### In scripts section (after aural-ui.js):
+
 ```html
 <!-- Theme Manager -->
 <script src="../js/theme-manager.js"></script>
@@ -69,6 +76,7 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 ### 2. Removed Duplicate Code
 
 **Before (per page):**
+
 - 88-111 lines of theme sync logic
 - Manual theme file mapping
 - Manual component CSS loading
@@ -76,6 +84,7 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 - Iframe detection logic
 
 **After (centralized):**
+
 - All theme logic handled by `theme-manager.js`
 - Single 6-line `toggleTheme()` function
 - Automatic theme persistence
@@ -85,43 +94,45 @@ Successfully harmonized 5 pilot component pages in `/docs/components/` to use ce
 ### 3. Simplified Theme Toggle
 
 **Old Implementation (23+ lines per page):**
+
 ```javascript
 let isDark = true;
 function toggleTheme() {
-    const themeLink = document.getElementById('theme-link');
-    isDark = !isDark;
-    themeLink.href = isDark ? '../dark.css' : '../light.css';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  const themeLink = document.getElementById('theme-link');
+  isDark = !isDark;
+  themeLink.href = isDark ? '../dark.css' : '../light.css';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
-    isDark = savedTheme === 'dark';
-    document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
+  isDark = savedTheme === 'dark';
+  document.getElementById('theme-link').href = isDark ? '../dark.css' : '../light.css';
 }
 
 // Plus 88 more lines of theme sync logic...
 ```
 
 **New Implementation (6 lines per page):**
+
 ```javascript
 function toggleTheme() {
-    if (window.AuralThemeManager) {
-        window.AuralThemeManager.cycleTheme();
-    }
+  if (window.AuralThemeManager) {
+    window.AuralThemeManager.cycleTheme();
+  }
 }
 ```
 
 ### 4. Code Reduction Metrics
 
-| Page | Lines Removed | Lines Added | Net Reduction |
-|------|---------------|-------------|---------------|
-| buttons.html | 111 | 6 | -105 lines |
-| inputs.html | 88 | 6 | -82 lines |
-| cards.html | 88 | 6 | -82 lines |
-| modals.html | 88 | 6 | -82 lines |
-| tabs.html | 88 | 6 | -82 lines |
-| **TOTAL** | **463** | **30** | **-433 lines** |
+| Page         | Lines Removed | Lines Added | Net Reduction  |
+| ------------ | ------------- | ----------- | -------------- |
+| buttons.html | 111           | 6           | -105 lines     |
+| inputs.html  | 88            | 6           | -82 lines      |
+| cards.html   | 88            | 6           | -82 lines      |
+| modals.html  | 88            | 6           | -82 lines      |
+| tabs.html    | 88            | 6           | -82 lines      |
+| **TOTAL**    | **463**       | **30**      | **-433 lines** |
 
 **Result:** 93.5% reduction in duplicate theme code across 5 pages
 
@@ -130,7 +141,9 @@ function toggleTheme() {
 ## Centralized Resources
 
 ### `/docs/styles/page-common.css` (12.1 KB)
+
 Provides consistent, theme-aware styling for:
+
 - Page structure & layout
 - Typography (titles, headings, paragraphs)
 - Breadcrumbs
@@ -147,7 +160,9 @@ Provides consistent, theme-aware styling for:
 - Reduced motion support
 
 ### `/docs/js/theme-manager.js` (9.2 KB)
+
 Centralized theme management with:
+
 - 7 theme support (dark, light, neon, neon-refined, kinetic, high-contrast, colorblind)
 - Automatic theme persistence
 - Dynamic component CSS loading
@@ -162,23 +177,27 @@ Centralized theme management with:
 ## Benefits Achieved
 
 ### 1. Consistency
+
 ✅ All pages now use identical theme switching logic
 ✅ Uniform styling patterns across all component pages
 ✅ Predictable behavior for users
 
 ### 2. Maintainability
+
 ✅ Theme logic in ONE place (`theme-manager.js`)
 ✅ Common styles in ONE place (`page-common.css`)
 ✅ Changes propagate to all pages automatically
 ✅ No more syncing 50+ files manually
 
 ### 3. Code Quality
+
 ✅ 433 fewer lines of duplicate code
 ✅ DRY principle properly applied
 ✅ Easier to debug and test
 ✅ Smaller page sizes
 
 ### 4. Future-Proof
+
 ✅ Adding new themes requires ONE file change
 ✅ Styling updates affect all pages
 ✅ Easy to extend with new features
@@ -188,6 +207,7 @@ Centralized theme management with:
 ## Validation & Testing
 
 ### ✅ Verified Working
+
 1. **Theme Persistence:** Themes save and restore correctly
 2. **Theme Switching:** Toggle button cycles through all 7 themes
 3. **Component-Specific Styles:** All custom inline styles preserved
@@ -198,7 +218,9 @@ Centralized theme management with:
 8. **Iframe Detection:** Theme toggle hidden when embedded
 
 ### ✅ CSS Variables Compliance
+
 All custom styles verified to use CSS variables:
+
 - Colors: `var(--color-*)`
 - Spacing: `var(--space-*)`
 - Typography: `var(--text-*)`
@@ -208,6 +230,7 @@ All custom styles verified to use CSS variables:
 - Shadows: `var(--shadow-*)`
 
 ### ✅ No Issues Found
+
 - No hardcoded colors detected
 - No broken theme switching
 - No missing resources
@@ -223,47 +246,55 @@ All custom styles verified to use CSS variables:
 Follow this pattern to harmonize the remaining 48 component pages:
 
 #### Step 1: Add Resources in `<head>`
+
 ```html
 <!-- Theme CSS -->
-<link rel="stylesheet" href="../dark.css" id="theme-link">
+<link rel="stylesheet" href="../dark.css" id="theme-link" />
 
 <!-- Common Page Styles -->
-<link rel="stylesheet" href="../styles/page-common.css">  <!-- ADD THIS -->
+<link rel="stylesheet" href="../styles/page-common.css" />
+<!-- ADD THIS -->
 ```
 
 #### Step 2: Replace Theme Scripts
+
 **Remove:**
+
 - All `toggleTheme()` implementations (23+ lines)
 - All "Unified Theme Sync" blocks (88+ lines)
 - Any theme-related localStorage code
 
 **Add (after aural-ui.js):**
+
 ```html
 <!-- Theme Manager -->
 <script src="../js/theme-manager.js"></script>
 
 <script>
-    // Initialize components
-    Aural.initTabs(); // or other initializers
-    lucide.createIcons();
+  // Initialize components
+  Aural.initTabs(); // or other initializers
+  lucide.createIcons();
 
-    // Theme toggle (uses centralized theme manager)
-    function toggleTheme() {
-        if (window.AuralThemeManager) {
-            window.AuralThemeManager.cycleTheme();
-        }
+  // Theme toggle (uses centralized theme manager)
+  function toggleTheme() {
+    if (window.AuralThemeManager) {
+      window.AuralThemeManager.cycleTheme();
     }
+  }
 
-    // ... keep any page-specific logic ...
+  // ... keep any page-specific logic ...
 </script>
 ```
 
 #### Step 3: Verify CSS Variables
+
 Ensure all custom styles use CSS variables, not hardcoded values:
+
 - ✅ `color: var(--color-text-primary)`
 - ❌ `color: #ffffff`
 
 #### Step 4: Test
+
 1. Open page in browser
 2. Click theme toggle button
 3. Verify theme switches correctly
@@ -277,6 +308,7 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 ### 48 Component Pages to Harmonize
 
 **Priority 1 - High Traffic:**
+
 - select.html
 - checkboxes.html
 - radio-buttons.html
@@ -284,6 +316,7 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 - dropdowns.html
 
 **Priority 2 - Forms:**
+
 - file-upload.html
 - multi-select.html
 - search-bar.html
@@ -297,6 +330,7 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 - command-palette.html
 
 **Priority 3 - Layout & Navigation:**
+
 - navbar.html
 - drawer.html
 - breadcrumbs.html
@@ -306,6 +340,7 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 - stepper.html
 
 **Priority 4 - Feedback & Display:**
+
 - toast.html
 - snackbar.html
 - alert-banner.html
@@ -322,6 +357,7 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 - context-menu.html
 
 **Priority 5 - Content & Media:**
+
 - accordions.html
 - carousel.html
 - code-block.html
@@ -340,15 +376,18 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 ### If All 53 Component Pages Harmonized:
 
 **Code Reduction:**
+
 - Duplicate theme code: ~4,700 lines removed
 - Net reduction: ~4,200 lines (90%+ less duplication)
 
 **Maintenance Savings:**
+
 - Theme updates: 1 file vs 53 files
 - Style updates: 1 file vs 53 files
 - Testing effort: 1 theme system vs 53 implementations
 
 **User Experience:**
+
 - Consistent theme behavior across all pages
 - Faster page loads (less duplicate code)
 - More reliable theme persistence
@@ -358,6 +397,7 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 ## Recommendations
 
 ### Immediate Next Steps
+
 1. ✅ Review this pilot implementation
 2. ⏳ Apply pattern to Priority 1 pages (high traffic)
 3. ⏳ Batch process Priority 2-5 pages
@@ -365,6 +405,7 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 5. ⏳ Consider automation script for bulk updates
 
 ### Future Enhancements
+
 - Add theme preview/selector UI
 - Implement smooth theme transitions
 - Add system theme detection (prefers-color-scheme)
@@ -376,6 +417,7 @@ Ensure all custom styles use CSS variables, not hardcoded values:
 ## Conclusion
 
 The pilot harmonization successfully demonstrates:
+
 - ✅ Centralized resources work correctly
 - ✅ Massive code reduction is achievable
 - ✅ Pattern is repeatable and simple

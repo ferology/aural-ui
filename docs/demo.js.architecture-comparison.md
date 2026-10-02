@@ -66,22 +66,24 @@
 
 ## Code Size Comparison
 
-| Aspect                  | Before | After | Change |
-|------------------------|--------|-------|--------|
-| Total lines            | 654    | 591   | -63 (-9.6%) |
-| Hardcoded data         | ~85    | 0     | -85 (-100%) |
-| Sidebar generation     | 104    | ~90   | -14 (-13.5%) |
-| Theme configuration    | ~100   | ~60   | -40 (-40%) |
-| Number of functions    | 12     | 21    | +9 (better modularity) |
+| Aspect              | Before | After | Change                 |
+| ------------------- | ------ | ----- | ---------------------- |
+| Total lines         | 654    | 591   | -63 (-9.6%)            |
+| Hardcoded data      | ~85    | 0     | -85 (-100%)            |
+| Sidebar generation  | 104    | ~90   | -14 (-13.5%)           |
+| Theme configuration | ~100   | ~60   | -40 (-40%)             |
+| Number of functions | 12     | 21    | +9 (better modularity) |
 
 ## Function Complexity Reduction
 
 ### Before
+
 - `generateSidebar()`: 104 lines, does everything
 - `initializeTheme()`: 52 lines, hardcoded configs
 - `selectTheme()`: 84 lines, manual DOM updates
 
 ### After
+
 - `generateSidebar()`: 16 lines, delegates to helpers
 - `renderSection()`: 39 lines, focused responsibility
 - `renderNavLink()`: 10 lines, reusable
@@ -92,6 +94,7 @@
 ## Data Flow Improvements
 
 ### Before: Tightly Coupled
+
 ```
 COMPONENTS (hardcoded)
     ↓
@@ -103,6 +106,7 @@ loadPage()
 ```
 
 ### After: Loosely Coupled
+
 ```
 navigation.json
     ↓
@@ -121,14 +125,14 @@ loadPage()
 
 ## Maintainability Score
 
-| Criteria               | Before | After | Notes |
-|------------------------|--------|-------|-------|
-| Separation of Concerns | 3/10   | 8/10  | Data now separate from logic |
-| Code Reusability       | 4/10   | 8/10  | Many helper functions |
+| Criteria               | Before | After | Notes                         |
+| ---------------------- | ------ | ----- | ----------------------------- |
+| Separation of Concerns | 3/10   | 8/10  | Data now separate from logic  |
+| Code Reusability       | 4/10   | 8/10  | Many helper functions         |
 | Testability            | 3/10   | 7/10  | Pure functions easier to test |
 | Readability            | 5/10   | 8/10  | Clear sections, better naming |
-| DRY Principle          | 4/10   | 9/10  | No theme config duplication |
-| Single Responsibility  | 3/10   | 8/10  | Functions do one thing well |
+| DRY Principle          | 4/10   | 9/10  | No theme config duplication   |
+| Single Responsibility  | 3/10   | 8/10  | Functions do one thing well   |
 
 **Overall Before:** 3.7/10  
 **Overall After:** 8.0/10  

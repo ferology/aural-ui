@@ -92,35 +92,37 @@ Every page MUST have:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- ... other meta tags ... -->
 
     <!-- Aural UI Core CSS -->
-    <link rel="stylesheet" href="aural-ui.css">
+    <link rel="stylesheet" href="aural-ui.css" />
 
     <!-- Theme CSS - REQUIRED id="theme-link" -->
-    <link rel="stylesheet" href="dark.css" id="theme-link">
-</head>
-<body>
+    <link rel="stylesheet" href="dark.css" id="theme-link" />
+  </head>
+  <body>
     <!-- Your page content -->
 
     <!-- Theme Manager - REQUIRED for standalone pages -->
     <script src="js/theme-manager.js"></script>
-</body>
+  </body>
 </html>
 ```
 
 ### Path Adjustments
 
 **For pages in `/docs/` root:**
+
 ```html
-<link rel="stylesheet" href="dark.css" id="theme-link">
+<link rel="stylesheet" href="dark.css" id="theme-link" />
 <script src="js/theme-manager.js"></script>
 ```
 
 **For pages in `/docs/components/`:**
+
 ```html
-<link rel="stylesheet" href="../dark.css" id="theme-link">
+<link rel="stylesheet" href="../dark.css" id="theme-link" />
 <script src="../js/theme-manager.js"></script>
 ```
 
@@ -132,7 +134,7 @@ Every page MUST have:
 
 ```javascript
 // Theme manager is available globally
-window.AuralThemeManager
+window.AuralThemeManager;
 ```
 
 ### Methods
@@ -153,7 +155,7 @@ AuralThemeManager.cycleTheme();
 
 // Register callback for theme changes
 AuralThemeManager.onChange((themeId) => {
-    console.log('Theme changed to:', themeId);
+  console.log('Theme changed to:', themeId);
 });
 ```
 
@@ -163,20 +165,20 @@ Themes are defined in `js/theme-manager.js`:
 
 ```javascript
 const THEMES = {
-    'dark': {
-        name: 'Dark',
-        file: 'dark.css',
-        icon: 'moon',
-        components: []
-    },
-    'neon': {
-        name: 'Neon',
-        file: 'neon.css',
-        icon: 'sparkles',
-        components: ['fonts-neon.css', 'deluxe-neon.css'],
-        scripts: ['neon-effects.js']
-    },
-    // ... more themes
+  dark: {
+    name: 'Dark',
+    file: 'dark.css',
+    icon: 'moon',
+    components: [],
+  },
+  neon: {
+    name: 'Neon',
+    file: 'neon.css',
+    icon: 'sparkles',
+    components: ['fonts-neon.css', 'deluxe-neon.css'],
+    scripts: ['neon-effects.js'],
+  },
+  // ... more themes
 };
 ```
 
@@ -187,17 +189,20 @@ const THEMES = {
 Some themes load additional CSS and JavaScript:
 
 ### Neon Theme
+
 - `fonts-neon.css` - Google Fonts (Space Grotesk, JetBrains Mono, Orbitron)
 - `deluxe-neon.css` - Premium neon components
 - `neon-effects.js` - Particle effects and gradient mesh
 
 ### Neon Refined Theme
+
 - `fonts-neon.css` - Same fonts as neon
 - `buttons-refined.css` - Gradient button system
 - `cards-refined.css` - Refined card styles
 - `neon-effects.js` - Shared effects
 
 ### Kinetic Theme
+
 - `kinetic-buttons.css` - Brutalist button styles
 - `kinetic-cards.css` - Bold card designs
 
@@ -227,27 +232,27 @@ localStorage.setItem('theme', 'neon');
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Your Page - Aural UI</title>
 
     <!-- Aural UI Core -->
-    <link rel="stylesheet" href="aural-ui.css">
+    <link rel="stylesheet" href="aural-ui.css" />
 
     <!-- Theme (REQUIRED id="theme-link") -->
-    <link rel="stylesheet" href="dark.css" id="theme-link">
+    <link rel="stylesheet" href="dark.css" id="theme-link" />
 
     <!-- Optional: Common page styles -->
-    <link rel="stylesheet" href="styles/page-common.css">
+    <link rel="stylesheet" href="styles/page-common.css" />
 
     <!-- Optional: Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body>
+  </head>
+  <body>
     <main>
-        <h1>Your Page Content</h1>
-        <!-- ... -->
+      <h1>Your Page Content</h1>
+      <!-- ... -->
     </main>
 
     <!-- Theme Manager (REQUIRED) -->
@@ -255,11 +260,11 @@ localStorage.setItem('theme', 'neon');
 
     <!-- Optional: Initialize icons -->
     <script>
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -268,31 +273,31 @@ localStorage.setItem('theme', 'neon');
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Component Name - Aural UI</title>
 
     <!-- Aural UI Core -->
-    <link rel="stylesheet" href="../aural-ui.css">
+    <link rel="stylesheet" href="../aural-ui.css" />
 
     <!-- Theme (REQUIRED id="theme-link") -->
-    <link rel="stylesheet" href="../dark.css" id="theme-link">
+    <link rel="stylesheet" href="../dark.css" id="theme-link" />
 
     <!-- Common Page Styles -->
-    <link rel="stylesheet" href="../styles/page-common.css">
+    <link rel="stylesheet" href="../styles/page-common.css" />
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body>
+  </head>
+  <body>
     <main class="main-content">
-        <header class="page-header">
-            <h1 class="page-title">Component Name</h1>
-            <p class="page-description">Component description</p>
-        </header>
+      <header class="page-header">
+        <h1 class="page-title">Component Name</h1>
+        <p class="page-description">Component description</p>
+      </header>
 
-        <!-- Component examples -->
+      <!-- Component examples -->
     </main>
 
     <!-- Aural UI JavaScript -->
@@ -303,11 +308,11 @@ localStorage.setItem('theme', 'neon');
 
     <!-- Initialize icons -->
     <script>
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -330,17 +335,21 @@ localStorage.setItem('theme', 'neon');
 ### Testing Procedure
 
 1. **Open page directly:**
+
    ```bash
    open /Users/feraf/Projects/aural-ui/docs/your-page.html
    ```
+
    - Theme should load from localStorage
    - Can cycle themes (if page has theme toggle)
 
 2. **Open via demo.html:**
+
    ```bash
    open /Users/feraf/Projects/aural-ui/docs/demo.html
    # Navigate to your page
    ```
+
    - Theme controlled by parent
    - Changes sync immediately
 
@@ -358,6 +367,7 @@ localStorage.setItem('theme', 'neon');
 **Problem:** Page shows unstyled or wrong theme
 
 **Solutions:**
+
 1. Check `id="theme-link"` exists in HTML
 2. Verify path to dark.css is correct
 3. Check theme-manager.js is loaded
@@ -369,6 +379,7 @@ localStorage.setItem('theme', 'neon');
 **Problem:** Neon theme uses system fonts instead of Space Grotesk
 
 **Solution:**
+
 - Theme manager should auto-load `fonts-neon.css`
 - Check if fonts-neon.css exists in docs folder
 - Verify Google Fonts are not blocked
@@ -379,6 +390,7 @@ localStorage.setItem('theme', 'neon');
 **Problem:** Theme resets to dark on page reload
 
 **Solutions:**
+
 1. Check localStorage is not disabled
 2. Verify theme-manager.js is calling `localStorage.setItem('theme', themeId)`
 3. Check browser privacy settings
@@ -388,6 +400,7 @@ localStorage.setItem('theme', 'neon');
 **Problem:** Child page in iframe doesn't match parent theme
 
 **Solutions:**
+
 1. Ensure parent (demo.html) loads theme-manager.js
 2. Check child has `id="theme-link"` element
 3. Verify no JavaScript errors in either frame
@@ -404,9 +417,9 @@ To add a new theme to the system:
 ```css
 /* /docs/my-theme.css */
 :root {
-    --color-primary: #your-color;
-    --color-bg-primary: #your-bg;
-    /* ... all required CSS variables */
+  --color-primary: #your-color;
+  --color-bg-primary: #your-bg;
+  /* ... all required CSS variables */
 }
 ```
 
@@ -416,14 +429,14 @@ Edit `js/theme-manager.js`:
 
 ```javascript
 const THEMES = {
-    // ... existing themes ...
-    'my-theme': {
-        name: 'My Theme',
-        file: 'my-theme.css',
-        icon: 'star', // lucide icon name
-        components: [], // optional theme-specific CSS
-        scripts: []     // optional theme-specific JS
-    }
+  // ... existing themes ...
+  'my-theme': {
+    name: 'My Theme',
+    file: 'my-theme.css',
+    icon: 'star', // lucide icon name
+    components: [], // optional theme-specific CSS
+    scripts: [], // optional theme-specific JS
+  },
 };
 ```
 
@@ -492,6 +505,7 @@ AuralThemeManager.applyTheme('my-theme');
 ## Summary
 
 **Current Status:**
+
 - ✅ 15 standalone pages integrated
 - ✅ 53 component pages integrated
 - ✅ 1 parent frame (demo.html) integrated
@@ -506,6 +520,7 @@ AuralThemeManager.applyTheme('my-theme');
 ## Support
 
 For questions or issues:
+
 1. Check this guide first
 2. Review `js/theme-manager.js` source code
 3. Test in browser with console open

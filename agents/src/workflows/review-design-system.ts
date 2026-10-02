@@ -61,7 +61,7 @@ async function main() {
     'tabs',
     'card',
     'navigation-bar',
-    'form-group'
+    'form-group',
   ];
 
   for (const componentName of priorityComponents) {
@@ -102,8 +102,11 @@ async function main() {
         results.push(result);
 
         // Show quick summary
-        const scoreColor = result.score >= 90 ? chalk.green : result.score >= 70 ? chalk.yellow : chalk.red;
-        console.log(chalk.gray(`  Score: ${scoreColor(result.score + '%')} | Issues: ${result.issues.length}`));
+        const scoreColor =
+          result.score >= 90 ? chalk.green : result.score >= 70 ? chalk.yellow : chalk.red;
+        console.log(
+          chalk.gray(`  Score: ${scoreColor(result.score + '%')} | Issues: ${result.issues.length}`)
+        );
       } else {
         spinner.fail(chalk.red(`✗ ${componentName}`));
       }
@@ -162,9 +165,9 @@ Provide actionable recommendations prioritized by impact.`,
     const context = agentManager.createContext({});
 
     // Compile all results
-    const allIssues = results.flatMap(r => r.issues);
-    const criticalCount = allIssues.filter(i => i.severity === 'critical').length;
-    const highCount = allIssues.filter(i => i.severity === 'high').length;
+    const allIssues = results.flatMap((r) => r.issues);
+    const criticalCount = allIssues.filter((i) => i.severity === 'critical').length;
+    const highCount = allIssues.filter((i) => i.severity === 'high').length;
 
     const orchestrator = agentManager.getOrchestrator();
     const planTask = await orchestrator.execute(
@@ -177,10 +180,18 @@ Provide actionable recommendations prioritized by impact.`,
 - High priority issues: ${highCount}
 
 **Top Issues by Component:**
-${results.slice(0, 5).map(r => `
+${results
+  .slice(0, 5)
+  .map(
+    (r) => `
 ${r.component}:
-${r.issues.slice(0, 3).map(i => `  - [${i.severity}] ${i.description}`).join('\n')}
-`).join('\n')}
+${r.issues
+  .slice(0, 3)
+  .map((i) => `  - [${i.severity}] ${i.description}`)
+  .join('\n')}
+`
+  )
+  .join('\n')}
 
 Create a phased improvement plan with:
 1. Quick wins (< 1 hour each)
@@ -209,14 +220,20 @@ For each phase, provide specific tasks with component names and code examples.`,
   console.log(chalk.bold.cyan('📊 Review Summary\n'));
 
   const avgScore = Math.round(results.reduce((sum, r) => sum + r.score, 0) / results.length);
-  const allIssues = results.flatMap(r => r.issues);
+  const allIssues = results.flatMap((r) => r.issues);
 
   console.log(chalk.white('Overall Health Score: ') + getScoreColor(avgScore)(avgScore + '%'));
   console.log(chalk.white(`Components Reviewed: ${results.length}`));
-  console.log(chalk.red(`Critical Issues: ${allIssues.filter(i => i.severity === 'critical').length}`));
-  console.log(chalk.yellow(`High Priority: ${allIssues.filter(i => i.severity === 'high').length}`));
-  console.log(chalk.blue(`Medium Priority: ${allIssues.filter(i => i.severity === 'medium').length}`));
-  console.log(chalk.gray(`Low Priority: ${allIssues.filter(i => i.severity === 'low').length}`));
+  console.log(
+    chalk.red(`Critical Issues: ${allIssues.filter((i) => i.severity === 'critical').length}`)
+  );
+  console.log(
+    chalk.yellow(`High Priority: ${allIssues.filter((i) => i.severity === 'high').length}`)
+  );
+  console.log(
+    chalk.blue(`Medium Priority: ${allIssues.filter((i) => i.severity === 'medium').length}`)
+  );
+  console.log(chalk.gray(`Low Priority: ${allIssues.filter((i) => i.severity === 'low').length}`));
 
   console.log(chalk.bold.green('\n✅ Review Complete!\n'));
   console.log(chalk.white('Next steps:'));
@@ -240,9 +257,15 @@ function parseAuditResult(component: string, result: string): ReviewResult {
 
   for (const line of lines) {
     if (line.match(/critical|high|medium|low/i)) {
-      const severity = (line.match(/critical/i) ? 'critical' :
-                       line.match(/high/i) ? 'high' :
-                       line.match(/medium/i) ? 'medium' : 'low') as ReviewResult['issues'][0]['severity'];
+      const severity = (
+        line.match(/critical/i)
+          ? 'critical'
+          : line.match(/high/i)
+            ? 'high'
+            : line.match(/medium/i)
+              ? 'medium'
+              : 'low'
+      ) as ReviewResult['issues'][0]['severity'];
 
       issues.push({
         severity,
@@ -289,33 +312,33 @@ async function saveDetailedReport(
 
   // Executive Summary
   const avgScore = Math.round(results.reduce((sum, r) => sum + r.score, 0) / results.length);
-  const allIssues = results.flatMap(r => r.issues);
+  const allIssues = results.flatMap((r) => r.issues);
 
   report += '## Executive Summary\n\n';
   report += `**Overall Health Score:** ${avgScore}%\n\n`;
   report += `- Components Reviewed: ${results.length}\n`;
-  report += `- Critical Issues: ${allIssues.filter(i => i.severity === 'critical').length}\n`;
-  report += `- High Priority: ${allIssues.filter(i => i.severity === 'high').length}\n`;
-  report += `- Medium Priority: ${allIssues.filter(i => i.severity === 'medium').length}\n`;
-  report += `- Low Priority: ${allIssues.filter(i => i.severity === 'low').length}\n\n`;
+  report += `- Critical Issues: ${allIssues.filter((i) => i.severity === 'critical').length}\n`;
+  report += `- High Priority: ${allIssues.filter((i) => i.severity === 'high').length}\n`;
+  report += `- Medium Priority: ${allIssues.filter((i) => i.severity === 'medium').length}\n`;
+  report += `- Low Priority: ${allIssues.filter((i) => i.severity === 'low').length}\n\n`;
 
   // Component Details
   report += '## Component Reviews\n\n';
   report += '| Component | Score | Critical | High | Medium | Low |\n';
   report += '|-----------|-------|----------|------|-----------|-----|\n';
 
-  results.forEach(r => {
-    const critical = r.issues.filter(i => i.severity === 'critical').length;
-    const high = r.issues.filter(i => i.severity === 'high').length;
-    const medium = r.issues.filter(i => i.severity === 'medium').length;
-    const low = r.issues.filter(i => i.severity === 'low').length;
+  results.forEach((r) => {
+    const critical = r.issues.filter((i) => i.severity === 'critical').length;
+    const high = r.issues.filter((i) => i.severity === 'high').length;
+    const medium = r.issues.filter((i) => i.severity === 'medium').length;
+    const low = r.issues.filter((i) => i.severity === 'low').length;
 
     report += `| ${r.component} | ${r.score}% | ${critical} | ${high} | ${medium} | ${low} |\n`;
   });
 
   // Detailed Issues
   report += '\n## Detailed Component Analysis\n\n';
-  results.forEach(r => {
+  results.forEach((r) => {
     report += `### ${r.component}\n\n`;
     report += `**Score:** ${r.score}%\n\n`;
 

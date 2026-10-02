@@ -61,42 +61,43 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
   </label>
 </div>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     name: {
       control: 'text',
-      description: 'Radio group name (all radios in group must share same name)'
+      description: 'Radio group name (all radios in group must share same name)',
     },
     options: {
       control: 'object',
-      description: 'Array of options: [{ label: string, value: string, description?: string, disabled?: boolean }]'
+      description:
+        'Array of options: [{ label: string, value: string, description?: string, disabled?: boolean }]',
     },
     selected: {
       control: 'text',
-      description: 'Currently selected value'
+      description: 'Currently selected value',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disable all radios in the group'
+      description: 'Disable all radios in the group',
     },
     layout: {
       control: 'select',
       options: ['stacked', 'inline'],
-      description: 'Layout direction for radio group'
+      description: 'Layout direction for radio group',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Radio button size'
+      description: 'Radio button size',
     },
     groupLabel: {
       control: 'text',
-      description: 'Label for the radio group'
-    }
-  }
+      description: 'Label for the radio group',
+    },
+  },
 };
 
 export default meta;
@@ -141,13 +142,13 @@ export const Default: Story = {
     options: [
       { label: 'Free - $0/month', value: 'free' },
       { label: 'Pro - $9/month', value: 'pro' },
-      { label: 'Enterprise - $29/month', value: 'enterprise' }
+      { label: 'Enterprise - $29/month', value: 'enterprise' },
     ],
     selected: 'free',
     disabled: false,
     layout: 'stacked',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Selected: Story = {
@@ -158,11 +159,11 @@ export const Selected: Story = {
     options: [
       { label: 'Credit Card', value: 'card' },
       { label: 'PayPal', value: 'paypal' },
-      { label: 'Bank Transfer', value: 'bank' }
+      { label: 'Bank Transfer', value: 'bank' },
     ],
     selected: 'paypal',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Disabled: Story = {
@@ -202,11 +203,11 @@ export const Disabled: Story = {
     options: [
       { label: 'Credit Card', value: 'card', disabled: false },
       { label: 'PayPal', value: 'paypal', disabled: false },
-      { label: 'Cryptocurrency (Coming Soon)', value: 'crypto', disabled: true }
+      { label: 'Cryptocurrency (Coming Soon)', value: 'crypto', disabled: true },
     ],
     selected: 'card',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Inline: Story = {
@@ -252,11 +253,11 @@ export const Inline: Story = {
     options: [
       { label: 'Male', value: 'male' },
       { label: 'Female', value: 'female' },
-      { label: 'Other', value: 'other' }
+      { label: 'Other', value: 'other' },
     ],
     selected: 'male',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Stacked: Story = {
@@ -267,11 +268,11 @@ export const Stacked: Story = {
     options: [
       { label: 'Standard - 5-7 days', value: 'standard' },
       { label: 'Express - 2-3 days', value: 'express' },
-      { label: 'Overnight - Next day', value: 'overnight' }
+      { label: 'Overnight - Next day', value: 'overnight' },
     ],
     selected: 'standard',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const WithDescription: Story = {
@@ -316,13 +317,21 @@ export const WithDescription: Story = {
     name: 'shipping',
     groupLabel: 'Choose shipping method',
     options: [
-      { label: 'Standard Shipping', value: 'standard', description: 'Delivery in 5-7 business days' },
+      {
+        label: 'Standard Shipping',
+        value: 'standard',
+        description: 'Delivery in 5-7 business days',
+      },
       { label: 'Express Shipping', value: 'express', description: 'Delivery in 2-3 business days' },
-      { label: 'Overnight Shipping', value: 'overnight', description: 'Next business day delivery' }
+      {
+        label: 'Overnight Shipping',
+        value: 'overnight',
+        description: 'Next business day delivery',
+      },
     ],
     selected: 'standard',
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const Sizes: Story = {
@@ -335,7 +344,7 @@ export const Sizes: Story = {
     const sizes = [
       { size: 'sm', label: 'Small' },
       { size: 'md', label: 'Default' },
-      { size: 'lg', label: 'Large' }
+      { size: 'lg', label: 'Large' },
     ];
 
     sizes.forEach(({ size, label }) => {
@@ -360,7 +369,7 @@ export const Sizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ButtonStyle: Story = {
@@ -393,10 +402,10 @@ export const ButtonStyle: Story = {
     options: [
       { label: 'Grid', value: 'grid' },
       { label: 'List', value: 'list' },
-      { label: 'Table', value: 'table' }
+      { label: 'Table', value: 'table' },
     ],
-    selected: 'grid'
-  }
+    selected: 'grid',
+  },
 };
 
 export const AttachedButtons: Story = {
@@ -430,10 +439,10 @@ export const AttachedButtons: Story = {
       { label: 'Day', value: 'day' },
       { label: 'Week', value: 'week' },
       { label: 'Month', value: 'month' },
-      { label: 'Year', value: 'year' }
+      { label: 'Year', value: 'year' },
     ],
-    selected: 'day'
-  }
+    selected: 'day',
+  },
 };
 
 export const CardStyle: Story = {
@@ -490,10 +499,15 @@ export const CardStyle: Story = {
     options: [
       { label: 'Starter', value: 'starter', price: '$9', description: 'Perfect for individuals' },
       { label: 'Pro', value: 'pro', price: '$29', description: 'For small teams' },
-      { label: 'Enterprise', value: 'enterprise', price: '$99', description: 'For large organizations' }
+      {
+        label: 'Enterprise',
+        value: 'enterprise',
+        price: '$99',
+        description: 'For large organizations',
+      },
     ],
-    selected: 'starter'
-  }
+    selected: 'starter',
+  },
 };
 
 export const AllStates: Story = {
@@ -507,7 +521,7 @@ export const AllStates: Story = {
       { label: 'Default (Unchecked)', checked: false, disabled: false },
       { label: 'Checked', checked: true, disabled: false },
       { label: 'Disabled (Unchecked)', checked: false, disabled: true },
-      { label: 'Disabled (Checked)', checked: true, disabled: true }
+      { label: 'Disabled (Checked)', checked: true, disabled: true },
     ];
 
     states.forEach((state, index) => {
@@ -539,7 +553,7 @@ export const AllStates: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -583,37 +597,37 @@ export const ThemeComparison: Story = {
     options: [
       { label: 'Free', value: 'free' },
       { label: 'Pro', value: 'pro' },
-      { label: 'Enterprise', value: 'enterprise' }
+      { label: 'Enterprise', value: 'enterprise' },
     ],
     selected: 'pro',
     disabled: false,
-    size: 'md'
+    size: 'md',
   },
   argTypes: {
     name: {
       control: 'text',
-      description: 'Radio group name'
+      description: 'Radio group name',
     },
     groupLabel: {
       control: 'text',
-      description: 'Label for the radio group'
+      description: 'Label for the radio group',
     },
     options: {
       control: 'object',
-      description: 'Array of radio options'
+      description: 'Array of radio options',
     },
     selected: {
       control: 'text',
-      description: 'Currently selected value'
+      description: 'Currently selected value',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Radio button size'
+      description: 'Radio button size',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disable all radios'
-    }
-  }
+      description: 'Disable all radios',
+    },
+  },
 };

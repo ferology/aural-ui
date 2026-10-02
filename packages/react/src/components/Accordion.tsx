@@ -55,14 +55,14 @@ export const Accordion: React.FC<AccordionProps> = ({
   allowMultiple = false,
   className = '',
   expandedItems: controlledExpandedItems,
-  onChange
+  onChange,
 }) => {
   // Determine if controlled
   const isControlled = controlledExpandedItems !== undefined;
 
   // Internal state for uncontrolled mode
-  const [internalExpandedItems, setInternalExpandedItems] = useState<string[]>(
-    () => items.filter(item => item.defaultExpanded).map(item => item.id)
+  const [internalExpandedItems, setInternalExpandedItems] = useState<string[]>(() =>
+    items.filter((item) => item.defaultExpanded).map((item) => item.id)
   );
 
   const expandedItems = isControlled ? controlledExpandedItems : internalExpandedItems;
@@ -73,7 +73,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 
     if (isExpanded) {
       // Collapse
-      newExpandedItems = expandedItems.filter(id => id !== itemId);
+      newExpandedItems = expandedItems.filter((id) => id !== itemId);
     } else {
       // Expand
       if (allowMultiple) {
@@ -93,7 +93,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   useEffect(() => {
     if (typeof window.Aural === 'undefined') return;
 
-    items.forEach(item => {
+    items.forEach((item) => {
       const isExpanded = expandedItems.includes(item.id);
       const domItem = document.getElementById(item.id);
 

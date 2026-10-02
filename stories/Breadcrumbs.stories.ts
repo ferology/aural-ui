@@ -70,38 +70,38 @@ See the **Documentation** tab for framework-specific code examples (React, Vue, 
   </ol>
 </nav>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     items: {
       control: 'object',
-      description: 'Array of breadcrumb items with label and optional href'
+      description: 'Array of breadcrumb items with label and optional href',
     },
     separator: {
       control: 'select',
       options: ['slash', 'chevron', 'arrow', 'dash', 'dot'],
-      description: 'Visual separator between breadcrumb items'
+      description: 'Visual separator between breadcrumb items',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Breadcrumb size'
+      description: 'Breadcrumb size',
     },
     withIcons: {
       control: 'boolean',
-      description: 'Display icons alongside labels'
+      description: 'Display icons alongside labels',
     },
     withBackground: {
       control: 'boolean',
-      description: 'Display with background container'
+      description: 'Display with background container',
     },
     maxItems: {
       control: 'number',
-      description: 'Maximum items to show before collapsing (optional)'
-    }
-  }
+      description: 'Maximum items to show before collapsing (optional)',
+    },
+  },
 };
 
 export default meta;
@@ -193,27 +193,24 @@ export const Default: Story = {
       { label: 'Home', href: '/' },
       { label: 'Products', href: '/products' },
       { label: 'Electronics', href: '/products/electronics' },
-      { label: 'Laptop' }
+      { label: 'Laptop' },
     ],
     separator: 'slash',
     size: 'md',
     withIcons: false,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const TwoLevels: Story = {
   render: renderBreadcrumb,
   args: {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'About' }
-    ],
+    items: [{ label: 'Home', href: '/' }, { label: 'About' }],
     separator: 'slash',
     size: 'md',
     withIcons: false,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const FourLevels: Story = {
@@ -224,13 +221,13 @@ export const FourLevels: Story = {
       { label: 'Documentation', href: '/docs' },
       { label: 'Components', href: '/docs/components' },
       { label: 'Navigation', href: '/docs/components/navigation' },
-      { label: 'Breadcrumbs' }
+      { label: 'Breadcrumbs' },
     ],
     separator: 'chevron',
     size: 'md',
     withIcons: false,
-    withBackground: true
-  }
+    withBackground: true,
+  },
 };
 
 export const ManyLevels: Story = {
@@ -243,14 +240,14 @@ export const ManyLevels: Story = {
       { label: 'Computers', href: '/products/electronics/computers' },
       { label: 'Laptops', href: '/products/electronics/computers/laptops' },
       { label: 'Gaming Laptops', href: '/products/electronics/computers/laptops/gaming' },
-      { label: 'High Performance Model' }
+      { label: 'High Performance Model' },
     ],
     separator: 'slash',
     size: 'md',
     withIcons: false,
     withBackground: false,
-    maxItems: 4
-  }
+    maxItems: 4,
+  },
 };
 
 export const WithIcons: Story = {
@@ -260,13 +257,13 @@ export const WithIcons: Story = {
       { label: 'Home', href: '/' },
       { label: 'Documents', href: '/documents' },
       { label: 'Projects', href: '/documents/projects' },
-      { label: 'Report.pdf' }
+      { label: 'Report.pdf' },
     ],
     separator: 'slash',
     size: 'md',
     withIcons: true,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const WithBackground: Story = {
@@ -275,13 +272,13 @@ export const WithBackground: Story = {
     items: [
       { label: 'Dashboard', href: '/dashboard' },
       { label: 'Settings', href: '/dashboard/settings' },
-      { label: 'Profile' }
+      { label: 'Profile' },
     ],
     separator: 'chevron',
     size: 'md',
     withIcons: false,
-    withBackground: true
-  }
+    withBackground: true,
+  },
 };
 
 export const ChevronSeparator: Story = {
@@ -291,13 +288,13 @@ export const ChevronSeparator: Story = {
       { label: 'Home', href: '/' },
       { label: 'Categories', href: '/categories' },
       { label: 'Fashion', href: '/categories/fashion' },
-      { label: 'Shoes' }
+      { label: 'Shoes' },
     ],
     separator: 'chevron',
     size: 'md',
     withIcons: false,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const ArrowSeparator: Story = {
@@ -307,13 +304,13 @@ export const ArrowSeparator: Story = {
       { label: 'Drive', href: '/drive' },
       { label: 'Projects', href: '/drive/projects' },
       { label: 'Website', href: '/drive/projects/website' },
-      { label: 'index.html' }
+      { label: 'index.html' },
     ],
     separator: 'arrow',
     size: 'md',
     withIcons: true,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const DashSeparator: Story = {
@@ -323,13 +320,13 @@ export const DashSeparator: Story = {
       { label: 'Store', href: '/' },
       { label: 'Electronics', href: '/electronics' },
       { label: 'Audio', href: '/electronics/audio' },
-      { label: 'Headphones' }
+      { label: 'Headphones' },
     ],
     separator: 'dash',
     size: 'md',
     withIcons: false,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const DotSeparator: Story = {
@@ -339,13 +336,13 @@ export const DotSeparator: Story = {
       { label: 'Blog', href: '/blog' },
       { label: 'Technology', href: '/blog/technology' },
       { label: 'Web Development', href: '/blog/technology/web' },
-      { label: 'CSS Tips' }
+      { label: 'CSS Tips' },
     ],
     separator: 'dot',
     size: 'md',
     withIcons: false,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const SmallSize: Story = {
@@ -354,13 +351,13 @@ export const SmallSize: Story = {
     items: [
       { label: 'Home', href: '/' },
       { label: 'Products', href: '/products' },
-      { label: 'Details' }
+      { label: 'Details' },
     ],
     separator: 'slash',
     size: 'sm',
     withIcons: false,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const LargeSize: Story = {
@@ -369,13 +366,13 @@ export const LargeSize: Story = {
     items: [
       { label: 'Home', href: '/' },
       { label: 'Products', href: '/products' },
-      { label: 'Details' }
+      { label: 'Details' },
     ],
     separator: 'slash',
     size: 'lg',
     withIcons: false,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const CurrentPageHighlighted: Story = {
@@ -386,13 +383,13 @@ export const CurrentPageHighlighted: Story = {
       { label: 'Shop', href: '/shop' },
       { label: 'Men', href: '/shop/men' },
       { label: 'Shoes', href: '/shop/men/shoes' },
-      { label: 'Running Shoes' }
+      { label: 'Running Shoes' },
     ],
     separator: 'chevron',
     size: 'md',
     withIcons: false,
-    withBackground: false
-  }
+    withBackground: false,
+  },
 };
 
 export const AllSeparators: Story = {
@@ -410,7 +407,7 @@ export const AllSeparators: Story = {
       { type: 'chevron', label: 'Chevron' },
       { type: 'arrow', label: 'Arrow' },
       { type: 'dash', label: 'Dash' },
-      { type: 'dot', label: 'Dot' }
+      { type: 'dot', label: 'Dot' },
     ];
 
     separators.forEach(({ type, label }) => {
@@ -431,12 +428,12 @@ export const AllSeparators: Story = {
         items: [
           { label: 'Home', href: '/' },
           { label: 'Products', href: '/products' },
-          { label: 'Details' }
+          { label: 'Details' },
         ],
         separator: type,
         size: 'md',
         withIcons: false,
-        withBackground: false
+        withBackground: false,
       });
 
       section.appendChild(heading);
@@ -445,7 +442,7 @@ export const AllSeparators: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const AllSizes: Story = {
@@ -461,7 +458,7 @@ export const AllSizes: Story = {
     const sizes: Array<{ size: BreadcrumbArgs['size']; label: string }> = [
       { size: 'sm', label: 'Small' },
       { size: 'md', label: 'Medium (Default)' },
-      { size: 'lg', label: 'Large' }
+      { size: 'lg', label: 'Large' },
     ];
 
     sizes.forEach(({ size, label }) => {
@@ -482,12 +479,12 @@ export const AllSizes: Story = {
         items: [
           { label: 'Home', href: '/' },
           { label: 'Products', href: '/products' },
-          { label: 'Details' }
+          { label: 'Details' },
         ],
         separator: 'slash',
         size,
         withIcons: false,
-        withBackground: false
+        withBackground: false,
       });
 
       section.appendChild(heading);
@@ -496,7 +493,7 @@ export const AllSizes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -510,35 +507,35 @@ export const ThemeComparison: Story = {
       { label: 'Home', href: '/' },
       { label: 'Products', href: '/products' },
       { label: 'Electronics', href: '/products/electronics' },
-      { label: 'Laptop' }
+      { label: 'Laptop' },
     ],
     separator: 'chevron',
     size: 'md',
     withIcons: false,
-    withBackground: false
+    withBackground: false,
   },
   argTypes: {
     items: {
       control: 'object',
-      description: 'Array of breadcrumb items'
+      description: 'Array of breadcrumb items',
     },
     separator: {
       control: 'select',
       options: ['slash', 'chevron', 'arrow', 'dash', 'dot'],
-      description: 'Separator style'
+      description: 'Separator style',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Breadcrumb size'
+      description: 'Breadcrumb size',
     },
     withIcons: {
       control: 'boolean',
-      description: 'Show icons'
+      description: 'Show icons',
     },
     withBackground: {
       control: 'boolean',
-      description: 'Show background'
-    }
-  }
+      description: 'Show background',
+    },
+  },
 };

@@ -77,54 +77,54 @@ const [value, setValue] = useState(50);
   </div>
 </template>
 \`\`\`
-        `.trim()
-      }
-    }
+        `.trim(),
+      },
+    },
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Slider label text'
+      description: 'Slider label text',
     },
     value: {
       control: 'number',
-      description: 'Current slider value'
+      description: 'Current slider value',
     },
     min: {
       control: 'number',
-      description: 'Minimum value'
+      description: 'Minimum value',
     },
     max: {
       control: 'number',
-      description: 'Maximum value'
+      description: 'Maximum value',
     },
     step: {
       control: 'number',
-      description: 'Step increment'
+      description: 'Step increment',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
+      description: 'Disabled state',
     },
     showValue: {
       control: 'boolean',
-      description: 'Show current value'
+      description: 'Show current value',
     },
     showLabels: {
       control: 'boolean',
-      description: 'Show min/max labels'
+      description: 'Show min/max labels',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Slider size'
+      description: 'Slider size',
     },
     color: {
       control: 'select',
       options: ['primary', 'success', 'warning'],
-      description: 'Color variant'
-    }
-  }
+      description: 'Color variant',
+    },
+  },
 };
 
 export default meta;
@@ -248,8 +248,8 @@ export const Default: Story = {
     showValue: true,
     showLabels: false,
     size: 'md',
-    color: 'primary'
-  }
+    color: 'primary',
+  },
 };
 
 export const Sizes: Story = {
@@ -264,7 +264,7 @@ export const Sizes: Story = {
     const sizes = [
       { size: 'sm', label: 'Small Slider', value: 30 },
       { size: 'md', label: 'Default Slider', value: 50 },
-      { size: 'lg', label: 'Large Slider', value: 70 }
+      { size: 'lg', label: 'Large Slider', value: 70 },
     ];
 
     sizes.forEach(({ size, label, value }) => {
@@ -275,14 +275,14 @@ export const Sizes: Story = {
         max: 100,
         step: 1,
         showValue: true,
-        size
+        size,
       });
       slider.style.padding = '0';
       container.appendChild(slider);
     });
 
     return container;
-  }
+  },
 };
 
 export const WithValue: Story = {
@@ -295,8 +295,8 @@ export const WithValue: Story = {
     step: 1,
     showValue: true,
     showLabels: false,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const WithSteps: Story = {
@@ -310,7 +310,7 @@ export const WithSteps: Story = {
 
     const examples = [
       { label: 'Rating', min: 1, max: 5, value: 3, step: 1 },
-      { label: 'Step by 25', min: 0, max: 100, value: 50, step: 25 }
+      { label: 'Step by 25', min: 0, max: 100, value: 50, step: 25 },
     ];
 
     examples.forEach(({ label, min, max, value, step }) => {
@@ -320,14 +320,14 @@ export const WithSteps: Story = {
         max,
         value,
         step,
-        showValue: true
+        showValue: true,
       });
       slider.style.padding = '0';
       container.appendChild(slider);
     });
 
     return container;
-  }
+  },
 };
 
 export const Colors: Story = {
@@ -342,7 +342,7 @@ export const Colors: Story = {
     const colors = [
       { color: 'primary', label: 'Primary', value: 65 },
       { color: 'success', label: 'Success', value: 75 },
-      { color: 'warning', label: 'Warning', value: 60 }
+      { color: 'warning', label: 'Warning', value: 60 },
     ];
 
     colors.forEach(({ color, label, value }) => {
@@ -354,14 +354,14 @@ export const Colors: Story = {
         step: 1,
         showValue: true,
         color,
-        size: 'md'
+        size: 'md',
       });
       slider.style.padding = '0';
       container.appendChild(slider);
     });
 
     return container;
-  }
+  },
 };
 
 export const WithLabels: Story = {
@@ -426,7 +426,7 @@ export const WithLabels: Story = {
     container.appendChild(labelsWrapper);
 
     return container;
-  }
+  },
 };
 
 export const Disabled: Story = {
@@ -440,8 +440,8 @@ export const Disabled: Story = {
     disabled: true,
     showValue: true,
     showLabels: false,
-    size: 'md'
-  }
+    size: 'md',
+  },
 };
 
 export const VolumeControl: Story = {
@@ -510,7 +510,7 @@ export const VolumeControl: Story = {
     container.appendChild(sliderWrapper);
 
     return container;
-  }
+  },
 };
 
 export const PriceRange: Story = {
@@ -573,7 +573,7 @@ export const PriceRange: Story = {
     container.appendChild(priceDisplay);
 
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -650,46 +650,46 @@ export const ThemeComparison: Story = {
     disabled: false,
     showValue: true,
     size: 'md',
-    color: 'primary'
+    color: 'primary',
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Slider label'
+      description: 'Slider label',
     },
     value: {
       control: 'number',
-      description: 'Current value'
+      description: 'Current value',
     },
     min: {
       control: 'number',
-      description: 'Minimum value'
+      description: 'Minimum value',
     },
     max: {
       control: 'number',
-      description: 'Maximum value'
+      description: 'Maximum value',
     },
     step: {
       control: 'number',
-      description: 'Step increment'
+      description: 'Step increment',
     },
     showValue: {
       control: 'boolean',
-      description: 'Show value'
+      description: 'Show value',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Size'
+      description: 'Size',
     },
     color: {
       control: 'select',
       options: ['primary', 'success', 'warning'],
-      description: 'Color'
+      description: 'Color',
     },
     disabled: {
       control: 'boolean',
-      description: 'Disabled state'
-    }
-  }
+      description: 'Disabled state',
+    },
+  },
 };

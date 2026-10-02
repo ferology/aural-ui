@@ -89,10 +89,10 @@ Aural.initTreeView();
 - Keyboard support (Arrow keys, Enter, Space)
 - Screen reader friendly
 - Focus management
-        `.trim()
-      }
-    }
-  }
+        `.trim(),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -214,7 +214,7 @@ export const Default: Story = {
     initializeLucideIcons(container);
     initializeTreeView(container);
     return container;
-  }
+  },
 };
 
 export const NavigationMenu: Story = {
@@ -306,7 +306,7 @@ export const NavigationMenu: Story = {
     initializeLucideIcons(container);
     initializeTreeView(container);
     return container;
-  }
+  },
 };
 
 export const ColorCodedIcons: Story = {
@@ -379,7 +379,7 @@ export const ColorCodedIcons: Story = {
     initializeLucideIcons(container);
     initializeTreeView(container);
     return container;
-  }
+  },
 };
 
 export const DeepNesting: Story = {
@@ -473,7 +473,7 @@ export const DeepNesting: Story = {
     initializeLucideIcons(container);
     initializeTreeView(container);
     return container;
-  }
+  },
 };
 
 export const FileExplorer: Story = {
@@ -581,7 +581,7 @@ export const FileExplorer: Story = {
     initializeLucideIcons(container);
     initializeTreeView(container);
     return container;
-  }
+  },
 };
 
 export const OrganizationChart: Story = {
@@ -675,7 +675,7 @@ export const OrganizationChart: Story = {
     initializeLucideIcons(container);
     initializeTreeView(container);
     return container;
-  }
+  },
 };
 
 export const WithCheckboxes: Story = {
@@ -752,7 +752,7 @@ export const WithCheckboxes: Story = {
     initializeLucideIcons(container);
     initializeTreeView(container);
     return container;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -817,5 +817,5 @@ export const ThemeComparison: Story = {
 
       return tree;
     });
-  }
+  },
 };

@@ -68,7 +68,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   children,
   align = 'left',
   className = '',
-  triggerVariant: _triggerVariant = 'secondary'
+  triggerVariant: _triggerVariant = 'secondary',
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -129,51 +129,43 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const alignClass = align === 'right' ? 'dropdown-menu-right' : '';
 
   return (
-    <div
-      ref={dropdownRef}
-      id={id}
-      className={`dropdown ${className}`}
-    >
-      <div className="dropdown-trigger">
-        {trigger}
-      </div>
+    <div ref={dropdownRef} id={id} className={`dropdown ${className}`}>
+      <div className="dropdown-trigger">{trigger}</div>
 
       <div className={`dropdown-menu ${alignClass}`} hidden={!isOpen}>
-        {items ? (
-          items.map((item, index) => (
-            <React.Fragment key={index}>
-              {item.href ? (
-                <a
-                  href={item.href}
-                  className={`dropdown-item ${item.disabled ? 'disabled' : ''}`}
-                  onClick={(e) => {
-                    if (item.disabled) {
-                      e.preventDefault();
-                      return;
-                    }
-                    handleItemClick(item);
-                  }}
-                >
-                  {item.icon && <span className="dropdown-icon">{item.icon}</span>}
-                  {item.label}
-                </a>
-              ) : (
-                <button
-                  type="button"
-                  className={`dropdown-item ${item.disabled ? 'disabled' : ''}`}
-                  onClick={() => handleItemClick(item)}
-                  disabled={item.disabled}
-                >
-                  {item.icon && <span className="dropdown-icon">{item.icon}</span>}
-                  {item.label}
-                </button>
-              )}
-              {item.divider && <div className="dropdown-divider" />}
-            </React.Fragment>
-          ))
-        ) : (
-          children
-        )}
+        {items
+          ? items.map((item, index) => (
+              <React.Fragment key={index}>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    className={`dropdown-item ${item.disabled ? 'disabled' : ''}`}
+                    onClick={(e) => {
+                      if (item.disabled) {
+                        e.preventDefault();
+                        return;
+                      }
+                      handleItemClick(item);
+                    }}
+                  >
+                    {item.icon && <span className="dropdown-icon">{item.icon}</span>}
+                    {item.label}
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    className={`dropdown-item ${item.disabled ? 'disabled' : ''}`}
+                    onClick={() => handleItemClick(item)}
+                    disabled={item.disabled}
+                  >
+                    {item.icon && <span className="dropdown-icon">{item.icon}</span>}
+                    {item.label}
+                  </button>
+                )}
+                {item.divider && <div className="dropdown-divider" />}
+              </React.Fragment>
+            ))
+          : children}
       </div>
     </div>
   );

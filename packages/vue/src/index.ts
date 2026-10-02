@@ -35,7 +35,11 @@ export { useDropdown } from './composables/useDropdown';
 export type { UseDropdownReturn } from './composables/useDropdown';
 
 export { useCarousel } from './composables/useCarousel';
-export type { UseCarouselReturn, CarouselOptions, CarouselController } from './composables/useCarousel';
+export type {
+  UseCarouselReturn,
+  CarouselOptions,
+  CarouselController,
+} from './composables/useCarousel';
 
 // TODO: Directives
 // export { vTooltip } from './directives/v-tooltip';

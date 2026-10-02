@@ -7,29 +7,30 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'Temporary notification messages that appear at the corner of the screen. Toasts provide brief feedback for user actions and status updates.'
-      }
-    }
+        component:
+          'Temporary notification messages that appear at the corner of the screen. Toasts provide brief feedback for user actions and status updates.',
+      },
+    },
   },
   argTypes: {
     message: {
       control: 'text',
-      description: 'The message to display in the toast'
+      description: 'The message to display in the toast',
     },
     type: {
       control: 'select',
       options: ['success', 'error', 'warning', 'info'],
-      description: 'Toast type: success, error, warning, or info'
+      description: 'Toast type: success, error, warning, or info',
     },
     title: {
       control: 'text',
-      description: 'Optional custom title (defaults to type name)'
+      description: 'Optional custom title (defaults to type name)',
     },
     duration: {
       control: { type: 'range', min: 0, max: 10000, step: 1000 },
-      description: 'Auto-dismiss duration in milliseconds (0 = persistent, default: 5000)'
-    }
-  }
+      description: 'Auto-dismiss duration in milliseconds (0 = persistent, default: 5000)',
+    },
+  },
 };
 
 export default meta;
@@ -46,12 +47,7 @@ export const Success: Story = {
 
     button.onclick = () => {
       if (typeof window.Aural !== 'undefined') {
-        window.Aural.showToast(
-          args.message,
-          args.type,
-          args.title,
-          args.duration
-        );
+        window.Aural.showToast(args.message, args.type, args.title, args.duration);
       }
     };
 
@@ -62,8 +58,8 @@ export const Success: Story = {
     message: 'Your changes have been saved successfully!',
     type: 'success',
     title: 'Success',
-    duration: 3000
-  }
+    duration: 3000,
+  },
 };
 
 export const Error: Story = {
@@ -77,12 +73,7 @@ export const Error: Story = {
 
     button.onclick = () => {
       if (typeof window.Aural !== 'undefined') {
-        window.Aural.showToast(
-          args.message,
-          args.type,
-          args.title,
-          args.duration
-        );
+        window.Aural.showToast(args.message, args.type, args.title, args.duration);
       }
     };
 
@@ -93,8 +84,8 @@ export const Error: Story = {
     message: 'Something went wrong. Please try again.',
     type: 'error',
     title: 'Error',
-    duration: 3000
-  }
+    duration: 3000,
+  },
 };
 
 export const Warning: Story = {
@@ -108,12 +99,7 @@ export const Warning: Story = {
 
     button.onclick = () => {
       if (typeof window.Aural !== 'undefined') {
-        window.Aural.showToast(
-          args.message,
-          args.type,
-          args.title,
-          args.duration
-        );
+        window.Aural.showToast(args.message, args.type, args.title, args.duration);
       }
     };
 
@@ -124,8 +110,8 @@ export const Warning: Story = {
     message: 'Your session will expire in 5 minutes.',
     type: 'warning',
     title: 'Warning',
-    duration: 5000
-  }
+    duration: 5000,
+  },
 };
 
 export const Info: Story = {
@@ -139,12 +125,7 @@ export const Info: Story = {
 
     button.onclick = () => {
       if (typeof window.Aural !== 'undefined') {
-        window.Aural.showToast(
-          args.message,
-          args.type,
-          args.title,
-          args.duration
-        );
+        window.Aural.showToast(args.message, args.type, args.title, args.duration);
       }
     };
 
@@ -155,8 +136,8 @@ export const Info: Story = {
     message: 'A new version is available. Click to update.',
     type: 'info',
     title: 'Info',
-    duration: 3000
-  }
+    duration: 3000,
+  },
 };
 
 export const AllTypes: Story = {
@@ -171,7 +152,7 @@ export const AllTypes: Story = {
       { type: 'success', message: 'Operation completed successfully!', className: 'btn-success' },
       { type: 'error', message: 'Something went wrong!', className: 'btn-error' },
       { type: 'warning', message: 'Please be careful!', className: 'btn-warning' },
-      { type: 'info', message: 'Here is some information!', className: 'btn-info' }
+      { type: 'info', message: 'Here is some information!', className: 'btn-info' },
     ];
 
     toasts.forEach(({ type, message, className }) => {
@@ -194,7 +175,7 @@ export const AllTypes: Story = {
     });
 
     return container;
-  }
+  },
 };
 
 export const WithTitle: Story = {
@@ -236,7 +217,7 @@ export const WithTitle: Story = {
     container.appendChild(button1);
     container.appendChild(button2);
     return container;
-  }
+  },
 };
 
 export const CustomDuration: Story = {
@@ -278,7 +259,7 @@ export const CustomDuration: Story = {
     container.appendChild(button1);
     container.appendChild(button2);
     return container;
-  }
+  },
 };
 
 export const Persistent: Story = {
@@ -303,7 +284,7 @@ export const Persistent: Story = {
 
     container.appendChild(button);
     return container;
-  }
+  },
 };
 
 export const MultipleToasts: Story = {
@@ -329,7 +310,7 @@ export const MultipleToasts: Story = {
 
     container.appendChild(button);
     return container;
-  }
+  },
 };
 
 export const LongMessage: Story = {
@@ -354,7 +335,7 @@ export const LongMessage: Story = {
 
     container.appendChild(button);
     return container;
-  }
+  },
 };
 
 export const CommonUseCases: Story = {
@@ -371,29 +352,29 @@ export const CommonUseCases: Story = {
         message: 'Product added to your cart',
         type: 'success',
         title: 'Cart Updated',
-        className: 'btn-primary'
+        className: 'btn-primary',
       },
       {
         label: 'Copy Link',
         message: 'Link copied to clipboard',
         type: 'info',
         title: null,
-        className: 'btn-secondary'
+        className: 'btn-secondary',
       },
       {
         label: 'Delete Item',
         message: 'Item has been removed',
         type: 'error',
         title: 'Deleted',
-        className: 'btn-error'
+        className: 'btn-error',
       },
       {
         label: 'Save Draft',
         message: 'Draft saved automatically',
         type: 'success',
         title: null,
-        className: 'btn-success'
-      }
+        className: 'btn-success',
+      },
     ];
 
     useCases.forEach(({ label, message, type, title, className }) => {
@@ -411,5 +392,5 @@ export const CommonUseCases: Story = {
     });
 
     return container;
-  }
+  },
 };

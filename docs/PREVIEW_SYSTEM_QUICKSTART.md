@@ -20,11 +20,11 @@ Add the preview system CSS to your page head:
 ```html
 <head>
   <!-- Existing CSS -->
-  <link rel="stylesheet" href="../aural-ui.css">
-  <link rel="stylesheet" href="../dark.css" id="theme-link">
+  <link rel="stylesheet" href="../aural-ui.css" />
+  <link rel="stylesheet" href="../dark.css" id="theme-link" />
 
   <!-- ADD THIS: Preview System CSS -->
-  <link rel="stylesheet" href="../styles/preview-system.css">
+  <link rel="stylesheet" href="../styles/preview-system.css" />
 </head>
 ```
 
@@ -40,11 +40,12 @@ Replace static examples with live preview containers:
 </div>
 
 <!-- NEW: Live preview -->
-<div class="live-preview"
-     data-component="Button"
-     data-example="primary-buttons"
-     data-frameworks="vanilla,react,vue,svelte">
-</div>
+<div
+  class="live-preview"
+  data-component="Button"
+  data-example="primary-buttons"
+  data-frameworks="vanilla,react,vue,svelte"
+></div>
 ```
 
 ### Step 3: Initialize the Preview System
@@ -58,7 +59,7 @@ Add this script block at the end of your page, before closing `</body>`:
   PreviewManager.init({
     defaultFramework: 'vanilla',
     theme: 'dark',
-    showCode: true
+    showCode: true,
   });
 </script>
 ```
@@ -79,7 +80,7 @@ export const examples = {
 <button class="btn btn-secondary">Secondary</button>
       `,
       css: '',
-      js: ''
+      js: '',
     },
 
     react: {
@@ -94,7 +95,7 @@ function Example() {
     </>
   );
 }
-      `
+      `,
     },
 
     vue: {
@@ -107,7 +108,7 @@ function Example() {
 <script setup>
 import { AuralButton } from '@aural-ui/vue';
 </script>
-      `
+      `,
     },
 
     svelte: {
@@ -118,9 +119,9 @@ import { AuralButton } from '@aural-ui/vue';
 
 <Button variant="primary">Primary</Button>
 <Button variant="secondary">Secondary</Button>
-      `
-    }
-  }
+      `,
+    },
+  },
 };
 ```
 
@@ -135,6 +136,7 @@ open http://localhost:3000/components/your-component.html
 ```
 
 You should see:
+
 - Live, clickable buttons
 - Framework tabs to switch between implementations
 - Code display with syntax highlighting
@@ -143,21 +145,25 @@ You should see:
 ## Data Attribute Reference
 
 ### `data-component` (required)
+
 The component name, which must match your example file.
 
 **Example:** `data-component="Button"` → looks for `button-examples.js`
 
 ### `data-example` (required)
+
 The example ID from your examples object.
 
 **Example:** `data-example="primary-buttons"` → `examples['primary-buttons']`
 
 ### `data-frameworks` (required)
+
 Comma-separated list of frameworks to show tabs for.
 
 **Example:** `data-frameworks="vanilla,react,vue"`
 
 Only tabs for listed frameworks will appear. Good for:
+
 - Showing only implemented frameworks
 - Hiding complex examples from certain frameworks
 - Progressive rollout (start with vanilla, add others later)
@@ -257,23 +263,27 @@ function Example() {
 ## Framework-Specific Tips
 
 ### Vanilla JS
+
 - Use inline event handlers or initialization code
 - Icons (Lucide) are automatically initialized
 - Keep JavaScript simple and self-contained
 
 ### React
+
 - Import from `@aural-ui/react` (automatically provided)
 - `useState`, `useEffect` available from `react`
 - Wrap in a function component
 - JSX is automatically transformed
 
 ### Vue
+
 - Use `<template>` and `<script setup>` format
 - Import from `@aural-ui/vue` (automatically provided)
 - `ref`, `computed` available from `vue`
 - Components auto-registered in preview
 
 ### Svelte
+
 - Use standard Svelte syntax
 - Import from `@aural-ui/svelte`
 - Pre-compilation coming soon (currently shows code only)
@@ -281,26 +291,31 @@ function Example() {
 ## Troubleshooting
 
 ### "Example not found" error
+
 - Check file name: `button-examples.js` for `Button` component
 - Check example ID matches: `'primary-buttons'` in both HTML and JS
 - Check file is in `js/preview-examples/` directory
 
 ### Preview shows but code doesn't update
+
 - Make sure example has code for selected framework
 - Check browser console for errors
 - Verify framework name in `data-frameworks` matches example key
 
 ### iframe height issues
+
 - Auto-resize is enabled by default
 - For fixed height: add CSS `.preview-sandbox { height: 200px; }`
 - Check for cross-origin errors in console
 
 ### Copy button not working
+
 - Clipboard API requires HTTPS or localhost
 - Check browser permissions
 - Use a local server, not `file://` protocol
 
 ### Theme not syncing
+
 - Verify `theme-manager.js` is loaded
 - Check `AuralThemeManager` is available globally
 - Preview system listens to theme changes automatically
@@ -308,20 +323,24 @@ function Example() {
 ## Best Practices
 
 ### 1. Keep Examples Focused
+
 Show one concept per example. Don't combine too many features.
 
 **Good:**
+
 ```javascript
 'button-variants': { ... }  // Just variants
 'button-sizes': { ... }     // Just sizes
 ```
 
 **Bad:**
+
 ```javascript
 'everything': { ... }  // Variants, sizes, icons, states all in one
 ```
 
 ### 2. Add Helpful Descriptions
+
 ```javascript
 {
   title: 'Button Variants',
@@ -330,15 +349,19 @@ Show one concept per example. Don't combine too many features.
 ```
 
 ### 3. Test All Frameworks
+
 If you add a framework to `data-frameworks`, provide code for it.
 
 ### 4. Use Consistent Styling
+
 Match the existing documentation style. Use CSS custom properties.
 
 ### 5. Make Examples Interactive
+
 When possible, show interactions (clicks, hovers, state changes).
 
 ### 6. Consider Mobile
+
 Test preview on small screens. Keep examples simple on mobile.
 
 ## Next Steps
@@ -358,6 +381,7 @@ Test preview on small screens. Keep examples simple on mobile.
 ## Support
 
 Questions? Check:
+
 - `/docs/js/preview-system/README.md` - Full API reference
 - Browser console for error messages
 - Example implementations for patterns

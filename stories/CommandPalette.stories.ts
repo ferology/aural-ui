@@ -90,10 +90,10 @@ Quick command launcher with keyboard shortcuts, fuzzy search, and grouped action
 \`\`\`
 
 See the **Documentation** tab for React, Vue, and Svelte examples.
-        `.trim()
-      }
-    }
-  }
+        `.trim(),
+      },
+    },
+  },
 };
 
 export default meta;
@@ -128,7 +128,7 @@ function createCommandPalette(groups: any[], placeholder: string = 'Type a comma
   const results = document.createElement('div');
   results.className = 'aural-command-palette__results';
 
-  groups.forEach(group => {
+  groups.forEach((group) => {
     const groupDiv = document.createElement('div');
     groupDiv.className = 'aural-command-palette__group';
 
@@ -203,7 +203,10 @@ function createCommandPalette(groups: any[], placeholder: string = 'Type a comma
 }
 
 // Wrapper to show trigger button
-function createTriggerWrapper(paletteElement: HTMLElement, buttonText: string = 'Open Command Palette') {
+function createTriggerWrapper(
+  paletteElement: HTMLElement,
+  buttonText: string = 'Open Command Palette'
+) {
   const wrapper = document.createElement('div');
   wrapper.style.padding = '2rem';
 
@@ -216,7 +219,8 @@ function createTriggerWrapper(paletteElement: HTMLElement, buttonText: string = 
   hint.style.marginTop = 'var(--space-3)';
   hint.style.color = 'var(--color-text-secondary)';
   hint.style.fontSize = 'var(--text-sm)';
-  hint.innerHTML = 'Click to open or press <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">⌘K</kbd> / <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">Ctrl+K</kbd>';
+  hint.innerHTML =
+    'Click to open or press <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">⌘K</kbd> / <kbd style="padding: 2px 6px; background: var(--color-bg-tertiary); border-radius: var(--radius-sm);">Ctrl+K</kbd>';
 
   wrapper.appendChild(button);
   wrapper.appendChild(hint);
@@ -234,16 +238,31 @@ export const Basic: Story = {
       {
         label: 'Navigation',
         items: [
-          { icon: 'home', title: 'Go to Dashboard', subtitle: 'View your dashboard overview', kbd: '⌘D' },
-          { icon: 'folder', title: 'Browse Projects', subtitle: 'View all your projects', kbd: '⌘P' },
-          { icon: 'settings', title: 'Open Settings', subtitle: 'Configure your preferences', kbd: '⌘,' }
-        ]
-      }
+          {
+            icon: 'home',
+            title: 'Go to Dashboard',
+            subtitle: 'View your dashboard overview',
+            kbd: '⌘D',
+          },
+          {
+            icon: 'folder',
+            title: 'Browse Projects',
+            subtitle: 'View all your projects',
+            kbd: '⌘P',
+          },
+          {
+            icon: 'settings',
+            title: 'Open Settings',
+            subtitle: 'Configure your preferences',
+            kbd: '⌘,',
+          },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
     return createTriggerWrapper(palette);
-  }
+  },
 };
 
 export const WithMultipleGroups: Story = {
@@ -252,32 +271,52 @@ export const WithMultipleGroups: Story = {
       {
         label: 'Navigation',
         items: [
-          { icon: 'home', title: 'Go to Dashboard', subtitle: 'View your dashboard overview', kbd: '⌘D' },
-          { icon: 'folder', title: 'Browse Projects', subtitle: 'View all your projects', kbd: '⌘P' },
-          { icon: 'settings', title: 'Open Settings', subtitle: 'Configure your preferences', kbd: '⌘,' }
-        ]
+          {
+            icon: 'home',
+            title: 'Go to Dashboard',
+            subtitle: 'View your dashboard overview',
+            kbd: '⌘D',
+          },
+          {
+            icon: 'folder',
+            title: 'Browse Projects',
+            subtitle: 'View all your projects',
+            kbd: '⌘P',
+          },
+          {
+            icon: 'settings',
+            title: 'Open Settings',
+            subtitle: 'Configure your preferences',
+            kbd: '⌘,',
+          },
+        ],
       },
       {
         label: 'Actions',
         items: [
           { icon: 'plus', title: 'Create New Project', subtitle: 'Start a new project', kbd: '⌘N' },
-          { icon: 'upload', title: 'Upload Files', subtitle: 'Upload documents or images', kbd: '⌘U' },
-          { icon: 'download', title: 'Export Data', subtitle: 'Download your data', kbd: '⌘E' }
-        ]
+          {
+            icon: 'upload',
+            title: 'Upload Files',
+            subtitle: 'Upload documents or images',
+            kbd: '⌘U',
+          },
+          { icon: 'download', title: 'Export Data', subtitle: 'Download your data', kbd: '⌘E' },
+        ],
       },
       {
         label: 'Theme',
         items: [
           { icon: 'sun', title: 'Light Mode' },
           { icon: 'moon', title: 'Dark Mode' },
-          { icon: 'monitor', title: 'System Preference' }
-        ]
-      }
+          { icon: 'monitor', title: 'System Preference' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
     return createTriggerWrapper(palette, 'Open Full Palette');
-  }
+  },
 };
 
 export const FileSearch: Story = {
@@ -289,21 +328,21 @@ export const FileSearch: Story = {
           { icon: 'file-text', title: 'project-proposal.docx', subtitle: 'Documents/Projects' },
           { icon: 'file-spreadsheet', title: 'budget-2024.xlsx', subtitle: 'Documents/Finance' },
           { icon: 'image', title: 'logo-design.png', subtitle: 'Images/Branding' },
-          { icon: 'file-code', title: 'index.html', subtitle: 'Web/Development' }
-        ]
+          { icon: 'file-code', title: 'index.html', subtitle: 'Web/Development' },
+        ],
       },
       {
         label: 'All Files',
         items: [
           { icon: 'file', title: 'meeting-notes.txt', subtitle: 'Documents/Notes' },
-          { icon: 'file-archive', title: 'backup.zip', subtitle: 'Downloads' }
-        ]
-      }
+          { icon: 'file-archive', title: 'backup.zip', subtitle: 'Downloads' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups, 'Search files...');
     return createTriggerWrapper(palette, 'Open File Search');
-  }
+  },
 };
 
 export const NavigationCommands: Story = {
@@ -317,14 +356,14 @@ export const NavigationCommands: Story = {
           { icon: 'calendar', title: 'Calendar', subtitle: 'View schedule', kbd: '⌘C' },
           { icon: 'users', title: 'Team', subtitle: 'Manage team members', kbd: '⌘T' },
           { icon: 'folder', title: 'Projects', subtitle: 'Browse all projects', kbd: '⌘P' },
-          { icon: 'star', title: 'Favorites', subtitle: 'Starred items', kbd: '⌘F' }
-        ]
-      }
+          { icon: 'star', title: 'Favorites', subtitle: 'Starred items', kbd: '⌘F' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
     return createTriggerWrapper(palette, 'Navigation Menu');
-  }
+  },
 };
 
 export const QuickActions: Story = {
@@ -335,8 +374,8 @@ export const QuickActions: Story = {
         items: [
           { icon: 'file-plus', title: 'New Document', kbd: '⌘N' },
           { icon: 'folder-plus', title: 'New Folder', kbd: '⌘⇧N' },
-          { icon: 'users-plus', title: 'Invite Team Member' }
-        ]
+          { icon: 'users-plus', title: 'Invite Team Member' },
+        ],
       },
       {
         label: 'Quick Actions',
@@ -344,14 +383,14 @@ export const QuickActions: Story = {
           { icon: 'copy', title: 'Duplicate', kbd: '⌘D' },
           { icon: 'share-2', title: 'Share', kbd: '⌘⇧S' },
           { icon: 'download', title: 'Download', kbd: '⌘S' },
-          { icon: 'trash-2', title: 'Delete', kbd: '⌫' }
-        ]
-      }
+          { icon: 'trash-2', title: 'Delete', kbd: '⌫' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
     return createTriggerWrapper(palette, 'Quick Actions');
-  }
+  },
 };
 
 export const ThemeSwitcher: Story = {
@@ -367,14 +406,14 @@ export const ThemeSwitcher: Story = {
           { icon: 'minimize', title: 'Minimal Theme', subtitle: 'Simple and focused' },
           { icon: 'flame', title: 'Warm Theme', subtitle: 'Cozy and inviting' },
           { icon: 'activity', title: 'Kinetic Theme', subtitle: 'Dynamic and energetic' },
-          { icon: 'monitor', title: 'System Preference', subtitle: 'Match OS setting' }
-        ]
-      }
+          { icon: 'monitor', title: 'System Preference', subtitle: 'Match OS setting' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
     return createTriggerWrapper(palette, 'Change Theme');
-  }
+  },
 };
 
 export const WithoutKeyboardShortcuts: Story = {
@@ -387,14 +426,14 @@ export const WithoutKeyboardShortcuts: Story = {
           { icon: 'copy', title: 'Duplicate' },
           { icon: 'edit', title: 'Edit' },
           { icon: 'trash-2', title: 'Delete' },
-          { icon: 'share-2', title: 'Share' }
-        ]
-      }
+          { icon: 'share-2', title: 'Share' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
     return createTriggerWrapper(palette, 'Simple Menu');
-  }
+  },
 };
 
 export const SearchResults: Story = {
@@ -403,23 +442,27 @@ export const SearchResults: Story = {
       {
         label: 'Commands',
         items: [
-          { icon: 'search', title: 'Search Everything', subtitle: 'Find files, commands, and more' },
-          { icon: 'filter', title: 'Filter Results', subtitle: 'Narrow down your search' }
-        ]
+          {
+            icon: 'search',
+            title: 'Search Everything',
+            subtitle: 'Find files, commands, and more',
+          },
+          { icon: 'filter', title: 'Filter Results', subtitle: 'Narrow down your search' },
+        ],
       },
       {
         label: 'Results',
         items: [
           { icon: 'file', title: 'Search Implementation', subtitle: 'src/components/Search.tsx' },
           { icon: 'file', title: 'Search Documentation', subtitle: 'docs/search.md' },
-          { icon: 'folder', title: 'Search Tests', subtitle: 'tests/search/' }
-        ]
-      }
+          { icon: 'folder', title: 'Search Tests', subtitle: 'tests/search/' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups, 'Search...');
     return createTriggerWrapper(palette, 'Search');
-  }
+  },
 };
 
 export const RecentCommands: Story = {
@@ -429,22 +472,27 @@ export const RecentCommands: Story = {
         label: 'Recent',
         items: [
           { icon: 'clock', title: 'Open Settings', subtitle: 'Used 2 minutes ago', kbd: '⌘,' },
-          { icon: 'clock', title: 'Create New Project', subtitle: 'Used 10 minutes ago', kbd: '⌘N' },
-          { icon: 'clock', title: 'Upload Files', subtitle: 'Used 1 hour ago', kbd: '⌘U' }
-        ]
+          {
+            icon: 'clock',
+            title: 'Create New Project',
+            subtitle: 'Used 10 minutes ago',
+            kbd: '⌘N',
+          },
+          { icon: 'clock', title: 'Upload Files', subtitle: 'Used 1 hour ago', kbd: '⌘U' },
+        ],
       },
       {
         label: 'All Commands',
         items: [
           { icon: 'home', title: 'Go to Dashboard', kbd: '⌘D' },
-          { icon: 'folder', title: 'Browse Projects', kbd: '⌘P' }
-        ]
-      }
+          { icon: 'folder', title: 'Browse Projects', kbd: '⌘P' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
     return createTriggerWrapper(palette, 'Recent & All Commands');
-  }
+  },
 };
 
 export const GroupedByCategory: Story = {
@@ -455,30 +503,30 @@ export const GroupedByCategory: Story = {
         items: [
           { icon: 'file-plus', title: 'New File', kbd: '⌘N' },
           { icon: 'folder-open', title: 'Open File', kbd: '⌘O' },
-          { icon: 'save', title: 'Save', kbd: '⌘S' }
-        ]
+          { icon: 'save', title: 'Save', kbd: '⌘S' },
+        ],
       },
       {
         label: 'Edit',
         items: [
           { icon: 'scissors', title: 'Cut', kbd: '⌘X' },
           { icon: 'copy', title: 'Copy', kbd: '⌘C' },
-          { icon: 'clipboard', title: 'Paste', kbd: '⌘V' }
-        ]
+          { icon: 'clipboard', title: 'Paste', kbd: '⌘V' },
+        ],
       },
       {
         label: 'View',
         items: [
           { icon: 'zoom-in', title: 'Zoom In', kbd: '⌘+' },
           { icon: 'zoom-out', title: 'Zoom Out', kbd: '⌘-' },
-          { icon: 'maximize', title: 'Full Screen', kbd: '⌘⇧F' }
-        ]
-      }
+          { icon: 'maximize', title: 'Full Screen', kbd: '⌘⇧F' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
     return createTriggerWrapper(palette, 'Menu Commands');
-  }
+  },
 };
 
 export const InteractiveDemo: Story = {
@@ -488,16 +536,16 @@ export const InteractiveDemo: Story = {
         label: 'Navigation',
         items: [
           { icon: 'home', title: 'Dashboard', subtitle: 'Your overview', kbd: '⌘D' },
-          { icon: 'folder', title: 'Projects', subtitle: 'All projects', kbd: '⌘P' }
-        ]
+          { icon: 'folder', title: 'Projects', subtitle: 'All projects', kbd: '⌘P' },
+        ],
       },
       {
         label: 'Actions',
         items: [
           { icon: 'plus', title: 'Create', subtitle: 'New item', kbd: '⌘N' },
-          { icon: 'upload', title: 'Upload', subtitle: 'Add files', kbd: '⌘U' }
-        ]
-      }
+          { icon: 'upload', title: 'Upload', subtitle: 'Add files', kbd: '⌘U' },
+        ],
+      },
     ];
 
     const palette = createCommandPalette(groups);
@@ -525,7 +573,7 @@ export const InteractiveDemo: Story = {
     };
 
     return wrapper;
-  }
+  },
 };
 
 export const ThemeComparison: Story = {
@@ -536,15 +584,13 @@ export const ThemeComparison: Story = {
           label: 'Navigation',
           items: [
             { icon: 'home', title: 'Dashboard', subtitle: 'Overview', kbd: '⌘D' },
-            { icon: 'folder', title: 'Projects', kbd: '⌘P' }
-          ]
+            { icon: 'folder', title: 'Projects', kbd: '⌘P' },
+          ],
         },
         {
           label: 'Actions',
-          items: [
-            { icon: 'plus', title: 'Create New', kbd: '⌘N' }
-          ]
-        }
+          items: [{ icon: 'plus', title: 'Create New', kbd: '⌘N' }],
+        },
       ];
 
       const palette = createCommandPalette(groups);
@@ -564,5 +610,5 @@ export const ThemeComparison: Story = {
 
       return palette;
     });
-  }
+  },
 };
