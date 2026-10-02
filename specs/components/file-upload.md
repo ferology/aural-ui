@@ -119,29 +119,26 @@ the same class of bug documented in `specs/components/date-picker.md`
 
 ## 5. Props/API
 
-File Upload is markup + CSS classes. There are **two separate, divergent**
-JS entry points for it, which is worth calling out explicitly:
+File Upload is markup + CSS classes, driven by `Aural.initFileUpload(uploadId, options)`
+in `javascript/index.js`.
 
-- `javascript/index.js`'s `Aural.initFileUpload(uploadId, options)` queries
-  `.aural-file-upload__dropzone`, `.aural-file-upload__input`, and
-  `.aural-file-upload__files` — class names that **do not exist** in this
-  CSS file (which uses unprefixed `.file-upload__zone` / `__input` /
-  `__list`) or in `docs/components/file-upload.html`. Calling
-  `Aural.initFileUpload()` against the markup documented here is a no-op
-  (its internal `querySelector` calls return `null`). Treat it as stale/for
-  a different markup convention, not as this component's real init path.
-- `stories/FileUpload.stories.ts` instead defines and uses its own local
-  `initFileUpload(container)` helper (not exported, not part of the
-  `Aural` global) that queries the correct `.file-upload__zone` /
-  `__input` / `__list` classes and implements drag-and-drop, per-file
-  rendering, remove, and a simulated upload-progress animation. This is
-  the only working reference implementation for this component's behavior
-  today — consumers wiring up `File Upload` should model their own JS on
-  the Storybook helper, not on `Aural.initFileUpload`.
+**Bug fix:** this function used to query `.aural-file-upload__dropzone`,
+`.aural-file-upload__input`, and `.aural-file-upload__files` — class names
+that didn't exist in this CSS file (which uses unprefixed
+`.file-upload__zone` / `__input` / `__list`), making `Aural.initFileUpload()`
+a complete no-op against real markup (nothing dynamically rendered used
+the right classes either, down to the remove button and preview icon). It's
+now fixed to use the real class names throughout — found by comparing it
+against `stories/FileUpload.stories.ts`'s own local, independently-written
+`initFileUpload(container)` helper, which always used the correct classes
+and remains a useful second reference implementation, just no longer the
+_only_ working one. The fix also drops a redundant
+`dropzone.addEventListener('click', () => input.click())` the old code had:
+the zone is a `<label>` wrapping the `<input>`, so a native click already
+opens the file picker, and the old line (dormant only because the selector
+was broken) would have opened it twice once the selector was fixed.
 
-`Aural.initFileUpload(uploadId, options)` options (as documented in the
-function signature, even though the selectors inside don't match this
-component's markup):
+`Aural.initFileUpload(uploadId, options)` options:
 
 | Option         | Type                                | Description                                 |
 | -------------- | ----------------------------------- | ------------------------------------------- |
@@ -191,11 +188,10 @@ icon/preview sizes drop, text drops to `--text-sm`, and the image-grid's
 ```
 
 ```js
-// See stories/FileUpload.stories.ts's local `initFileUpload()` helper for
-// a working reference implementation (drag/drop, preview, simulated
-// progress, remove) — Aural.initFileUpload() in javascript/index.js
-// targets a different, unprefixed-vs-prefixed markup convention and is a
-// no-op against this component's actual classes (see Props/API above).
+Aural.initFileUpload('upload-basic', {
+  maxSize: 10 * 1024 * 1024,
+  onUpload: (file) => console.log('uploaded', file.name),
+});
 ```
 
 ## 8. Cross-references

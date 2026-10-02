@@ -34,24 +34,28 @@ the same idea. The only visible rendering difference this produces is
 that Toggle's track has a subtle `inset 0 2px 4px` shadow that Switch's
 track does not.
 
-**Known footgun — read before touching either file's `.toggle` rules:**
-`components/switch.css` ends with a "BACKWARDS COMPATIBILITY" section
-that re-declares `.toggle`, `.toggle-sm`, `.toggle-lg`, and the
+**Fixed footgun — the cascade now resolves in `.toggle`'s favor:**
+`components/switch.css` ends with a "BACKWARDS COMPATIBILITY" section that
+re-declares `.toggle`, `.toggle-sm`, `.toggle-lg`, and the
 `.toggle-{variant}` checked-state rules at identical selector specificity
-to `components/toggle.css`. Because `src/aural-ui.css` `@import`s
-`toggle.css` _before_ `switch.css`, the cascade means switch.css's
-duplicate wins for every property both blocks set. In practice this means
-`.toggle`'s unchecked/hover track color is actually rendered using
-switch.css's generic `--color-border-strong`/`--color-border-stronger`,
-not toggle.css's own dedicated `--color-toggle-track-off`/
-`--color-toggle-track-hover` semantic tokens — those tokens are defined
-and still consumed by toggle.css's source, but lose the cascade. This
-audit left that ordering/duplication alone (removing either file or
-import is explicitly out of scope — see the task notes — and silently
-changing which block wins would be an unreviewed visual change for
-existing consumers); it's flagged here so whoever next touches toggle
-styling doesn't get confused about why editing `--color-toggle-track-off`
-doesn't change what's on screen.
+to `components/toggle.css`. `src/aural-ui.css` used to `@import` `toggle.css`
+_before_ `switch.css`, so switch.css's duplicate won the cascade for every
+property both blocks set — in practice, `.toggle`'s unchecked/hover track
+color was rendered using switch.css's generic
+`--color-border-strong`/`--color-border-stronger` instead of toggle.css's
+own dedicated `--color-toggle-track-off`/`--color-toggle-track-hover`
+tokens, even though those tokens were defined and still referenced by
+toggle.css's source.
+
+Fixed by swapping the import order (`switch.css` now loads first, so
+`toggle.css`'s rules — declared later — win the tie). Confirmed by
+rendering an unchecked `.toggle` and reading its computed track
+background: it now resolves to `--color-toggle-track-off`'s actual value,
+not `--color-border-strong`'s. This was safe to do _because_ `.toggle` has
+no real-world consumers to regress (see above) — the backward-compat
+block in switch.css itself was left in place (still correct insurance for
+anyone with bare `<label class="toggle">` markup and no `toggle.css`
+import at all), only the import order changed.
 
 **Guidance:** prefer `.switch` in new code. `.toggle` is not deprecated in
 any enforced sense (no lint rule, no console warning) — it's just the

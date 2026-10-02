@@ -87,18 +87,21 @@ step tick markers that can be highlighted as "in range".
 | `--shadow-sm`                                                                                                | Handle resting shadow                                                                                                                                        |
 | `--glow-primary-sm` / `--glow-success-md` / `--glow-warning-md` / `--glow-error-md`                          | Handle hover glow, per color variant                                                                                                                         |
 
-**Pre-existing bugs noted, not fixed in this pass** (neither is flagged
+**Bug fixes (not token additions in the usual sense — neither was flagged
 by `token-audit.js`, which only catches raw literals, not unresolved
-`var()` references):
+`var()` references):**
 
-- `.aural-range-slider__step` uses `var(--color-border)`, which has no
+- `.aural-range-slider__step` used `var(--color-border)`, which had no
   default-theme definition (only the non-default `themes/kinetic.css`
-  defines it) — same issue as `slider.css`'s `.aural-slider__tick` (see
-  `specs/components/slider.md`) and several other unmigrated components.
-- `.aural-range-slider__step--in-range` uses `var(--primary-alpha-50)`,
-  which doesn't exist — `tokens/core/colors.css`'s alpha scale stops at
-  `--primary-alpha-40`. In the default theme this currently resolves to
-  nothing, so in-range step markers render unstyled.
+  defined it) — same issue as `slider.css`'s `.aural-slider__tick` (see
+  `specs/components/slider.md`). Fixed by adding
+  `--color-border: var(--color-border-subtle)` as a semantic alias.
+- `.aural-range-slider__step--in-range` used `var(--primary-alpha-50)`,
+  which didn't exist — `tokens/core/colors.css`'s alpha scale stopped at
+  `--primary-alpha-40`. Fixed by extending the scale one more rung
+  (`--primary-alpha-50`, same `color-mix()` pattern as the existing
+  rungs), so in-range step markers now render with the intended tint in
+  every theme.
 
 Several other values are left as `/* aural-ignore */`: all `0.2s`
 transition durations (handle hover/active, track-fill color — not on the

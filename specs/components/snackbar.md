@@ -86,14 +86,14 @@ additions (`--color-chip-remove-on-color`, `--color-text-on-dark`,
 `--color-badge-neutral-bg`, `--size-280/400/560`, `--z-max`) already
 covered every repeated raw value exactly.
 
-**Known pre-existing gap (not introduced by this migration):**
+**Bug fix (not a token addition in the usual sense):**
 `--color-primary-light` (used for the action-button text and the default
-surface's progress-bar fill) is **not defined anywhere** in `tokens/` —
-it currently resolves to nothing, so those two elements inherit
-`currentColor`/fall back to transparent instead of showing a tinted
-primary. Flagged here rather than guessed at, since the right value
-depends on a design decision (a lighter primary step for use on the
-light, inverted snackbar surface) outside this migration's scope.
+surface's progress-bar fill) was **not defined anywhere** in `tokens/` —
+it resolved to nothing, so those two elements inherited
+`currentColor`/fell back to transparent instead of showing a tinted
+primary. Fixed by adding `--color-primary-light: var(--primary-300)` to
+`tokens/semantic/colors.css` — the next lighter rung on the primary scale,
+chosen for contrast on the snackbar's dark surface.
 
 **Single-occurrence raw values kept as `aural-ignore`:** the warning
 variant's `rgba(0, 0, 0, 0.7)` / `rgba(0, 0, 0, 0.3)` (black overlays for

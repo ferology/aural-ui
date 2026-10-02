@@ -184,6 +184,7 @@
   --primary-alpha-20: color-mix(in srgb, var(--color-primary, var(--primary-500)) 20%, transparent);
   --primary-alpha-30: color-mix(in srgb, var(--color-primary, var(--primary-500)) 30%, transparent);
   --primary-alpha-40: color-mix(in srgb, var(--color-primary, var(--primary-500)) 40%, transparent);
+  --primary-alpha-50: color-mix(in srgb, var(--color-primary, var(--primary-500)) 50%, transparent);
 
   /* ========================================
        Warning Color Opacity Variants
@@ -617,6 +618,8 @@
        ======================================== */
   --color-primary: var(--primary-400);
   --color-primary-hover: color-mix(in srgb, var(--color-primary) 85%, black);
+  /* Lighter primary for use on dark surfaces (snackbar action text/progress fill) */
+  --color-primary-light: var(--primary-300);
   --color-primary-active: color-mix(in srgb, var(--color-primary) 70%, black);
   --color-primary-muted: var(--primary-100);
 
@@ -632,21 +635,25 @@
   --color-success-hover: var(--success-600);
   --color-success-muted: var(--success-100);
   --color-success-bg: rgba(34, 197, 94, 0.1);
+  --color-success-border: rgba(34, 197, 94, 0.3);
 
   --color-warning: var(--warning-500);
   --color-warning-hover: var(--warning-600);
   --color-warning-muted: var(--warning-100);
   --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-warning-border: rgba(245, 158, 11, 0.3);
 
   --color-error: var(--error-500);
   --color-error-hover: var(--error-600);
   --color-error-muted: var(--error-100);
   --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-error-border: rgba(239, 68, 68, 0.3);
 
   --color-info: var(--info-500);
   --color-info-hover: var(--info-600);
   --color-info-muted: var(--info-100);
   --color-info-bg: rgba(59, 130, 246, 0.1);
+  --color-info-border: rgba(59, 130, 246, 0.3);
 
   /* ========================================
        Background Colors
@@ -693,6 +700,11 @@
   --color-border-medium: rgba(255, 255, 255, 0.12);
   --color-border-strong: rgba(255, 255, 255, 0.16);
   --color-border-inverse: var(--neutral-700);
+  /* Generic border alias — components reach for this name directly (chips,
+     code-block, command-palette, dialog, kinetic-cards, slider,
+     range-slider); only themes/kinetic.css defined it before, so every
+     other theme was silently dropping these borders. */
+  --color-border: var(--color-border-subtle);
 
   /* State borders */
   --color-border-focus: var(--color-primary);
@@ -5190,362 +5202,10 @@ textarea.input,
   }
 }
 
-/**
- * AURAL UI - Toggle (Switch) Component
- *
- * On/off toggle switches with smooth animations
- *
- * Usage:
- *   <label class="toggle">
- *     <input type="checkbox" role="switch">
- *     <span>Enable notifications</span>
- *   </label>
- *   <label class="toggle toggle-lg">
- *     <input type="checkbox" role="switch" checked>
- *     <span>Auto-save</span>
- *   </label>
- */
-
-.toggle {
-  /* Layout */
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  position: relative;
-
-  /* Typography */
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  color: var(--color-text-primary);
-  line-height: var(--leading-normal);
-
-  /* Interaction */
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-
-  /* Accessibility */
-  min-height: var(--size-44);
-}
-
-.toggle > input[type='checkbox'][role='switch'] {
-  /* Hide native checkbox */
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle > input[type='checkbox'][role='switch'] + span {
-  position: relative;
-  padding-left: calc(var(--size-44) + var(--space-3));
-}
-
-/* Toggle track */
-
-.toggle > input[type='checkbox'][role='switch'] + span::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-
-  /* Size (default: medium) */
-  width: var(--size-44);
-  height: var(--size-24);
-
-  /* Appearance */
-  background: var(--color-toggle-track-off);
-  border-radius: var(--radius-full);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* aural-ignore: subtle track inset shadow, no equivalent token (switch.css's track has no inset shadow at all — a real visual difference) */
-
-  /* Transitions */
-  transition: var(--transition-all-fast);
-}
-
-/* Toggle thumb */
-
-.toggle > input[type='checkbox'][role='switch'] + span::after {
-  content: '';
-  position: absolute;
-  left: var(--space-0-5);
-  top: 50%;
-  transform: translateY(-50%);
-
-  /* Size - thumb is slightly smaller than track height */
-  width: var(--size-20);
-  height: var(--size-20);
-
-  /* Appearance */
-  background: var(--color-toggle-thumb);
-  border-radius: 50%;
-  box-shadow: 0 2px 4px var(--color-toggle-thumb-shadow);
-
-  /* Transitions */
-  transition: var(--transition-all-fast);
-}
-
-/* Hover state */
-
-.toggle:hover > input[type='checkbox'][role='switch']:not(:disabled) + span::before {
-  background: var(--color-toggle-track-hover);
-}
-
-/* Checked state - track */
-
-.toggle > input[type='checkbox'][role='switch']:checked + span::before {
-  background: var(--color-toggle-track-on);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); /* aural-ignore: legacy glow color predates --color-primary (#5ebd8f); kept for visual parity, not a reusable token */
-}
-
-/* Checked state - thumb position */
-
-.toggle > input[type='checkbox'][role='switch']:checked + span::after {
-  left: calc(var(--size-44) - var(--size-20) - var(--space-0-5));
-}
-
-/* Focus state */
-
-.toggle > input[type='checkbox'][role='switch']:focus-visible + span::before {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
-/* Disabled state */
-
-.toggle > input[type='checkbox'][role='switch']:disabled + span {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.toggle:has(input[type='checkbox'][role='switch']:disabled) {
-  cursor: not-allowed;
-}
-
-/* ========================================
-   SIZES
-   ======================================== */
-
-.toggle-sm {
-  font-size: var(--text-sm);
-  min-height: var(--size-36);
-}
-
-.toggle-sm > input[type='checkbox'][role='switch'] + span {
-  padding-left: calc(var(--size-36) + var(--space-2));
-}
-
-.toggle-sm > input[type='checkbox'][role='switch'] + span::before {
-  width: var(--size-36);
-  height: var(--size-20);
-}
-
-.toggle-sm > input[type='checkbox'][role='switch'] + span::after {
-  width: var(--size-16);
-  height: var(--size-16);
-}
-
-.toggle-sm > input[type='checkbox'][role='switch']:checked + span::after {
-  left: calc(var(--size-36) - var(--size-16) - var(--space-0-5));
-}
-
-.toggle-lg {
-  font-size: var(--text-lg);
-  min-height: var(--size-52);
-}
-
-.toggle-lg > input[type='checkbox'][role='switch'] + span {
-  padding-left: calc(var(--size-56) + var(--space-4));
-}
-
-.toggle-lg > input[type='checkbox'][role='switch'] + span::before {
-  width: var(--size-56);
-  height: var(--size-32);
-}
-
-.toggle-lg > input[type='checkbox'][role='switch'] + span::after {
-  width: var(--size-28);
-  height: var(--size-28);
-}
-
-.toggle-lg > input[type='checkbox'][role='switch']:checked + span::after {
-  left: calc(var(--size-56) - var(--size-28) - var(--space-0-5));
-}
-
-/* ========================================
-   VARIANTS
-   ======================================== */
-
-/* Toggle without label */
-
-.toggle-only {
-  min-height: auto;
-}
-
-.toggle-only > input[type='checkbox'][role='switch'] + span {
-  /* ::before/::after are absolutely positioned, so size the span explicitly to match the 44×24 track. */
-  padding-left: 0;
-  width: var(--size-44);
-  height: var(--size-24);
-  font-size: 0; /* aural-ignore: visually hides the label text node, not a type-scale value */
-}
-
-/* Toggle with description */
-
-.toggle-with-description {
-  align-items: flex-start;
-}
-
-.toggle-with-description > span {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.toggle-with-description > span > .toggle-description {
-  color: var(--color-text-secondary);
-  font-size: var(--text-sm);
-  font-weight: var(--font-normal);
-}
-
-/* Toggle with icons */
-
-.toggle-with-icons > input[type='checkbox'][role='switch'] + span::before {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--space-1);
-}
-
-.toggle-with-icons > input[type='checkbox'][role='switch'] + span .toggle-icon {
-  width: var(--size-12);
-  height: var(--size-12);
-  color: var(--color-text-muted);
-  z-index: 1;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
-}
-
-.toggle-with-icons > input[type='checkbox'][role='switch']:checked + span .toggle-icon-on {
-  opacity: 1;
-  color: white;
-}
-
-.toggle-with-icons > input[type='checkbox'][role='switch']:not(:checked) + span .toggle-icon-off {
-  opacity: 1;
-  color: var(--color-text-secondary);
-}
-
-/* Label on left */
-
-.toggle-label-left {
-  flex-direction: row-reverse;
-}
-
-.toggle-label-left > input[type='checkbox'][role='switch'] + span {
-  padding-left: 0;
-  padding-right: calc(var(--size-44) + var(--space-3));
-}
-
-.toggle-label-left > input[type='checkbox'][role='switch'] + span::before {
-  left: auto;
-  right: 0;
-}
-
-.toggle-label-left > input[type='checkbox'][role='switch'] + span::after {
-  left: auto;
-  right: var(--space-0-5);
-}
-
-.toggle-label-left > input[type='checkbox'][role='switch']:checked + span::after {
-  right: calc(var(--size-44) - var(--size-20) - var(--space-0-5));
-}
-
-.toggle-label-left.toggle-sm > input[type='checkbox'][role='switch'] + span {
-  padding-right: calc(var(--size-36) + var(--space-2));
-}
-
-.toggle-label-left.toggle-sm > input[type='checkbox'][role='switch']:checked + span::after {
-  right: calc(var(--size-36) - var(--size-16) - var(--space-0-5));
-}
-
-.toggle-label-left.toggle-lg > input[type='checkbox'][role='switch'] + span {
-  padding-right: calc(var(--size-56) + var(--space-4));
-}
-
-.toggle-label-left.toggle-lg > input[type='checkbox'][role='switch']:checked + span::after {
-  right: calc(var(--size-56) - var(--size-28) - var(--space-0-5));
-}
-
-/* ========================================
-   COLOR VARIANTS
-   ======================================== */
-
-.toggle-success > input[type='checkbox'][role='switch']:checked + span::before {
-  background: var(--color-success);
-}
-
-.toggle-warning > input[type='checkbox'][role='switch']:checked + span::before {
-  background: var(--color-warning);
-}
-
-.toggle-error > input[type='checkbox'][role='switch']:checked + span::before {
-  background: var(--color-error);
-}
-
-.toggle-info > input[type='checkbox'][role='switch']:checked + span::before {
-  background: var(--color-info);
-}
-
-/* ========================================
-   TOGGLE GROUP
-   ======================================== */
-
-.toggle-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.toggle-group > .toggle-group-label {
-  color: var(--color-text-primary);
-  font-size: var(--text-sm);
-  font-weight: var(--font-semibold);
-  margin-bottom: var(--space-1);
-}
-
-.toggle-group > .toggle-group-description {
-  color: var(--color-text-secondary);
-  font-size: var(--text-sm);
-  margin-top: calc(-1 * var(--space-2));
-  margin-bottom: var(--space-2);
-}
-
-/* ========================================
-   ACCESSIBILITY
-   ======================================== */
-
-/* High contrast mode support */
-
-@media (prefers-contrast: high) {
-  .toggle > input[type='checkbox'][role='switch'] + span::before {
-    border: 2px solid currentColor;
-  }
-
-  .toggle > input[type='checkbox'][role='switch'] + span::after {
-    border: 1px solid currentColor;
-  }
-}
-
-/* Reduced motion */
-
-@media (prefers-reduced-motion: reduce) {
-  .toggle > input[type='checkbox'][role='switch'] + span::before,
-  .toggle > input[type='checkbox'][role='switch'] + span::after {
-    transition: none;
-  }
-}
+/* switch.css loads first: it carries a legacy .toggle backwards-compat
+   block, and importing toggle.css after it lets .toggle's own rules (and
+   its dedicated --color-toggle-track-* tokens) win the cascade instead of
+   switch's generic duplicate. See specs/components/toggle.md. */
 
 /**
  * AURAL UI - Switch Component
@@ -6003,6 +5663,363 @@ textarea.input,
 
   .switch__thumb {
     border: 2px solid currentColor;
+  }
+}
+
+/**
+ * AURAL UI - Toggle (Switch) Component
+ *
+ * On/off toggle switches with smooth animations
+ *
+ * Usage:
+ *   <label class="toggle">
+ *     <input type="checkbox" role="switch">
+ *     <span>Enable notifications</span>
+ *   </label>
+ *   <label class="toggle toggle-lg">
+ *     <input type="checkbox" role="switch" checked>
+ *     <span>Auto-save</span>
+ *   </label>
+ */
+
+.toggle {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  position: relative;
+
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  line-height: var(--leading-normal);
+
+  /* Interaction */
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  /* Accessibility */
+  min-height: var(--size-44);
+}
+
+.toggle > input[type='checkbox'][role='switch'] {
+  /* Hide native checkbox */
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle > input[type='checkbox'][role='switch'] + span {
+  position: relative;
+  padding-left: calc(var(--size-44) + var(--space-3));
+}
+
+/* Toggle track */
+
+.toggle > input[type='checkbox'][role='switch'] + span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  /* Size (default: medium) */
+  width: var(--size-44);
+  height: var(--size-24);
+
+  /* Appearance */
+  background: var(--color-toggle-track-off);
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* aural-ignore: subtle track inset shadow, no equivalent token (switch.css's track has no inset shadow at all — a real visual difference) */
+
+  /* Transitions */
+  transition: var(--transition-all-fast);
+}
+
+/* Toggle thumb */
+
+.toggle > input[type='checkbox'][role='switch'] + span::after {
+  content: '';
+  position: absolute;
+  left: var(--space-0-5);
+  top: 50%;
+  transform: translateY(-50%);
+
+  /* Size - thumb is slightly smaller than track height */
+  width: var(--size-20);
+  height: var(--size-20);
+
+  /* Appearance */
+  background: var(--color-toggle-thumb);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px var(--color-toggle-thumb-shadow);
+
+  /* Transitions */
+  transition: var(--transition-all-fast);
+}
+
+/* Hover state */
+
+.toggle:hover > input[type='checkbox'][role='switch']:not(:disabled) + span::before {
+  background: var(--color-toggle-track-hover);
+}
+
+/* Checked state - track */
+
+.toggle > input[type='checkbox'][role='switch']:checked + span::before {
+  background: var(--color-toggle-track-on);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); /* aural-ignore: legacy glow color predates --color-primary (#5ebd8f); kept for visual parity, not a reusable token */
+}
+
+/* Checked state - thumb position */
+
+.toggle > input[type='checkbox'][role='switch']:checked + span::after {
+  left: calc(var(--size-44) - var(--size-20) - var(--space-0-5));
+}
+
+/* Focus state */
+
+.toggle > input[type='checkbox'][role='switch']:focus-visible + span::before {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+
+.toggle > input[type='checkbox'][role='switch']:disabled + span {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggle:has(input[type='checkbox'][role='switch']:disabled) {
+  cursor: not-allowed;
+}
+
+/* ========================================
+   SIZES
+   ======================================== */
+
+.toggle-sm {
+  font-size: var(--text-sm);
+  min-height: var(--size-36);
+}
+
+.toggle-sm > input[type='checkbox'][role='switch'] + span {
+  padding-left: calc(var(--size-36) + var(--space-2));
+}
+
+.toggle-sm > input[type='checkbox'][role='switch'] + span::before {
+  width: var(--size-36);
+  height: var(--size-20);
+}
+
+.toggle-sm > input[type='checkbox'][role='switch'] + span::after {
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.toggle-sm > input[type='checkbox'][role='switch']:checked + span::after {
+  left: calc(var(--size-36) - var(--size-16) - var(--space-0-5));
+}
+
+.toggle-lg {
+  font-size: var(--text-lg);
+  min-height: var(--size-52);
+}
+
+.toggle-lg > input[type='checkbox'][role='switch'] + span {
+  padding-left: calc(var(--size-56) + var(--space-4));
+}
+
+.toggle-lg > input[type='checkbox'][role='switch'] + span::before {
+  width: var(--size-56);
+  height: var(--size-32);
+}
+
+.toggle-lg > input[type='checkbox'][role='switch'] + span::after {
+  width: var(--size-28);
+  height: var(--size-28);
+}
+
+.toggle-lg > input[type='checkbox'][role='switch']:checked + span::after {
+  left: calc(var(--size-56) - var(--size-28) - var(--space-0-5));
+}
+
+/* ========================================
+   VARIANTS
+   ======================================== */
+
+/* Toggle without label */
+
+.toggle-only {
+  min-height: auto;
+}
+
+.toggle-only > input[type='checkbox'][role='switch'] + span {
+  /* ::before/::after are absolutely positioned, so size the span explicitly to match the 44×24 track. */
+  padding-left: 0;
+  width: var(--size-44);
+  height: var(--size-24);
+  font-size: 0; /* aural-ignore: visually hides the label text node, not a type-scale value */
+}
+
+/* Toggle with description */
+
+.toggle-with-description {
+  align-items: flex-start;
+}
+
+.toggle-with-description > span {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.toggle-with-description > span > .toggle-description {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+}
+
+/* Toggle with icons */
+
+.toggle-with-icons > input[type='checkbox'][role='switch'] + span::before {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-1);
+}
+
+.toggle-with-icons > input[type='checkbox'][role='switch'] + span .toggle-icon {
+  width: var(--size-12);
+  height: var(--size-12);
+  color: var(--color-text-muted);
+  z-index: 1;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.toggle-with-icons > input[type='checkbox'][role='switch']:checked + span .toggle-icon-on {
+  opacity: 1;
+  color: white;
+}
+
+.toggle-with-icons > input[type='checkbox'][role='switch']:not(:checked) + span .toggle-icon-off {
+  opacity: 1;
+  color: var(--color-text-secondary);
+}
+
+/* Label on left */
+
+.toggle-label-left {
+  flex-direction: row-reverse;
+}
+
+.toggle-label-left > input[type='checkbox'][role='switch'] + span {
+  padding-left: 0;
+  padding-right: calc(var(--size-44) + var(--space-3));
+}
+
+.toggle-label-left > input[type='checkbox'][role='switch'] + span::before {
+  left: auto;
+  right: 0;
+}
+
+.toggle-label-left > input[type='checkbox'][role='switch'] + span::after {
+  left: auto;
+  right: var(--space-0-5);
+}
+
+.toggle-label-left > input[type='checkbox'][role='switch']:checked + span::after {
+  right: calc(var(--size-44) - var(--size-20) - var(--space-0-5));
+}
+
+.toggle-label-left.toggle-sm > input[type='checkbox'][role='switch'] + span {
+  padding-right: calc(var(--size-36) + var(--space-2));
+}
+
+.toggle-label-left.toggle-sm > input[type='checkbox'][role='switch']:checked + span::after {
+  right: calc(var(--size-36) - var(--size-16) - var(--space-0-5));
+}
+
+.toggle-label-left.toggle-lg > input[type='checkbox'][role='switch'] + span {
+  padding-right: calc(var(--size-56) + var(--space-4));
+}
+
+.toggle-label-left.toggle-lg > input[type='checkbox'][role='switch']:checked + span::after {
+  right: calc(var(--size-56) - var(--size-28) - var(--space-0-5));
+}
+
+/* ========================================
+   COLOR VARIANTS
+   ======================================== */
+
+.toggle-success > input[type='checkbox'][role='switch']:checked + span::before {
+  background: var(--color-success);
+}
+
+.toggle-warning > input[type='checkbox'][role='switch']:checked + span::before {
+  background: var(--color-warning);
+}
+
+.toggle-error > input[type='checkbox'][role='switch']:checked + span::before {
+  background: var(--color-error);
+}
+
+.toggle-info > input[type='checkbox'][role='switch']:checked + span::before {
+  background: var(--color-info);
+}
+
+/* ========================================
+   TOGGLE GROUP
+   ======================================== */
+
+.toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.toggle-group > .toggle-group-label {
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-1);
+}
+
+.toggle-group > .toggle-group-description {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  margin-top: calc(-1 * var(--space-2));
+  margin-bottom: var(--space-2);
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* High contrast mode support */
+
+@media (prefers-contrast: high) {
+  .toggle > input[type='checkbox'][role='switch'] + span::before {
+    border: 2px solid currentColor;
+  }
+
+  .toggle > input[type='checkbox'][role='switch'] + span::after {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle > input[type='checkbox'][role='switch'] + span::before,
+  .toggle > input[type='checkbox'][role='switch'] + span::after {
+    transition: none;
   }
 }
 

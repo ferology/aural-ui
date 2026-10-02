@@ -38,6 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All 59 `components/*.css` files went from 1,044 hardcoded-value errors to 0, with every substitution verified value-preserving (resolves to the identical literal it replaced)
 - A few components referenced custom properties that were never defined anywhere (e.g. `var(--color-primary-alpha-20)` instead of the real `--primary-alpha-20`), silently breaking hover states and search highlights
 - A stray unbalanced parenthesis in `utilities/filters.css` (`filter: none);`) — a genuine CSS syntax error
+- `--color-border` was undefined in every theme except Kinetic, silently dropping borders in `chips.css`, `code-block.css`, `command-palette.css`, `dialog.css`, `kinetic-cards.css`, `slider.css`, and `range-slider.css` — added as a semantic alias of `--color-border-subtle`
+- `--primary-alpha-50` (range-slider in-range markers), `--color-primary-light` (snackbar action text/progress fill), and the four `--color-*-border` tokens (Alert Banner's info/success/warning/error variants) were all referenced but never defined — added, following the existing naming/value conventions
+- A cascade bug where `switch.css`'s backwards-compatibility block silently overrode `.toggle`'s own color tokens — fixed by reordering the `toggle.css`/`switch.css` imports so `.toggle`'s own rules win, verified safe since `.toggle` has no real-world consumers
+- `Aural.initFileUpload()` in `javascript/index.js` queried class names that didn't exist in File Upload's actual markup, making the public JS API a complete no-op — fixed to match the real classes (and dropped a redundant click handler that would have opened the file picker twice), verified end-to-end by simulating a file drop
 
 ### Added - March 1, 2026
 

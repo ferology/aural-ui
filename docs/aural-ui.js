@@ -1,44 +1,61 @@
+'use strict';
 (() => {
   var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __commonJS = (cb, mod) => function __require() {
-    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-  };
+  var __commonJS = (cb, mod) =>
+    function __require() {
+      return (
+        mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod),
+        mod.exports
+      );
+    };
 
   // javascript/index.js
   var require_javascript = __commonJS({
-    "javascript/index.js"(exports, module) {
+    'javascript/index.js'(exports, module) {
       var Aural = {
         /**
          * Show a toast notification
+         *
+         * Creates an accessible toast notification that auto-dismisses after the
+         * specified duration. Uses ARIA live regions for screen reader support.
+         *
          * @param {string} message - The message to display
-         * @param {string} type - Type: 'success', 'error', 'warning', 'info'
-         * @param {string} title - Optional custom title
-         * @param {number} duration - Auto-dismiss duration in ms (default: 5000)
+         * @param {string} [type='info'] - Type: 'success', 'error', 'warning', 'info'
+         * @param {string|null} [title=null] - Optional custom title (defaults to type name)
+         * @param {number} [duration=5000] - Auto-dismiss duration in ms (0 to disable)
+         * @returns {HTMLElement} The created toast element
+         *
+         * @example
+         * Aural.showToast('Changes saved', 'success');
+         * Aural.showToast('Connection lost', 'error', 'Network Error', 0); // No auto-dismiss
          */
-        showToast(message, type = "info", title = null, duration = 5e3) {
-          let container = document.getElementById("aural-toast-container");
+        showToast(message, type = 'info', title = null, duration = 5e3) {
+          let container = document.getElementById('aural-toast-container');
           if (!container) {
-            container = document.createElement("div");
-            container.id = "aural-toast-container";
-            container.className = "toast-container";
-            container.setAttribute("aria-live", "polite");
-            container.setAttribute("aria-atomic", "false");
+            container = document.createElement('div');
+            container.id = 'aural-toast-container';
+            container.className = 'toast-container';
+            container.setAttribute('aria-live', 'polite');
+            container.setAttribute('aria-atomic', 'false');
             document.body.appendChild(container);
           }
-          const toast = document.createElement("div");
+          const toast = document.createElement('div');
           toast.className = `toast toast-${type}`;
-          toast.setAttribute("role", type === "error" ? "alert" : "status");
+          toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
           const icons = {
-            success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
-            error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
-            warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-            info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+            success:
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+            error:
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+            warning:
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+            info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
           };
           const defaultTitles = {
-            success: "Success",
-            error: "Error",
-            warning: "Warning",
-            info: "Info"
+            success: 'Success',
+            error: 'Error',
+            warning: 'Warning',
+            info: 'Info',
           };
           toast.innerHTML = `
             <div class="toast-icon">${icons[type] || icons.info}</div>
@@ -54,44 +71,123 @@
             </button>
         `;
           container.appendChild(toast);
-          const closeBtn = toast.querySelector(".toast-close");
-          closeBtn.addEventListener("click", () => {
-            toast.classList.add("toast-exit");
+          const closeBtn = toast.querySelector('.toast-close');
+          closeBtn.addEventListener('click', () => {
+            toast.classList.add('toast-exit');
             setTimeout(() => toast.remove(), 300);
           });
           if (duration > 0) {
             setTimeout(() => {
-              toast.classList.add("toast-exit");
+              toast.classList.add('toast-exit');
               setTimeout(() => toast.remove(), 300);
             }, duration);
           }
           return toast;
         },
         /**
-         * Open a modal
+         * Store the element that opened the modal for focus return
+         * @private
+         */
+        _modalTriggers: /* @__PURE__ */ new Map(),
+        /**
+         * Handle modal focus trap
+         * @private
+         */
+        _trapFocusInModal(modal, focusableElements) {
+          if (focusableElements.length === 0) return;
+          const firstElement = focusableElements[0];
+          const lastElement = focusableElements[focusableElements.length - 1];
+          const handleTabKey = (e) => {
+            if (e.key === 'Tab') {
+              if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                  e.preventDefault();
+                  lastElement.focus();
+                }
+              } else {
+                if (document.activeElement === lastElement) {
+                  e.preventDefault();
+                  firstElement.focus();
+                }
+              }
+            } else if (e.key === 'Escape') {
+              const modalId = modal.getAttribute('id');
+              if (modalId) {
+                Aural.closeModal(modalId);
+              }
+            }
+          };
+          modal._focusTrapHandler = handleTabKey;
+          modal.addEventListener('keydown', handleTabKey);
+        },
+        /**
+         * Open a modal dialog
+         *
+         * Opens the specified modal with full accessibility support:
+         * - Traps focus inside the modal
+         * - Prevents body scroll
+         * - Handles Escape key to close
+         * - Returns focus to trigger on close
+         *
          * @param {string} modalId - The ID of the modal element
+         * @returns {void}
+         *
+         * @example
+         * <button onclick="Aural.openModal('confirm-modal')">Open</button>
+         *
+         * <div class="modal-overlay" id="confirm-modal">
+         *   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+         *     <h2 id="modal-title">Confirm Action</h2>
+         *     <button onclick="Aural.closeModal('confirm-modal')">Close</button>
+         *   </div>
+         * </div>
          */
         openModal(modalId) {
           const modal = document.getElementById(modalId);
-          if (modal) {
-            modal.classList.add("open");
-            const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            if (focusableElements.length > 0) {
+          if (!modal) return;
+          this._modalTriggers.set(modalId, document.activeElement);
+          modal.classList.add('open');
+          const focusableElements = modal.querySelectorAll(
+            'button:not([disabled]), [href]:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])'
+          );
+          if (focusableElements.length > 0) {
+            setTimeout(() => {
               focusableElements[0].focus();
-            }
-            document.body.style.overflow = "hidden";
+            }, 100);
+          }
+          this._trapFocusInModal(modal, focusableElements);
+          document.body.style.overflow = 'hidden';
+          const mainContent = document.querySelector('main, #main-content, [role="main"]');
+          if (mainContent) {
+            mainContent.setAttribute('aria-hidden', 'true');
           }
         },
         /**
-         * Close a modal
+         * Close a modal dialog
+         *
+         * Closes the modal and restores focus to the element that opened it.
+         *
          * @param {string} modalId - The ID of the modal element
+         * @returns {void}
          */
         closeModal(modalId) {
           const modal = document.getElementById(modalId);
-          if (modal) {
-            modal.classList.remove("open");
-            document.body.style.overflow = "";
+          if (!modal) return;
+          modal.classList.remove('open');
+          if (modal._focusTrapHandler) {
+            modal.removeEventListener('keydown', modal._focusTrapHandler);
+            delete modal._focusTrapHandler;
           }
+          document.body.style.overflow = '';
+          const mainContent = document.querySelector('main, #main-content, [role="main"]');
+          if (mainContent) {
+            mainContent.removeAttribute('aria-hidden');
+          }
+          const trigger = this._modalTriggers.get(modalId);
+          if (trigger && typeof trigger.focus === 'function') {
+            trigger.focus();
+          }
+          this._modalTriggers.delete(modalId);
         },
         /**
          * Toggle modal open/close
@@ -100,7 +196,7 @@
         toggleModal(modalId) {
           const modal = document.getElementById(modalId);
           if (modal) {
-            if (modal.classList.contains("open")) {
+            if (modal.classList.contains('open')) {
               this.closeModal(modalId);
             } else {
               this.openModal(modalId);
@@ -111,56 +207,62 @@
          * Initialize all modals to close on ESC key
          */
         initModals() {
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-              const openModals = document.querySelectorAll(".modal-overlay.open");
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+              const openModals = document.querySelectorAll('.modal-overlay.open');
               openModals.forEach((modal) => {
                 this.closeModal(modal.id);
               });
             }
           });
-          document.addEventListener("click", (e) => {
-            if (e.target.classList.contains("modal-overlay")) {
+          document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
               this.closeModal(e.target.id);
             }
           });
         },
         // ========================================
-        // TABS
+        // TABS - Accessible tabbed interface
+        // Supports keyboard navigation (Arrow keys, Home, End)
         // ========================================
         /**
          * Initialize tabs with keyboard navigation
+         *
+         * Sets up click and keyboard handlers for all tab lists on the page.
+         * Supports Arrow keys for navigation, Home/End for first/last tab.
+         *
+         * @returns {void}
          */
         initTabs() {
-          document.addEventListener("DOMContentLoaded", () => {
+          document.addEventListener('DOMContentLoaded', () => {
             const tabLists = document.querySelectorAll('[role="tablist"]');
             tabLists.forEach((tabList) => {
               const tabs = tabList.querySelectorAll('[role="tab"]');
               tabs.forEach((tab) => {
-                tab.addEventListener("click", (e) => {
-                  const panelId = tab.getAttribute("aria-controls");
+                tab.addEventListener('click', (e) => {
+                  const panelId = tab.getAttribute('aria-controls');
                   this.switchTab(tab.id, panelId);
                 });
-                tab.addEventListener("keydown", (e) => {
+                tab.addEventListener('keydown', (e) => {
                   const tabArray = Array.from(tabs);
                   const currentIndex = tabArray.indexOf(tab);
                   let nextTab = null;
-                  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
                     nextTab = tabArray[currentIndex + 1] || tabArray[0];
                     e.preventDefault();
-                  } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
                     nextTab = tabArray[currentIndex - 1] || tabArray[tabArray.length - 1];
                     e.preventDefault();
-                  } else if (e.key === "Home") {
+                  } else if (e.key === 'Home') {
                     nextTab = tabArray[0];
                     e.preventDefault();
-                  } else if (e.key === "End") {
+                  } else if (e.key === 'End') {
                     nextTab = tabArray[tabArray.length - 1];
                     e.preventDefault();
                   }
                   if (nextTab) {
                     nextTab.focus();
-                    const panelId = nextTab.getAttribute("aria-controls");
+                    const panelId = nextTab.getAttribute('aria-controls');
                     this.switchTab(nextTab.id, panelId);
                   }
                 });
@@ -175,22 +277,21 @@
          */
         switchTab(tabId, panelId) {
           const tab = document.getElementById(tabId);
-          if (!tab)
-            return;
+          if (!tab) return;
           const tabList = tab.closest('[role="tablist"]');
           const allTabs = tabList.querySelectorAll('[role="tab"]');
           const allPanels = document.querySelectorAll('[role="tabpanel"]');
           allTabs.forEach((t) => {
-            t.setAttribute("aria-selected", "false");
-            t.classList.remove("tab-active");
-            t.setAttribute("tabindex", "-1");
+            t.setAttribute('aria-selected', 'false');
+            t.classList.remove('tab-active');
+            t.setAttribute('tabindex', '-1');
           });
           allPanels.forEach((p) => {
             p.hidden = true;
           });
-          tab.setAttribute("aria-selected", "true");
-          tab.classList.add("tab-active");
-          tab.setAttribute("tabindex", "0");
+          tab.setAttribute('aria-selected', 'true');
+          tab.classList.add('tab-active');
+          tab.setAttribute('tabindex', '0');
           const panel = document.getElementById(panelId);
           if (panel) {
             panel.hidden = false;
@@ -203,23 +304,23 @@
          * Initialize tooltips
          */
         initTooltips() {
-          document.addEventListener("DOMContentLoaded", () => {
-            const tooltipWrappers = document.querySelectorAll(".tooltip-wrapper");
+          document.addEventListener('DOMContentLoaded', () => {
+            const tooltipWrappers = document.querySelectorAll('.tooltip-wrapper');
             tooltipWrappers.forEach((wrapper) => {
-              const trigger = wrapper.querySelector("[data-tooltip-trigger]");
-              const tooltip = wrapper.querySelector(".tooltip");
+              const trigger = wrapper.querySelector('[data-tooltip-trigger]');
+              const tooltip = wrapper.querySelector('.tooltip');
               if (trigger && tooltip) {
-                trigger.addEventListener("mouseenter", () => {
-                  tooltip.classList.add("tooltip-show");
+                trigger.addEventListener('mouseenter', () => {
+                  tooltip.classList.add('tooltip-show');
                 });
-                trigger.addEventListener("mouseleave", () => {
-                  tooltip.classList.remove("tooltip-show");
+                trigger.addEventListener('mouseleave', () => {
+                  tooltip.classList.remove('tooltip-show');
                 });
-                trigger.addEventListener("focus", () => {
-                  tooltip.classList.add("tooltip-show");
+                trigger.addEventListener('focus', () => {
+                  tooltip.classList.add('tooltip-show');
                 });
-                trigger.addEventListener("blur", () => {
-                  tooltip.classList.remove("tooltip-show");
+                trigger.addEventListener('blur', () => {
+                  tooltip.classList.remove('tooltip-show');
                 });
               }
             });
@@ -231,12 +332,11 @@
          */
         showTooltip(triggerId) {
           const trigger = document.getElementById(triggerId);
-          if (!trigger)
-            return;
-          const wrapper = trigger.closest(".tooltip-wrapper");
-          const tooltip = wrapper?.querySelector(".tooltip");
+          if (!trigger) return;
+          const wrapper = trigger.closest('.tooltip-wrapper');
+          const tooltip = wrapper?.querySelector('.tooltip');
           if (tooltip) {
-            tooltip.classList.add("tooltip-show");
+            tooltip.classList.add('tooltip-show');
           }
         },
         /**
@@ -245,12 +345,11 @@
          */
         hideTooltip(triggerId) {
           const trigger = document.getElementById(triggerId);
-          if (!trigger)
-            return;
-          const wrapper = trigger.closest(".tooltip-wrapper");
-          const tooltip = wrapper?.querySelector(".tooltip");
+          if (!trigger) return;
+          const wrapper = trigger.closest('.tooltip-wrapper');
+          const tooltip = wrapper?.querySelector('.tooltip');
           if (tooltip) {
-            tooltip.classList.remove("tooltip-show");
+            tooltip.classList.remove('tooltip-show');
           }
         },
         // ========================================
@@ -260,44 +359,44 @@
          * Initialize dropdowns
          */
         initDropdowns() {
-          const dropdowns = document.querySelectorAll(".dropdown");
+          const dropdowns = document.querySelectorAll('.dropdown');
           dropdowns.forEach((dropdown) => {
-            const trigger = dropdown.querySelector(".dropdown-trigger");
-            const menu = dropdown.querySelector(".dropdown-menu");
+            const trigger = dropdown.querySelector('.dropdown-trigger');
+            const menu = dropdown.querySelector('.dropdown-menu');
             if (trigger && menu) {
-              trigger.addEventListener("click", (e) => {
+              trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.toggleDropdown(dropdown.id);
               });
-              trigger.addEventListener("keydown", (e) => {
-                if (e.key === "Enter" || e.key === " ") {
+              trigger.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   this.toggleDropdown(dropdown.id);
-                } else if (e.key === "Escape") {
+                } else if (e.key === 'Escape') {
                   this.closeDropdown(dropdown.id);
                 }
               });
-              menu.addEventListener("keydown", (e) => {
-                const items = menu.querySelectorAll(".dropdown-item:not([disabled])");
+              menu.addEventListener('keydown', (e) => {
+                const items = menu.querySelectorAll('.dropdown-item:not([disabled])');
                 const currentIndex = Array.from(items).indexOf(document.activeElement);
-                if (e.key === "ArrowDown") {
+                if (e.key === 'ArrowDown') {
                   e.preventDefault();
                   const next = items[currentIndex + 1] || items[0];
                   next.focus();
-                } else if (e.key === "ArrowUp") {
+                } else if (e.key === 'ArrowUp') {
                   e.preventDefault();
                   const prev = items[currentIndex - 1] || items[items.length - 1];
                   prev.focus();
-                } else if (e.key === "Escape") {
+                } else if (e.key === 'Escape') {
                   this.closeDropdown(dropdown.id);
                   trigger.focus();
                 }
               });
             }
           });
-          document.addEventListener("click", (e) => {
-            if (!e.target.closest(".dropdown")) {
-              document.querySelectorAll(".dropdown.dropdown-open").forEach((dd) => {
+          document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+              document.querySelectorAll('.dropdown.dropdown-open').forEach((dd) => {
                 this.closeDropdown(dd.id);
               });
             }
@@ -309,14 +408,13 @@
          */
         openDropdown(dropdownId) {
           const dropdown = document.getElementById(dropdownId);
-          if (!dropdown)
-            return;
-          const trigger = dropdown.querySelector(".dropdown-trigger");
-          const menu = dropdown.querySelector(".dropdown-menu");
-          dropdown.classList.add("dropdown-open");
-          trigger?.setAttribute("aria-expanded", "true");
-          menu?.removeAttribute("hidden");
-          const firstItem = menu?.querySelector(".dropdown-item:not([disabled])");
+          if (!dropdown) return;
+          const trigger = dropdown.querySelector('.dropdown-trigger');
+          const menu = dropdown.querySelector('.dropdown-menu');
+          dropdown.classList.add('dropdown-open');
+          trigger?.setAttribute('aria-expanded', 'true');
+          menu?.removeAttribute('hidden');
+          const firstItem = menu?.querySelector('.dropdown-item:not([disabled])');
           firstItem?.focus();
         },
         /**
@@ -325,13 +423,12 @@
          */
         closeDropdown(dropdownId) {
           const dropdown = document.getElementById(dropdownId);
-          if (!dropdown)
-            return;
-          const trigger = dropdown.querySelector(".dropdown-trigger");
-          const menu = dropdown.querySelector(".dropdown-menu");
-          dropdown.classList.remove("dropdown-open");
-          trigger?.setAttribute("aria-expanded", "false");
-          menu?.setAttribute("hidden", "");
+          if (!dropdown) return;
+          const trigger = dropdown.querySelector('.dropdown-trigger');
+          const menu = dropdown.querySelector('.dropdown-menu');
+          dropdown.classList.remove('dropdown-open');
+          trigger?.setAttribute('aria-expanded', 'false');
+          menu?.setAttribute('hidden', '');
         },
         /**
          * Toggle a dropdown
@@ -339,9 +436,8 @@
          */
         toggleDropdown(dropdownId) {
           const dropdown = document.getElementById(dropdownId);
-          if (!dropdown)
-            return;
-          if (dropdown.classList.contains("dropdown-open")) {
+          if (!dropdown) return;
+          if (dropdown.classList.contains('dropdown-open')) {
             this.closeDropdown(dropdownId);
           } else {
             this.openDropdown(dropdownId);
@@ -354,23 +450,23 @@
          * Initialize accordions
          */
         initAccordions() {
-          const accordions = document.querySelectorAll(".accordion");
+          const accordions = document.querySelectorAll('.accordion');
           accordions.forEach((accordion) => {
-            const items = accordion.querySelectorAll(".accordion-item");
-            const allowMultiple = accordion.classList.contains("accordion-always-open");
+            const items = accordion.querySelectorAll('.accordion-item');
+            const allowMultiple = accordion.classList.contains('accordion-always-open');
             items.forEach((item) => {
-              const header = item.querySelector(".accordion-header");
-              const panel = item.querySelector(".accordion-panel");
+              const header = item.querySelector('.accordion-header');
+              const panel = item.querySelector('.accordion-panel');
               if (header && panel) {
-                header.addEventListener("click", () => {
-                  const isExpanded = header.getAttribute("aria-expanded") === "true";
+                header.addEventListener('click', () => {
+                  const isExpanded = header.getAttribute('aria-expanded') === 'true';
                   if (!allowMultiple) {
                     items.forEach((otherItem) => {
                       if (otherItem !== item) {
-                        const otherHeader = otherItem.querySelector(".accordion-header");
-                        const otherPanel = otherItem.querySelector(".accordion-panel");
-                        otherHeader?.setAttribute("aria-expanded", "false");
-                        otherPanel?.setAttribute("hidden", "");
+                        const otherHeader = otherItem.querySelector('.accordion-header');
+                        const otherPanel = otherItem.querySelector('.accordion-panel');
+                        otherHeader?.setAttribute('aria-expanded', 'false');
+                        otherPanel?.setAttribute('hidden', '');
                       }
                     });
                   }
@@ -390,12 +486,11 @@
          */
         openAccordion(itemId) {
           const item = document.getElementById(itemId);
-          if (!item)
-            return;
-          const header = item.querySelector(".accordion-header");
-          const panel = item.querySelector(".accordion-panel");
-          header?.setAttribute("aria-expanded", "true");
-          panel?.removeAttribute("hidden");
+          if (!item) return;
+          const header = item.querySelector('.accordion-header');
+          const panel = item.querySelector('.accordion-panel');
+          header?.setAttribute('aria-expanded', 'true');
+          panel?.removeAttribute('hidden');
         },
         /**
          * Close an accordion item
@@ -403,12 +498,11 @@
          */
         closeAccordion(itemId) {
           const item = document.getElementById(itemId);
-          if (!item)
-            return;
-          const header = item.querySelector(".accordion-header");
-          const panel = item.querySelector(".accordion-panel");
-          header?.setAttribute("aria-expanded", "false");
-          panel?.setAttribute("hidden", "");
+          if (!item) return;
+          const header = item.querySelector('.accordion-header');
+          const panel = item.querySelector('.accordion-panel');
+          header?.setAttribute('aria-expanded', 'false');
+          panel?.setAttribute('hidden', '');
         },
         /**
          * Toggle an accordion item
@@ -416,10 +510,9 @@
          */
         toggleAccordion(itemId) {
           const item = document.getElementById(itemId);
-          if (!item)
-            return;
-          const header = item.querySelector(".accordion-header");
-          const isExpanded = header?.getAttribute("aria-expanded") === "true";
+          if (!item) return;
+          const header = item.querySelector('.accordion-header');
+          const isExpanded = header?.getAttribute('aria-expanded') === 'true';
           if (isExpanded) {
             this.closeAccordion(itemId);
           } else {
@@ -433,29 +526,29 @@
          * Initialize popovers
          */
         initPopovers() {
-          const popoverWrappers = document.querySelectorAll(".popover-wrapper");
+          const popoverWrappers = document.querySelectorAll('.popover-wrapper');
           popoverWrappers.forEach((wrapper) => {
-            const trigger = wrapper.querySelector("[data-popover-trigger]");
-            const popover = wrapper.querySelector(".popover");
-            const closeBtn = popover?.querySelector(".popover-close");
+            const trigger = wrapper.querySelector('[data-popover-trigger]');
+            const popover = wrapper.querySelector('.popover');
+            const closeBtn = popover?.querySelector('.popover-close');
             if (trigger && popover) {
-              trigger.addEventListener("click", () => {
+              trigger.addEventListener('click', () => {
                 this.togglePopover(trigger.id);
               });
-              closeBtn?.addEventListener("click", () => {
+              closeBtn?.addEventListener('click', () => {
                 this.hidePopover(trigger.id);
               });
-              document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape" && !popover.hidden) {
+              document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !popover.hidden) {
                   this.hidePopover(trigger.id);
                 }
               });
             }
           });
-          document.addEventListener("click", (e) => {
-            if (!e.target.closest(".popover-wrapper")) {
-              document.querySelectorAll(".popover.popover-show").forEach((p) => {
-                p.classList.remove("popover-show");
+          document.addEventListener('click', (e) => {
+            if (!e.target.closest('.popover-wrapper')) {
+              document.querySelectorAll('.popover.popover-show').forEach((p) => {
+                p.classList.remove('popover-show');
                 p.hidden = true;
               });
             }
@@ -467,14 +560,15 @@
          */
         showPopover(triggerId) {
           const trigger = document.getElementById(triggerId);
-          if (!trigger)
-            return;
-          const wrapper = trigger.closest(".popover-wrapper");
-          const popover = wrapper?.querySelector(".popover");
+          if (!trigger) return;
+          const wrapper = trigger.closest('.popover-wrapper');
+          const popover = wrapper?.querySelector('.popover');
           if (popover) {
-            popover.classList.add("popover-show");
+            popover.classList.add('popover-show');
             popover.hidden = false;
-            const focusable = popover.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const focusable = popover.querySelector(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
             focusable?.focus();
           }
         },
@@ -484,12 +578,11 @@
          */
         hidePopover(triggerId) {
           const trigger = document.getElementById(triggerId);
-          if (!trigger)
-            return;
-          const wrapper = trigger.closest(".popover-wrapper");
-          const popover = wrapper?.querySelector(".popover");
+          if (!trigger) return;
+          const wrapper = trigger.closest('.popover-wrapper');
+          const popover = wrapper?.querySelector('.popover');
           if (popover) {
-            popover.classList.remove("popover-show");
+            popover.classList.remove('popover-show');
             popover.hidden = true;
           }
         },
@@ -499,11 +592,10 @@
          */
         togglePopover(triggerId) {
           const trigger = document.getElementById(triggerId);
-          if (!trigger)
-            return;
-          const wrapper = trigger.closest(".popover-wrapper");
-          const popover = wrapper?.querySelector(".popover");
-          if (popover?.classList.contains("popover-show")) {
+          if (!trigger) return;
+          const wrapper = trigger.closest('.popover-wrapper');
+          const popover = wrapper?.querySelector('.popover');
+          if (popover?.classList.contains('popover-show')) {
             this.hidePopover(triggerId);
           } else {
             this.showPopover(triggerId);
@@ -516,50 +608,50 @@
          * Initialize custom select components
          */
         initSelects() {
-          document.addEventListener("DOMContentLoaded", () => {
-            const selects = document.querySelectorAll(".select-custom");
+          document.addEventListener('DOMContentLoaded', () => {
+            const selects = document.querySelectorAll('.select-custom');
             selects.forEach((select) => {
-              const trigger = select.querySelector(".select-trigger");
-              const dropdown = select.querySelector(".select-dropdown");
-              const options = select.querySelectorAll(".select-option");
+              const trigger = select.querySelector('.select-trigger');
+              const dropdown = select.querySelector('.select-dropdown');
+              const options = select.querySelectorAll('.select-option');
               if (trigger && dropdown) {
-                trigger.addEventListener("click", () => {
+                trigger.addEventListener('click', () => {
                   this.toggleSelect(select.id);
                 });
                 options.forEach((option) => {
-                  option.addEventListener("click", () => {
-                    const value = option.getAttribute("data-value");
+                  option.addEventListener('click', () => {
+                    const value = option.getAttribute('data-value');
                     this.selectOption(select.id, value);
                   });
-                  option.addEventListener("keydown", (e) => {
-                    if (e.key === "Enter" || e.key === " ") {
+                  option.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
-                      const value = option.getAttribute("data-value");
+                      const value = option.getAttribute('data-value');
                       this.selectOption(select.id, value);
                     }
                   });
                 });
-                dropdown.addEventListener("keydown", (e) => {
-                  const items = Array.from(options).filter((o) => !o.hasAttribute("data-disabled"));
+                dropdown.addEventListener('keydown', (e) => {
+                  const items = Array.from(options).filter((o) => !o.hasAttribute('data-disabled'));
                   const currentIndex = items.indexOf(document.activeElement);
-                  if (e.key === "ArrowDown") {
+                  if (e.key === 'ArrowDown') {
                     e.preventDefault();
                     const next = items[currentIndex + 1] || items[0];
                     next?.focus();
-                  } else if (e.key === "ArrowUp") {
+                  } else if (e.key === 'ArrowUp') {
                     e.preventDefault();
                     const prev = items[currentIndex - 1] || items[items.length - 1];
                     prev?.focus();
-                  } else if (e.key === "Escape") {
+                  } else if (e.key === 'Escape') {
                     this.closeSelect(select.id);
                     trigger.focus();
                   }
                 });
               }
             });
-            document.addEventListener("click", (e) => {
-              if (!e.target.closest(".select-custom")) {
-                document.querySelectorAll(".select-custom").forEach((s) => {
+            document.addEventListener('click', (e) => {
+              if (!e.target.closest('.select-custom')) {
+                document.querySelectorAll('.select-custom').forEach((s) => {
                   this.closeSelect(s.id);
                 });
               }
@@ -572,12 +664,11 @@
          */
         openSelect(selectId) {
           const select = document.getElementById(selectId);
-          if (!select)
-            return;
-          const trigger = select.querySelector(".select-trigger");
-          const dropdown = select.querySelector(".select-dropdown");
-          trigger?.setAttribute("aria-expanded", "true");
-          dropdown?.removeAttribute("hidden");
+          if (!select) return;
+          const trigger = select.querySelector('.select-trigger');
+          const dropdown = select.querySelector('.select-dropdown');
+          trigger?.setAttribute('aria-expanded', 'true');
+          dropdown?.removeAttribute('hidden');
           const selected = dropdown?.querySelector('.select-option[aria-selected="true"]');
           selected?.focus();
         },
@@ -587,12 +678,11 @@
          */
         closeSelect(selectId) {
           const select = document.getElementById(selectId);
-          if (!select)
-            return;
-          const trigger = select.querySelector(".select-trigger");
-          const dropdown = select.querySelector(".select-dropdown");
-          trigger?.setAttribute("aria-expanded", "false");
-          dropdown?.setAttribute("hidden", "");
+          if (!select) return;
+          const trigger = select.querySelector('.select-trigger');
+          const dropdown = select.querySelector('.select-dropdown');
+          trigger?.setAttribute('aria-expanded', 'false');
+          dropdown?.setAttribute('hidden', '');
         },
         /**
          * Toggle a custom select
@@ -600,10 +690,9 @@
          */
         toggleSelect(selectId) {
           const select = document.getElementById(selectId);
-          if (!select)
-            return;
-          const trigger = select.querySelector(".select-trigger");
-          const isOpen = trigger?.getAttribute("aria-expanded") === "true";
+          if (!select) return;
+          const trigger = select.querySelector('.select-trigger');
+          const isOpen = trigger?.getAttribute('aria-expanded') === 'true';
           if (isOpen) {
             this.closeSelect(selectId);
           } else {
@@ -617,17 +706,18 @@
          */
         selectOption(selectId, value) {
           const select = document.getElementById(selectId);
-          if (!select)
-            return;
-          const trigger = select.querySelector(".select-trigger");
-          const options = select.querySelectorAll(".select-option");
+          if (!select) return;
+          const trigger = select.querySelector('.select-trigger');
+          const options = select.querySelectorAll('.select-option');
           options.forEach((option) => {
-            option.setAttribute("aria-selected", "false");
+            option.setAttribute('aria-selected', 'false');
           });
-          const selectedOption = Array.from(options).find((o) => o.getAttribute("data-value") === value);
+          const selectedOption = Array.from(options).find(
+            (o) => o.getAttribute('data-value') === value
+          );
           if (selectedOption) {
-            selectedOption.setAttribute("aria-selected", "true");
-            const label = trigger?.querySelector("span");
+            selectedOption.setAttribute('aria-selected', 'true');
+            const label = trigger?.querySelector('span');
             if (label) {
               label.textContent = selectedOption.textContent;
             }
@@ -644,12 +734,11 @@
          */
         setProgress(progressId, value) {
           const progress = document.getElementById(progressId);
-          if (!progress)
-            return;
-          const bar = progress.querySelector(".progress-bar");
+          if (!progress) return;
+          const bar = progress.querySelector('.progress-bar');
           if (bar) {
             bar.style.width = `${value}%`;
-            progress.setAttribute("aria-valuenow", value.toString());
+            progress.setAttribute('aria-valuenow', value.toString());
           }
         },
         // ========================================
@@ -662,7 +751,7 @@
          */
         setIndeterminate(checkboxId, indeterminate = true) {
           const checkbox = document.getElementById(checkboxId);
-          if (checkbox && checkbox.type === "checkbox") {
+          if (checkbox && checkbox.type === 'checkbox') {
             checkbox.indeterminate = indeterminate;
           }
         },
@@ -675,27 +764,26 @@
          */
         initSlider(sliderId) {
           const slider = document.getElementById(sliderId);
-          if (!slider)
-            return;
-          const input = slider.querySelector(".aural-slider__input");
-          const valueDisplay = slider.querySelector(".aural-slider__value");
-          const label = slider.querySelector(".aural-slider__label");
+          if (!slider) return;
+          const input = slider.querySelector('.aural-slider__input');
+          const valueDisplay = slider.querySelector('.aural-slider__value');
+          const label = slider.querySelector('.aural-slider__label');
           if (input) {
-            input.setAttribute("aria-valuemin", input.min || "0");
-            input.setAttribute("aria-valuemax", input.max || "100");
-            input.setAttribute("aria-valuenow", input.value);
+            input.setAttribute('aria-valuemin', input.min || '0');
+            input.setAttribute('aria-valuemax', input.max || '100');
+            input.setAttribute('aria-valuenow', input.value);
             if (label) {
-              input.setAttribute("aria-label", label.textContent);
+              input.setAttribute('aria-label', label.textContent);
             }
             if (valueDisplay) {
-              valueDisplay.setAttribute("aria-live", "polite");
-              valueDisplay.setAttribute("aria-atomic", "true");
+              valueDisplay.setAttribute('aria-live', 'polite');
+              valueDisplay.setAttribute('aria-atomic', 'true');
             }
             const updateValue = () => {
               valueDisplay.textContent = input.value;
-              input.setAttribute("aria-valuenow", input.value);
+              input.setAttribute('aria-valuenow', input.value);
             };
-            input.addEventListener("input", updateValue);
+            input.addEventListener('input', updateValue);
             updateValue();
           }
         },
@@ -706,10 +794,9 @@
          */
         setSliderValue(sliderId, value) {
           const slider = document.getElementById(sliderId);
-          if (!slider)
-            return;
-          const input = slider.querySelector(".aural-slider__input");
-          const valueDisplay = slider.querySelector(".aural-slider__value");
+          if (!slider) return;
+          const input = slider.querySelector('.aural-slider__input');
+          const valueDisplay = slider.querySelector('.aural-slider__value');
           if (input) {
             input.value = value;
             if (valueDisplay) {
@@ -718,86 +805,97 @@
           }
         },
         // ========================================
-        // CHIPS
+        // CHIPS - Tag/pill input component
+        // Supports keyboard input (Enter, Backspace)
         // ========================================
         /**
          * Initialize a chips/tags input component
+         *
+         * Creates an interactive tag input that supports adding/removing tags
+         * via keyboard (Enter to add, Backspace to remove last). Announces
+         * changes to screen readers.
+         *
          * @param {string} chipsId - The ID of the chips container
-         * @param {Object} options - Configuration options
-         * @returns {Object} API with getTags, addTag, clearTags methods
+         * @param {Object} [options={}] - Configuration options
+         * @param {number|null} [options.maxTags=null] - Maximum number of tags allowed
+         * @param {boolean} [options.allowDuplicates=false] - Whether duplicate tags are allowed
+         * @param {Function|null} [options.onAdd=null] - Callback when tag is added
+         * @param {Function|null} [options.onRemove=null] - Callback when tag is removed
+         * @returns {Object|null} API object with getTags(), addTag(text), clearTags() methods
+         *
+         * @example
+         * const chips = Aural.initChips('tag-input', {
+         *   maxTags: 5,
+         *   onAdd: (tag) => console.log('Added:', tag)
+         * });
+         * chips.addTag('JavaScript');
+         * console.log(chips.getTags()); // ['JavaScript']
          */
         initChips(chipsId, options = {}) {
           const chips = document.getElementById(chipsId);
-          if (!chips)
-            return null;
-          const container = chips.querySelector(".aural-chips__container");
-          const input = chips.querySelector(".aural-chips__input");
+          if (!chips) return null;
+          const container = chips.querySelector('.aural-chips__container');
+          const input = chips.querySelector('.aural-chips__input');
           const tags = [];
-          container.setAttribute("role", "list");
-          container.setAttribute("aria-label", "Tags");
+          container.setAttribute('role', 'list');
+          container.setAttribute('aria-label', 'Tags');
           const {
             maxTags = null,
             allowDuplicates = false,
             onAdd = null,
-            onRemove = null
+            onRemove = null,
           } = options;
           const addTag = (text) => {
-            if (!text || text.trim() === "")
-              return false;
+            if (!text || text.trim() === '') return false;
             const trimmedText = text.trim();
-            if (!allowDuplicates && tags.includes(trimmedText))
-              return false;
-            if (maxTags && tags.length >= maxTags)
-              return false;
+            if (!allowDuplicates && tags.includes(trimmedText)) return false;
+            if (maxTags && tags.length >= maxTags) return false;
             tags.push(trimmedText);
-            const chip = document.createElement("div");
-            chip.className = "aural-chip";
-            chip.setAttribute("role", "listitem");
+            const chip = document.createElement('div');
+            chip.className = 'aural-chip';
+            chip.setAttribute('role', 'listitem');
             chip.innerHTML = `
                 <span class="aural-chip__text">${trimmedText}</span>
                 <button class="aural-chip__remove" aria-label="Remove tag ${trimmedText}" type="button"></button>
             `;
-            const removeBtn = chip.querySelector(".aural-chip__remove");
-            removeBtn.addEventListener("click", () => {
+            const removeBtn = chip.querySelector('.aural-chip__remove');
+            removeBtn.addEventListener('click', () => {
               const index = tags.indexOf(trimmedText);
               if (index > -1) {
                 tags.splice(index, 1);
               }
               chip.remove();
-              const announcement2 = document.createElement("div");
-              announcement2.setAttribute("role", "status");
-              announcement2.setAttribute("aria-live", "polite");
-              announcement2.className = "visually-hidden";
+              const announcement2 = document.createElement('div');
+              announcement2.setAttribute('role', 'status');
+              announcement2.setAttribute('aria-live', 'polite');
+              announcement2.className = 'visually-hidden';
               announcement2.textContent = `Removed tag ${trimmedText}`;
               document.body.appendChild(announcement2);
               setTimeout(() => announcement2.remove(), 1e3);
-              if (onRemove)
-                onRemove(trimmedText);
+              if (onRemove) onRemove(trimmedText);
             });
             container.insertBefore(chip, input);
-            input.value = "";
-            const announcement = document.createElement("div");
-            announcement.setAttribute("role", "status");
-            announcement.setAttribute("aria-live", "polite");
-            announcement.className = "visually-hidden";
+            input.value = '';
+            const announcement = document.createElement('div');
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.className = 'visually-hidden';
             announcement.textContent = `Added tag ${trimmedText}`;
             document.body.appendChild(announcement);
             setTimeout(() => announcement.remove(), 1e3);
-            if (onAdd)
-              onAdd(trimmedText);
+            if (onAdd) onAdd(trimmedText);
             return true;
           };
-          input.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === ",") {
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ',') {
               e.preventDefault();
               addTag(input.value);
-            } else if (e.key === "Backspace" && input.value === "" && tags.length > 0) {
+            } else if (e.key === 'Backspace' && input.value === '' && tags.length > 0) {
               const lastTag = tags[tags.length - 1];
               tags.pop();
-              const chips2 = container.querySelectorAll(".aural-chip");
+              const chips2 = container.querySelectorAll('.aural-chip');
               chips2[chips2.length - 1].remove();
-              if (onRemove)
-                onRemove(lastTag);
+              if (onRemove) onRemove(lastTag);
             }
           });
           return {
@@ -805,8 +903,8 @@
             addTag,
             clearTags: () => {
               tags.length = 0;
-              container.querySelectorAll(".aural-chip").forEach((chip) => chip.remove());
-            }
+              container.querySelectorAll('.aural-chip').forEach((chip) => chip.remove());
+            },
           };
         },
         // ========================================
@@ -818,32 +916,31 @@
          */
         initCodeBlock(codeBlockId) {
           const codeBlock = document.getElementById(codeBlockId);
-          if (!codeBlock)
-            return;
-          const copyBtn = codeBlock.querySelector(".aural-code-block__copy");
-          const codeElement = codeBlock.querySelector(".aural-code-block__code");
+          if (!codeBlock) return;
+          const copyBtn = codeBlock.querySelector('.aural-code-block__copy');
+          const codeElement = codeBlock.querySelector('.aural-code-block__code');
           if (copyBtn && codeElement) {
-            copyBtn.setAttribute("aria-label", "Copy code to clipboard");
-            copyBtn.addEventListener("click", async () => {
+            copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
+            copyBtn.addEventListener('click', async () => {
               try {
                 await navigator.clipboard.writeText(codeElement.textContent);
-                copyBtn.classList.add("aural-code-block__copy--copied");
-                copyBtn.textContent = "Copied!";
-                copyBtn.setAttribute("aria-label", "Code copied to clipboard");
-                const announcement = document.createElement("div");
-                announcement.setAttribute("role", "status");
-                announcement.setAttribute("aria-live", "polite");
-                announcement.className = "visually-hidden";
-                announcement.textContent = "Code copied to clipboard";
+                copyBtn.classList.add('aural-code-block__copy--copied');
+                copyBtn.textContent = 'Copied!';
+                copyBtn.setAttribute('aria-label', 'Code copied to clipboard');
+                const announcement = document.createElement('div');
+                announcement.setAttribute('role', 'status');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.className = 'visually-hidden';
+                announcement.textContent = 'Code copied to clipboard';
                 document.body.appendChild(announcement);
                 setTimeout(() => {
-                  copyBtn.classList.remove("aural-code-block__copy--copied");
-                  copyBtn.textContent = "Copy";
-                  copyBtn.setAttribute("aria-label", "Copy code to clipboard");
+                  copyBtn.classList.remove('aural-code-block__copy--copied');
+                  copyBtn.textContent = 'Copy';
+                  copyBtn.setAttribute('aria-label', 'Copy code to clipboard');
                   announcement.remove();
                 }, 2e3);
               } catch (err) {
-                console.error("Failed to copy:", err);
+                console.error('Failed to copy:', err);
               }
             });
           }
@@ -852,7 +949,7 @@
          * Initialize all code blocks on the page
          */
         initAllCodeBlocks() {
-          const codeBlocks = document.querySelectorAll(".aural-code-block");
+          const codeBlocks = document.querySelectorAll('.aural-code-block');
           codeBlocks.forEach((block) => {
             if (block.id) {
               this.initCodeBlock(block.id);
@@ -866,20 +963,19 @@
          */
         highlightCodeBlock(codeBlockId, language) {
           const codeBlock = document.getElementById(codeBlockId);
-          if (!codeBlock)
-            return;
-          const codeElement = codeBlock.querySelector(".aural-code-block__code");
-          if (!codeElement)
-            return;
+          if (!codeBlock) return;
+          const codeElement = codeBlock.querySelector('.aural-code-block__code');
+          if (!codeElement) return;
           let code = codeElement.textContent;
           const patterns = {
             comment: /\/\/.*|\/\*[\s\S]*?\*\//g,
             string: /(["'`])(?:\\.|[^\\])*?\1/g,
-            keyword: /\b(function|const|let|var|if|else|return|import|export|class|extends|async|await|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|delete|typeof|instanceof)\b/g,
+            keyword:
+              /\b(function|const|let|var|if|else|return|import|export|class|extends|async|await|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|delete|typeof|instanceof)\b/g,
             number: /\b\d+\.?\d*\b/g,
-            operator: /[+\-*/%=<>!&|]+/g
+            operator: /[+\-*/%=<>!&|]+/g,
           };
-          console.log("Syntax highlighting applied for", language);
+          console.log('Syntax highlighting applied for', language);
         },
         // ========================================
         // DIALOG
@@ -890,37 +986,36 @@
          */
         openDialog(dialogId) {
           const backdrop = document.getElementById(dialogId);
-          if (!backdrop)
-            return;
-          backdrop.classList.add("is-open");
-          document.body.classList.add("aural-dialog-open");
-          const dialog = backdrop.querySelector(".aural-dialog");
+          if (!backdrop) return;
+          backdrop.classList.add('is-open');
+          document.body.classList.add('aural-dialog-open');
+          const dialog = backdrop.querySelector('.aural-dialog');
           if (dialog) {
-            dialog.setAttribute("role", "dialog");
-            dialog.setAttribute("aria-modal", "true");
-            dialog.setAttribute("aria-hidden", "false");
-            const title = dialog.querySelector(".aural-dialog__title");
+            dialog.setAttribute('role', 'dialog');
+            dialog.setAttribute('aria-modal', 'true');
+            dialog.setAttribute('aria-hidden', 'false');
+            const title = dialog.querySelector('.aural-dialog__title');
             if (title) {
-              if (!title.id)
-                title.id = `dialog-title-${Date.now()}`;
-              dialog.setAttribute("aria-labelledby", title.id);
+              if (!title.id) title.id = `dialog-title-${Date.now()}`;
+              dialog.setAttribute('aria-labelledby', title.id);
             }
-            const message = dialog.querySelector(".aural-dialog__message");
+            const message = dialog.querySelector('.aural-dialog__message');
             if (message) {
-              if (!message.id)
-                message.id = `dialog-desc-${Date.now()}`;
-              dialog.setAttribute("aria-describedby", message.id);
+              if (!message.id) message.id = `dialog-desc-${Date.now()}`;
+              dialog.setAttribute('aria-describedby', message.id);
             }
           }
-          const focusable = dialog?.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          const focusable = dialog?.querySelector(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
           focusable?.focus();
           const handleEsc = (e) => {
-            if (e.key === "Escape") {
+            if (e.key === 'Escape') {
               this.closeDialog(dialogId);
-              document.removeEventListener("keydown", handleEsc);
+              document.removeEventListener('keydown', handleEsc);
             }
           };
-          document.addEventListener("keydown", handleEsc);
+          document.addEventListener('keydown', handleEsc);
         },
         /**
          * Close a dialog
@@ -928,12 +1023,11 @@
          */
         closeDialog(dialogId) {
           const backdrop = document.getElementById(dialogId);
-          if (!backdrop)
-            return;
-          backdrop.classList.remove("is-open");
-          document.body.classList.remove("aural-dialog-open");
-          const dialog = backdrop.querySelector(".aural-dialog");
-          dialog?.setAttribute("aria-hidden", "true");
+          if (!backdrop) return;
+          backdrop.classList.remove('is-open');
+          document.body.classList.remove('aural-dialog-open');
+          const dialog = backdrop.querySelector('.aural-dialog');
+          dialog?.setAttribute('aria-hidden', 'true');
         },
         /**
          * Show a confirmation dialog dynamically
@@ -943,10 +1037,10 @@
          * @param {Function} onCancel - Callback when cancelled
          */
         showConfirm(title, message, onConfirm, onCancel) {
-          const dialogId = "aural-confirm-dialog-" + Date.now();
-          const backdrop = document.createElement("div");
+          const dialogId = 'aural-confirm-dialog-' + Date.now();
+          const backdrop = document.createElement('div');
           backdrop.id = dialogId;
-          backdrop.className = "aural-dialog-backdrop";
+          backdrop.className = 'aural-dialog-backdrop';
           backdrop.innerHTML = `
             <div class="aural-dialog aural-dialog--alert">
                 <div class="aural-dialog__header">
@@ -967,22 +1061,19 @@
           document.body.appendChild(backdrop);
           const confirmBtn = backdrop.querySelector('[data-action="confirm"]');
           const cancelBtn = backdrop.querySelector('[data-action="cancel"]');
-          confirmBtn?.addEventListener("click", () => {
-            if (onConfirm)
-              onConfirm();
+          confirmBtn?.addEventListener('click', () => {
+            if (onConfirm) onConfirm();
             this.closeDialog(dialogId);
             backdrop.remove();
           });
-          cancelBtn?.addEventListener("click", () => {
-            if (onCancel)
-              onCancel();
+          cancelBtn?.addEventListener('click', () => {
+            if (onCancel) onCancel();
             this.closeDialog(dialogId);
             backdrop.remove();
           });
-          backdrop.addEventListener("click", (e) => {
+          backdrop.addEventListener('click', (e) => {
             if (e.target === backdrop) {
-              if (onCancel)
-                onCancel();
+              if (onCancel) onCancel();
               this.closeDialog(dialogId);
               backdrop.remove();
             }
@@ -999,93 +1090,100 @@
          */
         initFileUpload(uploadId, options = {}) {
           const upload = document.getElementById(uploadId);
-          if (!upload)
-            return;
+          if (!upload) return;
           const {
             maxSize = 10 * 1024 * 1024,
             // 10MB
             allowedTypes = [],
             multiple = true,
-            onUpload = null
+            onUpload = null,
           } = options;
-          const dropzone = upload.querySelector(".aural-file-upload__dropzone");
-          const input = upload.querySelector(".aural-file-upload__input");
-          const filesContainer = upload.querySelector(".aural-file-upload__files");
+          const dropzone = upload.querySelector('.file-upload__zone');
+          const input = upload.querySelector('.file-upload__input');
+          const filesContainer = upload.querySelector('.file-upload__list');
           if (dropzone) {
-            dropzone.setAttribute("role", "button");
-            dropzone.setAttribute("aria-label", "Upload files by clicking or dragging and dropping");
-            dropzone.setAttribute("tabindex", "0");
+            dropzone.setAttribute('role', 'button');
+            dropzone.setAttribute(
+              'aria-label',
+              'Upload files by clicking or dragging and dropping'
+            );
+            dropzone.setAttribute('tabindex', '0');
           }
           if (filesContainer) {
-            filesContainer.setAttribute("aria-live", "polite");
-            filesContainer.setAttribute("aria-label", "Uploaded files");
+            filesContainer.setAttribute('aria-live', 'polite');
+            filesContainer.setAttribute('aria-label', 'Uploaded files');
           }
           const handleFiles = (files) => {
             Array.from(files).forEach((file) => {
               if (file.size > maxSize) {
-                console.error("File too large:", file.name);
+                console.error('File too large:', file.name);
                 return;
               }
               if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
-                console.error("File type not allowed:", file.name);
+                console.error('File type not allowed:', file.name);
                 return;
               }
-              const fileItem = document.createElement("div");
-              fileItem.className = "aural-file-upload__file aural-file-upload__file--uploading";
-              const preview = file.type.startsWith("image/") ? `<div class="aural-file-upload__preview aural-file-upload__preview--image"><img src="${URL.createObjectURL(file)}" alt="${file.name}"></div>` : `<div class="aural-file-upload__preview aural-file-upload__preview--document"></div>`;
+              const fileItem = document.createElement('div');
+              fileItem.className = 'file-upload__item file-upload__item--uploading';
+              const preview = file.type.startsWith('image/')
+                ? `<div class="file-upload__preview"><img src="${URL.createObjectURL(file)}" alt="${file.name}"></div>`
+                : `<div class="file-upload__preview"><i data-lucide="file" class="file-upload__preview-icon"></i></div>`;
               fileItem.innerHTML = `
                     ${preview}
-                    <div class="aural-file-upload__info">
-                        <div class="aural-file-upload__filename">${file.name}</div>
-                        <div class="aural-file-upload__filesize">${(file.size / 1024).toFixed(2)} KB</div>
-                        <div class="aural-file-upload__progress">
-                            <div class="aural-file-upload__progress-bar">
-                                <div class="aural-file-upload__progress-fill" style="width: 0%"></div>
+                    <div class="file-upload__info">
+                        <div class="file-upload__filename">${file.name}</div>
+                        <div class="file-upload__meta">
+                            <span class="file-upload__filesize">${(file.size / 1024).toFixed(2)} KB</span>
+                            <span class="file-upload__status">Uploading</span>
+                        </div>
+                        <div class="file-upload__progress">
+                            <div class="file-upload__progress-bar">
+                                <div class="file-upload__progress-fill" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="aural-file-upload__actions">
-                        <button class="aural-file-upload__remove" aria-label="Remove ${file.name}"></button>
+                    <div class="file-upload__actions">
+                        <button class="file-upload__action file-upload__action--remove" aria-label="Remove ${file.name}">&times;</button>
                     </div>
                 `;
               filesContainer?.appendChild(fileItem);
-              const progressFill = fileItem.querySelector(".aural-file-upload__progress-fill");
+              if (window.lucide) window.lucide.createIcons();
+              const progressFill = fileItem.querySelector('.file-upload__progress-fill');
+              const statusEl = fileItem.querySelector('.file-upload__status');
               let progress = 0;
               const interval = setInterval(() => {
                 progress += 10;
-                if (progressFill)
-                  progressFill.style.width = `${progress}%`;
+                if (progressFill) progressFill.style.width = `${progress}%`;
                 if (progress >= 100) {
                   clearInterval(interval);
-                  fileItem.classList.remove("aural-file-upload__file--uploading");
-                  fileItem.classList.add("aural-file-upload__file--success");
-                  if (onUpload)
-                    onUpload(file);
+                  fileItem.classList.remove('file-upload__item--uploading');
+                  fileItem.classList.add('file-upload__item--success');
+                  if (statusEl) statusEl.textContent = 'Uploaded';
+                  if (onUpload) onUpload(file);
                 }
               }, 200);
-              const removeBtn = fileItem.querySelector(".aural-file-upload__remove");
-              removeBtn?.addEventListener("click", () => {
+              const removeBtn = fileItem.querySelector('.file-upload__action--remove');
+              removeBtn?.addEventListener('click', () => {
                 clearInterval(interval);
                 fileItem.remove();
               });
             });
           };
-          dropzone?.addEventListener("click", () => input?.click());
-          input?.addEventListener("change", (e) => {
+          input?.addEventListener('change', (e) => {
             if (e.target.files) {
               handleFiles(e.target.files);
             }
           });
-          dropzone?.addEventListener("dragover", (e) => {
+          dropzone?.addEventListener('dragover', (e) => {
             e.preventDefault();
-            dropzone.classList.add("aural-file-upload__dropzone--active");
+            dropzone.classList.add('file-upload__zone--active');
           });
-          dropzone?.addEventListener("dragleave", () => {
-            dropzone.classList.remove("aural-file-upload__dropzone--active");
+          dropzone?.addEventListener('dragleave', () => {
+            dropzone.classList.remove('file-upload__zone--active');
           });
-          dropzone?.addEventListener("drop", (e) => {
+          dropzone?.addEventListener('drop', (e) => {
             e.preventDefault();
-            dropzone.classList.remove("aural-file-upload__dropzone--active");
+            dropzone.classList.remove('file-upload__zone--active');
             if (e.dataTransfer?.files) {
               handleFiles(e.dataTransfer.files);
             }
@@ -1100,36 +1198,35 @@
          */
         openCommandPalette(paletteId) {
           const backdrop = document.getElementById(paletteId);
-          if (!backdrop)
-            return;
-          backdrop.classList.add("is-open");
-          document.body.classList.add("aural-command-palette-open");
-          const palette = backdrop.querySelector(".aural-command-palette");
-          const input = backdrop.querySelector(".aural-command-palette__input");
-          const results = backdrop.querySelector(".aural-command-palette__results");
+          if (!backdrop) return;
+          backdrop.classList.add('is-open');
+          document.body.classList.add('aural-command-palette-open');
+          const palette = backdrop.querySelector('.aural-command-palette');
+          const input = backdrop.querySelector('.aural-command-palette__input');
+          const results = backdrop.querySelector('.aural-command-palette__results');
           if (palette) {
-            palette.setAttribute("role", "dialog");
-            palette.setAttribute("aria-modal", "true");
-            palette.setAttribute("aria-label", "Command palette");
+            palette.setAttribute('role', 'dialog');
+            palette.setAttribute('aria-modal', 'true');
+            palette.setAttribute('aria-label', 'Command palette');
           }
           if (input) {
-            input.setAttribute("role", "combobox");
-            input.setAttribute("aria-autocomplete", "list");
-            input.setAttribute("aria-expanded", "true");
-            input.setAttribute("aria-controls", "command-results");
+            input.setAttribute('role', 'combobox');
+            input.setAttribute('aria-autocomplete', 'list');
+            input.setAttribute('aria-expanded', 'true');
+            input.setAttribute('aria-controls', 'command-results');
           }
           if (results) {
-            results.id = "command-results";
-            results.setAttribute("role", "listbox");
+            results.id = 'command-results';
+            results.setAttribute('role', 'listbox');
           }
           input?.focus();
           const handleEsc = (e) => {
-            if (e.key === "Escape") {
+            if (e.key === 'Escape') {
               this.closeCommandPalette(paletteId);
-              document.removeEventListener("keydown", handleEsc);
+              document.removeEventListener('keydown', handleEsc);
             }
           };
-          document.addEventListener("keydown", handleEsc);
+          document.addEventListener('keydown', handleEsc);
         },
         /**
          * Close a command palette
@@ -1137,10 +1234,9 @@
          */
         closeCommandPalette(paletteId) {
           const backdrop = document.getElementById(paletteId);
-          if (!backdrop)
-            return;
-          backdrop.classList.remove("is-open");
-          document.body.classList.remove("aural-command-palette-open");
+          if (!backdrop) return;
+          backdrop.classList.remove('is-open');
+          document.body.classList.remove('aural-command-palette-open');
         },
         /**
          * Initialize a command palette with commands
@@ -1149,31 +1245,32 @@
          */
         initCommandPalette(paletteId, commands = []) {
           const backdrop = document.getElementById(paletteId);
-          if (!backdrop)
-            return;
-          const input = backdrop.querySelector(".aural-command-palette__input");
-          const resultsContainer = backdrop.querySelector(".aural-command-palette__results");
+          if (!backdrop) return;
+          const input = backdrop.querySelector('.aural-command-palette__input');
+          const resultsContainer = backdrop.querySelector('.aural-command-palette__results');
           let selectedIndex = 0;
           this.renderCommandResults(paletteId, commands);
-          input?.addEventListener("input", (e) => {
+          input?.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             const filtered = commands.filter(
-              (cmd) => cmd.title.toLowerCase().includes(query) || cmd.description?.toLowerCase().includes(query)
+              (cmd) =>
+                cmd.title.toLowerCase().includes(query) ||
+                cmd.description?.toLowerCase().includes(query)
             );
             this.renderCommandResults(paletteId, filtered);
             selectedIndex = 0;
           });
-          backdrop.addEventListener("keydown", (e) => {
-            const items = backdrop.querySelectorAll(".aural-command-palette__item");
-            if (e.key === "ArrowDown") {
+          backdrop.addEventListener('keydown', (e) => {
+            const items = backdrop.querySelectorAll('.aural-command-palette__item');
+            if (e.key === 'ArrowDown') {
               e.preventDefault();
               selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
               updateSelection(items);
-            } else if (e.key === "ArrowUp") {
+            } else if (e.key === 'ArrowUp') {
               e.preventDefault();
               selectedIndex = Math.max(selectedIndex - 1, 0);
               updateSelection(items);
-            } else if (e.key === "Enter") {
+            } else if (e.key === 'Enter') {
               e.preventDefault();
               const selected = items[selectedIndex];
               selected?.click();
@@ -1182,23 +1279,23 @@
           const updateSelection = (items) => {
             items.forEach((item, index) => {
               if (index === selectedIndex) {
-                item.classList.add("aural-command-palette__item--selected");
-                item.setAttribute("aria-selected", "true");
-                item.scrollIntoView({ block: "nearest" });
-                const input2 = backdrop.querySelector(".aural-command-palette__input");
+                item.classList.add('aural-command-palette__item--selected');
+                item.setAttribute('aria-selected', 'true');
+                item.scrollIntoView({ block: 'nearest' });
+                const input2 = backdrop.querySelector('.aural-command-palette__input');
                 if (input2 && item.id) {
-                  input2.setAttribute("aria-activedescendant", item.id);
+                  input2.setAttribute('aria-activedescendant', item.id);
                 }
               } else {
-                item.classList.remove("aural-command-palette__item--selected");
-                item.setAttribute("aria-selected", "false");
+                item.classList.remove('aural-command-palette__item--selected');
+                item.setAttribute('aria-selected', 'false');
               }
             });
           };
-          document.addEventListener("keydown", (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+          document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
               e.preventDefault();
-              if (backdrop.classList.contains("is-open")) {
+              if (backdrop.classList.contains('is-open')) {
                 this.closeCommandPalette(paletteId);
               } else {
                 this.openCommandPalette(paletteId);
@@ -1213,11 +1310,9 @@
          */
         renderCommandResults(paletteId, commands) {
           const backdrop = document.getElementById(paletteId);
-          if (!backdrop)
-            return;
-          const resultsContainer = backdrop.querySelector(".aural-command-palette__results");
-          if (!resultsContainer)
-            return;
+          if (!backdrop) return;
+          const resultsContainer = backdrop.querySelector('.aural-command-palette__results');
+          if (!resultsContainer) return;
           if (commands.length === 0) {
             resultsContainer.innerHTML = `
                 <div class="aural-command-palette__empty">
@@ -1228,39 +1323,56 @@
             return;
           }
           const grouped = commands.reduce((acc, cmd) => {
-            const group = cmd.group || "Commands";
-            if (!acc[group])
-              acc[group] = [];
+            const group = cmd.group || 'Commands';
+            if (!acc[group]) acc[group] = [];
             acc[group].push(cmd);
             return acc;
           }, {});
-          resultsContainer.innerHTML = Object.entries(grouped).map(([group, cmds]) => `
-            <div class="aural-command-palette__group" role="group" aria-labelledby="group-${group.replace(/\s+/g, "-")}">
-                <div class="aural-command-palette__group-label" id="group-${group.replace(/\s+/g, "-")}">${group}</div>
+          resultsContainer.innerHTML = Object.entries(grouped)
+            .map(
+              ([group, cmds]) => `
+            <div class="aural-command-palette__group" role="group" aria-labelledby="group-${group.replace(/\s+/g, '-')}">
+                <div class="aural-command-palette__group-label" id="group-${group.replace(/\s+/g, '-')}">${group}</div>
                 <div class="aural-command-palette__items">
-                    ${cmds.map((cmd, index) => `
-                        <button class="aural-command-palette__item ${index === 0 ? "aural-command-palette__item--selected" : ""}"
+                    ${cmds
+                      .map(
+                        (cmd, index) => `
+                        <button class="aural-command-palette__item ${index === 0 ? 'aural-command-palette__item--selected' : ''}"
                                 data-command="${cmd.id}"
                                 role="option"
-                                aria-selected="${index === 0 ? "true" : "false"}">
-                            ${cmd.icon ? `<span class="aural-command-palette__item-icon" aria-hidden="true">${cmd.icon}</span>` : ""}
+                                aria-selected="${index === 0 ? 'true' : 'false'}">
+                            ${cmd.icon ? `<span class="aural-command-palette__item-icon" aria-hidden="true">${cmd.icon}</span>` : ''}
                             <div class="aural-command-palette__item-content">
                                 <div class="aural-command-palette__item-title">${cmd.title}</div>
-                                ${cmd.description ? `<div class="aural-command-palette__item-description">${cmd.description}</div>` : ""}
+                                ${cmd.description ? `<div class="aural-command-palette__item-description">${cmd.description}</div>` : ''}
                             </div>
-                            ${cmd.shortcut ? `
+                            ${
+                              cmd.shortcut
+                                ? `
                                 <div class="aural-command-palette__shortcut" aria-label="Keyboard shortcut ${cmd.shortcut}">
-                                    ${cmd.shortcut.split("+").map((key) => `<span class="aural-command-palette__key">${key}</span>`).join("")}
+                                    ${cmd.shortcut
+                                      .split('+')
+                                      .map(
+                                        (key) =>
+                                          `<span class="aural-command-palette__key">${key}</span>`
+                                      )
+                                      .join('')}
                                 </div>
-                            ` : ""}
+                            `
+                                : ''
+                            }
                         </button>
-                    `).join("")}
+                    `
+                      )
+                      .join('')}
                 </div>
             </div>
-        `).join("");
-          resultsContainer.querySelectorAll(".aural-command-palette__item").forEach((item) => {
-            item.addEventListener("click", () => {
-              const cmdId = item.getAttribute("data-command");
+        `
+            )
+            .join('');
+          resultsContainer.querySelectorAll('.aural-command-palette__item').forEach((item) => {
+            item.addEventListener('click', () => {
+              const cmdId = item.getAttribute('data-command');
               const command = commands.find((c) => c.id === cmdId);
               if (command?.action) {
                 command.action();
@@ -1279,34 +1391,36 @@
          */
         initDatePicker(pickerId, options = {}) {
           const picker = document.getElementById(pickerId);
-          if (!picker)
-            return;
-          const input = picker.querySelector(".aural-date-picker__input");
-          const calendar = picker.querySelector(".aural-date-picker__calendar");
+          if (!picker) return;
+          const input = picker.querySelector('.aural-date-picker__input');
+          const calendar = picker.querySelector('.aural-date-picker__calendar');
           const config = {
-            format: options.format || "YYYY-MM-DD",
+            format: options.format || 'YYYY-MM-DD',
             minDate: options.minDate || null,
             maxDate: options.maxDate || null,
             disabledDates: options.disabledDates || [],
             onChange: options.onChange || null,
-            ...options
+            ...options,
           };
           let selectedDate = null;
           let currentMonth = /* @__PURE__ */ new Date();
-          input?.addEventListener("click", () => {
-            calendar?.classList.toggle("aural-date-picker__calendar--open");
-            if (calendar?.classList.contains("aural-date-picker__calendar--open")) {
+          input?.addEventListener('click', () => {
+            calendar?.classList.toggle('aural-date-picker__calendar--open');
+            if (calendar?.classList.contains('aural-date-picker__calendar--open')) {
               this.renderCalendar(picker, currentMonth, selectedDate, config);
             }
           });
-          document.addEventListener("click", (e) => {
+          document.addEventListener('click', (e) => {
             if (!picker.contains(e.target)) {
-              calendar?.classList.remove("aural-date-picker__calendar--open");
+              calendar?.classList.remove('aural-date-picker__calendar--open');
             }
           });
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && calendar?.classList.contains("aural-date-picker__calendar--open")) {
-              calendar.classList.remove("aural-date-picker__calendar--open");
+          document.addEventListener('keydown', (e) => {
+            if (
+              e.key === 'Escape' &&
+              calendar?.classList.contains('aural-date-picker__calendar--open')
+            ) {
+              calendar.classList.remove('aural-date-picker__calendar--open');
             }
           });
           return {
@@ -1318,28 +1432,28 @@
             },
             clear: () => {
               selectedDate = null;
-              input.value = "";
+              input.value = '';
               this.renderCalendar(picker, currentMonth, selectedDate, config);
-            }
+            },
           };
         },
         /**
          * Render the calendar grid
          */
         renderCalendar(picker, currentMonth, selectedDate, config) {
-          const calendar = picker.querySelector(".aural-date-picker__calendar");
-          const daysContainer = calendar.querySelector(".aural-date-picker__days");
-          const currentMonthDisplay = calendar.querySelector(".aural-date-picker__current-month");
-          currentMonthDisplay.textContent = currentMonth.toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric"
+          const calendar = picker.querySelector('.aural-date-picker__calendar');
+          const daysContainer = calendar.querySelector('.aural-date-picker__days');
+          const currentMonthDisplay = calendar.querySelector('.aural-date-picker__current-month');
+          currentMonthDisplay.textContent = currentMonth.toLocaleDateString('en-US', {
+            month: 'long',
+            year: 'numeric',
           });
           const year = currentMonth.getFullYear();
           const month = currentMonth.getMonth();
           const firstDay = new Date(year, month, 1).getDay();
           const daysInMonth = new Date(year, month + 1, 0).getDate();
           const daysInPrevMonth = new Date(year, month, 0).getDate();
-          let daysHTML = "";
+          let daysHTML = '';
           const today = /* @__PURE__ */ new Date();
           today.setHours(0, 0, 0, 0);
           for (let i = firstDay - 1; i >= 0; i--) {
@@ -1352,35 +1466,40 @@
             const isToday = date.getTime() === today.getTime();
             const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
             const isDisabled = this.isDateDisabled(date, config);
-            let classes = "aural-date-picker__day";
-            if (isToday)
-              classes += " aural-date-picker__day--today";
-            if (isSelected)
-              classes += " aural-date-picker__day--selected";
-            if (isDisabled)
-              classes += " aural-date-picker__day--disabled";
-            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? "disabled" : ""}>${day}</button>`;
+            let classes = 'aural-date-picker__day';
+            if (isToday) classes += ' aural-date-picker__day--today';
+            if (isSelected) classes += ' aural-date-picker__day--selected';
+            if (isDisabled) classes += ' aural-date-picker__day--disabled';
+            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? 'disabled' : ''}>${day}</button>`;
           }
           const totalCells = firstDay + daysInMonth;
-          const remainingCells = totalCells % 7 === 0 ? 0 : 7 - totalCells % 7;
+          const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
           for (let day = 1; day <= remainingCells; day++) {
             daysHTML += `<button class="aural-date-picker__day aural-date-picker__day--other-month" type="button">${day}</button>`;
           }
           daysContainer.innerHTML = daysHTML;
-          daysContainer.querySelectorAll(".aural-date-picker__day:not(.aural-date-picker__day--disabled):not(.aural-date-picker__day--other-month)").forEach((dayBtn) => {
-            dayBtn.addEventListener("click", () => {
-              const dateStr = dayBtn.getAttribute("data-date");
-              const date = new Date(dateStr);
-              const input = picker.querySelector(".aural-date-picker__input");
-              input.value = this.formatDate(date, config.format);
-              calendar.classList.remove("aural-date-picker__calendar--open");
-              if (config.onChange) {
-                config.onChange(date);
-              }
+          daysContainer
+            .querySelectorAll(
+              '.aural-date-picker__day:not(.aural-date-picker__day--disabled):not(.aural-date-picker__day--other-month)'
+            )
+            .forEach((dayBtn) => {
+              dayBtn.addEventListener('click', () => {
+                const dateStr = dayBtn.getAttribute('data-date');
+                const date = new Date(dateStr);
+                const input = picker.querySelector('.aural-date-picker__input');
+                input.value = this.formatDate(date, config.format);
+                calendar.classList.remove('aural-date-picker__calendar--open');
+                if (config.onChange) {
+                  config.onChange(date);
+                }
+              });
             });
-          });
-          const prevBtn = calendar.querySelector('.aural-date-picker__nav-button[data-action="prev"]');
-          const nextBtn = calendar.querySelector('.aural-date-picker__nav-button[data-action="next"]');
+          const prevBtn = calendar.querySelector(
+            '.aural-date-picker__nav-button[data-action="prev"]'
+          );
+          const nextBtn = calendar.querySelector(
+            '.aural-date-picker__nav-button[data-action="next"]'
+          );
           if (prevBtn) {
             prevBtn.onclick = () => {
               currentMonth.setMonth(currentMonth.getMonth() - 1);
@@ -1398,13 +1517,12 @@
          * Check if a date is disabled
          */
         isDateDisabled(date, config) {
-          if (config.minDate && date < new Date(config.minDate))
-            return true;
-          if (config.maxDate && date > new Date(config.maxDate))
-            return true;
-          if (config.disabledDates && config.disabledDates.some(
-            (d) => new Date(d).toDateString() === date.toDateString()
-          ))
+          if (config.minDate && date < new Date(config.minDate)) return true;
+          if (config.maxDate && date > new Date(config.maxDate)) return true;
+          if (
+            config.disabledDates &&
+            config.disabledDates.some((d) => new Date(d).toDateString() === date.toDateString())
+          )
             return true;
           return false;
         },
@@ -1413,382 +1531,683 @@
          */
         formatDate(date, format) {
           const year = date.getFullYear();
-          const month = String(date.getMonth() + 1).padStart(2, "0");
-          const day = String(date.getDate()).padStart(2, "0");
-          return format.replace("YYYY", year).replace("MM", month).replace("DD", day);
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return format.replace('YYYY', year).replace('MM', month).replace('DD', day);
         },
+        // ========================================
+        // CALENDAR
+        // ========================================
         /**
-         * Initialize date range picker with single input field
+         * Initialize a Calendar component
+         * @param {string} calendarId - The calendar element ID
+         * @param {Object} options - Configuration options
          */
-        initDateRangePicker(pickerId, options = {}) {
-          const picker = document.getElementById(pickerId);
-          if (!picker)
-            return;
-          const input = picker.querySelector(".aural-date-picker__input");
-          const calendar = picker.querySelector(".aural-date-picker__calendar");
+        initCalendar(calendarId, options = {}) {
+          const calendar = document.getElementById(calendarId);
+          if (!calendar) return;
           const config = {
-            format: options.format || "MM/DD/YYYY",
-            separator: options.separator || " - ",
+            selectedDate: options.selectedDate ? new Date(options.selectedDate) : null,
             minDate: options.minDate || null,
             maxDate: options.maxDate || null,
             disabledDates: options.disabledDates || [],
+            highlightWeekends: options.highlightWeekends !== false,
+            events: options.events || [],
+            // Array of dates with events
+            showMonthYearSelectors: options.showMonthYearSelectors || false,
             onChange: options.onChange || null,
-            ...options
+            onMonthChange: options.onMonthChange || null,
+            ...options,
           };
-          let startDate = null;
-          let endDate = null;
-          let currentMonth = /* @__PURE__ */ new Date();
-
-          const renderCalendar = () => {
-            this.renderRangeCalendar(picker, currentMonth, startDate, endDate, config, {
-              onDateSelect: (date) => {
-                console.log('Date selected:', date, 'startDate:', startDate, 'endDate:', endDate);
-                if (!startDate || (startDate && endDate)) {
-                  // Start new range selection
-                  startDate = date;
-                  endDate = null;
-                  input.value = this.formatDate(startDate, config.format);
-                  console.log('Set start date:', startDate);
-                } else if (date.getTime() >= startDate.getTime()) {
-                  // Select end date
-                  endDate = date;
-                  input.value = this.formatDate(startDate, config.format) + config.separator + this.formatDate(endDate, config.format);
-                  calendar.classList.remove("aural-date-picker__calendar--open");
-                  console.log('Set end date:', endDate);
-
-                  if (config.onChange) {
-                    config.onChange({ start: startDate, end: endDate });
-                  }
-                } else {
-                  // Selected date is before start, make it the new start
-                  startDate = date;
-                  endDate = null;
-                  input.value = this.formatDate(startDate, config.format);
-                  console.log('Reset start date:', startDate);
-                }
-                renderCalendar();
-              },
-              onNavigate: (direction) => {
-                currentMonth.setMonth(currentMonth.getMonth() + direction);
-                renderCalendar();
-              },
-              onClear: () => {
-                startDate = null;
-                endDate = null;
-                input.value = "";
-                renderCalendar();
-              },
-              onToday: () => {
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                startDate = today;
-                endDate = null;
-                input.value = this.formatDate(startDate, config.format);
-                renderCalendar();
+          let currentMonth = config.selectedDate
+            ? new Date(config.selectedDate)
+            : /* @__PURE__ */ new Date();
+          currentMonth.setDate(1);
+          let selectedDate = config.selectedDate;
+          this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+          const prevBtn = calendar.querySelector('.aural-calendar__nav-button[data-action="prev"]');
+          const nextBtn = calendar.querySelector('.aural-calendar__nav-button[data-action="next"]');
+          const todayBtn = calendar.querySelector(
+            '.aural-calendar__footer-button[data-action="today"]'
+          );
+          const clearBtn = calendar.querySelector(
+            '.aural-calendar__footer-button[data-action="clear"]'
+          );
+          if (prevBtn) {
+            prevBtn.onclick = () => {
+              currentMonth.setMonth(currentMonth.getMonth() - 1);
+              this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+              if (config.onMonthChange) {
+                config.onMonthChange(new Date(currentMonth));
               }
-            });
-          };
-
-          const icon = picker.querySelector(".aural-date-picker__icon");
-
-          // Add ARIA attributes to input
-          if (input) {
-            input.setAttribute("role", "textbox");
-            input.setAttribute("aria-label", "Date range picker");
-            input.setAttribute("aria-haspopup", "dialog");
-            input.setAttribute("aria-expanded", "false");
-            input.setAttribute("aria-readonly", "true");
+            };
           }
-
-          // Add ARIA attributes to calendar
-          if (calendar) {
-            calendar.setAttribute("role", "dialog");
-            calendar.setAttribute("aria-label", "Choose dates");
-            calendar.setAttribute("aria-modal", "false");
+          if (nextBtn) {
+            nextBtn.onclick = () => {
+              currentMonth.setMonth(currentMonth.getMonth() + 1);
+              this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+              if (config.onMonthChange) {
+                config.onMonthChange(new Date(currentMonth));
+              }
+            };
           }
-
-          const openCalendar = (e) => {
-            e.stopPropagation();
-            const isOpen = calendar?.classList.contains("aural-date-picker__calendar--open");
-            if (!isOpen) {
-              calendar?.classList.add("aural-date-picker__calendar--open");
-              input?.setAttribute("aria-expanded", "true");
-              renderCalendar();
-              // Focus first day button
-              setTimeout(() => {
-                const firstDay = calendar.querySelector('.aural-date-picker__day:not(.aural-date-picker__day--disabled):not(.aural-date-picker__day--other-month)');
-                firstDay?.focus();
-              }, 50);
+          if (todayBtn) {
+            todayBtn.onclick = () => {
+              const today = /* @__PURE__ */ new Date();
+              currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+              selectedDate = today;
+              this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+              if (config.onChange) {
+                config.onChange(new Date(selectedDate));
+              }
+            };
+          }
+          if (clearBtn) {
+            clearBtn.onclick = () => {
+              selectedDate = null;
+              this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+              if (config.onChange) {
+                config.onChange(null);
+              }
+            };
+          }
+          if (config.showMonthYearSelectors) {
+            const monthSelect = calendar.querySelector(
+              '.aural-calendar__select[data-type="month"]'
+            );
+            const yearSelect = calendar.querySelector('.aural-calendar__select[data-type="year"]');
+            if (monthSelect) {
+              monthSelect.addEventListener('change', (e) => {
+                currentMonth.setMonth(parseInt(e.target.value));
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                if (config.onMonthChange) {
+                  config.onMonthChange(new Date(currentMonth));
+                }
+              });
             }
-          };
-
-          input?.addEventListener("click", openCalendar);
-          icon?.addEventListener("click", openCalendar);
-
-          // Prevent calendar clicks from closing it
-          calendar?.addEventListener("click", (e) => {
-            e.stopPropagation();
-          });
-
-          document.addEventListener("click", (e) => {
-            if (!picker.contains(e.target)) {
-              calendar?.classList.remove("aural-date-picker__calendar--open");
-              input?.setAttribute("aria-expanded", "false");
-              input?.focus();
+            if (yearSelect) {
+              yearSelect.addEventListener('change', (e) => {
+                currentMonth.setFullYear(parseInt(e.target.value));
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                if (config.onMonthChange) {
+                  config.onMonthChange(new Date(currentMonth));
+                }
+              });
             }
-          });
-
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && calendar?.classList.contains("aural-date-picker__calendar--open")) {
-              calendar.classList.remove("aural-date-picker__calendar--open");
-              input?.setAttribute("aria-expanded", "false");
-              input?.focus();
-            }
-          });
-
+          }
           return {
-            getStartDate: () => startDate,
-            getEndDate: () => endDate,
-            getRange: () => ({ start: startDate, end: endDate }),
-            setRange: (start, end) => {
-              startDate = new Date(start);
-              endDate = new Date(end);
-              input.value = this.formatDate(startDate, config.format) + config.separator + this.formatDate(endDate, config.format);
-              renderCalendar();
+            getSelectedDate: () => selectedDate,
+            setSelectedDate: (date) => {
+              selectedDate = date ? new Date(date) : null;
+              if (selectedDate) {
+                currentMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+              }
+              this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
             },
-            clear: () => {
-              startDate = null;
-              endDate = null;
-              input.value = "";
-              renderCalendar();
-            }
+            getCurrentMonth: () => new Date(currentMonth),
+            goToMonth: (year, month) => {
+              currentMonth = new Date(year, month, 1);
+              this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+            },
+            refresh: () => {
+              this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+            },
           };
         },
         /**
-         * Render the range calendar grid
+         * Render a calendar month
          */
-        renderRangeCalendar(picker, currentMonth, startDate, endDate, config, callbacks = {}) {
-          const calendar = picker.querySelector(".aural-date-picker__calendar");
-          const daysContainer = calendar.querySelector(".aural-date-picker__days");
-          const currentMonthDisplay = calendar.querySelector(".aural-date-picker__current-month");
-
-          currentMonthDisplay.textContent = currentMonth.toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric"
-          });
-
+        renderCalendarMonth(calendar, currentMonth, selectedDate, config) {
+          const daysContainer = calendar.querySelector('.aural-calendar__days');
+          const currentMonthDisplay = calendar.querySelector('.aural-calendar__current-month');
+          if (currentMonthDisplay) {
+            currentMonthDisplay.textContent = currentMonth.toLocaleDateString('en-US', {
+              month: 'long',
+              year: 'numeric',
+            });
+          }
+          if (config.showMonthYearSelectors) {
+            const monthSelect = calendar.querySelector(
+              '.aural-calendar__select[data-type="month"]'
+            );
+            const yearSelect = calendar.querySelector('.aural-calendar__select[data-type="year"]');
+            if (monthSelect) {
+              monthSelect.value = currentMonth.getMonth();
+            }
+            if (yearSelect) {
+              yearSelect.value = currentMonth.getFullYear();
+            }
+          }
           const year = currentMonth.getFullYear();
           const month = currentMonth.getMonth();
           const firstDay = new Date(year, month, 1).getDay();
           const daysInMonth = new Date(year, month + 1, 0).getDate();
           const daysInPrevMonth = new Date(year, month, 0).getDate();
-
-          let daysHTML = "";
           const today = /* @__PURE__ */ new Date();
           today.setHours(0, 0, 0, 0);
-
-          // Previous month days
-          for (let i = firstDay - 1; i >= 0; i--) {
-            const day = daysInPrevMonth - i;
-            daysHTML += `<button class="aural-date-picker__day aural-date-picker__day--other-month" type="button">${day}</button>`;
+          let daysHTML = '';
+          for (let day = daysInPrevMonth - firstDay + 1; day <= daysInPrevMonth; day++) {
+            daysHTML += `<button class="aural-calendar__day aural-calendar__day--other-month" type="button" tabindex="-1">${day}</button>`;
           }
-
-          // Current month days
           for (let day = 1; day <= daysInMonth; day++) {
             const date = new Date(year, month, day);
             date.setHours(0, 0, 0, 0);
-
             const isToday = date.getTime() === today.getTime();
-            const isStart = startDate && date.getTime() === startDate.getTime();
-            const isEnd = endDate && date.getTime() === endDate.getTime();
-            const isInRange = startDate && endDate && date > startDate && date < endDate;
+            const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
             const isDisabled = this.isDateDisabled(date, config);
-
-            let classes = "aural-date-picker__day";
-            if (isToday) classes += " aural-date-picker__day--today";
-            if (isStart) classes += " aural-date-picker__day--range-start";
-            if (isEnd) classes += " aural-date-picker__day--range-end";
-            if (isInRange) classes += " aural-date-picker__day--in-range";
-            if (isDisabled) classes += " aural-date-picker__day--disabled";
-
-            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? "disabled" : ""}>${day}</button>`;
+            const isWeekend =
+              config.highlightWeekends && (date.getDay() === 0 || date.getDay() === 6);
+            const hasEvent = config.events.some((eventDate) => {
+              const event = new Date(eventDate);
+              event.setHours(0, 0, 0, 0);
+              return event.getTime() === date.getTime();
+            });
+            let classes = 'aural-calendar__day';
+            if (isToday) classes += ' aural-calendar__day--today';
+            if (isSelected) classes += ' aural-calendar__day--selected';
+            if (isDisabled) classes += ' aural-calendar__day--disabled';
+            if (isWeekend) classes += ' aural-calendar__day--weekend';
+            if (hasEvent) classes += ' aural-calendar__day--has-event';
+            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? 'disabled' : ''}>${day}</button>`;
           }
-
-          // Next month days
           const totalCells = firstDay + daysInMonth;
-          const remainingCells = totalCells % 7 === 0 ? 0 : 7 - totalCells % 7;
+          const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
           for (let day = 1; day <= remainingCells; day++) {
-            daysHTML += `<button class="aural-date-picker__day aural-date-picker__day--other-month" type="button">${day}</button>`;
+            daysHTML += `<button class="aural-calendar__day aural-calendar__day--other-month" type="button" tabindex="-1">${day}</button>`;
           }
-
           daysContainer.innerHTML = daysHTML;
-
-          // Add click handlers for date selection
-          if (callbacks.onDateSelect) {
-            const dayButtons = daysContainer.querySelectorAll(".aural-date-picker__day:not(.aural-date-picker__day--disabled):not(.aural-date-picker__day--other-month)");
-
-            dayButtons.forEach((dayBtn, index) => {
-              // Add ARIA attributes
-              dayBtn.setAttribute("role", "button");
-              dayBtn.setAttribute("tabindex", index === 0 ? "0" : "-1");
-              const dateStr = dayBtn.getAttribute("data-date");
-              const date = new Date(dateStr);
-              const dateLabel = date.toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-              });
-              dayBtn.setAttribute("aria-label", dateLabel);
-
-              // Mark selected dates
-              if (startDate && date.getTime() === startDate.getTime()) {
-                dayBtn.setAttribute("aria-pressed", "true");
-              } else if (endDate && date.getTime() === endDate.getTime()) {
-                dayBtn.setAttribute("aria-pressed", "true");
-              } else {
-                dayBtn.setAttribute("aria-pressed", "false");
-              }
-
-              // Click handler
-              dayBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
+          daysContainer
+            .querySelectorAll(
+              '.aural-calendar__day:not(.aural-calendar__day--disabled):not(.aural-calendar__day--other-month)'
+            )
+            .forEach((dayBtn) => {
+              dayBtn.addEventListener('click', () => {
+                const dateStr = dayBtn.getAttribute('data-date');
                 const date = new Date(dateStr);
-                date.setHours(0, 0, 0, 0);
-                callbacks.onDateSelect(date);
-              });
-
-              // Keyboard navigation
-              dayBtn.addEventListener("keydown", (e) => {
-                let handled = false;
-                const currentIndex = Array.from(dayButtons).indexOf(dayBtn);
-
-                switch(e.key) {
-                  case "Enter":
-                  case " ":
-                    e.preventDefault();
-                    const date = new Date(dateStr);
-                    date.setHours(0, 0, 0, 0);
-                    callbacks.onDateSelect(date);
-                    handled = true;
-                    break;
-                  case "ArrowRight":
-                    e.preventDefault();
-                    if (currentIndex < dayButtons.length - 1) {
-                      dayButtons[currentIndex + 1].focus();
-                    }
-                    handled = true;
-                    break;
-                  case "ArrowLeft":
-                    e.preventDefault();
-                    if (currentIndex > 0) {
-                      dayButtons[currentIndex - 1].focus();
-                    }
-                    handled = true;
-                    break;
-                  case "ArrowDown":
-                    e.preventDefault();
-                    if (currentIndex + 7 < dayButtons.length) {
-                      dayButtons[currentIndex + 7].focus();
-                    }
-                    handled = true;
-                    break;
-                  case "ArrowUp":
-                    e.preventDefault();
-                    if (currentIndex - 7 >= 0) {
-                      dayButtons[currentIndex - 7].focus();
-                    }
-                    handled = true;
-                    break;
-                  case "Home":
-                    e.preventDefault();
-                    dayButtons[0].focus();
-                    handled = true;
-                    break;
-                  case "End":
-                    e.preventDefault();
-                    dayButtons[dayButtons.length - 1].focus();
-                    handled = true;
-                    break;
-                }
-              });
-
-              // Focus management
-              dayBtn.addEventListener("focus", () => {
-                dayButtons.forEach(btn => btn.setAttribute("tabindex", "-1"));
-                dayBtn.setAttribute("tabindex", "0");
-              });
-
-              // Hover effect to show potential range
-              dayBtn.addEventListener("mouseenter", () => {
-                if (startDate && !endDate) {
-                  const hoverDate = new Date(dateStr);
-                  hoverDate.setHours(0, 0, 0, 0);
-                  daysContainer.querySelectorAll(".aural-date-picker__day").forEach((btn) => {
-                    const btnDate = btn.getAttribute("data-date");
-                    if (btnDate) {
-                      const date = new Date(btnDate);
-                      date.setHours(0, 0, 0, 0);
-                      const isInHoverRange = date > startDate && date <= hoverDate;
-                      if (isInHoverRange) {
-                        btn.classList.add("aural-date-picker__day--hover-range");
-                      } else {
-                        btn.classList.remove("aural-date-picker__day--hover-range");
-                      }
-                    }
-                  });
-                }
-              });
-
-              // Touch support
-              let touchStarted = false;
-              dayBtn.addEventListener("touchstart", (e) => {
-                touchStarted = true;
-              }, { passive: true });
-
-              dayBtn.addEventListener("touchend", (e) => {
-                if (touchStarted) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  const date = new Date(dateStr);
-                  date.setHours(0, 0, 0, 0);
-                  callbacks.onDateSelect(date);
-                  touchStarted = false;
+                selectedDate = date;
+                this.renderCalendarMonth(calendar, currentMonth, selectedDate, config);
+                if (config.onChange) {
+                  config.onChange(new Date(date));
                 }
               });
             });
-
-            // Remove hover classes when mouse leaves days container
-            daysContainer.addEventListener("mouseleave", () => {
-              daysContainer.querySelectorAll(".aural-date-picker__day--hover-range").forEach((btn) => {
-                btn.classList.remove("aural-date-picker__day--hover-range");
-              });
+          const prevBtn = calendar.querySelector('.aural-calendar__nav-button[data-action="prev"]');
+          const nextBtn = calendar.querySelector('.aural-calendar__nav-button[data-action="next"]');
+          if (prevBtn && config.minDate) {
+            const minDate = new Date(config.minDate);
+            const prevMonth = new Date(year, month - 1, 1);
+            prevBtn.disabled = prevMonth < new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+          }
+          if (nextBtn && config.maxDate) {
+            const maxDate = new Date(config.maxDate);
+            const nextMonth = new Date(year, month + 1, 1);
+            nextBtn.disabled = nextMonth > new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+          }
+        },
+        // ========================================
+        // DATE RANGE PICKER
+        // ========================================
+        /**
+         * Initialize a Date Range Picker component
+         * @param {string} pickerId - The date range picker element ID
+         * @param {Object} options - Configuration options
+         */
+        initDateRangePicker(pickerId, options = {}) {
+          const picker = document.getElementById(pickerId);
+          if (!picker) return;
+          const config = {
+            startDate: options.startDate ? new Date(options.startDate) : null,
+            endDate: options.endDate ? new Date(options.endDate) : null,
+            minDate: options.minDate || null,
+            maxDate: options.maxDate || null,
+            disabledDates: options.disabledDates || [],
+            presets: options.presets || [],
+            onChange: options.onChange || null,
+            ...options,
+          };
+          let startDate = config.startDate;
+          let endDate = config.endDate;
+          let hoverDate = null;
+          let selectingStart = true;
+          const startInput = picker.querySelector(
+            '.aural-date-range-picker__input[data-range="start"]'
+          );
+          const endInput = picker.querySelector(
+            '.aural-date-range-picker__input[data-range="end"]'
+          );
+          const dropdown = picker.querySelector('.aural-date-range-picker__dropdown');
+          const leftCalendar = picker.querySelector(
+            '.aural-date-range-picker__calendar[data-calendar="left"]'
+          );
+          const rightCalendar = picker.querySelector(
+            '.aural-date-range-picker__calendar[data-calendar="right"]'
+          );
+          let leftMonth = startDate ? new Date(startDate) : /* @__PURE__ */ new Date();
+          leftMonth.setDate(1);
+          let rightMonth = new Date(leftMonth);
+          rightMonth.setMonth(rightMonth.getMonth() + 1);
+          const updateInputs = () => {
+            if (startInput) {
+              startInput.value = startDate ? startDate.toLocaleDateString() : '';
+            }
+            if (endInput) {
+              endInput.value = endDate ? endDate.toLocaleDateString() : '';
+            }
+          };
+          updateInputs();
+          const openDropdown = () => {
+            dropdown?.classList.add('aural-date-range-picker__dropdown--open');
+            this.renderDateRangeCalendar(
+              leftCalendar,
+              leftMonth,
+              startDate,
+              endDate,
+              hoverDate,
+              config
+            );
+            this.renderDateRangeCalendar(
+              rightCalendar,
+              rightMonth,
+              startDate,
+              endDate,
+              hoverDate,
+              config
+            );
+          };
+          const closeDropdown = () => {
+            dropdown?.classList.remove('aural-date-range-picker__dropdown--open');
+          };
+          [startInput, endInput].forEach((input) => {
+            input?.addEventListener('click', (e) => {
+              e.stopPropagation();
+              openDropdown();
+              selectingStart = input.dataset.range === 'start';
+            });
+          });
+          document.addEventListener('click', (e) => {
+            if (!picker.contains(e.target)) {
+              closeDropdown();
+            }
+          });
+          document.addEventListener('keydown', (e) => {
+            if (
+              e.key === 'Escape' &&
+              dropdown?.classList.contains('aural-date-range-picker__dropdown--open')
+            ) {
+              closeDropdown();
+            }
+          });
+          const setupNavigation = (calendar, monthRef, isLeft) => {
+            const prevBtn = calendar?.querySelector(
+              '.aural-date-range-picker__nav-button[data-action="prev"]'
+            );
+            const nextBtn = calendar?.querySelector(
+              '.aural-date-range-picker__nav-button[data-action="next"]'
+            );
+            if (prevBtn) {
+              prevBtn.onclick = () => {
+                monthRef.setMonth(monthRef.getMonth() - 1);
+                if (!isLeft) {
+                  leftMonth = new Date(monthRef);
+                  leftMonth.setMonth(leftMonth.getMonth() - 1);
+                  this.renderDateRangeCalendar(
+                    leftCalendar,
+                    leftMonth,
+                    startDate,
+                    endDate,
+                    hoverDate,
+                    config
+                  );
+                }
+                this.renderDateRangeCalendar(
+                  calendar,
+                  monthRef,
+                  startDate,
+                  endDate,
+                  hoverDate,
+                  config
+                );
+              };
+            }
+            if (nextBtn) {
+              nextBtn.onclick = () => {
+                monthRef.setMonth(monthRef.getMonth() + 1);
+                if (isLeft) {
+                  rightMonth = new Date(monthRef);
+                  rightMonth.setMonth(rightMonth.getMonth() + 1);
+                  this.renderDateRangeCalendar(
+                    rightCalendar,
+                    rightMonth,
+                    startDate,
+                    endDate,
+                    hoverDate,
+                    config
+                  );
+                }
+                this.renderDateRangeCalendar(
+                  calendar,
+                  monthRef,
+                  startDate,
+                  endDate,
+                  hoverDate,
+                  config
+                );
+              };
+            }
+          };
+          setupNavigation(leftCalendar, leftMonth, true);
+          setupNavigation(rightCalendar, rightMonth, false);
+          const handleDateSelection = (date) => {
+            if (selectingStart || !startDate || (startDate && endDate)) {
+              startDate = date;
+              endDate = null;
+              selectingStart = false;
+            } else {
+              if (date < startDate) {
+                endDate = startDate;
+                startDate = date;
+              } else {
+                endDate = date;
+              }
+              selectingStart = true;
+            }
+            updateInputs();
+            this.renderDateRangeCalendar(
+              leftCalendar,
+              leftMonth,
+              startDate,
+              endDate,
+              hoverDate,
+              config
+            );
+            this.renderDateRangeCalendar(
+              rightCalendar,
+              rightMonth,
+              startDate,
+              endDate,
+              hoverDate,
+              config
+            );
+            if (startDate && endDate && config.onChange) {
+              config.onChange(startDate, endDate);
+            }
+          };
+          const setupCalendarHandlers = (calendar) => {
+            const daysContainer = calendar?.querySelector('.aural-date-range-picker__days');
+            daysContainer?.addEventListener('click', (e) => {
+              const dayBtn = e.target.closest('.aural-date-range-picker__day');
+              if (
+                dayBtn &&
+                !dayBtn.classList.contains('aural-date-range-picker__day--disabled') &&
+                !dayBtn.classList.contains('aural-date-range-picker__day--other-month')
+              ) {
+                const dateStr = dayBtn.getAttribute('data-date');
+                handleDateSelection(new Date(dateStr));
+              }
+            });
+            daysContainer?.addEventListener('mouseover', (e) => {
+              const dayBtn = e.target.closest('.aural-date-range-picker__day');
+              if (
+                dayBtn &&
+                !dayBtn.classList.contains('aural-date-range-picker__day--disabled') &&
+                !dayBtn.classList.contains('aural-date-range-picker__day--other-month')
+              ) {
+                const dateStr = dayBtn.getAttribute('data-date');
+                hoverDate = new Date(dateStr);
+                this.renderDateRangeCalendar(
+                  leftCalendar,
+                  leftMonth,
+                  startDate,
+                  endDate,
+                  hoverDate,
+                  config
+                );
+                this.renderDateRangeCalendar(
+                  rightCalendar,
+                  rightMonth,
+                  startDate,
+                  endDate,
+                  hoverDate,
+                  config
+                );
+              }
+            });
+            daysContainer?.addEventListener('mouseout', () => {
+              hoverDate = null;
+              this.renderDateRangeCalendar(
+                leftCalendar,
+                leftMonth,
+                startDate,
+                endDate,
+                hoverDate,
+                config
+              );
+              this.renderDateRangeCalendar(
+                rightCalendar,
+                rightMonth,
+                startDate,
+                endDate,
+                hoverDate,
+                config
+              );
+            });
+          };
+          setupCalendarHandlers(leftCalendar);
+          setupCalendarHandlers(rightCalendar);
+          const clearBtn = picker.querySelector(
+            '.aural-date-range-picker__footer-button[data-action="clear"]'
+          );
+          const applyBtn = picker.querySelector(
+            '.aural-date-range-picker__footer-button[data-action="apply"]'
+          );
+          if (clearBtn) {
+            clearBtn.onclick = () => {
+              startDate = null;
+              endDate = null;
+              selectingStart = true;
+              updateInputs();
+              this.renderDateRangeCalendar(
+                leftCalendar,
+                leftMonth,
+                startDate,
+                endDate,
+                hoverDate,
+                config
+              );
+              this.renderDateRangeCalendar(
+                rightCalendar,
+                rightMonth,
+                startDate,
+                endDate,
+                hoverDate,
+                config
+              );
+              if (config.onChange) {
+                config.onChange(null, null);
+              }
+            };
+          }
+          if (applyBtn) {
+            applyBtn.onclick = () => {
+              closeDropdown();
+            };
+          }
+          const presetButtons = picker.querySelectorAll('.aural-date-range-picker__preset-button');
+          presetButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const presetType = btn.dataset.preset;
+              const range = this.getPresetDateRange(presetType);
+              if (range) {
+                startDate = range.start;
+                endDate = range.end;
+                updateInputs();
+                leftMonth = new Date(startDate);
+                leftMonth.setDate(1);
+                rightMonth = new Date(leftMonth);
+                rightMonth.setMonth(rightMonth.getMonth() + 1);
+                this.renderDateRangeCalendar(
+                  leftCalendar,
+                  leftMonth,
+                  startDate,
+                  endDate,
+                  hoverDate,
+                  config
+                );
+                this.renderDateRangeCalendar(
+                  rightCalendar,
+                  rightMonth,
+                  startDate,
+                  endDate,
+                  hoverDate,
+                  config
+                );
+                if (config.onChange) {
+                  config.onChange(startDate, endDate);
+                }
+              }
+            });
+          });
+          return {
+            getRange: () => ({ start: startDate, end: endDate }),
+            setRange: (start, end) => {
+              startDate = start ? new Date(start) : null;
+              endDate = end ? new Date(end) : null;
+              updateInputs();
+              if (startDate) {
+                leftMonth = new Date(startDate);
+                leftMonth.setDate(1);
+                rightMonth = new Date(leftMonth);
+                rightMonth.setMonth(rightMonth.getMonth() + 1);
+              }
+              this.renderDateRangeCalendar(
+                leftCalendar,
+                leftMonth,
+                startDate,
+                endDate,
+                hoverDate,
+                config
+              );
+              this.renderDateRangeCalendar(
+                rightCalendar,
+                rightMonth,
+                startDate,
+                endDate,
+                hoverDate,
+                config
+              );
+            },
+            clear: () => {
+              startDate = null;
+              endDate = null;
+              updateInputs();
+              this.renderDateRangeCalendar(
+                leftCalendar,
+                leftMonth,
+                startDate,
+                endDate,
+                hoverDate,
+                config
+              );
+              this.renderDateRangeCalendar(
+                rightCalendar,
+                rightMonth,
+                startDate,
+                endDate,
+                hoverDate,
+                config
+              );
+            },
+          };
+        },
+        /**
+         * Render a date range calendar month
+         */
+        renderDateRangeCalendar(calendar, currentMonth, startDate, endDate, hoverDate, config) {
+          if (!calendar) return;
+          const daysContainer = calendar.querySelector('.aural-date-range-picker__days');
+          const monthLabel = calendar.querySelector('.aural-date-range-picker__month-label');
+          if (monthLabel) {
+            monthLabel.textContent = currentMonth.toLocaleDateString('en-US', {
+              month: 'long',
+              year: 'numeric',
             });
           }
-
-          // Navigation buttons
-          const prevBtn = calendar.querySelector('.aural-date-picker__nav-button:first-child');
-          const nextBtn = calendar.querySelector('.aural-date-picker__nav-button:last-child');
-
-          if (prevBtn && callbacks.onNavigate) {
-            prevBtn.onclick = () => callbacks.onNavigate(-1);
+          const year = currentMonth.getFullYear();
+          const month = currentMonth.getMonth();
+          const firstDay = new Date(year, month, 1).getDay();
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+          const daysInPrevMonth = new Date(year, month, 0).getDate();
+          const today = /* @__PURE__ */ new Date();
+          today.setHours(0, 0, 0, 0);
+          let daysHTML = '';
+          for (let day = daysInPrevMonth - firstDay + 1; day <= daysInPrevMonth; day++) {
+            daysHTML += `<button class="aural-date-range-picker__day aural-date-range-picker__day--other-month" type="button" tabindex="-1">${day}</button>`;
           }
-
-          if (nextBtn && callbacks.onNavigate) {
-            nextBtn.onclick = () => callbacks.onNavigate(1);
+          for (let day = 1; day <= daysInMonth; day++) {
+            const date = new Date(year, month, day);
+            date.setHours(0, 0, 0, 0);
+            const isToday = date.getTime() === today.getTime();
+            const isDisabled = this.isDateDisabled(date, config);
+            const isRangeStart = startDate && date.getTime() === startDate.getTime();
+            const isRangeEnd = endDate && date.getTime() === endDate.getTime();
+            let inRange = false;
+            if (startDate && endDate) {
+              inRange = date > startDate && date < endDate;
+            } else if (startDate && hoverDate && !endDate) {
+              const rangeStart = startDate < hoverDate ? startDate : hoverDate;
+              const rangeEnd = startDate > hoverDate ? startDate : hoverDate;
+              inRange = date > rangeStart && date < rangeEnd;
+            }
+            let classes = 'aural-date-range-picker__day';
+            if (isToday) classes += ' aural-date-range-picker__day--today';
+            if (isRangeStart) classes += ' aural-date-range-picker__day--range-start';
+            if (isRangeEnd) classes += ' aural-date-range-picker__day--range-end';
+            if (inRange) classes += ' aural-date-range-picker__day--in-range';
+            if (isDisabled) classes += ' aural-date-range-picker__day--disabled';
+            daysHTML += `<button class="${classes}" type="button" data-date="${date.toISOString()}" ${isDisabled ? 'disabled' : ''}>${day}</button>`;
           }
-
-          // Footer buttons
-          const todayBtn = calendar.querySelector('.aural-date-picker__footer-button:first-child');
-          const clearBtn = calendar.querySelector('.aural-date-picker__footer-button:last-child');
-
-          if (todayBtn && callbacks.onToday) {
-            todayBtn.onclick = () => callbacks.onToday();
+          const totalCells = firstDay + daysInMonth;
+          const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+          for (let day = 1; day <= remainingCells; day++) {
+            daysHTML += `<button class="aural-date-range-picker__day aural-date-range-picker__day--other-month" type="button" tabindex="-1">${day}</button>`;
           }
-
-          if (clearBtn && callbacks.onClear) {
-            clearBtn.onclick = () => callbacks.onClear();
+          if (daysContainer) {
+            daysContainer.innerHTML = daysHTML;
           }
+        },
+        /**
+         * Get preset date ranges
+         */
+        getPresetDateRange(presetType) {
+          const today = /* @__PURE__ */ new Date();
+          today.setHours(0, 0, 0, 0);
+          const ranges = {
+            today: {
+              start: new Date(today),
+              end: new Date(today),
+            },
+            yesterday: {
+              start: new Date(today.getTime() - 24 * 60 * 60 * 1e3),
+              end: new Date(today.getTime() - 24 * 60 * 60 * 1e3),
+            },
+            last7days: {
+              start: new Date(today.getTime() - 6 * 24 * 60 * 60 * 1e3),
+              end: new Date(today),
+            },
+            last30days: {
+              start: new Date(today.getTime() - 29 * 24 * 60 * 60 * 1e3),
+              end: new Date(today),
+            },
+            thisMonth: {
+              start: new Date(today.getFullYear(), today.getMonth(), 1),
+              end: new Date(today),
+            },
+            lastMonth: {
+              start: new Date(today.getFullYear(), today.getMonth() - 1, 1),
+              end: new Date(today.getFullYear(), today.getMonth(), 0),
+            },
+          };
+          return ranges[presetType] || null;
         },
         // ========================================
         // STEPPER
@@ -1800,27 +2219,26 @@
          */
         initStepper(stepperId, options = {}) {
           const stepper = document.getElementById(stepperId);
-          if (!stepper)
-            return;
-          const steps = stepper.querySelectorAll(".aural-step");
+          if (!stepper) return;
+          const steps = stepper.querySelectorAll('.aural-step');
           let currentStep = options.initialStep || 0;
           const config = {
             clickable: options.clickable !== false,
             onChange: options.onChange || null,
-            ...options
+            ...options,
           };
           if (config.clickable) {
             steps.forEach((step, index) => {
-              const indicator = step.querySelector(".aural-step__indicator");
-              if (indicator && !step.classList.contains("aural-step--disabled")) {
-                step.classList.add("aural-step--clickable");
+              const indicator = step.querySelector('.aural-step__indicator');
+              if (indicator && !step.classList.contains('aural-step--disabled')) {
+                step.classList.add('aural-step--clickable');
                 indicator.tabIndex = 0;
-                indicator.setAttribute("role", "button");
-                indicator.addEventListener("click", () => {
+                indicator.setAttribute('role', 'button');
+                indicator.addEventListener('click', () => {
                   this.goToStep(stepperId, index);
                 });
-                indicator.addEventListener("keydown", (e) => {
-                  if (e.key === "Enter" || e.key === " ") {
+                indicator.addEventListener('keydown', (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     this.goToStep(stepperId, index);
                   }
@@ -1834,7 +2252,7 @@
             goTo: (index) => this.goToStep(stepperId, index),
             getCurrentStep: () => currentStep,
             complete: (index) => this.completeStep(stepperId, index),
-            error: (index) => this.errorStep(stepperId, index)
+            error: (index) => this.errorStep(stepperId, index),
           };
         },
         /**
@@ -1842,15 +2260,13 @@
          */
         goToStep(stepperId, stepIndex) {
           const stepper = document.getElementById(stepperId);
-          if (!stepper)
-            return;
-          const steps = stepper.querySelectorAll(".aural-step");
-          if (stepIndex < 0 || stepIndex >= steps.length)
-            return;
+          if (!stepper) return;
+          const steps = stepper.querySelectorAll('.aural-step');
+          if (stepIndex < 0 || stepIndex >= steps.length) return;
           steps.forEach((step, index) => {
-            step.classList.remove("aural-step--active");
+            step.classList.remove('aural-step--active');
             if (index === stepIndex) {
-              step.classList.add("aural-step--active");
+              step.classList.add('aural-step--active');
             }
           });
         },
@@ -1859,10 +2275,11 @@
          */
         nextStep(stepperId) {
           const stepper = document.getElementById(stepperId);
-          if (!stepper)
-            return;
-          const steps = stepper.querySelectorAll(".aural-step");
-          const currentStep = Array.from(steps).findIndex((s) => s.classList.contains("aural-step--active"));
+          if (!stepper) return;
+          const steps = stepper.querySelectorAll('.aural-step');
+          const currentStep = Array.from(steps).findIndex((s) =>
+            s.classList.contains('aural-step--active')
+          );
           if (currentStep < steps.length - 1) {
             this.goToStep(stepperId, currentStep + 1);
           }
@@ -1872,10 +2289,11 @@
          */
         prevStep(stepperId) {
           const stepper = document.getElementById(stepperId);
-          if (!stepper)
-            return;
-          const steps = stepper.querySelectorAll(".aural-step");
-          const currentStep = Array.from(steps).findIndex((s) => s.classList.contains("aural-step--active"));
+          if (!stepper) return;
+          const steps = stepper.querySelectorAll('.aural-step');
+          const currentStep = Array.from(steps).findIndex((s) =>
+            s.classList.contains('aural-step--active')
+          );
           if (currentStep > 0) {
             this.goToStep(stepperId, currentStep - 1);
           }
@@ -1885,12 +2303,11 @@
          */
         completeStep(stepperId, stepIndex) {
           const stepper = document.getElementById(stepperId);
-          if (!stepper)
-            return;
-          const steps = stepper.querySelectorAll(".aural-step");
+          if (!stepper) return;
+          const steps = stepper.querySelectorAll('.aural-step');
           if (stepIndex >= 0 && stepIndex < steps.length) {
-            steps[stepIndex].classList.add("aural-step--completed");
-            steps[stepIndex].classList.remove("aural-step--error");
+            steps[stepIndex].classList.add('aural-step--completed');
+            steps[stepIndex].classList.remove('aural-step--error');
           }
         },
         /**
@@ -1898,12 +2315,11 @@
          */
         errorStep(stepperId, stepIndex) {
           const stepper = document.getElementById(stepperId);
-          if (!stepper)
-            return;
-          const steps = stepper.querySelectorAll(".aural-step");
+          if (!stepper) return;
+          const steps = stepper.querySelectorAll('.aural-step');
           if (stepIndex >= 0 && stepIndex < steps.length) {
-            steps[stepIndex].classList.add("aural-step--error");
-            steps[stepIndex].classList.remove("aural-step--completed");
+            steps[stepIndex].classList.add('aural-step--error');
+            steps[stepIndex].classList.remove('aural-step--completed');
           }
         },
         // ========================================
@@ -1916,68 +2332,67 @@
          */
         initSearchBar(searchId, options = {}) {
           const searchBar = document.getElementById(searchId);
-          if (!searchBar)
-            return;
-          const input = searchBar.querySelector(".aural-search-bar__input");
-          const suggestions = searchBar.querySelector(".aural-search-bar__suggestions");
-          const clearBtn = searchBar.querySelector(".aural-search-bar__clear");
+          if (!searchBar) return;
+          const input = searchBar.querySelector('.aural-search-bar__input');
+          const suggestions = searchBar.querySelector('.aural-search-bar__suggestions');
+          const clearBtn = searchBar.querySelector('.aural-search-bar__clear');
           const config = {
             suggestions: options.suggestions || [],
             onSearch: options.onSearch || null,
             onSelect: options.onSelect || null,
             minChars: options.minChars || 1,
             debounce: options.debounce || 300,
-            ...options
+            ...options,
           };
           let debounceTimer = null;
           let selectedIndex = -1;
-          input?.addEventListener("input", (e) => {
+          input?.addEventListener('input', (e) => {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
               const query = e.target.value.trim();
               if (query.length >= config.minChars) {
                 this.showSearchSuggestions(searchId, query, config);
               } else {
-                suggestions?.classList.remove("aural-search-bar__suggestions--open");
+                suggestions?.classList.remove('aural-search-bar__suggestions--open');
               }
               if (config.onSearch) {
                 config.onSearch(query);
               }
             }, config.debounce);
           });
-          clearBtn?.addEventListener("click", () => {
-            input.value = "";
-            suggestions?.classList.remove("aural-search-bar__suggestions--open");
+          clearBtn?.addEventListener('click', () => {
+            input.value = '';
+            suggestions?.classList.remove('aural-search-bar__suggestions--open');
             input.focus();
           });
-          input?.addEventListener("keydown", (e) => {
-            const items = suggestions?.querySelectorAll(".aural-search-bar__item") || [];
-            if (e.key === "ArrowDown") {
+          input?.addEventListener('keydown', (e) => {
+            const items = suggestions?.querySelectorAll('.aural-search-bar__item') || [];
+            if (e.key === 'ArrowDown') {
               e.preventDefault();
               selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
               this.updateSearchSelection(items, selectedIndex);
-            } else if (e.key === "ArrowUp") {
+            } else if (e.key === 'ArrowUp') {
               e.preventDefault();
               selectedIndex = Math.max(selectedIndex - 1, -1);
               this.updateSearchSelection(items, selectedIndex);
-            } else if (e.key === "Enter" && selectedIndex >= 0 && items[selectedIndex]) {
+            } else if (e.key === 'Enter' && selectedIndex >= 0 && items[selectedIndex]) {
               e.preventDefault();
               items[selectedIndex].click();
-            } else if (e.key === "Escape") {
-              suggestions?.classList.remove("aural-search-bar__suggestions--open");
+            } else if (e.key === 'Escape') {
+              suggestions?.classList.remove('aural-search-bar__suggestions--open');
             }
           });
-          document.addEventListener("click", (e) => {
+          document.addEventListener('click', (e) => {
             if (!searchBar.contains(e.target)) {
-              suggestions?.classList.remove("aural-search-bar__suggestions--open");
+              suggestions?.classList.remove('aural-search-bar__suggestions--open');
             }
           });
           return {
             clear: () => {
-              input.value = "";
-              suggestions?.classList.remove("aural-search-bar__suggestions--open");
+              input.value = '';
+              suggestions?.classList.remove('aural-search-bar__suggestions--open');
             },
-            focus: () => input?.focus()
+            focus: () => input?.focus(),
           };
         },
         /**
@@ -1985,11 +2400,12 @@
          */
         showSearchSuggestions(searchId, query, config) {
           const searchBar = document.getElementById(searchId);
-          const suggestions = searchBar?.querySelector(".aural-search-bar__suggestions");
-          if (!suggestions)
-            return;
+          const suggestions = searchBar?.querySelector('.aural-search-bar__suggestions');
+          if (!suggestions) return;
           const filtered = config.suggestions.filter(
-            (item) => item.title.toLowerCase().includes(query.toLowerCase()) || item.description && item.description.toLowerCase().includes(query.toLowerCase())
+            (item) =>
+              item.title.toLowerCase().includes(query.toLowerCase()) ||
+              (item.description && item.description.toLowerCase().includes(query.toLowerCase()))
           );
           if (filtered.length === 0) {
             suggestions.innerHTML = `
@@ -1998,29 +2414,33 @@
                 </div>
             `;
           } else {
-            suggestions.innerHTML = filtered.map((item, index) => `
+            suggestions.innerHTML = filtered
+              .map(
+                (item, index) => `
                 <button class="aural-search-bar__item" data-index="${index}">
-                    ${item.icon ? `<div class="aural-search-bar__item-icon">${item.icon}</div>` : ""}
+                    ${item.icon ? `<div class="aural-search-bar__item-icon">${item.icon}</div>` : ''}
                     <div class="aural-search-bar__item-content">
                         <div class="aural-search-bar__item-title">${item.title}</div>
-                        ${item.description ? `<div class="aural-search-bar__item-description">${item.description}</div>` : ""}
+                        ${item.description ? `<div class="aural-search-bar__item-description">${item.description}</div>` : ''}
                     </div>
                 </button>
-            `).join("");
-            suggestions.querySelectorAll(".aural-search-bar__item").forEach((item) => {
-              item.addEventListener("click", () => {
-                const index = parseInt(item.getAttribute("data-index"));
+            `
+              )
+              .join('');
+            suggestions.querySelectorAll('.aural-search-bar__item').forEach((item) => {
+              item.addEventListener('click', () => {
+                const index = parseInt(item.getAttribute('data-index'));
                 const selected = filtered[index];
                 if (config.onSelect) {
                   config.onSelect(selected);
                 }
-                const input = searchBar.querySelector(".aural-search-bar__input");
+                const input = searchBar.querySelector('.aural-search-bar__input');
                 input.value = selected.title;
-                suggestions.classList.remove("aural-search-bar__suggestions--open");
+                suggestions.classList.remove('aural-search-bar__suggestions--open');
               });
             });
           }
-          suggestions.classList.add("aural-search-bar__suggestions--open");
+          suggestions.classList.add('aural-search-bar__suggestions--open');
         },
         /**
          * Update search selection highlight
@@ -2028,10 +2448,10 @@
         updateSearchSelection(items, selectedIndex) {
           items.forEach((item, index) => {
             if (index === selectedIndex) {
-              item.classList.add("aural-search-bar__item--active");
-              item.scrollIntoView({ block: "nearest" });
+              item.classList.add('aural-search-bar__item--active');
+              item.scrollIntoView({ block: 'nearest' });
             } else {
-              item.classList.remove("aural-search-bar__item--active");
+              item.classList.remove('aural-search-bar__item--active');
             }
           });
         },
@@ -2044,7 +2464,7 @@
          * @param {string} type - Type: 'info', 'success', 'warning', 'error'
          * @param {Object} options - Additional options
          */
-        showAlertBanner(message, type = "info", options = {}) {
+        showAlertBanner(message, type = 'info', options = {}) {
           const config = {
             title: options.title || null,
             dismissible: options.dismissible !== false,
@@ -2053,58 +2473,69 @@
             duration: options.duration || 0,
             // 0 = permanent
             actions: options.actions || [],
-            ...options
+            ...options,
           };
-          const banner = document.createElement("div");
+          const banner = document.createElement('div');
           banner.className = `aural-alert-banner aural-alert-banner--${type}`;
           if (config.fixed) {
             banner.classList.add(`aural-alert-banner--fixed-${config.fixed}`);
           }
-          banner.setAttribute("role", type === "error" ? "alert" : "status");
+          banner.setAttribute('role', type === 'error' ? 'alert' : 'status');
           const icons = {
             info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
-            success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
-            warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-            error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+            success:
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>',
+            warning:
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+            error:
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
           };
-          let actionsHTML = "";
+          let actionsHTML = '';
           if (config.actions.length > 0) {
             actionsHTML = `
                 <div class="aural-alert-banner__actions">
-                    ${config.actions.map((action, index) => `
-                        <button class="aural-alert-banner__action ${action.primary ? "aural-alert-banner__action--primary" : ""}" data-action="${index}">
+                    ${config.actions
+                      .map(
+                        (action, index) => `
+                        <button class="aural-alert-banner__action ${action.primary ? 'aural-alert-banner__action--primary' : ''}" data-action="${index}">
                             ${action.label}
                         </button>
-                    `).join("")}
+                    `
+                      )
+                      .join('')}
                 </div>
             `;
           }
           banner.innerHTML = `
             <div class="aural-alert-banner__icon">${icons[type]}</div>
             <div class="aural-alert-banner__content">
-                ${config.title ? `<div class="aural-alert-banner__title">${config.title}</div>` : ""}
+                ${config.title ? `<div class="aural-alert-banner__title">${config.title}</div>` : ''}
                 <div class="aural-alert-banner__message">${message}</div>
                 ${actionsHTML}
             </div>
-            ${config.dismissible ? `
+            ${
+              config.dismissible
+                ? `
                 <button class="aural-alert-banner__close" aria-label="Close">
                     <svg class="aural-alert-banner__close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="18" y1="6" x2="6" y2="18"/>
                         <line x1="6" y1="6" x2="18" y2="18"/>
                     </svg>
                 </button>
-            ` : ""}
+            `
+                : ''
+            }
         `;
           document.body.appendChild(banner);
           if (config.dismissible) {
-            const closeBtn = banner.querySelector(".aural-alert-banner__close");
-            closeBtn?.addEventListener("click", () => {
+            const closeBtn = banner.querySelector('.aural-alert-banner__close');
+            closeBtn?.addEventListener('click', () => {
               this.dismissAlertBanner(banner);
             });
           }
-          banner.querySelectorAll(".aural-alert-banner__action").forEach((actionBtn) => {
-            actionBtn.addEventListener("click", () => {
-              const index = parseInt(actionBtn.getAttribute("data-action"));
+          banner.querySelectorAll('.aural-alert-banner__action').forEach((actionBtn) => {
+            actionBtn.addEventListener('click', () => {
+              const index = parseInt(actionBtn.getAttribute('data-action'));
               const action = config.actions[index];
               if (action?.onClick) {
                 action.onClick();
@@ -2125,7 +2556,7 @@
          * Dismiss an alert banner
          */
         dismissAlertBanner(banner) {
-          banner.classList.add("aural-alert-banner--dismissing");
+          banner.classList.add('aural-alert-banner--dismissing');
           setTimeout(() => banner.remove(), 300);
         },
         // ========================================
@@ -2136,16 +2567,16 @@
          * @param {string} text - Optional loading text
          * @param {Object} options - Configuration options
          */
-        showSpinner(text = "Loading...", options = {}) {
+        showSpinner(text = 'Loading...', options = {}) {
           const config = {
-            variant: options.variant || "default",
+            variant: options.variant || 'default',
             // 'default', 'dual', 'dots', 'pulse', 'grow', 'bars'
-            color: options.color || "primary",
-            size: options.size || "lg",
-            ...options
+            color: options.color || 'primary',
+            size: options.size || 'lg',
+            ...options,
           };
-          let spinnerHTML = "";
-          if (config.variant === "dots" || config.variant === "grow") {
+          let spinnerHTML = '';
+          if (config.variant === 'dots' || config.variant === 'grow') {
             spinnerHTML = `
                 <div class="aural-spinner aural-spinner--${config.variant} aural-spinner--${config.color} aural-spinner--${config.size}">
                     <div class="aural-spinner__dot"></div>
@@ -2153,7 +2584,7 @@
                     <div class="aural-spinner__dot"></div>
                 </div>
             `;
-          } else if (config.variant === "bars") {
+          } else if (config.variant === 'bars') {
             spinnerHTML = `
                 <div class="aural-spinner aural-spinner--bars aural-spinner--${config.color} aural-spinner--${config.size}">
                     <div class="aural-spinner__bar"></div>
@@ -2169,27 +2600,27 @@
                 </div>
             `;
           }
-          const overlay = document.createElement("div");
-          overlay.className = "aural-spinner-overlay";
-          overlay.id = "aural-spinner-overlay";
+          const overlay = document.createElement('div');
+          overlay.className = 'aural-spinner-overlay';
+          overlay.id = 'aural-spinner-overlay';
           overlay.innerHTML = `
             <div class="aural-spinner--with-text">
                 ${spinnerHTML}
-                ${text ? `<div class="aural-spinner__text">${text}</div>` : ""}
+                ${text ? `<div class="aural-spinner__text">${text}</div>` : ''}
             </div>
         `;
           document.body.appendChild(overlay);
-          document.body.style.overflow = "hidden";
+          document.body.style.overflow = 'hidden';
           return overlay;
         },
         /**
          * Hide the loading spinner overlay
          */
         hideSpinner() {
-          const overlay = document.getElementById("aural-spinner-overlay");
+          const overlay = document.getElementById('aural-spinner-overlay');
           if (overlay) {
             overlay.remove();
-            document.body.style.overflow = "";
+            document.body.style.overflow = '';
           }
         },
         // ========================================
@@ -2201,15 +2632,16 @@
          */
         openDrawer(drawerId) {
           const drawer = document.getElementById(drawerId);
-          if (!drawer)
-            return;
+          if (!drawer) return;
           const backdrop = drawer.previousElementSibling;
-          drawer.classList.add("aural-drawer--open");
-          if (backdrop && backdrop.classList.contains("aural-drawer-backdrop")) {
-            backdrop.classList.add("aural-drawer-backdrop--open");
+          drawer.classList.add('aural-drawer--open');
+          if (backdrop && backdrop.classList.contains('aural-drawer-backdrop')) {
+            backdrop.classList.add('aural-drawer-backdrop--open');
           }
-          document.body.classList.add("aural-drawer-open");
-          const focusableElements = drawer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          document.body.classList.add('aural-drawer-open');
+          const focusableElements = drawer.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
           if (focusableElements.length > 0) {
             focusableElements[0].focus();
           }
@@ -2220,14 +2652,13 @@
          */
         closeDrawer(drawerId) {
           const drawer = document.getElementById(drawerId);
-          if (!drawer)
-            return;
+          if (!drawer) return;
           const backdrop = drawer.previousElementSibling;
-          drawer.classList.remove("aural-drawer--open");
-          if (backdrop && backdrop.classList.contains("aural-drawer-backdrop")) {
-            backdrop.classList.remove("aural-drawer-backdrop--open");
+          drawer.classList.remove('aural-drawer--open');
+          if (backdrop && backdrop.classList.contains('aural-drawer-backdrop')) {
+            backdrop.classList.remove('aural-drawer-backdrop--open');
           }
-          document.body.classList.remove("aural-drawer-open");
+          document.body.classList.remove('aural-drawer-open');
         },
         /**
          * Toggle drawer open/close
@@ -2235,9 +2666,8 @@
          */
         toggleDrawer(drawerId) {
           const drawer = document.getElementById(drawerId);
-          if (!drawer)
-            return;
-          if (drawer.classList.contains("aural-drawer--open")) {
+          if (!drawer) return;
+          if (drawer.classList.contains('aural-drawer--open')) {
             this.closeDrawer(drawerId);
           } else {
             this.openDrawer(drawerId);
@@ -2247,25 +2677,25 @@
          * Initialize all drawers (ESC key and backdrop click)
          */
         initDrawers() {
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-              const openDrawers = document.querySelectorAll(".aural-drawer--open");
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+              const openDrawers = document.querySelectorAll('.aural-drawer--open');
               openDrawers.forEach((drawer) => {
                 this.closeDrawer(drawer.id);
               });
             }
           });
-          document.addEventListener("click", (e) => {
-            if (e.target.classList.contains("aural-drawer-backdrop")) {
+          document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('aural-drawer-backdrop')) {
               const drawer = e.target.nextElementSibling;
-              if (drawer && drawer.classList.contains("aural-drawer")) {
+              if (drawer && drawer.classList.contains('aural-drawer')) {
                 this.closeDrawer(drawer.id);
               }
             }
           });
-          document.querySelectorAll(".aural-drawer__close").forEach((closeBtn) => {
-            closeBtn.addEventListener("click", () => {
-              const drawer = closeBtn.closest(".aural-drawer");
+          document.querySelectorAll('.aural-drawer__close').forEach((closeBtn) => {
+            closeBtn.addEventListener('click', () => {
+              const drawer = closeBtn.closest('.aural-drawer');
               if (drawer) {
                 this.closeDrawer(drawer.id);
               }
@@ -2282,23 +2712,22 @@
          */
         initRating(ratingId, options = {}) {
           const rating = document.getElementById(ratingId);
-          if (!rating)
-            return;
-          const stars = rating.querySelectorAll(".aural-rating__star");
-          const valueDisplay = rating.querySelector(".aural-rating__value");
+          if (!rating) return;
+          const stars = rating.querySelectorAll('.aural-rating__star');
+          const valueDisplay = rating.querySelector('.aural-rating__value');
           const config = {
             maxRating: options.maxRating || 5,
             initialRating: options.initialRating || 0,
-            readonly: options.readonly || rating.classList.contains("aural-rating--readonly"),
+            readonly: options.readonly || rating.classList.contains('aural-rating--readonly'),
             allowHalf: options.allowHalf || false,
             onChange: options.onChange || null,
-            ...options
+            ...options,
           };
           let currentRating = config.initialRating;
           this.updateRatingDisplay(rating, currentRating, config.maxRating);
           if (!config.readonly) {
             stars.forEach((star, index) => {
-              star.addEventListener("click", () => {
+              star.addEventListener('click', () => {
                 currentRating = index + 1;
                 this.updateRatingDisplay(rating, currentRating, config.maxRating);
                 if (valueDisplay) {
@@ -2308,22 +2737,22 @@
                   config.onChange(currentRating);
                 }
               });
-              star.addEventListener("mouseenter", () => {
+              star.addEventListener('mouseenter', () => {
                 this.updateRatingDisplay(rating, index + 1, config.maxRating);
               });
             });
-            rating.addEventListener("mouseleave", () => {
+            rating.addEventListener('mouseleave', () => {
               this.updateRatingDisplay(rating, currentRating, config.maxRating);
             });
             stars.forEach((star, index) => {
-              star.addEventListener("keydown", (e) => {
-                if (e.key === "Enter" || e.key === " ") {
+              star.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   star.click();
-                } else if (e.key === "ArrowRight" && index < stars.length - 1) {
+                } else if (e.key === 'ArrowRight' && index < stars.length - 1) {
                   e.preventDefault();
                   stars[index + 1].focus();
-                } else if (e.key === "ArrowLeft" && index > 0) {
+                } else if (e.key === 'ArrowLeft' && index > 0) {
                   e.preventDefault();
                   stars[index - 1].focus();
                 }
@@ -2343,24 +2772,28 @@
               currentRating = 0;
               this.updateRatingDisplay(rating, 0, config.maxRating);
               if (valueDisplay) {
-                valueDisplay.textContent = "0";
+                valueDisplay.textContent = '0';
               }
-            }
+            },
           };
         },
         /**
          * Update rating star display
          */
         updateRatingDisplay(rating, value, maxRating) {
-          const stars = rating.querySelectorAll(".aural-rating__star");
+          const stars = rating.querySelectorAll('.aural-rating__star');
           stars.forEach((star, index) => {
-            star.classList.remove("aural-rating__star--filled", "aural-rating__star--half", "aural-rating__star--empty");
+            star.classList.remove(
+              'aural-rating__star--filled',
+              'aural-rating__star--half',
+              'aural-rating__star--empty'
+            );
             if (index < Math.floor(value)) {
-              star.classList.add("aural-rating__star--filled");
+              star.classList.add('aural-rating__star--filled');
             } else if (index < value && value % 1 !== 0) {
-              star.classList.add("aural-rating__star--half");
+              star.classList.add('aural-rating__star--half');
             } else {
-              star.classList.add("aural-rating__star--empty");
+              star.classList.add('aural-rating__star--empty');
             }
           });
         },
@@ -2374,40 +2807,42 @@
          */
         initNotificationCenter(centerId, options = {}) {
           const center = document.getElementById(centerId);
-          if (!center)
-            return;
-          const trigger = center.querySelector(".aural-notification-center__trigger");
-          const dropdown = center.querySelector(".aural-notification-center__dropdown");
-          const badge = center.querySelector(".aural-notification-center__badge");
+          if (!center) return;
+          const trigger = center.querySelector('.aural-notification-center__trigger');
+          const dropdown = center.querySelector('.aural-notification-center__dropdown');
+          const badge = center.querySelector('.aural-notification-center__badge');
           const config = {
             notifications: options.notifications || [],
             onNotificationClick: options.onNotificationClick || null,
             onMarkAllRead: options.onMarkAllRead || null,
-            ...options
+            ...options,
           };
           let unreadCount = config.notifications.filter((n) => n.unread).length;
           if (badge) {
-            badge.textContent = unreadCount > 0 ? unreadCount : "";
+            badge.textContent = unreadCount > 0 ? unreadCount : '';
           }
-          trigger?.addEventListener("click", (e) => {
+          trigger?.addEventListener('click', (e) => {
             e.stopPropagation();
-            dropdown?.classList.toggle("aural-notification-center__dropdown--open");
-            trigger.classList.toggle("aural-notification-center__trigger--active");
+            dropdown?.classList.toggle('aural-notification-center__dropdown--open');
+            trigger.classList.toggle('aural-notification-center__trigger--active');
           });
-          document.addEventListener("click", (e) => {
+          document.addEventListener('click', (e) => {
             if (!center.contains(e.target)) {
-              dropdown?.classList.remove("aural-notification-center__dropdown--open");
-              trigger?.classList.remove("aural-notification-center__trigger--active");
+              dropdown?.classList.remove('aural-notification-center__dropdown--open');
+              trigger?.classList.remove('aural-notification-center__trigger--active');
             }
           });
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && dropdown?.classList.contains("aural-notification-center__dropdown--open")) {
-              dropdown.classList.remove("aural-notification-center__dropdown--open");
-              trigger?.classList.remove("aural-notification-center__trigger--active");
+          document.addEventListener('keydown', (e) => {
+            if (
+              e.key === 'Escape' &&
+              dropdown?.classList.contains('aural-notification-center__dropdown--open')
+            ) {
+              dropdown.classList.remove('aural-notification-center__dropdown--open');
+              trigger?.classList.remove('aural-notification-center__trigger--active');
             }
           });
           const markAllReadBtn = center.querySelector('[data-action="mark-all-read"]');
-          markAllReadBtn?.addEventListener("click", () => {
+          markAllReadBtn?.addEventListener('click', () => {
             this.markAllNotificationsRead(centerId);
             if (config.onMarkAllRead) {
               config.onMarkAllRead();
@@ -2415,10 +2850,11 @@
           });
           return {
             addNotification: (notification) => this.addNotification(centerId, notification),
-            removeNotification: (notificationId) => this.removeNotification(centerId, notificationId),
+            removeNotification: (notificationId) =>
+              this.removeNotification(centerId, notificationId),
             markAsRead: (notificationId) => this.markNotificationRead(centerId, notificationId),
             markAllAsRead: () => this.markAllNotificationsRead(centerId),
-            getUnreadCount: () => unreadCount
+            getUnreadCount: () => unreadCount,
           };
         },
         /**
@@ -2426,25 +2862,23 @@
          */
         addNotification(centerId, notification) {
           const center = document.getElementById(centerId);
-          if (!center)
-            return;
-          const list = center.querySelector(".aural-notification-center__list");
-          const badge = center.querySelector(".aural-notification-center__badge");
-          if (!list)
-            return;
-          const item = document.createElement("button");
-          item.className = `aural-notification-center__item ${notification.unread ? "aural-notification-center__item--unread" : ""} ${notification.type ? `aural-notification-center__item--${notification.type}` : ""}`;
-          item.setAttribute("data-notification-id", notification.id);
+          if (!center) return;
+          const list = center.querySelector('.aural-notification-center__list');
+          const badge = center.querySelector('.aural-notification-center__badge');
+          if (!list) return;
+          const item = document.createElement('button');
+          item.className = `aural-notification-center__item ${notification.unread ? 'aural-notification-center__item--unread' : ''} ${notification.type ? `aural-notification-center__item--${notification.type}` : ''}`;
+          item.setAttribute('data-notification-id', notification.id);
           item.innerHTML = `
-            ${notification.icon ? `<div class="aural-notification-center__item-icon">${notification.icon}</div>` : ""}
+            ${notification.icon ? `<div class="aural-notification-center__item-icon">${notification.icon}</div>` : ''}
             <div class="aural-notification-center__item-content">
                 <div class="aural-notification-center__item-title">${notification.title}</div>
                 <div class="aural-notification-center__item-message">${notification.message}</div>
                 <div class="aural-notification-center__item-time">${notification.time}</div>
             </div>
-            ${notification.unread ? '<div class="aural-notification-center__item-dot"></div>' : ""}
+            ${notification.unread ? '<div class="aural-notification-center__item-dot"></div>' : ''}
         `;
-          item.addEventListener("click", () => {
+          item.addEventListener('click', () => {
             if (notification.onClick) {
               notification.onClick();
             }
@@ -2461,19 +2895,20 @@
          */
         markNotificationRead(centerId, notificationId) {
           const center = document.getElementById(centerId);
-          if (!center)
-            return;
+          if (!center) return;
           const notification = center.querySelector(`[data-notification-id="${notificationId}"]`);
-          const badge = center.querySelector(".aural-notification-center__badge");
-          if (notification && notification.classList.contains("aural-notification-center__item--unread")) {
-            notification.classList.remove("aural-notification-center__item--unread");
-            const dot = notification.querySelector(".aural-notification-center__item-dot");
-            if (dot)
-              dot.remove();
+          const badge = center.querySelector('.aural-notification-center__badge');
+          if (
+            notification &&
+            notification.classList.contains('aural-notification-center__item--unread')
+          ) {
+            notification.classList.remove('aural-notification-center__item--unread');
+            const dot = notification.querySelector('.aural-notification-center__item-dot');
+            if (dot) dot.remove();
             if (badge) {
               const currentCount = parseInt(badge.textContent) || 0;
               const newCount = Math.max(0, currentCount - 1);
-              badge.textContent = newCount > 0 ? newCount : "";
+              badge.textContent = newCount > 0 ? newCount : '';
             }
           }
         },
@@ -2482,18 +2917,16 @@
          */
         markAllNotificationsRead(centerId) {
           const center = document.getElementById(centerId);
-          if (!center)
-            return;
-          const unreadItems = center.querySelectorAll(".aural-notification-center__item--unread");
-          const badge = center.querySelector(".aural-notification-center__badge");
+          if (!center) return;
+          const unreadItems = center.querySelectorAll('.aural-notification-center__item--unread');
+          const badge = center.querySelector('.aural-notification-center__badge');
           unreadItems.forEach((item) => {
-            item.classList.remove("aural-notification-center__item--unread");
-            const dot = item.querySelector(".aural-notification-center__item-dot");
-            if (dot)
-              dot.remove();
+            item.classList.remove('aural-notification-center__item--unread');
+            const dot = item.querySelector('.aural-notification-center__item-dot');
+            if (dot) dot.remove();
           });
           if (badge) {
-            badge.textContent = "";
+            badge.textContent = '';
           }
         },
         /**
@@ -2501,18 +2934,19 @@
          */
         removeNotification(centerId, notificationId) {
           const center = document.getElementById(centerId);
-          if (!center)
-            return;
+          if (!center) return;
           const notification = center.querySelector(`[data-notification-id="${notificationId}"]`);
           if (notification) {
-            const wasUnread = notification.classList.contains("aural-notification-center__item--unread");
+            const wasUnread = notification.classList.contains(
+              'aural-notification-center__item--unread'
+            );
             notification.remove();
             if (wasUnread) {
-              const badge = center.querySelector(".aural-notification-center__badge");
+              const badge = center.querySelector('.aural-notification-center__badge');
               if (badge) {
                 const currentCount = parseInt(badge.textContent) || 0;
                 const newCount = Math.max(0, currentCount - 1);
-                badge.textContent = newCount > 0 ? newCount : "";
+                badge.textContent = newCount > 0 ? newCount : '';
               }
             }
           }
@@ -2527,45 +2961,42 @@
          */
         initCarousel(carouselId, options = {}) {
           const carousel = document.getElementById(carouselId);
-          if (!carousel)
-            return;
-          const track = carousel.querySelector(".aural-carousel__track");
-          const slides = carousel.querySelectorAll(".aural-carousel__slide");
-          const dots = carousel.querySelectorAll(".aural-carousel__dot");
-          const prevBtn = carousel.querySelector(".aural-carousel__arrow--prev");
-          const nextBtn = carousel.querySelector(".aural-carousel__arrow--next");
-          const counter = carousel.querySelector(".aural-carousel__counter");
+          if (!carousel) return;
+          const track = carousel.querySelector('.aural-carousel__track');
+          const slides = carousel.querySelectorAll('.aural-carousel__slide');
+          const dots = carousel.querySelectorAll('.aural-carousel__dot');
+          const prevBtn = carousel.querySelector('.aural-carousel__arrow--prev');
+          const nextBtn = carousel.querySelector('.aural-carousel__arrow--next');
+          const counter = carousel.querySelector('.aural-carousel__counter');
           const config = {
             autoplay: options.autoplay || false,
             autoplayDelay: options.autoplayDelay || 5e3,
             loop: options.loop !== false,
             perView: options.perView || 1,
-            fade: carousel.classList.contains("aural-carousel--fade"),
+            fade: carousel.classList.contains('aural-carousel--fade'),
             onChange: options.onChange || null,
-            ...options
+            ...options,
           };
           let currentIndex = 0;
           let autoplayInterval = null;
           const updateCarousel = () => {
             if (config.fade) {
               slides.forEach((slide, index) => {
-                slide.classList.toggle("aural-carousel__slide--active", index === currentIndex);
+                slide.classList.toggle('aural-carousel__slide--active', index === currentIndex);
               });
             } else {
               const offset = -currentIndex * (100 / config.perView);
               track.style.transform = `translateX(${offset}%)`;
             }
             dots.forEach((dot, index) => {
-              dot.classList.toggle("aural-carousel__dot--active", index === currentIndex);
+              dot.classList.toggle('aural-carousel__dot--active', index === currentIndex);
             });
             if (counter) {
               counter.textContent = `${currentIndex + 1} / ${slides.length}`;
             }
             if (!config.loop) {
-              if (prevBtn)
-                prevBtn.disabled = currentIndex === 0;
-              if (nextBtn)
-                nextBtn.disabled = currentIndex === slides.length - 1;
+              if (prevBtn) prevBtn.disabled = currentIndex === 0;
+              if (nextBtn) nextBtn.disabled = currentIndex === slides.length - 1;
             }
             if (config.onChange) {
               config.onChange(currentIndex);
@@ -2587,26 +3018,26 @@
           const prevSlide = () => {
             goToSlide(currentIndex - 1);
           };
-          prevBtn?.addEventListener("click", prevSlide);
-          nextBtn?.addEventListener("click", nextSlide);
+          prevBtn?.addEventListener('click', prevSlide);
+          nextBtn?.addEventListener('click', nextSlide);
           dots.forEach((dot, index) => {
-            dot.addEventListener("click", () => goToSlide(index));
+            dot.addEventListener('click', () => goToSlide(index));
           });
-          carousel.addEventListener("keydown", (e) => {
-            if (e.key === "ArrowLeft") {
+          carousel.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
               e.preventDefault();
               prevSlide();
-            } else if (e.key === "ArrowRight") {
+            } else if (e.key === 'ArrowRight') {
               e.preventDefault();
               nextSlide();
             }
           });
           let touchStartX = 0;
           let touchEndX = 0;
-          carousel.addEventListener("touchstart", (e) => {
+          carousel.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
           });
-          carousel.addEventListener("touchend", (e) => {
+          carousel.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             const diff = touchStartX - touchEndX;
             if (Math.abs(diff) > 50) {
@@ -2628,8 +3059,8 @@
               autoplayInterval = null;
             }
           };
-          carousel.addEventListener("mouseenter", stopAutoplay);
-          carousel.addEventListener("mouseleave", startAutoplay);
+          carousel.addEventListener('mouseenter', stopAutoplay);
+          carousel.addEventListener('mouseleave', startAutoplay);
           updateCarousel();
           startAutoplay();
           return {
@@ -2638,7 +3069,7 @@
             goTo: goToSlide,
             getCurrent: () => currentIndex,
             play: startAutoplay,
-            pause: stopAutoplay
+            pause: stopAutoplay,
           };
         },
         // ========================================
@@ -2652,14 +3083,13 @@
          */
         showContextMenu(menuId, x, y) {
           const menu = document.getElementById(menuId);
-          if (!menu)
-            return;
-          document.querySelectorAll(".aural-context-menu--open").forEach((m) => {
-            m.classList.remove("aural-context-menu--open");
+          if (!menu) return;
+          document.querySelectorAll('.aural-context-menu--open').forEach((m) => {
+            m.classList.remove('aural-context-menu--open');
           });
           menu.style.left = `${x}px`;
           menu.style.top = `${y}px`;
-          menu.classList.add("aural-context-menu--open");
+          menu.classList.add('aural-context-menu--open');
           const rect = menu.getBoundingClientRect();
           if (rect.right > window.innerWidth) {
             menu.style.left = `${window.innerWidth - rect.width - 10}px`;
@@ -2667,7 +3097,9 @@
           if (rect.bottom > window.innerHeight) {
             menu.style.top = `${window.innerHeight - rect.height - 10}px`;
           }
-          const firstItem = menu.querySelector(".aural-context-menu__item:not(.aural-context-menu__item--disabled)");
+          const firstItem = menu.querySelector(
+            '.aural-context-menu__item:not(.aural-context-menu__item--disabled)'
+          );
           if (firstItem) {
             firstItem.focus();
           }
@@ -2679,7 +3111,7 @@
         hideContextMenu(menuId) {
           const menu = document.getElementById(menuId);
           if (menu) {
-            menu.classList.remove("aural-context-menu--open");
+            menu.classList.remove('aural-context-menu--open');
           }
         },
         /**
@@ -2691,97 +3123,99 @@
         initContextMenu(triggerId, menuId, options = {}) {
           const trigger = document.getElementById(triggerId);
           const menu = document.getElementById(menuId);
-          if (!trigger || !menu)
-            return;
+          if (!trigger || !menu) return;
           const config = {
             preventDefault: options.preventDefault !== false,
-            ...options
+            ...options,
           };
-          trigger.addEventListener("contextmenu", (e) => {
+          trigger.addEventListener('contextmenu', (e) => {
             if (config.preventDefault) {
               e.preventDefault();
             }
             this.showContextMenu(menuId, e.clientX, e.clientY);
           });
-          document.addEventListener("click", (e) => {
+          document.addEventListener('click', (e) => {
             if (!menu.contains(e.target) && !trigger.contains(e.target)) {
               this.hideContextMenu(menuId);
             }
           });
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && menu.classList.contains("aural-context-menu--open")) {
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menu.classList.contains('aural-context-menu--open')) {
               this.hideContextMenu(menuId);
             }
           });
-          menu.addEventListener("keydown", (e) => {
-            const items = Array.from(menu.querySelectorAll(".aural-context-menu__item:not(.aural-context-menu__item--disabled)"));
+          menu.addEventListener('keydown', (e) => {
+            const items = Array.from(
+              menu.querySelectorAll(
+                '.aural-context-menu__item:not(.aural-context-menu__item--disabled)'
+              )
+            );
             const currentIndex = items.indexOf(document.activeElement);
-            if (e.key === "ArrowDown") {
+            if (e.key === 'ArrowDown') {
               e.preventDefault();
               const nextIndex = (currentIndex + 1) % items.length;
               items[nextIndex].focus();
-            } else if (e.key === "ArrowUp") {
+            } else if (e.key === 'ArrowUp') {
               e.preventDefault();
               const prevIndex = (currentIndex - 1 + items.length) % items.length;
               items[prevIndex].focus();
-            } else if (e.key === "Enter" || e.key === " ") {
+            } else if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               if (document.activeElement) {
                 document.activeElement.click();
               }
             }
           });
-          menu.querySelectorAll(".aural-context-menu__item").forEach((item) => {
-            item.addEventListener("click", () => {
-              if (!item.classList.contains("aural-context-menu__item--disabled")) {
+          menu.querySelectorAll('.aural-context-menu__item').forEach((item) => {
+            item.addEventListener('click', () => {
+              if (!item.classList.contains('aural-context-menu__item--disabled')) {
                 this.hideContextMenu(menuId);
               }
             });
           });
           return {
             show: (x, y) => this.showContextMenu(menuId, x, y),
-            hide: () => this.hideContextMenu(menuId)
+            hide: () => this.hideContextMenu(menuId),
           };
         },
         // Tree View
         initTreeView(treeId, options = {}) {
           const tree = document.getElementById(treeId);
-          if (!tree)
-            return null;
+          if (!tree) return null;
           const {
             multiSelect = false,
             checkable = false,
             onSelect = null,
             onExpand = null,
-            onCheck = null
+            onCheck = null,
           } = options;
           const toggleItem = (item) => {
-            const isExpanded = item.classList.contains("aural-tree__item--expanded");
-            item.classList.toggle("aural-tree__item--expanded");
+            const isExpanded = item.classList.contains('aural-tree__item--expanded');
+            item.classList.toggle('aural-tree__item--expanded');
             if (onExpand) {
               onExpand(item, !isExpanded);
             }
           };
           const selectItem = (item) => {
             if (!multiSelect) {
-              tree.querySelectorAll(".aural-tree__item--selected").forEach((selected) => {
-                selected.classList.remove("aural-tree__item--selected");
+              tree.querySelectorAll('.aural-tree__item--selected').forEach((selected) => {
+                selected.classList.remove('aural-tree__item--selected');
               });
             }
-            item.classList.toggle("aural-tree__item--selected");
+            item.classList.toggle('aural-tree__item--selected');
             if (onSelect) {
-              onSelect(item, item.classList.contains("aural-tree__item--selected"));
+              onSelect(item, item.classList.contains('aural-tree__item--selected'));
             }
           };
           const checkItem = (item, checked) => {
             if (checked) {
-              item.classList.add("aural-tree__item--checked");
-              item.classList.remove("aural-tree__item--indeterminate");
+              item.classList.add('aural-tree__item--checked');
+              item.classList.remove('aural-tree__item--indeterminate');
             } else {
-              item.classList.remove("aural-tree__item--checked");
-              item.classList.remove("aural-tree__item--indeterminate");
+              item.classList.remove('aural-tree__item--checked');
+              item.classList.remove('aural-tree__item--indeterminate');
             }
-            const parent = item.parentElement.closest(".aural-tree__item");
+            const parent = item.parentElement.closest('.aural-tree__item');
             if (parent) {
               updateParentCheckState(parent);
             }
@@ -2790,40 +3224,42 @@
             }
           };
           const updateParentCheckState = (parent) => {
-            const children = parent.querySelectorAll(":scope > .aural-tree__children > .aural-tree__item");
-            const checkedChildren = Array.from(children).filter(
-              (child) => child.classList.contains("aural-tree__item--checked")
+            const children = parent.querySelectorAll(
+              ':scope > .aural-tree__children > .aural-tree__item'
             );
-            const indeterminateChildren = Array.from(children).filter(
-              (child) => child.classList.contains("aural-tree__item--indeterminate")
+            const checkedChildren = Array.from(children).filter((child) =>
+              child.classList.contains('aural-tree__item--checked')
+            );
+            const indeterminateChildren = Array.from(children).filter((child) =>
+              child.classList.contains('aural-tree__item--indeterminate')
             );
             if (checkedChildren.length === children.length) {
-              parent.classList.add("aural-tree__item--checked");
-              parent.classList.remove("aural-tree__item--indeterminate");
+              parent.classList.add('aural-tree__item--checked');
+              parent.classList.remove('aural-tree__item--indeterminate');
             } else if (checkedChildren.length > 0 || indeterminateChildren.length > 0) {
-              parent.classList.remove("aural-tree__item--checked");
-              parent.classList.add("aural-tree__item--indeterminate");
+              parent.classList.remove('aural-tree__item--checked');
+              parent.classList.add('aural-tree__item--indeterminate');
             } else {
-              parent.classList.remove("aural-tree__item--checked");
-              parent.classList.remove("aural-tree__item--indeterminate");
+              parent.classList.remove('aural-tree__item--checked');
+              parent.classList.remove('aural-tree__item--indeterminate');
             }
           };
-          tree.querySelectorAll(".aural-tree__content").forEach((content) => {
-            content.addEventListener("click", (e) => {
-              const item = content.closest(".aural-tree__item");
-              const toggle = e.target.closest(".aural-tree__toggle");
-              const checkbox = e.target.closest(".aural-tree__checkbox");
+          tree.querySelectorAll('.aural-tree__content').forEach((content) => {
+            content.addEventListener('click', (e) => {
+              const item = content.closest('.aural-tree__item');
+              const toggle = e.target.closest('.aural-tree__toggle');
+              const checkbox = e.target.closest('.aural-tree__checkbox');
               if (checkbox && checkable) {
-                const isChecked = !item.classList.contains("aural-tree__item--checked");
+                const isChecked = !item.classList.contains('aural-tree__item--checked');
                 checkItem(item, isChecked);
-                const children = item.querySelectorAll(".aural-tree__item");
+                const children = item.querySelectorAll('.aural-tree__item');
                 children.forEach((child) => {
                   if (isChecked) {
-                    child.classList.add("aural-tree__item--checked");
-                    child.classList.remove("aural-tree__item--indeterminate");
+                    child.classList.add('aural-tree__item--checked');
+                    child.classList.remove('aural-tree__item--indeterminate');
                   } else {
-                    child.classList.remove("aural-tree__item--checked");
-                    child.classList.remove("aural-tree__item--indeterminate");
+                    child.classList.remove('aural-tree__item--checked');
+                    child.classList.remove('aural-tree__item--indeterminate');
                   }
                 });
               } else if (toggle) {
@@ -2835,29 +3271,24 @@
           });
           return {
             expandAll: () => {
-              tree.querySelectorAll(".aural-tree__item").forEach((item) => {
-                item.classList.add("aural-tree__item--expanded");
+              tree.querySelectorAll('.aural-tree__item').forEach((item) => {
+                item.classList.add('aural-tree__item--expanded');
               });
             },
             collapseAll: () => {
-              tree.querySelectorAll(".aural-tree__item").forEach((item) => {
-                item.classList.remove("aural-tree__item--expanded");
+              tree.querySelectorAll('.aural-tree__item').forEach((item) => {
+                item.classList.remove('aural-tree__item--expanded');
               });
-            }
+            },
           };
         },
         // Image Gallery
         initImageGallery(galleryId, options = {}) {
           const gallery = document.getElementById(galleryId);
-          if (!gallery)
-            return null;
-          const {
-            lightboxId = galleryId + "-lightbox",
-            onOpen = null,
-            onClose = null
-          } = options;
+          if (!gallery) return null;
+          const { lightboxId = galleryId + '-lightbox', onOpen = null, onClose = null } = options;
           let currentIndex = 0;
-          const items = Array.from(gallery.querySelectorAll(".aural-gallery__item"));
+          const items = Array.from(gallery.querySelectorAll('.aural-gallery__item'));
           let lightbox = document.getElementById(lightboxId);
           if (!lightbox) {
             lightbox = this.createLightbox(lightboxId);
@@ -2866,31 +3297,27 @@
           const openLightbox = (index) => {
             currentIndex = index;
             const item = items[index];
-            const img = item.querySelector(".aural-gallery__image");
-            const title = item.querySelector(".aural-gallery__title")?.textContent || "";
-            const description = item.querySelector(".aural-gallery__description")?.textContent || "";
-            const lightboxImg = lightbox.querySelector(".aural-lightbox__image");
-            const lightboxTitle = lightbox.querySelector(".aural-lightbox__caption-title");
-            const lightboxDesc = lightbox.querySelector(".aural-lightbox__caption-description");
-            const counter = lightbox.querySelector(".aural-lightbox__counter");
+            const img = item.querySelector('.aural-gallery__image');
+            const title = item.querySelector('.aural-gallery__title')?.textContent || '';
+            const description =
+              item.querySelector('.aural-gallery__description')?.textContent || '';
+            const lightboxImg = lightbox.querySelector('.aural-lightbox__image');
+            const lightboxTitle = lightbox.querySelector('.aural-lightbox__caption-title');
+            const lightboxDesc = lightbox.querySelector('.aural-lightbox__caption-description');
+            const counter = lightbox.querySelector('.aural-lightbox__counter');
             lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt || "";
-            if (lightboxTitle)
-              lightboxTitle.textContent = title;
-            if (lightboxDesc)
-              lightboxDesc.textContent = description;
-            if (counter)
-              counter.textContent = `${index + 1} / ${items.length}`;
-            lightbox.classList.add("aural-lightbox--open");
-            document.body.style.overflow = "hidden";
-            if (onOpen)
-              onOpen(index, item);
+            lightboxImg.alt = img.alt || '';
+            if (lightboxTitle) lightboxTitle.textContent = title;
+            if (lightboxDesc) lightboxDesc.textContent = description;
+            if (counter) counter.textContent = `${index + 1} / ${items.length}`;
+            lightbox.classList.add('aural-lightbox--open');
+            document.body.style.overflow = 'hidden';
+            if (onOpen) onOpen(index, item);
           };
           const closeLightbox = () => {
-            lightbox.classList.remove("aural-lightbox--open");
-            document.body.style.overflow = "";
-            if (onClose)
-              onClose(currentIndex);
+            lightbox.classList.remove('aural-lightbox--open');
+            document.body.style.overflow = '';
+            if (onClose) onClose(currentIndex);
           };
           const navigate = (direction) => {
             const newIndex = currentIndex + direction;
@@ -2899,32 +3326,30 @@
             }
           };
           items.forEach((item, index) => {
-            item.addEventListener("click", () => openLightbox(index));
+            item.addEventListener('click', () => openLightbox(index));
           });
-          const closeBtn = lightbox.querySelector(".aural-lightbox__close");
-          const prevBtn = lightbox.querySelector(".aural-lightbox__nav--prev");
-          const nextBtn = lightbox.querySelector(".aural-lightbox__nav--next");
+          const closeBtn = lightbox.querySelector('.aural-lightbox__close');
+          const prevBtn = lightbox.querySelector('.aural-lightbox__nav--prev');
+          const nextBtn = lightbox.querySelector('.aural-lightbox__nav--next');
           if (closeBtn) {
-            closeBtn.addEventListener("click", closeLightbox);
+            closeBtn.addEventListener('click', closeLightbox);
           }
           if (prevBtn) {
-            prevBtn.addEventListener("click", () => navigate(-1));
+            prevBtn.addEventListener('click', () => navigate(-1));
           }
           if (nextBtn) {
-            nextBtn.addEventListener("click", () => navigate(1));
+            nextBtn.addEventListener('click', () => navigate(1));
           }
-          lightbox.addEventListener("click", (e) => {
-            if (e.target === lightbox)
-              closeLightbox();
+          lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
           });
-          document.addEventListener("keydown", (e) => {
-            if (!lightbox.classList.contains("aural-lightbox--open"))
-              return;
-            if (e.key === "Escape") {
+          document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('aural-lightbox--open')) return;
+            if (e.key === 'Escape') {
               closeLightbox();
-            } else if (e.key === "ArrowLeft") {
+            } else if (e.key === 'ArrowLeft') {
               navigate(-1);
-            } else if (e.key === "ArrowRight") {
+            } else if (e.key === 'ArrowRight') {
               navigate(1);
             }
           });
@@ -2932,13 +3357,13 @@
             open: (index) => openLightbox(index),
             close: closeLightbox,
             next: () => navigate(1),
-            prev: () => navigate(-1)
+            prev: () => navigate(-1),
           };
         },
         createLightbox(id) {
-          const lightbox = document.createElement("div");
+          const lightbox = document.createElement('div');
           lightbox.id = id;
-          lightbox.className = "aural-lightbox";
+          lightbox.className = 'aural-lightbox';
           lightbox.innerHTML = `
             <div class="aural-lightbox__content">
                 <button class="aural-lightbox__close" aria-label="Close lightbox">
@@ -2972,22 +3397,17 @@
         // Bottom Navigation
         initBottomNav(navId, options = {}) {
           const nav = document.getElementById(navId);
-          if (!nav)
-            return null;
-          const {
-            hideOnScroll = false,
-            scrollThreshold = 50,
-            onItemClick = null
-          } = options;
+          if (!nav) return null;
+          const { hideOnScroll = false, scrollThreshold = 50, onItemClick = null } = options;
           let lastScrollY = window.scrollY;
           let isHidden = false;
-          document.body.classList.add("has-bottom-nav");
-          nav.querySelectorAll(".aural-bottom-nav__item").forEach((item) => {
-            item.addEventListener("click", (e) => {
-              nav.querySelectorAll(".aural-bottom-nav__item").forEach((navItem) => {
-                navItem.classList.remove("aural-bottom-nav__item--active");
+          document.body.classList.add('has-bottom-nav');
+          nav.querySelectorAll('.aural-bottom-nav__item').forEach((item) => {
+            item.addEventListener('click', (e) => {
+              nav.querySelectorAll('.aural-bottom-nav__item').forEach((navItem) => {
+                navItem.classList.remove('aural-bottom-nav__item--active');
               });
-              item.classList.add("aural-bottom-nav__item--active");
+              item.classList.add('aural-bottom-nav__item--active');
               if (onItemClick) {
                 onItemClick(item, e);
               }
@@ -3002,18 +3422,18 @@
                 return;
               }
               if (currentScrollY > lastScrollY && !isHidden) {
-                nav.classList.add("aural-bottom-nav--slide-out");
-                nav.classList.remove("aural-bottom-nav--slide-in");
+                nav.classList.add('aural-bottom-nav--slide-out');
+                nav.classList.remove('aural-bottom-nav--slide-in');
                 isHidden = true;
               } else if (currentScrollY < lastScrollY && isHidden) {
-                nav.classList.remove("aural-bottom-nav--slide-out");
-                nav.classList.add("aural-bottom-nav--slide-in");
+                nav.classList.remove('aural-bottom-nav--slide-out');
+                nav.classList.add('aural-bottom-nav--slide-in');
                 isHidden = false;
               }
               lastScrollY = currentScrollY;
               ticking = false;
             };
-            window.addEventListener("scroll", () => {
+            window.addEventListener('scroll', () => {
               if (!ticking) {
                 window.requestAnimationFrame(handleScroll);
                 ticking = true;
@@ -3022,717 +3442,149 @@
           }
           return {
             show: () => {
-              nav.classList.remove("aural-bottom-nav--slide-out");
-              nav.classList.add("aural-bottom-nav--slide-in");
+              nav.classList.remove('aural-bottom-nav--slide-out');
+              nav.classList.add('aural-bottom-nav--slide-in');
               isHidden = false;
             },
             hide: () => {
-              nav.classList.add("aural-bottom-nav--slide-out");
-              nav.classList.remove("aural-bottom-nav--slide-in");
+              nav.classList.add('aural-bottom-nav--slide-out');
+              nav.classList.remove('aural-bottom-nav--slide-in');
               isHidden = true;
             },
             setActive: (index) => {
-              const items = nav.querySelectorAll(".aural-bottom-nav__item");
+              const items = nav.querySelectorAll('.aural-bottom-nav__item');
               items.forEach((item, i) => {
                 if (i === index) {
-                  item.classList.add("aural-bottom-nav__item--active");
+                  item.classList.add('aural-bottom-nav__item--active');
                 } else {
-                  item.classList.remove("aural-bottom-nav__item--active");
+                  item.classList.remove('aural-bottom-nav__item--active');
                 }
               });
-            }
+            },
           };
         },
         // Color Picker
         initColorPicker(pickerId, options = {}) {
           const picker = document.getElementById(pickerId);
-          if (!picker)
-            return null;
+          if (!picker) return null;
           const {
-            color = "#F00054",
-            alpha: showAlpha = false,
-            mode: initialMode = "hex",
-            presets = [],
-            recentColors = false,
+            initialColor = '#000000',
+            mode = 'hex',
+            showAlpha = true,
             onChange = null,
-            onModeChange = null
           } = options;
-
+          let currentColor = initialColor;
           let hue = 0;
           let saturation = 100;
           let lightness = 50;
           let alpha = 1;
-          let currentMode = initialMode;
-          let isDragging = false;
-          let dragTarget = null;
-
-          const canvas = picker.querySelector(".aural-color-picker__canvas");
-          const cursor = picker.querySelector(".aural-color-picker__cursor");
-          const hueSlider = picker.querySelector(".aural-color-picker__hue");
-          const hueHandle = picker.querySelector(".aural-color-picker__hue-handle");
-          const alphaSlider = picker.querySelector(".aural-color-picker__alpha");
-          const alphaHandle = picker.querySelector(".aural-color-picker__alpha-handle");
-          const alphaGradient = picker.querySelector(".aural-color-picker__alpha-gradient");
-          const valueInput = picker.querySelector(".aural-color-picker__value");
-          const swatch = picker.querySelector(".aural-color-picker__swatch-color");
-          const modeButtons = picker.querySelectorAll(".aural-color-picker__mode");
-          const inputsContainer = picker.querySelector(".aural-color-picker__inputs");
-          const presetButtons = picker.querySelectorAll(".aural-color-picker__preset");
-
-          // Color conversion utilities
-          const hexToHSL = (hex) => {
-            hex = hex.replace(/^#/, '');
-            if (hex.length === 3) {
-              hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-            }
-            const r = parseInt(hex.substr(0, 2), 16) / 255;
-            const g = parseInt(hex.substr(2, 2), 16) / 255;
-            const b = parseInt(hex.substr(4, 2), 16) / 255;
-            const max = Math.max(r, g, b);
-            const min = Math.min(r, g, b);
-            let h, s, l = (max + min) / 2;
-            if (max === min) {
-              h = s = 0;
-            } else {
-              const d = max - min;
-              s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-              switch (max) {
-                case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
-                case g: h = ((b - r) / d + 2) / 6; break;
-                case b: h = ((r - g) / d + 4) / 6; break;
-              }
-            }
-            return {
-              h: Math.round(h * 360),
-              s: Math.round(s * 100),
-              l: Math.round(l * 100)
-            };
-          };
-
-          const hslToRGB = (h, s, l) => {
-            s /= 100;
-            l /= 100;
-            const k = n => (n + h / 30) % 12;
-            const a = s * Math.min(l, 1 - l);
-            const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-            return {
-              r: Math.round(255 * f(0)),
-              g: Math.round(255 * f(8)),
-              b: Math.round(255 * f(4))
-            };
-          };
-
-          const rgbToHex = (r, g, b) => {
-            return '#' + [r, g, b].map(x => {
-              const hex = x.toString(16);
-              return hex.length === 1 ? '0' + hex : hex;
-            }).join('');
-          };
-
-          // Update color display and inputs
-          const updateColor = (updateInputs = true) => {
-            const rgb = hslToRGB(hue, saturation, lightness);
-            const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
-            const hsla = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
-            const rgba = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
-
-            // Update canvas background (hue)
+          const canvas = picker.querySelector('.aural-color-picker__canvas');
+          const hueSlider = picker.querySelector('.aural-color-picker__hue');
+          const alphaSlider = picker.querySelector('.aural-color-picker__alpha');
+          const valueInput = picker.querySelector('.aural-color-picker__value');
+          const updateColor = () => {
+            currentColor = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
             if (canvas) {
               canvas.style.background = `hsl(${hue}, 100%, 50%)`;
             }
-
-            // Update cursor position
-            if (cursor) {
-              cursor.style.left = `${saturation}%`;
-              cursor.style.top = `${100 - lightness}%`;
-              cursor.setAttribute('aria-valuenow', `${saturation}, ${lightness}`);
-            }
-
-            // Update hue handle position
-            if (hueHandle) {
-              hueHandle.style.left = `${(hue / 360) * 100}%`;
-              hueHandle.setAttribute('aria-valuenow', hue);
-            }
-
-            // Update alpha handle and gradient
-            if (alphaHandle && showAlpha) {
-              alphaHandle.style.left = `${alpha * 100}%`;
-              alphaHandle.setAttribute('aria-valuenow', Math.round(alpha * 100));
-            }
-            if (alphaGradient) {
-              alphaGradient.style.background = `linear-gradient(to right, transparent, ${hex})`;
-            }
-
-            // Update swatch
-            if (swatch) {
-              swatch.style.background = showAlpha ? hsla : hex;
-            }
-
-            // Update value input
             if (valueInput) {
-              if (currentMode === 'hex') {
-                valueInput.value = hex;
-              } else if (currentMode === 'rgb') {
-                valueInput.value = showAlpha ? rgba : `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
-              } else if (currentMode === 'hsl') {
-                valueInput.value = showAlpha ? hsla : `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-              }
-            }
-
-            // Update input fields based on mode
-            if (updateInputs && inputsContainer) {
-              const inputs = inputsContainer.querySelectorAll('.aural-color-picker__input');
-              if (currentMode === 'hex' && inputs.length === 1) {
-                inputs[0].value = hex.replace('#', '');
-              } else if (currentMode === 'rgb' && inputs.length >= 3) {
-                inputs[0].value = rgb.r;
-                inputs[1].value = rgb.g;
-                inputs[2].value = rgb.b;
-                if (inputs[3] && showAlpha) inputs[3].value = Math.round(alpha * 100);
-              } else if (currentMode === 'hsl' && inputs.length >= 3) {
-                inputs[0].value = hue;
-                inputs[1].value = saturation;
-                inputs[2].value = lightness;
-                if (inputs[3] && showAlpha) inputs[3].value = Math.round(alpha * 100);
-              }
-            }
-
-            // Trigger onChange callback
-            if (onChange) {
-              onChange(showAlpha ? hsla : hex);
-            }
-          };
-
-          // Canvas interaction (saturation/lightness)
-          const updateCanvasColor = (clientX, clientY) => {
-            if (!canvas) return;
-            const rect = canvas.getBoundingClientRect();
-            const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-            const y = Math.max(0, Math.min(clientY - rect.top, rect.height));
-            saturation = Math.round((x / rect.width) * 100);
-            lightness = Math.round(100 - (y / rect.height) * 100);
-            updateColor();
-          };
-
-          const onCanvasMouseDown = (e) => {
-            e.preventDefault();
-            isDragging = true;
-            dragTarget = 'canvas';
-            updateCanvasColor(e.clientX, e.clientY);
-            if (canvas) canvas.classList.add('aural-color-picker__canvas--active');
-          };
-
-          const onCanvasTouchStart = (e) => {
-            e.preventDefault();
-            isDragging = true;
-            dragTarget = 'canvas';
-            const touch = e.touches[0];
-            updateCanvasColor(touch.clientX, touch.clientY);
-            if (canvas) canvas.classList.add('aural-color-picker__canvas--active');
-          };
-
-          // Hue slider interaction
-          const updateHueFromPosition = (clientX) => {
-            if (!hueSlider) return;
-            const rect = hueSlider.getBoundingClientRect();
-            const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-            hue = Math.round((x / rect.width) * 360);
-            updateColor();
-          };
-
-          const onHueMouseDown = (e) => {
-            e.preventDefault();
-            isDragging = true;
-            dragTarget = 'hue';
-            updateHueFromPosition(e.clientX);
-            if (hueSlider) hueSlider.classList.add('aural-color-picker__hue--active');
-          };
-
-          const onHueTouchStart = (e) => {
-            e.preventDefault();
-            isDragging = true;
-            dragTarget = 'hue';
-            const touch = e.touches[0];
-            updateHueFromPosition(touch.clientX);
-            if (hueSlider) hueSlider.classList.add('aural-color-picker__hue--active');
-          };
-
-          // Alpha slider interaction
-          const updateAlphaFromPosition = (clientX) => {
-            if (!alphaSlider) return;
-            const rect = alphaSlider.getBoundingClientRect();
-            const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-            alpha = Math.max(0, Math.min(x / rect.width, 1));
-            updateColor();
-          };
-
-          const onAlphaMouseDown = (e) => {
-            e.preventDefault();
-            isDragging = true;
-            dragTarget = 'alpha';
-            updateAlphaFromPosition(e.clientX);
-            if (alphaSlider) alphaSlider.classList.add('aural-color-picker__alpha--active');
-          };
-
-          const onAlphaTouchStart = (e) => {
-            e.preventDefault();
-            isDragging = true;
-            dragTarget = 'alpha';
-            const touch = e.touches[0];
-            updateAlphaFromPosition(touch.clientX);
-            if (alphaSlider) alphaSlider.classList.add('aural-color-picker__alpha--active');
-          };
-
-          // Global mouse/touch move and up handlers
-          const onMouseMove = (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            if (dragTarget === 'canvas') {
-              updateCanvasColor(e.clientX, e.clientY);
-            } else if (dragTarget === 'hue') {
-              updateHueFromPosition(e.clientX);
-            } else if (dragTarget === 'alpha') {
-              updateAlphaFromPosition(e.clientX);
-            }
-          };
-
-          const onTouchMove = (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const touch = e.touches[0];
-            if (dragTarget === 'canvas') {
-              updateCanvasColor(touch.clientX, touch.clientY);
-            } else if (dragTarget === 'hue') {
-              updateHueFromPosition(touch.clientX);
-            } else if (dragTarget === 'alpha') {
-              updateAlphaFromPosition(touch.clientX);
-            }
-          };
-
-          const onMouseUp = () => {
-            if (!isDragging) return;
-            isDragging = false;
-            if (canvas) canvas.classList.remove('aural-color-picker__canvas--active');
-            if (hueSlider) hueSlider.classList.remove('aural-color-picker__hue--active');
-            if (alphaSlider) alphaSlider.classList.remove('aural-color-picker__alpha--active');
-            dragTarget = null;
-          };
-
-          // Keyboard navigation
-          const onCanvasKeyDown = (e) => {
-            let changed = false;
-            const step = e.shiftKey ? 10 : 1;
-
-            switch (e.key) {
-              case 'ArrowRight':
-                e.preventDefault();
-                saturation = Math.min(100, saturation + step);
-                changed = true;
-                break;
-              case 'ArrowLeft':
-                e.preventDefault();
-                saturation = Math.max(0, saturation - step);
-                changed = true;
-                break;
-              case 'ArrowUp':
-                e.preventDefault();
-                lightness = Math.min(100, lightness + step);
-                changed = true;
-                break;
-              case 'ArrowDown':
-                e.preventDefault();
-                lightness = Math.max(0, lightness - step);
-                changed = true;
-                break;
-            }
-
-            if (changed) updateColor();
-          };
-
-          const onHueKeyDown = (e) => {
-            let changed = false;
-            const step = e.shiftKey ? 10 : 1;
-
-            switch (e.key) {
-              case 'ArrowRight':
-              case 'ArrowUp':
-                e.preventDefault();
-                hue = (hue + step) % 360;
-                changed = true;
-                break;
-              case 'ArrowLeft':
-              case 'ArrowDown':
-                e.preventDefault();
-                hue = (hue - step + 360) % 360;
-                changed = true;
-                break;
-              case 'Home':
-                e.preventDefault();
-                hue = 0;
-                changed = true;
-                break;
-              case 'End':
-                e.preventDefault();
-                hue = 360;
-                changed = true;
-                break;
-            }
-
-            if (changed) updateColor();
-          };
-
-          const onAlphaKeyDown = (e) => {
-            let changed = false;
-            const step = e.shiftKey ? 0.1 : 0.01;
-
-            switch (e.key) {
-              case 'ArrowRight':
-              case 'ArrowUp':
-                e.preventDefault();
-                alpha = Math.min(1, alpha + step);
-                changed = true;
-                break;
-              case 'ArrowLeft':
-              case 'ArrowDown':
-                e.preventDefault();
-                alpha = Math.max(0, alpha - step);
-                changed = true;
-                break;
-              case 'Home':
-                e.preventDefault();
-                alpha = 0;
-                changed = true;
-                break;
-              case 'End':
-                e.preventDefault();
-                alpha = 1;
-                changed = true;
-                break;
-            }
-
-            if (changed) updateColor();
-          };
-
-          // Mode switching
-          const switchMode = (newMode) => {
-            currentMode = newMode;
-
-            // Update mode button active state
-            modeButtons.forEach(btn => {
-              if (btn.dataset.mode === newMode) {
-                btn.classList.add('aural-color-picker__mode--active');
-                btn.setAttribute('aria-pressed', 'true');
+              if (mode === 'hex') {
+                valueInput.value = hslToHex(hue, saturation, lightness);
               } else {
-                btn.classList.remove('aural-color-picker__mode--active');
-                btn.setAttribute('aria-pressed', 'false');
+                valueInput.value = currentColor;
               }
-            });
-
-            // Dynamically update inputs container with appropriate fields
-            if (inputsContainer) {
-              inputsContainer.setAttribute('data-mode', newMode);
-
-              const rgb = hslToRGB(hue, saturation, lightness);
-              const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
-
-              if (newMode === 'hex') {
-                inputsContainer.innerHTML = `
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">Hex</label>
-                    <input type="text" class="aural-color-picker__input" value="${hex.replace('#', '')}" maxlength="6">
-                  </div>
-                `;
-                inputsContainer.className = 'aural-color-picker__inputs';
-              } else if (newMode === 'rgb') {
-                const alphaPercent = Math.round(alpha * 100);
-                inputsContainer.innerHTML = `
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">R</label>
-                    <input type="number" class="aural-color-picker__input" value="${rgb.r}" min="0" max="255">
-                  </div>
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">G</label>
-                    <input type="number" class="aural-color-picker__input" value="${rgb.g}" min="0" max="255">
-                  </div>
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">B</label>
-                    <input type="number" class="aural-color-picker__input" value="${rgb.b}" min="0" max="255">
-                  </div>
-                  ${showAlpha ? `
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">A</label>
-                    <input type="number" class="aural-color-picker__input" value="${alphaPercent}" min="0" max="100">
-                  </div>` : ''}
-                `;
-                inputsContainer.className = showAlpha ? 'aural-color-picker__inputs aural-color-picker__inputs--rgba' : 'aural-color-picker__inputs';
-              } else if (newMode === 'hsl') {
-                const alphaPercent = Math.round(alpha * 100);
-                inputsContainer.innerHTML = `
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">H</label>
-                    <input type="number" class="aural-color-picker__input" value="${hue}" min="0" max="360">
-                  </div>
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">S</label>
-                    <input type="number" class="aural-color-picker__input" value="${saturation}" min="0" max="100">
-                  </div>
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">L</label>
-                    <input type="number" class="aural-color-picker__input" value="${lightness}" min="0" max="100">
-                  </div>
-                  ${showAlpha ? `
-                  <div class="aural-color-picker__input-group">
-                    <label class="aural-color-picker__input-label">A</label>
-                    <input type="number" class="aural-color-picker__input" value="${alphaPercent}" min="0" max="100">
-                  </div>` : ''}
-                `;
-                inputsContainer.className = showAlpha ? 'aural-color-picker__inputs aural-color-picker__inputs--hsla' : 'aural-color-picker__inputs';
-              }
-
-              // Re-attach input event listeners
-              const inputs = inputsContainer.querySelectorAll('.aural-color-picker__input');
-              inputs.forEach((input, idx) => {
-                input.addEventListener('input', (e) => onInputChange(e, idx));
-                input.addEventListener('change', (e) => onInputChange(e, idx));
-              });
             }
-
-            updateColor();
-
-            if (onModeChange) {
-              onModeChange(newMode);
+            const swatch = picker.querySelector('.aural-color-picker__swatch-color');
+            if (swatch) {
+              swatch.style.background = currentColor;
+            }
+            if (onChange) {
+              onChange(currentColor);
             }
           };
-
-          // Input field synchronization
-          const onInputChange = (e, type) => {
-            const inputs = inputsContainer.querySelectorAll('.aural-color-picker__input');
-
-            if (currentMode === 'hex' && inputs.length === 1) {
-              let hex = inputs[0].value.replace(/[^0-9A-Fa-f]/g, '').substring(0, 6);
-              if (hex.length === 6) {
-                const hsl = hexToHSL('#' + hex);
-                hue = hsl.h;
-                saturation = hsl.s;
-                lightness = hsl.l;
-                updateColor(false);
-              }
-            } else if (currentMode === 'rgb' && inputs.length >= 3) {
-              const r = Math.max(0, Math.min(255, parseInt(inputs[0].value) || 0));
-              const g = Math.max(0, Math.min(255, parseInt(inputs[1].value) || 0));
-              const b = Math.max(0, Math.min(255, parseInt(inputs[2].value) || 0));
-              const hex = rgbToHex(r, g, b);
-              const hsl = hexToHSL(hex);
-              hue = hsl.h;
-              saturation = hsl.s;
-              lightness = hsl.l;
-              if (inputs[3] && showAlpha) {
-                alpha = Math.max(0, Math.min(100, parseInt(inputs[3].value) || 100)) / 100;
-              }
-              updateColor(false);
-            } else if (currentMode === 'hsl' && inputs.length >= 3) {
-              hue = Math.max(0, Math.min(360, parseInt(inputs[0].value) || 0));
-              saturation = Math.max(0, Math.min(100, parseInt(inputs[1].value) || 0));
-              lightness = Math.max(0, Math.min(100, parseInt(inputs[2].value) || 0));
-              if (inputs[3] && showAlpha) {
-                alpha = Math.max(0, Math.min(100, parseInt(inputs[3].value) || 100)) / 100;
-              }
-              updateColor(false);
-            }
-          };
-
-          // Preset color selection
-          const onPresetClick = (e) => {
-            const presetColor = e.currentTarget.querySelector('.aural-color-picker__preset-color');
-            if (presetColor) {
-              const bgColor = window.getComputedStyle(presetColor).backgroundColor;
-              // Parse RGB from computed style
-              const match = bgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
-              if (match) {
-                const r = parseInt(match[1]);
-                const g = parseInt(match[2]);
-                const b = parseInt(match[3]);
-                const hex = rgbToHex(r, g, b);
-                const hsl = hexToHSL(hex);
-                hue = hsl.h;
-                saturation = hsl.s;
-                lightness = hsl.l;
-                if (match[4]) alpha = parseFloat(match[4]);
-                updateColor();
-
-                // Update preset active state
-                presetButtons.forEach(btn => btn.classList.remove('aural-color-picker__preset--active'));
-                e.currentTarget.classList.add('aural-color-picker__preset--active');
-              }
-            }
-          };
-
-          // Event listeners - Canvas
-          if (canvas) {
-            canvas.addEventListener('mousedown', onCanvasMouseDown);
-            canvas.addEventListener('touchstart', onCanvasTouchStart, { passive: false });
-            canvas.setAttribute('role', 'slider');
-            canvas.setAttribute('aria-label', 'Saturation and Lightness');
-            canvas.setAttribute('tabindex', '0');
-            canvas.addEventListener('keydown', onCanvasKeyDown);
-          }
-
-          // Event listeners - Hue slider
           if (hueSlider) {
-            hueSlider.addEventListener('mousedown', onHueMouseDown);
-            hueSlider.addEventListener('touchstart', onHueTouchStart, { passive: false });
-            hueSlider.setAttribute('role', 'slider');
-            hueSlider.setAttribute('aria-label', 'Hue');
-            hueSlider.setAttribute('aria-valuemin', '0');
-            hueSlider.setAttribute('aria-valuemax', '360');
-            hueSlider.setAttribute('tabindex', '0');
-            hueSlider.addEventListener('keydown', onHueKeyDown);
+            hueSlider.addEventListener('click', (e) => {
+              const rect = hueSlider.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              hue = (x / rect.width) * 360;
+              updateColor();
+            });
           }
-
-          // Event listeners - Alpha slider
           if (alphaSlider && showAlpha) {
-            alphaSlider.addEventListener('mousedown', onAlphaMouseDown);
-            alphaSlider.addEventListener('touchstart', onAlphaTouchStart, { passive: false });
-            alphaSlider.setAttribute('role', 'slider');
-            alphaSlider.setAttribute('aria-label', 'Alpha/Opacity');
-            alphaSlider.setAttribute('aria-valuemin', '0');
-            alphaSlider.setAttribute('aria-valuemax', '100');
-            alphaSlider.setAttribute('tabindex', '0');
-            alphaSlider.addEventListener('keydown', onAlphaKeyDown);
+            alphaSlider.addEventListener('click', (e) => {
+              const rect = alphaSlider.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              alpha = x / rect.width;
+              updateColor();
+            });
           }
-
-          // Global mouse/touch handlers
-          document.addEventListener('mousemove', onMouseMove);
-          document.addEventListener('mouseup', onMouseUp);
-          document.addEventListener('touchmove', onTouchMove, { passive: false });
-          document.addEventListener('touchend', onMouseUp);
-
-          // Mode buttons
-          modeButtons.forEach(btn => {
-            btn.addEventListener('click', () => switchMode(btn.dataset.mode));
-            btn.setAttribute('role', 'button');
-            btn.setAttribute('aria-pressed', btn.dataset.mode === currentMode ? 'true' : 'false');
-          });
-
-          // Preset buttons
-          presetButtons.forEach(btn => {
-            btn.addEventListener('click', onPresetClick);
-            btn.setAttribute('role', 'button');
-            btn.setAttribute('aria-label', 'Preset color');
-          });
-
-          // Initialize with provided color
-          if (color) {
-            const hsl = hexToHSL(color);
-            hue = hsl.h;
-            saturation = hsl.s;
-            lightness = hsl.l;
-          }
-
-          // Initialize inputs for the current mode
-          if (inputsContainer) {
-            switchMode(currentMode);
-          } else {
-            updateColor();
-          }
-
-          // Return API
+          updateColor();
           return {
-            getColor: () => {
-              const rgb = hslToRGB(hue, saturation, lightness);
-              return rgbToHex(rgb.r, rgb.g, rgb.b);
-            },
-            setColor: (newColor) => {
-              const hsl = hexToHSL(newColor);
-              hue = hsl.h;
-              saturation = hsl.s;
-              lightness = hsl.l;
+            getColor: () => currentColor,
+            setColor: (color) => {
+              currentColor = color;
               updateColor();
             },
-            getColorRGB: () => {
-              const rgb = hslToRGB(hue, saturation, lightness);
-              return { ...rgb, a: alpha };
-            },
-            getColorHSL: () => {
-              return { h: hue, s: saturation, l: lightness, a: alpha };
-            },
-            destroy: () => {
-              document.removeEventListener('mousemove', onMouseMove);
-              document.removeEventListener('mouseup', onMouseUp);
-              document.removeEventListener('touchmove', onTouchMove);
-              document.removeEventListener('touchend', onMouseUp);
-            }
           };
         },
         hslToHex(h, s, l) {
           l /= 100;
-          const a = s * Math.min(l, 1 - l) / 100;
+          const a = (s * Math.min(l, 1 - l)) / 100;
           const f = (n) => {
             const k = (n + h / 30) % 12;
             const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-            return Math.round(255 * color).toString(16).padStart(2, "0");
+            return Math.round(255 * color)
+              .toString(16)
+              .padStart(2, '0');
           };
           return `#${f(0)}${f(8)}${f(4)}`;
         },
         // Range Slider
         initRangeSlider(sliderId, options = {}) {
           const slider = document.getElementById(sliderId);
-          if (!slider)
-            return null;
+          if (!slider) return null;
           const {
             min = 0,
             max = 100,
             initialMin = 25,
             initialMax = 75,
             step = 1,
-            onChange = null
+            onChange = null,
           } = options;
           let minValue = initialMin;
           let maxValue = initialMax;
           let activeHandle = null;
-          const track = slider.querySelector(".aural-range-slider__track");
-          const trackFill = slider.querySelector(".aural-range-slider__track-fill");
-          const minHandle = slider.querySelector(".aural-range-slider__handle--min");
-          const maxHandle = slider.querySelector(".aural-range-slider__handle--max");
-
+          const track = slider.querySelector('.aural-range-slider__track');
+          const trackFill = slider.querySelector('.aural-range-slider__track-fill');
+          const minHandle = slider.querySelector('.aural-range-slider__handle--min');
+          const maxHandle = slider.querySelector('.aural-range-slider__handle--max');
           const updateSlider = () => {
-            const minPercent = (minValue - min) / (max - min) * 100;
-            const maxPercent = (maxValue - min) / (max - min) * 100;
+            const minPercent = ((minValue - min) / (max - min)) * 100;
+            const maxPercent = ((maxValue - min) / (max - min)) * 100;
             if (trackFill) {
               trackFill.style.left = `${minPercent}%`;
               trackFill.style.width = `${maxPercent - minPercent}%`;
             }
             if (minHandle) {
               minHandle.style.left = `${minPercent}%`;
-              minHandle.setAttribute('aria-valuenow', minValue);
-              minHandle.setAttribute('aria-valuemin', min);
-              minHandle.setAttribute('aria-valuemax', max);
-              const label = minHandle.querySelector(".aural-range-slider__label");
-              if (label)
-                label.textContent = minValue;
+              const label = minHandle.querySelector('.aural-range-slider__label');
+              if (label) label.textContent = minValue;
             }
             if (maxHandle) {
               maxHandle.style.left = `${maxPercent}%`;
-              maxHandle.setAttribute('aria-valuenow', maxValue);
-              maxHandle.setAttribute('aria-valuemin', min);
-              maxHandle.setAttribute('aria-valuemax', max);
-              const label = maxHandle.querySelector(".aural-range-slider__label");
-              if (label)
-                label.textContent = maxValue;
+              const label = maxHandle.querySelector('.aural-range-slider__label');
+              if (label) label.textContent = maxValue;
             }
-            const values = slider.querySelectorAll(".aural-range-slider__value-number");
-            if (values[0])
-              values[0].textContent = minValue;
-            if (values[1])
-              values[1].textContent = maxValue;
+            const values = slider.querySelectorAll('.aural-range-slider__value-number');
+            if (values[0]) values[0].textContent = minValue;
+            if (values[1]) values[1].textContent = maxValue;
             if (onChange) {
               onChange(minValue, maxValue);
             }
           };
-
           const handleDrag = (e, handle) => {
             const rect = track.getBoundingClientRect();
-            const x = (e.clientX || e.touches?.[0]?.clientX) - rect.left;
+            const x = e.clientX - rect.left;
             const percent = Math.max(0, Math.min(1, x / rect.width));
             let value = min + (max - min) * percent;
             value = Math.round(value / step) * step;
@@ -3743,132 +3595,40 @@
             }
             updateSlider();
           };
-
           const onMouseMove = (e) => {
             if (activeHandle) {
               handleDrag(e, activeHandle);
             }
           };
-
-          const onTouchMove = (e) => {
-            if (activeHandle) {
-              e.preventDefault();
-              handleDrag(e, activeHandle);
-            }
-          };
-
           const onMouseUp = () => {
-            if (activeHandle) {
-              activeHandle.classList.remove("aural-range-slider__handle--active");
-            }
             activeHandle = null;
-            document.removeEventListener("mousemove", onMouseMove);
-            document.removeEventListener("mouseup", onMouseUp);
-            document.removeEventListener("touchmove", onTouchMove);
-            document.removeEventListener("touchend", onMouseUp);
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
           };
-
-          const handleKeyDown = (e, handle) => {
-            const isMin = handle === minHandle;
-            let newValue = isMin ? minValue : maxValue;
-            const largeStep = Math.max(1, Math.round((max - min) / 10));
-            const pageStep = Math.max(1, Math.round((max - min) / 4));
-
-            switch(e.key) {
-              case 'ArrowRight':
-              case 'ArrowUp':
-                e.preventDefault();
-                newValue += e.shiftKey ? largeStep : step;
-                break;
-              case 'ArrowLeft':
-              case 'ArrowDown':
-                e.preventDefault();
-                newValue -= e.shiftKey ? largeStep : step;
-                break;
-              case 'Home':
-                e.preventDefault();
-                newValue = min;
-                break;
-              case 'End':
-                e.preventDefault();
-                newValue = max;
-                break;
-              case 'PageUp':
-                e.preventDefault();
-                newValue += pageStep;
-                break;
-              case 'PageDown':
-                e.preventDefault();
-                newValue -= pageStep;
-                break;
-              default:
-                return;
-            }
-
-            if (isMin) {
-              minValue = Math.max(min, Math.min(newValue, maxValue - step));
-            } else {
-              maxValue = Math.max(minValue + step, Math.min(newValue, max));
-            }
-            updateSlider();
-          };
-
           if (minHandle) {
-            minHandle.addEventListener("mousedown", (e) => {
+            minHandle.addEventListener('mousedown', (e) => {
               e.preventDefault();
               activeHandle = minHandle;
-              minHandle.classList.add("aural-range-slider__handle--active");
-              document.addEventListener("mousemove", onMouseMove);
-              document.addEventListener("mouseup", onMouseUp);
-            });
-
-            minHandle.addEventListener("touchstart", (e) => {
-              e.preventDefault();
-              activeHandle = minHandle;
-              minHandle.classList.add("aural-range-slider__handle--active");
-              document.addEventListener("touchmove", onTouchMove, { passive: false });
-              document.addEventListener("touchend", onMouseUp);
-            });
-
-            minHandle.addEventListener("keydown", (e) => handleKeyDown(e, minHandle));
-
-            minHandle.addEventListener("focus", () => {
-              minHandle.classList.add("aural-range-slider__handle--active");
-            });
-
-            minHandle.addEventListener("blur", () => {
-              minHandle.classList.remove("aural-range-slider__handle--active");
+              minHandle.classList.add('aural-range-slider__handle--active');
+              document.addEventListener('mousemove', onMouseMove);
+              document.addEventListener('mouseup', () => {
+                minHandle.classList.remove('aural-range-slider__handle--active');
+                onMouseUp();
+              });
             });
           }
-
           if (maxHandle) {
-            maxHandle.addEventListener("mousedown", (e) => {
+            maxHandle.addEventListener('mousedown', (e) => {
               e.preventDefault();
               activeHandle = maxHandle;
-              maxHandle.classList.add("aural-range-slider__handle--active");
-              document.addEventListener("mousemove", onMouseMove);
-              document.addEventListener("mouseup", onMouseUp);
-            });
-
-            maxHandle.addEventListener("touchstart", (e) => {
-              e.preventDefault();
-              activeHandle = maxHandle;
-              maxHandle.classList.add("aural-range-slider__handle--active");
-              document.addEventListener("touchmove", onTouchMove, { passive: false });
-              document.addEventListener("touchend", onMouseUp);
-            });
-
-            maxHandle.addEventListener("keydown", (e) => handleKeyDown(e, maxHandle));
-
-            maxHandle.addEventListener("focus", () => {
-              maxHandle.classList.add("aural-range-slider__handle--active");
-            });
-
-            maxHandle.addEventListener("blur", () => {
-              maxHandle.classList.remove("aural-range-slider__handle--active");
+              maxHandle.classList.add('aural-range-slider__handle--active');
+              document.addEventListener('mousemove', onMouseMove);
+              document.addEventListener('mouseup', () => {
+                maxHandle.classList.remove('aural-range-slider__handle--active');
+                onMouseUp();
+              });
             });
           }
-
           updateSlider();
           return {
             getMin: () => minValue,
@@ -3880,39 +3640,36 @@
             setMax: (value) => {
               maxValue = Math.max(minValue + step, Math.min(value, max));
               updateSlider();
-            }
+            },
           };
         },
         // Multi-Select Dropdown
         initMultiSelect(selectId, options = {}) {
           const select = document.getElementById(selectId);
-          if (!select)
-            return null;
+          if (!select) return null;
           const {
             searchable = true,
             selectAll = false,
             maxSelections = null,
-            onChange = null
+            onChange = null,
           } = options;
           const selectedValues = /* @__PURE__ */ new Set();
-          const trigger = select.querySelector(".aural-multi-select__trigger");
-          const dropdown = select.querySelector(".aural-multi-select__dropdown");
-          const tagsContainer = select.querySelector(".aural-multi-select__tags");
-          const searchInput = select.querySelector(".aural-multi-select__search-input");
-          const options_list = select.querySelectorAll(".aural-multi-select__option");
-          const clearBtn = select.querySelector(".aural-multi-select__clear");
+          const trigger = select.querySelector('.aural-multi-select__trigger');
+          const dropdown = select.querySelector('.aural-multi-select__dropdown');
+          const tagsContainer = select.querySelector('.aural-multi-select__tags');
+          const searchInput = select.querySelector('.aural-multi-select__search-input');
+          const options_list = select.querySelectorAll('.aural-multi-select__option');
+          const clearBtn = select.querySelector('.aural-multi-select__clear');
           const updateTags = () => {
-            if (!tagsContainer)
-              return;
-            tagsContainer.innerHTML = "";
+            if (!tagsContainer) return;
+            tagsContainer.innerHTML = '';
             selectedValues.forEach((value) => {
               const option = Array.from(options_list).find((opt) => opt.dataset.value === value);
-              if (!option)
-                return;
-              const tag = document.createElement("div");
-              tag.className = "aural-multi-select__tag";
+              if (!option) return;
+              const tag = document.createElement('div');
+              tag.className = 'aural-multi-select__tag';
               tag.innerHTML = `
-                    ${option.querySelector(".aural-multi-select__option-label").textContent}
+                    ${option.querySelector('.aural-multi-select__option-label').textContent}
                     <button class="aural-multi-select__tag-remove" data-value="${value}">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="18" y1="6" x2="6" y2="18"/>
@@ -3920,8 +3677,8 @@
                         </svg>
                     </button>
                 `;
-              const removeBtn = tag.querySelector(".aural-multi-select__tag-remove");
-              removeBtn.addEventListener("click", (e) => {
+              const removeBtn = tag.querySelector('.aural-multi-select__tag-remove');
+              removeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 toggleOption(value);
               });
@@ -3935,51 +3692,55 @@
             if (selectedValues.has(value)) {
               selectedValues.delete(value);
             } else {
-              if (maxSelections && selectedValues.size >= maxSelections)
-                return;
+              if (maxSelections && selectedValues.size >= maxSelections) return;
               selectedValues.add(value);
             }
             options_list.forEach((opt) => {
               if (opt.dataset.value === value) {
-                opt.classList.toggle("aural-multi-select__option--selected", selectedValues.has(value));
+                opt.classList.toggle(
+                  'aural-multi-select__option--selected',
+                  selectedValues.has(value)
+                );
               }
             });
             updateTags();
           };
           if (trigger) {
-            trigger.addEventListener("click", (e) => {
-              if (e.target.closest(".aural-multi-select__clear")) {
+            trigger.addEventListener('click', (e) => {
+              if (e.target.closest('.aural-multi-select__clear')) {
                 return;
               }
-              select.classList.toggle("aural-multi-select--open");
+              select.classList.toggle('aural-multi-select--open');
             });
           }
           if (clearBtn) {
-            clearBtn.addEventListener("click", (e) => {
+            clearBtn.addEventListener('click', (e) => {
               e.stopPropagation();
               selectedValues.clear();
               options_list.forEach((opt) => {
-                opt.classList.remove("aural-multi-select__option--selected");
+                opt.classList.remove('aural-multi-select__option--selected');
               });
               updateTags();
             });
           }
           options_list.forEach((option) => {
-            option.addEventListener("click", () => {
+            option.addEventListener('click', () => {
               toggleOption(option.dataset.value);
             });
           });
-          document.addEventListener("click", (e) => {
+          document.addEventListener('click', (e) => {
             if (!select.contains(e.target)) {
-              select.classList.remove("aural-multi-select--open");
+              select.classList.remove('aural-multi-select--open');
             }
           });
           if (searchInput && searchable) {
-            searchInput.addEventListener("input", (e) => {
+            searchInput.addEventListener('input', (e) => {
               const query = e.target.value.toLowerCase();
               options_list.forEach((option) => {
-                const text = option.querySelector(".aural-multi-select__option-label").textContent.toLowerCase();
-                option.style.display = text.includes(query) ? "" : "none";
+                const text = option
+                  .querySelector('.aural-multi-select__option-label')
+                  .textContent.toLowerCase();
+                option.style.display = text.includes(query) ? '' : 'none';
               });
             });
           }
@@ -3988,7 +3749,7 @@
             clear: () => {
               selectedValues.clear();
               options_list.forEach((opt) => {
-                opt.classList.remove("aural-multi-select__option--selected");
+                opt.classList.remove('aural-multi-select__option--selected');
               });
               updateTags();
             },
@@ -4001,57 +3762,53 @@
               if (selectedValues.has(value)) {
                 toggleOption(value);
               }
-            }
+            },
           };
         },
         // Navigation Bar
         initNavbar(navId, options = {}) {
           const navbar = document.getElementById(navId);
-          if (!navbar)
-            return null;
-          const {
-            mobileBreakpoint = 768,
-            onToggle = null
-          } = options;
-          const toggle = navbar.querySelector(".aural-navbar__toggle");
-          const dropdowns = navbar.querySelectorAll(".aural-navbar__dropdown");
+          if (!navbar) return null;
+          const { mobileBreakpoint = 768, onToggle = null } = options;
+          const toggle = navbar.querySelector('.aural-navbar__toggle');
+          const dropdowns = navbar.querySelectorAll('.aural-navbar__dropdown');
           if (toggle) {
-            toggle.addEventListener("click", () => {
-              navbar.classList.toggle("aural-navbar--menu-open");
+            toggle.addEventListener('click', () => {
+              navbar.classList.toggle('aural-navbar--menu-open');
               if (onToggle) {
-                onToggle(navbar.classList.contains("aural-navbar--menu-open"));
+                onToggle(navbar.classList.contains('aural-navbar--menu-open'));
               }
             });
           }
           dropdowns.forEach((dropdown) => {
-            const toggle2 = dropdown.querySelector(".aural-navbar__link");
+            const toggle2 = dropdown.querySelector('.aural-navbar__link');
             if (toggle2) {
-              toggle2.addEventListener("click", (e) => {
+              toggle2.addEventListener('click', (e) => {
                 e.preventDefault();
-                dropdown.classList.toggle("aural-navbar__dropdown--open");
+                dropdown.classList.toggle('aural-navbar__dropdown--open');
               });
             }
           });
-          document.addEventListener("click", (e) => {
+          document.addEventListener('click', (e) => {
             if (!navbar.contains(e.target)) {
               dropdowns.forEach((dropdown) => {
-                dropdown.classList.remove("aural-navbar__dropdown--open");
+                dropdown.classList.remove('aural-navbar__dropdown--open');
               });
               if (window.innerWidth > mobileBreakpoint) {
-                navbar.classList.remove("aural-navbar--menu-open");
+                navbar.classList.remove('aural-navbar--menu-open');
               }
             }
           });
           return {
             openMenu: () => {
-              navbar.classList.add("aural-navbar--menu-open");
+              navbar.classList.add('aural-navbar--menu-open');
             },
             closeMenu: () => {
-              navbar.classList.remove("aural-navbar--menu-open");
+              navbar.classList.remove('aural-navbar--menu-open');
             },
             toggleMenu: () => {
-              navbar.classList.toggle("aural-navbar--menu-open");
-            }
+              navbar.classList.toggle('aural-navbar--menu-open');
+            },
           };
         },
         // ========================================
@@ -4059,108 +3816,113 @@
         // ========================================
         initTimePicker(pickerId, options = {}) {
           const picker = document.getElementById(pickerId);
-          if (!picker)
-            return null;
+          if (!picker) return null;
           const {
-            format = "12h",
+            format = '12h',
             // '12h' or '24h'
             defaultTime = null,
             onChange = null,
             onOpen = null,
-            onClose = null
+            onClose = null,
           } = options;
-          const input = picker.querySelector(".aural-time-picker__input");
-          const toggle = picker.querySelector(".aural-time-picker__toggle");
-          const dropdown = picker.querySelector(".aural-time-picker__dropdown");
-          const hoursList = picker.querySelector(".aural-time-picker__list--hours");
-          const minutesList = picker.querySelector(".aural-time-picker__list--minutes");
-          const periodBtns = picker.querySelectorAll(".aural-time-picker__period-btn");
-          const nowBtn = picker.querySelector(".aural-time-picker__now-btn");
-          const clearBtn = picker.querySelector(".aural-time-picker__action-btn:first-child");
-          const doneBtn = picker.querySelector(".aural-time-picker__action-btn:last-child");
+          const input = picker.querySelector('.aural-time-picker__input');
+          const toggle = picker.querySelector('.aural-time-picker__toggle');
+          const dropdown = picker.querySelector('.aural-time-picker__dropdown');
+          const hoursList = picker.querySelector('.aural-time-picker__list--hours');
+          const minutesList = picker.querySelector('.aural-time-picker__list--minutes');
+          const periodBtns = picker.querySelectorAll('.aural-time-picker__period-btn');
+          const nowBtn = picker.querySelector('.aural-time-picker__now-btn');
+          const clearBtn = picker.querySelector('.aural-time-picker__action-btn:first-child');
+          const doneBtn = picker.querySelector('.aural-time-picker__action-btn:last-child');
           let currentHour = 12;
           let currentMinute = 0;
-          let currentPeriod = "AM";
+          let currentPeriod = 'AM';
           if (hoursList) {
-            const hours = format === "12h" ? 12 : 24;
-            for (let i = format === "12h" ? 1 : 0; i <= hours; i++) {
-              const btn = document.createElement("button");
-              btn.className = "aural-time-picker__item";
-              btn.textContent = String(i).padStart(2, "0");
+            const hours = format === '12h' ? 12 : 24;
+            for (let i = format === '12h' ? 1 : 0; i <= hours; i++) {
+              const btn = document.createElement('button');
+              btn.className = 'aural-time-picker__item';
+              btn.textContent = String(i).padStart(2, '0');
               btn.dataset.value = i;
               hoursList.appendChild(btn);
             }
           }
           if (minutesList) {
             for (let i = 0; i < 60; i += 5) {
-              const btn = document.createElement("button");
-              btn.className = "aural-time-picker__item";
-              btn.textContent = String(i).padStart(2, "0");
+              const btn = document.createElement('button');
+              btn.className = 'aural-time-picker__item';
+              btn.textContent = String(i).padStart(2, '0');
               btn.dataset.value = i;
               minutesList.appendChild(btn);
             }
           }
           const updateDisplay = () => {
-            let timeStr = "";
-            if (format === "12h") {
-              timeStr = `${String(currentHour).padStart(2, "0")}:${String(currentMinute).padStart(2, "0")} ${currentPeriod}`;
+            let timeStr = '';
+            if (format === '12h') {
+              timeStr = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')} ${currentPeriod}`;
             } else {
-              timeStr = `${String(currentHour).padStart(2, "0")}:${String(currentMinute).padStart(2, "0")}`;
+              timeStr = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
             }
             input.value = timeStr;
-            hoursList?.querySelectorAll(".aural-time-picker__item").forEach((item) => {
-              item.classList.toggle("aural-time-picker__item--selected", parseInt(item.dataset.value) === currentHour);
+            hoursList?.querySelectorAll('.aural-time-picker__item').forEach((item) => {
+              item.classList.toggle(
+                'aural-time-picker__item--selected',
+                parseInt(item.dataset.value) === currentHour
+              );
             });
-            minutesList?.querySelectorAll(".aural-time-picker__item").forEach((item) => {
-              item.classList.toggle("aural-time-picker__item--selected", parseInt(item.dataset.value) === currentMinute);
+            minutesList?.querySelectorAll('.aural-time-picker__item').forEach((item) => {
+              item.classList.toggle(
+                'aural-time-picker__item--selected',
+                parseInt(item.dataset.value) === currentMinute
+              );
             });
             periodBtns?.forEach((btn) => {
-              btn.classList.toggle("aural-time-picker__period-btn--selected", btn.textContent === currentPeriod);
+              btn.classList.toggle(
+                'aural-time-picker__period-btn--selected',
+                btn.textContent === currentPeriod
+              );
             });
-            if (onChange)
-              onChange(timeStr, currentHour, currentMinute, currentPeriod);
+            if (onChange) onChange(timeStr, currentHour, currentMinute, currentPeriod);
           };
           const open = () => {
-            picker.classList.add("aural-time-picker--open");
-            if (onOpen)
-              onOpen();
+            picker.classList.add('aural-time-picker--open');
+            if (onOpen) onOpen();
           };
           const close = () => {
-            picker.classList.remove("aural-time-picker--open");
-            if (onClose)
-              onClose();
+            picker.classList.remove('aural-time-picker--open');
+            if (onClose) onClose();
           };
-          toggle?.addEventListener("click", () => {
-            if (picker.classList.contains("aural-time-picker--open")) {
+          toggle?.addEventListener('click', () => {
+            if (picker.classList.contains('aural-time-picker--open')) {
               close();
             } else {
               open();
             }
           });
-          hoursList?.addEventListener("click", (e) => {
-            if (e.target.classList.contains("aural-time-picker__item")) {
+          hoursList?.addEventListener('click', (e) => {
+            if (e.target.classList.contains('aural-time-picker__item')) {
               currentHour = parseInt(e.target.dataset.value);
               updateDisplay();
             }
           });
-          minutesList?.addEventListener("click", (e) => {
-            if (e.target.classList.contains("aural-time-picker__item")) {
+          minutesList?.addEventListener('click', (e) => {
+            if (e.target.classList.contains('aural-time-picker__item')) {
               currentMinute = parseInt(e.target.dataset.value);
               updateDisplay();
             }
           });
           periodBtns?.forEach((btn) => {
-            btn.addEventListener("click", () => {
+            btn.addEventListener('click', () => {
               currentPeriod = btn.textContent;
               updateDisplay();
             });
           });
-          nowBtn?.addEventListener("click", () => {
+          nowBtn?.addEventListener('click', () => {
             const now = /* @__PURE__ */ new Date();
             let hour = now.getHours();
             const minute = Math.floor(now.getMinutes() / 5) * 5;
-            if (format === "12h") {
-              currentPeriod = hour >= 12 ? "PM" : "AM";
+            if (format === '12h') {
+              currentPeriod = hour >= 12 ? 'PM' : 'AM';
               currentHour = hour % 12 || 12;
             } else {
               currentHour = hour;
@@ -4168,14 +3930,14 @@
             currentMinute = minute;
             updateDisplay();
           });
-          clearBtn?.addEventListener("click", () => {
-            input.value = "";
+          clearBtn?.addEventListener('click', () => {
+            input.value = '';
             close();
           });
-          doneBtn?.addEventListener("click", () => {
+          doneBtn?.addEventListener('click', () => {
             close();
           });
-          document.addEventListener("click", (e) => {
+          document.addEventListener('click', (e) => {
             if (!picker.contains(e.target)) {
               close();
             }
@@ -4185,8 +3947,7 @@
             if (match) {
               currentHour = parseInt(match[1]);
               currentMinute = parseInt(match[2]);
-              if (match[3])
-                currentPeriod = match[3].toUpperCase();
+              if (match[3]) currentPeriod = match[3].toUpperCase();
               updateDisplay();
             }
           }
@@ -4195,12 +3956,11 @@
             setTime: (hour, minute, period) => {
               currentHour = hour;
               currentMinute = minute;
-              if (period)
-                currentPeriod = period;
+              if (period) currentPeriod = period;
               updateDisplay();
             },
             open,
-            close
+            close,
           };
         },
         // ========================================
@@ -4208,64 +3968,66 @@
         // ========================================
         initCombobox(comboboxId, options = {}) {
           const combobox = document.getElementById(comboboxId);
-          if (!combobox)
-            return null;
+          if (!combobox) return null;
           const {
             options: comboOptions = [],
             searchable = true,
             creatable = false,
-            placeholder = "Search...",
+            placeholder = 'Search...',
             onChange = null,
             onSearch = null,
-            onCreate = null
+            onCreate = null,
           } = options;
-          const input = combobox.querySelector(".aural-combobox__input");
-          const dropdown = combobox.querySelector(".aural-combobox__dropdown");
-          const optionsList = combobox.querySelector(".aural-combobox__options");
-          const clearBtn = combobox.querySelector(".aural-combobox__clear");
-          const arrow = combobox.querySelector(".aural-combobox__arrow");
+          const input = combobox.querySelector('.aural-combobox__input');
+          const dropdown = combobox.querySelector('.aural-combobox__dropdown');
+          const optionsList = combobox.querySelector('.aural-combobox__options');
+          const clearBtn = combobox.querySelector('.aural-combobox__clear');
+          const arrow = combobox.querySelector('.aural-combobox__arrow');
           let selectedValue = null;
           let highlightedIndex = -1;
           let filteredOptions = [...comboOptions];
           const renderOptions = (opts = filteredOptions) => {
-            optionsList.innerHTML = "";
+            optionsList.innerHTML = '';
             if (opts.length === 0) {
-              const empty = document.createElement("div");
-              empty.className = "aural-combobox__empty";
+              const empty = document.createElement('div');
+              empty.className = 'aural-combobox__empty';
               empty.innerHTML = '<div class="aural-combobox__empty-text">No results found</div>';
               optionsList.appendChild(empty);
               return;
             }
             opts.forEach((opt, index) => {
-              const button = document.createElement("button");
-              button.className = "aural-combobox__option";
+              const button = document.createElement('button');
+              button.className = 'aural-combobox__option';
               button.dataset.value = opt.value;
               button.dataset.index = index;
               if (opt.value === selectedValue) {
-                button.classList.add("aural-combobox__option--selected");
+                button.classList.add('aural-combobox__option--selected');
               }
-              const content = document.createElement("div");
-              content.className = "aural-combobox__option-content";
-              const label = document.createElement("div");
-              label.className = "aural-combobox__option-label";
+              const content = document.createElement('div');
+              content.className = 'aural-combobox__option-content';
+              const label = document.createElement('div');
+              label.className = 'aural-combobox__option-label';
               label.textContent = opt.label;
               content.appendChild(label);
               if (opt.description) {
-                const desc = document.createElement("div");
-                desc.className = "aural-combobox__option-description";
+                const desc = document.createElement('div');
+                desc.className = 'aural-combobox__option-description';
                 desc.textContent = opt.description;
                 content.appendChild(desc);
               }
               button.appendChild(content);
               optionsList.appendChild(button);
             });
-            if (creatable && input.value && !opts.find((o) => o.label.toLowerCase() === input.value.toLowerCase())) {
-              const createBtn = document.createElement("button");
-              createBtn.className = "aural-combobox__create";
+            if (
+              creatable &&
+              input.value &&
+              !opts.find((o) => o.label.toLowerCase() === input.value.toLowerCase())
+            ) {
+              const createBtn = document.createElement('button');
+              createBtn.className = 'aural-combobox__create';
               createBtn.innerHTML = `<span>Create:</span> <span class="aural-combobox__create-value">"${input.value}"</span>`;
-              createBtn.addEventListener("click", () => {
-                if (onCreate)
-                  onCreate(input.value);
+              createBtn.addEventListener('click', () => {
+                if (onCreate) onCreate(input.value);
                 close();
               });
               optionsList.appendChild(createBtn);
@@ -4275,80 +4037,77 @@
             if (!query) {
               filteredOptions = [...comboOptions];
             } else {
-              filteredOptions = comboOptions.filter(
-                (opt) => opt.label.toLowerCase().includes(query.toLowerCase())
+              filteredOptions = comboOptions.filter((opt) =>
+                opt.label.toLowerCase().includes(query.toLowerCase())
               );
             }
             renderOptions();
-            if (onSearch)
-              onSearch(query, filteredOptions);
+            if (onSearch) onSearch(query, filteredOptions);
           };
           const open = () => {
-            combobox.classList.add("aural-combobox--open");
+            combobox.classList.add('aural-combobox--open');
             renderOptions();
           };
           const close = () => {
-            combobox.classList.remove("aural-combobox--open");
+            combobox.classList.remove('aural-combobox--open');
             highlightedIndex = -1;
           };
-          input.addEventListener("focus", open);
-          input.addEventListener("input", (e) => {
+          input.addEventListener('focus', open);
+          input.addEventListener('input', (e) => {
             if (searchable) {
               filterOptions(e.target.value);
-              combobox.classList.toggle("aural-combobox--has-value", e.target.value.length > 0);
+              combobox.classList.toggle('aural-combobox--has-value', e.target.value.length > 0);
             }
           });
-          optionsList.addEventListener("click", (e) => {
-            const option = e.target.closest(".aural-combobox__option");
+          optionsList.addEventListener('click', (e) => {
+            const option = e.target.closest('.aural-combobox__option');
             if (option) {
               selectedValue = option.dataset.value;
               const selected = comboOptions.find((o) => o.value === selectedValue);
               if (selected) {
                 input.value = selected.label;
-                combobox.classList.add("aural-combobox--has-value");
-                if (onChange)
-                  onChange(selected);
+                combobox.classList.add('aural-combobox--has-value');
+                if (onChange) onChange(selected);
               }
               close();
             }
           });
-          clearBtn?.addEventListener("click", (e) => {
+          clearBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
-            input.value = "";
+            input.value = '';
             selectedValue = null;
-            combobox.classList.remove("aural-combobox--has-value");
-            filterOptions("");
-            if (onChange)
-              onChange(null);
+            combobox.classList.remove('aural-combobox--has-value');
+            filterOptions('');
+            if (onChange) onChange(null);
           });
-          arrow?.addEventListener("click", (e) => {
+          arrow?.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (combobox.classList.contains("aural-combobox--open")) {
+            if (combobox.classList.contains('aural-combobox--open')) {
               close();
             } else {
               open();
               input.focus();
             }
           });
-          document.addEventListener("click", (e) => {
+          document.addEventListener('click', (e) => {
             if (!combobox.contains(e.target)) {
               close();
             }
           });
-          input.addEventListener("keydown", (e) => {
-            const options2 = optionsList.querySelectorAll(".aural-combobox__option");
-            if (e.key === "ArrowDown") {
+          input.addEventListener('keydown', (e) => {
+            const options2 = optionsList.querySelectorAll('.aural-combobox__option');
+            if (e.key === 'ArrowDown') {
               e.preventDefault();
               highlightedIndex = Math.min(highlightedIndex + 1, options2.length - 1);
               options2[highlightedIndex]?.focus();
-            } else if (e.key === "ArrowUp") {
+            } else if (e.key === 'ArrowUp') {
               e.preventDefault();
               highlightedIndex = Math.max(highlightedIndex - 1, 0);
               options2[highlightedIndex]?.focus();
-            } else if (e.key === "Enter" && highlightedIndex >= 0) {
+            } else if (e.key === 'Enter' && highlightedIndex >= 0) {
               e.preventDefault();
               options2[highlightedIndex]?.click();
-            } else if (e.key === "Escape") {
+            } else if (e.key === 'Escape') {
               close();
             }
           });
@@ -4360,18 +4119,18 @@
               const selected = comboOptions.find((o) => o.value === value);
               if (selected) {
                 input.value = selected.label;
-                combobox.classList.add("aural-combobox--has-value");
+                combobox.classList.add('aural-combobox--has-value');
               }
               renderOptions();
             },
             clear: () => {
-              input.value = "";
+              input.value = '';
               selectedValue = null;
-              combobox.classList.remove("aural-combobox--has-value");
+              combobox.classList.remove('aural-combobox--has-value');
               renderOptions();
             },
             open,
-            close
+            close,
           };
         },
         // ========================================
@@ -4379,24 +4138,18 @@
         // ========================================
         initSwitch(switchId, options = {}) {
           const switchEl = document.getElementById(switchId);
-          if (!switchEl)
-            return null;
-          const {
-            defaultChecked = false,
-            onChange = null,
-            disabled = false
-          } = options;
-          const input = switchEl.querySelector(".aural-switch__input");
-          if (!input)
-            return null;
+          if (!switchEl) return null;
+          const { defaultChecked = false, onChange = null, disabled = false } = options;
+          const input = switchEl.querySelector('.aural-switch__input');
+          if (!input) return null;
           if (defaultChecked) {
             input.checked = true;
           }
           if (disabled) {
             input.disabled = true;
-            switchEl.classList.add("aural-switch--disabled");
+            switchEl.classList.add('aural-switch--disabled');
           }
-          input.addEventListener("change", (e) => {
+          input.addEventListener('change', (e) => {
             if (onChange) {
               onChange(e.target.checked);
             }
@@ -4405,22 +4158,20 @@
             isChecked: () => input.checked,
             setChecked: (checked) => {
               input.checked = checked;
-              if (onChange)
-                onChange(checked);
+              if (onChange) onChange(checked);
             },
             toggle: () => {
               input.checked = !input.checked;
-              if (onChange)
-                onChange(input.checked);
+              if (onChange) onChange(input.checked);
             },
             enable: () => {
               input.disabled = false;
-              switchEl.classList.remove("aural-switch--disabled");
+              switchEl.classList.remove('aural-switch--disabled');
             },
             disable: () => {
               input.disabled = true;
-              switchEl.classList.add("aural-switch--disabled");
-            }
+              switchEl.classList.add('aural-switch--disabled');
+            },
           };
         },
         // ========================================
@@ -4429,144 +4180,181 @@
         showSnackbar(message, options = {}) {
           const {
             description = null,
-            type = "default",
+            type = 'default',
             // 'success', 'error', 'warning', 'info'
             duration = 4e3,
-            position = "bottom-center",
+            position = 'bottom-center',
             // 'bottom-left', 'bottom-center', 'bottom-right', 'top-left', 'top-center', 'top-right'
             action = null,
             // { label: 'Undo', onClick: () => {} }
             dismissible = true,
             showProgress = true,
-            onDismiss = null
+            onDismiss = null,
           } = options;
           const containerClass = `aural-snackbar-container--${position}`;
           let container = document.querySelector(`.${containerClass}`);
           if (!container) {
-            container = document.createElement("div");
+            container = document.createElement('div');
             container.className = `aural-snackbar-container ${containerClass}`;
             document.body.appendChild(container);
           }
-          const snackbar = document.createElement("div");
-          snackbar.className = "aural-snackbar";
-          if (type !== "default") {
+          const snackbar = document.createElement('div');
+          snackbar.className = 'aural-snackbar';
+          if (type !== 'default') {
             snackbar.classList.add(`aural-snackbar--${type}`);
           }
-          snackbar.setAttribute("role", type === "error" ? "alert" : "status");
-          let html = "";
-          if (type !== "default") {
+          snackbar.setAttribute('role', type === 'error' ? 'alert' : 'status');
+          let html = '';
+          if (type !== 'default') {
             html += '<div class="aural-snackbar__icon">';
-            if (type === "success")
-              html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
-            else if (type === "error")
-              html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
-            else if (type === "warning")
-              html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
-            else if (type === "info")
-              html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
-            html += "</div>";
+            if (type === 'success')
+              html +=
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+            else if (type === 'error')
+              html +=
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+            else if (type === 'warning')
+              html +=
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+            else if (type === 'info')
+              html +=
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+            html += '</div>';
           }
           html += '<div class="aural-snackbar__content">';
           html += `<div class="aural-snackbar__message">${message}</div>`;
           if (description) {
             html += `<div class="aural-snackbar__description">${description}</div>`;
           }
-          html += "</div>";
+          html += '</div>';
           if (action || dismissible) {
             html += '<div class="aural-snackbar__actions">';
             if (action) {
               html += `<button class="aural-snackbar__action">${action.label}</button>`;
             }
-            html += "</div>";
+            html += '</div>';
           }
           if (dismissible) {
-            html += '<button class="aural-snackbar__close" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+            html +=
+              '<button class="aural-snackbar__close" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
           }
           if (showProgress && duration > 0) {
-            html += '<div class="aural-snackbar__progress"><div class="aural-snackbar__progress-bar"></div></div>';
+            html +=
+              '<div class="aural-snackbar__progress"><div class="aural-snackbar__progress-bar"></div></div>';
           }
           snackbar.innerHTML = html;
           container.appendChild(snackbar);
           setTimeout(() => {
-            snackbar.classList.add("aural-snackbar--show");
+            snackbar.classList.add('aural-snackbar--show');
           }, 10);
           if (showProgress && duration > 0) {
-            const progressBar = snackbar.querySelector(".aural-snackbar__progress-bar");
+            const progressBar = snackbar.querySelector('.aural-snackbar__progress-bar');
             if (progressBar) {
               progressBar.style.animationDuration = `${duration}ms`;
             }
           }
           const dismiss = () => {
-            snackbar.classList.remove("aural-snackbar--show");
-            snackbar.classList.add("aural-snackbar--hide");
+            snackbar.classList.remove('aural-snackbar--show');
+            snackbar.classList.add('aural-snackbar--hide');
             setTimeout(() => {
               snackbar.remove();
               if (container.children.length === 0) {
                 container.remove();
               }
-              if (onDismiss)
-                onDismiss();
+              if (onDismiss) onDismiss();
             }, 300);
           };
           let dismissTimeout;
           if (duration > 0) {
             dismissTimeout = setTimeout(dismiss, duration);
           }
-          const closeBtn = snackbar.querySelector(".aural-snackbar__close");
+          const closeBtn = snackbar.querySelector('.aural-snackbar__close');
           if (closeBtn) {
-            closeBtn.addEventListener("click", () => {
+            closeBtn.addEventListener('click', () => {
               clearTimeout(dismissTimeout);
               dismiss();
             });
           }
           if (action) {
-            const actionBtn = snackbar.querySelector(".aural-snackbar__action");
+            const actionBtn = snackbar.querySelector('.aural-snackbar__action');
             if (actionBtn) {
-              actionBtn.addEventListener("click", () => {
-                if (action.onClick)
-                  action.onClick();
+              actionBtn.addEventListener('click', () => {
+                if (action.onClick) action.onClick();
                 clearTimeout(dismissTimeout);
                 dismiss();
               });
             }
           }
           return {
-            dismiss
+            dismiss,
           };
-        }
+        },
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        /**
+         * Initialize all interactive components
+         *
+         * Convenience method to initialize all Aural UI components at once.
+         * Called automatically on DOMContentLoaded, but can be called manually
+         * for dynamically loaded content.
+         *
+         * @returns {void}
+         *
+         * @example
+         * // Re-initialize after dynamic content load
+         * fetch('/api/content').then(() => {
+         *   document.getElementById('container').innerHTML = newContent;
+         *   Aural.init();
+         * });
+         */
+        init() {
+          this.initModals();
+          this.initTabs();
+          this.initTooltips();
+          this.initDropdowns();
+          this.initAccordions();
+          this.initPopovers();
+          this.initSelects();
+          this.initAllCodeBlocks();
+          this.initDrawers();
+        },
       };
-      if (typeof document !== "undefined") {
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", () => {
-            Aural.initModals();
-            Aural.initTabs();
-            Aural.initTooltips();
-            Aural.initDropdowns();
-            Aural.initAccordions();
-            Aural.initPopovers();
-            Aural.initSelects();
-            Aural.initAllCodeBlocks();
-            Aural.initDrawers();
-          });
+      if (typeof document !== 'undefined') {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => Aural.init());
         } else {
-          Aural.initModals();
-          Aural.initTabs();
-          Aural.initTooltips();
-          Aural.initDropdowns();
-          Aural.initAccordions();
-          Aural.initPopovers();
-          Aural.initSelects();
-          Aural.initAllCodeBlocks();
-          Aural.initDrawers();
+          Aural.init();
         }
       }
-      if (typeof module !== "undefined" && module.exports) {
+      if (typeof module !== 'undefined' && module.exports) {
         module.exports = Aural;
       }
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         window.Aural = Aural;
       }
-    }
+    },
   });
   require_javascript();
 })();
+/**
+ * AURAL UI - JavaScript Utilities
+ *
+ * A comprehensive JavaScript API for interactive UI components.
+ * Provides accessibility-first implementations for modals, toasts,
+ * tabs, tooltips, dropdowns, accordions, and more.
+ *
+ * @module Aural
+ * @version 1.0.0
+ * @license MIT
+ *
+ * @example
+ * // Show a toast notification
+ * Aural.showToast('File saved successfully', 'success');
+ *
+ * // Open a modal
+ * Aural.openModal('my-modal');
+ *
+ * // Initialize all interactive components
+ * Aural.init();
+ */
