@@ -9,6 +9,7 @@ Thank you for your interest in contributing to Aural UI! This document provides 
 - [Getting Started](#getting-started)
 - [Development Workflow](#development-workflow)
 - [Project Structure](#project-structure)
+- [Specs and the Token Audit](#specs-and-the-token-audit)
 - [Code Standards](#code-standards)
 - [Creating Components](#creating-components)
 - [Testing](#testing)
@@ -30,20 +31,24 @@ Thank you for your interest in contributing to Aural UI! This document provides 
 1. **Fork the repository** on GitHub
 
 2. **Clone your fork**:
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/aural-ui.git
    cd aural-ui
    ```
 
 3. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 4. **Start development server**:
+
    ```bash
    npm run dev
    ```
+
    This watches for changes and rebuilds automatically.
 
 5. **Serve the documentation**:
@@ -77,6 +82,7 @@ Follow conventional commits format:
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -86,6 +92,7 @@ Follow conventional commits format:
 - `chore`: Maintenance tasks
 
 **Examples:**
+
 ```bash
 feat: add date picker component with keyboard navigation
 fix: correct button hover color correlation with primary
@@ -111,8 +118,23 @@ aural-ui/
 ├── src/
 │   └── aural-ui.css      # Main entry point
 ├── dist/                 # Built files (don't edit directly)
+├── specs/                # Component and token specs (see below)
 └── docs/                 # Documentation and showcase
 ```
+
+---
+
+## Specs and the Token Audit
+
+- **Read the spec first.** Before editing anything in `components/`, `themes/`, or `tokens/`, read the matching `specs/components/<name>.md` (or `specs/foundations/<category>.md` for a token category). It documents the component's anatomy, states, and which tokens it's supposed to use.
+- **Never hardcode a visual value.** No raw hex/rgb colors, px spacing/sizing/radius, or raw z-index numbers in `components/*.css` — use a token from `tokens/core/` or `tokens/semantic/`. If nothing fits, add one rather than hardcoding (see `specs/tokens/token-reference.md` before adding a near-duplicate). Genuine one-offs get a `/* aural-ignore: reason */` comment.
+- **Run the audit before opening a PR:**
+  ```bash
+  npm run audit:tokens
+  ```
+  This also runs automatically on staged `components/*.css` files via the pre-commit hook, and is a blocking check in CI — a PR with a new hardcoded value will fail the build.
+
+Full detail lives in [`CLAUDE.md`](CLAUDE.md), written for AI-assisted contributions but equally accurate for humans.
 
 ---
 
@@ -121,13 +143,18 @@ aural-ui/
 ### CSS Guidelines
 
 1. **Use BEM-like naming convention**:
+
    ```css
-   .component-name { }
-   .component-name__element { }
-   .component-name--modifier { }
+   .component-name {
+   }
+   .component-name__element {
+   }
+   .component-name--modifier {
+   }
    ```
 
 2. **Always use semantic tokens, never core tokens**:
+
    ```css
    /* ✅ GOOD */
    background: var(--color-bg-primary);
@@ -139,18 +166,23 @@ aural-ui/
    ```
 
 3. **Mobile-first responsive design**:
+
    ```css
    /* Base styles for mobile */
-   .component { }
+   .component {
+   }
 
    /* Tablet and up */
-   @media (min-width: 768px) { }
+   @media (min-width: 768px) {
+   }
 
    /* Desktop and up */
-   @media (min-width: 1024px) { }
+   @media (min-width: 1024px) {
+   }
    ```
 
 4. **No hardcoded values**:
+
    ```css
    /* ✅ GOOD */
    padding: var(--space-4);
@@ -161,19 +193,23 @@ aural-ui/
    border-radius: 8px;
    ```
 
+   This is checked, not just a style preference — `npm run audit:tokens` flags hardcoded colors, spacing, radius, z-index, font-size, font-weight, and duration values in `components/*.css`, and is enforced in pre-commit and CI.
+
 ### JavaScript Guidelines
 
 1. **Use vanilla JavaScript** (no frameworks)
 2. **Add to the `Aural` object**:
+
    ```javascript
    const Aural = {
-       myNewMethod() {
-           // Implementation
-       }
+     myNewMethod() {
+       // Implementation
+     },
    };
    ```
 
 3. **Include JSDoc comments**:
+
    ```javascript
    /**
     * Opens a modal dialog
@@ -194,7 +230,11 @@ aural-ui/
 
 ## Creating Components
 
-### 1. Create Component CSS
+### 1. Check the Spec Format
+
+Skim an existing spec in `specs/components/` (e.g. `badge.md`) before you start. A spec has 8 sections — Metadata, Overview, Anatomy, Tokens used, Props/API, States, Code example, Cross-references — and you'll write your own at the end of this workflow, so it helps to know the shape up front and use only tokens you can list in it.
+
+### 2. Create Component CSS
 
 Create `components/your-component.css`:
 
@@ -210,31 +250,31 @@ Create `components/your-component.css`:
    ======================================== */
 
 .your-component {
-    /* Layout */
-    display: flex;
+  /* Layout */
+  display: flex;
 
-    /* Spacing */
-    padding: var(--space-4);
-    gap: var(--space-2);
+  /* Spacing */
+  padding: var(--space-4);
+  gap: var(--space-2);
 
-    /* Colors */
-    background: var(--color-bg-secondary);
-    color: var(--color-text-primary);
-    border: 1px solid var(--color-border-subtle);
+  /* Colors */
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-subtle);
 
-    /* Border */
-    border-radius: var(--radius-md);
+  /* Border */
+  border-radius: var(--radius-md);
 
-    /* Typography */
-    font-size: var(--text-base);
+  /* Typography */
+  font-size: var(--text-base);
 
-    /* Transitions */
-    transition: var(--transition-all-fast);
+  /* Transitions */
+  transition: var(--transition-all-fast);
 }
 
 .your-component:hover {
-    background: var(--color-bg-hover);
-    border-color: var(--color-border-medium);
+  background: var(--color-bg-hover);
+  border-color: var(--color-border-medium);
 }
 
 /* ========================================
@@ -242,7 +282,7 @@ Create `components/your-component.css`:
    ======================================== */
 
 .your-component__element {
-    /* Styles for child element */
+  /* Styles for child element */
 }
 
 /* ========================================
@@ -250,8 +290,8 @@ Create `components/your-component.css`:
    ======================================== */
 
 .your-component--large {
-    padding: var(--space-6);
-    font-size: var(--text-lg);
+  padding: var(--space-6);
+  font-size: var(--text-lg);
 }
 
 /* ========================================
@@ -259,19 +299,19 @@ Create `components/your-component.css`:
    ======================================== */
 
 .your-component:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-    .your-component {
-        transition: none;
-    }
+  .your-component {
+    transition: none;
+  }
 }
 ```
 
-### 2. Add JavaScript (if needed)
+### 3. Add JavaScript (if needed)
 
 Add to `javascript/index.js`:
 
@@ -303,7 +343,7 @@ initYourComponent(componentId, options = {}) {
 },
 ```
 
-### 3. Add to Imports
+### 4. Add to Imports
 
 Update `src/aural-ui.css`:
 
@@ -312,10 +352,10 @@ Update `src/aural-ui.css`:
 @import '../components/button.css';
 @import '../components/input.css';
 /* ... existing imports ... */
-@import '../components/your-component.css';  /* ADD HERE */
+@import '../components/your-component.css'; /* ADD HERE */
 ```
 
-### 4. Add Semantic Tokens
+### 5. Add Semantic Tokens
 
 If needed, add to `tokens/semantic/colors.css`:
 
@@ -326,29 +366,29 @@ If needed, add to `tokens/semantic/colors.css`:
 --color-your-component-hover: var(--color-bg-hover);
 ```
 
-### 5. Document in Showcase
+### 6. Document in Showcase
 
 Add section to `docs/showcase.html`:
 
 ```html
 <!-- Your Component -->
 <section class="showcase-section" id="your-component">
-    <h2 class="showcase-title">Your Component</h2>
-    <p class="showcase-subtitle">Description of your component</p>
+  <h2 class="showcase-title">Your Component</h2>
+  <p class="showcase-subtitle">Description of your component</p>
 
-    <div class="example">
-        <div class="example-label">Basic Example</div>
-        <div class="your-component">
-            Example content
-        </div>
-    </div>
+  <div class="example">
+    <div class="example-label">Basic Example</div>
+    <div class="your-component">Example content</div>
+  </div>
 
-    <div class="example">
-        <div class="example-label">Code Example</div>
-        <pre style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"><code>&lt;div class="your-component"&gt;
+  <div class="example">
+    <div class="example-label">Code Example</div>
+    <pre
+      style="background: var(--color-bg-secondary); padding: var(--space-4); border-radius: var(--radius-md); overflow-x: auto;"
+    ><code>&lt;div class="your-component"&gt;
     Content here
 &lt;/div&gt;</code></pre>
-    </div>
+  </div>
 </section>
 ```
 
@@ -358,9 +398,19 @@ Add navigation link:
 <li><a href="#your-component" class="nav-link">Your Component</a></li>
 ```
 
-### 6. Update Documentation
+### 7. Update Documentation
 
 Add to `COMPONENTS.md` with full documentation, variants, and API reference.
+
+### 8. Write the Component Spec and Run the Audit
+
+Write `specs/components/your-component.md` using the 8-section format you checked in step 1 (Metadata, Overview, Anatomy, Tokens used, Props/API, States, Code example, Cross-references). Then run:
+
+```bash
+npm run audit:tokens
+```
+
+Fix any errors before opening a PR — this is the same check CI and the pre-commit hook run.
 
 ---
 
@@ -382,6 +432,7 @@ All components MUST meet WCAG 2.1 AA standards:
 ### Testing
 
 Test with:
+
 - **Keyboard only** (no mouse)
 - **Screen reader** (VoiceOver on macOS, NVDA on Windows)
 - **Browser accessibility tools** (Chrome DevTools Lighthouse)
@@ -397,12 +448,14 @@ Test with:
 Before submitting a PR:
 
 1. **Visual testing**:
+
    ```bash
    npm run serve
    # Test in Chrome, Firefox, Safari
    ```
 
 2. **Build test**:
+
    ```bash
    npm run build
    # Ensure no errors
@@ -416,6 +469,7 @@ Before submitting a PR:
 ### Browser Testing
 
 Test in:
+
 - Chrome/Edge (latest)
 - Firefox (latest)
 - Safari 12+
@@ -427,6 +481,7 @@ Test in:
 ### Pull Request Process
 
 1. **Create a feature branch**:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -437,6 +492,7 @@ Test in:
    - Test thoroughly
 
 3. **Build and test**:
+
    ```bash
    npm run build
    npm run serve
@@ -444,12 +500,14 @@ Test in:
    ```
 
 4. **Commit your changes**:
+
    ```bash
    git add .
    git commit -m "feat: add your feature description"
    ```
 
 5. **Push to your fork**:
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -471,15 +529,18 @@ Your PR should include:
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] New feature
 - [ ] Bug fix
 - [ ] Documentation update
 - [ ] Performance improvement
 
 ## Testing
+
 - [x] Tested in Chrome
 - [x] Tested in Firefox
 - [x] Tested in Safari
@@ -488,9 +549,11 @@ Brief description of changes
 - [x] Reduced motion tested
 
 ## Screenshots
+
 [Add screenshots/GIFs here]
 
 ## Checklist
+
 - [x] Code follows style guidelines
 - [x] Added/updated documentation
 - [x] No console errors

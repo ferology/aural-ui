@@ -109,12 +109,15 @@ Every component has **documented examples** for:
 
 ### AI-Optimized Documentation
 
-**Perfect for AI-assisted development:**
+**Built so an AI coding session stays consistent, not just "AI-friendly":**
 
-- 🤖 **Comprehensive docs** - Claude, ChatGPT, Cursor can copy-paste working code
-- 📖 **Usage guidelines** - Every component explains "when to use" vs alternatives
-- ♿ **Accessibility built-in** - AI doesn't have to guess ARIA attributes
-- 🎨 **Theme examples** - AI can switch vibes instantly
+Every component has a structured spec, every visual value has to come from a closed token layer, and a script audits that automatically — so an agent editing this repo reads the rules before it writes CSS instead of guessing at values.
+
+- 📋 **[`specs/`](specs/)** - one spec per component (anatomy, tokens, states, code example) plus per-category token docs, so an agent can read the contract before touching a file
+- 🔒 **Closed token layer** - components may only reference tokens from `tokens/core/`/`tokens/semantic/`; `npm run audit:tokens` scans every component file and blocks hardcoded colors, spacing, radius, z-index, and more in CI
+- ✅ **Validated, not just asserted** - a fresh Claude Code agent given a bare feature ticket and zero context discovered `CLAUDE.md` and the relevant spec on its own, used only real tokens, and ran the audit itself, three separate times
+
+Start with **[`CLAUDE.md`](CLAUDE.md)** - it's the first thing an AI session should read in this repo.
 
 ### Zero Dependencies & Customizable
 
@@ -832,8 +835,9 @@ Browse 1000+ icons at [lucide.dev/icons](https://lucide.dev/icons)
 
 ```
 aural-ui/
+├── CLAUDE.md              # Rules an AI session reads before editing components/themes/tokens
 ├── tokens/
-│   ├── core/              # Primitive tokens (colors, spacing, typography, etc.)
+│   ├── core/              # Primitive tokens (colors, spacing, typography, z-index, size, etc.)
 │   └── semantic/          # Semantic tokens (component-specific mappings)
 ├── themes/
 │   ├── dark.css           # Dark theme
@@ -844,6 +848,15 @@ aural-ui/
 │   ├── input.css
 │   ├── modal.css
 │   └── ...
+├── specs/                 # One spec per component + per-category token docs
+│   ├── components/        # specs/components/<name>.md (anatomy, tokens, states, code example)
+│   ├── foundations/       # specs/foundations/<category>.md (color, spacing, z-index, etc.)
+│   ├── patterns/          # Composition patterns
+│   └── tokens/
+│       └── token-reference.md  # Generated master table of every token
+├── scripts/
+│   ├── token-audit.js             # npm run audit:tokens — flags hardcoded values
+│   └── generate-token-reference.js # npm run generate:token-docs
 ├── utilities/             # Utility classes
 │   ├── typography.css     # Font utilities
 │   └── grid.css          # Responsive grid system
@@ -870,9 +883,11 @@ Semantic Tokens (Behavior)
 Component Styles
 ```
 
-**Core tokens** define raw values (colors, spacing scales, font sizes).
+**Core tokens** define raw values (colors, spacing scales, font sizes, z-index and size scales).
 **Semantic tokens** map core tokens to intent (e.g., `--color-btn-primary-bg`).
 **Components** use only semantic tokens for easy theming.
+
+This is enforced, not just convention: `npm run audit:tokens` scans every file in `components/` for hardcoded values and is a blocking step in CI.
 
 ---
 
@@ -938,6 +953,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 - Creating new components
 - Submitting pull requests
 - Reporting issues
+
+Contributing with AI assistance (Claude Code, Cursor, etc.)? Read **[CLAUDE.md](CLAUDE.md)** first — it's the spec-and-token workflow an agent should follow in this repo.
 
 ---
 
