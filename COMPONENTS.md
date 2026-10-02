@@ -1277,46 +1277,64 @@ Drag-and-drop file upload with validation and progress tracking.
 **Basic Usage:**
 
 ```html
-<div class="aural-file-upload" id="my-upload">
-  <div class="aural-file-upload__dropzone">
-    <div class="aural-file-upload__icon"></div>
-    <div class="aural-file-upload__text">
-      <div class="aural-file-upload__primary-text">
-        <span class="aural-file-upload__browse">Click to browse</span>
-        or drag and drop
-      </div>
-      <div class="aural-file-upload__secondary-text">PNG, JPG, GIF up to 10MB</div>
+<div class="file-upload" id="my-upload">
+  <label class="file-upload__zone">
+    <input type="file" class="file-upload__input" accept="image/*" multiple />
+    <div class="file-upload__content">
+      <i data-lucide="upload" class="file-upload__icon"></i>
+      <span class="file-upload__text">Drop files here or click to browse</span>
+      <span class="file-upload__subtext">PNG, JPG, GIF up to 10MB</span>
     </div>
-    <input type="file" class="aural-file-upload__input" accept="image/*" multiple />
-  </div>
-  <div class="aural-file-upload__files"></div>
+  </label>
+  <div class="file-upload__list"></div>
 </div>
 ```
 
-**Compact Variant:**
+> Note: these are the real class names this component's CSS and JS use
+> (`.file-upload__zone`, unprefixed). An earlier version of this doc
+> described a different, `.aural-file-upload__*`-prefixed markup
+> convention that was never actually implemented anywhere — it was a
+> stale copy that `Aural.initFileUpload()` had also, incorrectly,
+> targeted, making that function a complete no-op until it was fixed to
+> match the markup below.
+
+**Size and style variants:**
 
 ```html
-<div class="aural-file-upload aural-file-upload--compact">...</div>
+<div class="file-upload file-upload--sm">...</div>
+<div class="file-upload file-upload--lg">...</div>
+<div class="file-upload file-upload--button">...</div>
+<div class="file-upload file-upload--image-grid">...</div>
 ```
 
 **File Item Structure:**
 
 ```html
-<div class="aural-file-upload__file aural-file-upload__file--uploading">
-  <div class="aural-file-upload__preview aural-file-upload__preview--image">
-    <img src="preview.jpg" alt="File" />
+<div class="file-upload__item file-upload__item--uploading">
+  <div class="file-upload__preview">
+    <img src="preview.jpg" alt="document.pdf" />
+    <!-- or, for a non-image file: -->
+    <!-- <i data-lucide="file" class="file-upload__preview-icon"></i> -->
   </div>
-  <div class="aural-file-upload__info">
-    <div class="aural-file-upload__filename">document.pdf</div>
-    <div class="aural-file-upload__filesize">2.4 MB</div>
-    <div class="aural-file-upload__progress">
-      <div class="aural-file-upload__progress-bar">
-        <div class="aural-file-upload__progress-fill" style="width: 60%"></div>
+  <div class="file-upload__info">
+    <div class="file-upload__filename">document.pdf</div>
+    <div class="file-upload__meta">
+      <span class="file-upload__filesize">2.4 MB</span>
+      <span class="file-upload__status">Uploading</span>
+    </div>
+    <div class="file-upload__progress">
+      <div class="file-upload__progress-bar">
+        <div class="file-upload__progress-fill" style="width: 60%"></div>
       </div>
     </div>
   </div>
-  <div class="aural-file-upload__actions">
-    <button class="aural-file-upload__remove"></button>
+  <div class="file-upload__actions">
+    <button
+      class="file-upload__action file-upload__action--remove"
+      aria-label="Remove document.pdf"
+    >
+      &times;
+    </button>
   </div>
 </div>
 ```
@@ -1324,9 +1342,10 @@ Drag-and-drop file upload with validation and progress tracking.
 **File States:**
 
 ```html
-<div class="aural-file-upload__file aural-file-upload__file--uploading">...</div>
-<div class="aural-file-upload__file aural-file-upload__file--success">...</div>
-<div class="aural-file-upload__file aural-file-upload__file--error">...</div>
+<div class="file-upload__item file-upload__item--pending">...</div>
+<div class="file-upload__item file-upload__item--uploading">...</div>
+<div class="file-upload__item file-upload__item--success">...</div>
+<div class="file-upload__item file-upload__item--error">...</div>
 ```
 
 **JavaScript API:**
