@@ -291,43 +291,52 @@
       <div class="page-header">
         <h1 class="page-title">AI-Assisted Development</h1>
         <p class="page-description">
-          Aural UI is built so that an AI coding session — Claude Code, Cursor, or anything else
-          editing this repo — stays consistent with the design system instead of fabricating values
-          or losing context between sessions. This page explains how, and what verifying it actually
-          looked like.
+          Aural UI is structured so that an AI coding assistant, such as Claude Code or Cursor, can
+          edit this codebase without introducing inconsistent values or losing context between
+          sessions. This page documents the system that enforces that, and the results of validating
+          it.
         </p>
+      </div>
+
+      <div class="info-box" style="margin-bottom: var(--space-8)">
+        <strong>At a glance:</strong> a closed token layer with an automated audit reduced hardcoded
+        CSS values from 1,044 to 0 across 59 components. The approach was validated with three
+        independent test runs using agents with no prior knowledge of the system, each of which
+        located the documentation, used existing tokens correctly, and ran the audit without being
+        instructed to.
       </div>
 
       <section class="content-section">
         <h2 class="section-title">The Problem</h2>
         <div class="section-content">
           <p>
-            A design system is a set of conventions, and conventions only hold if everyone editing
-            the codebase actually knows them. A plain-CSS design system has no compiler to enforce
-            "use the token, not a raw hex value" — that rule lives in people's heads, in review
-            comments, in tribal knowledge.
+            A design system's conventions are only effective if the people, and systems, editing the
+            codebase are aware of them. A plain-CSS design system has no compiler to enforce a rule
+            like "use the token, not a raw hex value." That rule is typically maintained through
+            code review and institutional knowledge.
           </p>
           <p>
-            An AI coding assistant doesn't have that tribal knowledge, and it doesn't carry memory
-            from one session to the next. Left unguided, it tends to do two specific things wrong
-            when editing <code>components/</code>:
+            An AI coding assistant has neither. It does not carry context from one session to the
+            next, and without explicit guidance it tends to produce two specific failure modes when
+            editing <code>components/</code>:
           </p>
           <ul>
             <li>
-              <strong>It fabricates plausible-looking values.</strong> Asked to add a variant, it
-              will happily invent a hex color or a padding value that looks reasonable in isolation,
-              rather than checking whether a token already covers it.
+              <strong>Fabricated values.</strong> When asked to add a variant, it will generate a
+              plausible hex color or padding value rather than checking whether an existing token
+              already covers the case.
             </li>
             <li>
-              <strong>It has no persistent context.</strong> Each new session starts from zero — it
-              doesn't know a component's established anatomy, which tokens it already uses, or what
-              naming convention the file follows — unless something in the repo tells it.
+              <strong>No persistent context.</strong> Each session starts without knowledge of a
+              component's established anatomy, which tokens it already uses, or which naming
+              convention the file follows, unless that information is made explicit in the
+              repository.
             </li>
           </ul>
           <p>
-            Over enough edits, this drifts a design system away from its own rules: hardcoded values
-            creep back in, naming conventions diverge file-to-file, and there's no single place a
-            new session (human or AI) can go to get caught up.
+            Over successive edits, this causes a design system to drift from its own rules:
+            hardcoded values reappear, naming conventions diverge between files, and there is no
+            single reference a new session, human or AI, can consult to get up to speed.
           </p>
         </div>
       </section>
@@ -343,9 +352,9 @@
               rel="noopener"
               style="color: var(--color-primary)"
               >hvpandya.com/llm-design-systems</a
-            >: structured specs, a closed token layer, and an automated audit, so consistency
-            doesn't depend on any one session remembering the rules correctly. Four pieces make this
-            work.
+            >: structured specifications, a closed token layer, and an automated audit, so that
+            consistency does not depend on any individual session recalling the rules correctly. The
+            implementation consists of four components.
           </p>
         </div>
         <ul class="contribution-list">
@@ -493,13 +502,12 @@
             <code>scripts/token-audit.js</code> is a postcss-based scanner, run via
             <code>npm run audit:tokens</code>, that parses every <code>components/*.css</code> file
             and flags hardcoded colors, spacing, radius, z-index, font-size, font-weight, and
-            duration values — suggesting the exact matching token for each one instead of just
-            saying "no."
+            duration values. Each finding includes the specific token that should replace it.
           </p>
           <p>
-            It's wired into pre-commit (staged files only, via lint-staged) and is a
-            <strong>blocking</strong> step in CI — a pull request that introduces a new hardcoded
-            value fails the build, not just a warning.
+            It runs on staged files via the pre-commit hook (lint-staged) and is a
+            <strong>blocking</strong> step in CI: a pull request that introduces a new hardcoded
+            value fails the build rather than producing a warning.
           </p>
         </div>
       </section>
@@ -509,7 +517,9 @@
         <div class="section-content">
           <h3>As a human contributor</h3>
           <ol>
-            <li>Read <code>CLAUDE.md</code> once — it's short, and it's the whole rulebook.</li>
+            <li>
+              Read <code>CLAUDE.md</code> once. It's short, and it covers the full set of rules.
+            </li>
             <li>
               Before editing a component, read its spec at
               <code>specs/components/&lt;name&gt;.md</code> for its anatomy, variants, and which
@@ -547,11 +557,11 @@
         <h2 class="section-title">Validation</h2>
         <div class="section-content">
           <p>
-            This isn't a theoretical process — it was run against the entire existing component
-            library, and the result was verified, not just asserted.
+            This system was applied to the entire existing component library, and the results were
+            independently verified rather than assumed.
           </p>
 
-          <h3>Closing the gap: 1,044 → 0</h3>
+          <h3>Hardcoded values: 1,044 → 0</h3>
           <div class="stat-row">
             <div class="stat-block">
               <span class="stat-number before">1,044</span>
@@ -566,37 +576,37 @@
             </div>
           </div>
           <p>
-            Every one of the 59 <code>components/*.css</code> files was migrated to the closed token
-            layer, and the result was verified <strong>value-preserving</strong> — every
-            substitution resolves to the identical literal it replaced, so no component's actual
-            appearance changed.
+            All 59 <code>components/*.css</code> files were migrated to the closed token layer. Each
+            substitution was verified to be <strong>value-preserving</strong>: it resolves to the
+            identical literal it replaced, so no component's rendered appearance changed.
           </p>
 
-          <h3>Three independent cold-test runs</h3>
+          <h3>Three independent validation runs</h3>
           <p>
-            To check whether this is actually discoverable rather than just well-intentioned, a
-            fresh AI agent with zero prior knowledge of this system was given a bare ticket — "add
-            an xl size variant to X" — and tested three times, against Badge, Chips, and Tooltip.
-            Each time, independently verified (not self-reported), the agent:
+            To test whether the system is discoverable in practice, rather than simply
+            well-documented, a fresh AI agent with no prior knowledge of the system was given a
+            single-line task, "add an <code>xl</code> size variant to X", and run three times
+            against Badge, Chips, and Tooltip. Each result was independently verified rather than
+            self-reported. In each run, the agent:
           </p>
           <ul>
             <li>
-              found <code>CLAUDE.md</code> and the relevant component spec on its own, with no
-              pointer to either,
+              located <code>CLAUDE.md</code> and the relevant component spec without being directed
+              to either,
             </li>
-            <li>used only real, existing tokens — no fabricated values,</li>
-            <li>and ran the token audit itself before considering the change finished.</li>
+            <li>used only existing, real tokens, with no fabricated values,</li>
+            <li>and ran the token audit itself before considering the change complete.</li>
           </ul>
 
           <h3>Real bugs surfaced along the way</h3>
           <p>
-            Migrating every component to real tokens didn't just reorganize existing values — it
-            surfaced pre-existing bugs that hardcoded values had been masking:
+            Migrating every component to real tokens did more than reorganize existing values: it
+            surfaced pre-existing bugs that hardcoded values had been masking.
           </p>
           <ul>
             <li>
-              <strong>Dangling <code>var()</code> references</strong> to tokens that never existed —
-              e.g. a typo'd <code>--color-primary-alpha-20</code> instead of the real
+              <strong>Dangling <code>var()</code> references</strong> to tokens that never existed,
+              including a typo'd <code>--color-primary-alpha-20</code> in place of the real
               <code>--primary-alpha-20</code>, which was silently breaking hover states and a
               search-highlight.
             </li>
@@ -604,23 +614,24 @@
               <strong>A stray unbalanced parenthesis</strong> in <code>utilities/filters.css</code>.
             </li>
             <li>
-              <strong>Several more dangling <code>var()</code> references</strong> found in a later
-              pass — <code>--color-border</code> (used by seven components, undefined outside the
+              <strong>Several more dangling <code>var()</code> references</strong>, found in a later
+              pass: <code>--color-border</code> (used by seven components, undefined outside the
               Kinetic theme), <code>--primary-alpha-50</code>, <code>--color-primary-light</code>,
-              and the <code>-border</code> half of Alert Banner's info/success/warning tints — all
-              fixed by adding the missing token rather than guessing at a replacement value.
+              and the <code>-border</code> half of Alert Banner's info/success/warning tints. Each
+              was fixed by adding the missing token rather than guessing at a replacement value.
             </li>
             <li>
-              <strong>A cascade bug between <code>.toggle</code> and <code>.switch</code></strong> —
-              a backwards-compatibility block in <code>switch.css</code> was silently overriding
+              <strong>A cascade bug between <code>.toggle</code> and <code>.switch</code>.</strong>
+              A backwards-compatibility block in <code>switch.css</code> was silently overriding
               <code>.toggle</code>'s own color tokens because of import order. Fixed by reordering
-              the imports (confirmed by reading the rendered track color before and after), safe to
-              do because <code>.toggle</code> has no real-world consumers to regress.
+              the imports and confirming the rendered track color before and after; safe to do
+              because <code>.toggle</code> has no real-world consumers to regress.
             </li>
             <li>
-              <strong>A broken public JS API</strong> — <code>Aural.initFileUpload()</code> queried
+              <strong>A broken public JS API.</strong> <code>Aural.initFileUpload()</code> queried
               class names that didn't exist in File Upload's actual markup, making it a complete
-              no-op. Fixed to match the real classes, verified by simulating a file drop end-to-end.
+              no-op. Fixed to match the real classes and verified by simulating a file drop
+              end-to-end.
             </li>
           </ul>
         </div>
