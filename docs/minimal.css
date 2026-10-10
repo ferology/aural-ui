@@ -56,7 +56,7 @@ html:root {
   --color-text-primary: #0a0a0a; /* Near black */
   --color-text-secondary: #404040; /* Dark gray - 10:1 contrast */
   --color-text-tertiary: #525252;
-  --color-text-muted: #737373; /* 4.6:1 contrast - AA compliant */
+  --color-text-muted: #6b6b6b; /* >= 4.9:1 on every surface */
   --color-text-disabled: #a3a3a3;
   --color-text-inverse: #fafafa;
 
@@ -82,7 +82,13 @@ html:root {
 
   /* Inputs */
   --color-input-bg: #ffffff;
-  --color-input-border: var(--color-border-medium);
+  --color-control-border: #737373; /* >= 3:1 (1.4.11) */
+  /* Status foregrounds on a light surface (500 shades are 2.2-3.8:1 on white) */
+  --color-success-text: var(--success-800);
+  --color-error-text: var(--error-700);
+  --color-warning-text: var(--warning-800);
+  --color-info-text: var(--info-700);
+  --color-input-border: var(--color-control-border);
   --color-input-border-hover: var(--color-border-strong);
   --color-input-disabled-bg: #f5f5f5;
 
@@ -131,6 +137,7 @@ html:root {
 }
 
 /* Minimal body styles */
+
 body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);

@@ -153,6 +153,7 @@ body {
 }
 
 /* Atmospheric gradient background */
+
 body::before {
   content: '';
   position: fixed;
@@ -186,6 +187,7 @@ body::before {
 }
 
 /* Subtle grain texture */
+
 body::after {
   content: '';
   position: fixed;
@@ -199,6 +201,12 @@ body::after {
 /* ========================================
    SELECTION STYLING
    ======================================== */
+
+::-moz-selection {
+  background: rgba(14, 165, 165, 0.25);
+  color: var(--color-text-primary);
+  text-shadow: 0 0 8px rgba(14, 165, 165, 0.4);
+}
 
 ::selection {
   background: rgba(14, 165, 165, 0.25);
@@ -241,7 +249,6 @@ body::after {
    ======================================== */
 
 /* Import distinctive fonts */
-@import url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;900&family=Satoshi:wght@400;500;700&display=swap');
 
 body {
   font-family:
@@ -302,6 +309,7 @@ h6 {
    ======================================== */
 
 /* Logo - Elegant neon sophistication */
+
 .demo-logo {
   padding: var(--space-5) var(--space-4) !important;
   border-bottom: 1px solid rgba(155, 135, 245, 0.3);
@@ -338,6 +346,7 @@ h6 {
 }
 
 /* Theme Selector - Minimal neon */
+
 .theme-selector-section {
   padding: 0 var(--space-3);
   margin-bottom: var(--space-5) !important;
@@ -372,6 +381,7 @@ h6 {
 }
 
 /* Navigation Sections - Subtle glow */
+
 .demo-nav-title {
   color: rgba(155, 135, 245, 0.9) !important;
   transition: all 0.3s ease;
@@ -388,6 +398,7 @@ h6 {
 }
 
 /* Navigation Links - Refined hover effects */
+
 .demo-nav-link {
   transition: all 0.3s ease !important;
 }
@@ -422,6 +433,7 @@ h6 {
 }
 
 /* Sidebar - Elegant dark with subtle glow */
+
 .demo-sidebar {
   background: var(--color-bg-primary) !important;
   border-right: 1px solid rgba(155, 135, 245, 0.2) !important;
@@ -429,6 +441,7 @@ h6 {
 }
 
 /* Scrollbar - Purple gradient */
+
 .demo-sidebar::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, rgba(155, 135, 245, 0.6) 0%, rgba(75, 225, 255, 0.4) 100%);
 }

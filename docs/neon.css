@@ -108,8 +108,8 @@
   --color-text-primary: #ffffff;
   --color-text-secondary: #00ffff; /* Cyan accent */
   --color-text-tertiary: #ff00ff; /* Magenta accent */
-  --color-text-muted: #9b9b9b; /* Improved contrast: 5.03:1 */
-  --color-text-disabled: #595959; /* Improved contrast: 3.36:1 for disabled state */
+  --color-text-muted: #999999; /* >= 6:1 on every surface */
+  --color-text-disabled: #404040;
   --color-text-inverse: #000000;
 
   /* ========================================
@@ -125,13 +125,18 @@
 
   /* Buttons */
   --color-button-primary-bg: #00ffff;
-  --color-button-primary-text: #000000; /* Contrast: 16.75:1 - Excellent */
-  --color-button-primary-hover: #00e5e5; /* Contrast with black text: 15.29:1 - Excellent */
+  --color-button-primary-text: #000000;
+
+  /* Status: the saturated neon fills carry black text; info text needs a lighter blue */
+  --color-success-solid: var(--success-500);
+  --color-text-on-success: #000000;
+  --color-info-text: #6ba6ff;
+  --color-button-primary-hover: #00e5e5;
 
   --color-button-secondary-bg: transparent;
-  --color-button-secondary-text: #ff66ff; /* Improved contrast: lighter magenta */
-  --color-button-secondary-border: #ff66ff;
-  --color-button-secondary-hover: rgba(255, 102, 255, 0.12);
+  --color-button-secondary-text: #ff00ff;
+  --color-button-secondary-border: #ff00ff;
+  --color-button-secondary-hover: rgba(255, 0, 255, 0.1);
 
   /* Inputs */
   --color-input-bg: rgba(0, 255, 255, 0.03);
@@ -251,43 +256,6 @@
 
   --shadow-primary: var(--glow-primary-sm);
   --shadow-primary-lg: var(--glow-primary-md);
-
-  /* Missing Component Variables */
-  --color-button-danger-bg: #ff0066;
-  --color-button-danger-hover: #e6005c;
-  --color-button-danger-text: #ffffff;
-  --color-button-ghost-bg: transparent;
-  --color-button-ghost-hover: rgba(255, 102, 255, 0.15);
-  --color-button-ghost-text: #ff66ff; /* Improved contrast: lighter magenta */
-  --color-input-text: #ffffff;
-  --color-input-placeholder: #a8a8a8; /* Improved contrast: 4.54:1 */
-  --color-badge-primary-bg: rgba(0, 255, 255, 0.15);
-  --color-badge-primary-text: #00ffff;
-  --color-badge-success-bg: rgba(0, 255, 136, 0.15);
-  --color-badge-success-text: #00ff88;
-  --color-badge-warning-bg: rgba(255, 255, 0, 0.15);
-  --color-badge-warning-text: #ffff99; /* Improved contrast: lighter yellow */
-  --color-badge-error-bg: rgba(255, 0, 102, 0.15);
-  --color-badge-error-text: #ff3385; /* Improved contrast: lighter pink-red */
-  --color-badge-info-bg: rgba(0, 102, 255, 0.15);
-  --color-badge-info-text: #0066ff;
-  --color-toast-border: var(--color-border-medium);
-  --color-toast-success-border: #00ff88;
-  --color-toast-warning-border: #ffff99; /* Matches updated badge color */
-  --color-toast-error-border: #ff3385; /* Matches updated badge color */
-  --color-toast-info-border: #0066ff;
-  --color-card-hover-border: rgba(0, 255, 255, 0.5);
-  --color-checkbox-border-hover: rgba(255, 0, 255, 0.8);
-  --color-switch-bg-off: rgba(128, 128, 128, 0.3);
-  --color-switch-bg-on: rgba(255, 0, 255, 0.8);
-
-  /* Additional Missing Variables */
-  --color-badge-secondary-bg: rgba(255, 102, 255, 0.15);
-  --color-badge-secondary-text: #ff66ff; /* Improved contrast: lighter magenta */
-  --color-primary-alpha: rgba(0, 255, 255, 0.1);
-  --color-toast-success-bg: rgba(0, 255, 136, 0.1);
-  --color-toast-warning-bg: rgba(255, 255, 102, 0.1);
-  --color-toast-error-bg: rgba(255, 0, 102, 0.1);
 }
 
 /* ========================================
@@ -310,6 +278,7 @@ body {
 }
 
 /* Optional: Animated gradient background - Subtle */
+
 body::before {
   content: '';
   position: fixed;
@@ -345,6 +314,13 @@ body::before {
 /* ========================================
    SELECTION STYLING
    ======================================== */
+
+::-moz-selection {
+  background: rgba(0, 255, 255, 0.3);
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
 ::selection {
   background: rgba(0, 255, 255, 0.3);
   color: #ffffff;
@@ -355,6 +331,43 @@ body::before {
   background: rgba(0, 255, 255, 0.3);
   color: #ffffff;
   text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+/* ========================================
+   SCROLLBAR STYLING - Neon Theme
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+  border-left: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00ffff 0%, #ff00ff 100%);
+  border-radius: 6px;
+  box-shadow:
+    0 0 10px rgba(0, 255, 255, 0.5),
+    inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00e5e5 0%, #e500e5 100%);
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.8),
+    0 0 40px rgba(255, 0, 255, 0.4),
+    inset 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+/* Firefox scrollbar */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00ffff rgba(0, 0, 0, 0.5);
 }
 
 /* ========================================
