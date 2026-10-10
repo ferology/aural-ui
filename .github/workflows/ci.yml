@@ -22,6 +22,11 @@ jobs:
       - run: npm run type-check
       - name: Token audit
         run: npm run audit:tokens
+      - name: Theme contrast audit
+        run: |
+          npx playwright install --with-deps chromium
+          npm run build:css
+          npm run audit:contrast
 
   test:
     name: Tests
