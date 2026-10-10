@@ -7,6 +7,7 @@
  * Run `npm run build:css` first. Exits 1 if any pair fails.
  *
  *   node scripts/contrast-audit.mjs [theme ...]   (default: all themes)
+ *   node scripts/contrast-audit.mjs --aaa high-contrast   (text pairs need 7:1, WCAG 1.4.6)
  */
 import { chromium } from 'playwright';
 import fs from 'fs';
@@ -14,8 +15,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-const THEMES = process.argv.slice(2).length
-  ? process.argv.slice(2)
+const AAA = process.argv.includes('--aaa');
+const ARGS = process.argv.slice(2).filter((a) => a !== '--aaa');
+const THEMES = ARGS.length
+  ? ARGS
   : [
       'aural-ui',
       'dark',
@@ -126,7 +129,8 @@ for (const theme of THEMES) {
     const bg = bgRaw[3] < 1 ? over(bgRaw, page0) : bgRaw;
     const flat = fg[3] < 1 ? over(fg, bg) : fg;
     const r = ratio(flat, bg);
-    if (r < req) bad.push(`   ${r.toFixed(2)} < ${req}  ${label}`);
+    const need = AAA && req === 4.5 ? 7 : req;
+    if (r < need) bad.push(`   ${r.toFixed(2)} < ${need}  ${label}`);
   }
   failures += bad.length;
   console.log(`${bad.length ? '✗' : '✓'} ${theme}${bad.length ? ` (${bad.length})` : ''}`);

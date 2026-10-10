@@ -406,6 +406,7 @@ Then run the built-in audit (add your theme name to the list in `scripts/contras
 npm run build:css
 npm run audit:contrast            # all themes
 node scripts/contrast-audit.mjs my-theme
+npm run audit:contrast:aaa        # high-contrast at AAA (7:1 text)
 ```
 
 It resolves the semantic tokens in a real browser and requires text pairs (primary/secondary/tertiary/muted) and `--color-*-text` >= 4.5:1 on all three surfaces, `--color-control-border` >= 3:1, button text, `--color-text-on-*` on `--color-*-solid` fills, and nav-active text >= 4.5:1. A theme is not done until it passes.
@@ -647,7 +648,7 @@ setInterval(() => {
 
 ### Contrast Requirements
 
-All themes meet WCAG AA standards, verified per theme by `npm run audit:contrast` (11 themes pass):
+All themes meet WCAG AA standards, verified per theme by `npm run audit:contrast` (11 themes pass). The high-contrast theme also meets AAA (7:1 text), verified by `npm run audit:contrast:aaa`:
 
 | Element Type  | Minimum Ratio | Aural UI Compliance |
 | ------------- | ------------- | ------------------- |
