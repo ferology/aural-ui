@@ -16,9 +16,13 @@ const config: StorybookConfig = {
     autodocs: true,
   },
   staticDirs: ['../javascript', '../dist'],
-  viteFinal: async (config) => {
-    // Set base path for GitHub Pages deployment
-    config.base = '/aural-ui/storybook/';
+  viteFinal: async (config, { configType }) => {
+    // GitHub Pages serves the build under /aural-ui/storybook/. Apply that only
+    // to the production build: with it, `storybook dev` cannot find /index.json
+    // and every story fails to render.
+    if (configType === 'PRODUCTION') {
+      config.base = '/aural-ui/storybook/';
+    }
     return config;
   },
 };

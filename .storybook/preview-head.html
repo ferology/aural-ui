@@ -1,4 +1,11 @@
-<base href="/aural-ui/storybook/" />
+<script>
+  // GitHub Pages serves Storybook under /aural-ui/storybook/. Only set the base
+  // there; a fixed <base> makes `storybook dev` request /aural-ui/storybook/index.json
+  // (404) so no story renders.
+  if (location.pathname.indexOf('/aural-ui/storybook/') === 0) {
+    document.write('<base href="/aural-ui/storybook/" />');
+  }
+</script>
 
 <!-- Load Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
