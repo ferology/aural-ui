@@ -48,25 +48,25 @@ sizes, loading/disabled states, and grouping. It applies to native
 
 ## 4. Tokens used
 
-| Token                                                               | Used for                                                                                           |
-| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `--color-button-primary-bg` / `-hover` / `-text`                    | `.btn-primary`                                                                                     |
-| `--color-button-secondary-bg` / `-hover` / `-border` / `-text`      | `.btn-secondary`                                                                                   |
-| `--color-button-danger-bg` / `-hover` / `-text`                     | `.btn-danger`                                                                                      |
-| `--color-button-ghost-bg` / `-hover` / `-text`                      | `.btn-ghost`                                                                                       |
-| `--color-button-disabled-bg` / `-border` / `-text`                  | `.btn:disabled` (all variants)                                                                     |
-| `--color-primary` / `--color-primary-hover`                         | `.btn-link` text, focus-visible outline color                                                      |
-| `--color-text-primary`                                              | Base text color; `.btn-ghost:hover` text                                                           |
-| `--color-border-medium`                                             | `.btn-secondary:hover` border color                                                                |
-| `--shadow-primary` / `--shadow-primary-lg`                          | `.btn-primary` default / hover elevation                                                           |
-| `--shadow-error` / `--shadow-error-lg`                              | `.btn-danger` default / hover elevation (`--shadow-error-lg` is a new core token — see note below) |
-| `--space-2` / `--space-3` / `--space-4` / `--space-6` / `--space-8` | Padding (varies by size), icon gap                                                                 |
-| `--size-16`                                                         | Loading spinner diameter                                                                           |
-| `--size-40` / `--size-44` / `--size-52`                             | `min-height` at sm / default / lg (`--size-52` is a new core token — see note below)               |
-| `--text-sm` / `--text-base` / `--text-lg`                           | Font size at sm / default / lg                                                                     |
-| `--font-sans` / `--font-medium` / `--leading-none`                  | Typography                                                                                         |
-| `--radius-md`                                                       | Corner radius                                                                                      |
-| `--transition-all-fast`                                             | Hover/active transitions                                                                           |
+| Token                                                               | Used for                                                                                                                                  |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `--color-button-primary-bg` / `-hover` / `-text`                    | `.btn-primary`. `-text` defaults to `var(--color-bg-primary)` (dark text on the light brand green; `themes/light.css` overrides to white) |
+| `--color-button-secondary-bg` / `-hover` / `-border` / `-text`      | `.btn-secondary`                                                                                                                          |
+| `--color-button-danger-bg` / `-hover` / `-text`                     | `.btn-danger`. `-bg` is `--color-error-solid` (error-600, 4.83:1 with white `-text`), hover `--error-700`                                 |
+| `--color-button-ghost-bg` / `-hover` / `-text`                      | `.btn-ghost`                                                                                                                              |
+| `--color-button-disabled-bg` / `-border` / `-text`                  | `.btn:disabled` (all variants)                                                                                                            |
+| `--color-primary` / `--color-primary-hover`                         | `.btn-link` text, focus-visible outline color                                                                                             |
+| `--color-text-primary`                                              | Base text color; `.btn-ghost:hover` text                                                                                                  |
+| `--color-border-medium`                                             | `.btn-secondary:hover` border color                                                                                                       |
+| `--shadow-primary` / `--shadow-primary-lg`                          | `.btn-primary` default / hover elevation                                                                                                  |
+| `--shadow-error` / `--shadow-error-lg`                              | `.btn-danger` default / hover elevation (`--shadow-error-lg` is a new core token — see note below)                                        |
+| `--space-2` / `--space-3` / `--space-4` / `--space-6` / `--space-8` | Padding (varies by size), icon gap                                                                                                        |
+| `--size-16`                                                         | Loading spinner diameter                                                                                                                  |
+| `--size-40` / `--size-44` / `--size-52`                             | `min-height` at sm / default / lg (`--size-52` is a new core token — see note below)                                                      |
+| `--text-sm` / `--text-base` / `--text-lg`                           | Font size at sm / default / lg                                                                                                            |
+| `--font-sans` / `--font-medium` / `--leading-none`                  | Typography                                                                                                                                |
+| `--radius-md`                                                       | Corner radius                                                                                                                             |
+| `--transition-all-fast`                                             | Hover/active transitions                                                                                                                  |
 
 **New tokens added while migrating this file:**
 
@@ -98,14 +98,15 @@ The Storybook story models the following as documentation-only controls:
 
 ## 6. States
 
-| State            | Selector                  | Behavior                                                                                                                                    |
-| ---------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Default          | `.btn`                    | Base styling per variant                                                                                                                    |
-| Hover            | `&:hover:not(:disabled)`  | Background/border shift, deeper shadow, `translateY(-2px)` lift (primary/secondary/danger) — skipped under `prefers-reduced-motion: reduce` |
-| Active           | `&:active:not(:disabled)` | `translateY(0)` — resets the hover lift                                                                                                     |
-| Focus (keyboard) | `.btn:focus-visible`      | 2px solid outline in `--color-primary`, 2px offset                                                                                          |
-| Disabled         | `.btn:disabled`           | WCAG-AA-compliant explicit colors (no opacity trick), `cursor: not-allowed`, `pointer-events: none`                                         |
-| Loading          | `.btn-loading`            | Label hidden (`color: transparent`), centered spinner, `pointer-events: none`                                                               |
+| State            | Selector                      | Behavior                                                                                                                                                                                                    |
+| ---------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default          | `.btn`                        | Base styling per variant                                                                                                                                                                                    |
+| Hover            | `&:hover:not(:disabled)`      | Background/border shift, deeper shadow, `translateY(-2px)` lift (primary/secondary/danger) — skipped under `prefers-reduced-motion: reduce`                                                                 |
+| Active           | `&:active:not(:disabled)`     | `translateY(0)` — resets the hover lift                                                                                                                                                                     |
+| Focus (keyboard) | `.btn:focus-visible`          | 2px solid outline in `--color-primary`, 2px offset                                                                                                                                                          |
+| Disabled         | `.btn:disabled`               | WCAG-AA-compliant explicit colors (no opacity trick), `cursor: not-allowed`, `pointer-events: none`                                                                                                         |
+| Contrast         | `.btn-primary`, `.btn-danger` | Label/fill pairs are >= 4.5:1 in every theme (checked by `npm run audit:contrast`); a theme that changes the brand or error fill must also set `--color-button-primary-text` / `--color-button-danger-text` |
+| Loading          | `.btn-loading`                | Label hidden (`color: transparent`), centered spinner, `pointer-events: none`                                                                                                                               |
 
 ## 7. Code example
 

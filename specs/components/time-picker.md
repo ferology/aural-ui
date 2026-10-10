@@ -72,28 +72,28 @@ formatting) lives in `javascript/index.js` (`Aural.initTimePicker`).
 
 ## 4. Tokens used
 
-| Token                                                                                              | Used for                                                                      |
-| -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `--size-44` / `--size-36` / `--size-52`                                                            | `__input` / list-item & button min-height at default / implicit sm / `--lg`   |
-| `--size-32` / `--size-18` / `--size-20` / `--size-16` / `--size-14` / `--size-6`                   | Toggle button, toggle svg, icon, now-btn svg, error svg, and scrollbar widths |
-| `--space-40`                                                                                       | `__list` height (160px)                                                       |
-| `--space-60`                                                                                       | `__dropdown` min-width (240px)                                                |
-| `--size-200`                                                                                       | `--sm` dropdown min-width and `--lg` list height (both 200px)                 |
-| `--z-dropdown`                                                                                     | Dropdown panel stacking (was a hardcoded `1000`)                              |
-| `--duration-moderate`                                                                              | Dropdown fade/slide transition (was a hardcoded `0.2s`)                       |
-| `--primary-alpha-10`                                                                               | Selected list item and "Now" button hover tint                                |
-| `--color-text-primary` / `--color-text-secondary` / `--color-text-tertiary` / `--color-text-muted` | Text color by emphasis level                                                  |
-| `--color-bg-primary` / `--color-bg-secondary` / `--color-bg-tertiary` / `--color-bg-hover`         | Input/list/dropdown backgrounds and hover states                              |
-| `--color-border-medium` / `--color-border-subtle` / `--color-border-strong`                        | Borders, scrollbar thumb, section dividers                                    |
-| `--color-primary` / `--color-primary-hover`                                                        | Selection accents, focus rings, primary action button                         |
-| `--color-error` / `--color-success`                                                                | Validation border accents                                                     |
-| `--radius-sm` / `--radius-md` / `--radius-lg`                                                      | Corner rounding (list items / controls / mobile sheet corners)                |
-| `--shadow-xl`                                                                                      | Dropdown elevation                                                            |
-| `--text-xs` / `--text-sm` / `--text-base`                                                          | Font sizes by context/size variant                                            |
-| `--font-mono` / `--font-sans`                                                                      | Monospace time text / placeholder & sans-serif labels                         |
-| `--font-medium` / `--font-semibold`                                                                | Label/button and selected-state weight                                        |
-| `--space-1` – `--space-4` / `--space-10`                                                           | Padding and gaps throughout                                                   |
-| `--transition-all-fast`                                                                            | Most hover/focus transitions                                                  |
+| Token                                                                                              | Used for                                                                         |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `--size-44` / `--size-36` / `--size-52`                                                            | `__input` / list-item & button min-height at default / implicit sm / `--lg`      |
+| `--size-32` / `--size-18` / `--size-20` / `--size-16` / `--size-14` / `--size-6`                   | Toggle button, toggle svg, icon, now-btn svg, error svg, and scrollbar widths    |
+| `--space-40`                                                                                       | `__list` height (160px)                                                          |
+| `--space-60`                                                                                       | `__dropdown` min-width (240px)                                                   |
+| `--size-200`                                                                                       | `--sm` dropdown min-width and `--lg` list height (both 200px)                    |
+| `--z-dropdown`                                                                                     | Dropdown panel stacking (was a hardcoded `1000`)                                 |
+| `--duration-moderate`                                                                              | Dropdown fade/slide transition (was a hardcoded `0.2s`)                          |
+| `--primary-alpha-10`                                                                               | Selected list item and "Now" button hover tint                                   |
+| `--color-text-primary` / `--color-text-secondary` / `--color-text-tertiary` / `--color-text-muted` | Text color by emphasis level                                                     |
+| `--color-bg-primary` / `--color-bg-secondary` / `--color-bg-tertiary` / `--color-bg-hover`         | Input/list/dropdown backgrounds and hover states                                 |
+| `--color-border-medium` / `--color-border-subtle` / `--color-border-strong`                        | Borders, scrollbar thumb, section dividers                                       |
+| `--color-primary` / `--color-primary-hover`                                                        | Selection accents, focus rings, primary action button                            |
+| `--color-error` / `--color-success` / `--color-error-text`                                         | Validation border accents; `--color-error-text` for the error message (>= 4.5:1) |
+| `--radius-sm` / `--radius-md` / `--radius-lg`                                                      | Corner rounding (list items / controls / mobile sheet corners)                   |
+| `--shadow-xl`                                                                                      | Dropdown elevation                                                               |
+| `--text-xs` / `--text-sm` / `--text-base`                                                          | Font sizes by context/size variant                                               |
+| `--font-mono` / `--font-sans`                                                                      | Monospace time text / placeholder & sans-serif labels                            |
+| `--font-medium` / `--font-semibold`                                                                | Label/button and selected-state weight                                           |
+| `--space-1` – `--space-4` / `--space-10`                                                           | Padding and gaps throughout                                                      |
+| `--transition-all-fast`                                                                            | Most hover/focus transitions                                                     |
 
 **New tokens added while migrating this file:** none. `--duration-moderate`
 (200ms) and `--size-200` (12.5rem/200px, "default floating menu/panel

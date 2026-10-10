@@ -44,23 +44,23 @@ one or two words or a number.
 
 ## 4. Tokens used
 
-| Token                                                     | Used for                                                                            |
-| --------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `--color-badge-primary-bg` / `--color-badge-primary-text` | `.badge-primary`                                                                    |
-| `--color-badge-success-bg` / `--color-badge-success-text` | `.badge-success`                                                                    |
-| `--color-badge-warning-bg` / `--color-badge-warning-text` | `.badge-warning`                                                                    |
-| `--color-badge-error-bg` / `--color-badge-error-text`     | `.badge-error`                                                                      |
-| `--color-badge-info-bg` / `--color-badge-info-text`       | `.badge-info`                                                                       |
-| `--color-badge-neutral-bg`                                | `.badge-neutral` background (new semantic token — see note below)                   |
-| `--color-text-secondary`                                  | `.badge-neutral` text                                                               |
-| `--space-1` / `--space-2` / `--space-3`                   | Padding at default/large sizes, icon gap                                            |
-| `--space-0-5`                                             | Padding at `.badge-sm` (new core token — see note below)                            |
-| `--text-xs` / `--text-sm` / `--text-2xs`                  | Font size at default / `.badge-lg` / `.badge-sm` (`--text-2xs` is a new core token) |
-| `--font-semibold`                                         | Font weight                                                                         |
-| `--tracking-wide`                                         | Letter spacing (uppercase label style)                                              |
-| `--leading-none`                                          | Line height                                                                         |
-| `--radius-full`                                           | Pill shape                                                                          |
-| `--size-6`                                                | `.badge-lg` vertical padding and the `.dot` indicator's width/height                |
+| Token                                                     | Used for                                                                                                                                         |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--color-badge-primary-bg` / `--color-badge-primary-text` | `.badge-primary`                                                                                                                                 |
+| `--color-badge-success-bg` / `--color-badge-success-text` | `.badge-success`. Badge status text is a 400 shade on a translucent tint (`-bg`); on a light theme it must be overridden so the text is >= 4.5:1 |
+| `--color-badge-warning-bg` / `--color-badge-warning-text` | `.badge-warning`                                                                                                                                 |
+| `--color-badge-error-bg` / `--color-badge-error-text`     | `.badge-error`                                                                                                                                   |
+| `--color-badge-info-bg` / `--color-badge-info-text`       | `.badge-info`                                                                                                                                    |
+| `--color-badge-neutral-bg`                                | `.badge-neutral` background (new semantic token — see note below)                                                                                |
+| `--color-text-secondary`                                  | `.badge-neutral` text                                                                                                                            |
+| `--space-1` / `--space-2` / `--space-3`                   | Padding at default/large sizes, icon gap                                                                                                         |
+| `--space-0-5`                                             | Padding at `.badge-sm` (new core token — see note below)                                                                                         |
+| `--text-xs` / `--text-sm` / `--text-2xs`                  | Font size at default / `.badge-lg` / `.badge-sm` (`--text-2xs` is a new core token)                                                              |
+| `--font-semibold`                                         | Font weight                                                                                                                                      |
+| `--tracking-wide`                                         | Letter spacing (uppercase label style)                                                                                                           |
+| `--leading-none`                                          | Line height                                                                                                                                      |
+| `--radius-full`                                           | Pill shape                                                                                                                                       |
+| `--size-6`                                                | `.badge-lg` vertical padding and the `.dot` indicator's width/height                                                                             |
 
 **New tokens added while migrating this file:**
 
@@ -85,6 +85,8 @@ Badge is non-interactive by default and has no hover/focus/disabled
 states of its own. If a badge is made clickable (e.g. a removable tag),
 it must be implemented as a `<button>` and inherit that element's own
 focus-visible/hover/disabled states — Badge itself does not define them.
+
+Contrast: the status variants are tinted (`--color-badge-*-bg`) with `--color-badge-*-text` foregrounds. If you need a _solid_ filled count badge, use `--color-{success,error,info,warning}-solid` with `--color-text-on-*` (as Navbar, Bottom Navigation, and Notification Center do for their count badges), not `--color-error` + white.
 
 ## 7. Code example
 

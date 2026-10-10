@@ -145,7 +145,7 @@
     <!-- Main Content -->
     <main class="main-content" id="main-content">
         <div class="page-header">
-            <div class="page-title page-heading-lg">Accessibility</div>
+            <div class="page-title page-heading-lg" role="heading" aria-level="1">Accessibility</div>
             <p class="page-description">Accessibility is not an afterthought. Every component in Aural UI is built from the ground up with accessibility in mind, ensuring your applications are usable by everyone.</p>
         </div>
 
@@ -187,7 +187,7 @@
                         <div>
                             <strong style="color: var(--color-text-primary);">Color Contrast</strong>
                             <p style="margin: var(--space-1) 0 0 0; color: var(--color-text-secondary); font-size: var(--text-sm);">
-                                Minimum 4.5:1 contrast ratio for all text and interactive elements
+                                Minimum 4.5:1 contrast for text and 3:1 for form control borders, verified in all 11 themes with <code>npm run audit:contrast</code>
                             </p>
                         </div>
                     </li>
@@ -217,7 +217,7 @@
 
                 <div class="page-subheading">Visual Accessibility</div>
                 <ul>
-                    <li><strong>Color contrast:</strong> All color tokens meet WCAG AA standards (4.5:1 for text, 3:1 for UI components)</li>
+                    <li><strong>Color contrast:</strong> The semantic color tokens are audited against WCAG AA in every theme (4.5:1 for text, 3:1 for form control borders). See <a href="contrast-report.html" style="color: var(--color-primary);">the contrast report</a></li>
                     <li><strong>Focus indicators:</strong> Visible <code>:focus</code> and <code>:focus-visible</code> states on all interactive elements</li>
                     <li><strong>Hover states:</strong> Clear visual feedback for mouse interactions</li>
                     <li><strong>Touch targets:</strong> Interactive elements sized for comfortable touch (minimum 44×44px)</li>
@@ -307,6 +307,7 @@
 &lt;/div&gt;</code></pre>
 
                 <div class="page-subheading">Tooltips</div>
+                <p>Tooltips built with <code>.tooltip-wrapper</code>, <code>[data-tooltip-trigger]</code> and <code>.tooltip</code> are wired by <code>Aural.initTooltips()</code>, which adds <code>role="tooltip"</code> and <code>aria-describedby</code> for you. Icon-only triggers still need an <code>aria-label</code>.</p>
                 <pre><code>&lt;!-- Icon buttons need aria-label --&gt;
 &lt;button class="btn btn-icon"
         data-tooltip="Edit item"
@@ -343,6 +344,52 @@
         &lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Color Contrast Tokens</div>
+            <div class="section-content">
+                <p>Pick the semantic token for the job instead of a raw status shade. The 500 shades only reach 2.2:1 to 3.8:1 against white.</p>
+                <ul>
+                    <li><strong><code>--color-{success,error,info,warning}-solid</code>:</strong> fills that carry <code>--color-text-on-*</code> text (chips, alert banners, snackbars, badges, danger button)</li>
+                    <li><strong><code>--color-{success,error,warning,info}-text</code>:</strong> status text and icons on surfaces. These resolve to the 400 shades on dark themes and the 700/600 shades in the light and minimal themes</li>
+                    <li><strong><code>--color-control-border</code>:</strong> the boundary of inputs, checkboxes, radios and selects, at 3:1 or more (WCAG 1.4.11). <code>--color-border-subtle</code> and <code>--color-border-medium</code> are decorative only</li>
+                    <li><strong><code>--color-button-primary-text</code>:</strong> defaults to <code>var(--color-bg-primary)</code>, which is dark text on the dark theme and white on the light theme</li>
+                </ul>
+                <pre><code>.status-pill {
+    background: var(--color-success-solid);
+    color: var(--color-text-on-success);
+}
+.status-message { color: var(--color-error-text); }
+.my-field { border: 1px solid var(--color-control-border); }</code></pre>
+
+                <div class="page-subheading">Auditing contrast</div>
+                <p>Build the CSS, then run the audit. It loads each of the 11 themes in a real browser, resolves the tokens and checks text on the three surfaces (4.5:1) and control borders (3:1). It exits 1 if any pair fails.</p>
+                <pre><code>npm run build:css
+npm run audit:contrast</code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-title page-heading">Modal and Tooltip Behavior</div>
+            <div class="section-content">
+                <div class="page-subheading">Modals</div>
+                <ul>
+                    <li><code>Aural.openModal(id)</code> makes everything outside the modal <code>inert</code> and <code>aria-hidden="true"</code>, even when the modal is rendered inside <code>&lt;main&gt;</code>. <code>Aural.closeModal(id)</code> restores the previous state</li>
+                    <li>Focus moves to the first focusable element, or to the dialog itself when there is none. Focusable elements are recomputed on every Tab, so content added after open is included</li>
+                    <li>Escape closes only the topmost open modal, and focus returns to the trigger</li>
+                </ul>
+
+                <div class="page-subheading">Tooltips (WCAG 1.4.13)</div>
+                <ul>
+                    <li>A tooltip stays open while the pointer moves from the trigger onto the tooltip (hoverable)</li>
+                    <li>Escape dismisses it without moving focus or the pointer</li>
+                    <li><code>role="tooltip"</code> and <code>aria-describedby</code> are added automatically</li>
+                </ul>
+
+                <div class="page-subheading">Skip link</div>
+                <p><code>.skip-link</code> uses the button-primary tokens so it keeps the same contrast as primary buttons in every theme. Point it at <code>&lt;main id="main-content"&gt;</code>.</p>
             </div>
         </div>
 

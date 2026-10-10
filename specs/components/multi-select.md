@@ -74,24 +74,24 @@ chips for a count badge.
 
 ## 4. Tokens used
 
-| Token                                                                                                                                    | Used for                                                                               |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `--color-bg-primary` / `--color-bg-secondary` / `--color-bg-tertiary`                                                                    | Trigger/dropdown/search backgrounds; disabled trigger background                       |
-| `--color-border-medium` / `--color-border-subtle`                                                                                        | Trigger/dropdown borders, search/select-all dividers                                   |
-| `--color-primary`                                                                                                                        | Open/hover/focus border, chip text/icon, focus outline                                 |
-| `--color-bg-hover`                                                                                                                       | Option hover/focus background, clear-button hover background                           |
-| `--primary-alpha-10` / `--primary-alpha-20`                                                                                              | Chip background, selected-option background, count-badge background, chip-remove hover |
-| `--color-text-primary` / `--color-text-secondary` / `--color-text-tertiary` / `--color-text-muted`                                       | Option text, placeholder, arrow/clear icon, group labels, empty-state copy             |
-| `--color-error` / `--color-success`                                                                                                      | Clear-button hover icon color; `--error`/`--success` trigger border variants           |
-| `--font-sans` (inherited) / `--text-xs` / `--text-sm`                                                                                    | Typography across tags, options, labels                                                |
-| `--font-medium` / `--font-semibold` / `--font-bold`                                                                                      | Chip/count/selected-option/group-label weights                                         |
-| `--space-0-5` / `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-6`                                                      | Gaps and padding throughout                                                            |
-| `--space-60`                                                                                                                             | `.aural-multi-select__options` `max-height` (240px)                                    |
-| `--size-6` / `--size-12` / `--size-14` / `--size-16` / `--size-18` / `--size-20` / `--size-36` / `--size-44` / `--size-48` / `--size-52` | Icon/control sizing and trigger `min-height` across sm/default/lg                      |
-| `--radius-sm` / `--radius-md` / `--radius-full`                                                                                          | Chip, trigger/dropdown, and count-badge corner radius                                  |
-| `--shadow-lg`                                                                                                                            | Dropdown drop shadow                                                                   |
-| `--z-dropdown`                                                                                                                           | Dropdown stacking (was a raw `1000`, same resolved value)                              |
-| `--transition-all-fast`                                                                                                                  | Hover/focus transitions                                                                |
+| Token                                                                                                                                    | Used for                                                                                         |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `--color-bg-primary` / `--color-bg-secondary` / `--color-bg-tertiary`                                                                    | Trigger/dropdown/search backgrounds; disabled trigger background                                 |
+| `--color-border-medium` / `--color-border-subtle`                                                                                        | Trigger/dropdown borders, search/select-all dividers                                             |
+| `--color-primary`                                                                                                                        | Open/hover/focus border, chip text/icon, focus outline                                           |
+| `--color-bg-hover`                                                                                                                       | Option hover/focus background, clear-button hover background                                     |
+| `--primary-alpha-10` / `--primary-alpha-20`                                                                                              | Chip background, selected-option background, count-badge background, chip-remove hover           |
+| `--color-text-primary` / `--color-text-secondary` / `--color-text-tertiary` / `--color-text-muted`                                       | Option text, placeholder, arrow/clear icon, group labels, empty-state copy                       |
+| `--color-error-text` / `--color-error` / `--color-success`                                                                               | Clear-button hover icon color (`-text`, >= 4.5:1); `--error`/`--success` trigger border variants |
+| `--font-sans` (inherited) / `--text-xs` / `--text-sm`                                                                                    | Typography across tags, options, labels                                                          |
+| `--font-medium` / `--font-semibold` / `--font-bold`                                                                                      | Chip/count/selected-option/group-label weights                                                   |
+| `--space-0-5` / `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-6`                                                      | Gaps and padding throughout                                                                      |
+| `--space-60`                                                                                                                             | `.aural-multi-select__options` `max-height` (240px)                                              |
+| `--size-6` / `--size-12` / `--size-14` / `--size-16` / `--size-18` / `--size-20` / `--size-36` / `--size-44` / `--size-48` / `--size-52` | Icon/control sizing and trigger `min-height` across sm/default/lg                                |
+| `--radius-sm` / `--radius-md` / `--radius-full`                                                                                          | Chip, trigger/dropdown, and count-badge corner radius                                            |
+| `--shadow-lg`                                                                                                                            | Dropdown drop shadow                                                                             |
+| `--z-dropdown`                                                                                                                           | Dropdown stacking (was a raw `1000`, same resolved value)                                        |
+| `--transition-all-fast`                                                                                                                  | Hover/focus transitions                                                                          |
 
 Several values are left as `/* aural-ignore */` rather than tokenized:
 the dropdown's 300px `max-height` ceiling and 0.3s expand transition, the
@@ -127,7 +127,7 @@ implementation typically exposes:
 | Option hover/focus-visible | `.aural-multi-select__option:hover` / `:focus-visible` | Background → `--color-bg-hover` (and text → primary on hover)                                 |
 | Option selected            | `.aural-multi-select__option--selected`                | Background tint, bold text, checkbox fills with checkmark revealed                            |
 | Option disabled            | `.aural-multi-select__option--disabled`                | Dimmed, `cursor: not-allowed`, `pointer-events: none`                                         |
-| Clear-button hover         | `.aural-multi-select__clear:hover`                     | Background → `--color-bg-hover`, icon → `--color-error`                                       |
+| Clear-button hover         | `.aural-multi-select__clear:hover`                     | Background → `--color-bg-hover`, icon → `--color-error-text`                                  |
 | Disabled (whole control)   | `.aural-multi-select--disabled`                        | `opacity: 0.5`, `pointer-events: none`; trigger background → `--color-bg-tertiary`            |
 | Error / Success            | `.aural-multi-select--error` / `--success`             | Trigger border → `--color-error` / `--color-success`                                          |
 | Reduced motion             | `@media (prefers-reduced-motion: reduce)`              | Strips trigger/dropdown/option/checkbox/arrow transitions                                     |

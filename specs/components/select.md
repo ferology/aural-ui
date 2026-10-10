@@ -80,29 +80,29 @@ and the `.select-wrapper` label/helper/error wrapper.
 
 ## 4. Tokens used
 
-| Token                                                                                                          | Used for                                                                          |
-| -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `--color-select-bg` / `--color-select-border` / `--color-select-text`                                          | Base field appearance (both variants)                                             |
-| `--color-select-border-hover` / `--color-bg-glass-light`                                                       | Hover border / background tint                                                    |
-| `--color-select-border-focus`                                                                                  | Focus/open border                                                                 |
-| `--color-primary`                                                                                              | Focus-visible outline                                                             |
-| `--color-select-dropdown-bg` / `--color-select-dropdown-border`                                                | Native `<option>` background; custom `.select-dropdown` background/border         |
-| `--color-select-option-hover` / `--color-select-option-selected` / `--color-select-option-selected-text`       | `.select-option` hover / selected states                                          |
-| `--color-dropdown-item-text`                                                                                   | `.select-option` default text color                                               |
-| `--color-dropdown-divider`                                                                                     | `.select-optgroup` divider border                                                 |
-| `--color-text-secondary` / `--color-text-muted`                                                                | `optgroup` label, `.select-optgroup-label`, `.select-description`                 |
-| `--color-text-primary`                                                                                         | `.select-label`                                                                   |
-| `--color-error`                                                                                                | `.select-error` text                                                              |
-| `--color-border-medium`                                                                                        | `.select-dropdown` custom scrollbar thumb                                         |
-| `--font-sans` / `--text-sm` / `--text-base` / `--text-lg` / `--text-xs` / `--font-semibold` / `--font-medium`  | Typography across sizes and labels                                                |
-| `--leading-normal`                                                                                             | Field text line height                                                            |
-| `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-5` / `--space-6` / `--space-8` / `--space-12` | Field padding (varies by size), dropdown offset, option padding, scrollbar width  |
-| `--space-60` / `--space-80`                                                                                    | `.select-sm`/`-custom.select-sm` `max-width` (240px); default `max-width` (320px) |
-| `--size-16` / `--size-20` / `--size-24` / `--size-36` / `--size-44` / `--size-52`                              | Icon size and field `min-height` across sm/default/lg                             |
-| `--radius-md` / `--radius-full`                                                                                | Field corner radius; scrollbar thumb radius                                       |
-| `--shadow-lg`                                                                                                  | `.select-dropdown` drop shadow                                                    |
-| `--z-dropdown`                                                                                                 | `.select-dropdown` stacking (was a raw `1000`, same resolved value)               |
-| `--transition-all-fast`                                                                                        | Hover/focus/open transitions                                                      |
+| Token                                                                                                          | Used for                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--color-select-bg` / `--color-select-border` / `--color-select-text`                                          | Base field appearance (both variants). `--color-select-border` resolves to `--color-control-border` (>= 3:1, WCAG 1.4.11) |
+| `--color-select-border-hover` / `--color-bg-glass-light`                                                       | Hover border / background tint                                                                                            |
+| `--color-select-border-focus`                                                                                  | Focus/open border                                                                                                         |
+| `--color-primary`                                                                                              | Focus-visible outline                                                                                                     |
+| `--color-select-dropdown-bg` / `--color-select-dropdown-border`                                                | Native `<option>` background; custom `.select-dropdown` background/border                                                 |
+| `--color-select-option-hover` / `--color-select-option-selected` / `--color-select-option-selected-text`       | `.select-option` hover / selected states                                                                                  |
+| `--color-dropdown-item-text`                                                                                   | `.select-option` default text color                                                                                       |
+| `--color-dropdown-divider`                                                                                     | `.select-optgroup` divider border                                                                                         |
+| `--color-text-secondary` / `--color-text-muted`                                                                | `optgroup` label, `.select-optgroup-label`, `.select-description`                                                         |
+| `--color-text-primary`                                                                                         | `.select-label`                                                                                                           |
+| `--color-error-text`                                                                                           | `.select-error` text (>= 4.5:1; the field border on error stays `--color-error`)                                          |
+| `--color-border-medium`                                                                                        | `.select-dropdown` custom scrollbar thumb                                                                                 |
+| `--font-sans` / `--text-sm` / `--text-base` / `--text-lg` / `--text-xs` / `--font-semibold` / `--font-medium`  | Typography across sizes and labels                                                                                        |
+| `--leading-normal`                                                                                             | Field text line height                                                                                                    |
+| `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-5` / `--space-6` / `--space-8` / `--space-12` | Field padding (varies by size), dropdown offset, option padding, scrollbar width                                          |
+| `--space-60` / `--space-80`                                                                                    | `.select-sm`/`-custom.select-sm` `max-width` (240px); default `max-width` (320px)                                         |
+| `--size-16` / `--size-20` / `--size-24` / `--size-36` / `--size-44` / `--size-52`                              | Icon size and field `min-height` across sm/default/lg                                                                     |
+| `--radius-md` / `--radius-full`                                                                                | Field corner radius; scrollbar thumb radius                                                                               |
+| `--shadow-lg`                                                                                                  | `.select-dropdown` drop shadow                                                                                            |
+| `--z-dropdown`                                                                                                 | `.select-dropdown` stacking (was a raw `1000`, same resolved value)                                                       |
+| `--transition-all-fast`                                                                                        | Hover/focus/open transitions                                                                                              |
 
 Several values are left as `/* aural-ignore */` rather than tokenized:
 the native dropdown-arrow SVG's `fill='rgba(255,255,255,0.5)'` (baked

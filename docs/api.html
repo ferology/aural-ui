@@ -195,7 +195,7 @@
     <!-- Main Content -->
     <main class="main-content" id="main-content">
         <div class="page-header">
-            <div class="page-title page-heading-lg">JavaScript API Reference</div>
+            <div class="page-title page-heading-lg" role="heading" aria-level="1">JavaScript API Reference</div>
             <p class="page-description">Complete reference for all Aural UI JavaScript methods. All methods are available through the global <code>Aural</code> object.</p>
         </div>
 
@@ -252,7 +252,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
                 <div class="api-method">
                     <h4>Aural.openModal(modalId)</h4>
-                    <p>Programmatically open a specific modal by its ID.</p>
+                    <p>Programmatically open a specific modal by its ID. Everything outside the modal (including siblings of its ancestors, so it also works when the modal is inside <code>&lt;main&gt;</code>) is set to <code>inert</code> and <code>aria-hidden="true"</code>. Focus moves to the first focusable element, or to the dialog when none exists. The Tab key is trapped inside the modal and focusable elements are recomputed on each Tab press. Escape closes only the topmost open modal.</p>
 
                     <strong>Parameters:</strong>
                     <ul class="param-list">
@@ -264,7 +264,7 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
 
                 <div class="api-method">
                     <h4>Aural.closeModal(modalId)</h4>
-                    <p>Programmatically close a specific modal by its ID.</p>
+                    <p>Programmatically close a specific modal by its ID. Content outside the modal gets its previous <code>inert</code> and <code>aria-hidden</code> state back, and focus returns to the element that opened it.</p>
 
                     <strong>Parameters:</strong>
                     <ul class="param-list">
@@ -321,7 +321,12 @@ Aural.showToast('Failed to connect to server', 'error', 'Error', 5000);</code></
             <div class="section-content">
                 <div class="api-method">
                     <h4>Aural.initTooltips()</h4>
-                    <p>Initialize all tooltips on the page. Call this once when the page loads.</p>
+                    <p>Initialize all tooltips on the page. Call this once when the page loads. It wires each <code>.tooltip-wrapper</code> that contains a <code>[data-tooltip-trigger]</code> and a <code>.tooltip</code>:</p>
+                    <ul>
+                        <li>Adds <code>role="tooltip"</code> and an <code>id</code> to the tooltip (if missing) and <code>aria-describedby</code> to the trigger</li>
+                        <li>Shows on hover of the wrapper and on trigger focus. The tooltip stays open while the pointer is over the tooltip itself (WCAG 1.4.13)</li>
+                        <li>Escape dismisses the open tooltip</li>
+                    </ul>
                 </div>
 
                 <div class="api-method">

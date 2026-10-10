@@ -84,6 +84,27 @@ Disabled interactive elements consistently get `opacity: 0.5`, `cursor: not-allo
 }
 ```
 
+## Color contrast (WCAG 1.4.3 / 1.4.11)
+
+- Text and status foregrounds must reach 4.5:1; form control boundaries and focus indicators 3:1. Use the token roles from `specs/foundations/color.md`: `--color-*-text` for status text/icons, `--color-*-solid` + `--color-text-on-*` for filled backgrounds, `--color-control-border` for input/checkbox/radio/select borders. Never use the 500 shades (`--color-success/error/warning/info`) for text or under white text, and never rely on `--color-border-subtle`/`-medium` as a control's only boundary.
+- `npm run audit:contrast` (after `npm run build:css`) checks these token pairs in a real browser for every theme and fails on any pair below its threshold. It is not wired into CI by this change; run it after touching tokens or themes.
+- `.skip-link` uses `--color-button-primary-bg` / `--color-button-primary-text` and a `currentColor` focus outline, so it passes in every theme.
+
+## JavaScript behavior (`javascript/index.js`)
+
+### Tooltips (`initTooltips`, WCAG 1.4.13)
+
+- Hover or focus on the trigger shows the tooltip; the tooltip stays open while the pointer is over the tooltip itself (hoverable) and closes on mouseleave from the wrapper or blur.
+- Escape dismisses it without moving focus or the pointer (`tooltip-show` removed; the key event does not propagate, so it will not also close an enclosing modal).
+- The tooltip gets `role="tooltip"` and an id (generated as `aural-tooltip-*` if missing), and the trigger gets that id appended to `aria-describedby` (existing values preserved). No manual wiring needed.
+
+### Modals (`openModal` / `closeModal`)
+
+- On open, every sibling of the modal and of each of its ancestors (up to `<body>`) gets `inert` and `aria-hidden="true"`; the previous values are restored on close. This works when the modal lives inside `<main>` (the old behavior put `aria-hidden` on `<main>` itself).
+- The focus trap re-queries focusable elements on each Tab: visible, enabled, not `tabindex="-1"`, not inside `[hidden]`/`[inert]`; includes `summary` and `[contenteditable="true"]`. Content added after open is included. Shift+Tab/Tab wrap at the ends, and focus outside the modal is pulled back in.
+- Initial focus goes to the first focusable element, or to the dialog (`[role="dialog"]`/`[role="alertdialog"]`, given `tabindex="-1"` if needed) when none exists.
+- Escape closes only the topmost (last opened) modal.
+
 ## Documented markup in file headers
 
 Most component files open with a `/** ... Usage: <markup sample> */` comment block showing the exact required ARIA wiring (see the top of `components/accordion.css` and `components/tabs.css`). Treat that comment as authoritative for how the component expects to be marked up — read it before using or modifying a component, and keep it in sync if you change which ARIA attributes the CSS keys off.

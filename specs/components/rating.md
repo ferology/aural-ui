@@ -41,40 +41,40 @@ colors regardless of the active theme.
 
 ## 3. Anatomy
 
-| Class                                                         | Purpose                                                                                                                            |
-| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `.aural-rating`                                               | Root container, inline-flex row of stars + value/count/label text.                                                                 |
-| `.aural-rating__stars`                                        | Flex row of the individual star buttons.                                                                                           |
-| `.aural-rating__star`                                         | One star — a `<button>`, `min-width/height: var(--size-44)` touch target by default, grows (`scale(1.1)`) on hover.                |
-| `.aural-rating__star-icon`                                    | The inline SVG star icon (`fill: currentColor`), 24px by default.                                                                  |
-| `.aural-rating__star--filled` / `--empty`                     | Whole-star fill state modifiers (color only — the icon itself is the same SVG).                                                    |
-| `.aural-rating__star--half`                                   | CSS `clip-path`-based half-star fill via a `::before` overlay clipped to the left 50%.                                             |
-| `.aural-rating__star--fractional`                             | Overlay-based fractional fill via `::after`, width set per `data-fill="0.1"`…`"0.9"` attribute (10%–90% in 10% steps).             |
-| `.aural-rating__value`                                        | Numeric rating display (e.g. "4.0") after the stars.                                                                               |
-| `.aural-rating__count`                                        | Review-count text (e.g. "(128)") after the value.                                                                                  |
-| `.aural-rating__label`                                        | Optional text label after the stars (brightens on `.aural-rating:hover`).                                                          |
-| `.aural-rating--readonly`                                     | Disables pointer interaction and the hover grow effect — display-only.                                                             |
-| `.aural-rating--disabled`                                     | Dims the whole control and disables pointer events (distinct from read-only: communicates "unavailable" rather than "static").     |
-| `.aural-rating--xs` / `--sm` / `--lg` / `--xl`                | Size steps (default is unprefixed "medium") — star touch-target and icon size scale together.                                      |
-| `.aural-rating--primary` / `--success` / `--error` / `--info` | Color variants for filled/half/hover star color.                                                                                   |
-| `.aural-rating--heart`                                        | Swaps the filled/hover color to `--color-error` (intended for a heart-shaped icon swap, done by the consumer's SVG, not this CSS). |
-| `.aural-rating--compact`                                      | Removes inter-star gaps and shrinks stars to the `sm` footprint.                                                                   |
-| `.aural-rating--glow`                                         | Adds a `drop-shadow(currentColor)` glow on hover/filled stars.                                                                     |
+| Class                                                         | Purpose                                                                                                                                 |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `.aural-rating`                                               | Root container, inline-flex row of stars + value/count/label text.                                                                      |
+| `.aural-rating__stars`                                        | Flex row of the individual star buttons.                                                                                                |
+| `.aural-rating__star`                                         | One star — a `<button>`, `min-width/height: var(--size-44)` touch target by default, grows (`scale(1.1)`) on hover.                     |
+| `.aural-rating__star-icon`                                    | The inline SVG star icon (`fill: currentColor`), 24px by default.                                                                       |
+| `.aural-rating__star--filled` / `--empty`                     | Whole-star fill state modifiers (color only — the icon itself is the same SVG).                                                         |
+| `.aural-rating__star--half`                                   | CSS `clip-path`-based half-star fill via a `::before` overlay clipped to the left 50%.                                                  |
+| `.aural-rating__star--fractional`                             | Overlay-based fractional fill via `::after`, width set per `data-fill="0.1"`…`"0.9"` attribute (10%–90% in 10% steps).                  |
+| `.aural-rating__value`                                        | Numeric rating display (e.g. "4.0") after the stars.                                                                                    |
+| `.aural-rating__count`                                        | Review-count text (e.g. "(128)") after the value.                                                                                       |
+| `.aural-rating__label`                                        | Optional text label after the stars (brightens on `.aural-rating:hover`).                                                               |
+| `.aural-rating--readonly`                                     | Disables pointer interaction and the hover grow effect — display-only.                                                                  |
+| `.aural-rating--disabled`                                     | Dims the whole control and disables pointer events (distinct from read-only: communicates "unavailable" rather than "static").          |
+| `.aural-rating--xs` / `--sm` / `--lg` / `--xl`                | Size steps (default is unprefixed "medium") — star touch-target and icon size scale together.                                           |
+| `.aural-rating--primary` / `--success` / `--error` / `--info` | Color variants for filled/half/hover star color.                                                                                        |
+| `.aural-rating--heart`                                        | Swaps the filled/hover color to `--color-error-text` (intended for a heart-shaped icon swap, done by the consumer's SVG, not this CSS). |
+| `.aural-rating--compact`                                      | Removes inter-star gaps and shrinks stars to the `sm` footprint.                                                                        |
+| `.aural-rating--glow`                                         | Adds a `drop-shadow(currentColor)` glow on hover/filled stars.                                                                          |
 
 ## 4. Tokens used
 
-| Token                                                                                                         | Used for                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `--color-border-medium`                                                                                       | Empty-star color (default and `--empty` modifier)                                                                         |
-| `--color-warning`                                                                                             | Filled/half/fractional star color (the default "star" color)                                                              |
-| `--color-primary` / `--color-success` / `--color-error` / `--color-info`                                      | Filled/half/hover star color per `--primary`/`--success`/`--error`/`--info` variant (`--heart` also uses `--color-error`) |
-| `--color-text-primary` / `--color-text-secondary`                                                             | `.aural-rating__value` text; `.aural-rating__count`/`__label` text                                                        |
-| `--text-xs` / `--text-sm` / `--text-base` / `--text-lg`                                                       | Value/count/label typography across `xs`–`xl` sizes                                                                       |
-| `--font-medium` / `--font-semibold`                                                                           | Label weight; value weight                                                                                                |
-| `--space-1` / `--space-2` / `--space-3` / `--space-4`                                                         | Star-row gap, star padding across sizes, value/count/label margins                                                        |
-| `--size-12` / `--size-16` / `--size-24` / `--size-32` / `--size-40` / `--size-44` / `--size-56` / `--size-64` | Star touch-target and icon sizes across `xs`/`sm`/default/`lg`/`xl`/`compact`                                             |
-| `--radius-sm`                                                                                                 | Focus-ring corner radius on a star                                                                                        |
-| `--transition-all-fast`                                                                                       | Star hover/scale transitions                                                                                              |
+| Token                                                                                                         | Used for                                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `--color-border-medium`                                                                                       | Empty-star color (default and `--empty` modifier)                                                                              |
+| `--color-warning-text`                                                                                        | Filled/half/fractional star color (the default "star" color)                                                                   |
+| `--color-primary` / `--color-success-text` / `--color-error-text` / `--color-info-text`                       | Filled/half/hover star color per `--primary`/`--success`/`--error`/`--info` variant (`--heart` also uses `--color-error-text`) |
+| `--color-text-primary` / `--color-text-secondary`                                                             | `.aural-rating__value` text; `.aural-rating__count`/`__label` text                                                             |
+| `--text-xs` / `--text-sm` / `--text-base` / `--text-lg`                                                       | Value/count/label typography across `xs`–`xl` sizes                                                                            |
+| `--font-medium` / `--font-semibold`                                                                           | Label weight; value weight                                                                                                     |
+| `--space-1` / `--space-2` / `--space-3` / `--space-4`                                                         | Star-row gap, star padding across sizes, value/count/label margins                                                             |
+| `--size-12` / `--size-16` / `--size-24` / `--size-32` / `--size-40` / `--size-44` / `--size-56` / `--size-64` | Star touch-target and icon sizes across `xs`/`sm`/default/`lg`/`xl`/`compact`                                                  |
+| `--radius-sm`                                                                                                 | Focus-ring corner radius on a star                                                                                             |
+| `--transition-all-fast`                                                                                       | Star hover/scale transitions                                                                                                   |
 
 Two values are left as `/* aural-ignore */` rather than tokenized: the
 print-mode `color: #000` (filled/unfilled stars must render solid black
@@ -105,7 +105,7 @@ track `rating`/`hover` state and toggle `--filled`/`--empty` per star).
 
 | State                 | Selector                                                                                      | Behavior                                                                                                                                  |
 | --------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Hover                 | `.aural-rating__star:hover`                                                                   | Color → `--color-warning` (or variant color), `scale(1.1)` grow                                                                           |
+| Hover                 | `.aural-rating__star:hover`                                                                   | Color → `--color-warning-text` (or variant `-text` color), `scale(1.1)` grow                                                              |
 | Hover "reset" trail   | `.aural-rating:not(.readonly):not(.disabled) .aural-rating__star:hover ~ .aural-rating__star` | Stars after the hovered one preview as empty (`--color-border-medium`)                                                                    |
 | Focus-visible         | `.aural-rating__star:focus-visible`                                                           | 2px solid `--color-primary` outline, 2px offset, rounded via `--radius-sm`                                                                |
 | Filled / Half / Empty | `.aural-rating__star--filled` / `--half` / `--empty`                                          | Static color states (see Anatomy)                                                                                                         |

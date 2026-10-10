@@ -37,48 +37,50 @@ read, not glanced at.
 
 ## 3. Anatomy
 
-| Class                                               | Purpose                                                                                                          |
-| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `.aural-alert-banner`                               | Base container — flex row, left-accent border, slide-in entrance animation.                                      |
-| `.aural-alert-banner__icon`                         | Leading status icon (24px, 2px top margin to align with the title baseline).                                     |
-| `.aural-alert-banner__content`                      | Flex column wrapping title/message/actions.                                                                      |
-| `.aural-alert-banner__title`                        | Bold heading line, colored per variant.                                                                          |
-| `.aural-alert-banner__message`                      | Body copy.                                                                                                       |
-| `.aural-alert-banner__actions`                      | Row of action buttons, wraps on narrow viewports.                                                                |
-| `.aural-alert-banner__action`                       | Secondary (outlined) action button; 44px min-height touch target.                                                |
-| `.aural-alert-banner__action--primary`              | Filled variant of the action button for the primary CTA.                                                         |
-| `.aural-alert-banner__close`                        | Dismiss button, 44×44px touch target.                                                                            |
-| `.aural-alert-banner__close-icon`                   | The close (×) icon itself (20px).                                                                                |
-| `.aural-alert-banner--info/success/warning/error`   | Semantic color variant — tints background/border/icon/title to the matching state color.                         |
-| `.aural-alert-banner--solid`                        | Fills the whole banner with the variant color instead of just accenting it; forces white text.                   |
-| `.aural-alert-banner--sm` / `--lg`                  | Size modifiers adjusting padding, gap, icon size, and font sizes.                                                |
-| `.aural-alert-banner--fixed-top` / `--fixed-bottom` | Pins the banner to the viewport edge (`position: fixed`), full width, no radius, slide animation from that edge. |
-| `.aural-alert-banner--dismissing`                   | Applied just before removal; plays a fade/slide-out and is the hook JS waits on before unmounting the node.      |
+| Class                                               | Purpose                                                                                                                                                     |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.aural-alert-banner`                               | Base container — flex row, left-accent border, slide-in entrance animation.                                                                                 |
+| `.aural-alert-banner__icon`                         | Leading status icon (24px, 2px top margin to align with the title baseline).                                                                                |
+| `.aural-alert-banner__content`                      | Flex column wrapping title/message/actions.                                                                                                                 |
+| `.aural-alert-banner__title`                        | Bold heading line, colored per variant.                                                                                                                     |
+| `.aural-alert-banner__message`                      | Body copy.                                                                                                                                                  |
+| `.aural-alert-banner__actions`                      | Row of action buttons, wraps on narrow viewports.                                                                                                           |
+| `.aural-alert-banner__action`                       | Secondary (outlined) action button; 44px min-height touch target.                                                                                           |
+| `.aural-alert-banner__action--primary`              | Filled variant of the action button for the primary CTA.                                                                                                    |
+| `.aural-alert-banner__close`                        | Dismiss button, 44×44px touch target.                                                                                                                       |
+| `.aural-alert-banner__close-icon`                   | The close (×) icon itself (20px).                                                                                                                           |
+| `.aural-alert-banner--info/success/warning/error`   | Semantic color variant — tints background/border/icon/title to the matching state color.                                                                    |
+| `.aural-alert-banner--solid`                        | Fills the whole banner with the variant color instead of just accenting it; forces `--color-text-on-*` text (white on success/error/info, dark on warning). |
+| `.aural-alert-banner--sm` / `--lg`                  | Size modifiers adjusting padding, gap, icon size, and font sizes.                                                                                           |
+| `.aural-alert-banner--fixed-top` / `--fixed-bottom` | Pins the banner to the viewport edge (`position: fixed`), full width, no radius, slide animation from that edge.                                            |
+| `.aural-alert-banner--dismissing`                   | Applied just before removal; plays a fade/slide-out and is the hook JS waits on before unmounting the node.                                                 |
 
 ## 4. Tokens used
 
-| Token                                                                                                | Used for                                                                                           |
-| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `--color-bg-secondary` / `--color-border-medium`                                                     | Default (non-variant) background/border                                                            |
-| `--color-info` / `--color-success` / `--color-warning` / `--color-error`                             | Variant left-accent border, icon color, title color, and `--solid` fill                            |
-| `--color-info-bg` / `--color-success-bg` / `--color-warning-bg` / `--color-error-bg`                 | Variant tinted background (see gap note below)                                                     |
-| `--color-info-border` / `--color-success-border` / `--color-warning-border` / `--color-error-border` | Variant border color (see gap note below)                                                          |
-| `--color-text-primary` / `--color-text-secondary`                                                    | Title / message default color                                                                      |
-| `--color-primary` / `--color-primary-hover`                                                          | Action button hover/focus and `--primary` action fill                                              |
-| `--color-bg-hover`                                                                                   | Secondary action hover background                                                                  |
-| `--color-tab-badge-bg`                                                                               | `--solid` variant's close/action hover background (white-on-color overlay, reused from Badge/Tabs) |
-| `--space-2` / `--space-3` / `--space-4` / `--space-6`                                                | Gaps and padding across default/`--sm`/`--lg` sizes                                                |
-| `--space-0-5`                                                                                        | Icon's top alignment margin                                                                        |
-| `--size-20` / `--size-24` / `--size-28`                                                              | Icon dimensions at `--sm` / default / `--lg`                                                       |
-| `--size-44`                                                                                          | Action-button and close-button min touch-target size                                               |
-| `--size-800`                                                                                         | Banner's default `max-width`                                                                       |
-| `--radius-md`                                                                                        | Corner radius (removed for `--fixed-top`/`--fixed-bottom`)                                         |
-| `--text-sm` / `--text-base` / `--text-lg` / `--text-xs`                                              | Title/message font sizes across sizes                                                              |
-| `--font-semibold` / `--font-medium`                                                                  | Title / action-button weight                                                                       |
-| `--leading-tight` / `--leading-relaxed`                                                              | Title / message line-height                                                                        |
-| `--transition-all-fast`                                                                              | Action/close hover transitions                                                                     |
-| `--duration-normal`                                                                                  | Slide-in, slide-down/up, and fade-out entrance/exit animations                                     |
-| `--z-toast`                                                                                          | Stacking layer for `--fixed-top`/`--fixed-bottom`                                                  |
+| Token                                                                                                                                                        | Used for                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| `--color-bg-secondary` / `--color-border-medium`                                                                                                             | Default (non-variant) background/border                                                            |
+| `--color-info` / `--color-success` / `--color-warning` / `--color-error`                                                                                     | Variant left-accent border                                                                         |
+| `--color-info-text` / `--color-success-text` / `--color-warning-text` / `--color-error-text`                                                                 | Variant icon and title color (>= 4.5:1 on the tinted surface)                                      |
+| `--color-info-solid` / `--color-success-solid` / `--color-error-solid` (+ `--color-warning`) and `--color-text-on-info` / `-success` / `-warning` / `-error` | `--solid` fill and its text/icons (>= 4.5:1)                                                       |
+| `--color-info-bg` / `--color-success-bg` / `--color-warning-bg` / `--color-error-bg`                                                                         | Variant tinted background (see gap note below)                                                     |
+| `--color-info-border` / `--color-success-border` / `--color-warning-border` / `--color-error-border`                                                         | Variant border color (see gap note below)                                                          |
+| `--color-text-primary` / `--color-text-secondary`                                                                                                            | Title / message default color                                                                      |
+| `--color-primary` / `--color-primary-hover`                                                                                                                  | Action button hover/focus and `--primary` action fill                                              |
+| `--color-bg-hover`                                                                                                                                           | Secondary action hover background                                                                  |
+| `--color-tab-badge-bg`                                                                                                                                       | `--solid` variant's close/action hover background (white-on-color overlay, reused from Badge/Tabs) |
+| `--space-2` / `--space-3` / `--space-4` / `--space-6`                                                                                                        | Gaps and padding across default/`--sm`/`--lg` sizes                                                |
+| `--space-0-5`                                                                                                                                                | Icon's top alignment margin                                                                        |
+| `--size-20` / `--size-24` / `--size-28`                                                                                                                      | Icon dimensions at `--sm` / default / `--lg`                                                       |
+| `--size-44`                                                                                                                                                  | Action-button and close-button min touch-target size                                               |
+| `--size-800`                                                                                                                                                 | Banner's default `max-width`                                                                       |
+| `--radius-md`                                                                                                                                                | Corner radius (removed for `--fixed-top`/`--fixed-bottom`)                                         |
+| `--text-sm` / `--text-base` / `--text-lg` / `--text-xs`                                                                                                      | Title/message font sizes across sizes                                                              |
+| `--font-semibold` / `--font-medium`                                                                                                                          | Title / action-button weight                                                                       |
+| `--leading-tight` / `--leading-relaxed`                                                                                                                      | Title / message line-height                                                                        |
+| `--transition-all-fast`                                                                                                                                      | Action/close hover transitions                                                                     |
+| `--duration-normal`                                                                                                                                          | Slide-in, slide-down/up, and fade-out entrance/exit animations                                     |
+| `--z-toast`                                                                                                                                                  | Stacking layer for `--fixed-top`/`--fixed-bottom`                                                  |
 
 **New tokens added while migrating this file:** none — every raw value had
 an exact existing match (`--size-800`, `--size-24`, `--space-0-5`,
@@ -132,7 +134,7 @@ after `300ms`.
 | ------------------------------------ | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
 | Default                              | —                                          | Slides in from `translateY(-10px)` + fade.                                                                        |
 | Variant (info/success/warning/error) | `--info`/`--success`/`--warning`/`--error` | Tints left border, icon, and title (see token gap note above).                                                    |
-| Solid                                | `--solid` + a variant class                | Fills the entire banner with the variant color; all text/icons turn white.                                        |
+| Solid                                | `--solid` + a variant class                | Fills the entire banner with the variant color; all text/icons use `--color-text-on-*` (white; dark on warning).  |
 | Dismissing                           | `--dismissing` class (added by JS)         | Fades out + slides up over `--duration-normal`, then the node is removed.                                         |
 | Fixed top/bottom                     | `--fixed-top` / `--fixed-bottom`           | `position: fixed` to the matching viewport edge, full width, square corners, slides in from that edge.            |
 | Action hover/focus                   | `:hover` / `:focus-visible` on `__action`  | Border + text turn `--color-primary` (or lighten, for `--primary` actions); 2px focus ring.                       |

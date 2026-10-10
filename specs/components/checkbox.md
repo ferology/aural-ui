@@ -53,24 +53,24 @@ short, and separate distinct groups with headings or dividers.
 
 ## 4. Tokens used
 
-| Token                                                                         | Used for                                                                     |
-| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `--color-checkbox-bg` / `--color-checkbox-border`                             | Unchecked box background/border                                              |
-| `--color-checkbox-border-hover`                                               | Border color on hover (unchecked, enabled)                                   |
-| `--color-bg-glass-light`                                                      | Hover background tint (unchecked, enabled)                                   |
-| `--color-checkbox-checked-bg` / `--color-checkbox-checked-border`             | Checked box background/border                                                |
-| `--color-checkbox-indeterminate-bg`                                           | Indeterminate box background (shares the checked border color)               |
-| `--color-primary`                                                             | Focus-visible outline                                                        |
-| `--color-text-primary`                                                        | Label text color                                                             |
-| `--color-text-secondary`                                                      | `.checkbox-description` text color                                           |
-| `--font-sans` / `--text-base` / `--text-sm` / `--text-lg` / `--font-semibold` | Typography across sizes and group labels                                     |
-| `--leading-normal` / `--leading-relaxed`                                      | Line height for label / description                                          |
-| `--space-0-5`                                                                 | `.checkbox-with-description` box top offset (`margin-top`)                   |
-| `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-6`           | Gaps in box-to-label spacing (per size), group spacing, horizontal group gap |
-| `--size-16` / `--size-20` / `--size-24`                                       | Box dimensions at sm / default / lg                                          |
-| `--size-36` / `--size-44` / `--size-52`                                       | `.checkbox` `min-height` at sm / default / lg                                |
-| `--radius-sm`                                                                 | Box corner radius                                                            |
-| `--transition-all-fast`                                                       | Hover/focus/checked transitions                                              |
+| Token                                                                         | Used for                                                                                                              |
+| ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `--color-checkbox-bg` / `--color-checkbox-border`                             | Unchecked box background/border. `--color-checkbox-border` resolves to `--color-control-border` (>= 3:1, WCAG 1.4.11) |
+| `--color-checkbox-border-hover`                                               | Border color on hover (unchecked, enabled)                                                                            |
+| `--color-bg-glass-light`                                                      | Hover background tint (unchecked, enabled)                                                                            |
+| `--color-checkbox-checked-bg` / `--color-checkbox-checked-border`             | Checked box background/border                                                                                         |
+| `--color-checkbox-indeterminate-bg`                                           | Indeterminate box background (shares the checked border color)                                                        |
+| `--color-primary`                                                             | Focus-visible outline                                                                                                 |
+| `--color-text-primary`                                                        | Label text color                                                                                                      |
+| `--color-text-secondary`                                                      | `.checkbox-description` text color                                                                                    |
+| `--font-sans` / `--text-base` / `--text-sm` / `--text-lg` / `--font-semibold` | Typography across sizes and group labels                                                                              |
+| `--leading-normal` / `--leading-relaxed`                                      | Line height for label / description                                                                                   |
+| `--space-0-5`                                                                 | `.checkbox-with-description` box top offset (`margin-top`)                                                            |
+| `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-6`           | Gaps in box-to-label spacing (per size), group spacing, horizontal group gap                                          |
+| `--size-16` / `--size-20` / `--size-24`                                       | Box dimensions at sm / default / lg                                                                                   |
+| `--size-36` / `--size-44` / `--size-52`                                       | `.checkbox` `min-height` at sm / default / lg                                                                         |
+| `--radius-sm`                                                                 | Box corner radius                                                                                                     |
+| `--transition-all-fast`                                                       | Hover/focus/checked transitions                                                                                       |
 
 One value is left as `/* aural-ignore */` rather than tokenized:
 `.checkbox-only`'s `font-size: 0` on the label `<span>` (a visibility

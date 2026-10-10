@@ -93,7 +93,7 @@ styles the structure and state classes that JS toggles.
 | `--color-primary`                                                                                  | Focus ring, open-state border, selected option, checkmark                                              |
 | `--primary-alpha-10`                                                                               | Selected-option background tint, create-row hover                                                      |
 | `--warning-alpha-20`                                                                               | Search-match `<mark>` highlight background (new token — see below)                                     |
-| `--color-error` / `--color-success`                                                                | Error/success validation accents                                                                       |
+| `--color-error` / `--color-success` / `--color-error-text`                                         | Error/success border accents; `--color-error-text` for the error message and icons (>= 4.5:1)          |
 | `--radius-sm` / `--radius-md` / `--radius-lg`                                                      | Corner rounding                                                                                        |
 | `--shadow-lg`                                                                                      | Dropdown elevation                                                                                     |
 | `--text-xs` / `--text-sm` / `--text-base`                                                          | Font sizes by context/size variant                                                                     |

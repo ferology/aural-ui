@@ -64,25 +64,25 @@ as part of this component's anatomy.
 
 ## 4. Tokens used
 
-| Token                                                                                           | Used for                                                                         |
-| ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `--color-radio-bg` / `--color-radio-border`                                                     | Unchecked circle background/border; also `.radio-button`'s rest-state background |
-| `--color-radio-border-hover`                                                                    | Border color on hover (unchecked, enabled)                                       |
-| `--color-bg-glass-light`                                                                        | Hover background tint (unchecked circle, and `.radio-button` hover)              |
-| `--color-radio-checked-bg` / `--color-radio-checked-border`                                     | Checked circle background/border                                                 |
-| `--color-radio-dot`                                                                             | Inner checked dot color                                                          |
-| `--color-primary`                                                                               | Focus-visible outline; `.radio-button` checked fill (via `:has()`)               |
-| `--color-text-primary`                                                                          | Label text color                                                                 |
-| `--color-text-secondary`                                                                        | `.radio-description` text color                                                  |
-| `--color-border-subtle` / `--color-border-medium`                                               | `.radio-button` border (rest / hover)                                            |
-| `--font-sans` / `--text-base` / `--text-sm` / `--text-lg` / `--font-semibold` / `--font-normal` | Typography across sizes and group labels                                         |
-| `--leading-normal`                                                                              | Base label line height                                                           |
-| `--space-2` / `--space-3` / `--space-4` / `--space-6`                                           | Circle-to-label gap (per size), `.radio-button` padding, group spacing           |
-| `--size-6`                                                                                      | Inner dot's `left` offset at the default size                                    |
-| `--size-16` / `--size-20` / `--size-24`                                                         | Circle dimensions at sm / default / lg                                           |
-| `--size-36` / `--size-44` / `--size-52`                                                         | `.radio` `min-height` at sm / default / lg                                       |
-| `--radius-md`                                                                                   | `.radio-button` / attached-group corner radius                                   |
-| `--transition-all-fast`                                                                         | Hover/focus/checked transitions, `.radio-button` transitions                     |
+| Token                                                                                           | Used for                                                                                                                                                            |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--color-radio-bg` / `--color-radio-border`                                                     | Unchecked circle background/border (`--color-radio-border` resolves to `--color-control-border`, >= 3:1, WCAG 1.4.11); also `.radio-button`'s rest-state background |
+| `--color-radio-border-hover`                                                                    | Border color on hover (unchecked, enabled)                                                                                                                          |
+| `--color-bg-glass-light`                                                                        | Hover background tint (unchecked circle, and `.radio-button` hover)                                                                                                 |
+| `--color-radio-checked-bg` / `--color-radio-checked-border`                                     | Checked circle background/border                                                                                                                                    |
+| `--color-radio-dot`                                                                             | Inner checked dot color                                                                                                                                             |
+| `--color-primary`                                                                               | Focus-visible outline; `.radio-button` checked fill (via `:has()`)                                                                                                  |
+| `--color-text-primary`                                                                          | Label text color                                                                                                                                                    |
+| `--color-text-secondary`                                                                        | `.radio-description` text color                                                                                                                                     |
+| `--color-border-subtle` / `--color-border-medium`                                               | `.radio-button` border (rest / hover)                                                                                                                               |
+| `--font-sans` / `--text-base` / `--text-sm` / `--text-lg` / `--font-semibold` / `--font-normal` | Typography across sizes and group labels                                                                                                                            |
+| `--leading-normal`                                                                              | Base label line height                                                                                                                                              |
+| `--space-2` / `--space-3` / `--space-4` / `--space-6`                                           | Circle-to-label gap (per size), `.radio-button` padding, group spacing                                                                                              |
+| `--size-6`                                                                                      | Inner dot's `left` offset at the default size                                                                                                                       |
+| `--size-16` / `--size-20` / `--size-24`                                                         | Circle dimensions at sm / default / lg                                                                                                                              |
+| `--size-36` / `--size-44` / `--size-52`                                                         | `.radio` `min-height` at sm / default / lg                                                                                                                          |
+| `--radius-md`                                                                                   | `.radio-button` / attached-group corner radius                                                                                                                      |
+| `--transition-all-fast`                                                                         | Hover/focus/checked transitions, `.radio-button` transitions                                                                                                        |
 
 Several small geometric values are left as `/* aural-ignore */` rather
 than tokenized, since they're derived from circle-centering math specific

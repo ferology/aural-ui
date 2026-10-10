@@ -194,12 +194,12 @@
         </p>
       </div>
 
-      <!-- Unreleased - October 2, 2026 -->
+      <!-- Unreleased - October 2 to October 10, 2026 -->
       <div class="version-section">
         <div class="version-header">
           <span class="version-number">Unreleased</span>
           <span class="version-badge badge-unreleased">Not yet published</span>
-          <span class="version-date">October 2, 2026</span>
+          <span class="version-date">October 2 to 10, 2026</span>
         </div>
 
         <!-- New Features -->
@@ -226,6 +226,56 @@
               icon/avatar/control dimensions, distinct from the spacing scale — see the
               <a href="./tokens.html">Design Tokens</a> page.
             </li>
+            <li class="change-item">
+              <strong>WCAG 2.1 AA contrast remediation (October 10, 2026):</strong> new semantic
+              tokens <code>--color-{success,error,info,warning}-solid</code> (fills that carry
+              <code>--color-text-on-*</code> text), <code>--color-{success,error,warning,info}-text</code>
+              (status text and icons on surfaces), and <code>--color-control-border</code> (form
+              control boundary at 3:1 or more, WCAG 1.4.11). Every theme now passes. See the
+              <a href="./contrast-report.html">contrast report</a> and
+              <a href="./tokens.html">Design Tokens</a>.
+            </li>
+            <li class="change-item">
+              <strong><code>npm run audit:contrast</code> (October 10, 2026):</strong>
+              <code>scripts/contrast-audit.mjs</code> resolves the semantic tokens in a real browser
+              for all 11 themes and checks text pairs at 4.5:1 and control borders at 3:1. Run
+              <code>npm run build:css</code> first. All 11 themes pass.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Changed -->
+        <div class="change-category">
+          <h3 class="category-title">
+            <i data-lucide="refresh-cw" class="category-icon"></i>
+            Changed (October 10, 2026)
+          </h3>
+          <ul class="change-list">
+            <li class="change-item">
+              Filled status backgrounds (chips, alert banner, snackbar, stepper, badge counters,
+              timeline, tooltips and more) use <code>--color-*-solid</code> with
+              <code>--color-text-on-*</code>; status text uses <code>--color-*-text</code>.
+            </li>
+            <li class="change-item">
+              Input, checkbox, radio and select borders use <code>--color-control-border</code>
+              instead of <code>--color-border-subtle</code>.
+            </li>
+            <li class="change-item">
+              <code>--color-button-primary-text</code> defaults to
+              <code>var(--color-bg-primary)</code>, the danger button uses
+              <code>--color-error-solid</code>, and the default tertiary and muted text colors are
+              lighter. <code>.skip-link</code> uses the button-primary tokens.
+            </li>
+            <li class="change-item">
+              <strong>Modals:</strong> everything outside an open modal becomes <code>inert</code>
+              and <code>aria-hidden</code> (restored on close, also when the modal is inside
+              <code>&lt;main&gt;</code>), focusable elements are recomputed on each Tab, and the
+              dialog takes focus when it has no focusable child.
+            </li>
+            <li class="change-item">
+              <strong>Tooltips:</strong> <code>initTooltips()</code> adds
+              <code>role="tooltip"</code> and <code>aria-describedby</code> automatically.
+            </li>
           </ul>
         </div>
 
@@ -236,6 +286,12 @@
             Fixed
           </h3>
           <ul class="change-list">
+            <li class="change-item">
+              <strong>Accessibility (October 10, 2026):</strong> tooltips stay open while the
+              pointer is over the tooltip and dismiss on Escape (WCAG 1.4.13), and Escape closes
+              only the topmost modal instead of every open one. The component catalog page gained a
+              skip link and a <code>&lt;main&gt;</code> landmark.
+            </li>
             <li class="change-item">
               <strong>1,044 hardcoded CSS values closed to zero</strong> across all 59 components,
               every substitution verified value-preserving. Migrating every component also surfaced
