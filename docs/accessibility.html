@@ -367,7 +367,10 @@
                 <div class="page-subheading">Auditing contrast</div>
                 <p>Build the CSS, then run the audit. It loads each of the 11 themes in a real browser, resolves the tokens and checks text on the three surfaces (4.5:1) and control borders (3:1). It exits 1 if any pair fails.</p>
                 <pre><code>npm run build:css
-npm run audit:contrast</code></pre>
+npm run audit:contrast
+npm run audit:contrast:aaa   # high-contrast theme at 7:1
+npm run audit:storybook -- minimal dark   # axe over every Storybook story (needs a static build)</code></pre>
+                <p>The first command also runs in CI. The high-contrast theme passes the AAA check; the other themes target AA.</p>
             </div>
         </div>
 

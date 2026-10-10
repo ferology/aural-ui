@@ -149,16 +149,16 @@ Generated: 2026-10-10
 | `--color-avatar-status-online`   | `var(--success-500)`          | `tokens/semantic/colors.css` |
 | `--color-avatar-text`            | `var(--color-text-primary)`   | `tokens/semantic/colors.css` |
 | `--color-badge-error-bg`         | `rgba(239, 68, 68, 0.15)`     | `tokens/semantic/colors.css` |
-| `--color-badge-error-text`       | `var(--error-400)`            | `tokens/semantic/colors.css` |
+| `--color-badge-error-text`       | `var(--color-error-text)`     | `tokens/semantic/colors.css` |
 | `--color-badge-info-bg`          | `rgba(59, 130, 246, 0.15)`    | `tokens/semantic/colors.css` |
-| `--color-badge-info-text`        | `var(--info-400)`             | `tokens/semantic/colors.css` |
+| `--color-badge-info-text`        | `var(--color-info-text)`      | `tokens/semantic/colors.css` |
 | `--color-badge-neutral-bg`       | `rgba(255, 255, 255, 0.1)`    | `tokens/semantic/colors.css` |
 | `--color-badge-primary-bg`       | `rgba(16, 185, 129, 0.15)`    | `tokens/semantic/colors.css` |
 | `--color-badge-primary-text`     | `var(--primary-400)`          | `tokens/semantic/colors.css` |
 | `--color-badge-success-bg`       | `rgba(34, 197, 94, 0.15)`     | `tokens/semantic/colors.css` |
-| `--color-badge-success-text`     | `var(--success-400)`          | `tokens/semantic/colors.css` |
+| `--color-badge-success-text`     | `var(--color-success-text)`   | `tokens/semantic/colors.css` |
 | `--color-badge-warning-bg`       | `rgba(245, 158, 11, 0.15)`    | `tokens/semantic/colors.css` |
-| `--color-badge-warning-text`     | `var(--warning-400)`          | `tokens/semantic/colors.css` |
+| `--color-badge-warning-text`     | `var(--color-warning-text)`   | `tokens/semantic/colors.css` |
 | `--color-bg-active`              | `var(--primary-alpha-15)`     | `tokens/semantic/colors.css` |
 | `--color-bg-dark-overlay`        | `rgba(0, 0, 0, 0.9)`          | `tokens/semantic/colors.css` |
 | `--color-bg-elevated`            | `var(--neutral-800)`          | `tokens/semantic/colors.css` |
@@ -198,7 +198,9 @@ Generated: 2026-10-10
 )`|`tokens/semantic/colors.css`|
 |`--color-button-primary-bg`|`var(--color-primary)`|`tokens/semantic/colors.css`|
 |`--color-button-primary-hover`|`var(--color-primary-hover)`|`tokens/semantic/colors.css`|
-|`--color-button-primary-text`|`var(--color-bg-primary)`|`tokens/semantic/colors.css`|
+|`--color-button-primary-text`|`var(
+--color-bg-primary
+)`|`tokens/semantic/colors.css`|
 |`--color-button-secondary-bg`|`rgba(255, 255, 255, 0.05)`|`tokens/semantic/colors.css`|
 |`--color-button-secondary-border`|`var(--color-border-subtle)`|`tokens/semantic/colors.css`|
 |`--color-button-secondary-hover`|`var(--primary-alpha-12)`|`tokens/semantic/colors.css`|
@@ -340,7 +342,7 @@ Generated: 2026-10-10
 |`--color-modal-overlay`|`var(--color-bg-overlay)`|`tokens/semantic/colors.css`|
 |`--color-pagination-active-bg`|`var(--color-primary)`|`tokens/semantic/colors.css`|
 |`--color-pagination-active-border`|`var(--color-primary)`|`tokens/semantic/colors.css`|
-|`--color-pagination-active-text`|`white`|`tokens/semantic/colors.css`|
+|`--color-pagination-active-text`|`var(--color-text-on-primary)`|`tokens/semantic/colors.css`|
 |`--color-pagination-bg`|`transparent`|`tokens/semantic/colors.css`|
 |`--color-pagination-border`|`var(--color-border-subtle)`|`tokens/semantic/colors.css`|
 |`--color-pagination-disabled-text`|`var(--color-text-disabled)`|`tokens/semantic/colors.css`|
@@ -443,12 +445,16 @@ Generated: 2026-10-10
 |`--color-text-on-dark-muted`|`rgba(255, 255, 255, 0.7)`|`tokens/semantic/colors.css`|
 |`--color-text-on-error`|`white`|`tokens/semantic/colors.css`|
 |`--color-text-on-info`|`white`|`tokens/semantic/colors.css`|
-|`--color-text-on-primary`|`white`|`tokens/semantic/colors.css`|
+|`--color-text-on-primary`|`var(
+--color-button-primary-text
+)`|`tokens/semantic/colors.css`|
 |`--color-text-on-success`|`white`|`tokens/semantic/colors.css`|
 |`--color-text-on-warning`|`var(--neutral-950)`|`tokens/semantic/colors.css`|
 |`--color-text-primary`|`var(--neutral-50)`|`tokens/semantic/colors.css`|
 |`--color-text-secondary`|`var(--neutral-400)`|`tokens/semantic/colors.css`|
-|`--color-text-tertiary`|`var(--neutral-400)`|`tokens/semantic/colors.css`|
+|`--color-text-tertiary`|`var(
+--neutral-400
+)`|`tokens/semantic/colors.css`|
 |`--color-toast-bg`|`var(--color-bg-elevated)`|`tokens/semantic/colors.css`|
 |`--color-toast-border`|`var(--color-border-medium)`|`tokens/semantic/colors.css`|
 |`--color-toast-error-border`|`var(--color-error)`|`tokens/semantic/colors.css`|

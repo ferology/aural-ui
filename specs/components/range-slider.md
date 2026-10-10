@@ -132,17 +132,17 @@ display are all consumer JS. From `RangeSlider.stories.ts`:
 
 ## 6. States
 
-| State                       | Selector                                      | Behavior                                                                   |
-| --------------------------- | --------------------------------------------- | -------------------------------------------------------------------------- |
-| Handle hover                | `.aural-range-slider__handle:hover`           | Grows (`scale(1.1)`) and gains a glow + shadow                             |
-| Handle active (dragging)    | `.aural-range-slider__handle:active`          | Shrinks slightly (`scale(0.95)`)                                           |
-| Handle focus-visible        | `.aural-range-slider__handle:focus-visible`   | 2px solid `--color-primary` outline, 2px offset                            |
-| Handle raised (active drag) | `.aural-range-slider__handle--active`         | `z-index: 4`, above the resting `--min`/`--max` handles (`z-index: 3`)     |
-| Manual input hover/focus    | `.aural-range-slider__input:hover` / `:focus` | Border → `--color-primary`, background tint on hover, 2px outline on focus |
-| Disabled                    | `.aural-range-slider--disabled`               | `opacity: 0.5`, `pointer-events: none`; handle cursor `not-allowed`        |
-| Reduced motion              | `@media (prefers-reduced-motion: reduce)`     | Strips handle/track-fill transitions                                       |
-| Responsive (≤640px)         | `@media (max-width: 640px)`                   | Handles enlarge (24px default / 20px sm) for easier touch targeting        |
-| Coarse pointer              | `@media (pointer: coarse)`                    | Handle grows to 44×44px, wrapper/track thicken (48px / 8px) for touch      |
+| State                       | Selector                                      | Behavior                                                                                                                                         |
+| --------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Handle hover                | `.aural-range-slider__handle:hover`           | Grows (`scale(1.1)`) and gains a glow + shadow                                                                                                   |
+| Handle active (dragging)    | `.aural-range-slider__handle:active`          | Shrinks slightly (`scale(0.95)`)                                                                                                                 |
+| Handle focus-visible        | `.aural-range-slider__handle:focus-visible`   | 2px solid `--color-primary` outline, 2px offset                                                                                                  |
+| Handle raised (active drag) | `.aural-range-slider__handle--active`         | `z-index: 4`, above the resting `--min`/`--max` handles (`z-index: 3`)                                                                           |
+| Manual input hover/focus    | `.aural-range-slider__input:hover` / `:focus` | Border → `--color-primary`, background tint on hover, 2px outline on focus                                                                       |
+| Disabled                    | `.aural-range-slider--disabled`               | `pointer-events: none`; track, fill, handle and number input dimmed with `opacity: 0.5` (labels keep full contrast); handle cursor `not-allowed` |
+| Reduced motion              | `@media (prefers-reduced-motion: reduce)`     | Strips handle/track-fill transitions                                                                                                             |
+| Responsive (≤640px)         | `@media (max-width: 640px)`                   | Handles enlarge (24px default / 20px sm) for easier touch targeting                                                                              |
+| Coarse pointer              | `@media (pointer: coarse)`                    | Handle grows to 44×44px, wrapper/track thicken (48px / 8px) for touch                                                                            |
 
 ## 7. Code example
 
