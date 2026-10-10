@@ -239,7 +239,15 @@
               <strong><code>npm run audit:contrast</code> (October 10, 2026):</strong>
               <code>scripts/contrast-audit.mjs</code> resolves the semantic tokens in a real browser
               for all 11 themes and checks text pairs at 4.5:1 and control borders at 3:1. Run
-              <code>npm run build:css</code> first. All 11 themes pass.
+              <code>npm run build:css</code> first. All 11 themes pass. It now runs in CI, and
+              <code>npm run audit:contrast:aaa</code> checks the high-contrast theme at 7:1.
+            </li>
+            <li class="change-item">
+              <strong><code>npm run audit:storybook</code> (October 10, 2026):</strong>
+              <code>scripts/storybook-axe.mjs</code> runs axe-core (WCAG 2.1 A/AA) over every
+              Storybook story in the chosen themes. It found text on the brand green that hard-coded
+              <code>color: white</code> (2.3:1 in the dark theme); <code>--color-text-on-primary</code>
+              now follows the theme and those components use it.
             </li>
           </ul>
         </div>
@@ -291,6 +299,16 @@
               pointer is over the tooltip and dismiss on Escape (WCAG 1.4.13), and Escape closes
               only the topmost modal instead of every open one. The component catalog page gained a
               skip link and a <code>&lt;main&gt;</code> landmark.
+            </li>
+            <li class="change-item">
+              <strong><code>npm run storybook</code> rendered no stories</strong> ("Error fetching
+              /index.json"): a hard-coded <code>&lt;base href="/aural-ui/storybook/"&gt;</code> and
+              an unconditional Vite base made the dev server request a path that does not exist.
+              The GitHub Pages base now applies only to the production build. 31 stories that never
+              rendered (a missing <code>html</code> helper in StatsCard, a broken template literal
+              in ImageGallery) were also fixed, and
+              <code>Aural.initTooltips()</code> now actually wires tooltip markup (it registered a
+              listener during <code>DOMContentLoaded</code> dispatch, so it never ran).
             </li>
             <li class="change-item">
               <strong>1,044 hardcoded CSS values closed to zero</strong> across all 59 components,

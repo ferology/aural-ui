@@ -119,19 +119,19 @@ implementation typically exposes:
 
 ## 6. States
 
-| State                      | Selector                                               | Behavior                                                                                      |
-| -------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
-| Hover (trigger)            | `.aural-multi-select__trigger:hover`                   | Border → `--color-primary`, background → `--color-bg-hover`                                   |
-| Focus-visible (trigger)    | `.aural-multi-select__trigger:focus-visible`           | 2px solid `--color-primary` outline, 2px offset                                               |
-| Open                       | `.aural-multi-select--open`                            | Trigger border highlights + flattens bottom corners, arrow rotates 180°, dropdown expands     |
-| Option hover/focus-visible | `.aural-multi-select__option:hover` / `:focus-visible` | Background → `--color-bg-hover` (and text → primary on hover)                                 |
-| Option selected            | `.aural-multi-select__option--selected`                | Background tint, bold text, checkbox fills with checkmark revealed                            |
-| Option disabled            | `.aural-multi-select__option--disabled`                | Dimmed, `cursor: not-allowed`, `pointer-events: none`                                         |
-| Clear-button hover         | `.aural-multi-select__clear:hover`                     | Background → `--color-bg-hover`, icon → `--color-error-text`                                  |
-| Disabled (whole control)   | `.aural-multi-select--disabled`                        | `opacity: 0.5`, `pointer-events: none`; trigger background → `--color-bg-tertiary`            |
-| Error / Success            | `.aural-multi-select--error` / `--success`             | Trigger border → `--color-error` / `--color-success`                                          |
-| Reduced motion             | `@media (prefers-reduced-motion: reduce)`              | Strips trigger/dropdown/option/checkbox/arrow transitions                                     |
-| Responsive (≤640px)        | `@media (max-width: 640px)`                            | Dropdown becomes a fixed bottom sheet (`position: fixed; bottom: 0`) with rounded top corners |
+| State                      | Selector                                               | Behavior                                                                                                                                                                                           |
+| -------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hover (trigger)            | `.aural-multi-select__trigger:hover`                   | Border → `--color-primary`, background → `--color-bg-hover`                                                                                                                                        |
+| Focus-visible (trigger)    | `.aural-multi-select__trigger:focus-visible`           | 2px solid `--color-primary` outline, 2px offset                                                                                                                                                    |
+| Open                       | `.aural-multi-select--open`                            | Trigger border highlights + flattens bottom corners, arrow rotates 180°, dropdown expands                                                                                                          |
+| Option hover/focus-visible | `.aural-multi-select__option:hover` / `:focus-visible` | Background → `--color-bg-hover` (and text → primary on hover)                                                                                                                                      |
+| Option selected            | `.aural-multi-select__option--selected`                | Background tint, bold text, checkbox fills with checkmark revealed                                                                                                                                 |
+| Option disabled            | `.aural-multi-select__option--disabled`                | Dimmed, `cursor: not-allowed`, `pointer-events: none`                                                                                                                                              |
+| Clear-button hover         | `.aural-multi-select__clear:hover`                     | Background → `--color-bg-hover`, icon → `--color-error-text`                                                                                                                                       |
+| Disabled (whole control)   | `.aural-multi-select--disabled`                        | `pointer-events: none`; trigger background → `--color-bg-tertiary` with a dashed border and `--color-text-secondary` placeholder (explicit colors, no wrapper opacity, which halved text contrast) |
+| Error / Success            | `.aural-multi-select--error` / `--success`             | Trigger border → `--color-error` / `--color-success`                                                                                                                                               |
+| Reduced motion             | `@media (prefers-reduced-motion: reduce)`              | Strips trigger/dropdown/option/checkbox/arrow transitions                                                                                                                                          |
+| Responsive (≤640px)        | `@media (max-width: 640px)`                            | Dropdown becomes a fixed bottom sheet (`position: fixed; bottom: 0`) with rounded top corners                                                                                                      |
 
 ## 7. Code example
 

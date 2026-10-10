@@ -87,7 +87,8 @@ Disabled interactive elements consistently get `opacity: 0.5`, `cursor: not-allo
 ## Color contrast (WCAG 1.4.3 / 1.4.11)
 
 - Text and status foregrounds must reach 4.5:1; form control boundaries and focus indicators 3:1. Use the token roles from `specs/foundations/color.md`: `--color-*-text` for status text/icons, `--color-*-solid` + `--color-text-on-*` for filled backgrounds, `--color-control-border` for input/checkbox/radio/select borders. Never use the 500 shades (`--color-success/error/warning/info`) for text or under white text, and never rely on `--color-border-subtle`/`-medium` as a control's only boundary.
-- `npm run audit:contrast` (after `npm run build:css`) checks these token pairs in a real browser for every theme and fails on any pair below its threshold. It is not wired into CI by this change; run it after touching tokens or themes.
+- `npm run audit:contrast` (after `npm run build:css`) checks these token pairs in a real browser for every theme and fails on any pair below its threshold. It runs in CI (the Code Quality job). `npm run audit:contrast:aaa` checks the high-contrast theme at 7:1 for text pairs.
+- `npm run audit:storybook -- minimal dark` runs axe-core (WCAG 2.1 A/AA) over every Storybook story; it needs a static Storybook build (see the header of `scripts/storybook-axe.mjs`). Only inactive-control contrast is exempt by WCAG.
 - `.skip-link` uses `--color-button-primary-bg` / `--color-button-primary-text` and a `currentColor` focus outline, so it passes in every theme.
 
 ## JavaScript behavior (`javascript/index.js`)

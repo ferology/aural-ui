@@ -77,6 +77,7 @@ const over = (fg, bg) => fg.slice(0, 3).map((c, i) => c * fg[3] + bg[i] * (1 - f
 
 const browser = await chromium.launch();
 let failures = 0;
+const stats = [];
 for (const theme of THEMES) {
   const page = await browser.newPage();
   const links = ['aural-ui', theme].filter((v, i, a) => a.indexOf(v) === i);
@@ -121,6 +122,7 @@ for (const theme of THEMES) {
   };
   const page0 = parse(resolved['--color-bg-primary'].bg);
   const bad = [];
+  const stat = { theme, checked: 0, passed: 0, lowestText: null, lowestControl: null };
   for (const [label, f, b, req] of PAIRS) {
     if (!resolved[f] || !resolved[b]) continue;
     const fg = parse(resolved[f].fg),
@@ -129,13 +131,21 @@ for (const theme of THEMES) {
     const bg = bgRaw[3] < 1 ? over(bgRaw, page0) : bgRaw;
     const flat = fg[3] < 1 ? over(fg, bg) : fg;
     const r = ratio(flat, bg);
+    stat.checked++;
+    const isControl = req === 3;
+    const key = isControl ? 'lowestControl' : 'lowestText';
+    if (!stat[key] || r < stat[key].ratio) stat[key] = { ratio: r, label };
     const need = AAA && req === 4.5 ? 7 : req;
     if (r < need) bad.push(`   ${r.toFixed(2)} < ${need}  ${label}`);
   }
+  stat.passed = stat.checked - bad.length;
+  stats.push(stat);
   failures += bad.length;
   console.log(`${bad.length ? '✗' : '✓'} ${theme}${bad.length ? ` (${bad.length})` : ''}`);
   bad.forEach((l) => console.log(l));
   await page.close();
 }
 await browser.close();
+if (process.env.CONTRAST_JSON)
+  fs.writeFileSync(process.env.CONTRAST_JSON, JSON.stringify(stats, null, 1));
 process.exit(failures ? 1 : 0);

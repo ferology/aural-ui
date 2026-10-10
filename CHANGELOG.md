@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added - October 10, 2026
 
+- **`npm run audit:storybook`** (`scripts/storybook-axe.mjs`): axe-core scan (WCAG 2.1 A/AA) of every Storybook story in chosen themes, used to find the contrast and markup defects fixed below. **`npm run audit:contrast:aaa`** checks `high-contrast` at 7:1. Vanilla-JS regression tests live in `tests/a11y.test.js`; `npm run audit:contrast` now runs in CI.
+
 - **WCAG 2.1 AA contrast remediation tokens** (`tokens/semantic/colors.css`):
   - `--color-{success,error,info,warning}-solid`: fills that carry `--color-text-on-*` text (success-700, error-600, info-600, warning-500 with dark text)
   - `--color-{success,error,warning,info}-text`: status text/icons on surfaces (400 shades on dark; 700/600 shades in `themes/light.css` and `themes/minimal.css`)
@@ -45,6 +47,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Tooltips** (`initTooltips`): auto-wire `role="tooltip"` and `aria-describedby` on the trigger
 
 ### Fixed - October 10, 2026
+
+- **`npm run storybook` showed "Error fetching /index.json" for every story:** `.storybook/preview-head.html` hard-coded `<base href="/aural-ui/storybook/">` and `main.ts` set that Vite base unconditionally, so the dev server requested a path that does not exist. The GitHub Pages base is now applied only to the production build and when served from that path.
+- **Storybook stories that never rendered (31):** StatsCard used an `html` tag it never imported, and an unescaped backtick in ImageGallery's docs template broke the module. Story demo markup was also given accessible names, valid roles and labels (found with `audit:storybook`).
 
 - **White text on the light brand green in the dark theme:** chips, tabs (pill), pagination, progress bars, calendars, date/time pickers, steppers, timelines, tooltips and the bottom-nav primary variant hard-coded `color: white` on `--color-primary` (2.3:1 in the default dark theme). `--color-text-on-primary` now follows `--color-button-primary-text` (dark in the dark theme, white in the light theme) and those components use it. Found by scanning every Storybook story with axe-core.
 - **Badges, alert-banner titles and code-block language labels:** badge text used the 400 status shades on light backgrounds (1.5:1); it now uses the `--color-*-text` tokens, and the light and minimal themes use darker 700/800 shades so text on tinted status backgrounds clears 4.5:1. Terminal code blocks keep their on-dark label and copy-button colors in every theme, and `.aural-spinner--white` text is now light.

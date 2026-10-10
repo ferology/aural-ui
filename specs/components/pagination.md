@@ -59,24 +59,24 @@ dataset is.
 
 ## 4. Tokens used
 
-| Token                                                                                                  | Used for                                                                                      |
-| ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
-| `--color-pagination-bg` / `--color-pagination-border`                                                  | Item resting background / border                                                              |
-| `--color-pagination-hover-bg` / `--color-pagination-hover-border`                                      | Item `:hover` background / border                                                             |
-| `--color-pagination-active-bg` / `--color-pagination-active-border` / `--color-pagination-active-text` | `.pagination-active` styling                                                                  |
-| `--color-pagination-disabled-text`                                                                     | `.pagination-disabled`/`[disabled]` text color                                                |
-| `--color-text-primary` / `--color-text-secondary` / `--color-text-muted`                               | Item text / `.pagination-info` text / ellipsis color                                          |
-| `--color-primary`                                                                                      | `:focus-visible` ring, jumper input `:focus` border                                           |
-| `--color-input-bg` / `--color-input-border`                                                            | Jumper `<input>` background / border                                                          |
-| `--font-sans` / `--font-medium`                                                                        | Base typography / item label weight                                                           |
-| `--text-xs` / `--text-sm` / `--text-base`                                                              | Font size at `.pagination-sm` / default / `.pagination-lg`                                    |
-| `--leading-none`                                                                                       | Item label line-height                                                                        |
-| `--space-1` … `--space-4`                                                                              | Padding and gaps across sizes                                                                 |
-| `--size-14` / `--size-16` / `--size-20`                                                                | Icon dimensions at `.pagination-sm` / default / `.pagination-lg`                              |
-| `--size-32` / `--size-40` / `--size-44` / `--size-48`                                                  | Item `min-width`/`min-height` at `.pagination-sm` / default / touch target / `.pagination-lg` |
-| `--size-80`                                                                                            | Jumper `<input>` touch-target `min-width` at `(pointer: coarse)`                              |
-| `--radius-md` / `--radius-full`                                                                        | Default item corners / `.pagination-rounded` corners                                          |
-| `--transition-all-fast`                                                                                | Item hover/focus transitions                                                                  |
+| Token                                                                                                  | Used for                                                                                                    |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| `--color-pagination-bg` / `--color-pagination-border`                                                  | Item resting background / border                                                                            |
+| `--color-pagination-hover-bg` / `--color-pagination-hover-border`                                      | Item `:hover` background / border                                                                           |
+| `--color-pagination-active-bg` / `--color-pagination-active-border` / `--color-pagination-active-text` | `.pagination-active` styling (the text token is `--color-text-on-primary`, so it is dark in the dark theme) |
+| `--color-pagination-disabled-text`                                                                     | `.pagination-disabled`/`[disabled]` text color                                                              |
+| `--color-text-primary` / `--color-text-secondary` / `--color-text-muted`                               | Item text / `.pagination-info` text / ellipsis color                                                        |
+| `--color-primary`                                                                                      | `:focus-visible` ring, jumper input `:focus` border                                                         |
+| `--color-input-bg` / `--color-input-border`                                                            | Jumper `<input>` background / border                                                                        |
+| `--font-sans` / `--font-medium`                                                                        | Base typography / item label weight                                                                         |
+| `--text-xs` / `--text-sm` / `--text-base`                                                              | Font size at `.pagination-sm` / default / `.pagination-lg`                                                  |
+| `--leading-none`                                                                                       | Item label line-height                                                                                      |
+| `--space-1` … `--space-4`                                                                              | Padding and gaps across sizes                                                                               |
+| `--size-14` / `--size-16` / `--size-20`                                                                | Icon dimensions at `.pagination-sm` / default / `.pagination-lg`                                            |
+| `--size-32` / `--size-40` / `--size-44` / `--size-48`                                                  | Item `min-width`/`min-height` at `.pagination-sm` / default / touch target / `.pagination-lg`               |
+| `--size-80`                                                                                            | Jumper `<input>` touch-target `min-width` at `(pointer: coarse)`                                            |
+| `--radius-md` / `--radius-full`                                                                        | Default item corners / `.pagination-rounded` corners                                                        |
+| `--transition-all-fast`                                                                                | Item hover/focus transitions                                                                                |
 
 **New tokens added while migrating this file:** none — every raw value
 had an existing exact-match token (including `--size-80` for the touch

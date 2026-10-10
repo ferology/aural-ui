@@ -325,7 +325,7 @@
             <ul>
                 <li><strong>All 11 themes pass the audit.</strong> <code>npm run audit:contrast</code> resolves the semantic color tokens in a real browser and checks the pairs components use: text on the three surfaces at 4.5:1, form control borders at 3:1 (WCAG 1.4.11). Every pair passes in every theme.</li>
                 <li><strong>This report replaces the 2026 pre-remediation findings.</strong> The earlier version reported a 40% pass rate for the light theme and a 2.11:1 primary button in the dark theme. Those figures are kept below as "Before" for reference only.</li>
-                <li><strong>Lowest text ratio across themes:</strong> 4.51:1 (warm, nav active text; neon, error-text on bg-elevated). Every text pair is at or above 4.5:1.</li>
+                <li><strong>Lowest text ratio across themes:</strong> 4.51:1 (warm, nav active text; neon, error-text on bg-elevated). Every text pair is at or above 4.5:1; <code>high-contrast</code> is audited separately at 7:1 (<code>npm run audit:contrast:aaa</code>), lowest 7.17:1.</li>
                 <li><strong>Lowest control border ratio across themes:</strong> 3.03:1 (high-contrast, on bg-elevated). Every control border pair is at or above 3:1.</li>
             </ul>
         </div>
@@ -357,12 +357,12 @@
             <div class="summary-card pass">
                 <h3>Light</h3>
                 <div class="value">37/37</div>
-                <p>pairs pass (lowest text 4.80:1, lowest control border 4.63:1)</p>
+                <p>pairs pass (lowest text 4.83:1, lowest control border 4.63:1)</p>
             </div>
             <div class="summary-card pass">
                 <h3>Minimal</h3>
                 <div class="value">37/37</div>
-                <p>pairs pass (lowest text 4.60:1, lowest control border 4.35:1)</p>
+                <p>pairs pass (lowest text 4.83:1, lowest control border 4.35:1)</p>
             </div>
             <div class="summary-card pass">
                 <h3>Warm</h3>
@@ -392,7 +392,7 @@
             <div class="summary-card pass">
                 <h3>High Contrast</h3>
                 <div class="value">36/36</div>
-                <p>pairs pass (lowest text 4.65:1, lowest control border 3.03:1)</p>
+                <p>pairs pass (lowest text 7.17:1, lowest control border 3.03:1)</p>
             </div>
             <div class="summary-card pass">
                 <h3>Colorblind Friendly</h3>
@@ -414,17 +414,17 @@
                         <tr style="text-align: left; border-bottom: 2px solid rgba(255, 255, 255, 0.1);"><th scope="col" style="padding: 0.5rem;">Theme</th><th scope="col" style="padding: 0.5rem;">Pairs</th><th scope="col" style="padding: 0.5rem;">Pass</th><th scope="col" style="padding: 0.5rem;">Lowest text pair (4.5:1)</th><th scope="col" style="padding: 0.5rem;">Lowest control border (3:1)</th></tr>
                     </thead>
                     <tbody>
-                    <tr><td><code>aural-ui</code></td><td>36</td><td>36</td><td>4.83:1 (danger button text)</td><td>3.19:1 (control-border on bg-elevated)</td></tr>
-                    <tr><td><code>dark</code></td><td>37</td><td>37</td><td>4.79:1 (text-muted on bg-elevated)</td><td>4.11:1 (control-border on bg-elevated)</td></tr>
-                    <tr><td><code>light</code></td><td>37</td><td>37</td><td>4.80:1 (success-text on bg-secondary)</td><td>4.63:1 (control-border on bg-secondary)</td></tr>
-                    <tr><td><code>minimal</code></td><td>37</td><td>37</td><td>4.60:1 (success-text on bg-secondary)</td><td>4.35:1 (control-border on bg-secondary)</td></tr>
-                    <tr><td><code>warm</code></td><td>37</td><td>37</td><td>4.51:1 (nav active text)</td><td>4.72:1 (control-border on bg-elevated)</td></tr>
-                    <tr><td><code>prismatic</code></td><td>37</td><td>37</td><td>4.68:1 (text-muted on bg-elevated)</td><td>4.33:1 (control-border on bg-elevated)</td></tr>
-                    <tr><td><code>neon</code></td><td>37</td><td>37</td><td>4.51:1 (error-text on bg-elevated)</td><td>3.67:1 (control-border on bg-elevated)</td></tr>
-                    <tr><td><code>neon-refined</code></td><td>34</td><td>34</td><td>4.83:1 (on-error text)</td><td>3.60:1 (control-border on bg-elevated)</td></tr>
-                    <tr><td><code>kinetic</code></td><td>37</td><td>37</td><td>4.83:1 (danger button text)</td><td>3.19:1 (control-border on bg-elevated)</td></tr>
-                    <tr><td><code>high-contrast</code></td><td>36</td><td>36</td><td>4.65:1 (primary (links) on bg-elevated)</td><td>3.03:1 (control-border on bg-elevated)</td></tr>
-                    <tr><td><code>colorblind-friendly</code></td><td>36</td><td>36</td><td>4.83:1 (on-error text)</td><td>4.52:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>aural-ui</code></td><td>37</td><td>37</td><td>4.83:1 (danger button text)</td><td>3.19:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>dark</code></td><td>38</td><td>38</td><td>4.79:1 (text-muted on bg-elevated)</td><td>4.11:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>light</code></td><td>38</td><td>38</td><td>4.83:1 (danger button text)</td><td>4.63:1 (control-border on bg-secondary)</td></tr>
+                    <tr><td><code>minimal</code></td><td>38</td><td>38</td><td>4.83:1 (danger button text)</td><td>4.35:1 (control-border on bg-secondary)</td></tr>
+                    <tr><td><code>warm</code></td><td>38</td><td>38</td><td>4.51:1 (nav active text)</td><td>4.72:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>prismatic</code></td><td>38</td><td>38</td><td>4.68:1 (text-muted on bg-elevated)</td><td>4.33:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>neon</code></td><td>38</td><td>38</td><td>4.51:1 (error-text on bg-elevated)</td><td>3.67:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>neon-refined</code></td><td>35</td><td>35</td><td>4.83:1 (on-error text)</td><td>3.60:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>kinetic</code></td><td>38</td><td>38</td><td>4.83:1 (danger button text)</td><td>3.19:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>high-contrast</code></td><td>37</td><td>37</td><td>7.17:1 (error-text on bg-elevated)</td><td>3.03:1 (control-border on bg-elevated)</td></tr>
+                    <tr><td><code>colorblind-friendly</code></td><td>37</td><td>37</td><td>4.83:1 (on-error text)</td><td>4.52:1 (control-border on bg-elevated)</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -434,7 +434,7 @@
         <div class="theme-section">
             <div class="theme-header">
                 <h2 class="theme-title">Dark Theme: before and after</h2>
-                <span class="theme-score pass">37/37 pairs pass</span>
+                <span class="theme-score pass">38/38 pairs pass</span>
             </div>
 
             <div class="test-grid">
@@ -514,7 +514,7 @@
         <div class="theme-section">
             <div class="theme-header">
                 <h2 class="theme-title">Light Theme: before and after</h2>
-                <span class="theme-score pass">37/37 pairs pass</span>
+                <span class="theme-score pass">38/38 pairs pass</span>
             </div>
 
             <div class="test-grid">
