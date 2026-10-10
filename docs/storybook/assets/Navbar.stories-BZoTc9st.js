@@ -305,7 +305,7 @@ export default {
         </button>
       </div>
     </nav>
-  `,setTimeout(()=>{var s;window.lucide&&window.lucide.createIcons(),(s=window.Aural)!=null&&s.initNavbar&&window.Aural.initNavbar(r)},0),t},l={args:{brand:"Aural"},render:i},c={args:{brand:"Brand",withIcons:!0},render:i,parameters:{docs:{description:{story:"Navbar with icons in both the brand and navigation links for enhanced visual hierarchy."}}}},d={args:{brand:"Logo",withSearch:!0},render:i,parameters:{docs:{description:{story:"Navbar with an integrated search bar in the actions area."}}}},u={args:{brand:"Aural",withNotifications:!0,notificationCount:3},render:i,parameters:{docs:{description:{story:"Navbar with notification badge showing unread count. The badge pulses to draw attention."}}}},b={args:{brand:"Dashboard",withUserMenu:!0,withSearch:!0},render:i,parameters:{docs:{description:{story:"Navbar with user profile avatar instead of sign-in buttons, typical for authenticated views."}}}},v={args:{brand:"Sticky Nav",variant:"sticky"},render:i,parameters:{docs:{description:{story:"Navbar that stays at the top of the viewport when scrolling. Uses position: sticky."}}}},p={args:{brand:"Brand",variant:"transparent"},render:a=>{const e=i(a),n=document.createElement("div");return n.style.cssText="background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover)); padding: var(--space-8); min-height: 400px;",n.appendChild(e),setTimeout(()=>{const r=n.querySelector(".aural-navbar");if(r){const t=r.querySelector(".aural-navbar__brand"),s=r.querySelectorAll(".aural-navbar__link"),da=r.querySelectorAll(".btn");t&&(t.style.color="white"),s.forEach(o=>o.style.color="rgba(255,255,255,0.8)"),da.forEach(o=>{o.style.color="white",o.style.borderColor="white"})}},0),n},parameters:{docs:{description:{story:"Transparent navbar perfect for hero sections or background images. Customize text colors as needed."}}}},m={args:{brand:"Blur Nav",variant:"blur"},render:i,parameters:{docs:{description:{story:"Navbar with frosted glass effect (backdrop blur) for a modern aesthetic."}}}},h={args:{brand:"Small",size:"sm"},render:i,parameters:{docs:{description:{story:"Compact navbar variant for space-constrained layouts."}}}},g={args:{brand:"Large",size:"lg"},render:i,parameters:{docs:{description:{story:"Large navbar variant for prominent navigation."}}}},_={render:()=>{const a=document.createElement("div");return a.innerHTML=`
+  `,setTimeout(()=>{var o;window.lucide&&window.lucide.createIcons(),(o=window.Aural)!=null&&o.initNavbar&&window.Aural.initNavbar(r)},0),t},l={args:{brand:"Aural"},render:i},c={args:{brand:"Brand",withIcons:!0},render:i,parameters:{docs:{description:{story:"Navbar with icons in both the brand and navigation links for enhanced visual hierarchy."}}}},d={args:{brand:"Logo",withSearch:!0},render:i,parameters:{docs:{description:{story:"Navbar with an integrated search bar in the actions area."}}}},u={args:{brand:"Aural",withNotifications:!0,notificationCount:3},render:i,parameters:{docs:{description:{story:"Navbar with notification badge showing unread count. The badge pulses to draw attention."}}}},b={args:{brand:"Dashboard",withUserMenu:!0,withSearch:!0},render:i,parameters:{docs:{description:{story:"Navbar with user profile avatar instead of sign-in buttons, typical for authenticated views."}}}},v={args:{brand:"Sticky Nav",variant:"sticky"},render:i,parameters:{docs:{description:{story:"Navbar that stays at the top of the viewport when scrolling. Uses position: sticky."}}}},p={args:{brand:"Brand",variant:"transparent"},render:a=>{const e=i(a),n=document.createElement("div");return n.style.cssText="background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover)); padding: var(--space-8); min-height: 400px;",n.appendChild(e),setTimeout(()=>{const r=n.querySelector(".aural-navbar");if(r){const t=r.querySelector(".aural-navbar__brand"),o=r.querySelectorAll(".aural-navbar__link"),da=r.querySelectorAll(".btn");t&&(t.style.color="white"),o.forEach(s=>s.style.color="rgba(255,255,255,0.8)"),da.forEach(s=>{s.classList.contains("btn-primary")||(s.style.color="white",s.style.borderColor="white")})}},0),n},parameters:{docs:{description:{story:"Transparent navbar perfect for hero sections or background images. Customize text colors as needed."}}}},m={args:{brand:"Blur Nav",variant:"blur"},render:i,parameters:{docs:{description:{story:"Navbar with frosted glass effect (backdrop blur) for a modern aesthetic."}}}},h={args:{brand:"Small",size:"sm"},render:i,parameters:{docs:{description:{story:"Compact navbar variant for space-constrained layouts."}}}},g={args:{brand:"Large",size:"lg"},render:i,parameters:{docs:{description:{story:"Large navbar variant for prominent navigation."}}}},_={render:()=>{const a=document.createElement("div");return a.innerHTML=`
       <nav class="aural-navbar" role="navigation" aria-label="E-commerce navigation">
         <div class="aural-navbar__inner">
           <a href="#" class="aural-navbar__brand">
@@ -526,6 +526,8 @@ export default {
         if (brand) (brand as HTMLElement).style.color = 'white';
         links.forEach(link => (link as HTMLElement).style.color = 'rgba(255,255,255,0.8)');
         buttons.forEach(btn => {
+          // Filled primary buttons keep their themed text/fill colors
+          if (btn.classList.contains('btn-primary')) return;
           (btn as HTMLElement).style.color = 'white';
           (btn as HTMLElement).style.borderColor = 'white';
         });
@@ -540,7 +542,7 @@ export default {
       }
     }
   }
-}`,...(D=(q=p.parameters)==null?void 0:q.docs)==null?void 0:D.source}}};var R,F,V;m.parameters={...m.parameters,docs:{...(R=m.parameters)==null?void 0:R.docs,source:{originalSource:`{
+}`,...(D=(q=p.parameters)==null?void 0:q.docs)==null?void 0:D.source}}};var F,R,V;m.parameters={...m.parameters,docs:{...(F=m.parameters)==null?void 0:F.docs,source:{originalSource:`{
   args: {
     brand: 'Blur Nav',
     variant: 'blur'
@@ -553,7 +555,7 @@ export default {
       }
     }
   }
-}`,...(V=(F=m.parameters)==null?void 0:F.docs)==null?void 0:V.source}}};var G,j,K;h.parameters={...h.parameters,docs:{...(G=h.parameters)==null?void 0:G.docs,source:{originalSource:`{
+}`,...(V=(R=m.parameters)==null?void 0:R.docs)==null?void 0:V.source}}};var G,j,K;h.parameters={...h.parameters,docs:{...(G=h.parameters)==null?void 0:G.docs,source:{originalSource:`{
   args: {
     brand: 'Small',
     size: 'sm'

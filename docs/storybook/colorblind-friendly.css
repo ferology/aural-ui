@@ -55,8 +55,8 @@
        ======================================== */
   --color-text-primary: #f5f7fa;
   --color-text-secondary: #b0b8c8;
-  --color-text-tertiary: #8a92a8;
-  --color-text-muted: #707888;
+  --color-text-tertiary: #a3abc0; /* >= 5.7:1 on every surface */
+  --color-text-muted: #98a0b5; /* >= 5:1 on every surface */
   --color-text-disabled: #505865;
   --color-text-inverse: #0f1419;
 
@@ -142,7 +142,12 @@
   /* ========================================
        Primary/Secondary Token Overrides
        ======================================== */
-  --color-primary: var(--primary-400);
+  --color-primary: var(
+    --primary-300
+  ); /* the blue-600 brand was 3.3:1 as text on the page background */
+  --color-success-text: #4da6ff;
+  --color-text-on-primary: #0f1419; /* --color-primary is the light blue above; the button fill below is darker and keeps white */
+  --color-text-on-info: #000000;
   --color-primary-hover: var(--primary-300);
   --color-secondary: var(--secondary-400);
 
@@ -161,7 +166,7 @@
   --color-button-secondary-hover: var(--color-bg-hover);
 
   --color-button-danger-bg: var(--error-400);
-  --color-button-danger-text: #ffffff;
+  --color-button-danger-text: #000000; /* white on the orange was 2.3:1 */
   --color-button-danger-hover: var(--error-300);
 
   --color-button-ghost-bg: transparent;
@@ -179,7 +184,8 @@
   --color-input-bg: rgba(255, 255, 255, 0.03);
   --color-input-text: var(--color-text-primary);
   --color-input-placeholder: var(--color-text-muted);
-  --color-input-border: var(--color-border-subtle);
+  --color-control-border: #8f97ac; /* >= 4.5:1 (1.4.11) */
+  --color-input-border: var(--color-control-border);
   --color-input-border-hover: var(--color-border-medium);
   --color-input-border-focus: var(--primary-400);
   --color-input-disabled-bg: rgba(255, 255, 255, 0.01);

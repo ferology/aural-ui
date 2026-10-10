@@ -372,7 +372,7 @@ export default {
     `,setTimeout(()=>{typeof window.Aural<"u"&&window.Aural.initDropdowns(),typeof lucide<"u"&&lucide.createIcons()},100),e}},a={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.minHeight="400px",e.innerHTML=`
       <div class="dropdown" id="dropdown-user">
         <button class="btn btn-ghost dropdown-trigger" aria-expanded="false" aria-haspopup="true" style="display: flex; align-items: center; gap: 8px;">
-          <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); display: flex; align-items: center; justify-content: center; color: white; font-weight: var(--font-semibold); font-size: var(--text-sm);">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary); display: flex; align-items: center; justify-content: center; color: var(--color-text-on-primary); font-weight: var(--font-semibold); font-size: var(--text-sm);">
             JD
           </div>
           <span>John Doe</span>
@@ -724,7 +724,7 @@ export default {
     container.innerHTML = \`
       <div class="dropdown" id="dropdown-user">
         <button class="btn btn-ghost dropdown-trigger" aria-expanded="false" aria-haspopup="true" style="display: flex; align-items: center; gap: 8px;">
-          <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); display: flex; align-items: center; justify-content: center; color: white; font-weight: var(--font-semibold); font-size: var(--text-sm);">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary); display: flex; align-items: center; justify-content: center; color: var(--color-text-on-primary); font-weight: var(--font-semibold); font-size: var(--text-sm);">
             JD
           </div>
           <span>John Doe</span>

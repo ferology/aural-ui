@@ -1,4 +1,4 @@
-import{c as Y}from"./createThemeGrid-DWAncU4Q.js";const K={title:"Components/Data Display/Tooltip",tags:["autodocs"],parameters:{docs:{description:{component:`
+import{c as X}from"./createThemeGrid-DWAncU4Q.js";const Q={title:"Components/Data Display/Tooltip",tags:["autodocs"],parameters:{docs:{description:{component:`
 # Tooltip Component
 
 Contextual help text that appears on hover or focus, providing additional information without cluttering the interface.
@@ -252,10 +252,12 @@ onMounted(() => {
 - **Not for critical info**: Never hide essential information in tooltips - they should supplement, not replace visible text
 - **Icon button labels**: Always provide \`aria-label\` on icon-only buttons in addition to tooltips
 - **Concise content**: Keep tooltip text to 1-2 short sentences (max ~80 characters) for quick scanning
-- **Keyboard dismissal**: Tooltips automatically hide on blur/mouse leave, respecting keyboard navigation
-- **ARIA role**: Tooltips automatically include appropriate ARIA attributes for screen reader compatibility
+- **Hide on blur/mouse leave**: Tooltips hide when focus leaves the trigger or the pointer leaves it
+- **Hoverable and dismissable (WCAG 1.4.13)**: For markup wired by \`Aural.initTooltips()\` (\`.tooltip-wrapper\` containing a \`[data-tooltip-trigger]\` and a \`.tooltip\`), the tooltip stays open while the pointer moves onto the tooltip itself, and Escape dismisses it without moving focus or the pointer
+- **ARIA wiring**: \`Aural.initTooltips()\` adds \`role="tooltip"\` and an \`id\` to the tooltip (if missing) and \`aria-describedby\` on the trigger. For \`.tooltip-wrapper\` markup, call \`initTooltips()\` after the markup is in the DOM (it also runs automatically from \`Aural.init()\`); calling it again is safe, each wrapper is wired once
+- **Status colors**: \`success\` and \`error\` tooltips use \`--color-success-solid\` and \`--color-error-solid\` backgrounds so the white text keeps 4.5:1 or more
 - **Focus indicators**: Parent elements maintain visible focus rings when showing tooltips
-- **No pointer interaction**: Tooltips use \`pointer-events: none\` to prevent blocking clicks on nearby elements
+- **Pointer events**: CSS-only \`data-tooltip\` tooltips use \`pointer-events: none\` so they never block clicks on nearby elements, which also means they are not hoverable. Use the \`.tooltip-wrapper\` markup when the tooltip content must stay hoverable
 - **Delay timings**: 200ms entrance delay prevents tooltips from appearing during cursor movement
 - **Color independence**: Don't rely on tooltip color variants alone - include text explanation
 - **Reduced motion**: Tooltip animations respect \`prefers-reduced-motion\` user preference
@@ -307,73 +309,76 @@ onMounted(() => {
   - **No exit delay**: Tooltips hide immediately on mouse leave for snappy UX
   - **Show duration**: No auto-hide - user controls when tooltip disappears
   - **Animation**: 200ms fade-in/out with slight transform for polish
-        `.trim()}}},argTypes:{text:{control:"text",description:"Tooltip text content - keep concise (1-2 sentences, max 80 characters). Provides supplementary information on hover/focus."},position:{control:"select",options:["top","bottom","left","right"],description:"Tooltip position: top (default, most common), bottom (nav bars), left (right-aligned elements), right (form field help). Auto-adjusts near viewport edges."},color:{control:"select",options:["default","primary","success","warning","error"],description:"Color variant: default (dark background), primary (accent), success (green, confirmations), warning (yellow, cautions), error (red, alerts). Use with descriptive text, not color alone."},size:{control:"select",options:["sm","md","lg"],description:"Tooltip size: sm (200px max-width, compact info), md (320px max-width, default), lg (400px max-width, detailed explanations)"},label:{control:"text",description:"Button label text displayed in the trigger button"}}},c={render:t=>{const e=document.createElement("button");return e.className="btn btn-secondary",e.textContent=t.label||"Hover me",e.setAttribute("data-tooltip",t.text||"This is a helpful tooltip"),t.position&&t.position!=="top"&&e.setAttribute("data-tooltip-position",t.position),t.color&&t.color!=="default"&&e.setAttribute("data-tooltip-color",t.color),t.size&&t.size!=="md"&&e.setAttribute("data-tooltip-size",t.size),setTimeout(()=>{var o;(o=window.Aural)!=null&&o.initTooltips&&window.Aural.initTooltips()},0),e},args:{text:"This is a helpful tooltip",position:"top",color:"default",size:"md",label:"Hover me"}},p={render:()=>{const t=document.createElement("div");return t.style.cssText=`
+        `.trim()}}},argTypes:{text:{control:"text",description:"Tooltip text content - keep concise (1-2 sentences, max 80 characters). Provides supplementary information on hover/focus."},position:{control:"select",options:["top","bottom","left","right"],description:"Tooltip position: top (default, most common), bottom (nav bars), left (right-aligned elements), right (form field help). Auto-adjusts near viewport edges."},color:{control:"select",options:["default","primary","success","warning","error"],description:"Color variant: default (dark background), primary (accent), success (green, confirmations), warning (yellow, cautions), error (red, alerts). Use with descriptive text, not color alone."},size:{control:"select",options:["sm","md","lg"],description:"Tooltip size: sm (200px max-width, compact info), md (320px max-width, default), lg (400px max-width, detailed explanations)"},label:{control:"text",description:"Button label text displayed in the trigger button"}}},c={render:t=>{const o=document.createElement("button");return o.className="btn btn-secondary",o.textContent=t.label||"Hover me",o.setAttribute("data-tooltip",t.text||"This is a helpful tooltip"),t.position&&t.position!=="top"&&o.setAttribute("data-tooltip-position",t.position),t.color&&t.color!=="default"&&o.setAttribute("data-tooltip-color",t.color),t.size&&t.size!=="md"&&o.setAttribute("data-tooltip-size",t.size),setTimeout(()=>{var e;(e=window.Aural)!=null&&e.initTooltips&&window.Aural.initTooltips()},0),o},args:{text:"This is a helpful tooltip",position:"top",color:"default",size:"md",label:"Hover me"}},p={parameters:{docs:{description:{story:"Wrapper markup wired by `Aural.initTooltips()`: focus the button with Tab to show the tooltip, press Escape to dismiss it, or hover the tooltip itself to keep it open. The trigger gets `aria-describedby` automatically."}}},render:()=>{const t=document.createElement("div");return t.className="tooltip-wrapper",t.innerHTML=`
+      <button class="btn btn-secondary" data-tooltip-trigger>Tab to me</button>
+      <div class="tooltip tooltip-top">Escape dismisses me; hovering me keeps me open</div>
+    `,setTimeout(()=>{var o;return(o=window.Aural)==null?void 0:o.initTooltips()},0),t}},d={render:()=>{const t=document.createElement("div");return t.style.cssText=`
       display: flex;
       gap: var(--space-3);
       flex-wrap: wrap;
       justify-content: center;
       padding: var(--space-8) var(--space-4);
-    `,[{pos:"top",label:"Top"},{pos:"bottom",label:"Bottom"},{pos:"left",label:"Left"},{pos:"right",label:"Right"}].forEach(({pos:o,label:a})=>{const s=document.createElement("button");s.className="btn btn-secondary",s.textContent=a,s.setAttribute("data-tooltip",`Tooltip on ${o}`),s.setAttribute("data-tooltip-position",o),t.appendChild(s)}),setTimeout(()=>{var o;(o=window.Aural)!=null&&o.initTooltips&&window.Aural.initTooltips()},0),t}},d={render:()=>{const t=document.createElement("div");return t.style.cssText=`
+    `,[{pos:"top",label:"Top"},{pos:"bottom",label:"Bottom"},{pos:"left",label:"Left"},{pos:"right",label:"Right"}].forEach(({pos:e,label:a})=>{const s=document.createElement("button");s.className="btn btn-secondary",s.textContent=a,s.setAttribute("data-tooltip",`Tooltip on ${e}`),s.setAttribute("data-tooltip-position",e),t.appendChild(s)}),setTimeout(()=>{var e;(e=window.Aural)!=null&&e.initTooltips&&window.Aural.initTooltips()},0),t}},u={render:()=>{const t=document.createElement("div");return t.style.cssText=`
       display: flex;
       gap: var(--space-3);
       flex-wrap: wrap;
       padding: var(--space-4);
-    `,[{color:"",label:"Default",text:"Default tooltip"},{color:"primary",label:"Primary",text:"Primary tooltip"},{color:"success",label:"Success",text:"Success message"},{color:"warning",label:"Warning",text:"Warning message"},{color:"error",label:"Error",text:"Error message"}].forEach(({color:o,label:a,text:s})=>{const n=document.createElement("button");n.className="btn btn-secondary",n.textContent=a,n.setAttribute("data-tooltip",s),o&&n.setAttribute("data-tooltip-color",o),t.appendChild(n)}),setTimeout(()=>{var o;(o=window.Aural)!=null&&o.initTooltips&&window.Aural.initTooltips()},0),t}},u={render:()=>{const t=document.createElement("div");return t.style.cssText=`
+    `,[{color:"",label:"Default",text:"Default tooltip"},{color:"primary",label:"Primary",text:"Primary tooltip"},{color:"success",label:"Success",text:"Success message"},{color:"warning",label:"Warning",text:"Warning message"},{color:"error",label:"Error",text:"Error message"}].forEach(({color:e,label:a,text:s})=>{const n=document.createElement("button");n.className="btn btn-secondary",n.textContent=a,n.setAttribute("data-tooltip",s),e&&n.setAttribute("data-tooltip-color",e),t.appendChild(n)}),setTimeout(()=>{var e;(e=window.Aural)!=null&&e.initTooltips&&window.Aural.initTooltips()},0),t}},m={render:()=>{const t=document.createElement("div");return t.style.cssText=`
       display: flex;
       gap: var(--space-3);
       flex-wrap: wrap;
       padding: var(--space-4);
       align-items: center;
-    `,[{size:"sm",label:"Small",text:"Small tooltip"},{size:"md",label:"Medium",text:"Default size tooltip"},{size:"lg",label:"Large",text:"Large tooltip with more content to display"}].forEach(({size:o,label:a,text:s})=>{const n=document.createElement("button");n.className="btn btn-secondary",n.textContent=a,n.setAttribute("data-tooltip",s),o!=="md"&&n.setAttribute("data-tooltip-size",o),t.appendChild(n)}),setTimeout(()=>{var o;(o=window.Aural)!=null&&o.initTooltips&&window.Aural.initTooltips()},0),t}},m={render:()=>{const t=document.createElement("div");return t.style.cssText=`
+    `,[{size:"sm",label:"Small",text:"Small tooltip"},{size:"md",label:"Medium",text:"Default size tooltip"},{size:"lg",label:"Large",text:"Large tooltip with more content to display"}].forEach(({size:e,label:a,text:s})=>{const n=document.createElement("button");n.className="btn btn-secondary",n.textContent=a,n.setAttribute("data-tooltip",s),e!=="md"&&n.setAttribute("data-tooltip-size",e),t.appendChild(n)}),setTimeout(()=>{var e;(e=window.Aural)!=null&&e.initTooltips&&window.Aural.initTooltips()},0),t}},b={render:()=>{const t=document.createElement("div");return t.style.cssText=`
       display: flex;
       gap: var(--space-3);
       flex-wrap: wrap;
       padding: var(--space-4);
-    `,[{icon:"✏",tooltip:"Edit item",label:"Edit"},{icon:"🗑",tooltip:"Delete item",label:"Delete"},{icon:"↗",tooltip:"Share with others",label:"Share"},{icon:"♥",tooltip:"Add to favorites",label:"Favorite"}].forEach(({icon:o,tooltip:a,label:s})=>{const n=document.createElement("button");n.className="btn btn-ghost btn-icon",n.setAttribute("data-tooltip",a),n.setAttribute("aria-label",s),n.textContent=o,t.appendChild(n)}),setTimeout(()=>{var o;(o=window.Aural)!=null&&o.initTooltips&&window.Aural.initTooltips()},0),t}},b={render:()=>{const t=document.createElement("div");return t.style.cssText=`
+    `,[{icon:"✏",tooltip:"Edit item",label:"Edit"},{icon:"🗑",tooltip:"Delete item",label:"Delete"},{icon:"↗",tooltip:"Share with others",label:"Share"},{icon:"♥",tooltip:"Add to favorites",label:"Favorite"}].forEach(({icon:e,tooltip:a,label:s})=>{const n=document.createElement("button");n.className="btn btn-ghost btn-icon",n.setAttribute("data-tooltip",a),n.setAttribute("aria-label",s),n.textContent=e,t.appendChild(n)}),setTimeout(()=>{var e;(e=window.Aural)!=null&&e.initTooltips&&window.Aural.initTooltips()},0),t}},f={render:()=>{const t=document.createElement("div");return t.style.cssText=`
       display: flex;
       flex-direction: column;
       gap: var(--space-4);
       padding: var(--space-4);
       max-width: 400px;
-    `,[{id:"username",label:"Username",tooltip:"Your unique username for login"},{id:"password",label:"Password",tooltip:"Must be at least 8 characters"},{id:"email",label:"Email",tooltip:"We will send confirmation to this address"}].forEach(({id:o,label:a,tooltip:s})=>{const n=document.createElement("div");n.style.cssText=`
+    `,[{id:"username",label:"Username",tooltip:"Your unique username for login"},{id:"password",label:"Password",tooltip:"Must be at least 8 characters"},{id:"email",label:"Email",tooltip:"We will send confirmation to this address"}].forEach(({id:e,label:a,tooltip:s})=>{const n=document.createElement("div");n.style.cssText=`
         display: flex;
         align-items: center;
         gap: var(--space-2);
-      `;const l=document.createElement("label");l.htmlFor=o,l.textContent=a,l.style.fontWeight="var(--font-medium)";const i=document.createElement("button");i.className="btn btn-ghost btn-icon btn-sm",i.setAttribute("data-tooltip",s),i.setAttribute("data-tooltip-position","right"),i.setAttribute("aria-label",`Help for ${a}`),i.textContent="?",i.style.cssText=`
+      `;const r=document.createElement("label");r.htmlFor=e,r.textContent=a,r.style.fontWeight="var(--font-medium)";const i=document.createElement("button");i.className="btn btn-ghost btn-icon btn-sm",i.setAttribute("data-tooltip",s),i.setAttribute("data-tooltip-position","right"),i.setAttribute("aria-label",`Help for ${a}`),i.textContent="?",i.style.cssText=`
         width: 20px;
         height: 20px;
         padding: 0;
         font-size: 12px;
         border-radius: 50%;
         opacity: 0.7;
-      `,n.appendChild(l),n.appendChild(i),t.appendChild(n)}),setTimeout(()=>{var o;(o=window.Aural)!=null&&o.initTooltips&&window.Aural.initTooltips()},0),t}},f={render:()=>{const t=document.createElement("div");return t.style.cssText=`
+      `,n.appendChild(r),n.appendChild(i),t.appendChild(n)}),setTimeout(()=>{var e;(e=window.Aural)!=null&&e.initTooltips&&window.Aural.initTooltips()},0),t}},h={render:()=>{const t=document.createElement("div");return t.style.cssText=`
       display: flex;
       gap: var(--space-4);
       flex-wrap: wrap;
       padding: var(--space-4);
-    `,[{name:"API Server",status:"operational",color:"var(--color-success)",tooltip:"Service is operational",tooltipColor:"success"},{name:"Database",status:"degraded",color:"var(--color-warning)",tooltip:"Degraded performance",tooltipColor:"warning"},{name:"Cache Server",status:"offline",color:"var(--color-error)",tooltip:"Service offline",tooltipColor:"error"}].forEach(({name:o,status:a,color:s,tooltip:n,tooltipColor:l})=>{const i=document.createElement("div");i.style.cssText=`
+    `,[{name:"API Server",status:"operational",color:"var(--color-success)",tooltip:"Service is operational",tooltipColor:"success"},{name:"Database",status:"degraded",color:"var(--color-warning)",tooltip:"Degraded performance",tooltipColor:"warning"},{name:"Cache Server",status:"offline",color:"var(--color-error)",tooltip:"Service offline",tooltipColor:"error"}].forEach(({name:e,status:a,color:s,tooltip:n,tooltipColor:r})=>{const i=document.createElement("div");i.style.cssText=`
         display: flex;
         align-items: center;
         gap: var(--space-2);
-      `;const r=document.createElement("span");r.style.cssText=`
+      `;const l=document.createElement("span");l.style.cssText=`
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background: ${s};
-      `,r.setAttribute("data-tooltip",n),r.setAttribute("data-tooltip-color",l),r.setAttribute("role","status"),r.setAttribute("aria-label",a);const x=document.createElement("span");x.textContent=o,i.appendChild(r),i.appendChild(x),t.appendChild(i)}),setTimeout(()=>{var o;(o=window.Aural)!=null&&o.initTooltips&&window.Aural.initTooltips()},0),t}},g={render:()=>{const t=document.createElement("div");t.style.cssText=`
+      `,l.setAttribute("data-tooltip",n),l.setAttribute("data-tooltip-color",r),l.setAttribute("role","status"),l.setAttribute("aria-label",a);const x=document.createElement("span");x.textContent=e,i.appendChild(l),i.appendChild(x),t.appendChild(i)}),setTimeout(()=>{var e;(e=window.Aural)!=null&&e.initTooltips&&window.Aural.initTooltips()},0),t}},g={render:()=>{const t=document.createElement("div");t.style.cssText=`
       padding: var(--space-4);
-    `;const e=document.createElement("div");return e.style.cssText=`
+    `;const o=document.createElement("div");return o.style.cssText=`
       display: flex;
       gap: var(--space-2);
       padding: var(--space-2);
       background: var(--color-bg-tertiary);
       border-radius: var(--radius-md);
       width: fit-content;
-    `,e.setAttribute("role","toolbar"),e.setAttribute("aria-label","Text formatting"),[{icon:"B",tooltip:"Bold",label:"Bold"},{icon:"I",tooltip:"Italic",label:"Italic"},{icon:"U",tooltip:"Underline",label:"Underline"},{icon:"≡",tooltip:"Align left",label:"Align left"},{icon:"≣",tooltip:"Align center",label:"Align center"},{icon:"≡",tooltip:"Align right",label:"Align right"}].forEach(({icon:a,tooltip:s,label:n},l)=>{if(l===3){const r=document.createElement("div");r.style.cssText=`
+    `,o.setAttribute("role","toolbar"),o.setAttribute("aria-label","Text formatting"),[{icon:"B",tooltip:"Bold",label:"Bold"},{icon:"I",tooltip:"Italic",label:"Italic"},{icon:"U",tooltip:"Underline",label:"Underline"},{icon:"≡",tooltip:"Align left",label:"Align left"},{icon:"≣",tooltip:"Align center",label:"Align center"},{icon:"≡",tooltip:"Align right",label:"Align right"}].forEach(({icon:a,tooltip:s,label:n},r)=>{if(r===3){const l=document.createElement("div");l.style.cssText=`
           width: 1px;
           background: var(--color-border);
           margin: 0 var(--space-2);
-        `,e.appendChild(r)}const i=document.createElement("button");i.className="btn btn-ghost btn-icon btn-sm",i.setAttribute("data-tooltip",s),i.setAttribute("aria-label",n),i.textContent=a,i.style.fontWeight=l<3?"bold":"normal",i.style.fontStyle=l===1?"italic":"normal",i.style.textDecoration=l===2?"underline":"none",e.appendChild(i)}),t.appendChild(e),setTimeout(()=>{var a;(a=window.Aural)!=null&&a.initTooltips&&window.Aural.initTooltips()},0),t}},h={render:t=>Y(()=>{const e=document.createElement("button");return e.className="btn btn-secondary",e.textContent=t.label||"Hover me",e.setAttribute("data-tooltip",t.text||"This is a helpful tooltip"),t.position&&t.position!=="top"&&e.setAttribute("data-tooltip-position",t.position),t.color&&t.color!=="default"&&e.setAttribute("data-tooltip-color",t.color),t.size&&t.size!=="md"&&e.setAttribute("data-tooltip-size",t.size),setTimeout(()=>{var o;(o=window.Aural)!=null&&o.initTooltips&&window.Aural.initTooltips()},0),e}),args:{text:"Helpful tooltip",position:"top",color:"default",size:"md",label:"Hover me"},argTypes:{text:{control:"text",description:"Tooltip text content"},position:{control:"select",options:["top","bottom","left","right"],description:"Tooltip position"},color:{control:"select",options:["default","primary","success","warning","error"],description:"Tooltip color variant"},size:{control:"select",options:["sm","md","lg"],description:"Tooltip size"},label:{control:"text",description:"Button label"}}};var w,v,T;c.parameters={...c.parameters,docs:{...(w=c.parameters)==null?void 0:w.docs,source:{originalSource:`{
+        `,o.appendChild(l)}const i=document.createElement("button");i.className="btn btn-ghost btn-icon btn-sm",i.setAttribute("data-tooltip",s),i.setAttribute("aria-label",n),i.textContent=a,i.style.fontWeight=r<3?"bold":"normal",i.style.fontStyle=r===1?"italic":"normal",i.style.textDecoration=r===2?"underline":"none",o.appendChild(i)}),t.appendChild(o),setTimeout(()=>{var a;(a=window.Aural)!=null&&a.initTooltips&&window.Aural.initTooltips()},0),t}},w={render:t=>X(()=>{const o=document.createElement("button");return o.className="btn btn-secondary",o.textContent=t.label||"Hover me",o.setAttribute("data-tooltip",t.text||"This is a helpful tooltip"),t.position&&t.position!=="top"&&o.setAttribute("data-tooltip-position",t.position),t.color&&t.color!=="default"&&o.setAttribute("data-tooltip-color",t.color),t.size&&t.size!=="md"&&o.setAttribute("data-tooltip-size",t.size),setTimeout(()=>{var e;(e=window.Aural)!=null&&e.initTooltips&&window.Aural.initTooltips()},0),o}),args:{text:"Helpful tooltip",position:"top",color:"default",size:"md",label:"Hover me"},argTypes:{text:{control:"text",description:"Tooltip text content"},position:{control:"select",options:["top","bottom","left","right"],description:"Tooltip position"},color:{control:"select",options:["default","primary","success","warning","error"],description:"Tooltip color variant"},size:{control:"select",options:["sm","md","lg"],description:"Tooltip size"},label:{control:"text",description:"Button label"}}};var v,T,y;c.parameters={...c.parameters,docs:{...(v=c.parameters)==null?void 0:v.docs,source:{originalSource:`{
   render: args => {
     const button = document.createElement('button');
     button.className = 'btn btn-secondary';
@@ -404,7 +409,25 @@ onMounted(() => {
     size: 'md',
     label: 'Hover me'
   }
-}`,...(T=(v=c.parameters)==null?void 0:v.docs)==null?void 0:T.source}}};var y,A,E;p.parameters={...p.parameters,docs:{...(y=p.parameters)==null?void 0:y.docs,source:{originalSource:`{
+}`,...(y=(T=c.parameters)==null?void 0:T.docs)==null?void 0:y.source}}};var A,E,C;p.parameters={...p.parameters,docs:{...(A=p.parameters)==null?void 0:A.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: 'Wrapper markup wired by \`Aural.initTooltips()\`: focus the button with Tab to show the tooltip, press Escape to dismiss it, or hover the tooltip itself to keep it open. The trigger gets \`aria-describedby\` automatically.'
+      }
+    }
+  },
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'tooltip-wrapper';
+    wrapper.innerHTML = \`
+      <button class="btn btn-secondary" data-tooltip-trigger>Tab to me</button>
+      <div class="tooltip tooltip-top">Escape dismisses me; hovering me keeps me open</div>
+    \`;
+    setTimeout(() => window.Aural?.initTooltips(), 0);
+    return wrapper;
+  }
+}`,...(C=(E=p.parameters)==null?void 0:E.docs)==null?void 0:C.source}}};var z,S,I;d.parameters={...d.parameters,docs:{...(z=d.parameters)==null?void 0:z.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.cssText = \`
@@ -447,7 +470,7 @@ onMounted(() => {
     }, 0);
     return container;
   }
-}`,...(E=(A=p.parameters)==null?void 0:A.docs)==null?void 0:E.source}}};var C,z,S;d.parameters={...d.parameters,docs:{...(C=d.parameters)==null?void 0:C.docs,source:{originalSource:`{
+}`,...(I=(S=d.parameters)==null?void 0:S.docs)==null?void 0:I.source}}};var N,k,B;u.parameters={...u.parameters,docs:{...(N=u.parameters)==null?void 0:N.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.cssText = \`
@@ -500,7 +523,7 @@ onMounted(() => {
     }, 0);
     return container;
   }
-}`,...(S=(z=d.parameters)==null?void 0:z.docs)==null?void 0:S.source}}};var I,N,B;u.parameters={...u.parameters,docs:{...(I=u.parameters)==null?void 0:I.docs,source:{originalSource:`{
+}`,...(B=(k=u.parameters)==null?void 0:k.docs)==null?void 0:B.source}}};var D,U,H;m.parameters={...m.parameters,docs:{...(D=m.parameters)==null?void 0:D.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.cssText = \`
@@ -546,7 +569,7 @@ onMounted(() => {
     }, 0);
     return container;
   }
-}`,...(B=(N=u.parameters)==null?void 0:N.docs)==null?void 0:B.source}}};var D,U,k;m.parameters={...m.parameters,docs:{...(D=m.parameters)==null?void 0:D.docs,source:{originalSource:`{
+}`,...(H=(U=m.parameters)==null?void 0:U.docs)==null?void 0:H.source}}};var P,M,F;b.parameters={...b.parameters,docs:{...(P=b.parameters)==null?void 0:P.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.cssText = \`
@@ -595,7 +618,7 @@ onMounted(() => {
     }, 0);
     return container;
   }
-}`,...(k=(U=m.parameters)==null?void 0:U.docs)==null?void 0:k.source}}};var H,P,M;b.parameters={...b.parameters,docs:{...(H=b.parameters)==null?void 0:H.docs,source:{originalSource:`{
+}`,...(F=(M=b.parameters)==null?void 0:M.docs)==null?void 0:F.source}}};var W,L,O;f.parameters={...f.parameters,docs:{...(W=f.parameters)==null?void 0:W.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.cssText = \`
@@ -660,7 +683,7 @@ onMounted(() => {
     }, 0);
     return container;
   }
-}`,...(M=(P=b.parameters)==null?void 0:P.docs)==null?void 0:M.source}}};var F,W,L;f.parameters={...f.parameters,docs:{...(F=f.parameters)==null?void 0:F.docs,source:{originalSource:`{
+}`,...(O=(L=f.parameters)==null?void 0:L.docs)==null?void 0:O.source}}};var q,G,R;h.parameters={...h.parameters,docs:{...(q=h.parameters)==null?void 0:q.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.cssText = \`
@@ -727,7 +750,7 @@ onMounted(() => {
     }, 0);
     return container;
   }
-}`,...(L=(W=f.parameters)==null?void 0:W.docs)==null?void 0:L.source}}};var q,O,G;g.parameters={...g.parameters,docs:{...(q=g.parameters)==null?void 0:q.docs,source:{originalSource:`{
+}`,...(R=(G=h.parameters)==null?void 0:G.docs)==null?void 0:R.source}}};var $,j,Y;g.parameters={...g.parameters,docs:{...($=g.parameters)==null?void 0:$.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.cssText = \`
@@ -804,7 +827,7 @@ onMounted(() => {
     }, 0);
     return container;
   }
-}`,...(G=(O=g.parameters)==null?void 0:O.docs)==null?void 0:G.source}}};var R,$,j;h.parameters={...h.parameters,docs:{...(R=h.parameters)==null?void 0:R.docs,source:{originalSource:`{
+}`,...(Y=(j=g.parameters)==null?void 0:j.docs)==null?void 0:Y.source}}};var K,J,V;w.parameters={...w.parameters,docs:{...(K=w.parameters)==null?void 0:K.docs,source:{originalSource:`{
   render: args => {
     return createThemeGrid(() => {
       const button = document.createElement('button');
@@ -862,4 +885,4 @@ onMounted(() => {
       description: 'Button label'
     }
   }
-}`,...(j=($=h.parameters)==null?void 0:$.docs)==null?void 0:j.source}}};const V=["Default","Positions","Colors","Sizes","IconButtons","HelpIcons","StatusIndicators","Toolbar","ThemeComparison"];export{d as Colors,c as Default,b as HelpIcons,m as IconButtons,p as Positions,u as Sizes,f as StatusIndicators,h as ThemeComparison,g as Toolbar,V as __namedExportsOrder,K as default};
+}`,...(V=(J=w.parameters)==null?void 0:J.docs)==null?void 0:V.source}}};const Z=["Default","KeyboardAccessible","Positions","Colors","Sizes","IconButtons","HelpIcons","StatusIndicators","Toolbar","ThemeComparison"];export{u as Colors,c as Default,f as HelpIcons,b as IconButtons,p as KeyboardAccessible,d as Positions,m as Sizes,h as StatusIndicators,w as ThemeComparison,g as Toolbar,Z as __namedExportsOrder,Q as default};

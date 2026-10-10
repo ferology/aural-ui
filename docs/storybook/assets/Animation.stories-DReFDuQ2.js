@@ -1,4 +1,4 @@
-function E(){if(document.getElementById("aural-animation-tokens"))return;const a=document.createElement("style");a.id="aural-animation-tokens",a.textContent=`
+function z(){if(document.getElementById("aural-animation-tokens"))return;const s=document.createElement("style");s.id="aural-animation-tokens",s.textContent=`
     :root {
       /* Durations */
       --duration-instant:  0ms;
@@ -29,7 +29,7 @@ function E(){if(document.getElementById("aural-animation-tokens"))return;const a
       --transition-transform:   transform var(--duration-fast)   var(--ease-in-out);
       --transition-opacity:     opacity   var(--duration-normal) var(--ease-in-out);
     }
-  `,document.head.appendChild(a)}const m="#4da77a",T="#18181f",k="#222230",q={title:"Design System/Animation & Transitions",parameters:{docs:{description:{component:`
+  `,document.head.appendChild(s)}const h="#4da77a",k="#5ebd8f",$="#18181f",C="#222230",J={title:"Design System/Animation & Transitions",parameters:{docs:{description:{component:`
 # Animation & Transitions
 
 Aural UI ships a complete set of **motion design tokens** — CSS custom properties for durations and easing curves. Every animated component uses these tokens, so you get consistent, theme-aware motion across the entire system.
@@ -57,17 +57,17 @@ All tokens are available as Figma Variables in the \`Aural/Animation\` collectio
 - \`easing/*\` — **STRING** variables (cubic-bezier expressions)
 
 These can be inspected in the Variables panel and referenced in your design specs.
-        `.trim()}},layout:"fullscreen"}},$={parameters:{docs:{description:{story:"Click **▶ Play** to watch each easing curve animate a ball across the track. Notice how acceleration differs: ease-out starts fast and decelerates, ease-in-out has a smooth ramp, and spring/bounce overshoot slightly before settling."}}},render:()=>{E();const a=[{name:"linear",token:"--ease-linear",curve:"linear",desc:"Constant speed. Use for spinners, looping animations."},{name:"ease-in",token:"--ease-in",curve:"cubic-bezier(0.4, 0, 1, 1)",desc:"Starts slow, ends fast. Use for elements leaving the screen."},{name:"ease-out",token:"--ease-out",curve:"cubic-bezier(0, 0, 0.2, 1)",desc:"Starts fast, ends slow. Use for elements entering the screen."},{name:"ease-in-out",token:"--ease-in-out",curve:"cubic-bezier(0.4, 0, 0.2, 1)",desc:"Smooth ramp both ways. Default for most UI interactions."},{name:"bounce",token:"--ease-bounce",curve:"cubic-bezier(0.68, -0.55, 0.265, 1.55)",desc:"Overshoots and bounces back. Use for playful confirmations."},{name:"spring",token:"--ease-spring",curve:"cubic-bezier(0.175, 0.885, 0.32, 1.275)",desc:"Organic snap. Use for modals, drawers, or emphasis."}],r=document.createElement("div");r.style.cssText=`
+        `.trim()}},layout:"fullscreen"}},B={parameters:{docs:{description:{story:"Click **▶ Play** to watch each easing curve animate a ball across the track. Notice how acceleration differs: ease-out starts fast and decelerates, ease-in-out has a smooth ramp, and spring/bounce overshoot slightly before settling."}}},render:()=>{z();const s=[{name:"linear",token:"--ease-linear",curve:"linear",desc:"Constant speed. Use for spinners, looping animations."},{name:"ease-in",token:"--ease-in",curve:"cubic-bezier(0.4, 0, 1, 1)",desc:"Starts slow, ends fast. Use for elements leaving the screen."},{name:"ease-out",token:"--ease-out",curve:"cubic-bezier(0, 0, 0.2, 1)",desc:"Starts fast, ends slow. Use for elements entering the screen."},{name:"ease-in-out",token:"--ease-in-out",curve:"cubic-bezier(0.4, 0, 0.2, 1)",desc:"Smooth ramp both ways. Default for most UI interactions."},{name:"bounce",token:"--ease-bounce",curve:"cubic-bezier(0.68, -0.55, 0.265, 1.55)",desc:"Overshoots and bounces back. Use for playful confirmations."},{name:"spring",token:"--ease-spring",curve:"cubic-bezier(0.175, 0.885, 0.32, 1.275)",desc:"Organic snap. Use for modals, drawers, or emphasis."}],r=document.createElement("div");r.style.cssText=`
       font-family: Inter, system-ui, sans-serif;
-      background: ${T};
+      background: ${$};
       min-height: 100vh;
       padding: 2.5rem;
       color: #f0f0f5;
     `;const c=document.createElement("div");c.innerHTML=`
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Easing Functions</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Click ▶ Play on any row to see it in action</p>
-    `,r.appendChild(c);const l=document.createElement("div");return l.style.cssText="display:flex;flex-direction:column;gap:1rem;",a.forEach(({name:p,token:g,curve:t,desc:n})=>{const e=document.createElement("div");e.style.cssText=`
-        background: ${k};
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Click ▶ Play on any row to see it in action</p>
+    `,r.appendChild(c);const i=document.createElement("div");return i.style.cssText="display:flex;flex-direction:column;gap:1rem;",s.forEach(({name:m,token:u,curve:o,desc:n})=>{const e=document.createElement("div");e.style.cssText=`
+        background: ${C};
         border: 1px solid rgba(255,255,255,0.07);
         border-radius: 12px;
         padding: 1.25rem 1.5rem;
@@ -75,10 +75,10 @@ These can be inspected in the Variables panel and referenced in your design spec
         grid-template-columns: 160px 1fr auto;
         align-items: center;
         gap: 1.5rem;
-      `;const s=document.createElement("div");s.innerHTML=`
-        <div style="font-weight:600;font-size:0.9rem;margin-bottom:3px">${p}</div>
-        <code style="font-size:0.72rem;color:#8888a0;word-break:break-all">${g}</code>
-      `;const o=document.createElement("div");o.style.cssText="display:flex;flex-direction:column;gap:8px;";const i=document.createElement("div");i.style.cssText=`
+      `;const a=document.createElement("div");a.innerHTML=`
+        <div style="font-weight:600;font-size:0.9rem;margin-bottom:3px">${m}</div>
+        <code style="font-size:0.72rem;color:#a0a0b8;word-break:break-all">${u}</code>
+      `;const t=document.createElement("div");t.style.cssText="display:flex;flex-direction:column;gap:8px;";const l=document.createElement("div");l.style.cssText=`
         position:relative;
         height:36px;
         background:rgba(255,255,255,0.04);
@@ -92,13 +92,13 @@ These can be inspected in the Variables panel and referenced in your design spec
         transform:translateY(-50%);
         width:24px;height:24px;
         border-radius:50%;
-        background:${m};
-        box-shadow:0 0 12px ${m}88;
-        transition:left 300ms ${t};
+        background:${h};
+        box-shadow:0 0 12px ${h}88;
+        transition:left 300ms ${o};
         will-change:left;
-      `,i.appendChild(d);const h=document.createElement("p");h.style.cssText="font-size:0.78rem;color:#8888a0;margin:0;",h.textContent=n,o.appendChild(i),o.appendChild(h);const u=document.createElement("button");u.textContent="▶ Play",u.style.cssText=`
+      `,l.appendChild(d);const f=document.createElement("p");f.style.cssText="font-size:0.78rem;color:#a0a0b8;margin:0;",f.textContent=n,t.appendChild(l),t.appendChild(f);const p=document.createElement("button");p.textContent="▶ Play",p.style.cssText=`
         background:rgba(77,167,122,0.15);
-        color:${m};
+        color:${k};
         border:1px solid rgba(77,167,122,0.3);
         border-radius:8px;
         padding:6px 14px;
@@ -107,28 +107,28 @@ These can be inspected in the Variables panel and referenced in your design spec
         cursor:pointer;
         transition:background 150ms ease-in-out;
         white-space:nowrap;
-      `;let f=!1;const b=700;u.addEventListener("click",()=>{if(f)return;f=!0,u.textContent="● Playing",u.style.color="#f0f0f5",d.style.transition=`left ${b}ms ${t}`;const x=i.offsetWidth;d.style.left=`${x-30}px`,setTimeout(()=>{d.style.transition=`left ${b}ms ${t}`,d.style.left="6px",setTimeout(()=>{f=!1,u.textContent="▶ Play",u.style.color=m},b+50)},b+100)}),e.appendChild(s),e.appendChild(o),e.appendChild(u),l.appendChild(e)}),r.appendChild(l),r}},A={parameters:{docs:{description:{story:"All six duration tokens side-by-side. Press **▶ Play All** to see them animate simultaneously — the relative difference in speed becomes immediately clear."}}},render:()=>{E();const a=[{name:"instant",token:"--duration-instant",ms:0,use:"State changes with no perceived motion (toggles, focus rings)"},{name:"fast",token:"--duration-fast",ms:150,use:"Micro-interactions: hover, focus, button press"},{name:"normal",token:"--duration-normal",ms:300,use:"Standard UI transitions: menus, tooltips, modals appearing"},{name:"slow",token:"--duration-slow",ms:500,use:"Large layout shifts: drawers, page transitions"},{name:"slower",token:"--duration-slower",ms:750,use:"Emphasis animations: onboarding, celebrations"},{name:"slowest",token:"--duration-slowest",ms:1e3,use:"Skeleton loaders, looping background animations"}],r=document.createElement("div");r.style.cssText=`
+      `;let b=!1;const g=700;p.addEventListener("click",()=>{if(b)return;b=!0,p.textContent="● Playing",p.style.color="#f0f0f5",d.style.transition=`left ${g}ms ${o}`;const y=l.offsetWidth;d.style.left=`${y-30}px`,setTimeout(()=>{d.style.transition=`left ${g}ms ${o}`,d.style.left="6px",setTimeout(()=>{b=!1,p.textContent="▶ Play",p.style.color=k},g+50)},g+100)}),e.appendChild(a),e.appendChild(t),e.appendChild(p),i.appendChild(e)}),r.appendChild(i),r}},S={parameters:{docs:{description:{story:"All six duration tokens side-by-side. Press **▶ Play All** to see them animate simultaneously — the relative difference in speed becomes immediately clear."}}},render:()=>{z();const s=[{name:"instant",token:"--duration-instant",ms:0,use:"State changes with no perceived motion (toggles, focus rings)"},{name:"fast",token:"--duration-fast",ms:150,use:"Micro-interactions: hover, focus, button press"},{name:"normal",token:"--duration-normal",ms:300,use:"Standard UI transitions: menus, tooltips, modals appearing"},{name:"slow",token:"--duration-slow",ms:500,use:"Large layout shifts: drawers, page transitions"},{name:"slower",token:"--duration-slower",ms:750,use:"Emphasis animations: onboarding, celebrations"},{name:"slowest",token:"--duration-slowest",ms:1e3,use:"Skeleton loaders, looping background animations"}],r=document.createElement("div");r.style.cssText=`
       font-family: Inter, system-ui, sans-serif;
-      background: ${T};
+      background: ${$};
       min-height: 100vh;
       padding: 2.5rem;
       color: #f0f0f5;
     `;const c=document.createElement("div");c.style.cssText="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;",c.innerHTML=`
       <div>
         <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Duration Scale</h2>
-        <p style="color:#8888a0;font-size:0.875rem;margin:0">Six steps from instant to 1 second</p>
+        <p style="color:#a0a0b8;font-size:0.875rem;margin:0">Six steps from instant to 1 second</p>
       </div>
-    `;const l=document.createElement("button");l.textContent="▶ Play All",l.style.cssText=`
-      background:${m};
-      color:#fff;
+    `;const i=document.createElement("button");i.textContent="▶ Play All",i.style.cssText=`
+      background:${h};
+      color:#0f0f1a;
       border:none;
       border-radius:8px;
       padding:10px 20px;
       font-size:0.875rem;
       font-weight:600;
       cursor:pointer;
-    `,c.appendChild(l),r.appendChild(c);const p=[],g=document.createElement("div");g.style.cssText="display:flex;flex-direction:column;gap:0.875rem;",a.forEach(({name:n,token:e,ms:s,use:o})=>{const i=document.createElement("div");i.style.cssText=`
-        background: ${k};
+    `,c.appendChild(i),r.appendChild(c);const m=[],u=document.createElement("div");u.style.cssText="display:flex;flex-direction:column;gap:0.875rem;",s.forEach(({name:n,token:e,ms:a,use:t})=>{const l=document.createElement("div");l.style.cssText=`
+        background: ${C};
         border: 1px solid rgba(255,255,255,0.07);
         border-radius: 12px;
         padding: 1rem 1.5rem;
@@ -137,41 +137,41 @@ These can be inspected in the Variables panel and referenced in your design spec
         align-items: center;
         gap: 1.5rem;
       `;const d=document.createElement("div");d.innerHTML=`
-        <div style="font-weight:600;font-size:0.9rem">${n} <span style="color:#8888a0;font-weight:400;font-size:0.8rem">${s}ms</span></div>
+        <div style="font-weight:600;font-size:0.9rem">${n} <span style="color:#a0a0b8;font-weight:400;font-size:0.8rem">${a}ms</span></div>
         <code style="font-size:0.72rem;color:#8888a0">${e}</code>
-      `;const h=document.createElement("div");h.style.cssText="display:flex;flex-direction:column;gap:6px;";const u=document.createElement("div");u.style.cssText=`
+      `;const f=document.createElement("div");f.style.cssText="display:flex;flex-direction:column;gap:6px;";const p=document.createElement("div");p.style.cssText=`
         position:relative;
         height:32px;
         background:rgba(255,255,255,0.04);
         border-radius:16px;
         border:1px solid rgba(255,255,255,0.06);
-      `;const f=document.createElement("div");f.style.cssText=`
+      `;const b=document.createElement("div");b.style.cssText=`
         position:absolute;
         top:50%;transform:translateY(-50%);
         left:6px;
         width:20px;height:20px;border-radius:50%;
-        background:${m};
-        transition:left ${s}ms var(--ease-in-out, cubic-bezier(0.4,0,0.2,1));
+        background:${h};
+        transition:left ${a}ms var(--ease-in-out, cubic-bezier(0.4,0,0.2,1));
         will-change:left;
-      `,u.appendChild(f),p.push(f);const b=document.createElement("p");b.style.cssText="font-size:0.75rem;color:#8888a0;margin:0;",b.textContent=o,h.appendChild(u),h.appendChild(b),i.appendChild(d),i.appendChild(h),g.appendChild(i)}),r.appendChild(g);let t=!1;return l.addEventListener("click",()=>{if(t)return;t=!0,l.textContent="● Running…";const n=g.querySelectorAll('div[style*="position:relative"]');p.forEach((s,o)=>{var d;const i=((d=n[o])==null?void 0:d.offsetWidth)??300;s.style.left=`${i-26}px`});const e=1e3;setTimeout(()=>{p.forEach(s=>{s.style.left="6px"}),setTimeout(()=>{t=!1,l.textContent="▶ Play All"},e+50)},e+100)}),r}},B={parameters:{docs:{description:{story:"These pre-built composite tokens combine duration + easing into a single variable. Hover or interact with each card to see the transition in action."}}},render:()=>{E();const a=[{token:"--transition-all-fast",value:"all 150ms ease-in-out",demo:"Hover me — all properties",prop:"all"},{token:"--transition-all-normal",value:"all 300ms ease-in-out",demo:"Hover me — all properties",prop:"all"},{token:"--transition-colors",value:"color, background, border 150ms",demo:"Hover me — colors only",prop:"colors"},{token:"--transition-transform",value:"transform 150ms ease-in-out",demo:"Hover me — transform",prop:"transform"},{token:"--transition-opacity",value:"opacity 300ms ease-in-out",demo:"Hover me — opacity",prop:"opacity"}],r=document.createElement("div");r.style.cssText=`
+      `,p.appendChild(b),m.push(b);const g=document.createElement("p");g.style.cssText="font-size:0.75rem;color:#a0a0b8;margin:0;",g.textContent=t,f.appendChild(p),f.appendChild(g),l.appendChild(d),l.appendChild(f),u.appendChild(l)}),r.appendChild(u);let o=!1;return i.addEventListener("click",()=>{if(o)return;o=!0,i.textContent="● Running…";const n=u.querySelectorAll('div[style*="position:relative"]');m.forEach((a,t)=>{var d;const l=((d=n[t])==null?void 0:d.offsetWidth)??300;a.style.left=`${l-26}px`});const e=1e3;setTimeout(()=>{m.forEach(a=>{a.style.left="6px"}),setTimeout(()=>{o=!1,i.textContent="▶ Play All"},e+50)},e+100)}),r}},R={parameters:{docs:{description:{story:"These pre-built composite tokens combine duration + easing into a single variable. Hover or interact with each card to see the transition in action."}}},render:()=>{z();const s=[{token:"--transition-all-fast",value:"all 150ms ease-in-out",demo:"Hover me — all properties",prop:"all"},{token:"--transition-all-normal",value:"all 300ms ease-in-out",demo:"Hover me — all properties",prop:"all"},{token:"--transition-colors",value:"color, background, border 150ms",demo:"Hover me — colors only",prop:"colors"},{token:"--transition-transform",value:"transform 150ms ease-in-out",demo:"Hover me — transform",prop:"transform"},{token:"--transition-opacity",value:"opacity 300ms ease-in-out",demo:"Hover me — opacity",prop:"opacity"}],r=document.createElement("div");r.style.cssText=`
       font-family: Inter, system-ui, sans-serif;
-      background: ${T};
+      background: ${$};
       min-height: 100vh;
       padding: 2.5rem;
       color: #f0f0f5;
     `,r.innerHTML=`
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Composite Transitions</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Ready-to-use shorthand tokens. Hover each card to see the transition.</p>
-    `;const c=document.createElement("div");return c.style.cssText="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;",a.forEach(({token:l,value:p,demo:g,prop:t})=>{const n=document.createElement("div");n.style.cssText=`
-        background: ${k};
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Ready-to-use shorthand tokens. Hover each card to see the transition.</p>
+    `;const c=document.createElement("div");return c.style.cssText="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;",s.forEach(({token:i,value:m,demo:u,prop:o})=>{const n=document.createElement("div");n.style.cssText=`
+        background: ${C};
         border: 1px solid rgba(255,255,255,0.07);
         border-radius: 12px;
         padding: 1.5rem;
         cursor: pointer;
         user-select: none;
-      `;const e=document.createElement("div");t==="all"||t==="colors"?(e.style.cssText=`
+      `;const e=document.createElement("div");o==="all"||o==="colors"?(e.style.cssText=`
           background: rgba(77,167,122,0.15);
-          color: ${m};
+          color: ${k};
           border: 1px solid rgba(77,167,122,0.3);
           border-radius: 8px;
           padding: 12px 16px;
@@ -179,10 +179,10 @@ These can be inspected in the Variables panel and referenced in your design spec
           font-weight: 600;
           font-size: 0.875rem;
           margin-bottom: 1rem;
-          transition: ${l==="--transition-all-fast"?"all 150ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))":l==="--transition-all-normal"?"all 300ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))":"color 150ms, background-color 150ms, border-color 150ms"};
-        `,e.textContent=g,n.addEventListener("mouseenter",()=>{e.style.background=m,e.style.color="#fff",e.style.borderColor=m,t==="all"&&(e.style.borderRadius="16px")}),n.addEventListener("mouseleave",()=>{e.style.background="rgba(77,167,122,0.15)",e.style.color=m,e.style.borderColor="rgba(77,167,122,0.3)",t==="all"&&(e.style.borderRadius="8px")})):t==="transform"?(e.style.cssText=`
+          transition: ${i==="--transition-all-fast"?"all 150ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))":i==="--transition-all-normal"?"all 300ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))":"color 150ms, background-color 150ms, border-color 150ms"};
+        `,e.textContent=u,n.addEventListener("mouseenter",()=>{e.style.background=h,e.style.color="#fff",e.style.borderColor=h,o==="all"&&(e.style.borderRadius="16px")}),n.addEventListener("mouseleave",()=>{e.style.background="rgba(77,167,122,0.15)",e.style.color=k,e.style.borderColor="rgba(77,167,122,0.3)",o==="all"&&(e.style.borderRadius="8px")})):o==="transform"?(e.style.cssText=`
           background: rgba(77,167,122,0.15);
-          color: ${m};
+          color: ${k};
           border-radius: 8px;
           padding: 12px 16px;
           text-align: center;
@@ -192,9 +192,9 @@ These can be inspected in the Variables panel and referenced in your design spec
           transition: transform 150ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1));
           display: inline-block;
           width: 100%;
-        `,e.textContent=g,n.addEventListener("mouseenter",()=>{e.style.transform="translateY(-4px) scale(1.02)"}),n.addEventListener("mouseleave",()=>{e.style.transform=""})):t==="opacity"&&(e.style.cssText=`
+        `,e.textContent=u,n.addEventListener("mouseenter",()=>{e.style.transform="translateY(-4px) scale(1.02)"}),n.addEventListener("mouseleave",()=>{e.style.transform=""})):o==="opacity"&&(e.style.cssText=`
           background: rgba(77,167,122,0.15);
-          color: ${m};
+          color: ${k};
           border-radius: 8px;
           padding: 12px 16px;
           text-align: center;
@@ -204,10 +204,10 @@ These can be inspected in the Variables panel and referenced in your design spec
           transition: opacity 300ms var(--ease-in-out,cubic-bezier(0.4,0,0.2,1));
           opacity: 1;
           width: 100%;
-        `,e.textContent=g,n.addEventListener("mouseenter",()=>{e.style.opacity="0.3"}),n.addEventListener("mouseleave",()=>{e.style.opacity="1"}));const s=document.createElement("div");s.innerHTML=`
-        <code style="display:block;font-size:0.8rem;color:${m};margin-bottom:4px">${l}</code>
-        <span style="font-size:0.75rem;color:#8888a0">${p}</span>
-      `;const o=document.createElement("pre");o.style.cssText=`
+        `,e.textContent=u,n.addEventListener("mouseenter",()=>{e.style.opacity="0.3"}),n.addEventListener("mouseleave",()=>{e.style.opacity="1"}));const a=document.createElement("div");a.innerHTML=`
+        <code style="display:block;font-size:0.8rem;color:${k};margin-bottom:4px">${i}</code>
+        <span style="font-size:0.75rem;color:#8888a0">${m}</span>
+      `;const t=document.createElement("pre");t.tabIndex=0,t.setAttribute("role","region"),t.setAttribute("aria-label",`CSS usage for ${i}`),t.style.cssText=`
         background: rgba(0,0,0,0.3);
         border-radius: 6px;
         padding: 10px 12px;
@@ -216,26 +216,26 @@ These can be inspected in the Variables panel and referenced in your design spec
         margin: 0.75rem 0 0;
         overflow-x: auto;
         line-height: 1.5;
-      `,o.textContent=`.my-element {
-  transition: var(${l});
-}`,n.appendChild(e),n.appendChild(s),n.appendChild(o),c.appendChild(n)}),r.appendChild(c),r}},S={parameters:{docs:{description:{story:"Build your own transition by selecting a duration and easing function. The live preview shows the result immediately, and the generated CSS token combination is shown below."}}},render:()=>{E();const a=document.createElement("div");a.style.cssText=`
+      `,t.textContent=`.my-element {
+  transition: var(${i});
+}`,n.appendChild(e),n.appendChild(a),n.appendChild(t),c.appendChild(n)}),r.appendChild(c),r}},L={parameters:{docs:{description:{story:"Build your own transition by selecting a duration and easing function. The live preview shows the result immediately, and the generated CSS token combination is shown below."}}},render:()=>{z();const s=document.createElement("div");s.style.cssText=`
       font-family: Inter, system-ui, sans-serif;
-      background: ${T};
+      background: ${$};
       min-height: 100vh;
       padding: 2.5rem;
       color: #f0f0f5;
-    `,a.innerHTML=`
+    `,s.innerHTML=`
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Playground</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Mix duration + easing and press Play to preview.</p>
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Mix duration + easing and press Play to preview.</p>
     `;const r=document.createElement("div");r.style.cssText=`
       display:grid;
       grid-template-columns:1fr 1fr auto;
       gap:1rem;
       margin-bottom:2rem;
       align-items:end;
-    `;const c=(w,C)=>{const v=document.createElement("div"),y=document.createElement("label");y.textContent=w,y.style.cssText="display:block;font-size:0.8rem;color:#8888a0;margin-bottom:6px;font-weight:600;";const z=document.createElement("select");return z.style.cssText=`
+    `;const c=(w,T)=>{const x=document.createElement("div"),v=`anim-select-${w.toLowerCase().replace(/\s+/g,"-")}`,A=document.createElement("label");A.htmlFor=v,A.textContent=w,A.style.cssText="display:block;font-size:0.8rem;color:#a0a0b8;margin-bottom:6px;font-weight:600;";const E=document.createElement("select");return E.id=v,E.style.cssText=`
         width:100%;
-        background:${k};
+        background:${C};
         color:#f0f0f5;
         border:1px solid rgba(255,255,255,0.12);
         border-radius:8px;
@@ -243,9 +243,9 @@ These can be inspected in the Variables panel and referenced in your design spec
         font-size:0.875rem;
         cursor:pointer;
         appearance:none;
-      `,C.forEach(D=>{const L=document.createElement("option");L.value=D,L.textContent=D,z.appendChild(L)}),v.appendChild(y),v.appendChild(z),{wrap:v,select:z}},{wrap:l,select:p}=c("Duration",["instant (0ms)","fast (150ms)","normal (300ms)","slow (500ms)","slower (750ms)","slowest (1000ms)"]),{wrap:g,select:t}=c("Easing",["linear","ease-in","ease-out","ease-in-out","bounce","spring"]);p.value="normal (300ms)",t.value="ease-in-out";const n=document.createElement("button");n.textContent="▶ Play",n.style.cssText=`
-      background:${m};
-      color:#fff;
+      `,T.forEach(H=>{const M=document.createElement("option");M.value=H,M.textContent=H,E.appendChild(M)}),x.appendChild(A),x.appendChild(E),{wrap:x,select:E}},{wrap:i,select:m}=c("Duration",["instant (0ms)","fast (150ms)","normal (300ms)","slow (500ms)","slower (750ms)","slowest (1000ms)"]),{wrap:u,select:o}=c("Easing",["linear","ease-in","ease-out","ease-in-out","bounce","spring"]);m.value="normal (300ms)",o.value="ease-in-out";const n=document.createElement("button");n.textContent="▶ Play",n.style.cssText=`
+      background:${h};
+      color:#0f0f1a;
       border:none;
       border-radius:8px;
       padding:10px 24px;
@@ -253,27 +253,27 @@ These can be inspected in the Variables panel and referenced in your design spec
       font-weight:600;
       cursor:pointer;
       height:42px;
-    `,r.appendChild(l),r.appendChild(g),r.appendChild(n);const e=document.createElement("div");e.style.cssText=`
-      background:${k};
+    `,r.appendChild(i),r.appendChild(u),r.appendChild(n);const e=document.createElement("div");e.style.cssText=`
+      background:${C};
       border:1px solid rgba(255,255,255,0.07);
       border-radius:12px;
       padding:2rem;
       margin-bottom:1.5rem;
-    `;const s=document.createElement("div");s.style.cssText=`
+    `;const a=document.createElement("div");a.style.cssText=`
       position:relative;
       height:48px;
       background:rgba(255,255,255,0.04);
       border-radius:24px;
       border:1px solid rgba(255,255,255,0.07);
       margin-bottom:1.5rem;
-    `;const o=document.createElement("div");o.style.cssText=`
+    `;const t=document.createElement("div");t.style.cssText=`
       position:absolute;top:50%;transform:translateY(-50%);
       left:8px;width:32px;height:32px;border-radius:50%;
-      background:${m};
-      box-shadow:0 0 16px ${m}88;
+      background:${h};
+      box-shadow:0 0 16px ${h}88;
       transition:left 300ms cubic-bezier(0.4,0,0.2,1);
       will-change:left;
-    `,s.appendChild(o);const i=document.createElement("pre");i.style.cssText=`
+    `,a.appendChild(t);const l=document.createElement("pre");l.style.cssText=`
       background:rgba(0,0,0,0.3);
       border-radius:8px;
       padding:1rem;
@@ -281,24 +281,24 @@ These can be inspected in the Variables panel and referenced in your design spec
       color:#a0a0b8;
       margin:0;
       line-height:1.6;
-    `;const d={"instant (0ms)":0,"fast (150ms)":150,"normal (300ms)":300,"slow (500ms)":500,"slower (750ms)":750,"slowest (1000ms)":1e3},h={linear:"linear","ease-in":"cubic-bezier(0.4, 0, 1, 1)","ease-out":"cubic-bezier(0, 0, 0.2, 1)","ease-in-out":"cubic-bezier(0.4, 0, 0.2, 1)",bounce:"cubic-bezier(0.68, -0.55, 0.265, 1.55)",spring:"cubic-bezier(0.175, 0.885, 0.32, 1.275)"},u={linear:"--ease-linear","ease-in":"--ease-in","ease-out":"--ease-out","ease-in-out":"--ease-in-out",bounce:"--ease-bounce",spring:"--ease-spring"},f={"instant (0ms)":"--duration-instant","fast (150ms)":"--duration-fast","normal (300ms)":"--duration-normal","slow (500ms)":"--duration-slow","slower (750ms)":"--duration-slower","slowest (1000ms)":"--duration-slowest"};function b(){const w=f[p.value],C=u[t.value],v=d[p.value],y=h[t.value];return i.textContent=`.my-element {
+    `;const d={"instant (0ms)":0,"fast (150ms)":150,"normal (300ms)":300,"slow (500ms)":500,"slower (750ms)":750,"slowest (1000ms)":1e3},f={linear:"linear","ease-in":"cubic-bezier(0.4, 0, 1, 1)","ease-out":"cubic-bezier(0, 0, 0.2, 1)","ease-in-out":"cubic-bezier(0.4, 0, 0.2, 1)",bounce:"cubic-bezier(0.68, -0.55, 0.265, 1.55)",spring:"cubic-bezier(0.175, 0.885, 0.32, 1.275)"},p={linear:"--ease-linear","ease-in":"--ease-in","ease-out":"--ease-out","ease-in-out":"--ease-in-out",bounce:"--ease-bounce",spring:"--ease-spring"},b={"instant (0ms)":"--duration-instant","fast (150ms)":"--duration-fast","normal (300ms)":"--duration-normal","slow (500ms)":"--duration-slow","slower (750ms)":"--duration-slower","slowest (1000ms)":"--duration-slowest"};function g(){const w=b[m.value],T=p[o.value],x=d[m.value],v=f[o.value];return l.textContent=`.my-element {
   /* Using tokens */
-  transition: all var(${w}) var(${C});
+  transition: all var(${w}) var(${T});
 
   /* Resolved values */
-  transition: all ${v}ms ${y};
-}`,{ms:v,curve:y}}b(),p.addEventListener("change",b),t.addEventListener("change",b);let x=!1;return n.addEventListener("click",()=>{if(x)return;x=!0,n.textContent="● Running…";const{ms:w,curve:C}=b();o.style.transition=`left ${w}ms ${C}`;const v=s.offsetWidth;o.style.left=`${v-40}px`;const y=Math.max(w,50);setTimeout(()=>{o.style.left="8px",setTimeout(()=>{x=!1,n.textContent="▶ Play"},y+50)},y+100)}),e.appendChild(s),e.appendChild(i),a.appendChild(r),a.appendChild(e),a}},R={parameters:{docs:{description:{story:"Complete reference table for every animation and transition token, including Figma Variable names and recommended CSS scopes."}}},render:()=>{E();const a=document.createElement("div");a.style.cssText=`
+  transition: all ${x}ms ${v};
+}`,{ms:x,curve:v}}g(),m.addEventListener("change",g),o.addEventListener("change",g);let y=!1;return n.addEventListener("click",()=>{if(y)return;y=!0,n.textContent="● Running…";const{ms:w,curve:T}=g();t.style.transition=`left ${w}ms ${T}`;const x=a.offsetWidth;t.style.left=`${x-40}px`;const v=Math.max(w,50);setTimeout(()=>{t.style.left="8px",setTimeout(()=>{y=!1,n.textContent="▶ Play"},v+50)},v+100)}),e.appendChild(a),e.appendChild(l),s.appendChild(r),s.appendChild(e),s}},D={parameters:{docs:{description:{story:"Complete reference table for every animation and transition token, including Figma Variable names and recommended CSS scopes."}}},render:()=>{z();const s=document.createElement("div");s.style.cssText=`
       font-family: Inter, system-ui, sans-serif;
-      background: ${T};
+      background: ${$};
       min-height: 100vh;
       padding: 2.5rem;
       color: #f0f0f5;
-    `,[{title:"Durations",color:m,rows:[["--duration-instant","0ms","duration/instant","State changes; no visible motion"],["--duration-fast","150ms","duration/fast","Hover, focus, button press"],["--duration-normal","300ms","duration/normal","Menus, tooltips, modals"],["--duration-slow","500ms","duration/slow","Drawers, page transitions"],["--duration-slower","750ms","duration/slower","Emphasis, onboarding"],["--duration-slowest","1000ms","duration/slowest","Skeleton loaders, looping"]]},{title:"Easing Functions",color:"#7c6af7",rows:[["--ease-linear","linear","easing/linear","Spinners, progress bars, looping"],["--ease-in","cubic-bezier(0.4, 0, 1, 1)","easing/in","Elements leaving the viewport"],["--ease-out","cubic-bezier(0, 0, 0.2, 1)","easing/out","Elements entering the viewport"],["--ease-in-out","cubic-bezier(0.4, 0, 0.2, 1)","easing/in-out","Default — most UI interactions"],["--ease-bounce","cubic-bezier(0.68, -0.55, 0.265, 1.55)","easing/bounce","Confirmations, playful emphasis"],["--ease-spring","cubic-bezier(0.175, 0.885, 0.32, 1.275)","easing/spring","Modals, drawers, natural snap"]]},{title:"Composite Transitions",color:"#06b6d4",rows:[["--transition-fast","150ms ease-in-out","—","Generic fast transition shorthand"],["--transition-normal","300ms ease-in-out","—","Generic normal transition shorthand"],["--transition-slow","500ms ease-in-out","—","Generic slow transition shorthand"],["--transition-all-fast","all 150ms ease-in-out","—","All properties, fast"],["--transition-all-normal","all 300ms ease-in-out","—","All properties, normal"],["--transition-colors","color/bg/border 150ms ease-in-out","—","Color-only transition (no layout)"],["--transition-transform","transform 150ms ease-in-out","—","Transform-only (GPU composited)"],["--transition-opacity","opacity 300ms ease-in-out","—","Opacity-only (GPU composited)"]]}].forEach(({title:l,color:p,rows:g})=>{const t=document.createElement("div");t.style.marginBottom="2.5rem";const n=document.createElement("h3");n.style.cssText=`font-size:1rem;font-weight:700;color:${p};margin:0 0 1rem;display:flex;align-items:center;gap:8px;`,n.innerHTML=`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${p}"></span>${l}`,t.appendChild(n);const e=document.createElement("div");e.style.cssText=`
-        background:${k};
+    `,[{title:"Durations",color:h,rows:[["--duration-instant","0ms","duration/instant","State changes; no visible motion"],["--duration-fast","150ms","duration/fast","Hover, focus, button press"],["--duration-normal","300ms","duration/normal","Menus, tooltips, modals"],["--duration-slow","500ms","duration/slow","Drawers, page transitions"],["--duration-slower","750ms","duration/slower","Emphasis, onboarding"],["--duration-slowest","1000ms","duration/slowest","Skeleton loaders, looping"]]},{title:"Easing Functions",color:"#8a7bf9",rows:[["--ease-linear","linear","easing/linear","Spinners, progress bars, looping"],["--ease-in","cubic-bezier(0.4, 0, 1, 1)","easing/in","Elements leaving the viewport"],["--ease-out","cubic-bezier(0, 0, 0.2, 1)","easing/out","Elements entering the viewport"],["--ease-in-out","cubic-bezier(0.4, 0, 0.2, 1)","easing/in-out","Default — most UI interactions"],["--ease-bounce","cubic-bezier(0.68, -0.55, 0.265, 1.55)","easing/bounce","Confirmations, playful emphasis"],["--ease-spring","cubic-bezier(0.175, 0.885, 0.32, 1.275)","easing/spring","Modals, drawers, natural snap"]]},{title:"Composite Transitions",color:"#06b6d4",rows:[["--transition-fast","150ms ease-in-out","—","Generic fast transition shorthand"],["--transition-normal","300ms ease-in-out","—","Generic normal transition shorthand"],["--transition-slow","500ms ease-in-out","—","Generic slow transition shorthand"],["--transition-all-fast","all 150ms ease-in-out","—","All properties, fast"],["--transition-all-normal","all 300ms ease-in-out","—","All properties, normal"],["--transition-colors","color/bg/border 150ms ease-in-out","—","Color-only transition (no layout)"],["--transition-transform","transform 150ms ease-in-out","—","Transform-only (GPU composited)"],["--transition-opacity","opacity 300ms ease-in-out","—","Opacity-only (GPU composited)"]]}].forEach(({title:i,color:m,rows:u})=>{const o=document.createElement("div");o.style.marginBottom="2.5rem";const n=document.createElement("h3");n.style.cssText=`font-size:1rem;font-weight:700;color:${m};margin:0 0 1rem;display:flex;align-items:center;gap:8px;`,n.innerHTML=`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${m}"></span>${i}`,o.appendChild(n);const e=document.createElement("div");e.style.cssText=`
+        background:${C};
         border:1px solid rgba(255,255,255,0.07);
         border-radius:12px;
         overflow:hidden;
-      `;const s=document.createElement("div");s.style.cssText=`
+      `;const a=document.createElement("div");a.style.cssText=`
         display:grid;
         grid-template-columns:220px 1fr 180px 1fr;
         padding:10px 16px;
@@ -307,17 +307,17 @@ These can be inspected in the Variables panel and referenced in your design spec
         font-weight:700;
         text-transform:uppercase;
         letter-spacing:0.5px;
-        color:#8888a0;
+        color:#a0a0b8;
         border-bottom:1px solid rgba(255,255,255,0.07);
-      `,["CSS Token","Value","Figma Variable","When to use"].forEach(o=>{const i=document.createElement("div");i.textContent=o,s.appendChild(i)}),e.appendChild(s),g.forEach(([o,i,d,h],u)=>{const f=document.createElement("div");f.style.cssText=`
+      `,["CSS Token","Value","Figma Variable","When to use"].forEach(t=>{const l=document.createElement("div");l.textContent=t,a.appendChild(l)}),e.appendChild(a),u.forEach(([t,l,d,f],p)=>{const b=document.createElement("div");b.style.cssText=`
           display:grid;
           grid-template-columns:220px 1fr 180px 1fr;
           padding:10px 16px;
           font-size:0.8rem;
-          border-bottom:${u<g.length-1?"1px solid rgba(255,255,255,0.04)":"none"};
+          border-bottom:${p<u.length-1?"1px solid rgba(255,255,255,0.04)":"none"};
           align-items:center;
           gap:1rem;
-        `,[`<code style="color:${p};font-size:0.75rem">${o}</code>`,`<span style="color:#a0a0b8;font-family:monospace;font-size:0.75rem">${i}</span>`,d!=="—"?`<code style="color:#8888a0;font-size:0.72rem">${d}</code>`:'<span style="color:#404050">—</span>',`<span style="color:#8888a0">${h}</span>`].forEach(b=>{const x=document.createElement("div");x.innerHTML=b,f.appendChild(x)}),e.appendChild(f)}),t.appendChild(e),a.appendChild(t)});const c=document.createElement("div");return c.style.cssText=`
+        `,[`<code style="color:${m};font-size:0.75rem">${t}</code>`,`<span style="color:#a0a0b8;font-family:monospace;font-size:0.75rem">${l}</span>`,d!=="—"?`<code style="color:#a0a0b8;font-size:0.72rem">${d}</code>`:'<span style="color:#404050">—</span>',`<span style="color:#8888a0">${f}</span>`].forEach(g=>{const y=document.createElement("div");y.innerHTML=g,b.appendChild(y)}),e.appendChild(b)}),o.appendChild(e),s.appendChild(o)});const c=document.createElement("div");return c.style.cssText=`
       background:rgba(124,106,247,0.1);
       border:1px solid rgba(124,106,247,0.25);
       border-radius:10px;
@@ -332,7 +332,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       animation properties, so both use <code>ALL_SCOPES</code> — they serve as reference/spec values
       and can be read by design-to-code tooling. When Figma ships a motion variable scope these will
       be updated automatically.
-    `,a.appendChild(c),a}};var M,H,P;$.parameters={...$.parameters,docs:{...(M=$.parameters)==null?void 0:M.docs,source:{originalSource:`{
+    `,s.appendChild(c),s}};var P,I,W;B.parameters={...B.parameters,docs:{...(P=B.parameters)==null?void 0:P.docs,source:{originalSource:`{
   parameters: {
     docs: {
       description: {
@@ -389,7 +389,7 @@ These can be inspected in the Variables panel and referenced in your design spec
     const heading = document.createElement('div');
     heading.innerHTML = \`
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Easing Functions</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Click ▶ Play on any row to see it in action</p>
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Click ▶ Play on any row to see it in action</p>
     \`;
     wrapper.appendChild(heading);
     const grid = document.createElement('div');
@@ -416,7 +416,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       const labelCol = document.createElement('div');
       labelCol.innerHTML = \`
         <div style="font-weight:600;font-size:0.9rem;margin-bottom:3px">\${name}</div>
-        <code style="font-size:0.72rem;color:#8888a0;word-break:break-all">\${token}</code>
+        <code style="font-size:0.72rem;color:#a0a0b8;word-break:break-all">\${token}</code>
       \`;
 
       // Track + ball
@@ -446,7 +446,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       \`;
       track.appendChild(ball);
       const descEl = document.createElement('p');
-      descEl.style.cssText = 'font-size:0.78rem;color:#8888a0;margin:0;';
+      descEl.style.cssText = 'font-size:0.78rem;color:#a0a0b8;margin:0;';
       descEl.textContent = desc;
       trackWrap.appendChild(track);
       trackWrap.appendChild(descEl);
@@ -456,7 +456,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       btn.textContent = '▶ Play';
       btn.style.cssText = \`
         background:rgba(77,167,122,0.15);
-        color:\${BRAND};
+        color:\${BRAND_TEXT};
         border:1px solid rgba(77,167,122,0.3);
         border-radius:8px;
         padding:6px 14px;
@@ -484,7 +484,7 @@ These can be inspected in the Variables panel and referenced in your design spec
           setTimeout(() => {
             playing = false;
             btn.textContent = '▶ Play';
-            btn.style.color = BRAND;
+            btn.style.color = BRAND_TEXT;
           }, DURATION_MS + 50);
         }, DURATION_MS + 100);
       });
@@ -496,7 +496,7 @@ These can be inspected in the Variables panel and referenced in your design spec
     wrapper.appendChild(grid);
     return wrapper;
   }
-}`,...(P=(H=$.parameters)==null?void 0:H.docs)==null?void 0:P.source}}};var W,U,N;A.parameters={...A.parameters,docs:{...(W=A.parameters)==null?void 0:W.docs,source:{originalSource:`{
+}`,...(W=(I=B.parameters)==null?void 0:I.docs)==null?void 0:W.source}}};var U,_,N;S.parameters={...S.parameters,docs:{...(U=S.parameters)==null?void 0:U.docs,source:{originalSource:`{
   parameters: {
     docs: {
       description: {
@@ -555,14 +555,14 @@ These can be inspected in the Variables panel and referenced in your design spec
     header.innerHTML = \`
       <div>
         <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Duration Scale</h2>
-        <p style="color:#8888a0;font-size:0.875rem;margin:0">Six steps from instant to 1 second</p>
+        <p style="color:#a0a0b8;font-size:0.875rem;margin:0">Six steps from instant to 1 second</p>
       </div>
     \`;
     const playAllBtn = document.createElement('button');
     playAllBtn.textContent = '▶ Play All';
     playAllBtn.style.cssText = \`
       background:\${BRAND};
-      color:#fff;
+      color:#0f0f1a;
       border:none;
       border-radius:8px;
       padding:10px 20px;
@@ -594,7 +594,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       \`;
       const labelCol = document.createElement('div');
       labelCol.innerHTML = \`
-        <div style="font-weight:600;font-size:0.9rem">\${name} <span style="color:#8888a0;font-weight:400;font-size:0.8rem">\${ms}ms</span></div>
+        <div style="font-weight:600;font-size:0.9rem">\${name} <span style="color:#a0a0b8;font-weight:400;font-size:0.8rem">\${ms}ms</span></div>
         <code style="font-size:0.72rem;color:#8888a0">\${token}</code>
       \`;
       const trackArea = document.createElement('div');
@@ -620,7 +620,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       track.appendChild(ball);
       balls.push(ball);
       const useEl = document.createElement('p');
-      useEl.style.cssText = 'font-size:0.75rem;color:#8888a0;margin:0;';
+      useEl.style.cssText = 'font-size:0.75rem;color:#a0a0b8;margin:0;';
       useEl.textContent = use;
       trackArea.appendChild(track);
       trackArea.appendChild(useEl);
@@ -652,7 +652,7 @@ These can be inspected in the Variables panel and referenced in your design spec
     });
     return wrapper;
   }
-}`,...(N=(U=A.parameters)==null?void 0:U.docs)==null?void 0:N.source}}};var I,G,O;B.parameters={...B.parameters,docs:{...(I=B.parameters)==null?void 0:I.docs,source:{originalSource:`{
+}`,...(N=(_=S.parameters)==null?void 0:_.docs)==null?void 0:N.source}}};var G,F,O;R.parameters={...R.parameters,docs:{...(G=R.parameters)==null?void 0:G.docs,source:{originalSource:`{
   parameters: {
     docs: {
       description: {
@@ -703,7 +703,7 @@ These can be inspected in the Variables panel and referenced in your design spec
     \`;
     wrapper.innerHTML = \`
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Composite Transitions</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Ready-to-use shorthand tokens. Hover each card to see the transition.</p>
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Ready-to-use shorthand tokens. Hover each card to see the transition.</p>
     \`;
     const grid = document.createElement('div');
     grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;';
@@ -726,7 +726,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       if (prop === 'all' || prop === 'colors') {
         demoBox.style.cssText = \`
           background: rgba(77,167,122,0.15);
-          color: \${BRAND};
+          color: \${BRAND_TEXT};
           border: 1px solid rgba(77,167,122,0.3);
           border-radius: 8px;
           padding: 12px 16px;
@@ -745,14 +745,14 @@ These can be inspected in the Variables panel and referenced in your design spec
         });
         card.addEventListener('mouseleave', () => {
           demoBox.style.background = 'rgba(77,167,122,0.15)';
-          demoBox.style.color = BRAND;
+          demoBox.style.color = BRAND_TEXT;
           demoBox.style.borderColor = 'rgba(77,167,122,0.3)';
           if (prop === 'all') demoBox.style.borderRadius = '8px';
         });
       } else if (prop === 'transform') {
         demoBox.style.cssText = \`
           background: rgba(77,167,122,0.15);
-          color: \${BRAND};
+          color: \${BRAND_TEXT};
           border-radius: 8px;
           padding: 12px 16px;
           text-align: center;
@@ -773,7 +773,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       } else if (prop === 'opacity') {
         demoBox.style.cssText = \`
           background: rgba(77,167,122,0.15);
-          color: \${BRAND};
+          color: \${BRAND_TEXT};
           border-radius: 8px;
           padding: 12px 16px;
           text-align: center;
@@ -794,10 +794,13 @@ These can be inspected in the Variables panel and referenced in your design spec
       }
       const info = document.createElement('div');
       info.innerHTML = \`
-        <code style="display:block;font-size:0.8rem;color:\${BRAND};margin-bottom:4px">\${token}</code>
+        <code style="display:block;font-size:0.8rem;color:\${BRAND_TEXT};margin-bottom:4px">\${token}</code>
         <span style="font-size:0.75rem;color:#8888a0">\${value}</span>
       \`;
       const codeBlock = document.createElement('pre');
+      codeBlock.tabIndex = 0;
+      codeBlock.setAttribute('role', 'region');
+      codeBlock.setAttribute('aria-label', \`CSS usage for \${token}\`);
       codeBlock.style.cssText = \`
         background: rgba(0,0,0,0.3);
         border-radius: 6px;
@@ -817,7 +820,7 @@ These can be inspected in the Variables panel and referenced in your design spec
     wrapper.appendChild(grid);
     return wrapper;
   }
-}`,...(O=(G=B.parameters)==null?void 0:G.docs)==null?void 0:O.source}}};var _,F,V;S.parameters={...S.parameters,docs:{...(_=S.parameters)==null?void 0:_.docs,source:{originalSource:`{
+}`,...(O=(F=R.parameters)==null?void 0:F.docs)==null?void 0:O.source}}};var V,j,X;L.parameters={...L.parameters,docs:{...(V=L.parameters)==null?void 0:V.docs,source:{originalSource:`{
   parameters: {
     docs: {
       description: {
@@ -837,7 +840,7 @@ These can be inspected in the Variables panel and referenced in your design spec
     \`;
     wrapper.innerHTML = \`
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Playground</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Mix duration + easing and press Play to preview.</p>
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Mix duration + easing and press Play to preview.</p>
     \`;
     const controls = document.createElement('div');
     controls.style.cssText = \`
@@ -852,10 +855,13 @@ These can be inspected in the Variables panel and referenced in your design spec
       select: HTMLSelectElement;
     } => {
       const wrap = document.createElement('div');
+      const selectId = \`anim-select-\${label.toLowerCase().replace(/\\s+/g, '-')}\`;
       const lbl = document.createElement('label');
+      lbl.htmlFor = selectId;
       lbl.textContent = label;
-      lbl.style.cssText = 'display:block;font-size:0.8rem;color:#8888a0;margin-bottom:6px;font-weight:600;';
+      lbl.style.cssText = 'display:block;font-size:0.8rem;color:#a0a0b8;margin-bottom:6px;font-weight:600;';
       const select = document.createElement('select');
+      select.id = selectId;
       select.style.cssText = \`
         width:100%;
         background:\${CARD_BG};
@@ -894,7 +900,7 @@ These can be inspected in the Variables panel and referenced in your design spec
     playBtn.textContent = '▶ Play';
     playBtn.style.cssText = \`
       background:\${BRAND};
-      color:#fff;
+      color:#0f0f1a;
       border:none;
       border-radius:8px;
       padding:10px 24px;
@@ -1022,7 +1028,7 @@ These can be inspected in the Variables panel and referenced in your design spec
     wrapper.appendChild(previewCard);
     return wrapper;
   }
-}`,...(V=(F=S.parameters)==null?void 0:F.docs)==null?void 0:V.source}}};var j,Y,K;R.parameters={...R.parameters,docs:{...(j=R.parameters)==null?void 0:j.docs,source:{originalSource:`{
+}`,...(X=(j=L.parameters)==null?void 0:j.docs)==null?void 0:X.source}}};var Y,K,q;D.parameters={...D.parameters,docs:{...(Y=D.parameters)==null?void 0:Y.docs,source:{originalSource:`{
   parameters: {
     docs: {
       description: {
@@ -1050,7 +1056,7 @@ These can be inspected in the Variables panel and referenced in your design spec
       rows: [['--duration-instant', '0ms', 'duration/instant', 'State changes; no visible motion'], ['--duration-fast', '150ms', 'duration/fast', 'Hover, focus, button press'], ['--duration-normal', '300ms', 'duration/normal', 'Menus, tooltips, modals'], ['--duration-slow', '500ms', 'duration/slow', 'Drawers, page transitions'], ['--duration-slower', '750ms', 'duration/slower', 'Emphasis, onboarding'], ['--duration-slowest', '1000ms', 'duration/slowest', 'Skeleton loaders, looping']]
     }, {
       title: 'Easing Functions',
-      color: '#7c6af7',
+      color: '#8a7bf9',
       rows: [['--ease-linear', 'linear', 'easing/linear', 'Spinners, progress bars, looping'], ['--ease-in', 'cubic-bezier(0.4, 0, 1, 1)', 'easing/in', 'Elements leaving the viewport'], ['--ease-out', 'cubic-bezier(0, 0, 0.2, 1)', 'easing/out', 'Elements entering the viewport'], ['--ease-in-out', 'cubic-bezier(0.4, 0, 0.2, 1)', 'easing/in-out', 'Default — most UI interactions'], ['--ease-bounce', 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', 'easing/bounce', 'Confirmations, playful emphasis'], ['--ease-spring', 'cubic-bezier(0.175, 0.885, 0.32, 1.275)', 'easing/spring', 'Modals, drawers, natural snap']]
     }, {
       title: 'Composite Transitions',
@@ -1085,7 +1091,7 @@ These can be inspected in the Variables panel and referenced in your design spec
         font-weight:700;
         text-transform:uppercase;
         letter-spacing:0.5px;
-        color:#8888a0;
+        color:#a0a0b8;
         border-bottom:1px solid rgba(255,255,255,0.07);
       \`;
       ['CSS Token', 'Value', 'Figma Variable', 'When to use'].forEach(h => {
@@ -1105,7 +1111,7 @@ These can be inspected in the Variables panel and referenced in your design spec
           align-items:center;
           gap:1rem;
         \`;
-        [\`<code style="color:\${color};font-size:0.75rem">\${token}</code>\`, \`<span style="color:#a0a0b8;font-family:monospace;font-size:0.75rem">\${value}</span>\`, figma !== '—' ? \`<code style="color:#8888a0;font-size:0.72rem">\${figma}</code>\` : \`<span style="color:#404050">—</span>\`, \`<span style="color:#8888a0">\${use}</span>\`].forEach(html => {
+        [\`<code style="color:\${color};font-size:0.75rem">\${token}</code>\`, \`<span style="color:#a0a0b8;font-family:monospace;font-size:0.75rem">\${value}</span>\`, figma !== '—' ? \`<code style="color:#a0a0b8;font-size:0.72rem">\${figma}</code>\` : \`<span style="color:#404050">—</span>\`, \`<span style="color:#8888a0">\${use}</span>\`].forEach(html => {
           const cell = document.createElement('div');
           cell.innerHTML = html;
           row.appendChild(cell);
@@ -1138,4 +1144,4 @@ These can be inspected in the Variables panel and referenced in your design spec
     wrapper.appendChild(note);
     return wrapper;
   }
-}`,...(K=(Y=R.parameters)==null?void 0:Y.docs)==null?void 0:K.source}}};const J=["EasingFunctions","DurationScale","CompositeTransitions","Playground","TokenReference"];export{B as CompositeTransitions,A as DurationScale,$ as EasingFunctions,S as Playground,R as TokenReference,J as __namedExportsOrder,q as default};
+}`,...(q=(K=D.parameters)==null?void 0:K.docs)==null?void 0:q.source}}};const Q=["EasingFunctions","DurationScale","CompositeTransitions","Playground","TokenReference"];export{R as CompositeTransitions,S as DurationScale,B as EasingFunctions,L as Playground,D as TokenReference,Q as __namedExportsOrder,J as default};

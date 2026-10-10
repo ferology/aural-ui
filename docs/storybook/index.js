@@ -119,30 +119,33 @@ const Aural = {
    * Handle modal focus trap
    * @private
    */
-  _trapFocusInModal(modal, focusableElements) {
-    if (focusableElements.length === 0) return;
-
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    // Handle Tab key to trap focus
+  _trapFocusInModal(modal) {
+    if (modal._focusTrapHandler) {
+      modal.removeEventListener('keydown', modal._focusTrapHandler);
+    }
+    // Focusables are re-queried on every Tab so content added after open is
+    // included and hidden/disabled elements never become a wrap target.
     const handleTabKey = (e) => {
       if (e.key === 'Tab') {
-        if (e.shiftKey) {
-          // Shift + Tab
-          if (document.activeElement === firstElement) {
-            e.preventDefault();
-            lastElement.focus();
-          }
-        } else {
-          // Tab
-          if (document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement.focus();
-          }
+        const focusable = Aural._getFocusable(modal);
+        if (focusable.length === 0) {
+          e.preventDefault();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || !modal.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && (active === last || !modal.contains(active))) {
+          e.preventDefault();
+          first.focus();
         }
       } else if (e.key === 'Escape') {
-        // Close modal on Escape
+        // Close only this modal; stop the document-level handler from
+        // closing every other open modal as well.
+        e.stopPropagation();
         const modalId = modal.getAttribute('id');
         if (modalId) {
           Aural.closeModal(modalId);
@@ -153,6 +156,59 @@ const Aural = {
     // Store handler so we can remove it later
     modal._focusTrapHandler = handleTabKey;
     modal.addEventListener('keydown', handleTabKey);
+  },
+
+  /**
+   * Visible, enabled, tabbable descendants of a container
+   * @private
+   */
+  _getFocusable(container) {
+    const selector =
+      'a[href], button, input:not([type="hidden"]), select, textarea, summary, [contenteditable="true"], [tabindex]';
+    return Array.from(container.querySelectorAll(selector)).filter(
+      (el) =>
+        !el.disabled &&
+        el.getAttribute('tabindex') !== '-1' &&
+        !el.closest('[hidden], [inert]') &&
+        (el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0)
+    );
+  },
+
+  /**
+   * Hide everything outside the modal from assistive tech and the tab order
+   * without hiding the modal itself, even when it is rendered inside <main>.
+   * @private
+   */
+  _hideOutsideModal(modal) {
+    if (modal._outsideState) return;
+    const hidden = [];
+    let node = modal;
+    while (node && node !== document.body) {
+      const parent = node.parentElement;
+      if (!parent) break;
+      Array.from(parent.children).forEach((sibling) => {
+        if (sibling === node || sibling.tagName === 'SCRIPT') return;
+        hidden.push({
+          el: sibling,
+          ariaHidden: sibling.getAttribute('aria-hidden'),
+          inert: sibling.hasAttribute('inert'),
+        });
+        sibling.setAttribute('aria-hidden', 'true');
+        sibling.setAttribute('inert', '');
+      });
+      node = parent;
+    }
+    modal._outsideState = hidden;
+  },
+
+  /** @private */
+  _restoreOutsideModal(modal) {
+    (modal._outsideState || []).forEach(({ el, ariaHidden, inert }) => {
+      if (ariaHidden === null) el.removeAttribute('aria-hidden');
+      else el.setAttribute('aria-hidden', ariaHidden);
+      if (!inert) el.removeAttribute('inert');
+    });
+    delete modal._outsideState;
   },
 
   /**
@@ -187,30 +243,27 @@ const Aural = {
     // Add open class
     modal.classList.add('open');
 
-    // Get all focusable elements
-    const focusableElements = modal.querySelectorAll(
-      'button:not([disabled]), [href]:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])'
-    );
-
-    // Focus first element
-    if (focusableElements.length > 0) {
-      // Small delay to ensure modal is visible
-      setTimeout(() => {
-        focusableElements[0].focus();
-      }, 100);
-    }
+    // Focus first focusable element, or the dialog itself as a fallback
+    // (small delay so the open transition has made it visible)
+    setTimeout(() => {
+      const [first] = this._getFocusable(modal);
+      if (first) {
+        first.focus();
+      } else {
+        const dialog = modal.querySelector('[role="dialog"], [role="alertdialog"]') || modal;
+        if (!dialog.hasAttribute('tabindex')) dialog.setAttribute('tabindex', '-1');
+        dialog.focus();
+      }
+    }, 100);
 
     // Set up focus trap
-    this._trapFocusInModal(modal, focusableElements);
+    this._trapFocusInModal(modal);
 
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
 
-    // Add aria-hidden to other content
-    const mainContent = document.querySelector('main, #main-content, [role="main"]');
-    if (mainContent) {
-      mainContent.setAttribute('aria-hidden', 'true');
-    }
+    // Hide everything outside the modal from AT and the tab order
+    this._hideOutsideModal(modal);
   },
 
   /**
@@ -237,11 +290,8 @@ const Aural = {
     // Restore body scroll
     document.body.style.overflow = '';
 
-    // Remove aria-hidden from main content
-    const mainContent = document.querySelector('main, #main-content, [role="main"]');
-    if (mainContent) {
-      mainContent.removeAttribute('aria-hidden');
-    }
+    // Restore content outside the modal
+    this._restoreOutsideModal(modal);
 
     // Return focus to trigger element
     const trigger = this._modalTriggers.get(modalId);
@@ -272,10 +322,12 @@ const Aural = {
   initModals() {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        // Close only the topmost (last opened) modal
         const openModals = document.querySelectorAll('.modal-overlay.open');
-        openModals.forEach((modal) => {
-          this.closeModal(modal.id);
-        });
+        const topmost = openModals[openModals.length - 1];
+        if (topmost) {
+          this.closeModal(topmost.id);
+        }
       }
     });
 
@@ -387,31 +439,47 @@ const Aural = {
 
   /**
    * Initialize tooltips
+   *
+   * Wires `.tooltip-wrapper` markup immediately (init() already runs inside
+   * DOMContentLoaded, where a new DOMContentLoaded listener would never fire).
+   * Safe to call again after rendering new markup; each wrapper is wired once.
+   *
+   * @param {ParentNode} [root=document] - Subtree to search for tooltip wrappers
    */
-  initTooltips() {
-    document.addEventListener('DOMContentLoaded', () => {
-      const tooltipWrappers = document.querySelectorAll('.tooltip-wrapper');
+  initTooltips(root = document) {
+    root.querySelectorAll('.tooltip-wrapper').forEach((wrapper) => {
+      if (wrapper.dataset.auralTooltipReady) return;
 
-      tooltipWrappers.forEach((wrapper) => {
-        const trigger = wrapper.querySelector('[data-tooltip-trigger]');
-        const tooltip = wrapper.querySelector('.tooltip');
+      const trigger = wrapper.querySelector('[data-tooltip-trigger]');
+      const tooltip = wrapper.querySelector('.tooltip');
+      if (!trigger || !tooltip) return;
+      wrapper.dataset.auralTooltipReady = 'true';
 
-        if (trigger && tooltip) {
-          trigger.addEventListener('mouseenter', () => {
-            tooltip.classList.add('tooltip-show');
-          });
+      // Associate the tooltip with its trigger so assistive tech announces it
+      if (!tooltip.id) {
+        tooltip.id = `aural-tooltip-${Math.random().toString(36).slice(2, 9)}`;
+      }
+      if (!tooltip.hasAttribute('role')) tooltip.setAttribute('role', 'tooltip');
+      const describedBy = (trigger.getAttribute('aria-describedby') || '').split(/\s+/);
+      if (!describedBy.includes(tooltip.id)) {
+        trigger.setAttribute('aria-describedby', [...describedBy, tooltip.id].join(' ').trim());
+      }
 
-          trigger.addEventListener('mouseleave', () => {
-            tooltip.classList.remove('tooltip-show');
-          });
+      const show = () => tooltip.classList.add('tooltip-show');
+      const hide = () => tooltip.classList.remove('tooltip-show');
 
-          trigger.addEventListener('focus', () => {
-            tooltip.classList.add('tooltip-show');
-          });
+      // Hover on the wrapper (trigger or tooltip) keeps it open so the
+      // content stays hoverable (WCAG 1.4.13)
+      wrapper.addEventListener('mouseenter', show);
+      wrapper.addEventListener('mouseleave', hide);
+      trigger.addEventListener('focus', show);
+      trigger.addEventListener('blur', hide);
 
-          trigger.addEventListener('blur', () => {
-            tooltip.classList.remove('tooltip-show');
-          });
+      // Escape dismisses without moving focus or the pointer
+      wrapper.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && tooltip.classList.contains('tooltip-show')) {
+          hide();
+          e.stopPropagation();
         }
       });
     });

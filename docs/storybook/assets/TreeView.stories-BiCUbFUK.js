@@ -232,7 +232,7 @@ Aural.initTreeView();
           <span class="aural-tree__label">Settings</span>
         </button>
       </li>
-    `,a.appendChild(e),t(),l(),a}},n={render:()=>{const a=document.createElement("div");a.style.padding="2rem",a.style.maxWidth="600px";const e=document.createElement("ul");return e.className="aural-tree",e.innerHTML=`
+    `,a.appendChild(e),t(),l(),a}},i={render:()=>{const a=document.createElement("div");a.style.padding="2rem",a.style.maxWidth="600px";const e=document.createElement("ul");return e.className="aural-tree",e.innerHTML=`
       <li class="aural-tree__item aural-tree__item--collapsed">
         <button class="aural-tree__content">
           <span class="aural-tree__toggle">
@@ -287,7 +287,7 @@ Aural.initTreeView();
           <span class="aural-tree__badge">203</span>
         </button>
       </li>
-    `,a.appendChild(e),t(),l(),a}},i={render:()=>{const a=document.createElement("div");a.style.padding="2rem",a.style.maxWidth="600px";const e=document.createElement("ul");return e.className="aural-tree",e.innerHTML=`
+    `,a.appendChild(e),t(),l(),a}},n={render:()=>{const a=document.createElement("div");a.style.padding="2rem",a.style.maxWidth="600px";const e=document.createElement("ul");return e.className="aural-tree",e.innerHTML=`
       <li class="aural-tree__item aural-tree__item--collapsed">
         <button class="aural-tree__content">
           <span class="aural-tree__toggle">
@@ -531,7 +531,7 @@ Aural.initTreeView();
       </li>
     `,a.appendChild(e),t(),l(),a}},u={render:()=>{const a=document.createElement("div");a.style.padding="2rem",a.style.maxWidth="600px";const e=document.createElement("ul");return e.className="aural-tree",e.innerHTML=`
       <li class="aural-tree__item aural-tree__item--collapsed">
-        <button class="aural-tree__content">
+        <div class="aural-tree__content">
           <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select All Projects">
           <span class="aural-tree__toggle">
             <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -540,32 +540,32 @@ Aural.initTreeView();
             <i data-lucide="folder" style="width: 16px; height: 16px;"></i>
           </span>
           <span class="aural-tree__label">Projects</span>
-        </button>
+        </div>
         <ul class="aural-tree__children">
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Project A">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--primary">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Project A</span>
-            </button>
+            </div>
           </li>
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Project B">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--success">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Project B</span>
-            </button>
+            </div>
           </li>
         </ul>
       </li>
       <li class="aural-tree__item aural-tree__item--collapsed">
-        <button class="aural-tree__content">
+        <div class="aural-tree__content">
           <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select All Reports">
           <span class="aural-tree__toggle">
             <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -574,17 +574,17 @@ Aural.initTreeView();
             <i data-lucide="folder" style="width: 16px; height: 16px;"></i>
           </span>
           <span class="aural-tree__label">Reports</span>
-        </button>
+        </div>
         <ul class="aural-tree__children">
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Q1 Report">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--info">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Q1 Report</span>
-            </button>
+            </div>
           </li>
         </ul>
       </li>
@@ -809,7 +809,7 @@ Aural.initTreeView();
     initializeTreeView(container);
     return container;
   }
-}`,...(x=(m=r.parameters)==null?void 0:m.docs)==null?void 0:x.source}}};var b,y,w;n.parameters={...n.parameters,docs:{...(b=n.parameters)==null?void 0:b.docs,source:{originalSource:`{
+}`,...(x=(m=r.parameters)==null?void 0:m.docs)==null?void 0:x.source}}};var b,y,w;i.parameters={...i.parameters,docs:{...(b=i.parameters)==null?void 0:b.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -877,7 +877,7 @@ Aural.initTreeView();
     initializeTreeView(container);
     return container;
   }
-}`,...(w=(y=n.parameters)==null?void 0:y.docs)==null?void 0:w.source}}};var f,v,T;i.parameters={...i.parameters,docs:{...(f=i.parameters)==null?void 0:f.docs,source:{originalSource:`{
+}`,...(w=(y=i.parameters)==null?void 0:y.docs)==null?void 0:w.source}}};var f,v,T;n.parameters={...n.parameters,docs:{...(f=n.parameters)==null?void 0:f.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -966,7 +966,7 @@ Aural.initTreeView();
     initializeTreeView(container);
     return container;
   }
-}`,...(T=(v=i.parameters)==null?void 0:v.docs)==null?void 0:T.source}}};var C,E,L;c.parameters={...c.parameters,docs:{...(C=c.parameters)==null?void 0:C.docs,source:{originalSource:`{
+}`,...(T=(v=n.parameters)==null?void 0:v.docs)==null?void 0:T.source}}};var C,E,L;c.parameters={...c.parameters,docs:{...(C=c.parameters)==null?void 0:C.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -1069,7 +1069,7 @@ Aural.initTreeView();
     initializeTreeView(container);
     return container;
   }
-}`,...(L=(E=c.parameters)==null?void 0:E.docs)==null?void 0:L.source}}};var S,k,M;_.parameters={..._.parameters,docs:{...(S=_.parameters)==null?void 0:S.docs,source:{originalSource:`{
+}`,...(L=(E=c.parameters)==null?void 0:E.docs)==null?void 0:L.source}}};var k,S,M;_.parameters={..._.parameters,docs:{...(k=_.parameters)==null?void 0:k.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -1158,16 +1158,19 @@ Aural.initTreeView();
     initializeTreeView(container);
     return container;
   }
-}`,...(M=(k=_.parameters)==null?void 0:k.docs)==null?void 0:M.source}}};var I,A,z;u.parameters={...u.parameters,docs:{...(I=u.parameters)==null?void 0:I.docs,source:{originalSource:`{
+}`,...(M=(S=_.parameters)==null?void 0:S.docs)==null?void 0:M.source}}};var I,A,z;u.parameters={...u.parameters,docs:{...(I=u.parameters)==null?void 0:I.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
     container.style.maxWidth = '600px';
     const tree = document.createElement('ul');
     tree.className = 'aural-tree';
+
+    // Rows are <div>s (not <button>s) because they contain a real checkbox input;
+    // interactive controls must not be nested inside a button.
     tree.innerHTML = \`
       <li class="aural-tree__item aural-tree__item--collapsed">
-        <button class="aural-tree__content">
+        <div class="aural-tree__content">
           <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select All Projects">
           <span class="aural-tree__toggle">
             <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -1176,32 +1179,32 @@ Aural.initTreeView();
             <i data-lucide="folder" style="width: 16px; height: 16px;"></i>
           </span>
           <span class="aural-tree__label">Projects</span>
-        </button>
+        </div>
         <ul class="aural-tree__children">
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Project A">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--primary">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Project A</span>
-            </button>
+            </div>
           </li>
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Project B">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--success">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Project B</span>
-            </button>
+            </div>
           </li>
         </ul>
       </li>
       <li class="aural-tree__item aural-tree__item--collapsed">
-        <button class="aural-tree__content">
+        <div class="aural-tree__content">
           <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select All Reports">
           <span class="aural-tree__toggle">
             <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -1210,17 +1213,17 @@ Aural.initTreeView();
             <i data-lucide="folder" style="width: 16px; height: 16px;"></i>
           </span>
           <span class="aural-tree__label">Reports</span>
-        </button>
+        </div>
         <ul class="aural-tree__children">
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Q1 Report">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--info">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Q1 Report</span>
-            </button>
+            </div>
           </li>
         </ul>
       </li>
@@ -1290,4 +1293,4 @@ Aural.initTreeView();
       return tree;
     });
   }
-}`,...(N=(D=p.parameters)==null?void 0:D.docs)==null?void 0:N.source}}};const V=["Default","NavigationMenu","ColorCodedIcons","DeepNesting","FileExplorer","OrganizationChart","WithCheckboxes","ThemeComparison"];export{n as ColorCodedIcons,i as DeepNesting,s as Default,c as FileExplorer,r as NavigationMenu,_ as OrganizationChart,p as ThemeComparison,u as WithCheckboxes,V as __namedExportsOrder,P as default};
+}`,...(N=(D=p.parameters)==null?void 0:D.docs)==null?void 0:N.source}}};const R=["Default","NavigationMenu","ColorCodedIcons","DeepNesting","FileExplorer","OrganizationChart","WithCheckboxes","ThemeComparison"];export{i as ColorCodedIcons,n as DeepNesting,s as Default,c as FileExplorer,r as NavigationMenu,_ as OrganizationChart,p as ThemeComparison,u as WithCheckboxes,R as __namedExportsOrder,P as default};

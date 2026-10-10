@@ -165,9 +165,9 @@ export default {
   - Use \`required\` attribute to enforce selection before form submission
         `.trim()}}},argTypes:{size:{control:"select",options:["sm","default","lg"],description:"Select size: sm (compact, 36px height), default (standard, 44px height), lg (prominent, 52px height)"},state:{control:"select",options:["default","error","success"],description:"Validation state: default (neutral), error (invalid input with red border), success (valid input with green border)"},disabled:{control:"boolean",description:"Disabled state prevents interaction and applies muted styling with 50% opacity"},placeholder:{control:"text",description:'First option text that indicates purpose (e.g., "Select a country...") - should describe what to select'},label:{control:"text",description:"Label text displayed above the select, should be associated with select via htmlFor/for attribute"},helperText:{control:"text",description:"Helper or error text displayed below select, linked via aria-describedby for accessibility"},grouped:{control:"boolean",description:"Whether options are organized into groups using <optgroup> elements for better organization"}}},o={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.maxWidth="400px",e.innerHTML=`
       <div>
-        <label class="form-label">Default Select</label>
+        <label class="form-label" for="select-demo-1">Default Select</label>
         <div class="select">
-          <select>
+          <select id="select-demo-1">
             <option>Default select</option>
             <option>Apple</option>
             <option>Banana</option>
@@ -178,9 +178,9 @@ export default {
     `,setTimeout(()=>{typeof window.Aural<"u"&&window.Aural.initSelects()},100),e}},t={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.maxWidth="400px",e.innerHTML=`
       <div class="flex flex-col gap-4">
         <div>
-          <label class="form-label">Small Select</label>
+          <label class="form-label" for="select-demo-2">Small Select</label>
           <div class="select select-sm">
-            <select>
+            <select id="select-demo-2">
               <option>Small select</option>
               <option>Apple</option>
               <option>Banana</option>
@@ -189,9 +189,9 @@ export default {
           </div>
         </div>
         <div>
-          <label class="form-label">Default Select</label>
+          <label class="form-label" for="select-demo-3">Default Select</label>
           <div class="select">
-            <select>
+            <select id="select-demo-3">
               <option>Default select</option>
               <option>Apple</option>
               <option>Banana</option>
@@ -200,9 +200,9 @@ export default {
           </div>
         </div>
         <div>
-          <label class="form-label">Large Select</label>
+          <label class="form-label" for="select-demo-4">Large Select</label>
           <div class="select select-lg">
-            <select>
+            <select id="select-demo-4">
               <option>Large select</option>
               <option>Apple</option>
               <option>Banana</option>
@@ -214,18 +214,18 @@ export default {
     `,setTimeout(()=>{typeof window.Aural<"u"&&window.Aural.initSelects()},100),e}},i={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.maxWidth="400px",e.innerHTML=`
       <div class="flex flex-col gap-4">
         <div>
-          <label class="form-label">Disabled Select</label>
+          <label class="form-label" for="select-demo-5">Disabled Select</label>
           <div class="select">
-            <select disabled>
+            <select id="select-demo-5" disabled>
               <option>Disabled select</option>
               <option>Option 2</option>
             </select>
           </div>
         </div>
         <div>
-          <label class="form-label">Error State</label>
+          <label class="form-label" for="select-demo-6">Error State</label>
           <div class="select select-error">
-            <select>
+            <select id="select-demo-6">
               <option value="">Select an option...</option>
               <option>Option 1</option>
               <option>Option 2</option>
@@ -234,9 +234,9 @@ export default {
           <div class="helper-text error">Please select a valid option</div>
         </div>
         <div>
-          <label class="form-label">Success State</label>
+          <label class="form-label" for="select-demo-7">Success State</label>
           <div class="select select-success">
-            <select>
+            <select id="select-demo-7">
               <option>Option 1</option>
               <option>Option 2</option>
             </select>
@@ -246,9 +246,9 @@ export default {
       </div>
     `,setTimeout(()=>{typeof window.Aural<"u"&&window.Aural.initSelects()},100),e}},n={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.maxWidth="400px",e.innerHTML=`
       <div>
-        <label class="form-label">Choose a programming language</label>
+        <label class="form-label" for="select-demo-8">Choose a programming language</label>
         <div class="select">
-          <select>
+          <select id="select-demo-8">
             <option value="">Select a language...</option>
             <optgroup label="Frontend">
               <option>JavaScript</option>
@@ -294,11 +294,11 @@ export default {
     `,e.appendChild(c),e.innerHTML+=`
       <div class="flex flex-col gap-4">
         <div>
-          <label class="form-label">Choose Payment Method</label>
+          <label class="form-label" for="select-demo-9">Choose Payment Method</label>
           <div class="select-with-icon">
             <i data-lucide="credit-card" class="icon-left" width="16" height="16"></i>
             <div class="select">
-              <select>
+              <select id="select-demo-9">
                 <option>Credit Card</option>
                 <option>PayPal</option>
                 <option>Bank Transfer</option>
@@ -308,11 +308,11 @@ export default {
           </div>
         </div>
         <div>
-          <label class="form-label">Select Currency</label>
+          <label class="form-label" for="select-demo-10">Select Currency</label>
           <div class="select-with-icon">
             <i data-lucide="dollar-sign" class="icon-left" width="16" height="16"></i>
             <div class="select">
-              <select>
+              <select id="select-demo-10">
                 <option>USD - US Dollar</option>
                 <option>EUR - Euro</option>
                 <option>GBP - British Pound</option>
@@ -324,9 +324,9 @@ export default {
       </div>
     `,setTimeout(()=>{typeof window.Aural<"u"&&window.Aural.initSelects(),typeof lucide<"u"&&lucide.createIcons()},100),e}},a={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.maxWidth="400px",e.innerHTML=`
       <div>
-        <label class="form-label">Country</label>
+        <label class="form-label" for="select-demo-11">Country</label>
         <div class="select">
-          <select>
+          <select id="select-demo-11">
             <option value="">Select a country...</option>
             <optgroup label="North America">
               <option value="US">United States</option>
@@ -357,9 +357,9 @@ export default {
     `,setTimeout(()=>{typeof window.Aural<"u"&&window.Aural.initSelects()},100),e}},s={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.maxWidth="400px",e.innerHTML=`
       <div class="flex flex-col gap-4">
         <div>
-          <label class="form-label">Timezone</label>
+          <label class="form-label" for="select-demo-12">Timezone</label>
           <div class="select">
-            <select>
+            <select id="select-demo-12">
               <option value="">Select timezone...</option>
               <option value="UTC-12:00">(GMT-12:00) International Date Line West</option>
               <option value="UTC-11:00">(GMT-11:00) Midway Island</option>
@@ -377,9 +377,9 @@ export default {
           <div class="helper-text">Your timezone affects when you receive notifications</div>
         </div>
         <div>
-          <label class="form-label">Date Format</label>
+          <label class="form-label" for="select-demo-13">Date Format</label>
           <div class="select">
-            <select>
+            <select id="select-demo-13">
               <option value="MM/DD/YYYY">MM/DD/YYYY (US)</option>
               <option value="DD/MM/YYYY">DD/MM/YYYY (EU)</option>
               <option value="YYYY-MM-DD">YYYY-MM-DD (ISO)</option>
@@ -397,9 +397,9 @@ export default {
             <input type="text" class="input" placeholder="John Doe" />
           </div>
           <div>
-            <label class="form-label">Account Type</label>
+            <label class="form-label" for="select-demo-14">Account Type</label>
             <div class="select">
-              <select required>
+              <select id="select-demo-14" required>
                 <option value="">Select account type...</option>
                 <option value="personal">Personal</option>
                 <option value="business">Business</option>
@@ -409,9 +409,9 @@ export default {
             <div class="helper-text">Choose the type of account you want to create</div>
           </div>
           <div>
-            <label class="form-label">Subscription Plan</label>
+            <label class="form-label" for="select-demo-15">Subscription Plan</label>
             <div class="select">
-              <select required>
+              <select id="select-demo-15" required>
                 <option value="">Select a plan...</option>
                 <option value="free">Free - $0/month</option>
                 <option value="pro">Pro - $19/month</option>
@@ -421,9 +421,9 @@ export default {
             </div>
           </div>
           <div>
-            <label class="form-label">Country</label>
+            <label class="form-label" for="select-demo-16">Country</label>
             <div class="select">
-              <select required>
+              <select id="select-demo-16" required>
                 <option value="">Select country...</option>
                 <option value="US">United States</option>
                 <option value="CA">Canada</option>
@@ -446,9 +446,9 @@ export default {
     container.style.maxWidth = '400px';
     container.innerHTML = \`
       <div>
-        <label class="form-label">Default Select</label>
+        <label class="form-label" for="select-demo-1">Default Select</label>
         <div class="select">
-          <select>
+          <select id="select-demo-1">
             <option>Default select</option>
             <option>Apple</option>
             <option>Banana</option>
@@ -464,7 +464,7 @@ export default {
     }, 100);
     return container;
   }
-}`,...(u=(d=o.parameters)==null?void 0:d.docs)==null?void 0:u.source}}};var v,m,b;t.parameters={...t.parameters,docs:{...(v=t.parameters)==null?void 0:v.docs,source:{originalSource:`{
+}`,...(u=(d=o.parameters)==null?void 0:d.docs)==null?void 0:u.source}}};var v,m,f;t.parameters={...t.parameters,docs:{...(v=t.parameters)==null?void 0:v.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -472,9 +472,9 @@ export default {
     container.innerHTML = \`
       <div class="flex flex-col gap-4">
         <div>
-          <label class="form-label">Small Select</label>
+          <label class="form-label" for="select-demo-2">Small Select</label>
           <div class="select select-sm">
-            <select>
+            <select id="select-demo-2">
               <option>Small select</option>
               <option>Apple</option>
               <option>Banana</option>
@@ -483,9 +483,9 @@ export default {
           </div>
         </div>
         <div>
-          <label class="form-label">Default Select</label>
+          <label class="form-label" for="select-demo-3">Default Select</label>
           <div class="select">
-            <select>
+            <select id="select-demo-3">
               <option>Default select</option>
               <option>Apple</option>
               <option>Banana</option>
@@ -494,9 +494,9 @@ export default {
           </div>
         </div>
         <div>
-          <label class="form-label">Large Select</label>
+          <label class="form-label" for="select-demo-4">Large Select</label>
           <div class="select select-lg">
-            <select>
+            <select id="select-demo-4">
               <option>Large select</option>
               <option>Apple</option>
               <option>Banana</option>
@@ -513,7 +513,7 @@ export default {
     }, 100);
     return container;
   }
-}`,...(b=(m=t.parameters)==null?void 0:m.docs)==null?void 0:b.source}}};var f,y,h;i.parameters={...i.parameters,docs:{...(f=i.parameters)==null?void 0:f.docs,source:{originalSource:`{
+}`,...(f=(m=t.parameters)==null?void 0:m.docs)==null?void 0:f.source}}};var b,y,h;i.parameters={...i.parameters,docs:{...(b=i.parameters)==null?void 0:b.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -521,18 +521,18 @@ export default {
     container.innerHTML = \`
       <div class="flex flex-col gap-4">
         <div>
-          <label class="form-label">Disabled Select</label>
+          <label class="form-label" for="select-demo-5">Disabled Select</label>
           <div class="select">
-            <select disabled>
+            <select id="select-demo-5" disabled>
               <option>Disabled select</option>
               <option>Option 2</option>
             </select>
           </div>
         </div>
         <div>
-          <label class="form-label">Error State</label>
+          <label class="form-label" for="select-demo-6">Error State</label>
           <div class="select select-error">
-            <select>
+            <select id="select-demo-6">
               <option value="">Select an option...</option>
               <option>Option 1</option>
               <option>Option 2</option>
@@ -541,9 +541,9 @@ export default {
           <div class="helper-text error">Please select a valid option</div>
         </div>
         <div>
-          <label class="form-label">Success State</label>
+          <label class="form-label" for="select-demo-7">Success State</label>
           <div class="select select-success">
-            <select>
+            <select id="select-demo-7">
               <option>Option 1</option>
               <option>Option 2</option>
             </select>
@@ -566,9 +566,9 @@ export default {
     container.style.maxWidth = '400px';
     container.innerHTML = \`
       <div>
-        <label class="form-label">Choose a programming language</label>
+        <label class="form-label" for="select-demo-8">Choose a programming language</label>
         <div class="select">
-          <select>
+          <select id="select-demo-8">
             <option value="">Select a language...</option>
             <optgroup label="Frontend">
               <option>JavaScript</option>
@@ -632,11 +632,11 @@ export default {
     container.innerHTML += \`
       <div class="flex flex-col gap-4">
         <div>
-          <label class="form-label">Choose Payment Method</label>
+          <label class="form-label" for="select-demo-9">Choose Payment Method</label>
           <div class="select-with-icon">
             <i data-lucide="credit-card" class="icon-left" width="16" height="16"></i>
             <div class="select">
-              <select>
+              <select id="select-demo-9">
                 <option>Credit Card</option>
                 <option>PayPal</option>
                 <option>Bank Transfer</option>
@@ -646,11 +646,11 @@ export default {
           </div>
         </div>
         <div>
-          <label class="form-label">Select Currency</label>
+          <label class="form-label" for="select-demo-10">Select Currency</label>
           <div class="select-with-icon">
             <i data-lucide="dollar-sign" class="icon-left" width="16" height="16"></i>
             <div class="select">
-              <select>
+              <select id="select-demo-10">
                 <option>USD - US Dollar</option>
                 <option>EUR - Euro</option>
                 <option>GBP - British Pound</option>
@@ -679,9 +679,9 @@ export default {
     container.style.maxWidth = '400px';
     container.innerHTML = \`
       <div>
-        <label class="form-label">Country</label>
+        <label class="form-label" for="select-demo-11">Country</label>
         <div class="select">
-          <select>
+          <select id="select-demo-11">
             <option value="">Select a country...</option>
             <optgroup label="North America">
               <option value="US">United States</option>
@@ -725,9 +725,9 @@ export default {
     container.innerHTML = \`
       <div class="flex flex-col gap-4">
         <div>
-          <label class="form-label">Timezone</label>
+          <label class="form-label" for="select-demo-12">Timezone</label>
           <div class="select">
-            <select>
+            <select id="select-demo-12">
               <option value="">Select timezone...</option>
               <option value="UTC-12:00">(GMT-12:00) International Date Line West</option>
               <option value="UTC-11:00">(GMT-11:00) Midway Island</option>
@@ -745,9 +745,9 @@ export default {
           <div class="helper-text">Your timezone affects when you receive notifications</div>
         </div>
         <div>
-          <label class="form-label">Date Format</label>
+          <label class="form-label" for="select-demo-13">Date Format</label>
           <div class="select">
-            <select>
+            <select id="select-demo-13">
               <option value="MM/DD/YYYY">MM/DD/YYYY (US)</option>
               <option value="DD/MM/YYYY">DD/MM/YYYY (EU)</option>
               <option value="YYYY-MM-DD">YYYY-MM-DD (ISO)</option>
@@ -778,9 +778,9 @@ export default {
             <input type="text" class="input" placeholder="John Doe" />
           </div>
           <div>
-            <label class="form-label">Account Type</label>
+            <label class="form-label" for="select-demo-14">Account Type</label>
             <div class="select">
-              <select required>
+              <select id="select-demo-14" required>
                 <option value="">Select account type...</option>
                 <option value="personal">Personal</option>
                 <option value="business">Business</option>
@@ -790,9 +790,9 @@ export default {
             <div class="helper-text">Choose the type of account you want to create</div>
           </div>
           <div>
-            <label class="form-label">Subscription Plan</label>
+            <label class="form-label" for="select-demo-15">Subscription Plan</label>
             <div class="select">
-              <select required>
+              <select id="select-demo-15" required>
                 <option value="">Select a plan...</option>
                 <option value="free">Free - $0/month</option>
                 <option value="pro">Pro - $19/month</option>
@@ -802,9 +802,9 @@ export default {
             </div>
           </div>
           <div>
-            <label class="form-label">Country</label>
+            <label class="form-label" for="select-demo-16">Country</label>
             <div class="select">
-              <select required>
+              <select id="select-demo-16" required>
                 <option value="">Select country...</option>
                 <option value="US">United States</option>
                 <option value="CA">Canada</option>

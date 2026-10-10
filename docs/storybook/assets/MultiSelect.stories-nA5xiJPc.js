@@ -13,7 +13,7 @@ Multi-Select components combine the space efficiency of dropdowns with the clari
 \`\`\`html
 <div class="aural-multi-select" id="skills-select">
   <!-- Trigger with chips display -->
-  <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox" aria-expanded="false">
+  <div class="aural-multi-select__trigger" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-label="Select skills">
     <div class="aural-multi-select__tags">
       <!-- Selected chips rendered dynamically -->
       <span class="aural-multi-select__tag">
@@ -203,7 +203,7 @@ function MultiSelect({
         className="aural-multi-select__trigger"
         onClick={() => !disabled && setIsOpen(!isOpen)}
         tabIndex={disabled ? -1 : 0}
-        role="button"
+        role="combobox"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-disabled={disabled}
@@ -302,7 +302,7 @@ function MultiSelect({
       class="aural-multi-select__trigger"
       @click="!disabled && (isOpen = !isOpen)"
       :tabindex="disabled ? -1 : 0"
-      role="button"
+      role="combobox"
       aria-haspopup="listbox"
       :aria-expanded="isOpen"
       :aria-disabled="disabled"
@@ -578,7 +578,7 @@ export default {
     class="aural-multi-select__trigger"
     on:click={() => !disabled && (isOpen = !isOpen)}
     tabindex={disabled ? -1 : 0}
-    role="button"
+    role="combobox"
     aria-haspopup="listbox"
     aria-expanded={isOpen}
     aria-disabled={disabled}
@@ -716,7 +716,7 @@ export default {
   - Show clear feedback: "Maximum 5 selections" or "3 of 5 selected"
   - Allow removal of selected items to make room for new selections
   - Consider using validation message if user tries to exceed limit
-        `.trim()}}},argTypes:{options:{control:"object",description:"Array of option objects with value and label properties ({ value: string, label: string, group?: string }), can include optional group for categorization"},selected:{control:"object",description:'Array of currently selected option values (e.g., ["option1", "option2"]), displayed as removable chips in the trigger'},placeholder:{control:"text",description:'Placeholder text displayed in the trigger when no items are selected (e.g., "Select skills..." or "Choose team members...")'},disabled:{control:"boolean",description:"Disabled state prevents all interaction, applies muted styling with 50% opacity, and disables chip remove buttons"},searchable:{control:"boolean",description:"Enable real-time search/filter functionality with search input at top of dropdown for finding options by label (case-insensitive)"},maxHeight:{control:"text",description:'Maximum height of dropdown options list in CSS units (e.g., "300px", "20rem"), applies scrollbar when exceeded'},size:{control:"select",options:["sm","md","lg"],description:"Component size: sm (compact, 36px height), md (standard, 44px height), lg (prominent, 52px height)"}}};function p(e,v,t={}){const l=document.createElement("div");l.style.padding="2rem",l.style.maxWidth="500px",l.style.minHeight="400px";const i=document.createElement("div");i.id=e,i.className="aural-multi-select",t.disabled&&i.classList.add("aural-multi-select--disabled");const a=document.createElement("div");a.className="aural-multi-select__trigger",a.setAttribute("tabindex",t.disabled?"-1":"0"),a.setAttribute("role","button"),a.setAttribute("aria-haspopup","listbox");const c=document.createElement("div");c.className="aural-multi-select__tags";const d=document.createElement("span");d.className="aural-multi-select__placeholder",d.textContent=t.placeholder||"Select items...";const u=document.createElement("span");u.className="aural-multi-select__clear",u.setAttribute("aria-label","Clear all"),u.setAttribute("role","button"),u.setAttribute("tabindex","0"),u.innerHTML=`
+        `.trim()}}},argTypes:{options:{control:"object",description:"Array of option objects with value and label properties ({ value: string, label: string, group?: string }), can include optional group for categorization"},selected:{control:"object",description:'Array of currently selected option values (e.g., ["option1", "option2"]), displayed as removable chips in the trigger'},placeholder:{control:"text",description:'Placeholder text displayed in the trigger when no items are selected (e.g., "Select skills..." or "Choose team members...")'},disabled:{control:"boolean",description:"Disabled state prevents all interaction, applies muted styling with 50% opacity, and disables chip remove buttons"},searchable:{control:"boolean",description:"Enable real-time search/filter functionality with search input at top of dropdown for finding options by label (case-insensitive)"},maxHeight:{control:"text",description:'Maximum height of dropdown options list in CSS units (e.g., "300px", "20rem"), applies scrollbar when exceeded'},size:{control:"select",options:["sm","md","lg"],description:"Component size: sm (compact, 36px height), md (standard, 44px height), lg (prominent, 52px height)"}}};function p(e,v,t={}){const l=document.createElement("div");l.style.padding="2rem",l.style.maxWidth="500px",l.style.minHeight="400px";const i=document.createElement("div");i.id=e,i.className="aural-multi-select",t.disabled&&i.classList.add("aural-multi-select--disabled");const a=document.createElement("div");a.className="aural-multi-select__trigger",a.setAttribute("tabindex",t.disabled?"-1":"0"),a.setAttribute("role","combobox"),a.setAttribute("aria-haspopup","listbox"),a.setAttribute("aria-expanded","false"),a.setAttribute("aria-label",t.placeholder||"Select items");const c=document.createElement("div");c.className="aural-multi-select__tags";const d=document.createElement("span");d.className="aural-multi-select__placeholder",d.textContent=t.placeholder||"Select items...";const u=document.createElement("span");u.className="aural-multi-select__clear",u.setAttribute("aria-label","Clear all"),u.setAttribute("role","button"),u.setAttribute("tabindex","0"),u.innerHTML=`
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <line x1="18" y1="6" x2="6" y2="18"/>
       <line x1="6" y1="6" x2="18" y2="18"/>
@@ -725,11 +725,11 @@ export default {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <polyline points="6 9 12 15 18 9"/>
     </svg>
-  `,a.appendChild(c),a.appendChild(d),a.appendChild(u),a.appendChild(m);const o=document.createElement("div");if(o.className="aural-multi-select__dropdown",t.maxHeight&&(o.style.maxHeight=t.maxHeight),t.searchable){const s=document.createElement("div");s.className="aural-multi-select__search";const r=document.createElement("input");r.type="text",r.className="aural-multi-select__search-input",r.placeholder="Search...",r.setAttribute("aria-label","Search options"),s.appendChild(r),o.appendChild(s)}const b=document.createElement("div");b.className="aural-multi-select__options";const A=v.reduce((s,r)=>{const n=r.group||"__default__";return s[n]||(s[n]=[]),s[n].push(r),s},{});return Object.keys(A).forEach(s=>{const r=A[s];if(s!=="__default__"){const n=document.createElement("div");n.className="aural-multi-select__group-label",n.textContent=s,b.appendChild(n)}r.forEach(n=>{var M;const h=document.createElement("button");h.className="aural-multi-select__option",h.setAttribute("data-value",n.value),h.type="button";const O=document.createElement("span");O.className="aural-multi-select__checkbox",O.innerHTML=`
+  `,a.appendChild(c),a.appendChild(d),a.appendChild(u),a.appendChild(m);const o=document.createElement("div");if(o.className="aural-multi-select__dropdown",t.maxHeight&&(o.style.maxHeight=t.maxHeight),t.searchable){const s=document.createElement("div");s.className="aural-multi-select__search";const r=document.createElement("input");r.type="text",r.className="aural-multi-select__search-input",r.placeholder="Search...",r.setAttribute("aria-label","Search options"),s.appendChild(r),o.appendChild(s)}const b=document.createElement("div");b.className="aural-multi-select__options";const E=v.reduce((s,r)=>{const n=r.group||"__default__";return s[n]||(s[n]=[]),s[n].push(r),s},{});return Object.keys(E).forEach(s=>{const r=E[s];if(s!=="__default__"){const n=document.createElement("div");n.className="aural-multi-select__group-label",n.textContent=s,b.appendChild(n)}r.forEach(n=>{var M;const h=document.createElement("button");h.className="aural-multi-select__option",h.setAttribute("data-value",n.value),h.type="button";const O=document.createElement("span");O.className="aural-multi-select__checkbox",O.innerHTML=`
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
-      `;const E=document.createElement("span");E.className="aural-multi-select__option-label",E.textContent=n.label,h.appendChild(O),h.appendChild(E),b.appendChild(h),(M=t.selected)!=null&&M.includes(n.value)&&h.classList.add("aural-multi-select__option--selected")})}),o.appendChild(b),i.appendChild(a),i.appendChild(o),l.appendChild(i),setTimeout(()=>{typeof window.Aural<"u"&&window.Aural.initMultiSelect&&window.Aural.initMultiSelect(e,{searchable:t.searchable,onChange:s=>console.log("Selected:",s)})},100),l}const g={render:()=>p("multi-select-default",[{value:"option1",label:"Option 1"},{value:"option2",label:"Option 2"},{value:"option3",label:"Option 3"},{value:"option4",label:"Option 4"},{value:"option5",label:"Option 5"}],{placeholder:"Select items...",searchable:!1})},f={render:()=>p("multi-select-search",[{value:"javascript",label:"JavaScript"},{value:"typescript",label:"TypeScript"},{value:"python",label:"Python"},{value:"rust",label:"Rust"},{value:"go",label:"Go"},{value:"java",label:"Java"},{value:"csharp",label:"C#"},{value:"php",label:"PHP"},{value:"ruby",label:"Ruby"},{value:"swift",label:"Swift"}],{placeholder:"Search and select languages...",searchable:!0})},_={render:()=>{const e=Array.from({length:50},(v,t)=>({value:`item${t+1}`,label:`Item ${t+1}`}));return p("multi-select-many",e,{placeholder:"Select from 50 options...",searchable:!0,maxHeight:"300px"})}},x={render:()=>p("multi-select-preselected",[{value:"react",label:"React"},{value:"vue",label:"Vue"},{value:"angular",label:"Angular"},{value:"svelte",label:"Svelte"},{value:"solid",label:"Solid"}],{placeholder:"Select frameworks...",searchable:!0,selected:["react","vue"]})},w={render:()=>p("multi-select-groups",[{value:"orange",label:"Orange",group:"Citrus"},{value:"lemon",label:"Lemon",group:"Citrus"},{value:"lime",label:"Lime",group:"Citrus"},{value:"strawberry",label:"Strawberry",group:"Berries"},{value:"blueberry",label:"Blueberry",group:"Berries"},{value:"raspberry",label:"Raspberry",group:"Berries"},{value:"mango",label:"Mango",group:"Tropical"},{value:"pineapple",label:"Pineapple",group:"Tropical"},{value:"banana",label:"Banana",group:"Tropical"}],{placeholder:"Select fruits...",searchable:!0})},y={render:()=>p("multi-select-skills",[{value:"html",label:"HTML"},{value:"css",label:"CSS"},{value:"js",label:"JavaScript"},{value:"ts",label:"TypeScript"},{value:"react",label:"React"},{value:"vue",label:"Vue"},{value:"node",label:"Node.js"},{value:"sql",label:"SQL"},{value:"git",label:"Git"},{value:"docker",label:"Docker"}],{placeholder:"Select your skills...",searchable:!0})},S={render:()=>p("multi-select-team",[{value:"sarah",label:"Sarah Johnson"},{value:"mike",label:"Mike Chen"},{value:"emily",label:"Emily Rodriguez"},{value:"alex",label:"Alex Kumar"},{value:"david",label:"David Brown"},{value:"lisa",label:"Lisa Wang"}],{placeholder:"Assign to team members...",searchable:!0})},k={render:()=>p("multi-select-disabled",[{value:"option1",label:"Option 1"},{value:"option2",label:"Option 2"},{value:"option3",label:"Option 3"}],{placeholder:"Disabled multi-select",disabled:!0,selected:["option1","option2"]})},C={render:e=>ae(()=>{const v=[{value:"option1",label:"Option 1"},{value:"option2",label:"Option 2"},{value:"option3",label:"Option 3"},{value:"option4",label:"Option 4"}],t=document.createElement("div");t.id=`multi-select-theme-${Math.random().toString(36).substr(2,9)}`,t.className="aural-multi-select";const l=document.createElement("div");l.className="aural-multi-select__trigger",l.setAttribute("tabindex","0"),l.setAttribute("role","button"),l.setAttribute("aria-haspopup","listbox");const i=document.createElement("div");i.className="aural-multi-select__tags",e.selected&&e.selected.length>0&&e.selected.forEach(u=>{const m=v.find(o=>o.value===u);if(m){const o=document.createElement("span");o.className="aural-multi-select__tag",o.innerHTML=`
+      `;const A=document.createElement("span");A.className="aural-multi-select__option-label",A.textContent=n.label,h.appendChild(O),h.appendChild(A),b.appendChild(h),(M=t.selected)!=null&&M.includes(n.value)&&h.classList.add("aural-multi-select__option--selected")})}),o.appendChild(b),i.appendChild(a),i.appendChild(o),l.appendChild(i),setTimeout(()=>{typeof window.Aural<"u"&&window.Aural.initMultiSelect&&window.Aural.initMultiSelect(e,{searchable:t.searchable,onChange:s=>console.log("Selected:",s)})},100),l}const g={render:()=>p("multi-select-default",[{value:"option1",label:"Option 1"},{value:"option2",label:"Option 2"},{value:"option3",label:"Option 3"},{value:"option4",label:"Option 4"},{value:"option5",label:"Option 5"}],{placeholder:"Select items...",searchable:!1})},f={render:()=>p("multi-select-search",[{value:"javascript",label:"JavaScript"},{value:"typescript",label:"TypeScript"},{value:"python",label:"Python"},{value:"rust",label:"Rust"},{value:"go",label:"Go"},{value:"java",label:"Java"},{value:"csharp",label:"C#"},{value:"php",label:"PHP"},{value:"ruby",label:"Ruby"},{value:"swift",label:"Swift"}],{placeholder:"Search and select languages...",searchable:!0})},x={render:()=>{const e=Array.from({length:50},(v,t)=>({value:`item${t+1}`,label:`Item ${t+1}`}));return p("multi-select-many",e,{placeholder:"Select from 50 options...",searchable:!0,maxHeight:"300px"})}},_={render:()=>p("multi-select-preselected",[{value:"react",label:"React"},{value:"vue",label:"Vue"},{value:"angular",label:"Angular"},{value:"svelte",label:"Svelte"},{value:"solid",label:"Solid"}],{placeholder:"Select frameworks...",searchable:!0,selected:["react","vue"]})},w={render:()=>p("multi-select-groups",[{value:"orange",label:"Orange",group:"Citrus"},{value:"lemon",label:"Lemon",group:"Citrus"},{value:"lime",label:"Lime",group:"Citrus"},{value:"strawberry",label:"Strawberry",group:"Berries"},{value:"blueberry",label:"Blueberry",group:"Berries"},{value:"raspberry",label:"Raspberry",group:"Berries"},{value:"mango",label:"Mango",group:"Tropical"},{value:"pineapple",label:"Pineapple",group:"Tropical"},{value:"banana",label:"Banana",group:"Tropical"}],{placeholder:"Select fruits...",searchable:!0})},y={render:()=>p("multi-select-skills",[{value:"html",label:"HTML"},{value:"css",label:"CSS"},{value:"js",label:"JavaScript"},{value:"ts",label:"TypeScript"},{value:"react",label:"React"},{value:"vue",label:"Vue"},{value:"node",label:"Node.js"},{value:"sql",label:"SQL"},{value:"git",label:"Git"},{value:"docker",label:"Docker"}],{placeholder:"Select your skills...",searchable:!0})},S={render:()=>p("multi-select-team",[{value:"sarah",label:"Sarah Johnson"},{value:"mike",label:"Mike Chen"},{value:"emily",label:"Emily Rodriguez"},{value:"alex",label:"Alex Kumar"},{value:"david",label:"David Brown"},{value:"lisa",label:"Lisa Wang"}],{placeholder:"Assign to team members...",searchable:!0})},k={render:()=>p("multi-select-disabled",[{value:"option1",label:"Option 1"},{value:"option2",label:"Option 2"},{value:"option3",label:"Option 3"}],{placeholder:"Disabled multi-select",disabled:!0,selected:["option1","option2"]})},C={render:e=>ae(()=>{const v=[{value:"option1",label:"Option 1"},{value:"option2",label:"Option 2"},{value:"option3",label:"Option 3"},{value:"option4",label:"Option 4"}],t=document.createElement("div");t.id=`multi-select-theme-${Math.random().toString(36).substr(2,9)}`,t.className="aural-multi-select";const l=document.createElement("div");l.className="aural-multi-select__trigger",l.setAttribute("tabindex","0"),l.setAttribute("role","combobox"),l.setAttribute("aria-haspopup","listbox"),l.setAttribute("aria-expanded","false"),l.setAttribute("aria-label",e.placeholder||"Select items");const i=document.createElement("div");i.className="aural-multi-select__tags",e.selected&&e.selected.length>0&&e.selected.forEach(u=>{const m=v.find(o=>o.value===u);if(m){const o=document.createElement("span");o.className="aural-multi-select__tag",o.innerHTML=`
               ${m.label}
               <button class="aural-multi-select__tag-remove" aria-label="Remove ${m.label}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -807,7 +807,7 @@ export default {
       searchable: true
     });
   }
-}`,...(V=(I=f.parameters)==null?void 0:I.docs)==null?void 0:V.source}}};var D,L,$;_.parameters={..._.parameters,docs:{...(D=_.parameters)==null?void 0:D.docs,source:{originalSource:`{
+}`,...(V=(I=f.parameters)==null?void 0:I.docs)==null?void 0:V.source}}};var D,L,$;x.parameters={...x.parameters,docs:{...(D=x.parameters)==null?void 0:D.docs,source:{originalSource:`{
   render: () => {
     const options = Array.from({
       length: 50
@@ -821,7 +821,7 @@ export default {
       maxHeight: '300px'
     });
   }
-}`,...($=(L=_.parameters)==null?void 0:L.docs)==null?void 0:$.source}}};var H,P,j;x.parameters={...x.parameters,docs:{...(H=x.parameters)==null?void 0:H.docs,source:{originalSource:`{
+}`,...($=(L=x.parameters)==null?void 0:L.docs)==null?void 0:$.source}}};var H,P,j;_.parameters={..._.parameters,docs:{...(H=_.parameters)==null?void 0:H.docs,source:{originalSource:`{
   render: () => {
     const options = [{
       value: 'react',
@@ -845,7 +845,7 @@ export default {
       selected: ['react', 'vue']
     });
   }
-}`,...(j=(P=x.parameters)==null?void 0:P.docs)==null?void 0:j.source}}};var Q,U,J;w.parameters={...w.parameters,docs:{...(Q=w.parameters)==null?void 0:Q.docs,source:{originalSource:`{
+}`,...(j=(P=_.parameters)==null?void 0:P.docs)==null?void 0:j.source}}};var Q,U,J;w.parameters={...w.parameters,docs:{...(Q=w.parameters)==null?void 0:Q.docs,source:{originalSource:`{
   render: () => {
     const options = [{
       value: 'orange',
@@ -995,8 +995,10 @@ export default {
       const trigger = document.createElement('div');
       trigger.className = 'aural-multi-select__trigger';
       trigger.setAttribute('tabindex', '0');
-      trigger.setAttribute('role', 'button');
+      trigger.setAttribute('role', 'combobox');
       trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.setAttribute('aria-label', args.placeholder || 'Select items');
       const tagsContainer = document.createElement('div');
       tagsContainer.className = 'aural-multi-select__tags';
 
@@ -1066,4 +1068,4 @@ export default {
       description: 'Array of selected values'
     }
   }
-}`,...(le=(te=C.parameters)==null?void 0:te.docs)==null?void 0:le.source}}};const ne=["Default","WithSearch","ManyOptions","PreSelected","WithGroups","SkillsSelector","TeamMemberSelector","Disabled","ThemeComparison"];export{g as Default,k as Disabled,_ as ManyOptions,x as PreSelected,y as SkillsSelector,S as TeamMemberSelector,C as ThemeComparison,w as WithGroups,f as WithSearch,ne as __namedExportsOrder,oe as default};
+}`,...(le=(te=C.parameters)==null?void 0:te.docs)==null?void 0:le.source}}};const ne=["Default","WithSearch","ManyOptions","PreSelected","WithGroups","SkillsSelector","TeamMemberSelector","Disabled","ThemeComparison"];export{g as Default,k as Disabled,x as ManyOptions,_ as PreSelected,y as SkillsSelector,S as TeamMemberSelector,C as ThemeComparison,w as WithGroups,f as WithSearch,ne as __namedExportsOrder,oe as default};

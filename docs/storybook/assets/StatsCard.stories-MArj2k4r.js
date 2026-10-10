@@ -1,4 +1,4 @@
-const ja={title:"Components/Stats Card",tags:["autodocs"],argTypes:{variant:{control:"select",options:["default","primary","success","warning","error"],description:"Semantic color variant",table:{defaultValue:{summary:"default"}}},label:{control:"text",description:"The label describing the metric"},value:{control:"text",description:"The main value/metric to display"},icon:{control:"text",description:'Lucide icon name (e.g., "dollar-sign", "users")'},hasIcon:{control:"boolean",description:"Whether to show an icon"},hasTrend:{control:"boolean",description:"Whether to show trend indicator"},trendDirection:{control:"select",options:["up","down","neutral"],description:"Trend direction"},trendValue:{control:"text",description:"Trend percentage/value"},description:{control:"text",description:"Footer description text"},hasProgress:{control:"boolean",description:"Whether to show progress bar"},progressValue:{control:{type:"range",min:0,max:100,step:1},description:"Progress bar percentage (0-100)"}},parameters:{docs:{description:{component:`
+const s=(a,...f)=>a.reduce((za,qa,y)=>{const b=f[y],Qa=Array.isArray(b)?b.join(""):b??"";return za+qa+(y<f.length?String(Qa):"")},""),Ja={title:"Components/Stats Card",tags:["autodocs"],argTypes:{variant:{control:"select",options:["default","primary","success","warning","error"],description:"Semantic color variant",table:{defaultValue:{summary:"default"}}},label:{control:"text",description:"The label describing the metric"},value:{control:"text",description:"The main value/metric to display"},icon:{control:"text",description:'Lucide icon name (e.g., "dollar-sign", "users")'},hasIcon:{control:"boolean",description:"Whether to show an icon"},hasTrend:{control:"boolean",description:"Whether to show trend indicator"},trendDirection:{control:"select",options:["up","down","neutral"],description:"Trend direction"},trendValue:{control:"text",description:"Trend percentage/value"},description:{control:"text",description:"Footer description text"},hasProgress:{control:"boolean",description:"Whether to show progress bar"},progressValue:{control:{type:"range",min:0,max:100,step:1},description:"Progress bar percentage (0-100)"}},parameters:{docs:{description:{component:`
 # Stats Card Component
 
 Statistical data cards for displaying key metrics, trends, and performance indicators with visual emphasis. Perfect for dashboards, analytics, and reporting interfaces.
@@ -66,6 +66,7 @@ Stats cards present numerical data in a visually appealing, scannable format wit
     <div class="aural-stats-card__progress-bar"
          style="width: 68%"
          role="progressbar"
+         aria-label="Storage Used"
          aria-valuenow="68"
          aria-valuemin="0"
          aria-valuemax="100"></div>
@@ -122,6 +123,7 @@ function StatsCard({
             className="aural-stats-card__progress-bar"
             style={{ width: \`\${progress}%\` }}
             role="progressbar"
+            aria-label={label}
             aria-valuenow={progress}
             aria-valuemin={0}
             aria-valuemax={100}
@@ -175,6 +177,7 @@ function StatsCard({
         class="aural-stats-card__progress-bar"
         :style="{ width: \`\${progress}%\` }"
         role="progressbar"
+        :aria-label="label"
         :aria-valuenow="progress"
         aria-valuemin="0"
         aria-valuemax="100"
@@ -250,6 +253,7 @@ const trendIcon = computed(() => {
         class="aural-stats-card__progress-bar"
         style="width: {progress}%"
         role="progressbar"
+        aria-label={label}
         aria-valuenow={progress}
         aria-valuemin="0"
         aria-valuemax="100"
@@ -335,7 +339,7 @@ const trendIcon = computed(() => {
 - Progress bars visible and legible
 - Horizontal layout converts to vertical on narrow screens
 - Footer content may wrap on small screens
-        `.trim()}}}},s={args:{label:"Page Views",value:"124.5K",description:"Last 30 days",hasIcon:!1,hasTrend:!1,hasProgress:!1,variant:"default"},render:a=>html`
+        `.trim()}}}},r={args:{label:"Page Views",value:"124.5K",description:"Last 30 days",hasIcon:!1,hasTrend:!1,hasProgress:!1,variant:"default"},render:a=>s`
     <div
       class="aural-stats-card${a.variant!=="default"?` aural-stats-card--${a.variant}`:""}"
     >
@@ -347,13 +351,13 @@ const trendIcon = computed(() => {
         <span class="aural-stats-card__description">${a.description}</span>
       </div>
     </div>
-  `},r={args:{label:"Total Revenue",value:"$45,231",description:"This month",icon:"dollar-sign",hasIcon:!0,hasTrend:!1,hasProgress:!1,variant:"primary"},render:a=>html`
+  `},t={args:{label:"Total Revenue",value:"$45,231",description:"This month",icon:"dollar-sign",hasIcon:!0,hasTrend:!1,hasProgress:!1,variant:"primary"},render:a=>s`
     <div
       class="aural-stats-card${a.variant!=="default"?` aural-stats-card--${a.variant}`:""}"
     >
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">${a.label}</span>
-        ${a.hasIcon?html`
+        ${a.hasIcon?s`
               <div class="aural-stats-card__icon">
                 <i data-lucide="${a.icon}" aria-hidden="true"></i>
               </div>
@@ -364,22 +368,22 @@ const trendIcon = computed(() => {
         <span class="aural-stats-card__description">${a.description}</span>
       </div>
     </div>
-  `},t={args:{label:"Active Users",value:"8,492",description:"vs last week",icon:"users",hasIcon:!0,hasTrend:!0,trendDirection:"up",trendValue:"8.1%",hasProgress:!1,variant:"success"},render:a=>html`
+  `},d={args:{label:"Active Users",value:"8,492",description:"vs last week",icon:"users",hasIcon:!0,hasTrend:!0,trendDirection:"up",trendValue:"8.1%",hasProgress:!1,variant:"success"},render:a=>s`
     <div
       class="aural-stats-card${a.variant!=="default"?` aural-stats-card--${a.variant}`:""}"
     >
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">${a.label}</span>
-        ${a.hasIcon?html`
+        ${a.hasIcon?s`
               <div class="aural-stats-card__icon">
                 <i data-lucide="${a.icon}" aria-hidden="true"></i>
               </div>
             `:""}
       </div>
       <div class="aural-stats-card__value">${a.value}</div>
-      ${a.hasTrend||a.description?html`
+      ${a.hasTrend||a.description?s`
             <div class="aural-stats-card__footer">
-              ${a.hasTrend?html`
+              ${a.hasTrend?s`
                     <span
                       class="aural-stats-card__trend aural-stats-card__trend--${a.trendDirection}"
                     >
@@ -391,26 +395,26 @@ const trendIcon = computed(() => {
                       ${a.trendValue}
                     </span>
                   `:""}
-              ${a.description?html` <span class="aural-stats-card__description">${a.description}</span> `:""}
+              ${a.description?s` <span class="aural-stats-card__description">${a.description}</span> `:""}
             </div>
           `:""}
     </div>
-  `},d={args:{label:"Customer Loss",value:"127",description:"vs yesterday",icon:"trending-down",hasIcon:!0,hasTrend:!0,trendDirection:"down",trendValue:"3.2%",hasProgress:!1,variant:"warning"},render:a=>html`
+  `},e={args:{label:"Customer Loss",value:"127",description:"vs yesterday",icon:"trending-down",hasIcon:!0,hasTrend:!0,trendDirection:"down",trendValue:"3.2%",hasProgress:!1,variant:"warning"},render:a=>s`
     <div
       class="aural-stats-card${a.variant!=="default"?` aural-stats-card--${a.variant}`:""}"
     >
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">${a.label}</span>
-        ${a.hasIcon?html`
+        ${a.hasIcon?s`
               <div class="aural-stats-card__icon">
                 <i data-lucide="${a.icon}" aria-hidden="true"></i>
               </div>
             `:""}
       </div>
       <div class="aural-stats-card__value">${a.value}</div>
-      ${a.hasTrend||a.description?html`
+      ${a.hasTrend||a.description?s`
             <div class="aural-stats-card__footer">
-              ${a.hasTrend?html`
+              ${a.hasTrend?s`
                     <span
                       class="aural-stats-card__trend aural-stats-card__trend--${a.trendDirection}"
                     >
@@ -422,26 +426,26 @@ const trendIcon = computed(() => {
                       ${a.trendValue}
                     </span>
                   `:""}
-              ${a.description?html` <span class="aural-stats-card__description">${a.description}</span> `:""}
+              ${a.description?s` <span class="aural-stats-card__description">${a.description}</span> `:""}
             </div>
           `:""}
     </div>
-  `},e={args:{label:"Error Rate",value:"2.3%",description:"no change",icon:"alert-circle",hasIcon:!0,hasTrend:!0,trendDirection:"neutral",trendValue:"0.0%",hasProgress:!1,variant:"error"},render:a=>html`
+  `},i={args:{label:"Error Rate",value:"2.3%",description:"no change",icon:"alert-circle",hasIcon:!0,hasTrend:!0,trendDirection:"neutral",trendValue:"0.0%",hasProgress:!1,variant:"error"},render:a=>s`
     <div
       class="aural-stats-card${a.variant!=="default"?` aural-stats-card--${a.variant}`:""}"
     >
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">${a.label}</span>
-        ${a.hasIcon?html`
+        ${a.hasIcon?s`
               <div class="aural-stats-card__icon">
                 <i data-lucide="${a.icon}" aria-hidden="true"></i>
               </div>
             `:""}
       </div>
       <div class="aural-stats-card__value">${a.value}</div>
-      ${a.hasTrend||a.description?html`
+      ${a.hasTrend||a.description?s`
             <div class="aural-stats-card__footer">
-              ${a.hasTrend?html`
+              ${a.hasTrend?s`
                     <span
                       class="aural-stats-card__trend aural-stats-card__trend--${a.trendDirection}"
                     >
@@ -453,29 +457,30 @@ const trendIcon = computed(() => {
                       ${a.trendValue}
                     </span>
                   `:""}
-              ${a.description?html` <span class="aural-stats-card__description">${a.description}</span> `:""}
+              ${a.description?s` <span class="aural-stats-card__description">${a.description}</span> `:""}
             </div>
           `:""}
     </div>
-  `},i={args:{label:"Storage Used",value:"67.8 GB",description:"of 100 GB total",icon:"hard-drive",hasIcon:!0,hasTrend:!1,hasProgress:!0,progressValue:67.8,variant:"primary"},render:a=>html`
+  `},n={args:{label:"Storage Used",value:"67.8 GB",description:"of 100 GB total",icon:"hard-drive",hasIcon:!0,hasTrend:!1,hasProgress:!0,progressValue:67.8,variant:"primary"},render:a=>s`
     <div
       class="aural-stats-card${a.variant!=="default"?` aural-stats-card--${a.variant}`:""}"
     >
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">${a.label}</span>
-        ${a.hasIcon?html`
+        ${a.hasIcon?s`
               <div class="aural-stats-card__icon">
                 <i data-lucide="${a.icon}" aria-hidden="true"></i>
               </div>
             `:""}
       </div>
       <div class="aural-stats-card__value">${a.value}</div>
-      ${a.hasProgress?html`
+      ${a.hasProgress?s`
             <div class="aural-stats-card__progress">
               <div
                 class="aural-stats-card__progress-bar"
                 style="width: ${a.progressValue}%"
                 role="progressbar"
+                aria-label="${a.label}"
                 aria-valuenow="${a.progressValue}"
                 aria-valuemin="0"
                 aria-valuemax="100"
@@ -486,7 +491,7 @@ const trendIcon = computed(() => {
         <span class="aural-stats-card__description">${a.description}</span>
       </div>
     </div>
-  `},n={render:()=>html`
+  `},l={render:()=>s`
     <div class="aural-stats-card aural-stats-card--primary">
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">Total Revenue</span>
@@ -499,7 +504,7 @@ const trendIcon = computed(() => {
         <span class="aural-stats-card__description">Primary variant</span>
       </div>
     </div>
-  `},l={render:()=>html`
+  `},c={render:()=>s`
     <div class="aural-stats-card aural-stats-card--success">
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">Active Users</span>
@@ -512,7 +517,7 @@ const trendIcon = computed(() => {
         <span class="aural-stats-card__description">Success variant</span>
       </div>
     </div>
-  `},c={render:()=>html`
+  `},o={render:()=>s`
     <div class="aural-stats-card aural-stats-card--warning">
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">Pending Orders</span>
@@ -525,7 +530,7 @@ const trendIcon = computed(() => {
         <span class="aural-stats-card__description">Warning variant</span>
       </div>
     </div>
-  `},o={render:()=>html`
+  `},u={render:()=>s`
     <div class="aural-stats-card aural-stats-card--error">
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">Error Rate</span>
@@ -538,7 +543,7 @@ const trendIcon = computed(() => {
         <span class="aural-stats-card__description">Error variant</span>
       </div>
     </div>
-  `},u={render:()=>html`
+  `},v={render:()=>s`
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);"
     >
@@ -594,7 +599,7 @@ const trendIcon = computed(() => {
         </div>
       </div>
     </div>
-  `},v={render:()=>html`
+  `},_={render:()=>s`
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);"
     >
@@ -673,6 +678,7 @@ const trendIcon = computed(() => {
             class="aural-stats-card__progress-bar"
             style="width: 72%"
             role="progressbar"
+            aria-label="CPU Usage"
             aria-valuenow="72"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -696,6 +702,7 @@ const trendIcon = computed(() => {
             class="aural-stats-card__progress-bar"
             style="width: 85%"
             role="progressbar"
+            aria-label="Project Completion"
             aria-valuenow="85"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -706,7 +713,7 @@ const trendIcon = computed(() => {
         </div>
       </div>
     </div>
-  `},_={render:()=>html`
+  `},p={render:()=>s`
     <div class="aural-stats-card">
       <div class="aural-stats-card__header">
         <span class="aural-stats-card__label">Loading...</span>
@@ -733,7 +740,7 @@ const trendIcon = computed(() => {
         }
       }
     </style>
-  `},p={render:()=>html`
+  `},h={render:()=>s`
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6);"
     >
@@ -750,6 +757,7 @@ const trendIcon = computed(() => {
             class="aural-stats-card__progress-bar"
             style="width: 67.8%"
             role="progressbar"
+            aria-label="Storage Used"
             aria-valuenow="67.8"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -773,6 +781,7 @@ const trendIcon = computed(() => {
             class="aural-stats-card__progress-bar"
             style="width: 85%"
             role="progressbar"
+            aria-label="Project Completion"
             aria-valuenow="85"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -796,6 +805,7 @@ const trendIcon = computed(() => {
             class="aural-stats-card__progress-bar"
             style="width: 72%"
             role="progressbar"
+            aria-label="CPU Usage"
             aria-valuenow="72"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -806,7 +816,7 @@ const trendIcon = computed(() => {
         </div>
       </div>
     </div>
-  `},h={render:()=>html`
+  `},m={render:()=>s`
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);"
     >
@@ -844,7 +854,7 @@ const trendIcon = computed(() => {
         </div>
       </div>
     </div>
-  `},m={render:()=>html`
+  `},g={render:()=>s`
     <div style="display: grid; gap: var(--space-8);">
       <div>
         <h3 style="margin: 0 0 var(--space-4) 0; color: var(--color-text-primary);">
@@ -915,6 +925,7 @@ const trendIcon = computed(() => {
               class="aural-stats-card__progress-bar"
               style="width: 72%"
               role="progressbar"
+              aria-label="CPU Usage"
               aria-valuenow="72"
               aria-valuemin="0"
               aria-valuemax="100"
@@ -948,7 +959,7 @@ const trendIcon = computed(() => {
         </div>
       </div>
     </div>
-  `,parameters:{docs:{description:{story:"View how stats cards appear across all themes. Use the theme switcher in the toolbar to compare."}}}};var g,f,b,y,w;s.parameters={...s.parameters,docs:{...(g=s.parameters)==null?void 0:g.docs,source:{originalSource:`{
+  `,parameters:{docs:{description:{story:"View how stats cards appear across all themes. Use the theme switcher in the toolbar to compare."}}}};var w,$,x,P,S;r.parameters={...r.parameters,docs:{...(w=r.parameters)==null?void 0:w.docs,source:{originalSource:`{
   args: {
     label: 'Page Views',
     value: '124.5K',
@@ -971,7 +982,7 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(b=(f=s.parameters)==null?void 0:f.docs)==null?void 0:b.source},description:{story:"Basic stats card with just a label, value, and description.",...(w=(y=s.parameters)==null?void 0:y.docs)==null?void 0:w.description}}};var $,x,P,T,S;r.parameters={...r.parameters,docs:{...($=r.parameters)==null?void 0:$.docs,source:{originalSource:`{
+}`,...(x=($=r.parameters)==null?void 0:$.docs)==null?void 0:x.source},description:{story:"Basic stats card with just a label, value, and description.",...(S=(P=r.parameters)==null?void 0:P.docs)==null?void 0:S.description}}};var T,U,C,V,D;t.parameters={...t.parameters,docs:{...(T=t.parameters)==null?void 0:T.docs,source:{originalSource:`{
   args: {
     label: 'Total Revenue',
     value: '$45,231',
@@ -1000,7 +1011,7 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(P=(x=r.parameters)==null?void 0:x.docs)==null?void 0:P.source},description:{story:"Stats card with an icon for visual categorization.",...(S=(T=r.parameters)==null?void 0:T.docs)==null?void 0:S.description}}};var V,U,C,D,I;t.parameters={...t.parameters,docs:{...(V=t.parameters)==null?void 0:V.docs,source:{originalSource:`{
+}`,...(C=(U=t.parameters)==null?void 0:U.docs)==null?void 0:C.source},description:{story:"Stats card with an icon for visual categorization.",...(D=(V=t.parameters)==null?void 0:V.docs)==null?void 0:D.description}}};var I,k,W,R,A;d.parameters={...d.parameters,docs:{...(I=d.parameters)==null?void 0:I.docs,source:{originalSource:`{
   args: {
     label: 'Active Users',
     value: '8,492',
@@ -1045,7 +1056,7 @@ const trendIcon = computed(() => {
           \` : ''}
     </div>
   \`
-}`,...(C=(U=t.parameters)==null?void 0:U.docs)==null?void 0:C.source},description:{story:"Stats card with an upward trend indicator showing positive growth.",...(I=(D=t.parameters)==null?void 0:D.docs)==null?void 0:I.description}}};var k,W,R,N,A;d.parameters={...d.parameters,docs:{...(k=d.parameters)==null?void 0:k.docs,source:{originalSource:`{
+}`,...(W=(k=d.parameters)==null?void 0:k.docs)==null?void 0:W.source},description:{story:"Stats card with an upward trend indicator showing positive growth.",...(A=(R=d.parameters)==null?void 0:R.docs)==null?void 0:A.description}}};var N,E,L,B,G;e.parameters={...e.parameters,docs:{...(N=e.parameters)==null?void 0:N.docs,source:{originalSource:`{
   args: {
     label: 'Customer Loss',
     value: '127',
@@ -1090,7 +1101,7 @@ const trendIcon = computed(() => {
           \` : ''}
     </div>
   \`
-}`,...(R=(W=d.parameters)==null?void 0:W.docs)==null?void 0:R.source},description:{story:"Stats card with a downward trend indicator showing decline.",...(A=(N=d.parameters)==null?void 0:N.docs)==null?void 0:A.description}}};var E,L,B,G,F;e.parameters={...e.parameters,docs:{...(E=e.parameters)==null?void 0:E.docs,source:{originalSource:`{
+}`,...(L=(E=e.parameters)==null?void 0:E.docs)==null?void 0:L.source},description:{story:"Stats card with a downward trend indicator showing decline.",...(G=(B=e.parameters)==null?void 0:B.docs)==null?void 0:G.description}}};var j,F,H,M,O;i.parameters={...i.parameters,docs:{...(j=i.parameters)==null?void 0:j.docs,source:{originalSource:`{
   args: {
     label: 'Error Rate',
     value: '2.3%',
@@ -1135,7 +1146,7 @@ const trendIcon = computed(() => {
           \` : ''}
     </div>
   \`
-}`,...(B=(L=e.parameters)==null?void 0:L.docs)==null?void 0:B.source},description:{story:"Stats card with a neutral trend indicator showing no change.",...(F=(G=e.parameters)==null?void 0:G.docs)==null?void 0:F.description}}};var H,j,M,O,K;i.parameters={...i.parameters,docs:{...(H=i.parameters)==null?void 0:H.docs,source:{originalSource:`{
+}`,...(H=(F=i.parameters)==null?void 0:F.docs)==null?void 0:H.source},description:{story:"Stats card with a neutral trend indicator showing no change.",...(O=(M=i.parameters)==null?void 0:M.docs)==null?void 0:O.description}}};var K,z,q,Q,J;n.parameters={...n.parameters,docs:{...(K=n.parameters)==null?void 0:K.docs,source:{originalSource:`{
   args: {
     label: 'Storage Used',
     value: '67.8 GB',
@@ -1166,6 +1177,7 @@ const trendIcon = computed(() => {
                 class="aural-stats-card__progress-bar"
                 style="width: \${args.progressValue}%"
                 role="progressbar"
+                aria-label="\${args.label}"
                 aria-valuenow="\${args.progressValue}"
                 aria-valuemin="0"
                 aria-valuemax="100"
@@ -1177,7 +1189,7 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(M=(j=i.parameters)==null?void 0:j.docs)==null?void 0:M.source},description:{story:"Stats card with a progress bar showing completion or usage percentage.",...(K=(O=i.parameters)==null?void 0:O.docs)==null?void 0:K.description}}};var z,q,Q,J,X;n.parameters={...n.parameters,docs:{...(z=n.parameters)==null?void 0:z.docs,source:{originalSource:`{
+}`,...(q=(z=n.parameters)==null?void 0:z.docs)==null?void 0:q.source},description:{story:"Stats card with a progress bar showing completion or usage percentage.",...(J=(Q=n.parameters)==null?void 0:Q.docs)==null?void 0:J.description}}};var X,Y,Z,aa,sa;l.parameters={...l.parameters,docs:{...(X=l.parameters)==null?void 0:X.docs,source:{originalSource:`{
   render: () => html\`
     <div class="aural-stats-card aural-stats-card--primary">
       <div class="aural-stats-card__header">
@@ -1192,7 +1204,7 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(Q=(q=n.parameters)==null?void 0:q.docs)==null?void 0:Q.source},description:{story:"Primary variant - used for default metrics and brand-related data.",...(X=(J=n.parameters)==null?void 0:J.docs)==null?void 0:X.description}}};var Y,Z,aa,sa,ra;l.parameters={...l.parameters,docs:{...(Y=l.parameters)==null?void 0:Y.docs,source:{originalSource:`{
+}`,...(Z=(Y=l.parameters)==null?void 0:Y.docs)==null?void 0:Z.source},description:{story:"Primary variant - used for default metrics and brand-related data.",...(sa=(aa=l.parameters)==null?void 0:aa.docs)==null?void 0:sa.description}}};var ra,ta,da,ea,ia;c.parameters={...c.parameters,docs:{...(ra=c.parameters)==null?void 0:ra.docs,source:{originalSource:`{
   render: () => html\`
     <div class="aural-stats-card aural-stats-card--success">
       <div class="aural-stats-card__header">
@@ -1207,7 +1219,7 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(aa=(Z=l.parameters)==null?void 0:Z.docs)==null?void 0:aa.source},description:{story:"Success variant - used for positive metrics, growth, and achievements.",...(ra=(sa=l.parameters)==null?void 0:sa.docs)==null?void 0:ra.description}}};var ta,da,ea,ia,na;c.parameters={...c.parameters,docs:{...(ta=c.parameters)==null?void 0:ta.docs,source:{originalSource:`{
+}`,...(da=(ta=c.parameters)==null?void 0:ta.docs)==null?void 0:da.source},description:{story:"Success variant - used for positive metrics, growth, and achievements.",...(ia=(ea=c.parameters)==null?void 0:ea.docs)==null?void 0:ia.description}}};var na,la,ca,oa,ua;o.parameters={...o.parameters,docs:{...(na=o.parameters)==null?void 0:na.docs,source:{originalSource:`{
   render: () => html\`
     <div class="aural-stats-card aural-stats-card--warning">
       <div class="aural-stats-card__header">
@@ -1222,7 +1234,7 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(ea=(da=c.parameters)==null?void 0:da.docs)==null?void 0:ea.source},description:{story:"Warning variant - used for cautionary metrics and approaching limits.",...(na=(ia=c.parameters)==null?void 0:ia.docs)==null?void 0:na.description}}};var la,ca,oa,ua,va;o.parameters={...o.parameters,docs:{...(la=o.parameters)==null?void 0:la.docs,source:{originalSource:`{
+}`,...(ca=(la=o.parameters)==null?void 0:la.docs)==null?void 0:ca.source},description:{story:"Warning variant - used for cautionary metrics and approaching limits.",...(ua=(oa=o.parameters)==null?void 0:oa.docs)==null?void 0:ua.description}}};var va,_a,pa,ha,ma;u.parameters={...u.parameters,docs:{...(va=u.parameters)==null?void 0:va.docs,source:{originalSource:`{
   render: () => html\`
     <div class="aural-stats-card aural-stats-card--error">
       <div class="aural-stats-card__header">
@@ -1237,7 +1249,7 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(oa=(ca=o.parameters)==null?void 0:ca.docs)==null?void 0:oa.source},description:{story:"Error variant - used for negative metrics, errors, and critical issues.",...(va=(ua=o.parameters)==null?void 0:ua.docs)==null?void 0:va.description}}};var _a,pa,ha,ma,ga;u.parameters={...u.parameters,docs:{...(_a=u.parameters)==null?void 0:_a.docs,source:{originalSource:`{
+}`,...(pa=(_a=u.parameters)==null?void 0:_a.docs)==null?void 0:pa.source},description:{story:"Error variant - used for negative metrics, errors, and critical issues.",...(ma=(ha=u.parameters)==null?void 0:ha.docs)==null?void 0:ma.description}}};var ga,ba,fa,ya,wa;v.parameters={...v.parameters,docs:{...(ga=v.parameters)==null?void 0:ga.docs,source:{originalSource:`{
   render: () => html\`
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);"
@@ -1295,7 +1307,7 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(ha=(pa=u.parameters)==null?void 0:pa.docs)==null?void 0:ha.source},description:{story:"All semantic color variants displayed together for comparison.",...(ga=(ma=u.parameters)==null?void 0:ma.docs)==null?void 0:ga.description}}};var fa,ba,ya,wa,$a;v.parameters={...v.parameters,docs:{...(fa=v.parameters)==null?void 0:fa.docs,source:{originalSource:`{
+}`,...(fa=(ba=v.parameters)==null?void 0:ba.docs)==null?void 0:fa.source},description:{story:"All semantic color variants displayed together for comparison.",...(wa=(ya=v.parameters)==null?void 0:ya.docs)==null?void 0:wa.description}}};var $a,xa,Pa,Sa,Ta;_.parameters={..._.parameters,docs:{...($a=_.parameters)==null?void 0:$a.docs,source:{originalSource:`{
   render: () => html\`
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6);"
@@ -1375,6 +1387,7 @@ const trendIcon = computed(() => {
             class="aural-stats-card__progress-bar"
             style="width: 72%"
             role="progressbar"
+            aria-label="CPU Usage"
             aria-valuenow="72"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1398,6 +1411,7 @@ const trendIcon = computed(() => {
             class="aural-stats-card__progress-bar"
             style="width: 85%"
             role="progressbar"
+            aria-label="Project Completion"
             aria-valuenow="85"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1409,8 +1423,8 @@ const trendIcon = computed(() => {
       </div>
     </div>
   \`
-}`,...(ya=(ba=v.parameters)==null?void 0:ba.docs)==null?void 0:ya.source},description:{story:`Dashboard grid showing multiple stats cards in a responsive layout.
-This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==null?void 0:wa.docs)==null?void 0:$a.description}}};var xa,Pa,Ta,Sa,Va;_.parameters={..._.parameters,docs:{...(xa=_.parameters)==null?void 0:xa.docs,source:{originalSource:`{
+}`,...(Pa=(xa=_.parameters)==null?void 0:xa.docs)==null?void 0:Pa.source},description:{story:`Dashboard grid showing multiple stats cards in a responsive layout.
+This is a common pattern for analytics dashboards.`,...(Ta=(Sa=_.parameters)==null?void 0:Sa.docs)==null?void 0:Ta.description}}};var Ua,Ca,Va,Da,Ia;p.parameters={...p.parameters,docs:{...(Ua=p.parameters)==null?void 0:Ua.docs,source:{originalSource:`{
   render: () => html\`
     <div class="aural-stats-card">
       <div class="aural-stats-card__header">
@@ -1439,7 +1453,7 @@ This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==nu
       }
     </style>
   \`
-}`,...(Ta=(Pa=_.parameters)==null?void 0:Pa.docs)==null?void 0:Ta.source},description:{story:"Loading state with skeleton placeholder.",...(Va=(Sa=_.parameters)==null?void 0:Sa.docs)==null?void 0:Va.description}}};var Ua,Ca,Da,Ia,ka;p.parameters={...p.parameters,docs:{...(Ua=p.parameters)==null?void 0:Ua.docs,source:{originalSource:`{
+}`,...(Va=(Ca=p.parameters)==null?void 0:Ca.docs)==null?void 0:Va.source},description:{story:"Loading state with skeleton placeholder.",...(Ia=(Da=p.parameters)==null?void 0:Da.docs)==null?void 0:Ia.description}}};var ka,Wa,Ra,Aa,Na;h.parameters={...h.parameters,docs:{...(ka=h.parameters)==null?void 0:ka.docs,source:{originalSource:`{
   render: () => html\`
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6);"
@@ -1457,6 +1471,7 @@ This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==nu
             class="aural-stats-card__progress-bar"
             style="width: 67.8%"
             role="progressbar"
+            aria-label="Storage Used"
             aria-valuenow="67.8"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1480,6 +1495,7 @@ This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==nu
             class="aural-stats-card__progress-bar"
             style="width: 85%"
             role="progressbar"
+            aria-label="Project Completion"
             aria-valuenow="85"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1503,6 +1519,7 @@ This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==nu
             class="aural-stats-card__progress-bar"
             style="width: 72%"
             role="progressbar"
+            aria-label="CPU Usage"
             aria-valuenow="72"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1514,7 +1531,7 @@ This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==nu
       </div>
     </div>
   \`
-}`,...(Da=(Ca=p.parameters)==null?void 0:Ca.docs)==null?void 0:Da.source},description:{story:"Multiple stats cards with progress bars showing resource usage.",...(ka=(Ia=p.parameters)==null?void 0:Ia.docs)==null?void 0:ka.description}}};var Wa,Ra,Na,Aa,Ea;h.parameters={...h.parameters,docs:{...(Wa=h.parameters)==null?void 0:Wa.docs,source:{originalSource:`{
+}`,...(Ra=(Wa=h.parameters)==null?void 0:Wa.docs)==null?void 0:Ra.source},description:{story:"Multiple stats cards with progress bars showing resource usage.",...(Na=(Aa=h.parameters)==null?void 0:Aa.docs)==null?void 0:Na.description}}};var Ea,La,Ba,Ga,ja;m.parameters={...m.parameters,docs:{...(Ea=m.parameters)==null?void 0:Ea.docs,source:{originalSource:`{
   render: () => html\`
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-6);"
@@ -1554,7 +1571,7 @@ This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==nu
       </div>
     </div>
   \`
-}`,...(Na=(Ra=h.parameters)==null?void 0:Ra.docs)==null?void 0:Na.source},description:{story:"Large featured cards for highlighting key metrics on a dashboard.",...(Ea=(Aa=h.parameters)==null?void 0:Aa.docs)==null?void 0:Ea.description}}};var La,Ba,Ga,Fa,Ha;m.parameters={...m.parameters,docs:{...(La=m.parameters)==null?void 0:La.docs,source:{originalSource:`{
+}`,...(Ba=(La=m.parameters)==null?void 0:La.docs)==null?void 0:Ba.source},description:{story:"Large featured cards for highlighting key metrics on a dashboard.",...(ja=(Ga=m.parameters)==null?void 0:Ga.docs)==null?void 0:ja.description}}};var Fa,Ha,Ma,Oa,Ka;g.parameters={...g.parameters,docs:{...(Fa=g.parameters)==null?void 0:Fa.docs,source:{originalSource:`{
   render: () => html\`
     <div style="display: grid; gap: var(--space-8);">
       <div>
@@ -1626,6 +1643,7 @@ This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==nu
               class="aural-stats-card__progress-bar"
               style="width: 72%"
               role="progressbar"
+              aria-label="CPU Usage"
               aria-valuenow="72"
               aria-valuemin="0"
               aria-valuemax="100"
@@ -1667,5 +1685,5 @@ This is a common pattern for analytics dashboards.`,...($a=(wa=v.parameters)==nu
       }
     }
   }
-}`,...(Ga=(Ba=m.parameters)==null?void 0:Ba.docs)==null?void 0:Ga.source},description:{story:`Compare how the stats card appears across all available themes.
-Useful for ensuring consistent appearance and accessibility.`,...(Ha=(Fa=m.parameters)==null?void 0:Fa.docs)==null?void 0:Ha.description}}};const Ma=["Basic","WithIcon","WithTrendUp","WithTrendDown","WithTrendNeutral","WithProgress","VariantPrimary","VariantSuccess","VariantWarning","VariantError","AllVariants","DashboardGrid","Loading","WithProgressBars","FeaturedCards","ThemeComparison"];export{u as AllVariants,s as Basic,v as DashboardGrid,h as FeaturedCards,_ as Loading,m as ThemeComparison,o as VariantError,n as VariantPrimary,l as VariantSuccess,c as VariantWarning,r as WithIcon,i as WithProgress,p as WithProgressBars,d as WithTrendDown,e as WithTrendNeutral,t as WithTrendUp,Ma as __namedExportsOrder,ja as default};
+}`,...(Ma=(Ha=g.parameters)==null?void 0:Ha.docs)==null?void 0:Ma.source},description:{story:`Compare how the stats card appears across all available themes.
+Useful for ensuring consistent appearance and accessibility.`,...(Ka=(Oa=g.parameters)==null?void 0:Oa.docs)==null?void 0:Ka.description}}};const Xa=["Basic","WithIcon","WithTrendUp","WithTrendDown","WithTrendNeutral","WithProgress","VariantPrimary","VariantSuccess","VariantWarning","VariantError","AllVariants","DashboardGrid","Loading","WithProgressBars","FeaturedCards","ThemeComparison"];export{v as AllVariants,r as Basic,_ as DashboardGrid,m as FeaturedCards,p as Loading,g as ThemeComparison,u as VariantError,l as VariantPrimary,c as VariantSuccess,o as VariantWarning,t as WithIcon,n as WithProgress,h as WithProgressBars,e as WithTrendDown,i as WithTrendNeutral,d as WithTrendUp,Xa as __namedExportsOrder,Ja as default};

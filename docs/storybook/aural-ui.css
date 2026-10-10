@@ -655,6 +655,18 @@
   --color-info-bg: rgba(59, 130, 246, 0.1);
   --color-info-border: rgba(59, 130, 246, 0.3);
 
+  /* Solid fills that carry white text (>= 4.5:1) and foreground tones for
+     status text/icons on surfaces (>= 4.5:1). Use these instead of the 500
+     shades, which only reach 2.2-3.8:1 against white. */
+  --color-success-solid: var(--success-700);
+  --color-error-solid: var(--error-600);
+  --color-info-solid: var(--info-600);
+  --color-warning-solid: var(--warning-500); /* pair with --color-text-on-warning */
+  --color-success-text: var(--success-400);
+  --color-error-text: var(--error-400);
+  --color-warning-text: var(--warning-500);
+  --color-info-text: var(--info-400);
+
   /* ========================================
        Background Colors
        ======================================== */
@@ -679,13 +691,17 @@
        ======================================== */
   --color-text-primary: var(--neutral-50);
   --color-text-secondary: var(--neutral-400);
-  --color-text-tertiary: var(--neutral-500);
-  --color-text-muted: var(--neutral-600);
+  --color-text-tertiary: var(
+    --neutral-400
+  ); /* neutral-500 was 4.18:1 on page bg, 3.2:1 on raised surfaces */
+  --color-text-muted: var(--neutral-400); /* neutral-600 was 2.5:1; muted must stay readable text */
   --color-text-disabled: var(--neutral-500); /* FIXED: Changed from 700 to 500 for 4.5:1 contrast */
   --color-text-inverse: var(--neutral-900);
 
   /* On colored backgrounds */
-  --color-text-on-primary: white;
+  --color-text-on-primary: var(
+    --color-button-primary-text
+  ); /* follows the theme: dark on the light dark-theme green, white on the light-theme green */
   --color-text-on-success: white;
   --color-text-on-warning: var(--neutral-950);
   --color-text-on-error: white;
@@ -705,6 +721,9 @@
      range-slider); only themes/kinetic.css defined it before, so every
      other theme was silently dropping these borders. */
   --color-border: var(--color-border-subtle);
+  /* Boundary of form controls: WCAG 1.4.11 needs >= 3:1 against the surface.
+     Subtle/medium borders are decorative only (about 1.2:1). */
+  --color-control-border: var(--neutral-500);
 
   /* State borders */
   --color-border-focus: var(--color-primary);
@@ -719,15 +738,17 @@
   /* Buttons */
   --color-button-primary-bg: var(--color-primary);
   --color-button-primary-hover: var(--color-primary-hover);
-  --color-button-primary-text: white;
+  --color-button-primary-text: var(
+    --color-bg-primary
+  ); /* dark text on the light brand green: white was 2.3:1 */
 
   --color-button-secondary-bg: rgba(255, 255, 255, 0.05);
   --color-button-secondary-hover: var(--primary-alpha-12);
   --color-button-secondary-text: var(--color-text-primary);
   --color-button-secondary-border: var(--color-border-subtle);
 
-  --color-button-danger-bg: var(--color-error);
-  --color-button-danger-hover: var(--color-error-hover);
+  --color-button-danger-bg: var(--color-error-solid);
+  --color-button-danger-hover: var(--error-700);
   --color-button-danger-text: white;
 
   --color-button-ghost-bg: transparent;
@@ -743,7 +764,7 @@
 
   /* Inputs */
   --color-input-bg: rgba(255, 255, 255, 0.03);
-  --color-input-border: var(--color-border-subtle);
+  --color-input-border: var(--color-control-border);
   --color-input-border-hover: var(--primary-alpha-30);
   --color-input-border-focus: var(--color-primary);
   --color-input-text: var(--color-text-primary);
@@ -762,13 +783,13 @@
   --color-badge-primary-bg: rgba(16, 185, 129, 0.15);
   --color-badge-primary-text: var(--primary-400);
   --color-badge-success-bg: rgba(34, 197, 94, 0.15);
-  --color-badge-success-text: var(--success-400);
+  --color-badge-success-text: var(--color-success-text);
   --color-badge-warning-bg: rgba(245, 158, 11, 0.15);
-  --color-badge-warning-text: var(--warning-400);
+  --color-badge-warning-text: var(--color-warning-text);
   --color-badge-error-bg: rgba(239, 68, 68, 0.15);
-  --color-badge-error-text: var(--error-400);
+  --color-badge-error-text: var(--color-error-text);
   --color-badge-info-bg: rgba(59, 130, 246, 0.15);
-  --color-badge-info-text: var(--info-400);
+  --color-badge-info-text: var(--color-info-text);
   --color-badge-neutral-bg: rgba(255, 255, 255, 0.1);
 
   /* Toast */
@@ -793,7 +814,7 @@
 
   /* Checkbox */
   --color-checkbox-bg: rgba(255, 255, 255, 0.03);
-  --color-checkbox-border: var(--color-border-subtle);
+  --color-checkbox-border: var(--color-control-border);
   --color-checkbox-border-hover: var(--primary-alpha-40);
   --color-checkbox-checked-bg: var(--color-primary);
   --color-checkbox-checked-border: var(--color-primary);
@@ -802,7 +823,7 @@
 
   /* Radio */
   --color-radio-bg: rgba(255, 255, 255, 0.03);
-  --color-radio-border: var(--color-border-subtle);
+  --color-radio-border: var(--color-control-border);
   --color-radio-border-hover: var(--primary-alpha-40);
   --color-radio-checked-bg: var(--color-primary);
   --color-radio-checked-border: var(--color-primary);
@@ -817,7 +838,7 @@
 
   /* Select */
   --color-select-bg: rgba(255, 255, 255, 0.03);
-  --color-select-border: var(--color-border-subtle);
+  --color-select-border: var(--color-control-border);
   --color-select-border-hover: var(--primary-alpha-30);
   --color-select-border-focus: var(--color-primary);
   --color-select-text: var(--color-text-primary);
@@ -861,7 +882,7 @@
   --color-pagination-hover-bg: var(--primary-alpha-10);
   --color-pagination-hover-border: var(--primary-alpha-30);
   --color-pagination-active-bg: var(--color-primary);
-  --color-pagination-active-text: white;
+  --color-pagination-active-text: var(--color-text-on-primary);
   --color-pagination-active-border: var(--color-primary);
   --color-pagination-disabled-text: var(--color-text-disabled);
 
@@ -1573,7 +1594,7 @@ input[type='number'] {
 
 .input-number__button:active:not(:disabled) {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 .input-number__button:disabled {
@@ -1700,13 +1721,13 @@ input[type='number'] {
 
 .form-error {
   font-size: var(--text-xs);
-  color: var(--color-error);
+  color: var(--color-error-text);
   margin-top: var(--space-1);
 }
 
 .form-success {
   font-size: var(--text-xs);
-  color: var(--color-success);
+  color: var(--color-success-text);
   margin-top: var(--space-1);
 }
 
@@ -2912,8 +2933,8 @@ textarea.input,
    ======================================== */
 
 .aural-snackbar--success {
-  background: var(--color-success);
-  color: white;
+  background: var(--color-success-solid);
+  color: var(--color-text-on-success);
 }
 
 .aural-snackbar--success .aural-snackbar__action {
@@ -2934,8 +2955,8 @@ textarea.input,
 }
 
 .aural-snackbar--error {
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
 }
 
 .aural-snackbar--error .aural-snackbar__action {
@@ -2987,8 +3008,8 @@ textarea.input,
 }
 
 .aural-snackbar--info {
-  background: var(--color-info);
-  color: white;
+  background: var(--color-info-solid);
+  color: var(--color-text-on-info);
 }
 
 .aural-snackbar--info .aural-snackbar__action {
@@ -3332,14 +3353,14 @@ textarea.input,
 
 .aural-alert-banner__action--primary {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border-color: var(--color-primary);
 }
 
 .aural-alert-banner__action--primary:hover {
   background: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 /* ========================================
@@ -3388,11 +3409,11 @@ textarea.input,
 }
 
 .aural-alert-banner--info .aural-alert-banner__icon {
-  color: var(--color-info);
+  color: var(--color-info-text);
 }
 
 .aural-alert-banner--info .aural-alert-banner__title {
-  color: var(--color-info);
+  color: var(--color-info-text);
 }
 
 /* ========================================
@@ -3406,11 +3427,11 @@ textarea.input,
 }
 
 .aural-alert-banner--success .aural-alert-banner__icon {
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-alert-banner--success .aural-alert-banner__title {
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 /* ========================================
@@ -3424,11 +3445,11 @@ textarea.input,
 }
 
 .aural-alert-banner--warning .aural-alert-banner__icon {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-alert-banner--warning .aural-alert-banner__title {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 /* ========================================
@@ -3442,11 +3463,11 @@ textarea.input,
 }
 
 .aural-alert-banner--error .aural-alert-banner__icon {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-alert-banner--error .aural-alert-banner__title {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 /* ========================================
@@ -3458,8 +3479,8 @@ textarea.input,
 }
 
 .aural-alert-banner--solid.aural-alert-banner--info {
-  background: var(--color-info);
-  color: white;
+  background: var(--color-info-solid);
+  color: var(--color-text-on-info);
 }
 
 .aural-alert-banner--solid.aural-alert-banner--info .aural-alert-banner__title,
@@ -3470,8 +3491,8 @@ textarea.input,
 }
 
 .aural-alert-banner--solid.aural-alert-banner--success {
-  background: var(--color-success);
-  color: white;
+  background: var(--color-success-solid);
+  color: var(--color-text-on-success);
 }
 
 .aural-alert-banner--solid.aural-alert-banner--success .aural-alert-banner__title,
@@ -3483,7 +3504,7 @@ textarea.input,
 
 .aural-alert-banner--solid.aural-alert-banner--warning {
   background: var(--color-warning);
-  color: white;
+  color: var(--color-text-on-warning);
 }
 
 .aural-alert-banner--solid.aural-alert-banner--warning .aural-alert-banner__title,
@@ -3494,8 +3515,8 @@ textarea.input,
 }
 
 .aural-alert-banner--solid.aural-alert-banner--error {
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
 }
 
 .aural-alert-banner--solid.aural-alert-banner--error .aural-alert-banner__title,
@@ -4266,6 +4287,10 @@ textarea.input,
 
 .aural-spinner--error.aural-spinner--dual .aural-spinner__circle {
   border-color: var(--color-error) transparent var(--color-error) transparent;
+}
+
+.aural-spinner--white .aural-spinner__text {
+  color: var(--color-text-on-dark); /* the white variant is for dark surfaces */
 }
 
 .aural-spinner--white .aural-spinner__circle,
@@ -5099,7 +5124,7 @@ textarea.input,
 .radio-button:has(input[type='radio']:checked) {
     background: var(--color-primary);
     border-color: var(--color-primary);
-    color: white;
+    color: var(--color-text-on-primary);
   }
 
 .radio-button:has(input[type='radio']:focus-visible) {
@@ -6444,7 +6469,7 @@ textarea.input,
   }
 
 .select-wrapper > .select-error {
-    color: var(--color-error);
+    color: var(--color-error-text);
     font-size: var(--text-sm);
     margin-top: calc(-1 * var(--space-1));
   }
@@ -6518,7 +6543,7 @@ textarea.input,
 }
 
 .aural-rating__star:hover {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
   transform: scale(1.1);
 }
 
@@ -6537,11 +6562,11 @@ textarea.input,
 /* Star States */
 
 .aural-rating__star--filled {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-rating__star--half {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-rating__star--empty {
@@ -6600,13 +6625,13 @@ textarea.input,
    ======================================== */
 
 .aural-rating--disabled {
-  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .aural-rating--disabled .aural-rating__star {
   cursor: not-allowed;
   pointer-events: none;
+  opacity: 0.5; /* dim the stars, not the value text */
 }
 
 /* ========================================
@@ -6700,19 +6725,19 @@ textarea.input,
 .aural-rating--success .aural-rating__star--filled,
 .aural-rating--success .aural-rating__star--half,
 .aural-rating--success .aural-rating__star:hover {
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-rating--error .aural-rating__star--filled,
 .aural-rating--error .aural-rating__star--half,
 .aural-rating--error .aural-rating__star:hover {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-rating--info .aural-rating__star--filled,
 .aural-rating--info .aural-rating__star--half,
 .aural-rating--info .aural-rating__star:hover {
-  color: var(--color-info);
+  color: var(--color-info-text);
 }
 
 /* ========================================
@@ -6721,7 +6746,7 @@ textarea.input,
 
 .aural-rating--heart .aural-rating__star--filled,
 .aural-rating--heart .aural-rating__star:hover {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 /* ========================================
@@ -7792,7 +7817,7 @@ textarea.input,
 }
 
 .aural-range-slider--success .aural-range-slider__value {
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-range-slider--success .aural-range-slider__handle:hover {
@@ -7810,7 +7835,7 @@ textarea.input,
 }
 
 .aural-range-slider--warning .aural-range-slider__value {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-range-slider--warning .aural-range-slider__handle:hover {
@@ -7828,7 +7853,7 @@ textarea.input,
 }
 
 .aural-range-slider--error .aural-range-slider__value {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-range-slider--error .aural-range-slider__handle:hover {
@@ -7923,8 +7948,16 @@ textarea.input,
    ======================================== */
 
 .aural-range-slider--disabled {
-  opacity: 0.5;
   pointer-events: none;
+}
+
+/* Dim the control, not the text: opacity on the wrapper halves label contrast */
+
+.aural-range-slider--disabled .aural-range-slider__track-bg,
+.aural-range-slider--disabled .aural-range-slider__track-fill,
+.aural-range-slider--disabled .aural-range-slider__handle,
+.aural-range-slider--disabled .aural-range-slider__input {
+  opacity: 0.5;
 }
 
 .aural-range-slider--disabled .aural-range-slider__handle {
@@ -8208,7 +8241,7 @@ textarea.input,
 
 .aural-multi-select__clear:hover {
   background: var(--color-bg-hover);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-multi-select__clear svg {
@@ -8459,13 +8492,19 @@ textarea.input,
    ======================================== */
 
 .aural-multi-select--disabled {
-  opacity: 0.5;
   pointer-events: none;
 }
+
+/* Explicit disabled colors instead of wrapper opacity, which halves text contrast */
 
 .aural-multi-select--disabled .aural-multi-select__trigger {
   cursor: not-allowed;
   background: var(--color-bg-tertiary);
+  border-style: dashed;
+}
+
+.aural-multi-select--disabled .aural-multi-select__placeholder {
+  color: var(--color-text-secondary);
 }
 
 /* ========================================
@@ -8700,7 +8739,7 @@ textarea.input,
 
 .aural-combobox__clear:hover {
   background: var(--color-bg-hover);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-combobox__clear svg {
@@ -9053,7 +9092,7 @@ textarea.input,
   gap: var(--space-1);
   margin-top: var(--space-1);
   font-size: var(--text-xs);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-combobox__error svg {
@@ -9499,7 +9538,7 @@ textarea.input,
 .aural-time-picker__period-btn--selected {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   font-weight: var(--font-semibold);
 }
 
@@ -9541,13 +9580,13 @@ textarea.input,
 .aural-time-picker__action-btn--primary {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 .aural-time-picker__action-btn--primary:hover {
   background: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 /* ========================================
@@ -9606,7 +9645,7 @@ textarea.input,
   gap: var(--space-1);
   margin-top: var(--space-1);
   font-size: var(--text-xs);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-time-picker__error svg {
@@ -9971,8 +10010,8 @@ body.has-navbar-fixed {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
   border: 2px solid var(--color-bg-primary);
   border-radius: var(--radius-full);
   font-size: 0.65rem; /* aural-ignore: established notification-badge count size (reused verbatim in bottom-nav.css, notification-center.css, multi-select.css), slightly off the --text-2xs rung */
@@ -10553,7 +10592,7 @@ body.has-navbar-fixed {
 .tabs-pills .tab-active,
   .tabs-pills .tab[aria-selected='true'] {
     background: var(--color-tabs-pill-active-bg);
-    color: white;
+    color: var(--color-text-on-primary);
   }
 
 /* ========================================
@@ -10580,7 +10619,7 @@ body.has-navbar-fixed {
 .tabs-boxed .tab-active,
   .tabs-boxed .tab[aria-selected='true'] {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-text-on-primary);
     box-shadow: var(--shadow-sm);
   }
 
@@ -11595,20 +11634,20 @@ body.has-navbar-fixed {
 
 .aural-step--active .aural-step__indicator {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border-color: var(--color-primary);
   box-shadow: 0 0 0 4px var(--primary-alpha-20);
 }
 
 .aural-step--completed .aural-step__indicator {
-  background: var(--color-success);
-  color: white;
+  background: var(--color-success-solid);
+  color: var(--color-text-on-success);
   border-color: var(--color-success);
 }
 
 .aural-step--error .aural-step__indicator {
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
   border-color: var(--color-error);
 }
 
@@ -12284,7 +12323,7 @@ body.aural-drawer-open {
   flex-shrink: 0;
   padding: var(--space-0-5) var(--space-2);
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: var(--font-semibold);
@@ -12510,12 +12549,12 @@ body.aural-drawer-open {
 }
 
 .aural-context-menu__item--danger {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-context-menu__item--danger:hover {
   background: var(--color-error-bg);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-context-menu__item--active {
@@ -12914,8 +12953,8 @@ body.has-bottom-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
   border: 2px solid var(--color-bg-primary);
   border-radius: var(--radius-full);
   font-size: 0.65rem; /* aural-ignore: established notification-badge count size (reused verbatim in navbar.css, notification-center.css, multi-select.css), slightly off the --text-2xs rung */
@@ -12968,7 +13007,7 @@ body.has-bottom-nav {
   min-height: var(--size-56);
   padding: var(--space-3);
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border: none;
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-xl);
@@ -13057,12 +13096,12 @@ body.has-bottom-nav {
 }
 
 .aural-bottom-nav--primary .aural-bottom-nav__item {
-  color: var(--color-text-on-dark-muted);
+  color: var(--color-text-on-primary);
 }
 
 .aural-bottom-nav--primary .aural-bottom-nav__item:hover,
 .aural-bottom-nav--primary .aural-bottom-nav__item--active {
-  color: white;
+  color: var(--color-text-on-primary);
   background: var(--color-badge-neutral-bg);
 }
 
@@ -14112,7 +14151,7 @@ body.has-bottom-nav {
   /* Appearance */
   background: var(--color-progress-fill);
   border-radius: var(--radius-full);
-  color: white;
+  color: var(--color-text-on-primary);
   font-size: var(--text-xs);
   font-weight: var(--font-semibold);
   white-space: nowrap;
@@ -14592,14 +14631,14 @@ body.has-bottom-nav {
 /* Marker States */
 
 .aural-timeline__item--completed .aural-timeline__marker {
-  background: var(--color-success);
-  color: white;
+  background: var(--color-success-solid);
+  color: var(--color-text-on-success);
   border-color: var(--color-success);
 }
 
 .aural-timeline__item--active .aural-timeline__marker {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border-color: var(--color-primary);
   box-shadow: 0 0 0 4px var(--primary-alpha-20);
 }
@@ -14610,14 +14649,14 @@ body.has-bottom-nav {
 }
 
 .aural-timeline__item--error .aural-timeline__marker {
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
   border-color: var(--color-error);
 }
 
 .aural-timeline__item--warning .aural-timeline__marker {
   background: var(--color-warning);
-  color: white;
+  color: var(--color-text-on-warning);
   border-color: var(--color-warning);
 }
 
@@ -15001,22 +15040,22 @@ body.has-bottom-nav {
 
 .aural-stats-card--success .aural-stats-card__icon {
   background: var(--color-success-bg);
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-stats-card--warning .aural-stats-card__icon {
   background: var(--color-warning-bg);
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-stats-card--error .aural-stats-card__icon {
   background: var(--color-error-bg);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-stats-card--info .aural-stats-card__icon {
   background: var(--color-info-bg);
-  color: var(--color-info);
+  color: var(--color-info-text);
 }
 
 /* ========================================
@@ -15063,12 +15102,12 @@ body.has-bottom-nav {
 
 .aural-stats-card__trend--up {
   background: var(--color-success-bg);
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-stats-card__trend--down {
   background: var(--color-error-bg);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-stats-card__trend--neutral {
@@ -16037,19 +16076,19 @@ body.has-bottom-nav {
 }
 
 .aural-tree__icon--success {
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-tree__icon--warning {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-tree__icon--error {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-tree__icon--info {
-  color: var(--color-info);
+  color: var(--color-info-text);
 }
 
 /* ========================================
@@ -16331,7 +16370,7 @@ body.has-bottom-nav {
 
 .aural-tree__label mark {
   background: var(--color-warning-bg);
-  color: var(--color-warning);
+  color: var(--color-warning-text);
   padding: 0 var(--space-0-5);
   border-radius: var(--radius-sm);
 }
@@ -17430,12 +17469,12 @@ body.has-bottom-nav {
 .tooltip-primary {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 .tooltip-success {
-  background: var(--color-success);
-  border-color: var(--color-success);
+  background: var(--color-success-solid);
+  border-color: var(--color-success-solid);
   color: white;
 }
 
@@ -17446,8 +17485,8 @@ body.has-bottom-nav {
 }
 
 .tooltip-error {
-  background: var(--color-error);
-  border-color: var(--color-error);
+  background: var(--color-error-solid);
+  border-color: var(--color-error-solid);
   color: white;
 }
 
@@ -17680,7 +17719,7 @@ body.has-bottom-nav {
 /* Destructive action */
 
 .dropdown-item-danger {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .dropdown-item-danger:hover,
@@ -18892,8 +18931,8 @@ body.has-bottom-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
   border: 2px solid var(--color-bg-primary);
   border-radius: var(--radius-full);
   font-size: 0.65rem; /* aural-ignore: bespoke tiny count-badge text size, smaller than the --text-2xs rung */
@@ -19109,22 +19148,22 @@ body.has-bottom-nav {
 
 .aural-notification-center__item--info .aural-notification-center__item-icon {
   background: var(--color-info-bg);
-  color: var(--color-info);
+  color: var(--color-info-text);
 }
 
 .aural-notification-center__item--success .aural-notification-center__item-icon {
   background: var(--color-success-bg);
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-notification-center__item--warning .aural-notification-center__item-icon {
   background: var(--color-warning-bg);
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-notification-center__item--error .aural-notification-center__item-icon {
   background: var(--color-error-bg);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-notification-center__item-content {
@@ -19533,7 +19572,7 @@ body.has-bottom-nav {
 }
 
 .aural-slider--success .aural-slider__value {
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-slider--success .aural-slider__input:hover::-webkit-slider-thumb,
@@ -19557,7 +19596,7 @@ body.has-bottom-nav {
 }
 
 .aural-slider--warning .aural-slider__value {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-slider--warning .aural-slider__input:hover::-webkit-slider-thumb,
@@ -19581,7 +19620,7 @@ body.has-bottom-nav {
 }
 
 .aural-slider--error .aural-slider__value {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-slider--error .aural-slider__input:hover::-webkit-slider-thumb,
@@ -19867,7 +19906,7 @@ body.has-bottom-nav {
 
 .aural-chip--primary {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 .aural-chip--primary .aural-chip__remove {
@@ -19882,8 +19921,8 @@ body.has-bottom-nav {
 /* Success */
 
 .aural-chip--success {
-  background: var(--color-success);
-  color: white;
+  background: var(--color-success-solid);
+  color: var(--color-text-on-success);
 }
 
 .aural-chip--success .aural-chip__remove {
@@ -19898,8 +19937,8 @@ body.has-bottom-nav {
 /* Error */
 
 .aural-chip--error {
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
 }
 
 .aural-chip--error .aural-chip__remove {
@@ -19915,7 +19954,7 @@ body.has-bottom-nav {
 
 .aural-chip--warning {
   background: var(--color-warning);
-  color: white;
+  color: var(--color-text-on-warning);
 }
 
 .aural-chip--warning .aural-chip__remove {
@@ -19930,8 +19969,8 @@ body.has-bottom-nav {
 /* Info */
 
 .aural-chip--info {
-  background: var(--color-info);
-  color: white;
+  background: var(--color-info-solid);
+  color: var(--color-text-on-info);
 }
 
 .aural-chip--info .aural-chip__remove {
@@ -20092,7 +20131,7 @@ body.has-bottom-nav {
 .aural-chips__error-message {
   margin-top: var(--space-2);
   font-size: var(--text-sm);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 /* ========================================
@@ -20107,11 +20146,11 @@ body.has-bottom-nav {
 }
 
 .aural-chips__limit--warning {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-chips__limit--max {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 /* ========================================
@@ -20212,8 +20251,8 @@ body.has-bottom-nav {
 }
 
 .aural-code-block__copy--copied {
-  background: var(--color-success);
-  border-color: var(--color-success);
+  background: var(--color-success-solid);
+  border-color: var(--color-success-solid);
   color: white;
 }
 
@@ -20312,6 +20351,15 @@ body.has-bottom-nav {
 
 .aural-code-block--terminal {
   background: var(--color-code-terminal-bg);
+  border-color: var(--color-code-terminal-border);
+}
+
+.aural-code-block--terminal .aural-code-block__language {
+  color: var(--color-text-on-dark-muted); /* the terminal surface is dark in every theme */
+}
+
+.aural-code-block--terminal .aural-code-block__copy {
+  color: var(--color-text-on-dark-muted);
   border-color: var(--color-code-terminal-border);
 }
 
@@ -20623,7 +20671,7 @@ body.has-bottom-nav {
 
 .aural-dialog--alert .aural-dialog__icon {
   background: var(--color-info-bg);
-  color: var(--color-info);
+  color: var(--color-info-text);
 }
 
 .aural-dialog--alert .aural-dialog__icon::before {
@@ -20636,7 +20684,7 @@ body.has-bottom-nav {
 
 .aural-dialog--success .aural-dialog__icon {
   background: var(--color-success-bg);
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .aural-dialog--success .aural-dialog__icon::before {
@@ -20649,7 +20697,7 @@ body.has-bottom-nav {
 
 .aural-dialog--warning .aural-dialog__icon {
   background: var(--color-warning-bg);
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 .aural-dialog--warning .aural-dialog__icon::before {
@@ -20662,7 +20710,7 @@ body.has-bottom-nav {
 
 .aural-dialog--destructive .aural-dialog__icon {
   background: var(--color-error-bg);
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .aural-dialog--destructive .aural-dialog__icon::before {
@@ -20670,7 +20718,7 @@ body.has-bottom-nav {
 }
 
 .aural-dialog--destructive .aural-dialog__title {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 /* ========================================
@@ -21142,7 +21190,7 @@ body.aural-dialog-open {
 }
 
 .file-upload__item--success .file-upload__status {
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 .file-upload__item--success .file-upload__progress-fill {
@@ -21163,12 +21211,12 @@ body.aural-dialog-open {
 }
 
 .file-upload__item--error .file-upload__status {
-  color: var(--color-error);
+  color: var(--color-error-text);
 }
 
 .file-upload__error-message {
   font-size: var(--text-xs);
-  color: var(--color-error);
+  color: var(--color-error-text);
   margin-top: var(--space-1);
 }
 
@@ -21204,8 +21252,8 @@ body.aural-dialog-open {
 }
 
 .file-upload__action--remove:hover {
-  background: var(--color-error);
-  border-color: var(--color-error);
+  background: var(--color-error-solid);
+  border-color: var(--color-error-solid);
   color: white;
 }
 
@@ -21323,7 +21371,7 @@ body.aural-dialog-open {
   border: 1px solid var(--color-error);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
-  color: var(--color-error);
+  color: var(--color-error-text);
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -21564,7 +21612,7 @@ body.aural-dialog-open {
 
 .aural-command-palette__item--selected {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   box-shadow: var(--glow-primary-sm);
 }
 
@@ -22027,13 +22075,13 @@ body.aural-command-palette-open {
 
 .aural-date-picker__day--selected {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   font-weight: var(--font-semibold);
 }
 
 .aural-date-picker__day--selected:hover {
   background: var(--color-primary-hover);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 .aural-date-picker__day--disabled {
@@ -22045,7 +22093,7 @@ body.aural-command-palette-open {
 .aural-date-picker__day--range-start,
 .aural-date-picker__day--range-end {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 .aural-date-picker__day--in-range {
@@ -22092,14 +22140,14 @@ body.aural-command-palette-open {
 
 .aural-date-picker__footer-button--primary {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border-color: var(--color-primary);
 }
 
 .aural-date-picker__footer-button--primary:hover {
   background: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 /* ========================================
@@ -22375,13 +22423,13 @@ body.aural-command-palette-open {
 
 .aural-calendar__day--selected {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   font-weight: var(--font-semibold);
 }
 
 .aural-calendar__day--selected:hover {
   background: var(--color-primary-hover);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 .aural-calendar__day--disabled {
@@ -22393,7 +22441,7 @@ body.aural-command-palette-open {
 /* Weekend days */
 
 .aural-calendar__day--weekend {
-  color: var(--color-warning);
+  color: var(--color-warning-text);
 }
 
 /* Event indicator */
@@ -22453,14 +22501,14 @@ body.aural-command-palette-open {
 
 .aural-calendar__footer-button--primary {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border-color: var(--color-primary);
 }
 
 .aural-calendar__footer-button--primary:hover {
   background: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 /* ========================================
@@ -22798,14 +22846,14 @@ body.aural-command-palette-open {
 .aural-date-range-picker__day--range-start,
 .aural-date-range-picker__day--range-end {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   font-weight: var(--font-semibold);
 }
 
 .aural-date-range-picker__day--range-start:hover,
 .aural-date-range-picker__day--range-end:hover {
   background: var(--color-primary-hover);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 .aural-date-range-picker__day--in-range {
@@ -22865,14 +22913,14 @@ body.aural-command-palette-open {
 
 .aural-date-range-picker__footer-button--primary {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border-color: var(--color-primary);
 }
 
 .aural-date-range-picker__footer-button--primary:hover {
   background: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
-  color: white;
+  color: var(--color-text-on-primary);
 }
 
 /* ========================================
@@ -28586,8 +28634,8 @@ body.aural-command-palette-open {
   position: absolute;
   top: -100px;
   left: 0;
-  background: var(--color-primary);
-  color: white;
+  background: var(--color-button-primary-bg, var(--color-primary));
+  color: var(--color-button-primary-text, white);
   padding: var(--space-3) var(--space-4);
   text-decoration: none;
   font-weight: var(--font-semibold);
@@ -28598,7 +28646,7 @@ body.aural-command-palette-open {
 
 .skip-link:focus {
   top: 0;
-  outline: 2px solid white;
+  outline: 2px solid currentColor;
   outline-offset: 2px;
 }
 

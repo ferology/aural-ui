@@ -236,9 +236,11 @@ export default {
 - **Required ARIA attributes**: Add \`role="dialog"\` and \`aria-modal="true"\` to the modal container
 - **Label association**: Use \`aria-labelledby\` referencing the modal title ID (e.g., \`id="modal-title"\`)
 - **Description**: Use \`aria-describedby\` to reference the modal description for additional context
-- **Focus trap**: JavaScript automatically traps focus within the modal, preventing Tab navigation to background content
+- **Focus trap**: JavaScript automatically traps focus within the modal, preventing Tab navigation to background content. Focusable elements are recomputed on every Tab press (hidden and disabled elements are skipped), so content added after opening is included
+- **Initial focus**: Focus moves to the first focusable element, or to the dialog itself (given \`tabindex="-1"\`) when it has none
+- **Background content**: \`Aural.openModal()\` sets \`inert\` and \`aria-hidden="true"\` on everything outside the modal, including when the modal is rendered inside \`<main>\`. \`Aural.closeModal()\` restores the previous state
 - **Focus restoration**: When modal closes, focus returns to the trigger element that opened it
-- **Keyboard dismissal**: Escape key closes the modal (handled automatically by \`window.Aural.initModals()\`)
+- **Keyboard dismissal**: Escape key closes only the topmost open modal (handled automatically by \`window.Aural.initModals()\`)
 - **Close button**: Always provide a visible close button with \`aria-label="Close modal"\`
 - **Backdrop click**: Clicking outside the modal (on backdrop) closes it by default
 - **Screen readers**: Announce modal opening with ARIA live region or role="dialog"
@@ -284,7 +286,7 @@ export default {
   - Modal content scales up slightly (0.95 → 1) for smooth entrance
   - Close animations reverse the entrance effect
   - Backdrop click provides immediate visual feedback
-        `.trim()}}},argTypes:{title:{control:"text",description:"Modal title text displayed in the header, referenced by aria-labelledby for screen readers"},subtitle:{control:"text",description:"Optional subtitle or description displayed below the title for additional context"},content:{control:"text",description:"Main modal body content - can include text, forms, or any HTML elements"},size:{control:"select",options:["sm","default","lg","fullscreen"],description:"Modal size: sm (360px, confirmations), default (480px, standard), lg (640px, forms), fullscreen (95vw, immersive)"},closable:{control:"boolean",description:"Whether the modal can be closed via close button, Escape key, or backdrop click (default: true)"},backdrop:{control:"boolean",description:"Whether to show the backdrop overlay with blur effect behind the modal (default: true)"},icon:{control:"text",description:'Optional icon displayed in modal header (e.g., "trash-2" for delete confirmation)'}}},i={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-primary",e.textContent="Open Modal";const o=`modal-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
+        `.trim()}}},argTypes:{title:{control:"text",description:"Modal title text displayed in the header, referenced by aria-labelledby for screen readers"},subtitle:{control:"text",description:"Optional subtitle or description displayed below the title for additional context"},content:{control:"text",description:"Main modal body content - can include text, forms, or any HTML elements"},size:{control:"select",options:["sm","default","lg","fullscreen"],description:"Modal size: sm (360px, confirmations), default (480px, standard), lg (640px, forms), fullscreen (95vw, immersive)"},closable:{control:"boolean",description:"Whether the modal can be closed via close button, Escape key, or backdrop click (default: true)"},backdrop:{control:"boolean",description:"Whether to show the backdrop overlay with blur effect behind the modal (default: true)"},icon:{control:"text",description:'Optional icon displayed in modal header (e.g., "trash-2" for delete confirmation)'}}},n={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-primary",e.textContent="Open Modal";const o=`modal-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
       <div class="modal${a.size&&a.size!=="default"?" modal-"+a.size:""}">
         <button class="modal-close" aria-label="Close modal" onclick="window.Aural?.closeModal('${o}')">
           <i data-lucide="x"></i>
@@ -303,7 +305,7 @@ export default {
           <button class="btn btn-primary" onclick="window.Aural?.closeModal('${o}')">Confirm</button>
         </div>
       </div>
-    `,e.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(o)},t.appendChild(e),t.appendChild(l),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),t},args:{title:"Modal Title",subtitle:"Optional subtitle or description",content:"This is a modal dialog. It overlays the page content and focuses user attention on a specific task or message.",size:"default"}},n={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-secondary",e.textContent="Open Small Modal";const o=`modal-small-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
+    `,e.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(o)},t.appendChild(e),t.appendChild(l),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),t},args:{title:"Modal Title",subtitle:"Optional subtitle or description",content:"This is a modal dialog. It overlays the page content and focuses user attention on a specific task or message.",size:"default"}},i={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-secondary",e.textContent="Open Small Modal";const o=`modal-small-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
       <div class="modal modal-sm">
         <button class="modal-close" aria-label="Close modal" onclick="window.Aural?.closeModal('${o}')">
           <i data-lucide="x"></i>
@@ -520,7 +522,7 @@ export default {
           <button type="submit" form="create-item-form-${e}" class="btn btn-primary" onclick="event.preventDefault(); window.Aural?.closeModal('${e}')">Create Item</button>
         </div>
       </div>
-    `,t.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(e)},a.appendChild(t),a.appendChild(o),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),a}};var p,b,v;i.parameters={...i.parameters,docs:{...(p=i.parameters)==null?void 0:p.docs,source:{originalSource:`{
+    `,t.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(e)},a.appendChild(t),a.appendChild(o),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),a}};var p,b,v;n.parameters={...n.parameters,docs:{...(p=n.parameters)==null?void 0:p.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -573,7 +575,7 @@ export default {
     content: 'This is a modal dialog. It overlays the page content and focuses user attention on a specific task or message.',
     size: 'default'
   }
-}`,...(v=(b=i.parameters)==null?void 0:b.docs)==null?void 0:v.source}}};var h,y,f;n.parameters={...n.parameters,docs:{...(h=n.parameters)==null?void 0:h.docs,source:{originalSource:`{
+}`,...(v=(b=n.parameters)==null?void 0:b.docs)==null?void 0:v.source}}};var h,y,f;i.parameters={...i.parameters,docs:{...(h=i.parameters)==null?void 0:h.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -621,7 +623,7 @@ export default {
     title: 'Quick Action',
     content: 'This is a compact modal for simple interactions or brief messages.'
   }
-}`,...(f=(y=n.parameters)==null?void 0:y.docs)==null?void 0:f.source}}};var g,w,x;d.parameters={...d.parameters,docs:{...(g=d.parameters)==null?void 0:g.docs,source:{originalSource:`{
+}`,...(f=(y=i.parameters)==null?void 0:y.docs)==null?void 0:f.source}}};var g,w,x;d.parameters={...d.parameters,docs:{...(g=d.parameters)==null?void 0:g.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -679,7 +681,7 @@ export default {
     subtitle: 'Everything you need to know',
     content: 'This is a large modal suitable for displaying extensive content, multiple sections, or complex forms.'
   }
-}`,...(x=(w=d.parameters)==null?void 0:w.docs)==null?void 0:x.source}}};var M,k,C;r.parameters={...r.parameters,docs:{...(M=r.parameters)==null?void 0:M.docs,source:{originalSource:`{
+}`,...(x=(w=d.parameters)==null?void 0:w.docs)==null?void 0:x.source}}};var M,k,A;r.parameters={...r.parameters,docs:{...(M=r.parameters)==null?void 0:M.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -746,7 +748,7 @@ export default {
     subtitle: 'Immersive content view',
     content: 'This modal takes up the entire viewport, providing maximum space for your content.'
   }
-}`,...(C=(k=r.parameters)==null?void 0:k.docs)==null?void 0:C.source}}};var A,$,I;s.parameters={...s.parameters,docs:{...(A=s.parameters)==null?void 0:A.docs,source:{originalSource:`{
+}`,...(A=(k=r.parameters)==null?void 0:k.docs)==null?void 0:A.source}}};var C,$,I;s.parameters={...s.parameters,docs:{...(C=s.parameters)==null?void 0:C.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -1000,4 +1002,4 @@ export default {
     }, 0);
     return container;
   }
-}`,...(L=(D=u.parameters)==null?void 0:D.docs)==null?void 0:L.source}}};const H=["Default","Small","Large","Fullscreen","WithIcon","Scrollable","ConfirmationModal","WithForm"];export{m as ConfirmationModal,i as Default,r as Fullscreen,d as Large,c as Scrollable,n as Small,u as WithForm,s as WithIcon,H as __namedExportsOrder,F as default};
+}`,...(L=(D=u.parameters)==null?void 0:D.docs)==null?void 0:L.source}}};const H=["Default","Small","Large","Fullscreen","WithIcon","Scrollable","ConfirmationModal","WithForm"];export{m as ConfirmationModal,n as Default,r as Fullscreen,d as Large,c as Scrollable,i as Small,u as WithForm,s as WithIcon,H as __namedExportsOrder,F as default};
