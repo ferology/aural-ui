@@ -69,8 +69,8 @@
 }
 
 .aural-code-block__copy--copied {
-  background: var(--color-success);
-  border-color: var(--color-success);
+  background: var(--color-success-solid);
+  border-color: var(--color-success-solid);
   color: white;
 }
 
@@ -169,6 +169,15 @@
 
 .aural-code-block--terminal {
   background: var(--color-code-terminal-bg);
+  border-color: var(--color-code-terminal-border);
+}
+
+.aural-code-block--terminal .aural-code-block__language {
+  color: var(--color-text-on-dark-muted); /* the terminal surface is dark in every theme */
+}
+
+.aural-code-block--terminal .aural-code-block__copy {
+  color: var(--color-text-on-dark-muted);
   border-color: var(--color-code-terminal-border);
 }
 

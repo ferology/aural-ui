@@ -40,8 +40,8 @@
        ======================================== */
   --color-text-primary: #111827; /* High contrast on white */
   --color-text-secondary: #4b5563; /* WCAG AA+ compliant */
-  --color-text-tertiary: #6b7280;
-  --color-text-muted: #6b7280; /* WCAG AA compliant (4.5:1+ on white) */
+  --color-text-tertiary: #5f6673; /* 5.25:1 on #f3f4f6 */
+  --color-text-muted: #5f6673; /* >= 4.5:1 on white and #f3f4f6 */
   --color-text-disabled: #d1d5db;
   --color-text-inverse: #ffffff;
 
@@ -57,6 +57,7 @@
        ======================================== */
 
   /* Buttons */
+  --color-button-primary-text: #ffffff; /* 5.5:1 on the dark brand green */
   --color-button-secondary-bg: #f9fafb;
   --color-button-secondary-hover: #f3f4f6;
   --color-button-secondary-border: var(--color-border-medium);
@@ -67,8 +68,9 @@
 
   /* Inputs */
   --color-input-bg: #ffffff;
-  --color-input-border: var(--color-border-medium);
-  --color-input-border-hover: var(--color-border-strong);
+  --color-control-border: #6b7280; /* 4.8:1 on white (1.4.11) */
+  --color-input-border: var(--color-control-border);
+  --color-input-border-hover: var(--primary-400);
   --color-input-disabled-bg: #f9fafb;
 
   /* Cards */
@@ -92,8 +94,14 @@
   /* ========================================
        Navigation (Demo Sidebar)
        ======================================== */
-  --color-nav-active-bg: #3d8a64; /* Medium green for active nav - 7:1 contrast */
+  --color-nav-active-bg: #326d51; /* 6.1:1 with white text */
   --color-nav-active-text: #ffffff; /* White text on green background */
+
+  /* Status foregrounds on light surfaces (500 shades are 2.2-3.8:1 on white) */
+  --color-success-text: var(--success-800);
+  --color-error-text: var(--error-700);
+  --color-warning-text: var(--warning-800);
+  --color-info-text: var(--info-700);
 
   /* ========================================
        Shadow Adjustments (Light Mode)

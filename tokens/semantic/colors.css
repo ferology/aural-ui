@@ -51,6 +51,18 @@
   --color-info-bg: rgba(59, 130, 246, 0.1);
   --color-info-border: rgba(59, 130, 246, 0.3);
 
+  /* Solid fills that carry white text (>= 4.5:1) and foreground tones for
+     status text/icons on surfaces (>= 4.5:1). Use these instead of the 500
+     shades, which only reach 2.2-3.8:1 against white. */
+  --color-success-solid: var(--success-700);
+  --color-error-solid: var(--error-600);
+  --color-info-solid: var(--info-600);
+  --color-warning-solid: var(--warning-500); /* pair with --color-text-on-warning */
+  --color-success-text: var(--success-400);
+  --color-error-text: var(--error-400);
+  --color-warning-text: var(--warning-500);
+  --color-info-text: var(--info-400);
+
   /* ========================================
        Background Colors
        ======================================== */
@@ -75,13 +87,17 @@
        ======================================== */
   --color-text-primary: var(--neutral-50);
   --color-text-secondary: var(--neutral-400);
-  --color-text-tertiary: var(--neutral-500);
-  --color-text-muted: var(--neutral-600);
+  --color-text-tertiary: var(
+    --neutral-400
+  ); /* neutral-500 was 4.18:1 on page bg, 3.2:1 on raised surfaces */
+  --color-text-muted: var(--neutral-400); /* neutral-600 was 2.5:1; muted must stay readable text */
   --color-text-disabled: var(--neutral-500); /* FIXED: Changed from 700 to 500 for 4.5:1 contrast */
   --color-text-inverse: var(--neutral-900);
 
   /* On colored backgrounds */
-  --color-text-on-primary: white;
+  --color-text-on-primary: var(
+    --color-button-primary-text
+  ); /* follows the theme: dark on the light dark-theme green, white on the light-theme green */
   --color-text-on-success: white;
   --color-text-on-warning: var(--neutral-950);
   --color-text-on-error: white;
@@ -101,6 +117,9 @@
      range-slider); only themes/kinetic.css defined it before, so every
      other theme was silently dropping these borders. */
   --color-border: var(--color-border-subtle);
+  /* Boundary of form controls: WCAG 1.4.11 needs >= 3:1 against the surface.
+     Subtle/medium borders are decorative only (about 1.2:1). */
+  --color-control-border: var(--neutral-500);
 
   /* State borders */
   --color-border-focus: var(--color-primary);
@@ -115,15 +134,17 @@
   /* Buttons */
   --color-button-primary-bg: var(--color-primary);
   --color-button-primary-hover: var(--color-primary-hover);
-  --color-button-primary-text: white;
+  --color-button-primary-text: var(
+    --color-bg-primary
+  ); /* dark text on the light brand green: white was 2.3:1 */
 
   --color-button-secondary-bg: rgba(255, 255, 255, 0.05);
   --color-button-secondary-hover: var(--primary-alpha-12);
   --color-button-secondary-text: var(--color-text-primary);
   --color-button-secondary-border: var(--color-border-subtle);
 
-  --color-button-danger-bg: var(--color-error);
-  --color-button-danger-hover: var(--color-error-hover);
+  --color-button-danger-bg: var(--color-error-solid);
+  --color-button-danger-hover: var(--error-700);
   --color-button-danger-text: white;
 
   --color-button-ghost-bg: transparent;
@@ -139,7 +160,7 @@
 
   /* Inputs */
   --color-input-bg: rgba(255, 255, 255, 0.03);
-  --color-input-border: var(--color-border-subtle);
+  --color-input-border: var(--color-control-border);
   --color-input-border-hover: var(--primary-alpha-30);
   --color-input-border-focus: var(--color-primary);
   --color-input-text: var(--color-text-primary);
@@ -158,13 +179,13 @@
   --color-badge-primary-bg: rgba(16, 185, 129, 0.15);
   --color-badge-primary-text: var(--primary-400);
   --color-badge-success-bg: rgba(34, 197, 94, 0.15);
-  --color-badge-success-text: var(--success-400);
+  --color-badge-success-text: var(--color-success-text);
   --color-badge-warning-bg: rgba(245, 158, 11, 0.15);
-  --color-badge-warning-text: var(--warning-400);
+  --color-badge-warning-text: var(--color-warning-text);
   --color-badge-error-bg: rgba(239, 68, 68, 0.15);
-  --color-badge-error-text: var(--error-400);
+  --color-badge-error-text: var(--color-error-text);
   --color-badge-info-bg: rgba(59, 130, 246, 0.15);
-  --color-badge-info-text: var(--info-400);
+  --color-badge-info-text: var(--color-info-text);
   --color-badge-neutral-bg: rgba(255, 255, 255, 0.1);
 
   /* Toast */
@@ -189,7 +210,7 @@
 
   /* Checkbox */
   --color-checkbox-bg: rgba(255, 255, 255, 0.03);
-  --color-checkbox-border: var(--color-border-subtle);
+  --color-checkbox-border: var(--color-control-border);
   --color-checkbox-border-hover: var(--primary-alpha-40);
   --color-checkbox-checked-bg: var(--color-primary);
   --color-checkbox-checked-border: var(--color-primary);
@@ -198,7 +219,7 @@
 
   /* Radio */
   --color-radio-bg: rgba(255, 255, 255, 0.03);
-  --color-radio-border: var(--color-border-subtle);
+  --color-radio-border: var(--color-control-border);
   --color-radio-border-hover: var(--primary-alpha-40);
   --color-radio-checked-bg: var(--color-primary);
   --color-radio-checked-border: var(--color-primary);
@@ -213,7 +234,7 @@
 
   /* Select */
   --color-select-bg: rgba(255, 255, 255, 0.03);
-  --color-select-border: var(--color-border-subtle);
+  --color-select-border: var(--color-control-border);
   --color-select-border-hover: var(--primary-alpha-30);
   --color-select-border-focus: var(--color-primary);
   --color-select-text: var(--color-text-primary);
@@ -257,7 +278,7 @@
   --color-pagination-hover-bg: var(--primary-alpha-10);
   --color-pagination-hover-border: var(--primary-alpha-30);
   --color-pagination-active-bg: var(--color-primary);
-  --color-pagination-active-text: white;
+  --color-pagination-active-text: var(--color-text-on-primary);
   --color-pagination-active-border: var(--color-primary);
   --color-pagination-disabled-text: var(--color-text-disabled);
 

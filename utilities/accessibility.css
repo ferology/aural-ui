@@ -148,8 +148,8 @@
   position: absolute;
   top: -100px;
   left: 0;
-  background: var(--color-primary);
-  color: white;
+  background: var(--color-button-primary-bg, var(--color-primary));
+  color: var(--color-button-primary-text, white);
   padding: var(--space-3) var(--space-4);
   text-decoration: none;
   font-weight: var(--font-semibold);
@@ -160,7 +160,7 @@
 
 .skip-link:focus {
   top: 0;
-  outline: 2px solid white;
+  outline: 2px solid currentColor;
   outline-offset: 2px;
 }
 

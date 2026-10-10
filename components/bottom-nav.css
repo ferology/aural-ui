@@ -122,8 +122,8 @@ body.has-bottom-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-error);
-  color: white;
+  background: var(--color-error-solid);
+  color: var(--color-text-on-error);
   border: 2px solid var(--color-bg-primary);
   border-radius: var(--radius-full);
   font-size: 0.65rem; /* aural-ignore: established notification-badge count size (reused verbatim in navbar.css, notification-center.css, multi-select.css), slightly off the --text-2xs rung */
@@ -175,7 +175,7 @@ body.has-bottom-nav {
   min-height: var(--size-56);
   padding: var(--space-3);
   background: var(--color-primary);
-  color: white;
+  color: var(--color-text-on-primary);
   border: none;
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-xl);
@@ -263,12 +263,12 @@ body.has-bottom-nav {
 }
 
 .aural-bottom-nav--primary .aural-bottom-nav__item {
-  color: var(--color-text-on-dark-muted);
+  color: var(--color-text-on-primary);
 }
 
 .aural-bottom-nav--primary .aural-bottom-nav__item:hover,
 .aural-bottom-nav--primary .aural-bottom-nav__item--active {
-  color: white;
+  color: var(--color-text-on-primary);
   background: var(--color-badge-neutral-bg);
 }
 
