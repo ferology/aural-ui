@@ -63,7 +63,7 @@ Image galleries provide an organized way to display multiple images with optiona
 
 ## When NOT to Use
 
-- **Single images**: Use standalone `<img>` or Card with image instead
+- **Single images**: Use standalone \`<img>\` or Card with image instead
 - **Hero images**: Use dedicated hero/banner components for large feature images
 - **Icons or small graphics**: Use inline images or icon components
 - **Slideshows**: Use Carousel component for sequential viewing

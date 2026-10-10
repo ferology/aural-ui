@@ -483,24 +483,27 @@ export const WithSorting: Story = {
       th.setAttribute('scope', 'col');
 
       if (header.sortable) {
-        th.style.cursor = 'pointer';
-        th.style.userSelect = 'none';
-        th.setAttribute('role', 'button');
         th.setAttribute('aria-sort', 'none');
-        th.setAttribute('tabindex', '0');
+
+        // The sortable control is a real button inside the columnheader
+        const sortBtn = document.createElement('button');
+        sortBtn.type = 'button';
+        sortBtn.style.cssText =
+          'background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; text-align: inherit; cursor: pointer; user-select: none;';
 
         const span = document.createElement('span');
         span.textContent = header.label;
-        th.appendChild(span);
+        sortBtn.appendChild(span);
 
         const icon = document.createElement('span');
         icon.textContent = ' ↕';
         icon.style.opacity = '0.3';
         icon.style.fontSize = '0.8em';
         icon.setAttribute('aria-hidden', 'true');
-        th.appendChild(icon);
+        sortBtn.appendChild(icon);
+        th.appendChild(sortBtn);
 
-        th.addEventListener('click', () => {
+        sortBtn.addEventListener('click', () => {
           icon.textContent = icon.textContent === ' ↑' ? ' ↓' : ' ↑';
           icon.style.opacity = '1';
           th.setAttribute('aria-sort', icon.textContent === ' ↑' ? 'ascending' : 'descending');
@@ -694,6 +697,10 @@ export const ResponsiveScrollable: Story = {
     const wrapper = document.createElement('div');
     wrapper.className = 'table-wrapper';
     wrapper.style.maxWidth = '600px';
+    // Scrollable region must be keyboard reachable
+    wrapper.tabIndex = 0;
+    wrapper.setAttribute('role', 'region');
+    wrapper.setAttribute('aria-label', 'Products table (scrollable)');
 
     const table = document.createElement('table');
     table.className = 'table table-striped';

@@ -687,9 +687,11 @@ export const WithCheckboxes: Story = {
     const tree = document.createElement('ul');
     tree.className = 'aural-tree';
 
+    // Rows are <div>s (not <button>s) because they contain a real checkbox input;
+    // interactive controls must not be nested inside a button.
     tree.innerHTML = `
       <li class="aural-tree__item aural-tree__item--collapsed">
-        <button class="aural-tree__content">
+        <div class="aural-tree__content">
           <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select All Projects">
           <span class="aural-tree__toggle">
             <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -698,32 +700,32 @@ export const WithCheckboxes: Story = {
             <i data-lucide="folder" style="width: 16px; height: 16px;"></i>
           </span>
           <span class="aural-tree__label">Projects</span>
-        </button>
+        </div>
         <ul class="aural-tree__children">
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Project A">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--primary">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Project A</span>
-            </button>
+            </div>
           </li>
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Project B">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--success">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Project B</span>
-            </button>
+            </div>
           </li>
         </ul>
       </li>
       <li class="aural-tree__item aural-tree__item--collapsed">
-        <button class="aural-tree__content">
+        <div class="aural-tree__content">
           <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select All Reports">
           <span class="aural-tree__toggle">
             <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
@@ -732,17 +734,17 @@ export const WithCheckboxes: Story = {
             <i data-lucide="folder" style="width: 16px; height: 16px;"></i>
           </span>
           <span class="aural-tree__label">Reports</span>
-        </button>
+        </div>
         <ul class="aural-tree__children">
           <li class="aural-tree__item aural-tree__item--leaf">
-            <button class="aural-tree__content">
+            <div class="aural-tree__content">
               <input type="checkbox" class="aural-tree__checkbox" style="margin-right: 8px;" aria-label="Select Q1 Report">
               <span class="aural-tree__toggle"></span>
               <span class="aural-tree__icon aural-tree__icon--info">
                 <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
               </span>
               <span class="aural-tree__label">Q1 Report</span>
-            </button>
+            </div>
           </li>
         </ul>
       </li>

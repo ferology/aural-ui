@@ -540,6 +540,8 @@ export const TransparentNavbar: Story = {
         if (brand) (brand as HTMLElement).style.color = 'white';
         links.forEach((link) => ((link as HTMLElement).style.color = 'rgba(255,255,255,0.8)'));
         buttons.forEach((btn) => {
+          // Filled primary buttons keep their themed text/fill colors
+          if (btn.classList.contains('btn-primary')) return;
           (btn as HTMLElement).style.color = 'white';
           (btn as HTMLElement).style.borderColor = 'white';
         });

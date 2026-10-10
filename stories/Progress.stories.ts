@@ -644,6 +644,8 @@ export const FileUploadPattern: Story = {
     // Cancel button
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'btn btn-ghost btn-sm';
+    cancelBtn.type = 'button';
+    cancelBtn.setAttribute('aria-label', 'Cancel upload');
     cancelBtn.style.flexShrink = '0';
     cancelBtn.innerHTML =
       '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
@@ -745,8 +747,6 @@ export const MultiStepProgress: Story = {
         step.style.background = 'var(--color-success-subtle)';
       } else if (state === 'current') {
         step.style.background = 'var(--color-primary-subtle)';
-      } else {
-        step.style.opacity = '0.5';
       }
 
       const iconEl = document.createElement('div');
@@ -835,7 +835,7 @@ export const DashboardStats: Story = {
 
       const percentLabel = document.createElement('span');
       percentLabel.style.color = variant.includes('warning')
-        ? 'var(--color-warning)'
+        ? 'var(--color-warning-text)'
         : 'var(--color-text-primary)';
       percentLabel.style.fontWeight = 'var(--font-semibold)';
       percentLabel.textContent = `${percentage}%`;

@@ -223,7 +223,7 @@ Aural UI includes **9 beautiful themes** designed for different use cases and ac
   }}>
     <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>High Contrast</h3>
     <p style={{ margin: '0 0 1rem 0', fontSize: '0.875rem' }}>
-      Maximum contrast ratios for accessibility. WCAG AAA compliant (7:1+ contrast).
+      Maximum contrast ratios for accessibility. Verified against WCAG AA by the contrast audit.
     </p>
     <div style={{ display: 'flex', gap: '0.5rem' }}>
       <div style={{ width: '40px', height: '40px', background: '#000000', border: '1px solid #fff', borderRadius: '4px' }}></div>
@@ -329,5 +329,20 @@ All themes use the same CSS custom property names, making switching seamless:
 ```
 
 Each theme simply provides different values for these tokens.
+
+---
+
+## Contrast Guarantee
+
+Every theme passes WCAG 2.1 AA for the semantic color tokens: text on the page, secondary and elevated surfaces at 4.5:1 or more, and form control borders (`--color-control-border`) at 3:1 or more. Filled status backgrounds use `--color-*-solid` with `--color-text-on-*`; status text uses `--color-*-text`.
+
+Check your own theme overrides with the audit script. It loads each theme in a real browser (build the CSS first):
+
+```bash
+npm run build:css
+npm run audit:contrast
+```
+
+It exits with code 1 if any pair fails. When you write a custom theme, override the `-text` and `--color-control-border` tokens for your surfaces rather than relying on the dark defaults.
 
 </div>

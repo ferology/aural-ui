@@ -1,5 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/html';
 
+/** Minimal tagged template that concatenates into an HTML string. */
+const html = (strings: TemplateStringsArray, ...values: unknown[]): string =>
+  strings.reduce((out, str, i) => {
+    const v = values[i];
+    const text = Array.isArray(v) ? v.join('') : (v ?? '');
+    return out + str + (i < values.length ? String(text) : '');
+  }, '');
+
 /**
  * Stats Cards are used to display key metrics, performance indicators, and statistical data with visual emphasis.
  *
@@ -23,7 +31,7 @@ import type { Meta, StoryObj } from '@storybook/html';
  *   <div class="aural-stats-card__value">Value</div>
  *   <div class="aural-stats-card__progress">
  *     <div class="aural-stats-card__progress-bar" style="width: X%"
- *          role="progressbar" aria-valuenow="X" aria-valuemin="0" aria-valuemax="100"></div>
+ *          role="progressbar" aria-label="Label" aria-valuenow="X" aria-valuemin="0" aria-valuemax="100"></div>
  *   </div>
  *   <div class="aural-stats-card__footer">
  *     <span class="aural-stats-card__trend aural-stats-card__trend--{direction}">
@@ -167,6 +175,7 @@ Stats cards present numerical data in a visually appealing, scannable format wit
     <div class="aural-stats-card__progress-bar"
          style="width: 68%"
          role="progressbar"
+         aria-label="Storage Used"
          aria-valuenow="68"
          aria-valuemin="0"
          aria-valuemax="100"></div>
@@ -223,6 +232,7 @@ function StatsCard({
             className="aural-stats-card__progress-bar"
             style={{ width: \`\${progress}%\` }}
             role="progressbar"
+            aria-label={label}
             aria-valuenow={progress}
             aria-valuemin={0}
             aria-valuemax={100}
@@ -276,6 +286,7 @@ function StatsCard({
         class="aural-stats-card__progress-bar"
         :style="{ width: \`\${progress}%\` }"
         role="progressbar"
+        :aria-label="label"
         :aria-valuenow="progress"
         aria-valuemin="0"
         aria-valuemax="100"
@@ -351,6 +362,7 @@ const trendIcon = computed(() => {
         class="aural-stats-card__progress-bar"
         style="width: {progress}%"
         role="progressbar"
+        aria-label={label}
         aria-valuenow={progress}
         aria-valuemin="0"
         aria-valuemax="100"
@@ -744,6 +756,7 @@ export const WithProgress: Story = {
                 class="aural-stats-card__progress-bar"
                 style="width: ${args.progressValue}%"
                 role="progressbar"
+                aria-label="${args.label}"
                 aria-valuenow="${args.progressValue}"
                 aria-valuemin="0"
                 aria-valuemax="100"
@@ -985,6 +998,7 @@ export const DashboardGrid: Story = {
             class="aural-stats-card__progress-bar"
             style="width: 72%"
             role="progressbar"
+            aria-label="CPU Usage"
             aria-valuenow="72"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1008,6 +1022,7 @@ export const DashboardGrid: Story = {
             class="aural-stats-card__progress-bar"
             style="width: 85%"
             role="progressbar"
+            aria-label="Project Completion"
             aria-valuenow="85"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1076,6 +1091,7 @@ export const WithProgressBars: Story = {
             class="aural-stats-card__progress-bar"
             style="width: 67.8%"
             role="progressbar"
+            aria-label="Storage Used"
             aria-valuenow="67.8"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1099,6 +1115,7 @@ export const WithProgressBars: Story = {
             class="aural-stats-card__progress-bar"
             style="width: 85%"
             role="progressbar"
+            aria-label="Project Completion"
             aria-valuenow="85"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1122,6 +1139,7 @@ export const WithProgressBars: Story = {
             class="aural-stats-card__progress-bar"
             style="width: 72%"
             role="progressbar"
+            aria-label="CPU Usage"
             aria-valuenow="72"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -1256,6 +1274,7 @@ export const ThemeComparison: Story = {
               class="aural-stats-card__progress-bar"
               style="width: 72%"
               role="progressbar"
+              aria-label="CPU Usage"
               aria-valuenow="72"
               aria-valuemin="0"
               aria-valuemax="100"

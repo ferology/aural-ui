@@ -21,7 +21,7 @@ Skeleton screens reduce perceived load time by 40% (research from Luke Wroblewsk
 **Vanilla HTML:**
 \`\`\`html
 <!-- Text Skeleton -->
-<div aria-busy="true" aria-label="Loading content">
+<div role="status" aria-busy="true" aria-label="Loading content">
   <div class="skeleton skeleton-text" style="width: 100%"></div>
   <div class="skeleton skeleton-text" style="width: 80%"></div>
   <div class="skeleton skeleton-text" style="width: 60%"></div>
@@ -29,7 +29,7 @@ Skeleton screens reduce perceived load time by 40% (research from Luke Wroblewsk
 </div>
 
 <!-- Avatar + Text Pattern -->
-<div aria-busy="true" aria-label="Loading user profile">
+<div role="status" aria-busy="true" aria-label="Loading user profile">
   <div style="display: flex; gap: 16px; align-items: center;">
     <div class="skeleton skeleton-circle" style="width: 48px; height: 48px;"></div>
     <div style="flex: 1;">
@@ -40,7 +40,7 @@ Skeleton screens reduce perceived load time by 40% (research from Luke Wroblewsk
 </div>
 
 <!-- Card Skeleton -->
-<div class="card" aria-busy="true" aria-label="Loading card content">
+<div class="card" role="status" aria-busy="true" aria-label="Loading card content">
   <div class="skeleton skeleton-rect" style="width: 100%; height: 200px; border-radius: 8px 8px 0 0;"></div>
   <div style="padding: 16px;">
     <div class="skeleton skeleton-text" style="width: 70%; height: 24px; margin-bottom: 12px;"></div>
@@ -58,7 +58,7 @@ function Skeleton({ variant = 'text', width, height, className, count = 1 }) {
   if (count > 1 && variant === 'text') {
     const widths = ['100%', '80%', '60%'];
     return (
-      <div aria-busy="true" aria-label="Loading content">
+      <div role="status" aria-busy="true" aria-label="Loading content">
         {Array.from({ length: count }).map((_, i) => (
           <div
             key={i}
@@ -79,7 +79,7 @@ function Skeleton({ variant = 'text', width, height, className, count = 1 }) {
 // Card Skeleton Example
 function CardSkeleton() {
   return (
-    <div className="card" aria-busy="true" aria-label="Loading card content">
+    <div className="card" role="status" aria-busy="true" aria-label="Loading card content">
       <Skeleton variant="rect" height="200px" />
       <div className="card-body">
         <Skeleton variant="text" width="70%" height="24px" />
@@ -96,7 +96,7 @@ function CardSkeleton() {
 // Avatar List Skeleton
 function UserListSkeleton({ count = 4 }) {
   return (
-    <div className="space-y-4" aria-busy="true" aria-label="Loading list items">
+    <div className="space-y-4" role="status" aria-busy="true" aria-label="Loading list items">
       {Array.from({ length: count }).map((_, i) => (
         <div key={i} className="flex gap-4 items-center p-4 bg-surface rounded-lg">
           <Skeleton variant="circle" width="48px" height="48px" />
@@ -117,6 +117,7 @@ function UserListSkeleton({ count = 4 }) {
 <template>
   <div
     v-if="count > 1 && variant === 'text'"
+    role="status"
     aria-busy="true"
     aria-label="Loading content"
   >
@@ -169,7 +170,7 @@ const getStyle = (index) => {
 </script>
 
 {#if count > 1 && variant === 'text'}
-  <div aria-busy="true" aria-label="Loading content">
+  <div role="status" aria-busy="true" aria-label="Loading content">
     {#each Array(count) as _, i}
       <div
         class={skeletonClass}
@@ -186,7 +187,7 @@ const getStyle = (index) => {
 ## Accessibility
 
 1. **aria-busy="true"** - Mark containers with \`aria-busy="true"\` to indicate content is loading; remove when real content appears
-2. **aria-label context** - Provide descriptive label like \`aria-label="Loading user profile"\` or \`aria-label="Loading table data"\`
+2. **role and label** - Give the container \`role="status"\` (a generic \`<div>\` cannot be named with aria-label) and a descriptive label like \`aria-label="Loading user profile"\` or \`aria-label="Loading table data"\`
 3. **aria-live="polite"** - Add \`aria-live="polite"\` to container so screen readers announce when content finishes loading
 4. **Screen reader text** - Include hidden text like \`<span class="sr-only">Loading content...</span>\` for screen reader users
 5. **Completion announcement** - When real content loads, announce "Content loaded" via \`role="status"\` for screen reader notification
@@ -281,6 +282,7 @@ export const Text: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.style.maxWidth = '600px';
+    container.setAttribute('role', 'status');
     container.setAttribute('aria-busy', 'true');
     container.setAttribute('aria-label', 'Loading content');
 
@@ -322,6 +324,7 @@ export const Circle: Story = {
     const container = document.createElement('div');
     container.style.display = 'flex';
     container.style.gap = 'var(--space-4)';
+    container.setAttribute('role', 'status');
     container.setAttribute('aria-busy', 'true');
     container.setAttribute('aria-label', 'Loading avatars');
 
@@ -353,6 +356,7 @@ export const Rectangle: Story = {
     skeleton.style.width = args.width || '300px';
     skeleton.style.height = args.height || '200px';
     skeleton.style.borderRadius = 'var(--radius-md)';
+    skeleton.setAttribute('role', 'status');
     skeleton.setAttribute('aria-busy', 'true');
     skeleton.setAttribute('aria-label', 'Loading image');
 
@@ -372,6 +376,7 @@ export const Avatar: Story = {
     container.style.gap = 'var(--space-6)';
     container.style.alignItems = 'center';
     container.style.maxWidth = '600px';
+    container.setAttribute('role', 'status');
     container.setAttribute('aria-busy', 'true');
     container.setAttribute('aria-label', 'Loading user profile');
 
@@ -410,6 +415,7 @@ export const Card: Story = {
     const card = document.createElement('div');
     card.className = 'card';
     card.style.maxWidth = '400px';
+    card.setAttribute('role', 'status');
     card.setAttribute('aria-busy', 'true');
     card.setAttribute('aria-label', 'Loading card content');
 
@@ -475,6 +481,7 @@ export const Table: Story = {
     container.style.display = 'flex';
     container.style.flexDirection = 'column';
     container.style.gap = 'var(--space-3)';
+    container.setAttribute('role', 'status');
     container.setAttribute('aria-busy', 'true');
     container.setAttribute('aria-label', 'Loading table data');
 
@@ -514,6 +521,7 @@ export const List: Story = {
     container.style.flexDirection = 'column';
     container.style.gap = 'var(--space-4)';
     container.style.maxWidth = '600px';
+    container.setAttribute('role', 'status');
     container.setAttribute('aria-busy', 'true');
     container.setAttribute('aria-label', 'Loading list items');
 
@@ -576,6 +584,7 @@ export const Form: Story = {
     container.style.flexDirection = 'column';
     container.style.gap = 'var(--space-6)';
     container.style.maxWidth = '500px';
+    container.setAttribute('role', 'status');
     container.setAttribute('aria-busy', 'true');
     container.setAttribute('aria-label', 'Loading form');
 
@@ -622,6 +631,7 @@ export const ArticlePreview: Story = {
     container.style.flexDirection = 'column';
     container.style.gap = 'var(--space-6)';
     container.style.maxWidth = '700px';
+    container.setAttribute('role', 'status');
     container.setAttribute('aria-busy', 'true');
     container.setAttribute('aria-label', 'Loading article');
 
@@ -714,6 +724,7 @@ export const ThemeComparison: Story = {
       container.style.display = 'flex';
       container.style.gap = 'var(--space-6)';
       container.style.alignItems = 'center';
+      container.setAttribute('role', 'status');
       container.setAttribute('aria-busy', 'true');
       container.setAttribute('aria-label', 'Loading content');
 

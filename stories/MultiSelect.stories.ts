@@ -22,7 +22,7 @@ Multi-Select components combine the space efficiency of dropdowns with the clari
 \`\`\`html
 <div class="aural-multi-select" id="skills-select">
   <!-- Trigger with chips display -->
-  <div class="aural-multi-select__trigger" tabindex="0" role="button" aria-haspopup="listbox" aria-expanded="false">
+  <div class="aural-multi-select__trigger" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-label="Select skills">
     <div class="aural-multi-select__tags">
       <!-- Selected chips rendered dynamically -->
       <span class="aural-multi-select__tag">
@@ -212,7 +212,7 @@ function MultiSelect({
         className="aural-multi-select__trigger"
         onClick={() => !disabled && setIsOpen(!isOpen)}
         tabIndex={disabled ? -1 : 0}
-        role="button"
+        role="combobox"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-disabled={disabled}
@@ -311,7 +311,7 @@ function MultiSelect({
       class="aural-multi-select__trigger"
       @click="!disabled && (isOpen = !isOpen)"
       :tabindex="disabled ? -1 : 0"
-      role="button"
+      role="combobox"
       aria-haspopup="listbox"
       :aria-expanded="isOpen"
       :aria-disabled="disabled"
@@ -587,7 +587,7 @@ export default {
     class="aural-multi-select__trigger"
     on:click={() => !disabled && (isOpen = !isOpen)}
     tabindex={disabled ? -1 : 0}
-    role="button"
+    role="combobox"
     aria-haspopup="listbox"
     aria-expanded={isOpen}
     aria-disabled={disabled}
@@ -799,8 +799,10 @@ function createMultiSelect(
   const trigger = document.createElement('div');
   trigger.className = 'aural-multi-select__trigger';
   trigger.setAttribute('tabindex', config.disabled ? '-1' : '0');
-  trigger.setAttribute('role', 'button');
+  trigger.setAttribute('role', 'combobox');
   trigger.setAttribute('aria-haspopup', 'listbox');
+  trigger.setAttribute('aria-expanded', 'false');
+  trigger.setAttribute('aria-label', config.placeholder || 'Select items');
 
   const tagsContainer = document.createElement('div');
   tagsContainer.className = 'aural-multi-select__tags';
@@ -1096,8 +1098,10 @@ export const ThemeComparison: Story = {
       const trigger = document.createElement('div');
       trigger.className = 'aural-multi-select__trigger';
       trigger.setAttribute('tabindex', '0');
-      trigger.setAttribute('role', 'button');
+      trigger.setAttribute('role', 'combobox');
       trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.setAttribute('aria-label', args.placeholder || 'Select items');
 
       const tagsContainer = document.createElement('div');
       tagsContainer.className = 'aural-multi-select__tags';
