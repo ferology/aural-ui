@@ -40,8 +40,8 @@
        ======================================== */
   --color-text-primary: #f5f5fa; /* High contrast */
   --color-text-secondary: #a0a0b8; /* 5.2:1 contrast (WCAG AA+) */
-  --color-text-tertiary: #8a8aa0;
-  --color-text-muted: #7a7a8a; /* 4.5:1+ contrast (WCAG AA) */
+  --color-text-tertiary: #9a9ab0; /* >= 5:1 on every dark surface */
+  --color-text-muted: #9696ad; /* 4.8:1 on elevated surfaces (was 3.3:1) */
   --color-text-disabled: #50505f;
   --color-text-inverse: #0f0f1a;
 
@@ -57,14 +57,13 @@
        ======================================== */
 
   /* Buttons */
-  --color-button-primary-text: var(
-    --color-text-inverse
-  ); /* Dark text on green (#0f0f1a on #5ebd8f = 7.5:1 contrast) */
+  --color-button-primary-text: var(--color-bg-primary); /* Dark text on green button (8.29:1) */
 
   /* Inputs */
   --color-input-bg: rgba(255, 255, 255, 0.03);
-  --color-input-border: var(--color-border-subtle);
-  --color-input-border-hover: var(--color-border-medium);
+  --color-control-border: #8a8aa0; /* 4.1:1+ on every dark surface (1.4.11) */
+  --color-input-border: var(--color-control-border);
+  --color-input-border-hover: var(--primary-400);
   --color-input-disabled-bg: rgba(255, 255, 255, 0.01);
 
   /* Cards */
@@ -85,11 +84,12 @@
   /* ========================================
        Navigation (Demo Sidebar)
        ======================================== */
-  --color-nav-active-bg: #3d8a64; /* Medium green for active nav - 7:1 contrast */
+  --color-nav-active-bg: #326d51; /* 5.6:1 with the light text below */
   --color-nav-active-text: #f5f5fa; /* Light text on green background */
 }
 
 /* Dark mode body styles */
+
 body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);

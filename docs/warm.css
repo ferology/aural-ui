@@ -55,8 +55,8 @@ html:root {
        ======================================== */
   --color-text-primary: #fef3c7; /* Warm cream */
   --color-text-secondary: #d4a574; /* Muted tan - excellent contrast */
-  --color-text-tertiary: #b8926a;
-  --color-text-muted: #9c8060; /* 4.8:1 contrast - AA+ */
+  --color-text-tertiary: #c8a47c; /* >= 5.4:1 on every surface */
+  --color-text-muted: #bf9a70; /* >= 4.8:1 on every surface */
   --color-text-disabled: #6b5d4f;
   --color-text-inverse: #1a1612;
 
@@ -82,7 +82,8 @@ html:root {
 
   /* Inputs */
   --color-input-bg: rgba(255, 235, 200, 0.03);
-  --color-input-border: var(--color-border-subtle);
+  --color-control-border: #b8996f; /* >= 4.7:1 (1.4.11) */
+  --color-input-border: var(--color-control-border);
   --color-input-border-hover: var(--color-border-medium);
   --color-input-disabled-bg: rgba(255, 235, 200, 0.01);
 
@@ -131,6 +132,7 @@ html:root {
 }
 
 /* Warm body styles */
+
 body {
   background: linear-gradient(135deg, #1a1612 0%, #24201a 100%);
   color: var(--color-text-primary);

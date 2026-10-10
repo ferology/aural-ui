@@ -14,7 +14,7 @@
   --primary-100: #b9e1ff;
   --primary-200: #7cc9ff;
   --primary-300: #36b0ff;
-  --primary-400: #0096ff; /* Main brand color - bright blue */
+  --primary-400: #66c4ff; /* Main brand color - bright blue, >= 7:1 as text on every surface and under black text */
   --primary-500: #007acc;
   --primary-600: #0062a3;
   --primary-700: #004d7a;
@@ -55,7 +55,7 @@
   --color-text-primary: #ffffff; /* Pure white - 21:1 contrast */
   --color-text-secondary: #e0e0e0; /* 15:1 contrast (WCAG AAA+) */
   --color-text-tertiary: #c0c0c0; /* 10:1 contrast (WCAG AAA) */
-  --color-text-muted: #a0a0a0; /* 7.5:1 contrast (WCAG AAA) */
+  --color-text-muted: #c4c4c4; /* >= 8:1 on every surface (WCAG AAA) */
   --color-text-disabled: #666666;
   --color-text-inverse: #000000;
 
@@ -151,6 +151,11 @@
 
   /* Buttons */
   --color-button-primary-bg: var(--primary-400);
+  --color-error-text: #ff9c9c; /* the pure red fill is only 3.6:1 on raised surfaces; this is >= 7:1 */
+  --color-success-solid: #00cc00; /* black text, 9.6:1 */
+  --color-text-on-success: #000000;
+  --color-info-solid: #00cccc; /* black text, 10.5:1 */
+  --color-text-on-info: #000000;
   --color-button-primary-text: #000000; /* Black for proper contrast (was white = 3.09:1 FAIL, now ~9.7:1 PASS) */
   --color-button-primary-hover: var(--primary-300);
 
@@ -159,7 +164,7 @@
   --color-button-secondary-border: #ffffff;
   --color-button-secondary-hover: rgba(255, 255, 255, 0.15);
 
-  --color-button-danger-bg: var(--error-400);
+  --color-button-danger-bg: #ff6666; /* black text >= 7:1 */
   --color-button-danger-text: #000000;
   --color-button-danger-hover: var(--error-300);
 
@@ -240,18 +245,21 @@
 }
 
 /* High contrast body styles */
+
 body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
 }
 
 /* Focus indicators - Enhanced for visibility */
+
 *:focus-visible {
   outline: 3px solid var(--primary-400);
   outline-offset: 3px;
 }
 
 /* Link styles - Enhanced contrast */
+
 a {
   color: var(--primary-300);
   text-decoration: underline;
@@ -262,6 +270,12 @@ a:hover {
 }
 
 /* Selection - High visibility */
+
+::-moz-selection {
+  background: var(--primary-400);
+  color: #000000;
+}
+
 ::selection {
   background: var(--primary-400);
   color: #000000;
@@ -277,6 +291,7 @@ a:hover {
    ======================================== */
 
 /* Logo - Maximum contrast */
+
 .demo-logo {
   padding: var(--space-5) var(--space-4) !important;
   border-bottom: 3px solid var(--primary-400);
@@ -312,6 +327,7 @@ a:hover {
 }
 
 /* Theme Selector - Strong visual hierarchy */
+
 .theme-selector-section {
   padding: 0 var(--space-3);
   margin-bottom: var(--space-5) !important;
@@ -348,6 +364,7 @@ a:hover {
 }
 
 /* Navigation Sections - Bold headers */
+
 .demo-nav-title {
   color: #ffffff !important;
   font-weight: 900 !important;
@@ -373,6 +390,7 @@ a:hover {
 }
 
 /* Navigation Links - Maximum contrast interactions */
+
 .demo-nav-link {
   color: #ffffff !important;
   font-weight: 600 !important;
@@ -410,18 +428,21 @@ a:hover {
 }
 
 /* Subsection labels - High contrast */
+
 .demo-nav-subtitle {
   color: var(--primary-300) !important;
   font-weight: 900 !important;
 }
 
 /* Sidebar - Strong borders */
+
 .demo-sidebar {
   background: var(--color-bg-primary) !important;
   border-right: 3px solid var(--color-border-strong) !important;
 }
 
 /* Scrollbar - High contrast */
+
 .demo-sidebar::-webkit-scrollbar {
   width: 12px;
 }

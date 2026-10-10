@@ -55,8 +55,8 @@
        ======================================== */
   --color-text-primary: #f5f7fa;
   --color-text-secondary: #b0b8c8;
-  --color-text-tertiary: #8a92a8;
-  --color-text-muted: #707888;
+  --color-text-tertiary: #a3abc0; /* >= 5.7:1 on every surface */
+  --color-text-muted: #98a0b5; /* >= 5:1 on every surface */
   --color-text-disabled: #505865;
   --color-text-inverse: #0f1419;
 
@@ -142,7 +142,12 @@
   /* ========================================
        Primary/Secondary Token Overrides
        ======================================== */
-  --color-primary: var(--primary-400);
+  --color-primary: var(
+    --primary-300
+  ); /* the blue-600 brand was 3.3:1 as text on the page background */
+  --color-success-text: #4da6ff;
+  --color-text-on-primary: #0f1419; /* --color-primary is the light blue above; the button fill below is darker and keeps white */
+  --color-text-on-info: #000000;
   --color-primary-hover: var(--primary-300);
   --color-secondary: var(--secondary-400);
 
@@ -161,7 +166,7 @@
   --color-button-secondary-hover: var(--color-bg-hover);
 
   --color-button-danger-bg: var(--error-400);
-  --color-button-danger-text: #ffffff;
+  --color-button-danger-text: #000000; /* white on the orange was 2.3:1 */
   --color-button-danger-hover: var(--error-300);
 
   --color-button-ghost-bg: transparent;
@@ -170,7 +175,7 @@
 
   /* Badges */
   --color-badge-secondary-bg: rgba(176, 184, 200, 0.15);
-  --color-badge-secondary-text: #b0b8c8;
+  --color-badge-secondary-text: #c8d0e0; /* FIXED: Increased brightness for 4.5:1 contrast */
 
   /* Primary Alpha */
   --color-primary-alpha: rgba(0, 102, 204, 0.15);
@@ -179,7 +184,8 @@
   --color-input-bg: rgba(255, 255, 255, 0.03);
   --color-input-text: var(--color-text-primary);
   --color-input-placeholder: var(--color-text-muted);
-  --color-input-border: var(--color-border-subtle);
+  --color-control-border: #8f97ac; /* >= 4.5:1 (1.4.11) */
+  --color-input-border: var(--color-control-border);
   --color-input-border-hover: var(--color-border-medium);
   --color-input-border-focus: var(--primary-400);
   --color-input-disabled-bg: rgba(255, 255, 255, 0.01);
@@ -256,12 +262,14 @@
 }
 
 /* Colorblind-friendly body styles */
+
 body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
 }
 
 /* Enhanced patterns for status indicators */
+
 .badge-success,
 .alert-success,
 .toast-success {
@@ -287,6 +295,7 @@ body {
 }
 
 /* Icon-based indicators (always use icons with color) */
+
 .success-indicator::before {
   content: '✓';
   margin-right: 0.5em;
@@ -312,6 +321,7 @@ body {
    ======================================== */
 
 /* Logo - Blue accent with good contrast */
+
 .demo-logo {
   padding: var(--space-5) var(--space-4) !important;
   border-bottom: 2px solid var(--primary-400);
@@ -346,6 +356,7 @@ body {
 }
 
 /* Theme Selector - Accessible blue */
+
 .theme-selector-section {
   padding: 0 var(--space-3);
   margin-bottom: var(--space-5) !important;
@@ -378,6 +389,7 @@ body {
 }
 
 /* Navigation Sections - Blue headers */
+
 .demo-nav-title {
   color: var(--color-text-secondary) !important;
   font-weight: 700 !important;
@@ -393,6 +405,7 @@ body {
 }
 
 /* Navigation Links - Clear blue active states */
+
 .demo-nav-link {
   transition: all 0.2s ease !important;
 }
@@ -420,17 +433,20 @@ body {
 }
 
 /* Subsection labels - Orange accent for variety */
+
 .demo-nav-subtitle {
   color: var(--secondary-400) !important;
 }
 
 /* Sidebar - Clean with blue border */
+
 .demo-sidebar {
   background: var(--color-bg-primary) !important;
   border-right: 2px solid var(--color-border-medium) !important;
 }
 
 /* Scrollbar - Blue theme */
+
 .demo-sidebar::-webkit-scrollbar-thumb {
   background: var(--primary-400);
 }
