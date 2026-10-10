@@ -21,6 +21,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added - October 10, 2026
+
+- **WCAG 2.1 AA contrast remediation tokens** (`tokens/semantic/colors.css`):
+  - `--color-{success,error,info,warning}-solid`: fills that carry `--color-text-on-*` text (success-700, error-600, info-600, warning-500 with dark text)
+  - `--color-{success,error,warning,info}-text`: status text/icons on surfaces (400 shades on dark; 700/600 shades in `themes/light.css` and `themes/minimal.css`)
+  - `--color-control-border`: boundary of form controls (>= 3:1, WCAG 1.4.11), used by input, checkbox, radio, and select. `--color-border-subtle`/`-medium` stay decorative only
+- **`scripts/contrast-audit.mjs` (`npm run audit:contrast`)**: resolves the semantic tokens in a real browser for each theme and checks text pairs >= 4.5:1, status text, solid-fill text, and control borders >= 3:1. Run `npm run build:css` first. All 11 themes pass
+- **Per-theme overrides** so every theme under `themes/` passes the audit: dark, light, minimal, warm, prismatic, neon, kinetic, high-contrast, colorblind-friendly (neon-refined already passed). Light and minimal define their own `-text` tokens; most themes define `--color-control-border`
+
+### Changed - October 10, 2026
+
+- **Filled status backgrounds** (chips, alert-banner `--solid`, snackbar, stepper, badge counters in navbar/bottom-nav/notification-center, timeline, file-upload, code-block, tooltip success/error) now use `--color-*-solid` + `--color-text-on-*` instead of `--color-*` (500 shades) + `white`. White on success-500 2.28:1 -> white on success-700 5.02:1; white on error-500 3.76:1 -> error-600 4.83:1; white on info-500 3.68:1 -> info-600 5.17:1; white on warning-500 2.15:1 -> `--color-text-on-warning` (neutral-950) 9.22:1
+- **Status foreground text/icons** (alert-banner, dialog, input/select/combobox/multi-select/time-picker messages, rating, sliders, stats-card, tree-view, notification-center, calendar weekends, dropdown/context-menu danger items, etc.) now use `--color-*-text`
+- **Form control borders**: `--color-input-border`, `--color-checkbox-border`, `--color-radio-border`, `--color-select-border` now resolve to `--color-control-border` (was `--color-border-subtle`, about 1.2:1; now >= 3:1)
+- `--color-button-primary-text` defaults to `var(--color-bg-primary)` (dark text on the light brand green; white was about 2.3:1); `themes/light.css` overrides it to white (5.5:1 on the dark brand green). `--color-button-danger-bg` uses `--color-error-solid`, hover `--error-700`
+- Default `--color-text-tertiary` and `--color-text-muted` raised to neutral-400 (neutral-500 was 4.18:1 on the page background and about 3.2:1 on raised surfaces; neutral-600 was about 2.5:1); theme overrides raised in dark, warm, prismatic, neon, minimal, light, colorblind-friendly, kinetic
+- `.skip-link` (`utilities/accessibility.css`) uses `--color-button-primary-bg`/`--color-button-primary-text` and a `currentColor` focus outline instead of white-on-primary
+- **Modals** (`javascript/index.js`, `openModal`/`closeModal`): everything outside the open modal is made `inert` + `aria-hidden` (restored on close, including when the modal sits inside `<main>`; replaces `aria-hidden` on `<main>`); focusable elements are recomputed on every Tab (skips hidden/disabled, includes `summary` and `contenteditable`); the dialog itself takes focus when it has no focusable child; Escape closes only the topmost modal
+- **Tooltips** (`initTooltips`): auto-wire `role="tooltip"` and `aria-describedby` on the trigger
+
+### Fixed - October 10, 2026
+
+- **White text on the light brand green in the dark theme:** chips, tabs (pill), pagination, progress bars, calendars, date/time pickers, steppers, timelines, tooltips and the bottom-nav primary variant hard-coded `color: white` on `--color-primary` (2.3:1 in the default dark theme). `--color-text-on-primary` now follows `--color-button-primary-text` (dark in the dark theme, white in the light theme) and those components use it. Found by scanning every Storybook story with axe-core.
+- **Badges, alert-banner titles and code-block language labels:** badge text used the 400 status shades on light backgrounds (1.5:1); it now uses the `--color-*-text` tokens, and the light and minimal themes use darker 700/800 shades so text on tinted status backgrounds clears 4.5:1. Terminal code blocks keep their on-dark label and copy-button colors in every theme, and `.aural-spinner--white` text is now light.
+
+- **`Aural.initTooltips()` never wired anything:** it only registered a `DOMContentLoaded` listener, and `Aural.init()` itself runs inside that event (a listener added mid-dispatch doesn't fire), so `.tooltip-wrapper` markup was never initialised, and calling it manually after load was a no-op. It now wires immediately, takes an optional root, and is idempotent.
+
+- Tooltips now stay open while the pointer is over the tooltip itself (WCAG 1.4.13 hoverable) and dismiss on Escape without moving focus (previously they closed as soon as the pointer left the trigger and could not be dismissed)
+- Stacked modals no longer all close at once on Escape
+- Modal focus trap no longer wraps to hidden or disabled elements or misses content added after open
+- Status text and filled status backgrounds that failed 4.5:1 (see Changed), form control borders that failed 3:1, and per-theme failures in every theme except neon-refined
+
 ### Added - October 2, 2026
 
 - **🤖 LLM-readable design system**: structured specs, a closed token layer, and an automated audit so an AI coding session stays consistent instead of fabricating CSS values or drifting across sessions ([hvpandya.com/llm-design-systems](https://hvpandya.com/llm-design-systems) pattern)

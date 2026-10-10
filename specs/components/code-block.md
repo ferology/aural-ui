@@ -57,7 +57,7 @@ the visual states.
 | `--color-bg-secondary` / `--color-bg-tertiary`                                                                                       | Header/line-numbers background, base block background, copy-hover background |
 | `--color-border`                                                                                                                     | Block/header/copy-button/inline-code borders                                 |
 | `--color-text-primary` / `--color-text-secondary` / `--color-text-muted`                                                             | Code text, language label, line numbers, scrollbar-thumb hover               |
-| `--color-primary` / `--color-success`                                                                                                | Copy-button hover/focus accent, `--copied` state                             |
+| `--color-primary` / `--color-success-solid`                                                                                          | Copy-button hover/focus accent, `--copied` state fill/border                 |
 | `--color-code-line-highlight-bg` / `--color-code-line-success-bg` / `--color-code-line-error-bg`                                     | Highlighted-line backgrounds (neutral / added / removed)                     |
 | `--color-code-terminal-bg` / `-border` / `-header-bg` / `-text`                                                                      | `.aural-code-block--terminal` surface, border, header, and text colors       |
 | `--color-code-token-comment` / `-string` / `-number` / `-keyword` / `-function` / `-operator` / `-variable` / `-class` / `-property` | Per-token-type syntax color                                                  |

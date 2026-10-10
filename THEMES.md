@@ -361,6 +361,32 @@ Modify the CSS custom properties:
 }
 ```
 
+**Status and control tokens are required, not optional.** The default `--color-*-text`, `--color-control-border`, and `--color-text-on-*` values are tuned for the dark theme. If your surfaces are light (or otherwise differ), define passing values yourself:
+
+```css
+:root {
+  /* Status text/icons on your surfaces (>= 4.5:1). Never fall back to the 500 shades. */
+  --color-success-text: var(--success-700);
+  --color-error-text: var(--error-700);
+  --color-warning-text: var(--warning-700);
+  --color-info-text: var(--info-600);
+
+  /* Form control boundary (input/checkbox/radio/select), >= 3:1 (WCAG 1.4.11) */
+  --color-control-border: #6b7280;
+
+  /* Text on filled status backgrounds (--color-*-solid), >= 4.5:1 */
+  --color-text-on-success: #ffffff;
+  --color-text-on-error: #ffffff;
+  --color-text-on-info: #ffffff;
+  --color-text-on-warning: var(--neutral-950);
+
+  /* Label on the primary button fill */
+  --color-button-primary-text: #ffffff;
+}
+```
+
+Override `--color-*-solid` too if your fills change. Roles are described in `specs/foundations/color.md`.
+
 ### Step 4: Verify Contrast Ratios
 
 Ensure WCAG AA compliance:
@@ -373,6 +399,16 @@ Use tools like:
 
 - [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
 - [Coolors Contrast Checker](https://coolors.co/contrast-checker)
+
+Then run the built-in audit (add your theme name to the list in `scripts/contrast-audit.mjs` if it is not there; it needs `dist/<theme>.css`):
+
+```bash
+npm run build:css
+npm run audit:contrast            # all themes
+node scripts/contrast-audit.mjs my-theme
+```
+
+It resolves the semantic tokens in a real browser and requires text pairs (primary/secondary/tertiary/muted) and `--color-*-text` >= 4.5:1 on all three surfaces, `--color-control-border` >= 3:1, button text, `--color-text-on-*` on `--color-*-solid` fills, and nav-active text >= 4.5:1. A theme is not done until it passes.
 
 ### Step 5: Test Your Theme
 
@@ -611,7 +647,7 @@ setInterval(() => {
 
 ### Contrast Requirements
 
-All themes meet WCAG AA standards:
+All themes meet WCAG AA standards, verified per theme by `npm run audit:contrast` (11 themes pass):
 
 | Element Type  | Minimum Ratio | Aural UI Compliance |
 | ------------- | ------------- | ------------------- |
@@ -736,8 +772,9 @@ For faster switching:
 **Fix:**
 
 1. Use a contrast checker tool
-2. Adjust `--color-text-secondary` or `--color-text-muted`
-3. Ensure minimum 4.5:1 for body text
+2. Run `npm run audit:contrast` (after `npm run build:css`) to see which pair fails
+3. Adjust `--color-text-secondary` / `--color-text-muted` / `--color-text-tertiary`, `--color-*-text`, `--color-control-border`, or `--color-text-on-*`
+4. Ensure minimum 4.5:1 for body text and status text, 3:1 for control borders
 
 ### Issue: Theme Flicker on Load
 

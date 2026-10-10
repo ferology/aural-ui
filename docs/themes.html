@@ -232,7 +232,7 @@
                     <li><strong>Error:</strong> Bright red (#ff0000)</li>
                     <li><strong>Background:</strong> Pure black (#000000)</li>
                     <li><strong>Text:</strong> Pure white (#ffffff)</li>
-                    <li><strong>Contrast:</strong> WCAG AAA compliant (7:1+)</li>
+                    <li><strong>Contrast:</strong> WCAG AA verified by <code>npm run audit:contrast</code> (lowest text pair 4.65:1)</li>
                     <li><strong>Focus outlines:</strong> Enhanced 3px borders</li>
                 </ul>
                 <p><strong>Best for:</strong> Users with low vision, visual impairments, or using the interface in bright sunlight.</p>
@@ -385,7 +385,7 @@
                 <h3>Do</h3>
                 <ul>
                     <li>Test themes in both light and dark modes</li>
-                    <li>Ensure WCAG AA contrast standards (4.5:1)</li>
+                    <li>Ensure WCAG AA contrast standards (4.5:1 for text, 3:1 for form control borders) and run <code>npm run audit:contrast</code></li>
                     <li>Save user theme preferences</li>
                     <li>Use semantic token names</li>
                     <li>Document custom theme tokens</li>

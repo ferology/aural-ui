@@ -1546,7 +1546,9 @@ All components include:
 - ✅ Visible focus indicators (`:focus-visible`)
 - ✅ Proper ARIA attributes
 - ✅ Screen reader support
-- ✅ WCAG AA contrast compliance
+- ✅ WCAG AA contrast compliance (status text via `--color-*-text`, filled status backgrounds via `--color-*-solid` + `--color-text-on-*`, control borders via `--color-control-border`; checked per theme by `npm run audit:contrast`)
+- ✅ Tooltips are hoverable, dismiss on Escape, and get `role="tooltip"` + `aria-describedby` automatically
+- ✅ Modals make outside content `inert`/`aria-hidden`, trap focus (recomputed on each Tab), and close only the topmost on Escape
 - ✅ `prefers-reduced-motion` support
 - ✅ Minimum 44px touch targets
 

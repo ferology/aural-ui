@@ -43,24 +43,25 @@ to need scrolling or rich formatting — use **Popover** instead.
 
 ## 4. Tokens used
 
-| Token                                                                       | Used for                                                                      |
-| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `--color-tooltip-bg` / `--color-tooltip-border` / `--color-tooltip-text`    | Default bubble surface (both `.tooltip` and `[data-tooltip]::after`)          |
-| `--color-bg-dark-overlay`                                                   | `.tooltip-dark` background (`rgba(0,0,0,0.9)`)                                |
-| `--color-badge-neutral-bg`                                                  | `.tooltip-dark` border (`rgba(255,255,255,0.1)`)                              |
-| `--color-text-on-dark`                                                      | `.tooltip-light` background (`rgba(255,255,255,0.9)`)                         |
-| `--color-text-inverse`                                                      | `.tooltip-light` text color                                                   |
-| `--color-primary` / `--color-success` / `--color-warning` / `--color-error` | `.tooltip-primary/-success/-warning/-error` background + border               |
-| `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-5`         | Padding (default/`-sm`/`-lg`/`-xl`) and the 8px position offset/arrow margins |
-| `--space-80`                                                                | Default/`[data-tooltip]` bubble `max-width` (320px)                           |
-| `--size-200` / `--size-400` / `--size-480`                                  | `.tooltip-sm` / `.tooltip-lg` / `.tooltip-xl` `max-width`                     |
-| `--radius-md`                                                               | Bubble corners                                                                |
-| `--shadow-lg`                                                               | Bubble elevation                                                              |
-| `--text-xs` / `--text-sm` / `--text-base` / `--text-lg`                     | Font size at `-sm` / default / `-lg` / `-xl`                                  |
-| `--leading-normal`                                                          | Line height                                                                   |
-| `--font-sans`                                                               | Font family                                                                   |
-| `--duration-moderate`                                                       | Show/hide opacity+transform transition (200ms — see new-token note below)     |
-| `--z-tooltip`                                                               | Stacking layer                                                                |
+| Token                                                                    | Used for                                                                                                            |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `--color-tooltip-bg` / `--color-tooltip-border` / `--color-tooltip-text` | Default bubble surface (both `.tooltip` and `[data-tooltip]::after`)                                                |
+| `--color-bg-dark-overlay`                                                | `.tooltip-dark` background (`rgba(0,0,0,0.9)`)                                                                      |
+| `--color-badge-neutral-bg`                                               | `.tooltip-dark` border (`rgba(255,255,255,0.1)`)                                                                    |
+| `--color-text-on-dark`                                                   | `.tooltip-light` background (`rgba(255,255,255,0.9)`)                                                               |
+| `--color-text-inverse`                                                   | `.tooltip-light` text color                                                                                         |
+| `--color-primary` / `--color-warning`                                    | `.tooltip-primary` / `.tooltip-warning` background + border                                                         |
+| `--color-success-solid` / `--color-error-solid`                          | `.tooltip-success` / `.tooltip-error` background + border (>= 4.5:1 with white text; the 500 shades were 2.3-3.8:1) |
+| `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-5`      | Padding (default/`-sm`/`-lg`/`-xl`) and the 8px position offset/arrow margins                                       |
+| `--space-80`                                                             | Default/`[data-tooltip]` bubble `max-width` (320px)                                                                 |
+| `--size-200` / `--size-400` / `--size-480`                               | `.tooltip-sm` / `.tooltip-lg` / `.tooltip-xl` `max-width`                                                           |
+| `--radius-md`                                                            | Bubble corners                                                                                                      |
+| `--shadow-lg`                                                            | Bubble elevation                                                                                                    |
+| `--text-xs` / `--text-sm` / `--text-base` / `--text-lg`                  | Font size at `-sm` / default / `-lg` / `-xl`                                                                        |
+| `--leading-normal`                                                       | Line height                                                                                                         |
+| `--font-sans`                                                            | Font family                                                                                                         |
+| `--duration-moderate`                                                    | Show/hide opacity+transform transition (200ms — see new-token note below)                                           |
+| `--z-tooltip`                                                            | Stacking layer                                                                                                      |
 
 **New tokens added while migrating this file:**
 
@@ -77,9 +78,16 @@ to need scrolling or rich formatting — use **Popover** instead.
 
 Tooltip is pure CSS/markup plus a small JS helper:
 
-- `Aural.initTooltips()` — wires `mouseenter`/`mouseleave`/`focus`/`blur`
-  on every `[data-tooltip-trigger]` inside a `.tooltip-wrapper`, toggling
-  `.tooltip-show` on the sibling `.tooltip`. Called automatically by
+- `Aural.initTooltips()` — on every `[data-tooltip-trigger]` inside a
+  `.tooltip-wrapper`, shows the sibling `.tooltip` (`.tooltip-show`) on
+  wrapper `mouseenter` and trigger `focus`, hides it on wrapper
+  `mouseleave` and trigger `blur`. Because hover is tracked on the wrapper,
+  the tooltip stays open while the pointer moves onto it (hoverable,
+  WCAG 1.4.13). Escape dismisses it without moving focus or the pointer
+  (and stops propagation so an enclosing modal is not closed). It also
+  auto-wires accessibility: gives the tooltip `role="tooltip"` and an id
+  (`aural-tooltip-*` if missing) and appends that id to the trigger's
+  `aria-describedby`, preserving existing values. Called automatically by
   `Aural.init()`.
 - `Aural.showTooltip(triggerId)` / `Aural.hideTooltip(triggerId)` —
   imperative show/hide by trigger element ID, for the explicit
@@ -89,17 +97,19 @@ Tooltip is pure CSS/markup plus a small JS helper:
 
 ## 6. States
 
-| State          | Trigger                                                           | Effect                                                                          |
-| -------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Hidden         | Default                                                           | `opacity: 0`, `pointer-events: none`.                                           |
-| Shown          | `.tooltip-show` (explicit) / `:hover`,`:focus` (`[data-tooltip]`) | Fades + slides in to its resting position over `--duration-moderate`.           |
-| Focus-within   | `:focus-within` on `.tooltip`                                     | Forces it visible — keeps keyboard users from losing a tooltip mid-interaction. |
-| With arrow     | `.tooltip-with-arrow`                                             | Renders a bordered-triangle pointer at the trigger edge.                        |
-| Reduced motion | `prefers-reduced-motion: reduce`                                  | Transition removed; `transform` forced to `none !important` on show.            |
+| State          | Trigger                                                           | Effect                                                                                              |
+| -------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Hidden         | Default                                                           | `opacity: 0`, `pointer-events: none`.                                                               |
+| Shown          | `.tooltip-show` (explicit) / `:hover`,`:focus` (`[data-tooltip]`) | Fades + slides in to its resting position over `--duration-moderate`.                               |
+| Hoverable      | Pointer over the visible `.tooltip` (explicit markup)             | Stays shown (`pointer-events: auto` on `.tooltip-show`; wrapper hover keeps it open) — WCAG 1.4.13. |
+| Dismissed      | `Escape` while shown (explicit markup, via `initTooltips`)        | Hides without moving focus or the pointer.                                                          |
+| Focus-within   | `:focus-within` on `.tooltip`                                     | Forces it visible — keeps keyboard users from losing a tooltip mid-interaction.                     |
+| With arrow     | `.tooltip-with-arrow`                                             | Renders a bordered-triangle pointer at the trigger edge.                                            |
+| Reduced motion | `prefers-reduced-motion: reduce`                                  | Transition removed; `transform` forced to `none !important` on show.                                |
 
 Accessibility: tooltips show on both `:hover` and `:focus` (keyboard
-reachable), use `pointer-events: none` so they never block clicks on
-nearby elements, and must never be the _only_ place essential
+reachable), use `pointer-events: none` while hidden so they never block clicks on
+nearby elements (and `auto` once shown, so they stay hoverable), can be dismissed with Escape, are linked to the trigger via `role="tooltip"` + `aria-describedby` (added automatically by `initTooltips`), and must never be the _only_ place essential
 information lives — icon-only triggers still need their own
 `aria-label` independent of the tooltip text.
 

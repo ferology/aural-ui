@@ -76,25 +76,25 @@ image-grid variant for photo-heavy uploads.
 
 ## 4. Tokens used
 
-| Token                                                                                                            | Used for                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `--size-16` / `--size-20` / `--size-24` / `--size-32` / `--size-40` / `--size-48` / `--size-64`                  | Icon and preview dimensions across default/sm/lg/mobile/button variants       |
-| `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-6` / `--space-8` / `--space-10`                 | Padding and gaps throughout                                                   |
-| `--space-40`                                                                                                     | Mobile dropzone `min-height` (160px)                                          |
-| `--color-bg-primary` / `--color-bg-secondary` / `--color-bg-tertiary`                                            | Dropzone/item/preview backgrounds                                             |
-| `--color-border-subtle`                                                                                          | Dropzone dashed border, item border, action-button border (see Bug fix below) |
-| `--color-border-medium`                                                                                          | Action-button hover border                                                    |
-| `--color-primary` / `--color-button-primary-bg` / `--color-button-primary-hover` / `--color-button-primary-text` | Hover/active accents and the `--button` variant's solid fill                  |
-| `--color-error` / `--color-success`                                                                              | Error/success per-file accents and the error banner                           |
-| `--color-text-primary` / `--color-text-muted` / `--color-text-tertiary`                                          | Text color by emphasis level                                                  |
-| `--primary-alpha-5` / `--primary-alpha-10`                                                                       | Active dropzone tint and its focus-style ring                                 |
-| `--radius-md` / `--radius-lg` / `--radius-full`                                                                  | Corner rounding (controls / dropzone / progress bar)                          |
-| `--shadow-sm` / `--shadow-primary-lg`                                                                            | Item hover elevation / `--button` variant hover elevation                     |
-| `--text-xs` / `--text-sm` / `--text-base` / `--text-lg`                                                          | Font sizes by context/size variant                                            |
-| `--font-sans` / `--font-medium` / `--font-semibold`                                                              | Body font family and label/filename/browse-link weight                        |
-| `--duration-normal`                                                                                              | Progress-fill width transition (was a hardcoded `0.3s`)                       |
-| `--duration-moderate`                                                                                            | Image-grid hover-reveal actions transition (was a hardcoded `0.2s`)           |
-| `--transition-all-fast`                                                                                          | Most hover/focus transitions                                                  |
+| Token                                                                                                            | Used for                                                                                             |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `--size-16` / `--size-20` / `--size-24` / `--size-32` / `--size-40` / `--size-48` / `--size-64`                  | Icon and preview dimensions across default/sm/lg/mobile/button variants                              |
+| `--space-1` / `--space-2` / `--space-3` / `--space-4` / `--space-6` / `--space-8` / `--space-10`                 | Padding and gaps throughout                                                                          |
+| `--space-40`                                                                                                     | Mobile dropzone `min-height` (160px)                                                                 |
+| `--color-bg-primary` / `--color-bg-secondary` / `--color-bg-tertiary`                                            | Dropzone/item/preview backgrounds                                                                    |
+| `--color-border-subtle`                                                                                          | Dropzone dashed border, item border, action-button border (see Bug fix below)                        |
+| `--color-border-medium`                                                                                          | Action-button hover border                                                                           |
+| `--color-primary` / `--color-button-primary-bg` / `--color-button-primary-hover` / `--color-button-primary-text` | Hover/active accents and the `--button` variant's solid fill                                         |
+| `--color-error-text` / `--color-success-text` / `--color-error-solid`                                            | Error/success per-file text/icons (>= 4.5:1); `--color-error-solid` for the error accent fill/border |
+| `--color-text-primary` / `--color-text-muted` / `--color-text-tertiary`                                          | Text color by emphasis level                                                                         |
+| `--primary-alpha-5` / `--primary-alpha-10`                                                                       | Active dropzone tint and its focus-style ring                                                        |
+| `--radius-md` / `--radius-lg` / `--radius-full`                                                                  | Corner rounding (controls / dropzone / progress bar)                                                 |
+| `--shadow-sm` / `--shadow-primary-lg`                                                                            | Item hover elevation / `--button` variant hover elevation                                            |
+| `--text-xs` / `--text-sm` / `--text-base` / `--text-lg`                                                          | Font sizes by context/size variant                                                                   |
+| `--font-sans` / `--font-medium` / `--font-semibold`                                                              | Body font family and label/filename/browse-link weight                                               |
+| `--duration-normal`                                                                                              | Progress-fill width transition (was a hardcoded `0.3s`)                                              |
+| `--duration-moderate`                                                                                            | Image-grid hover-reveal actions transition (was a hardcoded `0.2s`)                                  |
+| `--transition-all-fast`                                                                                          | Most hover/focus transitions                                                                         |
 
 **New tokens added while migrating this file:** none. `--duration-normal`
 and `--duration-moderate` (200ms, added by a concurrently-running sibling

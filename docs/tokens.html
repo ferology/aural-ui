@@ -459,6 +459,76 @@
             </table>
           </div>
 
+          <h3>Accessible Status Colors</h3>
+          <p>
+            The 500 status shades only reach 2.2:1 to 3.8:1 against white. Use these roles instead
+            for anything that carries text or marks a control boundary.
+          </p>
+          <div class="table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <code class="token-name">--color-success-solid</code>,
+                    <code class="token-name">--color-error-solid</code>,
+                    <code class="token-name">--color-info-solid</code>,
+                    <code class="token-name">--color-warning-solid</code>
+                  </td>
+                  <td>
+                    Filled status backgrounds. Pair with
+                    <code>--color-text-on-success</code>, <code>-on-error</code>,
+                    <code>-on-info</code>, <code>-on-warning</code> (4.5:1 or more)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <code class="token-name">--color-success-text</code>,
+                    <code class="token-name">--color-error-text</code>,
+                    <code class="token-name">--color-warning-text</code>,
+                    <code class="token-name">--color-info-text</code>
+                  </td>
+                  <td>
+                    Status text and icons on surfaces. 400 shades on dark themes; 700/600 shades in
+                    the light and minimal themes
+                  </td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--color-control-border</code></td>
+                  <td>
+                    Boundary of inputs, checkboxes, radios and selects (3:1 or more, WCAG 1.4.11).
+                    <code>--color-border-subtle</code> and <code>--color-border-medium</code> are
+                    decorative only
+                  </td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--color-button-primary-text</code></td>
+                  <td>
+                    Defaults to <code>var(--color-bg-primary)</code>; the light theme sets white.
+                    The danger button background is <code>--color-error-solid</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code class="token-name">--color-text-on-primary</code></td>
+                  <td>
+                    Follows <code>--color-button-primary-text</code>. Use it for text on any
+                    <code>--color-primary</code> fill (chips, pill tabs, active pagination,
+                    progress fills); never hard-code white there
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Run <code>npm run build:css &amp;&amp; npm run audit:contrast</code> to verify all 11
+            themes. Results are in the <a href="./contrast-report.html">contrast report</a>.
+          </p>
+
           <h3>Text Colors</h3>
           <div class="table-wrapper">
             <table class="token-table">
@@ -479,7 +549,7 @@
                 </tr>
                 <tr>
                   <td><code class="token-name">--color-text-tertiary</code></td>
-                  <td>Tertiary text, least prominent</td>
+                  <td>Tertiary text, least prominent (still 4.5:1 or more in every theme)</td>
                 </tr>
               </tbody>
             </table>

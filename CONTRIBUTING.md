@@ -133,6 +133,7 @@ aural-ui/
   npm run audit:tokens
   ```
   This also runs automatically on staged `components/*.css` files via the pre-commit hook, and is a blocking check in CI — a PR with a new hardcoded value will fail the build.
+- **Run the contrast audit after touching tokens or themes:** `npm run build:css && npm run audit:contrast`. It checks text, status text, solid-fill text, and control borders in every theme.
 
 Full detail lives in [`CLAUDE.md`](CLAUDE.md), written for AI-assisted contributions but equally accurate for humans.
 
@@ -426,7 +427,7 @@ All components MUST meet WCAG 2.1 AA standards:
 - ✅ **Screen reader support** - Meaningful labels and announcements
 - ✅ **Touch targets** - Minimum 44×44px for all interactive elements
 - ✅ **Reduced motion** - Respect `prefers-reduced-motion` preference
-- ✅ **Color contrast** - WCAG AA compliant (4.5:1 for text, 3:1 for UI)
+- ✅ **Color contrast** - WCAG AA compliant (4.5:1 for text, 3:1 for UI). Status text uses `--color-*-text`, filled status backgrounds use `--color-*-solid` + `--color-text-on-*`, form control borders use `--color-control-border`; never the 500 shades (`--color-success/error/warning/info`) for text or under white text
 - ✅ **Semantic HTML** - Use proper HTML5 elements
 
 ### Testing
@@ -437,6 +438,7 @@ Test with:
 - **Screen reader** (VoiceOver on macOS, NVDA on Windows)
 - **Browser accessibility tools** (Chrome DevTools Lighthouse)
 - **Color contrast checker**
+- **`npm run audit:contrast`** (after `npm run build:css`) whenever you touch `tokens/` or `themes/`; it must pass for every theme
 - **Reduced motion enabled**
 
 ---

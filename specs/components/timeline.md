@@ -56,21 +56,21 @@ completed/active/pending/error/warning status states per item.
 
 ## 4. Tokens used
 
-| Token                                                                             | Used for                                                                        |
-| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `--color-bg-secondary` / `--color-bg-tertiary` / `--color-bg-hover`               | Marker background, pending marker, interactive hover background                 |
-| `--color-border-medium` / `--color-border-subtle`                                 | Default connector/marker border, tag border, card divider                       |
-| `--color-primary` / `--color-success` / `--color-warning` / `--color-error`       | Active/completed/warning/error marker and connector colors                      |
-| `--primary-alpha-20`                                                              | Active-marker focus-style glow (`box-shadow`)                                   |
-| `--color-text-primary` / `--color-text-secondary` / `--color-text-tertiary`       | Title, description, time-label text                                             |
-| `--font-medium` / `--font-semibold`                                               | Time label weight, title weight                                                 |
-| `--leading-tight` / `--leading-relaxed`                                           | Title / description line-height                                                 |
-| `--text-xs` / `--text-sm` / `--text-base` / `--text-lg`                           | Time/tag size, base/`--sm` text, `--lg` title/description sizes                 |
-| `--radius-sm` / `--radius-md` / `--radius-lg`                                     | Tag/scrollbar corners, interactive focus corners, card corners                  |
-| `--shadow-sm` / `--shadow-md`                                                     | `.aural-timeline--card` resting / hover elevation                               |
-| `--size-12` / `--size-16` / `--size-24` / `--size-32` / `--size-40` / `--size-48` | Marker/icon dimensions across default/`--sm`/`--lg` variants, connector offsets |
-| `--space-0-5` / `--space-1` … `--space-6`                                         | Connector thickness, gaps, padding across variants                              |
-| `--transition-all-fast`                                                           | Marker and card hover transitions                                               |
+| Token                                                                                                                                       | Used for                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `--color-bg-secondary` / `--color-bg-tertiary` / `--color-bg-hover`                                                                         | Marker background, pending marker, interactive hover background                                                   |
+| `--color-border-medium` / `--color-border-subtle`                                                                                           | Default connector/marker border, tag border, card divider                                                         |
+| `--color-primary` / `--color-success-solid` / `--color-warning` / `--color-error-solid` + `--color-text-on-success` / `-warning` / `-error` | Active/completed/warning/error marker and connector colors; marker glyph text uses `--color-text-on-*` (>= 4.5:1) |
+| `--primary-alpha-20`                                                                                                                        | Active-marker focus-style glow (`box-shadow`)                                                                     |
+| `--color-text-primary` / `--color-text-secondary` / `--color-text-tertiary`                                                                 | Title, description, time-label text                                                                               |
+| `--font-medium` / `--font-semibold`                                                                                                         | Time label weight, title weight                                                                                   |
+| `--leading-tight` / `--leading-relaxed`                                                                                                     | Title / description line-height                                                                                   |
+| `--text-xs` / `--text-sm` / `--text-base` / `--text-lg`                                                                                     | Time/tag size, base/`--sm` text, `--lg` title/description sizes                                                   |
+| `--radius-sm` / `--radius-md` / `--radius-lg`                                                                                               | Tag/scrollbar corners, interactive focus corners, card corners                                                    |
+| `--shadow-sm` / `--shadow-md`                                                                                                               | `.aural-timeline--card` resting / hover elevation                                                                 |
+| `--size-12` / `--size-16` / `--size-24` / `--size-32` / `--size-40` / `--size-48`                                                           | Marker/icon dimensions across default/`--sm`/`--lg` variants, connector offsets                                   |
+| `--space-0-5` / `--space-1` … `--space-6`                                                                                                   | Connector thickness, gaps, padding across variants                                                                |
+| `--transition-all-fast`                                                                                                                     | Marker and card hover transitions                                                                                 |
 
 **New tokens added while migrating this file:** none — every raw error
 value matched an existing `--size-*`/`--space-*` token exactly.
@@ -90,17 +90,17 @@ in §3.
 
 ## 6. States
 
-| State               | Trigger                                                                           | Effect                                                                                             |
-| ------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Pending (default)   | `.aural-timeline__item` with no status modifier                                   | Neutral marker/connector in `--color-border-medium` / `--color-bg-tertiary`.                       |
-| Completed           | `.aural-timeline__item--completed`                                                | Marker and connector turn `--color-success`, marker text white.                                    |
-| Active              | `.aural-timeline__item--active`                                                   | Marker turns `--color-primary` with a soft glow ring; connector gradients from primary to neutral. |
-| Error / Warning     | `.aural-timeline__item--error` / `--warning`                                      | Marker and border turn `--color-error` / `--color-warning`.                                        |
-| Interactive hover   | `.aural-timeline--interactive .aural-timeline__item:hover`                        | Content background tints, marker scales to `1.1`.                                                  |
-| Focus               | `.aural-timeline--interactive .aural-timeline__item:focus-visible`                | 2px `--color-primary` outline, 2px offset.                                                         |
-| Card hover          | `.aural-timeline--card .aural-timeline__content:hover`                            | Border turns primary, elevation increases to `--shadow-md`.                                        |
-| Reduced motion      | `prefers-reduced-motion: reduce`                                                  | Marker/content transitions and interactive hover scale disabled.                                   |
-| Responsive (mobile) | `.aural-timeline--horizontal.aural-timeline--responsive` under `max-width: 768px` | Switches to a vertical layout; alternating layout is disabled.                                     |
+| State               | Trigger                                                                           | Effect                                                                                                                              |
+| ------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Pending (default)   | `.aural-timeline__item` with no status modifier                                   | Neutral marker/connector in `--color-border-medium` / `--color-bg-tertiary`.                                                        |
+| Completed           | `.aural-timeline__item--completed`                                                | Marker and connector turn `--color-success-solid`, marker text `--color-text-on-success`.                                           |
+| Active              | `.aural-timeline__item--active`                                                   | Marker turns `--color-primary` with a soft glow ring; connector gradients from primary to neutral.                                  |
+| Error / Warning     | `.aural-timeline__item--error` / `--warning`                                      | Marker and border turn `--color-error-solid` / `--color-warning` (marker text `--color-text-on-error` / `--color-text-on-warning`). |
+| Interactive hover   | `.aural-timeline--interactive .aural-timeline__item:hover`                        | Content background tints, marker scales to `1.1`.                                                                                   |
+| Focus               | `.aural-timeline--interactive .aural-timeline__item:focus-visible`                | 2px `--color-primary` outline, 2px offset.                                                                                          |
+| Card hover          | `.aural-timeline--card .aural-timeline__content:hover`                            | Border turns primary, elevation increases to `--shadow-md`.                                                                         |
+| Reduced motion      | `prefers-reduced-motion: reduce`                                                  | Marker/content transitions and interactive hover scale disabled.                                                                    |
+| Responsive (mobile) | `.aural-timeline--horizontal.aural-timeline--responsive` under `max-width: 768px` | Switches to a vertical layout; alternating layout is disabled.                                                                      |
 
 ## 7. Code example
 

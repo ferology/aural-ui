@@ -56,24 +56,24 @@ interactive — and lightweight, built for presenting roughly 3–10 options.
 
 ## 4. Tokens used
 
-| Token                                                                                         | Used for                                                                            |
-| --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `--color-dropdown-bg` / `--color-dropdown-border`                                             | Menu background / border                                                            |
-| `--color-dropdown-item-text` / `--color-dropdown-item-hover` / `--color-dropdown-item-active` | Item text / hover / active-or-pressed background                                    |
-| `--color-dropdown-header-text` / `--color-dropdown-divider`                                   | Header text / divider & footer-border color                                         |
-| `--color-error` / `--color-error-bg`                                                          | `.dropdown-item-danger` text / hover background (new semantic token — see below)    |
-| `--color-primary`                                                                             | `:focus-visible` ring, active-item text                                             |
-| `--color-text-muted` / `--color-text-primary` / `--color-text-secondary`                      | Item icon / item-title / item-description, shortcut, footer text                    |
-| `--color-border-medium`                                                                       | Custom scrollbar thumb/track color                                                  |
-| `--z-dropdown`                                                                                | Menu stacking layer                                                                 |
-| `--font-sans` / `--font-medium` / `--font-semibold` / `--font-mono`                           | Base typography / active-item weight / header weight / shortcut font                |
-| `--text-xs` / `--text-sm` / `--text-base`                                                     | Header & `-sm`/description font-size, base item font-size, `-lg` item font-size     |
-| `--leading-normal`                                                                            | Item line-height                                                                    |
-| `--space-1` … `--space-5`                                                                     | Margins, padding, divider spacing across sizes                                      |
-| `--size-16` / `--size-18` / `--size-44` / `--size-200`                                        | Submenu-arrow icon, item icon, item touch-target min-height, menu default min-width |
-| `--radius-md` / `--radius-full`                                                               | Menu/footer corners / scrollbar-thumb corners                                       |
-| `--shadow-lg`                                                                                 | Menu elevation                                                                      |
-| `--transition-all-fast`                                                                       | Item hover/active transitions                                                       |
+| Token                                                                                         | Used for                                                                                    |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `--color-dropdown-bg` / `--color-dropdown-border`                                             | Menu background / border                                                                    |
+| `--color-dropdown-item-text` / `--color-dropdown-item-hover` / `--color-dropdown-item-active` | Item text / hover / active-or-pressed background                                            |
+| `--color-dropdown-header-text` / `--color-dropdown-divider`                                   | Header text / divider & footer-border color                                                 |
+| `--color-error-text` / `--color-error-bg`                                                     | `.dropdown-item-danger` text (>= 4.5:1) / hover background (new semantic token — see below) |
+| `--color-primary`                                                                             | `:focus-visible` ring, active-item text                                                     |
+| `--color-text-muted` / `--color-text-primary` / `--color-text-secondary`                      | Item icon / item-title / item-description, shortcut, footer text                            |
+| `--color-border-medium`                                                                       | Custom scrollbar thumb/track color                                                          |
+| `--z-dropdown`                                                                                | Menu stacking layer                                                                         |
+| `--font-sans` / `--font-medium` / `--font-semibold` / `--font-mono`                           | Base typography / active-item weight / header weight / shortcut font                        |
+| `--text-xs` / `--text-sm` / `--text-base`                                                     | Header & `-sm`/description font-size, base item font-size, `-lg` item font-size             |
+| `--leading-normal`                                                                            | Item line-height                                                                            |
+| `--space-1` … `--space-5`                                                                     | Margins, padding, divider spacing across sizes                                              |
+| `--size-16` / `--size-18` / `--size-44` / `--size-200`                                        | Submenu-arrow icon, item icon, item touch-target min-height, menu default min-width         |
+| `--radius-md` / `--radius-full`                                                               | Menu/footer corners / scrollbar-thumb corners                                               |
+| `--shadow-lg`                                                                                 | Menu elevation                                                                              |
+| `--transition-all-fast`                                                                       | Item hover/active transitions                                                               |
 
 **New tokens added while migrating this file:**
 

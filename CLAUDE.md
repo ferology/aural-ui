@@ -54,11 +54,24 @@ ARIA attribute selectors.
 
 7. **After adding or changing a token**, regenerate the reference doc
    instead of hand-editing it:
+
    ```
    npm run generate:token-docs
    ```
+
    This rewrites `specs/tokens/token-reference.md` from the actual CSS in
    `tokens/`, so it can't drift out of sync the way hand-maintained docs do.
+
+8. **Accessible status and control colors.** Never use
+   `--color-success/error/warning/info` (the 500 shades) for text or as a
+   fill under white text — they fail WCAG 4.5:1. Use `--color-*-text` for
+   status text/icons and `--color-*-solid` with `--color-text-on-*` for
+   filled backgrounds. Form control boundaries (input, checkbox, radio,
+   select) use `--color-control-border`, not `--color-border-subtle`/`-medium`
+   (decorative only). After touching `tokens/` or `themes/`, run
+   `npm run build:css && npm run audit:contrast` (all themes must pass).
+   A new theme must define passing `-text`, `--color-control-border`, and
+   `--color-text-on-*` values. See `specs/foundations/color.md`.
 
 ## Rollout status
 

@@ -51,22 +51,22 @@ content.
 
 ## 4. Tokens used
 
-| Token                                                                                | Used for                                                                                |
-| ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| `--color-dialog-backdrop`                                                            | `.aural-dialog-backdrop` background                                                     |
-| `--color-bg-primary` / `--color-border`                                              | `.aural-dialog` background / border                                                     |
-| `--color-text-primary` / `--color-text-secondary` / `--color-text-muted`             | Title / message / close-button text color                                               |
-| `--color-info-bg` / `--color-success-bg` / `--color-warning-bg` / `--color-error-bg` | Variant icon swatch backgrounds (new tokens — see note below)                           |
-| `--color-info` / `--color-success` / `--color-warning` / `--color-error`             | Variant icon swatch glyph color (and `--destructive` title color)                       |
-| `--color-bg-secondary`                                                               | `.aural-dialog__close:hover` background                                                 |
-| `--z-popover`                                                                        | `.aural-dialog-backdrop` stacking context                                               |
-| `--size-44` / `--size-48`                                                            | Close-button touch target / icon swatch size                                            |
-| `--space-2` / `--space-3` / `--space-4` / `--space-6`                                | Header/body/footer gaps and padding                                                     |
-| `--text-sm` / `--text-lg` / `--text-2xl`                                             | Message / title / icon glyph & close-button glyph font sizes                            |
-| `--font-semibold`                                                                    | Title font weight                                                                       |
-| `--radius` / `--radius-sm` / `--radius-lg` / `--radius-full`                         | Close-button corners / scrollbar-thumb corners / dialog corners / icon swatch           |
-| `--shadow-2xl`                                                                       | Dialog elevation                                                                        |
-| `--duration-moderate`                                                                | Backdrop fade / dialog entrance / close-button hover transitions (new token — see note) |
+| Token                                                                                        | Used for                                                                                |
+| -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `--color-dialog-backdrop`                                                                    | `.aural-dialog-backdrop` background                                                     |
+| `--color-bg-primary` / `--color-border`                                                      | `.aural-dialog` background / border                                                     |
+| `--color-text-primary` / `--color-text-secondary` / `--color-text-muted`                     | Title / message / close-button text color                                               |
+| `--color-info-bg` / `--color-success-bg` / `--color-warning-bg` / `--color-error-bg`         | Variant icon swatch backgrounds (new tokens — see note below)                           |
+| `--color-info-text` / `--color-success-text` / `--color-warning-text` / `--color-error-text` | Variant icon swatch glyph color (and `--destructive` title color), >= 4.5:1             |
+| `--color-bg-secondary`                                                                       | `.aural-dialog__close:hover` background                                                 |
+| `--z-popover`                                                                                | `.aural-dialog-backdrop` stacking context                                               |
+| `--size-44` / `--size-48`                                                                    | Close-button touch target / icon swatch size                                            |
+| `--space-2` / `--space-3` / `--space-4` / `--space-6`                                        | Header/body/footer gaps and padding                                                     |
+| `--text-sm` / `--text-lg` / `--text-2xl`                                                     | Message / title / icon glyph & close-button glyph font sizes                            |
+| `--font-semibold`                                                                            | Title font weight                                                                       |
+| `--radius` / `--radius-sm` / `--radius-lg` / `--radius-full`                                 | Close-button corners / scrollbar-thumb corners / dialog corners / icon swatch           |
+| `--shadow-2xl`                                                                               | Dialog elevation                                                                        |
+| `--duration-moderate`                                                                        | Backdrop fade / dialog entrance / close-button hover transitions (new token — see note) |
 
 **New tokens added while migrating this file:**
 

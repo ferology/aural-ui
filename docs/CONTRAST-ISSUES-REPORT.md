@@ -1,5 +1,7 @@
 # Aural UI Accessibility Contrast Audit Report - VERIFICATION SCAN
 
+> **Update 2026-10-10:** This February scan covered the docs pages only. Token-level contrast (status text, solid fills, form control borders, tertiary/muted text) was remediated afterwards across all 11 themes and is checked by `npm run audit:contrast`; all pairs pass. See `docs/contrast-report.html`. The report below is unchanged historical record.
+
 **Generated:** 2026-02-16 (FINAL VERIFICATION)
 **Audit Scope:** All HTML and CSS files in /docs
 **Focus:** WCAG 2.1 AA/AAA contrast compliance across all themes
