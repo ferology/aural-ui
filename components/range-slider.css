@@ -377,8 +377,15 @@
    ======================================== */
 
 .aural-range-slider--disabled {
-  opacity: 0.5;
   pointer-events: none;
+}
+
+/* Dim the control, not the text: opacity on the wrapper halves label contrast */
+.aural-range-slider--disabled .aural-range-slider__track-bg,
+.aural-range-slider--disabled .aural-range-slider__track-fill,
+.aural-range-slider--disabled .aural-range-slider__handle,
+.aural-range-slider--disabled .aural-range-slider__input {
+  opacity: 0.5;
 }
 
 .aural-range-slider--disabled .aural-range-slider__handle {

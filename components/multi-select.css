@@ -421,13 +421,18 @@
    ======================================== */
 
 .aural-multi-select--disabled {
-  opacity: 0.5;
   pointer-events: none;
 }
 
+/* Explicit disabled colors instead of wrapper opacity, which halves text contrast */
 .aural-multi-select--disabled .aural-multi-select__trigger {
   cursor: not-allowed;
   background: var(--color-bg-tertiary);
+  border-style: dashed;
+}
+
+.aural-multi-select--disabled .aural-multi-select__placeholder {
+  color: var(--color-text-secondary);
 }
 
 /* ========================================

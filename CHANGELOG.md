@@ -32,6 +32,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed - October 10, 2026
 
+- **`high-contrast` theme now passes WCAG AAA (7:1) for every audited text pair:** brighter brand blue, muted text, error text and danger button fill, with black text on lighter success/info fills. `npm run audit:contrast:aaa` (`--aaa` flag of `scripts/contrast-audit.mjs`) checks it.
+- **Disabled multi-select, range-slider and rating:** dim the control instead of putting `opacity: 0.5` on the whole wrapper, which halved label/placeholder/value contrast (1.9-3.7:1).
+
 - **Filled status backgrounds** (chips, alert-banner `--solid`, snackbar, stepper, badge counters in navbar/bottom-nav/notification-center, timeline, file-upload, code-block, tooltip success/error) now use `--color-*-solid` + `--color-text-on-*` instead of `--color-*` (500 shades) + `white`. White on success-500 2.28:1 -> white on success-700 5.02:1; white on error-500 3.76:1 -> error-600 4.83:1; white on info-500 3.68:1 -> info-600 5.17:1; white on warning-500 2.15:1 -> `--color-text-on-warning` (neutral-950) 9.22:1
 - **Status foreground text/icons** (alert-banner, dialog, input/select/combobox/multi-select/time-picker messages, rating, sliders, stats-card, tree-view, notification-center, calendar weekends, dropdown/context-menu danger items, etc.) now use `--color-*-text`
 - **Form control borders**: `--color-input-border`, `--color-checkbox-border`, `--color-radio-border`, `--color-select-border` now resolve to `--color-control-border` (was `--color-border-subtle`, about 1.2:1; now >= 3:1)

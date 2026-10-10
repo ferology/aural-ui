@@ -1,6 +1,6 @@
 # Aural UI 7-Theme System - Complete Status Report
 
-> **Resolved 2026-10-10:** contrast is now verified per theme by `npm run audit:contrast` (11 themes, all pass at WCAG 2.1 AA: 4.5:1 text, 3:1 control borders). The audit checks AA only, so the "WCAG AAA (high-contrast)" row below is not backed by it. Details in `docs/contrast-report.html`.
+> **Resolved 2026-10-10:** contrast is now verified per theme by `npm run audit:contrast` (11 themes, all pass at WCAG 2.1 AA: 4.5:1 text, 3:1 control borders). The high-contrast theme additionally passes `npm run audit:contrast:aaa` (7:1 for every audited text pair; the other themes target AA). Details in `docs/contrast-report.html`.
 
 **Date:** 2026-02-11  
 **Status:** ✅ PRODUCTION READY - 100% COMPLETE
