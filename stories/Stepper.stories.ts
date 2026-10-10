@@ -75,6 +75,7 @@ function createStep(config: {
   indicator.className = 'aural-step__indicator';
 
   if (state === 'completed') {
+    indicator.setAttribute('role', 'img');
     indicator.setAttribute('aria-label', `Step ${number}: Completed`);
     const checkIcon = document.createElement('i');
     checkIcon.setAttribute('data-lucide', 'check');
@@ -83,6 +84,7 @@ function createStep(config: {
     checkIcon.setAttribute('aria-hidden', 'true');
     indicator.appendChild(checkIcon);
   } else if (state === 'error') {
+    indicator.setAttribute('role', 'img');
     indicator.setAttribute('aria-label', `Step ${number}: Error`);
     const errorIcon = document.createElement('i');
     errorIcon.setAttribute('data-lucide', 'x');
@@ -105,9 +107,11 @@ function createStep(config: {
   } else {
     if (state === 'active') {
       indicator.setAttribute('aria-current', 'step');
+      indicator.setAttribute('role', 'img');
       indicator.setAttribute('aria-label', `Step ${number}: ${title}, Active`);
     } else {
       indicator.setAttribute('aria-disabled', 'true');
+      indicator.setAttribute('role', 'img');
       indicator.setAttribute('aria-label', `Step ${number}: ${title}, Pending`);
     }
     indicator.textContent = number.toString();

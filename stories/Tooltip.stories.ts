@@ -261,10 +261,12 @@ onMounted(() => {
 - **Not for critical info**: Never hide essential information in tooltips - they should supplement, not replace visible text
 - **Icon button labels**: Always provide \`aria-label\` on icon-only buttons in addition to tooltips
 - **Concise content**: Keep tooltip text to 1-2 short sentences (max ~80 characters) for quick scanning
-- **Keyboard dismissal**: Tooltips automatically hide on blur/mouse leave, respecting keyboard navigation
-- **ARIA role**: Tooltips automatically include appropriate ARIA attributes for screen reader compatibility
+- **Hide on blur/mouse leave**: Tooltips hide when focus leaves the trigger or the pointer leaves it
+- **Hoverable and dismissable (WCAG 1.4.13)**: For markup wired by \`Aural.initTooltips()\` (\`.tooltip-wrapper\` containing a \`[data-tooltip-trigger]\` and a \`.tooltip\`), the tooltip stays open while the pointer moves onto the tooltip itself, and Escape dismisses it without moving focus or the pointer
+- **ARIA wiring**: \`Aural.initTooltips()\` adds \`role="tooltip"\` and an \`id\` to the tooltip (if missing) and \`aria-describedby\` on the trigger. For \`.tooltip-wrapper\` markup, call \`initTooltips()\` after the markup is in the DOM (it also runs automatically from \`Aural.init()\`); calling it again is safe, each wrapper is wired once
+- **Status colors**: \`success\` and \`error\` tooltips use \`--color-success-solid\` and \`--color-error-solid\` backgrounds so the white text keeps 4.5:1 or more
 - **Focus indicators**: Parent elements maintain visible focus rings when showing tooltips
-- **No pointer interaction**: Tooltips use \`pointer-events: none\` to prevent blocking clicks on nearby elements
+- **Pointer events**: CSS-only \`data-tooltip\` tooltips use \`pointer-events: none\` so they never block clicks on nearby elements, which also means they are not hoverable. Use the \`.tooltip-wrapper\` markup when the tooltip content must stay hoverable
 - **Delay timings**: 200ms entrance delay prevents tooltips from appearing during cursor movement
 - **Color independence**: Don't rely on tooltip color variants alone - include text explanation
 - **Reduced motion**: Tooltip animations respect \`prefers-reduced-motion\` user preference
@@ -388,6 +390,27 @@ export const Default: Story = {
     color: 'default',
     size: 'md',
     label: 'Hover me',
+  },
+};
+
+export const KeyboardAccessible: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Wrapper markup wired by `Aural.initTooltips()`: focus the button with Tab to show the tooltip, press Escape to dismiss it, or hover the tooltip itself to keep it open. The trigger gets `aria-describedby` automatically.',
+      },
+    },
+  },
+  render: () => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'tooltip-wrapper';
+    wrapper.innerHTML = `
+      <button class="btn btn-secondary" data-tooltip-trigger>Tab to me</button>
+      <div class="tooltip tooltip-top">Escape dismisses me; hovering me keeps me open</div>
+    `;
+    setTimeout(() => window.Aural?.initTooltips(), 0);
+    return wrapper;
   },
 };
 

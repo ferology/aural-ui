@@ -45,6 +45,8 @@ function injectTokens(): void {
 }
 
 const BRAND = '#4da77a';
+// BRAND is for fills; text on the dark demo panels uses the lighter BRAND_TEXT (>= 4.5:1)
+const BRAND_TEXT = '#5ebd8f';
 const DARK_BG = '#18181f';
 const CARD_BG = '#222230';
 
@@ -162,7 +164,7 @@ export const EasingFunctions: Story = {
     const heading = document.createElement('div');
     heading.innerHTML = `
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Easing Functions</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Click ▶ Play on any row to see it in action</p>
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Click ▶ Play on any row to see it in action</p>
     `;
     wrapper.appendChild(heading);
 
@@ -186,7 +188,7 @@ export const EasingFunctions: Story = {
       const labelCol = document.createElement('div');
       labelCol.innerHTML = `
         <div style="font-weight:600;font-size:0.9rem;margin-bottom:3px">${name}</div>
-        <code style="font-size:0.72rem;color:#8888a0;word-break:break-all">${token}</code>
+        <code style="font-size:0.72rem;color:#a0a0b8;word-break:break-all">${token}</code>
       `;
 
       // Track + ball
@@ -219,7 +221,7 @@ export const EasingFunctions: Story = {
       track.appendChild(ball);
 
       const descEl = document.createElement('p');
-      descEl.style.cssText = 'font-size:0.78rem;color:#8888a0;margin:0;';
+      descEl.style.cssText = 'font-size:0.78rem;color:#a0a0b8;margin:0;';
       descEl.textContent = desc;
 
       trackWrap.appendChild(track);
@@ -230,7 +232,7 @@ export const EasingFunctions: Story = {
       btn.textContent = '▶ Play';
       btn.style.cssText = `
         background:rgba(77,167,122,0.15);
-        color:${BRAND};
+        color:${BRAND_TEXT};
         border:1px solid rgba(77,167,122,0.3);
         border-radius:8px;
         padding:6px 14px;
@@ -261,7 +263,7 @@ export const EasingFunctions: Story = {
           setTimeout(() => {
             playing = false;
             btn.textContent = '▶ Play';
-            btn.style.color = BRAND;
+            btn.style.color = BRAND_TEXT;
           }, DURATION_MS + 50);
         }, DURATION_MS + 100);
       });
@@ -347,7 +349,7 @@ export const DurationScale: Story = {
     header.innerHTML = `
       <div>
         <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Duration Scale</h2>
-        <p style="color:#8888a0;font-size:0.875rem;margin:0">Six steps from instant to 1 second</p>
+        <p style="color:#a0a0b8;font-size:0.875rem;margin:0">Six steps from instant to 1 second</p>
       </div>
     `;
 
@@ -355,7 +357,7 @@ export const DurationScale: Story = {
     playAllBtn.textContent = '▶ Play All';
     playAllBtn.style.cssText = `
       background:${BRAND};
-      color:#fff;
+      color:#0f0f1a;
       border:none;
       border-radius:8px;
       padding:10px 20px;
@@ -386,7 +388,7 @@ export const DurationScale: Story = {
 
       const labelCol = document.createElement('div');
       labelCol.innerHTML = `
-        <div style="font-weight:600;font-size:0.9rem">${name} <span style="color:#8888a0;font-weight:400;font-size:0.8rem">${ms}ms</span></div>
+        <div style="font-weight:600;font-size:0.9rem">${name} <span style="color:#a0a0b8;font-weight:400;font-size:0.8rem">${ms}ms</span></div>
         <code style="font-size:0.72rem;color:#8888a0">${token}</code>
       `;
 
@@ -416,7 +418,7 @@ export const DurationScale: Story = {
       balls.push(ball);
 
       const useEl = document.createElement('p');
-      useEl.style.cssText = 'font-size:0.75rem;color:#8888a0;margin:0;';
+      useEl.style.cssText = 'font-size:0.75rem;color:#a0a0b8;margin:0;';
       useEl.textContent = use;
 
       trackArea.appendChild(track);
@@ -516,7 +518,7 @@ export const CompositeTransitions: Story = {
 
     wrapper.innerHTML = `
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Composite Transitions</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Ready-to-use shorthand tokens. Hover each card to see the transition.</p>
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Ready-to-use shorthand tokens. Hover each card to see the transition.</p>
     `;
 
     const grid = document.createElement('div');
@@ -539,7 +541,7 @@ export const CompositeTransitions: Story = {
       if (prop === 'all' || prop === 'colors') {
         demoBox.style.cssText = `
           background: rgba(77,167,122,0.15);
-          color: ${BRAND};
+          color: ${BRAND_TEXT};
           border: 1px solid rgba(77,167,122,0.3);
           border-radius: 8px;
           padding: 12px 16px;
@@ -564,14 +566,14 @@ export const CompositeTransitions: Story = {
         });
         card.addEventListener('mouseleave', () => {
           demoBox.style.background = 'rgba(77,167,122,0.15)';
-          demoBox.style.color = BRAND;
+          demoBox.style.color = BRAND_TEXT;
           demoBox.style.borderColor = 'rgba(77,167,122,0.3)';
           if (prop === 'all') demoBox.style.borderRadius = '8px';
         });
       } else if (prop === 'transform') {
         demoBox.style.cssText = `
           background: rgba(77,167,122,0.15);
-          color: ${BRAND};
+          color: ${BRAND_TEXT};
           border-radius: 8px;
           padding: 12px 16px;
           text-align: center;
@@ -592,7 +594,7 @@ export const CompositeTransitions: Story = {
       } else if (prop === 'opacity') {
         demoBox.style.cssText = `
           background: rgba(77,167,122,0.15);
-          color: ${BRAND};
+          color: ${BRAND_TEXT};
           border-radius: 8px;
           padding: 12px 16px;
           text-align: center;
@@ -614,11 +616,14 @@ export const CompositeTransitions: Story = {
 
       const info = document.createElement('div');
       info.innerHTML = `
-        <code style="display:block;font-size:0.8rem;color:${BRAND};margin-bottom:4px">${token}</code>
+        <code style="display:block;font-size:0.8rem;color:${BRAND_TEXT};margin-bottom:4px">${token}</code>
         <span style="font-size:0.75rem;color:#8888a0">${value}</span>
       `;
 
       const codeBlock = document.createElement('pre');
+      codeBlock.tabIndex = 0;
+      codeBlock.setAttribute('role', 'region');
+      codeBlock.setAttribute('aria-label', `CSS usage for ${token}`);
       codeBlock.style.cssText = `
         background: rgba(0,0,0,0.3);
         border-radius: 6px;
@@ -669,7 +674,7 @@ export const Playground: Story = {
 
     wrapper.innerHTML = `
       <h2 style="font-size:1.5rem;font-weight:700;margin:0 0 0.25rem">Playground</h2>
-      <p style="color:#8888a0;font-size:0.875rem;margin:0 0 2rem">Mix duration + easing and press Play to preview.</p>
+      <p style="color:#a0a0b8;font-size:0.875rem;margin:0 0 2rem">Mix duration + easing and press Play to preview.</p>
     `;
 
     const controls = document.createElement('div');
@@ -686,11 +691,14 @@ export const Playground: Story = {
       opts: string[]
     ): { wrap: HTMLElement; select: HTMLSelectElement } => {
       const wrap = document.createElement('div');
+      const selectId = `anim-select-${label.toLowerCase().replace(/\s+/g, '-')}`;
       const lbl = document.createElement('label');
+      lbl.htmlFor = selectId;
       lbl.textContent = label;
       lbl.style.cssText =
-        'display:block;font-size:0.8rem;color:#8888a0;margin-bottom:6px;font-weight:600;';
+        'display:block;font-size:0.8rem;color:#a0a0b8;margin-bottom:6px;font-weight:600;';
       const select = document.createElement('select');
+      select.id = selectId;
       select.style.cssText = `
         width:100%;
         background:${CARD_BG};
@@ -736,7 +744,7 @@ export const Playground: Story = {
     playBtn.textContent = '▶ Play';
     playBtn.style.cssText = `
       background:${BRAND};
-      color:#fff;
+      color:#0f0f1a;
       border:none;
       border-radius:8px;
       padding:10px 24px;
@@ -911,7 +919,7 @@ export const TokenReference: Story = {
       },
       {
         title: 'Easing Functions',
-        color: '#7c6af7',
+        color: '#8a7bf9',
         rows: [
           ['--ease-linear', 'linear', 'easing/linear', 'Spinners, progress bars, looping'],
           ['--ease-in', 'cubic-bezier(0.4, 0, 1, 1)', 'easing/in', 'Elements leaving the viewport'],
@@ -999,7 +1007,7 @@ export const TokenReference: Story = {
         font-weight:700;
         text-transform:uppercase;
         letter-spacing:0.5px;
-        color:#8888a0;
+        color:#a0a0b8;
         border-bottom:1px solid rgba(255,255,255,0.07);
       `;
       ['CSS Token', 'Value', 'Figma Variable', 'When to use'].forEach((h) => {
@@ -1024,7 +1032,7 @@ export const TokenReference: Story = {
           `<code style="color:${color};font-size:0.75rem">${token}</code>`,
           `<span style="color:#a0a0b8;font-family:monospace;font-size:0.75rem">${value}</span>`,
           figma !== '—'
-            ? `<code style="color:#8888a0;font-size:0.72rem">${figma}</code>`
+            ? `<code style="color:#a0a0b8;font-size:0.72rem">${figma}</code>`
             : `<span style="color:#404050">—</span>`,
           `<span style="color:#8888a0">${use}</span>`,
         ].forEach((html) => {

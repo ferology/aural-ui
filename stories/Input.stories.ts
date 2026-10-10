@@ -526,6 +526,7 @@ export const NumberWithSpinners: Story = {
     const label = document.createElement('label');
     label.className = 'label';
     label.textContent = 'Quantity';
+    label.htmlFor = 'input-number-quantity';
     formGroup.appendChild(label);
 
     const inputNumber = document.createElement('div');
@@ -533,6 +534,7 @@ export const NumberWithSpinners: Story = {
 
     const input = document.createElement('input');
     input.type = 'number';
+    input.id = 'input-number-quantity';
     input.className = 'input';
     input.value = '5';
     input.min = '1';
@@ -623,12 +625,14 @@ export const NumberSpinnerSizes: Story = {
       const labelEl = document.createElement('label');
       labelEl.className = 'label';
       labelEl.textContent = label;
+      labelEl.htmlFor = `input-number-size-${label.toLowerCase()}`;
       formGroup.appendChild(labelEl);
 
       const inputNumber = document.createElement('div');
       inputNumber.className = numberClass;
 
       const input = document.createElement('input');
+      input.id = labelEl.htmlFor;
       input.type = 'number';
       input.className = inputClass;
       input.value = value;

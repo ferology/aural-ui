@@ -522,6 +522,8 @@ export const ChipInput: Story = {
         standalone: false,
       });
       chip.classList.remove('aural-chip--standalone');
+      // Chips live next to the text input here, not in a list container
+      chip.removeAttribute('role');
       chipsInnerContainer.appendChild(chip);
     });
 
@@ -543,6 +545,7 @@ export const ChipInput: Story = {
           standalone: false,
         });
         newChip.classList.remove('aural-chip--standalone');
+        newChip.removeAttribute('role');
         chipsInnerContainer.insertBefore(newChip, input);
         input.value = '';
         initializeLucideIcons(container);

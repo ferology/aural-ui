@@ -1,0 +1,103 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta
+  title="Getting Started/Accessibility"
+  parameters={{
+    docs: {
+      theme: {
+        base: 'light'
+      }
+    }
+  }}
+/>
+
+<style>{`
+  :root,
+  #storybook-docs,
+  .sbdocs,
+  .sbdocs-wrapper,
+  .sbdocs-content {
+    --color-bg-primary: #ffffff !important;
+    --color-bg-secondary: #f5f5f5 !important;
+    --color-text-primary: #1a1a1a !important;
+    --color-text-secondary: #4a4a4a !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+  }
+  .sbdocs-content * {
+    color: #1a1a1a !important;
+  }
+`}</style>
+
+<div style={{
+  fontFamily: 'var(--font-sans, system-ui, -apple-system, sans-serif)',
+  maxWidth: '900px',
+  margin: '0 auto',
+  padding: '3rem 2rem',
+  background: '#ffffff !important',
+  backgroundColor: '#ffffff !important',
+  color: '#1a1a1a !important',
+  minHeight: '100vh'
+}}>
+
+# Accessibility
+
+**Aural UI targets WCAG 2.1 AA. Color contrast is checked automatically in every theme.**
+
+---
+
+## Contrast tokens
+
+The 500 status shades only reach 2.2:1 to 3.8:1 against white. Use the role tokens instead:
+
+| Token | Use |
+| --- | --- |
+| `--color-{success,error,info,warning}-solid` | Filled status backgrounds. Pair with `--color-text-on-*` |
+| `--color-{success,error,warning,info}-text` | Status text and icons on surfaces (400 shades on dark themes; 700/600 in light and minimal) |
+| `--color-control-border` | Boundary of input, checkbox, radio and select (3:1 or more, WCAG 1.4.11) |
+| `--color-button-primary-text` | Primary button label. Defaults to `var(--color-bg-primary)`; the light theme sets white |
+
+`--color-border-subtle` and `--color-border-medium` are decorative only. Do not use them to mark where a form control starts.
+
+```css
+.pill        { background: var(--color-success-solid); color: var(--color-text-on-success); }
+.field-error { color: var(--color-error-text); }
+.text-input  { border: 1px solid var(--color-control-border); }
+```
+
+---
+
+## Auditing contrast
+
+`npm run audit:contrast` loads each of the 11 themes in a real browser, resolves the semantic tokens and checks text on the page, secondary and elevated surfaces (4.5:1), status text, solid-fill text and form control borders (3:1). It exits with code 1 if any pair fails. Build the CSS first:
+
+```bash
+npm run build:css
+npm run audit:contrast
+```
+
+---
+
+## Tooltips
+
+- Tooltips wired by `Aural.initTooltips()` (`.tooltip-wrapper` with a `[data-tooltip-trigger]` and a `.tooltip`) stay open while the pointer is over the tooltip (WCAG 1.4.13) and dismiss on Escape.
+- `role="tooltip"` and `aria-describedby` are added automatically.
+- CSS-only `data-tooltip` tooltips are not hoverable. Keep their content short and non-essential.
+
+## Modals
+
+- `Aural.openModal(id)` makes everything outside the modal `inert` and `aria-hidden="true"`, also when the modal is inside `<main>`. `Aural.closeModal(id)` restores it.
+- Focus moves to the first focusable element, or to the dialog when there is none. Focusable elements are recomputed on every Tab.
+- Escape closes only the topmost modal, and focus returns to the trigger.
+
+## Skip link
+
+Use `.skip-link` pointing at `<main id="main-content">`. It uses the button-primary tokens, so it keeps the same contrast as primary buttons in every theme.
+
+---
+
+## Your responsibilities
+
+CSS cannot add semantics. Add `aria-label` to icon-only buttons, `role="status"` to loading indicators, and use real `<button>` elements. See each component's **Accessibility** section for details.
+
+</div>

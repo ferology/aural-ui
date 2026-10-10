@@ -517,7 +517,6 @@ export const WithSearchSuggestions: Story = {
     input.value = 'button';
     input.setAttribute('aria-label', 'Search with suggestions');
     input.setAttribute('aria-autocomplete', 'list');
-    input.setAttribute('aria-expanded', 'true');
     wrapper.appendChild(input);
 
     searchBar.appendChild(wrapper);

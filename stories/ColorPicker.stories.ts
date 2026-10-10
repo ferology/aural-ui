@@ -709,6 +709,8 @@ export default meta;
 type Story = StoryObj;
 
 // Helper function to create color picker HTML following the exact docs structure
+let colorPickerInputSeq = 0;
+
 function createColorPicker(args: {
   value?: string;
   format?: string;
@@ -751,6 +753,7 @@ function createColorPicker(args: {
   valueInput.className = 'aural-color-picker__value';
   valueInput.value = args.value || '#F00054';
   valueInput.readOnly = true;
+  valueInput.setAttribute('aria-label', 'Selected color value');
 
   preview.appendChild(swatch);
   if (args.showInput !== false) {
@@ -841,6 +844,8 @@ function createColorPicker(args: {
       label.textContent = 'Hex';
 
       const input = document.createElement('input');
+      input.id = `color-picker-input-${++colorPickerInputSeq}`;
+      label.htmlFor = input.id;
       input.type = 'text';
       input.className = 'aural-color-picker__input';
       input.value = (args.value || '#F00054').replace('#', '');
@@ -875,6 +880,8 @@ function createColorPicker(args: {
         label.textContent = channel.name;
 
         const input = document.createElement('input');
+        input.id = `color-picker-input-${++colorPickerInputSeq}`;
+        label.htmlFor = input.id;
         input.type = 'number';
         input.className = 'aural-color-picker__input';
         input.value = channel.value;
@@ -911,6 +918,8 @@ function createColorPicker(args: {
         label.textContent = channel.name;
 
         const input = document.createElement('input');
+        input.id = `color-picker-input-${++colorPickerInputSeq}`;
+        label.htmlFor = input.id;
         input.type = 'number';
         input.className = 'aural-color-picker__input';
         input.value = channel.value;
@@ -955,6 +964,7 @@ function createColorPicker(args: {
       button.type = 'button';
       button.className = 'aural-color-picker__preset';
       button.disabled = args.disabled || false;
+      button.setAttribute('aria-label', `Select preset color: ${color}`);
 
       if (args.value === color) {
         button.classList.add('aural-color-picker__preset--active');
@@ -1271,6 +1281,7 @@ export const WithRecentColors: Story = {
     valueInput.className = 'aural-color-picker__value';
     valueInput.value = '#8B5CF6';
     valueInput.readOnly = true;
+    valueInput.setAttribute('aria-label', 'Selected color value');
 
     preview.appendChild(swatch);
     preview.appendChild(valueInput);
@@ -1313,6 +1324,8 @@ export const WithRecentColors: Story = {
     presetColors.forEach((color) => {
       const button = document.createElement('button');
       button.className = 'aural-color-picker__preset';
+      button.type = 'button';
+      button.setAttribute('aria-label', `Select preset color: ${color}`);
       const presetColor = document.createElement('div');
       presetColor.className = 'aural-color-picker__preset-color';
       presetColor.style.background = color;
@@ -1339,6 +1352,8 @@ export const WithRecentColors: Story = {
     recentColors.forEach((color) => {
       const button = document.createElement('button');
       button.className = 'aural-color-picker__preset';
+      button.type = 'button';
+      button.setAttribute('aria-label', `Select recent color: ${color}`);
       const recentColor = document.createElement('div');
       recentColor.className = 'aural-color-picker__preset-color';
       recentColor.style.background = color;

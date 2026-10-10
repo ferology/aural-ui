@@ -244,9 +244,11 @@ export default {
 - **Required ARIA attributes**: Add \`role="dialog"\` and \`aria-modal="true"\` to the modal container
 - **Label association**: Use \`aria-labelledby\` referencing the modal title ID (e.g., \`id="modal-title"\`)
 - **Description**: Use \`aria-describedby\` to reference the modal description for additional context
-- **Focus trap**: JavaScript automatically traps focus within the modal, preventing Tab navigation to background content
+- **Focus trap**: JavaScript automatically traps focus within the modal, preventing Tab navigation to background content. Focusable elements are recomputed on every Tab press (hidden and disabled elements are skipped), so content added after opening is included
+- **Initial focus**: Focus moves to the first focusable element, or to the dialog itself (given \`tabindex="-1"\`) when it has none
+- **Background content**: \`Aural.openModal()\` sets \`inert\` and \`aria-hidden="true"\` on everything outside the modal, including when the modal is rendered inside \`<main>\`. \`Aural.closeModal()\` restores the previous state
 - **Focus restoration**: When modal closes, focus returns to the trigger element that opened it
-- **Keyboard dismissal**: Escape key closes the modal (handled automatically by \`window.Aural.initModals()\`)
+- **Keyboard dismissal**: Escape key closes only the topmost open modal (handled automatically by \`window.Aural.initModals()\`)
 - **Close button**: Always provide a visible close button with \`aria-label="Close modal"\`
 - **Backdrop click**: Clicking outside the modal (on backdrop) closes it by default
 - **Screen readers**: Announce modal opening with ARIA live region or role="dialog"

@@ -129,16 +129,46 @@ These tokens map to **purposes** and **change per theme**:
 ```css
 --color-text-primary     /* Headings, main text */
 --color-text-secondary   /* Body text, labels */
---color-text-tertiary    /* Captions, hints */
+--color-text-tertiary    /* Captions, hints (4.5:1 or more in every theme) */
 ```
 
 **Borders:**
 
 ```css
---color-border-subtle    /* Light dividers */
---color-border-medium    /* Input borders */
+--color-border-subtle    /* Light dividers (decorative only) */
+--color-border-medium    /* Decorative borders */
 --color-border-strong    /* Focused borders */
+--color-control-border   /* Form control boundary: input, checkbox, radio, select (3:1+, WCAG 1.4.11) */
 ```
+
+**Accessible status colors:**
+
+The 500 status shades only reach 2.2:1 to 3.8:1 against white. Use the role tokens instead:
+
+```css
+/* Filled backgrounds: pair with --color-text-on-* */
+--color-success-solid    /* with --color-text-on-success */
+--color-error-solid      /* with --color-text-on-error */
+--color-info-solid       /* with --color-text-on-info */
+--color-warning-solid    /* with --color-text-on-warning (dark text) */
+
+/* Status text and icons on surfaces */
+--color-success-text     /* 400 shades on dark; 700/600 in light + minimal */
+--color-error-text
+--color-warning-text
+--color-info-text
+
+/* Primary button label: var(--color-bg-primary) by default, white in the light theme */
+--color-button-primary-text
+```
+
+```css
+.pill        { background: var(--color-success-solid); color: var(--color-text-on-success); }
+.field-error { color: var(--color-error-text); }
+.text-input  { border: 1px solid var(--color-control-border); }
+```
+
+Run `npm run build:css && npm run audit:contrast` to verify every theme. See the **Accessibility** page for details.
 
 </div>
 
@@ -427,7 +457,7 @@ Where a size value coincides with an existing `--space-N` value, `--size-N` alia
   style={{
     padding: 'var(--space-3)',
     background: 'var(--color-primary)',
-    color: 'white',
+    color: 'var(--color-button-primary-text)',
     borderRadius: 'var(--radius-sm)',
   }}
 >
@@ -438,7 +468,7 @@ Where a size value coincides with an existing `--space-N` value, `--size-N` alia
   style={{
     padding: 'var(--space-3)',
     background: 'var(--color-primary)',
-    color: 'white',
+    color: 'var(--color-button-primary-text)',
     borderRadius: 'var(--radius-md)',
   }}
 >
@@ -449,7 +479,7 @@ Where a size value coincides with an existing `--space-N` value, `--size-N` alia
   style={{
     padding: 'var(--space-3)',
     background: 'var(--color-primary)',
-    color: 'white',
+    color: 'var(--color-button-primary-text)',
     borderRadius: 'var(--radius-lg)',
   }}
 >
@@ -460,7 +490,7 @@ Where a size value coincides with an existing `--space-N` value, `--size-N` alia
   style={{
     padding: 'var(--space-3)',
     background: 'var(--color-primary)',
-    color: 'white',
+    color: 'var(--color-button-primary-text)',
     borderRadius: 'var(--radius-full)',
   }}
 >

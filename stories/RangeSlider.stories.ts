@@ -219,6 +219,8 @@ const fillStyle = computed(() => {
 export default meta;
 type Story = StoryObj<RangeSliderArgs>;
 
+let rangeSliderSeq = 0;
+
 // Helper function to create range slider with correct Aural UI structure
 const createRangeSlider = (args: Partial<RangeSliderArgs>) => {
   const container = document.createElement('div');
@@ -235,6 +237,7 @@ const createRangeSlider = (args: Partial<RangeSliderArgs>) => {
 
   // Add input fields if requested
   if (args.showInputs) {
+    const sliderUid = `range-slider-${++rangeSliderSeq}`;
     const inputsContainer = document.createElement('div');
     inputsContainer.className = 'aural-range-slider__inputs';
 
@@ -245,6 +248,7 @@ const createRangeSlider = (args: Partial<RangeSliderArgs>) => {
     const minInputLabel = document.createElement('label');
     minInputLabel.className = 'aural-range-slider__input-label';
     minInputLabel.textContent = 'Min';
+    minInputLabel.htmlFor = `${sliderUid}-min`;
     minInputGroup.appendChild(minInputLabel);
 
     const minInputWrapper = document.createElement('div');
@@ -252,6 +256,7 @@ const createRangeSlider = (args: Partial<RangeSliderArgs>) => {
 
     const minInput = document.createElement('input');
     minInput.type = 'number';
+    minInput.id = `${sliderUid}-min`;
     minInput.className = 'aural-range-slider__input';
     minInput.value = String(args.minValue || 25);
     minInput.min = String(args.min || 0);
@@ -284,6 +289,7 @@ const createRangeSlider = (args: Partial<RangeSliderArgs>) => {
     const maxInputLabel = document.createElement('label');
     maxInputLabel.className = 'aural-range-slider__input-label';
     maxInputLabel.textContent = 'Max';
+    maxInputLabel.htmlFor = `${sliderUid}-max`;
     maxInputGroup.appendChild(maxInputLabel);
 
     const maxInputWrapper = document.createElement('div');
@@ -291,6 +297,7 @@ const createRangeSlider = (args: Partial<RangeSliderArgs>) => {
 
     const maxInput = document.createElement('input');
     maxInput.type = 'number';
+    maxInput.id = `${sliderUid}-max`;
     maxInput.className = 'aural-range-slider__input';
     maxInput.value = String(args.maxValue || 75);
     maxInput.min = String(args.min || 0);
