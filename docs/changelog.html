@@ -194,15 +194,14 @@
         </p>
       </div>
 
-      <!-- Unreleased - October 2 to October 10, 2026 -->
+      <!-- Unreleased - October 10, 2026 (accessibility) -->
       <div class="version-section">
         <div class="version-header">
           <span class="version-number">Unreleased</span>
           <span class="version-badge badge-unreleased">Not yet published</span>
-          <span class="version-date">October 2 to 10, 2026</span>
+          <span class="version-date">October 10, 2026</span>
         </div>
 
-        <!-- New Features -->
         <div class="change-category">
           <h3 class="category-title">
             <i data-lucide="sparkles" class="category-icon"></i>
@@ -210,24 +209,7 @@
           </h3>
           <ul class="change-list">
             <li class="change-item">
-              <strong>LLM-readable design system:</strong> structured specs, a closed token layer,
-              and an automated audit so an AI coding session (Claude Code, Cursor, etc.) stays
-              consistent instead of fabricating CSS values or drifting across sessions — see
-              <a href="./ai-development.html">AI-Assisted Development</a> for the full picture.
-              Includes <code>CLAUDE.md</code> (the rules an AI session reads first), one spec per
-              component in <code>specs/components/</code> (54 of them), per-category foundation
-              docs, a generated token reference, and <code>scripts/token-audit.js</code> (<code
-                >npm run audit:tokens</code
-              >) — now a blocking check in CI and pre-commit, not just a convention.
-            </li>
-            <li class="change-item">
-              <strong>Two new token categories:</strong> a z-index scale (<code>--z-dropdown</code>,
-              <code>--z-modal</code>, <code>--z-popover</code>, etc.) and a size scale for
-              icon/avatar/control dimensions, distinct from the spacing scale — see the
-              <a href="./tokens.html">Design Tokens</a> page.
-            </li>
-            <li class="change-item">
-              <strong>WCAG 2.1 AA contrast remediation (October 10, 2026):</strong> new semantic
+              <strong>WCAG 2.1 AA contrast remediation:</strong> new semantic
               tokens <code>--color-{success,error,info,warning}-solid</code> (fills that carry
               <code>--color-text-on-*</code> text), <code>--color-{success,error,warning,info}-text</code>
               (status text and icons on surfaces), and <code>--color-control-border</code> (form
@@ -236,14 +218,14 @@
               <a href="./tokens.html">Design Tokens</a>.
             </li>
             <li class="change-item">
-              <strong><code>npm run audit:contrast</code> (October 10, 2026):</strong>
+              <strong><code>npm run audit:contrast</code>:</strong>
               <code>scripts/contrast-audit.mjs</code> resolves the semantic tokens in a real browser
               for all 11 themes and checks text pairs at 4.5:1 and control borders at 3:1. Run
               <code>npm run build:css</code> first. All 11 themes pass. It now runs in CI, and
               <code>npm run audit:contrast:aaa</code> checks the high-contrast theme at 7:1.
             </li>
             <li class="change-item">
-              <strong><code>npm run audit:storybook</code> (October 10, 2026):</strong>
+              <strong><code>npm run audit:storybook</code>:</strong>
               <code>scripts/storybook-axe.mjs</code> runs axe-core (WCAG 2.1 A/AA) over every
               Storybook story in the chosen themes. It found text on the brand green that hard-coded
               <code>color: white</code> (2.3:1 in the dark theme); <code>--color-text-on-primary</code>
@@ -252,11 +234,10 @@
           </ul>
         </div>
 
-        <!-- Changed -->
         <div class="change-category">
           <h3 class="category-title">
             <i data-lucide="refresh-cw" class="category-icon"></i>
-            Changed (October 10, 2026)
+            Changed
           </h3>
           <ul class="change-list">
             <li class="change-item">
@@ -284,10 +265,17 @@
               <strong>Tooltips:</strong> <code>initTooltips()</code> adds
               <code>role="tooltip"</code> and <code>aria-describedby</code> automatically.
             </li>
+            <li class="change-item">
+              <strong>High-contrast theme:</strong> now passes WCAG AAA (7:1) for every audited text
+              pair (<code>npm run audit:contrast:aaa</code>); the other themes are verified at AA.
+            </li>
+            <li class="change-item">
+              <strong>Disabled multi-select, range slider and rating</strong> dim the control
+              instead of the whole wrapper, so labels and values keep readable contrast.
+            </li>
           </ul>
         </div>
 
-        <!-- Fixed -->
         <div class="change-category">
           <h3 class="category-title">
             <i data-lucide="bug" class="category-icon"></i>
@@ -295,7 +283,7 @@
           </h3>
           <ul class="change-list">
             <li class="change-item">
-              <strong>Accessibility (October 10, 2026):</strong> tooltips stay open while the
+              <strong>Accessibility:</strong> tooltips stay open while the
               pointer is over the tooltip and dismiss on Escape (WCAG 1.4.13), and Escape closes
               only the topmost modal instead of every open one. The component catalog page gained a
               skip link and a <code>&lt;main&gt;</code> landmark.
@@ -310,6 +298,50 @@
               <code>Aural.initTooltips()</code> now actually wires tooltip markup (it registered a
               listener during <code>DOMContentLoaded</code> dispatch, so it never ran).
             </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Unreleased - October 2, 2026 (LLM-readable design system) -->
+      <div class="version-section">
+        <div class="version-header">
+          <span class="version-number">Unreleased</span>
+          <span class="version-badge badge-unreleased">Not yet published</span>
+          <span class="version-date">October 2, 2026</span>
+        </div>
+
+        <div class="change-category">
+          <h3 class="category-title">
+            <i data-lucide="sparkles" class="category-icon"></i>
+            New Features
+          </h3>
+          <ul class="change-list">
+            <li class="change-item">
+              <strong>LLM-readable design system:</strong> structured specs, a closed token layer,
+              and an automated audit so an AI coding session (Claude Code, Cursor, etc.) stays
+              consistent instead of fabricating CSS values or drifting across sessions — see
+              <a href="./ai-development.html">AI-Assisted Development</a> for the full picture.
+              Includes <code>CLAUDE.md</code> (the rules an AI session reads first), one spec per
+              component in <code>specs/components/</code> (54 of them), per-category foundation
+              docs, a generated token reference, and <code>scripts/token-audit.js</code> (<code
+                >npm run audit:tokens</code
+              >) — now a blocking check in CI and pre-commit, not just a convention.
+            </li>
+            <li class="change-item">
+              <strong>Two new token categories:</strong> a z-index scale (<code>--z-dropdown</code>,
+              <code>--z-modal</code>, <code>--z-popover</code>, etc.) and a size scale for
+              icon/avatar/control dimensions, distinct from the spacing scale — see the
+              <a href="./tokens.html">Design Tokens</a> page.
+            </li>
+          </ul>
+        </div>
+
+        <div class="change-category">
+          <h3 class="category-title">
+            <i data-lucide="bug" class="category-icon"></i>
+            Fixed
+          </h3>
+          <ul class="change-list">
             <li class="change-item">
               <strong>1,044 hardcoded CSS values closed to zero</strong> across all 59 components,
               every substitution verified value-preserving. Migrating every component also surfaced
