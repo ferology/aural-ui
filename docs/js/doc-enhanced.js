@@ -176,7 +176,7 @@
           copyBtn.classList.add('copied');
           const span = copyBtn.querySelector('span');
           const originalText = span.textContent;
-          span.textContent = 'Copied!';
+          span.textContent = 'Copied';
 
           setTimeout(() => {
             copyBtn.classList.remove('copied');

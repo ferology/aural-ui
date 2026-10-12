@@ -559,7 +559,7 @@ export const WithText: Story = {
 
     const text3 = document.createElement('span');
     text3.className = 'aural-spinner__text';
-    text3.textContent = 'Please wait';
+    text3.textContent = 'Loading...';
     spinner3.appendChild(text3);
 
     container.appendChild(spinner1);

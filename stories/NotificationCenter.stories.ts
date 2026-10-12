@@ -893,7 +893,7 @@ export const MarkAllAsRead: Story = {
             </div>
             <div class="aural-notification-center__item-content">
               <div class="aural-notification-center__item-title">Action Required</div>
-              <div class="aural-notification-center__item-message">Please verify your email address</div>
+              <div class="aural-notification-center__item-message">Verify your email address</div>
               <div class="aural-notification-center__item-time">2 hours ago</div>
             </div>
             <div class="aural-notification-center__item-dot"></div>

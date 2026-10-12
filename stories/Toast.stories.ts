@@ -81,7 +81,7 @@ export const Error: Story = {
     return container;
   },
   args: {
-    message: 'Something went wrong. Please try again.',
+    message: "Couldn't save changes. Try again.",
     type: 'error',
     title: 'Error',
     duration: 3000,
@@ -149,10 +149,10 @@ export const AllTypes: Story = {
     container.style.flexWrap = 'wrap';
 
     const toasts = [
-      { type: 'success', message: 'Operation completed successfully!', className: 'btn-success' },
-      { type: 'error', message: 'Something went wrong!', className: 'btn-error' },
-      { type: 'warning', message: 'Please be careful!', className: 'btn-warning' },
-      { type: 'info', message: 'Here is some information!', className: 'btn-info' },
+      { type: 'success', message: 'Changes saved', className: 'btn-success' },
+      { type: 'error', message: "Couldn't save changes", className: 'btn-error' },
+      { type: 'warning', message: 'Your session expires in 5 minutes', className: 'btn-warning' },
+      { type: 'info', message: 'A new version is available', className: 'btn-info' },
     ];
 
     toasts.forEach(({ type, message, className }) => {
@@ -206,9 +206,9 @@ export const WithTitle: Story = {
     button2.onclick = () => {
       if (typeof window.Aural !== 'undefined') {
         window.Aural.showToast(
-          'Unable to connect to the server. Please check your connection.',
+          'Check your connection, then try again.',
           'error',
-          'Connection Error',
+          'Connection lost',
           4000
         );
       }

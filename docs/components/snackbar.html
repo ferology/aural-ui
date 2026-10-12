@@ -224,10 +224,10 @@
                         <button class="btn btn-secondary" onclick="Aural.showSnackbar('This is a default snackbar message')">
                             Show Default
                         </button>
-                        <button class="btn btn-success" onclick="Aural.showSnackbar('Operation completed successfully!', { type: 'success' })">
+                        <button class="btn btn-success" onclick="Aural.showSnackbar('Changes saved', { type: 'success' })">
                             Show Success
                         </button>
-                        <button class="btn btn-error" onclick="Aural.showSnackbar('An error occurred!', { type: 'error' })">
+                        <button class="btn btn-error" onclick="Aural.showSnackbar('Changes not saved', { type: 'error' })">
                             Show Error
                         </button>
                     </div>
@@ -238,10 +238,10 @@
 Aural.showSnackbar('This is a default snackbar message');
 
 // Success snackbar
-Aural.showSnackbar('Operation completed successfully!', { type: 'success' });
+Aural.showSnackbar('Changes saved', { type: 'success' });
 
 // Error snackbar
-Aural.showSnackbar('An error occurred!', { type: 'error' });</code></pre>
+Aural.showSnackbar('Changes not saved', { type: 'error' });</code></pre>
                 </details>
             </div>
 
@@ -344,7 +344,7 @@ Aural.showSnackbar('Extended message', { duration: 8000 });  // 8 seconds</code>
                 <div class="example-demo">
                     <button class="btn btn-danger" onclick="Aural.showSnackbar('Item deleted', {
                         type: 'error',
-                        action: { label: 'UNDO', onClick: () => Aural.showSnackbar('Item restored', { type: 'success' }) },
+                        action: { label: 'Undo', onClick: () => Aural.showSnackbar('Item restored', { type: 'success' }) },
                         duration: 6000
                     })">
                         Delete Item
@@ -355,7 +355,7 @@ Aural.showSnackbar('Extended message', { duration: 8000 });  // 8 seconds</code>
                     <pre><code>Aural.showSnackbar('Item deleted', {
     type: 'error',
     action: {
-        label: 'UNDO',
+        label: 'Undo',
         onClick: () => Aural.showSnackbar('Item restored', { type: 'success' })
     },
     duration: 6000

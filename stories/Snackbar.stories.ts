@@ -610,7 +610,7 @@ export const CommonPatterns: Story = {
         className: 'btn-warning',
         onClick: () => {
           if (typeof window.Aural !== 'undefined') {
-            window.Aural.showSnackbar('Please fill in all required fields', {
+            window.Aural.showSnackbar('Fill in all required fields', {
               type: 'warning',
               duration: 4000,
             });

@@ -44,9 +44,9 @@ Alert Banners remain visible until dismissed by the user or removed programmatic
 <div class="aural-alert-banner aural-alert-banner--error" role="alert">
   <i data-lucide="alert-circle" style="width: 20px; height: 20px;"></i>
   <div class="aural-alert-banner__content">
-    <div class="aural-alert-banner__title">Upload Failed</div>
+    <div class="aural-alert-banner__title">Upload failed</div>
     <div class="aural-alert-banner__message">
-      The file could not be uploaded. Please check your connection.
+      We couldn't upload the file. Check your connection, then try again.
     </div>
     <div class="aural-alert-banner__actions">
       <button class="aural-alert-banner__action aural-alert-banner__action--primary">
@@ -263,7 +263,7 @@ const handleClose = () => {
 
 ### Best Practices
 
-- Keep titles to 3-5 words (e.g., "Upload Failed", "Session Expiring")
+- Keep titles to 3-5 words (e.g., "Upload failed", "Session Expiring")
 - Limit messages to 1-2 sentences; link to help docs for details
 - Place dismissible alerts at top of page (below header), non-dismissible at very top
 - Use semantic colors sparingly: red (error), yellow (warning), blue (info), green (success)
@@ -375,7 +375,7 @@ export const Warning: Story = {
   args: {
     variant: 'warning',
     title: 'Warning',
-    message: 'Please review before proceeding.',
+    message: 'Review your changes before continuing.',
     closable: true,
   },
 };
@@ -385,7 +385,7 @@ export const Error: Story = {
   args: {
     variant: 'error',
     title: 'Error',
-    message: 'Something went wrong. Please try again.',
+    message: "We couldn't process your request. Try again.",
     closable: true,
   },
 };
@@ -401,9 +401,13 @@ export const AllVariants: Story = {
 
     const alerts = [
       { variant: 'info', title: 'Info', message: 'This is an informational message.' },
-      { variant: 'success', title: 'Success', message: 'Operation completed successfully!' },
-      { variant: 'warning', title: 'Warning', message: 'Please be careful with this action.' },
-      { variant: 'error', title: 'Error', message: 'An error occurred during processing.' },
+      { variant: 'success', title: 'Success', message: 'Changes saved' },
+      {
+        variant: 'warning',
+        title: 'Warning',
+        message: 'This action affects everyone on your team.',
+      },
+      { variant: 'error', title: 'Error', message: "We couldn't process your request." },
     ];
 
     alerts.forEach(({ variant, title, message }) => {
@@ -638,11 +642,11 @@ export const WithLink: Story = {
     alert.innerHTML = `
       <i data-lucide="wifi-off" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
       <div class="aural-alert-banner__content">
-        <div class="aural-alert-banner__title">Connection Lost</div>
+        <div class="aural-alert-banner__title">Connection lost</div>
         <div class="aural-alert-banner__message">
-          Unable to reach the server.
+          We can't reach the server.
           <a href="#" style="color: inherit; text-decoration: underline;">Check your connection</a>
-          or try again later.
+          or try again in a few minutes.
         </div>
       </div>
     `;

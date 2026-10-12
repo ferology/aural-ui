@@ -241,21 +241,20 @@ export const Default: Story = {
 export const NoResults: Story = {
   render: (args) => createEmptyState(args),
   args: {
-    title: 'No results found',
-    description:
-      "We couldn't find any results matching your search. Try adjusting your filters or search terms.",
+    title: 'No results for "invoice"',
+    description: 'Check the spelling or try a broader search.',
     icon: 'search',
-    primaryAction: 'Clear Filters',
+    primaryAction: 'Clear filters',
   },
 };
 
 export const NoSearchResults: Story = {
   render: (args) => createEmptyState(args),
   args: {
-    title: 'No results found',
-    description: 'Try adjusting your filters or search terms.',
+    title: 'No results for "invoice"',
+    description: 'Check the spelling or try a broader search.',
     icon: 'search',
-    primaryAction: 'Clear Filters',
+    primaryAction: 'Clear filters',
   },
 };
 
@@ -263,7 +262,7 @@ export const NoData: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: 'No data available',
-    description: 'There is no data to display at this time. Check back later or refresh the page.',
+    description: "Data will appear here once it's available.",
     icon: 'inbox',
     primaryAction: 'Refresh',
     primaryIcon: 'refresh-cw',
@@ -273,28 +272,26 @@ export const NoData: Story = {
 export const Error: Story = {
   render: (args) => createEmptyState(args),
   args: {
-    title: 'Something went wrong',
-    description:
-      "We're having trouble loading your data. Please check your connection and try again.",
+    title: "We couldn't load your data",
+    description: 'Check your connection, then try again.',
     icon: 'alert-circle',
     iconColor: 'var(--color-error)',
-    primaryAction: 'Try Again',
+    primaryAction: 'Try again',
     primaryIcon: 'refresh-cw',
-    secondaryAction: 'Go Back',
+    secondaryAction: 'Go back',
   },
 };
 
 export const ErrorRecovery: Story = {
   render: (args) => createEmptyState(args),
   args: {
-    title: 'Something went wrong',
-    description:
-      "We're having trouble loading your data. Please check your connection and try again.",
+    title: "We couldn't load your data",
+    description: 'Check your connection, then try again.',
     icon: 'alert-circle',
     iconColor: 'var(--color-error)',
-    primaryAction: 'Try Again',
+    primaryAction: 'Try again',
     primaryIcon: 'refresh-cw',
-    secondaryAction: 'Go Back',
+    secondaryAction: 'Go back',
   },
 };
 
@@ -386,7 +383,7 @@ export const Permissions: Story = {
     icon: 'lock',
     iconColor: 'var(--color-warning)',
     primaryAction: 'Request Access',
-    secondaryAction: 'Go Back',
+    secondaryAction: 'Go back',
   },
 };
 
@@ -394,10 +391,10 @@ export const Offline: Story = {
   render: (args) => createEmptyState(args),
   args: {
     title: "You're offline",
-    description: 'Please check your internet connection and try again.',
+    description: 'Check your internet connection, then try again.',
     icon: 'wifi-off',
     iconColor: 'var(--color-error)',
-    primaryAction: 'Retry',
+    primaryAction: 'Try again',
     primaryIcon: 'refresh-cw',
   },
 };

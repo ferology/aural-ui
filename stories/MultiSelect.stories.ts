@@ -271,7 +271,7 @@ function MultiSelect({
           )}
           <div className="aural-multi-select__options" role="listbox" aria-multiselectable="true">
             {filteredOptions.length === 0 ? (
-              <div className="aural-multi-select__no-results">No results found</div>
+              <div className="aural-multi-select__no-results">No results</div>
             ) : (
               filteredOptions.map((option, index) => (
                 <button
@@ -361,7 +361,7 @@ function MultiSelect({
       </div>
       <div class="aural-multi-select__options" role="listbox" aria-multiselectable="true">
         <div v-if="filteredOptions.length === 0" class="aural-multi-select__no-results">
-          No results found
+          No results
         </div>
         <button
           v-for="(option, index) in filteredOptions"
@@ -639,7 +639,7 @@ export default {
       {/if}
       <div class="aural-multi-select__options" role="listbox" aria-multiselectable="true">
         {#if filteredOptions.length === 0}
-          <div class="aural-multi-select__no-results">No results found</div>
+          <div class="aural-multi-select__no-results">No results</div>
         {:else}
           {#each filteredOptions as option, index (option.value)}
             <button
@@ -709,7 +709,7 @@ export default {
   - Display selection count indicator ("3 of 5 selected") when max limit exists
   - Provide "Clear all" button for quick deselection of multiple items
   - Order options logically (alphabetical, most common first, or grouped by category)
-  - Show "No results found" message when search filter returns empty
+  - Show "No results" message when search filter returns empty
   - Keep chip labels concise to prevent horizontal overflow
 
 - **Mobile considerations:**

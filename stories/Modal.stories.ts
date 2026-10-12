@@ -45,7 +45,7 @@ Modals provide a dedicated space for users to complete actions without distracti
       <p class="modal-subtitle">This action cannot be undone</p>
     </div>
     <div class="modal-body">
-      <p id="modal-desc">Are you sure you want to proceed?</p>
+      <p id="modal-desc">This will apply your changes.</p>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="window.Aural.closeModal('my-modal')">
@@ -108,7 +108,7 @@ function ConfirmModal() {
             <h2 id="modal-title" className="modal-title">Confirm Action</h2>
           </div>
           <div className="modal-body">
-            <p>Are you sure you want to proceed?</p>
+            <p>This will apply your changes.</p>
           </div>
           <div className="modal-footer">
             <button className="btn btn-ghost" onClick={closeModal}>
@@ -151,7 +151,7 @@ function ConfirmModal() {
           <h2 id="modal-title" class="modal-title">Confirm Action</h2>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to proceed?</p>
+          <p>This will apply your changes.</p>
         </div>
         <div class="modal-footer">
           <button class="btn btn-ghost" @click="closeModal">Cancel</button>
@@ -229,7 +229,7 @@ export default {
       <h2 id="modal-title" class="modal-title">Confirm Action</h2>
     </div>
     <div class="modal-body">
-      <p>Are you sure you want to proceed?</p>
+      <p>This will apply your changes.</p>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" on:click={closeModal}>Cancel</button>
@@ -756,7 +756,7 @@ export const Scrollable: Story = {
   },
   args: {
     title: 'Terms and Conditions',
-    subtitle: 'Please read carefully',
+    subtitle: 'Read before you continue',
   },
 };
 
@@ -820,10 +820,9 @@ export const ConfirmationModal: Story = {
     return container;
   },
   args: {
-    title: 'Delete Item?',
+    title: 'Delete item?',
     subtitle: 'This action cannot be undone',
-    content:
-      'Are you sure you want to delete this item? All associated data will be permanently removed.',
+    content: 'This permanently removes the item and all its data.',
   },
 };
 

@@ -350,8 +350,7 @@ class PreviewManager {
       const copyBtn = container.querySelector('[data-preview-copy]');
       if (copyBtn) {
         const originalText = copyBtn.innerHTML;
-        copyBtn.innerHTML =
-          '<i data-lucide="check" style="width: 14px; height: 14px;"></i> Copied!';
+        copyBtn.innerHTML = '<i data-lucide="check" style="width: 14px; height: 14px;"></i> Copied';
         copyBtn.classList.add('success');
 
         setTimeout(() => {

@@ -236,7 +236,7 @@
             &lt;p&gt;Dialog content here.&lt;/p&gt;
         &lt;/div&gt;
         &lt;div class="modal-footer"&gt;
-            &lt;button class="btn btn-primary"&gt;OK&lt;/button&gt;
+            &lt;button class="btn btn-primary"&gt;Done&lt;/button&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -246,21 +246,21 @@
             <div class="example-container">
                 <div class="example-label">Confirmation Dialog</div>
                 <div class="example-demo">
-                    <button class="btn btn-secondary" onclick="Aural.openModal('dialog-confirm')">Confirm Action</button>
+                    <button class="btn btn-secondary" onclick="Aural.openModal('dialog-confirm')">Apply to 3 items</button>
                 </div>
                 <details>
                     <summary>View Code</summary>
                     <pre><code>&lt;div class="modal-overlay" id="dialog-confirm"&gt;
     &lt;div class="modal modal-sm"&gt;
         &lt;div class="modal-header"&gt;
-            &lt;h2 class="modal-title"&gt;Confirm Action&lt;/h2&gt;
+            &lt;h2 class="modal-title"&gt;Apply changes to 3 items?&lt;/h2&gt;
         &lt;/div&gt;
         &lt;div class="modal-body"&gt;
             &lt;p&gt;Are you sure you want to proceed?&lt;/p&gt;
         &lt;/div&gt;
         &lt;div class="modal-footer"&gt;
             &lt;button class="btn btn-ghost"&gt;Cancel&lt;/button&gt;
-            &lt;button class="btn btn-primary"&gt;Confirm&lt;/button&gt;
+            &lt;button class="btn btn-primary"&gt;Apply changes&lt;/button&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -291,7 +291,7 @@
     &lt;/div&gt;
     &lt;h2&gt;Success!&lt;/h2&gt;
     &lt;p&gt;Your changes have been saved.&lt;/p&gt;
-    &lt;button class="btn btn-success"&gt;Continue&lt;/button&gt;
+    &lt;button class="btn btn-success"&gt;Done&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;!-- Error Dialog --&gt;
@@ -301,7 +301,7 @@
     &lt;/div&gt;
     &lt;h2&gt;Error&lt;/h2&gt;
     &lt;p&gt;An error occurred.&lt;/p&gt;
-    &lt;button class="btn btn-error"&gt;Try Again&lt;/button&gt;
+    &lt;button class="btn btn-error"&gt;Try again&lt;/button&gt;
 &lt;/div&gt;</code></pre>
                 </details>
             </div>
@@ -323,8 +323,8 @@
                 &lt;i data-lucide="info"&gt;&lt;/i&gt;
             &lt;/div&gt;
             &lt;div&gt;
-                &lt;h2 class="modal-title"&gt;Information&lt;/h2&gt;
-                &lt;p class="modal-subtitle"&gt;Important update&lt;/p&gt;
+                &lt;h2 class="modal-title"&gt;This feature is in beta&lt;/h2&gt;
+                &lt;p class="modal-subtitle"&gt;Early access&lt;/p&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="modal-body"&gt;
@@ -438,7 +438,7 @@
                 &lt;i data-lucide="info"&gt;&lt;/i&gt;
             &lt;/div&gt;
             &lt;div&gt;
-                &lt;h2 class="modal-title"&gt;Confirm Action&lt;/h2&gt;
+                &lt;h2 class="modal-title"&gt;Apply changes to 3 items?&lt;/h2&gt;
                 &lt;p class="modal-subtitle"&gt;Are you sure?&lt;/p&gt;
             &lt;/div&gt;
         &lt;/div&gt;
@@ -447,7 +447,7 @@
         &lt;/div&gt;
         &lt;div class="modal-footer"&gt;
             &lt;button class="btn btn-ghost btn-sm" onclick="closeDialog()"&gt;Cancel&lt;/button&gt;
-            &lt;button class="btn btn-primary btn-sm" onclick="handleConfirm()"&gt;OK&lt;/button&gt;
+            &lt;button class="btn btn-primary btn-sm" onclick="handleConfirm()"&gt;Done&lt;/button&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
@@ -662,7 +662,7 @@ export default {
                 <p>This is a simple dialog with minimal content and a single action button.</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" onclick="Aural.closeModal('dialog-simple')">OK</button>
+                <button class="btn btn-primary" onclick="Aural.closeModal('dialog-simple')">Done</button>
             </div>
         </div>
     </div>
@@ -678,10 +678,10 @@ export default {
                     <i data-lucide="check-circle" style="width: 32px; height: 32px;"></i>
                 </div>
                 <div>
-                    <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Success!</h2>
-                    <p style="color: var(--color-text-secondary); margin: 0;">Your changes have been saved successfully.</p>
+                    <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Changes saved</h2>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Your changes have been saved.</p>
                 </div>
-                <button class="btn btn-success" onclick="Aural.closeModal('dialog-success')" style="margin-top: var(--space-2);">Continue</button>
+                <button class="btn btn-success" onclick="Aural.closeModal('dialog-success')" style="margin-top: var(--space-2);">Done</button>
             </div>
         </div>
     </div>
@@ -697,12 +697,12 @@ export default {
                     <i data-lucide="x-circle" style="width: 32px; height: 32px;"></i>
                 </div>
                 <div>
-                    <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Error</h2>
-                    <p style="color: var(--color-text-secondary); margin: 0;">An error occurred while processing your request. Please try again.</p>
+                    <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); color: var(--color-text-primary); margin: 0 0 var(--space-2) 0;">Couldn't save changes</h2>
+                    <p style="color: var(--color-text-secondary); margin: 0;">Something went wrong on our end. Try again.</p>
                 </div>
                 <div style="display: flex; gap: var(--space-3); margin-top: var(--space-2);">
                     <button class="btn btn-ghost" onclick="Aural.closeModal('dialog-error')">Cancel</button>
-                    <button class="btn btn-error" onclick="Aural.closeModal('dialog-error')">Try Again</button>
+                    <button class="btn btn-error" onclick="Aural.closeModal('dialog-error')">Try again</button>
                 </div>
             </div>
         </div>
@@ -719,12 +719,12 @@ export default {
                     <i data-lucide="info" style="width: 24px; height: 24px;"></i>
                 </div>
                 <div>
-                    <h2 class="modal-title">Information</h2>
-                    <p class="modal-subtitle">Important update</p>
+                    <h2 class="modal-title">This feature is in beta</h2>
+                    <p class="modal-subtitle">Early access</p>
                 </div>
             </div>
             <div class="modal-body">
-                <p>This feature is currently in beta. Some functionality may be limited or subject to change.</p>
+                <p>Some features may be limited or change before launch.</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-info" onclick="Aural.closeModal('dialog-info')">Got it</button>
@@ -740,15 +740,15 @@ export default {
             </button>
             <div class="modal-header">
                 <div>
-                    <h2 class="modal-title">Confirm Action</h2>
+                    <h2 class="modal-title">Apply changes to 3 items?</h2>
                 </div>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to proceed with this action? This will affect multiple items.</p>
+                <p>This will update all 3 selected items.</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('dialog-confirm')">Cancel</button>
-                <button class="btn btn-primary" onclick="Aural.closeModal('dialog-confirm')">Confirm</button>
+                <button class="btn btn-primary" onclick="Aural.closeModal('dialog-confirm')">Apply changes</button>
             </div>
         </div>
     </div>

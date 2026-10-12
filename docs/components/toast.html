@@ -221,10 +221,10 @@
                 <div class="example-label">Basic Toasts</div>
                 <div class="example-demo">
                     <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-                        <button class="btn btn-success" onclick="Aural.showToast('Operation completed successfully!', 'success')">
+                        <button class="btn btn-success" onclick="Aural.showToast('Changes saved', 'success')">
                             Show Success
                         </button>
-                        <button class="btn btn-error" onclick="Aural.showToast('Error: Failed to save changes.', 'error')">
+                        <button class="btn btn-error" onclick="Aural.showToast('Changes not saved. Try again.', 'error')">
                             Show Error
                         </button>
                     </div>
@@ -232,10 +232,10 @@
                 <details>
                     <summary>View Code</summary>
                     <pre><code>// Show a success toast
-Aural.showToast('Operation completed successfully!', 'success');
+Aural.showToast('Changes saved', 'success');
 
 // Show an error toast
-Aural.showToast('Error: Failed to save changes.', 'error');</code></pre>
+Aural.showToast('Changes not saved. Try again.', 'error');</code></pre>
                 </details>
             </div>
 
@@ -265,10 +265,10 @@ Aural.showToast('Error message', 'error');</code></pre>
                 <div class="example-label">Toast with Title</div>
                 <div class="example-demo">
                     <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-                        <button class="btn btn-success" onclick="Aural.showToast('Your profile has been updated.', 'success', 'Success')">
+                        <button class="btn btn-success" onclick="Aural.showToast('Your changes are live.', 'success', 'Profile updated')">
                             Success with Title
                         </button>
-                        <button class="btn btn-error" onclick="Aural.showToast('Unable to connect to server.', 'error', 'Connection Error')">
+                        <button class="btn btn-error" onclick="Aural.showToast('Check your connection, then try again.', 'error', 'Connection lost')">
                             Error with Title
                         </button>
                     </div>
@@ -276,8 +276,8 @@ Aural.showToast('Error message', 'error');</code></pre>
                 <details>
                     <summary>View Code</summary>
                     <pre><code>// Third parameter is the title
-Aural.showToast('Your profile has been updated.', 'success', 'Success');
-Aural.showToast('Unable to connect to server.', 'error', 'Connection Error');</code></pre>
+Aural.showToast('Your changes are live.', 'success', 'Profile updated');
+Aural.showToast('Check your connection, then try again.', 'error', 'Connection lost');</code></pre>
                 </details>
             </div>
 
@@ -331,13 +331,13 @@ setTimeout(() => Aural.showToast('Third notification', 'warning'), 1000);</code>
                 <div class="example-label">Common Use Cases</div>
                 <div class="example-demo">
                     <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-                        <button class="btn btn-primary" onclick="Aural.showToast('Item added to cart', 'success', 'Cart Updated')">
+                        <button class="btn btn-primary" onclick="Aural.showToast('Item added to cart', 'success', 'Cart updated')">
                             Add to Cart
                         </button>
-                        <button class="btn btn-secondary" onclick="Aural.showToast('Link copied to clipboard', 'info')">
+                        <button class="btn btn-secondary" onclick="Aural.showToast('Link copied', 'info')">
                             Copy Link
                         </button>
-                        <button class="btn btn-danger" onclick="Aural.showToast('Item removed', 'error', 'Deleted')">
+                        <button class="btn btn-danger" onclick="Aural.showToast('Item removed from cart', 'info', 'Cart updated')">
                             Delete Item
                         </button>
                     </div>

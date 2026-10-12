@@ -286,7 +286,7 @@
                                 <path d="m21 21-4.35-4.35"></path>
                             </svg>
                         </div>
-                        <input type="text" id="demo-search" class="aural-search-bar__input" placeholder="Search (⌘+K)" autocomplete="off" aria-label="Search">
+                        <input type="text" id="demo-search" class="aural-search-bar__input" placeholder="Search components (⌘K)" autocomplete="off" aria-label="Search">
                     </div>
                 </div>
             </div>
@@ -445,6 +445,23 @@
   // PAGE LOADING
   // ========================================
 
+  // Visible fallback so a failed page load isn't a silent blank frame
+  function showLoadError(frame) {
+    let notice = document.getElementById('demo-load-error');
+    if (!notice) {
+      notice = document.createElement('div');
+      notice.id = 'demo-load-error';
+      notice.setAttribute('role', 'alert');
+      notice.style.cssText =
+        'padding: var(--space-4); text-align: center; color: var(--color-text-secondary);';
+      notice.innerHTML =
+        '<p>This page couldn\u2019t load. Refresh, or choose another page from the menu.</p>' +
+        '<button class="btn btn-secondary" type="button">Refresh</button>';
+      notice.querySelector('button').addEventListener('click', () => location.reload());
+      frame.parentNode.insertBefore(notice, frame);
+    }
+  }
+
   function loadPage(url) {
     const frame = document.getElementById('demo-content-frame');
     const loading = document.getElementById('demo-loading');
@@ -456,6 +473,8 @@
 
     // Show loading indicator
     if (loading) loading.classList.add('active');
+    const staleError = document.getElementById('demo-load-error');
+    if (staleError) staleError.remove();
 
     // Update active link
     updateActiveLink(url);
@@ -474,6 +493,7 @@
     frame.onerror = () => {
       console.error('Failed to load page:', url);
       if (loading) loading.classList.remove('active');
+      showLoadError(frame);
     };
 
     // Update hash (prevent infinite loops)
@@ -702,8 +722,8 @@
 
     // Update placeholder with keyboard shortcut
     const isMac = /Mac/.test(navigator.platform);
-    const modifier = isMac ? '⌘' : 'Ctrl';
-    searchInput.placeholder = `Search (${modifier}+K)`;
+    const shortcut = isMac ? '⌘K' : 'Ctrl+K';
+    searchInput.placeholder = `Search components (${shortcut})`;
   }
 
   function buildSearchIndex() {

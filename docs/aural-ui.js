@@ -925,7 +925,7 @@
               try {
                 await navigator.clipboard.writeText(codeElement.textContent);
                 copyBtn.classList.add('aural-code-block__copy--copied');
-                copyBtn.textContent = 'Copied!';
+                copyBtn.textContent = 'Copied';
                 copyBtn.setAttribute('aria-label', 'Code copied to clipboard');
                 const announcement = document.createElement('div');
                 announcement.setAttribute('role', 'status');
@@ -1317,7 +1317,7 @@
             resultsContainer.innerHTML = `
                 <div class="aural-command-palette__empty">
                     <div class="aural-command-palette__empty-icon"></div>
-                    <div class="aural-command-palette__empty-text">No commands found</div>
+                    <div class="aural-command-palette__empty-text">No matching commands</div>
                 </div>
             `;
             return;
@@ -2410,7 +2410,7 @@
           if (filtered.length === 0) {
             suggestions.innerHTML = `
                 <div class="aural-search-bar__empty">
-                    <div class="aural-search-bar__empty-text">No results found</div>
+                    <div class="aural-search-bar__empty-text">No results</div>
                 </div>
             `;
           } else {
@@ -3991,7 +3991,7 @@
             if (opts.length === 0) {
               const empty = document.createElement('div');
               empty.className = 'aural-combobox__empty';
-              empty.innerHTML = '<div class="aural-combobox__empty-text">No results found</div>';
+              empty.innerHTML = '<div class="aural-combobox__empty-text">No results</div>';
               optionsList.appendChild(empty);
               return;
             }

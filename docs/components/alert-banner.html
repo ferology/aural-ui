@@ -225,19 +225,19 @@
 
                     <p style="margin: 0 0 var(--space-4) 0; color: var(--color-text-secondary);">Click a button to trigger an alert banner:</p>
                     <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
-                        <button class="btn btn-success" onclick="showDemoAlert('success', 'Success!', 'Your changes have been saved successfully.')">
+                        <button class="btn btn-success" onclick="showDemoAlert('success', 'Changes saved', 'Your changes are live.')">
                             <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
                             Success
                         </button>
-                        <button class="btn btn-info" onclick="showDemoAlert('info', 'Information', 'A new version is available for download.')">
+                        <button class="btn btn-info" onclick="showDemoAlert('info', 'Update available', 'Version 2.0 is ready to install.')">
                             <i data-lucide="info" style="width: 16px; height: 16px;"></i>
                             Info
                         </button>
-                        <button class="btn btn-warning" onclick="showDemoAlert('warning', 'Warning', 'Your session will expire in 5 minutes.')">
+                        <button class="btn btn-warning" onclick="showDemoAlert('warning', 'Your session expires in 5 minutes', 'Save your work to avoid losing changes.')">
                             <i data-lucide="alert-triangle" style="width: 16px; height: 16px;"></i>
                             Warning
                         </button>
-                        <button class="btn btn-error" onclick="showDemoAlert('error', 'Error', 'Failed to connect to the server.')">
+                        <button class="btn btn-error" onclick="showDemoAlert('error', 'Connection lost', 'Check your connection, then try again.')">
                             <i data-lucide="alert-circle" style="width: 16px; height: 16px;"></i>
                             Error
                         </button>
@@ -278,16 +278,16 @@ function showAlert(type, title, message) {
                         <div class="aural-alert-banner aural-alert-banner--success">
                             <i data-lucide="check-circle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                             <div class="aural-alert-banner__content">
-                                <div class="aural-alert-banner__title">Success!</div>
-                                <div class="aural-alert-banner__message">Your changes have been saved.</div>
+                                <div class="aural-alert-banner__title">Changes saved</div>
+                                <div class="aural-alert-banner__message">Your changes are live.</div>
                             </div>
                         </div>
 
                         <div class="aural-alert-banner aural-alert-banner--error">
                             <i data-lucide="alert-circle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                             <div class="aural-alert-banner__content">
-                                <div class="aural-alert-banner__title">Error</div>
-                                <div class="aural-alert-banner__message">Failed to process your request.</div>
+                                <div class="aural-alert-banner__title">We couldn't process your request</div>
+                                <div class="aural-alert-banner__message">Try again. If it keeps happening, contact support.</div>
                             </div>
                         </div>
                     </div>
@@ -297,16 +297,16 @@ function showAlert(type, title, message) {
                     <pre><code>&lt;div class="aural-alert-banner aural-alert-banner--success"&gt;
     &lt;i data-lucide="check-circle"&gt;&lt;/i&gt;
     &lt;div class="aural-alert-banner__content"&gt;
-        &lt;div class="aural-alert-banner__title"&gt;Success!&lt;/div&gt;
-        &lt;div class="aural-alert-banner__message"&gt;Your changes have been saved.&lt;/div&gt;
+        &lt;div class="aural-alert-banner__title"&gt;Changes saved&lt;/div&gt;
+        &lt;div class="aural-alert-banner__message"&gt;Your changes are live.&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;div class="aural-alert-banner aural-alert-banner--error"&gt;
     &lt;i data-lucide="alert-circle"&gt;&lt;/i&gt;
     &lt;div class="aural-alert-banner__content"&gt;
-        &lt;div class="aural-alert-banner__title"&gt;Error&lt;/div&gt;
-        &lt;div class="aural-alert-banner__message"&gt;Failed to process your request.&lt;/div&gt;
+        &lt;div class="aural-alert-banner__title"&gt;We couldn't process your request&lt;/div&gt;
+        &lt;div class="aural-alert-banner__message"&gt;Try again. If it keeps happening, contact support.&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
                 </details>
@@ -323,7 +323,7 @@ function showAlert(type, title, message) {
                             <i data-lucide="check-circle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                             <div class="aural-alert-banner__content">
                                 <div class="aural-alert-banner__title">Success</div>
-                                <div class="aural-alert-banner__message">Operation completed successfully.</div>
+                                <div class="aural-alert-banner__message">Your changes were saved.</div>
                             </div>
                         </div>
 
@@ -331,7 +331,7 @@ function showAlert(type, title, message) {
                             <i data-lucide="info" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                             <div class="aural-alert-banner__content">
                                 <div class="aural-alert-banner__title">Info</div>
-                                <div class="aural-alert-banner__message">New features are available.</div>
+                                <div class="aural-alert-banner__message">Version 2.0 is available.</div>
                             </div>
                         </div>
 
@@ -339,15 +339,15 @@ function showAlert(type, title, message) {
                             <i data-lucide="alert-triangle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                             <div class="aural-alert-banner__content">
                                 <div class="aural-alert-banner__title">Warning</div>
-                                <div class="aural-alert-banner__message">Your session will expire soon.</div>
+                                <div class="aural-alert-banner__message">Your session expires in 5 minutes.</div>
                             </div>
                         </div>
 
                         <div class="aural-alert-banner aural-alert-banner--error">
                             <i data-lucide="alert-circle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                             <div class="aural-alert-banner__content">
-                                <div class="aural-alert-banner__title">Error</div>
-                                <div class="aural-alert-banner__message">Failed to process your request.</div>
+                                <div class="aural-alert-banner__title">We couldn't process your request</div>
+                                <div class="aural-alert-banner__message">Try again. If it keeps happening, contact support.</div>
                             </div>
                         </div>
                     </div>
@@ -375,7 +375,7 @@ function showAlert(type, title, message) {
                         <i data-lucide="info" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                         <div class="aural-alert-banner__content">
                             <div class="aural-alert-banner__title">Dismissible Alert</div>
-                            <div class="aural-alert-banner__message">This alert can be dismissed by clicking the X.</div>
+                            <div class="aural-alert-banner__message">Select the X to dismiss this alert.</div>
                         </div>
                         <button class="aural-alert-banner__close" aria-label="Close" onclick="this.parentElement.style.display='none'">
                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
@@ -406,10 +406,10 @@ function showAlert(type, title, message) {
                     <div class="aural-alert-banner aural-alert-banner--info">
                         <i data-lucide="megaphone" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                         <div class="aural-alert-banner__content">
-                            <div class="aural-alert-banner__title">New Update Available</div>
-                            <div class="aural-alert-banner__message">Version 2.0 is now available with exciting new features.</div>
+                            <div class="aural-alert-banner__title">Version 2.0 is available</div>
+                            <div class="aural-alert-banner__message">Update to get the latest fixes and improvements.</div>
                         </div>
-                        <button class="btn btn-sm btn-primary" style="margin-left: auto;">Update Now</button>
+                        <button class="btn btn-sm btn-primary" style="margin-left: auto;">Update now</button>
                         <button class="aural-alert-banner__close" aria-label="Close" onclick="this.parentElement.style.display='none'">
                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
                         </button>
@@ -420,10 +420,10 @@ function showAlert(type, title, message) {
                     <pre><code>&lt;div class="aural-alert-banner aural-alert-banner--info"&gt;
     &lt;i data-lucide="megaphone"&gt;&lt;/i&gt;
     &lt;div class="aural-alert-banner__content"&gt;
-        &lt;div class="aural-alert-banner__title"&gt;New Update Available&lt;/div&gt;
-        &lt;div class="aural-alert-banner__message"&gt;Version 2.0 is now available.&lt;/div&gt;
+        &lt;div class="aural-alert-banner__title"&gt;Version 2.0 is available&lt;/div&gt;
+        &lt;div class="aural-alert-banner__message"&gt;Update to get the latest fixes and improvements.&lt;/div&gt;
     &lt;/div&gt;
-    &lt;button class="btn btn-sm btn-primary"&gt;Update Now&lt;/button&gt;
+    &lt;button class="btn btn-sm btn-primary"&gt;Update now&lt;/button&gt;
     &lt;button class="aural-alert-banner__close" aria-label="Close"&gt;
         &lt;i data-lucide="x"&gt;&lt;/i&gt;
     &lt;/button&gt;
@@ -437,7 +437,7 @@ function showAlert(type, title, message) {
                     <div class="aural-alert-banner aural-alert-banner--warning">
                         <i data-lucide="alert-triangle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                         <div class="aural-alert-banner__content">
-                            <div class="aural-alert-banner__message">Scheduled maintenance on Sunday, 3:00 AM - 6:00 AM EST.</div>
+                            <div class="aural-alert-banner__message">Scheduled maintenance on Sunday, 3:00–6:00 AM EST. The app will be unavailable.</div>
                         </div>
                         <button class="aural-alert-banner__close" aria-label="Close" onclick="this.parentElement.style.display='none'">
                             <i data-lucide="x" style="width: 16px; height: 16px;"></i>
@@ -464,8 +464,8 @@ function showAlert(type, title, message) {
                     <div class="aural-alert-banner aural-alert-banner--error">
                         <i data-lucide="wifi-off" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                         <div class="aural-alert-banner__content">
-                            <div class="aural-alert-banner__title">Connection Lost</div>
-                            <div class="aural-alert-banner__message">Unable to reach the server. <a href="#" style="color: inherit; text-decoration: underline;">Check your connection</a> or try again later.</div>
+                            <div class="aural-alert-banner__title">Connection lost</div>
+                            <div class="aural-alert-banner__message">We can't reach the server. <a href="#" style="color: inherit; text-decoration: underline;">Check your connection</a>, or try again in a few minutes.</div>
                         </div>
                     </div>
                 </div>
@@ -474,10 +474,10 @@ function showAlert(type, title, message) {
                     <pre><code>&lt;div class="aural-alert-banner aural-alert-banner--error"&gt;
     &lt;i data-lucide="wifi-off"&gt;&lt;/i&gt;
     &lt;div class="aural-alert-banner__content"&gt;
-        &lt;div class="aural-alert-banner__title"&gt;Connection Lost&lt;/div&gt;
+        &lt;div class="aural-alert-banner__title"&gt;Connection lost&lt;/div&gt;
         &lt;div class="aural-alert-banner__message"&gt;
             Unable to reach the server.
-            &lt;a href="#"&gt;Check your connection&lt;/a&gt; or try again.
+            &lt;a href="#"&gt;Check your connection&lt;/a&gt;, or try again in a few minutes.
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -715,7 +715,7 @@ export default {
 &lt;/AlertBanner&gt;
 
 &lt;!-- Different variants --&gt;
-&lt;AlertBanner variant="success" title="Success!"&gt;
+&lt;AlertBanner variant="success" title="Changes saved"&gt;
   Your action was completed successfully.
 &lt;/AlertBanner&gt;
 

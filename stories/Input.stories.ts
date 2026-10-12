@@ -142,7 +142,7 @@ export const WithError: Story = {
     type: 'email',
     size: 'default',
     state: 'error',
-    helperText: 'Please enter a valid email address',
+    helperText: 'Enter a valid email address, like name@example.com',
   },
 };
 
@@ -449,7 +449,7 @@ export const AllStates: Story = {
       {
         label: 'Error',
         state: 'error',
-        helperText: 'Please enter a valid email address',
+        helperText: 'Enter a valid email address, like name@example.com',
         helperClass: 'form-error',
       },
       {

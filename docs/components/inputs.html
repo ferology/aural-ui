@@ -452,7 +452,7 @@
                     <div role="tabpanel" id="vanilla-panel" aria-labelledby="vanilla-tab">
                         <pre><code class="language-html">&lt;input type="text" class="input" placeholder="Enter text..."&gt;
 &lt;input type="email" class="input error" placeholder="invalid-email"&gt;
-&lt;p class="form-error"&gt;Please enter a valid email address&lt;/p&gt;</code></pre>
+&lt;p class="form-error"&gt;Enter a valid email address, like name@example.com&lt;/p&gt;</code></pre>
                     </div>
 
                     <div role="tabpanel" id="react-panel" aria-labelledby="react-tab" hidden>
@@ -473,7 +473,7 @@
   type="email"
   placeholder="Enter email"
   error={true}
-  errorMessage="Please enter a valid email address"
+  errorMessage="Enter a valid email address, like name@example.com"
 /&gt;</code></pre>
                     </div>
 
@@ -504,7 +504,7 @@ export default {
   type="email"
   placeholder="Enter email"
   :error="true"
-  errorMessage="Please enter a valid email address"
+  errorMessage="Enter a valid email address, like name@example.com"
 /&gt;</code></pre>
                     </div>
 
@@ -535,7 +535,7 @@ export default {
 &lt;Input
   type="email"
   placeholder="invalid-email"
-  error="Please enter a valid email address"
+  error="Enter a valid email address, like name@example.com"
   bind:value={emailValue}
 /&gt;
 
@@ -562,12 +562,12 @@ export default {
                 <div class="example-label">Error State</div>
                 <div class="example-demo">
                     <input type="email" class="input error" placeholder="invalid-email">
-                    <p class="form-error">Please enter a valid email address</p>
+                    <p class="form-error">Enter a valid email address, like name@example.com</p>
                 </div>
                 <details>
                     <summary>View Code</summary>
                     <pre><code>&lt;input type="email" class="input error" placeholder="invalid-email"&gt;
-&lt;p class="form-error"&gt;Please enter a valid email address&lt;/p&gt;</code></pre>
+&lt;p class="form-error"&gt;Enter a valid email address, like name@example.com&lt;/p&gt;</code></pre>
                 </details>
             </div>
 
@@ -575,7 +575,7 @@ export default {
                 <div class="example-label">Success State</div>
                 <div class="example-demo">
                     <input type="text" class="input success" value="Valid input">
-                    <p class="form-success">Looks good!</p>
+                    <p class="form-success">Looks good</p>
                 </div>
                 <details>
                     <summary>View Code</summary>

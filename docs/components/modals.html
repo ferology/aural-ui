@@ -339,7 +339,7 @@
             <div class="example-container">
                 <div class="example-label">Confirmation Modal</div>
                 <div class="example-demo">
-                    <button class="btn btn-danger" onclick="Aural.openModal('modal-confirm')">Delete Item</button>
+                    <button class="btn btn-danger" onclick="Aural.openModal('modal-confirm')">Delete item</button>
                 </div>
                 <details>
                     <summary>View Code</summary>
@@ -353,16 +353,16 @@
                 &lt;i data-lucide="trash-2"&gt;&lt;/i&gt;
             &lt;/div&gt;
             &lt;div&gt;
-                &lt;h2 class="modal-title"&gt;Delete Item?&lt;/h2&gt;
+                &lt;h2 class="modal-title"&gt;Delete item?&lt;/h2&gt;
                 &lt;p class="modal-subtitle"&gt;This action cannot be undone&lt;/p&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="modal-body"&gt;
-            &lt;p&gt;Are you sure you want to delete this item?&lt;/p&gt;
+            &lt;p&gt;Delete this item? This can't be undone.&lt;/p&gt;
         &lt;/div&gt;
         &lt;div class="modal-footer"&gt;
             &lt;button class="btn btn-ghost"&gt;Cancel&lt;/button&gt;
-            &lt;button class="btn btn-error"&gt;Delete&lt;/button&gt;
+            &lt;button class="btn btn-error"&gt;Delete item&lt;/button&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -787,18 +787,18 @@ export default {
                     <i data-lucide="trash-2" style="width: 24px; height: 24px;"></i>
                 </div>
                 <div>
-                    <h2 class="modal-title">Delete Item?</h2>
+                    <h2 class="modal-title">Delete item?</h2>
                     <p class="modal-subtitle">This action cannot be undone</p>
                 </div>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this item? All associated data will be permanently removed.</p>
+                <p>This permanently removes the item and all its data. This can't be undone.</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="Aural.closeModal('modal-confirm')">Cancel</button>
                 <button class="btn btn-error" onclick="Aural.closeModal('modal-confirm')">
                     <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
-                    Delete
+                    Delete item
                 </button>
             </div>
         </div>
@@ -908,7 +908,7 @@ export default {
                 </div>
                 <div>
                     <h2 class="modal-title">Terms and Conditions</h2>
-                    <p class="modal-subtitle">Please read carefully</p>
+                    <p class="modal-subtitle">Read before you continue</p>
                 </div>
             </div>
             <div class="modal-body">

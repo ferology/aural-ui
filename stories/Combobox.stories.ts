@@ -524,7 +524,7 @@ export default {
   - Filter options in real-time as users type (no submit button)
   - Support partial matching anywhere in the label (not just start)
   - Ignore case sensitivity for user-friendly matching
-  - Show "No results found" message when filter returns empty
+  - Show "No results" message when filter returns empty
   - Highlight or bold the matching portion of results
         `.trim(),
       },

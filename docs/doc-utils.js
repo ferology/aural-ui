@@ -28,7 +28,7 @@ const DocUtils = {
     navigator.clipboard
       .writeText(code)
       .then(() => {
-        button.innerHTML = '<i data-lucide="check"></i><span>Copied!</span>';
+        button.innerHTML = '<i data-lucide="check"></i><span>Copied</span>';
         setTimeout(() => {
           button.innerHTML = '<i data-lucide="copy"></i><span>Copy</span>';
           if (typeof lucide !== 'undefined') lucide.createIcons();
