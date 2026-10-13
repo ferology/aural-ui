@@ -713,7 +713,7 @@ const markAllAsRead = () => {
             </div>
             <div class="aural-notification-center__item-content">
               <div class="aural-notification-center__item-title">Action Required</div>
-              <div class="aural-notification-center__item-message">Please verify your email address</div>
+              <div class="aural-notification-center__item-message">Verify your email address</div>
               <div class="aural-notification-center__item-time">2 hours ago</div>
             </div>
             <div class="aural-notification-center__item-dot"></div>
@@ -1280,7 +1280,7 @@ const markAllAsRead = () => {
             </div>
             <div class="aural-notification-center__item-content">
               <div class="aural-notification-center__item-title">Action Required</div>
-              <div class="aural-notification-center__item-message">Please verify your email address</div>
+              <div class="aural-notification-center__item-message">Verify your email address</div>
               <div class="aural-notification-center__item-time">2 hours ago</div>
             </div>
             <div class="aural-notification-center__item-dot"></div>
@@ -1316,7 +1316,7 @@ const markAllAsRead = () => {
     }, 0);
     return container;
   }
-}`,...(W=(Y=u.parameters)==null?void 0:Y.docs)==null?void 0:W.source}}};var R,D,P;_.parameters={..._.parameters,docs:{...(R=_.parameters)==null?void 0:R.docs,source:{originalSource:`{
+}`,...(W=(Y=u.parameters)==null?void 0:Y.docs)==null?void 0:W.source}}};var R,V,D;_.parameters={..._.parameters,docs:{...(R=_.parameters)==null?void 0:R.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -1425,7 +1425,7 @@ const markAllAsRead = () => {
     }, 0);
     return container;
   }
-}`,...(P=(D=_.parameters)==null?void 0:D.docs)==null?void 0:P.source}}};var F,O,V;m.parameters={...m.parameters,docs:{...(F=m.parameters)==null?void 0:F.docs,source:{originalSource:`{
+}`,...(D=(V=_.parameters)==null?void 0:V.docs)==null?void 0:D.source}}};var F,O,P;m.parameters={...m.parameters,docs:{...(F=m.parameters)==null?void 0:F.docs,source:{originalSource:`{
   render: () => {
     return createThemeGrid(() => {
       const div = document.createElement('div');
@@ -1482,4 +1482,4 @@ const markAllAsRead = () => {
       return div.firstElementChild as HTMLElement;
     });
   }
-}`,...(V=(O=m.parameters)==null?void 0:O.docs)==null?void 0:V.source}}};const Q=["Default","DifferentTypes","WithUnreadIndicator","WithAvatars","WithActionButtons","GroupedByDate","EmptyState","MarkAllAsRead","LoadMorePattern","ThemeComparison"];export{n as Default,o as DifferentTypes,d as EmptyState,l as GroupedByDate,_ as LoadMorePattern,u as MarkAllAsRead,m as ThemeComparison,s as WithActionButtons,r as WithAvatars,c as WithUnreadIndicator,Q as __namedExportsOrder,G as default};
+}`,...(P=(O=m.parameters)==null?void 0:O.docs)==null?void 0:P.source}}};const Q=["Default","DifferentTypes","WithUnreadIndicator","WithAvatars","WithActionButtons","GroupedByDate","EmptyState","MarkAllAsRead","LoadMorePattern","ThemeComparison"];export{n as Default,o as DifferentTypes,d as EmptyState,l as GroupedByDate,_ as LoadMorePattern,u as MarkAllAsRead,m as ThemeComparison,s as WithActionButtons,r as WithAvatars,c as WithUnreadIndicator,Q as __namedExportsOrder,G as default};

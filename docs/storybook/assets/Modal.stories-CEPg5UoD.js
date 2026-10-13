@@ -37,7 +37,7 @@ Modals provide a dedicated space for users to complete actions without distracti
       <p class="modal-subtitle">This action cannot be undone</p>
     </div>
     <div class="modal-body">
-      <p id="modal-desc">Are you sure you want to proceed?</p>
+      <p id="modal-desc">This will apply your changes.</p>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="window.Aural.closeModal('my-modal')">
@@ -100,7 +100,7 @@ function ConfirmModal() {
             <h2 id="modal-title" className="modal-title">Confirm Action</h2>
           </div>
           <div className="modal-body">
-            <p>Are you sure you want to proceed?</p>
+            <p>This will apply your changes.</p>
           </div>
           <div className="modal-footer">
             <button className="btn btn-ghost" onClick={closeModal}>
@@ -143,7 +143,7 @@ function ConfirmModal() {
           <h2 id="modal-title" class="modal-title">Confirm Action</h2>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to proceed?</p>
+          <p>This will apply your changes.</p>
         </div>
         <div class="modal-footer">
           <button class="btn btn-ghost" @click="closeModal">Cancel</button>
@@ -221,7 +221,7 @@ export default {
       <h2 id="modal-title" class="modal-title">Confirm Action</h2>
     </div>
     <div class="modal-body">
-      <p>Are you sure you want to proceed?</p>
+      <p>This will apply your changes.</p>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" on:click={closeModal}>Cancel</button>
@@ -286,7 +286,7 @@ export default {
   - Modal content scales up slightly (0.95 → 1) for smooth entrance
   - Close animations reverse the entrance effect
   - Backdrop click provides immediate visual feedback
-        `.trim()}}},argTypes:{title:{control:"text",description:"Modal title text displayed in the header, referenced by aria-labelledby for screen readers"},subtitle:{control:"text",description:"Optional subtitle or description displayed below the title for additional context"},content:{control:"text",description:"Main modal body content - can include text, forms, or any HTML elements"},size:{control:"select",options:["sm","default","lg","fullscreen"],description:"Modal size: sm (360px, confirmations), default (480px, standard), lg (640px, forms), fullscreen (95vw, immersive)"},closable:{control:"boolean",description:"Whether the modal can be closed via close button, Escape key, or backdrop click (default: true)"},backdrop:{control:"boolean",description:"Whether to show the backdrop overlay with blur effect behind the modal (default: true)"},icon:{control:"text",description:'Optional icon displayed in modal header (e.g., "trash-2" for delete confirmation)'}}},n={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-primary",e.textContent="Open Modal";const o=`modal-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
+        `.trim()}}},argTypes:{title:{control:"text",description:"Modal title text displayed in the header, referenced by aria-labelledby for screen readers"},subtitle:{control:"text",description:"Optional subtitle or description displayed below the title for additional context"},content:{control:"text",description:"Main modal body content - can include text, forms, or any HTML elements"},size:{control:"select",options:["sm","default","lg","fullscreen"],description:"Modal size: sm (360px, confirmations), default (480px, standard), lg (640px, forms), fullscreen (95vw, immersive)"},closable:{control:"boolean",description:"Whether the modal can be closed via close button, Escape key, or backdrop click (default: true)"},backdrop:{control:"boolean",description:"Whether to show the backdrop overlay with blur effect behind the modal (default: true)"},icon:{control:"text",description:'Optional icon displayed in modal header (e.g., "trash-2" for delete confirmation)'}}},i={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-primary",e.textContent="Open Modal";const o=`modal-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
       <div class="modal${a.size&&a.size!=="default"?" modal-"+a.size:""}">
         <button class="modal-close" aria-label="Close modal" onclick="window.Aural?.closeModal('${o}')">
           <i data-lucide="x"></i>
@@ -305,7 +305,7 @@ export default {
           <button class="btn btn-primary" onclick="window.Aural?.closeModal('${o}')">Confirm</button>
         </div>
       </div>
-    `,e.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(o)},t.appendChild(e),t.appendChild(l),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),t},args:{title:"Modal Title",subtitle:"Optional subtitle or description",content:"This is a modal dialog. It overlays the page content and focuses user attention on a specific task or message.",size:"default"}},i={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-secondary",e.textContent="Open Small Modal";const o=`modal-small-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
+    `,e.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(o)},t.appendChild(e),t.appendChild(l),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),t},args:{title:"Modal Title",subtitle:"Optional subtitle or description",content:"This is a modal dialog. It overlays the page content and focuses user attention on a specific task or message.",size:"default"}},n={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-secondary",e.textContent="Open Small Modal";const o=`modal-small-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
       <div class="modal modal-sm">
         <button class="modal-close" aria-label="Close modal" onclick="window.Aural?.closeModal('${o}')">
           <i data-lucide="x"></i>
@@ -457,7 +457,7 @@ export default {
           <button class="btn btn-primary">Accept Terms</button>
         </div>
       </div>
-    `,e.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(o)},t.appendChild(e),t.appendChild(l),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),t},args:{title:"Terms and Conditions",subtitle:"Please read carefully"}},m={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-danger",e.textContent="Delete Item";const o=`modal-confirm-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
+    `,e.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(o)},t.appendChild(e),t.appendChild(l),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),t},args:{title:"Terms and Conditions",subtitle:"Read before you continue"}},m={render:a=>{const t=document.createElement("div");t.style.padding="2rem";const e=document.createElement("button");e.className="btn btn-danger",e.textContent="Delete Item";const o=`modal-confirm-${Math.random().toString(36).substr(2,9)}`,l=document.createElement("div");return l.className="modal-overlay",l.id=o,l.innerHTML=`
       <div class="modal modal-sm">
         <button class="modal-close" aria-label="Close modal" onclick="window.Aural?.closeModal('${o}')">
           <i data-lucide="x"></i>
@@ -482,7 +482,7 @@ export default {
           </button>
         </div>
       </div>
-    `,e.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(o)},t.appendChild(e),t.appendChild(l),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),t},args:{title:"Delete Item?",subtitle:"This action cannot be undone",content:"Are you sure you want to delete this item? All associated data will be permanently removed."}},u={render:()=>{const a=document.createElement("div");a.style.padding="2rem";const t=document.createElement("button");t.className="btn btn-primary",t.textContent="Create New Item";const e=`modal-form-${Math.random().toString(36).substr(2,9)}`,o=document.createElement("div");return o.className="modal-overlay",o.id=e,o.innerHTML=`
+    `,e.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(o)},t.appendChild(e),t.appendChild(l),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),t},args:{title:"Delete item?",subtitle:"This action cannot be undone",content:"This permanently removes the item and all its data."}},u={render:()=>{const a=document.createElement("div");a.style.padding="2rem";const t=document.createElement("button");t.className="btn btn-primary",t.textContent="Create New Item";const e=`modal-form-${Math.random().toString(36).substr(2,9)}`,o=document.createElement("div");return o.className="modal-overlay",o.id=e,o.innerHTML=`
       <div class="modal">
         <button class="modal-close" aria-label="Close modal" onclick="window.Aural?.closeModal('${e}')">
           <i data-lucide="x"></i>
@@ -522,7 +522,7 @@ export default {
           <button type="submit" form="create-item-form-${e}" class="btn btn-primary" onclick="event.preventDefault(); window.Aural?.closeModal('${e}')">Create Item</button>
         </div>
       </div>
-    `,t.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(e)},a.appendChild(t),a.appendChild(o),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),a}};var p,b,v;n.parameters={...n.parameters,docs:{...(p=n.parameters)==null?void 0:p.docs,source:{originalSource:`{
+    `,t.onclick=()=>{typeof window.Aural<"u"&&window.Aural.openModal(e)},a.appendChild(t),a.appendChild(o),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),a}};var p,b,v;i.parameters={...i.parameters,docs:{...(p=i.parameters)==null?void 0:p.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -575,7 +575,7 @@ export default {
     content: 'This is a modal dialog. It overlays the page content and focuses user attention on a specific task or message.',
     size: 'default'
   }
-}`,...(v=(b=n.parameters)==null?void 0:b.docs)==null?void 0:v.source}}};var h,y,f;i.parameters={...i.parameters,docs:{...(h=i.parameters)==null?void 0:h.docs,source:{originalSource:`{
+}`,...(v=(b=i.parameters)==null?void 0:b.docs)==null?void 0:v.source}}};var h,y,f;n.parameters={...n.parameters,docs:{...(h=n.parameters)==null?void 0:h.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -623,7 +623,7 @@ export default {
     title: 'Quick Action',
     content: 'This is a compact modal for simple interactions or brief messages.'
   }
-}`,...(f=(y=i.parameters)==null?void 0:y.docs)==null?void 0:f.source}}};var g,w,x;d.parameters={...d.parameters,docs:{...(g=d.parameters)==null?void 0:g.docs,source:{originalSource:`{
+}`,...(f=(y=n.parameters)==null?void 0:y.docs)==null?void 0:f.source}}};var g,w,x;d.parameters={...d.parameters,docs:{...(g=d.parameters)==null?void 0:g.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -681,7 +681,7 @@ export default {
     subtitle: 'Everything you need to know',
     content: 'This is a large modal suitable for displaying extensive content, multiple sections, or complex forms.'
   }
-}`,...(x=(w=d.parameters)==null?void 0:w.docs)==null?void 0:x.source}}};var M,k,A;r.parameters={...r.parameters,docs:{...(M=r.parameters)==null?void 0:M.docs,source:{originalSource:`{
+}`,...(x=(w=d.parameters)==null?void 0:w.docs)==null?void 0:x.source}}};var M,k,C;r.parameters={...r.parameters,docs:{...(M=r.parameters)==null?void 0:M.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -748,7 +748,7 @@ export default {
     subtitle: 'Immersive content view',
     content: 'This modal takes up the entire viewport, providing maximum space for your content.'
   }
-}`,...(A=(k=r.parameters)==null?void 0:k.docs)==null?void 0:A.source}}};var C,$,I;s.parameters={...s.parameters,docs:{...(C=s.parameters)==null?void 0:C.docs,source:{originalSource:`{
+}`,...(C=(k=r.parameters)==null?void 0:k.docs)==null?void 0:C.source}}};var A,$,I;s.parameters={...s.parameters,docs:{...(A=s.parameters)==null?void 0:A.docs,source:{originalSource:`{
   render: args => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -878,7 +878,7 @@ export default {
   },
   args: {
     title: 'Terms and Conditions',
-    subtitle: 'Please read carefully'
+    subtitle: 'Read before you continue'
   }
 }`,...(E=(T=c.parameters)==null?void 0:T.docs)==null?void 0:E.source}}};var S,B,N;m.parameters={...m.parameters,docs:{...(S=m.parameters)==null?void 0:S.docs,source:{originalSource:`{
   render: args => {
@@ -932,9 +932,9 @@ export default {
     return container;
   },
   args: {
-    title: 'Delete Item?',
+    title: 'Delete item?',
     subtitle: 'This action cannot be undone',
-    content: 'Are you sure you want to delete this item? All associated data will be permanently removed.'
+    content: 'This permanently removes the item and all its data.'
   }
 }`,...(N=(B=m.parameters)==null?void 0:B.docs)==null?void 0:N.source}}};var z,D,L;u.parameters={...u.parameters,docs:{...(z=u.parameters)==null?void 0:z.docs,source:{originalSource:`{
   render: () => {
@@ -1002,4 +1002,4 @@ export default {
     }, 0);
     return container;
   }
-}`,...(L=(D=u.parameters)==null?void 0:D.docs)==null?void 0:L.source}}};const H=["Default","Small","Large","Fullscreen","WithIcon","Scrollable","ConfirmationModal","WithForm"];export{m as ConfirmationModal,n as Default,r as Fullscreen,d as Large,c as Scrollable,i as Small,u as WithForm,s as WithIcon,H as __namedExportsOrder,F as default};
+}`,...(L=(D=u.parameters)==null?void 0:D.docs)==null?void 0:L.source}}};const H=["Default","Small","Large","Fullscreen","WithIcon","Scrollable","ConfirmationModal","WithForm"];export{m as ConfirmationModal,i as Default,r as Fullscreen,d as Large,c as Scrollable,n as Small,u as WithForm,s as WithIcon,H as __namedExportsOrder,F as default};

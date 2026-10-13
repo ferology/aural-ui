@@ -515,7 +515,7 @@ export default {
   - Filter options in real-time as users type (no submit button)
   - Support partial matching anywhere in the label (not just start)
   - Ignore case sensitivity for user-friendly matching
-  - Show "No results found" message when filter returns empty
+  - Show "No results" message when filter returns empty
   - Highlight or bold the matching portion of results
         `.trim()}}},argTypes:{placeholder:{control:"text",description:'Placeholder text shown in the input field when empty (e.g., "Search countries..." or "Type to filter...")'},label:{control:"text",description:"Label text displayed above the combobox, should be associated via htmlFor/for attribute for accessibility"},disabled:{control:"boolean",description:"Disabled state prevents all interaction and applies muted styling with 50% opacity and disabled cursor"},size:{control:"select",options:["sm","md","lg"],description:"Component size: sm (compact, 36px height), md (standard, 44px height), lg (prominent, 52px height)"},searchable:{control:"boolean",description:"Enable real-time search/filter functionality as user types, filtering options by label match (case-insensitive)"},creatable:{control:"boolean",description:"Allow users to create custom values not in the options list by pressing Enter on unmatched search query (useful for tags)"},loading:{control:"boolean",description:"Loading state displays spinner icon during async data fetching, with aria-live announcement for screen readers"}}};function l(e,n,t="md"){return`
     <div class="aural-combobox${t!=="md"?` aural-combobox--${t}`:""}" id="${e}">

@@ -231,7 +231,7 @@ export default {
               <option>Option 2</option>
             </select>
           </div>
-          <div class="helper-text error">Please select a valid option</div>
+          <div class="helper-text error">Choose an option to continue</div>
         </div>
         <div>
           <label class="form-label" for="select-demo-7">Success State</label>
@@ -538,7 +538,7 @@ export default {
               <option>Option 2</option>
             </select>
           </div>
-          <div class="helper-text error">Please select a valid option</div>
+          <div class="helper-text error">Choose an option to continue</div>
         </div>
         <div>
           <label class="form-label" for="select-demo-7">Success State</label>

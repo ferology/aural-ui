@@ -33,9 +33,9 @@ Alert Banners remain visible until dismissed by the user or removed programmatic
 <div class="aural-alert-banner aural-alert-banner--error" role="alert">
   <i data-lucide="alert-circle" style="width: 20px; height: 20px;"></i>
   <div class="aural-alert-banner__content">
-    <div class="aural-alert-banner__title">Upload Failed</div>
+    <div class="aural-alert-banner__title">Upload failed</div>
     <div class="aural-alert-banner__message">
-      The file could not be uploaded. Please check your connection.
+      We couldn't upload the file. Check your connection, then try again.
     </div>
     <div class="aural-alert-banner__actions">
       <button class="aural-alert-banner__action aural-alert-banner__action--primary">
@@ -252,7 +252,7 @@ const handleClose = () => {
 
 ### Best Practices
 
-- Keep titles to 3-5 words (e.g., "Upload Failed", "Session Expiring")
+- Keep titles to 3-5 words (e.g., "Upload failed", "Session Expiring")
 - Limit messages to 1-2 sentences; link to help docs for details
 - Place dismissible alerts at top of page (below header), non-dismissible at very top
 - Use semantic colors sparingly: red (error), yellow (warning), blue (info), green (success)
@@ -271,7 +271,7 @@ const handleClose = () => {
 - Allow swipe-to-dismiss gesture for touch-friendly interaction
         `.trim()}}},argTypes:{variant:{control:"select",options:["info","success","warning","error"],description:'Semantic severity level that controls icon, color scheme, and ARIA live region behavior (info/success use aria-live="polite", warning/error use role="alert" for immediate announcement)'},title:{control:"text",description:"Brief alert heading (3-5 words recommended) that summarizes the message type or action required"},message:{control:"text",description:"Detailed alert content (1-2 sentences) explaining the situation and next steps; use plain language and avoid technical jargon"},closable:{control:"boolean",description:"Whether to show dismissal button (X); set to false for critical non-dismissible alerts like system maintenance or session expiry warnings"}}},J={info:"info",success:"check-circle",warning:"alert-triangle",error:"alert-circle"},r={render:e=>{const a=document.createElement("div");a.className=`aural-alert-banner aural-alert-banner--${e.variant}`,a.setAttribute("role","alert");let t=`<i data-lucide="${J[e.variant]}" style="width: 20px; height: 20px; flex-shrink: 0;"></i>`;return t+='<div class="aural-alert-banner__content">',e.title&&(t+=`<div class="aural-alert-banner__title">${e.title}</div>`),t+=`<div class="aural-alert-banner__message">${e.message}</div>`,t+="</div>",e.closable&&(t+=`<button class="aural-alert-banner__close" aria-label="Close" onclick="this.parentElement.remove()">
         <i data-lucide="x" style="width: 16px; height: 16px;"></i>
-      </button>`),a.innerHTML=t,setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),a},args:{variant:"info",title:"Information",message:"This is an informational alert message.",closable:!0}},s={...r,args:{variant:"success",title:"Success",message:"Your operation completed successfully!",closable:!0}},l={...r,args:{variant:"warning",title:"Warning",message:"Please review before proceeding.",closable:!0}},o={...r,args:{variant:"error",title:"Error",message:"Something went wrong. Please try again.",closable:!0}},c={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.display="flex",e.style.flexDirection="column",e.style.gap="1rem",e.style.maxWidth="600px",[{variant:"info",title:"Info",message:"This is an informational message."},{variant:"success",title:"Success",message:"Operation completed successfully!"},{variant:"warning",title:"Warning",message:"Please be careful with this action."},{variant:"error",title:"Error",message:"An error occurred during processing."}].forEach(({variant:t,title:v,message:f})=>{const n=document.createElement("div");n.className=`aural-alert-banner aural-alert-banner--${t}`,n.setAttribute("role","alert"),n.innerHTML=`
+      </button>`),a.innerHTML=t,setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),a},args:{variant:"info",title:"Information",message:"This is an informational alert message.",closable:!0}},s={...r,args:{variant:"success",title:"Success",message:"Your operation completed successfully!",closable:!0}},l={...r,args:{variant:"warning",title:"Warning",message:"Review your changes before continuing.",closable:!0}},o={...r,args:{variant:"error",title:"Error",message:"We couldn't process your request. Try again.",closable:!0}},c={render:()=>{const e=document.createElement("div");return e.style.padding="2rem",e.style.display="flex",e.style.flexDirection="column",e.style.gap="1rem",e.style.maxWidth="600px",[{variant:"info",title:"Info",message:"This is an informational message."},{variant:"success",title:"Success",message:"Changes saved"},{variant:"warning",title:"Warning",message:"This action affects everyone on your team."},{variant:"error",title:"Error",message:"We couldn't process your request."}].forEach(({variant:t,title:v,message:f})=>{const n=document.createElement("div");n.className=`aural-alert-banner aural-alert-banner--${t}`,n.setAttribute("role","alert"),n.innerHTML=`
         <i data-lucide="${J[t]}" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
         <div class="aural-alert-banner__content">
           <div class="aural-alert-banner__title">${v}</div>
@@ -327,11 +327,11 @@ const handleClose = () => {
     `,e.appendChild(a),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),e}},h={render:()=>{const e=document.createElement("div");e.style.padding="2rem",e.style.maxWidth="600px";const a=document.createElement("div");return a.className="aural-alert-banner aural-alert-banner--error",a.setAttribute("role","alert"),a.innerHTML=`
       <i data-lucide="wifi-off" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
       <div class="aural-alert-banner__content">
-        <div class="aural-alert-banner__title">Connection Lost</div>
+        <div class="aural-alert-banner__title">Connection lost</div>
         <div class="aural-alert-banner__message">
-          Unable to reach the server.
+          We can't reach the server.
           <a href="#" style="color: inherit; text-decoration: underline;">Check your connection</a>
-          or try again later.
+          or try again in a few minutes.
         </div>
       </div>
     `,e.appendChild(a),setTimeout(()=>{typeof lucide<"u"&&lucide.createIcons()},0),e}};var g,y,x;r.parameters={...r.parameters,docs:{...(g=r.parameters)==null?void 0:g.docs,source:{originalSource:`{
@@ -378,7 +378,7 @@ const handleClose = () => {
   args: {
     variant: 'warning',
     title: 'Warning',
-    message: 'Please review before proceeding.',
+    message: 'Review your changes before continuing.',
     closable: true
   }
 }`,...(A=(E=l.parameters)==null?void 0:E.docs)==null?void 0:A.source}}};var T,S,I;o.parameters={...o.parameters,docs:{...(T=o.parameters)==null?void 0:T.docs,source:{originalSource:`{
@@ -386,10 +386,10 @@ const handleClose = () => {
   args: {
     variant: 'error',
     title: 'Error',
-    message: 'Something went wrong. Please try again.',
+    message: "We couldn't process your request. Try again.",
     closable: true
   }
-}`,...(I=(S=o.parameters)==null?void 0:S.docs)==null?void 0:I.source}}};var N,L,M;c.parameters={...c.parameters,docs:{...(N=c.parameters)==null?void 0:N.docs,source:{originalSource:`{
+}`,...(I=(S=o.parameters)==null?void 0:S.docs)==null?void 0:I.source}}};var W,N,M;c.parameters={...c.parameters,docs:{...(W=c.parameters)==null?void 0:W.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -404,15 +404,15 @@ const handleClose = () => {
     }, {
       variant: 'success',
       title: 'Success',
-      message: 'Operation completed successfully!'
+      message: 'Changes saved'
     }, {
       variant: 'warning',
       title: 'Warning',
-      message: 'Please be careful with this action.'
+      message: 'This action affects everyone on your team.'
     }, {
       variant: 'error',
       title: 'Error',
-      message: 'An error occurred during processing.'
+      message: "We couldn't process your request."
     }];
     alerts.forEach(({
       variant,
@@ -441,7 +441,7 @@ const handleClose = () => {
     }, 0);
     return container;
   }
-}`,...(M=(L=c.parameters)==null?void 0:L.docs)==null?void 0:M.source}}};var W,U,$;d.parameters={...d.parameters,docs:{...(W=d.parameters)==null?void 0:W.docs,source:{originalSource:`{
+}`,...(M=(N=c.parameters)==null?void 0:N.docs)==null?void 0:M.source}}};var L,$,U;d.parameters={...d.parameters,docs:{...(L=d.parameters)==null?void 0:L.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -498,7 +498,7 @@ const handleClose = () => {
     }, 0);
     return container;
   }
-}`,...($=(U=d.parameters)==null?void 0:U.docs)==null?void 0:$.source}}};var P,H,V;u.parameters={...u.parameters,docs:{...(P=u.parameters)==null?void 0:P.docs,source:{originalSource:`{
+}`,...(U=($=d.parameters)==null?void 0:$.docs)==null?void 0:U.source}}};var H,R,V;u.parameters={...u.parameters,docs:{...(H=u.parameters)==null?void 0:H.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -525,7 +525,7 @@ const handleClose = () => {
     }, 0);
     return container;
   }
-}`,...(V=(H=u.parameters)==null?void 0:H.docs)==null?void 0:V.source}}};var D,R,B;m.parameters={...m.parameters,docs:{...(D=m.parameters)==null?void 0:D.docs,source:{originalSource:`{
+}`,...(V=(R=u.parameters)==null?void 0:R.docs)==null?void 0:V.source}}};var D,B,P;m.parameters={...m.parameters,docs:{...(D=m.parameters)==null?void 0:D.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -547,7 +547,7 @@ const handleClose = () => {
     }, 0);
     return container;
   }
-}`,...(B=(R=m.parameters)==null?void 0:R.docs)==null?void 0:B.source}}};var F,X,Y;p.parameters={...p.parameters,docs:{...(F=p.parameters)==null?void 0:F.docs,source:{originalSource:`{
+}`,...(P=(B=m.parameters)==null?void 0:B.docs)==null?void 0:P.source}}};var F,X,q;p.parameters={...p.parameters,docs:{...(F=p.parameters)==null?void 0:F.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '0';
@@ -578,7 +578,7 @@ const handleClose = () => {
     }, 0);
     return container;
   }
-}`,...(Y=(X=p.parameters)==null?void 0:X.docs)==null?void 0:Y.source}}};var z,G,O;b.parameters={...b.parameters,docs:{...(z=b.parameters)==null?void 0:z.docs,source:{originalSource:`{
+}`,...(q=(X=p.parameters)==null?void 0:X.docs)==null?void 0:q.source}}};var Y,z,G;b.parameters={...b.parameters,docs:{...(Y=b.parameters)==null?void 0:Y.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -604,7 +604,7 @@ const handleClose = () => {
     }, 0);
     return container;
   }
-}`,...(O=(G=b.parameters)==null?void 0:G.docs)==null?void 0:O.source}}};var q,K,j;h.parameters={...h.parameters,docs:{...(q=h.parameters)==null?void 0:q.docs,source:{originalSource:`{
+}`,...(G=(z=b.parameters)==null?void 0:z.docs)==null?void 0:G.source}}};var K,O,j;h.parameters={...h.parameters,docs:{...(K=h.parameters)==null?void 0:K.docs,source:{originalSource:`{
   render: () => {
     const container = document.createElement('div');
     container.style.padding = '2rem';
@@ -615,11 +615,11 @@ const handleClose = () => {
     alert.innerHTML = \`
       <i data-lucide="wifi-off" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
       <div class="aural-alert-banner__content">
-        <div class="aural-alert-banner__title">Connection Lost</div>
+        <div class="aural-alert-banner__title">Connection lost</div>
         <div class="aural-alert-banner__message">
-          Unable to reach the server.
+          We can't reach the server.
           <a href="#" style="color: inherit; text-decoration: underline;">Check your connection</a>
-          or try again later.
+          or try again in a few minutes.
         </div>
       </div>
     \`;
@@ -631,4 +631,4 @@ const handleClose = () => {
     }, 0);
     return container;
   }
-}`,...(j=(K=h.parameters)==null?void 0:K.docs)==null?void 0:j.source}}};const Z=["Info","Success","Warning","Error","AllVariants","WithIcon","WithActions","SimpleMessage","Banner","Dismissible","WithLink"];export{c as AllVariants,p as Banner,b as Dismissible,o as Error,r as Info,m as SimpleMessage,s as Success,l as Warning,u as WithActions,d as WithIcon,h as WithLink,Z as __namedExportsOrder,Q as default};
+}`,...(j=(O=h.parameters)==null?void 0:O.docs)==null?void 0:j.source}}};const Z=["Info","Success","Warning","Error","AllVariants","WithIcon","WithActions","SimpleMessage","Banner","Dismissible","WithLink"];export{c as AllVariants,p as Banner,b as Dismissible,o as Error,r as Info,m as SimpleMessage,s as Success,l as Warning,u as WithActions,d as WithIcon,h as WithLink,Z as __namedExportsOrder,Q as default};
